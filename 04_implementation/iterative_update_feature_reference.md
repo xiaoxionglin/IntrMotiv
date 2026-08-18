@@ -53,19 +53,19 @@ Keep `DistanceLearnerReward` as the only active implementation target. Do not im
 
 Add these config args:
 
-| Argument | Default | Meaning |
-| --- | --- | --- |
-| `--iterative_update` | `False` | Enable phase-based encoder/decoder updates. |
-| `--iterative_first_phase` | `decoder` | First active phase: `decoder` or `encoder`. |
-| `--iterative_phase_mode` | `fixed` | Switching mode: `fixed` or `plateau`. |
-| `--iterative_decoder_phase_steps` | `1000` | Decoder phase length in learner optimizer steps for fixed mode. |
-| `--iterative_encoder_phase_steps` | `1000` | Encoder phase length in learner optimizer steps for fixed mode. |
-| `--iterative_plateau_window` | `100` | Rolling window for plateau mode. |
-| `--iterative_plateau_min_delta` | `1e-3` | Minimum recent improvement before plateau switch. |
-| `--iterative_min_phase_steps` | `100` | Minimum phase length before plateau switching is allowed. |
-| `--iterative_max_phase_steps` | `5000` | Forced phase switch limit in plateau mode. |
-| `--iterative_decoder_lr` | `None` | Optional decoder LR override. Falls back to scheduler/current LR. |
-| `--iterative_encoder_lr` | `None` | Optional encoder LR override. Falls back to `DG_lr`, then `learning_rate`. |
+| Argument                          | Default   | Meaning                                                                    |
+| --------------------------------- | --------- | -------------------------------------------------------------------------- |
+| `--iterative_update`              | `False`   | Enable phase-based encoder/decoder updates.                                |
+| `--iterative_first_phase`         | `decoder` | First active phase: `decoder` or `encoder`.                                |
+| `--iterative_phase_mode`          | `fixed`   | Switching mode: `fixed` or `plateau`.                                      |
+| `--iterative_decoder_phase_steps` | `1000`    | Decoder phase length in learner optimizer steps for fixed mode.            |
+| `--iterative_encoder_phase_steps` | `1000`    | Encoder phase length in learner optimizer steps for fixed mode.            |
+| `--iterative_plateau_window`      | `100`     | Rolling window for plateau mode.                                           |
+| `--iterative_plateau_min_delta`   | `1e-3`    | Minimum recent improvement before plateau switch.                          |
+| `--iterative_min_phase_steps`     | `100`     | Minimum phase length before plateau switching is allowed.                  |
+| `--iterative_max_phase_steps`     | `5000`    | Forced phase switch limit in plateau mode.                                 |
+| `--iterative_decoder_lr`          | `None`    | Optional decoder LR override. Falls back to scheduler/current LR.          |
+| `--iterative_encoder_lr`          | `None`    | Optional encoder LR override. Falls back to `DG_lr`, then `learning_rate`. |
 
 Fixed phase lengths are learner optimizer steps, not environment frames. With `batch_size=B` and `num_epochs=E`, a rough fresh-sample scale is:
 
