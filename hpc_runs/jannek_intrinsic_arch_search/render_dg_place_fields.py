@@ -48,12 +48,16 @@ def plot_run_grid(rate_maps, occupancy, si, active_fraction, title, out_path):
 def plot_summary(summary, out_path):
     fig, axes = plt.subplots(1, 2, figsize=(13.5, 5.5), dpi=180)
     x = np.arange(len(summary))
+    labels = [
+        f"F{row.Hippo_n_feature} L{row.Hippo_L} theta={row.DG_BN_intercept:g}"
+        for row in summary.itertuples(index=False)
+    ]
     axes[0].bar(x, summary["mean_active_fraction"])
-    axes[0].set_xticks(x, summary["label"], rotation=25, ha="right")
+    axes[0].set_xticks(x, labels, rotation=15, ha="right")
     axes[0].set_ylabel("mean active fraction")
     axes[0].set_title("DG density")
     axes[1].bar(x, summary["mean_si"])
-    axes[1].set_xticks(x, summary["label"], rotation=25, ha="right")
+    axes[1].set_xticks(x, labels, rotation=15, ha="right")
     axes[1].set_ylabel("mean spatial information")
     axes[1].set_title("Place-field selectivity")
     fig.tight_layout()
@@ -81,7 +85,7 @@ def main():
             seq_len = int(data["Hippo_L"])
             theta = float(data["DG_BN_intercept"])
             checkpoint = pathlib.Path(str(data["checkpoint"])).name
-        title = f"{run_dir.name} | F={n_feature}, L={seq_len}, theta={theta}, checkpoint={checkpoint}"
+        title = f"DG place fields | F={n_feature}, L={seq_len}, theta={theta:g}, {checkpoint}"
         plot_run_grid(rate_maps, occupancy, si, active_fraction, title, run_dir / "dg_place_fields.png")
     plot_summary(summary, data_dir / "summary.png")
     print(f"Rendered DG place-field plots in {data_dir}")
