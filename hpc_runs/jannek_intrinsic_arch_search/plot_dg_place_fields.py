@@ -247,7 +247,7 @@ def compute_place_fields(pose: pd.DataFrame, dg: np.ndarray, grain: int):
         fields[:, :, i] = np.histogramdd((pose["x"], pose["y"]), bins=bins, weights=dg[:, i], density=False)[0]
     with np.errstate(invalid="ignore", divide="ignore"):
         rate_maps = fields / occupancy[:, :, None]
-    rate_maps[occupancy[:, :, None] <= 0] = np.nan
+    rate_maps[occupancy <= 0, :] = np.nan
     si = np.array([spatial_information(rate_maps[:, :, i], occupancy) for i in range(dg.shape[1])])
     active_fraction = (dg > 0).mean(axis=0)
     return occupancy, rate_maps, si, active_fraction
