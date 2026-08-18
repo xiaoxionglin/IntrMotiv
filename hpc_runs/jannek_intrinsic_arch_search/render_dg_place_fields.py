@@ -71,7 +71,7 @@ def main():
     mpl.rcParams["pdf.fonttype"] = 42
     mpl.rcParams["font.size"] = 14
     summary_path = data_dir / "summary.csv"
-    summary = pd.read_csv(summary_path)
+    summary_rows = []
     for run_dir in sorted(p for p in data_dir.iterdir() if p.is_dir()):
         npz_path = run_dir / "place_fields.npz"
         if not npz_path.exists():
@@ -85,8 +85,19 @@ def main():
             seq_len = int(data["Hippo_L"])
             theta = float(data["DG_BN_intercept"])
             checkpoint = pathlib.Path(str(data["checkpoint"])).name
+            summary_rows.append(
+                {
+                    "label": run_dir.name,
+                    "Hippo_n_feature": n_feature,
+                    "Hippo_L": seq_len,
+                    "DG_BN_intercept": theta,
+                    "mean_active_fraction": float(np.mean(active_fraction)),
+                    "mean_si": float(np.nanmean(si)),
+                }
+            )
         title = f"DG place fields | F={n_feature}, L={seq_len}, theta={theta:g}, {checkpoint}"
         plot_run_grid(rate_maps, occupancy, si, active_fraction, title, run_dir / "dg_place_fields.png")
+    summary = pd.read_csv(summary_path) if summary_path.exists() else pd.DataFrame(summary_rows)
     plot_summary(summary, data_dir / "summary.png")
     print(f"Rendered DG place-field plots in {data_dir}")
 
