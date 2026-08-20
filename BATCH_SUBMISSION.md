@@ -123,6 +123,13 @@ policies cross the threshold. With four PBT policies, use
 population budget. Average the four policy series and do not interpret the
 threshold as four independent replicates.
 
+For PBT runs, set `--save_milestones_sec=0`. In this Sample Factory checkout,
+the periodic milestone signal can deadlock the Runner when it overlaps
+PBT-forced donor checkpoint saves. Keep `save_every_sec` and
+`save_best_every_sec` enabled: regular, best, and donor checkpoints are enough
+for restart, selection, and inheritance. Re-enable milestones only after a
+four-policy stress test crosses several milestone and PBT periods.
+
 Use the following naming levels consistently:
 
 | Level | Purpose | Example |

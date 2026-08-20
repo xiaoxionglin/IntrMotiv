@@ -305,6 +305,26 @@ iterative update on versus off, preserving the Jannek-compatible baseline and
 all other settings. The present batch also has no non-HRL navigation baseline,
 so coverage gains should not yet be attributed specifically to graph planning.
 
+### Milestone/PBT deadlock fix
+
+The iteration-2 production configuration now sets
+`save_milestones_sec=0`. Regular five-minute checkpoints, best-policy
+checkpoints, and PBT-forced donor checkpoints remain enabled, so restart,
+model selection, and policy inheritance are unchanged. Only archival milestone
+duplicates are disabled. The change is confined to the IntrMotiv experiment
+configuration; Sample Factory core and Jannek's files were not modified.
+
+Regression job `7836244` exercised the real four-policy pipeline with
+accelerated PBT periods. It started from scratch, performed repeated PBT
+evaluations and multiple donor checkpoint loads, reached 403,456 aggregate
+frames, and completed in 3:10 with exit code 0. There were no full report
+queues, tracebacks, or checkpoint errors. IntrMotiv tests also pass: 23 passed.
+
+The regression validates the configuration-level mitigation. It does not prove
+the precise blocked call in Sample Factory's milestone signal path. Keep
+milestones disabled for PBT production runs unless the upstream synchronization
+behavior is separately fixed and stress-tested.
+
 ## Remaining plan
 
 ### HRL behavior
