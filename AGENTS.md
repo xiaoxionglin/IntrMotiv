@@ -10,6 +10,7 @@
 ## NEMO2 Storage Policy
 
 - Store all training data in an allocated NEMO2 workspace, never under the home filesystem.
+- Use `/work/classic/fr_xl1014-train` as the workspace root for this project.
 - This includes `train_dir`, model checkpoints, milestone and best checkpoints, TensorBoard events, W&B run data, Slurm stdout/stderr, environment caches, rollout data, and generated datasets.
 - Keep the home folder strictly limited to source code and lightweight analysis scripts, reports, and plots.
 - Before submitting a run, verify that every training-output, logging, cache, and temporary-data path resolves into the intended workspace.
