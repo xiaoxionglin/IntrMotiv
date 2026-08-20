@@ -1,6 +1,7 @@
 # HRL Iteration 2: Current Summary and Remaining Plan
 
 Date: 2026-08-19  
+Last updated: 2026-08-20
 Batch: `intrmotiv_hrl_iteration2_20260819`  
 W&B project: `SF_HRL_Intrinsic_ArchSearch`  
 W&B group: `intrmotiv_hrl_iteration2_20260819`
@@ -212,16 +213,97 @@ all four policy streams with
 `analysis/aggregate_pbt_population.py`; their curves must not be treated as
 four independent replicates.
 
-At the latest runtime check, all 18 current jobs had four policy event streams
-(72 event files) and no fatal, OOM, cancellation, or time-limit markers.
-Intrinsic reward, reward-for-advantage, active targets, target hits, `T_ctrl`
-updates, DG density, and iterative phases were nonzero; silent-unit fraction
-was zero in the sampled population summaries. These are health checks only,
-not final learning results.
+All 18 jobs created four policy event streams (72 event files), but the batch
+did not remain healthy. Each Runner stopped updating summaries and frame
+counters about 30 minutes after launch. Slurm continued to report the jobs as
+`RUNNING` because child processes remained alive; their report and heartbeat
+queues later filled because the Runner no longer consumed messages. The jobs
+therefore used wall time without producing additional usable training data.
 
 The earlier W&B truncation was traced to TensorBoard synchronization in W&B
 0.24.x stopping at the first 1 MiB of an event file. The current batch uses
 W&B 0.28.2; local event files and population aggregation remain authoritative.
+
+## Corrected-sweep interim analysis
+
+### Validity and failure diagnosis
+
+- Useful per-policy endpoints range from about 1.51M to 3.57M environment
+  steps. Per-population totals are only about 7.5M-14.9M frames, or 7.5%-14.9%
+  of the intended 100M population budget.
+- In a representative run, the last Runner frame report was 14.61M aggregate
+  frames at 02:48:39. All four milestone checkpoints were written between
+  02:48:44 and 02:48:52. The first full report queues appeared at 03:24.
+- The 30-minute alignment is exact across the sweep and coincides with
+  `save_milestones_sec=1800`. It also overlaps the second PBT evaluation near
+  3.75M steps per policy. The evidence therefore points to a Runner deadlock
+  in the milestone/PBT synchronization path, not an OOM, a frame limit, or
+  slow environment throughput. The precise blocking call is not yet proven.
+- A live process inspection found the Runner sleeping in a futex, learner
+  processes still present, and rollout processes eventually defunct. This is
+  consistent with a coordination deadlock. Do not treat Slurm elapsed time as
+  training time for this batch.
+
+Consequently, these data cannot establish convergence or long-run HRL
+performance. They can only compare early dynamics at a common pre-PBT step.
+
+### Matched comparison at 1.5M steps per policy
+
+The four policies are averaged into one population, then the three population
+seeds are averaged per condition. At 1.5M steps PBT has not started, so this
+comparison isolates the configured encoder feedback and worker reward modes.
+
+| Encoder | Worker | Coverage AUC | DG density | Multi-active | Silent units | Hit rate | Option success | Known edges |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| encourage | hit | 67.57 | 0.0579 | 0.2547 | 0.0052 | 0.00920 | 0.3801 | 0.0170 |
+| encourage | hit_distance | 68.02 | 0.0597 | 0.2751 | 0.0000 | 0.01013 | 0.3805 | 0.0194 |
+| mean | hit | 58.18 | 0.0053 | 0.0156 | 0.4583 | 0.00452 | 0.2264 | 0.0090 |
+| mean | hit_distance | 57.86 | 0.0063 | 0.0183 | 0.3750 | 0.00541 | 0.2523 | 0.0108 |
+| punish | hit | 58.12 | 0.0092 | 0.0304 | 0.4844 | 0.00566 | 0.2648 | 0.0082 |
+| punish | hit_distance | 57.86 | 0.0037 | 0.0092 | 0.4115 | 0.00566 | 0.2717 | 0.0100 |
+
+`encourage` is the only encoder method that reliably preserves DG activity.
+It produces roughly ten times the DG density of `mean`/`punish`, almost no
+silent units, about twice the target-hit rate, and approximately 9.5-10.2
+additional coverage-AUC points. From 1.0M to 1.5M steps, encourage coverage
+continues to rise by 2.7-3.3 points while mean and punish decline by roughly
+1.3-1.9 points and their DG density falls. This is evidence of early DG
+collapse under `mean` and `punish`, not merely a threshold offset.
+
+The encourage effect is not yet uniform across seeds. Seeds 8 and 99 improve
+strongly, while seed 123 is close to the collapsed methods at 1.5M. Three
+population seeds are therefore enough to identify the failure mode but not to
+make a precise effect-size claim.
+
+### Worker reward and predictor
+
+- `hit_distance` raises measured intrinsic reward but does not improve matched
+  coverage at 1.5M: the worker-mode marginal coverage is 61.25 versus 61.29
+  for `hit`. Keep the requested hit-distance diagnostics, but do not attribute
+  an exploration benefit to the bonus from this batch.
+- Across the 18 populations, coverage correlates with hit rate (0.79), known
+  edges (0.78), multi-activation rate (0.76), option success (0.74), and DG
+  density (0.70). The controllable graph is active when the representation is
+  active; it cannot compensate for DG collapse.
+- Raw predictor accuracy is misleading: encourage has lower accuracy because
+  it generates substantially more positive hits, while collapsed methods can
+  score well by predicting no hit. Future evaluation needs balanced accuracy,
+  precision/recall or PR-AUC, calibration, and conditional time error.
+
+### Decision from this batch
+
+Use `encourage` as the default encoder feedback for the next valid long run.
+Do not spend another full sweep budget on `mean` or `punish` unless the purpose
+is specifically to study representation collapse. Before resubmission, make a
+short four-policy test cross the first milestone and at least two PBT periods;
+only then launch the 100M population runs.
+
+This factorial sweep cannot measure the benefit of iterative encoder/decoder
+updates because every condition enables them. After repairing the deadlock,
+the highest-value architectural comparison is a matched `encourage` run with
+iterative update on versus off, preserving the Jannek-compatible baseline and
+all other settings. The present batch also has no non-HRL navigation baseline,
+so coverage gains should not yet be attributed specifically to graph planning.
 
 ## Remaining plan
 
