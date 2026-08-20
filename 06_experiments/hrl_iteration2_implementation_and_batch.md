@@ -233,16 +233,17 @@ W&B 0.28.2; local event files and population aggregation remain authoritative.
   of the intended 100M population budget.
 - In a representative run, the last Runner frame report was 14.61M aggregate
   frames at 02:48:39. All four milestone checkpoints were written between
-  02:48:44 and 02:48:52. The first full report queues appeared at 03:24.
+  02:48:44 and 02:48:52. Multiple jobs then reported `OSError: [Errno 28] No
+  space left on device` at 02:49:15. The first full report queues appeared at
+  03:24 after rollout processes had failed.
 - The 30-minute alignment is exact across the sweep and coincides with
-  `save_milestones_sec=1800`. It also overlaps the second PBT evaluation near
-  3.75M steps per policy. The evidence therefore points to a Runner deadlock
-  in the milestone/PBT synchronization path, not an OOM, a frame limit, or
-  slow environment throughput. The precise blocking call is not yet proven.
+  `save_milestones_sec=1800`. The synchronized milestone writes consumed the
+  remaining capacity on the full home filesystem. Subsequent environment-cache
+  and logging writes failed, stopping useful training.
 - A live process inspection found the Runner sleeping in a futex, learner
-  processes still present, and rollout processes eventually defunct. This is
-  consistent with a coordination deadlock. Do not treat Slurm elapsed time as
-  training time for this batch.
+  processes still present, and rollout processes eventually defunct. These
+  were downstream symptoms of worker write failures. Do not treat Slurm
+  elapsed time as training time for this batch.
 
 Consequently, these data cannot establish convergence or long-run HRL
 performance. They can only compare early dynamics at a common pre-PBT step.
@@ -295,35 +296,24 @@ make a precise effect-size claim.
 Use `encourage` as the default encoder feedback for the next valid long run.
 Do not spend another full sweep budget on `mean` or `punish` unless the purpose
 is specifically to study representation collapse. Before resubmission, make a
-short four-policy test cross the first milestone and at least two PBT periods;
-only then launch the 100M population runs.
+four-policy test cross the former 30-minute failure boundary and at least two
+PBT periods while monitoring workspace capacity; only then launch the 100M
+population runs.
 
 This factorial sweep cannot measure the benefit of iterative encoder/decoder
-updates because every condition enables them. After repairing the deadlock,
+updates because every condition enables them. After relocating all run data,
 the highest-value architectural comparison is a matched `encourage` run with
 iterative update on versus off, preserving the Jannek-compatible baseline and
 all other settings. The present batch also has no non-HRL navigation baseline,
 so coverage gains should not yet be attributed specifically to graph planning.
 
-### Milestone/PBT deadlock fix
+### Storage-exhaustion fix
 
-The iteration-2 production configuration now sets
-`save_milestones_sec=0`. Regular five-minute checkpoints, best-policy
-checkpoints, and PBT-forced donor checkpoints remain enabled, so restart,
-model selection, and policy inheritance are unchanged. Only archival milestone
-duplicates are disabled. The change is confined to the IntrMotiv experiment
-configuration; Sample Factory core and Jannek's files were not modified.
-
-Regression job `7836244` exercised the real four-policy pipeline with
-accelerated PBT periods. It started from scratch, performed repeated PBT
-evaluations and multiple donor checkpoint loads, reached 403,456 aggregate
-frames, and completed in 3:10 with exit code 0. There were no full report
-queues, tracebacks, or checkpoint errors. IntrMotiv tests also pass: 23 passed.
-
-The regression validates the configuration-level mitigation. It does not prove
-the precise blocked call in Sample Factory's milestone signal path. Keep
-milestones disabled for PBT production runs unless the upstream synchronization
-behavior is separately fixed and stress-tested.
+Move `train_dir`, W&B local data, Slurm logs, caches, and all other bulk outputs
+to an allocated NEMO2 workspace. Production checkpoint behavior, including the
+1,800-second milestone interval, remains unchanged. Before another production
+submission, verify every resolved output path and run a four-policy preflight
+while monitoring workspace capacity.
 
 ## Remaining plan
 
