@@ -8,3 +8,4 @@ group and tidy up the custom logging stats, remove the duplicate ones, have bett
 
 Next iteration should have a new project on wandb now they are sufficiently different.
 
+Jannek's observation if you visit A-B-C, then no matter A-B and B-C, as long as A-C is the same, you get the same amount of reward
