@@ -175,13 +175,13 @@ not include this TensorBoard fix.
 Parsing each event file only through its first 1 MiB reproduced the cloud
 endpoint exactly:
 
-| History | Step at 1 MiB | W&B endpoint | Local endpoint |
-|---|---:|---:|---:|
-| Iteration 2 policy 0 | 3,538,944 | 3,538,944 | 12,877,824 |
-| Iteration 2 policy 1 | 3,768,320 | 3,768,320 | 13,303,808 |
-| Iteration 2 policy 2 | 3,768,320 | 3,768,320 | 13,205,504 |
-| Iteration 2 policy 3 | 3,801,088 | 3,801,088 | 12,550,144 |
-| Batch 1, one policy | 5,865,472 | 5,865,472 | 90,013,696 |
+| History              | Step at 1 MiB | W&B endpoint | Local endpoint |
+| -------------------- | ------------: | -----------: | -------------: |
+| Iteration 2 policy 0 |     3,538,944 |    3,538,944 |     12,877,824 |
+| Iteration 2 policy 1 |     3,768,320 |    3,768,320 |     13,303,808 |
+| Iteration 2 policy 2 |     3,768,320 |    3,768,320 |     13,205,504 |
+| Iteration 2 policy 3 |     3,801,088 |    3,801,088 |     12,550,144 |
+| Batch 1, one policy  |     5,865,472 |    5,865,472 |     90,013,696 |
 
 Before the next run, upgrade the SFgit environment to W&B 0.25.0 or newer
 and validate a short live TensorBoard run whose event file exceeds 1 MiB. The
