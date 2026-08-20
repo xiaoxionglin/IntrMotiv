@@ -1,9 +1,14 @@
-# HRL Iteration 2: Implementation and Batch Record
+# HRL Iteration 2: Current Summary and Remaining Plan
 
 Date: 2026-08-19  
 Batch: `intrmotiv_hrl_iteration2_20260819`  
 W&B project: `SF_HRL_Intrinsic_ArchSearch`  
 W&B group: `intrmotiv_hrl_iteration2_20260819`
+
+This is the canonical experiment-status document. It combines the implementation
+record, the previous-batch diagnosis, the corrected 2026-08-20 sweep status,
+and the remaining plan. The detailed tensor-level architecture reference is
+kept separately in `04_implementation/current_hrl_architecture_summary.md`.
 
 ## Purpose
 
@@ -106,7 +111,7 @@ The preflight also found and fixed one checkout-specific compatibility issue:
 the IntrMotiv train-stat callback now appends to the existing runner handler
 list, preserving Sample Factory's built-in handler.
 
-## Production submission
+## Previous production submission (2026-08-19)
 
 Submission work directory:
 
@@ -116,14 +121,14 @@ Production job IDs are `7827944` through `7827955`. Logs and separate stderr
 files are under the submission work directory. The generated `jobs.tsv`
 records the experiment name, command, Slurm script, and job ID for every run.
 
-## Validation
+## Previous-batch validation
 
 - IntrMotiv unit/integration tests: 18 passed.
 - Production launcher dry run: 12 experiment commands and 12 Slurm scripts.
 - SFgit W&B SDK: 0.24.1; authenticated entity verified before submission.
 - Existing Batch 1 jobs and Jannek's directory were not modified or stopped.
 
-## Next iteration training budget
+## Historical next-iteration budget (superseded by the corrected sweep below)
 
 - Retain both `hit` and `hit_distance` worker reward conditions. Treat each
   four-policy PBT population as one replicate; the three populations per
@@ -182,3 +187,76 @@ Before the next run, upgrade the SFgit environment to W&B 0.25.0 or newer
 and validate a short live TensorBoard run whose event file exceeds 1 MiB. The
 completed local event files are intact and can be imported to repair the cloud
 histories after validating the upgraded SDK on one run.
+
+## Corrected current sweep (2026-08-20)
+
+The current production batch supersedes the 2026-08-19 submission above:
+
+| Setting | Current value |
+|---|---|
+| Batch/W&B group | `intrmotiv_hrl_iteration2_iterative_sweep3_20260820` |
+| Jobs | 18: 3 seeds x 3 encoder methods x 2 worker reward modes |
+| Seeds | 8, 99, 123 |
+| Encoder methods | `punish`, `encourage`, `mean` |
+| Worker rewards | `hit`, `hit_distance` |
+| Policies per PBT population | 4 |
+| Sample Factory target | 25M env steps per policy, about 100M total |
+| Slurm allocation | CPU, 40 CPUs, 80 GB, 30 hours, no GPU |
+| Environment | `openfield_map2_fixed_loc3_fixedlength_noreward` |
+| Architecture | `F=16`, `L=64`, fixed `layer2_resnet18`, iterative update enabled |
+| DG controls | `encoder_batch_loss=True`, density/usage/collision controls enabled |
+| W&B SDK | 0.28.2 in `SFgit` |
+
+The four policies are one scientific population. Metrics are averaged across
+all four policy streams with
+`analysis/aggregate_pbt_population.py`; their curves must not be treated as
+four independent replicates.
+
+At the latest runtime check, all 18 current jobs had four policy event streams
+(72 event files) and no fatal, OOM, cancellation, or time-limit markers.
+Intrinsic reward, reward-for-advantage, active targets, target hits, `T_ctrl`
+updates, DG density, and iterative phases were nonzero; silent-unit fraction
+was zero in the sampled population summaries. These are health checks only,
+not final learning results.
+
+The earlier W&B truncation was traced to TensorBoard synchronization in W&B
+0.24.x stopping at the first 1 MiB of an event file. The current batch uses
+W&B 0.28.2; local event files and population aggregation remain authoritative.
+
+## Remaining plan
+
+### HRL behavior
+
+- Keep the episode-local controllable graph in `rnn_states` for PPO replay
+  consistency.
+- Keep target selection curiosity-driven: `T_ctrl` is a feasibility gate and
+  deadline source, not a cost or novelty ranking term.
+- Prefer currently reachable targets using multi-hop closure; fall back to an
+  observed frontier when no reachable target exists.
+- Keep option deadlines experience-derived from successful travel times, with
+  a small timeout margin and deterministic target switching.
+- Preserve target/source ids, option resets, hits, controllability updates,
+  and hit-distance diagnostics.
+
+### Predictor
+
+- Keep the CA3 predictor shadow/auxiliary-only during this iteration.
+- It currently consumes the complete CA3 state plus target one-hot and predicts
+  target hit probability and conditional hit time. Compare those predictions
+  against `T_ctrl`; do not let the predictor replace the graph yet.
+- Treat next-DG/F-state prediction and top-k successor metrics as a follow-up
+  extension if the current predictor is insufficient for the planned
+  successor-structure comparison.
+
+### Accounting and evaluation
+
+- Let the current sweep reach approximately 100M aggregate environment steps.
+- Report each four-policy PBT population as one replicate and average its four
+  policy streams.
+- Compare all six conditions using population-level curves and diagnostics.
+- Require sustained DG activity, nonzero target hits and low-level intrinsic
+  reward, increasing controllable-graph coverage, and continued navigation
+  improvement through the budget.
+- If DG activity remains nonzero but target hits stay near zero, prioritize
+  feasibility/planning and option timing. If DG activity collapses, debug
+  encoder rewards and gradient ownership before interpreting HRL behavior.
