@@ -1,385 +1,947 @@
-# Current HRL / HippoSLAM Architecture Summary
+# IntrMotiv Controllable-Graph HRL Architecture
 
-This note summarizes the HRL architecture used in the recent intrinsic-motivation architecture-search runs. It is based on the current Jannek/Sample Factory code path, especially:
+This document specifies the HRL implementation currently in
+`sf_working_directories/IntrMotiv` on NEMO2. It describes what the code does,
+including tensor layouts, update ordering, reward alignment, gradient routing,
+active batch parameters, and known implementation boundaries. It is not a
+description of the earlier Jannek runs.
 
-- `sf_working_directories/jannek/dmlab/custom_encoder.py`
-- `sf_working_directories/jannek/dmlab/custom_core.py`
-- `sf_working_directories/jannek/dmlab/custom_decoder.py`
-- `sf_working_directories/jannek/dmlab/custom_actor_critic.py`
-- `sf_working_directories/jannek/dmlab/custom_learner.py`
-- `sf_working_directories/jannek/dmlab/experiments/hrl_intrinsic_arch_search.py`
+Snapshot inspected: 2026-08-19. Repository base commit:
+`0d6ad8251557a9cd8fd43b4099e1379af017379c`. The IntrMotiv working directory is
+currently uncommitted in that working tree, so the source files listed below
+are the authoritative version.
 
-## Active Run Recipe
+## 1. Source Map
 
-The current architecture-search runs use:
+| Responsibility | Source |
+|---|---|
+| Entry point and `rnn_size` derivation | `sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py` |
+| Visual, DG, depth, and instruction encoder | `sf_working_directories/IntrMotiv/dmlab/custom_encoder.py` |
+| Sequence memory and HRL integration | `sf_working_directories/IntrMotiv/dmlab/custom_core.py` |
+| Controllable graph state machine | `sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py` |
+| Policy decoder | `sf_working_directories/IntrMotiv/dmlab/custom_decoder.py` |
+| Actor-critic selection | `sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py` |
+| Intrinsic rewards, PPO, encoder loss, metrics | `sf_working_directories/IntrMotiv/dmlab/custom_learner.py` |
+| HRL arguments | `sf_working_directories/IntrMotiv/dmlab/custom_params.py` |
+| Current 72-run sweep | `sf_working_directories/IntrMotiv/dmlab/experiments/hrl_intrinsic_arch_search.py` |
+| HRL unit tests | `sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py` |
+| Reward aliases | `sf_working_directories/IntrMotiv/dmlab/reward_summaries.py` |
 
-```text
-Environment: openfield_map2_fixed_loc3_noreward
-RL algorithm: APPO / PPO-style Sample Factory learner
-Core: BypassSS
-DG module: batchnorm_relu
-Encoder reward method: punish
-Distance learning: true
-use_external: true
-use_internal: false
-extra_encoder_losses: true
-Depth sensor: true
-Visual encoder: pretrained ResNet, frozen
-DG threshold theta: 2.20 / 2.43 / 2.60
-DG features F: 8 / 16 / 32
-Sequence length L: 32 / 64 / 128
-R: default 8
-```
+## 2. Architectural Summary
 
-The main candidate family currently being inspected is:
+The implementation has one learned low-level policy and one deterministic
+high-level controller:
 
-```text
-F=16, L=128, theta=2.43
-F=16, L=64, theta=2.60
-F=16, L=64, theta=2.20
-```
-
-## High-Level Forward Pass
-
-```mermaid
-flowchart LR
-    Obs["DMLab observation<br/>RGB + depth + map/instruction"] --> Enc["Frozen visual encoder<br/>pretrained ResNet"]
-    Obs --> Depth["Depth downsample<br/>10 dims"]
-    Obs --> Instr["Map number / instruction<br/>3 dims, scaled"]
-
-    Enc --> X["Visual feature<br/>about 256 dims"]
-    Instr --> Xcat["DG input x<br/>visual + map feature<br/>about 259 dims"]
-    X --> Xcat
-
-    Xcat --> DG["DG projection<br/>Linear -> BatchNorm -> ReLU(z - theta)<br/>F sparse features"]
-
-    Depth --> Bypass["Bypass features<br/>depth 10 + map 3 = 13 dims"]
-    Instr --> Bypass
-
-    DG --> Head["Encoder output<br/>DG F + bypass 13"]
-    Bypass --> Head
-
-    Head --> Core["BypassSS sequence core<br/>fixed shift register"]
-    Core --> Dec["Decoder MLP<br/>128, 128"]
-    Dec --> Policy["Action distribution"]
-    Dec --> Value["Value head"]
-```
-
-The core idea is that the encoder produces a sparse DG code, the sequence core converts sparse events into short temporal traces, and the policy/value decoder acts on the resulting sequence-reservoir state plus a small bypass vector.
-
-## Encoder And DG Projection
-
-The active DG module is `DGProjection_batchnorm_relu`.
-
-For each observation:
-
-```text
-x = concat(frozen_visual_feature, map_number_feature)
-z = Linear(x)                 # bias=False
-z_bn = BatchNorm1d(z)         # affine=False
-dg = ReLU(z_bn - theta)
-```
-
-```mermaid
-flowchart TD
-    A["x: visual + map feature<br/>about 259 dims"] --> B["Linear W<br/>259 -> F, no bias"]
-    B --> C["BatchNorm1d<br/>affine=False"]
-    C --> D["Subtract theta<br/>theta = 2.20 / 2.43 / 2.60"]
-    D --> E["ReLU"]
-    E --> F["DG activity<br/>nonnegative sparse vector"]
-```
-
-Important implications:
-
-- BatchNorm makes thresholding relative to each DG unit's batch-normalized projection.
-- Higher `theta` makes DG events rarer.
-- The visual encoder is frozen when loaded from the pretrained checkpoint, so DG learning mainly changes the projection directions over a fixed visual representation.
-- The DG projection has no bias in the active module.
-- The learned DG linear rows are explicitly renormalized toward fixed norm during training, so the main learned degree of freedom is rotation/direction rather than scale.
-
-## Bypass Features
-
-Because `core_name=BypassSS` and `depth_sensor=True`, the encoder appends bypass features after DG:
-
-```text
-bypass = concat(depth_downsample, map_number_feature)
-depth_downsample: 10 dims
-map_number_feature: 3 dims
-bypass size: 13 dims
-```
-
-The sequence core processes only the first `F` DG dimensions recurrently. The bypass dimensions are carried through as current, non-sequence features.
-
-## BypassSS Sequence Core
-
-The active core is `SimpleSequenceWithBypassCore`, selected by `core_name=BypassSS`.
-
-This is not a normal learned recurrent network. It is a fixed shift-register sequence memory. For each DG feature, it stores a temporal trace of length:
-
-```text
-expanded_length = R + L - 1
-```
-
-At each timestep:
-
-```text
-state = roll(state, +1)
-state[:, 0] = 0
-state[:, 0:R] += current_DG
-```
+- Each of the `F` DG output units is treated as one landmark and therefore one
+  possible option/subgoal.
+- There is no learned manager network, manager optimizer, manager value head,
+  or separate manager reward.
+- The manager deterministically selects the least-visited eligible DG node.
+- The worker is the APPO/PPO actor conditioned on a target one-hot vector.
+- An episode-local matrix `T_ctrl[i,j]` stores the shortest observed option
+  elapsed time from source DG `i` to reached DG `j`.
+- `T_ctrl` sets experience-derived deadlines. It does **not** rank targets.
+- The complete graph/controller state is carried in `rnn_states`, so PPO replay
+  can reconstruct the target sequence from observations and initial state.
+- PPO goals are never relabeled. Accidentally reached DG nodes can update
+  `T_ctrl`, but no hindsight policy or behavior-cloning loss exists in V1.
 
 ```mermaid
 flowchart LR
-    DGt["Current DG<br/>F dims"] --> Inject["Inject into slots<br/>0 through R-1"]
-    Prev["Previous sequence state<br/>F x expanded_length"] --> Shift["Shift right by 1<br/>zero slot 0"]
-    Shift --> Add["Add DG injection"]
-    Inject --> Add
-    Add --> Seq["Updated sequence state<br/>F x expanded_length"]
-    Seq --> Flat["Flatten"]
-    Bypass["Current bypass<br/>13 dims"] --> Out
-    Flat --> Out["Core output<br/>F * expanded_length + 13"]
+    O["DMLab observation<br/>RGB + depth + map id"] --> V["Frozen ResNet-18<br/>stem through layer2"]
+    O --> Z["Depth resize<br/>10 values"]
+    O --> I["Map-id one-hot<br/>3 values"]
+    V --> X["DG input x<br/>3840 + 3"]
+    I --> X
+    X --> DG["DG projection<br/>Linear + BatchNorm + thresholded ReLU<br/>F landmarks"]
+    Z --> B["Bypass<br/>depth 10 + map 3"]
+    I --> B
+    DG --> S["Fixed sequence memory<br/>F x (R+L-1)"]
+    DG --> M["Deterministic manager<br/>visits + T_ctrl + deadline"]
+    S --> M
+    M --> G["Active target one-hot<br/>F"]
+    S --> C["Concatenate"]
+    B --> C
+    G --> C
+    C --> D["MLP 128, 128"]
+    D --> PI["5-action categorical policy"]
+    D --> VAL["Single value head"]
 ```
 
-Concrete dimensions:
+## 3. Symbols
+
+| Symbol | Meaning | Current batch value |
+|---|---|---:|
+| `F` | DG units, graph nodes, and possible options | 16 |
+| `R` | Number of adjacent sequence slots receiving each DG event | 8 |
+| `L` | Nominal sequence length and unknown-edge option horizon | 32, 64, or 128 |
+| `E` | Expanded sequence-register length, `E = R + L - 1` | 39, 71, or 135 |
+| `P` | Nonrecurrent bypass width | 13 |
+| `theta` | DG BatchNorm/ReLU intercept | 2.0 or 2.43 |
+| `beta` | Intrinsic reward scale | 0.1 |
+| `rho` | Relative option-deadline margin | 0.20 |
+| `m` | Fixed option-deadline margin in policy steps | 2 |
+| `N` | Minibatch sample count | context-dependent |
+
+There is no independent "option number" parameter. The option set is exactly
+the `F` DG nodes.
+
+## 4. Environment and Observation
+
+### 4.1 Current production batch
+
+The running batch uses:
 
 ```text
-F=16, L=64, R=8:
-expanded_length = 8 + 64 - 1 = 71
-sequence core = 16 * 71 = 1136
-bypass = 13
-core output = 1149
-
-F=16, L=128, R=8:
-expanded_length = 8 + 128 - 1 = 135
-sequence core = 16 * 135 = 2160
-bypass = 13
-core output = 2173
+openfield_map2_fixed_loc3_noreward
+resolution = 96 x 72
+frameskip = 8
+depth_sensor = true
+environment reward = 0 for the goal
 ```
 
-The current DG slice used for place-field plotting is:
+The Lua level fixes `rand_num=3`, so the map-id instruction is 3. Goal pickup
+increments `_count`, and `hasEpisodeFinished` returns `_count > 0`. Therefore
+the running batch has behavior-dependent episode lengths: goal contact ends an
+episode before the 120-second timeout.
+
+The additive replacement
+`openfield_map2_fixed_loc3_fixedlength_noreward` overrides only
+`hasEpisodeFinished` and returns `false`. Its existing timeout then ends every
+episode after 120 seconds, or 7,200 engine frames = 900 policy actions at
+frameskip 8. It is available for future runs; changing it does not alter the
+already-running batch.
+
+### 4.2 Observation split
+
+With depth enabled, the encoder uses:
+
+- RGB channels `obs[:, :3]` for the visual trunk.
+- The final depth channel for a 10-value bypass feature.
+- The DMLab instruction as a map number, converted to a 3-way one-hot vector
+  and multiplied by `number_instruction_coef = 9`.
+
+For the current level the instruction vector is therefore normally
+`[0, 0, 9]`.
+
+## 5. Visual and DG Encoder
+
+### 5.1 Layer-2 ResNet path
+
+The active configuration is:
 
 ```text
-core[:, :hidden_len:expanded_length]
+encoder_conv_architecture = layer2_resnet18
+normalize_input = false
+obs_scale = 255
 ```
 
-where:
+`layer2_resnet18` is distinct from the repository's legacy
+`pretrained_resnet` checkpoint-loading branch. However, the active
+`ResNet18Layer2` constructor itself defaults to torchvision ImageNet-1K
+ResNet-18 weights and freezes all ResNet parameters. It uses:
 
 ```text
-hidden_len = F * expanded_length
+conv1 -> bn1 -> relu -> maxpool -> layer1 -> layer2 -> AvgPool2d(3,2,1)
 ```
 
-This extracts the first sequence slot for each DG feature.
+The RGB tensor is ImageNet-normalized:
 
-## Decoder And Actor-Critic
+$$
+\tilde{o}_{t,c} = \frac{o_{t,c} - \mu_c}{\sigma_c},
+$$
 
-The decoder is a small MLP:
+with `mu = (0.485, 0.456, 0.406)` and
+`sigma = (0.229, 0.224, 0.225)` after the configured observation scaling.
 
-```text
-core_output -> MLP(128, 128) -> decoder_output
-```
+For a `72 x 96` image, layer2 produces `128 x 9 x 12`; the extra average pool
+produces `128 x 5 x 6`. Flattening gives:
 
-The standard shared-weight actor-critic is used for the current distance-learning runs because:
+$$
+v_t \in \mathbb{R}^{3840}.
+$$
 
-```text
-distance_learning = true
-double_value = false
-actor_critic_share_weights = true
-```
+The three-dimensional map code `i_t` is appended before the DG projection:
+
+$$
+x_t = [v_t; i_t] \in \mathbb{R}^{3843}.
+$$
+
+### 5.2 DG projection
+
+The active module is `DGProjection_batchnorm_relu`:
+
+$$
+z_t = W_{DG}x_t, \qquad W_{DG}\in\mathbb{R}^{F\times3843},
+$$
+
+$$
+a_t = \operatorname{ReLU}(\operatorname{BN}(z_t)-\theta)
+      \in \mathbb{R}_{\ge 0}^{F}.
+$$
+
+Implementation details:
+
+- `W_DG` has no bias.
+- BatchNorm has `affine=False`, momentum `0.1`, and no learned scale or bias.
+- A DG is active exactly when `a_t[f] > 0`.
+- The graph uses the dominant active DG `argmax_f a_t[f]` when more than one
+  unit is active; the multi-activation event is only logged.
+- After each encoder backward pass, each row of `W_DG` is normalized to unit
+  Euclidean norm before the optimizer step.
+- The frozen ResNet does not receive gradients. The trainable representation
+  component is therefore primarily the direction of each DG projection row,
+  plus BatchNorm running statistics.
+
+### 5.3 Bypass
+
+Depth is resized with `nn.Upsample(size=(1,10))` and flattened:
+
+$$
+d_t\in\mathbb{R}^{10}, \qquad b_t=[d_t;i_t]\in\mathbb{R}^{13}.
+$$
+
+The full encoder output is:
+
+$$
+h_t^{enc}=[a_t;b_t]\in\mathbb{R}^{F+13}.
+$$
+
+Only `a_t` enters the sequence register and graph logic. `b_t` bypasses the
+sequence dynamics and is replaced by the current observation's bypass at every
+step.
+
+## 6. Fixed Sequence Memory
+
+The active core is `SimpleSequenceWithBypassCore` (`core_name=BypassSS`). It is
+not a GRU despite `rnn_type=gru` in the launch string. `core_name` selects this
+custom fixed update instead.
+
+For each DG node `f`, the core maintains a register
+`S_t[f,k]`, `k=0,...,E-1`, where:
+
+$$
+E=R+L-1.
+$$
+
+One update is:
+
+$$
+\bar{S}_t[f,0]=0,
+$$
+
+$$
+\bar{S}_t[f,k]=S_{t-1}[f,k-1],\quad k=1,\ldots,E-1,
+$$
+
+$$
+S_t[f,k]=\bar{S}_t[f,k]+a_t[f]\,\mathbf{1}[k<R].
+$$
+
+Repeated activations add; they do not overwrite previous trace values.
 
 ```mermaid
 flowchart LR
-    CoreOut["Sequence state + bypass"] --> MLP["Decoder MLP<br/>128 -> 128"]
-    MLP --> Pi["Policy logits"]
-    MLP --> V["Value"]
+    OLD["S_(t-1): F x E"] --> SHIFT["Shift right one slot<br/>zero slot 0"]
+    A["DG activity a_t: F"] --> INJECT["Repeat into slots 0..R-1"]
+    SHIFT --> ADD["Elementwise add"]
+    INJECT --> ADD
+    ADD --> NEW["S_t: F x E"]
 ```
 
-The double-value actor-critic exists in the code, but it is not active in the current architecture-search recipe.
+The sequence memory has no trainable parameters. Its flattened output has
+`F*E` values.
 
-## Sequence Distance Metric
+## 7. Episode-Local HRL State
 
-The learner computes a progression value for each DG sequence feature from the sequence core:
+### 7.1 Packed layout
 
-```text
-progression_i = first active position in the shift register
-inactive_i = expanded_length
+The HRL extension is appended to the recurrent state. It contains
+`F^2 + F + 13` float values:
+
+| Slice/index | Width | Meaning |
+|---|---:|---|
+| `0` | 1 | Active target id, stored one-based; 0 means none |
+| `1` | 1 | Option-start source id, stored one-based; 0 means none |
+| `2` | 1 | Option age |
+| `3` | 1 | Remaining countdown |
+| `4 : 4+F` | `F` | Episode-local dominant-node visit counts |
+| `4+F : 4+F+F^2` | `F^2` | Row-major `T_ctrl` matrix |
+| next | 1 | Dominant currently active DG id, one-based |
+| next | 1 | Target-hit indicator |
+| next | 1 | `T_ctrl`-updated indicator |
+| next | 1 | Option-reset indicator |
+| next | 1 | Multi-activation indicator |
+| next | 1 | Option-expired indicator |
+| next | 1 | Selected deadline came from learned edge |
+| next | 1 | Newly selected deadline |
+| next | 1 | Elapsed time on completed hit/timeout |
+
+The final nine fields are one-step diagnostics. They are cleared at the start
+of every HRL update and then populated for the current observation.
+
+The complete recurrent state is:
+
+$$
+r_t=[\operatorname{vec}(S_t); b_t; q_t],
+$$
+
+where `q_t` is the packed HRL state. Its width is:
+
+$$
+D_{rnn}=F(R+L-1)+13+(F^2+F+13).
+$$
+
+The graph is episode-local because it lives only in `rnn_states`, which Sample
+Factory resets at episode boundaries. There is no persistent cross-episode
+graph in V1.
+
+### 7.2 Current DG and visits
+
+Define:
+
+$$
+A_t=\{f\mid a_t[f]>0\}.
+$$
+
+If `A_t` is nonempty, the observed node is:
+
+$$
+j_t=\arg\max_f a_t[f].
+$$
+
+The implementation increments exactly one visit count:
+
+$$
+n_t[j_t]=n_{t-1}[j_t]+1.
+$$
+
+Thus visits count policy observations with dominant activation, not unique
+spatial visits and not option completions. If `|A_t|>1`, only `j_t` increments;
+the event also sets `multi_activation=1`.
+
+### 7.3 Source selection
+
+When an option is reset, its source is the currently dominant DG if one is
+active. Otherwise the source is the sequence with the strongest recent trace:
+
+$$
+s_t=\arg\max_f\sum_{k=0}^{E-1}|S_{t-1}[f,k]|.
+$$
+
+On an all-zero sequence state, `argmax` deterministically returns node 0.
+
+### 7.4 Controllable reachability matrix
+
+`T_ctrl[i,j] = 0` means the edge is unknown. A positive entry is the shortest
+observed elapsed option time from source `i` to reached node `j`.
+
+For the old option source `s`, current option age `u`, and observed dominant DG
+`j_t`, define:
+
+$$
+\tau=u+1.
+$$
+
+An edge observation is qualified when a DG is active, `s` is valid, and
+`j_t != s`. It does **not** require `j_t` to equal the intended target. The
+update is:
+
+$$
+T^{ctrl}_{s,j_t}\leftarrow
+\begin{cases}
+\tau,&T^{ctrl}_{s,j_t}=0,\\
+\min(T^{ctrl}_{s,j_t},\tau),&T^{ctrl}_{s,j_t}>0.
+\end{cases}
+$$
+
+This is qualified hindsight for graph learning only. It does not relabel PPO
+actions, advantages, policy targets, or rollout goals.
+
+### 7.5 Target selection
+
+At option reset, each eligible target receives the score:
+
+$$
+\operatorname{score}(j)=n_t[j].
+$$
+
+The selected target is:
+
+$$
+g_t=\arg\min_{j\notin\mathcal{X}}n_t[j],
+$$
+
+where `X` always contains the source and, after timeout, also contains the
+just-failed target. PyTorch `argmin` breaks ties by the smallest node index, so
+selection is deterministic.
+
+There is no novelty coefficient. Novelty is the raw visit count. There is also
+no path-cost or cheapness term: `T_ctrl` does not affect target ranking.
+
+### 7.6 Experience-derived deadline
+
+For a source-target pair `(s,g)` with known cost `c=T_ctrl[s,g]>0`, the new
+deadline is:
+
+$$
+H(s,g)=\max\left(1,
+\left\lceil c(1+\rho)\right\rceil+m\right).
+$$
+
+For an unknown edge:
+
+$$
+H(s,g)=L.
+$$
+
+The current batch uses `rho=0.20` and `m=2`. For example, a learned best time
+of 10 actions produces `ceil(12)+2=14` actions. `L` is only the fallback for an
+unknown edge; after successful experience, the horizon is edge-specific.
+
+### 7.7 Hit, expiration, and update order
+
+For the old target `g`, hit and expiration are evaluated as:
+
+$$
+\operatorname{hit}_t = [A_t\ne\emptyset]\,[g\ge0]\,[j_t=g],
+$$
+
+$$
+\operatorname{expired}_t = [\neg\operatorname{hit}_t]\,[g\ge0]\,[countdown\le1].
+$$
+
+Hit takes precedence over timeout. An option resets on hit, timeout, or absence
+of a target. The exact per-observation order is:
+
+1. Clear one-step diagnostics.
+2. Determine dominant DG and multi-activation status.
+3. Increment the dominant node's visit count.
+4. Evaluate hit for the old target.
+5. Apply a faster-only `T_ctrl` update for any reached non-source DG.
+6. Evaluate timeout.
+7. If resetting, choose source, target, and deadline; set age to 0.
+8. Otherwise increment age and decrement countdown.
+9. Return the **new/current** target one-hot.
+
+Consequently, when an old target is hit, `target_hit=1` describes the completed
+old option, while the policy action at that same observation is conditioned on
+the newly selected target.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Select: no target
+    Select --> Active: choose least-visited eligible DG<br/>set source and deadline
+    Active --> Active: no hit and countdown > 1<br/>age += 1, countdown -= 1
+    Active --> Select: target DG observed
+    Active --> Select: countdown <= 1<br/>exclude failed target once
+    Active --> Active: accidental DG observed<br/>option stays active; T_ctrl may update
 ```
 
-Then it builds a pairwise distance matrix:
+## 8. Target-Conditioned Worker
 
-```text
-D_ij = |progression_i - progression_j|
-```
+The core sends the decoder:
+
+$$
+y_t=[\operatorname{vec}(S_t);b_t;\operatorname{onehot}(g_t)].
+$$
+
+Its width is:
+
+$$
+D_{policy}=F(R+L-1)+13+F.
+$$
+
+The target representation is a raw one-hot vector, not a learned embedding.
+The decoder is a ReLU MLP with widths `[128,128]`. Standard Sample Factory
+shared-weight heads then produce:
+
+- one scalar value estimate, because `double_value=False`;
+- logits for a 5-action categorical distribution.
+
+The reduced action set is:
+
+1. forward;
+2. strafe left;
+3. strafe right;
+4. look left 20 degrees plus forward;
+5. look right 20 degrees plus forward.
+
+## 9. Tensor Dimensions for the Current Sweep
+
+For `F=16`, `R=8`, and `P=13`, the HRL state width is always:
+
+$$
+F^2+F+13=256+16+13=285.
+$$
+
+| `L` | `E=R+L-1` | sequence `F*E` | base state `F*E+13` | full `rnn_state` | decoder input `F*E+13+F` |
+|---:|---:|---:|---:|---:|---:|
+| 32 | 39 | 624 | 637 | 922 | 653 |
+| 64 | 71 | 1,136 | 1,149 | 1,434 | 1,165 |
+| 128 | 135 | 2,160 | 2,173 | 2,458 | 2,189 |
+
+`train_hipposlam.py` derives these full recurrent widths when the CLI specifies
+`rnn_size=0`.
+
+## 10. Temporal Distance Signal
+
+The learner reconstructs the sequence memory from stored recurrent states. For
+each sample and DG `f`, progression is the first nonzero sequence slot:
+
+$$
+p_t[f]=\min\{k:S_t[f,k]\ne0\}.
+$$
+
+If the sequence is absent, a sentinel appended by the implementation makes:
+
+$$
+p_t[f]=E.
+$$
+
+The logged pairwise sequence-distance matrix is:
+
+$$
+D_t[i,j]=|p_t[i]-p_t[j]|.
+$$
+
+The masked matrix retains entries only when both sequences are currently
+present.
+
+A newly appearing sequence event is detected when:
+
+$$
+M_t[f]=[p_t[f]=0]\,[p_{t-1}[f]\ge R].
+$$
+
+The code builds a scalar temporal distance `d_t`, initialized to `E`.
+
+- If exactly one DG `c` is newly active, it excludes `c` and takes the minimum
+  current progression of every other DG:
+
+$$
+d_t=\min_{f\ne c}p_t[f].
+$$
+
+- If multiple DGs `C` are newly active, it excludes all of them, uses the
+  previous progression, and adds one:
+
+$$
+d_t=1+\min_{f\notin C}p_{t-1}[f].
+$$
+
+- If there is no qualifying event, `d_t=E`.
+
+The implementation excludes selected DGs by assigning `E+100` before `argmin`.
+Thus `d_t` is a temporal separation from other sequence activity, not physical
+distance and not a value read from `T_ctrl`.
+
+## 11. Reward Streams
+
+Let the temporal-distance tensor include the rollout boundary states as
+implemented. Reward-sized tensors are formed with two different slices:
+
+$$
+r^{dec}=\beta(E-d_{[:,2:]}),
+$$
+
+and encoder reward uses `d[:,1:-1]`. This offset is deliberate in the current
+code and matches rollout action/recurrent-state alignment.
+
+### 11.1 Worker intrinsic reward
+
+With HRL enabled, the decoder/worker reward is gated by target completion:
+
+$$
+r^{worker}_t=\beta(E-d_{t+2})\,\operatorname{hit}_{t+2}.
+$$
+
+This tensor overwrites `buff["rewards"]` before GAE. In the no-reward
+environment, the policy and value function are therefore trained from the
+target-gated intrinsic stream, not environment reward. A DG transition that
+does not hit the active target can update `T_ctrl`, but gives the worker zero
+intrinsic reward.
+
+### 11.2 DG encoder reward sweep
+
+The encoder reward is not target-gated. For `q_t=d_{t+1}`, the three active
+methods are:
+
+$$
+r^{enc}_{t,encourage}=\beta q_t,
+$$
+
+$$
+r^{enc}_{t,punish}=\beta(q_t-E),
+$$
+
+$$
+r^{enc}_{t,mean}=\beta(q_t-\bar d),
+$$
+
+where `bar d` is the mean of the full unsliced temporal-distance tensor for the
+batch. Thus the earlier distance-dependent encoder/decoder scaling has not
+been removed: both streams derive their magnitude from temporal distance. HRL
+adds target-hit gating only to the worker stream.
+
+The raw environment reward is preserved separately as
+`buff["rewards_external"]`, but `advantage_reward_source=internal` means it does
+not enter current-batch advantages.
 
 ```mermaid
 flowchart TD
-    Core["Sequence core<br/>F x expanded_length"] --> Prog["Progression per DG feature<br/>first nonzero position"]
-    Prog --> Dist["Pairwise distance matrix<br/>D_ij = |p_i - p_j|"]
-    Dist --> Metrics["Logged metrics<br/>distance_metric<br/>distance_metric_masked<br/>activated_sequences"]
+    RNN["Rollout rnn_states + final state"] --> P["Sequence progression p"]
+    P --> DT["Temporal distance d"]
+    DT --> DR["Decoder reward beta(E-d)"]
+    HIT["Target-hit diagnostic"] --> GATE["Multiply"]
+    DR --> GATE
+    GATE --> GAE["GAE / PPO worker objective"]
+    DT --> ER["Encoder transform<br/>punish / encourage / mean"]
+    ER --> EL["Separate DG encoder objective"]
 ```
 
-The masked distance matrix only includes currently active sequences. Both full and masked metrics are logged.
+## 12. PPO Worker Objective
 
-## Internal Reward Construction
+The current runs use APPO infrastructure with `with_vtrace=False`, so the
+learner computes ordinary GAE from `r_worker`:
 
-The active learner is `DistanceLearnerReward`.
+$$
+\delta_t=r^{worker}_t+\gamma V(s_{t+1},g_{t+1})-V(s_t,g_t),
+$$
 
-During batch preparation, the learner reconstructs sequence progressions from stored recurrent states and detects new sequence activations:
+$$
+A_t=\sum_{l\ge0}(\gamma\lambda_{GAE})^l\delta_{t+l},
+$$
+
+with `gamma=0.99` and the Sample Factory default `lambda_GAE=0.95`. Advantages
+are normalized in each learner batch.
+
+For importance ratio
+`r_t(theta)=pi_theta(a_t|s_t,g_t)/pi_old(a_t|s_t,g_t)`, the policy loss is:
+
+$$
+\mathcal{L}_{policy}=-\mathbb{E}\left[
+\min(r_tA_t,\operatorname{clip}(r_t,0.8,1.25)A_t)
+\right].
+$$
+
+The asymmetric lower limit is Sample Factory's
+`1/(1+ppo_clip_ratio)` with `ppo_clip_ratio=0.25`.
+
+The worker-side total is:
+
+$$
+\mathcal{L}_{worker}=\mathcal{L}_{policy}
++0.3\mathcal{L}_{value}
+-0.005\,\mathbb{E}[H(\pi)]
++\mathcal{L}_{KL}
++\mathcal{L}_{extra-decoder}.
+$$
+
+In the current batch, fixed KL coefficient is the default 0 and
+`extra_decoder_loss=False`. Value changes use the default clip of 1.0, returns
+are normalized, value bootstrap on timeout is false, and `max_grad_norm=0`
+disables gradient clipping.
+
+## 13. DG Encoder Objective
+
+The encoder is evaluated a second time with a head-only forward pass. Define
+the code's encoder event mask:
+
+$$
+C_t[f]=[p_t[f]=0]\left[\sum_k[S_t[f,k]\ne0]\ge2R\right].
+$$
+
+This is stricter than the temporal reward's event test: it selects a new
+activation whose trace has at least `2R` occupied slots, corresponding to a
+rapid/overlapping reactivation in the current implementation.
+
+The reward-weighted encoder loss is:
+
+$$
+\mathcal{L}_{enc,reward}
+=-\mathbb{E}_{t\in valid}\left[
+\sum_f r^{enc}_t\,a_t[f]C_t[f]
+\right].
+$$
+
+### 13.1 Always-enabled batch loss
+
+For each learner minibatch, define a DG as unused if its sequence trace is
+absent for every sample:
+
+$$
+U[f]=\neg\bigvee_t\bigvee_k[S_t[f,k]\ne0].
+$$
+
+The active `encoder_batch_loss=True` auxiliary is:
+
+$$
+\mathcal{L}_{batch}
+=-\mathbb{E}_{t\in valid}\left[\sum_f a_t[f]U[f]\right].
+$$
+
+Minimizing this term encourages currently unused DG units to activate. The
+current batch also has `extra_encoder_losses=True`, but:
+
+- `encoder_multi_activation_loss=False`;
+- `encoder_unused_sequence_loss=False`;
+- `head_l1_coef` is unset;
+- `encoder_grad_coeff=1`.
+
+Therefore:
+
+$$
+\mathcal{L}_{DG}=\mathcal{L}_{enc,reward}+\mathcal{L}_{batch}.
+$$
+
+## 14. Gradient Routing and Learned Parameters
+
+Each SGD step performs:
 
 ```text
-new_activation = progression == 0
-previous progression for same feature was at least R
-```
-
-For each timestep, it computes an `internal_reward` from the minimum progression among active sequences, with a baseline:
-
-```text
-baseline = L + R - 1
-```
-
-The decoder/policy reward is:
-
-```text
-buff["rewards"] = (-internal_reward + baseline) * reward_scale
-```
-
-For the active encoder reward method:
-
-```text
-encoder_reward_method = punish
-buff["rewards_encoder"] = (internal_reward - baseline) * reward_scale
-```
-
-This is the baseline-shifted "punishment" signal used to train the DG projection.
-
-```mermaid
-flowchart TD
-    Batch["Rollout batch<br/>obs, actions, rnn_states"] --> Prog["Compute sequence progression"]
-    Prog --> NewAct["Detect new DG-sequence activations"]
-    NewAct --> IR["Compute internal_reward<br/>baseline = L + R - 1"]
-    IR --> DecRew["Decoder/policy reward<br/>rewards = (-IR + baseline) * scale"]
-    IR --> EncRew["Encoder reward<br/>punish: rewards_encoder = (IR - baseline) * scale"]
-```
-
-## Separate Decoder And Encoder Losses
-
-`DistanceLearnerReward` uses two forward/backward paths:
-
-1. A normal forward pass for policy/value/decoder learning.
-2. A second head-only forward pass for encoder/DG projection learning.
-
-```mermaid
-flowchart TD
-    MB["Minibatch"] --> Fwd1["Forward pass<br/>head + core + decoder"]
-    Fwd1 --> DecLoss["Decoder loss<br/>policy + value + entropy/KL<br/>+ extra decoder loss"]
-
-    MB --> Fwd2["Second forward pass<br/>head only"]
-    Fwd2 --> EncLoss["Encoder loss<br/>uses rewards_encoder<br/>+ optional extra encoder losses"]
-
-    DecLoss --> Bwd1["Backward decoder loss"]
-    Bwd1 --> Clear["Clear DG projection gradients"]
-    Clear --> EncLoss
-    EncLoss --> Bwd2["Backward encoder loss"]
-    Bwd2 --> Norm["Normalize DG linear rows<br/>toward fixed norm"]
-    Norm --> Step["Optimizer step"]
-```
-
-The update order is important:
-
-```text
-decoder_loss.backward()
-clear DG projection gradients
-encoder_loss.backward()
-normalize DG projection linear rows
+worker_loss.backward()
+clear every DG_projection parameter gradient
+DG_encoder_loss.backward() using the separate head-only graph
+renormalize every DG linear row to norm 1
 optimizer.step()
 ```
 
-So the policy/decoder and DG projection receive related but separated learning signals.
+This has the following exact consequences:
 
-## Extra Encoder Losses
+- PPO gradients update the decoder MLP, action head, and value head.
+- PPO gradients reaching `W_DG` are explicitly discarded.
+- `W_DG` is updated only by the encoder objective.
+- The visual ResNet is frozen.
+- The sequence register and deterministic manager have no parameters.
+- Target selection, graph updates, and diagnostics operate on detached DG/core
+  values and are nondifferentiable.
+- There is no gradient through `T_ctrl`, visit counts, option ids, or deadlines.
 
-The current run uses:
+The optimizer is Adam with learning rate `2e-4` and default Sample Factory Adam
+betas unless a resumed checkpoint contains optimizer state.
 
-```text
-extra_encoder_losses = true
-```
+## 15. Sampling and PPO Replay Consistency
 
-The code supports several auxiliary encoder losses:
+During action sampling, the current observation updates both sequence and HRL
+state before the target one-hot is concatenated for the policy. Rollouts store
+the resulting recurrent state.
 
-```text
-encoder_multi_activation_loss
-encoder_unused_sequence_loss
-encoder_batch_loss
-```
+During PPO sequence replay, the core receives a `PackedSequence` and explicitly
+loops over timesteps. At each timestep it updates only valid packed-batch rows,
+recomputes the deterministic HRL transition, and appends the reconstructed
+target one-hot. The final recurrent state stores the final sequence state,
+last valid bypass input, and full HRL state.
 
-In the current launch recipe, `extra_encoder_losses=True`, but the individual extra-loss flags are not explicitly enabled in the copied arch-search script. Therefore the main active encoder signal is the `rewards_encoder` punishment term unless defaults elsewhere enable those sub-losses.
+Determinism depends on all manager inputs being in the replay contract:
 
-## What Learns And What Is Fixed
+$$
+(o_t,rnn_t)\longrightarrow(g_t,rnn_{t+1}).
+$$
 
-Mostly fixed:
+No random target sampling is used. The unit test compares stepwise sampling
+against packed replay and requires identical target sequences and final state.
 
-```text
-Pretrained visual ResNet, because fix_encoder_when_load=True
-BypassSS sequence dynamics
-Depth downsampling path
-Map-number encoding
-```
+## 16. Manager and Worker Rewards
 
-Learned or updated:
+The current code should not be interpreted as two independently learned
+policies:
 
-```text
-DG projection weights
-DG BatchNorm running statistics
-Decoder MLP
-Policy head
-Value head
-Possibly other non-frozen actor-critic parameters
-```
+| Component | Decision rule | Reward/learning |
+|---|---|---|
+| Manager | Deterministic least-visit target selection | No reward and no optimizer |
+| Graph | Faster-only observed elapsed times | Deterministic online state update |
+| Worker | Learned categorical policy conditioned on target | Target-gated temporal-distance intrinsic reward |
+| DG encoder | Learned sparse landmark projection | Distance-transformed encoder reward plus batch coverage loss |
 
-The DG linear rows are renormalized after encoder backpropagation:
+`T_ctrl` is evidence used for option deadlines, not a manager reward.
 
-```text
-for each DG row w:
-    w <- w / ||w||
-```
+## 17. Current 72-Run Batch
 
-Thus DG learning is closer to learning directions/rotations in the frozen encoder space than learning arbitrary scaling.
-
-## Current Observed Failure Mode
-
-Recent DG place-field analysis suggests that the current evaluated checkpoints have a severe sparse-activation problem.
-
-For the partial 10k evaluation of:
+Batch name and W&B group:
 
 ```text
-F=16, L=128, theta=2.43
+intrmotiv_hrl_batch1_20260818
 ```
 
-we observed:
+W&B project:
 
 ```text
-10001 frames
-318 / 361 spatial bins visited
-only 1 current-DG event total across all 16 DG units
+SF_HRL_Intrinsic_ArchSearch
 ```
 
-This implies:
+Cartesian sweep:
 
-- The policy can cover much of the map given enough rollout time.
-- But current DG activity is nearly absent.
-- Place-field maps are therefore not reliable place fields; most units simply never fire.
-- Sparse or collapsed DG activity may also weaken the sequence-reservoir intrinsic signal.
+| Parameter | Values |
+|---|---|
+| seed | 8, 99, 123, 456 |
+| `L` | 32, 64, 128 |
+| `theta` | 2.0, 2.43 |
+| encoder reward method | punish, encourage, mean |
 
-## Interpretation
+Total: `4 * 3 * 2 * 3 = 72` runs.
 
-The current architecture is best understood as:
+Fixed architecture/training settings include:
 
 ```text
-Frozen visual representation
--> learnable fixed-norm DG projection with BatchNorm thresholding
--> fixed temporal sequence reservoir
--> policy/value decoder
--> separated decoder and DG-projection learning signals
+F=16, R=8, beta=0.1
+rho=0.20, m=2
+encoder_batch_loss=true
+90,000,000 environment steps or 43,200 seconds
+32 workers x 8 envs/worker, 8 worker splits
+rollout=64, recurrence=64, batch_size=2048
+2 minibatches/epoch, 1 epoch
+gamma=0.99, learning_rate=0.0002
+ppo_clip_ratio=0.25, value_loss_coeff=0.3
+exploration_loss_coeff=0.005
+max_policy_lag=35
+CPU learner/inference and software DMLab renderer
 ```
 
-The intended computation is landmark/sequence discovery through temporally separated sparse DG activations. The main practical issue in the current runs is that thresholded DG activity appears too rare or collapses during training/evaluation, so the sequence reservoir has very little current input to work with.
+## 18. Logged Diagnostics
 
+### 18.1 Graph and option metrics
+
+| Metric | Definition |
+|---|---|
+| `hrl_active_target_frac` | fraction of samples with stored target id > 0 |
+| `hrl_source_frac` | fraction with stored source id > 0 |
+| `hrl_target_hit_rate` | mean one-step hit indicator |
+| `hrl_tctrl_update_rate` | mean faster-edge-update indicator |
+| `hrl_option_reset_rate` | mean option-reset indicator |
+| `hrl_option_timeout_rate` | mean expiration indicator |
+| `hrl_option_success_fraction` | hits / max(hits + timeouts, 1) |
+| `hrl_learned_deadline_fraction` | learned-deadline resets / max(resets, 1) |
+| `hrl_selected_deadline_mean` | sum of selected deadlines / max(resets, 1) |
+| `hrl_elapsed_on_hit_mean` | elapsed time averaged over hits |
+| `hrl_elapsed_on_timeout_mean` | elapsed time averaged over timeouts |
+| `hrl_node_coverage_fraction` | fraction of `(sample,node)` visit entries > 0 |
+| `hrl_selected_target_visit_mean` | selected target visit count on reset samples |
+| `hrl_known_edge_fraction` | known off-diagonal entries divided by `F(F-1)` per sample |
+| `hrl_known_controllability_time_mean` | mean positive off-diagonal `T_ctrl` value |
+
+### 18.2 DG activity metrics
+
+| Metric | Definition |
+|---|---|
+| `dg_density` | fraction of DG output elements > 0 |
+| `dg_multi_activation_rate` | fraction of samples with more than one DG > 0 |
+| `dg_silent_unit_frac` | fraction of DG units never > 0 in the summarized minibatch |
+
+### 18.3 Reward metrics
+
+Learner metrics under `train/` include:
+
+- `reward_for_advantage_{mean,sum,abs_mean,nonzero_frac,min,max}`;
+- `intrinsic_reward_{mean,sum,nonzero_frac}`;
+- `env_reward_{mean,sum,nonzero_frac}`.
+
+In this implementation, `intrinsic_reward` and `reward_for_advantage` both
+refer to the target-gated worker stream. The environment stream remains
+separate. New processes also mirror these to:
+
+- `reward/learning_*`;
+- `reward/intrinsic_*`;
+- `reward/environment_*`.
+
+`reward/reward` is Sample Factory's episodic environment return and is expected
+to be zero in the no-reward level. Processes started before the reward-alias
+handler was added continue logging the detailed `train/*` metrics but cannot
+gain the new aliases without restart.
+
+## 19. Verified Tests
+
+The HRL test module covers:
+
+- recurrent-state packing and unpacking;
+- deterministic least-visit target selection and tie behavior;
+- proof that `T_ctrl` does not affect target ranking;
+- learned and fallback deadlines;
+- first/faster-only `T_ctrl` updates;
+- accidental-node graph updates without target hit;
+- timeout replanning with failed-target exclusion;
+- deterministic repeated execution;
+- packed PPO replay matching stepwise target sequences;
+- encoder reward transforms and target-gated worker reward.
+
+Additional tests cover reward-summary aliases and fixed-length level
+registration/override behavior. At the latest verification, all 14 IntrMotiv
+tests passed.
+
+## 20. Exact Boundaries and Caveats
+
+1. **Curiosity ranking is visit-only.** `T_ctrl` does not make cheap or nearby
+   targets more attractive. There is no novelty hyperparameter.
+2. **Controllability affects only deadlines.** The matrix is not a learned
+   reachability network, planner, transition probability, or policy value.
+3. **Edges are minimum times only.** There are no counts, uncertainty,
+   failures, moving averages, or action-conditioned transition models.
+4. **The graph is episode-local.** Knowledge is discarded on environment
+   reset; V2 persistent memory is not implemented.
+5. **One dominant DG is one landmark.** Multi-activation is logged but reduced
+   to `argmax` for visits, hits, sources, and edges.
+6. **DG activity is continuous.** The graph uses positivity and `argmax`; the
+   worker receives the continuous DG trace through the sequence register.
+7. **No HER or BC exists.** Accidental DG activation updates only the graph.
+8. **No learned manager exists.** Calling the controller a manager describes
+   its HRL role, not a second neural policy.
+9. **Worker reward requires both signals.** A positive temporal-distance reward
+   is zeroed unless the old active target was hit.
+10. **The encoder signal remains distance-scaled.** It is not target-gated and
+    is swept across `punish`, `encourage`, and `mean`.
+11. **Batch activity control is active.** `encoder_batch_loss=True` explicitly
+    pushes silent-in-minibatch DG units toward activation.
+12. **Current runs have variable episode length.** The fixed-length level is a
+    future-run correction and is not retroactive.
+13. **Layer2 is ImageNet-initialized.** It is not the legacy loaded
+    `pretrained_resnet` branch, but it does load torchvision ImageNet weights
+    and freezes them.
+14. **Map input is effectively constant here.** The current Lua level always
+    selects map 3, so the three-way map one-hot does not vary within this task.
+15. **The reward is temporal, not geometric.** It is based on DG trace
+    progression, not Euclidean location or graph shortest-path distance.
+
+## 21. Compact Algorithm
+
+```text
+initialize S = 0, visits = 0, T_ctrl = 0, target = none
+
+for each observation o_t:
+    v_t = frozen_resnet_layer2(rgb(o_t))
+    i_t = 9 * one_hot(map_id(o_t), 3)
+    a_t = relu(batch_norm(W_DG [v_t; i_t]) - theta)
+    b_t = [resize(depth(o_t), 10); i_t]
+
+    old_S = S
+    S = shift_right_and_inject(S, a_t, R)
+
+    j = argmax(a_t) if any a_t > 0 else none
+    increment visits[j] if j exists
+
+    hit = (j == old_target)
+    elapsed = old_age + 1
+    if j exists and old_source exists and j != old_source:
+        T_ctrl[old_source,j] = min_positive(T_ctrl[old_source,j], elapsed)
+
+    expired = not hit and old_target exists and old_countdown <= 1
+    if hit or expired or no old_target:
+        source = j if j exists else strongest_trace(old_S)
+        target = least_visited_node_excluding(source, failed_target_if_expired)
+        deadline = learned_margin(T_ctrl[source,target]) if known else L
+        age = 0
+        countdown = deadline
+    else:
+        age += 1
+        countdown -= 1
+
+    y_t = [flatten(S); b_t; one_hot(target)]
+    action_t ~ categorical(policy_mlp(y_t))
+
+during learner batch preparation:
+    reconstruct progression and temporal distance d from stored rnn_states
+    worker_reward = beta * (E - d) * target_hit
+    encoder_reward = transform(d, method)
+    compute GAE and PPO loss from worker_reward
+    compute separate DG loss from encoder_reward + batch coverage loss
+    discard PPO gradient on W_DG; apply only DG-loss gradient to W_DG
+```

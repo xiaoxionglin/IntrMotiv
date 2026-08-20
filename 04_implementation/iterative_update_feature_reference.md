@@ -232,3 +232,12 @@ Regression tests:
 - Do not implement metric/geodesic diagnostics as training reward.
 - Do not fold auxiliary losses into a new intrinsic objective in this feature.
 - Do not refactor legacy learner classes beyond what is required to keep imports/tests passing.
+# Implementation status
+
+The first compatible implementation is now in the local SFgit checkout under
+`sf_working_directories/IntrMotiv`. It is opt-in (`--iterative_update=True`) and
+uses one Sample Factory optimizer plus a pure `train_step` schedule. This keeps
+the baseline checkpoint/PBT schema unchanged. Decoder phases freeze the encoder;
+encoder phases retain only the existing DG projection ownership. The more
+ambitious two-optimizer/whole-encoder variant described below remains a future
+extension and is intentionally not required for the first validation.
