@@ -89,10 +89,10 @@ low entropy if it spends nearly all its time in one of them.
 
 The statistic has two different scopes in the current experiments.
 
-| Run family | Measurement interval | Reset behavior | TensorBoard namespace |
-|---|---|---|---|
-| Fixed flat and fixed/global HRL | One physical fixed-length DMLab episode | Environment and coverage counters reset at terminal | `policy_stats/avg_z_..._coverage_*` |
-| Long/per-stream HRL and long flat | 900 policy decisions | Only window counters reset; environment and RNN state do not | `intrmotiv/exploration/window/coverage_*` |
+| Run family                        | Measurement interval                    | Reset behavior                                               | TensorBoard namespace                     |
+| --------------------------------- | --------------------------------------- | ------------------------------------------------------------ | ----------------------------------------- |
+| Fixed flat and fixed/global HRL   | One physical fixed-length DMLab episode | Environment and coverage counters reset at terminal          | `policy_stats/avg_z_..._coverage_*`       |
+| Long/per-stream HRL and long flat | 900 policy decisions                    | Only window counters reset; environment and RNN state do not | `intrmotiv/exploration/window/coverage_*` |
 
 The long-window metric measures local exploration over each 900-decision
 period. It does **not** report cumulative map coverage from the beginning of
