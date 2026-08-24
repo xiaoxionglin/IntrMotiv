@@ -319,6 +319,81 @@ show that there is no general parameter-level consolidation in the present
 algorithm. Future evaluation should condition drift and spatial field-map
 stability on a DG's visit and reward history.
 
+## DG Place-Field Evaluation
+
+This report now includes an actual final-checkpoint place-field evaluation,
+rather than using encoder-weight drift as a proxy. It uses the existing
+telemetry rollout approach, updated for the current DMLab telemetry keys, and
+extracts the current DG value from the shift register's first slot for each
+feature. That slot is the thresholded DG activity injected by the current
+observation; it is not a CA3 trace or a policy-head value.
+
+The reusable evaluator and its inexpensive post-processing companion are:
+
+```text
+sf_working_directories/IntrMotiv/evaluation/place_fields.py
+sf_working_directories/IntrMotiv/evaluation/summarize_place_fields.py
+```
+
+Workspace-only outputs are in:
+
+```text
+/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/
+place_fields_representative_final_20260824/
+```
+
+### Protocol
+
+Five final root checkpoints were evaluated for 2,001 stochastic policy
+decisions: global HRL `5k/sim` seeds 8, 99, and 123, and matched fixed flat
+`encourage` seed-99 simultaneous and iterative controls. The map is a 19 by
+19 grid over the open field. For DG unit `j` and spatial cell `c`, its rate
+map is the occupancy-corrected mean activation:
+
+```text
+r_j(c) = sum_{t in c} a_j(t) / count(t in c)
+```
+
+The reported spatial information is occupancy weighted and is measured in
+bits:
+
+```text
+I_j = sum_c p(c) * r_j(c) * log2(r_j(c) / r_bar_j)
+```
+
+where `p(c)` is the trajectory occupancy fraction and `r_bar_j` is the
+occupancy-weighted mean rate. Map cosine is the mean pairwise cosine between
+nonnegative DG maps over visited cells. A value near one means the units have
+nearly identical spatial maps; it is a direct redundancy diagnostic.
+
+### Results
+
+| Representative run | Visited cells / 361 | Mean SI (bits) | Active fraction | Mean map cosine | Distinct DG peak bins / 16 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Flat `encourage`, iterative, seed 99 | 177 | 0.175 | 0.021 | 0.873 | 2 |
+| Flat `encourage`, simultaneous, seed 99 | 220 | 0.335 | 0.030 | 0.830 | 2 |
+| Global HRL `5k/sim`, seed 8 | 172 | 0.352 | 0.037 | 1.000 | 1 |
+| Global HRL `5k/sim`, seed 99 | 148 | 0.418 | 0.128 | 0.545 | 4 |
+| Global HRL `5k/sim`, seed 123 | 138 | 0.413 | 0.100 | 0.875 | 2 |
+
+All representative DG populations except one HRL unit in seed 123 are active
+in this rollout, and their rate maps have nonzero spatial information. That is
+evidence of spatial modulation, but it is **not** evidence of a diverse,
+stable set of DG place fields covering the arena. Most maps are highly
+redundant: four of the five runs have cosine at least 0.83 and only one or two
+peak cells for all 16 units. The more diverse global-HRL seed-99 run still has
+only four peak cells; seven units exceed 0.5 bits, but the field set remains
+far from a spatial tiling.
+
+The current evidence is necessarily trajectory-conditioned: each policy
+visited only 138-220 of 361 bins, the trajectories differ by policy, and there
+is no shuffled-position control or repeat evaluation over a fixed probe set.
+It establishes the correct next conclusion: the encoder produces spatially
+modulated DG responses, but present training does not reliably decorrelate
+them into broadly covering place fields. A future field-stability analysis
+should use common, scripted coverage trajectories at several checkpoints,
+then report split-half and across-checkpoint map correlations per DG unit.
+
 ## Metrics That Must Not Be Overinterpreted
 
 - `distance_metric` is an internal temporal-distance statistic, not spatial
