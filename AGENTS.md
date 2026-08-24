@@ -1,5 +1,11 @@
 # Agent Notes
 
+## IntrMotiv Architecture Intent
+
+- `layer2_resnet18` is intentionally an ImageNet-pretrained ResNet-18 trunk
+  through layer 2, kept fixed during IntrMotiv training. The DG projection and
+  its BatchNorm running statistics are the trainable visual-landmark layer.
+
 ## NEMO2 Access
 
 - Do not blindly retry SSH to NEMO2 after authentication failures.

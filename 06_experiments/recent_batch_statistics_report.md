@@ -280,6 +280,45 @@ must add chance-corrected target hits, stored option events, target-shuffle
 policy probes, spatial DG-field evaluation, and predicted-versus-realized
 arrival-time calibration.
 
+## DG Projection Drift
+
+The ResNet-18 layer-2 trunk is intentionally ImageNet-pretrained and fixed.
+The trainable visual-landmark parameters are consequently the DG projection
+rows and BatchNorm running statistics. A checkpoint analysis of seven
+representative runs measures cosine similarity of each corresponding DG row
+between approximately 3-4M, 75M, and 100M frames. The raw CSVs and generated
+report are in:
+
+```text
+/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/
+dg_projection_drift_representative_20260824/
+```
+
+| Representative run | Mean rotation, 3-4M to 100M | Mean cosine, 75M to 100M |
+|---|---:|---:|
+| Global HRL 5k/sim, seed 8 | 76.7 deg | 0.963 |
+| Global HRL 5k/sim, seed 99 | 81.8 deg | 0.699 |
+| Global HRL 5k/sim, seed 123 | 71.2 deg | 0.968 |
+| Global HRL 10k/iter, seed 99 | 51.6 deg | 0.931 |
+| Long/per-stream HRL 10k/sim, seed 99 | 80.3 deg | 0.801 |
+| Flat `encourage`/sim, seed 99 | 80.0 deg | 0.925 |
+| Flat `encourage`/iter, seed 99 | 45.3 deg | 0.966 |
+
+The DG input directions change substantially after the first saved checkpoint
+and generally continue to move in the final 25M frames. A cosine of 0.99 would
+mean a rotation below about 8 degrees; no run had all 16 rows above that
+threshold in the final interval, and the global 5k/sim seed-99 run remains
+especially unstable. Row norms stay near one because the learner explicitly
+renormalizes them; stable norms therefore do not imply stable receptive fields.
+
+This does not demonstrate that repeated high reward fails to stabilize a
+particular DG field. The completed runs do not store per-DG visit/reward
+histories or responses on a fixed observation panel, and HRL target-hit reward
+trains the worker rather than directly gating the DG encoder update. It does
+show that there is no general parameter-level consolidation in the present
+algorithm. Future evaluation should condition drift and spatial field-map
+stability on a DG's visit and reward history.
+
 ## Metrics That Must Not Be Overinterpreted
 
 - `distance_metric` is an internal temporal-distance statistic, not spatial
