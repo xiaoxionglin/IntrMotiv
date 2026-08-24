@@ -1,29 +1,38 @@
 # Recent Batch Statistics Report
 
-Date: 2026-08-21
+Date: 2026-08-24
 
 This report explains the statistics used in the fixed flat baseline and the
-HRL persistence comparison. The numerical results are a late-training
-snapshot: all flat runs are complete; the persistence comparison still has
-running jobs. Use `RECENT_BATCH_ANALYSIS_LEDGER.md` for the current validity
-status and remaining work.
+HRL persistence comparison. This is the final 100M-frame terminal analysis:
+all 18 fixed-flat, 18 fixed/global-HRL, 18 long/per-stream-HRL, and 6
+long-flat runs completed. The source output is the reusable evaluator at:
+
+```text
+/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/
+evaluation_recent_batches_20260824/
+```
+
+The report retains strict limits on interpretation. Existing scalars can show
+coverage, DG health, and an HRL option funnel, but cannot establish that a
+target hit was intentional, that DGs have place fields, or that graph
+deadlines are calibrated.
 
 ## Data and Aggregation
 
 The source data are TensorBoard event files. This avoids dependence on W&B
 upload state.
 
-For each run, `analyze_recent_batches.py` averages each logged scalar over its
-late terminal window:
+For each run, the `intrmotiv/eval/v1` evaluator averages each logged scalar
+over its late terminal window:
 
 ```text
 terminal window = last min(10M frames, 20% of observed frames)
 ```
 
-The tables then average those per-run terminal means. A `+/-` value is the
-standard deviation across run conditions in that row, not a confidence
-interval. In particular, an HRL family row contains repeated seeds across
-half-lives, so it must not be read as 18 independent seed replicates.
+The tables then average per-run terminal means. A `+/-` value is a standard
+deviation across the listed three-seed condition, not a confidence interval.
+Family averages pool conditions and therefore must not be read as independent
+replicate estimates.
 
 All runs use `env_frameskip=8`: one policy decision normally advances eight
 DMLab engine frames. Thus a 900-decision telemetry window is normally 7,200
@@ -163,9 +172,13 @@ sparsity of worker supervision rather than map coverage.
 | `option_success_fraction` | `hits / (hits + timeouts)` for the learner minibatch. This is per completed option, unlike hit rate. |
 | `tctrl_update_rate` | Mean stored `tctrl_updated` flag. It measures graph updates per sampled transition, not edge quality. |
 
-At the snapshot, target hits are about `0.0024-0.0025`, or one hit per roughly
-400 policy transitions. This is sufficient to populate graph entries but not
-yet evidence that the worker has learned reliable subgoal navigation.
+Final target-hit rates are `0.00237` for fixed/global HRL and `0.00223` for
+long/per-stream HRL: roughly one stored target match per 422 and 448 policy
+transitions respectively. Fixed/global option success is only `0.0236`; the
+corresponding long/per-stream value is `0.0125`. This is sufficient to
+populate graph entries but is not evidence that the worker learned reliable
+subgoal navigation. The current logs do not provide the chance-hit baseline
+needed to distinguish deliberate arrivals from incidental DG matches.
 
 ## Controllability Graph Statistics
 
@@ -199,24 +212,73 @@ path. It does not decay weights, does not use the confidence threshold for
 selection, and only marks `tctrl_updated` for an arrival that improves the
 stored time. This invalidates its nominal 5k/10k/20k half-life comparison.
 
-## Current Results in Context
+## Final Results And Conclusions
 
-Late-window values at this snapshot:
+All values below are terminal-window means over completed 100M-frame runs.
+Coverage values have the scope described above: fixed/global values are
+physical-episode statistics, while long values are 900-decision telemetry
+windows.
 
-| Family | DG density | Silent DG fraction | Hit rate | Known edge fraction | Coverage AUC |
-|---|---:|---:|---:|---:|---:|
-| Fixed flat `encourage` | 0.0233 | 0.000 | n/a | n/a | 47.3 +/- 32.4 |
-| Fixed/global HRL | 0.0405 | 0.0069 | 0.00249 | 0.152 | 58.9 +/- 4.6 |
-| Long/per-stream HRL | 0.0474 | 0.0104 | 0.00243 | 0.186 | 48.3 +/- 16.7 |
-| Long flat | 0.0356 | 0.0000 | n/a | n/a | 34.0 +/- 28.9 |
+| Family | Runs | Coverage AUC | Unique cells | DG density | Silent DG fraction | Hit rate | Option success | Known edges |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Fixed flat, `encourage` only | 6 | 47.3 | 74.7 | 0.0233 | 0.0000 | n/a | n/a | n/a |
+| Fixed/global HRL | 18 | 58.5 | 96.6 | 0.0405 | 0.0069 | 0.00237 | 0.0236 | 0.1515 |
+| Long/per-stream HRL | 18 | 48.3 | 85.5 | 0.0462 | 0.0104 | 0.00223 | 0.0125 | 0.1881 |
+| Long flat | 6 | 33.1 | 54.9 | 0.0407 | 0.0000 | n/a | n/a | n/a |
 
-The most promising HRL result is fixed/global graph, not because its internal
-distance is lower, but because it maintains DG activity, forms confidence-gated
-graph edges, and has the best provisional coverage among HRL conditions. The
-best nominal cell so far is 10k global option-event half-life with simultaneous
-updates, AUC 61.5 across three seeds. This is a provisional candidate, not a
-selected architecture, until the batch completes and seed-paired late windows
-are compared.
+### Flat encoder controls
+
+`mean` and `punish` give the highest fixed-episode coverage, between 84.3 and
+92.9 AUC across schedule cells, but leave 76-84% of DG units silent in the
+learner minibatches. They are therefore unsuitable as HRL landmark controls.
+`encourage` maintains a non-silent DG population but has lower and more
+variable coverage: 53.5 AUC for iterative and 41.0 for simultaneous updates.
+
+There is no uniform iterative-update result in the flat batch. Iteration helps
+`encourage`, hurts `mean`, and has negligible effect on `punish`. It should not
+be selected as a generally superior update schedule from this batch alone.
+
+### Fixed/global HRL
+
+Fixed/global HRL is the only valid fast-weight half-life sweep. It keeps DG
+activity healthy, uses confidence-qualified edges, and has numerically higher
+fixed-episode coverage than the matched `encourage` flat control (58.5 versus
+47.3 AUC). This is promising, but not yet a causal planning result: the HRL
+family pools six condition cells, the fixed flat comparison is not a completed
+seed-paired statistical test, and target success remains very low.
+
+No global half-life or update schedule wins reproducibly. The six three-seed
+coverage means range narrowly from 57.2 to 59.8 AUC:
+
+| Half-life, global option events | Iterative AUC | Simultaneous AUC |
+|---|---:|---:|
+| 5k | 57.2 +/- 4.0 | 59.8 +/- 5.3 |
+| 10k | 58.4 +/- 2.8 | 58.3 +/- 2.5 |
+| 20k | 58.5 +/- 8.7 | 58.6 +/- 4.6 |
+
+The final maximum is 5k/simultaneous, not the earlier provisional 10k cell,
+but the variation is too large and the cell separation too small to select a
+half-life or update schedule.
+
+### Long/per-stream HRL
+
+Long/per-stream HRL has higher long-window coverage than long flat (48.3
+versus 33.1 AUC), but both have substantial variation and cannot be compared
+to fixed-episode values. More importantly, this branch ran with
+`hrl_persistent_fast_weights=False`. Its nominal 5k/10k/20k factor is inert:
+it uses the legacy best-time update, no confidence decay, and no
+confidence-threshold target gating. Its half-life cells must therefore not be
+used as a sensitivity study or architecture selection criterion.
+
+### Supported Conclusion
+
+The fixed/global graph is the most promising current HRL architecture because
+it preserves DG activity, maintains confidence-gated graph state, and has the
+best valid HRL external-coverage result. The evidence is still insufficient to
+claim goal-directed navigation or graph-based planning. The next comparison
+must add chance-corrected target hits, stored option events, target-shuffle
+policy probes, spatial DG-field evaluation, and predicted-versus-realized
+arrival-time calibration.
 
 ## Metrics That Must Not Be Overinterpreted
 

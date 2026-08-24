@@ -2,6 +2,34 @@
 
 Date: 2026-08-24
 
+## Implementation Status
+
+Implemented on 2026-08-24 as a retrospective core in
+`sf_working_directories/IntrMotiv/evaluation/` on NEMO2:
+
+- versioned `intrmotiv/eval/v1` metric schema with current and legacy
+  TensorBoard tag resolution;
+- reusable TensorBoard batch loader with bounded, optionally parallel event
+  parsing;
+- per-run, family, and condition terminal-window CSV summaries;
+- manifest and Markdown diagnostic report that explicitly distinguishes
+  observable evidence from unobservable causal claims;
+- unit tests for metric resolution, measurement scope, and persistence-run
+  metadata parsing.
+
+The core was run on the completed flat baseline and HRL persistence comparison
+batches. Outputs are stored in the NEMO workspace at:
+
+```text
+/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/
+evaluation_recent_batches_20260824/
+```
+
+Deferred work remains the checkpoint evaluator, trajectory/option-event
+artifacts, DG place-field probes, chance-corrected hit analysis,
+target-conditioning ablations, and graph calibration. These cannot be
+recovered faithfully from the existing scalar logs.
+
 ## Purpose
 
 Create a reusable evaluation and diagnostics system for IntrMotiv runs and
