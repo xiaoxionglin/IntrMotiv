@@ -403,6 +403,59 @@ were not visited by that run's 2,001-decision stochastic evaluation trajectory.
 
 ![Global HRL 5k simultaneous seed 123 DG maps](assets/place_fields_representative_final_20260824/place_fields_GHRL_F16_L64_T243_HL5000_sim_S123__00_GHRL_F16_L64_T243_HL5000_sim_S123.png)
 
+### Time-Resolved Architecture Sweep
+
+The final-checkpoint figures above are supplemented by a 80-rollout
+architecture trajectory evaluation. It measures five retained milestones near
+`5M`, `25M`, `50M`, `75M`, and `100M` frames (the exact available checkpoint
+is used) with a 2,000-decision stochastic telemetry rollout at each point.
+The sweep uses seed 99 to compare architecture cells rather than estimate
+seed variability.
+
+It includes all meaningful choices in the completed batches:
+
+- Fixed flat: `encourage`, `mean`, and `punish`, each with simultaneous and
+  iterative updates.
+- Fixed/global HRL: `5k`, `10k`, and `20k` half-lives, each with simultaneous
+  and iterative updates.
+- Long/per-stream HRL: simultaneous and iterative updates at the middle
+  `10k` setting. Its half-life setting was inert in this batch, so plotting
+  all three nominal values would be misleading.
+- Long flat controls: simultaneous and iterative updates.
+
+![Fixed flat place-field trajectories](assets/place_fields_architecture_trajectory_20260824/trajectory_fixed_flat.png)
+
+![Fixed global HRL place-field trajectories](assets/place_fields_architecture_trajectory_20260824/trajectory_global_hrl.png)
+
+![Long per-stream HRL place-field trajectories](assets/place_fields_architecture_trajectory_20260824/trajectory_stream_long_hrl.png)
+
+![Long flat place-field trajectories](assets/place_fields_architecture_trajectory_20260824/trajectory_long_flat.png)
+
+The per-condition figures show all 16 DG maps at each of the five checkpoints:
+
+| Family | Five-checkpoint DG field contact sheets |
+| --- | --- |
+| Fixed flat | [encourage simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_encourage_sim.png), [encourage iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_encourage_iter.png), [mean simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_mean_sim.png), [mean iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_mean_iter.png), [punish simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_punish_sim.png), [punish iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_punish_iter.png) |
+| Fixed/global HRL | [5k simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl5000_sim.png), [5k iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl5000_iter.png), [10k simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl10000_sim.png), [10k iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl10000_iter.png), [20k simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl20000_sim.png), [20k iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_global_hrl_hl20000_iter.png) |
+| Long scope | [per-stream HRL simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_stream_long_sim.png), [per-stream HRL iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_stream_long_iter.png), [flat long simultaneous](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_long_sim.png), [flat long iterative](assets/place_fields_architecture_trajectory_20260824/field_evolution_flat_long_iter.png) |
+
+The field result is mixed, not a broad emergence of place fields. The
+`mean` and `punish` flat variants are almost completely silent throughout, so
+their nominal spatial-information and map-cosine values are not meaningful.
+`encourage` preserves activity but does not progressively decorrelate the DG
+maps: simultaneous ends at 0.273 bits with 0.779 mean map cosine, and
+iterative declines to 0.069 bits with 0.870 cosine.
+
+Within fixed/global HRL, `5k/sim` is the sole clear positive trajectory in
+this seed: mean spatial information rises from 0.148 to 0.641 bits, while
+its final map cosine remains 0.607 with five distinct peak bins. The other
+five global cells finish between 0.044 and 0.156 bits and do not display the
+same increase. This makes `5k/sim` a candidate for replication, not a
+selected architecture: each curve is one stochastic rollout of one seed,
+and coverage differs across trajectories. The long/per-stream HRL variants
+end with 11-12 silent units in this evaluation, reinforcing that they are not
+competitive field representations in the present implementation.
+
 All representative DG populations except one HRL unit in seed 123 are active
 in this rollout, and their rate maps have nonzero spatial information. That is
 evidence of spatial modulation, but it is **not** evidence of a diverse,
