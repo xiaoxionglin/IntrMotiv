@@ -376,6 +376,33 @@ nearly identical spatial maps; it is a direct redundancy diagnostic.
 | Global HRL `5k/sim`, seed 99 | 148 | 0.418 | 0.128 | 0.545 | 4 |
 | Global HRL `5k/sim`, seed 123 | 138 | 0.413 | 0.100 | 0.875 | 2 |
 
+### Figures
+
+![Representative final-checkpoint DG place-field comparison](assets/place_fields_representative_final_20260824/place_field_comparison.png)
+
+The following grids use a shared color scale **within each run**. Gray bins
+were not visited by that run's 2,001-decision stochastic evaluation trajectory.
+
+**Flat `encourage`, iterative, seed 99**
+
+![Flat encourage iterative seed 99 DG maps](assets/place_fields_representative_final_20260824/place_fields_FB_F16_L64_T243_ERencourage_iter_S99__00_FB_F16_L64_T243_ERencourage_iter_S99.png)
+
+**Flat `encourage`, simultaneous, seed 99**
+
+![Flat encourage simultaneous seed 99 DG maps](assets/place_fields_representative_final_20260824/place_fields_FB_F16_L64_T243_ERencourage_sim_S99__00_FB_F16_L64_T243_ERencourage_sim_S99.png)
+
+**Global HRL `5k/sim`, seed 8**
+
+![Global HRL 5k simultaneous seed 8 DG maps](assets/place_fields_representative_final_20260824/place_fields_GHRL_F16_L64_T243_HL5000_sim_S8__00_GHRL_F16_L64_T243_HL5000_sim_S8.png)
+
+**Global HRL `5k/sim`, seed 99**
+
+![Global HRL 5k simultaneous seed 99 DG maps](assets/place_fields_representative_final_20260824/place_fields_GHRL_F16_L64_T243_HL5000_sim_S99__00_GHRL_F16_L64_T243_HL5000_sim_S99.png)
+
+**Global HRL `5k/sim`, seed 123**
+
+![Global HRL 5k simultaneous seed 123 DG maps](assets/place_fields_representative_final_20260824/place_fields_GHRL_F16_L64_T243_HL5000_sim_S123__00_GHRL_F16_L64_T243_HL5000_sim_S123.png)
+
 All representative DG populations except one HRL unit in seed 123 are active
 in this rollout, and their rate maps have nonzero spatial information. That is
 evidence of spatial modulation, but it is **not** evidence of a diverse,
