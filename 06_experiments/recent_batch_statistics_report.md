@@ -456,6 +456,41 @@ and coverage differs across trajectories. The long/per-stream HRL variants
 end with 11-12 silent units in this evaluation, reinforcing that they are not
 competitive field representations in the present implementation.
 
+### Global `5k/sim` Rate-Map Stability
+
+Weight-space rotation is not the relevant stability criterion. For the
+global-HRL `5k/sim`, seed-99 trajectory, each DG rate map is already computed
+as activation averaged within a spatial cell and normalized by that cell's
+occupancy. To compare a checkpoint `t` with 100M, the analysis uses only cells
+visited in both rollouts and computes a Pearson correlation of the two rate
+maps, weighted by the shared occupancy:
+
+```text
+w(c) = min(occupancy_t(c), occupancy_100M(c))
+map_stability_j(t) = weighted_corr_w(rate_j,t(c), rate_j,100M(c))
+```
+
+The table aggregates all 16 fixed DG identities. Peak positions are also
+reported from the maximum rate-map cell sampled at least three times; one grid
+bin is 100 DMLab position units.
+
+| Frames | Mean rate-map correlation to 100M | Median | Mean peak shift (bins) | Median peak shift | Shared cells |
+|---:|---:|---:|---:|---:|---:|
+| 4.23M | 0.705 | 0.738 | 18.19 | 22.80 | 107 |
+| 26.48M | 0.788 | 0.898 | 4.86 | 5.00 | 112 |
+| 48.73M | 0.807 | 0.957 | 4.94 | 2.50 | 125 |
+| 74.61M | 0.850 | 0.999 | 3.09 | 0.00 | 95 |
+| 100.04M | 1.000 | 1.000 | 0.00 | 0.00 | 166 |
+
+Thus, the spatial maps themselves become more similar to the final spatial
+code across training; this is more informative than the high-dimensional
+projection angle. The peak result is less stable: it moves by roughly 3-5
+bins after 26M, and much more at 4M. A rate-map maximum is sensitive to small
+occupancy differences, especially for sparse DG activation, whereas the
+correlation uses every mutually visited cell. The next rigorous step is still
+a common scripted coverage trajectory, which removes that residual occupancy
+confound while preserving the same occupancy-normalized comparison.
+
 All representative DG populations except one HRL unit in seed 123 are active
 in this rollout, and their rate maps have nonzero spatial information. That is
 evidence of spatial modulation, but it is **not** evidence of a diverse,
