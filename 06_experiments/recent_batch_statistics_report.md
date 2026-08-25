@@ -219,12 +219,12 @@ Coverage values have the scope described above: fixed/global values are
 physical-episode statistics, while long values are 900-decision telemetry
 windows.
 
-| Family | Runs | Coverage AUC | Unique cells | DG density | Silent DG fraction | Hit rate | Option success | Known edges |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Fixed flat, `encourage` only | 6 | 47.3 | 74.7 | 0.0233 | 0.0000 | n/a | n/a | n/a |
-| Fixed/global HRL | 18 | 58.5 | 96.6 | 0.0405 | 0.0069 | 0.00237 | 0.0236 | 0.1515 |
-| Long/per-stream HRL | 18 | 48.3 | 85.5 | 0.0462 | 0.0104 | 0.00223 | 0.0125 | 0.1881 |
-| Long flat | 6 | 33.1 | 54.9 | 0.0407 | 0.0000 | n/a | n/a | n/a |
+| Family                       | Runs | Coverage AUC | Unique cells | DG density | Silent DG fraction | Hit rate | Option success | Known edges |
+| ---------------------------- | ---: | -----------: | -----------: | ---------: | -----------------: | -------: | -------------: | ----------: |
+| Fixed flat, `encourage` only |    6 |         47.3 |         74.7 |     0.0233 |             0.0000 |      n/a |            n/a |         n/a |
+| Fixed/global HRL             |   18 |         58.5 |         96.6 |     0.0405 |             0.0069 |  0.00237 |         0.0236 |      0.1515 |
+| Long/per-stream HRL          |   18 |         48.3 |         85.5 |     0.0462 |             0.0104 |  0.00223 |         0.0125 |      0.1881 |
+| Long flat                    |    6 |         33.1 |         54.9 |     0.0407 |             0.0000 |      n/a |            n/a |         n/a |
 
 ### Flat encoder controls
 
@@ -368,13 +368,13 @@ nearly identical spatial maps; it is a direct redundancy diagnostic.
 
 ### Results
 
-| Representative run | Visited cells / 361 | Mean SI (bits) | Active fraction | Mean map cosine | Distinct DG peak bins / 16 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Flat `encourage`, iterative, seed 99 | 177 | 0.175 | 0.021 | 0.873 | 2 |
-| Flat `encourage`, simultaneous, seed 99 | 220 | 0.335 | 0.030 | 0.830 | 2 |
-| Global HRL `5k/sim`, seed 8 | 172 | 0.352 | 0.037 | 1.000 | 1 |
-| Global HRL `5k/sim`, seed 99 | 148 | 0.418 | 0.128 | 0.545 | 4 |
-| Global HRL `5k/sim`, seed 123 | 138 | 0.413 | 0.100 | 0.875 | 2 |
+| Representative run                      | Visited cells / 361 | Mean SI (bits) | Active fraction | Mean map cosine | Distinct DG peak bins / 16 |
+| --------------------------------------- | ------------------: | -------------: | --------------: | --------------: | -------------------------: |
+| Flat `encourage`, iterative, seed 99    |                 177 |          0.175 |           0.021 |           0.873 |                          2 |
+| Flat `encourage`, simultaneous, seed 99 |                 220 |          0.335 |           0.030 |           0.830 |                          2 |
+| Global HRL `5k/sim`, seed 8             |                 172 |          0.352 |           0.037 |           1.000 |                          1 |
+| Global HRL `5k/sim`, seed 99            |                 148 |          0.418 |           0.128 |           0.545 |                          4 |
+| Global HRL `5k/sim`, seed 123           |                 138 |          0.413 |           0.100 |           0.875 |                          2 |
 
 ### Figures
 
