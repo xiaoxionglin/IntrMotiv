@@ -33,14 +33,14 @@ For each condition, seed 99 was evaluated at approximately 5M, 25M, 50M, 75M, an
 
 `active` is the mean DG activation fraction over all 16 units and all decisions; `silent` is the number of units without a single activation; SI is the occupancy-corrected mean spatial information in bits per unit. Values below are mean across final seeds 8, 99, and 123.
 
-| Condition | Active | Silent / 16 | Mean SI (bits) | Units SI > 0.5 |
-| --- | ---: | ---: | ---: | ---: |
-| Flat T1.80, mean, G=0 | 0.0115% | 14.7 | 0.000017 | 0 |
-| Flat T1.80, mean, G=0.03 | 0.0271% | 14.0 | 0.000155 | 0 |
-| Global HRL T1.80, mean, G=0 | 0.0000% | 16.0 | 0.000000 | 0 |
-| Global HRL T1.80, mean, G=0.01 | 0.0000% | 16.0 | 0.000000 | 0 |
-| Global HRL T2.20, punish, G=0.03 | 0.0000% | 16.0 | 0.000000 | 0 |
-| Global HRL T2.43, punish, row repulsion=0.01 | 0.0312% | 15.7 | 0.000473 | 0 |
+| Condition                                    |  Active | Silent / 16 | Mean SI (bits) | Units SI > 0.5 |
+| -------------------------------------------- | ------: | ----------: | -------------: | -------------: |
+| Flat T1.80, mean, G=0                        | 0.0115% |        14.7 |       0.000017 |              0 |
+| Flat T1.80, mean, G=0.03                     | 0.0271% |        14.0 |       0.000155 |              0 |
+| Global HRL T1.80, mean, G=0                  | 0.0000% |        16.0 |       0.000000 |              0 |
+| Global HRL T1.80, mean, G=0.01               | 0.0000% |        16.0 |       0.000000 |              0 |
+| Global HRL T2.20, punish, G=0.03             | 0.0000% |        16.0 |       0.000000 |              0 |
+| Global HRL T2.43, punish, row repulsion=0.01 | 0.0312% |        15.7 |       0.000473 |              0 |
 
 The small nonzero means are not evidence of fields. For example, the row-repulsion condition's only nonzero final replica had 0.0937% active unit-time and a mean SI of 0.00142 bits; the other two replicas were completely silent. The G=0.03 flat condition slightly increases activation relative to its control, but still leaves 13--15 units silent and has zero high-information units.
 
