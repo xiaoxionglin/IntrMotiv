@@ -138,6 +138,12 @@ the established CPU profile (40 CPUs, 80 GB, 30 hours), one non-PBT policy,
 32 x 2 environments, and 100M environment frames. All 48 jobs were in Slurm
 `RUNNING` state immediately after submission.
 
+Early production verification found 48 resolved configs, 48 W&B runs/event
+streams, and no traceback/runtime/OOM errors. The most advanced sampled
+fixed/global run had reached 196,608 learner environment steps with active
+targets 0.932, nonzero hit-conditioned intrinsic reward, option timeouts, and
+nonzero known-edge coverage. A matched flat stream was also training normally.
+
 ## Primary Analysis
 
 Online panels:
