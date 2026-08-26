@@ -167,11 +167,18 @@ Online panels:
 
 - coverage AUC and unique cells;
 - DG density, multi-activation fraction, duty-cycle entropy, and silent units;
-- CA3 conflict fraction/activity and weighted exclusion loss;
+- CA3 conflicting-activation fraction, conflict activity, potential-mask
+  coverage, and weighted exclusion loss;
 - recruitment candidates, silent endpoints, cumulative assignments, and tiny
   residual skips;
 - for HRL, option success fraction, target hits, timeouts, known edges, and
   controllability time.
+
+`intrmotiv/dg/ca3_conflicting_activation_fraction` was added after the 48
+production processes started. Those processes retain their loaded code and do
+not emit the new key unless resumed or restarted; no running job was
+interrupted. The historical `ca3_conflict_fraction` remains potential-mask
+coverage for compatibility.
 
 Checkpoint telemetry should use at least 10,000 policy decisions and report
 peak-bin diversity, peak-bin entropy, pairwise peak distance, map cosine

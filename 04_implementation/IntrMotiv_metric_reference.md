@@ -53,6 +53,9 @@ reward/reward and ordinary episode-return metrics are external DMLab reward. The
 | intrmotiv/dg/usage_entropy | Entropy of duty-cycle mass, normalized by log(F). | One means even usage; zero means one or no used units. |
 | intrmotiv/dg/pre_threshold_mean | Mean BatchNorm DG logit before hard threshold/ReLU. | Population shift relative to threshold. |
 | intrmotiv/dg/pre_threshold_above_fraction | Pre-threshold logits above threshold / all logits. | Smooth counterpart to density. |
+| intrmotiv/dg/ca3_conflict_fraction | Unit-transition entries masked because another DG unit was active in the preceding R decisions / all valid unit-transition entries. | Potential-conflict mask coverage. One recent unit can mask `(F-1)/F` entries, so this is not a violation rate. |
+| intrmotiv/dg/ca3_conflicting_activation_fraction | Current post-threshold active DG entries that are CA3-conflict-masked / all current post-threshold active DG entries. | Primary temporal-exclusion violation rate; zero when there are no current activations. |
+| intrmotiv/dg/ca3_conflict_activity | Mean current post-threshold DG amplitude over CA3-conflict-masked entries. | Violation magnitude, including zero activity on masked entries. |
 
 These are minibatch diagnostics. Use trends and the 10k-decision place-field evaluation before claiming irreversible DG collapse.
 
