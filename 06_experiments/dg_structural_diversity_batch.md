@@ -144,6 +144,23 @@ fixed/global run had reached 196,608 learner environment steps with active
 targets 0.932, nonzero hit-conditioned intrinsic reward, option timeouts, and
 nonzero known-edge coverage. A matched flat stream was also training normally.
 
+### Deadline logging correction
+
+The original `intrmotiv/hrl/selected_deadline_mean` divides the deadline sum by
+all option resets, so targetless resets implicitly contribute zero. It remains
+unchanged for compatibility with existing W&B series. Source deployed on
+2026-08-26 adds:
+
+- `intrmotiv/hrl/selected_deadline_positive_mean`: mean over strictly positive
+  selected deadlines;
+- `intrmotiv/hrl/deadline_selection_fraction`: resets with a positive deadline
+  divided by all option resets.
+
+Use the positive mean for option-duration interpretation and the selection
+fraction to diagnose targetless resets. The 48 already-running processes loaded
+the earlier code and will emit the new keys only after a future process restart
+or resume; they were not interrupted for this logging-only correction.
+
 ## Primary Analysis
 
 Online panels:
