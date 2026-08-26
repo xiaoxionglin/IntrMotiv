@@ -140,15 +140,15 @@ Hit and timeout cannot co-occur: expiry is masked when a hit occurs. In policy-b
 
 F=16 gives 16 DG nodes. Fractions exclude diagonal self-edges. The policy-buffer graph is one non-gradient graph per policy and updates once per accepted rollout. The long per-stream graph lives in stream RNN state. Do not compare raw graph weights across scopes without accounting for event population and half-life.
 
-| Tag | Exact quantity | Interpretation |
-| --- | --- | --- |
-| intrmotiv/hrl/node_coverage_fraction | Positive node visit weights / all represented node weights. | Breadth of observed DG nodes. |
-| intrmotiv/hrl/node_visit_weight_mean | Mean decayed node-visit weight. | Memory scale only; depends on half-life and graph scope. |
-| intrmotiv/hrl/selected_target_visit_mean | Selected target visit weight, averaged at option resets. | Novelty-selection check. Lower means less-visited targets. |
-| intrmotiv/hrl/known_edge_fraction | Off-diagonal T_ctrl edges with confidence at/above threshold. | Usable graph density. |
-| intrmotiv/hrl/forgotten_edge_fraction | Previously observed off-diagonal T_ctrl edges below confidence threshold. | Decay/forgetting effect. |
-| intrmotiv/hrl/known_controllability_time_mean | Mean T_ctrl over confidence-qualified edges. | Empirical arrival-time estimate, not target-ranking cost. |
-| intrmotiv/hrl/edge_confidence_mean | Mean decayed off-diagonal edge confidence. | Strength/recency; compare only matched half-life and graph scope. |
+| Tag                                           | Exact quantity                                                            | Interpretation                                                    |
+| --------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| intrmotiv/hrl/node_coverage_fraction          | Positive node visit weights / all represented node weights.               | Breadth of observed DG nodes.                                     |
+| intrmotiv/hrl/node_visit_weight_mean          | Mean decayed node-visit weight.                                           | Memory scale only; depends on half-life and graph scope.          |
+| intrmotiv/hrl/selected_target_visit_mean      | Selected target visit weight, averaged at option resets.                  | Novelty-selection check. Lower means less-visited targets.        |
+| intrmotiv/hrl/known_edge_fraction             | Off-diagonal T_ctrl edges with confidence at/above threshold.             | Usable graph density.                                             |
+| intrmotiv/hrl/forgotten_edge_fraction         | Previously observed off-diagonal T_ctrl edges below confidence threshold. | Decay/forgetting effect.                                          |
+| intrmotiv/hrl/known_controllability_time_mean | Mean T_ctrl over confidence-qualified edges.                              | Empirical arrival-time estimate, not target-ranking cost.         |
+| intrmotiv/hrl/edge_confidence_mean            | Mean decayed off-diagonal edge confidence.                                | Strength/recency; compare only matched half-life and graph scope. |
 
 On completion or timeout, persistent fast weights decay by gamma = 0.5 ** (1 / half_life_options). An intended i -> j success in tau steps increments confidence and updates T_ctrl as a confidence-weighted arrival-time mean. Edges below hrl_edge_confidence_threshold are infeasible for graph closure and learned deadlines. Target ranking remains novelty-first: T_ctrl gates feasibility and supplies timing, not destination cheapness.
 
