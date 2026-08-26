@@ -75,22 +75,22 @@ The flat decoder uses dense temporal-distance reward. HRL hit_distance gives zer
 
 ## Optimization And Encoder Objectives
 
-| Tag | Exact quantity | Interpretation |
-| --- | --- | --- |
-| intrmotiv/update/phase | 0 simultaneous; 1 decoder-only; 2 DG-projection encoder-only. | Confirms iterative schedule, not update quality. |
-| intrmotiv/encoder/loss | Total encoder objective after configured coefficients and gradient scale. | Objective differentiated during encoder phases. |
-| intrmotiv/decoder/loss | Actor, critic, and enabled decoder-side auxiliary objective. | Objective differentiated during decoder phases. |
-| intrmotiv/decoder/auxiliary_loss | Optional clipped decoder auxiliary term. | Zero when disabled. |
-| intrmotiv/encoder/feedback_mean | Mean encoder feedback/reward. | Sign follows encourage/punish/mean; not comparable as performance across methods. |
-| intrmotiv/encoder/multi_activation_loss | DG coactivation penalty. | Zero when disabled. |
-| intrmotiv/encoder/unused_sequence_loss | Sequence-level inactive-unit feedback. | Zero when disabled. |
-| intrmotiv/encoder/batch_usage_loss | Learner-minibatch DG usage loss. | Can be zero when the batch satisfies its activity criterion. |
-| intrmotiv/encoder/population_loss | Batch-wise population-activity regularizer. | Zero when disabled. |
-| intrmotiv/encoder/usage_loss | Batch-wise usage-balancing regularizer. | Zero when disabled. |
-| intrmotiv/encoder/density_loss | Batch-wise density-target regularizer. | Zero when disabled. |
-| intrmotiv/encoder/collision_loss | Batch-wise collision regularizer. | Zero when disabled. |
-| intrmotiv/encoder/global_punishment_loss | Weighted all-unit pre-threshold penalty. | Suppresses frequent high logits; row normalization can rotate DG directions. |
-| intrmotiv/encoder/row_repulsion_loss | Weighted squared off-diagonal cosine similarity of normalized DG rows. | Separates duplicate directions without an activation target. |
+| Tag                                      | Exact quantity                                                            | Interpretation                                                                    |
+| ---------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| intrmotiv/update/phase                   | 0 simultaneous; 1 decoder-only; 2 DG-projection encoder-only.             | Confirms iterative schedule, not update quality.                                  |
+| intrmotiv/encoder/loss                   | Total encoder objective after configured coefficients and gradient scale. | Objective differentiated during encoder phases.                                   |
+| intrmotiv/decoder/loss                   | Actor, critic, and enabled decoder-side auxiliary objective.              | Objective differentiated during decoder phases.                                   |
+| intrmotiv/decoder/auxiliary_loss         | Optional clipped decoder auxiliary term.                                  | Zero when disabled.                                                               |
+| intrmotiv/encoder/feedback_mean          | Mean encoder feedback/reward.                                             | Sign follows encourage/punish/mean; not comparable as performance across methods. |
+| intrmotiv/encoder/multi_activation_loss  | DG coactivation penalty.                                                  | Zero when disabled.                                                               |
+| intrmotiv/encoder/unused_sequence_loss   | Sequence-level inactive-unit feedback.                                    | Zero when disabled.                                                               |
+| intrmotiv/encoder/batch_usage_loss       | Learner-minibatch DG usage loss.                                          | Can be zero when the batch satisfies its activity criterion.                      |
+| intrmotiv/encoder/population_loss        | Batch-wise population-activity regularizer.                               | Zero when disabled.                                                               |
+| intrmotiv/encoder/usage_loss             | Batch-wise usage-balancing regularizer.                                   | Zero when disabled.                                                               |
+| intrmotiv/encoder/density_loss           | Batch-wise density-target regularizer.                                    | Zero when disabled.                                                               |
+| intrmotiv/encoder/collision_loss         | Batch-wise collision regularizer.                                         | Zero when disabled.                                                               |
+| intrmotiv/encoder/global_punishment_loss | Weighted all-unit pre-threshold penalty.                                  | Suppresses frequent high logits; row normalization can rotate DG directions.      |
+| intrmotiv/encoder/row_repulsion_loss     | Weighted squared off-diagonal cosine similarity of normalized DG rows.    | Separates duplicate directions without an activation target.                      |
 
 The ImageNet-pretrained ResNet-18 layer-2 trunk stays fixed. Encoder metrics concern the trainable DG projection and its BatchNorm running statistics.
 
