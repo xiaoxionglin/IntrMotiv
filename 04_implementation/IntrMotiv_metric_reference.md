@@ -139,6 +139,29 @@ These appear only with hrl_controllable_graph=true. Target, source, hit, expiry,
 
 Hit and timeout cannot co-occur: expiry is masked when a hit occurs. In policy-buffer mode, each sampled target is retained in compact RNN state, so learner graph changes never alter replayed action target conditioning.
 
+### Manager Exploration
+
+These metrics appear when the opt-in manager exploration action is available.
+Exploration is stored as reserved target ID `F` and receives the flat temporal-
+distance worker reward; ordinary DG targets retain `hit_distance` reward.
+
+| Tag | Exact quantity | Interpretation |
+| --- | --- | --- |
+| intrmotiv/hrl/active_option_fraction | Transitions with a normal DG target or exploration action / valid transitions. | Overall manager-action availability. |
+| intrmotiv/hrl/exploration/mode_fraction | Exploration-conditioned transitions / valid transitions. | Time allocation, not exploration quality. |
+| intrmotiv/hrl/exploration/selection_fraction | Exploration selections / option resets. | Effective manager exploration frequency, including forced selections. |
+| intrmotiv/hrl/exploration/forced_selection_fraction | Target-timeout-forced selections / exploration selections. | Separates recovery from probabilistic choice. |
+| intrmotiv/hrl/exploration/completion_rate | Completed exploration horizons / valid transitions. | Exploration option event rate. |
+| intrmotiv/hrl/exploration/elapsed_mean | Exploration decisions / completed exploration option. | Should match the configured horizon. |
+| intrmotiv/hrl/exploration/reward_mean | Mean worker reward on exploration transitions. | Flat temporal-distance signal magnitude. |
+| intrmotiv/hrl/exploration/reward_nonzero_fraction | Nonzero worker rewards on exploration transitions / exploration transitions. | Exploration supervision density. |
+| intrmotiv/hrl/exploration/selected_deadline_mean | Selected exploration deadline / exploration selections. | Configuration check. |
+| intrmotiv/hrl/target_selected_deadline_mean | Selected DG-target deadline / DG-target selections. | Target timing without exploration or zero cases. |
+
+`option_timeout_rate`, `elapsed_on_timeout_mean`, and
+`option_success_fraction` remain target-only. Exploration completions do not
+count as target failures.
+
 ## HRL Graph Metrics
 
 F=16 gives 16 DG nodes. Fractions exclude diagonal self-edges. The policy-buffer graph is one non-gradient graph per policy and updates once per accepted rollout. The long per-stream graph lives in stream RNN state. Do not compare raw graph weights across scopes without accounting for event population and half-life.
