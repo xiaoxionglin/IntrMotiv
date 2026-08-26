@@ -101,7 +101,19 @@ the safer interaction value with structural recruitment.
 Third wave, 2M frames each: jobs `7871463` (flat) and `7871464` (fixed/global
 HRL). These use coefficient 1.0 plus recruitment after correcting tail events
 at rollout boundaries. The HRL run additionally exercises graph invalidation,
-generation synchronization, and stale-rollout rejection.
+generation synchronization, and stale-rollout rejection. Both completed at
+2,064,384 frames with Slurm exit `0:0`. At the final checkpoint, both had made
+the bounded 16 assignments; the HRL graph generation was also exactly 16. The
+HRL run retained 32.1% known edges, DG usage entropy 0.952, and 6.25% silent
+units. Its final minibatch had no hit, but earlier windows logged nonzero target
+hits and hit-conditioned intrinsic reward.
+
+Workspace-routing smoke test `7871493` completed at 360,448 frames with exit
+`0:0`. Its resolved config and live process directories place train data,
+Slurm logs, DMLab cache, per-job temporary files, XDG/Torch and Matplotlib
+caches, and W&B cache/staging under `/work/classic/fr_xl1014-train`. It also
+logged recruitment, exclusion loss, active HRL targets, target hits, and
+intrinsic reward through W&B SDK 0.28.2.
 
 The complete IntrMotiv unit suite passes (`63 passed`), including old-checkpoint
 loading, tail-boundary suppression, graph invalidation, stale actor rollout
@@ -109,8 +121,22 @@ rejection, option reset, and replay target consistency. The print-only
 production audit generated 48 unique jobs, 24 per architecture, with all factor
 cells represented once per seed and workspace-only output paths.
 
-Production Slurm job IDs will be recorded here after the corrected preflights
-finish and their final diagnostics are checked.
+## Production Submission
+
+Submitted on 2026-08-26 from the final audited source:
+
+```text
+Slurm IDs: 7871544-7871591 (48 contiguous jobs)
+Manifest: /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/
+          intrmotiv_dg_structural_diversity_20260826/20260826T121045Z/
+W&B:      SF_IntrMotiv_DGStructuralDiversity
+```
+
+The submitted manifest has 48 unique rows and exactly one row for every
+architecture/background/exclusion/recruitment/seed cell. Every job requests
+the established CPU profile (40 CPUs, 80 GB, 30 hours), one non-PBT policy,
+32 x 2 environments, and 100M environment frames. All 48 jobs were in Slurm
+`RUNNING` state immediately after submission.
 
 ## Primary Analysis
 
