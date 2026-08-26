@@ -47,7 +47,21 @@ Each row is recruited at most once, so structural mutation is bounded by
 `F=16`. Optimizer moments for that row are cleared and BatchNorm is calibrated
 to put the assignment observation `0.5` above threshold. Recruitment state is
 checkpointed and synchronized with the model; old checkpoints load with empty
-state.
+state. The one-per-rollout limit is a rate limiter: it prevents one learner
+update from replacing many rows before actors synchronize, while still allowing
+all rows to be recruited over multiple accepted rollouts.
+
+The first transition of an accepted rollout is ignored if a pulse is already at
+the CA3 tail. Without the preceding transition it is impossible to distinguish
+a new entry from a pulse that crossed an earlier rollout boundary; suppressing
+it prevents duplicate candidates every 64 steps.
+
+For fixed/global HRL, reassigning row `j` clears node visit `j` and row/column
+`j` of `T_ctrl` and edge confidence. A checkpointed graph-representation
+generation is carried in compact option state. Stale options are reset without
+being recorded as hits or timeouts, and the learner ignores late graph updates
+from actors using an older DG representation. The sampled behavior target
+remains stored in RNN state, so PPO replay remains exact.
 
 ## Production Grid
 
@@ -58,7 +72,7 @@ seeds 8, 99, and 123, for 48 jobs:
 | --- | --- |
 | Architecture | flat encourage; fixed/global HRL with `hit_distance` |
 | Existing regularizers | none; global punishment 0.01 + row repulsion 1.0 |
-| CA3 exclusion | off; one coefficient selected by preflight |
+| CA3 exclusion | off; coefficient 1.0 |
 | Orthogonal recruitment | off; on |
 
 All conditions retain threshold 2.43, `F=16`, `R=8`, `L=64`, simultaneous
@@ -80,8 +94,23 @@ Second wave, 2M frames each: jobs `7869219`-`7869222`. It uses the corrected
 same-source timer and tests exclusion coefficients 1.0 and 3.0, recruitment
 alone, and 1.0 plus recruitment.
 
-The production coefficient and Slurm job IDs will be recorded here after the
-multi-episode preflights finish and their final diagnostics are checked.
+Coefficient 1.0 was selected for production. It produces a material exclusion
+gradient without the stronger density increase seen at coefficient 3.0, and is
+the safer interaction value with structural recruitment.
+
+Third wave, 2M frames each: jobs `7871463` (flat) and `7871464` (fixed/global
+HRL). These use coefficient 1.0 plus recruitment after correcting tail events
+at rollout boundaries. The HRL run additionally exercises graph invalidation,
+generation synchronization, and stale-rollout rejection.
+
+The complete IntrMotiv unit suite passes (`63 passed`), including old-checkpoint
+loading, tail-boundary suppression, graph invalidation, stale actor rollout
+rejection, option reset, and replay target consistency. The print-only
+production audit generated 48 unique jobs, 24 per architecture, with all factor
+cells represented once per seed and workspace-only output paths.
+
+Production Slurm job IDs will be recorded here after the corrected preflights
+finish and their final diagnostics are checked.
 
 ## Primary Analysis
 
