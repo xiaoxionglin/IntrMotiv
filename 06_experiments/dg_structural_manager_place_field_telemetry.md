@@ -78,8 +78,9 @@ Pre-threshold maps give the same conclusion:
 | HRL target | **0.128 +/- 0.074** | **11.3 +/- 1.5** | **0.822 +/- 0.053** | **11.8 +/- 1.4** |
 | HRL manager | 0.205 +/- 0.109 | 9.3 +/- 1.5 | 0.685 +/- 0.119 | 10.3 +/- 3.1 |
 
-Therefore the recruitment advantage is not an artifact of the hard threshold.
-It is already present in the continuous DG response geometry.
+Therefore the diversity of the recruitment-enabled conditions is not an
+artifact of the hard threshold. It is already present in the continuous DG
+response geometry.
 
 ## Checkpoint Trajectories
 
@@ -131,9 +132,10 @@ Each checkpoint uses a shared within-checkpoint color scale.
 
 ## Revised Interpretation
 
-1. Orthogonal recruitment **does mitigate spatial representational collapse**.
-   It changes the code from roughly three or four clustered peak cells to about
-   ten or eleven distributed peaks, with much lower map redundancy.
+1. The orthogonal-recruitment configurations **do not exhibit spatial
+   representational collapse**. They have about ten or eleven distributed
+   peaks instead of the three or four clustered peaks in the selected
+   non-recruitment conditions, with much lower map redundancy.
 2. The structural batch's negative recruitment effect on behavioral AUC is not
    caused by failed DG diversity. Representation quality and policy learning
    have separated: the worker/manager does not exploit the improved landmarks
@@ -154,6 +156,13 @@ The next algorithmic change should preserve the recruited DG code while making
 recruitment less disruptive and reducing forced exploration occupancy. More DG
 losses are not the immediate bottleneck demonstrated by these runs.
 
+This selected-candidate evaluation is not an exact one-factor `O0` versus `O1`
+contrast: background losses, exclusion, and manager mode also differ across the
+four architectures. It establishes that recruitment-enabled configurations can
+sustain a distributed code, not the isolated causal effect size of recruitment.
+A terminal telemetry pass over the matched `O0/O1` structural pairs would be
+required for that attribution.
+
 ## Reproducibility
 
 - Raw checkpoint artifacts: `.../raw/*/place_fields.npz`
@@ -161,8 +170,9 @@ losses are not the immediate bottleneck demonstrated by these runs.
 - Seed-99 trajectory manifest: `.../trajectory_manifest.tsv`
 - Standard summaries and maps: `.../summary/`
 - Active-only derived metrics: `.../summary/derived_place_field_metrics.csv`
+- Derived-metric script: `evaluation/analyze_place_field_manifest.py` on NEMO2
+  and `analyze_place_field_manifest.py` beside this report
 - Stability tables: `.../stability/<condition>/`
 - Five-checkpoint sheets: `.../trajectories/`
 - Local lightweight CSVs and figures:
   `assets/dg_structural_manager_place_fields_20260827/`
-
