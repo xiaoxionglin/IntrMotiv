@@ -165,6 +165,9 @@ required for that attribution.
 
 ## Reproducibility
 
+The reusable end-to-end workflow and extension contract are documented in
+[[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]].
+
 - Raw checkpoint artifacts: `.../raw/*/place_fields.npz`
 - Full manifest: `.../analysis_manifest.tsv`
 - Seed-99 trajectory manifest: `.../trajectory_manifest.tsv`

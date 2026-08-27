@@ -59,6 +59,10 @@ reward/reward and ordinary episode-return metrics are external DMLab reward. The
 
 These are minibatch diagnostics. Use trends and the 10k-decision place-field evaluation before claiming irreversible DG collapse.
 
+The reusable offline rollout, manifest, active-only diversity metrics, and
+interpretation rules are documented in
+[[reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]].
+
 ## Rewards
 
 | Tag | Exact quantity | Interpretation |

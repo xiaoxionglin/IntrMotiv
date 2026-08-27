@@ -22,6 +22,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 - [[../04_implementation/IntrMotiv_current_implementation_evaluation|Current Implementation Evaluation]]
 - [[../04_implementation/iterative_update_feature_reference|Iterative Update Feature Reference]]
+- [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]
 
 ## Plans
 

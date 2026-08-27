@@ -21,3 +21,28 @@
 - Keep the home folder strictly limited to source code and lightweight analysis scripts, reports, and plots.
 - Before submitting a run, verify that every training-output, logging, cache, and temporary-data path resolves into the intended workspace.
 - Do not launch training if any bulk output path points into `/home/fr/fr_xl1014` or a source checkout located there. Use lightweight source-side symlinks or configuration pointers to workspace data only when compatibility requires them.
+
+## Reusable Place-Field Telemetry
+
+- Before adding DG telemetry or place-field analysis, read
+  `04_implementation/reusable_place_field_telemetry.md` in this vault and reuse
+  the established manifest-driven evaluation package.
+- The authoritative NEMO2 implementation is under
+  `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/`.
+  In particular, use `place_fields.py`, `run_place_field_sweep_array.sh`,
+  `summarize_place_fields.py`, `analyze_place_field_manifest.py`,
+  `plot_place_field_trajectories.py`, and `map_stability.py` rather than
+  creating batch-specific `enjoy` scripts.
+- The standard comparison is a 10k-decision rollout at five checkpoints for
+  seed 99 plus terminal checkpoints for seeds 8 and 123. Use a Slurm preflight;
+  do not run DMLab telemetry on the login node.
+- Keep raw NPZs, full plot sets, Slurm logs, caches, and temporary files in
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/`.
+  Copy only lightweight summaries and selected figures into this vault.
+- Report active-only map cosine and peak diversity together with silent units,
+  spatial information, and pre-threshold maps. Never infer place-field
+  diversity from online DG density alone, and do not treat policy-driven
+  checkpoint rollouts as a fixed-trajectory drift test.
+- Preserve the manifest and NPZ contracts when extending the evaluator. Add
+  metrics and arrays compatibly, update focused tests and the reusable
+  telemetry document, and link each completed analysis from the vault index.
