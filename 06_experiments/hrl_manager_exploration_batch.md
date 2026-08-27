@@ -141,4 +141,6 @@ deadline comparisons, and the three-seed tables are in
 `CTRL_X1_O1 P010` has the best manager coverage, but forced timeout recovery
 dominates manager selection, graph coverage falls, and target success does not
 improve. The current manager is therefore a promising behavioral probe rather
-than a successful hierarchical controller.
+than a successful hierarchical controller. Its 10k-decision spatial telemetry
+does show a distributed DG representation; see
+[[dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].

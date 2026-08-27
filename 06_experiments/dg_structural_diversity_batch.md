@@ -196,4 +196,6 @@ three-seed result tables are in
 The best flat condition is `G001_R100 X0 O0`. The highest-coverage HRL
 condition is `G001_R100 X1 O0`, but its 1.22% option success does not show
 reliable target navigation. Orthogonal recruitment has a negative HRL main
-effect and should not be carried forward unchanged.
+effect and should not be carried forward unchanged. Spatial telemetry later
+showed that recruitment nevertheless produces much more diverse DG fields;
+see [[dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].

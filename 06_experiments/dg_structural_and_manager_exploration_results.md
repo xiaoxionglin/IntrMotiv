@@ -56,9 +56,9 @@ extent and occupancy entropy measures how evenly the visited cells are used.
    `8.08 +/- 1.90` in all matched seeds.
 7. Online DG activity does not show severe population collapse: late density
    is generally 2.2-4.4%, usage entropy is 0.95-0.99, and minibatch silent-unit
-   fractions are 0-6.25%. These metrics do not establish spatial place-field
-   diversity; a matched 10k-decision checkpoint telemetry evaluation remains
-   necessary.
+   fractions are 0-6.25%. The subsequent matched 10k-decision telemetry shows
+   that recruitment-enabled HRL has substantially more diverse spatial fields;
+   see [[dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].
 
 ## Structural Diversity Batch
 
@@ -170,9 +170,10 @@ Jannek-compatible flat architecture.
 
 ## Remaining Analysis
 
-- Run matched 10k-decision place-field telemetry at several checkpoints for
-  the four selected architectures above. Online density and entropy cannot
-  answer whether DG fields cover distinct locations.
+- **Completed:** matched 10k-decision place-field telemetry at five seed-99
+  checkpoints and the terminal checkpoints of all three seeds for the four
+  selected architectures. Recruitment improves DG field diversity despite its
+  negative behavioral main effect.
 - Measure chance-corrected and target-shuffled hit baselines to separate
   deliberate navigation from incidental DG activation.
 - Measure target attempts, hits, timeouts, and graph updates per unit target
@@ -181,4 +182,3 @@ Jannek-compatible flat architecture.
 - Calibrate predicted deadline against realized hit and timeout times by edge.
 - Repeat any selected manager comparison with more seeds; the current paired
   manager effects have standard deviations larger than their means.
-

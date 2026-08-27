@@ -30,6 +30,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Experiments
 
 - [[../06_experiments/dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]]
+- [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]]
 - [[../06_experiments/recent_batch_statistics_report|Recent Batch Statistics Report]]
 
 ## Inbox
