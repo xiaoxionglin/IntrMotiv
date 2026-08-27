@@ -185,3 +185,15 @@ peak-bin diversity, peak-bin entropy, pairwise peak distance, map cosine
 redundancy, spatial information, and silent units. Because stochastic telemetry
 is trajectory-conditioned, compare all three seeds and matched architecture /
 regularizer controls rather than selecting a single favorable map.
+
+## Final Analysis Status
+
+All 48 production runs completed at approximately 100M environment frames and
+have been analyzed over their final 10% of W&B history. Conclusions and the
+three-seed result tables are in
+[[dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]].
+
+The best flat condition is `G001_R100 X0 O0`. The highest-coverage HRL
+condition is `G001_R100 X1 O0`, but its 1.22% option success does not show
+reliable target navigation. Orthogonal recruitment has a negative HRL main
+effect and should not be carried forward unchanged.

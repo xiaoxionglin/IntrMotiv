@@ -130,3 +130,15 @@ Primary behavioral outcomes:
 The key diagnostic is whether exploration improves coverage without driving
 target-option occupancy and success toward zero. A high exploration fraction
 alone is not success.
+
+## Final Analysis Status
+
+All 24 production runs completed at approximately 100M environment frames and
+have been analyzed over their final 10% of W&B history. Conclusions, matched
+deadline comparisons, and the three-seed tables are in
+[[dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]].
+
+`CTRL_X1_O1 P010` has the best manager coverage, but forced timeout recovery
+dominates manager selection, graph coverage falls, and target success does not
+improve. The current manager is therefore a promising behavioral probe rather
+than a successful hierarchical controller.
