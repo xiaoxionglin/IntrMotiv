@@ -10,12 +10,12 @@ This evaluation follows up the structural-diversity and manager-exploration
 batches with spatial DG telemetry for the four architectures selected in the
 scalar analysis:
 
-| Short name | Architecture | Selection reason |
-| --- | --- | --- |
-| Flat regularized | `FSD G001_R100 X0 O0` | Best flat coverage |
-| HRL coverage | `GSD G001_R100 X1 O0` | Best HRL coverage, but poor target success |
-| HRL target | `GSD CTRL X0 O1`, short deadline | Best evidence of target-conditioned HRL |
-| HRL manager | `CTRL_X1_O1 P010` | Best manager coverage |
+| Short name       | Architecture                     | Selection reason                           |
+| ---------------- | -------------------------------- | ------------------------------------------ |
+| Flat regularized | `FSD G001_R100 X0 O0`            | Best flat coverage                         |
+| HRL coverage     | `GSD G001_R100 X1 O0`            | Best HRL coverage, but poor target success |
+| HRL target       | `GSD CTRL X0 O1`, short deadline | Best evidence of target-conditioned HRL    |
+| HRL manager      | `CTRL_X1_O1 P010`                | Best manager coverage                      |
 
 For each architecture, seed 99 was evaluated near 5M, 25M, 50M, 75M, and
 100M environment frames. Seeds 8 and 123 were evaluated at 100M, giving a
