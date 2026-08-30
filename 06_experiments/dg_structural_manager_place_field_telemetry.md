@@ -57,12 +57,12 @@ means each active unit has a distinct peak and zero means all peaks coincide.
 
 Values are mean +/- sample standard deviation over seeds 8, 99, and 123.
 
-| Architecture | Visited cells | Mean SI, bits | Active fraction | Silent / 16 | Active-map cosine | Active peak bins | Peak entropy | Peak distance |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Flat regularized | 306.0 +/- 11.3 | 0.185 +/- 0.153 | 0.0172 +/- 0.0043 | 0.67 +/- 1.15 | 0.629 +/- 0.204 | 3.3 +/- 1.2 | 0.266 +/- 0.169 | 5.5 +/- 3.2 |
-| HRL coverage | 301.7 +/- 20.5 | 0.115 +/- 0.073 | 0.0172 +/- 0.0059 | 0.00 +/- 0.00 | 0.735 +/- 0.235 | 3.7 +/- 2.9 | 0.217 +/- 0.229 | 3.3 +/- 2.8 |
-| HRL target | 272.0 +/- 33.4 | 0.164 +/- 0.040 | 0.0352 +/- 0.0069 | 0.33 +/- 0.58 | **0.161 +/- 0.021** | **10.7 +/- 2.3** | **0.788 +/- 0.084** | **12.6 +/- 1.4** |
-| HRL manager | 295.3 +/- 13.1 | 0.186 +/- 0.075 | 0.0260 +/- 0.0044 | 0.67 +/- 0.58 | 0.229 +/- 0.078 | 9.7 +/- 2.1 | 0.717 +/- 0.155 | 10.5 +/- 3.3 |
+| Architecture     |  Visited cells |   Mean SI, bits |   Active fraction |   Silent / 16 |   Active-map cosine | Active peak bins |        Peak entropy |    Peak distance |
+| ---------------- | -------------: | --------------: | ----------------: | ------------: | ------------------: | ---------------: | ------------------: | ---------------: |
+| Flat regularized | 306.0 +/- 11.3 | 0.185 +/- 0.153 | 0.0172 +/- 0.0043 | 0.67 +/- 1.15 |     0.629 +/- 0.204 |      3.3 +/- 1.2 |     0.266 +/- 0.169 |      5.5 +/- 3.2 |
+| HRL coverage     | 301.7 +/- 20.5 | 0.115 +/- 0.073 | 0.0172 +/- 0.0059 | 0.00 +/- 0.00 |     0.735 +/- 0.235 |      3.7 +/- 2.9 |     0.217 +/- 0.229 |      3.3 +/- 2.8 |
+| HRL target       | 272.0 +/- 33.4 | 0.164 +/- 0.040 | 0.0352 +/- 0.0069 | 0.33 +/- 0.58 | **0.161 +/- 0.021** | **10.7 +/- 2.3** | **0.788 +/- 0.084** | **12.6 +/- 1.4** |
+| HRL manager      | 295.3 +/- 13.1 | 0.186 +/- 0.075 | 0.0260 +/- 0.0044 | 0.67 +/- 0.58 |     0.229 +/- 0.078 |      9.7 +/- 2.1 |     0.717 +/- 0.155 |     10.5 +/- 3.3 |
 
 The terminal result is robust at the individual-seed level. `HRL target` has
 8, 12, and 12 distinct active peak bins; `HRL manager` has 8, 9, and 12. By
