@@ -3,14 +3,20 @@
 ## Scope
 
 This is the first, deliberately narrow experiment extracted from the deferred
-topological-frontier HRL plan. It measures only whether passive transition
-evidence plus UCB frontier target selection improves exploration over the
-current direct-target controllable-graph HRL policy.
+topological-frontier HRL plan. It compares the current direct-target
+controllable-graph policy to staged topological managers.
 
-It does not test waypoint planning, RETURN/VALIDATE behavior, action path
-integration, motion-conditioned worker input, the DG scatter loss, or the
-SE(2) pose-graph control. Those features remain deferred until this comparison
-is analyzed.
+It includes RETURN/VALIDATE behavior and bounded local exploration in the
+topological arms; the two waypoint rows additionally test next-hop routing.
+It does not test action path integration, motion-conditioned worker input, the
+DG scatter loss, or the SE(2) pose-graph control.
+
+This is not a causal UCB-only ablation: a difference between `DIRECT_TARGET`
+and either frontier condition can arise from UCB selection, passive-edge
+validation, or the topological manager's 64-step dense-reward exploration
+phase. The clean planning comparison is `PASSIVE_UCB_FRONTIER` versus
+`PASSIVE_UCB_FRONTIER_WAYPOINT`; a future UCB-only comparison requires a
+matched bounded-exploration schedule in the direct condition.
 
 ## Conditions
 
@@ -20,10 +26,10 @@ twenty runs in total. Every run uses 100M environment frames, 32 workers x 2 env
 `F=16`, `R=8`, `L=64`, threshold `2.43`, `encourage`, batch loss, and
 `hit_distance` worker reward.
 
-| Condition | Target selection |
+| Condition | Manager behavior |
 | --- | --- |
 | `DIRECT_TARGET` | Existing least-visited direct target (`visit_direct`). |
-| `PASSIVE_UCB_FRONTIER` | Passive local transition graph plus UCB frontier target selection (`frontier_direct`), with direct worker conditioning. |
+| `PASSIVE_UCB_FRONTIER` | Passive local graph, UCB frontier selection, deliberate RETURN/VALIDATE, and direct worker conditioning. |
 | `PASSIVE_UCB_FRONTIER_WAYPOINT` | The same UCB frontier manager, but worker conditioning follows a validated shortest-path waypoint (`frontier_waypoint`). |
 | `PASSIVE_UCB05_FRONTIER_WAYPOINT` | Waypoint planning with a lower UCB uncertainty weight, `0.5`. |
 
@@ -45,14 +51,17 @@ neither condition provides path or geometric features to the worker.
 
 Compare five-seed distributions and learning curves for coverage AUC, unique
 cells, occupancy entropy, target hit lift, intrinsic reward density, DG
-density/usage entropy, and policy throughput. For the frontier condition also
+density/usage entropy, and policy throughput. For the frontier conditions also
 check passive update rate, candidate-edge fraction, frontier selection rate,
-frontier attempts/discoveries, and route availability. A frontier score that
-is nonzero without a coverage improvement is not sufficient evidence that the
-manager improves exploration.
+frontier attempts/discoveries, validation success, and route availability.
+Use the waypoint-versus-frontier-direct pair for the routing conclusion. A
+frontier score that is nonzero without a coverage improvement is not sufficient
+evidence that the manager improves exploration.
 
 ## Deferred Work
 
-Only after this result is available, resume the original implementation plan
-in this order: next-hop planning and deliberate validation, action path
-integration, same-DG scatter regularization, then the SE(2) control.
+Before any action-enabled batch: complete a DMLab motion telemetry preflight
+after the repeated-command transform change. Then resume the original plan in
+this order: action path integration, same-DG scatter regularization, then the
+SE(2) control. Before claiming a UCB-only effect, add a direct-target control
+with the same bounded exploration schedule as the topological manager.

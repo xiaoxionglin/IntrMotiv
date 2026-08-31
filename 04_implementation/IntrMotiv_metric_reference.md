@@ -209,14 +209,16 @@ cumulative totals.
 | intrmotiv/hrl/frontier/reached_fraction | Final-frontier reach pulses / frontier-selection pulses in minibatch. | Route completion diagnostic; sparse at per-step resolution. |
 | intrmotiv/hrl/planning/route_available_rate | Route-available pulses / valid transitions. | Whether validated topology supports requested routes. |
 | intrmotiv/hrl/planning/hop_count_mean | Validated route hop count averaged on route selections. | Explicit multi-hop use. |
-| intrmotiv/hrl/planning/waypoint_success_rate | Deliberate target-hit pulses / valid transitions. | Per-step waypoint event rate, not per-option success. |
+| intrmotiv/hrl/planning/target_hit_rate | Deliberate target-hit pulses / valid transitions. | Generic commanded-target hit rate; includes direct targets, returns, validations, and waypoints. |
+| intrmotiv/hrl/planning/waypoint_navigation_fraction | Navigation transitions with more than one remaining graph hop / valid transitions. | Whether the manager is executing a genuine multi-hop route. |
+| intrmotiv/hrl/planning/waypoint_step_hit_rate | Target-hit pulses during genuine multi-hop navigation / those navigation transitions. | Per-step local success signal for waypoint execution, not per-option route success. |
 | intrmotiv/hrl/planning/replan_rate | Option-reset pulses / valid transitions. | Replanning frequency. |
 | intrmotiv/hrl/planning/final_frontier_reach_rate | Final-frontier reach pulses / valid transitions. | Per-step final-route event rate. |
 | intrmotiv/hrl/validation/queued_edges | Current passive candidate count. | Global validation backlog. |
 | intrmotiv/hrl/validation/return_success_rate | Successful RETURN pulses / valid transitions. | Ability to get back to candidate sources. |
-| intrmotiv/hrl/validation/success_rate | Successful deliberate VALIDATE pulses / valid transitions. | Only these promote passive evidence to deliberate controllability. |
+| intrmotiv/hrl/validation/success_rate | Successful deliberate VALIDATE pulses / valid transitions. | Direct confirmation rate for passively proposed edges. Any deliberate target hit updates `T_ctrl`; passive edges are never promoted by observation alone. |
 | intrmotiv/hrl/validation/timeout_rate | RETURN or VALIDATE timeout pulses / valid transitions. | Validation failure frequency. |
-| intrmotiv/path/path_length_mean | Mean current stable-landmark trace path length. | Motion-history extent. |
+| intrmotiv/path/path_length_mean | Mean current stable-landmark trace traveled command distance. | Motion-history extent; repeated turning actions contribute their full repeated path, not chord length. |
 | intrmotiv/path/displacement_mean | Mean current stable-landmark trace net displacement. | Compare with path length for tortuosity. |
 | intrmotiv/path/straightness_mean | Displacement / path length. | Near one for straight command traces, near zero for loop returns. |
 | intrmotiv/path/scatter_conflict_fraction | Active DG entries that are far from their same-unit anchor on a straight trace / all active entries. | Primary same-landmark scattering violation rate. |
@@ -224,7 +226,7 @@ cumulative totals.
 | intrmotiv/path/telemetry_error | Command-integrated versus DMLab debug-position trajectory RMSE after translation, rotation, and scale alignment, normalized by actual trajectory RMS extent. | Zero is exact trajectory shape; larger values expose collision and fixed-egomotion mismatch without treating DMLab coordinates as DG inputs. Emitted once per physical episode. |
 | intrmotiv/geometry/se2_stress | Confidence-weighted passive pose-constraint residual after the latest fit. | Metric-control fit health. Compare only SE(2) runs. |
 | intrmotiv/geometry/valid_landmark_fraction | DG nodes with initialized SE(2) poses / F. | Pose-graph coverage. |
-| intrmotiv/geometry/proposed_edge_fraction | Current unvalidated candidate pairs / all off-diagonal pairs. | Candidate density in the SE(2) control. |
+| intrmotiv/geometry/proposed_edge_fraction | Current SE(2)-nearest unvalidated pairs / all off-diagonal pairs. | Geometry-only proposal density; zero when the SE(2) control is disabled. |
 
 Diagnosis order is representation health, passive updates, deliberate
 validation, validated routes, target-hit lift, then matched external coverage.
