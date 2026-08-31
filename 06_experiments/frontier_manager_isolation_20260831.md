@@ -33,6 +33,16 @@ twenty runs in total. Every run uses 100M environment frames, 32 workers x 2 env
 `F=16`, `R=8`, `L=64`, threshold `2.43`, `encourage`, batch loss, and
 `hit_distance` worker reward.
 
+### Environment Note
+
+Despite its name, the current `openfield_map2_fixed_loc3_fixedlength_noreward`
+Lua level returns `false` from `hasEpisodeFinished`. In practice it did not
+emit a terminal over more than 12k average environment frames per stream in
+the action preflight. The active 20-run batch is therefore an effective
+long-episode comparison: it is valid for the matched manager conditions, but
+it cannot provide terminal episode telemetry. Terminal trajectory telemetry is
+tested separately on `openfield_map2_fixed_loc3_noreward`.
+
 | Condition | Manager behavior |
 | --- | --- |
 | `DIRECT_TARGET` | Existing least-visited direct target (`visit_direct`). |
@@ -53,10 +63,13 @@ neither condition provides path or geometric features to the worker.
 - Extension Slurm jobs: `7956672`-`7956685`
 - Extension manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_frontier_manager_isolation_20260831_extension/20260831T111612Z`
 - Source module: `sf_working_directories/IntrMotiv/dmlab/experiments/frontier_manager_isolation.py`
-- Action-integration preflight: Slurm `7958757`, `2M` frames, action graph only
-  (`frontier_waypoint`, no motion-policy input, no scatter loss). Its workspace
+- Terminal action-integration preflight: Slurm `7958893`, `2M` frames, action
+  graph only (`frontier_waypoint`, no motion-policy input, no scatter loss), on
+  the base no-reward level with physical 120-second terminals. Its workspace
   manifest is under
-  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_topological_frontier_motion_preflight_20260831/20260831T163302Z`.
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_topological_frontier_terminal_motion_preflight_20260831/20260831T164417Z`.
+  The earlier job `7958757` was cancelled because the `fixedlength` Lua level
+  suppresses terminals and therefore cannot validate terminal telemetry.
 
 ## Analysis Decision
 
