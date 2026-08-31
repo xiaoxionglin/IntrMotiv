@@ -20,6 +20,9 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Implementation
 
+- [[../04_implementation/architecture/README|Architecture Reference]]
+- [[../04_implementation/architecture/losses|Loss Catalogue]]
+- [[../04_implementation/architecture/architectural_choices|Architectural Choices]]
 - [[../04_implementation/IntrMotiv_current_implementation_evaluation|Current Implementation Evaluation]]
 - [[../04_implementation/iterative_update_feature_reference|Iterative Update Feature Reference]]
 - [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]

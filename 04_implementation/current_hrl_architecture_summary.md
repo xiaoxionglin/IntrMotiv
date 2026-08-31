@@ -1,5 +1,12 @@
 # IntrMotiv Controllable-Graph HRL Architecture
 
+> **Navigation:** the maintained catalogue is now
+> [[architecture/README|IntrMotiv Architecture Reference]], with separate
+> [[architecture/losses|loss definitions]] and
+> [[architecture/architectural_choices|architectural choices]]. This document
+> remains a detailed historical implementation snapshot; its batch-specific
+> values must not be treated as the current default.
+
 This document specifies the HRL implementation currently in
 `sf_working_directories/IntrMotiv` on NEMO2. It describes what the code does,
 including tensor layouts, update ordering, reward alignment, gradient routing,
