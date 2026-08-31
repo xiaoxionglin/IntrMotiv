@@ -37,6 +37,8 @@ neither condition provides path or geometric features to the worker.
 - W&B group: `intrmotiv_frontier_manager_isolation_20260831`
 - Initial Slurm jobs: `7956653`-`7956658`
 - Submission manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_frontier_manager_isolation_20260831/20260831T110207Z`
+- Extension Slurm jobs: `7956672`-`7956685`
+- Extension manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_frontier_manager_isolation_20260831_extension/20260831T111612Z`
 - Source module: `sf_working_directories/IntrMotiv/dmlab/experiments/frontier_manager_isolation.py`
 
 ## Analysis Decision
