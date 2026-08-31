@@ -182,6 +182,53 @@ F=16 gives 16 DG nodes. Fractions exclude diagonal self-edges. The policy-buffer
 
 On completion or timeout, persistent fast weights decay by gamma = 0.5 ** (1 / half_life_options). An intended i -> j success in tau steps increments confidence and updates T_ctrl as a confidence-weighted arrival-time mean. Edges below hrl_edge_confidence_threshold are infeasible for graph closure and learned deadlines. Target ranking remains novelty-first: T_ctrl gates feasibility and supplies timing, not destination cheapness.
 
+## Topological Frontier, Planning, And Path Metrics
+
+These metrics appear only for `hrl_manager_mode=frontier_direct` or
+`frontier_waypoint`. Event rates use valid learner transitions. Values ending
+in `per_rollout` describe the most recently accepted rollout and are not
+cumulative totals.
+
+| Tag | Exact quantity | Interpretation |
+| --- | --- | --- |
+| intrmotiv/hrl/target_hit_lift | Current target's DG activation rate divided by a one-position shifted-target activation rate in the same minibatch. | Above one indicates target-specific activation beyond marginal DG/target frequency. Treat unstable values near a zero shuffled baseline cautiously. |
+| intrmotiv/hrl/passive/updates_per_rollout | Accepted exclusive local DG transitions in the latest rollout. | Must become nonzero before edge validation can operate. |
+| intrmotiv/hrl/passive/known_edge_fraction | Passive confidence-qualified directed pairs / all off-diagonal pairs. | Observed local topology, not controllable topology. |
+| intrmotiv/hrl/passive/candidate_edge_fraction | Confidence-qualified passive pairs whose deliberate confidence is below threshold / all off-diagonal pairs. | Validation backlog. |
+| intrmotiv/hrl/passive/traversal_time_mean | Confidence-weighted passive elapsed time over observed edges. | Local temporal scale. |
+| intrmotiv/hrl/passive/path_length_mean | Confidence-weighted integrated path length over observed edges. | Action-enabled local motion scale; elapsed-time proxy in no-action ablations. |
+| intrmotiv/hrl/passive/reject_nonexclusive_rate | Multi-DG candidate observations rejected / valid transitions. | Ambiguous landmark gating. |
+| intrmotiv/hrl/passive/reject_time_rate | Distinct exclusive transitions beyond L / valid transitions. | Temporal locality gate. |
+| intrmotiv/hrl/passive/reject_path_rate | Distinct exclusive transitions with integrated path above L / valid transitions. | Motion-path locality gate. |
+| intrmotiv/hrl/passive/reject_motion_rate | Distinct exclusive transitions below minimum net displacement / valid transitions. | Filters visually changing but locally stationary activations. |
+| intrmotiv/hrl/frontier/score_mean | Mean selected UCB frontier score. | Manager curiosity score; travel time is not included. |
+| intrmotiv/hrl/frontier/selection_rate | Frontier-selection pulses / valid transitions. | Selection event frequency. |
+| intrmotiv/hrl/frontier/attempts_per_rollout | Completed or discovery-terminated frontier explorations in latest rollout. | Denominator population for frontier yield. |
+| intrmotiv/hrl/frontier/discoveries_per_rollout | Explorations ending in a new stable transition in latest rollout. | Productive exploration events. |
+| intrmotiv/hrl/frontier/yield | Decayed discoveries / decayed attempts. | Per-node aggregated frontier productivity. |
+| intrmotiv/hrl/frontier/reached_fraction | Final-frontier reach pulses / frontier-selection pulses in minibatch. | Route completion diagnostic; sparse at per-step resolution. |
+| intrmotiv/hrl/planning/route_available_rate | Route-available pulses / valid transitions. | Whether validated topology supports requested routes. |
+| intrmotiv/hrl/planning/hop_count_mean | Validated route hop count averaged on route selections. | Explicit multi-hop use. |
+| intrmotiv/hrl/planning/waypoint_success_rate | Deliberate target-hit pulses / valid transitions. | Per-step waypoint event rate, not per-option success. |
+| intrmotiv/hrl/planning/replan_rate | Option-reset pulses / valid transitions. | Replanning frequency. |
+| intrmotiv/hrl/planning/final_frontier_reach_rate | Final-frontier reach pulses / valid transitions. | Per-step final-route event rate. |
+| intrmotiv/hrl/validation/queued_edges | Current passive candidate count. | Global validation backlog. |
+| intrmotiv/hrl/validation/return_success_rate | Successful RETURN pulses / valid transitions. | Ability to get back to candidate sources. |
+| intrmotiv/hrl/validation/success_rate | Successful deliberate VALIDATE pulses / valid transitions. | Only these promote passive evidence to deliberate controllability. |
+| intrmotiv/hrl/validation/timeout_rate | RETURN or VALIDATE timeout pulses / valid transitions. | Validation failure frequency. |
+| intrmotiv/path/path_length_mean | Mean current stable-landmark trace path length. | Motion-history extent. |
+| intrmotiv/path/displacement_mean | Mean current stable-landmark trace net displacement. | Compare with path length for tortuosity. |
+| intrmotiv/path/straightness_mean | Displacement / path length. | Near one for straight command traces, near zero for loop returns. |
+| intrmotiv/path/scatter_conflict_fraction | Active DG entries that are far from their same-unit anchor on a straight trace / all active entries. | Primary same-landmark scattering violation rate. |
+| intrmotiv/path/scatter_loss | Weighted pre-threshold softplus loss on those conflicts. | Optimizer pressure, not a behavioral score. |
+| intrmotiv/geometry/se2_stress | Confidence-weighted passive pose-constraint residual after the latest fit. | Metric-control fit health. Compare only SE(2) runs. |
+| intrmotiv/geometry/valid_landmark_fraction | DG nodes with initialized SE(2) poses / F. | Pose-graph coverage. |
+| intrmotiv/geometry/proposed_edge_fraction | Current unvalidated candidate pairs / all off-diagonal pairs. | Candidate density in the SE(2) control. |
+
+Diagnosis order is representation health, passive updates, deliberate
+validation, validated routes, target-hit lift, then matched external coverage.
+Coverage alone does not establish that the graph algorithm is functioning.
+
 ## Environment Exploration Telemetry
 
 These are environment statistics, not learner minibatch statistics. Fixed-length runs emit physical episode data, typically under policy_stats/avg_z_.... Long-episode runs additionally emit intrmotiv/exploration/window/ every 900 policy decisions. A window does not reset DMLab, CA3, option state, or graph memory.
