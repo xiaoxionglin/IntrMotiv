@@ -63,7 +63,7 @@ beyond multiple 900-decision physical episodes and establish:
 6. stable PPO replay after policy-graph and pose-buffer changes;
 7. graph persistence across terminals without reset-spanning transitions;
 8. action-path and scatter diagnostics for motion runs;
-9. finite SE(2) stress and initialized poses in the control;
+9. finite path telemetry error, SE(2) stress, and initialized poses in the control;
 10. workspace-only training, cache, W&B, and Slurm output paths.
 
 Production submission is gated on these checks and a 48-job print-only manifest

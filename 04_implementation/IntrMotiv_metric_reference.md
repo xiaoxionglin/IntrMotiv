@@ -221,6 +221,7 @@ cumulative totals.
 | intrmotiv/path/straightness_mean | Displacement / path length. | Near one for straight command traces, near zero for loop returns. |
 | intrmotiv/path/scatter_conflict_fraction | Active DG entries that are far from their same-unit anchor on a straight trace / all active entries. | Primary same-landmark scattering violation rate. |
 | intrmotiv/path/scatter_loss | Weighted pre-threshold softplus loss on those conflicts. | Optimizer pressure, not a behavioral score. |
+| intrmotiv/path/telemetry_error | Command-integrated versus DMLab debug-position trajectory RMSE after translation, rotation, and scale alignment, normalized by actual trajectory RMS extent. | Zero is exact trajectory shape; larger values expose collision and fixed-egomotion mismatch without treating DMLab coordinates as DG inputs. Emitted once per physical episode. |
 | intrmotiv/geometry/se2_stress | Confidence-weighted passive pose-constraint residual after the latest fit. | Metric-control fit health. Compare only SE(2) runs. |
 | intrmotiv/geometry/valid_landmark_fraction | DG nodes with initialized SE(2) poses / F. | Pose-graph coverage. |
 | intrmotiv/geometry/proposed_edge_fraction | Current unvalidated candidate pairs / all off-diagonal pairs. | Candidate density in the SE(2) control. |
