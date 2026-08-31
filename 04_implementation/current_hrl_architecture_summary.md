@@ -32,6 +32,9 @@ are the authoritative version.
 | HRL arguments | `sf_working_directories/IntrMotiv/dmlab/custom_params.py` |
 | Current 72-run sweep | `sf_working_directories/IntrMotiv/dmlab/experiments/hrl_intrinsic_arch_search.py` |
 | HRL unit tests | `sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py` |
+
+See [goal timing and empirical PPO-HER](hrl_goal_condition_and_empirical_her.md)
+for the direct-HRL replay contract and the current 18-job comparison.
 | Reward aliases | `sf_working_directories/IntrMotiv/dmlab/reward_summaries.py` |
 
 ## 2. Architectural Summary
