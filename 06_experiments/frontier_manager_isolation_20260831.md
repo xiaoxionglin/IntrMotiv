@@ -18,6 +18,13 @@ phase. The clean planning comparison is `PASSIVE_UCB_FRONTIER` versus
 `PASSIVE_UCB_FRONTIER_WAYPOINT`; a future UCB-only comparison requires a
 matched bounded-exploration schedule in the direct condition.
 
+The source now contains that causal follow-up as
+`frontier_manager_matched_control.py`. Its two five-seed rows both retain the
+topological state machine, passive evidence, RETURN/VALIDATE, and the bounded
+local exploration phase. `TOPOLOGY_VISIT_DIRECT` uses novelty-only visit rank;
+`TOPOLOGY_UCB_DIRECT` adds UCB uncertainty and discovery yield. This follow-up
+is defined but deliberately not submitted while the present 20 jobs run.
+
 ## Conditions
 
 Each condition has one policy and seeds `8`, `23`, `57`, `99`, and `123`, for
@@ -46,6 +53,10 @@ neither condition provides path or geometric features to the worker.
 - Extension Slurm jobs: `7956672`-`7956685`
 - Extension manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_frontier_manager_isolation_20260831_extension/20260831T111612Z`
 - Source module: `sf_working_directories/IntrMotiv/dmlab/experiments/frontier_manager_isolation.py`
+- Action-integration preflight: Slurm `7958757`, `2M` frames, action graph only
+  (`frontier_waypoint`, no motion-policy input, no scatter loss). Its workspace
+  manifest is under
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_topological_frontier_motion_preflight_20260831/20260831T163302Z`.
 
 ## Analysis Decision
 
@@ -60,8 +71,8 @@ evidence that the manager improves exploration.
 
 ## Deferred Work
 
-Before any action-enabled batch: complete a DMLab motion telemetry preflight
-after the repeated-command transform change. Then resume the original plan in
-this order: action path integration, same-DG scatter regularization, then the
-SE(2) control. Before claiming a UCB-only effect, add a direct-target control
-with the same bounded exploration schedule as the topological manager.
+Before any action-enabled batch: inspect the submitted DMLab motion telemetry
+preflight after the repeated-command transform change. Then resume the
+original plan in this order: action path integration, same-DG scatter
+regularization, then the SE(2) control. For a UCB-only claim, use the defined
+topology-matched visit-rank control rather than `DIRECT_TARGET`.
