@@ -25,6 +25,13 @@ During replay, the learner replaces the target slice in the core output before
 the shared decoder. The actor logits and critic value therefore use the same
 stored target. Graph changes only affect future sampling.
 
+Sample Factory keeps compact recurrent-state storage before it constructs the
+action-aligned packed replay sequence. For that reason, the empirical labels
+are built from the replayed DG activations after packing, never by treating raw
+`rnn_states` storage as a `[stream, decision]` tensor. This preserves the
+normal recurrent replay path and prevents labels from being misaligned with
+actions.
+
 ## Empirical PPO-HER
 
 This is a deliberately biased auxiliary, not Hindsight Policy Gradients.
