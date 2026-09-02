@@ -329,7 +329,19 @@ long-range control.
 
 ![C05 seed-99 terminal pre-threshold DG logit maps](assets/corrected_core_candidates_place_fields_20260902/c05_s99_100m_prethreshold_maps.png)
 
-![C05 seed-99 DG field evolution](assets/corrected_core_candidates_place_fields_20260902/c05_s99_field_evolution.png)
+The following four large-format panels show the corresponding terminal policy
+trajectory for seed 99. Each is a separate 300-decision window so text and
+paths remain readable at report width. Purple-to-yellow denotes early-to-late
+within the window; green circles and red crosses mark continuous-segment starts
+and ends. Resets and large position jumps are not connected.
+
+![C05 seed-99 trajectory, decisions 0--299](assets/corrected_core_candidates_place_fields_20260902/c05_s99_trajectory_chunk_0.png)
+
+![C05 seed-99 trajectory, decisions 3,233--3,532](assets/corrected_core_candidates_place_fields_20260902/c05_s99_trajectory_chunk_1.png)
+
+![C05 seed-99 trajectory, decisions 6,467--6,766](assets/corrected_core_candidates_place_fields_20260902/c05_s99_trajectory_chunk_2.png)
+
+![C05 seed-99 trajectory, decisions 9,701--10,000](assets/corrected_core_candidates_place_fields_20260902/c05_s99_trajectory_chunk_3.png)
 
 ### Valid conclusions and limitations
 
