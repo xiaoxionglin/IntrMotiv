@@ -29,10 +29,16 @@
   the established manifest-driven evaluation package.
 - The authoritative NEMO2 implementation is under
   `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/`.
-  In particular, use `place_fields.py`, `run_place_field_sweep_array.sh`,
-  `summarize_place_fields.py`, `analyze_place_field_manifest.py`,
-  `plot_place_field_trajectories.py`, and `map_stability.py` rather than
-  creating batch-specific `enjoy` scripts.
+  In particular, use `place_fields.py`, `submit_place_field_sweep.py`,
+  `run_place_field_sweep_single.sh`, `summarize_place_fields.py`,
+  `analyze_place_field_manifest.py`, `plot_place_field_trajectories.py`, and
+  `map_stability.py` rather than creating batch-specific `enjoy` scripts.
+- On NEMO2, submit each telemetry manifest row as an ordinary independent
+  `sbatch` job through `submit_place_field_sweep.py`; do not use a Slurm array
+  for new telemetry. Always run its print-only review before `--submit`.
+  `run_place_field_sweep_array.sh` is compatibility-only for historical or
+  already queued arrays. This policy is intentional because ordinary jobs are
+  evaluated more reliably by the current NEMO2 scheduler.
 - The standard comparison is a 10k-decision rollout at five checkpoints for
   seed 99 plus terminal checkpoints for seeds 8 and 123. Use a Slurm preflight;
   do not run DMLab telemetry on the login node.

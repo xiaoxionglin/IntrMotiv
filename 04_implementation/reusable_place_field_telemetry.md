@@ -30,7 +30,9 @@ NEMO2 source checkout:
 | Component | Role |
 | --- | --- |
 | `place_fields.py` | Loads one checkpoint, runs DMLab, and writes raw spatial arrays. |
-| `run_place_field_sweep_array.sh` | Executes one manifest row as a Slurm array task. |
+| `submit_place_field_sweep.py` | Validates a manifest and submits one ordinary Slurm job per selected row. |
+| `run_place_field_sweep_single.sh` | Executes one zero-based manifest row inside an ordinary Slurm job. |
+| `run_place_field_sweep_array.sh` | Compatibility wrapper for historical or already queued arrays only. |
 | `build_place_field_sweep.py` | Provides retained-checkpoint discovery and nearest-checkpoint selection. |
 | `summarize_place_fields.py` | Produces standard per-artifact metrics, DG maps, and pre-threshold maps. |
 | `analyze_place_field_manifest.py` | Adds active-only diversity metrics and replicated terminal/trajectory tables. |
@@ -61,7 +63,7 @@ Unless a report states otherwise, use:
 - seeds 8 and 123 at the final checkpoint;
 - the same environment, grid size, action stochasticity, and rollout length
   for every condition in a comparison;
-- one short Slurm preflight before the production array.
+- one short ordinary Slurm preflight before the production jobs.
 
 This is seven tasks per architecture. It gives a five-checkpoint trajectory and
 a three-seed terminal result without evaluating every seed at every checkpoint.
@@ -73,8 +75,8 @@ They can detect total silence, but often leave too much of the map unvisited.
 
 ## Manifest Contract
 
-`run_place_field_sweep_array.sh` expects a tab-separated manifest with this
-exact column order:
+`submit_place_field_sweep.py` and `run_place_field_sweep_single.sh` expect a
+tab-separated manifest with this exact column order:
 
 ```text
 condition
@@ -117,50 +119,73 @@ PY=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
 ROOT=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/<analysis_name>
 ```
 
+The submitter is print-only by default. It validates the manifest, selected
+rows, checkpoints, run directories, unique labels, and workspace paths, then
+prints one independent `sbatch` command per row. Review this plan before adding
+`--submit`.
+
 Run one representative checkpoint as a cheap preflight. The established
 telemetry resource profile is 4 CPUs and 16 GB:
 
 ```bash
-mkdir -p "$ROOT"/{preflight,raw,slurm,tmp}
+cd "$REPO"
 
-sbatch \
-  --job-name=intrmotiv-pf-preflight \
-  --partition=cpu \
-  --cpus-per-task=4 \
-  --mem=16G \
-  --time=00:20:00 \
-  --array=<representative_row>-<representative_row> \
-  --output="$ROOT/slurm/preflight-%A_%a.out" \
-  --export=ALL,PLACE_FIELD_MAX_FRAMES=500,TMPDIR="$ROOT/tmp" \
-  "$REPO/sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_array.sh" \
-  "$ROOT/manifest.tsv" "$ROOT/preflight"
+PYTHONPATH=. "$PY" \
+  sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --manifest "$ROOT/analysis_manifest.tsv" \
+  --output-dir "$ROOT/preflight" \
+  --row <representative_row> \
+  --max-num-frames 500 \
+  --time-limit 00:20:00
+
+# After reviewing the single printed sbatch command:
+PYTHONPATH=. "$PY" \
+  sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --manifest "$ROOT/analysis_manifest.tsv" \
+  --output-dir "$ROOT/preflight" \
+  --row <representative_row> \
+  --max-num-frames 500 \
+  --time-limit 00:20:00 \
+  --submit
 ```
 
 Require exit code zero, one `place_fields.npz`, thresholded and pre-threshold
-arrays, and no traceback before production. Then submit the full 10k array:
+arrays, and no traceback before production. Then print and review the full 10k
+ordinary-job plan:
 
 ```bash
-sbatch \
-  --job-name=intrmotiv-place-fields \
-  --partition=cpu \
-  --cpus-per-task=4 \
-  --mem=16G \
-  --time=01:00:00 \
-  --array=0-<last_row>%20 \
-  --output="$ROOT/slurm/production-%A_%a.out" \
-  --export=ALL,PLACE_FIELD_MAX_FRAMES=10000,TMPDIR="$ROOT/tmp" \
-  "$REPO/sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_array.sh" \
-  "$ROOT/manifest.tsv" "$ROOT"
+PYTHONPATH=. "$PY" \
+  sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --manifest "$ROOT/analysis_manifest.tsv" \
+  --output-dir "$ROOT" \
+  --row 0-<last_row> \
+  --max-num-frames 10000 \
+  --time-limit 01:00:00
+
+# Submit only after the printed plan is correct:
+PYTHONPATH=. "$PY" \
+  sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --manifest "$ROOT/analysis_manifest.tsv" \
+  --output-dir "$ROOT" \
+  --row 0-<last_row> \
+  --max-num-frames 10000 \
+  --time-limit 01:00:00 \
+  --submit
 ```
 
-The `%20` limit matches the validated 2026-08-27 sweep; adjust only for current
-cluster policy or a materially different task cost. Let Slurm schedule tasks
-rather than packing several DMLab evaluators into one process.
+The submitter pauses one second between calls and writes a timestamped
+`submission_manifest_*.tsv` containing every row, label, ordinary job ID, and
+exact command. It never adds `--array` or dependencies. This follows the
+code-driven, one-job-per-run scheduling pattern used by Sample Factory's
+launcher while preserving the newer manifest and NPZ contracts.
+
+Do not use `run_place_field_sweep_array.sh` for a new NEMO2 batch. It remains
+only so already queued and historical array jobs stay reproducible.
 
 ## Postprocessing
 
-Run lightweight postprocessing from the source checkout after all array tasks
-complete:
+Run lightweight postprocessing from the source checkout after all submitted
+jobs complete:
 
 ```bash
 cd "$REPO"
@@ -308,4 +333,3 @@ the raw artifact contract when needed, and preserve old manifests and NPZs.
 The 2026-08-27 run evaluated 28 tasks with no failures under Slurm job
 `7881719`. Its report, figures, limitations, and artifact root are recorded in
 [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].
-
