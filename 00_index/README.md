@@ -24,6 +24,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../04_implementation/architecture/losses|Loss Catalogue]]
 - [[../04_implementation/architecture/architectural_choices|Architectural Choices]]
 - [[../04_implementation/IntrMotiv_current_implementation_evaluation|Current Implementation Evaluation]]
+- [[../04_implementation/core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]
 - [[../04_implementation/iterative_update_feature_reference|Iterative Update Feature Reference]]
 - [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]
 
@@ -33,6 +34,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/corrected_core_reevaluation_20260901|Corrected-Core Historical Design Re-evaluation]]
 - [[../06_experiments/dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]]
 - [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]]
 - [[../06_experiments/recent_batch_statistics_report|Recent Batch Statistics Report]]

@@ -197,8 +197,8 @@ Implementation details:
 - A DG is active exactly when `a_t[f] > 0`.
 - The graph uses the dominant active DG `argmax_f a_t[f]` when more than one
   unit is active; the multi-activation event is only logged.
-- After each encoder backward pass, each row of `W_DG` is normalized to unit
-  Euclidean norm before the optimizer step.
+- After each encoder optimizer step, each row of `W_DG` is projected back to
+  unit Euclidean norm while the policy synchronization lock is held.
 - The frozen ResNet does not receive gradients. The trainable representation
   component is therefore primarily the direction of each DG projection row,
   plus BatchNorm running statistics.
@@ -655,44 +655,69 @@ disables gradient clipping.
 
 ## 13. DG Encoder Objective
 
-The encoder is evaluated a second time with a head-only forward pass. Define
-the code's encoder event mask:
+The encoder is evaluated a second time with a head-only forward pass. Candidate
+onsets and the selected dominant event are:
 
 $$
-C_t[f]=[p_t[f]=0]\left[\sum_k[S_t[f,k]\ne0]\ge2R\right].
+E_t[f]=[p_t[f]=0][p_{t-1}[f]\ge R],
 $$
 
-This is stricter than the temporal reward's event test: it selects a new
-activation whose trace has at least `2R` occupied slots, corresponding to a
-rapid/overlapping reactivation in the current implementation.
+$$
+d_t=\arg\max_{f:E_t[f]}S_t[f,0],\qquad D_t[f]=[f=d_t].
+$$
+
+All simultaneous candidates are excluded when finding the preceding DG, but
+only the dominant candidate receives the encoder update. The labels are
+derived from accepted behavior CA3 state before minibatching. The inherited
+`>=2R` gate was removed because it selected persistent/repeated activity rather
+than the onset used to calculate temporal distance.
 
 The reward-weighted encoder loss is:
 
 $$
 \mathcal{L}_{enc,reward}
 =-\mathbb{E}_{t\in valid}\left[
-\sum_f r^{enc}_t\,a_t[f]C_t[f]
+\sum_f r^{enc}_t\,a_t[f]D_t[f]
 \right].
 $$
 
-### 13.1 Always-enabled batch loss
-
-For each learner minibatch, define a DG as unused if its sequence trace is
-absent for every sample:
+With `encoder_multi_activation_loss=True`, non-dominant simultaneous candidates
+receive
 
 $$
-U[f]=\neg\bigvee_t\bigvee_k[S_t[f,k]\ne0].
+\mathcal L_{multi}=\mathbb E_t\left[\sum_f a_t[f](E_t[f]-D_t[f])\right].
+$$
+
+This flag remains false in historical and currently running batch commands.
+
+### 13.1 Always-enabled batch loss
+
+For each learner minibatch, define a DG as unused if both its incoming sequence
+trace and current post-threshold activity are absent on every valid sample:
+
+$$
+U[f]=\neg\bigvee_{t\in valid}\left(
+\bigvee_k[S_t[f,k]\ne0]\;\lor\;[a_t[f]>0]\right).
+$$
+
+Define
+
+$$
+s_t[f]=T_b\operatorname{softplus}\left(\frac{z_t[f]-\theta}{T_b}\right),
+\qquad T_b=0.5.
 $$
 
 The active `encoder_batch_loss=True` auxiliary is:
 
 $$
 \mathcal{L}_{batch}
-=-\mathbb{E}_{t\in valid}\left[\sum_f a_t[f]U[f]\right].
+=-\mathbb{E}_{t\in valid}\left[
+\frac{\sum_f s_t[f]U[f]}{\max(1,\sum_fU[f])}\right].
 $$
 
+The pre-threshold surrogate gives a silent unit nonzero recruitment gradient.
 Minimizing this term encourages currently unused DG units to activate. The
-current batch also has `extra_encoder_losses=True`, but:
+historical batch also had `extra_encoder_losses=True`, but:
 
 - `encoder_multi_activation_loss=False`;
 - `encoder_unused_sequence_loss=False`;
@@ -713,8 +738,8 @@ Each SGD step performs:
 worker_loss.backward()
 clear every DG_projection parameter gradient
 DG_encoder_loss.backward() using the separate head-only graph
-renormalize every DG linear row to norm 1
 optimizer.step()
+renormalize every DG linear row to norm 1 under the policy lock
 ```
 
 This has the following exact consequences:

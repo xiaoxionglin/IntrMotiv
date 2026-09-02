@@ -17,6 +17,9 @@ architectural switches.
 4. [[../current_hrl_architecture_summary|Current HRL Architecture Summary]]:
    the older, long-form implementation snapshot. It is useful for historical
    detail, but its batch-specific sections are not the current source of truth.
+5. [[../core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]: known
+   implementation inconsistencies, affected historical conclusions, and the
+   required fix order before the next clean comparison.
 
 ## Scope And Source Of Truth
 

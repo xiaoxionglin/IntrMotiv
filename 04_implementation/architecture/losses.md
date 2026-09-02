@@ -91,39 +91,53 @@ train DG landmarks.
 
 ## 3. DG Reward-Weighted Encoder Objective
 
-Let `C_t[j]` be the implementation's new-activation event mask. It requires
-the unit's progression to be zero and the CA3 trace to contain at least `2R`
-occupied positions, so it targets rapid/overlapping sequence reactivation
-events rather than every positive DG logit. The encoder loss is
+Let `E_t[j]` identify a DG onset whose progression is zero now and was at least
+`R` on the preceding decision. If several units begin together, select the
+largest behavior activation as `D_t`; exact ties use the lowest DG index. All
+simultaneous candidates are omitted from the predecessor-distance search, but
+only `D_t` receives the encoder update:
 
 $$
 \mathcal L_{enc-reward}=
--\mathbb E_t\left[\sum_j r^{enc}_t a_{tj}C_t[j]\right].
+-\mathbb E_t\left[\sum_j r^{enc}_t a_{tj}D_t[j]\right].
 $$
 
 It updates the DG projection through a separate encoder forward/backward pass.
 Its sign and behavioral meaning depend on `encoder_reward_method`; do not
 compare its raw magnitude across reward methods without accounting for that.
+The dominant label is derived from accepted rollout CA3 state and retained in
+the learner batch, rather than being reselected from newer minibatch logits.
 
 ## 4. DG Recruitment And Population Objectives
 
 ### 4.1 Batch unused-unit recruitment
 
-For a learner minibatch, define `U_j=1` when no slot of DG `j`'s CA3 trace is
-occupied anywhere in the minibatch. With `encoder_batch_loss=True`:
+For a learner minibatch, define `U_j=1` when DG `j` is absent from both incoming
+CA3 and current post-threshold activity on every valid transition. Define a
+smooth pre-threshold activity surrogate with temperature `T_b`:
 
 $$
-\mathcal L_{batch}=-\mathbb E_t\left[\sum_j a_{tj}U_j\right].
+s_{tj}=T_b\operatorname{softplus}\left(\frac{z_{tj}-\theta}{T_b}\right).
 $$
 
-Minimization encourages a currently unused resource to activate. It is a
-batch-scoped pressure, so its raw value can be negative. This is normally
+With `encoder_batch_loss=True`:
+
+$$
+\mathcal L_{batch}=-\mathbb E_{t\in valid}\left[
+\frac{\sum_j U_js_{tj}}{\max(1,\sum_jU_j)}\right].
+$$
+
+Unlike the historical post-ReLU form, this has nonzero gradient below the DG
+threshold and can recruit a silent row. `T_b` is
+`encoder_batch_loss_temperature` (default `0.5`). Minimization encourages a
+currently unused resource to activate. The loss is normalized by the unused
+row count, is batch-scoped, and can be negative by construction. It is normally
 enabled in IntrMotiv batches.
 
 ### 4.2 Optional local unused-sequence recruitment
 
-`encoder_unused_sequence_loss` reuses the event mask and rewards a unit whose
-trace has exactly `R` occupied slots:
+`encoder_unused_sequence_loss` rewards a dominant onset when that unit's own
+incoming CA3 chain was empty:
 
 $$
 \mathcal L_{unused}=-\mathbb E_t\left[\sum_j a_{tj}C^{unused}_t[j]\right].
@@ -133,11 +147,15 @@ It overlaps conceptually with the batch loss and is normally disabled.
 
 ### 4.3 Optional multi-activation penalty
 
-`encoder_multi_activation_loss` applies on new-activation events when more
-than one sequence qualifies. It penalizes non-maximal DG output under that
-event mask. Its exact reduction is implementation-specific, but its effect is
-to reduce simultaneous new DG activations. It is normally disabled in favor of
-the clearer population collision term below.
+`encoder_multi_activation_loss` penalizes every non-dominant candidate when
+multiple DG units begin together:
+
+$$
+\mathcal L_{multi}=\mathbb E_t\left[\sum_j a_{tj}(E_t[j]-D_t[j])\right].
+$$
+
+It is normally disabled in historical batch commands. Dominant selection alone
+therefore does not imply that a running job applies this penalty.
 
 ### 4.4 Population usage, density, and collision
 

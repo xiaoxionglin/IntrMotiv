@@ -51,6 +51,12 @@ reward/reward and ordinary episode-return metrics are external DMLab reward. The
 | intrmotiv/dg/unit_duty_cycle_mean | Mean unit-wise active fraction. | Unit-balanced counterpart to density. |
 | intrmotiv/dg/unit_duty_cycle_max | Highest unit-wise active fraction. | Dominant-unit behavior. |
 | intrmotiv/dg/usage_entropy | Entropy of duty-cycle mass, normalized by log(F). | One means even usage; zero means one or no used units. |
+| intrmotiv/dg/learner_active_transition_fraction | Valid learner transitions with at least one post-threshold DG activation / valid transitions. | Learner-side activity frequency. It is not directly comparable to behavior onset frequency because it includes continued activations. |
+| intrmotiv/dg/behavior_dominant_event_fraction | Valid transitions containing a dominant DG onset / valid transitions. | Frequency of behavior-side landmark events that can receive encoder feedback. |
+| intrmotiv/dg/behavior_multi_onset_event_fraction | Dominant-onset events with at least one simultaneous non-dominant onset / dominant-onset events. | Conditional collision rate for corrected simultaneous-onset handling. |
+| intrmotiv/dg/behavior_non_dominant_onsets_per_event | Simultaneous non-dominant onset count / dominant-onset event count. | Average number of DG competitors penalized at each feedback event. |
+| intrmotiv/dg/valid_minibatch_unused_unit_count | DG units with no positive pre-threshold logit among valid minibatch transitions. | Exact population receiving corrected batch recruitment. |
+| intrmotiv/dg/valid_minibatch_unused_unit_fraction | Unused-unit count / F. | Batch recruitment prevalence independent of F. |
 | intrmotiv/dg/pre_threshold_mean | Mean BatchNorm DG logit before hard threshold/ReLU. | Population shift relative to threshold. |
 | intrmotiv/dg/pre_threshold_above_fraction | Pre-threshold logits above threshold / all logits. | Smooth counterpart to density. |
 | intrmotiv/dg/ca3_conflict_fraction | Unit-transition entries masked because another DG unit was active in the preceding R decisions / all valid unit-transition entries. | Potential-conflict mask coverage. One recent unit can mask `(F-1)/F` entries, so this is not a violation rate. |
@@ -89,6 +95,9 @@ The flat decoder uses dense temporal-distance reward. HRL hit_distance gives zer
 | intrmotiv/decoder/loss                   | Actor, critic, and enabled decoder-side auxiliary objective.              | Objective differentiated during decoder phases.                                   |
 | intrmotiv/decoder/auxiliary_loss         | Optional clipped decoder auxiliary term.                                  | Zero when disabled.                                                               |
 | intrmotiv/encoder/feedback_mean          | Mean encoder feedback/reward.                                             | Sign follows encourage/punish/mean; not comparable as performance across methods. |
+| intrmotiv/encoder/dominant_event_count   | Number of valid dominant-onset feedback events in the current minibatch.   | Effective event sample count for the encoder reward.                               |
+| intrmotiv/encoder/feedback_on_dominant_event_mean | Signed encoder feedback averaged only over dominant-onset events. | Event-conditional learning signal without dilution by non-event transitions.       |
+| intrmotiv/encoder/feedback_abs_on_dominant_event_mean | Absolute encoder feedback averaged only over dominant-onset events. | Event-conditional signal magnitude.                                                |
 | intrmotiv/encoder/multi_activation_loss  | DG coactivation penalty.                                                  | Zero when disabled.                                                               |
 | intrmotiv/encoder/unused_sequence_loss   | Sequence-level inactive-unit feedback.                                    | Zero when disabled.                                                               |
 | intrmotiv/encoder/batch_usage_loss       | Learner-minibatch DG usage loss.                                          | Can be zero when the batch satisfies its activity criterion.                      |
@@ -119,7 +128,7 @@ selection path, not model performance by themselves.
 
 | Tag | Exact quantity | Interpretation |
 | --- | --- | --- |
-| intrmotiv/pbt/distance_metric | Current distance metric mirrored for PBT. | A routing statistic; it is not a coverage objective. |
+| intrmotiv/pbt/distance_metric | Historical only; no longer emitted. | `distance_metric` is not a valid PBT objective. Use the guarded exploration objective or an external coverage metric. |
 | intrmotiv/pbt/hrl_validity | One when HRL activity/silence/reward checks pass. | Guard against promoting structurally invalid HRL policies. |
 | intrmotiv/pbt/objective | Coverage objective when valid, otherwise zero. | The value PBT used for policy selection. |
 

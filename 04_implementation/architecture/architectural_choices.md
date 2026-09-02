@@ -23,7 +23,7 @@ put concrete parameter combinations in `06_experiments/`.
 |---|---|---|---|
 | Threshold | DG intercept, commonly `2.43`; lower variants | Controls the activity regime before any loss acts. It is a hyperparameter, not a learning mechanism. | Matched threshold with the same encoder method/losses. |
 | Encoder reward method | `encourage`, `punish`, `mean`, legacy adjusted variants | Changes the sign/centering of temporal-distance encoder feedback. Does not change worker PPO directly. | Keep batch loss and DG threshold fixed. |
-| Batch recruitment | `encoder_batch_loss` | Encourages units unused in a learner minibatch to activate. | On/off with no extra population terms. |
+| Batch recruitment | `encoder_batch_loss` | Encourages valid-minibatch-unused units through a pre-threshold softplus, so silent rows retain gradient. | On/off; keep `encoder_batch_loss_temperature=0.5` unless explicitly testing its scale. |
 | Population control | `encoder_population_usage_loss` plus usage/density/collision coefficients | Adds balanced unit use, target-density, and same-step collision objectives. | Each coefficient should be isolated before a combined sweep. |
 | Anti-collapse regularization | global punishment, row repulsion, CA3 exclusion | Separately controls logit pressure, projection-direction redundancy, and recent different-DG collisions. | Match threshold and encoder feedback. |
 | Orthogonal recruitment | `dg_orthogonal_recruitment` | Non-gradient replacement of one silent DG row at an `L`-step novelty endpoint. | Same loss configuration, with graph invalidation enabled. |
