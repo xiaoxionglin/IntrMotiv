@@ -1,5 +1,17 @@
 # Agent Notes
 
+## Figure Readability
+
+- When creating or updating figures, use text equivalent to at least 12 pt for
+  titles, axis labels, legends, tick labels, annotations, and panel labels.
+- Choose canvas dimensions, resolution, panel count, and layout for the figure's
+  intended viewing context (especially Obsidian and report-page viewing). Do
+  not make text technically large in the source only to shrink it into an
+  unreadable dense multi-panel image; split a figure or increase its canvas
+  size when necessary.
+- Visually inspect rendered figures at a realistic viewing size before
+  delivering or committing them.
+
 ## IntrMotiv Architecture Intent
 
 - `layer2_resnet18` is intentionally an ImageNet-pretrained ResNet-18 trunk
