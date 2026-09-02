@@ -1,9 +1,10 @@
 # Corrected-Core Historical Design Re-evaluation
 
-**Outcome status, 2026-09-02:** all 48 training runs and the final-10M
-behavioral analysis are complete. C12/C13 spatial telemetry is complete; a
-focused standard spatial sweep for the remaining candidates and matched
-controls is queued on NEMO2 as Slurm array `7975099`.
+**Outcome status, 2026-09-02:** all 48 training runs, final-10M behavioral
+analysis, and standard spatial telemetry are complete. The focused 77-probe
+candidate sweep completed as Slurm array `7975099` (77/77 tasks, exit `0:0`),
+and its manifest-driven summaries, trajectories, and stability analyses are
+available under the allocated NEMO2 workspace.
 
 ## Purpose
 
@@ -255,9 +256,80 @@ remain nearly stationary even while the DG population is active:
 
 ![Corrected C12 and C13 short policy paths](assets/target_control_her_place_fields_20260902/corrected_c12_vs_c13_s99_trajectory_chunks.png)
 
-The candidate terminal aggregate, seed-99 field trajectories, field-separation
-metrics, and selected figures will be inserted here after Slurm array `7975099`
-and standard postprocessing complete.
+The candidate sweep is now complete: all 77 stochastic 10,000-decision probes
+produced raw arrays, and no Slurm error log or traceback was found. The table
+below is terminal mean +/- sample SD over seeds 8, 99, and 123. Map cosine and
+peak metrics are computed on active thresholded maps; continuous-logit metrics
+gave the same qualitative C05 result.
+
+| Condition | Visited cells | SI (bits) | Active-map cosine | Unique peak bins | Peak separation (grid bins) | Reading |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| C03 immediate control | 165.7 +/- 35.7 | **0.209 +/- 0.049** | **0.053 +/- 0.029** | **15.7 +/- 0.6** | 10.39 +/- 1.55 | Strongest spatial differentiation among the immediate-control comparison. |
+| C05 punish + row repulsion | 232.7 +/- 42.1 | 0.110 +/- 0.045 | 0.127 +/- 0.065 | 14.3 +/- 0.6 | 10.93 +/- 1.27 | Broadly sampled and non-silent, but lower-information and more redundant than C03. |
+| C06 C05 + CA3 exclusion | 244.0 +/- 36.6 | 0.150 +/- 0.018 | 0.086 +/- 0.019 | 14.3 +/- 1.5 | **11.88 +/- 1.26** | Healthier spatial representation than C05, alongside its higher hit lift, but not a clean behavioral win. |
+| C15 UCB-direct topology | **277.0 +/- 30.8** | 0.135 +/- 0.023 | 0.116 +/- 0.043 | **16.0 +/- 0.0** | 10.75 +/- 0.65 | The coverage winner remains spatially distributed; this still does not demonstrate target following. |
+
+Peak separation is in 19 x 19 grid bins (one bin is 100 DMLab position
+units). All listed conditions had 16 active and zero silent units at terminal.
+Thus C05's online activity is not a silent-population failure, but its lower
+spatial information and higher map overlap mean the behavioral C05 advantage
+cannot be attributed to a uniquely clean landmark code.
+
+### C05: why is `T_ctrl` short?
+
+C05's apparent goal-reaching advantage remains real but modest: final-window
+target-hit lift is 1.091 +/- 0.051, action sensitivity is 0.0256 +/- 0.0191,
+and option success is 0.317 +/- 0.081. Successful arrivals take 4.34 policy
+decisions on average, while known-edge median `T_ctrl` is only 3.91, 4.15, and
+5.16 decisions in seeds 8, 99, and 123. With frame skip 8, that is roughly
+35--41 repeated simulator frames, not four primitive motor updates.
+
+The spatial telemetry argues against interpreting those short times as
+efficient navigation between compact, distant landmarks:
+
+1. **Not a tiny whole-policy region.** The three terminal probes visit 184,
+   257, and 257 of 361 grid cells. C05 therefore explores a substantial
+   fraction of the map during the 10k-decision evaluator; a global physical
+   confinement explanation is not supported. This does not prove that the
+   *successful option events* themselves span the same area.
+2. **Substantial multi-location aliasing.** At half of each unit's positive
+   peak, 12/16, 15/16, and 14/16 C05 units have at least two 4-connected high
+   rate-map components (means 2.44, 5.94, and 4.12 components per unit).
+   This deliberately simple contour diagnostic is sensitive to sparse sampling
+   islands, but the thresholded and continuous maps visibly show several
+   disconnected high-response patches rather than one compact field per unit.
+3. **The graph funnels into weak spatial targets.** The confidence-qualified
+   hub destinations are DG 4 (seed 8, SI 0.013), DG 2 and 14 (seed 99, 0.061
+   and 0.040), and DG 13 (seed 123, 0.128). They are not the most spatially
+   informative units in their probes. Together with only 3--5 destination
+   nodes and 33--42 known directed edges per seed, this fits easy/recurrent
+   target activations better than uniform local control.
+4. **Short `T_ctrl` does not scale with a field-separation proxy.** For each
+   stored known edge, we measured the distance between its source and target
+   units' terminal map peaks. Median distances are 14.04, 10.55, and 6.68 bins
+   (about 1404, 1055, and 668 DMLab units) for seeds 8, 99, and 123, yet the
+   Pearson correlations of edge `T_ctrl` with this distance are 0.028, 0.146,
+   and 0.007 (rank correlations -0.136, 0.050, and 0.003). There is no
+   positive distance-time relation suggesting slower physical travel to farther
+   landmark targets.
+
+The last test is only a diagnostic, not a physical-navigation measurement: a
+unit's global peak is ambiguous when its map has multiple components, and the
+checkpoint does not store valid landmark poses for C05. The telemetry cannot
+show that actions are effective at reaching a prescribed far target because it
+records ordinary stochastic policy rollouts, not a forced current-position /
+target-unit intervention. The appropriate next test is a target-conditioned
+probe that starts from controlled pose bins, commands each DG unit, records
+first-hit location and path length, and compares those outcomes to matched
+shuffled targets. On the present evidence, the conservative explanation is a
+sparse destination-funnel with spatial aliasing, not established fast
+long-range control.
+
+![C05 seed-99 terminal DG rate maps](assets/corrected_core_candidates_place_fields_20260902/c05_s99_100m_rate_maps.png)
+
+![C05 seed-99 terminal pre-threshold DG logit maps](assets/corrected_core_candidates_place_fields_20260902/c05_s99_100m_prethreshold_maps.png)
+
+![C05 seed-99 DG field evolution](assets/corrected_core_candidates_place_fields_20260902/c05_s99_field_evolution.png)
 
 ### Valid conclusions and limitations
 
@@ -290,3 +362,6 @@ boundaries should be addressed before the next paper-defining ablation.
   `06_experiments/results/corrected_core_reevaluation_20260902/paired_contrasts_terminal_10m.csv`
 - Place-field manifest builder:
   `06_experiments/build_corrected_core_place_field_manifest.py`
+- Candidate terminal and per-probe spatial metrics:
+  `06_experiments/assets/corrected_core_candidates_place_fields_20260902/terminal_three_seed_aggregate.csv`
+  and `derived_place_field_metrics.csv`

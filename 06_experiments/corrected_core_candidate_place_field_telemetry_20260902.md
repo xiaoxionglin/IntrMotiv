@@ -1,8 +1,9 @@
 # Corrected-Core Candidate Place-Field Telemetry
 
-**Status:** production Slurm array `7975099` submitted; 77 tasks queued.
-Focused C05 seed-99 terminal job `7975174` submitted as a true non-array Slurm
-job through the reusable single-job submitter for a faster lightweight readout.
+**Status:** complete. Production array `7975099` finished 77/77 tasks with
+exit `0:0`; the focused C05 seed-99 terminal job `7975174` also completed with
+exit `0:0`. Standard manifest summaries, terminal aggregates, trajectories,
+and stability analyses have been generated in the workspace telemetry root.
 
 ## Scientific question
 
@@ -133,9 +134,30 @@ Artifacts:
 
 ### Spatial maps
 
-Pending production completion and standard manifest-driven postprocessing.
-Slurm array `7975099` and the separately submitted ordinary C05 job `7975174`
-remain pending; no DMLab rollout was run on the login node. Both initially had
-numeric priority 26, but Slurm evaluated the ordinary job immediately with
-pending reason `Priority`, whereas the array remained unevaluated with reason
-`None`.
+All 77 completed probes produced a distinct `place_fields.npz`; all 16 DG
+units are active in each terminal C05 seed. C05 terminal mean +/- sample SD is
+232.7 +/- 42.1 visited cells, 0.110 +/- 0.045 bits spatial information, 0.127
++/- 0.065 active-only map cosine, 14.3 +/- 0.6 unique peak bins, and 10.93
++/- 1.27 grid bins of pairwise peak separation. The corresponding continuous
+pre-threshold maps have 0.035 +/- 0.034 cosine, 14.3 +/- 0.6 peak bins, and
+9.94 +/- 1.74 bins of separation, so the diversity result is not a pure hard
+threshold artifact.
+
+The terminal probes cover 184, 257, and 257 of 361 cells by seed, which rules
+out whole-policy confinement to a tiny map region. They instead reveal an
+important C05 limitation: 12/16, 15/16, and 14/16 units have multiple
+4-connected regions at half their own positive map peak. This contour count is
+sensitive to sparse sampling islands, but visual inspection of thresholded and
+continuous maps confirms multi-location high-response structure.
+
+Peak-separation checks do not rescue a strong control interpretation. Across
+the stored known edges, source--target peak-distance medians are 14.04, 10.55,
+and 6.68 bins by seed, while `T_ctrl` versus distance correlations are 0.028,
+0.146, and 0.007. Because global peaks are ambiguous for fragmented fields and
+no valid landmark poses are stored, these are only spatial proxies; they do
+not prove physical navigation over those distances. The sparse graph's hub
+destinations also have weak spatial information, consistent with recurrent or
+aliased target activations rather than uniformly effective far-target actions.
+
+The parent corrected-core report contains the candidate comparison, C05 map
+figures, and the required target-conditioned follow-up.
