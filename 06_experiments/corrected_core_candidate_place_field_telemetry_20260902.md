@@ -87,8 +87,9 @@ windows already constrain the interpretation:
 
 - successful C05 target arrivals take 4.34 policy decisions on average across
   seeds (4.27, 4.06, and 4.69 for seeds 8, 99, and 123);
-- confidence-qualified `T_ctrl` edges have a pooled median of 4.15 decisions;
-  100/113 (88.5%) are at most 8 decisions and 108/113 (95.6%) are under 10;
+- confidence-qualified `T_ctrl` edge medians are 3.91, 4.15, and 5.16
+  decisions by seed; 100/113 (88.5%) are at most 8 decisions and 108/113
+  (95.6%) are under 10;
 - only 33, 42, and 38 of 240 possible directed off-diagonal edges are known;
 - all 16 landmarks occur as sources, but only 5, 4, and 3 landmarks occur as
   confidence-qualified destinations;
