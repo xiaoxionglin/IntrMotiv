@@ -13,8 +13,9 @@
   bitmap/default PIL font: resolve the installed font path in the rendering
   environment and fail the render if no scalable font is available.
 - Size source text after accounting for the expected display downscaling. For
-  example, a 1,940-pixel-wide figure displayed at 1,000 pixels needs roughly
-  72-pixel source tick text to remain at least 12 pt on a 220-PPI screen.
+  example, 40-pixel ticks remain about 13 pt on a 220-PPI screen when a
+  970-pixel-wide panel is shown at native width; the same text requires about
+  72 source pixels when a 1,940-pixel-wide figure is downscaled to 1,000 pixels.
 - Visually inspect rendered figures at a realistic viewing size before
   delivering or committing them. Check specifically for font fallback, clipped
   labels, and overlap between axes, captions, and panel annotations.
