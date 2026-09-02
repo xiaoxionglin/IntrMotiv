@@ -25,21 +25,50 @@ passes, and the Slurm preflight and all 30 production rollouts exited cleanly.
 
 ## Representative maps and trajectories
 
-Each panel is one DG unit. Gray cells were not visited during the 10k-decision
-probe; brighter colors indicate greater occupancy-corrected thresholded DG
-activity.
+Each page contains four DG units. Gray cells were not visited during the
+10k-decision probe; brighter colors indicate greater occupancy-corrected
+thresholded DG activity. Scales are shared within a page only, so compare
+spatial pattern rather than brightness across separate pages or conditions.
 
 ### Corrected-core terminal maps, seed 99
 
-![C12 seed-99 DG rate maps at 100M](assets/target_control_her_place_fields_20260902/corrected_c12_s99_100m_rate_maps.png)
+![C12 seed-99 terminal DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_0.png)
 
-![C13 seed-99 DG rate maps at 100M](assets/target_control_her_place_fields_20260902/corrected_c13_s99_100m_rate_maps.png)
+![C12 seed-99 terminal DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_4.png)
+
+![C12 seed-99 terminal DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_8.png)
+
+![C12 seed-99 terminal DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_12.png)
+
+![C13 seed-99 terminal DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_0.png)
+
+![C13 seed-99 terminal DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_4.png)
+
+![C13 seed-99 terminal DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_8.png)
+
+![C13 seed-99 terminal DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_12.png)
 
 ### C13 HER comparison at 75M, seed 99
 
-![C13 HER-off DG rate maps at 75M](assets/target_control_her_place_fields_20260902/followup_c13_heroff_s99_75m_rate_maps.png)
+The HER comparison uses the same seed, 75M checkpoint target, 10k decisions,
+and four-unit page layout. It is a paired visual diagnostic, not a replicated
+HER effect.
 
-![C13 HER64 DG rate maps at 75M](assets/target_control_her_place_fields_20260902/followup_c13_her64_s99_75m_rate_maps.png)
+![C13 HER-off seed-99 75M DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c13_heroff_s99_75m_rate_units_0.png)
+
+![C13 HER-off seed-99 75M DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c13_heroff_s99_75m_rate_units_4.png)
+
+![C13 HER-off seed-99 75M DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c13_heroff_s99_75m_rate_units_8.png)
+
+![C13 HER-off seed-99 75M DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c13_heroff_s99_75m_rate_units_12.png)
+
+![C13 HER64 seed-99 75M DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c13_her64_s99_75m_rate_units_0.png)
+
+![C13 HER64 seed-99 75M DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c13_her64_s99_75m_rate_units_4.png)
+
+![C13 HER64 seed-99 75M DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c13_her64_s99_75m_rate_units_8.png)
+
+![C13 HER64 seed-99 75M DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c13_her64_s99_75m_rate_units_12.png)
 
 The field-evolution sheets place the seed-99 checkpoint maps in temporal order.
 The corrected-core sheets contain 5/25/50/75/100M; the follow-up sheets contain

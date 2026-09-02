@@ -247,9 +247,27 @@ information and lower map redundancy than C12 despite its worse target control.
 This is direct evidence that non-collapsed, differentiated landmark activity is
 not sufficient for a worker to obey landmark targets.
 
-![C12 seed-99 terminal DG rate maps](assets/target_control_her_place_fields_20260902/corrected_c12_s99_100m_rate_maps.png)
+The C12/C13 terminal maps are split into four-unit pages so each DG unit is
+readable at report width. Each page uses one thresholded,
+occupancy-corrected activity scale across its four units; gray cells were not
+visited in that rollout. Brightness is therefore comparable *within* a page,
+not between pages or conditions.
 
-![C13 seed-99 terminal DG rate maps](assets/target_control_her_place_fields_20260902/corrected_c13_s99_100m_rate_maps.png)
+![C12 seed-99 terminal DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_0.png)
+
+![C12 seed-99 terminal DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_4.png)
+
+![C12 seed-99 terminal DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_8.png)
+
+![C12 seed-99 terminal DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c12_s99_rate_units_12.png)
+
+![C13 seed-99 terminal DG activity, units 0--3](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_0.png)
+
+![C13 seed-99 terminal DG activity, units 4--7](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_4.png)
+
+![C13 seed-99 terminal DG activity, units 8--11](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_8.png)
+
+![C13 seed-99 terminal DG activity, units 12--15](assets/target_control_her_place_fields_20260902/readable_c13_s99_rate_units_12.png)
 
 The short-path panels also show that the policies can repeatedly circle or
 remain nearly stationary even while the DG population is active:
@@ -325,9 +343,30 @@ shuffled targets. On the present evidence, the conservative explanation is a
 sparse destination-funnel with spatial aliasing, not established fast
 long-range control.
 
-![C05 seed-99 terminal DG rate maps](assets/corrected_core_candidates_place_fields_20260902/c05_s99_100m_rate_maps.png)
+The C05 thresholded maps use the same four-unit, shared-within-page format and
+occupancy mask. They show which locations receive post-threshold DG activity;
+they are not a fixed-trajectory test and cannot establish causal field drift.
 
-![C05 seed-99 terminal pre-threshold DG logit maps](assets/corrected_core_candidates_place_fields_20260902/c05_s99_100m_prethreshold_maps.png)
+![C05 seed-99 terminal DG activity, units 0--3](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_rate_units_0.png)
+
+![C05 seed-99 terminal DG activity, units 4--7](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_rate_units_4.png)
+
+![C05 seed-99 terminal DG activity, units 8--11](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_rate_units_8.png)
+
+![C05 seed-99 terminal DG activity, units 12--15](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_rate_units_12.png)
+
+The continuous-logit pages retain subthreshold structure. Their red--blue
+scale is symmetric around zero within each page, so red and blue mean positive
+and negative occupancy-corrected logits respectively; its magnitude is not
+comparable across pages.
+
+![C05 seed-99 terminal pre-threshold logits, units 0--3](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_prethreshold_units_0.png)
+
+![C05 seed-99 terminal pre-threshold logits, units 4--7](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_prethreshold_units_4.png)
+
+![C05 seed-99 terminal pre-threshold logits, units 8--11](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_prethreshold_units_8.png)
+
+![C05 seed-99 terminal pre-threshold logits, units 12--15](assets/corrected_core_candidates_place_fields_20260902/readable_c05_s99_prethreshold_units_12.png)
 
 The following four large-format panels show the corresponding terminal policy
 trajectory for seed 99. Each is a separate 300-decision window so text and
