@@ -1,8 +1,8 @@
 # Corrected-Core Candidate Place-Field Telemetry
 
 **Status:** production Slurm array `7975099` submitted; 77 tasks queued.
-Focused C05 seed-99 terminal job `7975111` submitted as a true non-array Slurm
-job for a faster lightweight readout.
+Focused C05 seed-99 terminal job `7975174` submitted as a true non-array Slurm
+job through the reusable single-job submitter for a faster lightweight readout.
 
 ## Scientific question
 
@@ -77,9 +77,12 @@ controllability from spatial separation alone.
 
 - preflight: `7974997`, completed `0:0`;
 - production: `7975099`, array `0-76%20`, 4 CPUs, 16 GB, 1 hour per task;
-- focused C05 terminal: ordinary job `7975111`, manifest row 33, seed 99 at
+- focused C05 terminal: ordinary job `7975174`, manifest row 33, seed 99 at
   100.04M, 4 CPUs, 16 GB, 40 minutes;
 - superseded one-element array `7975108` was canceled while still pending;
+- first ordinary attempt `7975111` stopped before DMLab because NEMO2 replaced
+  `TMPDIR` with `/tmp`; the worker now forces all runtime/cache paths back into
+  the workspace inside the job;
 - production manifest rows: 77;
 - seed-99 trajectory manifest rows: 55.
 
@@ -131,7 +134,7 @@ Artifacts:
 ### Spatial maps
 
 Pending production completion and standard manifest-driven postprocessing.
-Slurm array `7975099` and the separately submitted ordinary C05 job `7975111`
+Slurm array `7975099` and the separately submitted ordinary C05 job `7975174`
 remain pending; no DMLab rollout was run on the login node. Both initially had
 numeric priority 26, but Slurm evaluated the ordinary job immediately with
 pending reason `Priority`, whereas the array remained unevaluated with reason

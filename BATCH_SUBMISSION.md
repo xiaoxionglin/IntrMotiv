@@ -433,7 +433,13 @@ template is intentionally changed.
 - Keep new experiment code, run descriptions, and documentation in
   `sf_working_directories/IntrMotiv/` whenever possible.
 - Do not edit `sf_working_directories/jannek/`.
-- Do not replace Sample Factory's launcher with a private submission loop.
+- Do not replace Sample Factory's launcher with a private submission loop for
+  training or ordinary experiment batches. The documented exception is the
+  manifest-driven post-training place-field evaluator: use
+  `evaluation/submit_place_field_sweep.py`, which submits one ordinary Slurm
+  job per explicit checkpoint row. See
+  `04_implementation/reusable_place_field_telemetry.md` for its required
+  print-only review and workspace policy.
 - Changes to `sample_factory/launcher/` must remain backward compatible with
   existing run descriptions and templates.
 - Do not edit generated `sbatch_*.sh` files and then assume the run description

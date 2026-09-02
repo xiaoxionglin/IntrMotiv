@@ -109,6 +109,21 @@ Before submission, verify every checkpoint exists, all labels are unique, the
 expected row count is present, and every output/log/temp path is in the
 workspace.
 
+### Relationship to Jannek's telemetry launcher
+
+`dmlab/experiments/run_generate_telemetry.py` in IntrMotiv is currently a
+byte-for-byte copy of Jannek's run description and still contains Jannek's
+`fr_js1764` workspace and encoder paths. The current manifest-driven
+`place_fields.py` evaluator was not derived from that file: it was built to
+preserve explicit checkpoint selection, raw NPZ maps, continuous pre-threshold
+maps, and the downstream manifest-analysis contract.
+
+The standard workflow does retain the useful scheduling property of Jannek's
+Sample Factory launcher: every evaluation is submitted as an independent
+ordinary Slurm job. The small telemetry-specific submitter is the documented
+exception to the normal rule against private submission loops; training and
+ordinary experiment batches must continue to use Sample Factory's launcher.
+
 ## Rollout Submission
 
 Set the common locations on NEMO2:
