@@ -298,12 +298,12 @@ This directly addresses the weak-policy problem: observed trajectories only prov
 
 ## Intrinsic Sequences and DG/CA3 Mechanisms
 
-### Lin, Yiu, and Leibold 2025/2026: Egocentric Visual Navigation Through Hippocampal Sequences
+### Lin, Yiu, and Leibold 2025/2026: Emergence of Spatial Representation in an Actor-Critic Agent with Hippocampus-Inspired Sequence Generator
 
 - arXiv: https://arxiv.org/abs/2510.09951
 - Search mirror: https://papers.cool/arxiv/2510.09951
 
-**What it contributes.** Sparse egocentric input coupled to a hippocampus-inspired sequence generator supports navigation and produces place-cell-like hidden representations.
+**What it contributes.** Sparse egocentric input coupled to a hippocampus-inspired sequence generator supports externally rewarded navigation and produces place-cell-like hidden representations. The current arXiv v3 is accepted at ICLR 2026.
 
 **Why it matters here.** This is the immediate predecessor. The new project can be framed as asking whether a similar sparse-input sequence motif can not only support navigation once reward is present, but also help select landmark-like events through intrinsic feedback.
 

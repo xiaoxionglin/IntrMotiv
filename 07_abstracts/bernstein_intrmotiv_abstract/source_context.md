@@ -18,7 +18,7 @@ Key background points to use:
 - The architecture can support egocentric visual navigation.
 - It produces place-cell-like internal representations.
 - It gives a mechanistic interpretation of hippocampal sequences as intrinsic recurrent propagation over sparse inputs, not only as readout of externally supplied trajectories or explicit planning.
-- The current arXiv citation is `Lin, Yiu, and Leibold, Egocentric Visual Navigation through Hippocampal Sequences, arXiv:2510.09951`.
+- The current arXiv v3 citation is `Lin, Yiu, and Leibold, Emergence of Spatial Representation in an Actor-Critic Agent with Hippocampus-Inspired Sequence Generator, arXiv:2510.09951`; it is accepted at ICLR 2026.
 
 Citation-year caution:
 
@@ -70,4 +70,3 @@ The abstract should:
 - Appeal to Bernstein computational neuroscience readers.
 - Mention robotics/navigation engineering only as a motivating bridge, not as the sole audience.
 - Be general enough to survive 2-3 months of continued work.
-

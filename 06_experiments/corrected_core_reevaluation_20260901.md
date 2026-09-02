@@ -1,5 +1,9 @@
 # Corrected-Core Historical Design Re-evaluation
 
+**Outcome status, 2026-09-02:** all 48 training runs and the final-10M
+behavioral analysis are complete. C12/C13 spatial telemetry is complete; the
+standard all-cell spatial supplement is queued on NEMO2.
+
 ## Purpose
 
 This batch re-evaluates the meaningful prior IntrMotiv designs after repairing
@@ -39,24 +43,24 @@ estimate.
 
 ## Cells
 
-| Cell | Condition |
-| --- | --- |
-| C01 | Corrected flat temporal-distance anchor |
-| C02 | Direct global HRL, delayed target, short deadline |
-| C03 | Direct global HRL, immediate target, short deadline |
-| C04 | C03 with iterative encoder/decoder updates |
-| C05 | C03 with global punishment `0.01` and row repulsion `1.0` |
-| C06 | C05 with CA3 temporal exclusion `1.0` |
-| C07 | C03 with orthogonal recruitment |
-| C08 | C03 with CA3 temporal exclusion and orthogonal recruitment |
-| C09 | C03 with empirical PPO-HER, horizon 16, coefficient `0.5` |
-| C10 | C03 with empirical PPO-HER, horizon 64, coefficient `0.5` |
-| C11 | C02 with empirical PPO-HER, horizon 64, coefficient `0.5` |
-| C12 | Delayed direct HRL, CA3 exclusion and recruitment, long deadline |
-| C13 | C12 with manager exploration probability `0.10` and timeout recovery |
-| C14 | Passive topology with visit-based direct frontier selection |
-| C15 | Passive topology with UCB direct frontier selection |
-| C16 | Passive topology with UCB frontier selection and waypoint planning |
+| Cell | Condition                                                            |
+| ---- | -------------------------------------------------------------------- |
+| C01  | Corrected flat temporal-distance anchor                              |
+| C02  | Direct global HRL, delayed target, short deadline                    |
+| C03  | Direct global HRL, immediate target, short deadline                  |
+| C04  | C03 with iterative encoder/decoder updates                           |
+| C05  | C03 with global punishment `0.01` and row repulsion `1.0`            |
+| C06  | C05 with CA3 temporal exclusion `1.0`                                |
+| C07  | C03 with orthogonal recruitment                                      |
+| C08  | C03 with CA3 temporal exclusion and orthogonal recruitment           |
+| C09  | C03 with empirical PPO-HER, horizon 16, coefficient `0.5`            |
+| C10  | C03 with empirical PPO-HER, horizon 64, coefficient `0.5`            |
+| C11  | C02 with empirical PPO-HER, horizon 64, coefficient `0.5`            |
+| C12  | Delayed direct HRL, CA3 exclusion and recruitment, long deadline     |
+| C13  | C12 with manager exploration probability `0.10` and timeout recovery |
+| C14  | Passive topology with visit-based direct frontier selection          |
+| C15  | Passive topology with UCB direct frontier selection                  |
+| C16  | Passive topology with UCB frontier selection and waypoint planning   |
 
 Each cell has all three seeds, producing 48 jobs. The flat cell is a single
 matched anchor rather than a second broad flat sweep.
@@ -130,24 +134,24 @@ The table is descriptive rather than a powered significance analysis. Planned
 contrasts were also calculated as within-seed differences, and the main claims
 below report whether their direction was consistent across all three seeds.
 
-| Cell | Coverage AUC | Unique cells | DG density | Target-hit lift | Action sensitivity | Option success | Known edges |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| C01 | 38.0 +/- 5.6 | 47.1 +/- 5.6 | 0.0263 +/- 0.0011 | -- | -- | -- | -- |
-| C02 | 45.1 +/- 8.0 | 63.6 +/- 5.1 | 0.0255 +/- 0.0029 | 0.959 +/- 0.070 | 0.0303 +/- 0.0217 | 0.277 +/- 0.042 | 0.180 +/- 0.046 |
-| C03 | 23.2 +/- 8.7 | 27.9 +/- 12.6 | 0.0272 +/- 0.0031 | 1.003 +/- 0.023 | 0.0125 +/- 0.0075 | 0.453 +/- 0.209 | 0.147 +/- 0.004 |
-| C04 | 39.6 +/- 6.6 | 53.6 +/- 12.0 | 0.0265 +/- 0.0008 | 1.033 +/- 0.111 | 0.0204 +/- 0.0141 | 0.193 +/- 0.060 | 0.153 +/- 0.013 |
-| C05 | 42.0 +/- 2.0 | 53.3 +/- 5.8 | 0.0249 +/- 0.0006 | 1.091 +/- 0.051 | 0.0256 +/- 0.0191 | 0.317 +/- 0.081 | 0.169 +/- 0.006 |
-| C06 | 37.8 +/- 8.4 | 49.1 +/- 11.7 | 0.0214 +/- 0.0015 | 1.147 +/- 0.112 | 0.0124 +/- 0.0023 | 0.196 +/- 0.048 | 0.175 +/- 0.014 |
-| C07 | 36.0 +/- 5.3 | 45.9 +/- 8.1 | 0.0255 +/- 0.0014 | 1.120 +/- 0.132 | 0.0224 +/- 0.0043 | 0.313 +/- 0.063 | 0.178 +/- 0.006 |
-| C08 | 47.5 +/- 27.3 | 64.1 +/- 44.4 | 0.0225 +/- 0.0010 | 0.984 +/- 0.032 | 0.0105 +/- 0.0079 | 0.222 +/- 0.114 | 0.175 +/- 0.031 |
-| C09 | 36.7 +/- 4.1 | 48.7 +/- 8.1 | 0.0245 +/- 0.0015 | 1.036 +/- 0.112 | 0.0232 +/- 0.0090 | 0.251 +/- 0.103 | 0.167 +/- 0.023 |
-| C10 | 38.2 +/- 9.9 | 46.7 +/- 14.2 | 0.0228 +/- 0.0020 | 0.979 +/- 0.035 | 0.0200 +/- 0.0101 | 0.244 +/- 0.042 | 0.152 +/- 0.031 |
-| C11 | 30.7 +/- 7.6 | 38.7 +/- 11.5 | 0.0264 +/- 0.0035 | 1.032 +/- 0.048 | 0.0251 +/- 0.0094 | 0.326 +/- 0.015 | 0.160 +/- 0.018 |
-| C12 | 48.1 +/- 11.4 | 67.4 +/- 23.3 | 0.0259 +/- 0.0010 | 0.918 +/- 0.012 | 0.0750 +/- 0.0591 | 0.759 +/- 0.129 | 0.168 +/- 0.024 |
-| C13 | 38.5 +/- 11.3 | 48.5 +/- 15.3 | 0.0238 +/- 0.0024 | 0.959 +/- 0.018 | 0.0073 +/- 0.0025 | 0.640 +/- 0.154 | 0.107 +/- 0.031 |
-| C14 | 48.1 +/- 10.1 | 67.9 +/- 16.8 | 0.0269 +/- 0.0011 | 0.928 +/- 0.024 | 0.0030 +/- 0.0006 | 0.399 +/- 0.049 | 0.957 +/- 0.020 |
-| C15 | **78.6 +/- 13.8** | **128.1 +/- 23.8** | 0.0279 +/- 0.0017 | 0.898 +/- 0.005 | 0.0019 +/- 0.0006 | 0.388 +/- 0.008 | 0.992 +/- 0.001 |
-| C16 | 41.6 +/- 2.4 | 51.4 +/- 5.7 | 0.0245 +/- 0.0003 | 1.000 +/- 0.034 | 0.0085 +/- 0.0025 | 0.428 +/- 0.023 | 0.866 +/- 0.085 |
+| Cell |      Coverage AUC |       Unique cells |        DG density | Target-hit lift | Action sensitivity |  Option success |     Known edges |
+| ---- | ----------------: | -----------------: | ----------------: | --------------: | -----------------: | --------------: | --------------: |
+| C01  |      38.0 +/- 5.6 |       47.1 +/- 5.6 | 0.0263 +/- 0.0011 |              -- |                 -- |              -- |              -- |
+| C02  |      45.1 +/- 8.0 |       63.6 +/- 5.1 | 0.0255 +/- 0.0029 | 0.959 +/- 0.070 |  0.0303 +/- 0.0217 | 0.277 +/- 0.042 | 0.180 +/- 0.046 |
+| C03  |      23.2 +/- 8.7 |      27.9 +/- 12.6 | 0.0272 +/- 0.0031 | 1.003 +/- 0.023 |  0.0125 +/- 0.0075 | 0.453 +/- 0.209 | 0.147 +/- 0.004 |
+| C04  |      39.6 +/- 6.6 |      53.6 +/- 12.0 | 0.0265 +/- 0.0008 | 1.033 +/- 0.111 |  0.0204 +/- 0.0141 | 0.193 +/- 0.060 | 0.153 +/- 0.013 |
+| C05  |      42.0 +/- 2.0 |       53.3 +/- 5.8 | 0.0249 +/- 0.0006 | 1.091 +/- 0.051 |  0.0256 +/- 0.0191 | 0.317 +/- 0.081 | 0.169 +/- 0.006 |
+| C06  |      37.8 +/- 8.4 |      49.1 +/- 11.7 | 0.0214 +/- 0.0015 | 1.147 +/- 0.112 |  0.0124 +/- 0.0023 | 0.196 +/- 0.048 | 0.175 +/- 0.014 |
+| C07  |      36.0 +/- 5.3 |       45.9 +/- 8.1 | 0.0255 +/- 0.0014 | 1.120 +/- 0.132 |  0.0224 +/- 0.0043 | 0.313 +/- 0.063 | 0.178 +/- 0.006 |
+| C08  |     47.5 +/- 27.3 |      64.1 +/- 44.4 | 0.0225 +/- 0.0010 | 0.984 +/- 0.032 |  0.0105 +/- 0.0079 | 0.222 +/- 0.114 | 0.175 +/- 0.031 |
+| C09  |      36.7 +/- 4.1 |       48.7 +/- 8.1 | 0.0245 +/- 0.0015 | 1.036 +/- 0.112 |  0.0232 +/- 0.0090 | 0.251 +/- 0.103 | 0.167 +/- 0.023 |
+| C10  |      38.2 +/- 9.9 |      46.7 +/- 14.2 | 0.0228 +/- 0.0020 | 0.979 +/- 0.035 |  0.0200 +/- 0.0101 | 0.244 +/- 0.042 | 0.152 +/- 0.031 |
+| C11  |      30.7 +/- 7.6 |      38.7 +/- 11.5 | 0.0264 +/- 0.0035 | 1.032 +/- 0.048 |  0.0251 +/- 0.0094 | 0.326 +/- 0.015 | 0.160 +/- 0.018 |
+| C12  |     48.1 +/- 11.4 |      67.4 +/- 23.3 | 0.0259 +/- 0.0010 | 0.918 +/- 0.012 |  0.0750 +/- 0.0591 | 0.759 +/- 0.129 | 0.168 +/- 0.024 |
+| C13  |     38.5 +/- 11.3 |      48.5 +/- 15.3 | 0.0238 +/- 0.0024 | 0.959 +/- 0.018 |  0.0073 +/- 0.0025 | 0.640 +/- 0.154 | 0.107 +/- 0.031 |
+| C14  |     48.1 +/- 10.1 |      67.9 +/- 16.8 | 0.0269 +/- 0.0011 | 0.928 +/- 0.024 |  0.0030 +/- 0.0006 | 0.399 +/- 0.049 | 0.957 +/- 0.020 |
+| C15  | **78.6 +/- 13.8** | **128.1 +/- 23.8** | 0.0279 +/- 0.0017 | 0.898 +/- 0.005 |  0.0019 +/- 0.0006 | 0.388 +/- 0.008 | 0.992 +/- 0.001 |
+| C16  |      41.6 +/- 2.4 |       51.4 +/- 5.7 | 0.0245 +/- 0.0003 | 1.000 +/- 0.034 |  0.0085 +/- 0.0025 | 0.428 +/- 0.023 | 0.866 +/- 0.085 |
 
 Target-hit lift is the current target's DG activation rate divided by the
 activation rate for a one-position-shifted target in the same minibatch. One is
@@ -236,6 +240,15 @@ It shows all 16 units active at terminal, with C13 producing higher spatial
 information and lower map redundancy than C12 despite its worse target control.
 This is direct evidence that non-collapsed, differentiated landmark activity is
 not sufficient for a worker to obey landmark targets.
+
+![C12 seed-99 terminal DG rate maps](assets/target_control_her_place_fields_20260902/corrected_c12_s99_100m_rate_maps.png)
+
+![C13 seed-99 terminal DG rate maps](assets/target_control_her_place_fields_20260902/corrected_c13_s99_100m_rate_maps.png)
+
+The short-path panels also show that the policies can repeatedly circle or
+remain nearly stationary even while the DG population is active:
+
+![Corrected C12 and C13 short policy paths](assets/target_control_her_place_fields_20260902/corrected_c12_vs_c13_s99_trajectory_chunks.png)
 
 The full 16-cell terminal aggregate, seed-99 field trajectories, and selected
 figures will be inserted here after the queued Slurm sweep and standard
