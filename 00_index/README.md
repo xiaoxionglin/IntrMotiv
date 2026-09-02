@@ -36,6 +36,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Experiments
 
 - [[../06_experiments/corrected_core_reevaluation_20260901|Corrected-Core Historical Design Re-evaluation]]
+- [[../06_experiments/corrected_core_candidate_place_field_telemetry_20260902|Corrected-Core Candidate Place-Field Telemetry]]
 - [[../06_experiments/target_control_her_provisional_place_field_telemetry_20260902|Target-Control HER Place-Field Telemetry]]
 - [[../06_experiments/dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]]
 - [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]]

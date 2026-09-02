@@ -1,8 +1,9 @@
 # Corrected-Core Historical Design Re-evaluation
 
 **Outcome status, 2026-09-02:** all 48 training runs and the final-10M
-behavioral analysis are complete. C12/C13 spatial telemetry is complete; the
-standard all-cell spatial supplement is queued on NEMO2.
+behavioral analysis are complete. C12/C13 spatial telemetry is complete; a
+focused standard spatial sweep for the remaining candidates and matched
+controls is queued on NEMO2 as Slurm array `7975099`.
 
 ## Purpose
 
@@ -227,12 +228,16 @@ whether the change is useful.
 
 ### Offline DG representation telemetry
 
-The complete standard sweep contains 112 stochastic 10,000-decision probes:
-five seed-99 checkpoints and terminal checkpoints for seeds 8 and 123 in every
-cell. The manifest has unique labels, verified checkpoints, and workspace-only
-paths. Raw arrays, complete plots, logs, and temporary data remain under:
+The focused standard sweep contains 77 stochastic 10,000-decision probes: five
+seed-99 checkpoints and terminal checkpoints for seeds 8 and 123 in C01-C08 and
+C14-C16. This covers the flat/direct controls, every unmeasured structural
+candidate, the high-variance C08 condition, and the complete topology contrast.
+C09-C11 are excluded because their HER implementation lacks first-achievement
+termination; C12-C13 already have standard telemetry. The manifest has unique
+labels, verified checkpoints, and workspace-only paths. Raw arrays, complete
+plots, logs, and temporary data remain under:
 
-`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_reevaluation_20260902_place_fields/`
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/`
 
 The already-completed C12/C13 subset is reported in
 [[target_control_her_provisional_place_field_telemetry_20260902|Target-Control HER: Provisional Place-Field Telemetry]].
@@ -250,9 +255,9 @@ remain nearly stationary even while the DG population is active:
 
 ![Corrected C12 and C13 short policy paths](assets/target_control_her_place_fields_20260902/corrected_c12_vs_c13_s99_trajectory_chunks.png)
 
-The full 16-cell terminal aggregate, seed-99 field trajectories, and selected
-figures will be inserted here after the queued Slurm sweep and standard
-postprocessing complete.
+The candidate terminal aggregate, seed-99 field trajectories, field-separation
+metrics, and selected figures will be inserted here after Slurm array `7975099`
+and standard postprocessing complete.
 
 ### Valid conclusions and limitations
 
