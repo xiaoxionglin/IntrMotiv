@@ -80,4 +80,50 @@ controllability from spatial separation alone.
 
 ## Results
 
-Pending production completion and standard manifest-driven postprocessing.
+### C05 lightweight checkpoint analysis
+
+Before the spatial sweep completes, the final checkpoints and 10M-frame event
+windows already constrain the interpretation:
+
+- successful C05 target arrivals take 4.34 policy decisions on average across
+  seeds (4.27, 4.06, and 4.69 for seeds 8, 99, and 123);
+- confidence-qualified `T_ctrl` edges have a pooled median of 4.15 decisions;
+  100/113 (88.5%) are at most 8 decisions and 108/113 (95.6%) are under 10;
+- only 33, 42, and 38 of 240 possible directed off-diagonal edges are known;
+- all 16 landmarks occur as sources, but only 5, 4, and 3 landmarks occur as
+  confidence-qualified destinations;
+- in every seed, one destination receives 14 incoming known edges. Only six
+  directed edges per seed are reciprocal.
+
+This is not evidence of uniformly effective local control. The graph is a
+sparse, strongly destination-concentrated funnel: most of its successful edges
+lead to a few easy DG targets. The concentration is compatible with either
+genuinely easy local landmarks or broad/multi-location target fields. It makes
+the latter an important hypothesis, especially for the hub units:
+
+- seed 8: DG 4 (indegree 14);
+- seed 99: DG 2 and DG 14 (both indegree 14);
+- seed 123: DG 13 (indegree 14).
+
+The map analysis should inspect those hub fields first, then compare their
+connected-component counts, map area, peak sharpness, and pre-threshold logits
+against low-indegree fields. It should also measure physical peak distances for
+known edges and test whether `T_ctrl` time correlates with peak distance.
+
+The checkpoint stores no valid landmark poses for C05 because action path
+integration is disabled, so physical separation cannot be recovered from the
+graph alone. A policy decision uses frame skip 8; therefore 4.34 decisions are
+about 35 repeated simulator frames, not four primitive motor updates.
+
+Artifacts:
+
+- `06_experiments/analyze_c05_option_timing.py`;
+- `06_experiments/analyze_c05_checkpoint_graph.py`;
+- `06_experiments/results/corrected_core_reevaluation_20260902/c03_c05_option_timing_10m.csv`;
+- `06_experiments/results/corrected_core_reevaluation_20260902/c05_terminal_checkpoint_graph.csv`.
+
+### Spatial maps
+
+Pending production completion and standard manifest-driven postprocessing. As
+of the lightweight analysis, Slurm array `7975099` remains pending; no DMLab
+rollout was run on the login node.
