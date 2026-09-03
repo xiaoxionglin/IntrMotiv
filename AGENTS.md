@@ -26,6 +26,30 @@
   through layer 2, kept fixed during IntrMotiv training. The DG projection and
   its BatchNorm running statistics are the trainable visual-landmark layer.
 
+## Standardized Study Workflow
+
+- Before defining a new training matrix, repeated TensorBoard analysis, or
+  telemetry sweep, read `04_implementation/standardized_study_workflow.md` and
+  use the latest canonical package under `hpc_runs/intrmotiv_study/`.
+- Put new declarative studies under `hpc_runs/studies/`. Treat the validated
+  `StudySpec` as the shared source of truth for run names, factors, seeds,
+  metrics, contrasts, and telemetry metadata; do not maintain duplicate
+  handwritten run lists or parse condition metadata back out of run names.
+- Extend the canonical package for generally reusable behavior and add focused
+  tests. Keep study-specific code as a thin adapter consuming standardized
+  artifacts. Create a separate workflow only when the versioned contracts are
+  genuinely incompatible, and document that reason.
+- Preserve `schema`, `workflow_version`, and the generated study SHA-256 in
+  plans and analysis metadata. After any study-file change, repeat print-only
+  review before submission.
+- The NEMO2 runtime mirror is
+  `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`.
+  Before using a newly added component on NEMO2, synchronize it from the vault
+  source and rerun the focused workflow tests there.
+- Sample Factory remains the training submission backend, and the established
+  manifest-driven evaluator remains the place-field execution backend. The
+  study workflow coordinates them; it does not replace their safety checks.
+
 ## NEMO2 Access
 
 - Do not blindly retry SSH to NEMO2 after authentication failures.

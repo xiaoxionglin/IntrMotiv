@@ -1,0 +1,180 @@
+"""Generate the established place-field manifests from a StudySpec."""
+
+from __future__ import annotations
+
+import csv
+from dataclasses import dataclass
+from pathlib import Path, PurePosixPath
+from typing import Any, Iterable, Mapping
+
+from .discovery import discover_run_directories
+from .spec import RunSpec, SpecError, StudySpec
+
+
+MANIFEST_COLUMNS = (
+    "condition",
+    "family",
+    "schedule",
+    "feedback",
+    "half_life",
+    "seed",
+    "target_frames",
+    "checkpoint_frames",
+    "checkpoint",
+    "run_dir",
+    "label_suffix",
+)
+
+
+@dataclass(frozen=True)
+class CheckpointRecord:
+    run_name: str
+    target_frames: int
+    checkpoint_frames: int
+    checkpoint: Path
+    run_dir: Path
+
+
+def _under_workspace(path: Path, workspace_root: str) -> bool:
+    try:
+        PurePosixPath(str(path)).relative_to(PurePosixPath(workspace_root))
+        return path.is_absolute()
+    except ValueError:
+        return False
+
+
+def _render_fields(run: RunSpec, templates: Mapping[str, Any]) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    for name in ("family", "schedule", "feedback", "half_life"):
+        template = templates.get(name, "")
+        if not isinstance(template, str):
+            raise SpecError(f"telemetry.manifest_fields.{name} must be a string")
+        try:
+            fields[name] = template.format_map(dict(run.context))
+        except KeyError as error:
+            raise SpecError(
+                f"telemetry field {name!r} references unknown field {error.args[0]!r}"
+            ) from error
+    return fields
+
+
+def build_place_field_manifests(
+    study: StudySpec,
+    inventory: Iterable[CheckpointRecord],
+    require_checkpoint_files: bool = True,
+) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    telemetry = study.telemetry
+    if telemetry.get("protocol") != "dg-place-fields-v1":
+        raise SpecError("telemetry.protocol must be 'dg-place-fields-v1'")
+    target_frames = telemetry.get("target_frames")
+    if not isinstance(target_frames, list) or not target_frames or not all(
+        isinstance(value, int) and value > 0 for value in target_frames
+    ):
+        raise SpecError("telemetry.target_frames must be a nonempty integer array")
+    if sorted(set(target_frames)) != target_frames:
+        raise SpecError("telemetry.target_frames must be sorted and unique")
+    trajectory_seed = telemetry.get("trajectory_seed", 99)
+    terminal_seeds = telemetry.get("terminal_seeds", [8, 123])
+    if not isinstance(trajectory_seed, int) or not isinstance(terminal_seeds, list):
+        raise SpecError("telemetry trajectory_seed and terminal_seeds are invalid")
+    selected_seeds = {trajectory_seed, *terminal_seeds}
+    if not selected_seeds.issubset(set(study.seeds)):
+        raise SpecError("telemetry seeds must be present in study.seeds")
+
+    by_run_target: dict[tuple[str, int], CheckpointRecord] = {}
+    for record in inventory:
+        key = (record.run_name, record.target_frames)
+        if key in by_run_target:
+            raise SpecError(f"duplicate checkpoint inventory row for {key!r}")
+        by_run_target[key] = record
+
+    templates = telemetry.get("manifest_fields", {})
+    if not isinstance(templates, Mapping):
+        raise SpecError("telemetry.manifest_fields must be an object")
+    label_template = telemetry.get(
+        "label_template", "{condition}__s{seed}__f{checkpoint_frames}"
+    )
+    if not isinstance(label_template, str):
+        raise SpecError("telemetry.label_template must be a string")
+
+    rows: list[dict[str, str]] = []
+    trajectory_rows: list[dict[str, str]] = []
+    for run in study.expand_runs():
+        if run.seed not in selected_seeds:
+            continue
+        selected_targets = target_frames if run.seed == trajectory_seed else [target_frames[-1]]
+        for target in selected_targets:
+            key = (run.name, target)
+            if key not in by_run_target:
+                raise SpecError(f"checkpoint inventory is missing {key!r}")
+            checkpoint = by_run_target[key]
+            for path_name, path in (("checkpoint", checkpoint.checkpoint), ("run_dir", checkpoint.run_dir)):
+                if not _under_workspace(path, study.workspace_root):
+                    raise SpecError(f"telemetry {path_name} is outside the workspace: {path}")
+            if require_checkpoint_files and not checkpoint.checkpoint.is_file():
+                raise SpecError(f"telemetry checkpoint does not exist: {checkpoint.checkpoint}")
+            context = {
+                **run.context,
+                "condition": run.condition,
+                "target_frames": target,
+                "checkpoint_frames": checkpoint.checkpoint_frames,
+            }
+            try:
+                label = label_template.format_map(context)
+            except KeyError as error:
+                raise SpecError(
+                    f"telemetry.label_template references unknown field {error.args[0]!r}"
+                ) from error
+            row = {
+                "condition": run.condition,
+                **_render_fields(run, templates),
+                "seed": str(run.seed),
+                "target_frames": str(target),
+                "checkpoint_frames": str(checkpoint.checkpoint_frames),
+                "checkpoint": str(checkpoint.checkpoint),
+                "run_dir": str(checkpoint.run_dir),
+                "label_suffix": label,
+            }
+            rows.append(row)
+            if run.seed == trajectory_seed:
+                trajectory_rows.append(row)
+    labels = [row["label_suffix"] for row in rows]
+    if len(set(labels)) != len(labels):
+        raise SpecError("telemetry labels are not unique")
+    return rows, trajectory_rows
+
+
+def discover_nemo_checkpoints(study: StudySpec, batch_root: Path) -> list[CheckpointRecord]:
+    """Use the authoritative NEMO2 checkpoint selector for every expected run."""
+
+    try:
+        from sf_working_directories.IntrMotiv.evaluation.build_place_field_sweep import (
+            checkpoint_frames,
+            select_checkpoints,
+        )
+    except ImportError as error:
+        raise RuntimeError(
+            "render-telemetry must run from the NEMO2 SF_hipposlam checkout"
+        ) from error
+
+    inventory: list[CheckpointRecord] = []
+    run_directories = discover_run_directories(study, batch_root)
+    for run in study.expand_runs():
+        run_dir = run_directories[run.name]
+        for target, checkpoint in select_checkpoints(run_dir):
+            inventory.append(CheckpointRecord(
+                run_name=run.name,
+                target_frames=int(target),
+                checkpoint_frames=int(checkpoint_frames(checkpoint)),
+                checkpoint=Path(checkpoint),
+                run_dir=run_dir,
+            ))
+    return inventory
+
+
+def write_manifest(path: Path, rows: Iterable[Mapping[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=MANIFEST_COLUMNS, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)

@@ -45,5 +45,5 @@
     "repeat_total": "intrmotiv/dg/recruitment/repeat_total",
     "tiny_residual_total": "intrmotiv/dg/recruitment/tiny_residual_total"
   },
-  "aggregation": "Per-run latest 10M mean; condition mean and sample SD over three seeds."
+  "aggregation": "Fixed 65000000--75000000 frame window; condition mean and sample SD over three seeds."
 }

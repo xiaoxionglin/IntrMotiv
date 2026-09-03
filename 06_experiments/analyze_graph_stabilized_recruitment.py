@@ -276,6 +276,11 @@ def main() -> None:
     if not args.no_plots:
         plot_condition_grid(aggregate, args.output_dir)
 
+    window_description = (
+        f"Fixed {args.window_low}--{args.window_high} frame window"
+        if args.window_low is not None
+        else f"Per-run latest {args.terminal_width}-frame window"
+    )
     metadata = {
         "snapshot_utc": datetime.now(timezone.utc).isoformat(),
         "runs": int(len(frame)),
@@ -290,7 +295,7 @@ def main() -> None:
         "all_terminal": bool((frame.max_step >= 100_000_000).all()),
         "window_metrics": WINDOW_METRICS,
         "cumulative_metrics": CUMULATIVE_METRICS,
-        "aggregation": "Per-run latest 10M mean; condition mean and sample SD over three seeds.",
+        "aggregation": f"{window_description}; condition mean and sample SD over three seeds.",
     }
     (args.output_dir / "analysis_summary.json").write_text(json.dumps(metadata, indent=2) + "\n")
     print(json.dumps(metadata, indent=2))

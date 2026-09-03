@@ -26,9 +26,13 @@ sf_working_directories/IntrMotiv/
     `-- nemo2_sfgit_intrmotiv.sh
 ```
 
-For a new batch, normally create or edit only a run-description module under
-`sf_working_directories/IntrMotiv/dmlab/experiments/`. Do not copy or edit the
-launcher and Slurm template for every batch.
+For a new batch, first define a versioned study under `hpc_runs/studies/` using
+the canonical `hpc_runs/intrmotiv_study/` package. The run-description module
+under `sf_working_directories/IntrMotiv/dmlab/experiments/` should be a thin
+`StudySpec` adapter. Do not copy or edit the launcher and Slurm template for
+every batch, and do not maintain a second handwritten run matrix. See
+`04_implementation/standardized_study_workflow.md` for the shared training,
+analysis, and telemetry convention.
 
 The wrapper currently requests:
 
@@ -73,8 +77,21 @@ state. Know which code the jobs will run. Do not alter unrelated user changes.
 
 ## 3. Define a batch
 
-Use an existing IntrMotiv experiment module as the starting pattern. Give every
-batch a unique, descriptive `BATCH_NAME`:
+New work should use a `*.study.json` definition and the shared Sample Factory
+adapter. Validate and render the matrix before importing it into a thin
+experiment module:
+
+```bash
+python -m hpc_runs.intrmotiv_study validate hpc_runs/studies/my_study.study.json
+python -m hpc_runs.intrmotiv_study render-runs \
+  hpc_runs/studies/my_study.study.json --output /tmp/my_study_runs.json
+```
+
+The study fingerprint identifies the exact reviewed matrix. Any change to the
+study requires another render and launcher print-only review.
+
+Legacy batches may still use a direct run-description module in the following
+form. Give every batch a unique, descriptive `BATCH_NAME`:
 
 ```python
 from sample_factory.launcher.run_description import Experiment, RunDescription
@@ -474,6 +491,11 @@ After submission:
 ## 12. Minimal command reference
 
 ```bash
+# Validate and render the shared study definition
+python -m hpc_runs.intrmotiv_study validate hpc_runs/studies/STUDY.study.json
+python -m hpc_runs.intrmotiv_study render-runs \
+  hpc_runs/studies/STUDY.study.json --output /tmp/study_runs.json
+
 # Preflight
 sf_working_directories/IntrMotiv/launcher/launch_nemo2.sh MODULE --print-only
 

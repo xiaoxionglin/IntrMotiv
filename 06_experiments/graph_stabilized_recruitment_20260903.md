@@ -151,3 +151,7 @@ answer those spatial questions.
 Lightweight snapshot tables are in
 `results/graph_stabilized_recruitment_20260903/`; bulk event files and future
 place-field artifacts remain in the allocated NEMO2 workspace.
+
+The synchronized 65M--75M online analysis and aligned 75M three-seed
+place-field telemetry are complete in
+[[graph_stabilized_recruitment_place_field_telemetry_20260903|Graph-Stabilized Recruitment: Aligned 75M Telemetry]].

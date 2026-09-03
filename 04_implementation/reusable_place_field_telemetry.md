@@ -109,6 +109,20 @@ Before submission, verify every checkpoint exists, all labels are unique, the
 expected row count is present, and every output/log/temp path is in the
 workspace.
 
+For studies using `intrmotiv/study/v1`, generate both manifests with the
+canonical workflow rather than creating another batch-specific builder:
+
+```bash
+python -m hpc_runs.intrmotiv_study render-telemetry \
+  hpc_runs/studies/STUDY.study.json BATCH_ROOT OUTPUT_ROOT
+```
+
+This reuses `select_checkpoints(run_dir)`, exact study run identities, the
+standard five-plus-two seed/checkpoint protocol, workspace validation, and the
+study fingerprint. Existing batch-specific manifest builders are historical
+compatibility tools; extend `hpc_runs/intrmotiv_study/telemetry.py` when a new
+generally useful selection component is needed.
+
 ### Relationship to Jannek's telemetry launcher
 
 `dmlab/experiments/run_generate_telemetry.py` in IntrMotiv is currently a
