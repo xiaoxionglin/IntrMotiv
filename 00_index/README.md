@@ -35,6 +35,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/controllability_edge_exploration_20260903|Controllability and Edge-Exploration Batch]]
 - [[../06_experiments/graph_stabilized_recruitment_20260903|Graph-Stabilized Orthogonal Recruitment]]
 - [[../06_experiments/graph_stabilized_recruitment_place_field_telemetry_20260903|Graph-Stabilized Recruitment Place-Field Telemetry]]
 - [[../06_experiments/corrected_core_reevaluation_20260901|Corrected-Core Historical Design Re-evaluation]]

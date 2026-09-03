@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.1.0`
+- Implementation: `1.2.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -9,9 +9,10 @@
 
 ## Deployment status
 
-The vault source and NEMO2 runtime copy are synchronized at `1.1.0`. The NEMO2
-copy passed 14 focused tests, validated the reference study, and audited all 36
-real graph-stabilized submission rows, commands, job IDs, and workspace paths.
+The vault source and NEMO2 runtime copy are synchronized at `1.2.0`. The NEMO2
+copy passed the complete IntrMotiv test suite, validates older compatible 1.x
+studies, and generated the 48-run controllability study and its 16-cell
+preflight with exact command and workspace-path audits.
 For a later version, synchronize the complete package and rerun:
 
 ```bash
@@ -33,6 +34,14 @@ reducing repeated Codex discovery and code generation.
 
 Update this file, `version.py`, tests, and the guide together when the standard
 changes, then synchronize and test the NEMO2 runtime copy.
+
+## 1.2.0
+
+- Added optional `target-control-intervention-v1` manifest generation. The
+  intervention rows are selected from the standard checkpoint inventory and
+  must contain exactly one declared checkpoint for every study run.
+- Added the controllability study’s provenance-aware plan and runtime-gate
+  auditors as thin study-specific adapters.
 
 ## 1.1.0
 

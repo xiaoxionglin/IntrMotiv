@@ -8,7 +8,7 @@ The synchronized NEMO2 runtime copy is
 Keep its version and file contents aligned with this canonical copy before
 using new workflow features on the cluster.
 
-Current implementation version: `1.1.0`; current schema:
+Current implementation version: `1.2.0`; current schema:
 `intrmotiv/study/v1`.
 
 The version constants in `version.py` are authoritative. Do not copy this
@@ -30,7 +30,7 @@ different-major implementation is rejected.
 | `submission.py` | Audit a generated `jobs.tsv`, commands, job IDs, and workspace paths against the study. |
 | `tensorboard.py` | Locate expected run directories and collect terminal or fixed-window metrics with bounded parallel loading. |
 | `analysis.py` | Produce reusable mean/SD/count summaries and explicit within-seed linear contrasts. |
-| `telemetry.py` | Use the authoritative checkpoint selector and generate the standard full and trajectory place-field manifests. |
+| `telemetry.py` | Use the authoritative checkpoint selector and generate full, trajectory, and optional intervention manifests. |
 | `cli.py` | Expose validation, rendering, online collection/analysis, and telemetry-manifest generation. |
 
 Run the CLI from the repository root:

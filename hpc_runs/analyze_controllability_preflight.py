@@ -62,7 +62,10 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
         if run_name not in expected:
             raise SpecError(f"unexpected preflight run {run_name!r}")
         run = expected[run_name]
-        run_dir = train_root / job["train_root"]
+        # Sample Factory's launcher assigns a per-experiment train root and
+        # the training entry point creates the concrete experiment directory
+        # one level below it.
+        run_dir = train_root / job["train_root"] / experiment
         summary_dir = run_dir / ".summary" / "0"
         config_path = run_dir / "config.json"
         failures: list[str] = []

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.1.0**; study schema:
+Current implementation: **1.2.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -213,6 +213,8 @@ checkpoint selector, enforces workspace paths, and writes:
 
 - `analysis_manifest.tsv`;
 - `trajectory_manifest.tsv`;
+- `intervention_manifest.tsv` when the study declares the compatible
+  `target-control-intervention-v1` protocol;
 - `study_manifest.json` with the study fingerprint.
 
 Then use `evaluation/submit_place_field_sweep.py` for its required print-only
