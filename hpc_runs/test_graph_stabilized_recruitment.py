@@ -37,6 +37,14 @@ class GraphRecruitmentTests(unittest.TestCase):
         state.observe(0, 0)
         self.assertAlmostEqual(state.confidence[0][1], 0.5)
 
+    def test_configured_5k_and_10k_half_lives(self):
+        for half_life, expected in ((5_000, 0.5), (10_000, 0.5)):
+            state = GraphRecruitmentState(2, L=1, half_life_events=half_life)
+            for _ in range(int(half_life)):
+                self.assertTrue(state.record_transition(0, 1, 1, 0, 0))
+            self.assertAlmostEqual(state.birth_support[0], expected, places=12)
+            self.assertAlmostEqual(state.birth_support[1], expected, places=12)
+
     def test_isolated_only_after_birth_expiry(self):
         state = GraphRecruitmentState(2, L=1, half_life_events=1)
         self.assertIsNone(state.eligible_victim()[0])
