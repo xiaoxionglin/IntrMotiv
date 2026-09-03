@@ -7,6 +7,19 @@
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
+## Deployment status
+
+The vault source is at `1.1.0`. The NEMO2 copy was verified with the submission
+audit and the reference 36-job manifest before the bounded-parallel collector
+was added. Before the next cluster use, synchronize the complete package and
+rerun:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python -m unittest hpc_runs.test_intrmotiv_study
+python -m hpc_runs.intrmotiv_study validate \
+  hpc_runs/studies/graph_stabilized_recruitment.study.json
+```
+
 ## Version policy
 
 - Patch: compatible bug fix with no study-file changes.

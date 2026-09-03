@@ -10,7 +10,8 @@ The tested NEMO2 runtime copy is under
 `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`, with
 study files in the adjacent `hpc_runs/studies/` directory. The vault copy is
 the versioned source of truth; synchronize the runtime copy and run its focused
-tests whenever the implementation changes.
+tests whenever the implementation changes. Consult `LATEST.md` for the current
+deployment status before cluster use.
 
 This is the default workflow for new training batches, repeated online
 analysis, and place-field telemetry. It preserves the existing Sample Factory
