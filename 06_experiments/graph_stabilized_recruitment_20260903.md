@@ -7,13 +7,18 @@ Date: 2026-09-03
 The authoritative NEMO2 IntrMotiv checkout now implements graph-stabilized DG
 recruitment behind `--dg_orthogonal_recruitment_mode=graph`. The default is
 `legacy`, so historical commands retain their previous behavior. The 36-run
-production manifest has been generated and audited but has not been submitted.
+production batch was submitted after the preflights completed successfully.
 
-Five seed-99, 2M-frame ordinary Slurm preflights were submitted as jobs
-`7976505` through `7976509`. They span direct, recovery, topology, both
-half-lives, both redundancy thresholds, and the flat passive fallback. Their
-outputs, caches, W&B data, and Slurm logs resolve below
-`/work/classic/fr_xl1014-train`.
+Five seed-99, 2M-frame ordinary Slurm preflights ran as jobs `7976505` through
+`7976509`. All five completed with exit code `0:0` in 16--20 minutes. They span
+direct, recovery, topology, both half-lives, both redundancy thresholds, and
+the flat passive fallback. Their outputs, caches, W&B data, and Slurm logs
+resolve below `/work/classic/fr_xl1014-train`.
+
+The 36 production jobs are `7976516` through `7976551`. At the post-submission
+audit, all 36 unique IDs were recorded as submitted and were running. The
+audited submission directory is
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_graph_stabilized_recruitment_20260903/20260903T011943Z`.
 
 ## Implemented rule
 
@@ -55,6 +60,5 @@ ever-recruited telemetry but is no longer an eligibility gate in graph mode.
 - The audited production manifest contains 36 runs: corrected C05/C13/C15,
   `D` in `{4, 8}`, half-life in `{5k, 10k}`, and seeds `{8, 99, 123}`.
 
-Production should remain held until all five preflights demonstrate learner
-updates without runtime exceptions. Completed original C05/C13/C15 runs remain
-contextual controls rather than contemporaneous matched runs.
+Completed original C05/C13/C15 runs remain contextual controls rather than
+contemporaneous matched runs.
