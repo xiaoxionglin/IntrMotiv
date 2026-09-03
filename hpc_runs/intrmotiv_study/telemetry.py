@@ -144,6 +144,56 @@ def build_place_field_manifests(
     return rows, trajectory_rows
 
 
+def build_intervention_manifest(
+    study: StudySpec,
+    rows: Iterable[Mapping[str, str]],
+) -> list[dict[str, str]]:
+    """Select the declared intervention checkpoint once for every study run.
+
+    The intervention manifest deliberately reuses the checkpoint inventory and
+    row contract of the standard place-field manifest.  This prevents an
+    evaluator from silently choosing a different run directory or checkpoint.
+    """
+
+    intervention = study.telemetry.get("intervention")
+    if intervention is None:
+        return []
+    if not isinstance(intervention, Mapping):
+        raise SpecError("telemetry.intervention must be an object")
+    if intervention.get("protocol") != "target-control-intervention-v1":
+        raise SpecError(
+            "telemetry.intervention.protocol must be "
+            "'target-control-intervention-v1'"
+        )
+    target_frames = intervention.get("target_frames")
+    if (
+        not isinstance(target_frames, list)
+        or len(target_frames) != 1
+        or not isinstance(target_frames[0], int)
+        or target_frames[0] <= 0
+    ):
+        raise SpecError(
+            "telemetry.intervention.target_frames must contain one positive integer"
+        )
+    target = str(target_frames[0])
+    selected = [dict(row) for row in rows if row.get("target_frames") == target]
+    expected = {
+        (run.condition, str(run.seed))
+        for run in study.expand_runs()
+    }
+    observed = [(row.get("condition"), row.get("seed")) for row in selected]
+    if len(observed) != len(set(observed)):
+        raise SpecError("intervention manifest contains duplicate condition/seed rows")
+    if set(observed) != expected:
+        missing = sorted(expected - set(observed))
+        unexpected = sorted(set(observed) - expected)
+        raise SpecError(
+            "intervention rows differ from the declared study; "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    return selected
+
+
 def discover_nemo_checkpoints(study: StudySpec, batch_root: Path) -> list[CheckpointRecord]:
     """Use the authoritative NEMO2 checkpoint selector for every expected run."""
 

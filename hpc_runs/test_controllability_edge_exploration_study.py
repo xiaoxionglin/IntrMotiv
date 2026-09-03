@@ -3,6 +3,7 @@ import unittest
 
 from hpc_runs.intrmotiv_study import load_study
 from hpc_runs.intrmotiv_study.analysis import linear_contrasts
+from hpc_runs.intrmotiv_study.telemetry import build_intervention_manifest
 
 
 SPEC = Path(__file__).with_name("studies") / "controllability_edge_exploration.study.json"
@@ -70,6 +71,27 @@ class ControllabilityStudyTests(unittest.TestCase):
         self.assertEqual(observed["edge_x_head"], 16.0)
         self.assertEqual(observed["edge_x_geometry"], 32.0)
         self.assertEqual(observed["edge_x_temporal_exclusion"], 64.0)
+
+    def test_intervention_manifest_selects_terminal_checkpoint_for_every_run(self):
+        rows = []
+        for run in self.study.expand_runs():
+            targets = [5_000_000, 25_000_000, 50_000_000, 75_000_000]
+            if run.seed != 99:
+                targets = [75_000_000]
+            for target in targets:
+                rows.append({
+                    "condition": run.condition,
+                    "seed": str(run.seed),
+                    "target_frames": str(target),
+                    "checkpoint": f"/work/checkpoint_{target}.pth",
+                })
+        selected = build_intervention_manifest(self.study, rows)
+        self.assertEqual(len(selected), 48)
+        self.assertEqual({row["target_frames"] for row in selected}, {"75000000"})
+        self.assertEqual(
+            {(row["condition"], row["seed"]) for row in selected},
+            {(run.condition, str(run.seed)) for run in self.study.expand_runs()},
+        )
 
 
 if __name__ == "__main__":

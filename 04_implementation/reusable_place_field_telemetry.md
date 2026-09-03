@@ -46,6 +46,8 @@ NEMO2 source checkout:
 | `analyze_place_field_manifest.py` | Adds active-only diversity metrics and replicated terminal/trajectory tables. |
 | `plot_place_field_trajectories.py` | Produces five-checkpoint contact sheets and trajectory figures. |
 | `map_stability.py` | Compares occupancy-weighted maps with a final reference checkpoint. |
+| `target_control_interventions.py` | Runs frozen-policy, frozen-graph target interventions from exclusive source events and writes ordered-pair trial records. |
+| `run_target_control_intervention_single.sh` | Executes one 75M intervention-manifest row as an ordinary Slurm job. |
 
 The derived analyzer is also mirrored in this vault at
 [[../06_experiments/analyze_place_field_manifest.py|analyze_place_field_manifest.py]]
@@ -263,6 +265,44 @@ PYTHONPATH=. "$PY" \
   --condition <condition> \
   --out-dir "$ROOT/stability/<condition>"
 ```
+
+## Target-Control Intervention Protocol
+
+Studies that declare `telemetry.intervention.protocol` as
+`target-control-intervention-v1` reuse the standard 75M rows in
+`analysis_manifest.tsv`. Submit them with the existing ordinary-job submitter
+and the intervention runner; do not build a second run/checkpoint inventory:
+
+```bash
+PYTHONPATH=. "$PY" \
+  sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --manifest "$ROOT/intervention_manifest.tsv" \
+  --output-dir "$ROOT/interventions" \
+  --runner sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh \
+  --max-num-frames 100000 \
+  --time-limit 04:00:00 \
+  --job-name-prefix intrmotiv-control
+```
+
+Review the printed ordinary-job plan before adding `--submit`. Each row:
+
+- loads the exact manifest checkpoint and keeps policy parameters and graph
+  buffers frozen;
+- begins a trial only on an exclusive DG source event;
+- balances commands over all 15 off-diagonal targets, up to five trials per
+  ordered pair within 100,000 decisions;
+- uses the same reliable-edge/passive/bootstrap deadline rules as training;
+- records source pose and bins, success, elapsed decisions, physical path
+  length, endpoint, and every DG hit during the trial;
+- evaluates all alternate targets on the same core state to measure
+  counterfactual action sensitivity;
+- constructs a deterministic nearest-context, same-source shuffled-target
+  control from the completed trial table.
+
+The row output is `intervention_trials.csv` plus
+`intervention_summary.json`. When `study_manifest.json` is adjacent to the
+input TSV, the summary carries its schema, workflow version, study ID, and
+study SHA-256.
 
 ## Raw Artifact Contract
 

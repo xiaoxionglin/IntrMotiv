@@ -12,6 +12,7 @@ from .analysis import linear_contrasts, summarize_records
 from .spec import SpecError, StudySpec, load_study
 from .submission import audit_submission
 from .telemetry import (
+    build_intervention_manifest,
     build_place_field_manifests,
     discover_nemo_checkpoints,
     write_manifest,
@@ -167,16 +168,21 @@ def command_render_telemetry(args: argparse.Namespace) -> None:
     study = load_study(args.study)
     inventory = discover_nemo_checkpoints(study, args.batch_root)
     rows, trajectory = build_place_field_manifests(study, inventory)
+    intervention = build_intervention_manifest(study, rows)
     write_manifest(args.output_root / "analysis_manifest.tsv", rows)
     write_manifest(args.output_root / "trajectory_manifest.tsv", trajectory)
+    if intervention:
+        write_manifest(args.output_root / "intervention_manifest.tsv", intervention)
     _write_json(args.output_root / "study_manifest.json", {
         **study.provenance(),
         "telemetry_protocol": study.telemetry.get("protocol"),
         "analysis_rows": len(rows),
         "trajectory_rows": len(trajectory),
+        "intervention_rows": len(intervention),
     })
     print(
-        f"wrote {len(rows)} telemetry rows and {len(trajectory)} trajectory rows "
+        f"wrote {len(rows)} telemetry rows, {len(trajectory)} trajectory rows, "
+        f"and {len(intervention)} intervention rows "
         f"to {args.output_root}"
     )
 
