@@ -15,9 +15,10 @@ against workflow `1.1.0`; the backward-compatible workflow implementation is
   seed = `2 × 2 × 2 × 2 × 3 = 48`
 - Training: fresh initialization, 75M environment steps
 
-The 48 production jobs have not been submitted. A print-only production plan
-was generated and audited against the StudySpec; it will be regenerated after
-the runtime preflight passes.
+The 16-cell preflight passed its runtime gate, and all 48 production jobs were
+submitted on 2026-09-03 as Slurm jobs `7979000` through `7979047`. The submitted
+manifest was audited against the StudySpec after every row had received its
+numeric job id.
 
 ## Implemented controller
 
@@ -87,14 +88,30 @@ uses only `1 - visit_rank/15` for its node alternative and commits passive
 evidence for later actionable-probe selection; it never infers the reverse
 edge or uses it for source travel.
 
-The final corrected submission directory will be recorded after its fresh
-print-only review and audit.
+A third short review run was stopped because branch-specific loss telemetry was
+only emitted for separate-head cells. The losses themselves were correct, but
+the shared-head cells could not satisfy the requested branch-observability
+gate. Branch metrics are now conditioned on replayed manager mode for both
+head configurations.
 
-Production remains blocked until all 16 cells reach 1M with finite losses,
-zero replay mismatch, free activity in every cell, probe/goal-branch activity
-in edge-aware cells only, and active free branches. The branch-isolation unit test separately
-verifies that a free sample cannot update the goal-only heads and a probe
-cannot update the exploration-only heads.
+The final corrected preflight is recorded under
+`train_dir/_slurm/intrmotiv_controllability_edge_exploration_20260903_preflight/20260903T182931Z/`.
+All 16 jobs completed at 1M environment steps with finite losses, zero replay
+mismatch, free activity in every cell, probe and goal-branch activity in every
+edge-aware cell, zero probes in node-only cells, and active free branches. Its
+machine-readable result is `preflight_acceptance.json` and reports 16/16 cells
+passing with no failures. The branch-isolation unit test separately verifies
+that a free sample cannot update the goal-only heads and a probe cannot update
+the exploration-only heads.
+
+The final production print-only review is under
+`train_dir/_slurm/intrmotiv_controllability_edge_exploration_20260903/20260903T184358Z/`.
+The submitted production manifest and its `study_audit.json` are under
+`train_dir/_slurm/intrmotiv_controllability_edge_exploration_20260903/20260903T184441Z/`.
+All 48 jobs entered `RUNNING` and advanced beyond zero (minimum 65,536 frames
+at the final startup check); their initial logs contained no exceptions or
+out-of-memory failures. Checkpoint-dependent place-field and intervention jobs
+remain pending until the declared training checkpoints exist.
 
 ## Canonical artifacts
 
