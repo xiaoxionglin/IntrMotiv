@@ -35,6 +35,11 @@
   `StudySpec` as the shared source of truth for run names, factors, seeds,
   metrics, contrasts, and telemetry metadata; do not maintain duplicate
   handwritten run lists or parse condition metadata back out of run names.
+- For ordinary repeated work, read `hpc_runs/intrmotiv_study/LATEST.md` and the
+  selected study, then use `validate`, `render-runs`, `audit-submission`,
+  `collect-online`, and `render-telemetry` directly. Do not spend a new task
+  re-inventorying historical batch scripts unless a canonical command fails or
+  the requested study needs a genuinely new component.
 - Extend the canonical package for generally reusable behavior and add focused
   tests. Keep study-specific code as a thin adapter consuming standardized
   artifacts. Create a separate workflow only when the versioned contracts are

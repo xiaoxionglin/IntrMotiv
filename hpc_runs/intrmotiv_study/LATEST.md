@@ -9,16 +9,20 @@
 
 ## Deployment status
 
-The vault source is at `1.1.0`. The NEMO2 copy was verified with the submission
-audit and the reference 36-job manifest before the bounded-parallel collector
-was added. Before the next cluster use, synchronize the complete package and
-rerun:
+The vault source and NEMO2 runtime copy are synchronized at `1.1.0`. The NEMO2
+copy passed 14 focused tests, validated the reference study, and audited all 36
+real graph-stabilized submission rows, commands, job IDs, and workspace paths.
+For a later version, synchronize the complete package and rerun:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python -m unittest hpc_runs.test_intrmotiv_study
 python -m hpc_runs.intrmotiv_study validate \
   hpc_runs/studies/graph_stabilized_recruitment.study.json
 ```
+
+The full-data collector benchmark was intentionally stopped once synchronization
+and contract verification were complete. Runtime acceleration is secondary to
+reducing repeated Codex discovery and code generation.
 
 ## Version policy
 

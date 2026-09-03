@@ -33,6 +33,25 @@ normally contribute:
 2. optionally, a thin Sample Factory experiment module;
 3. only genuinely novel scientific diagnostics or plots.
 
+## Codex-efficiency rule
+
+The main optimization target is repeatable agent work, not cluster runtime. A
+future task should not re-inventory historical launchers and analyzers before
+ordinary batch work. It should:
+
+1. read `hpc_runs/intrmotiv_study/LATEST.md` and the selected `*.study.json`;
+2. run the canonical CLI commands for validation, submission audit, analysis,
+   and telemetry planning;
+3. inspect the generated manifests and only the exceptions they report;
+4. reuse standardized CSV and NPZ outputs when writing the scientific report;
+5. inspect or create new implementation code only when the study cannot be
+   represented by the current versioned contract.
+
+This keeps routine work mechanical and leaves Codex reasoning for scientific
+design, novel diagnostics, failures, and genuine schema extensions. Do not
+repeat repository-wide searches merely to rediscover commands already captured
+by this workflow.
+
 ## Source-of-truth hierarchy
 
 1. The study JSON defines bases, factors, seeds, run names, arguments, metrics,
