@@ -66,7 +66,7 @@ sensitivity.
 
 ## Verification and preflight history
 
-The authoritative NEMO2 suite passes 184 tests, including immediate replay,
+The authoritative NEMO2 suite passes 186 tests, including immediate replay,
 branch-specific gradients, checkpoint round trips, directed graph updates,
 reliability dropout and decay, cooldown, connectivity scoring, deadline rules,
 and intervention output contracts.
@@ -79,17 +79,20 @@ were cancelled and their artifacts were preserved under
 now both include target id + four geometry values + mode id, and a regression
 test asserts that exact state-size contract.
 
-The corrected preflight submission is recorded under:
+A second review run was stopped before acceptance because two legacy topology
+behaviors remained reachable: node competition still used frontier discovery
+UCB instead of pure visit-rank novelty, and a passive transition could trigger
+an unvalidated direct return over the reverse edge. The common manager now
+uses only `1 - visit_rank/15` for its node alternative and commits passive
+evidence for later actionable-probe selection; it never infers the reverse
+edge or uses it for source travel.
 
-```text
-/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/
-intrmotiv_controllability_edge_exploration_20260903_preflight/
-20260903T181401Z/
-```
+The final corrected submission directory will be recorded after its fresh
+print-only review and audit.
 
 Production remains blocked until all 16 cells reach 1M with finite losses,
-zero replay mismatch, free and goal activity, probe activity only in edge-aware
-cells, and active goal/free branches. The branch-isolation unit test separately
+zero replay mismatch, free activity in every cell, probe/goal-branch activity
+in edge-aware cells only, and active free branches. The branch-isolation unit test separately
 verifies that a free sample cannot update the goal-only heads and a probe
 cannot update the exploration-only heads.
 
@@ -102,4 +105,3 @@ cannot update the exploration-only heads.
 - Runtime-gate analyzer: `hpc_runs/analyze_controllability_preflight.py`
 - Standard telemetry guide:
   `04_implementation/reusable_place_field_telemetry.md`
-

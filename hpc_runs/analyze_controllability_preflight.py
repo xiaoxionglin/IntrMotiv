@@ -136,9 +136,8 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
             if tag in available:
                 values = _values(accumulator, tag)
                 mode_max[mode] = max(values, default=math.nan)
-        for mode in ("free", "goal"):
-            if not math.isfinite(mode_max[mode]) or mode_max[mode] <= 0:
-                failures.append(f"manager mode {mode} had no activity")
+        if not math.isfinite(mode_max["free"]) or mode_max["free"] <= 0:
+            failures.append("manager mode free had no activity")
         edge_cell = run.factors["manager_objective"] == "edge_ucb"
         if edge_cell and (not math.isfinite(mode_max["probe"]) or mode_max["probe"] <= 0):
             failures.append("edge-aware cell had no EDGE_PROBE activity")
@@ -147,8 +146,12 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
         for branch, tags in BRANCH_TAGS.items():
             if all(tag in available for tag in tags):
                 branch_active[branch] = any(_active(_values(accumulator, tag)) for tag in tags)
-            if not branch_active[branch]:
-                failures.append(f"{branch} branch produced no nonzero loss")
+        if not branch_active["free"]:
+            failures.append("free branch produced no nonzero loss")
+        # EDGE_PROBE is goal-directed, so edge-aware cells must exercise the
+        # goal branch even if no multi-hop NAVIGATE option is available yet.
+        if edge_cell and not branch_active["goal"]:
+            failures.append("edge-aware cell's goal branch produced no nonzero loss")
 
         result = {
             "run_name": run_name,
