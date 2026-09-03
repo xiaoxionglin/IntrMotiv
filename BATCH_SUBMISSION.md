@@ -487,6 +487,8 @@ After submission:
 - [ ] One job's stdout and stderr paths point into the submission work directory.
 - [ ] W&B runs are checked after jobs begin running.
 - [ ] The location of `scancel.sh` is recorded for the batch owner.
+- [ ] `audit-submission STUDY WORKDIR/jobs.tsv --submitted` confirms the exact
+      study matrix, arguments, job IDs, and workspace paths.
 
 ## 12. Minimal command reference
 

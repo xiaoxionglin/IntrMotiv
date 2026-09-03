@@ -10,6 +10,7 @@ from typing import Any, Iterable, Mapping
 
 from .analysis import linear_contrasts, summarize_records
 from .spec import SpecError, StudySpec, load_study
+from .submission import audit_submission
 from .telemetry import (
     build_place_field_manifests,
     discover_nemo_checkpoints,
@@ -133,6 +134,12 @@ def command_render_runs(args: argparse.Namespace) -> None:
     })
 
 
+def command_audit_submission(args: argparse.Namespace) -> None:
+    study = load_study(args.study)
+    result = audit_submission(study, args.jobs_tsv, require_submitted=args.submitted)
+    _write_json(args.output, result)
+
+
 def command_collect_online(args: argparse.Namespace) -> None:
     study = load_study(args.study)
     fixed_window = None
@@ -186,6 +193,15 @@ def build_parser() -> argparse.ArgumentParser:
     render.add_argument("study", type=Path)
     render.add_argument("--output", type=Path)
     render.set_defaults(func=command_render_runs)
+
+    audit = subparsers.add_parser(
+        "audit-submission", help="compare a launcher jobs.tsv with the declared study"
+    )
+    audit.add_argument("study", type=Path)
+    audit.add_argument("jobs_tsv", type=Path)
+    audit.add_argument("--submitted", action="store_true", help="require job IDs and submitted status")
+    audit.add_argument("--output", type=Path)
+    audit.set_defaults(func=command_audit_submission)
 
     collect = subparsers.add_parser(
         "collect-online", help="collect TensorBoard rows and run standard analysis"

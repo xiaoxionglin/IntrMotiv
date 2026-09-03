@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import csv
 import json
 import math
 from pathlib import Path
@@ -11,6 +12,7 @@ from hpc_runs.graph_stabilized_recruitment_manifest import rows as legacy_rows
 from hpc_runs.intrmotiv_study import SCHEMA_ID, SpecError, WORKFLOW_VERSION, load_study
 from hpc_runs.intrmotiv_study.analysis import linear_contrasts, summarize_records
 from hpc_runs.intrmotiv_study.sample_factory import build_run_description
+from hpc_runs.intrmotiv_study.submission import audit_submission
 from hpc_runs.intrmotiv_study.telemetry import (
     MANIFEST_COLUMNS,
     CheckpointRecord,
@@ -40,12 +42,13 @@ class StudySpecTests(unittest.TestCase):
         runs = self.study.expand_runs()
         self.assertEqual(self.study.expected_runs, 36)
         self.assertEqual(len({run.name for run in runs}), 36)
-        self.assertEqual(runs[0].name, "GSR_C05_D4_H5k_S8")
-        self.assertEqual(runs[-1].name, "GSR_C15_D8_H10k_S123")
+        self.assertEqual(runs[0].name, "GSR_C05_D4_H5K_S8")
+        self.assertEqual(runs[-1].name, "GSR_C15_D8_H10K_S123")
         self.assertIn("--dg_recruitment_redundancy_max_steps=4", runs[0].args)
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
-        self.assertEqual(self.study.raw["workflow_version"], WORKFLOW_VERSION)
+        self.assertEqual(self.study.declared_workflow_version, "1.0.0")
+        self.assertEqual(WORKFLOW_VERSION, "1.1.0")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -57,7 +60,7 @@ class StudySpecTests(unittest.TestCase):
     def test_historical_manifest_is_now_a_thin_compatibility_adapter(self):
         rows = legacy_rows()
         self.assertEqual(len(rows), 36)
-        self.assertEqual(rows[0]["name"], "GSR_C05_D4_H5k_S8")
+        self.assertEqual(rows[0]["name"], "GSR_C05_D4_H5K_S8")
         self.assertNotIn("--seed=8", rows[0]["args"])
         self.assertEqual(rows[0]["context_controls"], [
             "original_C05_seed8",
@@ -177,6 +180,55 @@ class TelemetryTests(unittest.TestCase):
             build_place_field_manifests(
                 self.study, inventory, require_checkpoint_files=False
             )
+
+
+class SubmissionAuditTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.study = load_study(SPEC_PATH)
+
+    def _write_jobs(self, path: Path, remove_first_arg: bool = False) -> None:
+        fields = [
+            "job_id", "status", "experiment", "train_root", "sbatch_file",
+            "stdout", "stderr", "command",
+        ]
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fields, delimiter="\t")
+            writer.writeheader()
+            for index, run in enumerate(self.study.expand_runs(), start=1000):
+                args = list(run.args)
+                if remove_first_arg and index == 1000:
+                    args.pop(0)
+                root = "/work/classic/fr_xl1014-train/study"
+                writer.writerow({
+                    "job_id": str(index),
+                    "status": "submitted",
+                    "experiment": f"00_{run.name}",
+                    "train_root": f"batch/{run.name}",
+                    "sbatch_file": f"{root}/sbatch_{run.name}.sh",
+                    "stdout": f"{root}/{run.name}-%j.out",
+                    "stderr": f"{root}/{run.name}-%j.err",
+                    "command": " ".join([
+                        *args,
+                        f"--experiment=00_{run.name}",
+                        f"--train_dir={root}/{run.name}",
+                    ]),
+                })
+
+    def test_submission_audit_matches_matrix_commands_and_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "jobs.tsv"
+            self._write_jobs(path)
+            result = audit_submission(self.study, path, require_submitted=True)
+        self.assertTrue(result["submitted_complete"])
+        self.assertTrue(result["commands_match_study"])
+        self.assertEqual(result["status_counts"], {"submitted": 36})
+
+    def test_submission_audit_rejects_missing_study_argument(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "jobs.tsv"
+            self._write_jobs(path, remove_first_arg=True)
+            with self.assertRaisesRegex(SpecError, "missing study arguments"):
+                audit_submission(self.study, path, require_submitted=True)
 
 
 class TensorBoardPrimitiveTests(unittest.TestCase):

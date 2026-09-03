@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.0.0`
+- Implementation: `1.1.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -16,3 +16,10 @@
 
 Update this file, `version.py`, tests, and the guide together when the standard
 changes, then synchronize and test the NEMO2 runtime copy.
+
+## 1.1.0
+
+- Added bounded parallel TensorBoard loading, configurable with
+  `analysis.max_workers` and defaulting to four workers.
+- Added `audit-submission` for exact matrix, command, job-ID, and workspace-path
+  validation against real Sample Factory `jobs.tsv` files.

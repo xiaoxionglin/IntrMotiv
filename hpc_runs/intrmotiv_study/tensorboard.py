@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import math
 from pathlib import Path
 from statistics import fmean
@@ -44,18 +45,21 @@ def collect_online_records(
     step_tag = analysis.get("step_tag", "train/env_steps")
     terminal_width = analysis.get("terminal_width", 10_000_000)
     scalar_size_guidance = analysis.get("scalar_size_guidance", 30_000)
+    max_workers = analysis.get("max_workers", 4)
     if (
         not isinstance(step_tag, str)
         or not isinstance(terminal_width, int)
         or terminal_width <= 0
         or not isinstance(scalar_size_guidance, int)
         or scalar_size_guidance <= 0
+        or not isinstance(max_workers, int)
+        or max_workers <= 0
     ):
-        raise SpecError("analysis step_tag and terminal_width are invalid")
+        raise SpecError("analysis collection settings are invalid")
 
-    records: list[dict[str, Any]] = []
     run_directories = discover_run_directories(study, batch_root)
-    for run in study.expand_runs():
+
+    def collect_run(run: Any) -> dict[str, Any]:
         run_dir = run_directories[run.name]
         summary_dir = run_dir / ".summary" / "0"
         if not summary_dir.is_dir():
@@ -100,5 +104,10 @@ def collect_online_records(
                 row[metric], row[f"{metric}__step"] = latest_at_or_before(
                     accumulator.Scalars(tag), high
                 )
-        records.append(row)
-    return records
+        return row
+
+    runs = study.expand_runs()
+    with ThreadPoolExecutor(max_workers=min(max_workers, len(runs))) as executor:
+        # executor.map preserves StudySpec order while loading independent event
+        # directories concurrently.
+        return list(executor.map(collect_run, runs))

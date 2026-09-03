@@ -2,9 +2,8 @@
 
 ## Status
 
-Current implementation: **1.0.0**  
-Study schema: **`intrmotiv/study/v1`**  
-Canonical code: `hpc_runs/intrmotiv_study/`  
+Current implementation: **1.1.0**; study schema:
+**`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 The tested NEMO2 runtime copy is under
@@ -135,6 +134,20 @@ for training and does not replace `jobs.tsv`, `submission.json`, or
 If the fingerprint changes after print-only review, repeat the review before
 submission.
 
+Audit either the print-only or submitted launcher manifest against the same
+study. Add `--submitted` after a real submission to require numeric job IDs and
+`submitted` status for every row:
+
+```bash
+python -m hpc_runs.intrmotiv_study audit-submission \
+  hpc_runs/studies/my_study.study.json WORKDIR/jobs.tsv --submitted \
+  --output WORKDIR/study_audit.json
+```
+
+The audit requires the exact run matrix, study arguments in every generated
+command, matching `--experiment` names, unique job IDs, and workspace-only
+training and Slurm paths.
+
 ### 3. Collect and analyze online metrics
 
 From the NEMO2 source checkout:
@@ -148,6 +161,9 @@ python -m hpc_runs.intrmotiv_study collect-online \
 
 Use `--window-low` and `--window-high` together for a synchronized window.
 Without them, each run uses its declared terminal window.
+TensorBoard histories are loaded with a bounded thread pool; set
+`analysis.max_workers` in the study when the default of four is inappropriate
+for the filesystem or event volume.
 
 Standard outputs are:
 
@@ -212,7 +228,7 @@ core.
 
 ## Current boundaries
 
-Version 1.0 standardizes definition, collection, analysis, and telemetry
+Version 1.x standardizes definition, collection, analysis, and telemetry
 planning. Slurm submission, monitoring, cancellation, and raw place-field
 execution intentionally remain with the established launchers. Generic figure
 recipes and automated report/index assembly are suitable next components, but
