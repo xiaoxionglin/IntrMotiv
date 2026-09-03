@@ -255,11 +255,22 @@ Coverage alone does not establish that the graph algorithm is functioning.
 
 These are environment statistics, not learner minibatch statistics. Fixed-length runs emit physical episode data, typically under policy_stats/avg_z_.... Long-episode runs additionally emit intrmotiv/exploration/window/ every 900 policy decisions. A window does not reset DMLab, CA3, option state, or graph memory.
 
+When `exploration_coverage_telemetry` is enabled, DMLab supplies privileged
+horizontal pose `(x, y, yaw)` to the environment wrapper. The wrapper removes
+the private value from `info` after updating the statistics below. Pose is not
+declared in the training observation space and therefore cannot enter
+observation normalization, rollout tensors, the encoder, the policy, rewards,
+or checkpoints. `exploration_heading_bin_degrees` controls yaw discretization
+and defaults to 15 degrees.
+
 | Tag suffix / window tag | Exact quantity | Interpretation |
 | --- | --- | --- |
 | ...coverage_unique_cells | Distinct discretized cells in interval. | Spatial extent; higher is better at fixed length. |
 | ...coverage_auc | (1/N) times the sum over t of U_t, with U_t unique cells observed through t. | Rewards early coverage and final extent; compare equal-length intervals only. |
 | ...coverage_entropy | Shannon entropy of discretized-cell occupancy, normalized as configured by telemetry. | Evenness can be high despite low spatial extent. |
+| ...pose_unique_bins | Distinct joint `(x-cell, y-cell, yaw-bin)` states in the interval. | Viewpoint coverage; distinguishes revisiting a location from different headings. |
+| ...pose_auc | `(1/N)` times the sum over `t` of joint pose bins observed through `t`. | Rewards early viewpoint coverage; compare only identical spatial and yaw bins. |
+| ...pose_entropy | Shannon entropy of joint `(x-cell, y-cell, yaw-bin)` occupancy. | Viewpoint evenness; interpret alongside spatial coverage. |
 | ...window_return / episode return | DMLab external reward sum. | Expected zero in no-reward open field. |
 | ...window_length / episode length | Decisions in telemetry window or physical episode. | Validate interval before comparing totals. |
 
@@ -268,7 +279,7 @@ These are environment statistics, not learner minibatch statistics. Fixed-length
 1. Representation health: density, silent fraction, duty-cycle min/max, usage entropy, and pre-threshold-above fraction.
 2. Intrinsic supervision: advantage nonzero fraction, intrinsic nonzero fraction, target-hit rate, timeout rate, and option success fraction.
 3. HRL mechanism: target/source fractions, selected deadline, timeout elapsed time, learned-deadline fraction, usable edges, and edge confidence.
-4. External behavior: coverage AUC, unique cells, occupancy entropy, and matched episode/window length.
+4. External behavior: coverage AUC, unique cells, occupancy entropy, joint-pose AUC/entropy, and matched episode/window length.
 5. Optimization: PPO loss/entropy/throughput with update phase, encoder loss, decoder loss, and enabled regularizers.
 
 No single internal metric is a sufficient run objective. A result is credible only when representation health, worker supervision, graph behavior, and matched external coverage agree.

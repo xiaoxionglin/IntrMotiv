@@ -18,6 +18,14 @@ Online minibatch density and usage entropy cannot answer these questions. A
 policy can have healthy online DG activity while all units respond to the same
 few locations.
 
+Training may request the same privileged DMLab `(x, y, yaw)` signal for
+environment-only coverage and viewpoint metrics. In that path the reward
+wrapper consumes the pose from `info` and removes it before Sample Factory
+stores observations or learner rollouts. These online exploration summaries
+complement but do not replace the 10k manifest-driven DG place-field protocol:
+they contain no DG activation maps and cannot establish spatial selectivity or
+map stability.
+
 ## Authoritative Locations
 
 NEMO2 source checkout:
