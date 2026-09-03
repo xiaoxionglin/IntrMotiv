@@ -82,7 +82,12 @@ def latest_at_or_before(acc: EventAccumulator, tag: str, high: int) -> tuple[flo
     return float(latest.value), int(latest.step)
 
 
-def parse_run(event_path: Path, terminal_width: int) -> dict[str, object]:
+def parse_run(
+    event_path: Path,
+    terminal_width: int,
+    fixed_low: int | None = None,
+    fixed_high: int | None = None,
+) -> dict[str, object]:
     run_name = event_path.parents[2].name.removeprefix("00_")
     match = RUN_RE.search(run_name)
     if match is None:
@@ -94,7 +99,16 @@ def parse_run(event_path: Path, terminal_width: int) -> dict[str, object]:
     if "train/env_steps" not in tags:
         raise ValueError(f"Missing train/env_steps in {event_path}")
     max_step = max(event.step for event in acc.Scalars("train/env_steps"))
-    low = max(0, max_step - terminal_width)
+    if (fixed_low is None) != (fixed_high is None):
+        raise ValueError("fixed_low and fixed_high must be supplied together")
+    if fixed_high is not None:
+        if fixed_high > max_step:
+            raise ValueError(f"Run {run_name} ends at {max_step}, before fixed window {fixed_high}")
+        if fixed_low is None or fixed_low < 0 or fixed_low >= fixed_high:
+            raise ValueError(f"Invalid fixed window: {fixed_low}--{fixed_high}")
+        low, high = fixed_low, fixed_high
+    else:
+        low, high = max(0, max_step - terminal_width), max_step
     row: dict[str, object] = {
         "backbone": backbone,
         "redundancy_max_steps": int(d_value),
@@ -103,13 +117,13 @@ def parse_run(event_path: Path, terminal_width: int) -> dict[str, object]:
         "run": run_name,
         "max_step": int(max_step),
         "window_low": int(low),
-        "window_high": int(max_step),
+        "window_high": int(high),
         "event_file": str(event_path),
     }
     for key, tag in WINDOW_METRICS.items():
-        row[key], row[f"{key}__n"] = mean_in_window(acc, tag, low, max_step)
+        row[key], row[f"{key}__n"] = mean_in_window(acc, tag, low, high)
     for key, tag in CUMULATIVE_METRICS.items():
-        row[key], row[f"{key}__step"] = latest_at_or_before(acc, tag, max_step)
+        row[key], row[f"{key}__step"] = latest_at_or_before(acc, tag, high)
     return row
 
 
@@ -229,11 +243,16 @@ def main() -> None:
     parser.add_argument("batch_root", type=Path)
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("--terminal-width", type=int, default=10_000_000)
+    parser.add_argument("--window-low", type=int)
+    parser.add_argument("--window-high", type=int)
     parser.add_argument("--no-plots", action="store_true")
     args = parser.parse_args()
 
     event_paths = sorted(args.batch_root.glob("*/*/.summary/0/events.out.tfevents.*"))
-    rows = [parse_run(path, args.terminal_width) for path in event_paths]
+    rows = [
+        parse_run(path, args.terminal_width, args.window_low, args.window_high)
+        for path in event_paths
+    ]
     frame = pd.DataFrame(rows).sort_values(
         ["backbone", "redundancy_max_steps", "half_life_k", "seed"]
     )
@@ -254,6 +273,11 @@ def main() -> None:
         "min_max_step": int(frame.max_step.min()),
         "max_max_step": int(frame.max_step.max()),
         "terminal_width": int(args.terminal_width),
+        "fixed_window": (
+            [int(args.window_low), int(args.window_high)]
+            if args.window_low is not None and args.window_high is not None
+            else None
+        ),
         "all_terminal": bool((frame.max_step >= 100_000_000).all()),
         "window_metrics": WINDOW_METRICS,
         "cumulative_metrics": CUMULATIVE_METRICS,
