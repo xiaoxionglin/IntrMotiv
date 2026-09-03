@@ -62,6 +62,16 @@ reward/reward and ordinary episode-return metrics are external DMLab reward. The
 | intrmotiv/dg/ca3_conflict_fraction | Unit-transition entries masked because another DG unit was active in the preceding R decisions / all valid unit-transition entries. | Potential-conflict mask coverage. One recent unit can mask `(F-1)/F` entries, so this is not a violation rate. |
 | intrmotiv/dg/ca3_conflicting_activation_fraction | Current post-threshold active DG entries that are CA3-conflict-masked / all current post-threshold active DG entries. | Primary temporal-exclusion violation rate; zero when there are no current activations. |
 | intrmotiv/dg/ca3_conflict_activity | Mean current post-threshold DG amplitude over CA3-conflict-masked entries. | Violation magnitude, including zero activity on masked entries. |
+| intrmotiv/dg/recruitment/connected_fraction, isolated_fraction | Fraction of DG vertices with, or without, any incoming or outgoing edge satisfying `confidence > threshold` and positive elapsed time. | In graph mode, a connected nonredundant mature field is protected from reassignment. |
+| intrmotiv/dg/recruitment/redundant_pair_count | Bidirectionally supported pairs whose two elapsed-time estimates are at most the configured redundancy threshold. | Counts pairwise redundancy opportunities, not victims; a vertex can occur in several pairs. |
+| intrmotiv/dg/recruitment/eligible_vertex_count | Birth-mature isolated vertices plus birth-mature redundant-pair losers. | Zero means a silent endpoint cannot cause reassignment. |
+| intrmotiv/dg/recruitment/birth_protected_count | Vertices whose birth support is above the recruitment connectivity threshold. | Newly assigned fields remain protected until graph-clock decay expires. |
+| intrmotiv/dg/recruitment/repeat_total | Cumulative assignments to rows that had already been assigned at least once. | Direct representation-churn measure; should plateau late in training. |
+| intrmotiv/dg/recruitment/isolated_assignments_per_rollout, redundant_assignments_per_rollout | Assignments in the latest accepted rollout, split by eligibility reason. | The two values sum to graph-mode assignments for that rollout. |
+| intrmotiv/dg/recruitment/passive_graph_density | Above-threshold directed passive edges / `F(F-1)`. | Passive fallback connectivity, reported even when policy-buffer HRL selects the controllability graph for eligibility. |
+| intrmotiv/dg/recruitment/passive_updates_per_rollout | Accepted passive transitions in the latest rollout. | Confirms that behavior-time exclusive DG history is producing graph evidence. |
+| intrmotiv/dg/recruitment/passive_stale_per_rollout | Candidate passive transitions rejected for a representation-generation mismatch. | Expected immediately around reassignment; persistent growth suggests delayed stale evidence. |
+| intrmotiv/dg/recruitment/passive_over_gap_per_rollout | Candidate passive transitions rejected because the landmark gap exceeded `L`. | Confirms that remote event pairs are not treated as local graph edges. |
 
 These are minibatch diagnostics. Use trends and the 10k-decision place-field evaluation before claiming irreversible DG collapse.
 

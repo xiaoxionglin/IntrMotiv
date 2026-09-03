@@ -275,9 +275,37 @@ modeling: current managers do not consume its output. Default-off.
 
 ### 6.1 Orthogonal DG recruitment
 
-At an endpoint exactly `L` decisions after a lone source activation, if the
+Orthogonal recruitment has two modes. `legacy` preserves the historical rule:
+at an endpoint exactly `L` decisions after a lone source activation, if the
 current feature activates no DG unit, one never-committed, least-used row may
-be replaced. For input feature `x` and all other projection rows `W_{-j}`:
+be replaced. `graph` keeps the same silent-endpoint proposal but determines
+which row may be replaced from landmark-graph evidence rather than the
+`recruitment_committed` flag.
+
+In graph mode, supported directed edges are
+
+$$
+A_{ij}=[C_{ij}>0.25][T_{ij}>0].
+$$
+
+A mature vertex is recruitable if it is isolated, or if it loses a redundant
+pair comparison. A pair is redundant only when both directed edges are
+supported and both elapsed-time estimates are at most the configured threshold
+`D`. The member with lower total incident supported confidence loses; an exact
+tie selects the higher DG index. Isolated vertices are preferred over redundant
+losers, followed by lowest incident support. A birth-support value initialized
+to one protects each new field until exponential decay takes it to at most
+`0.25`.
+
+Policy-buffer HRL uses controllability confidence and `T_ctrl`; all other
+configurations use a passive graph formed by consecutive, different, exclusive
+behavior-time DG events at most `L` decisions apart in one physical episode.
+The passive history is independent of CA3 and crosses rollout boundaries.
+Generation IDs reject rollout evidence made stale by reassignment. In HRL the
+birth-support clock uses the configured option-event half-life; otherwise it
+uses the passive-transition half-life.
+
+For input feature `x` and all other projection rows `W_{-j}`:
 
 $$
 w_j\leftarrow\frac{(I-\Pi_{\mathrm{span}(W_{-j})})x}
@@ -288,7 +316,9 @@ The chosen row's optimizer state is cleared and its BatchNorm statistics are
 set so the candidate is above threshold by the recruitment margin. The
 default cap is one row per accepted rollout. This is a non-gradient
 intervention, not an optimizer loss; it invalidates graph information incident
-to a replaced landmark.
+to a replaced landmark in both passive and controllability graphs and advances
+their representation generations. `recruitment_committed` remains checkpointed
+only as legacy ever-recruited telemetry in graph mode.
 
 ### 6.2 Controllability and passive graph fast weights
 
