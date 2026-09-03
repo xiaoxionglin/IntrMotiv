@@ -217,21 +217,32 @@ observations. It is default-off and does not itself create spatial fields.
 
 ### 5.3 CA3 temporal exclusion
 
-Let `P_t[k]` denote whether DG `k` occupied the CA3 tap at `R-1` in the
-stored state. That tap represents the preceding `R`-decision window; the loss
-does not scan the older `L` history. For each candidate unit:
+The current implementation is an event-level temporal margin aligned with the
+dominant-onset distance objective. Let `D_t[j]` select the dominant DG onset,
+`d_t` be its predecessor distance, `s` be `reward_scale`, and `c_x` be
+`dg_ca3_temporal_exclusion_coeff`. The added term is
 
 $$
-M_{tj}=\left[\sum_{k\ne j}P_t[k]>0\right],
-\qquad
-\mathcal L_{CA3-x}=\lambda_x\mathbb E_{t,j}[a_{tj}M_{tj}].
+\mathcal L_{margin}=c_xsR\,\mathbb E_t\left[\sum_j a_{tj}D_t[j]\right].
 $$
 
-It penalizes a current DG activation when a *different* DG was recently active.
-It does not penalize the same unit's continuation. `ca3_conflict_fraction` is
-the mean of `M` over all unit-time slots; `ca3_conflicting_activation_fraction`
-is the fraction of current active entries satisfying `M`. They use different
-denominators and are not expected to have similar values.
+Combined with `encoder_reward_method=encourage`, a unit coefficient gives
+
+$$
+\mathcal L_{enc}+\mathcal L_{margin}
+=-s\,\mathbb E_t\left[(d_t-R)\sum_j a_{tj}D_t[j]\right].
+$$
+
+Thus onsets below `R` are suppressed, an onset at `R` is neutral, and onsets
+above `R` are reinforced. Continuing and non-dominant activity is unaffected.
+Zero disables the margin; nonzero use currently requires `encourage` feedback.
+
+The historical CA3 conflict mask is still computed for diagnostics.
+`ca3_conflict_fraction` is its mean over all unit-time slots;
+`ca3_conflicting_activation_fraction` is the fraction of current active entries
+satisfying it. The mask no longer gates the loss. Runs launched before
+2026-09-03 used the legacy broad activity-masked exclusion loss and are not
+semantically interchangeable with the revised margin.
 
 ### 5.4 Same-DG path scatter loss
 
