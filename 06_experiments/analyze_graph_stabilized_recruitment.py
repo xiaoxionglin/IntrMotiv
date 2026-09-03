@@ -222,7 +222,16 @@ def plot_condition_grid(aggregate: pd.DataFrame, output_dir: Path) -> None:
         ax.set_xticks(x, labels)
         ax.set_ylabel(ylabel)
         ax.grid(axis="y", color="#d0d0d0", linewidth=0.8)
-        ax.text(-0.13, 1.03, panel_label, transform=ax.transAxes, fontweight="bold", fontsize=22)
+        ax.text(
+            0.015,
+            0.985,
+            panel_label,
+            transform=ax.transAxes,
+            ha="left",
+            va="top",
+            fontweight="bold",
+            fontsize=22,
+        )
     axes[0, 0].legend(frameon=False, ncol=3, loc="best")
     fig.savefig(output_dir / "graph_recruitment_interim_overview.png", dpi=120)
     fig.savefig(output_dir / "graph_recruitment_interim_overview.pdf")

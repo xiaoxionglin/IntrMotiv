@@ -1,0 +1,49 @@
+{
+  "snapshot_utc": "2026-09-03T14:56:29.600187+00:00",
+  "runs": 36,
+  "min_max_step": 85655552,
+  "max_max_step": 100040704,
+  "terminal_width": 10000000,
+  "fixed_window": [
+    65000000,
+    75000000
+  ],
+  "all_terminal": false,
+  "window_metrics": {
+    "coverage_auc": "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc",
+    "unique_cells": "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_unique_cells",
+    "coverage_entropy": "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_entropy",
+    "dg_density": "intrmotiv/dg/density",
+    "dg_silent_fraction": "intrmotiv/dg/silent_unit_fraction",
+    "dg_usage_entropy": "intrmotiv/dg/usage_entropy",
+    "dg_behavior_event_fraction": "intrmotiv/dg/behavior_dominant_event_fraction",
+    "target_hit_lift": "intrmotiv/hrl/target_hit_lift",
+    "action_sensitivity": "intrmotiv/hrl/goal_condition/action_sensitivity",
+    "option_success_fraction": "intrmotiv/hrl/option_success_fraction",
+    "known_edge_fraction": "intrmotiv/hrl/known_edge_fraction",
+    "node_coverage_fraction": "intrmotiv/hrl/node_coverage_fraction",
+    "connected_fraction": "intrmotiv/dg/recruitment/connected_fraction",
+    "isolated_fraction": "intrmotiv/dg/recruitment/isolated_fraction",
+    "redundant_pair_count": "intrmotiv/dg/recruitment/redundant_pair_count",
+    "eligible_vertex_count": "intrmotiv/dg/recruitment/eligible_vertex_count",
+    "birth_protected_count": "intrmotiv/dg/recruitment/birth_protected_count",
+    "isolated_assignments_per_rollout": "intrmotiv/dg/recruitment/isolated_assignments_per_rollout",
+    "redundant_assignments_per_rollout": "intrmotiv/dg/recruitment/redundant_assignments_per_rollout",
+    "repeat_assignments_per_rollout": "intrmotiv/dg/recruitment/repeat_assignments_per_rollout",
+    "passive_graph_density": "intrmotiv/dg/recruitment/passive_graph_density",
+    "passive_updates_per_rollout": "intrmotiv/dg/recruitment/passive_updates_per_rollout",
+    "passive_stale_per_rollout": "intrmotiv/dg/recruitment/passive_stale_per_rollout",
+    "passive_over_gap_per_rollout": "intrmotiv/dg/recruitment/passive_over_gap_per_rollout",
+    "exploration_selection_fraction": "intrmotiv/hrl/exploration/selection_fraction",
+    "forced_exploration_fraction": "intrmotiv/hrl/exploration/forced_selection_fraction",
+    "frontier_selection_rate": "intrmotiv/hrl/frontier/selection_rate",
+    "frontier_yield": "intrmotiv/hrl/frontier/yield",
+    "frontier_reached_fraction": "intrmotiv/hrl/frontier/reached_fraction"
+  },
+  "cumulative_metrics": {
+    "recruitment_total": "intrmotiv/dg/recruitment/total",
+    "repeat_total": "intrmotiv/dg/recruitment/repeat_total",
+    "tiny_residual_total": "intrmotiv/dg/recruitment/tiny_residual_total"
+  },
+  "aggregation": "Per-run latest 10M mean; condition mean and sample SD over three seeds."
+}
