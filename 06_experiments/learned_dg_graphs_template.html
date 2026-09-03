@@ -1,0 +1,350 @@
+<div id="gsr-learned-graphs">
+  <style>
+    #gsr-learned-graphs { color: var(--foreground); width: 100%; max-width: calc(100vw - 32px); min-width: 0; box-sizing: border-box; }
+    #gsr-learned-graphs .gsr-meta { margin: 0.5rem 0 0.75rem; gap: 0.5rem 1rem; overflow-wrap: anywhere; }
+    #gsr-learned-graphs .gsr-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin: 0.4rem 0 0.8rem; color: var(--muted-foreground); }
+    #gsr-learned-graphs .gsr-key { display: inline-flex; align-items: center; gap: 0.35rem; }
+    #gsr-learned-graphs .gsr-line { width: 1.6rem; height: 0; border-top: 3px solid var(--viz-series-2); }
+    #gsr-learned-graphs .gsr-line.medium { border-color: var(--viz-series-3); }
+    #gsr-learned-graphs .gsr-line.long { border-color: var(--viz-series-4); }
+    #gsr-learned-graphs .gsr-ring { width: 0.9rem; height: 0.9rem; border: 3px solid var(--viz-series-5); border-radius: 50%; }
+    #gsr-learned-graphs .gsr-filled { width: 0.9rem; height: 0.9rem; background: color-mix(in srgb, var(--viz-series-1) 55%, transparent); border-radius: 50%; }
+    #gsr-learned-graphs .gsr-network { min-width: 0; }
+    #gsr-learned-graphs .gsr-matrices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    #gsr-learned-graphs .gsr-panel { min-width: 0; }
+    #gsr-learned-graphs h3 { margin: 0.35rem 0; }
+    #gsr-learned-graphs svg { display: block; width: 100%; height: auto; overflow: visible; }
+    #gsr-learned-graphs svg text { fill: var(--foreground); font-size: 12px; }
+    #gsr-learned-graphs .gsr-muted { fill: var(--muted-foreground); }
+    #gsr-learned-graphs [data-chart-frame] { fill: transparent; stroke: var(--border); stroke-width: 1; }
+    #gsr-learned-graphs .gsr-edge { fill: none; stroke-linecap: round; }
+    #gsr-learned-graphs .gsr-node { stroke: var(--background); stroke-width: 2; cursor: pointer; }
+    #gsr-learned-graphs .gsr-eligible { fill: none; stroke: var(--viz-series-5); stroke-width: 3; stroke-dasharray: 5 3; pointer-events: none; }
+    #gsr-learned-graphs .gsr-node-label { text-anchor: middle; dominant-baseline: central; pointer-events: none; font-weight: 500; }
+    #gsr-learned-graphs .gsr-cell { stroke: var(--background); stroke-width: 0.5; }
+    #gsr-learned-graphs .gsr-axis-title { font-weight: 500; }
+    #gsr-learned-graphs .gsr-detail { min-height: 1.5rem; margin: 0.6rem 0 0.8rem; color: var(--muted-foreground); }
+    @media (max-width: 560px) {
+      #gsr-learned-graphs .gsr-matrices { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <h2>Learned DG transition graphs</h2>
+  <div class="viz-controls" aria-label="Model and graph controls">
+    <label class="form-label">Backbone
+      <select class="form-select" id="gsr-backbone"></select>
+    </label>
+    <label class="form-label">Redundancy threshold
+      <select class="form-select" id="gsr-d"></select>
+    </label>
+    <label class="form-label">Half-life
+      <select class="form-select" id="gsr-half-life"></select>
+    </label>
+    <label class="form-label">Seed
+      <select class="form-select" id="gsr-seed"></select>
+    </label>
+    <label class="form-label">Graph
+      <select class="form-select" id="gsr-graph-kind">
+        <option value="policy">Controllability</option>
+        <option value="passive">Policy passive</option>
+        <option value="recruitment">Recruitment passive</option>
+      </select>
+    </label>
+    <label class="form-label">Min. confidence
+      <input class="form-control" id="gsr-threshold" type="number" min="0" step="0.05" value="0.5">
+    </label>
+    <label class="form-label">Max. displayed edges
+      <select class="form-select" id="gsr-edge-limit">
+        <option value="24">24</option>
+        <option value="48" selected>48</option>
+        <option value="96">96</option>
+        <option value="240">All</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="viz-row gsr-meta text-small tabular-nums" id="gsr-meta" aria-live="polite"></div>
+  <div class="gsr-legend text-small" aria-label="Graph legend">
+    <span class="gsr-key"><span class="gsr-line"></span>short elapsed time</span>
+    <span class="gsr-key"><span class="gsr-line medium"></span>medium elapsed time</span>
+    <span class="gsr-key"><span class="gsr-line long"></span>long elapsed time</span>
+    <span class="gsr-key"><span class="gsr-ring"></span>eligible recruitment victim</span>
+    <span class="gsr-key"><span class="gsr-filled"></span>node fill indicates ≥1 row assignment</span>
+  </div>
+
+  <section class="gsr-network gsr-panel" aria-labelledby="gsr-network-title">
+    <h3 id="gsr-network-title">Directed network</h3>
+    <svg id="gsr-network-svg" role="img" aria-labelledby="gsr-network-svg-title gsr-network-svg-desc"></svg>
+  </section>
+  <div class="gsr-detail text-small tabular-nums" id="gsr-node-detail" aria-live="polite">Select a node for its incoming and outgoing edge summary.</div>
+
+  <section class="gsr-matrices" aria-label="Graph matrices">
+    <div class="gsr-panel">
+      <h3>Confidence matrix</h3>
+      <svg id="gsr-confidence-svg" role="img" aria-labelledby="gsr-confidence-title gsr-confidence-desc"></svg>
+    </div>
+    <div class="gsr-panel">
+      <h3>Elapsed-time matrix</h3>
+      <svg id="gsr-time-svg" role="img" aria-labelledby="gsr-time-title gsr-time-desc"></svg>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.getElementById('gsr-learned-graphs');
+      const payload = __GRAPH_DATA__;
+      const runs = payload.runs;
+      const controls = {
+        backbone: root.querySelector('#gsr-backbone'),
+        d: root.querySelector('#gsr-d'),
+        halfLife: root.querySelector('#gsr-half-life'),
+        seed: root.querySelector('#gsr-seed'),
+        kind: root.querySelector('#gsr-graph-kind'),
+        threshold: root.querySelector('#gsr-threshold'),
+        edgeLimit: root.querySelector('#gsr-edge-limit')
+      };
+      const meta = root.querySelector('#gsr-meta');
+      const detail = root.querySelector('#gsr-node-detail');
+      const networkSvg = root.querySelector('#gsr-network-svg');
+      const confidenceSvg = root.querySelector('#gsr-confidence-svg');
+      const timeSvg = root.querySelector('#gsr-time-svg');
+      let selectedNode = null;
+
+      const unique = key => [...new Set(runs.map(run => run[key]))].sort((a, b) => String(a).localeCompare(String(b), undefined, {numeric: true}));
+      const fillSelect = (select, values, format = value => value) => {
+        select.replaceChildren(...values.map(value => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = format(value);
+          return option;
+        }));
+      };
+      fillSelect(controls.backbone, unique('backbone'));
+      fillSelect(controls.d, unique('d'), value => `D = ${value}`);
+      fillSelect(controls.halfLife, unique('half_life_k'), value => `${value}k events`);
+      fillSelect(controls.seed, unique('seed'));
+      controls.backbone.value = 'C05';
+      controls.d.value = '8';
+      controls.halfLife.value = '10';
+      controls.seed.value = '8';
+
+      const svgElement = (name, attrs = {}) => {
+        const element = document.createElementNS('http://www.w3.org/2000/svg', name);
+        Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, String(value)));
+        return element;
+      };
+      const addText = (parent, text, attrs = {}) => {
+        const element = svgElement('text', attrs);
+        element.textContent = text;
+        parent.appendChild(element);
+        return element;
+      };
+      const selectedRun = () => runs.find(run =>
+        run.backbone === controls.backbone.value &&
+        run.d === Number(controls.d.value) &&
+        run.half_life_k === Number(controls.halfLife.value) &&
+        run.seed === Number(controls.seed.value)
+      );
+      const graphData = run => {
+        if (controls.kind.value === 'passive') {
+          return {confidence: run.passive_confidence, time: run.passive_time, name: 'policy passive'};
+        }
+        if (controls.kind.value === 'recruitment') {
+          return {confidence: run.recruitment_confidence, time: run.recruitment_time, name: 'recruitment passive'};
+        }
+        return {confidence: run.policy_confidence, time: run.policy_time, name: 'controllability'};
+      };
+      const flattenOffDiagonal = matrix => matrix.flatMap((row, source) => row.filter((_, target) => source !== target));
+      const quantile = (values, probability) => {
+        const sorted = values.filter(Number.isFinite).slice().sort((a, b) => a - b);
+        if (!sorted.length) return 0;
+        const index = (sorted.length - 1) * probability;
+        const lower = Math.floor(index), upper = Math.ceil(index);
+        return sorted[lower] + (sorted[upper] - sorted[lower]) * (index - lower);
+      };
+      const fmt = (value, digits = 2) => Number(value).toLocaleString(undefined, {maximumFractionDigits: digits});
+      const measuredWidth = (svg, fallback) => Math.max(
+        260,
+        Math.min(
+          svg.getBoundingClientRect().width || fallback,
+          root.getBoundingClientRect().width || fallback,
+          window.innerWidth - 48
+        )
+      );
+
+      const eligibility = run => {
+        const confidence = run.policy_confidence;
+        const time = run.policy_time;
+        const n = confidence.length;
+        const support = Array(n).fill(0);
+        const adjacent = confidence.map((row, source) => row.map((value, target) =>
+          source !== target && value > payload.recruitment_threshold && time[source][target] > 0
+        ));
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < n; j++) if (i !== j) support[i] += confidence[i][j] + confidence[j][i];
+        }
+        const expired = run.birth_support.map(value => value <= payload.recruitment_threshold);
+        const isolated = new Set();
+        for (let i = 0; i < n; i++) {
+          if (expired[i] && !adjacent[i].some(Boolean) && !adjacent.some(row => row[i])) isolated.add(i);
+        }
+        const redundant = new Set();
+        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+          if (adjacent[i][j] && adjacent[j][i] && time[i][j] <= run.d && time[j][i] <= run.d) {
+            const loser = support[i] < support[j] ? i : support[j] < support[i] ? j : Math.max(i, j);
+            if (expired[loser]) redundant.add(loser);
+          }
+        }
+        return {isolated, redundant, support};
+      };
+
+      const visibleEdges = (confidence, time, threshold, limit) => {
+        const edges = [];
+        confidence.forEach((row, source) => row.forEach((value, target) => {
+          if (source !== target && value >= threshold && time[source][target] > 0) {
+            edges.push({source, target, confidence: value, time: time[source][target]});
+          }
+        }));
+        edges.sort((a, b) => b.confidence - a.confidence);
+        return {all: edges, shown: edges.slice(0, limit)};
+      };
+
+      const drawNetwork = (run, graph, edgeSet, eligible) => {
+        const width = measuredWidth(networkSvg, 720);
+        const height = Math.min(650, Math.max(420, width * 0.62));
+        networkSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        networkSvg.replaceChildren();
+        const title = svgElement('title', {id: 'gsr-network-svg-title'});
+        title.textContent = `${run.run}, ${graph.name} graph`;
+        const desc = svgElement('desc', {id: 'gsr-network-svg-desc'});
+        desc.textContent = `Directed graph of 16 DG units. ${edgeSet.all.length} edges meet the selected confidence threshold; ${edgeSet.shown.length} strongest edges are displayed.`;
+        networkSvg.append(title, desc);
+        networkSvg.appendChild(svgElement('rect', {x: 0.5, y: 0.5, width: width - 1, height: height - 1, 'data-chart-frame': ''}));
+        const defs = svgElement('defs');
+        [['short', 'var(--viz-series-2)'], ['medium', 'var(--viz-series-3)'], ['long', 'var(--viz-series-4)']].forEach(([name, color]) => {
+          const marker = svgElement('marker', {id: `gsr-arrow-${name}`, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 5, markerHeight: 5, orient: 'auto-start-reverse'});
+          marker.appendChild(svgElement('path', {d: 'M 0 0 L 10 5 L 0 10 z', fill: color}));
+          defs.appendChild(marker);
+        });
+        networkSvg.appendChild(defs);
+        const cx = width / 2, cy = height / 2;
+        const radius = Math.min(width, height) * 0.37;
+        const points = Array.from({length: 16}, (_, index) => {
+          const angle = -Math.PI / 2 + index * 2 * Math.PI / 16;
+          return {x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle)};
+        });
+        const confValues = edgeSet.shown.map(edge => edge.confidence);
+        const maxLogConfidence = Math.max(1e-9, ...confValues.map(value => Math.log1p(value)));
+        const times = edgeSet.shown.map(edge => edge.time);
+        const q33 = quantile(times, 1 / 3), q67 = quantile(times, 2 / 3);
+        edgeSet.shown.slice().sort((a, b) => a.confidence - b.confidence).forEach(edge => {
+          const source = points[edge.source], target = points[edge.target];
+          const dx = target.x - source.x, dy = target.y - source.y;
+          const distance = Math.max(1, Math.hypot(dx, dy));
+          const nx = -dy / distance, ny = dx / distance;
+          const sign = edge.source < edge.target ? 1 : -1;
+          const bend = Math.min(28, distance * 0.12) * sign;
+          const mx = (source.x + target.x) / 2 + nx * bend;
+          const my = (source.y + target.y) / 2 + ny * bend;
+          const category = edge.time <= q33 ? 'short' : edge.time <= q67 ? 'medium' : 'long';
+          const opacity = 0.25 + 0.65 * Math.log1p(edge.confidence) / maxLogConfidence;
+          const path = svgElement('path', {
+            d: `M ${source.x} ${source.y} Q ${mx} ${my} ${target.x} ${target.y}`,
+            class: 'gsr-edge',
+            stroke: `var(--viz-series-${category === 'short' ? 2 : category === 'medium' ? 3 : 4})`,
+            'stroke-width': 1 + 3 * Math.log1p(edge.confidence) / maxLogConfidence,
+            opacity,
+            'marker-end': `url(#gsr-arrow-${category})`,
+            'data-tooltip': `DG ${edge.source} → ${edge.target}: confidence ${fmt(edge.confidence)}, elapsed ${fmt(edge.time)} decisions`
+          });
+          networkSvg.appendChild(path);
+        });
+        const visits = run.node_visits;
+        const maxVisit = Math.max(...visits, 1e-9);
+        points.forEach((point, index) => {
+          const nodeRadius = 12 + 9 * Math.sqrt(Math.max(0, visits[index]) / maxVisit);
+          const reason = eligible.isolated.has(index) ? 'isolated' : eligible.redundant.has(index) ? 'redundant' : '';
+          if (reason) networkSvg.appendChild(svgElement('circle', {cx: point.x, cy: point.y, r: nodeRadius + 6, class: 'gsr-eligible'}));
+          const assigned = run.row_assignments[index] > 0;
+          const node = svgElement('circle', {
+            cx: point.x, cy: point.y, r: nodeRadius, class: 'gsr-node',
+            fill: assigned ? 'color-mix(in srgb, var(--viz-series-1) 55%, var(--background))' : 'var(--muted)',
+            'data-tooltip': `DG ${index}: visits ${fmt(visits[index])}, assignments ${run.row_assignments[index]}, birth support ${fmt(run.birth_support[index], 3)}${reason ? `, eligible (${reason})` : ''}`
+          });
+          node.addEventListener('click', () => { selectedNode = index; updateDetail(run, graph, edgeSet, eligible); });
+          networkSvg.appendChild(node);
+          addText(networkSvg, index, {x: point.x, y: point.y, class: 'gsr-node-label'});
+        });
+      };
+
+      const drawMatrix = (svg, matrix, titleId, descId, label, colorToken, graph) => {
+        const width = measuredWidth(svg, 480);
+        const height = width;
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        svg.replaceChildren();
+        const title = svgElement('title', {id: titleId});
+        title.textContent = label;
+        const desc = svgElement('desc', {id: descId});
+        desc.textContent = `A 16 by 16 matrix. Rows are source DG units and columns are target DG units. Opacity is normalized to the largest off-diagonal value.`;
+        svg.append(title, desc);
+        svg.appendChild(svgElement('rect', {x: 0.5, y: 0.5, width: width - 1, height: height - 1, 'data-chart-frame': ''}));
+        const margin = {left: 54, top: 24, right: 16, bottom: 48};
+        const size = Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom);
+        const cell = size / 16;
+        const values = flattenOffDiagonal(matrix).filter(value => value > 0);
+        const maxValue = Math.max(...values, 1e-9);
+        matrix.forEach((row, source) => row.forEach((value, target) => {
+          const opacity = source === target || value <= 0 ? 0.035 : 0.12 + 0.88 * Math.log1p(value) / Math.log1p(maxValue);
+          const tooltip = `${graph.name}, DG ${source} → ${target}: ${label.toLowerCase()} ${fmt(value, 3)}`;
+          svg.appendChild(svgElement('rect', {
+            x: margin.left + target * cell, y: margin.top + source * cell,
+            width: cell, height: cell, class: 'gsr-cell', fill: colorToken, opacity,
+            'data-tooltip': tooltip
+          }));
+        }));
+        for (let index = 0; index < 16; index++) {
+          addText(svg, index, {x: margin.left + (index + 0.5) * cell, y: margin.top + size + 18, 'text-anchor': 'middle', class: 'gsr-muted'});
+          addText(svg, index, {x: margin.left - 9, y: margin.top + (index + 0.5) * cell + 4, 'text-anchor': 'end', class: 'gsr-muted'});
+        }
+        addText(svg, 'Target DG unit', {x: margin.left + size / 2, y: height - 10, 'text-anchor': 'middle', class: 'gsr-axis-title', 'data-axis': 'x'});
+        addText(svg, 'Source DG unit', {x: 16, y: margin.top + size / 2, transform: `rotate(-90 16 ${margin.top + size / 2})`, 'text-anchor': 'middle', class: 'gsr-axis-title', 'data-axis': 'y'});
+        addText(svg, `max ${fmt(maxValue)}`, {x: margin.left + size, y: 16, 'text-anchor': 'end', class: 'gsr-muted'});
+      };
+
+      const updateDetail = (run, graph, edgeSet, eligible) => {
+        if (selectedNode === null) return;
+        const outgoing = edgeSet.all.filter(edge => edge.source === selectedNode);
+        const incoming = edgeSet.all.filter(edge => edge.target === selectedNode);
+        const reason = eligible.isolated.has(selectedNode) ? 'isolated victim' : eligible.redundant.has(selectedNode) ? 'redundant victim' : 'protected/supported';
+        detail.textContent = `DG ${selectedNode}: ${outgoing.length} outgoing and ${incoming.length} incoming qualified ${graph.name} edges; ${fmt(run.node_visits[selectedNode])} visits; ${run.row_assignments[selectedNode]} row assignments; ${reason}.`;
+      };
+
+      const render = () => {
+        const run = selectedRun();
+        if (!run) return;
+        const graph = graphData(run);
+        const threshold = Math.max(0, Number(controls.threshold.value) || 0);
+        const limit = Number(controls.edgeLimit.value);
+        const edgeSet = visibleEdges(graph.confidence, graph.time, threshold, limit);
+        const eligible = eligibility(run);
+        const eligibleCount = new Set([...eligible.isolated, ...eligible.redundant]).size;
+        meta.textContent = `${run.run} · ${(run.env_steps / 1e6).toFixed(1)}M frames (${run.complete ? 'terminal' : 'running snapshot'}) · ${edgeSet.all.length} qualified edges (${edgeSet.shown.length} shown) · ${eligibleCount} eligible victims · ${run.recruitment_total} assignments (${run.repeat_total} repeats)`;
+        drawNetwork(run, graph, edgeSet, eligible);
+        drawMatrix(confidenceSvg, graph.confidence, 'gsr-confidence-title', 'gsr-confidence-desc', 'Confidence', 'var(--viz-series-1)', graph);
+        drawMatrix(timeSvg, graph.time, 'gsr-time-title', 'gsr-time-desc', 'Elapsed time (decisions)', 'var(--viz-series-3)', graph);
+        updateDetail(run, graph, edgeSet, eligible);
+      };
+
+      [controls.backbone, controls.d, controls.halfLife, controls.seed, controls.edgeLimit].forEach(control => control.addEventListener('change', () => { selectedNode = null; render(); }));
+      controls.kind.addEventListener('change', () => {
+        controls.threshold.value = controls.kind.value === 'policy' ? payload.policy_known_threshold : controls.kind.value === 'recruitment' ? payload.recruitment_threshold : 2;
+        selectedNode = null;
+        render();
+      });
+      controls.threshold.addEventListener('input', render);
+      const observer = new ResizeObserver(render);
+      observer.observe(root);
+      render();
+    })();
+  </script>
+</div>
