@@ -96,7 +96,9 @@ Only mechanisms necessary to test this loop belong in the main model.
 ### Scientific probes
 
 - Place-field maps and fixed-observation reliability tests.
-- Physical pose and trajectory geometry used only during evaluation.
+- Physical pose and trajectory geometry used only by evaluation/telemetry,
+  including logging-only environment metrics collected during training; never
+  as model input, intrinsic reward, or a gradient target.
 - Behavioral-loop and reward-inside-loop telemetry.
 - Linear decoding, graph-reachability prediction, and downstream transfer.
 - A simple target-conditioned worker as a landmark-utility readout.
