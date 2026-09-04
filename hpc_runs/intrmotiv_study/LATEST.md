@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.3.0`
+- Implementation: `1.4.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -9,9 +9,10 @@
 
 ## Deployment status
 
-The vault source and NEMO2 runtime copy are synchronized at `1.3.0`. Version
-1.3 adds the compact online-spatial snapshot contract and `collect-spatial`
-post-hoc analysis while retaining compatibility with older 1.x studies.
+Version 1.4 extends the compact online-spatial snapshot contract with cached
+place-field and graph diagnostics while retaining compatibility with older 1.x
+studies and v1 snapshots. See the deployment status below for the latest NEMO2
+test result.
 For a later version, synchronize the complete package and rerun:
 
 ```bash
@@ -33,6 +34,16 @@ reducing repeated Codex discovery and code generation.
 
 Update this file, `version.py`, tests, and the guide together when the standard
 changes, then synchronize and test the NEMO2 runtime copy.
+
+## 1.4.0
+
+- Added the canonical 5M, 25M, 50M, 75M, and 100M online snapshot milestones.
+- Added occupancy-normalized multilevel field components, mono-field and peak
+  separation diagnostics, complete graph buffers, prospective edge outcomes,
+  reliable global efficiency, grounded controllability, and cached detailed
+  graph diagnostics to optional v1 snapshot fields.
+- Added `collect-spatial --include-details` for per-unit, per-field, and
+  directed graph-edge CSVs without another DMLab rollout.
 
 ## 1.3.0
 

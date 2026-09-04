@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.3.0**; study schema:
+Current implementation: **1.4.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -198,9 +198,12 @@ standardized `per_run.csv`. It requires exactly one row for every declared run.
 
 ### 3a. Collect compact online spatial snapshots
 
-Training stores scalar-only W&B monitoring plus compressed latest-10k
-behavior snapshots at 25M, 50M, 75M, and 100M frames. Analyze them without
-rendering the full batch:
+Training stores scalar-only W&B monitoring plus compressed latest-10k behavior
+snapshots at 5M, 25M, 50M, 75M, and 100M frames. In addition to aligned raw
+behavior data, new v1 snapshots cache evaluator-compatible maps, multilevel
+field components, complete available graph buffers, prospective edge outcomes,
+and deterministic graph diagnostics. Analyze them without rendering the full
+batch:
 
 ```bash
 python -m hpc_runs.intrmotiv_study collect-spatial \
@@ -226,6 +229,12 @@ This renders paginated thresholded-DG contact sheets and a segmented
 occupancy/trajectory panel under `OUTPUT_DIR/figures/`. It never uploads them.
 The controlled manifest-driven checkpoint rollout remains the authoritative
 scientific place-field and map-stability evaluation.
+
+Add `--include-details` to write `per_unit.csv`, `per_field.csv`, and
+`graph_edge.csv`. Cached maps and graph scores are validated against raw/map
+and graph-buffer recomputation before those tables are accepted; no DMLab
+rollout is run. Older v1 snapshots without optional cached details remain
+loadable and their spatial details are recomputed from the retained raw arrays.
 
 ### 4. Generate place-field telemetry manifests
 

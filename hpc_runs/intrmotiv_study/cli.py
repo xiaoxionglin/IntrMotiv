@@ -11,6 +11,7 @@ from typing import Any, Iterable, Mapping
 from .analysis import linear_contrasts, summarize_records
 from .spec import SpecError, StudySpec, load_study
 from .spatial import (
+    collect_spatial_detail_records,
     collect_spatial_records,
     discover_spatial_snapshots,
     render_selected_snapshots,
@@ -199,6 +200,20 @@ def command_collect_spatial(args: argparse.Namespace) -> None:
     _write_csv(args.output_dir / "condition_summary.csv", condition_summary)
     _write_csv(args.output_dir / "seed_summary.csv", seed_summary)
 
+    detail_counts = {"per_unit_rows": 0, "per_field_rows": 0, "graph_edge_rows": 0}
+    if args.include_details:
+        unit_rows, field_rows, edge_rows = collect_spatial_detail_records(study, args.snapshot_root)
+        _write_csv(args.output_dir / "per_unit.csv", unit_rows)
+        if field_rows:
+            _write_csv(args.output_dir / "per_field.csv", field_rows)
+        if edge_rows:
+            _write_csv(args.output_dir / "graph_edge.csv", edge_rows)
+        detail_counts = {
+            "per_unit_rows": len(unit_rows),
+            "per_field_rows": len(field_rows),
+            "graph_edge_rows": len(edge_rows),
+        }
+
     figures: list[Path] = []
     if selected_runs:
         snapshots = discover_spatial_snapshots(study, args.snapshot_root)
@@ -214,6 +229,8 @@ def command_collect_spatial(args: argparse.Namespace) -> None:
         "selected_plot_runs": selected_runs,
         "selected_plot_targets": args.plot_target,
         "figures": [str(path.resolve()) for path in figures],
+        "include_details": bool(args.include_details),
+        **detail_counts,
     })
 
 
@@ -291,6 +308,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     spatial.add_argument(
         "--require-complete", action="store_true", help="fail unless every run/policy/target is present"
+    )
+    spatial.add_argument(
+        "--include-details",
+        action="store_true",
+        help="write per-unit, per-field, and graph-edge tables from cached snapshot data",
     )
     spatial.set_defaults(func=command_collect_spatial)
 

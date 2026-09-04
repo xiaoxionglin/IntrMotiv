@@ -8,7 +8,7 @@ The synchronized NEMO2 runtime copy is
 Keep its version and file contents aligned with this canonical copy before
 using new workflow features on the cluster.
 
-Current implementation version: `1.3.0`; current schema:
+Current implementation version: `1.4.0`; current schema:
 `intrmotiv/study/v1`.
 
 The version constants in `version.py` are authoritative. Do not copy this
@@ -42,7 +42,7 @@ PY=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
 "$PY" -m hpc_runs.intrmotiv_study validate hpc_runs/studies/STUDY.study.json
 "$PY" -m hpc_runs.intrmotiv_study render-runs hpc_runs/studies/STUDY.study.json
 "$PY" -m hpc_runs.intrmotiv_study collect-spatial \
-  hpc_runs/studies/STUDY.study.json SNAPSHOT_ROOT OUTPUT_DIR
+  hpc_runs/studies/STUDY.study.json SNAPSHOT_ROOT OUTPUT_DIR --include-details
 ```
 
 Use this SFgit interpreter by default on NEMO2 for tests, analysis, and figure

@@ -297,15 +297,22 @@ invalid samples, rollout gaps, and transitions after terminal samples.
 | `.../active_unit_mean_spatial_information` | Mean occupancy-weighted Skaggs spatial information over active units. |
 | `.../active_only_map_cosine` | Mean pairwise cosine of active occupancy-corrected maps over visited cells. |
 | `.../unique_active_peak_bins` | Distinct peak grid bins across active units. |
+| `.../mono_field_unit_fraction` | Eligible units whose dominant 8-connected component contains at least 80% of superlevel mass at 30%, 50%, and 70% of peak / eligible units. Eligibility requires 20 in-bounds active observations across three bins. |
+| `.../mean_primary_secondary_peak_distance` | Mean physical distance between the two highest-mass 50%-of-peak components, over units that have both. |
+| `.../median_dominant_peak_nearest_neighbor_distance` | Median per-unit distance to the nearest other eligible unit's dominant peak. |
 | `intrmotiv/online/trajectory/mean_physical_step_distance` | Mean Euclidean `(x,y)` displacement over valid within-segment transitions. |
 | `.../stationary_step_fraction` | Fraction of those displacements no larger than the configured 1-unit default. |
 | `.../path_efficiency` | Sum of segment endpoint displacements / sum of within-segment path lengths. |
 | `.../mean_absolute_circular_yaw_change` | Mean absolute yaw delta wrapped to `[-180,180)` degrees. |
+| `intrmotiv/hrl/summary/reliable_global_efficiency` | Mean reciprocal directed shortest-path hop count over all ordered unit pairs; unreachable pairs contribute zero. |
+| `intrmotiv/hrl/summary/grounded_controllability` | Pre-update reliable-edge prospective success fraction times the fraction of reliable edges joining two eligible mono-field units. |
 
-Compressed latest-10k snapshots are written at 25M, 50M, 75M, and 100M
-frames under the NEMO workspace analysis root. Use `collect-spatial` for
-StudySpec-aware post-hoc CSVs and explicitly selected maps. These are
-monitoring diagnostics; fixed-checkpoint manifest telemetry remains the
+Compressed latest-10k snapshots are written at 5M, 25M, 50M, 75M, and 100M
+frames under the NEMO workspace analysis root. They cache evaluator-compatible
+maps, field components, graph buffers, prospective edge outcomes, and detailed
+graph diagnostics. Use `collect-spatial --include-details` for StudySpec-aware
+per-unit, per-field, and graph-edge CSVs, or explicit selected-run maps. These
+are monitoring diagnostics; fixed-checkpoint manifest telemetry remains the
 authoritative scientific analysis.
 
 ## Recommended Panels

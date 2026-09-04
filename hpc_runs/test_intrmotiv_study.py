@@ -21,13 +21,19 @@ from hpc_runs.intrmotiv_study.telemetry import (
     build_place_field_manifests,
 )
 from hpc_runs.intrmotiv_study.tensorboard import latest_at_or_before, mean_in_window
-from hpc_runs.intrmotiv_study.spatial import collect_spatial_records, summarize_spatial_records
+from hpc_runs.intrmotiv_study.spatial import (
+    collect_spatial_detail_records,
+    collect_spatial_records,
+    summarize_spatial_records,
+)
 from hpc_runs.intrmotiv_study.spatial_contract import (
     SNAPSHOT_SCHEMA,
     OnlineSpatialWindow,
     SpatialBounds,
     SpatialContractError,
     calculate_spatial_metrics,
+    calculate_graph_diagnostics,
+    calculate_place_field_details,
     load_spatial_snapshot,
     spatial_rate_maps,
     write_spatial_snapshot_atomic,
@@ -61,7 +67,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.3.0")
+        self.assertEqual(WORKFLOW_VERSION, "1.4.0")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -305,6 +311,69 @@ class SpatialContractTests(unittest.TestCase):
         self.assertEqual(metrics["active_unit_fraction"], 1.0)
         self.assertEqual(metrics["unique_active_peak_bins"], 2.0)
 
+    def test_multilevel_fields_distinguish_mono_and_multifield_units(self):
+        bins_by_unit = (
+            ((2, 2), (3, 2), (2, 3)),
+            ((2, 12), (3, 12), (2, 13), (14, 3), (15, 3), (14, 4)),
+        )
+        pose_rows = []
+        activity_rows = []
+        for unit, bins in enumerate(bins_by_unit):
+            for x_bin, y_bin in bins:
+                x = 100 + (x_bin + 0.5) * 100
+                y = 100 + (y_bin + 0.5) * 100
+                for _ in range(10):
+                    pose_rows.append((x, y, 0.0))
+                    activity_rows.append((1.0 if unit == 0 else 0.0, 1.0 if unit == 1 else 0.0))
+        details = calculate_place_field_details(
+            np.asarray(pose_rows, dtype=np.float32),
+            np.asarray(activity_rows, dtype=np.float32),
+        )
+
+        self.assertEqual(details["rate_maps"].shape, (19, 19, 2))
+        self.assertEqual(details["field_component_labels"].shape, (3, 19, 19, 2))
+        self.assertEqual(details["field_eligible"].tolist(), [True, True])
+        self.assertEqual(details["field_mono"].tolist(), [True, False])
+        self.assertTrue(np.isnan(details["field_primary_secondary_peak_distance"][0]))
+        self.assertGreater(details["field_primary_secondary_peak_distance"][1], 500.0)
+
+    def test_directed_global_efficiency_exact_graphs(self):
+        graphs = {
+            "complete": (np.ones((4, 4), dtype=bool) ^ np.eye(4, dtype=bool), 1.0),
+            "chain": (np.asarray(((0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1), (0, 0, 0, 0))), 13.0 / 36.0),
+            "cycle": (np.asarray(((0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1), (1, 0, 0, 0))), 11.0 / 18.0),
+            "disconnected": (np.asarray(((0, 1, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0))), 1.0 / 12.0),
+        }
+        for name, (adjacency, expected) in graphs.items():
+            adjacency = np.asarray(adjacency, dtype=np.float32)
+            diagnostics = calculate_graph_diagnostics(
+                adjacency, adjacency, adjacency,
+                confidence_threshold=0.5, reliability_threshold=0.5,
+            )
+            self.assertAlmostEqual(
+                float(diagnostics["graph_reliable_global_efficiency"]), expected, msg=name
+            )
+
+    def test_grounded_controllability_multiplies_prospective_and_endpoint_factors(self):
+        adjacency = np.asarray(((0, 1, 0), (0, 0, 1), (0, 0, 0)), dtype=np.float32)
+        prospective_attempts = np.zeros((3, 3), dtype=np.float32)
+        prospective_successes = np.zeros((3, 3), dtype=np.float32)
+        prospective_attempts[0, 1] = 2
+        prospective_attempts[1, 2] = 2
+        prospective_successes[0, 1] = 2
+        diagnostics = calculate_graph_diagnostics(
+            adjacency,
+            adjacency,
+            adjacency,
+            prospective_attempts,
+            prospective_successes,
+            np.asarray((True, True, False)),
+            np.asarray(((0, 0), (100, 0), (200, 0)), dtype=np.float32),
+        )
+        self.assertAlmostEqual(float(diagnostics["graph_prospective_success_fraction"]), 0.5)
+        self.assertAlmostEqual(float(diagnostics["graph_spatial_endpoint_valid_fraction"]), 0.5)
+        self.assertAlmostEqual(float(diagnostics["graph_grounded_controllability"]), 0.25)
+
     def test_trajectory_metrics_respect_terminals_and_circular_yaw(self):
         payload = self._payload()
         metrics = calculate_spatial_metrics(
@@ -368,6 +437,56 @@ class SpatialContractTests(unittest.TestCase):
         condition, seed = summarize_spatial_records(records, ["base"])
         self.assertEqual(condition[0]["valid_sample_count__n"], 1)
         self.assertEqual(seed[0]["seed"], 8)
+
+    def test_detail_collector_uses_cached_arrays_and_graph_edges(self):
+        study = load_study(SPEC_PATH)
+        payload = self._payload()
+        details = calculate_place_field_details(payload["pose"], payload["dg_activity"])
+        payload.update(details)
+        matrix = np.zeros((2, 2), dtype=np.float32)
+        payload.update({
+            "control_node_visits": np.ones(2, dtype=np.float32),
+            "control_tctrl": matrix.copy(),
+            "control_edge_confidence": matrix.copy(),
+            "control_attempts": matrix.copy(),
+            "control_prospective_attempts": matrix.copy(),
+            "control_prospective_successes": matrix.copy(),
+            "control_prospective_probability_sum": matrix.copy(),
+            "control_prospective_brier_sum": matrix.copy(),
+            "control_prospective_timing_count": matrix.copy(),
+            "control_prospective_timing_sum": matrix.copy(),
+            "control_prospective_predicted_timing_sum": matrix.copy(),
+            "control_prospective_timing_absolute_error_sum": matrix.copy(),
+            "control_passive_confidence": matrix.copy(),
+            "control_passive_time": matrix.copy(),
+            "control_passive_path_length": matrix.copy(),
+            "control_passive_dx": matrix.copy(),
+            "control_passive_dy": matrix.copy(),
+            "control_passive_dtheta_sin": matrix.copy(),
+            "control_passive_dtheta_cos": matrix.copy(),
+            "control_frontier_attempts": np.zeros(2, dtype=np.float32),
+            "control_frontier_discoveries": np.zeros(2, dtype=np.float32),
+            "control_landmark_pose": np.zeros((2, 3), dtype=np.float32),
+            "control_pose_valid": np.zeros(2, dtype=bool),
+            "control_pose_stress": np.asarray(0.0, dtype=np.float32),
+            "control_representation_generation": np.asarray(0, dtype=np.int64),
+            "control_confidence_threshold": np.asarray(0.5, dtype=np.float32),
+            "control_reliability_threshold": np.asarray(0.5, dtype=np.float32),
+        })
+        payload.update(calculate_graph_diagnostics(
+            matrix, matrix, matrix, matrix, matrix,
+            details["field_mono"], details["field_dominant_peak_xy"],
+        ))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_spatial_snapshot_atomic(root / "policy_00", payload)
+            units, fields, edges = collect_spatial_detail_records(
+                study, root, require_workspace=False
+            )
+        self.assertEqual(len(units), 2)
+        self.assertEqual(fields, [])
+        self.assertEqual(len(edges), 2)
+        self.assertEqual(edges[0]["reliable"], 0)
 
 
 if __name__ == "__main__":

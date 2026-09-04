@@ -10,9 +10,12 @@ from typing import Any, Iterable, Mapping, Sequence
 import numpy as np
 
 from .spatial_contract import (
+    SPATIAL_DETAIL_ARRAYS,
     SNAPSHOT_SCHEMA,
     SpatialBounds,
     SpatialContractError,
+    calculate_graph_diagnostics,
+    calculate_place_field_details,
     calculate_spatial_metrics,
     load_spatial_snapshot,
     spatial_rate_maps,
@@ -33,8 +36,36 @@ SPATIAL_METRICS = (
     "stationary_step_fraction",
     "path_efficiency",
     "mean_absolute_circular_yaw_change",
+    "mono_field_unit_fraction",
+    "mean_primary_secondary_peak_distance",
+    "median_dominant_peak_nearest_neighbor_distance",
+    "graph_reliable_global_efficiency",
+    "graph_grounded_controllability",
 )
-DEFAULT_TARGETS = (25_000_000, 50_000_000, 75_000_000, 100_000_000)
+DEFAULT_TARGETS = (5_000_000, 25_000_000, 50_000_000, 75_000_000, 100_000_000)
+GRAPH_SCALAR_KEYS = (
+    "graph_reliable_edge_count",
+    "graph_reliable_edge_density",
+    "graph_largest_weak_component_size",
+    "graph_largest_strong_component_size",
+    "graph_reachable_pair_fraction",
+    "graph_mean_reachable_shortest_path_hops",
+    "graph_median_reachable_shortest_path_hops",
+    "graph_reliable_global_efficiency",
+    "graph_undirected_clustering",
+    "graph_directed_reciprocity",
+    "graph_small_world_propensity",
+    "graph_max_total_degree_fraction",
+    "graph_degree_herfindahl",
+    "graph_spatial_endpoint_valid_fraction",
+    "graph_reliable_edge_peak_distance_mean",
+    "graph_tctrl_peak_distance_correlation",
+    "graph_tctrl_peak_distance_pair_count",
+    "graph_prospective_attempt_count",
+    "graph_prospective_success_count",
+    "graph_prospective_success_fraction",
+    "graph_grounded_controllability",
+)
 
 
 def _inside(candidate: Path, root: Path) -> bool:
@@ -63,9 +94,60 @@ def expected_spatial_targets(study: StudySpec) -> tuple[int, ...]:
         raise SpecError("telemetry online spatial targets must be integers") from error
     if not targets or len(set(targets)) != len(targets) or any(value <= 0 for value in targets):
         raise SpecError("telemetry online spatial targets must be unique positive integers")
-    if any(value % 25_000_000 for value in targets):
-        raise SpecError("online spatial targets must follow the 25M-frame cadence")
+    if any(value not in DEFAULT_TARGETS for value in targets):
+        raise SpecError(f"online spatial targets must be selected from {DEFAULT_TARGETS}")
     return targets
+
+
+def _validated_spatial_details(payload: Mapping[str, Any], bounds: SpatialBounds) -> dict[str, np.ndarray]:
+    recomputed = calculate_place_field_details(
+        payload["pose"], payload["dg_activity"], bounds, int(_scalar(payload, "grain"))
+    )
+    if "occupancy" not in payload:
+        return recomputed
+    for key in SPATIAL_DETAIL_ARRAYS:
+        cached = np.asarray(payload[key])
+        expected = np.asarray(recomputed[key])
+        if np.issubdtype(expected.dtype, np.floating):
+            matches = np.allclose(cached, expected, rtol=1e-5, atol=1e-6, equal_nan=True)
+        else:
+            matches = np.array_equal(cached, expected)
+        if not matches:
+            raise SpecError(f"cached spatial array {key!r} disagrees with raw recomputation")
+    return {key: np.asarray(payload.get(key, value)) for key, value in recomputed.items()}
+
+
+def _validated_graph_diagnostics(
+    payload: Mapping[str, Any], details: Mapping[str, np.ndarray]
+) -> dict[str, np.ndarray]:
+    if "control_tctrl" not in payload:
+        return {
+            "graph_reliable_global_efficiency": np.asarray(0.0, dtype=np.float32),
+            "graph_grounded_controllability": np.asarray(0.0, dtype=np.float32),
+        }
+    diagnostics = calculate_graph_diagnostics(
+        payload["control_tctrl"],
+        payload["control_edge_confidence"],
+        payload["control_attempts"],
+        payload["control_prospective_attempts"],
+        payload["control_prospective_successes"],
+        details["field_mono"],
+        details["field_dominant_peak_xy"],
+        float(np.asarray(payload.get("control_confidence_threshold", 0.5)).item()),
+        float(np.asarray(payload.get("control_reliability_threshold", 0.5)).item()),
+    )
+    for key, expected in diagnostics.items():
+        if key not in payload:
+            continue
+        cached = np.asarray(payload[key])
+        expected = np.asarray(expected)
+        if np.issubdtype(expected.dtype, np.floating):
+            matches = np.allclose(cached, expected, rtol=1e-5, atol=1e-6, equal_nan=True)
+        else:
+            matches = np.array_equal(cached, expected)
+        if not matches:
+            raise SpecError(f"cached graph diagnostic {key!r} disagrees with graph recomputation")
+    return diagnostics
 
 
 def discover_spatial_snapshots(
@@ -126,6 +208,8 @@ def collect_spatial_records(
         observed.add((run_name, policy_id, target))
         bounds_array = np.asarray(payload["bounds"], dtype=np.float32)
         bounds = SpatialBounds(*[float(value) for value in bounds_array])
+        details = _validated_spatial_details(payload, bounds)
+        graph_diagnostics = _validated_graph_diagnostics(payload, details)
         metrics = calculate_spatial_metrics(
             payload["pose"],
             payload["dg_activity"],
@@ -150,6 +234,12 @@ def collect_spatial_records(
             "frameskip": int(_scalar(payload, "frameskip")),
             "snapshot_path": str(path.resolve()),
             **metrics,
+            "graph_available": int("control_tctrl" in payload),
+            **{
+                key: float(np.asarray(graph_diagnostics[key]).item())
+                for key in GRAPH_SCALAR_KEYS
+                if key in graph_diagnostics
+            },
         })
     records.sort(key=lambda row: (row["run_name"], row["policy_id"], row["target_env_steps"]))
 
@@ -180,6 +270,120 @@ def collect_spatial_records(
         "missing": missing,
     }
     return records, inventory, status
+
+
+def collect_spatial_detail_records(
+    study: StudySpec,
+    snapshot_root: Path,
+    *,
+    require_workspace: bool = True,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    """Produce per-unit, per-field, and per-directed-edge rows from cached v1 snapshots."""
+
+    unit_rows: list[dict[str, Any]] = []
+    field_rows: list[dict[str, Any]] = []
+    edge_rows: list[dict[str, Any]] = []
+    for path, payload in discover_spatial_snapshots(
+        study, snapshot_root, require_workspace=require_workspace
+    ):
+        bounds = SpatialBounds(*np.asarray(payload["bounds"], dtype=float).tolist())
+        details = _validated_spatial_details(payload, bounds)
+        graph = _validated_graph_diagnostics(payload, details)
+        identity = {
+            "run_name": str(_scalar(payload, "run_name")),
+            "policy_id": int(_scalar(payload, "policy_id")),
+            "target_env_steps": int(_scalar(payload, "target_env_steps")),
+            "actual_env_steps": int(_scalar(payload, "actual_env_steps")),
+            "snapshot_path": str(path.resolve()),
+        }
+        units = details["active_fraction"].size
+        for unit in range(units):
+            unit_rows.append({
+                **identity,
+                "unit_id": unit,
+                "active_fraction": float(details["active_fraction"][unit]),
+                "spatial_information": float(details["spatial_information"][unit]),
+                "active_observation_count": int(details["field_active_observation_count"][unit]),
+                "active_bin_count": int(details["field_active_bin_count"][unit]),
+                "field_eligible": int(details["field_eligible"][unit]),
+                "mono_field_score": float(details["field_mono_score"][unit]),
+                "mono_field": int(details["field_mono"][unit]),
+                "dominant_peak_x": float(details["field_dominant_peak_xy"][unit, 0]),
+                "dominant_peak_y": float(details["field_dominant_peak_xy"][unit, 1]),
+                "secondary_peak_x": float(details["field_secondary_peak_xy"][unit, 0]),
+                "secondary_peak_y": float(details["field_secondary_peak_xy"][unit, 1]),
+                "primary_secondary_peak_distance": float(
+                    details["field_primary_secondary_peak_distance"][unit]
+                ),
+                "dominant_peak_nearest_neighbor_distance": float(
+                    details["field_dominant_peak_nearest_neighbor_distance"][unit]
+                ),
+            })
+        smoothed = details["smoothed_rate_maps"]
+        labels = details["field_component_labels"]
+        for threshold_index, fraction in enumerate(details["field_threshold_fractions"]):
+            for unit in range(units):
+                unit_labels = labels[threshold_index, :, :, unit]
+                components: list[tuple[float, int]] = []
+                for component in range(1, int(unit_labels.max()) + 1):
+                    mass = float(smoothed[:, :, unit][unit_labels == component].sum())
+                    components.append((mass, component))
+                components.sort(reverse=True)
+                rank = {component: index + 1 for index, (_, component) in enumerate(components)}
+                total_mass = sum(mass for mass, _ in components)
+                for mass, component in components:
+                    component_mask = unit_labels == component
+                    row, column = np.unravel_index(
+                        int(np.argmax(np.where(component_mask, smoothed[:, :, unit], -np.inf))),
+                        component_mask.shape,
+                    )
+                    field_rows.append({
+                        **identity,
+                        "unit_id": unit,
+                        "threshold_fraction": float(fraction),
+                        "component_id": component,
+                        "mass_rank": rank[component],
+                        "bin_count": int(component_mask.sum()),
+                        "superlevel_mass": mass,
+                        "superlevel_mass_fraction": mass / total_mass if total_mass else 0.0,
+                        "peak_x_bin": int(column),
+                        "peak_y_bin": int(row),
+                    })
+        if "control_tctrl" in payload:
+            reliable = graph["graph_reliable_adjacency"]
+            distances = graph["graph_reliable_edge_peak_distance"]
+            reliability = graph["graph_edge_reliability"]
+            for source in range(units):
+                for target in range(units):
+                    if source == target:
+                        continue
+                    row = {
+                        **identity,
+                        "source_unit": source,
+                        "target_unit": target,
+                        "tctrl": float(payload["control_tctrl"][source, target]),
+                        "confidence": float(payload["control_edge_confidence"][source, target]),
+                        "attempts": float(payload["control_attempts"][source, target]),
+                        "posterior_reliability": float(reliability[source, target]),
+                        "reliable": int(reliable[source, target]),
+                        "prospective_attempts": float(payload["control_prospective_attempts"][source, target]),
+                        "prospective_successes": float(payload["control_prospective_successes"][source, target]),
+                        "prospective_brier_sum": float(payload["control_prospective_brier_sum"][source, target]),
+                        "prospective_timing_count": float(payload["control_prospective_timing_count"][source, target]),
+                        "prospective_timing_absolute_error_sum": float(
+                            payload["control_prospective_timing_absolute_error_sum"][source, target]
+                        ),
+                        "endpoint_peak_distance": float(distances[source, target]),
+                    }
+                    for output, key in (
+                        ("passive_confidence", "control_passive_confidence"),
+                        ("passive_time", "control_passive_time"),
+                        ("passive_path_length", "control_passive_path_length"),
+                    ):
+                        if key in payload:
+                            row[output] = float(payload[key][source, target])
+                    edge_rows.append(row)
+    return unit_rows, field_rows, edge_rows
 
 
 def summarize_spatial_records(

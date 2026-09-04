@@ -25,13 +25,21 @@ learner-side latest-10k buffer. Its pose key is removed before device
 conversion, normalization, encoder calls, and policy calls; it cannot affect
 actions, rewards, or gradients. W&B receives grouped scalars only.
 
-At 25M, 50M, 75M, and 100M frames, each policy atomically writes one compressed
-`intrmotiv/online-spatial/v1` NPZ under the workspace analysis root. Snapshots
-contain pose, thresholded DG activity, actions, terminal flags, segment IDs,
-policy versions, cadence metadata, run/environment identity, frameskip, and
-grid bounds. They deliberately exclude RGB, recurrent state, continuous
-pre-threshold logits, and model parameters. Resumes begin at the next target
-strictly after the restored frame and never backfill or overwrite valid files.
+At 5M, 25M, 50M, 75M, and 100M frames, each policy atomically writes one
+compressed `intrmotiv/online-spatial/v1` NPZ under the workspace analysis root.
+Snapshots contain pose, thresholded DG activity, actions, terminal flags,
+segment IDs, policy versions, cadence metadata, evaluator-compatible maps,
+multilevel place-field diagnostics, and available controllability/recruitment
+graph buffers and diagnostics. They deliberately exclude RGB, recurrent state,
+continuous pre-threshold logits, and model parameters. Resumes begin at the
+next target strictly after the restored frame and never backfill or overwrite
+valid files.
+
+W&B adds only three field summaries (mono-field fraction, mean primary-to-
+secondary peak distance, and median nearest-neighbor dominant-peak distance)
+and two graph headlines: directed reliable global efficiency and grounded
+controllability. Small-world propensity and the other detailed graph measures
+remain milestone/post-hoc diagnostics.
 
 Use `python -m hpc_runs.intrmotiv_study collect-spatial ...` for batch CSVs and
 explicitly selected figures. These online diagnostics complement but do not
@@ -333,6 +341,13 @@ Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
 | `control_edge_confidence`, `control_attempts`, `control_tctrl` | Optional frozen policy controllability-graph snapshot. |
 | `passive_confidence`, `passive_elapsed`, `birth_support` | Optional passive recruitment evidence and maturity snapshot. |
 | `recruitment_row_counts` | Optional per-DG-row assignment counts. |
+
+Online v1 artifacts additionally use optional cached `rate_maps` in the same
+`[19,19,F]` convention, 3x3 binomial occupancy-normalized smoothed maps,
+8-connected component labels at 30%, 50%, and 70% of peak, eligibility and
+mono-field arrays, peak coordinates/distances, full policy/passive graph
+buffers, prospective edge accumulators, and cached graph diagnostics. These
+optional arrays do not change the interpretation of earlier v1 snapshots.
 
 Treat additions as backward-compatible optional arrays. Do not silently change
 the meaning or shape of existing arrays; update tests and this document when a
