@@ -34,7 +34,9 @@ def parser() -> argparse.ArgumentParser:
 def quantize_maps(rate_maps: np.ndarray) -> list[list[int]]:
     maps = []
     for unit in range(rate_maps.shape[-1]):
-        values = np.maximum(rate_maps[:, :, unit], 0.0)
+        values = np.nan_to_num(
+            np.maximum(rate_maps[:, :, unit], 0.0), nan=0.0, posinf=0.0, neginf=0.0
+        )
         peak = float(values.max())
         scaled = np.rint(values / peak * 255.0).astype(np.uint8) if peak > 0 else np.zeros_like(values, np.uint8)
         maps.append(scaled.reshape(-1).astype(int).tolist())
@@ -69,9 +71,9 @@ def main() -> None:
         with np.load(matches[0], allow_pickle=False) as artifact:
             rate_maps = np.asarray(artifact["rate_maps"], dtype=float)
             occupancy = np.asarray(artifact["occupancy"], dtype=float) > 0
-            confidence = np.asarray(artifact["control_edge_confidence"], dtype=float)
-            attempts = np.asarray(artifact["control_attempts"], dtype=float)
-            tctrl = np.asarray(artifact["control_tctrl"], dtype=float)
+            confidence = np.nan_to_num(np.asarray(artifact["control_edge_confidence"], dtype=float))
+            attempts = np.nan_to_num(np.asarray(artifact["control_attempts"], dtype=float))
+            tctrl = np.nan_to_num(np.asarray(artifact["control_tctrl"], dtype=float))
             posterior = (confidence + 1.0) / (attempts + 2.0)
             reliable = (tctrl > 0) & (confidence >= 0.5) & (posterior >= 0.5)
             np.fill_diagonal(reliable, False)
@@ -90,7 +92,7 @@ def main() -> None:
                     "posterior": round(float(posterior[source, target]), 3),
                     "tctrl": round(float(tctrl[source, target]), 2),
                 })
-            active = np.asarray(artifact["active_fraction"], dtype=float)
+            active = np.nan_to_num(np.asarray(artifact["active_fraction"], dtype=float))
             payload[key] = {
                 "label": f'{factor["base"]} · {rec} · {"FiLM" if goal == "FILM" else "LEG"}',
                 "frames": int(row["checkpoint_frames"]),
@@ -98,7 +100,9 @@ def main() -> None:
                 "occupancy": occupancy.reshape(-1).astype(int).tolist(),
                 "active": np.round(active, 5).tolist(),
                 "maxActive": round(float(max(1e-6, active.max())), 5),
-                "si": np.round(np.asarray(artifact["spatial_information"], dtype=float), 4).tolist(),
+                "si": np.round(
+                    np.nan_to_num(np.asarray(artifact["spatial_information"], dtype=float)), 4
+                ).tolist(),
                 "edges": edges,
                 "reliableCount": int(reliable.sum()),
                 "incoming": np.round(incoming, 3).tolist(),
@@ -109,7 +113,9 @@ def main() -> None:
     template = args.template.read_text(encoding="utf-8")
     if template.count("__DPR_DATA__") != 1:
         raise SystemExit("Viewer template must contain exactly one __DPR_DATA__ marker")
-    output = template.replace("__DPR_DATA__", json.dumps(payload, separators=(",", ":")))
+    output = template.replace(
+        "__DPR_DATA__", json.dumps(payload, separators=(",", ":"), allow_nan=False)
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(output, encoding="utf-8")
     if args.output.stat().st_size >= 1_000_000:
