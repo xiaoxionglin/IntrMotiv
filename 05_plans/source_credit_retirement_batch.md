@@ -60,6 +60,15 @@ arrival events from all ten preflight cells, matching the study requirement.
 Per-cell fractions remain in the report as diagnostics, but stochastic
 per-cell deviations do not redefine the batch-wide storage criterion.
 
+Final v3 execution:
+
+- Preflight jobs: `7985000`–`7985009`
+- Dependent production gate: `7985010`
+- Focused source-credit tests: 10 passed
+- Full IntrMotiv suite after both matcher fixes: 208 passed
+- StudySpec SHA-256 remains
+  `aa34bb2ef868df37dbafc38e7c4b8dc5c9cc684e5f8dba5e05a586d068ad8a0d`
+
 ## Evaluation
 
 Online summaries are synchronized at 25M, 50M, and 75M. Place-field telemetry uses five seed-99 checkpoints (5M, 15M, 30M, 50M, 75M) and terminal checkpoints for seeds 8 and 123, for 70 ordinary Slurm jobs. All 30 terminal runs receive frozen target-intervention evaluation. Spatial primary outcomes are mono-field fraction, component counts at 30/50/70% peak, dominant-component mass, spatial information, active-only map cosine, and confidence–field-spread correlation.
