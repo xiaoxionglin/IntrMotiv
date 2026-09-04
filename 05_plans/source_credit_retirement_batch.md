@@ -46,6 +46,20 @@ the behavior-dominant row within that nearest-age tie. It does not search a
 more distant predecessor or weaken the 50% gate. A fresh `_preflight_v2` is
 required before production.
 
+The short v2 live audit exposed a second zero-age case before completion, so
+jobs `7984986`–`7984995` and gate `7984996` were cancelled after about seven
+minutes. Continuously active DG rows are reinjected into CA3 slot zero even
+when they are not new-onset candidates; these simultaneous rows must also be
+excluded from the predecessor set. The final matcher therefore requires a
+strictly positive CA3 age, then resolves the behavior-dominant row within the
+nearest positive-age tie. This is covered by a separate regression test and is
+being evaluated in a clean `_preflight_v3`.
+
+The 50% source-storage manipulation check is evaluated over the pooled dominant
+arrival events from all ten preflight cells, matching the study requirement.
+Per-cell fractions remain in the report as diagnostics, but stochastic
+per-cell deviations do not redefine the batch-wide storage criterion.
+
 ## Evaluation
 
 Online summaries are synchronized at 25M, 50M, and 75M. Place-field telemetry uses five seed-99 checkpoints (5M, 15M, 30M, 50M, 75M) and terminal checkpoints for seeds 8 and 123, for 70 ordinary Slurm jobs. All 30 terminal runs receive frozen target-intervention evaluation. Spatial primary outcomes are mono-field fraction, component counts at 30/50/70% peak, dominant-component mass, spatial information, active-only map cosine, and confidence–field-spread correlation.

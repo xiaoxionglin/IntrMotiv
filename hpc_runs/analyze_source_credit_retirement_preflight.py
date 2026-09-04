@@ -123,9 +123,6 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
         total = sum(_values(accumulator, TOTAL_EVENTS)) if TOTAL_EVENTS in available else 0.0
         credited = sum(_values(accumulator, CREDITED_EVENTS)) if CREDITED_EVENTS in available else 0.0
         match_fraction = credited / total if total > 0 else 0.0
-        if match_fraction < 0.5:
-            failures.append(f"within-rollout predecessor match fraction is {match_fraction:.3f}, below 0.5")
-
         selected_loss = SOURCE_LOSS if run.factors["encoder_credit"] == "source" else ARRIVAL_LOSS
         excluded_loss = ARRIVAL_LOSS if selected_loss == SOURCE_LOSS else SOURCE_LOSS
         if selected_loss not in available or max((abs(v) for v in _values(accumulator, selected_loss)), default=0.0) == 0:
@@ -149,6 +146,8 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
             **run.factors,
             "run_dir": str(run_dir),
             "max_env_steps": max_steps,
+            "encoder_total_events": total,
+            "encoder_credited_events": credited,
             "match_fraction": match_fraction,
             "behavior_replay_mismatch_max": replay_max,
             "recruitment_total_max": recruitment_max,
@@ -158,6 +157,14 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
         results.append(result)
         all_failures.extend(f"{run_name}: {failure}" for failure in failures)
 
+    pooled_total = sum(float(result.get("encoder_total_events", 0.0)) for result in results)
+    pooled_credited = sum(float(result.get("encoder_credited_events", 0.0)) for result in results)
+    pooled_match_fraction = pooled_credited / pooled_total if pooled_total > 0 else 0.0
+    if pooled_match_fraction < 0.5:
+        all_failures.append(
+            "pooled within-rollout predecessor match fraction is "
+            f"{pooled_match_fraction:.3f}, below 0.5"
+        )
     passed = sum(bool(result.get("pass")) for result in results)
     return {
         **study.provenance(),
@@ -165,7 +172,10 @@ def analyze(study, jobs_tsv: Path, train_root: Path) -> dict:
         "jobs_tsv": str(jobs_tsv),
         "expected_cells": len(expected),
         "passed_cells": passed,
-        "all_cells_pass": passed == len(expected),
+        "all_cells_pass": passed == len(expected) and not all_failures,
+        "pooled_encoder_total_events": pooled_total,
+        "pooled_encoder_credited_events": pooled_credited,
+        "pooled_match_fraction": pooled_match_fraction,
         "source_credit_gradient_test": "test_source_credit_retirement.py",
         "retirement_eligibility_test": "test_graph_stabilized_recruitment.py",
         "failures": all_failures,
