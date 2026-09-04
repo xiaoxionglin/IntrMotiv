@@ -402,6 +402,22 @@ class SpatialContractTests(unittest.TestCase):
         self.assertNotEqual(arrays["segment_id"][0], arrays["segment_id"][1])
         self.assertEqual(arrays["segment_id"][1], arrays["segment_id"][2])
 
+    def test_window_splits_unmarked_large_pose_relocations(self):
+        window = OnlineSpatialWindow(4)
+        window.append_rollouts(
+            np.asarray((((100, 100, 0), (140, 100, 0), (1500, 1600, 0), (1540, 1600, 0)),), dtype=np.float32),
+            np.ones((1, 4, 2), dtype=np.float32),
+            np.zeros((1, 4), dtype=np.int16),
+            np.zeros((1, 4), dtype=bool),
+            np.zeros((1, 4), dtype=np.int64),
+            np.ones((1, 4), dtype=bool),
+            max_segment_jump_distance=250.0,
+        )
+        segments = window.arrays()["segment_id"]
+        self.assertEqual(segments[0], segments[1])
+        self.assertNotEqual(segments[1], segments[2])
+        self.assertEqual(segments[2], segments[3])
+
     def test_atomic_snapshot_keeps_existing_valid_target(self):
         with tempfile.TemporaryDirectory() as directory:
             path, created = write_spatial_snapshot_atomic(Path(directory), self._payload())

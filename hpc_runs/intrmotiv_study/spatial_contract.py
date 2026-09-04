@@ -701,6 +701,7 @@ class OnlineSpatialWindow:
         dones: np.ndarray,
         policy_version: np.ndarray,
         valids: np.ndarray,
+        max_segment_jump_distance: float | None = None,
     ) -> int:
         pose = np.asarray(pose, dtype=np.float32)
         activity = np.asarray(dg_activity, dtype=np.float32)
@@ -708,6 +709,10 @@ class OnlineSpatialWindow:
         dones = np.asarray(dones, dtype=np.bool_)
         versions = np.asarray(policy_version)
         valids = np.asarray(valids, dtype=np.bool_)
+        if max_segment_jump_distance is not None and (
+            not np.isfinite(max_segment_jump_distance) or max_segment_jump_distance <= 0
+        ):
+            raise SpatialContractError("maximum segment jump distance must be finite and positive")
         if pose.ndim != 3 or pose.shape[-1] != 3 or activity.ndim != 3:
             raise SpatialContractError("rollout pose/activity must have shapes [B,T,3] and [B,T,units]")
         leading = pose.shape[:2]
@@ -729,15 +734,21 @@ class OnlineSpatialWindow:
             segment = self._next_segment
             self._next_segment += 1
             previous_valid = False
+            previous_pose: np.ndarray | None = None
             for step in range(leading[1]):
                 if not valids[row, step] or not np.isfinite(pose[row, step]).all():
-                    if previous_valid:
-                        segment = self._next_segment
-                        self._next_segment += 1
                     previous_valid = False
+                    previous_pose = None
                     continue
-                if not previous_valid and selected["pose"]:
-                    # A gap never inherits the segment preceding it.
+                discontinuity = (
+                    previous_valid
+                    and max_segment_jump_distance is not None
+                    and float(np.linalg.norm(pose[row, step, :2] - previous_pose[:2]))
+                    > max_segment_jump_distance
+                )
+                if (not previous_valid and step > 0) or discontinuity:
+                    # Gaps, terminals, and implausible unmarked relocations
+                    # never inherit the preceding trajectory segment.
                     segment = self._next_segment
                     self._next_segment += 1
                 selected["pose"].append(pose[row, step])
@@ -747,10 +758,12 @@ class OnlineSpatialWindow:
                 selected["segment_id"].append(segment)
                 selected["policy_version"].append(int(round(float(versions[row, step]))))
                 previous_valid = True
+                previous_pose = pose[row, step]
                 if dones[row, step]:
                     segment = self._next_segment
                     self._next_segment += 1
                     previous_valid = False
+                    previous_pose = None
 
         if not selected["pose"]:
             return 0

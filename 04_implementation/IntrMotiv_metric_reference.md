@@ -285,7 +285,8 @@ normalization, and every model call. Training-time image logging is prohibited.
 All place-field quantities use a 19×19 occupancy-corrected grid over
 `x,y=100..2000`. “Active” means that a unit has positive thresholded DG
 activity on at least one in-bounds sample. Trajectory deltas exclude policy-lag
-invalid samples, rollout gaps, and transitions after terminal samples.
+invalid samples, rollout gaps, transitions after terminal samples, and
+unmarked physical relocations larger than the configurable 250-unit default.
 
 | Tag | Exact quantity |
 | --- | --- |

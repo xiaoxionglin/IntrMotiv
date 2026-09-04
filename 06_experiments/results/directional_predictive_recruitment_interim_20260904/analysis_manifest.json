@@ -1,0 +1,69 @@
+{
+  "batch_name": "intrmotiv_directional_predictive_recruitment_20260904",
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [
+    "DIR_minus_MON_LEG",
+    "DIR_minus_MON_FILM",
+    "PRED_minus_MON_LEG",
+    "PRED_minus_MON_FILM",
+    "DIR_minus_PRED_LEG",
+    "DIR_minus_PRED_FILM",
+    "FILM_minus_LEG_MON",
+    "FILM_minus_LEG_DIR",
+    "FILM_minus_LEG_PRED",
+    "DIR_x_goal",
+    "PRED_x_goal"
+  ],
+  "expected_runs": 54,
+  "group_by": [
+    "base",
+    "recruitment",
+    "goal_conditioning"
+  ],
+  "input_rows": 54,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "recruitment_total",
+    "repeat_assignments",
+    "bad_source_assignments",
+    "duplicate_assignments",
+    "predictive_assignments",
+    "attempt_coverage",
+    "fully_tested_count",
+    "zero_outdegree_count",
+    "untested_zero_outdegree_count",
+    "bad_source_count",
+    "reliable_out_degree_mean",
+    "predictive_event_count",
+    "predictive_context_groups",
+    "predictive_eligible_count",
+    "predictive_reliability_gap",
+    "largest_scc",
+    "reachable_pair_fraction",
+    "reciprocal_fraction",
+    "top3_incoming_share",
+    "target_hit_lift",
+    "target_action_sensitivity",
+    "target_value_span",
+    "decoder_parameter_count",
+    "film_modulation_norm_mean",
+    "film_modulation_norm_max",
+    "behavior_replay_mismatch",
+    "option_success_fraction"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "directional_predictive_recruitment_20260904",
+  "study_sha256": "72b0ac2d04ad7a297a674f96d4f32c85d48dcf89a9fc62abb7243adb22ea53aa",
+  "study_spec": "hpc_runs/studies/directional_predictive_recruitment.study.json",
+  "study_workflow_version": "1.2.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.3.0"
+}

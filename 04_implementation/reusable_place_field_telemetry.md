@@ -35,6 +35,11 @@ continuous pre-threshold logits, and model parameters. Resumes begin at the
 next target strictly after the restored frame and never backfill or overwrite
 valid files.
 
+Trajectory segment IDs split at rollout boundaries, explicit terminals,
+invalid-sample gaps, and configurable large unmarked relocations (250 DMLab
+units by default). This prevents environment resets/teleports without a done
+flag from inflating path lengths or drawing false map-crossing lines.
+
 W&B adds only three field summaries (mono-field fraction, mean primary-to-
 secondary peak distance, and median nearest-neighbor dominant-peak distance)
 and two graph headlines: directed reliable global efficiency and grounded
