@@ -25,15 +25,26 @@ PRED evidence is checkpointed in decayed `[source, goal, predecessor]` success a
 
 The ten seed-99 preflights train to 5M. Production is blocked unless all cells have finite losses, exact replay, active target/frontier/PRED paths, the selected encoder-credit loss only, valid retirement ordering, and at least 50% credited dominant onsets.
 
-Preflight submission:
+First preflight submission:
 
 - Slurm jobs: `7984015`–`7984024`
-- Dependent scientific gate: `7984025` (`afterok` on all ten preflights)
+- Dependent scientific gate: `7984025` (`afterok` on all ten preflights; failed
+  the matchability manipulation check and therefore submitted no production
+  jobs)
 - Manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_source_credit_retirement_20260904_preflight/20260904_submitted/jobs.tsv`
 - State at 2026-09-04 18:50 CEST: all ten running, gate dependency pending,
   production not submitted. The gate performs a second StudySpec validation,
   production print-only review, and submission audit before launching any of
   the 30 production jobs.
+
+The first gate found 49.7% pooled credited events: 4.1% were genuine boundary
+drops, but 46.2% were labeled alignment failures. The dominant cause was a row
+tie bug: simultaneous predecessor rows shared the same nearest CA3 age, while
+the matcher selected the lowest DG index before checking the stored dominant
+label. The repaired matcher preserves the nearest predecessor time and selects
+the behavior-dominant row within that nearest-age tie. It does not search a
+more distant predecessor or weaken the 50% gate. A fresh `_preflight_v2` is
+required before production.
 
 ## Evaluation
 
