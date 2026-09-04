@@ -14,6 +14,10 @@ import numpy as np
 SNAPSHOT_SCHEMA = "intrmotiv/online-spatial/v1"
 DEFAULT_GRAIN = 19
 DEFAULT_BOUNDS = (100.0, 2000.0, 100.0, 2000.0)
+FIELD_THRESHOLD_FRACTIONS = (0.30, 0.50, 0.70)
+FIELD_MIN_ACTIVE_OBSERVATIONS = 20
+FIELD_MIN_ACTIVE_BINS = 3
+FIELD_MONO_MASS_FRACTION = 0.80
 SNAPSHOT_REQUIRED_ARRAYS = (
     "pose",
     "dg_activity",
@@ -21,6 +25,42 @@ SNAPSHOT_REQUIRED_ARRAYS = (
     "dones",
     "segment_id",
     "policy_version",
+)
+SPATIAL_DETAIL_ARRAYS = (
+    "occupancy",
+    "rate_maps",
+    "smoothed_rate_maps",
+    "spatial_information",
+    "active_fraction",
+    "field_threshold_fractions",
+    "field_component_labels",
+    "field_component_count",
+    "field_dominant_mass_fraction",
+    "field_active_observation_count",
+    "field_active_bin_count",
+    "field_eligible",
+    "field_mono_score",
+    "field_mono",
+    "field_dominant_peak_bin",
+    "field_secondary_peak_bin",
+    "field_dominant_peak_xy",
+    "field_secondary_peak_xy",
+    "field_primary_secondary_peak_distance",
+    "field_dominant_peak_nearest_neighbor_distance",
+)
+CONTROL_GRAPH_ARRAYS = (
+    "control_node_visits",
+    "control_tctrl",
+    "control_edge_confidence",
+    "control_attempts",
+    "control_prospective_attempts",
+    "control_prospective_successes",
+    "control_prospective_probability_sum",
+    "control_prospective_brier_sum",
+    "control_prospective_timing_count",
+    "control_prospective_timing_sum",
+    "control_prospective_predicted_timing_sum",
+    "control_prospective_timing_absolute_error_sum",
 )
 
 
@@ -145,6 +185,410 @@ def _spatial_information(rate_map: np.ndarray, occupancy: np.ndarray) -> float:
     return float(np.sum(rate_map[positive] * probability[positive] * np.log2(ratio)))
 
 
+def _binomial_smooth(array: np.ndarray) -> np.ndarray:
+    """Apply a zero-padded separable [1, 2, 1] / 4 filter on the last two axes."""
+
+    value = np.asarray(array, dtype=np.float64)
+    padded = np.pad(value, ((0, 0),) * (value.ndim - 2) + ((1, 1), (1, 1)))
+    result = np.zeros_like(value, dtype=np.float64)
+    weights = (1.0, 2.0, 1.0)
+    for row, row_weight in enumerate(weights):
+        for column, column_weight in enumerate(weights):
+            result += row_weight * column_weight * padded[
+                ..., row : row + value.shape[-2], column : column + value.shape[-1]
+            ]
+    return result / 16.0
+
+
+def _component_labels(mask: np.ndarray) -> tuple[np.ndarray, int]:
+    """Label an eight-connected two-dimensional boolean mask."""
+
+    mask = np.asarray(mask, dtype=np.bool_)
+    labels = np.zeros(mask.shape, dtype=np.int16)
+    next_label = 0
+    height, width = mask.shape
+    for row, column in np.argwhere(mask):
+        if labels[row, column]:
+            continue
+        next_label += 1
+        labels[row, column] = next_label
+        stack = [(int(row), int(column))]
+        while stack:
+            current_row, current_column = stack.pop()
+            for row_delta in (-1, 0, 1):
+                for column_delta in (-1, 0, 1):
+                    if row_delta == 0 and column_delta == 0:
+                        continue
+                    neighbor_row = current_row + row_delta
+                    neighbor_column = current_column + column_delta
+                    if not (0 <= neighbor_row < height and 0 <= neighbor_column < width):
+                        continue
+                    if mask[neighbor_row, neighbor_column] and not labels[neighbor_row, neighbor_column]:
+                        labels[neighbor_row, neighbor_column] = next_label
+                        stack.append((neighbor_row, neighbor_column))
+    return labels, next_label
+
+
+def _bin_centers(bins: np.ndarray, bounds: SpatialBounds, grain: int) -> np.ndarray:
+    bins = np.asarray(bins, dtype=np.float64)
+    result = np.full(bins.shape, np.nan, dtype=np.float32)
+    valid = (bins[:, 0] >= 0) & (bins[:, 1] >= 0)
+    if valid.any():
+        result[valid, 0] = bounds.x_min + (bins[valid, 0] + 0.5) * (
+            bounds.x_max - bounds.x_min
+        ) / grain
+        result[valid, 1] = bounds.y_min + (bins[valid, 1] + 0.5) * (
+            bounds.y_max - bounds.y_min
+        ) / grain
+    return result
+
+
+def calculate_place_field_details(
+    pose: np.ndarray,
+    dg_activity: np.ndarray,
+    bounds: SpatialBounds = SpatialBounds(),
+    grain: int = DEFAULT_GRAIN,
+    threshold_fractions: tuple[float, ...] = FIELD_THRESHOLD_FRACTIONS,
+    min_active_observations: int = FIELD_MIN_ACTIVE_OBSERVATIONS,
+    min_active_bins: int = FIELD_MIN_ACTIVE_BINS,
+    mono_mass_fraction: float = FIELD_MONO_MASS_FRACTION,
+) -> dict[str, np.ndarray]:
+    """Return evaluator-compatible maps and multilevel DG field diagnostics."""
+
+    pose = np.asarray(pose, dtype=np.float32)
+    activity = np.asarray(dg_activity, dtype=np.float32)
+    if min_active_observations <= 0 or min_active_bins <= 0:
+        raise SpatialContractError("place-field eligibility minima must be positive")
+    fractions = np.asarray(threshold_fractions, dtype=np.float32)
+    if fractions.ndim != 1 or fractions.size == 0 or not np.isfinite(fractions).all():
+        raise SpatialContractError("field threshold fractions must be a finite nonempty sequence")
+    if (fractions <= 0).any() or (fractions >= 1).any() or np.any(np.diff(fractions) <= 0):
+        raise SpatialContractError("field threshold fractions must be increasing values in (0, 1)")
+    if not 0 < mono_mass_fraction <= 1:
+        raise SpatialContractError("mono-field mass fraction must be in (0, 1]")
+
+    rate_maps, occupancy, in_bounds = spatial_rate_maps(pose, activity, bounds, grain)
+    n_units = activity.shape[1]
+    rate_sums = rate_maps.astype(np.float64) * occupancy[None, :, :]
+    smooth_occupancy = _binomial_smooth(occupancy[None, :, :])[0]
+    smooth_sums = _binomial_smooth(rate_sums)
+    smoothed = np.divide(
+        smooth_sums,
+        smooth_occupancy[None, :, :],
+        out=np.zeros_like(smooth_sums),
+        where=smooth_occupancy[None, :, :] > 0,
+    )
+    smoothed[:, occupancy == 0] = 0
+
+    active_counts = (activity[in_bounds] > 0).sum(axis=0).astype(np.int32)
+    active_bin_maps, _, _ = spatial_rate_maps(pose, (activity > 0).astype(np.float32), bounds, grain)
+    active_bins = (active_bin_maps > 0).sum(axis=(1, 2)).astype(np.int16)
+    eligible = (active_counts >= min_active_observations) & (active_bins >= min_active_bins)
+    active_fraction = (activity > 0).mean(axis=0).astype(np.float32) if pose.shape[0] else np.zeros(n_units, np.float32)
+    information = np.asarray(
+        [_spatial_information(rate_maps[unit], occupancy) for unit in range(n_units)], dtype=np.float32
+    )
+
+    labels = np.zeros((fractions.size, grain, grain, n_units), dtype=np.int16)
+    component_count = np.zeros((fractions.size, n_units), dtype=np.int16)
+    dominant_mass_fraction = np.zeros((fractions.size, n_units), dtype=np.float32)
+    peak_bins = np.full((n_units, 2), -1, dtype=np.int16)
+    secondary_bins = np.full((n_units, 2), -1, dtype=np.int16)
+
+    for unit in range(n_units):
+        unit_map = smoothed[unit]
+        peak = float(unit_map.max())
+        if not eligible[unit] or peak <= 0:
+            continue
+        threshold_components: list[list[tuple[float, int]]] = []
+        for threshold_index, fraction in enumerate(fractions):
+            unit_labels, count = _component_labels((unit_map >= float(fraction) * peak) & (occupancy > 0))
+            labels[threshold_index, :, :, unit] = unit_labels
+            component_count[threshold_index, unit] = count
+            components: list[tuple[float, int]] = []
+            for component in range(1, count + 1):
+                mass = float(unit_map[unit_labels == component].sum())
+                components.append((mass, component))
+            components.sort(reverse=True)
+            threshold_components.append(components)
+            total_mass = sum(value for value, _ in components)
+            if total_mass > 0:
+                dominant_mass_fraction[threshold_index, unit] = components[0][0] / total_mass
+
+        middle = int(np.argmin(np.abs(fractions - 0.5)))
+        for destination, rank in ((peak_bins, 0), (secondary_bins, 1)):
+            if len(threshold_components[middle]) <= rank:
+                continue
+            component = threshold_components[middle][rank][1]
+            component_mask = labels[middle, :, :, unit] == component
+            masked = np.where(component_mask, unit_map, -np.inf)
+            peak_row, peak_column = np.unravel_index(int(np.argmax(masked)), masked.shape)
+            destination[unit] = (peak_column, peak_row)
+
+    mono_score = dominant_mass_fraction.min(axis=0)
+    mono_field = eligible & (mono_score >= float(mono_mass_fraction))
+    peak_xy = _bin_centers(peak_bins, bounds, grain)
+    secondary_xy = _bin_centers(secondary_bins, bounds, grain)
+    primary_secondary_distance = np.linalg.norm(peak_xy - secondary_xy, axis=1).astype(np.float32)
+    primary_secondary_distance[~np.isfinite(secondary_xy).all(axis=1)] = np.nan
+    nearest_neighbor = np.full(n_units, np.nan, dtype=np.float32)
+    valid_peaks = eligible & np.isfinite(peak_xy).all(axis=1)
+    valid_indices = np.flatnonzero(valid_peaks)
+    if valid_indices.size >= 2:
+        coordinates = peak_xy[valid_indices].astype(np.float64)
+        distances = np.linalg.norm(coordinates[:, None, :] - coordinates[None, :, :], axis=-1)
+        np.fill_diagonal(distances, np.inf)
+        nearest_neighbor[valid_indices] = distances.min(axis=1).astype(np.float32)
+
+    return {
+        "occupancy": occupancy.astype(np.int32),
+        "rate_maps": np.moveaxis(rate_maps, 0, -1).astype(np.float32),
+        "smoothed_rate_maps": np.moveaxis(smoothed, 0, -1).astype(np.float32),
+        "spatial_information": information,
+        "active_fraction": active_fraction,
+        "field_threshold_fractions": fractions,
+        "field_component_labels": labels,
+        "field_component_count": component_count,
+        "field_dominant_mass_fraction": dominant_mass_fraction,
+        "field_active_observation_count": active_counts,
+        "field_active_bin_count": active_bins,
+        "field_eligible": eligible,
+        "field_mono_score": mono_score.astype(np.float32),
+        "field_mono": mono_field,
+        "field_dominant_peak_bin": peak_bins,
+        "field_secondary_peak_bin": secondary_bins,
+        "field_dominant_peak_xy": peak_xy,
+        "field_secondary_peak_xy": secondary_xy,
+        "field_primary_secondary_peak_distance": primary_secondary_distance,
+        "field_dominant_peak_nearest_neighbor_distance": nearest_neighbor,
+        "field_min_active_observations": np.asarray(min_active_observations, dtype=np.int32),
+        "field_min_active_bins": np.asarray(min_active_bins, dtype=np.int16),
+        "field_mono_mass_fraction": np.asarray(mono_mass_fraction, dtype=np.float32),
+    }
+
+
+def reliable_graph_adjacency(
+    tctrl: np.ndarray,
+    confidence: np.ndarray,
+    attempts: np.ndarray,
+    confidence_threshold: float = 0.5,
+    reliability_threshold: float = 0.5,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return directed reliable edges and their beta-posterior mean reliability."""
+
+    tctrl = np.asarray(tctrl, dtype=np.float64)
+    confidence = np.asarray(confidence, dtype=np.float64)
+    attempts = np.asarray(attempts, dtype=np.float64)
+    if tctrl.ndim != 2 or tctrl.shape[0] != tctrl.shape[1]:
+        raise SpatialContractError("control graph arrays must be square matrices")
+    if confidence.shape != tctrl.shape or attempts.shape != tctrl.shape:
+        raise SpatialContractError("control graph arrays must have matching dimensions")
+    if confidence_threshold < 0 or not 0 < reliability_threshold <= 1:
+        raise SpatialContractError("invalid graph reliability thresholds")
+    reliability = (confidence + 1.0) / (attempts + 2.0)
+    adjacency = (
+        (tctrl > 0)
+        & (confidence >= float(confidence_threshold))
+        & (reliability >= float(reliability_threshold))
+    )
+    adjacency = adjacency.astype(np.bool_, copy=True)
+    np.fill_diagonal(adjacency, False)
+    return adjacency, reliability.astype(np.float32)
+
+
+def _shortest_path_hops(adjacency: np.ndarray) -> np.ndarray:
+    adjacency = np.asarray(adjacency, dtype=np.bool_)
+    n_nodes = adjacency.shape[0]
+    distances = np.full((n_nodes, n_nodes), np.inf, dtype=np.float64)
+    distances[adjacency] = 1.0
+    np.fill_diagonal(distances, 0.0)
+    for intermediate in range(n_nodes):
+        distances = np.minimum(
+            distances,
+            distances[:, intermediate, None] + distances[None, intermediate, :],
+        )
+    return distances
+
+
+def _component_sizes(adjacency: np.ndarray) -> list[int]:
+    adjacency = np.asarray(adjacency, dtype=np.bool_)
+    remaining = set(range(adjacency.shape[0]))
+    sizes: list[int] = []
+    while remaining:
+        stack = [remaining.pop()]
+        size = 0
+        while stack:
+            node = stack.pop()
+            size += 1
+            neighbors = set(np.flatnonzero(adjacency[node]).tolist()) & remaining
+            remaining -= neighbors
+            stack.extend(neighbors)
+        sizes.append(size)
+    return sorted(sizes, reverse=True)
+
+
+def _undirected_clustering(adjacency: np.ndarray) -> float:
+    adjacency = np.asarray(adjacency, dtype=np.bool_)
+    values: list[float] = []
+    for node in range(adjacency.shape[0]):
+        neighbors = np.flatnonzero(adjacency[node])
+        degree = neighbors.size
+        if degree < 2:
+            values.append(0.0)
+            continue
+        edges = int(adjacency[np.ix_(neighbors, neighbors)].sum() // 2)
+        values.append(2.0 * edges / float(degree * (degree - 1)))
+    return float(np.mean(values)) if values else 0.0
+
+
+def _global_efficiency(adjacency: np.ndarray) -> tuple[float, np.ndarray]:
+    distances = _shortest_path_hops(adjacency)
+    n_nodes = adjacency.shape[0]
+    mask = np.isfinite(distances) & ~np.eye(n_nodes, dtype=np.bool_)
+    inverse = np.zeros_like(distances)
+    inverse[mask] = 1.0 / distances[mask]
+    denominator = max(1, n_nodes * (n_nodes - 1))
+    return float(inverse.sum() / denominator), distances
+
+
+def _density_matched_references(n_nodes: int, edge_count: int, samples: int = 64) -> tuple[np.ndarray, list[np.ndarray]]:
+    possible = [(i, j) for distance in range(1, n_nodes) for i in range(n_nodes)
+                for j in ((i + distance) % n_nodes,) if i < j]
+    possible = list(dict.fromkeys(possible))
+    possible.sort(key=lambda edge: (min((edge[1] - edge[0]) % n_nodes, (edge[0] - edge[1]) % n_nodes), edge))
+    lattice = np.zeros((n_nodes, n_nodes), dtype=np.bool_)
+    for source, target in possible[:edge_count]:
+        lattice[source, target] = lattice[target, source] = True
+    all_edges = [(i, j) for i in range(n_nodes) for j in range(i + 1, n_nodes)]
+    rng = np.random.default_rng(7919 + n_nodes * 257 + edge_count)
+    random_graphs: list[np.ndarray] = []
+    for _ in range(samples):
+        graph = np.zeros((n_nodes, n_nodes), dtype=np.bool_)
+        if edge_count:
+            selected = rng.choice(len(all_edges), size=edge_count, replace=False)
+            for index in np.atleast_1d(selected):
+                source, target = all_edges[int(index)]
+                graph[source, target] = graph[target, source] = True
+        random_graphs.append(graph)
+    return lattice, random_graphs
+
+
+def _small_world_propensity(undirected: np.ndarray) -> float:
+    n_nodes = undirected.shape[0]
+    edge_count = int(np.triu(undirected, 1).sum())
+    if n_nodes < 3 or edge_count == 0:
+        return 0.0
+    lattice, random_graphs = _density_matched_references(n_nodes, edge_count)
+    clustering = _undirected_clustering(undirected)
+    lattice_clustering = _undirected_clustering(lattice)
+    random_clustering = float(np.mean([_undirected_clustering(graph) for graph in random_graphs]))
+    efficiency, _ = _global_efficiency(undirected)
+    lattice_efficiency, _ = _global_efficiency(lattice)
+    random_efficiency = float(np.mean([_global_efficiency(graph)[0] for graph in random_graphs]))
+    length = 1.0 / efficiency if efficiency > 0 else np.inf
+    lattice_length = 1.0 / lattice_efficiency if lattice_efficiency > 0 else np.inf
+    random_length = 1.0 / random_efficiency if random_efficiency > 0 else np.inf
+    clustering_denominator = lattice_clustering - random_clustering
+    length_denominator = lattice_length - random_length
+    delta_clustering = 0.0 if abs(clustering_denominator) < 1e-12 else (
+        lattice_clustering - clustering
+    ) / clustering_denominator
+    delta_length = 0.0 if not np.isfinite(length) or abs(length_denominator) < 1e-12 else (
+        length - random_length
+    ) / length_denominator
+    delta_clustering = float(np.clip(delta_clustering, 0.0, 1.0))
+    delta_length = float(np.clip(delta_length, 0.0, 1.0))
+    return float(np.clip(1.0 - np.sqrt((delta_clustering ** 2 + delta_length ** 2) / 2.0), 0.0, 1.0))
+
+
+def calculate_graph_diagnostics(
+    tctrl: np.ndarray,
+    confidence: np.ndarray,
+    attempts: np.ndarray,
+    prospective_attempts: np.ndarray | None = None,
+    prospective_successes: np.ndarray | None = None,
+    field_eligible: np.ndarray | None = None,
+    dominant_peak_xy: np.ndarray | None = None,
+    confidence_threshold: float = 0.5,
+    reliability_threshold: float = 0.5,
+) -> dict[str, np.ndarray]:
+    """Calculate deterministic structural, prospective, and spatial graph diagnostics."""
+
+    adjacency, reliability = reliable_graph_adjacency(
+        tctrl, confidence, attempts, confidence_threshold, reliability_threshold
+    )
+    n_nodes = adjacency.shape[0]
+    efficiency, distances = _global_efficiency(adjacency)
+    reachable = np.isfinite(distances) & ~np.eye(n_nodes, dtype=np.bool_)
+    reachable_hops = distances[reachable]
+    reach = np.isfinite(distances)
+    strong_sizes = [int((reach[node] & reach[:, node]).sum()) for node in range(n_nodes)]
+    undirected = adjacency | adjacency.T
+    weak_sizes = _component_sizes(undirected)
+    directed_edges = int(adjacency.sum())
+    degrees = adjacency.sum(axis=0) + adjacency.sum(axis=1)
+    edge_peak_distance = np.full((n_nodes, n_nodes), np.nan, dtype=np.float32)
+    eligible = np.zeros(n_nodes, dtype=np.bool_) if field_eligible is None else np.asarray(field_eligible, dtype=np.bool_)
+    peaks = np.full((n_nodes, 2), np.nan, dtype=np.float32) if dominant_peak_xy is None else np.asarray(
+        dominant_peak_xy, dtype=np.float32
+    )
+    if eligible.shape != (n_nodes,) or peaks.shape != (n_nodes, 2):
+        raise SpatialContractError("graph nodes must align exactly with DG field diagnostics")
+    valid_nodes = eligible & np.isfinite(peaks).all(axis=1)
+    endpoint_valid = valid_nodes[:, None] & valid_nodes[None, :]
+    if endpoint_valid.any():
+        edge_peak_distance[endpoint_valid] = np.linalg.norm(
+            peaks[:, None, :] - peaks[None, :, :], axis=-1
+        )[endpoint_valid]
+    valid_reliable = adjacency & endpoint_valid
+
+    prospective_attempts = np.zeros_like(np.asarray(attempts, dtype=np.float64)) if prospective_attempts is None else np.asarray(
+        prospective_attempts, dtype=np.float64
+    )
+    prospective_successes = np.zeros_like(prospective_attempts) if prospective_successes is None else np.asarray(
+        prospective_successes, dtype=np.float64
+    )
+    if prospective_attempts.shape != adjacency.shape or prospective_successes.shape != adjacency.shape:
+        raise SpatialContractError("prospective graph accumulators must align with the graph")
+    prospective_total = float(prospective_attempts.sum())
+    prospective_success_total = float(prospective_successes.sum())
+    prospective_rate = prospective_success_total / prospective_total if prospective_total > 0 else 0.0
+    endpoint_fraction = float(valid_reliable.sum() / directed_edges) if directed_edges else 0.0
+    edge_distances = edge_peak_distance[valid_reliable]
+    tctrl_values = np.asarray(tctrl, dtype=np.float64)[valid_reliable]
+    correlation = 0.0
+    if edge_distances.size >= 2 and np.std(edge_distances) > 0 and np.std(tctrl_values) > 0:
+        correlation = float(np.corrcoef(edge_distances, tctrl_values)[0, 1])
+    hops_encoded = np.where(np.isfinite(distances), distances, -1).astype(np.int16)
+    return {
+        "graph_reliable_adjacency": adjacency,
+        "graph_edge_reliability": reliability,
+        "graph_shortest_path_hops": hops_encoded,
+        "graph_reliable_edge_count": np.asarray(directed_edges, dtype=np.int32),
+        "graph_reliable_edge_density": np.asarray(directed_edges / max(1, n_nodes * (n_nodes - 1)), dtype=np.float32),
+        "graph_largest_weak_component_size": np.asarray(weak_sizes[0] if weak_sizes else 0, dtype=np.int16),
+        "graph_largest_strong_component_size": np.asarray(max(strong_sizes, default=0), dtype=np.int16),
+        "graph_reachable_pair_fraction": np.asarray(reachable.sum() / max(1, n_nodes * (n_nodes - 1)), dtype=np.float32),
+        "graph_mean_reachable_shortest_path_hops": np.asarray(reachable_hops.mean() if reachable_hops.size else 0.0, dtype=np.float32),
+        "graph_median_reachable_shortest_path_hops": np.asarray(np.median(reachable_hops) if reachable_hops.size else 0.0, dtype=np.float32),
+        "graph_reliable_global_efficiency": np.asarray(efficiency, dtype=np.float32),
+        "graph_undirected_clustering": np.asarray(_undirected_clustering(undirected), dtype=np.float32),
+        "graph_directed_reciprocity": np.asarray((adjacency & adjacency.T).sum() / max(1, directed_edges), dtype=np.float32),
+        "graph_small_world_propensity": np.asarray(_small_world_propensity(undirected), dtype=np.float32),
+        "graph_max_total_degree_fraction": np.asarray(degrees.max(initial=0) / max(1, 2 * directed_edges), dtype=np.float32),
+        "graph_degree_herfindahl": np.asarray(np.square(degrees / max(1, degrees.sum())).sum(), dtype=np.float32),
+        "graph_spatial_endpoint_valid_fraction": np.asarray(endpoint_fraction, dtype=np.float32),
+        "graph_reliable_edge_peak_distance": edge_peak_distance,
+        "graph_reliable_edge_peak_distance_mean": np.asarray(edge_distances.mean() if edge_distances.size else 0.0, dtype=np.float32),
+        "graph_tctrl_peak_distance_correlation": np.asarray(correlation, dtype=np.float32),
+        "graph_tctrl_peak_distance_pair_count": np.asarray(edge_distances.size, dtype=np.int32),
+        "graph_prospective_attempt_count": np.asarray(prospective_total, dtype=np.float32),
+        "graph_prospective_success_count": np.asarray(prospective_success_total, dtype=np.float32),
+        "graph_prospective_success_fraction": np.asarray(prospective_rate, dtype=np.float32),
+        "graph_grounded_controllability": np.asarray(prospective_rate * endpoint_fraction, dtype=np.float32),
+    }
+
+
 def calculate_spatial_metrics(
     pose: np.ndarray,
     dg_activity: np.ndarray,
@@ -169,12 +613,15 @@ def calculate_spatial_metrics(
     if not np.isfinite(pose).all() or not np.isfinite(activity).all():
         raise SpatialContractError("pose and DG activity must be finite")
 
-    rate_maps, occupancy, in_bounds = spatial_rate_maps(pose, activity, bounds, grain)
+    details = calculate_place_field_details(pose, activity, bounds, grain)
+    rate_maps = np.moveaxis(details["rate_maps"], -1, 0)
+    occupancy = details["occupancy"]
+    _, _, in_bounds = spatial_rate_maps(pose, activity, bounds, grain)
     active = (activity > 0).any(axis=0)
     n_units = int(activity.shape[1])
     n_active = int(active.sum())
     active_maps = rate_maps[active]
-    information = [_spatial_information(unit_map, occupancy) for unit_map in active_maps]
+    information = details["spatial_information"][active]
 
     occupied = occupancy.reshape(-1) > 0
     map_cosine = 0.0
@@ -216,13 +663,20 @@ def calculate_spatial_metrics(
         "visited_cell_fraction": float((occupancy > 0).sum() / occupancy.size),
         "active_unit_fraction": float(n_active / n_units) if n_units else 0.0,
         "silent_unit_fraction": float(1.0 - n_active / n_units) if n_units else 0.0,
-        "active_unit_mean_spatial_information": float(np.mean(information)) if information else 0.0,
+        "active_unit_mean_spatial_information": float(np.mean(information)) if information.size else 0.0,
         "active_only_map_cosine": map_cosine,
         "unique_active_peak_bins": float(unique_peaks),
         "mean_physical_step_distance": float(step_distance.mean()) if step_distance.size else 0.0,
         "stationary_step_fraction": float((step_distance <= stationary_distance).mean()) if step_distance.size else 0.0,
         "path_efficiency": float(total_displacement / total_path) if total_path > 0 else 0.0,
         "mean_absolute_circular_yaw_change": float(yaw_delta.mean()) if yaw_delta.size else 0.0,
+        "mono_field_unit_fraction": float(details["field_mono"].sum() / details["field_eligible"].sum())
+        if details["field_eligible"].any() else 0.0,
+        "mean_primary_secondary_peak_distance": float(np.nanmean(details["field_primary_secondary_peak_distance"]))
+        if np.isfinite(details["field_primary_secondary_peak_distance"]).any() else 0.0,
+        "median_dominant_peak_nearest_neighbor_distance": float(
+            np.nanmedian(details["field_dominant_peak_nearest_neighbor_distance"])
+        ) if np.isfinite(details["field_dominant_peak_nearest_neighbor_distance"]).any() else 0.0,
     }
 
 
@@ -362,6 +816,61 @@ def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     for key in ("run_name", "experiment_identity", "environment"):
         if not str(np.asarray(payload[key]).item()).strip():
             raise SpatialContractError(f"{key} must be nonempty")
+
+    detail_presence = [key in payload for key in SPATIAL_DETAIL_ARRAYS]
+    if any(detail_presence) and not all(detail_presence):
+        missing_details = [key for key in SPATIAL_DETAIL_ARRAYS if key not in payload]
+        raise SpatialContractError(f"cached spatial details are incomplete: {missing_details}")
+    if all(detail_presence):
+        grain = int(np.asarray(payload["grain"]).item())
+        units = result["dg_activity"].shape[1]
+        thresholds = np.asarray(payload["field_threshold_fractions"]).size
+        expected_shapes = {
+            "occupancy": (grain, grain),
+            "rate_maps": (grain, grain, units),
+            "smoothed_rate_maps": (grain, grain, units),
+            "spatial_information": (units,),
+            "active_fraction": (units,),
+            "field_component_labels": (thresholds, grain, grain, units),
+            "field_component_count": (thresholds, units),
+            "field_dominant_mass_fraction": (thresholds, units),
+            "field_active_observation_count": (units,),
+            "field_active_bin_count": (units,),
+            "field_eligible": (units,),
+            "field_mono_score": (units,),
+            "field_mono": (units,),
+            "field_dominant_peak_bin": (units, 2),
+            "field_secondary_peak_bin": (units, 2),
+            "field_dominant_peak_xy": (units, 2),
+            "field_secondary_peak_xy": (units, 2),
+            "field_primary_secondary_peak_distance": (units,),
+            "field_dominant_peak_nearest_neighbor_distance": (units,),
+        }
+        for key, expected_shape in expected_shapes.items():
+            if np.asarray(payload[key]).shape != expected_shape:
+                raise SpatialContractError(
+                    f"cached {key} has shape {np.asarray(payload[key]).shape}; expected {expected_shape}"
+                )
+
+    graph_presence = [key in payload for key in CONTROL_GRAPH_ARRAYS]
+    if any(graph_presence) and not all(graph_presence):
+        missing_graph = [key for key in CONTROL_GRAPH_ARRAYS if key not in payload]
+        raise SpatialContractError(f"control graph snapshot is incomplete: {missing_graph}")
+    if all(graph_presence):
+        nodes = result["dg_activity"].shape[1]
+        matrix_shape = (nodes, nodes)
+        if np.asarray(payload["control_node_visits"]).shape != (nodes,):
+            raise SpatialContractError("control graph node count does not match DG units")
+        for key in CONTROL_GRAPH_ARRAYS[1:]:
+            if np.asarray(payload[key]).shape != matrix_shape:
+                raise SpatialContractError(f"{key} must have shape {matrix_shape}")
+        if "control_representation_generation" not in payload:
+            raise SpatialContractError("control graph generation is required")
+        if "passive_recruitment_generation" in payload and (
+            int(np.asarray(payload["passive_recruitment_generation"]).item())
+            != int(np.asarray(payload["control_representation_generation"]).item())
+        ):
+            raise SpatialContractError("control and passive graph generations do not match")
     return result
 
 
