@@ -395,11 +395,21 @@ continuous pre-threshold logit maps. Agreement between thresholded and
 pre-threshold results shows that a diversity result is not merely caused by the
 hard threshold.
 
+The manifest analyzer also applies the online spatial contract to every saved
+checkpoint: 8-connected superlevel components at 30%, 50%, and 70% of each
+unit's peak, eligibility from at least 20 active in-bounds observations across
+three bins, and a mono-field classification when the dominant component holds
+at least 80% of superlevel mass at all three thresholds. It reports mean
+component counts, dominant-component mass, and mono-field fraction. When graph
+confidence is present in the NPZ, it additionally correlates each unit's total
+incoming confidence with field spread (`1 - mono_score`) to test whether broad
+maps become graph sinks. This correlation is diagnostic rather than causal.
+
 ## Outputs
 
 | Output | Use |
 | --- | --- |
-| `summary/place_field_summary.csv` | Standard per-checkpoint activity, SI, cosine, and peak count. |
+| `summary/place_field_summary.csv` | Standard per-checkpoint activity, SI, cosine, peak count, multilevel field structure, and incoming-confidence/field-spread correlation. |
 | `summary/derived_place_field_metrics.csv` | Active-only and pre-threshold diversity per checkpoint. |
 | `summary/terminal_three_seed_aggregate.csv` | Mean and sample SD for terminal replicated conditions. |
 | `summary/seed99_checkpoint_trajectory.csv` | Numerically ordered checkpoint trajectory. |

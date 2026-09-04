@@ -323,6 +323,14 @@ per-unit, per-field, and graph-edge CSVs, or explicit selected-run maps. These
 are monitoring diagnostics; fixed-checkpoint manifest telemetry remains the
 authoritative scientific analysis.
 
+The fixed-checkpoint manifest analyzer uses the same 8-connected 30/50/70%
+component definition and adds `mono_field_fraction`,
+`mean_components_{30,50,70}pct`, `mean_dominant_component_mass`, and
+`incoming_confidence_field_spread_correlation` to its checkpoint summary. The
+last quantity is the finite Pearson correlation, over spatially eligible DG
+units, between total incoming edge confidence and `1 - mono_score`; it is
+undefined when either side has zero variance.
+
 ## Recommended Panels
 
 1. Representation health: density, silent fraction, duty-cycle min/max, usage entropy, and pre-threshold-above fraction.

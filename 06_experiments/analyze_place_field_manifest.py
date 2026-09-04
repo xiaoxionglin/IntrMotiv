@@ -10,6 +10,14 @@ import numpy as np
 import pandas as pd
 
 from sf_working_directories.IntrMotiv.evaluation.summarize_place_fields import summarize_artifact
+from hpc_runs.intrmotiv_study.spatial_contract import (
+    FIELD_MIN_ACTIVE_BINS,
+    FIELD_MIN_ACTIVE_OBSERVATIONS,
+    FIELD_MONO_MASS_FRACTION,
+    FIELD_THRESHOLD_FRACTIONS,
+    _binomial_smooth,
+    _component_labels,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -82,6 +90,42 @@ def peak_statistics(
     return len(counts), entropy, float(np.mean(distances)) if distances else np.nan
 
 
+def multilevel_field_structure(rate_maps, occupancy, active_fraction):
+    """Apply the online 8-connected mono-field contract to offline maps."""
+    maps = np.moveaxis(np.nan_to_num(rate_maps, nan=0.0), -1, 0).astype(np.float64)
+    occupancy = np.asarray(occupancy, dtype=np.float64)
+    smooth_occupancy = _binomial_smooth(occupancy[None])[0]
+    smooth_sums = _binomial_smooth(maps * occupancy[None])
+    smoothed = np.divide(
+        smooth_sums, smooth_occupancy[None], out=np.zeros_like(smooth_sums), where=smooth_occupancy[None] > 0
+    )
+    smoothed[:, occupancy == 0] = 0
+    active_observations = np.rint(np.asarray(active_fraction) * occupancy.sum()).astype(np.int64)
+    active_bins = (maps > 0).sum(axis=(1, 2))
+    eligible = (active_observations >= FIELD_MIN_ACTIVE_OBSERVATIONS) & (active_bins >= FIELD_MIN_ACTIVE_BINS)
+    component_count = np.zeros((len(FIELD_THRESHOLD_FRACTIONS), maps.shape[0]), dtype=np.int16)
+    dominant_mass = np.zeros_like(component_count, dtype=np.float32)
+    for unit, unit_map in enumerate(smoothed):
+        peak = float(unit_map.max())
+        if not eligible[unit] or peak <= 0:
+            continue
+        for level, fraction in enumerate(FIELD_THRESHOLD_FRACTIONS):
+            labels, count = _component_labels((unit_map >= fraction * peak) & (occupancy > 0))
+            component_count[level, unit] = count
+            masses = np.asarray([unit_map[labels == index].sum() for index in range(1, count + 1)])
+            if masses.size and masses.sum() > 0:
+                dominant_mass[level, unit] = masses.max() / masses.sum()
+    mono_score = dominant_mass.min(axis=0)
+    return eligible, component_count, dominant_mass, mono_score, eligible & (mono_score >= FIELD_MONO_MASS_FRACTION)
+
+
+def finite_correlation(first, second):
+    valid = np.isfinite(first) & np.isfinite(second)
+    if valid.sum() < 2 or np.std(first[valid]) <= 1e-12 or np.std(second[valid]) <= 1e-12:
+        return np.nan
+    return float(np.corrcoef(first[valid], second[valid])[0, 1])
+
+
 def derive_row(item: dict[str, str], artifact: Path) -> dict[str, object]:
     data = np.load(artifact, allow_pickle=False)
     occupancy = data["occupancy"]
@@ -89,6 +133,13 @@ def derive_row(item: dict[str, str], artifact: Path) -> dict[str, object]:
     active_units = np.flatnonzero(data["active_fraction"] > 0)
     threshold_peaks = peak_statistics(rate_maps, active_units, require_positive=True)
     information = data["spatial_information"]
+    eligible, component_count, dominant_mass, mono_score, mono = multilevel_field_structure(
+        rate_maps, occupancy, data["active_fraction"]
+    )
+    incoming_spread_correlation = np.nan
+    if "control_edge_confidence" in data:
+        incoming = np.asarray(data["control_edge_confidence"], dtype=np.float64).sum(axis=0)
+        incoming_spread_correlation = finite_correlation(incoming[eligible], (1.0 - mono_score)[eligible])
 
     derived: dict[str, object] = {
         **item,
@@ -99,6 +150,13 @@ def derive_row(item: dict[str, str], artifact: Path) -> dict[str, object]:
         "active_unique_peak_bins": threshold_peaks[0],
         "active_peak_bin_entropy": threshold_peaks[1],
         "active_pairwise_peak_distance_bins": threshold_peaks[2],
+        "field_eligible_units": int(eligible.sum()),
+        "mono_field_fraction": float(mono[eligible].mean()) if eligible.any() else 0.0,
+        "mean_components_30pct": float(component_count[0, eligible].mean()) if eligible.any() else 0.0,
+        "mean_components_50pct": float(component_count[1, eligible].mean()) if eligible.any() else 0.0,
+        "mean_components_70pct": float(component_count[2, eligible].mean()) if eligible.any() else 0.0,
+        "mean_dominant_component_mass": float(dominant_mass[:, eligible].mean()) if eligible.any() else 0.0,
+        "incoming_confidence_field_spread_correlation": incoming_spread_correlation,
     }
 
     if "pre_threshold_rate_maps" in data:
@@ -141,6 +199,13 @@ def main() -> None:
         "active_unique_peak_bins",
         "active_peak_bin_entropy",
         "active_pairwise_peak_distance_bins",
+        "field_eligible_units",
+        "mono_field_fraction",
+        "mean_components_30pct",
+        "mean_components_50pct",
+        "mean_components_70pct",
+        "mean_dominant_component_mass",
+        "incoming_confidence_field_spread_correlation",
         "prethreshold_map_cosine_mean",
         "prethreshold_unique_peak_bins",
         "prethreshold_peak_bin_entropy",

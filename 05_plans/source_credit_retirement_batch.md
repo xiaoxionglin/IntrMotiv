@@ -28,8 +28,12 @@ The ten seed-99 preflights train to 5M. Production is blocked unless all cells h
 Preflight submission:
 
 - Slurm jobs: `7984015`–`7984024`
+- Dependent scientific gate: `7984025` (`afterok` on all ten preflights)
 - Manifest: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_source_credit_retirement_20260904_preflight/20260904_submitted/jobs.tsv`
-- State at submission: all ten running; production not submitted
+- State at 2026-09-04 18:50 CEST: all ten running, gate dependency pending,
+  production not submitted. The gate performs a second StudySpec validation,
+  production print-only review, and submission audit before launching any of
+  the 30 production jobs.
 
 ## Evaluation
 
