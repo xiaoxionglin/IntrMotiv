@@ -38,7 +38,8 @@ degrees, and four-connected half-peak component counts.
 ## Verification
 
 - Local workflow/study tests: 19 passed.
-- NEMO2 focused recruitment, telemetry, replay, and FiLM tests: 34 passed.
+- NEMO2 focused recruitment and topology-manager tests after runtime fixes:
+  45 passed.
 - NEMO2 complete IntrMotiv suite after runtime fixes: 179 passed.
 - Corrected print-only preflight: 18 unique commands, workspace paths valid.
 - Submitted fresh corrected preflight jobs: `7980651`, `7980652`, `7980653`,
@@ -64,4 +65,8 @@ production artifacts.
 A first corrected resubmission (`7980629` through `7980646`) was also canceled
 before certification because its unchanged output paths resumed the canceled
 checkpoints. The final `preflight_r2` namespace has distinct run directories
-and W&B group; its first summary began at zero environment steps.
+and W&B group; its first summary began at zero environment steps. By
+approximately 0.16--0.33M fresh steps, all six C15 cells had emitted valid
+goal targets and batch-local PRED context events were nonzero in fresh C13 and
+C15 cells. The terminal gate still requires the complete 5M criteria across
+all intended cells.
