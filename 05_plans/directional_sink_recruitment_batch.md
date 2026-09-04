@@ -1,125 +1,177 @@
-# Directional Sink Recruitment and Goal Conditioning Batch
+# Directional and Predictive Recruitment Batch
 
-**Status:** Implementation plan. Updated 2026-09-04 to include the restored
-legacy goal decoder and the new target-ID FiLM decoder.
+**Status:** Implementation plan. Updated 2026-09-04 after retiring the
+incident-connectivity (`INC`) treatment.
 
 ## Question
 
-Can strict replacement of mature control-graph sinks reduce landmark aliasing
-and destination funnels, and does the answer depend on how the worker receives
-its commanded target?
+Can a minimal replacement rule remove landmarks that fail as controllable
+sources, or landmarks whose goal-directed outcomes reveal contextual aliasing,
+without adding a new representation model?
 
-The contextual-CA3 landmark proposal is deferred to
-`contextual_landmark_state_design.md` and is not part of this batch.
+The contextual-CA3 landmark architectures remain deferred to
+`contextual_landmark_state_design.md`. This batch changes only recruitment and
+goal decoding.
 
 ## Matrix
 
-- Bases: corrected-core C05, current C13-like, and C15.
-- Recruitment treatments: monitor-only (`MON`), existing incident rule (`INC`),
-  and directional sink-aware rule (`DIR`).
-- Goal conditioning: restored previous decoder (`LEG`) and target-ID FiLM
+- Bases: corrected-core C05, C13-like, and C15.
+- Recruitment: monitor-only (`MON`), directional controllability (`DIR`), and
+  batch-local predictive inconsistency (`PRED`).
+- Goal conditioning: restored legacy decoder (`LEG`) and target-ID FiLM
   (`FILM`). The target-trace adapter is excluded.
 - Seeds: 8, 99, and 123.
-- Total: 3 x 3 x 2 x 3 = 54 fresh 75M-step runs.
+- Total: `3 x 3 x 2 x 3 = 54` fresh 75M-step runs.
 
-Use immediate behavior targets in every cell because FiLM requires immediate
-timing and the comparison must differ only in the goal decoder. All cells use
+Use immediate behavior targets in every cell. Use
 `ceil(1.2 * Tctrl) + 2` for learned deadlines and 64 decisions for unknown
-edges.
+edges. Preserve the current policy/exploration branching; it is not a factor.
 
 Proposed identities:
 
-- study: `directional_sink_goal_conditioning_20260904`;
-- batch: `intrmotiv_directional_sink_goal_conditioning_20260904`;
-- W&B project: `SF_IntrMotiv_DirectionalSinkGoalConditioning`;
-- run: `DSG_{base}_{recruitment}_{goal}_S{seed}`.
+- study: `directional_predictive_recruitment_20260904`;
+- batch: `intrmotiv_directional_predictive_recruitment_20260904`;
+- W&B project: `SF_IntrMotiv_DirectionalPredictiveRecruitment`;
+- run: `DPR_{base}_{recruitment}_{goal}_S{seed}`.
 
 Use StudySpec schema `intrmotiv/study/v1` and workflow `1.2.0`. Preserve its
 SHA-256 through print-only review, submission audit, online analysis, and
 telemetry manifests.
 
-## Directional recruitment
+## Common recruitment mechanics
 
-Add backward-compatible graph-source and victim-rule settings. Existing runs
-retain `auto` graph source and the current `incident` rule; this study fixes
-the source to the policy controllability graph.
+- Evaluate replacement only at the existing silent endpoint `L=64`.
+- Allow at most one replacement per accepted rollout.
+- Require birth maturity: `birth_support <= 0.25`.
+- Reset the replaced row's passive and controllability graph evidence,
+  including attempt evidence. The row must mature and qualify again before
+  another replacement.
+- Retain the 5k-option global half-life for control confidence, attempts, and
+  birth support.
 
-A supported recruitment edge has confidence above `0.25` and positive
-`Tctrl`. With `D=4`:
+A directed controllability edge `j -> k` is reliable exactly when:
 
 ```text
-strict_sink(j) = no supported j -> k edge
-                 and at least two distinct supported i -> j edges
-                 with Tctrl[i,j] <= D
+Tctrl[j,k] > 0
+and edge_confidence[j,k] >= 0.5
+and (edge_confidence[j,k] + 1) / (control_attempts[j,k] + 2) >= 0.5
 ```
 
-Keep isolated-node eligibility. Keep the mutual-close duplicate definition,
-but in the directional rule choose the lower-outgoing-support pair member;
-ties choose the higher DG index. Apply birth maturity after structural
-classification. Victim priority is isolated, strict sink, then duplicate.
+Only completed intentional goal attempts update `control_attempts`. Free
+exploration is excluded.
 
-For multiple sinks, choose highest fast incoming degree, then highest fast
-incoming confidence, then lowest index. For multiple duplicate losers, choose
-lowest outgoing support, then lowest index. Do not add a low-outdegree ratio,
-connectivity score, or attempt threshold.
+## MON
 
-The silent endpoint at exactly `L=64` remains the only replacement proposal.
-Reassignment and invalidation remain unchanged. Repeat replacement is allowed
-only after the reset birth support has matured again. Passive and control
-half-lives are fixed at 5k.
+Compute and log both DIR and PRED diagnostics but set maximum replacements per
+rollout to zero.
 
-Treatments are:
+## DIR
 
-- `MON`: directional classifier active, maximum replacements per rollout zero;
-- `INC`: current incident classifier, maximum one replacement per rollout;
-- `DIR`: directional classifier, maximum one replacement per rollout.
+A node is fully tested only when every off-diagonal outgoing pair retains at
+least 0.5 decayed attempt mass:
 
-## Goal conditioning
+```text
+fully_tested(j) = AND over k != j: control_attempts[j,k] >= 0.5
 
-- `LEG` uses the restored ordinary decoder with the replayed target one-hot
-  concatenated to the core state.
-- `FILM` removes the target one-hot from the state stream and uses it only to
-  select a target-specific, zero-initialized scale/shift row over a shared
-  128-unit state decoder. It does not extract a target CA3 trace.
-- Both use the same immediate behavior target stored by the actor and
-  teacher-forced during PPO replay.
-- Log decoder parameter count, target-valid fraction, action sensitivity,
-  value span, and per-target FiLM modulation norms. An all-zero target must
-  produce exactly identity modulation.
+bad_source(j) = mature(j)
+                and fully_tested(j)
+                and reliable_out_degree(j) == 0
+```
 
-## Base definitions and fixed settings
+There is no incoming-edge requirement and no operational distinction between
+an isolated node and a sink. If any of the 15 alternatives is untested, the
+node is protected. When several bad sources qualify, choose the lowest DG
+index rather than adding another score.
 
-- C05: global punishment `0.01`, row repulsion `1.0`, no temporal margin,
-  direct visit manager, no manager exploration.
-- C13-like: current revised temporal margin `1.0`, direct visit manager, 10%
-  exploration plus timeout recovery. It is not an exact historical C13 because
-  timing is immediate and the temporal-margin implementation changed.
-- C15: no temporal margin or G/R terms, UCB-direct topology manager, no action
-  integration or geometry. Timing is standardized to immediate.
+DIR alone also removes mutual-close duplicates. With `D=4`:
 
-Keep the frozen pretrained ResNet-18 layer-2 trunk, trainable DG projection and
-BatchNorm, `F=16`, `R=8`, all other corrected-core optimization settings, and
-the shared exploration head unchanged. Do not add CA3 feedback, path scatter,
-dense shaping, HER, or the common edge-exploration manager.
+```text
+duplicate(j,k) = reliable(j -> k)
+                 and reliable(k -> j)
+                 and Tctrl[j,k] <= 4
+                 and Tctrl[k,j] <= 4
+```
+
+Choose the duplicate loser by lower reliable outgoing degree, then lower total
+reliable outgoing confidence, then higher DG index. Prioritize a bad-source
+victim over a duplicate loser. MON and PRED only report duplicate diagnostics.
+
+## PRED
+
+PRED uses only the current complete accepted rollout batch. It adds no learned
+predictor, recurrent feedback, checkpoint buffer, or persistent statistics.
+
+For each completed goal-directed option whose start and completion both occur
+in the accepted batch, extract:
+
+- source landmark `j`;
+- commanded goal `g`;
+- predecessor context `c`, the most recent distinct exclusive landmark in the
+  first `R` CA3 positions at option start;
+- outcome `y`, success or target timeout.
+
+Exclude free-exploration options, invalid transitions, options that began
+before the batch, and starts without a distinct predecessor context. For every
+observed `(j,g,c)` group:
+
+```text
+reliability(j,g,c) = (successes + 1) / (attempts + 2)
+```
+
+Source `j` is PRED-eligible when one `(j,g)` is observed under at least two
+predecessor contexts, each with at least two completed attempts, and at least
+one context has reliability `>= 0.5` while another is `< 0.5`.
+
+Apply birth maturity after this classification. Rank candidates by largest
+cross-context reliability gap, then total supporting attempts, then lowest DG
+index. Hold the result only until this rollout's single replacement decision
+and then discard it. PRED does not perform duplicate replacement.
+
+## Goal conditioning and bases
+
+- `LEG` concatenates the replayed target one-hot to the ordinary decoder
+  input.
+- `FILM` uses the target one-hot only to select a zero-initialized 128-unit
+  FiLM scale/shift row. It uses neither a target trace nor a learned target
+  embedding. The all-zero target produces exact identity modulation.
+- Both teacher-force the immediate behavior target during PPO replay.
+
+Base definitions:
+
+- C05: direct visit manager, global punishment `0.01`, row repulsion `1.0`, no
+  temporal exclusion, and no manager exploration.
+- C13-like: direct visit manager, temporal exclusion `1.0`, 10% manager
+  exploration plus existing timeout recovery, and no G/R terms.
+- C15: UCB-direct topology manager, no temporal exclusion or G/R terms, and no
+  action integration or geometry.
+
+Keep the frozen ImageNet ResNet-18 layer-2 trunk, trainable DG projection and
+BatchNorm, `F=16`, `R=8`, `L=64`, and corrected-core optimization settings.
+Do not add CA3 feedback, path scatter, dense shaping, HER, or the common
+edge-probe manager.
 
 ## Telemetry and analysis
 
-Add online outgoing/incoming support, strict-sink and sink-eligible counts,
-fast-incoming degree, sink assignments, zero-outdegree attempted versus
-untested nodes, top-three incoming-confidence share, SCC/reachable-pair
-measures, and per-row assignment counts.
+Add online metrics for:
 
-Add optional graph buffers to the standard place-field NPZ without changing
-existing fields: control confidence/attempts/`Tctrl`, passive
-confidence/elapsed, birth support, and row assignment counts. Join these per
-unit with spatial information, activity, and four-connected components above
-half the unit's positive peak.
+- fully tested, untested zero-outdegree, and bad-source nodes;
+- off-diagonal attempt-coverage fraction and outgoing coverage by node;
+- reliable incoming/outgoing degree and confidence;
+- duplicate and PRED eligibility, PRED context groups and reliability gaps;
+- bad-source, duplicate, predictive, first, and repeat assignments;
+- graph concentration, reciprocal edges, SCC size, reachable-pair fraction,
+  target-hit lift, target action sensitivity, and FiLM modulation norms.
+
+Extend the standard place-field NPZ with backward-compatible optional arrays:
+control confidence, attempts and `Tctrl`; passive confidence and elapsed;
+birth support; and per-row assignment counts. Join these arrays with spatial
+information, activity, and four-connected field components in analysis.
 
 StudySpec contrasts are evaluated within base:
 
-- `DIR - MON`, `INC - MON`, and `DIR - INC`, separately for LEG and FILM;
-- `FILM - LEG` separately for every recruitment treatment;
-- `(DIR - INC)_FILM - (DIR - INC)_LEG` interaction.
+- `DIR - MON`, `PRED - MON`, and `DIR - PRED`, separately for LEG and FILM;
+- `FILM - LEG` separately for MON, DIR, and PRED;
+- the DIR x goal and PRED x goal interactions.
 
 Run standard 10k place-field telemetry at 5M, 25M, 50M, and 75M for seed 99
 and at 75M for seeds 8 and 123: 108 ordinary jobs. Run the frozen terminal
@@ -127,34 +179,39 @@ target-intervention evaluator for all 54 runs.
 
 ## Verification and launch
 
-Add unit tests for strict zero-outdegree sink classification, two-source fast
-incoming evidence, outgoing protection, maturity/repeat behavior, victim
-priority, outgoing-support duplicate selection, graph-source selection,
-monitor-only behavior, invalidation, checkpoint compatibility, and optional
-NPZ fields.
+Add unit tests for:
 
-Add goal tests proving restored LEG decoder selection, exact initial FiLM
-identity modulation, target-row-specific gradients, no-target behavior,
-teacher-forced immediate replay, action/value head gradients, and checkpoint
-round trips.
+- all 15 alternatives being required for `fully_tested`;
+- decayed attempt mass below 0.5 protecting a node;
+- incoming edges not affecting bad-source classification;
+- unreliable outgoing edges not protecting and any reliable outgoing edge
+  protecting a node;
+- free exploration not contributing attempt evidence;
+- mutual-close duplicate replacement occurring only in DIR;
+- PRED using only one accepted batch and retaining no persistent state;
+- maturity, invalidation, repeat recruitment, replay conditioning, FiLM
+  identity initialization, and checkpoint compatibility.
 
-Run a fresh seed-99 5M preflight for all 18 factor cells. Require finite losses,
-control-graph activity, exactly zero MON replacements, exact behavior-target
-replay, nonzero FiLM modulation gradients on goal-directed samples, and no
-strict-sink classification when a supported outgoing edge exists.
+Run a fresh seed-99 5M preflight for all 18 factor cells. Require finite
+losses, exact replay conditions, zero MON replacements, correct intended
+manager-mode activity, nonzero FiLM gradients on goal samples, and no DIR
+replacement before complete outgoing-pair coverage.
 
-After the 54-run print-only review and workspace-path audit, submit all runs as
-fresh training. Collect synchronized 25M, 50M, and 75M summaries. Stop and
-inspect if at least two seeds of a cell have silent fraction above `0.25` or
-repeat assignments exceed first assignments.
+After StudySpec validation, print-only review, workspace-path audit, and a
+passing preflight, submit the 54 fresh production runs. Collect synchronized
+25M, 50M, and 75M summaries. Stop and inspect if at least two seeds of a cell
+have silent fraction above 0.25 or repeat assignments exceed first
+assignments.
 
-The recruitment claim is centered on C05 and requires DIR to exercise sink
-replacement in at least two seeds, reduce strict sinks and top-three incoming
-share relative to both controls, reduce multi-component fields, keep mean
-silent units at or below one, and keep repeats no greater than first
-assignments. Claim improved control only when terminal commanded-target success
-is at least 25% above matched shuffled targets and action sensitivity improves.
+The recruitment claim is centered on C05. DIR must exercise bad-source or
+duplicate replacement in at least two seeds; PRED must exercise predictive
+replacement in at least two seeds. A treatment must reduce graph concentration
+and multi-component fields relative to MON without increasing mean silent
+units above one or repeats above first assignments. Claim improved control
+only when terminal commanded-target success is at least 25% above matched
+shuffled targets and action sensitivity improves.
 
-Because eligibility deliberately reads the control graph, this remains an
-open-field experiment rather than a transferable recruitment rule. C13-like
-and C15 provide stress tests; effects are not pooled across bases.
+DIR deliberately reads the controllability graph and remains an open-field
+heuristic rather than a transferable recruitment rule. PRED is the
+architecture-neutral test of contextual insufficiency. Effects are reported
+within base and are not pooled across C05, C13-like, and C15.
