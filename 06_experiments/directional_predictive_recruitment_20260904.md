@@ -3,7 +3,7 @@
 ## Status
 
 Implementation and the 54-run StudySpec are complete. Production is gated on
-the 18-cell, seed-99, 5M-step preflight submitted on 2026-09-04.
+the corrected 18-cell, seed-99, 5M-step preflight submitted on 2026-09-04.
 
 - Study: `directional_predictive_recruitment_20260904`
 - Batch: `intrmotiv_directional_predictive_recruitment_20260904`
@@ -39,14 +39,29 @@ degrees, and four-connected half-peak component counts.
 
 - Local workflow/study tests: 19 passed.
 - NEMO2 focused recruitment, telemetry, replay, and FiLM tests: 34 passed.
-- NEMO2 complete IntrMotiv suite: 178 passed.
-- Print-only preflight: 18 unique commands, workspace paths valid.
-- Submitted preflight jobs: `7980596` through `7980613`.
+- NEMO2 complete IntrMotiv suite after runtime fixes: 179 passed.
+- Corrected print-only preflight: 18 unique commands, workspace paths valid.
+- Submitted fresh corrected preflight jobs: `7980651`, `7980652`, `7980653`,
+  and `7980656` through `7980670`.
 - Submission manifest:
-  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_directional_predictive_recruitment_20260904_preflight/20260904T024250Z/jobs.tsv`
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_directional_predictive_recruitment_20260904_preflight_r2/20260904T052100Z/jobs.tsv`
+- Fail-closed preflight-to-production gate: job `7980671`. It runs the
+  terminal preflight analyzer, StudySpec validation, production print-only
+  rendering and audit, and only then submits and audits the 54 production
+  jobs. Any failed command prevents submission.
 
-Early runtime checks show nonzero FiLM modulation after valid target samples
-and no premature DIR assignments under partial outgoing-pair coverage. PRED
-context-event telemetry remained zero through approximately 1.4M frames and
-must become active by the terminal preflight analysis; otherwise production
-will not be submitted.
+The first preflight (`7980596` through `7980613`) was canceled after live
+telemetry exposed two integration defects. Direct C15 frontier selection had
+incorrectly required a pre-existing reliable route, causing source-local free
+exploration with no goal targets. PRED also counted the current source's
+persistent CA3 trace when testing whether a distinct predecessor was unique.
+The fixes let direct frontier control command any observed landmark while
+retaining reachability checks for waypoint/common-manager planning, and remove
+only the current source row from PRED predecessor competition. Regression
+tests cover both cases. The canceled outputs are excluded from all gates and
+production artifacts.
+
+A first corrected resubmission (`7980629` through `7980646`) was also canceled
+before certification because its unchanged output paths resumed the canceled
+checkpoints. The final `preflight_r2` namespace has distinct run directories
+and W&B group; its first summary began at zero environment steps.

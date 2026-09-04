@@ -18,7 +18,7 @@ def _preflight_args(study, run) -> list[str]:
         if arg == "--train_for_env_steps=75000000":
             arg = "--train_for_env_steps=5000000"
         elif arg == f"--wandb_group={study.batch_name}":
-            arg = f"--wandb_group={study.batch_name}_preflight"
+            arg = f"--wandb_group={study.batch_name}_preflight_r2"
         result.append(arg)
     return result
 

@@ -110,7 +110,9 @@ in the accepted batch, extract:
 - source landmark `j`;
 - commanded goal `g`;
 - predecessor context `c`, the most recent distinct exclusive landmark in the
-  first `R` CA3 positions at option start;
+  first `R` CA3 positions at option start. Exclude the current source row
+  before testing predecessor exclusivity because its trace can persist across
+  several CA3 positions without making the distinct predecessor ambiguous;
 - outcome `y`, success or target timeout.
 
 Exclude free-exploration options, invalid transitions, options that began
@@ -146,7 +148,9 @@ Base definitions:
 - C13-like: direct visit manager, temporal exclusion `1.0`, 10% manager
   exploration plus existing timeout recovery, and no G/R terms.
 - C15: UCB-direct topology manager, no temporal exclusion or G/R terms, and no
-  action integration or geometry.
+  action integration or geometry. Direct frontier selection may command any
+  observed landmark; reliable-route reachability is required only by waypoint
+  or common-manager planning.
 
 Keep the frozen ImageNet ResNet-18 layer-2 trunk, trainable DG projection and
 BatchNorm, `F=16`, `R=8`, `L=64`, and corrected-core optimization settings.

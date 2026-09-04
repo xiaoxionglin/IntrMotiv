@@ -9,7 +9,7 @@ from hpc_runs.intrmotiv_study import load_study
 
 SPEC = Path(__file__).with_name("studies") / "directional_predictive_recruitment.study.json"
 STUDY = load_study(SPEC)
-BATCH_NAME = f"{STUDY.batch_name}_preflight"
+BATCH_NAME = f"{STUDY.batch_name}_preflight_r2"
 
 
 def _preflight_experiment(run):
