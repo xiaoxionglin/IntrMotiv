@@ -61,3 +61,50 @@ goal mismatch is logged rather than claimed to be importance-corrected.
 There are 18 jobs. No flat control is included. See the authoritative source
 documentation in `sf_working_directories/IntrMotiv/HRL_ARCHITECTURE.md` and
 `LOGGING.md` on NEMO2 for metric names and implementation details.
+
+## Target-ID FiLM goal conditioning (2026-09-04)
+
+The controller now has an optional goal-conditioning mode:
+
+```text
+--hrl_goal_conditioning=target_id_film
+```
+
+Let `g` be the replayed 16-dimensional target one-hot and let `s` contain every
+other policy feature, including the full CA3 state. With hidden width 128, the
+decoder computes:
+
+```text
+z = ReLU(W_s s + b_s)
+[delta_gamma, beta] = g @ M,       M has shape [16, 256]
+z_goal = (1 + delta_gamma) * z + beta
+h = ReLU(W_2 z_goal + b_2)
+```
+
+`delta_gamma` and `beta` are 128-dimensional vectors. `M` is initialized to
+zero, so FiLM begins as the identity transformation. The all-zero no-target
+condition also produces exact identity modulation.
+
+This mode deliberately does **not** concatenate the target one-hot into the
+ordinary state stream, learn a separate target embedding, or condition on the
+selected target's CA3 trace. The target enters the decoder only through the
+direct one-hot matrix multiplication above. The full CA3 trace remains part of
+the current state, not the goal specification. Target-relative geometry, when
+enabled, remains an explicit additional condition.
+
+The behavior target is still stored in rollout state and teacher-forced during
+PPO replay, so learner-side graph changes cannot retrospectively alter the goal
+used for an action. The compatibility modes `legacy` and `target_trace` remain
+available. `target_id_film` requires immediate target timing, the controllable
+policy-buffer graph, shared actor/critic weights, and the single-value path.
+
+For a new batch, use at minimum:
+
+```text
+--hrl_goal_conditioning=target_id_film
+--hrl_target_timing=immediate
+```
+
+NEMO2 validation: the focused controller/replay suite passed 16 tests and the
+complete IntrMotiv suite passed 171 tests. No training jobs were launched or
+modified as part of this implementation.
