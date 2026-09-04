@@ -4,7 +4,7 @@
 <text x="1100.0" y="62.0" font-size="58" text-anchor="middle" font-weight="700">Graph structure, control, and realized recruitment</text>
 <text x="1100.0" y="118.0" font-size="40" text-anchor="middle" font-weight="400" fill="#5F6368">54 runs; aligned means over 62.5–67.5M environment steps</text>
 <text x="25.0" y="210.0" font-size="58" text-anchor="start" font-weight="700">a</text>
-<text x="88.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">Connected graph does not imply control</text>
+<text x="88.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">Connectivity ≠ target control</text>
 <line x1="145.0" y1="895.0" x2="1040.0" y2="895.0" class="grid" />
 <text x="125.0" y="910.0" font-size="40" text-anchor="end" font-weight="400">0</text>
 <line x1="145.0" y1="740.0" x2="1040.0" y2="740.0" class="grid" />
@@ -28,7 +28,7 @@
 <line x1="145.0" y1="275.0" x2="145.0" y2="895.0" class="axis" />
 <line x1="145.0" y1="895.0" x2="1040.0" y2="895.0" class="axis" />
 <text x="592.5" y="1035.0" font-size="44" text-anchor="middle" font-weight="400">Reliable reachable-pair fraction</text>
-<text x="42.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 42 585.0)">Action-logit change (%)</text>
+<text x="42.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 42 585.0)">Mean |Δ action logit| × 100</text>
 <line x1="146.0" y1="791.1" x2="164.5" y2="537.3" class="pair" />
 <line x1="148.5" y1="790.5" x2="160.7" y2="487.2" class="pair" />
 <line x1="160.4" y1="717.7" x2="170.4" y2="637.6" class="pair" />
@@ -111,7 +111,7 @@
 <rect x="955.6" y="795.8" width="24.0" height="24.0" fill="#009E73" stroke="#009E73" stroke-width="2" opacity="0.86"/>
 <rect x="970.1" y="831.7" width="24.0" height="24.0" fill="#009E73" stroke="#009E73" stroke-width="2" opacity="0.86"/>
 <text x="1125.0" y="210.0" font-size="58" text-anchor="start" font-weight="700">b</text>
-<text x="1188.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">Most labels caused no intervention</text>
+<text x="1188.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">Recruitment was mostly inactive</text>
 <line x1="1245.0" y1="895.0" x2="2140.0" y2="895.0" class="grid" />
 <text x="1225.0" y="910.0" font-size="40" text-anchor="end" font-weight="400">0</text>
 <line x1="1245.0" y1="776.9" x2="2140.0" y2="776.9" class="grid" />
@@ -133,7 +133,7 @@
 <line x1="1245.0" y1="275.0" x2="1245.0" y2="895.0" class="axis" />
 <line x1="1245.0" y1="895.0" x2="2140.0" y2="895.0" class="axis" />
 <text x="1692.5" y="1035.0" font-size="44" text-anchor="middle" font-weight="400">Representation base</text>
-<text x="1142.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 1142 585.0)">Cumulative replacements / run</text>
+<text x="1142.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 1142 585.0)">Mean cumulative counter (window)</text>
 <line x1="1301.1" y1="895.0" x2="1337.1" y2="895.0" class="axis" stroke="#6B7280" stroke-width="7"/>
 <circle cx="1301.2" cy="895.0" r="12.0" fill="white" stroke="#6B7280" stroke-width="4" opacity="0.9"/>
 <circle cx="1313.5" cy="895.0" r="12.0" fill="white" stroke="#6B7280" stroke-width="4" opacity="0.9"/>

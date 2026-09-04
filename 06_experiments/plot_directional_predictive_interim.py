@@ -133,12 +133,12 @@ def graph_and_intervention(df: pd.DataFrame) -> None:
     svg = SVG()
     title(svg, "Graph structure, control, and realized recruitment")
 
-    panel_title(svg, 0, "a", "Connected graph does not imply control")
+    panel_title(svg, 0, "a", "Connectivity ≠ target control")
     left, right, top, bottom = axes(
         svg, 0,
         [(0, "0"), (0.25, ".25"), (0.5, ".50"), (0.75, ".75"), (1, "1")],
         [(0, "0"), (.02, "2"), (.04, "4"), (.06, "6"), (.08, "8")],
-        (0, 1), (0, .08), "Reliable reachable-pair fraction", "Action-logit change (%)",
+        (0, 1), (0, .08), "Reliable reachable-pair fraction", "Mean |Δ action logit| × 100",
     )
     for base, group in df.groupby("base"):
         for _, pair in group.groupby(["seed", "recruitment"]):
@@ -155,11 +155,11 @@ def graph_and_intervention(df: pd.DataFrame) -> None:
                    scale(row.target_action_sensitivity, 0, .08, bottom, top),
                    COLORS[base], row.goal_conditioning)
 
-    panel_title(svg, 1100, "b", "Most labels caused no intervention")
+    panel_title(svg, 1100, "b", "Recruitment was mostly inactive")
     left, right, top, bottom = axes(
         svg, 1100, [(0, "C05"), (1, "C13"), (2, "C15")],
         [(0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")],
-        (-.45, 2.45), (0, 5.25), "Representation base", "Cumulative replacements / run",
+        (-.45, 2.45), (0, 5.25), "Representation base", "Mean cumulative counter (window)",
     )
     offsets = {"monitor": -.21, "directional": 0, "predictive": .21}
     seed_jitter = {8: -.04, 99: 0, 123: .04}
@@ -195,7 +195,7 @@ def representation_and_film(df: pd.DataFrame) -> None:
     svg = SVG()
     title(svg, "Representation health and FiLM goal conditioning")
 
-    panel_title(svg, 0, "a", "C13 fails before recruitment can help")
+    panel_title(svg, 0, "a", "C13 representation collapses")
     left, right, top, bottom = axes(
         svg, 0, [(0, "C05"), (1, "C13"), (2, "C15")],
         [(0, "0"), (.1, "10"), (.2, "20"), (.3, "30"), (.4, "40")],
@@ -218,13 +218,13 @@ def representation_and_film(df: pd.DataFrame) -> None:
                        scale(row.dg_silent_fraction, 0, .45, bottom, top),
                        COLORS[rec], row.goal_conditioning)
 
-    panel_title(svg, 1100, "b", "FiLM changes C15 actions, but weakly")
-    x_positions = [(0, "MON\nLEG"), (1, "MON\nFiLM"), (2.5, "DIR\nLEG"), (3.5, "DIR\nFiLM"),
-                   (5, "PRED\nLEG"), (6, "PRED\nFiLM")]
+    panel_title(svg, 1100, "b", "FiLM changes C15 actions weakly")
+    x_positions = [(0, "LEG"), (1, "FiLM"), (2.5, "LEG"), (3.5, "FiLM"),
+                   (5, "LEG"), (6, "FiLM")]
     left, right, top, bottom = axes(
         svg, 1100, x_positions,
         [(0, "0"), (.005, ".5"), (.010, "1.0"), (.015, "1.5")],
-        (-.45, 6.45), (0, .016), "Goal conditioning within recruitment rule", "Action-logit change (%)",
+        (-.45, 6.45), (0, .016), "MON / DIR / PRED groups (left to right)", "Mean |Δ action logit| × 100",
     )
     for group_index, rec in enumerate(["monitor", "directional", "predictive"]):
         x_legacy, x_film = group_index * 2.5, group_index * 2.5 + 1

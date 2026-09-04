@@ -4,7 +4,7 @@
 <text x="1100.0" y="62.0" font-size="58" text-anchor="middle" font-weight="700">Representation health and FiLM goal conditioning</text>
 <text x="1100.0" y="118.0" font-size="40" text-anchor="middle" font-weight="400" fill="#5F6368">54 runs; aligned means over 62.5–67.5M environment steps</text>
 <text x="25.0" y="210.0" font-size="58" text-anchor="start" font-weight="700">a</text>
-<text x="88.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">C13 fails before recruitment can help</text>
+<text x="88.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">C13 representation collapses</text>
 <line x1="145.0" y1="895.0" x2="1040.0" y2="895.0" class="grid" />
 <text x="125.0" y="910.0" font-size="40" text-anchor="end" font-weight="400">0</text>
 <line x1="145.0" y1="757.2" x2="1040.0" y2="757.2" class="grid" />
@@ -89,7 +89,7 @@
 <rect x="959.5" y="883.0" width="24.0" height="24.0" fill="#CC79A7" stroke="#CC79A7" stroke-width="2" opacity="0.86"/>
 <rect x="971.8" y="883.0" width="24.0" height="24.0" fill="#CC79A7" stroke="#CC79A7" stroke-width="2" opacity="0.86"/>
 <text x="1125.0" y="210.0" font-size="58" text-anchor="start" font-weight="700">b</text>
-<text x="1188.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">FiLM changes C15 actions, but weakly</text>
+<text x="1188.0" y="210.0" font-size="48" text-anchor="start" font-weight="600">FiLM changes C15 actions weakly</text>
 <line x1="1245.0" y1="895.0" x2="2140.0" y2="895.0" class="grid" />
 <text x="1225.0" y="910.0" font-size="40" text-anchor="end" font-weight="400">0</text>
 <line x1="1245.0" y1="701.2" x2="2140.0" y2="701.2" class="grid" />
@@ -99,27 +99,21 @@
 <line x1="1245.0" y1="313.8" x2="2140.0" y2="313.8" class="grid" />
 <text x="1225.0" y="328.8" font-size="40" text-anchor="end" font-weight="400">1.5</text>
 <line x1="1303.4" y1="895.0" x2="1303.4" y2="907.0" class="axis" />
-<text x="1303.4" y="953.0" font-size="38" text-anchor="middle" font-weight="400">MON
-LEG</text>
+<text x="1303.4" y="953.0" font-size="38" text-anchor="middle" font-weight="400">LEG</text>
 <line x1="1433.1" y1="895.0" x2="1433.1" y2="907.0" class="axis" />
-<text x="1433.1" y="953.0" font-size="38" text-anchor="middle" font-weight="400">MON
-FiLM</text>
+<text x="1433.1" y="953.0" font-size="38" text-anchor="middle" font-weight="400">FiLM</text>
 <line x1="1627.6" y1="895.0" x2="1627.6" y2="907.0" class="axis" />
-<text x="1627.6" y="953.0" font-size="38" text-anchor="middle" font-weight="400">DIR
-LEG</text>
+<text x="1627.6" y="953.0" font-size="38" text-anchor="middle" font-weight="400">LEG</text>
 <line x1="1757.4" y1="895.0" x2="1757.4" y2="907.0" class="axis" />
-<text x="1757.4" y="953.0" font-size="38" text-anchor="middle" font-weight="400">DIR
-FiLM</text>
+<text x="1757.4" y="953.0" font-size="38" text-anchor="middle" font-weight="400">FiLM</text>
 <line x1="1951.9" y1="895.0" x2="1951.9" y2="907.0" class="axis" />
-<text x="1951.9" y="953.0" font-size="38" text-anchor="middle" font-weight="400">PRED
-LEG</text>
+<text x="1951.9" y="953.0" font-size="38" text-anchor="middle" font-weight="400">LEG</text>
 <line x1="2081.6" y1="895.0" x2="2081.6" y2="907.0" class="axis" />
-<text x="2081.6" y="953.0" font-size="38" text-anchor="middle" font-weight="400">PRED
-FiLM</text>
+<text x="2081.6" y="953.0" font-size="38" text-anchor="middle" font-weight="400">FiLM</text>
 <line x1="1245.0" y1="275.0" x2="1245.0" y2="895.0" class="axis" />
 <line x1="1245.0" y1="895.0" x2="2140.0" y2="895.0" class="axis" />
-<text x="1692.5" y="1035.0" font-size="44" text-anchor="middle" font-weight="400">Goal conditioning within recruitment rule</text>
-<text x="1142.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 1142 585.0)">Action-logit change (%)</text>
+<text x="1692.5" y="1035.0" font-size="44" text-anchor="middle" font-weight="400">MON / DIR / PRED groups (left to right)</text>
+<text x="1142.0" y="585.0" font-size="44" text-anchor="middle" font-weight="400" transform="rotate(-90 1142 585.0)">Mean |Δ action logit| × 100</text>
 <line x1="1303.4" y1="656.5" x2="1433.1" y2="427.6" class="axis" stroke="#6B7280" stroke-width="4" opacity="0.72"/>
 <circle cx="1303.4" cy="656.5" r="12.0" fill="white" stroke="#6B7280" stroke-width="4" opacity="0.9"/>
 <rect x="1421.1" y="415.6" width="24.0" height="24.0" fill="#6B7280" stroke="#6B7280" stroke-width="2" opacity="0.86"/>
