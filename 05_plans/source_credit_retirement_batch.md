@@ -68,6 +68,15 @@ Final v3 execution:
 - Full IntrMotiv suite after both matcher fixes: 208 passed
 - StudySpec SHA-256 remains
   `aa34bb2ef868df37dbafc38e7c4b8dc5c9cc684e5f8dba5e05a586d068ad8a0d`
+- Final v3 gate result: 10/10 cells passed; pooled within-rollout
+  predecessor match fraction `0.5367077294`
+- Gate job `7985010`: completed `0:0`
+- Production jobs: `7985081`–`7985110`; all 30 observed in Slurm state
+  `RUNNING` on 2026-09-04 at 23:58 CEST
+- Production submitted manifest:
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_source_credit_retirement_20260904/20260904_gate_submitted/jobs.tsv`
+- Gate artifacts:
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/source_credit_retirement_20260904/preflight_gate_v3/`
 
 ## Evaluation
 
