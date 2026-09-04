@@ -688,10 +688,12 @@ class OnlineSpatialWindow:
             raise SpatialContractError("window limit must be positive")
         self.limit = int(limit)
         self._next_segment = 0
+        self._size = 0
+        self._write_index = 0
         self._arrays: dict[str, np.ndarray] = {}
 
     def __len__(self) -> int:
-        return 0 if not self._arrays else int(self._arrays["pose"].shape[0])
+        return self._size
 
     def append_rollouts(
         self,
@@ -775,13 +777,53 @@ class OnlineSpatialWindow:
             "segment_id": np.asarray(selected["segment_id"], dtype=np.int64),
             "policy_version": np.asarray(selected["policy_version"], dtype=np.int64),
         }
-        if self._arrays:
-            incoming = {key: np.concatenate((self._arrays[key], value), axis=0) for key, value in incoming.items()}
-        self._arrays = {key: value[-self.limit :] for key, value in incoming.items()}
+        incoming_size = int(incoming["pose"].shape[0])
+        if not self._arrays:
+            self._arrays = {
+                key: np.empty((self.limit, *value.shape[1:]), dtype=value.dtype)
+                for key, value in incoming.items()
+            }
+        else:
+            for key, value in incoming.items():
+                expected = self._arrays[key].shape[1:]
+                if value.shape[1:] != expected:
+                    raise SpatialContractError(
+                        f"{key} trailing shape {value.shape[1:]} != buffered shape {expected}"
+                    )
+
+        if incoming_size >= self.limit:
+            for key, value in incoming.items():
+                self._arrays[key][...] = value[-self.limit :]
+            self._size = self.limit
+            self._write_index = 0
+            return len(selected["pose"])
+
+        first = min(incoming_size, self.limit - self._write_index)
+        second = incoming_size - first
+        for key, value in incoming.items():
+            self._arrays[key][self._write_index : self._write_index + first] = value[:first]
+            if second:
+                self._arrays[key][:second] = value[first:]
+        self._write_index = (self._write_index + incoming_size) % self.limit
+        self._size = min(self.limit, self._size + incoming_size)
         return len(selected["pose"])
 
-    def arrays(self) -> dict[str, np.ndarray]:
-        return {key: value.copy() for key, value in self._arrays.items()}
+    def arrays(self, max_samples: int | None = None) -> dict[str, np.ndarray]:
+        """Return the latest samples in chronological order."""
+
+        if max_samples is not None and max_samples <= 0:
+            raise SpatialContractError("maximum returned samples must be positive")
+        if not self._arrays:
+            return {}
+        size = self._size if max_samples is None else min(self._size, int(max_samples))
+        start = (self._write_index - size) % self.limit
+        if start + size <= self.limit:
+            return {key: value[start : start + size].copy() for key, value in self._arrays.items()}
+        first = self.limit - start
+        return {
+            key: np.concatenate((value[start:], value[: size - first]), axis=0)
+            for key, value in self._arrays.items()
+        }
 
 
 def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
@@ -817,6 +859,10 @@ def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         raise SpatialContractError("frameskip must be positive")
     if int(np.asarray(payload["window_limit"]).item()) != result["pose"].shape[0]:
         raise SpatialContractError("snapshot sample count must equal window_limit")
+    if "scalar_window_limit" in payload:
+        scalar_window_limit = int(np.asarray(payload["scalar_window_limit"]).item())
+        if scalar_window_limit <= 0 or scalar_window_limit > result["pose"].shape[0]:
+            raise SpatialContractError("scalar_window_limit must be within the snapshot window")
     if int(np.asarray(payload["target_env_steps"]).item()) <= 0:
         raise SpatialContractError("target_env_steps must be positive")
     if int(np.asarray(payload["actual_env_steps"]).item()) < int(np.asarray(payload["target_env_steps"]).item()):

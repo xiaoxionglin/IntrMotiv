@@ -230,6 +230,9 @@ def collect_spatial_records(
             "target_env_steps": target,
             "actual_env_steps": int(_scalar(payload, "actual_env_steps")),
             "window_limit": int(_scalar(payload, "window_limit")),
+            "scalar_window_limit": int(
+                np.asarray(payload.get("scalar_window_limit", payload["window_limit"])).item()
+            ),
             "environment": str(_scalar(payload, "environment")),
             "frameskip": int(_scalar(payload, "frameskip")),
             "snapshot_path": str(path.resolve()),

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.4.0**; study schema:
+Current implementation: **1.4.1**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -198,8 +198,9 @@ standardized `per_run.csv`. It requires exactly one row for every declared run.
 
 ### 3a. Collect compact online spatial snapshots
 
-Training stores scalar-only W&B monitoring plus compressed latest-10k behavior
-snapshots at 5M, 25M, 50M, 75M, and 100M frames. In addition to aligned raw
+Training stores scalar-only W&B monitoring over the latest 10k samples plus
+compressed latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M
+frames. In addition to aligned raw
 behavior data, new v1 snapshots cache evaluator-compatible maps, multilevel
 field components, complete available graph buffers, prospective edge outcomes,
 and deterministic graph diagnostics. Analyze them without rendering the full

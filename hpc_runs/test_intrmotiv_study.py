@@ -67,7 +67,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.4.0")
+        self.assertEqual(WORKFLOW_VERSION, "1.4.1")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -418,6 +418,28 @@ class SpatialContractTests(unittest.TestCase):
         self.assertNotEqual(segments[1], segments[2])
         self.assertEqual(segments[2], segments[3])
 
+    def test_window_ring_wrap_and_latest_scalar_tail_are_chronological(self):
+        window = OnlineSpatialWindow(5)
+
+        def append(start, count):
+            values = np.arange(start, start + count, dtype=np.float32)
+            pose = np.stack((values, values + 100, values + 200), axis=-1)[None, ...]
+            window.append_rollouts(
+                pose,
+                values.reshape(1, count, 1),
+                values.astype(np.int16).reshape(1, count),
+                np.zeros((1, count), dtype=bool),
+                values.astype(np.int64).reshape(1, count),
+                np.ones((1, count), dtype=bool),
+            )
+
+        append(0, 3)
+        append(3, 4)
+        self.assertEqual(window.arrays()["pose"][:, 0].tolist(), [2, 3, 4, 5, 6])
+        self.assertEqual(window.arrays(3)["pose"][:, 0].tolist(), [4, 5, 6])
+        with self.assertRaisesRegex(SpatialContractError, "maximum returned samples"):
+            window.arrays(0)
+
     def test_atomic_snapshot_keeps_existing_valid_target(self):
         with tempfile.TemporaryDirectory() as directory:
             path, created = write_spatial_snapshot_atomic(Path(directory), self._payload())
@@ -435,6 +457,12 @@ class SpatialContractTests(unittest.TestCase):
         payload["dones"] = payload["dones"][:-1]
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(SpatialContractError, "expected 4"):
+                write_spatial_snapshot_atomic(Path(directory), payload)
+
+        payload = self._payload()
+        payload["scalar_window_limit"] = np.asarray(5, dtype=np.int32)
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(SpatialContractError, "within the snapshot window"):
                 write_spatial_snapshot_atomic(Path(directory), payload)
 
     def test_collector_propagates_study_fingerprint_and_exact_metadata(self):

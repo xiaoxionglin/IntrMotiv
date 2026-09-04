@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.4.0`
+- Implementation: `1.4.1`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -9,7 +9,7 @@
 
 ## Deployment status
 
-The vault source and NEMO2 runtime copy are synchronized at `1.4.0`. Version
+The vault source and NEMO2 runtime copy are synchronized at `1.4.1`. Version
 1.4 extends the compact online-spatial snapshot contract with cached place-field
 and graph diagnostics while retaining compatibility with older 1.x studies and
 v1 snapshots. The synchronized NEMO2 suites passed 25 workflow tests and 194
@@ -37,6 +37,15 @@ reducing repeated Codex discovery and code generation.
 
 Update this file, `version.py`, tests, and the guide together when the standard
 changes, then synchronize and test the NEMO2 runtime copy.
+
+## 1.4.1
+
+- Increased the default milestone artifact window to 100,000 behavior samples
+  while retaining a separately configurable latest-10,000 scalar window.
+- Replaced repeated concatenate-and-truncate buffering with a fixed circular
+  buffer and recorded the effective scalar window in new snapshots.
+- Retained full backward compatibility with existing v1 snapshots and custom
+  smaller preflight windows.
 
 ## 1.4.0
 

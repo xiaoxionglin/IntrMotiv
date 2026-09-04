@@ -277,8 +277,9 @@ and defaults to 15 degrees.
 ## Compact Online Spatial Telemetry
 
 `online_spatial_telemetry=True` is default-on and independently disableable.
-It retains the latest 10,000 valid behavior samples per policy and emits only
-the scalar series below to TensorBoard/W&B every 1M environment frames. The
+It retains the latest 100,000 valid behavior samples per policy in a fixed ring
+buffer. It uses the latest 10,000 samples for the scalar series below every 1M
+environment frames and the full 100,000 for milestone maps and artifacts. The
 privileged `telemetry_pose` channel is removed before tensor conversion,
 normalization, and every model call. Training-time image logging is prohibited.
 
@@ -290,7 +291,7 @@ unmarked physical relocations larger than the configurable 250-unit default.
 
 | Tag | Exact quantity |
 | --- | --- |
-| `intrmotiv/online/place_field/valid_sample_count` | Valid retained behavior samples, at most 10,000. |
+| `intrmotiv/online/place_field/valid_sample_count` | Valid behavior samples in the scalar-analysis tail, at most 10,000 by default. |
 | `.../in_bounds_fraction` | Retained finite poses inside both configured bounds / retained poses. |
 | `.../visited_cell_fraction` | Occupied grid cells / 361. |
 | `.../active_unit_fraction` | Units active at least once in bounds / DG units. |
@@ -308,7 +309,7 @@ unmarked physical relocations larger than the configurable 250-unit default.
 | `intrmotiv/hrl/summary/reliable_global_efficiency` | Mean reciprocal directed shortest-path hop count over all ordered unit pairs; unreachable pairs contribute zero. |
 | `intrmotiv/hrl/summary/grounded_controllability` | Pre-update reliable-edge prospective success fraction times the fraction of reliable edges joining two eligible mono-field units. |
 
-Compressed latest-10k snapshots are written at 5M, 25M, 50M, 75M, and 100M
+Compressed latest-100k snapshots are written at 5M, 25M, 50M, 75M, and 100M
 frames under the NEMO workspace analysis root. They cache evaluator-compatible
 maps, field components, graph buffers, prospective edge outcomes, and detailed
 graph diagnostics. Use `collect-spatial --include-details` for StudySpec-aware

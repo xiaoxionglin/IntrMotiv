@@ -21,7 +21,9 @@ few locations.
 Training has two privileged-pose monitoring paths. Episode coverage/viewpoint
 metrics consume `(x, y, yaw)` from `info`. Compact online spatial telemetry
 stores the exact behavior-time pose and thresholded DG activity in a bounded
-learner-side latest-10k buffer. Its pose key is removed before device
+learner-side latest-100k ring buffer. W&B scalars use only the latest 10k
+samples so monitoring remains responsive, while milestone maps and artifacts
+use the complete 100k window. The pose key is removed before device
 conversion, normalization, encoder calls, and policy calls; it cannot affect
 actions, rewards, or gradients. W&B receives grouped scalars only.
 
@@ -34,6 +36,10 @@ graph buffers and diagnostics. They deliberately exclude RGB, recurrent state,
 continuous pre-threshold logits, and model parameters. Resumes begin at the
 next target strictly after the restored frame and never backfill or overwrite
 valid files.
+
+At 16 DG units, a full snapshot is expected to occupy roughly 1--1.5 MB after
+compression and the in-memory ring buffer roughly 10 MB per policy. The ring
+buffer avoids copying the retained history on every learner batch.
 
 Trajectory segment IDs split at rollout boundaries, explicit terminals,
 invalid-sample gaps, and configurable large unmarked relocations (250 DMLab
