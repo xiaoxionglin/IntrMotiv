@@ -38,6 +38,9 @@ Use StudySpec schema `intrmotiv/study/v1` and workflow `1.2.0`. Preserve its
 SHA-256 through print-only review, submission audit, online analysis, and
 telemetry manifests.
 
+Validated StudySpec SHA-256:
+`72b0ac2d04ad7a297a674f96d4f32c85d48dcf89a9fc62abb7243adb22ea53aa`.
+
 ## Common recruitment mechanics
 
 - Evaluate replacement only at the existing silent endpoint `L=64`.

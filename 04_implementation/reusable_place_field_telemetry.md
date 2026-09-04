@@ -317,6 +317,9 @@ Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
 | `pre_threshold_rate_maps` | Occupancy-corrected continuous DG logits per cell and unit. |
 | `pre_threshold_mean`, `pre_threshold_std` | Per-unit rollout logit moments. |
 | `pre_threshold_above_fraction` | Per-unit fraction above the configured threshold. |
+| `control_edge_confidence`, `control_attempts`, `control_tctrl` | Optional frozen policy controllability-graph snapshot. |
+| `passive_confidence`, `passive_elapsed`, `birth_support` | Optional passive recruitment evidence and maturity snapshot. |
+| `recruitment_row_counts` | Optional per-DG-row assignment counts. |
 
 Treat additions as backward-compatible optional arrays. Do not silently change
 the meaning or shape of existing arrays; update tests and this document when a
