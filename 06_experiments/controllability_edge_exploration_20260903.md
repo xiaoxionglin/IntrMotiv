@@ -18,7 +18,10 @@ against workflow `1.1.0`; the backward-compatible workflow implementation is
 The 16-cell preflight passed its runtime gate, and all 48 production jobs were
 submitted on 2026-09-03 as Slurm jobs `7979000` through `7979047`. The submitted
 manifest was audited against the StudySpec after every row had received its
-numeric job id.
+numeric job id. On 2026-09-04, all 48 jobs were deliberately cancelled after
+the synchronized early analysis exposed a degenerate node-only control and
+X1-wide landmark-silencing/recruitment churn. Checkpoints, TensorBoard events,
+W&B data, and Slurm logs were retained.
 
 ## Implemented controller
 
@@ -110,8 +113,10 @@ The submitted production manifest and its `study_audit.json` are under
 `train_dir/_slurm/intrmotiv_controllability_edge_exploration_20260903/20260903T184441Z/`.
 All 48 jobs entered `RUNNING` and advanced beyond zero (minimum 65,536 frames
 at the final startup check); their initial logs contained no exceptions or
-out-of-memory failures. Checkpoint-dependent place-field and intervention jobs
-remain pending until the declared training checkpoints exist.
+out-of-memory failures. They were subsequently cancelled together through the
+manifest's `scancel.sh`; Slurm accounting reports 48 cancelled jobs. The
+cancelled batch will not be used for the planned production contrasts or
+checkpoint-dependent place-field/intervention sweep.
 
 ## Canonical artifacts
 
