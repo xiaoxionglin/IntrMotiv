@@ -12,10 +12,11 @@
 The vault source and NEMO2 runtime copy are synchronized at `1.4.1`. Version
 1.4 extends the compact online-spatial snapshot contract with cached place-field
 and graph diagnostics while retaining compatibility with older 1.x studies and
-v1 snapshots. The synchronized NEMO2 suites passed 25 workflow tests and 194
-IntrMotiv tests. Ordinary Slurm preflight job `7982954` completed with exit
-`0:0`; its workspace NPZ validated, the W&B API exposed both graph and all three
-field summaries, and no image series was present.
+v1 snapshots. The synchronized NEMO2 suites passed 26 workflow tests and 196
+IntrMotiv tests. Ordinary Slurm preflight job `7983229` completed with exit
+`0:0`; its workspace NPZ retained the configured 4,096-sample artifact window,
+the scalar series used the latest 1,024 samples, both graph summaries were
+present, and no image series was written.
 For a later version, synchronize the complete package and rerun:
 
 ```bash
