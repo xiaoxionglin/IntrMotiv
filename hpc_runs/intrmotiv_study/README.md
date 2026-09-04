@@ -38,11 +38,15 @@ different-major implementation is rejected.
 Run the CLI from the repository root:
 
 ```bash
-python -m hpc_runs.intrmotiv_study validate hpc_runs/studies/STUDY.study.json
-python -m hpc_runs.intrmotiv_study render-runs hpc_runs/studies/STUDY.study.json
-python -m hpc_runs.intrmotiv_study collect-spatial \
+PY=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
+"$PY" -m hpc_runs.intrmotiv_study validate hpc_runs/studies/STUDY.study.json
+"$PY" -m hpc_runs.intrmotiv_study render-runs hpc_runs/studies/STUDY.study.json
+"$PY" -m hpc_runs.intrmotiv_study collect-spatial \
   hpc_runs/studies/STUDY.study.json SNAPSHOT_ROOT OUTPUT_DIR
 ```
+
+Use this SFgit interpreter by default on NEMO2 for tests, analysis, and figure
+rendering; it contains the project scientific stack, including Matplotlib.
 
 The complete convention and NEMO2 lifecycle are documented in
 `04_implementation/standardized_study_workflow.md`.

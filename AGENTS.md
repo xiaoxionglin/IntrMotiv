@@ -1,5 +1,13 @@
 # Agent Notes
 
+## Desktop Python Environment
+
+- For local desktop Python work in this project, default to the `SF_git` conda
+  environment instead of the base environment. Prefer invoking tools directly
+  from `/home/xiaoxiong/miniforge3/envs/SF_git/bin/` (for example,
+  `/home/xiaoxiong/miniforge3/envs/SF_git/bin/python`) so plotting and analysis
+  dependencies such as Matplotlib are available in non-interactive shells.
+
 ## Figure Readability
 
 - When creating or updating figures, use text equivalent to at least 12 pt for
