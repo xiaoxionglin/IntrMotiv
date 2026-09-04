@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.2.0**; study schema:
+Current implementation: **1.3.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -195,6 +195,37 @@ Standard outputs are:
 
 `analyze-csv` applies the same validation and statistics to an existing
 standardized `per_run.csv`. It requires exactly one row for every declared run.
+
+### 3a. Collect compact online spatial snapshots
+
+Training stores scalar-only W&B monitoring plus compressed latest-10k
+behavior snapshots at 25M, 50M, 75M, and 100M frames. Analyze them without
+rendering the full batch:
+
+```bash
+python -m hpc_runs.intrmotiv_study collect-spatial \
+  hpc_runs/studies/my_study.study.json \
+  /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/MY_BATCH \
+  /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/MY_SPATIAL_ANALYSIS
+```
+
+The default is CSV-only and writes `per_snapshot.csv`,
+`snapshot_inventory.csv`, `condition_summary.csv`, `seed_summary.csv`, and an
+`analysis_manifest.json` containing workflow version, study SHA-256,
+completeness, and exact paths. Add `--require-complete` for a final batch audit.
+
+Figures require explicit exact run names; optional targets restrict them
+further:
+
+```bash
+python -m hpc_runs.intrmotiv_study collect-spatial STUDY SNAPSHOT_ROOT OUTPUT_DIR \
+  --plot-run GSR_C05_D4_H5K_S99 --plot-target 25000000
+```
+
+This renders paginated thresholded-DG contact sheets and a segmented
+occupancy/trajectory panel under `OUTPUT_DIR/figures/`. It never uploads them.
+The controlled manifest-driven checkpoint rollout remains the authoritative
+scientific place-field and map-stability evaluation.
 
 ### 4. Generate place-field telemetry manifests
 

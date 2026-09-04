@@ -278,6 +278,7 @@ class SpatialContractTests(unittest.TestCase):
             "window_end_env_steps": np.asarray(target + 128, dtype=np.int64),
             "policy_id": np.asarray(0, dtype=np.int16),
             "run_name": np.asarray(run_name),
+            "experiment_identity": np.asarray(f"batch/{run_name}"),
             "environment": np.asarray("dmlab_openfield_map2_fixed_loc3_fixedlength_noreward"),
             "frameskip": np.asarray(4, dtype=np.int16),
             "grain": np.asarray(19, dtype=np.int16),

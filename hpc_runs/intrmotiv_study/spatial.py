@@ -249,7 +249,7 @@ def render_place_field_contact_sheets(payload: Mapping[str, Any], output_stem: P
     maps, occupancy, in_bounds = spatial_rate_maps(
         payload["pose"], payload["dg_activity"], bounds, int(_scalar(payload, "grain"))
     )
-    active = (np.asarray(payload["dg_activity"])[in_bounds] > 0).any(axis=0)
+    active = (np.asarray(payload["dg_activity"]) > 0).any(axis=0)
     units = np.flatnonzero(active)
     if not units.size:
         units = np.arange(min(1, maps.shape[0]))

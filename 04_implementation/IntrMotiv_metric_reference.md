@@ -274,6 +274,40 @@ and defaults to 15 degrees.
 | ...window_return / episode return | DMLab external reward sum. | Expected zero in no-reward open field. |
 | ...window_length / episode length | Decisions in telemetry window or physical episode. | Validate interval before comparing totals. |
 
+## Compact Online Spatial Telemetry
+
+`online_spatial_telemetry=True` is default-on and independently disableable.
+It retains the latest 10,000 valid behavior samples per policy and emits only
+the scalar series below to TensorBoard/W&B every 1M environment frames. The
+privileged `telemetry_pose` channel is removed before tensor conversion,
+normalization, and every model call. Training-time image logging is prohibited.
+
+All place-field quantities use a 19×19 occupancy-corrected grid over
+`x,y=100..2000`. “Active” means that a unit has positive thresholded DG
+activity on at least one in-bounds sample. Trajectory deltas exclude policy-lag
+invalid samples, rollout gaps, and transitions after terminal samples.
+
+| Tag | Exact quantity |
+| --- | --- |
+| `intrmotiv/online/place_field/valid_sample_count` | Valid retained behavior samples, at most 10,000. |
+| `.../in_bounds_fraction` | Retained finite poses inside both configured bounds / retained poses. |
+| `.../visited_cell_fraction` | Occupied grid cells / 361. |
+| `.../active_unit_fraction` | Units active at least once in bounds / DG units. |
+| `.../silent_unit_fraction` | One minus active-unit fraction. |
+| `.../active_unit_mean_spatial_information` | Mean occupancy-weighted Skaggs spatial information over active units. |
+| `.../active_only_map_cosine` | Mean pairwise cosine of active occupancy-corrected maps over visited cells. |
+| `.../unique_active_peak_bins` | Distinct peak grid bins across active units. |
+| `intrmotiv/online/trajectory/mean_physical_step_distance` | Mean Euclidean `(x,y)` displacement over valid within-segment transitions. |
+| `.../stationary_step_fraction` | Fraction of those displacements no larger than the configured 1-unit default. |
+| `.../path_efficiency` | Sum of segment endpoint displacements / sum of within-segment path lengths. |
+| `.../mean_absolute_circular_yaw_change` | Mean absolute yaw delta wrapped to `[-180,180)` degrees. |
+
+Compressed latest-10k snapshots are written at 25M, 50M, 75M, and 100M
+frames under the NEMO workspace analysis root. Use `collect-spatial` for
+StudySpec-aware post-hoc CSVs and explicitly selected maps. These are
+monitoring diagnostics; fixed-checkpoint manifest telemetry remains the
+authoritative scientific analysis.
+
 ## Recommended Panels
 
 1. Representation health: density, silent fraction, duty-cycle min/max, usage entropy, and pre-threshold-above fraction.

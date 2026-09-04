@@ -18,13 +18,26 @@ Online minibatch density and usage entropy cannot answer these questions. A
 policy can have healthy online DG activity while all units respond to the same
 few locations.
 
-Training may request the same privileged DMLab `(x, y, yaw)` signal for
-environment-only coverage and viewpoint metrics. In that path the reward
-wrapper consumes the pose from `info` and removes it before Sample Factory
-stores observations or learner rollouts. These online exploration summaries
-complement but do not replace the 10k manifest-driven DG place-field protocol:
-they contain no DG activation maps and cannot establish spatial selectivity or
-map stability.
+Training has two privileged-pose monitoring paths. Episode coverage/viewpoint
+metrics consume `(x, y, yaw)` from `info`. Compact online spatial telemetry
+stores the exact behavior-time pose and thresholded DG activity in a bounded
+learner-side latest-10k buffer. Its pose key is removed before device
+conversion, normalization, encoder calls, and policy calls; it cannot affect
+actions, rewards, or gradients. W&B receives grouped scalars only.
+
+At 25M, 50M, 75M, and 100M frames, each policy atomically writes one compressed
+`intrmotiv/online-spatial/v1` NPZ under the workspace analysis root. Snapshots
+contain pose, thresholded DG activity, actions, terminal flags, segment IDs,
+policy versions, cadence metadata, run/environment identity, frameskip, and
+grid bounds. They deliberately exclude RGB, recurrent state, continuous
+pre-threshold logits, and model parameters. Resumes begin at the next target
+strictly after the restored frame and never backfill or overwrite valid files.
+
+Use `python -m hpc_runs.intrmotiv_study collect-spatial ...` for batch CSVs and
+explicitly selected figures. These online diagnostics complement but do not
+replace the 10k manifest-driven checkpoint protocol: they are policy-driven
+training windows and cannot establish fixed-trajectory map stability or
+pre-threshold selectivity.
 
 ## Authoritative Locations
 

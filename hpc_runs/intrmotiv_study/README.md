@@ -8,7 +8,7 @@ The synchronized NEMO2 runtime copy is
 Keep its version and file contents aligned with this canonical copy before
 using new workflow features on the cluster.
 
-Current implementation version: `1.2.0`; current schema:
+Current implementation version: `1.3.0`; current schema:
 `intrmotiv/study/v1`.
 
 The version constants in `version.py` are authoritative. Do not copy this
@@ -31,6 +31,8 @@ different-major implementation is rejected.
 | `tensorboard.py` | Locate expected run directories and collect terminal or fixed-window metrics with bounded parallel loading. |
 | `analysis.py` | Produce reusable mean/SD/count summaries and explicit within-seed linear contrasts. |
 | `telemetry.py` | Use the authoritative checkpoint selector and generate full, trajectory, and optional intervention manifests. |
+| `spatial_contract.py` | Define and validate compact online snapshots and share place-field/trajectory calculations with training. |
+| `spatial.py` | Collect exact-study spatial snapshots and optionally render selected post-hoc figures. |
 | `cli.py` | Expose validation, rendering, online collection/analysis, and telemetry-manifest generation. |
 
 Run the CLI from the repository root:
@@ -38,6 +40,8 @@ Run the CLI from the repository root:
 ```bash
 python -m hpc_runs.intrmotiv_study validate hpc_runs/studies/STUDY.study.json
 python -m hpc_runs.intrmotiv_study render-runs hpc_runs/studies/STUDY.study.json
+python -m hpc_runs.intrmotiv_study collect-spatial \
+  hpc_runs/studies/STUDY.study.json SNAPSHOT_ROOT OUTPUT_DIR
 ```
 
 The complete convention and NEMO2 lifecycle are documented in

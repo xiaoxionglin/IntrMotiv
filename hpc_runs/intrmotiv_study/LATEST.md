@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.2.0`
+- Implementation: `1.3.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -9,10 +9,9 @@
 
 ## Deployment status
 
-The vault source and NEMO2 runtime copy are synchronized at `1.2.0`. The NEMO2
-copy passed the complete IntrMotiv test suite, validates older compatible 1.x
-studies, and generated the 48-run controllability study and its 16-cell
-preflight with exact command and workspace-path audits.
+The vault source and NEMO2 runtime copy are synchronized at `1.3.0`. Version
+1.3 adds the compact online-spatial snapshot contract and `collect-spatial`
+post-hoc analysis while retaining compatibility with older 1.x studies.
 For a later version, synchronize the complete package and rerun:
 
 ```bash
@@ -34,6 +33,17 @@ reducing repeated Codex discovery and code generation.
 
 Update this file, `version.py`, tests, and the guide together when the standard
 changes, then synchronize and test the NEMO2 runtime copy.
+
+## 1.3.0
+
+- Added `intrmotiv/online-spatial/v1` validation and shared online/offline
+  spatial calculations for 19×19 occupancy-corrected DG maps and segmented
+  trajectories.
+- Added `collect-spatial`, which discovers exact StudySpec run identities,
+  writes per-snapshot, condition, and seed CSVs, preserves the study SHA-256,
+  and renders figures only for explicitly selected runs and targets.
+- Added readable selected-run DG contact sheets and occupancy/trajectory
+  panels. Training never renders or uploads images.
 
 ## 1.2.0
 

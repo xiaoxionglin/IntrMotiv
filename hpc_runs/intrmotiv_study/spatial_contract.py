@@ -170,8 +170,7 @@ def calculate_spatial_metrics(
         raise SpatialContractError("pose and DG activity must be finite")
 
     rate_maps, occupancy, in_bounds = spatial_rate_maps(pose, activity, bounds, grain)
-    bounded_activity = activity[in_bounds]
-    active = (bounded_activity > 0).any(axis=0)
+    active = (activity > 0).any(axis=0)
     n_units = int(activity.shape[1])
     n_active = int(active.sum())
     active_maps = rate_maps[active]
@@ -192,7 +191,10 @@ def calculate_spatial_metrics(
 
     unique_peaks = 0
     if n_active:
-        unique_peaks = int(np.unique(active_maps.reshape(n_active, -1).argmax(axis=1)).size)
+        flat_active_maps = active_maps.reshape(n_active, -1)
+        positive_maps = flat_active_maps.max(axis=1) > 0
+        if positive_maps.any():
+            unique_peaks = int(np.unique(flat_active_maps[positive_maps].argmax(axis=1)).size)
 
     transition = (segment_id[1:] == segment_id[:-1]) & ~dones[:-1]
     delta_xy = pose[1:, :2] - pose[:-1, :2]
@@ -327,8 +329,9 @@ def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     for key, value in zip(SNAPSHOT_REQUIRED_ARRAYS, arrays):
         result[key] = value
     required_metadata = (
-        "target_env_steps", "actual_env_steps", "window_limit", "window_start_env_steps",
-        "window_end_env_steps", "policy_id", "run_name", "environment", "frameskip", "grain", "bounds",
+        "schema_version", "target_env_steps", "actual_env_steps", "window_limit", "window_start_env_steps",
+        "window_end_env_steps", "policy_id", "run_name", "experiment_identity", "environment", "frameskip",
+        "grain", "bounds",
     )
     absent = [key for key in required_metadata if key not in payload]
     if absent:
@@ -339,10 +342,26 @@ def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     SpatialBounds(*[float(item) for item in bounds_array])
     if int(np.asarray(payload["grain"]).item()) <= 0:
         raise SpatialContractError("grain must be positive")
+    if int(np.asarray(payload["schema_version"]).item()) != 1:
+        raise SpatialContractError("schema_version must be 1")
+    if int(np.asarray(payload["policy_id"]).item()) < 0:
+        raise SpatialContractError("policy_id must be non-negative")
+    if int(np.asarray(payload["frameskip"]).item()) <= 0:
+        raise SpatialContractError("frameskip must be positive")
+    if int(np.asarray(payload["window_limit"]).item()) != result["pose"].shape[0]:
+        raise SpatialContractError("snapshot sample count must equal window_limit")
     if int(np.asarray(payload["target_env_steps"]).item()) <= 0:
         raise SpatialContractError("target_env_steps must be positive")
     if int(np.asarray(payload["actual_env_steps"]).item()) < int(np.asarray(payload["target_env_steps"]).item()):
         raise SpatialContractError("actual_env_steps cannot precede target_env_steps")
+    window_start = int(np.asarray(payload["window_start_env_steps"]).item())
+    window_end = int(np.asarray(payload["window_end_env_steps"]).item())
+    actual = int(np.asarray(payload["actual_env_steps"]).item())
+    if window_start < 0 or window_start > window_end or window_end != actual:
+        raise SpatialContractError("window frame limits must satisfy 0 <= start <= end == actual")
+    for key in ("run_name", "experiment_identity", "environment"):
+        if not str(np.asarray(payload[key]).item()).strip():
+            raise SpatialContractError(f"{key} must be nonempty")
     return result
 
 
