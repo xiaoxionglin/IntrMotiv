@@ -171,7 +171,7 @@ def calculate_spatial_metrics(
 
     rate_maps, occupancy, in_bounds = spatial_rate_maps(pose, activity, bounds, grain)
     bounded_activity = activity[in_bounds]
-    active = bounded_activity.gt(0).any(axis=0) if hasattr(bounded_activity, "gt") else (bounded_activity > 0).any(axis=0)
+    active = (bounded_activity > 0).any(axis=0)
     n_units = int(activity.shape[1])
     n_active = int(active.sum())
     active_maps = rate_maps[active]

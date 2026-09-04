@@ -10,6 +10,12 @@ from typing import Any, Iterable, Mapping
 
 from .analysis import linear_contrasts, summarize_records
 from .spec import SpecError, StudySpec, load_study
+from .spatial import (
+    collect_spatial_records,
+    discover_spatial_snapshots,
+    render_selected_snapshots,
+    summarize_spatial_records,
+)
 from .submission import audit_submission
 from .telemetry import (
     build_intervention_manifest,
@@ -164,6 +170,53 @@ def command_analyze_csv(args: argparse.Namespace) -> None:
     _analyze(study, records, args.output_dir)
 
 
+def command_collect_spatial(args: argparse.Namespace) -> None:
+    study = load_study(args.study)
+    try:
+        args.output_dir.resolve().relative_to(Path(study.workspace_root).resolve())
+    except ValueError as error:
+        raise SpecError(
+            f"spatial analysis output {args.output_dir} is outside workspace {study.workspace_root}"
+        ) from error
+    selected_runs = list(dict.fromkeys(args.plot_run))
+    declared_runs = {run.name for run in study.expand_runs()}
+    unexpected = sorted(set(selected_runs) - declared_runs)
+    if unexpected:
+        raise SpecError(f"--plot-run names are not declared by the study: {unexpected}")
+    if args.plot_target and not selected_runs:
+        raise SpecError("--plot-target requires at least one explicit --plot-run")
+
+    records, inventory, manifest = collect_spatial_records(study, args.snapshot_root)
+    if args.require_complete and not manifest["complete"]:
+        raise SpecError(f"spatial snapshot collection is incomplete: {manifest['missing']}")
+    group_by = study.analysis.get("group_by", ["condition"])
+    if isinstance(group_by, (str, bytes)) or not isinstance(group_by, list):
+        raise SpecError("analysis.group_by must be an array")
+    condition_summary, seed_summary = summarize_spatial_records(records, group_by)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    _write_csv(args.output_dir / "per_snapshot.csv", records)
+    _write_csv(args.output_dir / "snapshot_inventory.csv", inventory)
+    _write_csv(args.output_dir / "condition_summary.csv", condition_summary)
+    _write_csv(args.output_dir / "seed_summary.csv", seed_summary)
+
+    figures: list[Path] = []
+    if selected_runs:
+        snapshots = discover_spatial_snapshots(study, args.snapshot_root)
+        figures = render_selected_snapshots(
+            snapshots, args.output_dir, selected_runs, args.plot_target
+        )
+    _write_json(args.output_dir / "analysis_manifest.json", {
+        **manifest,
+        "group_by": group_by,
+        "per_snapshot_rows": len(records),
+        "condition_summary_rows": len(condition_summary),
+        "seed_summary_rows": len(seed_summary),
+        "selected_plot_runs": selected_runs,
+        "selected_plot_targets": args.plot_target,
+        "figures": [str(path.resolve()) for path in figures],
+    })
+
+
 def command_render_telemetry(args: argparse.Namespace) -> None:
     study = load_study(args.study)
     inventory = discover_nemo_checkpoints(study, args.batch_root)
@@ -224,6 +277,22 @@ def build_parser() -> argparse.ArgumentParser:
     analyze.add_argument("input", type=Path)
     analyze.add_argument("output_dir", type=Path)
     analyze.set_defaults(func=command_analyze_csv)
+
+    spatial = subparsers.add_parser(
+        "collect-spatial",
+        help="validate compact online snapshots, collect CSV summaries, and optionally plot selections",
+    )
+    spatial.add_argument("study", type=Path)
+    spatial.add_argument("snapshot_root", type=Path)
+    spatial.add_argument("output_dir", type=Path)
+    spatial.add_argument("--plot-run", action="append", default=[], help="exact declared run name to render")
+    spatial.add_argument(
+        "--plot-target", action="append", default=[], type=int, help="target frame count to render"
+    )
+    spatial.add_argument(
+        "--require-complete", action="store_true", help="fail unless every run/policy/target is present"
+    )
+    spatial.set_defaults(func=command_collect_spatial)
 
     telemetry = subparsers.add_parser(
         "render-telemetry", help="discover checkpoints and write standard telemetry manifests"

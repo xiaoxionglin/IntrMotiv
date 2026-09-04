@@ -8,6 +8,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
+import numpy as np
+
 from hpc_runs.graph_stabilized_recruitment_manifest import rows as legacy_rows
 from hpc_runs.intrmotiv_study import SCHEMA_ID, SpecError, WORKFLOW_VERSION, load_study
 from hpc_runs.intrmotiv_study.analysis import linear_contrasts, summarize_records
@@ -19,6 +21,17 @@ from hpc_runs.intrmotiv_study.telemetry import (
     build_place_field_manifests,
 )
 from hpc_runs.intrmotiv_study.tensorboard import latest_at_or_before, mean_in_window
+from hpc_runs.intrmotiv_study.spatial import collect_spatial_records, summarize_spatial_records
+from hpc_runs.intrmotiv_study.spatial_contract import (
+    SNAPSHOT_SCHEMA,
+    OnlineSpatialWindow,
+    SpatialBounds,
+    SpatialContractError,
+    calculate_spatial_metrics,
+    load_spatial_snapshot,
+    spatial_rate_maps,
+    write_spatial_snapshot_atomic,
+)
 
 
 SPEC_PATH = (
@@ -48,7 +61,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.2.0")
+        self.assertEqual(WORKFLOW_VERSION, "1.3.0")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -239,6 +252,121 @@ class TensorBoardPrimitiveTests(unittest.TestCase):
         missing, count = mean_in_window(events, 10, 20)
         self.assertTrue(math.isnan(missing))
         self.assertEqual(count, 0)
+
+
+class SpatialContractTests(unittest.TestCase):
+    @staticmethod
+    def _payload(run_name: str = "GSR_C05_D4_H5K_S8", target: int = 25_000_000):
+        pose = np.asarray(
+            ((100, 100, 359), (200, 100, 1), (300, 100, 91), (400, 100, 89)),
+            dtype=np.float32,
+        )
+        activity = np.asarray(((1, 0), (1, 0), (0, 2), (0, 2)), dtype=np.float32)
+        return {
+            "schema": np.asarray(SNAPSHOT_SCHEMA),
+            "schema_version": np.asarray(1, dtype=np.int16),
+            "pose": pose,
+            "dg_activity": activity,
+            "actions": np.asarray((0, 1, 2, 3), dtype=np.int16),
+            "dones": np.asarray((False, True, False, False)),
+            "segment_id": np.asarray((0, 0, 1, 1), dtype=np.int32),
+            "policy_version": np.asarray((3, 3, 4, 4), dtype=np.int64),
+            "target_env_steps": np.asarray(target, dtype=np.int64),
+            "actual_env_steps": np.asarray(target + 128, dtype=np.int64),
+            "window_limit": np.asarray(4, dtype=np.int32),
+            "window_start_env_steps": np.asarray(target - 16, dtype=np.int64),
+            "window_end_env_steps": np.asarray(target + 128, dtype=np.int64),
+            "policy_id": np.asarray(0, dtype=np.int16),
+            "run_name": np.asarray(run_name),
+            "environment": np.asarray("dmlab_openfield_map2_fixed_loc3_fixedlength_noreward"),
+            "frameskip": np.asarray(4, dtype=np.int16),
+            "grain": np.asarray(19, dtype=np.int16),
+            "bounds": np.asarray((100, 2000, 100, 2000), dtype=np.float32),
+            "stationary_distance": np.asarray(1.0, dtype=np.float32),
+        }
+
+    def test_online_maps_match_offline_spatial_information_formula(self):
+        payload = self._payload()
+        bounds = SpatialBounds()
+        maps, occupancy, _ = spatial_rate_maps(payload["pose"], payload["dg_activity"], bounds, 19)
+        metrics = calculate_spatial_metrics(
+            payload["pose"], payload["dg_activity"], payload["dones"], payload["segment_id"], bounds, 19
+        )
+        probability = occupancy / occupancy.sum()
+        reference = []
+        for rate_map in maps:
+            mean_rate = (rate_map * probability).sum()
+            positive = (rate_map > 0) & (probability > 0)
+            reference.append(float((rate_map[positive] * probability[positive] * np.log2(
+                rate_map[positive] / mean_rate
+            )).sum()))
+        self.assertAlmostEqual(metrics["active_unit_mean_spatial_information"], np.mean(reference))
+        self.assertEqual(metrics["active_unit_fraction"], 1.0)
+        self.assertEqual(metrics["unique_active_peak_bins"], 2.0)
+
+    def test_trajectory_metrics_respect_terminals_and_circular_yaw(self):
+        payload = self._payload()
+        metrics = calculate_spatial_metrics(
+            payload["pose"], payload["dg_activity"], payload["dones"], payload["segment_id"]
+        )
+        self.assertAlmostEqual(metrics["mean_absolute_circular_yaw_change"], 2.0)
+        self.assertAlmostEqual(metrics["mean_physical_step_distance"], 100.0)
+        self.assertAlmostEqual(metrics["path_efficiency"], 1.0)
+
+    def test_window_filters_invalid_policy_lag_and_preserves_episode_segments(self):
+        window = OnlineSpatialWindow(3)
+        pose = np.arange(18, dtype=np.float32).reshape(2, 3, 3)
+        activity = np.ones((2, 3, 2), dtype=np.float32)
+        appended = window.append_rollouts(
+            pose,
+            activity,
+            np.arange(6).reshape(2, 3),
+            np.asarray(((False, True, False), (False, False, False))),
+            np.asarray(((1, 1, 1), (2, 2, 2))),
+            np.asarray(((True, True, True), (False, True, True))),
+        )
+        self.assertEqual(appended, 5)
+        self.assertEqual(len(window), 3)
+        arrays = window.arrays()
+        self.assertEqual(arrays["actions"].tolist(), [2, 4, 5])
+        self.assertNotEqual(arrays["segment_id"][0], arrays["segment_id"][1])
+        self.assertEqual(arrays["segment_id"][1], arrays["segment_id"][2])
+
+    def test_atomic_snapshot_keeps_existing_valid_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path, created = write_spatial_snapshot_atomic(Path(directory), self._payload())
+            self.assertTrue(created)
+            self.assertEqual(load_spatial_snapshot(path)["pose"].shape, (4, 3))
+            same, created = write_spatial_snapshot_atomic(Path(directory), self._payload())
+            self.assertFalse(created)
+            self.assertEqual(same, path)
+            self.assertEqual(len(list(Path(directory).glob("*.npz"))), 1)
+
+    def test_invalid_bounds_and_alignment_are_rejected(self):
+        with self.assertRaises(SpatialContractError):
+            SpatialBounds(2, 1, 0, 1)
+        payload = self._payload()
+        payload["dones"] = payload["dones"][:-1]
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(SpatialContractError, "expected 4"):
+                write_spatial_snapshot_atomic(Path(directory), payload)
+
+    def test_collector_propagates_study_fingerprint_and_exact_metadata(self):
+        study = load_study(SPEC_PATH)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_spatial_snapshot_atomic(root / "arbitrary" / "policy_00", self._payload())
+            records, inventory, manifest = collect_spatial_records(
+                study, root, require_workspace=False
+            )
+        self.assertEqual(records[0]["seed"], 8)
+        self.assertEqual(records[0]["base"], "C05")
+        self.assertEqual(len(inventory), 1)
+        self.assertEqual(manifest["study_sha256"], study.fingerprint)
+        self.assertFalse(manifest["complete"])
+        condition, seed = summarize_spatial_records(records, ["base"])
+        self.assertEqual(condition[0]["valid_sample_count__n"], 1)
+        self.assertEqual(seed[0]["seed"], 8)
 
 
 if __name__ == "__main__":
