@@ -891,27 +891,28 @@ def validate_snapshot_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
                 raise SpatialContractError(f"complete control graph snapshot requires {key} with {nodes} values")
         if "control_landmark_pose" not in payload or np.asarray(payload["control_landmark_pose"]).shape != (nodes, 3):
             raise SpatialContractError("control_landmark_pose must have shape [DG units, 3]")
-        passive_keys = (
-            "passive_recruitment_confidence", "passive_recruitment_elapsed",
-            "passive_recruitment_birth_support", "passive_recruitment_generation",
-        )
-        passive_presence = [key in payload for key in passive_keys]
-        if any(passive_presence) and not all(passive_presence):
-            raise SpatialContractError("passive recruitment graph snapshot is incomplete")
-        if all(passive_presence):
-            if np.asarray(payload["passive_recruitment_confidence"]).shape != matrix_shape:
-                raise SpatialContractError("passive recruitment confidence has the wrong graph dimensions")
-            if np.asarray(payload["passive_recruitment_elapsed"]).shape != matrix_shape:
-                raise SpatialContractError("passive recruitment elapsed has the wrong graph dimensions")
-            if np.asarray(payload["passive_recruitment_birth_support"]).shape != (nodes,):
-                raise SpatialContractError("passive recruitment birth support must align with DG units")
         if "passive_recruitment_generation" in payload and (
             int(np.asarray(payload["passive_recruitment_generation"]).item())
             != int(np.asarray(payload["control_representation_generation"]).item())
         ):
             raise SpatialContractError("control and passive graph generations do not match")
-        if "dg_recruitment_row_counts" in payload and np.asarray(payload["dg_recruitment_row_counts"]).shape != (nodes,):
-            raise SpatialContractError("DG recruitment row counts must align with graph nodes")
+    nodes = result["dg_activity"].shape[1]
+    passive_keys = (
+        "passive_recruitment_confidence", "passive_recruitment_elapsed",
+        "passive_recruitment_birth_support", "passive_recruitment_generation",
+    )
+    passive_presence = [key in payload for key in passive_keys]
+    if any(passive_presence) and not all(passive_presence):
+        raise SpatialContractError("passive recruitment graph snapshot is incomplete")
+    if all(passive_presence):
+        if np.asarray(payload["passive_recruitment_confidence"]).shape != (nodes, nodes):
+            raise SpatialContractError("passive recruitment confidence has the wrong graph dimensions")
+        if np.asarray(payload["passive_recruitment_elapsed"]).shape != (nodes, nodes):
+            raise SpatialContractError("passive recruitment elapsed has the wrong graph dimensions")
+        if np.asarray(payload["passive_recruitment_birth_support"]).shape != (nodes,):
+            raise SpatialContractError("passive recruitment birth support must align with DG units")
+    if "dg_recruitment_row_counts" in payload and np.asarray(payload["dg_recruitment_row_counts"]).shape != (nodes,):
+        raise SpatialContractError("DG recruitment row counts must align with DG units")
     return result
 
 
