@@ -50,5 +50,14 @@ fragment and is separate from the normalization study.
 
 - NEMO2 audit job: `7989312` (completed successfully).
 - Raw JSON: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/normalization_gradient_audit_20260905/real_feature_gradient_audit.json`.
-- Three-cell StudySpec SHA-256: `1b97f4cf964271202f0579d7051bf97fb3c268bb7a803065c05c4f6b2a8cf6b9`.
-- Training jobs: `7989323` (legacy), `7989324` (post-step atomic), and `7989325` (input-centered atomic).
+- The initial three-cell launch (`7989323`–`7989325`, StudySpec SHA-256
+  `1b97f4cf964271202f0579d7051bf97fb3c268bb7a803065c05c4f6b2a8cf6b9`)
+  was stopped after exposing a post-step logging `NameError`; it is not used
+  scientifically.
+- Corrected 200k runtime smoke: jobs `7989334`–`7989336`, all completed with
+  exit code zero. CENTER reached credited-row replay match `0.951`; POST was
+  `0.696`, directly supporting the centered-input mechanism.
+- Fresh 5M StudySpec SHA-256:
+  `21dbbd4e7503dd95a9ab734024c059378ec60d544e810300bb71256cfab93b3c`.
+- Fresh 5M jobs: `7989346` (legacy), `7989347` (post-step atomic), and
+  `7989348` (input-centered atomic).

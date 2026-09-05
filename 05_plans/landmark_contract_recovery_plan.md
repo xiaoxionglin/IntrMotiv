@@ -188,8 +188,9 @@ discarded encoder-credit events with discarded PPO samples.
 ### Execution status (2026-09-05)
 
 The generation barrier and both atomic normalization modes are implemented in
-the authoritative NEMO2 checkout. Focused tests pass `29/29`, the complete
-IntrMotiv suite passes `219/219`, and the workflow suite passes `26/26`.
+the authoritative NEMO2 checkout. After a runtime-only scope error was exposed
+and fixed, the complete IntrMotiv suite passes `220/220`; the workflow suite
+passes `26/26`.
 
 A 4,096-decision audit using real frozen-ResNet features from the stable C15
 ARR-MON checkpoint confirmed the proposed mechanism. Fixed projected-moment
@@ -200,11 +201,28 @@ to `0.035` and `-0.043` while reproducing the legacy forward activation mask
 exactly on the audited rollout. Post-step moment alignment alone therefore
 fixes publication consistency but does not remove the common-mode gradient.
 
-The validated three-run study is
-`hpc_runs/studies/landmark_normalization_contract_preflight.study.json`, SHA-256
-`1b97f4cf964271202f0579d7051bf97fb3c268bb7a803065c05c4f6b2a8cf6b9`.
-NEMO2 jobs `7989323`–`7989325` were submitted after print-only review and a
-successful submission audit.
+The first submitted 5M launch (`7989323`–`7989325`) was stopped deliberately:
+the first learner update exposed a `NameError` in post-step diagnostic logging.
+No result from that launch is scientifically usable. The fix now has a focused
+regression test and is included in the `220/220` passing suite.
+
+A fresh 200k-step runtime smoke then completed successfully in jobs `7989334`
+–`7989336`. Both atomic modes had finite training and zero behavior replay,
+stale-generation, and publication-generation mismatch. POST retained the
+common-mode pathology (credited-row replay match `0.696`, normalized-logit
+mean absolute value `1.149`), while CENTER reached replay match `0.951` and a
+normalized-logit mean absolute value of `0.101`. The only non-finite logged
+value was the unrelated planning diagnostic `hop_count_mean`: multiplying an
+infinite no-route sentinel by a zero route mask does not mask it. No loss,
+activation, gradient, or parameter was implicated.
+
+The uncontaminated 5M launch uses
+`hpc_runs/studies/landmark_normalization_contract_preflight_v2.study.json`,
+SHA-256
+`21dbbd4e7503dd95a9ab734024c059378ec60d544e810300bb71256cfab93b3c`.
+It passed print-only review and submission audit; NEMO2 jobs `7989346`
+(legacy), `7989347` (post-step atomic), and `7989348` (input-centered atomic)
+were running at the time of this update.
 
 After the fixed-rollout gradient audit, create a three-run, seed-99, 5M-step
 C15-FiLM ARR-MON study. Both ARR and SRC suffered the common regression, so
