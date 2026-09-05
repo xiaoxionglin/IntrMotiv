@@ -185,6 +185,22 @@ discarded encoder-credit events with discarded PPO samples.
 
 ## Stage A: causal normalization preflight
 
+### Scope decision
+
+Normalization is infrastructure rather than a primary research axis. Use the
+cleaned single-forward `legacy_batch` implementation as the production
+baseline. Retain the explicit DG/controller gradient boundary, source-credit
+alignment, whole-rollout generation barrier, and atomic replacement reset, but
+do not add a custom BatchNorm backward, surrogate gradient, or further
+normalization mechanism.
+
+`running_poststep_atomic` and `input_centered_atomic` remain diagnostic cells
+in the already-running 5M comparison. Promote neither unless it shows a large,
+unambiguous advantage over legacy behavior; a merely cleaner normalization
+contract is not sufficient. The actor/learner BatchNorm-mode difference is a
+documented engineering limitation of the baseline and is outside the current
+research focus.
+
 ### Execution status (2026-09-05)
 
 The generation barrier and both atomic normalization modes are implemented in
