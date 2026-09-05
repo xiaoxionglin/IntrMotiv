@@ -143,6 +143,17 @@ loss/gradient routing that was previously masked by the second forward or
 gradient-manipulation path. These mechanisms are not separated by the current
 study.
 
+A deterministic gradient test identifies a specific part of that second
+hypothesis. Training-mode BatchNorm and fixed running-stat normalization can
+produce identical normalized forward values but very different DG gradients.
+On non-centered synthetic features, fixed-stat positive-credit gradients were
+strongly aligned with the common feature mean and with one another, whereas
+differentiating through batch moments removed most of that common mode. The
+two flattened gradients were nearly orthogonal. The old learner-only
+BatchNorm Jacobian was therefore an unplanned centering/competition mechanism;
+removing it may contribute directly to DG-row convergence even if statistics
+are made perfectly current.
+
 More specifically, the new running statistics are updated during the
 encoder-active forward, after which the optimizer changes and renormalizes the
 DG rows. The synchronized actor therefore receives post-update projection
@@ -158,6 +169,14 @@ changes the probability of at least one landmark event from roughly 37% to
 17–19%. Directed transition opportunities depend on pairs of events and can
 therefore fall superlinearly, consistent with the observed reduction from
 `70–78` reliable edges to `17–27`.
+
+This event-rate argument explains the between-batch scale change but is not a
+complete graph model. Across the eight surviving new cells, total activity has
+only weak correlation with reliable-edge count; retirement history and which
+identities fire remain important. Across old and new snapshots together,
+activity correlates strongly with reachability largely because the batches
+occupy two distinct regimes. Event scarcity is therefore a mediator supported
+by the data, not proof that increasing density would restore control.
 
 Sample removal is a separate issue. Global stale-generation filtering is the
 direct cause of the two crashes, but it cannot explain the MON regression,
@@ -175,18 +194,17 @@ than the primary explanation for the persistent common collapse.
    synchronization, and discard/flush complete old-generation rollouts rather
    than normalizing PPO over fragmented, almost-empty minibatches. Also guard
    all advantage and branch-loss reductions against zero or one valid sample.
-2. Run the smallest normalization ablation first: C15-FiLM MON, ARR and SRC,
-   seed 99, with the current one-forward contract crossed over
-   `legacy_batch` versus `running_consistent`. This directly tests the leading
-   cause without involving retirement.
+2. Run a fixed-rollout gradient audit on real frozen ResNet features, comparing
+   differentiable batch moments, fixed projected moments, and explicitly
+   input-centered fixed moments.
 3. Test a post-update-statistics implementation that caches detached visual
    features, recomputes only the DG linear logits after the encoder optimizer
    step, updates running statistics once, and publishes weights and statistics
    atomically. This preserves one differentiable DG forward and avoids the old
    second full encoder pass.
-4. If `legacy_batch` does not restore DG density, usage entropy, and graph
-   formation, compare the old and new encoder gradients on an identical frozen
-   minibatch before adding another architectural mechanism.
+4. Run the three-cell ARR-MON normalization preflight defined in
+   `05_plans/landmark_contract_recovery_plan.md`: `legacy_batch`,
+   `running_poststep_atomic`, and `input_centered_atomic`.
 5. Do not tune DIR or PRED eligibility from this batch. Their outcomes are
    downstream of the common representation regression, and DIR is additionally
    censored by the post-replacement crash.

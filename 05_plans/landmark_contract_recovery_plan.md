@@ -84,6 +84,12 @@ deterministic tests. They confirm that:
 - recalibrating statistics on the updated projection restores the defining
   zero-mean/unit-variance invariant, and the measured activity-rate drop
   predicts a greater than fourfold loss of event-pair opportunities.
+- even when batch-stat and fixed-stat normalization have exactly identical
+  forward values, their encoder gradients are almost orthogonal. On a
+  deterministic non-centered feature test, fixed-stat gradients align with
+  the common feature mean and with one another, while differentiable batch
+  moments remove most of that common mode. Thus post-step statistic alignment
+  is necessary but may not be sufficient.
 
 These are mechanism tests, not deployed-runtime proof. The production modules
 must implement the same invariants and pass their existing source-tree tests
@@ -119,6 +125,29 @@ Do not change the DG intercept in this diagnostic. If a correctly calibrated
 `2.43` threshold supplies too few landmark events, event rate becomes an
 explicit later architectural choice rather than being recovered through a
 BatchNorm mismatch.
+
+### 1a. Make the normalization gradient explicit
+
+Legacy training-mode BatchNorm did more than normalize the forward scores. Its
+differentiable batch mean and variance centered and coupled the DG gradients.
+The new running-stat forward removes that Jacobian. With positive temporal
+credit and non-centered ResNet ReLU features, fixed-stat gradients can pull
+many DG rows toward the same common feature direction. This hidden change is a
+plausible cause of the observed loss of usage entropy.
+
+The final algorithm must not depend accidentally on a learner-only BatchNorm
+Jacobian. Test an explicit, actor/learner-identical alternative in which the
+frozen visual projection input is centered by a checkpointed running feature
+mean that is independent of DG weights, DG rows remain unit-normalized, and
+any projected scale statistics are published atomically after the DG update.
+This removes the common feature direction without making one sample's
+landmark identity depend on the other samples in a learner minibatch.
+
+Before training, run one fixed-rollout gradient audit on real frozen ResNet
+features. Compare legacy differentiable batch moments, current fixed projected
+moments, post-step-aligned fixed moments, and input-centered fixed moments.
+Record forward equality, gradient cosine, alignment with the feature mean,
+pairwise DG-row gradient cosine, and the one-step change in activation masks.
 
 ### 2. Generation barrier after replacement
 
@@ -156,12 +185,14 @@ discarded encoder-credit events with discarded PPO samples.
 
 ## Stage A: causal normalization preflight
 
-Create a six-run, seed-99, 5M-step C15-FiLM MON study:
+After the fixed-rollout gradient audit, create a three-run, seed-99, 5M-step
+C15-FiLM ARR-MON study. Both ARR and SRC suffered the common regression, so
+one credit condition suffices to select the normalization mechanism.
 
 | Factor | Levels |
 |---|---|
-| Encoder credit | `ARR`, `SRC` |
-| DG normalization | `legacy_batch`, current `running_consistent`, new `running_poststep_atomic` |
+| Encoder credit | `ARR` |
+| DG normalization | `legacy_batch`, `running_poststep_atomic`, `input_centered_atomic` |
 
 Suggested identifiers:
 
@@ -169,11 +200,12 @@ Suggested identifiers:
 - Batch: `intrmotiv_landmark_normalization_contract_preflight_20260906`
 - Project: `SF_IntrMotiv_LandmarkNormalizationContractPreflight`
 - Schema/workflow: `intrmotiv/study/v1`, `1.4.1`
-- Expected runs: `6`
+- Expected runs: `3`
 
-Run all six fresh under the same corrected code instead of treating the prior
-batch as a formal cell. Disable replacement (`MON`) so normalization is the
-only representation-state manipulation.
+Run all three fresh under the same corrected code. Use the completed current
+`running_consistent` ARR-MON run as a diagnosed reference, not as a formal
+StudySpec cell. Disable replacement (`MON`) so normalization is the only
+representation-state manipulation.
 
 Required telemetry:
 
@@ -198,11 +230,10 @@ Engineering gates:
 - exact actor/learner DG equality for identical weights, statistics, and input
   in both running-stat modes; `legacy_batch` is retained as the deliberately
   mismatched diagnostic reference;
-- correct ARR/SRC branch selection and identical scheduled event/reward mass
+- correct ARR branch selection and identical scheduled event/reward mass
   between normalization levels before activity intersection.
 
-Selection gates for `running_poststep_atomic`, evaluated separately within ARR
-and SRC:
+Selection gates for either atomic candidate:
 
 - all 16 rows active in the 100k-sample snapshot, normalized usage entropy at
   least `0.90`, and top-three activity share at most `0.50`;
@@ -211,15 +242,16 @@ and SRC:
   `legacy_batch` value, preventing another order-of-magnitude regression;
 - graph and control metrics are reported but are not Stage-A selection gates.
 
-The expected failure of current `running_consistent` on a representation gate
-does not invalidate the diagnostic study. Every cell must pass the numerical
-and routing checks, while only the proposed contract must pass the selection
-gates.
+Every cell must pass the numerical and routing checks. At least one atomic
+candidate must pass the selection gates without relying on learner-only batch
+semantics; otherwise stop and revise the landmark score rather than selecting
+legacy behavior as the final algorithm.
 
 The purpose of `legacy_batch` is causal localization, not selection as the
-final algorithm. If it recovers the old operating regime while
-`running_poststep_atomic` does not, inspect the frozen-minibatch DG gradients
-and post-update calibration before changing the threshold or adding a loss.
+final algorithm. If it alone recovers the old operating regime, the old
+BatchNorm Jacobian was functioning as an undeclared representation-learning
+mechanism. Make the necessary centering/competition explicit rather than
+restoring actor/learner mismatch.
 
 ## Stage B: forced replacement preflight
 
@@ -233,8 +265,9 @@ replacement test before any DIR/PRED study:
 - verify learning resumes on a full current-generation batch with finite PPO
   and encoder losses.
 
-Use unit tests plus two ordinary 1M-step Slurm jobs, one ARR and one SRC. This
-is a runtime manipulation check, not a scientific factor.
+Use unit tests plus one ordinary 1M-step ARR job. Credit recipient does not
+change the generation barrier, so a second SRC job would not test another
+mechanism. This is a runtime manipulation check, not a scientific factor.
 
 ## Stage C: representation and control study
 
