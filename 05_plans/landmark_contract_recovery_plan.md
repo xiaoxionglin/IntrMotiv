@@ -185,6 +185,27 @@ discarded encoder-credit events with discarded PPO samples.
 
 ## Stage A: causal normalization preflight
 
+### Execution status (2026-09-05)
+
+The generation barrier and both atomic normalization modes are implemented in
+the authoritative NEMO2 checkout. Focused tests pass `29/29`, the complete
+IntrMotiv suite passes `219/219`, and the workflow suite passes `26/26`.
+
+A 4,096-decision audit using real frozen-ResNet features from the stable C15
+ARR-MON checkpoint confirmed the proposed mechanism. Fixed projected-moment
+gradients had mean absolute cosine `0.951` with the feature mean and pairwise
+DG-row gradient cosine `0.901`. Legacy differentiable BatchNorm reduced these
+to `0.044` and `0.018`; explicit running feature-mean subtraction reduced them
+to `0.035` and `-0.043` while reproducing the legacy forward activation mask
+exactly on the audited rollout. Post-step moment alignment alone therefore
+fixes publication consistency but does not remove the common-mode gradient.
+
+The validated three-run study is
+`hpc_runs/studies/landmark_normalization_contract_preflight.study.json`, SHA-256
+`1b97f4cf964271202f0579d7051bf97fb3c268bb7a803065c05c4f6b2a8cf6b9`.
+NEMO2 jobs `7989323`–`7989325` were submitted after print-only review and a
+successful submission audit.
+
 After the fixed-rollout gradient audit, create a three-run, seed-99, 5M-step
 C15-FiLM ARR-MON study. Both ARR and SRC suffered the common regression, so
 one credit condition suffices to select the normalization mechanism.
