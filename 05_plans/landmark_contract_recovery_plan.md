@@ -69,6 +69,26 @@ Later stages cannot compensate for failure at an earlier stage.
 
 ## Implementation corrections
 
+### Mechanism tests completed
+
+`06_experiments/test_landmark_contract_hypotheses.py` provides four small,
+deterministic tests. They confirm that:
+
+- a singleton valid advantage produces the same NaN sample standard deviation
+  and PyTorch warning seen in both failed DIR jobs;
+- element-wise generation filtering can leave only six complete 64-step
+  sequences and must not be treated as a normal PPO batch;
+- for anisotropic, non-zero-mean frozen visual features, a modest DG row
+  rotation paired with pre-update statistics changes more than `0.2%` of all
+  threshold decisions at `2.43`, which is a large fraction of sparse events;
+- recalibrating statistics on the updated projection restores the defining
+  zero-mean/unit-variance invariant, and the measured activity-rate drop
+  predicts a greater than fourfold loss of event-pair opportunities.
+
+These are mechanism tests, not deployed-runtime proof. The production modules
+must implement the same invariants and pass their existing source-tree tests
+plus the forced-replacement Slurm check below.
+
 ### 1. Post-step atomic normalization
 
 Add a new DG normalization mode, `running_poststep_atomic`.
