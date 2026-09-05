@@ -196,3 +196,15 @@ Validated production StudySpec SHA-256:
 The separate three-job engineering preflight is
 `saturday_replacement_preflight_20260905`, SHA-256
 `2eaf8545fa8ffb019421cec01f2a9be5c5b155fe4e2b279ddc1113916754675b`.
+
+## Launch record
+
+The forced-replacement preflight completed successfully as Slurm jobs
+`7989394`--`7989396`. Every job reached 1,048,576 frames with one replacement,
+one deferred undersized update, zero non-finite scalar values, and zero
+behavior/publication-generation mismatch. The two FiLM jobs each reset one
+goal-adapter row; the legacy job reset none.
+
+The audited production submission is Slurm jobs `7989413`--`7989448`. Its
+launcher manifest is
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_saturday_batch_20260905/20260905_submitted/jobs.tsv`.
