@@ -18,6 +18,13 @@ Normalization is fixed infrastructure, not a factor. Use the cleaned
 single-forward `legacy_batch` behavior from SF-XXL. Keep the corrected
 DG/controller gradient boundary and replacement-generation transaction.
 
+The seed-99 5M normalization audit selected this baseline decisively. In its
+terminal 4--5M window, `legacy_batch` retained all 16 active landmarks,
+`0.994` usage entropy, a 15-node reliable SCC, and `0.938` reachable-pair
+fraction. The post-step and input-centered alternatives instead produced
+SCCs of 1 and 3 and reachable-pair fractions of `0.073` and `0.208`.
+Normalization is therefore deliberately removed from the Saturday matrix.
+
 ## Run count
 
 The scientific matrix contains 36 fresh 75M-step runs:
@@ -182,3 +189,10 @@ stop treating replacement as necessary.
 
 Preserve the validated StudySpec SHA-256 through print-only review,
 submission, online analysis, spatial telemetry, and intervention artifacts.
+
+Validated production StudySpec SHA-256:
+`dcbce502053cfd14ec5ce12c88d2fa06c42f4a97367896954eccd0fe0f8831cb`.
+
+The separate three-job engineering preflight is
+`saturday_replacement_preflight_20260905`, SHA-256
+`2eaf8545fa8ffb019421cec01f2a9be5c5b155fe4e2b279ddc1113916754675b`.
