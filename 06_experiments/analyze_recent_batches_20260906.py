@@ -238,7 +238,7 @@ def plot_family(
         ("SRC", "LEG"): ("#D55E00", "o", "--"),
         ("SRC", "FILM"): ("#E69F00", "s", "--"),
     }
-    fig, axes = plt.subplots(1, len(panels), figsize=(12.8, 4.8), constrained_layout=True)
+    fig, axes = plt.subplots(1, len(panels), figsize=(12.8, 5.2), constrained_layout=False)
     if len(panels) == 1:
         axes = [axes]
     for ax, (metric, title, scale) in zip(axes, panels):
@@ -281,8 +281,16 @@ def plot_family(
         ax.grid(axis="y", color="#d0d0d0", linewidth=0.7, alpha=0.7)
         ax.spines[["top", "right"]].set_visible(False)
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="outside upper center", ncol=4, frameon=False)
-    fig.suptitle("Saturday batch at 75M (points: seeds; bars: mean ± SD, n=3)", y=1.04)
+    fig.legend(
+        handles,
+        labels,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 0.01),
+        ncol=4,
+        frameon=False,
+    )
+    fig.suptitle("Saturday batch at 75M (points: seeds; bars: mean ± SD, n=3)", y=0.985)
+    fig.tight_layout(rect=(0, 0.10, 1, 0.91))
     fig.savefig(output_stem.with_suffix(".png"), dpi=220, bbox_inches="tight")
     fig.savefig(output_stem.with_suffix(".pdf"), bbox_inches="tight")
     plt.close(fig)

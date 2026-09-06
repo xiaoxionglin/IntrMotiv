@@ -1,0 +1,7 @@
+{
+  "study": "directional_predictive_recruitment_20260904",
+  "sample": "54 finished runs; 18 cells; seeds 8, 99, 123",
+  "window": "arithmetic means over train/env_steps >= 70M",
+  "uncertainty": "figures show across-seed SD; contrasts retain seed and all other factors",
+  "caution": "action_sensitivity is the legacy logit diagnostic; target_hit_lift is unstable and is not treated as causal evidence"
+}
