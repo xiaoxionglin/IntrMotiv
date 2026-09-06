@@ -246,6 +246,7 @@ def command_render_telemetry(args: argparse.Namespace) -> None:
     _write_json(args.output_root / "study_manifest.json", {
         **study.provenance(),
         "telemetry_protocol": study.telemetry.get("protocol"),
+        "intervention": dict(study.telemetry.get("intervention", {})),
         "analysis_rows": len(rows),
         "trajectory_rows": len(trajectory),
         "intervention_rows": len(intervention),
