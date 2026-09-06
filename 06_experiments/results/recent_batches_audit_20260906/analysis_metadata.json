@@ -1,0 +1,12 @@
+{
+  "study": "saturday_batch_20260905",
+  "study_sha256": "dcbce50207b64b452c19bc1bf408a549ff10fb4b664b3296383b1b03e5be31cb",
+  "wandb_entity": "xiaoxionglin-bernstein-center-freiburg",
+  "wandb_project": "SF_IntrMotiv_SaturdayBatch",
+  "wandb_group": "intrmotiv_saturday_batch_20260905",
+  "sample": "36 finished runs; 12 matched cells; seeds 8, 99, 123",
+  "window": "arithmetic means over train/env_steps >= 70M; event rates use pooled numerators/denominators within each run",
+  "spatial": "final synchronized online 10k-decision snapshot targeted at 75M",
+  "uncertainty": "figures show across-seed standard deviation; paired contrasts retain matched seed and all other factors",
+  "transforms": "target_hit_advantage = target_rate / shuffled_rate - 1; percentages multiply fractions by 100"
+}
