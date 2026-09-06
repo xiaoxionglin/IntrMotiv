@@ -120,6 +120,38 @@ therefore be nearly fully connected while the commanded target performs no
 better than its matched shuffle. Reliable reachability is a graph-consistency
 metric, not evidence of causal control.
 
+### How much is explained by multi-peak fields?
+
+For the failure of the graph as a **spatial navigation graph**, multi-peak or
+otherwise nonlocal fields explain most of the discrepancy. In the terminal
+source-credit telemetry, only `6.94%` of DG units were mono-field on average,
+or about `1.11 / 16` landmarks per run. Only `3.44%` of reliable edges joined
+two spatially eligible endpoints: approximately `2.43` grounded edges out of
+`73.7`. Prospective success on the graph was `0.446`, but grounded
+controllability was `0.0170`, only `3.8%` of that prospective value. Under the
+current grounding definition, endpoint field invalidity therefore removes
+roughly `96%` of the graph's apparent control value.
+
+Saturday is even starker: mono-field fraction was `4.43%` (about `0.71 / 16`
+landmarks) while reliable-pair reachability was `92.5%`. That graph cannot be
+interpreted as a 16-node spatial navigation graph.
+
+This does **not** show that multi-peak fields alone caused the policy to ignore
+commands. Across the 36 Saturday runs, mono-field fraction was not positively
+associated with commanded-versus-shuffled advantage (`r=-0.426`, descriptive
+and factor-confounded). Higher map overlap was instead associated with higher
+online option success (`r=0.554`), consistent with broad common sinks making
+the existing hit metric easier. Thus broad fields strongly inflate graph and
+option metrics, while the absence of wrong-outcome credit and balanced target
+experiments remains a separate controller failure.
+
+The clean causal discriminator is a matched oracle-landmark control: run the
+same controller and reward with fixed localized state IDs. If target advantage
+remains absent, the controller objective is sufficient to explain failure; if
+it appears, learned field aliasing is the dominant cause. The proposed
+first-outcome objective tests the complementary direction with the learned DG
+held unchanged.
+
 ### Retirement was not tested successfully
 
 The earlier 30-run source-credit study made **zero replacements**. The Saturday
