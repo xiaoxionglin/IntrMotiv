@@ -2,7 +2,7 @@
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.4.1",
   "study_id": "dg_policy_gradient_first_outcome_20260906",
-  "description": "Fresh 75M fully crossed C15 ARR-MON study of first-outcome control and PPO-to-DG gradient routing.",
+  "description": "Fresh 75M fully crossed C15 ARR-MON study of local first-successor control and PPO-to-DG gradient routing.",
   "expected_runs": 24,
   "metadata": {
     "project": "SF_IntrMotiv_DGPolicyGradientFirstOutcome",
@@ -147,7 +147,7 @@
       "--dg_recruitment_victim_rule=monitor",
       "--dg_recruitment_endpoint_gate=open",
       "--dg_orthogonal_recruitment_max_per_rollout=0",
-      "--hrl_direct_target_selection=least_tested"
+      "--hrl_direct_target_selection=local_successor"
     ]
   },
   "bases": [
@@ -156,7 +156,7 @@
       "label": "C15",
       "args": [],
       "metadata": {
-        "family": "c15_arr_mon_legacy_bn_balanced_direct"
+        "family": "c15_arr_mon_legacy_bn_local_successor"
       }
     }
   ],
@@ -313,6 +313,10 @@
       "control_completed_count": "intrmotiv/hrl/control/completed_count",
       "control_command_entropy": "intrmotiv/hrl/control/normalized_command_entropy",
       "control_observed_pair_coverage": "intrmotiv/hrl/control/observed_pair_coverage",
+      "local_candidate_pair_count": "intrmotiv/hrl/control/local_candidate_pair_count",
+      "local_candidate_source_fraction": "intrmotiv/hrl/control/local_candidate_source_fraction",
+      "local_candidate_count_mean": "intrmotiv/hrl/control/local_candidate_count_mean",
+      "behavior_candidate_count_mean": "intrmotiv/hrl/control/behavior_candidate_count_mean",
     "first_outcome_commanded_numerator": "intrmotiv/hrl/control/commanded_numerator",
     "first_outcome_commanded_denominator": "intrmotiv/hrl/control/commanded_event_count",
     "first_outcome_commanded_event_count": "intrmotiv/hrl/control/commanded_event_count",
@@ -775,7 +779,8 @@
       "freeze_dg": true,
       "freeze_graph": true,
       "exclusive_source_only": true,
-      "balanced_observed_alternative_targets": true,
+      "balanced_observed_alternative_targets": false,
+      "balanced_local_successor_targets": true,
       "attempts_per_ordered_pair": 5,
       "decision_cap": 100000,
       "terminate_on_first_distinct_exclusive_outcome": true,

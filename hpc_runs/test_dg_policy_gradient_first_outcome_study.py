@@ -42,7 +42,6 @@ class DGPolicyGradientFirstOutcomeStudyTests(unittest.TestCase):
             "--encoder_reward_require_local_predecessor=True",
             "--dg_batchnorm_semantics=legacy_batch",
             "--hrl_target_timing=immediate",
-            "--hrl_direct_target_selection=least_tested",
             "--dg_recruitment_victim_rule=monitor",
             "--dg_orthogonal_recruitment_max_per_rollout=0",
             "--iterative_update=False",
@@ -61,6 +60,18 @@ class DGPolicyGradientFirstOutcomeStudyTests(unittest.TestCase):
                 self.assertIn(
                     f"--hrl_goal_conditioning={run.factors['goal_conditioning']}", run.args
                 )
+        self.assertTrue(
+            all(
+                "--hrl_direct_target_selection=local_successor" in run.args
+                for run in self.production.expand_runs()
+            )
+        )
+        self.assertTrue(
+            all(
+                "--hrl_direct_target_selection=least_tested" in run.args
+                for run in self.preflight.expand_runs()
+            )
+        )
 
     def test_steps_names_metrics_contrasts_and_telemetry(self):
         self.assertTrue(
@@ -77,6 +88,8 @@ class DGPolicyGradientFirstOutcomeStudyTests(unittest.TestCase):
             "control_command_entropy", "control_observed_pair_coverage",
             "ppo_to_dg_gradient_norm", "encoder_to_dg_gradient_norm",
             "ppo_encoder_dg_gradient_cosine", "ppo_encoder_dg_row_conflict_fraction",
+            "local_candidate_pair_count", "local_candidate_source_fraction",
+            "local_candidate_count_mean", "behavior_candidate_count_mean",
         ):
             self.assertIn(metric, metrics)
         self.assertEqual(self.production.analysis["synchronized_steps"], [5_000_000, 25_000_000, 50_000_000, 75_000_000])
@@ -84,6 +97,7 @@ class DGPolicyGradientFirstOutcomeStudyTests(unittest.TestCase):
         self.assertEqual(self.production.telemetry["target_frames"], [5_000_000, 25_000_000, 50_000_000, 75_000_000])
         self.assertEqual(self.production.telemetry["terminal_seeds"], [8, 123])
         self.assertTrue(self.production.telemetry["intervention"]["terminate_on_first_distinct_exclusive_outcome"])
+        self.assertTrue(self.production.telemetry["intervention"]["balanced_local_successor_targets"])
 
     def test_workspace_paths_and_provenance(self):
         for study in (self.production, self.preflight):
