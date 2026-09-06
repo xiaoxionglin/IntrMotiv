@@ -12,12 +12,14 @@ architectural switches.
 2. [[losses]]: every implemented reward-derived objective, auxiliary loss, and
    structural update. Start here when interpreting a loss curve or adding an
    ablation.
-3. [[../IntrMotiv_metric_reference|IntrMotiv Metric Reference]]: exact logged
+3. [[../IntrMotiv_metrics_guidebook|IntrMotiv Metrics Guidebook]]: how to
+   combine metrics into representation, graph, control, and retirement claims.
+4. [[../IntrMotiv_metric_reference|IntrMotiv Metric Reference]]: exact logged
    metric definitions and denominators.
-4. [[../current_hrl_architecture_summary|Current HRL Architecture Summary]]:
+5. [[../current_hrl_architecture_summary|Current HRL Architecture Summary]]:
    the older, long-form implementation snapshot. It is useful for historical
    detail, but its batch-specific sections are not the current source of truth.
-5. [[../core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]: known
+6. [[../core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]: known
    implementation inconsistencies, affected historical conclusions, and the
    required fix order before the next clean comparison.
 

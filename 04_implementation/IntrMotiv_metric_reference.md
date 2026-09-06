@@ -1,5 +1,10 @@
 # IntrMotiv Metric Reference
 
+For a decision-oriented reading order, failure patterns, and the current
+Saturday-batch scorecard, start with
+[[IntrMotiv_metrics_guidebook|IntrMotiv Metrics Guidebook]]. This file remains
+the exhaustive tag dictionary.
+
 **Scope:** current custom intrmotiv/ learner and environment metrics written to TensorBoard and W&B. This supplements the standard Sample Factory train/ metrics.
 
 **Authoritative implementation:** NEMO2 SF_hipposlam, in dmlab/custom_learner.py (calculation), dmlab/reward_summaries.py (tag mapping), and evaluation/schema.py (current and legacy analysis tags). The NEMO2 IntrMotiv LOGGING.md remains a concise overview; this note is the complete interpretation reference.

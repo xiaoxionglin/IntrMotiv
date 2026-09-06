@@ -26,6 +26,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../04_implementation/IntrMotiv_current_implementation_evaluation|Current Implementation Evaluation]]
 - [[../04_implementation/core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]
 - [[../04_implementation/iterative_update_feature_reference|Iterative Update Feature Reference]]
+- [[../04_implementation/IntrMotiv_metrics_guidebook|IntrMotiv Metrics Guidebook]]
+- [[../04_implementation/IntrMotiv_metric_reference|IntrMotiv Metric Reference]]
 - [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]
 
 ## Plans
