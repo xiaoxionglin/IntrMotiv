@@ -1,6 +1,6 @@
 # Joint PPO-to-DG and First-Outcome Control Batch
 
-Status: the original eight-cell 5M seed-99 preflight passed. After review, the production curriculum was simplified to directed local successors. A two-cell 1M compatibility smoke (`7995912`–`7995913`) was submitted on 2026-09-06; production waits only for that smoke to show healthy learning telemetry.
+Status: the original eight-cell 5M seed-99 preflight passed. After review, the production curriculum was simplified to directed local successors. The two-cell 1M compatibility smoke (`7995912`–`7995913`) completed `0:0` with healthy branch telemetry. All 24 production jobs (`7995943`–`7995953`, `7995955`–`7995967`) were audited and started on 2026-09-06.
 
 ## Scientific question
 
@@ -23,6 +23,9 @@ The study cleanly crosses two possible causes of failed target control: the work
 - Local-successor smoke StudySpec SHA-256: `d592db66497954afc2b7b0f98c5387a563ef103d671054068ba4aac5dfe07884`.
 - Production StudySpec SHA-256: `2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5`.
 - Preflight Slurm jobs: `7994175`–`7994182`.
+- Local-successor smoke Slurm jobs: `7995912`–`7995913` (both completed `0:0`).
+- Production Slurm jobs: `7995943`–`7995953`, `7995955`–`7995967`.
 - Workspace output root: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_policy_gradient_first_outcome_preflight_20260906`.
+- Production output root: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_policy_gradient_first_outcome_20260906`.
 
 The original preflight analyzer checked finite losses, replay agreement, one DG minibatch forward, STOP/JOINT gradient separation, ARR gradient activity, FIRST event activity, command entropy, observed-pair coverage, DG-row activity, and zero MON replacement. The local-successor smoke additionally checks candidate discovery, behavior-time candidate counts, finite signed FIRST rewards, correct STOP/JOINT norms, and continued DG-row activity before the 24 production jobs are released.
