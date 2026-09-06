@@ -20,6 +20,7 @@ import wandb
 ENTITY = "xiaoxionglin-bernstein-center-freiburg"
 PROJECT = "SF_IntrMotiv_DirectionalPredictiveRecruitment"
 GROUP = "intrmotiv_directional_predictive_recruitment_20260904"
+STUDY_SHA256 = "72b0ac2d04ad7a297a674f96d4f32c85d48dcf89a9fc62abb7243adb22ea53aa"
 RUN_RE = re.compile(
     r"^\d+_(DPR_(C05|C13|C15)_(MON|DIR|PRED)_(LEG|FILM)_S(8|99|123))_"
 )
@@ -246,6 +247,7 @@ def main() -> None:
     plot(frame, args.output_dir / "dpr_terminal")
     metadata = {
         "study": "directional_predictive_recruitment_20260904",
+        "study_sha256": STUDY_SHA256,
         "sample": "54 finished runs; 18 cells; seeds 8, 99, 123",
         "window": "arithmetic means over train/env_steps >= 70M",
         "uncertainty": "figures show across-seed SD; contrasts retain seed and all other factors",

@@ -25,7 +25,7 @@ import wandb
 ENTITY = "xiaoxionglin-bernstein-center-freiburg"
 PROJECT = "SF_IntrMotiv_SaturdayBatch"
 GROUP = "intrmotiv_saturday_batch_20260905"
-STUDY_SHA256 = "dcbce50207b64b452c19bc1bf408a549ff10fb4b664b3296383b1b03e5be31cb"
+STUDY_SHA256 = "dcbce502053cfd14ec5ce12c88d2fa06c42f4a97367896954eccd0fe0f8831cb"
 RUN_RE = re.compile(
     r"^\d+_(SAT_C15_(ARR|SRC)_(MON|DIRO|PREDO)_(LEG|FILM)_S(8|99|123))_"
 )

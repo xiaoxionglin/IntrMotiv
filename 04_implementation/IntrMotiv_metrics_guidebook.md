@@ -65,15 +65,20 @@ These are pass/fail checks, not scientific outcomes.
 | `intrmotiv/dg/update_contract/publication_generation_mismatch` | Must be zero. Published DG weights and normalization state must describe one representation generation. |
 | `intrmotiv/dg/update_contract/forward_count` | One DG forward per active minibatch under the corrected contract. |
 | `intrmotiv/dg/update_contract/running_stats_update_count` | One in encoder-active/simultaneous legacy-BN updates; zero in decoder-only phases and actor inference. |
-| `intrmotiv/replay/stale_generation_rejected_fraction` | Can spike after replacement. It is safe only when whole old rollouts are removed before learning. |
+| `intrmotiv/replay/stale_generation_rejected_fraction` | Can spike briefly after replacement. It is safe only when whole old rollouts are removed and the fraction returns to zero after actors receive the new generation. |
 | `intrmotiv/replay/deferred_updates_total` | Should increment when replacement leaves less than one normal fresh minibatch. A defer is protective, not a failure. |
 | `intrmotiv/dg/recruitment/goal_adapter_reset_total` | In FiLM retirement cells, must match the replacement total. It remains zero for legacy conditioning. |
 | `intrmotiv/reward/environment_nonzero_fraction` | Must be zero in the no-reward open field. |
 
 The old retirement crash had a characteristic signature: one replacement,
 roughly 80--90% stale samples, no deferral, then NaN advantage normalization.
-The corrected path drops complete old-generation rollouts and defers that
-learner update.
+Dropping complete old-generation rollouts and deferring an undersized learner
+update prevents that immediate NaN, but it does not prove that generation
+publication recovered. In the completed Saturday study, the only spontaneous
+replacement was followed by stale rollouts for the remaining 61M environment
+steps (8,601 rollouts / 550,464 decisions rejected cumulatively). Treat any
+continued increase after the normal in-flight queue should have drained as an
+actor-generation synchronization failure.
 
 ## 2. Representation health
 
@@ -320,6 +325,12 @@ Compare DIRO and PREDO with their exactly matched MON cells. First require the
 retirement funnel to show that replacement actually occurred. Then require
 better spatial identity without excessive repeats, loss of more than 20% of
 MON reachability, or weaker intervention advantage.
+
+As of the completed 2026-09-06 analysis, this manipulation check failed:
+the preceding 30-run source-credit study made zero replacements and the
+36-run Saturday study made one. DIR/PRED outcome differences in those studies
+therefore do not estimate retirement effects. The single Saturday replacement
+also exposed the persistent generation-rejection problem described above.
 
 ### D. Goal conditioning
 

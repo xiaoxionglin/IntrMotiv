@@ -31,6 +31,7 @@ LABELS = {
     "pred_silent": "PREDS",
     "pred_open": "PREDO",
 }
+STUDY_SHA256 = "aa34bb2ef868df37dbafc38e7c4b8dc5c9cc684e5f8dba5e05a586d068ad8a0d"
 
 
 def contrasts(frame: pd.DataFrame) -> pd.DataFrame:
@@ -167,6 +168,7 @@ def main() -> None:
     plot(terminal, args.output_dir / "source_credit_spatial")
     metadata = {
         "study": "source_credit_retirement_20260904",
+        "study_sha256": STUDY_SHA256,
         "sample": "30 runs; 10 matched cells; seeds 8, 99, 123",
         "snapshot": "manifest-driven 100k-decision evaluation at the terminal checkpoint targeted at 75M",
         "uncertainty": "figure shows across-seed SD; contrasts retain seed and the other factor",
