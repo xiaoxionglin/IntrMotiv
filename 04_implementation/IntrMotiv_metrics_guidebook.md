@@ -166,9 +166,9 @@ Use this order of evidence:
 1. **Frozen intervention advantage.** From matched source position,
    orientation, and context, compare the commanded target with shuffled
    targets. Aggregate hit numerators and event counts before forming rates.
-2. **Counterfactual action-probability sensitivity.** Hold source/context
-   fixed and change only target ID; measure total variation between action
-   distributions.
+2. **Counterfactual action-probability sensitivity.** In the frozen evaluator,
+   hold source/context fixed, change only target ID, and compare action
+   distributions across all alternate targets.
 3. **Online completed-option success.** Useful for learning curves, but it can
    be inflated by common sinks and unequal target sampling.
 4. **Logit sensitivity.** A debugging signal only; logit differences need not
@@ -178,15 +178,17 @@ Use this order of evidence:
 |---|---|
 | `intrmotiv/hrl/target_hit_numerator` / `target_hit_event_count` | Components for commanded hit rate. Sum first, then divide. |
 | `intrmotiv/hrl/shuffled_hit_numerator` / `shuffled_hit_event_count` | Matched-shuffle components. Sum first, then divide. |
-| `intrmotiv/hrl/goal_condition/action_probability_tv` | Mean probability-space action change under alternate targets. |
-| `intrmotiv/hrl/goal_condition/action_sensitivity` | Mean raw-logit perturbation under alternate targets. Diagnostic only. |
+| `intrmotiv/hrl/goal_condition/action_probability_tv` | Online proxy: mean total variation between the behavior-target action distribution and a one-position rolled target in the same minibatch. |
+| `intrmotiv/hrl/goal_condition/action_sensitivity` | Online proxy: mean absolute raw-logit change under that rolled target. Diagnostic only. |
 | `intrmotiv/hrl/option_success_fraction` | Hits divided by hits plus target timeouts. This is the per-completed-option statistic. |
 | `intrmotiv/hrl/target_hit_rate` | Hits divided by valid transitions. This is an event frequency, not option success. |
 | `intrmotiv/hrl/target_hit_lift` | Commanded activation rate divided by a shifted-target rate. Unstable when the denominator is near zero. |
 
-The minimum credible statement is “the commanded target beats the matched
-shuffle.” High option success without that advantage may mean the policy
-reaches common landmarks regardless of the command.
+The online rolled-target metrics are cheap trend diagnostics, not the full
+15-alternative counterfactual evaluation. The minimum credible statement is
+“the commanded target beats the matched shuffle.” High option success without
+that advantage may mean the policy reaches common landmarks regardless of the
+command.
 
 ## 5. Retirement
 

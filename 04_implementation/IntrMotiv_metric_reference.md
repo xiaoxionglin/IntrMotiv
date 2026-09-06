@@ -80,8 +80,13 @@ reward/reward and ordinary episode-return metrics are external DMLab reward. The
 | intrmotiv/encoder/credit/total_events, matchable_events, credited_events | Dominant arrival onsets, arrivals with an in-rollout predecessor candidate, and events that pass full behavior-label/validity alignment. | `credited_events / total_events` is the source-credit preflight manipulation check. |
 | intrmotiv/encoder/credit/boundary_dropped_events, alignment_failures, invalid_intervals, collisions | Reasons matched credit was dropped, plus multiple accepted credits accumulated on one recipient row/time. | ARR and SRC must retain the same events and total mass; only the replayed recipient differs. |
 | intrmotiv/encoder/credit/reward_mass, source_lag_mean, source_lag_max | Total matched `0.1 d` credit and predecessor distance. | Verifies exact temporal credit without adding success shaping. |
+| intrmotiv/encoder/credit/scheduled_count, scheduled_reward_mass | Behavior-labeled row/time credits and their reward mass before learner-activity intersection. | Requested encoder supervision. |
+| intrmotiv/encoder/credit/applied_count, applied_reward_mass | Scheduled credits whose selected row is also post-threshold active in the learner recomputation. | Actual encoder supervision. |
+| intrmotiv/encoder/credit/replay_match | `applied_count / max(1, scheduled_count)`. | Fraction of behavior credit retained by the explicit current-activity intersection. |
+| intrmotiv/encoder/credit/arrival_loss, source_loss | Encoder-credit contribution assigned to the configured destination or predecessor branch. | Exactly one selected branch should be active in ARR/SRC treatments. |
 | intrmotiv/dg/recruitment/active_endpoint_count, activity_blocked_count, eligible_victim_endpoint_count, residual_pass_count, replacement_conversion | L-endpoint trigger funnel from active endpoint through victim/residual eligibility to assignment. | `silent` blocks active endpoints; `open` permits them up to the one-per-rollout cap. |
 | intrmotiv/dg/recruitment/predictive_supported_context_count, predictive_context_coverage_fraction, predictive_decayed_attempt_mass, predictive_invalidation_mass | Persistent PRED support, coverage, global decay, and evidence cleared by reassignment. | Evidence is checkpointed and indexed by source, goal, and predecessor context. |
+| intrmotiv/dg/recruitment/goal_adapter_resets_per_rollout, goal_adapter_reset_total | Selected FiLM rows reset in the latest rollout and cumulatively. | In FiLM retirement cells, cumulative resets must equal cumulative replacements. |
 | intrmotiv/hrl/target_hit_numerator, target_hit_event_count, shuffled_hit_numerator, shuffled_hit_event_count | Raw target-hit and matched-shuffle components. | Aggregate these components before computing rates or lift; do not average the unstable lift ratio. |
 
 These are minibatch diagnostics. Use trends and the 10k-decision place-field evaluation before claiming irreversible DG collapse.
@@ -128,6 +133,13 @@ The flat decoder uses dense temporal-distance reward. HRL hit_distance gives zer
 | intrmotiv/encoder/collision_loss         | Batch-wise collision regularizer.                                         | Zero when disabled.                                                               |
 | intrmotiv/encoder/global_punishment_loss | Weighted all-unit pre-threshold penalty.                                  | Suppresses frequent high logits; row normalization can rotate DG directions.      |
 | intrmotiv/encoder/row_repulsion_loss     | Weighted squared off-diagonal cosine similarity of normalized DG rows.    | Separates duplicate directions without an activation target.                      |
+| intrmotiv/dg/update_contract/forward_count | DG forwards executed for the current active minibatch. | Must be one under the corrected single-forward contract. |
+| intrmotiv/dg/update_contract/running_stats_update_count | DG normalization-stat updates in the current minibatch. | One in simultaneous/encoder-active legacy-BN updates and zero in decoder-only phases. |
+| intrmotiv/dg/update_contract/weight_generation, statistics_generation | Published DG weight and normalization-stat generations. | Must advance atomically when applicable. |
+| intrmotiv/dg/update_contract/publication_generation_mismatch | One when those generations disagree, otherwise zero. | Hard invariant: must remain zero. |
+| intrmotiv/replay/stale_generation_rejected_count, stale_generation_rejected_fraction | Old-representation samples rejected from the current learner input. | Expected around replacement; samples must be discarded as complete rollouts. |
+| intrmotiv/replay/dropped_rollouts_total, dropped_decisions_total | Cumulative whole-rollout experience discarded by the representation-generation barrier. | Replacement cost; take the final value, not a window average. |
+| intrmotiv/replay/deferred_updates_total | Cumulative learner updates skipped because too little normal fresh experience remained. | A protective response after replacement, not numerical failure. |
 
 The ImageNet-pretrained ResNet-18 layer-2 trunk stays fixed. Encoder metrics concern the trainable DG projection and its BatchNorm running statistics.
 
@@ -209,8 +221,28 @@ F=16 gives 16 DG nodes. Fractions exclude diagonal self-edges. The policy-buffer
 | intrmotiv/hrl/forgotten_edge_fraction         | Previously observed off-diagonal T_ctrl edges below confidence threshold. | Decay/forgetting effect.                                          |
 | intrmotiv/hrl/known_controllability_time_mean | Mean T_ctrl over confidence-qualified edges.                              | Empirical arrival-time estimate, not target-ranking cost.         |
 | intrmotiv/hrl/edge_confidence_mean            | Mean decayed off-diagonal edge confidence.                                | Strength/recency; compare only matched half-life and graph scope. |
+| intrmotiv/hrl/reliable/outgoing_node_fraction | DG nodes with at least one directed reliable outgoing edge / F. | Source coverage; distinguishes broad graphs from destination funnels. |
+| intrmotiv/hrl/reliable/largest_scc | Number of nodes in the largest reliable strongly connected component. | Mutual directed reachability. |
+| intrmotiv/hrl/reliable/reachable_pair_fraction | Ordered non-self node pairs joined by a reliable path / `F(F-1)`. | Route coverage, not spatial grounding. |
+| intrmotiv/hrl/reliable/reciprocal_fraction | Reliable directed edges whose reverse edge is also reliable / reliable edges. | Directional symmetry diagnostic. |
+| intrmotiv/hrl/reliable/top3_incoming_confidence_share | Confidence entering the three strongest destinations / all incoming confidence. | Destination concentration; high values indicate sinks/funnels. |
 
 On completion or timeout, persistent fast weights decay by gamma = 0.5 ** (1 / half_life_options). An intended i -> j success in tau steps increments confidence and updates T_ctrl as a confidence-weighted arrival-time mean. Edges below hrl_edge_confidence_threshold are infeasible for graph closure and learned deadlines. Target ranking remains novelty-first: T_ctrl gates feasibility and supplies timing, not destination cheapness.
+
+### Goal-conditioning diagnostics
+
+These online metrics reuse the same learner core output, replace each valid
+behavior target with the target from the preceding minibatch row, and rerun
+only the policy/value tail. They are cheap perturbation proxies rather than
+the full frozen intervention evaluation.
+
+| Tag | Exact quantity | Interpretation |
+|---|---|---|
+| intrmotiv/hrl/goal_condition/target_valid_fraction | Rows with a nonempty behavior target / valid learner rows. | Denominator health for the perturbation. |
+| intrmotiv/hrl/goal_condition/action_probability_tv | Mean categorical total-variation distance between behavior-target and rolled-target action distributions on valid-target rows. | Probability-space target sensitivity; still not causal success. |
+| intrmotiv/hrl/goal_condition/action_sensitivity | Mean absolute action-logit difference for the same perturbation. | Scale-dependent debugging proxy. |
+| intrmotiv/hrl/goal_condition/value_span | Mean absolute value prediction difference for the same perturbation. | Target-conditioned critic sensitivity. |
+| intrmotiv/hrl/goal_condition/film_modulation_norm_mean, film_modulation_norm_max | Mean/max magnitude of learned target-ID FiLM parameters. | Confirms FiLM moved away from identity; not evidence of useful control. |
 
 ## Topological Frontier, Planning, And Path Metrics
 
