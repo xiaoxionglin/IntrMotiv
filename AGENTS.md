@@ -34,6 +34,22 @@
   through layer 2, kept fixed during IntrMotiv training. The DG projection and
   its BatchNorm running statistics are the trainable visual-landmark layer.
 
+## Design Principle: Minimal and General
+
+- Prefer small, principled, elegant mechanisms over accumulating special-case
+  patches, tuning terms, thresholds, or interacting heuristics. The project is
+  intended to discover an intrinsic-motivation and control design that can
+  generalize beyond the current environment to broader domains such as web
+  agents and abstract graph navigation.
+- Before adding a mechanism, identify the core causal failure it addresses and
+  ask whether the same formulation makes sense without spatial or DMLab-specific
+  assumptions. Prefer changing the underlying objective, representation, or
+  information flow when that cleanly resolves the failure.
+- Do not add complexity merely to improve one benchmark or repair one observed
+  symptom. Straightforward correctness fixes are welcome. When additional
+  complexity is genuinely necessary, isolate it as an explicit experimental
+  factor, justify it against a minimal baseline, and keep its effect measurable.
+
 ## Standardized Study Workflow
 
 - Before defining a new training matrix, repeated TensorBoard analysis, or
