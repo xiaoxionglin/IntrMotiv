@@ -1,0 +1,37 @@
+{
+  "batch_name": "intrmotiv_dg_policy_gradient_first_outcome_20260906",
+  "expected_runs": 24,
+  "purpose": "interim learning-trajectory diagnosis; canonical TensorBoard analysis remains authoritative",
+  "schema": "intrmotiv/study/v1",
+  "study_id": "dg_policy_gradient_first_outcome_20260906",
+  "study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
+  "study_spec": "hpc_runs/studies/dg_policy_gradient_first_outcome.study.json",
+  "study_workflow_version": "1.4.1",
+  "training_mode": "sample_factory",
+  "wandb_entity": "xiaoxionglin-bernstein-center-freiburg",
+  "wandb_group": "intrmotiv_dg_policy_gradient_first_outcome_20260906",
+  "wandb_project": "SF_IntrMotiv_DGPolicyGradientFirstOutcome",
+  "windows": [
+    [
+      1000000,
+      5000000
+    ],
+    [
+      5000000,
+      10000000
+    ],
+    [
+      10000000,
+      15000000
+    ],
+    [
+      15000000,
+      20000000
+    ],
+    [
+      20000000,
+      23000000
+    ]
+  ],
+  "workflow_version": "1.4.1"
+}
