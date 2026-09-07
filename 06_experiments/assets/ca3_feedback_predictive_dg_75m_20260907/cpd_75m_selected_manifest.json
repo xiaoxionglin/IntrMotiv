@@ -1,0 +1,17 @@
+{
+  "selection_rule": "Seed 99 at 75M for the predefined mechanistic sequence BASE, passive predictor-only, gated CA3 direct feedback plus passive predictor, and additive CA3 direct feedback plus passive predictor.",
+  "place_field_transform": "Cached occupancy-normalized smoothed rate maps; each unit divided by its own maximum for spatial-shape display only; unvisited bins masked.",
+  "trajectory_transform": "Raw retained pose; every tenth adjacent within-segment line drawn and colored by time; occupancy shown as log(1 + count).",
+  "graph_transform": "Cached reliable directed adjacency in a circular non-spatial layout; edge color and width encode posterior reliability; node size encodes visits.",
+  "limitations": [
+    "Policy-driven online windows are not fixed-trajectory checkpoint rollouts.",
+    "Representative visualizations use one predeclared trajectory seed (99).",
+    "No graph has spatially valid endpoints under the cached grounding contract."
+  ],
+  "inputs": [
+    "base.npz",
+    "p_pass.npz",
+    "gate_ca3_dir_pass.npz",
+    "add_ca3_dir_pass.npz"
+  ]
+}
