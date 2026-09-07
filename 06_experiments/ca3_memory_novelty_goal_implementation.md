@@ -57,7 +57,8 @@ checkpoint round-trips, state allocation, and command replay.
 The established place-field evaluator now stores raw rectified-DG maps alongside
 post-inhibition maps and continuous pre-threshold maps. Its observation-panel
 record/replay options retain full policy observations and episode boundaries.
-Predeclared common panel: F_D_BASE seed 99 at 5M, 10k decisions. Replay that same
+Predeclared common panel: F_D_BASE seed 99 at 5M, 10k decisions (the legacy
+inclusive rollout limit requires `--max-num-frames 9999`). Replay that same
 panel through every checkpoint; free-policy trajectories are not drift tests.
 The current-observation pose is paired with the current DG output (an existing
 one-step offset was corrected), and the saved training environment is retained
@@ -122,6 +123,50 @@ Preflight submission: ordinary jobs 7998917–7998926, fingerprint
 Its reviewed/submitted launcher directory is
 `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ca3_memory_novelty_goal_20260907_preflight/20260907T170621Z`.
 
-Final runtime audit, evaluation smoke, production fingerprint, and production
-job IDs are appended after their actual verification. Do not interpret this
-intermediate record as confirmation of production submission.
+All ten preflight jobs completed with Slurm exit `0:0`. Every run logged
+2,031,616 frames at its final scalar checkpoint and passed the runtime audit.
+STOP PPO-to-DG gradient norms remained exactly zero, JOINT gradients were
+nonzero, every condition received decoder learning signals, and goal replay
+mismatch and forbidden gate payouts remained zero.
+
+Final authoritative regression suite: **257 passed**, 22 warnings; synchronized
+canonical workflow suite: **27 passed**. Evaluation smoke `7998998` completed
+with exit `0:0` in 7m21s: exact common-panel replay, four complete matched-command
+trials per goal condition, unchanged frozen policy/DG buffers. Its two fixed
+command IDs are a correctness smoke, not the all-identity production protocol;
+the observed zero CTC in this tiny early-checkpoint smoke is not an efficacy
+conclusion. Earlier smoke jobs `7998977` and `7998981` failed closed on reused
+engine reset mismatch. `7998991` was cancelled to replace its oversized smoke
+with the explicit two-command bound; no training run was cancelled.
+
+Replay now materializes compressed observation arrays once, avoiding quadratic
+repeated decompression, and copies retained activity before resetting episode
+state. A focused test covers that boundary aliasing failure. Spatial component
+labelling reuses the standard dependency-free eight-connected implementation;
+no new runtime package installation was needed.
+
+Lightweight evidence lives in `06_experiments/results/ca3_memory_submission_20260907/`.
+The seventeen-file source archive in `hpc_runs/source_snapshots/` preserves the
+deployed implementation. Archive SHA-256:
+`83d5e265d92e78bba211bccca18c996a98deaab0183269f4e4c79423f18c3ea9`.
+
+Production print-only manifest passed the exact 50-run/path audit at
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ca3_memory_novelty_goal_20260907/20260907T172432Z`.
+Production study SHA-256:
+`31e790e44e4bd36de11b0f184e7f6aa27c8d729c3846af23965157d0cbabeb69`.
+Submission was initiated only after the completed preflight and integration
+gates; actual production job IDs are recorded below after submission audit.
+
+**Production submitted successfully at 19:40 CEST, 2026-09-07.** The submitted
+manifest is
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ca3_memory_novelty_goal_20260907/20260907T173941Z/jobs.tsv`.
+Post-submission audit: 50/50 submitted, unique real job IDs, exact study commands,
+and valid workspace paths. IDs are non-contiguous between 7999023 and 7999079;
+use the saved `production_jobs.tsv`, not an assumed numeric range.
+
+Startup check at approximately 19:42 CEST: 49 RUNNING and one PENDING
+(`7999079`, G_DMR_JOINT seed 123). The first production run had reached
+163,840 frames. This completes implementation and submission, not training or
+scientific validation of the mechanism. The next checkpoint analysis should
+use the canonical collection/telemetry commands and the saved study hash;
+do not submit this matrix again.

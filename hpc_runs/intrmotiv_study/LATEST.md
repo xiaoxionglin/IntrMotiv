@@ -14,7 +14,7 @@ RunSpec context. Selected runs receive the intervention checkpoint in the
 standard inventory even when their seeds are outside the ordinary field-map
 subset. This supports all-seed goal probes without evaluating flat policies as
 goal-conditioned policies. Local and synchronized NEMO2 focused suites:
-27 tests passed. The updated IntrMotiv runtime passed 256 tests. Ten CA3-memory
+27 tests passed. The updated IntrMotiv runtime passed 257 tests. Ten CA3-memory
 training preflight jobs completed with exit 0 and passed the 2M-frame scientific
 runtime audit. Exact deployment and production records are in
 `06_experiments/ca3_memory_novelty_goal_implementation.md`.

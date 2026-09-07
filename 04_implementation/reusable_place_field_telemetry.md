@@ -469,6 +469,9 @@ The same `place_fields.py` entry point supports mutually exclusive
 panels in the allocated workspace. They preserve all tensor observations and
 episode boundaries; replay bypasses policy actions. Compare identical panels
 when interpreting representation changes across policies or checkpoints.
+Replay materializes compressed arrays once and copies activation snapshots
+before episode resets; regression tests protect against repeated decompression
+and NumPy/Torch shared-storage corruption at terminal boundaries.
 New NPZs preserve the original fields and add raw rectified-DG maps beside
 post-inhibition and continuous pre-threshold maps. `pose_alignment` explicitly
 records `observation_time`; older one-step-offset artifacts must not be silently
