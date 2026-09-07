@@ -1,0 +1,48 @@
+{
+  "retrieved_utc": "2026-09-07T22:21:02.056760+00:00",
+  "source": "W&B sampled history, requested 10000 rows/run; exact full scan validation to follow for selected runs",
+  "studies": [
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "dg_policy_gradient_first_outcome_20260906",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/dg_policy_gradient_first_outcome.study.json",
+      "study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
+      "batch_name": "intrmotiv_dg_policy_gradient_first_outcome_20260906",
+      "training_mode": "sample_factory",
+      "expected_runs": 24,
+      "project": "SF_IntrMotiv_DGPolicyGradientFirstOutcome",
+      "found": 24,
+      "expected": 24
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "ca3_feedback_predictive_dg_20260907",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_feedback_predictive_dg.study.json",
+      "study_sha256": "c11ca69dfbd8e0fdf662e3e01b918aa070e02b03e7aba6f4de198628fc1ee3b9",
+      "batch_name": "intrmotiv_ca3_feedback_predictive_dg_20260907",
+      "training_mode": "sample_factory",
+      "expected_runs": 81,
+      "project": "SF_IntrMotiv_CA3FeedbackPredictiveDG",
+      "found": 81,
+      "expected": 81
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.5.0",
+      "study_id": "ca3_memory_novelty_goal_20260907",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_memory_novelty_goal.study.json",
+      "study_sha256": "31e790e44e4bd36de11b0f184e7f6aa27c8d729c3846af23965157d0cbabeb69",
+      "batch_name": "intrmotiv_ca3_memory_novelty_goal_20260907",
+      "training_mode": "sample_factory",
+      "expected_runs": 50,
+      "project": "SF_IntrMotiv_CA3MemoryNoveltyGoal",
+      "found": 50,
+      "expected": 50
+    }
+  ]
+}
