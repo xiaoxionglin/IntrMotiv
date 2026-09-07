@@ -1,0 +1,55 @@
+{
+  "source_manifest": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/analysis_manifest.tsv",
+  "manifest_sha256": "c2f2ca0867670672b4f7953da111ccd328ba50cc98d7fb2b1f2967e03d333412",
+  "protocol": "original 10000-decision stochastic probes; historical manifest; no new StudySpec",
+  "pose_alignment": "legacy artifacts, no pose_alignment metadata; possible one-decision offset",
+  "display_normalization": "each map divided by its own max absolute visited-cell value; title gives denominator",
+  "map_axes": "original array axes x,y; transposed for Cartesian display",
+  "font": "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "matplotlib": "3.10.9",
+  "numpy": "1.26.4",
+  "artifacts": [
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s8__100m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8__c15_topology_ucb_direct_o1__s8__100m/place_fields.npz",
+      "sha256": "2786f29e8e0612da2c4974e672660ae5a1d16adc04147be4286c15c5060c6512",
+      "checkpoint_frames": 100040704
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s99__006m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__c15_topology_ucb_direct_o1__s99__006m/place_fields.npz",
+      "sha256": "78ca24e559fd3f8cf53dcbc5ec66753cbe3eb5a6e88398310a6fa363f0c184db",
+      "checkpoint_frames": 6258688
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s99__026m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__c15_topology_ucb_direct_o1__s99__026m/place_fields.npz",
+      "sha256": "dab624a60898a3d071127f72051b306b5fc0573db5858ee166043fc5def57375",
+      "checkpoint_frames": 26443776
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s99__050m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__c15_topology_ucb_direct_o1__s99__050m/place_fields.npz",
+      "sha256": "a2f84a3e939c85150b501933babe68dbe82907c97bc206e2aa81b41870d8a4fa",
+      "checkpoint_frames": 50102272
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s99__073m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__c15_topology_ucb_direct_o1__s99__073m/place_fields.npz",
+      "sha256": "81c69a4b491a5bba2f573ca811456f02dc1d5456fce584f9a682c2b1bb38a986",
+      "checkpoint_frames": 73728000
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s99__100m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99__c15_topology_ucb_direct_o1__s99__100m/place_fields.npz",
+      "sha256": "370ba5a1f2e41d229ee3cc31ffdc1fda9296a9a9f7d9ae152faed11f4733c07c",
+      "checkpoint_frames": 100040704
+    },
+    {
+      "label_suffix": "c15_topology_ucb_direct_o1__s123__100m",
+      "artifact": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_candidates_20260902_place_fields/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123__00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123__c15_topology_ucb_direct_o1__s123__100m/place_fields.npz",
+      "sha256": "b9967034d0febbcafeb09fead43a19690c8dae5d4e938797306dab39dfec8a08",
+      "checkpoint_frames": 100040704
+    }
+  ]
+}

@@ -382,6 +382,217 @@ and ends. Resets and large position jumps are not connected.
 
 ![C05 seed-99 trajectory, decisions 9,701--10,000](assets/corrected_core_candidates_place_fields_20260902/c05_s99_trajectory_chunk_3.png)
 
+### Original C15: distributed peaks, fragmented fields, uneven exploration
+
+**Added 2026-09-08 from the already completed probes; no new training or
+rollout.** This is original corrected-core **`c15_topology_ucb_direct_o1`**,
+not a later DGP, CPD, or SAT condition with the same C15 label. All seven
+manifest rows resolve to existing artifacts. These are **10,000-decision
+stochastic policy probes** (10,001 recorded samples including the initial
+sample), not the later 100k-decision gallery or online 100k-sample snapshots.
+The three terminal checkpoints are all at **100,040,704 training frames**.
+
+The maps refine the earlier “coverage winner” interpretation: **C15 reaches
+widely separated parts of the environment, but does not learn a population of
+compact, single-location fields.** Its behavior can spend long intervals in a
+small region even while cumulative coverage is high. This supports uneven,
+sometimes locally repetitive exploration; it does not establish that the
+representation is useful for intentional local control.
+
+| Terminal seed | Visited cells / 361 | Samples in top 10 cells | Active / silent units | SI (bits) | Active / pre-threshold cosine | Threshold / pre-threshold peak bins |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 8 | 249 (69.0%) | 59.6% | 16 / 0 | 0.134 | 0.098 / −0.009 | 16 / 15 |
+| 99 | 310 (85.9%) | 24.0% | 16 / 0 | 0.112 | 0.165 / −0.013 | 16 / 16 |
+| 123 | 272 (75.3%) | 60.3% | 16 / 0 | 0.158 | 0.085 / −0.016 | 16 / 15 |
+
+These are individual policy probes, not independent per-unit replicates.
+SI is mean spatial information across the active units. The top-ten statistic
+uses the ten highest-occupancy bins, which need not form one contiguous region.
+The occupancy and paths below locate that concentration: seeds 8 and 123
+heavily revisit the lower-left boundary/corner; seed 123 has repeated local
+loops in both middle windows. Seed 99 samples the interior and perimeter more
+widely. Coverage counts include all visited bins, without a dwell-time minimum;
+361 is the rectangular grid size, not a verified count of navigable cells.
+
+**Peak diversity is real, but insufficient.** Thresholded mean pairwise peak
+separation is 10.30, 11.49, and 10.47 bins for seeds 8, 99, and 123;
+continuous-logit separation is 9.77, 10.08, and 9.68 bins. One bin is 100
+DMLab position units. The peak plots show local neighbors within a globally
+distributed population: in every seed the nearest-neighbor distance has
+median 2.24 bins and minimum 1 bin. Distinct peaks therefore do not imply
+uniform tiling or absence of local clustering. Low continuous-map cosine and
+15–16 continuous peak bins show that between-unit differentiation is not
+created solely by the hard threshold. Signed logit cosine is not a direct
+measure of compactness.
+
+**Field fragmentation persists after the canonical smoothing check.** On the
+raw maps, 16/16, 15/16, and 13/16 units have multiple 4-connected regions at
+half their own peak. Those raw counts are sensitive to sparse sampling.
+The canonical offline multilevel analysis instead smooths activity sums and
+occupancy separately with the binomial kernel, divides them, masks unvisited
+bins, and uses 8-connected components at 30%, 50%, and 70% of each unit's peak.
+A unit is eligible with at least 20 active in-bounds observations across three
+bins; a single-field classification requires at least 80% of superlevel mass
+in the dominant component at every threshold.
+
+| Seed | Eligible units | Single-field units / eligible | Mean components at 30% / 50% / 70% |
+| --- | ---: | ---: | ---: |
+| 8 | 16 | 1 / 16 | 6.50 / 4.25 / 2.50 |
+| 99 | 15 | 0 / 15 | 8.80 / 5.67 / 2.93 |
+| 123 | 15 | 0 / 15 | 10.47 / 5.20 / 2.93 |
+
+Thus only one of 46 eligible terminal unit maps passes this criterion; the
+two ineligible units remain active, rather than silent. The visual maps show
+multiple separated response patches and broad responses as well as isolated
+hotspots. For example, seed-8 DG 15 has a broad interior response, while
+seed-99 DG 7 has several separated hotspots that also appear in its continuous
+logit map. Occupancy is sparse away from favored paths (median visited-bin
+sample counts 8, 16, and 9), so single-bin peaks and component counts should
+not be treated as established stable biological place fields. These legacy
+NPZs have no `pose_alignment` metadata and may retain the historical
+one-decision pose offset; they have not been silently replaced by the later
+alignment-corrected evaluator.
+
+#### Seed-99 checkpoint evolution
+
+| Actual training frames | Visited cells | SI (bits) | Active-map cosine | Unique peaks | Single-field / eligible |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 6,258,688 | 308 | 0.094 | 0.164 | 14 | 0 / 16 |
+| 26,443,776 | 318 | 0.105 | 0.191 | 16 | 0 / 15 |
+| 50,102,272 | 317 | 0.122 | 0.175 | 14 | 1 / 16 |
+| 73,728,000 | 308 | 0.106 | 0.161 | 15 | 0 / 15 |
+| 100,040,704 | 310 | 0.112 | 0.165 | 16 | 0 / 15 |
+
+The five probes stay broadly sampled with differentiated peaks, without a
+monotonic transition to compact fields. They follow different policy-driven
+paths, so this is a checkpoint summary rather than a fixed-trajectory drift
+test. Original C15's earlier external-exploration advantage remains valid;
+these maps do not explain it causally. Target-command interventions and
+chance-corrected target arrivals are still needed to demonstrate useful local
+control.
+
+#### Figure reading and display scales
+
+Every terminal seed below includes **all 16 DG units**, four per page, followed
+by all 16 continuous pre-threshold maps, occupancy/peak context, and four fixed
+300-sample trajectory windows. Unit IDs are within-run identities, not matched
+cells across independently trained seeds. Gray means unvisited; no map
+interpolation or display smoothing is applied. Arrays are stored in x/y order
+and transposed for Cartesian display. Bin 0 is centered at position 150;
+bin 18 at 1,950, on each axis.
+
+To reveal field shape despite large amplitude differences, each thresholded
+map is divided by its own positive peak; each continuous map is divided by its
+own maximum absolute visited-bin value. The numeric **scale** printed above
+each unit is that divisor in the original activity/logit units. Color intensity
+therefore compares relative spatial shape, not absolute activation between
+units or seeds; multiply by the displayed scale to recover the map value.
+This normalization changes neither peak positions nor the reported metrics,
+which use the original arrays. Occupancy uses a logarithmic sample-count scale.
+Trajectory windows are selected at evenly spaced start indices, break at
+recorded episode boundaries, and mark the window start in orange.
+
+#### C15 terminal seed 8
+
+![C15 seed 8: Occupancy and unit peak locations](assets/corrected_core_c15_place_fields_20260908/c15_s8_context.png)
+
+![C15 seed 8: Four trajectory windows](assets/corrected_core_c15_place_fields_20260908/c15_s8_paths.png)
+
+**Thresholded DG activity, seed 8.** Unit-specific normalization as defined above.
+
+![C15 seed 8: Thresholded DG activity, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s8_rate_00.png)
+
+![C15 seed 8: Thresholded DG activity, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s8_rate_04.png)
+
+![C15 seed 8: Thresholded DG activity, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s8_rate_08.png)
+
+![C15 seed 8: Thresholded DG activity, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s8_rate_12.png)
+
+**Continuous pre-threshold DG logits, seed 8.** Unit-specific normalization as defined above.
+
+![C15 seed 8: Continuous pre-threshold DG logits, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s8_prethreshold_00.png)
+
+![C15 seed 8: Continuous pre-threshold DG logits, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s8_prethreshold_04.png)
+
+![C15 seed 8: Continuous pre-threshold DG logits, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s8_prethreshold_08.png)
+
+![C15 seed 8: Continuous pre-threshold DG logits, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s8_prethreshold_12.png)
+
+#### C15 terminal seed 99
+
+![C15 seed 99: Occupancy and unit peak locations](assets/corrected_core_c15_place_fields_20260908/c15_s99_context.png)
+
+![C15 seed 99: Four trajectory windows](assets/corrected_core_c15_place_fields_20260908/c15_s99_paths.png)
+
+**Thresholded DG activity, seed 99.** Unit-specific normalization as defined above.
+
+![C15 seed 99: Thresholded DG activity, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s99_rate_00.png)
+
+![C15 seed 99: Thresholded DG activity, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s99_rate_04.png)
+
+![C15 seed 99: Thresholded DG activity, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s99_rate_08.png)
+
+![C15 seed 99: Thresholded DG activity, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s99_rate_12.png)
+
+**Continuous pre-threshold DG logits, seed 99.** Unit-specific normalization as defined above.
+
+![C15 seed 99: Continuous pre-threshold DG logits, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s99_prethreshold_00.png)
+
+![C15 seed 99: Continuous pre-threshold DG logits, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s99_prethreshold_04.png)
+
+![C15 seed 99: Continuous pre-threshold DG logits, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s99_prethreshold_08.png)
+
+![C15 seed 99: Continuous pre-threshold DG logits, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s99_prethreshold_12.png)
+
+#### C15 terminal seed 123
+
+![C15 seed 123: Occupancy and unit peak locations](assets/corrected_core_c15_place_fields_20260908/c15_s123_context.png)
+
+![C15 seed 123: Four trajectory windows](assets/corrected_core_c15_place_fields_20260908/c15_s123_paths.png)
+
+**Thresholded DG activity, seed 123.** Unit-specific normalization as defined above.
+
+![C15 seed 123: Thresholded DG activity, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s123_rate_00.png)
+
+![C15 seed 123: Thresholded DG activity, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s123_rate_04.png)
+
+![C15 seed 123: Thresholded DG activity, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s123_rate_08.png)
+
+![C15 seed 123: Thresholded DG activity, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s123_rate_12.png)
+
+**Continuous pre-threshold DG logits, seed 123.** Unit-specific normalization as defined above.
+
+![C15 seed 123: Continuous pre-threshold DG logits, units 0–3](assets/corrected_core_c15_place_fields_20260908/c15_s123_prethreshold_00.png)
+
+![C15 seed 123: Continuous pre-threshold DG logits, units 4–7](assets/corrected_core_c15_place_fields_20260908/c15_s123_prethreshold_04.png)
+
+![C15 seed 123: Continuous pre-threshold DG logits, units 8–11](assets/corrected_core_c15_place_fields_20260908/c15_s123_prethreshold_08.png)
+
+![C15 seed 123: Continuous pre-threshold DG logits, units 12–15](assets/corrected_core_c15_place_fields_20260908/c15_s123_prethreshold_12.png)
+
+#### Reproduction and reusable lesson
+
+The thin adapter `06_experiments/render_c15_completed_place_fields.py` reads
+the existing `analysis_manifest.tsv`, selects the exact condition, resolves
+artifacts through the canonical evaluator, and calls its `derive_row` and
+`per_unit_rows`. Run it from the NEMO2 runtime checkout with `PYTHONPATH=.` and
+the documented SFgit interpreter, passing the telemetry root and a workspace
+output directory. Only array analysis and rendering run on the login node;
+there is no DMLab rollout. Outputs remain in `c15_report/` under the original
+telemetry root. The local figure folder includes SVG exports, `c15_metrics.csv`,
+`c15_per_unit.csv`, and `provenance.json` with manifest/artifact SHA-256 values.
+This is recovery of a historical manifest predating StudySpec; no schema,
+workflow version, or study fingerprint has been invented for it.
+
+Reuse lesson: completed manifest rows and NPZs were authoritative; a missing
+report gallery did not mean missing telemetry. Reusing the canonical analysis
+avoided a new sweep. A shared absolute color scale initially hid most units
+behind a few high-amplitude hotspots, so the final shape gallery explicitly
+labels each unit's normalization. Verify array axes against evaluator binning,
+inspect occupancy and full maps before interpreting peak diversity, and keep
+raw NPZs remote. Scalable fonts and all figure pages were checked at report
+viewing size; the initial long context-panel title was shortened after QA.
+
 ### Valid conclusions and limitations
 
 The corrected batch supports three provisional conclusions:
