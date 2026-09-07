@@ -155,6 +155,40 @@ a false dense graph, FIRST removes it, and neither STOP/JOINT nor LEG/FiLM
 creates grounded control. It should not be used to conclude that end-to-end
 PPO-to-DG gradients are generally ineffective.
 
+## Is longer training likely to rescue it?
+
+The apparent late learning in the completed DPR and Saturday studies was
+mostly an increase in how strongly the policy reacted to target identity, not
+an increase in selecting the commanded outcome. Between the 45--55M and
+65--75M windows:
+
+- action sensitivity increased in 42/54 DPR runs and 32/36 Saturday runs;
+- mean action-sensitivity gains were `+0.00330` and `+0.00279` respectively;
+- DPR coverage decreased by `1.60` on average and Saturday coverage was flat
+  (`+0.13`);
+- Saturday target-versus-shuffle advantage decreased by `0.00181` on average;
+- only 12/36 Saturday runs improved that advantage, only one crossed from
+  negative to positive, and none crossed above a `5%` advantage.
+
+Thus the user's visual observation of post-50M improvement is real, but the
+improving curves are chiefly conditioning and proxy curves. They did not turn
+into reliable causal control by 75M.
+
+The current batch provides stronger evidence against rescue by duration. FIRST
+commanded-versus-shuffled first-outcome advantage progresses from about
+`-3.4%` at 1--5M to `-5.8%`, `-8.5%`, `-8.4%`, and `-9.9%` in successive
+windows through 23M. HIT remains within roughly one percent of its shuffled
+target rate while its graph saturates. The common candidate set is already
+complete, so more experience repeats the same ill-posed all-pairs problem.
+
+Recommendation: let the already-running study reach its declared 75M horizon
+if the 50M/75M representation checkpoints and complete factorial diagnosis are
+worth the remaining compute, but do not extend it beyond 75M and do not expect
+late training to rescue control. If compute conservation dominates, 50M is a
+sufficient early-stop point after the synchronized snapshot. Any next training
+budget should go to correcting candidate locality rather than increasing this
+study's horizon.
+
 ## Artifacts
 
 - W&B trajectory collector:
@@ -165,6 +199,7 @@ PPO-to-DG gradients are generally ineffective.
   `06_experiments/results/dgp_interim_20260907/condition_window_summary.csv`
 - exact provenance:
   `06_experiments/results/dgp_interim_20260907/analysis_manifest.json`
+- completed-study late-window audit:
+  `06_experiments/results/late_learning_audit_20260907/late_deltas_with_crossings.csv`
 - NEMO2 spatial summary:
   `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/dgp_interim_spatial_5m_20260907/`
-
