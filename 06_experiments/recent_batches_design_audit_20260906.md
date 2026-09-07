@@ -208,15 +208,15 @@ replacement does not repair the representation and can make behavior worse.
 
 At the largest common step, 31.62M, the `X1 - X0` temporal-exclusion effect was:
 
-| Outcome | Mean change |
-|---|---:|
-| Silent DG fraction | `+0.134` |
-| Usage entropy | `-0.187` |
-| Option success | `-0.0677` |
-| Target-logit sensitivity | `-0.0172` |
-| Reachable pairs | `-0.0247` |
-| Total replacements per run | `+83.42` |
-| Repeat replacements per run | `+67.71` |
+| Outcome                     | Mean change |
+| --------------------------- | ----------: |
+| Silent DG fraction          |    `+0.134` |
+| Usage entropy               |    `-0.187` |
+| Option success              |   `-0.0677` |
+| Target-logit sensitivity    |   `-0.0172` |
+| Reachable pairs             |   `-0.0247` |
+| Total replacements per run  |    `+83.42` |
+| Repeat replacements per run |    `+67.71` |
 
 This decisively rejects X1 temporal exclusion plus recruitment as currently
 implemented.
