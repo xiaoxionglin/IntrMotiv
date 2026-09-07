@@ -462,3 +462,36 @@ the raw artifact contract when needed, and preserve old manifests and NPZs.
 The 2026-08-27 run evaluated 28 tasks with no failures under Slurm job
 `7881719`. Its report, figures, limitations, and artifact root are recorded in
 [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].
+## CA3 memory additions (2026-09-07)
+
+The same `place_fields.py` entry point supports mutually exclusive
+`--record-observation-panel PATH` and `--replay-observation-panel PATH`. Keep
+panels in the allocated workspace. They preserve all tensor observations and
+episode boundaries; replay bypasses policy actions. Compare identical panels
+when interpreting representation changes across policies or checkpoints.
+New NPZs preserve the original fields and add raw rectified-DG maps beside
+post-inhibition and continuous pre-threshold maps. `pose_alignment` explicitly
+records `observation_time`; older one-step-offset artifacts must not be silently
+pooled with corrected ones. Evaluation now preserves the saved training
+environment, including fixed-length variants.
+
+Graph-free absent-target policies are handled by the existing target-control
+entry point through `absent_goal_interventions.py`. Never substitute a
+post-hoc target-label shuffle for matched command interventions. Seeded resets
+of an existing DMLab engine were observed to differ in position by 7.61 units
+and image intensity by up to 119; fresh engine construction per branch plus
+exact observation/core-state comparison is required. Engine initialization
+cost should be budgeted separately from decision count. Use two fixed command
+IDs for integration smoke only; production defaults evaluate all absent IDs.
+
+Use `qualify_absent_goal_interventions.py TRIALS_CSV COMMON_PANEL_FIELDS_NPZ
+OUTPUT_JSON` for independent spatial qualification. Its connected-component
+labeller is reused from the canonical workflow, avoiding a SciPy dependency
+that is absent in the cluster runtime. Missing independent maps mean missing
+spatial-control evidence, not a zero or a positive result.
+
+`behavior_diagnostics.json` adds episode-segmented dominant onset intervals,
+period-1–4 repeated-event motifs, physical displacement, stationarity, and
+64-decision path straightness. Read these with coverage and raw/post-inhibition
+field diagnostics; neither fewer events nor low straightness alone proves a
+change in cyclic exploration.

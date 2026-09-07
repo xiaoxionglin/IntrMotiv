@@ -1,0 +1,557 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.4.1",
+  "study_sha256": "d0f8efc18b49f616d0d3a373b4eefeb04ff6bae18c4cead35d1262fa05d60ef3",
+  "required_frames": 2000000,
+  "passed": true,
+  "runs": [
+    {
+      "run": "CMNG_F_D_BASE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.0712890625,
+        "max": 0.08740234375,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.208984375,
+        "max": 0.24853515625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.15349628031253815,
+        "max": 0.534445583820343,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.20751953125,
+        "max": 0.248046875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_D_GATE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.07421875,
+        "max": 0.08251953125,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.22509765625,
+        "max": 0.23291015625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.1479044407606125,
+        "max": 0.4387727677822113,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.07177734375,
+        "max": 0.08154296875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_D_SOFT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.095703125,
+        "max": 0.111328125,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.15380859375,
+        "max": 0.18212890625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.2201138436794281,
+        "max": 0.5030813217163086,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.09423828125,
+        "max": 0.10986328125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_D_HARD_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.13818359375,
+        "max": 0.13818359375,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.13818359375,
+        "max": 0.13818359375,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.22643066942691803,
+        "max": 0.42883315682411194,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.13720703125,
+        "max": 0.13720703125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_DMR_BASE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.01904296875,
+        "max": 0.05029296875,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.033203125,
+        "max": 0.09228515625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.10293368995189667,
+        "max": 0.3247434198856354,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0244140625,
+        "max": 0.0908203125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_DMR_GATE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.0107421875,
+        "max": 0.044921875,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.01123046875,
+        "max": 0.07568359375,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.07009287923574448,
+        "max": 0.29065895080566406,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0068359375,
+        "max": 0.0439453125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_DMR_SOFT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.03662109375,
+        "max": 0.05224609375,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.0419921875,
+        "max": 0.0634765625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.17047201097011566,
+        "max": 0.3043663203716278,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0322265625,
+        "max": 0.0478515625,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_F_DMR_HARD_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_active": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.05224609375,
+        "max": 0.06494140625,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.05224609375,
+        "max": 0.06494140625,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.1834050863981247,
+        "max": 0.34128767251968384,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.05029296875,
+        "max": 0.06298828125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_G_DMR_STOP_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0009765625,
+        "max": 0.00439453125,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.01953125,
+        "max": 0.05078125,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.0244140625,
+        "max": 0.0830078125,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.13001148402690887,
+        "max": 0.2544267773628235,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0009765625,
+        "max": 0.00439453125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "CMNG_G_DMR_JOINT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "gate_violation": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.00048828125,
+        "max": 0.0048828125,
+        "samples": 63
+      },
+      "novel_onset": {
+        "last": 0.0146484375,
+        "max": 0.0537109375,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.02197265625,
+        "max": 0.09033203125,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.008366659283638,
+        "max": 0.58966463804245,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.10242388397455215,
+        "max": 0.24052874743938446,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.00048828125,
+        "max": 0.0048828125,
+        "samples": 63
+      }
+    }
+  ]
+}

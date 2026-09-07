@@ -13,8 +13,11 @@ Version 1.5.0 adds optional `telemetry.intervention.where` selection by validate
 RunSpec context. Selected runs receive the intervention checkpoint in the
 standard inventory even when their seeds are outside the ordinary field-map
 subset. This supports all-seed goal probes without evaluating flat policies as
-goal-conditioned policies. Local focused suite: 27 tests passed. NEMO2
-deployment verification is recorded in the CA3 memory implementation report.
+goal-conditioned policies. Local and synchronized NEMO2 focused suites:
+27 tests passed. The updated IntrMotiv runtime passed 256 tests. Ten CA3-memory
+training preflight jobs completed with exit 0 and passed the 2M-frame scientific
+runtime audit. Exact deployment and production records are in
+`06_experiments/ca3_memory_novelty_goal_implementation.md`.
 
 The previous vault source and NEMO2 runtime copy were synchronized at `1.4.1`. Version
 1.4 extends the compact online-spatial snapshot contract with cached place-field
