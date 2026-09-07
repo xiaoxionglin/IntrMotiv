@@ -79,6 +79,28 @@
   manifest-driven evaluator remains the place-field execution backend. The
   study workflow coordinates them; it does not replace their safety checks.
 
+## Continuous Workflow Improvement
+
+- At the end of every non-trivial task, summarize the reusable experience:
+  what worked, what failed or was slow, which evidence and commands were
+  authoritative, and how the same task should be approached more efficiently
+  next time.
+- Actively optimize repeated work. Reuse existing artifacts, record reliable
+  shortcuts and failure modes in the nearest canonical workflow document, and
+  improve shared scripts or focused tests when a generally reusable change is
+  justified. Do not create duplicate workflows or add special-case machinery
+  for a one-off inconvenience.
+- Treat recurrence as an infrastructure signal. When the same failure,
+  bottleneck, manual recovery, or inefficient analysis pattern appears more
+  than once, record the concrete evidence and consider handing a bounded
+  improvement task to an infrastructure-focused agent. Keep that work separate
+  from the scientific interpretation, give the agent the observed failure mode
+  and acceptance criteria, and integrate only a general, tested improvement.
+- Respect the task's mutation scope while doing this. For read-only work,
+  report the proposed process improvement without editing files. Before a
+  similar future task, consult the recorded lessons first so prior discovery,
+  failed attempts, and expensive analysis are not repeated unnecessarily.
+
 ## NEMO2 Access
 
 - Do not blindly retry SSH to NEMO2 after authentication failures.
