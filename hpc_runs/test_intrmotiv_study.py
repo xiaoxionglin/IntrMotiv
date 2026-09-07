@@ -19,6 +19,8 @@ from hpc_runs.intrmotiv_study.telemetry import (
     MANIFEST_COLUMNS,
     CheckpointRecord,
     build_place_field_manifests,
+    build_intervention_manifest,
+    selected_intervention_runs,
 )
 from hpc_runs.intrmotiv_study.tensorboard import latest_at_or_before, mean_in_window
 from hpc_runs.intrmotiv_study.spatial import (
@@ -67,7 +69,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.4.1")
+        self.assertEqual(WORKFLOW_VERSION, "1.5.0")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -75,6 +77,23 @@ class StudySpecTests(unittest.TestCase):
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
         self.assertEqual(schema["$id"], SCHEMA_ID)
         self.assertIn("training", schema["properties"])
+
+    def test_goal_subset_interventions_include_all_five_seeds(self):
+        study = load_study(SPEC_PATH.with_name("ca3_memory_novelty_goal.study.json"))
+        selected = selected_intervention_runs(study)
+        self.assertEqual(len(selected), 10)
+        inventory = [CheckpointRecord(run.name, t, t, Path(study.workspace_root) / (run.name + ".pth"),
+                     Path(study.workspace_root) / run.name) for run in study.expand_runs()
+                     for t in study.telemetry["target_frames"]]
+        rows, _ = build_place_field_manifests(study, inventory, require_checkpoint_files=False)
+        interventions = build_intervention_manifest(study, rows)
+        self.assertEqual(len(interventions), 10)
+        self.assertEqual({int(row['seed']) for row in interventions}, set(study.seeds))
+        with self.assertRaises(SpecError):
+            build_intervention_manifest(study, [row for row in rows if row != interventions[0]])
+        study.telemetry['intervention']['where'] = {'misspelled': 'goal'}
+        with self.assertRaises(SpecError):
+            selected_intervention_runs(study)
 
     def test_historical_manifest_is_now_a_thin_compatibility_adapter(self):
         rows = legacy_rows()

@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/study/v1",
-  "workflow_version": "1.4.1",
+  "workflow_version": "1.5.0",
   "study_id": "ca3_memory_novelty_goal_20260907",
   "description": "Finite CA3 novelty: eight matched flat cells and absent-target STOP/JOINT goal control.",
   "expected_runs": 50,
@@ -346,7 +346,17 @@
       "dg_silent_fraction": "intrmotiv/dg/silent_unit_fraction",
       "dg_usage_entropy": "intrmotiv/dg/usage_entropy",
       "reward_nonzero": "intrmotiv/reward/intrinsic_nonzero_fraction",
-      "suppressed_fraction": "intrmotiv/dg/context/suppressed_fraction"
+      "suppressed_fraction": "intrmotiv/dg/context/suppressed_fraction",
+      "onset_fraction": "intrmotiv/memory/onset_fraction",
+      "novel_onset_fraction": "intrmotiv/memory/novel_onset_fraction",
+      "familiar_onset_fraction": "intrmotiv/memory/familiar_onset_fraction",
+      "gate_violation": "intrmotiv/memory/gate_violation_fraction",
+      "goal_hit_fraction": "intrmotiv/memory/goal_hit_fraction",
+      "goal_active_fraction": "intrmotiv/memory/goal_active_fraction",
+      "goal_ambiguous_fraction": "intrmotiv/memory/goal_ambiguous_fraction",
+      "replay_mismatch": "intrmotiv/memory/replay_mismatch",
+      "ppo_dg_gradient_norm": "intrmotiv/dg/gradient/ppo_norm",
+      "encoder_gradient_norm": "intrmotiv/dg/gradient/encoder_norm"
     },
     "cumulative_metrics": {},
     "contrasts": [
@@ -592,6 +602,25 @@
   },
   "telemetry": {
     "protocol": "dg-place-fields-v1",
+    "intervention": {
+      "protocol": "target-control-intervention-v1",
+      "where": {"cell_control": "goal"},
+      "target_frames": [75000000],
+      "evaluation": "absent-goal-matched-commands-v1",
+      "starts": 16,
+      "prefix_decisions": 128,
+      "horizons": [8,16,32,64],
+      "decision_cap": 100000,
+      "all_eligible_absent_commands": true,
+      "independent_spatial_qualification_required": true
+    },
+    "common_observation_panel": {
+      "reference_run": "CMNG_F_D_BASE_S99",
+      "reference_target_frames": 5000000,
+      "decisions": 10000,
+      "preserve_episode_boundaries": true,
+      "report_raw_and_inhibited_maps": true
+    },
     "target_frames": [
       5000000,
       25000000,

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.4.1**; study schema:
+Current implementation: **1.5.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -257,6 +257,13 @@ checkpoint selector, enforces workspace paths, and writes:
 - `intervention_manifest.tsv` when the study declares the compatible
   `target-control-intervention-v1` protocol;
 - `study_manifest.json` with the study fingerprint.
+
+Since 1.5.0, `telemetry.intervention.where` can select an exact subset using
+RunSpec context (for example `{"cell_control": "goal"}`). Unknown fields and
+empty selections fail. The selected checkpoint is included for every selected
+seed, independently of the smaller ordinary place-field seed subset. Omitting
+`where` preserves all-run intervention behavior. This avoids duplicate run lists
+and ensures extra goal-probe seeds use the same checkpoint inventory.
 
 Then use `evaluation/submit_place_field_sweep.py` for its required print-only
 preflight and ordinary-job production submission. Postprocess with the existing

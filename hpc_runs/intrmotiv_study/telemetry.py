@@ -99,10 +99,14 @@ def build_place_field_manifests(
 
     rows: list[dict[str, str]] = []
     trajectory_rows: list[dict[str, str]] = []
+    intervention_runs = {run.name for run in selected_intervention_runs(study)}
+    intervention_targets = (telemetry.get("intervention") or {}).get("target_frames", [])
     for run in study.expand_runs():
-        if run.seed not in selected_seeds:
+        if run.seed not in selected_seeds and run.name not in intervention_runs:
             continue
-        selected_targets = target_frames if run.seed == trajectory_seed else [target_frames[-1]]
+        selected_targets = target_frames if run.seed == trajectory_seed else ([target_frames[-1]] if run.seed in selected_seeds else [])
+        if run.name in intervention_runs:
+            selected_targets = sorted(set(selected_targets) | set(intervention_targets))
         for target in selected_targets:
             key = (run.name, target)
             if key not in by_run_target:
@@ -144,6 +148,25 @@ def build_place_field_manifests(
     return rows, trajectory_rows
 
 
+def selected_intervention_runs(study: StudySpec) -> list[RunSpec]:
+    intervention = study.telemetry.get("intervention")
+    if intervention is None:
+        return []
+    if not isinstance(intervention, Mapping):
+        raise SpecError("telemetry.intervention must be an object")
+    where = intervention.get("where", {})
+    if not isinstance(where, Mapping):
+        raise SpecError("telemetry.intervention.where must be an object")
+    runs = study.expand_runs()
+    for key in where:
+        if any(key not in run.context for run in runs):
+            raise SpecError(f"unknown intervention selection field {key!r}")
+    selected = [run for run in runs if all(run.context[k] == value for k, value in where.items())]
+    if not selected:
+        raise SpecError("intervention selection is empty")
+    return selected
+
+
 def build_intervention_manifest(
     study: StudySpec,
     rows: Iterable[Mapping[str, str]],
@@ -176,11 +199,12 @@ def build_intervention_manifest(
             "telemetry.intervention.target_frames must contain one positive integer"
         )
     target = str(target_frames[0])
-    selected = [dict(row) for row in rows if row.get("target_frames") == target]
     expected = {
         (run.condition, str(run.seed))
-        for run in study.expand_runs()
+        for run in selected_intervention_runs(study)
     }
+    selected = [dict(row) for row in rows if row.get("target_frames") == target
+                and (row.get("condition"), row.get("seed")) in expected]
     observed = [(row.get("condition"), row.get("seed")) for row in selected]
     if len(observed) != len(set(observed)):
         raise SpecError("intervention manifest contains duplicate condition/seed rows")

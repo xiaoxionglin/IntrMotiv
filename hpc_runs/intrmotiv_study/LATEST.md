@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.4.1`
+- Implementation: `1.5.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -9,7 +9,14 @@
 
 ## Deployment status
 
-The vault source and NEMO2 runtime copy are synchronized at `1.4.1`. Version
+Version 1.5.0 adds optional `telemetry.intervention.where` selection by validated
+RunSpec context. Selected runs receive the intervention checkpoint in the
+standard inventory even when their seeds are outside the ordinary field-map
+subset. This supports all-seed goal probes without evaluating flat policies as
+goal-conditioned policies. Local focused suite: 27 tests passed. NEMO2
+deployment verification is recorded in the CA3 memory implementation report.
+
+The previous vault source and NEMO2 runtime copy were synchronized at `1.4.1`. Version
 1.4 extends the compact online-spatial snapshot contract with cached place-field
 and graph diagnostics while retaining compatibility with older 1.x studies and
 v1 snapshots. The synchronized NEMO2 suites passed 26 workflow tests and 196
