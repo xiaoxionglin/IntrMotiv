@@ -30,14 +30,14 @@ action logits do not by themselves prove control.
 
 ## Five-minute run triage
 
-| Question | Read first | Healthy evidence | Red flag |
-|---|---|---|---|
-| Is it running correctly? | `train/env_steps`, losses, replay/publication mismatch | Frames advance; finite losses; mismatches exactly zero | Stalled frames, NaN/Inf, any persistent mismatch |
-| Is DG alive and balanced? | density, silent fraction, usage entropy, duty-cycle max | Nonzero sparse activity; nearly all rows participate; entropy near one | Many silent rows or a few dominant rows |
-| Are landmarks spatially meaningful? | spatial information, mono-field fraction, component counts, map cosine | Higher information and mono-field mass; fewer components; lower cross-unit cosine | “High mono-field” accompanied by low information and many silent units |
-| Is the graph useful? | outgoing-node coverage, SCC, reachable pairs, top-three incoming share | Broad outgoing support, large SCC, distributed incoming confidence | Many edges funnel into a few destinations |
-| Does the target matter? | frozen commanded-vs-shuffled advantage, action-probability TV | Commanded success beats matched shuffle and actions change by target | Lift only, logit change only, or commanded and shuffled success are equal |
-| Is retirement active and safe? | eligibility-to-conversion funnel, totals, repeats, generation drops/defer | Eligible victims convert; replacement is followed by a deferred stale batch and recovery | No opportunity, repeated churn, mismatched FiLM reset, post-replacement NaN |
+| Question                            | Read first                                                                | Healthy evidence                                                                         | Red flag                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Is it running correctly?            | `train/env_steps`, losses, replay/publication mismatch                    | Frames advance; finite losses; mismatches exactly zero                                   | Stalled frames, NaN/Inf, any persistent mismatch                            |
+| Is DG alive and balanced?           | density, silent fraction, usage entropy, duty-cycle max                   | Nonzero sparse activity; nearly all rows participate; entropy near one                   | Many silent rows or a few dominant rows                                     |
+| Are landmarks spatially meaningful? | spatial information, mono-field fraction, component counts, map cosine    | Higher information and mono-field mass; fewer components; lower cross-unit cosine        | “High mono-field” accompanied by low information and many silent units      |
+| Is the graph useful?                | outgoing-node coverage, SCC, reachable pairs, top-three incoming share    | Broad outgoing support, large SCC, distributed incoming confidence                       | Many edges funnel into a few destinations                                   |
+| Does the target matter?             | frozen commanded-vs-shuffled advantage, action-probability TV             | Commanded success beats matched shuffle and actions change by target                     | Lift only, logit change only, or commanded and shuffled success are equal   |
+| Is retirement active and safe?      | eligibility-to-conversion funnel, totals, repeats, generation drops/defer | Eligible victims convert; replacement is followed by a deferred stale batch and recovery | No opportunity, repeated churn, mismatched FiLM reset, post-replacement NaN |
 
 ## Metric-name grammar
 
