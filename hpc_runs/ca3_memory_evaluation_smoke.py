@@ -35,7 +35,7 @@ def main():
             continue
         cfg, env, info, actor, checkpoint, device = load_policy_env(directories[run.name], 100000, False, 0)
         trials, summary = run_absent_goal_interventions(cfg, env, info, actor, checkpoint, device,
-                                                      10000, starts=2, prefix_length=16)
+                                                      10000, starts=2, prefix_length=16, max_commands=2)
         if summary['starts_evaluated'] < 1 or summary['completed_trials'] < 2:
             raise RuntimeError('No valid matched intervention start completed')
         summaries[run.name] = summary
