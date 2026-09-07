@@ -1,0 +1,50 @@
+[
+  {
+    "run": "DGP_C15_HIT_JOINT_LEG_S123",
+    "kind": "_verified_spatial",
+    "rows": 75,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "DGP_C15_HIT_JOINT_LEG_S123",
+    "kind": "_verified_behavior",
+    "rows": 2262,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "DGP_C15_FIRST_JOINT_LEG_S99",
+    "kind": "_verified_spatial",
+    "rows": 75,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "DGP_C15_FIRST_JOINT_LEG_S99",
+    "kind": "_verified_behavior",
+    "rows": 2262,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "CPD_C15_GATE_CA3_BPTT_S99",
+    "kind": "_verified_spatial",
+    "rows": 75,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "CPD_C15_GATE_CA3_BPTT_S99",
+    "kind": "_verified_behavior",
+    "rows": 2263,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "CPD_C15_GATE_ACT_DIR_GOAL_S8",
+    "kind": "_verified_spatial",
+    "rows": 75,
+    "max_steps": 74973180.0
+  },
+  {
+    "run": "CPD_C15_GATE_ACT_DIR_GOAL_S8",
+    "kind": "_verified_behavior",
+    "rows": 2207,
+    "max_steps": 74973180.0
+  }
+]

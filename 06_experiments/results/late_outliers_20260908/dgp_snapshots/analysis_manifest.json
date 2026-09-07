@@ -1,0 +1,41 @@
+{
+  "batch_name": "intrmotiv_dg_policy_gradient_first_outcome_20260906",
+  "complete": true,
+  "condition_summary_rows": 32,
+  "expected_runs": 24,
+  "expected_snapshots": 96,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "worker_outcome",
+    "ppo_dg_gradient",
+    "goal_conditioning"
+  ],
+  "include_details": false,
+  "missing": [],
+  "observed_snapshots": 96,
+  "per_field_rows": 0,
+  "per_snapshot_rows": 96,
+  "per_unit_rows": 0,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 96,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_dg_policy_gradient_first_outcome_20260906",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "dg_policy_gradient_first_outcome_20260906",
+  "study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
+  "study_spec": "hpc_runs/studies/dg_policy_gradient_first_outcome.study.json",
+  "study_workflow_version": "1.4.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.5.0"
+}

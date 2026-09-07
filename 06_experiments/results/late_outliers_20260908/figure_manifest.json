@@ -1,0 +1,14 @@
+{
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "matplotlib": "3.10.8",
+  "numpy": "1.26.4",
+  "map_example_units": [
+    4,
+    9,
+    0
+  ],
+  "map_selection": "first two final mono-field indices plus first final non-mono index; not representative of all 16 units",
+  "spatial_source": "canonical 100k-sample milestone snapshots",
+  "behavior_source": "unsampled W&B scan_history; 5M means and ratios of summed counts",
+  "uncertainty": "none; exploratory selection, dependent training observations"
+}
