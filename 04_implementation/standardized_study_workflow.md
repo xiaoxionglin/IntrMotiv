@@ -198,6 +198,16 @@ standardized `per_run.csv`. It requires exactly one row for every declared run.
 
 ### 3a. Collect compact online spatial snapshots
 
+On NEMO2, invoke the documented training/analysis interpreter directly:
+`/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python`. The login default Python
+may lack NumPy; `dmlab0` uses Python 3.8 and cannot import this workflow.
+For late-training outlier audits, screen cached per-run metrics first, then
+validate candidates with these longer snapshots. Keep latest-10k W&B scalars
+separate from latest-100k snapshot metrics, and inspect selected maps: many
+unique peak bins or a high single-field fraction can still describe several
+units concentrated in one region. See the
+[2026-09-08 outlier audit](../06_experiments/late_training_outliers_20260908.md).
+
 Training stores scalar-only W&B monitoring over the latest 10k samples plus
 compressed latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M
 frames. In addition to aligned raw

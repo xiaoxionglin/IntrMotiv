@@ -1,5 +1,12 @@
 # IntrMotiv Batch Regression and Trivial-Minimum Audit
 
+**2026-09-08 follow-up:** The completed 75M study shows late spatial
+specialization in several JOINT–legacy runs, including seed 123 under HIT.
+The control diagnosis below remains relevant, but the prediction about limited
+late representation learning needs qualification. See the
+[completed outlier audit](late_training_outliers_20260908.md), including
+100k-sample snapshots and matched gradient/interface comparisons.
+
 **Date:** 2026-09-07  
 **Current study:** `dg_policy_gradient_first_outcome_20260906`  
 **Study SHA-256:** `2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5`  
