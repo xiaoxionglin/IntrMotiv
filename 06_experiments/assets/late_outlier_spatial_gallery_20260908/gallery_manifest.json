@@ -1,0 +1,34 @@
+{
+  "target_env_steps": 75000000,
+  "font": "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "sources": [
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_dg_policy_gradient_first_outcome_20260906/DGP_C15_HIT_JOINT_LEG_S123/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_dg_policy_gradient_first_outcome_20260906/DGP_C15_FIRST_JOINT_LEG_S99/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_dg_policy_gradient_first_outcome_20260906/DGP_C15_FIRST_JOINT_LEG_S8/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_ca3_feedback_predictive_dg_20260907/CPD_C15_GATE_CA3_BPTT_S99/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_ca3_feedback_predictive_dg_20260907/CPD_C15_GATE_ACT_DIR_GOAL_S8/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_ca3_feedback_predictive_dg_20260907/CPD_C15_GATE_ACT_DIR_S99/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_source_credit_retirement_20260904/SCR_C15_ARR_DIRS_S123/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_saturday_batch_20260905/SAT_C15_ARR_DIRO_FILM_S8/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_saturday_batch_20260905/SAT_C15_ARR_MON_FILM_S123/policy_00/snapshot_target_000075000000_actual_000075005952.npz",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_saturday_batch_20260905/SAT_C15_SRC_MON_FILM_S8/policy_00/snapshot_target_000075000000_actual_000075005952.npz"
+  ],
+  "sample_unit": "one retained policy-driven behavior sample",
+  "retained_samples_per_run": 100000,
+  "place_field_transform": "cached occupancy-normalized smoothed rate maps, each divided by its own maximum for display; unvisited bins masked",
+  "graph_transform": "cached reliable directed graph in circular non-spatial layout; orange node borders mark mono-field units; node size indicates visits",
+  "trajectory_transform": "raw pose, every tenth adjacent within-segment line drawn over log1p occupancy and colored by retained-window time",
+  "selection": [
+    "DGP_C15_HIT_JOINT_LEG_S123",
+    "DGP_C15_FIRST_JOINT_LEG_S99",
+    "DGP_C15_FIRST_JOINT_LEG_S8",
+    "CPD_C15_GATE_CA3_BPTT_S99",
+    "CPD_C15_GATE_ACT_DIR_GOAL_S8",
+    "CPD_C15_GATE_ACT_DIR_S99",
+    "SCR_C15_ARR_DIRS_S123",
+    "SAT_C15_ARR_DIRO_FILM_S8",
+    "SAT_C15_ARR_MON_FILM_S123",
+    "SAT_C15_SRC_MON_FILM_S8"
+  ],
+  "limitation": "policy-driven online windows; not fixed-trajectory stability or causal intervention evidence"
+}
