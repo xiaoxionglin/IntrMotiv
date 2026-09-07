@@ -1,5 +1,8 @@
 # Late-training outliers: partial successes worth preserving
 
+See the [75M place-field, graph, and trajectory gallery](late_outlier_spatial_gallery_20260908.md)
+for the selected runs discussed below.
+
 Date: 2026-09-08. Focal run:
 `00_DGP_C15_HIT_JOINT_LEG_S123_20260906_230235_239727`.
 

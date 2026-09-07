@@ -38,6 +38,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Experiments
 
 - [[../06_experiments/late_training_outliers_20260908|Late-Training Outliers: Spatial Specialization, Exploration, and Control]]
+- [[../06_experiments/late_outlier_spatial_gallery_20260908|Place Fields, Reliable Graphs, and Trajectories of Selected Outliers]]
 - [[../06_experiments/controllability_edge_exploration_20260903|Controllability and Edge-Exploration Batch]]
 - [[../06_experiments/graph_stabilized_recruitment_20260903|Graph-Stabilized Orthogonal Recruitment]]
 - [[../06_experiments/graph_stabilized_recruitment_place_field_telemetry_20260903|Graph-Stabilized Recruitment Place-Field Telemetry]]
