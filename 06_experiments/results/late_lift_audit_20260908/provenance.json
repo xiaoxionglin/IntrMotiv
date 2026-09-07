@@ -1,0 +1,193 @@
+{
+  "retrieved_utc": "2026-09-07T23:36:16.637762+00:00",
+  "source": "W&B sampled lift history, 1000 requested points/run; selected runs verified by full scan",
+  "studies": [
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "ca3_memory_novelty_goal_20260907_preflight",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_memory_novelty_goal_preflight.study.json",
+      "study_sha256": "d0f8efc18b49f616d0d3a373b4eefeb04ff6bae18c4cead35d1262fa05d60ef3",
+      "batch_name": "intrmotiv_ca3_memory_novelty_goal_20260907_preflight",
+      "training_mode": "sample_factory",
+      "expected_runs": 10
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.1.0",
+      "study_id": "controllability_edge_exploration_20260903",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/controllability_edge_exploration.study.json",
+      "study_sha256": "4b940a37e09bdabc7efd8bbedc21053194b5288543fb22d32d0c9bc1323e9734",
+      "batch_name": "intrmotiv_controllability_edge_exploration_20260903",
+      "training_mode": "sample_factory",
+      "expected_runs": 48
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "source_credit_retirement_20260904",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/source_credit_retirement.study.json",
+      "study_sha256": "aa34bb2ef868df37dbafc38e7c4b8dc5c9cc684e5f8dba5e05a586d068ad8a0d",
+      "batch_name": "intrmotiv_source_credit_retirement_20260904",
+      "training_mode": "sample_factory",
+      "expected_runs": 30
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "dg_policy_gradient_first_outcome_preflight_20260906",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/dg_policy_gradient_first_outcome_preflight.study.json",
+      "study_sha256": "1d7db721017c8900b4dee7ff1b2aa1ebad92f6844276989406b0bf2aa54ea1a3",
+      "batch_name": "intrmotiv_dg_policy_gradient_first_outcome_preflight_20260906",
+      "training_mode": "sample_factory",
+      "expected_runs": 8
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "ca3_feedback_predictive_dg_preflight_20260907",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_feedback_predictive_dg_preflight.study.json",
+      "study_sha256": "56cd511040aaf5554a2a58d10c7dc7a90c41a9fe6add3a6d35eb0853c1d53cbb",
+      "batch_name": "intrmotiv_ca3_feedback_predictive_dg_preflight_20260907",
+      "training_mode": "sample_factory",
+      "expected_runs": 27
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "dg_policy_gradient_local_successor_smoke_20260906",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/dg_policy_gradient_local_successor_smoke.study.json",
+      "study_sha256": "d592db66497954afc2b7b0f98c5387a563ef103d671054068ba4aac5dfe07884",
+      "batch_name": "intrmotiv_dg_policy_gradient_local_successor_smoke_20260906",
+      "training_mode": "sample_factory",
+      "expected_runs": 2
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "landmark_normalization_contract_preflight_20260906",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/landmark_normalization_contract_preflight.study.json",
+      "study_sha256": "1b97f4cf964271202f0579d7051bf97fb3c268bb7a803065c05c4f6b2a8cf6b9",
+      "batch_name": "intrmotiv_landmark_normalization_contract_preflight_20260906",
+      "training_mode": "sample_factory",
+      "expected_runs": 3
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.2.0",
+      "study_id": "directional_predictive_recruitment_20260904",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/directional_predictive_recruitment.study.json",
+      "study_sha256": "72b0ac2d04ad7a297a674f96d4f32c85d48dcf89a9fc62abb7243adb22ea53aa",
+      "batch_name": "intrmotiv_directional_predictive_recruitment_20260904",
+      "training_mode": "sample_factory",
+      "expected_runs": 54
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "saturday_batch_20260905",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/saturday_batch.study.json",
+      "study_sha256": "dcbce502053cfd14ec5ce12c88d2fa06c42f4a97367896954eccd0fe0f8831cb",
+      "batch_name": "intrmotiv_saturday_batch_20260905",
+      "training_mode": "sample_factory",
+      "expected_runs": 36
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.5.0",
+      "study_id": "ca3_memory_novelty_goal_20260907",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_memory_novelty_goal.study.json",
+      "study_sha256": "31e790e44e4bd36de11b0f184e7f6aa27c8d729c3846af23965157d0cbabeb69",
+      "batch_name": "intrmotiv_ca3_memory_novelty_goal_20260907",
+      "training_mode": "sample_factory",
+      "expected_runs": 50
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "landmark_normalization_contract_preflight_20260906_v2",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/landmark_normalization_contract_preflight_v2.study.json",
+      "study_sha256": "21dbbd4e7503dd95a9ab734024c059378ec60d544e810300bb71256cfab93b3c",
+      "batch_name": "intrmotiv_landmark_normalization_contract_preflight_20260906_v2",
+      "training_mode": "sample_factory",
+      "expected_runs": 3
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "saturday_replacement_preflight_20260905",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/saturday_replacement_preflight.study.json",
+      "study_sha256": "2eaf8545fa8ffb019421cec01f2a9be5c5b155fe4e2b279ddc1113916754675b",
+      "batch_name": "intrmotiv_saturday_replacement_preflight_20260905",
+      "training_mode": "sample_factory",
+      "expected_runs": 3
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "landmark_normalization_contract_smoke_20260905_v2",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/landmark_normalization_contract_smoke.study.json",
+      "study_sha256": "1dc7e5ef5c5d145d919e4467f85823de0cd224de333fc27ae573b4bc954f0c01",
+      "batch_name": "intrmotiv_landmark_normalization_contract_smoke_20260905_v2",
+      "training_mode": "sample_factory",
+      "expected_runs": 3
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "dg_policy_gradient_first_outcome_20260906",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/dg_policy_gradient_first_outcome.study.json",
+      "study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
+      "batch_name": "intrmotiv_dg_policy_gradient_first_outcome_20260906",
+      "training_mode": "sample_factory",
+      "expected_runs": 24
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "ca3_feedback_predictive_dg_20260907",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/ca3_feedback_predictive_dg.study.json",
+      "study_sha256": "c11ca69dfbd8e0fdf662e3e01b918aa070e02b03e7aba6f4de198628fc1ee3b9",
+      "batch_name": "intrmotiv_ca3_feedback_predictive_dg_20260907",
+      "training_mode": "sample_factory",
+      "expected_runs": 81
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.4.1",
+      "study_id": "encoder_decoder_update_contract_preflight_20260905",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/encoder_decoder_update_contract_preflight.study.json",
+      "study_sha256": "1cc2a8debf8cfc49a9dc5d17b0b270180f3b3aaa47edbde08e536b10363cc291",
+      "batch_name": "intrmotiv_encoder_decoder_update_contract_preflight_20260905",
+      "training_mode": "sample_factory",
+      "expected_runs": 10
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.5.0",
+      "study_workflow_version": "1.0.0",
+      "study_id": "graph_stabilized_recruitment_20260903",
+      "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/graph_stabilized_recruitment.study.json",
+      "study_sha256": "6b885f38c16822b51d3c481472b0729ecd23212648e7667d4751696f0eccdec6",
+      "batch_name": "intrmotiv_graph_stabilized_recruitment_20260903",
+      "training_mode": "supplemental_args",
+      "expected_runs": 36
+    }
+  ]
+}
