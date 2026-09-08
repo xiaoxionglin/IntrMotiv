@@ -45,7 +45,7 @@ $$
 
 All information quantities below depend on this explicitly chosen distribution, controller, horizon, and outcome vocabulary. Hold the outcome definition fixed for comparisons; if the learned encoder can redefine success, it can improve a score by changing labels.
 
-The equations below are **new formalizations of recovered ideas**, except where an existing design equation is explicitly identified. They are alternatives and diagnostics, not a proposal to combine every term into one loss. The user's remembered sentence about maximal differences was not recovered verbatim in the inspected tasks; its closely related mechanisms were.
+The equations below formalize recovered ideas for this project; **this does not imply mathematical novelty**. Goal–action information, empowerment, value of information, and information bottlenecks have direct precedents, mapped in the [literature review](../08_literature/control_relevance_fisher_place_fields_20260908.md). They are alternatives and diagnostics, not a proposal to combine every term into one loss. The user's remembered sentence about maximal differences was not recovered verbatim in the inspected tasks; its closely related mechanisms were.
 
 ## 1. From policy entropy to differences that matter
 

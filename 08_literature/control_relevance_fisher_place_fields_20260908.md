@@ -124,6 +124,27 @@ It analyzes suitable spatial basis functions rather than deriving sparse visual 
 
 ## What the research changes about our equation
 
+### Attribution of all the proposed control formulations
+
+The user's follow-up clarified that the question concerns the formulations introduced during our discussion, not just the squared-gradient equation. **Most of those formulations are established quantities or close adaptations of existing frameworks.** “New formalization” in the companion note means newly written for this project, not mathematically original.
+
+| Formulation in our discussion | Closest established formulation | Assessment |
+|---|---|---|
+| $\mathcal D_{\mathrm{action}}(s)=I(G;A\mid S=s)$ | InfoBot's conditional goal–action information and divergence from a goal-marginalized policy | Direct mathematical match after choosing the averaging distribution. InfoBot regularizes unnecessary dependence; it does not maximize it everywhere. |
+| $\mathcal D_{\mathrm{outcome}}(s)=I(U;Y\mid S=s)$ | The intervention/skill-to-outcome information underlying empowerment | Same information-theoretic structure. With a fixed intervention distribution this is mutual information; maximization over that distribution gives channel capacity. |
+| $\mathbb E[\max_a Q]-\max_a\mathbb E[Q]$ | Expected value of perfect information, conditional on the currently merged state cell | A decision-theoretic value-of-information expression applied to state distinctions, not a new regret principle. |
+| $d_{\mathrm{ctrl}}(s,s')=\mathbb E_u\operatorname{JS}(P_s^u,P_{s'}^u)$ | Behavioral state abstraction and bisimulation | A related finite-horizon diagnostic. It is not identical to reward-aware recursive bisimulation and inherits none of its guarantees automatically. |
+| $\min I(H;V)$ subject to small behavioral/predictive distortion | Rate–distortion and control-oriented information bottlenecks | An adaptation of established compression-versus-performance principles. |
+| $I(Y;C\mid Z,U)$ and $\mathrm{CE}(Y\mid U)-\mathrm{CE}(Y\mid Z,U)$ | Conditional sufficiency and conditional predictive information | Standard measures applied to contextual landmark ambiguity and source-state usefulness. Cross-entropy gain equals conditional MI only for the appropriate Bayes-optimal predictors. |
+
+Primary matches: [InfoBot, equations 1–2](https://arxiv.org/pdf/1901.10902), [empowerment-based representation learning](https://arxiv.org/html/2605.30656v1), [state-abstraction theory](https://thomasjwalsh.net/pub/aima06Towards.pdf), and [control information bottlenecks](https://arxiv.org/pdf/2002.01428).
+
+Two additional sources sharpen the attribution. [Abel et al., State Abstraction as Compression in Apprenticeship Learning, AAAI 2019](https://ojs.aaai.org/index.php/AAAI/article/view/4179) explicitly develops abstraction as a trade-off between compression and performance using rate–distortion and information bottlenecks. [Information Density in Decision Analysis](https://pubsonline.informs.org/doi/10.1287/deca.2022.0465) connects information value to sensitivity of a decision's expected utility. These precedents support interpreting the merge-regret expression as the value of revealing which state one occupies, with the continuation policy fixed.
+
+For the especially inspirational phrase “a state is worth representing when actions/subgoals make maximal differences,” **InfoBot is closest when “differences” means action choice across goals; empowerment is closest when it means distinguishable consequences across commands.** Value of information is closest when the emphasis is why two situations deserve different representations. These are three complementary questions, not one newly introduced principle. None alone establishes spatial field formation.
+
+The potentially distinctive contribution therefore lies in a causal explanation and measurable prediction for the sparse DG-to-CA3 architecture, not in introducing these quantities. The 2026 empowerment representation paper is already close even to the broader claim that reward-free control objectives organize representation; it must be compared directly.
+
 The proposed expression is
 
 $$
