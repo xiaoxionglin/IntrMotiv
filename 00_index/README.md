@@ -32,6 +32,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Plans
 
+- [[../05_plans/future_scope_and_inspirations|Future Scope and Research Inspirations]]
 - [[../05_plans/iterative_update_implementation_plan|Iterative Update Implementation Plan]]
 - [[../05_plans/scientific_program_after_corrected_core_20260902|Scientific Program After Corrected-Core Re-evaluation]]
 
