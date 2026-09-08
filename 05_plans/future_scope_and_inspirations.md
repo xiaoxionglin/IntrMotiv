@@ -20,14 +20,14 @@ This is a synthesis of project notes and recovered discussions, not a comprehens
 
 The deeper motivation is to continue the control-based explanation in Lin et al.: ask why learning to act should select particular representational distinctions. The central intuition is **represent distinctions that make a difference to what the agent can deliberately accomplish**.
 
-Two complementary quantities make this concrete. With matched source state \(s\), randomized command \(U\), and subsequent outcome \(Y\),
+Two complementary quantities make this concrete. With matched source state $s$, randomized command $U$, and subsequent outcome $Y$,
 
 $$
 \mathcal D(s)=I(U;Y\mid S=s)
 =H(Y\mid S=s)-\mathbb E_u H(Y\mid S=s,\operatorname{do}(U=u))
 $$
 
-measures whether different commands produce distinguishable consequences. The entropy terms use the same intervention distribution. High outcome diversity is useful here only when it depends on the command. Meanwhile, for a representation cell \(B\),
+measures whether different commands produce distinguishable consequences. The entropy terms use the same intervention distribution. High outcome diversity is useful here only when it depends on the command. Meanwhile, for a representation cell $B$,
 
 $$
 \mathcal R(B,g)=
@@ -35,7 +35,7 @@ $$
 -\max_a\mathbb E_{s\mid B}Q_g(s,a)\geq0
 $$
 
-measures the value lost by requiring those states to share one action choice. Positive \(\mathcal R\) supplies a reason to split an identity. These are proposed conceptual formulations, not current implemented losses. The companion note states their assumptions and explains why policy entropy alone is insufficient.
+measures the value lost by requiring those states to share one action choice. Positive $\mathcal R$ supplies a reason to split an identity. These are proposed conceptual formulations, not current implemented losses. The companion note states their assumptions and explains why policy entropy alone is insufficient.
 
 The causal idea is that a landmark activated in several behaviorally incompatible situations is an unreliable command or starting state. Learning to control transitions could favor representations that separate those situations. Spatially localized fields would then be one expression of a more general requirement: the same internal identity should have coherent consequences under the same action or command.
 

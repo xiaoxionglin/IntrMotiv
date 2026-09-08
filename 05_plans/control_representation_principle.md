@@ -16,9 +16,9 @@ That is why the idea has value beyond “add a control loss.” It could explain
 
 ## Notation and status of the equations
 
-Let \(x_t\) be available sensory features, \(h_t\) recent memory, and \(s_t=(x_t,h_t)\) the available contextual state; this need not be a fully observed environmental state. Let \(z_t=f_\theta(s_t)\) denote the control representation. In visual-only DG, \(f_\theta\) receives only \(x_t\), while CA3 supplies history downstream. A principle for the full control representation does not automatically require every DG unit to implement it alone.
+Let $x_t$ be available sensory features, $h_t$ recent memory, and $s_t=(x_t,h_t)$ the available contextual state; this need not be a fully observed environmental state. Let $z_t=f_\theta(s_t)$ denote the control representation. In visual-only DG, $f_\theta$ receives only $x_t$, while CA3 supplies history downstream. A principle for the full control representation does not automatically require every DG unit to implement it alone.
 
-Let \(g\) denote a desired outcome, \(a\) a primitive action, and \(u\) an intervention: either an action or a commanded subgoal executed by a fixed controller. Let \(Y\) be an outcome at a specified horizon or the first distinct landmark plus timeout. For causal comparisons, draw \(u\sim\rho(u\mid s)\) independently of uncontrolled differences between trials at matched \(s\). Write
+Let $g$ denote a desired outcome, $a$ a primitive action, and $u$ an intervention: either an action or a commanded subgoal executed by a fixed controller. Let $Y$ be an outcome at a specified horizon or the first distinct landmark plus timeout. For causal comparisons, draw $u\sim\rho(u\mid s)$ independently of uncontrolled differences between trials at matched $s$. Write
 
 $$
 P_s^u(y)=P(Y=y\mid S=s,\operatorname{do}(U=u)).
@@ -64,7 +64,7 @@ This formalizes a decision point. It does **not** establish that the chosen acti
 
 ### Different commands should make different outcomes happen
 
-Define \(\bar P_s=\sum_u\rho(u\mid s)P_s^u\). Then
+Define $\bar P_s=\sum_u\rho(u\mid s)P_s^u$. Then
 
 $$
 \boxed{
@@ -89,7 +89,7 @@ $$
 \mathcal E(s)=\max_\rho I(U;Y\mid S=s),
 $$
 
-an empowerment-style quantity. [Empowerment](https://arxiv.org/abs/1310.1863) already defines control through action-to-sensory channel capacity. For our comparisons, a fixed balanced \(\rho\) may be more revealing because optimization can ignore difficult commands. Goal-channel information can also be high if goal names are systematically permuted, so commanded success \(P(Y=g\mid\operatorname{do}(G=g),s)\) remains a separate test.
+an empowerment-style quantity. [Empowerment](https://arxiv.org/abs/1310.1863) already defines control through action-to-sensory channel capacity. For our comparisons, a fixed balanced $\rho$ may be more revealing because optimization can ignore difficult commands. Goal-channel information can also be high if goal names are systematically permuted, so commanded success $P(Y=g\mid\operatorname{do}(G=g),s)$ remains a separate test.
 
 ## 2. A state distinction is worth keeping when merging it loses control
 
@@ -99,7 +99,7 @@ The complementary question is:
 
 > Would confusing these two situations force the agent to choose the wrong action?
 
-For a representation cell \(B\), let \(Q_g(s,a)\) be expected return from taking \(a\) and then following a specified continuation policy for goal \(g\). Using the same conditional state distribution in both terms, define
+For a representation cell $B$, let $Q_g(s,a)$ be expected return from taking $a$ and then following a specified continuation policy for goal $g$. Using the same conditional state distribution in both terms, define
 
 $$
 \boxed{
@@ -116,10 +116,10 @@ For two equally likely states, consider:
 
 | State | Left | Right |
 |---|---:|---:|
-| \(s_1\) | 1 | 0 |
-| \(s_2\) | 0 | 1 |
+| $s_1$ | 1 | 0 |
+| $s_2$ | 0 | 1 |
 
-A merged identity achieves at most \(0.5\); separate identities achieve \(1\). Thus \(\mathcal R=0.5\). If Left is best in both states, \(\mathcal R=0\), even if their images differ greatly. This is a concrete explanation for allocating representational capacity according to behavioral need.
+A merged identity achieves at most 0.5; separate identities achieve 1. Thus $\mathcal R=0.5$. If Left is best in both states, $\mathcal R=0$, even if their images differ greatly. This is a concrete explanation for allocating representational capacity according to behavioral need.
 
 A complementary outcome-based distance is
 
@@ -132,7 +132,7 @@ using a common intervention set and weights. A coherent identity should avoid me
 
 ### A more precise successor to the Jacobian intuition
 
-If \(f\) and the outcome distributions are differentiable in a continuous input coordinate, write locally
+If $f$ and the outcome distributions are differentiable in a continuous input coordinate, write locally
 
 $$
 d_{\mathrm{ctrl}}(s,s+\delta)
@@ -148,19 +148,19 @@ $$
 J_f(s)^\top J_f(s)\approx c\,M_{\mathrm{ctrl}}(s),\qquad c>0,
 $$
 
-over the directions the representation has capacity to preserve. This proposes sensitivity to changes in control consequences, rather than sensitivity to high action entropy. Encoder scale and capacity must be constrained; a rescaling of \(f\) can otherwise change its Jacobian without changing behavior. Thresholded or discrete codes require finite-difference tests. This is a geometric hypothesis, not a derived update law for the current DG.
+over the directions the representation has capacity to preserve. This proposes sensitivity to changes in control consequences, rather than sensitivity to high action entropy. Encoder scale and capacity must be constrained; a rescaling of $f$ can otherwise change its Jacobian without changing behavior. Thresholded or discrete codes require finite-difference tests. This is a geometric hypothesis, not a derived update law for the current DG.
 
 ## 3. Same state plus same intervention should have coherent consequences
 
 This was recovered directly from **feedback to DG** and the [contextual-landmark design](contextual_landmark_state_design.md). The [predictive-DG implementation plan](ca3_feedback_predictive_dg_batch.md) operationalizes part of it through source-state outcome prediction.
 
-For an occurrence assigned identity \(Z=j\), recent context \(C\) should not still reveal major differences in the outcome of the same command if \(j\) is intended to be the complete control state:
+For an occurrence assigned identity $Z=j$, recent context $C$ should not still reveal major differences in the outcome of the same command if $j$ is intended to be the complete control state:
 
 $$
 \mathcal A(j)=I(Y;C\mid Z=j,U).
 $$
 
-High \(\mathcal A\) indicates unresolved contextual ambiguity. A candidate remedy is \(Z=f(X,C)\). If CA3 already resolves the ambiguity downstream, a visual DG identity need not satisfy this condition by itself; the criterion should then be applied to the combined state.
+High $\mathcal A$ indicates unresolved contextual ambiguity. A candidate remedy is $Z=f(X,C)$. If CA3 already resolves the ambiguity downstream, a visual DG identity need not satisfy this condition by itself; the criterion should then be applied to the combined state.
 
 The earlier chat explicitly proposed the held-out diagnostic
 
@@ -169,7 +169,7 @@ $$
 =\mathrm{CE}(Y\mid U)-\mathrm{CE}(Y\mid Z,U).
 $$
 
-With Bayes-optimal predictors under one distribution, this equals \(I(Y;Z\mid U)\). For finite fitted predictors it is a measured predictive improvement, not an exact information estimate. It asks whether state contributes beyond the command. In contrast, \(I(U;Y\mid Z)\) asks whether the command contributes beyond state. Both are needed to distinguish useful control state from either a predictor that ignores goals or a predictor that ignores observations.
+With Bayes-optimal predictors under one distribution, this equals $I(Y;Z\mid U)$. For finite fitted predictors it is a measured predictive improvement, not an exact information estimate. It asks whether state contributes beyond the command. In contrast, $I(U;Y\mid Z)$ asks whether the command contributes beyond state. Both are needed to distinguish useful control state from either a predictor that ignores goals or a predictor that ignores observations.
 
 The CPD PASS/GOAL heads are predictive objectives, not implemented causal-information objectives. Their data were policy-generated. Controlled interventions would be needed for the stronger reading above.
 
@@ -187,7 +187,7 @@ Preserve as little as possible while retaining the consequences of interventions
 
 Recovered from **Goal conditioned localization explanation**, **long runs & goal factorization**, and **High-level Planner**. This is a second potential paper-level insight: control changes the data distribution, so it can create the conditions under which an otherwise ambiguous temporal code becomes useful.
 
-Let \(H_t\) be CA3 history and \(P_t\) discretized physical position, used only for evaluation. A landmark age \((j,\tau)\) alone need not localize the agent. Under a consistent controller,
+Let $H_t$ be CA3 history and $P_t$ discretized physical position, used only for evaluation. A landmark age $(j,\tau)$ alone need not localize the agent. Under a consistent controller,
 
 $$
 P(P_t\mid j\text{ occurred at }t-\tau,\pi_g)
@@ -210,13 +210,13 @@ $$
 =I(P_t;G\mid H_t).
 $$
 
-Estimate it on matched spatial coverage, or compare held-out location-probe errors. A policy confined to one corner can make localization trivially easy, so raw entropy reduction is insufficient. If goals switch, current \(G_t\) is not necessarily the controller that generated the remembered history; past goals/actions may matter.
+Estimate it on matched spatial coverage, or compare held-out location-probe errors. A policy confined to one corner can make localization trivially easy, so raw entropy reduction is insufficient. If goals switch, current $G_t$ is not necessarily the controller that generated the remembered history; past goals/actions may matter.
 
 The user's single-goal intuition should be retained as **a simplification of the policy-conditioned problem**, not a claim that Lin's environment literally becomes one-dimensional or that one fixed goal guarantees unique routes. The separate heads and persistent commands in the [persistent-control implementation](../06_experiments/persistent_intrinsic_control_implementation.md) are related experimental probes, not evidence that this mechanism has succeeded.
 
 ## 5. A measured place field contains both tuning and behavior
 
-Recovered explicitly from **High-level Planner**. With position \(p\), heading \(\alpha\), memory \(h\), and unit activation \(z_i\),
+Recovered explicitly from **High-level Planner**. With position $p$, heading $\alpha$, memory $h$, and unit activation $z_i$,
 
 $$
 M_i^\pi(p)
@@ -224,7 +224,7 @@ M_i^\pi(p)
 [z_i(p,\alpha,h)].
 $$
 
-Training can change \(z_i\), the sampling distribution \(d_\pi\), or both. Thus a more localized map can arise from sharper tuning, more consistent heading/history at each location, or their interaction.
+Training can change $z_i$, the sampling distribution $d_\pi$, or both. Thus a more localized map can arise from sharper tuning, more consistent heading/history at each location, or their interaction.
 
 The theoretical opportunity is to explain **representation–behavior co-adaptation** as a mechanism, rather than treating occupancy only as a nuisance. The discriminating measurement is a common-distribution map,
 
@@ -247,9 +247,9 @@ J(\theta,\phi)=\mathbb E_{\tau\sim\pi_{\phi,\theta}}
 \left[\mathbf 1\{f_\theta(X_\tau)=g\}\right].
 $$
 
-It can rise because the policy reaches the intended event more often or because \(f_\theta\) expands the event to include what the policy already does. With hard labels this is a conceptual decomposition of changes, not an ordinary differentiable reward path.
+It can rise because the policy reaches the intended event more often or because $f_\theta$ expands the event to include what the policy already does. With hard labels this is a conceptual decomposition of changes, not an ordinary differentiable reward path.
 
-A fixed reference \(\bar f\) makes the achievement test
+A fixed reference $\bar f$ makes the achievement test
 
 $$
 J_{\mathrm{ref}}(\theta,\phi)=\mathbb E_{\tau\sim\pi_{\phi,\theta}}
@@ -274,7 +274,7 @@ $$
 \min_\pi\mathbb E[T_g\mid g].
 $$
 
-The former admits short loops. Likewise, if two behaviors induce the same distribution of the interval \(D\), any expected reward depending only on that interval agrees:
+The former admits short loops. Likewise, if two behaviors induce the same distribution of the interval $D$, any expected reward depending only on that interval agrees:
 
 $$
 P_{\pi_1}(D)=P_{\pi_2}(D)
