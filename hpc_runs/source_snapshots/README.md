@@ -1,5 +1,15 @@
 # Scoped runtime source snapshots
 
+`persistent_intrinsic_control_hotfix_20260908.tar.gz` preserves the complete
+Persistent Intrinsic Control runtime source after the legacy-recruitment /
+policy-graph invalidation hotfix. It retains the original implementation files
+and adds the focused regression, forced-replacement preflight, and exact
+W_REF_JOINT seed-123 retry adapter. The pre-hotfix
+`persistent_intrinsic_control_20260908.tar.gz` remains unchanged.
+
+Hotfix archive SHA-256:
+`c01a2550046233cd9b1474a6d043bdaf9f29906947f60e79b418dae681746afd`.
+
 `ca3_memory_novelty_goal_20260907.tar.gz` retains the exact seventeen modified
 or added IntrMotiv runtime files for the CA3 finite-memory batch. It is a
 102-KiB reproducibility artifact, not a second maintained source checkout.
