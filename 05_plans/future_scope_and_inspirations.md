@@ -14,13 +14,13 @@ This is a synthesis of project notes and recovered discussions, not a comprehens
 
 ## 1. Place fields form to make control reliable
 
-**Expanded mathematical note:** [Control as a principle for representation: equations and recovered inspirations](control_representation_principle.md). This develops the user's entropy/Jacobian intuition, the Lin et al. continuation, and related ideas recovered from past tasks.
+**Expanded mathematical note:** [Control as a principle for representation: equations and recovered inspirations](control_representation_principle.md). This develops the user's squared-gradient/Fisher-information intuition, the Lin et al. continuation, and related ideas recovered from past tasks.
 
 **Possible paper thesis:** Localized fields emerge because an agent needs sensory identities that support repeatable, distinguishable behavioral outcomes.
 
 The deeper motivation is to continue the control-based explanation in Lin et al.: ask why learning to act should select particular representational distinctions. The central intuition is **represent distinctions that make a difference to what the agent can deliberately accomplish**.
 
-Two complementary quantities make this concrete. With matched source state $s$, randomized command $U$, and subsequent outcome $Y$,
+For the baseline, DG encodes $z_t=f_\theta(x_t)$ and CA3 forms $h_t=\mathcal M(h_{t-1},z_t)$; the control state is $s_t=h_t$. Two complementary quantities make the control principle concrete. With matched source state $s$, randomized command $U$, and subsequent outcome $Y$,
 
 $$
 \mathcal D(s)=I(U;Y\mid S=s)
