@@ -134,3 +134,73 @@ C15 jobs had advanced from 100,040,704 to 100,171,776 frames with their next
 online snapshot correctly set to 200M. Lightweight authoritative records are
 preserved under
 `06_experiments/results/persistent_intrinsic_control_submission_20260908/`.
+
+## Legacy-recruitment hotfix and recovery
+
+On 8 September, C15 seed 123 failed at 148,930,560 frames and seed 99 later
+failed with the same exception: legacy orthogonal DG recruitment replaced a
+row while the policy-buffer controllability graph was enabled, after which the
+learner unconditionally tried to invalidate PRED evidence. PRED evidence
+buffers intentionally do not exist in legacy recruitment mode. This was a
+mode-compatibility bug, not evidence of a scientific configuration failure.
+
+The learner now always invalidates policy-graph state for a replaced DG row,
+but invalidates predictive recruitment evidence only in graph/PRED recruitment
+mode. Legacy replacement therefore records zero predictive invalidation mass;
+graph/PRED mode retains its strict evidence-buffer requirement and reports the
+removed mass. The existing forced-recruitment hook now also accepts legacy
+orthogonal recruitment while retaining its open-gate, one-replacement, and
+at-most-1M-step restrictions. No StudySpec, scientific argument, or public
+configuration interface changed; workflow version remains 1.5.0.
+
+NEMO2 validation passed 30 focused tests and the complete 263-test IntrMotiv
+runtime suite. The forced legacy-replacement smoke job `8010593` completed with
+exit code zero at 1,081,344 frames. Telemetry reported exactly one committed
+replacement, and the run advanced without the missing-evidence exception.
+
+The three original C15 jobs `8002791`–`8002793` were cancelled after recording
+their latest checkpoints. The first recovery submission (`8010723`, `8010726`,
+and `8010727`) was stopped after startup audit showed that its inherited
+`--load_model_path` selected the 100,040,704-frame parent rather than each
+run's latest production checkpoint. It ran for only about two minutes and did
+not replace the intended recovery checkpoints. A checkpoint-pinned recovery
+adapter was then print-reviewed and validated against the unchanged C15
+StudySpec: every run identity, scientific option, output root, and 84-hour
+resource request matches the original row; the sole intentional command
+difference is the explicit latest-production `--load_model_path`.
+
+The corrected recoveries are:
+
+- Seed 8: job `8010779`, checkpoint 167,084,032; verified at 167,182,336.
+- Seed 99: job `8010780`, checkpoint 160,301,056; verified at 160,464,896.
+- Seed 123: job `8010781`, checkpoint 148,701,184; verified at 148,832,256.
+
+All three startup logs name those exact checkpoints, resume their existing W&B
+run IDs, and contain no traceback. The primary `W_REF_JOINT` seed-123 job
+`8002753` did not require replacement: Slurm automatically requeued it from the
+failed node onto `n3503`, where it loaded its own 54,231,040-frame checkpoint,
+resumed the existing W&B identity, and reached 57,933,824 frames without a
+traceback. Submitting a duplicate retry would have been unsafe, so the prepared
+one-row retry adapter was retained but not launched. The other 32 primary jobs
+were untouched; the final scheduler audit showed all 36 production jobs
+running.
+
+The complete post-hotfix source archive is
+`hpc_runs/source_snapshots/persistent_intrinsic_control_hotfix_20260908.tar.gz`
+(SHA-256
+`a55749e0467713b2447f3f5ccc1c402b910aab5cc59fc028c7ec22584dbbe16c`).
+The original archive remains unchanged. Deployed hashes for the key files are:
+
+- `custom_learner.py`: `0f56770a591dfd8f830aa9212a49e6a79a5c1bd1c5dcae6b8164535c881ef54c`
+- `train_hipposlam.py`: `7f5e60a028fe0f68ee24cf028b4e2c920f7f7393e91974a577979fb47bad3608`
+- `test_recruitment_invalidation.py`: `54b6fc4435f99032fbc681fa4947e10d2065bc58cd03727a2ab199ca15918aa8`
+- C15 recovery adapter: `9401f635d679854e3b516871b7a57b25e8652b964789f7d1036535294fc97924`
+
+Reusable recovery lesson: a print-only StudySpec audit proves the intended
+scientific command, but does not prove which checkpoint Sample Factory will
+prefer in an existing output directory. A restart must pin the captured
+checkpoint explicitly and gate continuation on the startup log's actual
+`Loading state from checkpoint` line, recovered frame counter, W&B resume ID,
+and absence of traceback. A forced failure-path preflight should likewise
+trigger the event itself and verify its count, rather than merely exercise the
+surrounding configuration.
