@@ -10,9 +10,9 @@ The graph-free goal conditions use a 16-way one-hot appended to the controller
 input. The live DG detector receives no goal command. A command persists for a
 900-decision environment episode; a unique dominant target onset pays once:
 
-\[
-r_{goal}(\tau)=6.4\frac{901-\tau}{900},\quad 1\le\tau\le900.
-\]
+$$
+r_{\mathrm{goal}}(\tau)=6.4\frac{901-\tau}{900},\quad 1\le\tau\le900.
+$$
 
 Wrong and ambiguous landmark activations do not pay or cancel the command.
 Success is latched until the recurrent state is cleared at the environment
