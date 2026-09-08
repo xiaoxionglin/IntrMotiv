@@ -17,7 +17,9 @@
       "--train_for_env_steps=600000000",
       "--load_model_path=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S{seed}_/00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S{seed}/checkpoint_p0/checkpoint_000006106_100040704.pth",
       "--wandb_project=SF_IntrMotiv_PersistentIntrinsicControl",
-      "--wandb_group=intrmotiv_persistent_intrinsic_control_c15_20260908"
+      "--wandb_group=intrmotiv_persistent_intrinsic_control_c15_20260908",
+      "--online_spatial_snapshot_targets=100000000,200000000,300000000,450000000,600000000",
+      "--online_spatial_snapshot_max_frames=600000000"
     ]
   },
   "bases":[{"name":"C15_CONTINUE","label":"C15_CONTINUE","args":[],"metadata":{"family":"original_c15","mechanism":"frontier_direct","control":"goal","gradient":"stop"}}],
