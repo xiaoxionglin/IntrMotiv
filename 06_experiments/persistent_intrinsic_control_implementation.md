@@ -84,7 +84,7 @@ or biological thresholds.
 
 Source snapshot:
 `hpc_runs/source_snapshots/persistent_intrinsic_control_20260908.tar.gz`
-(SHA-256 `527066b61a9803ab4666431f7f8770e6875099bd793136175cd6916d8a9d5fa0`).
+(SHA-256 `751ef505dd63e6b2cfac993ea22157bc7a17d454e18acea2f2fd150932d4c3b3`).
 
 The final local focused runtime suite passed 47 tests; the StudySpec/workflow
 suite passed 29 tests. The complete deployed NEMO2 runtime suite passed 260
@@ -97,3 +97,40 @@ bookkeeping buffers. The second preflight uses a valid 1M cadence and retains
 strict loading of learned DG tensors while allowing the DG module's existing
 legacy defaults for those buffers. The failed zero-frame jobs were stopped and
 their output namespace was not reused.
+
+The corrected 11-condition preflight (jobs `8002647`–`8002657`) completed at
+2,031,616 frames with exit code zero for every condition. Its persisted
+scientific audit passed: landmark onsets and encoder gradients were nonzero,
+flat rewards were nonzero, goal commands were active, replay mismatch was zero,
+STOP PPO-to-DG gradients were zero, and the JOINT gradient was positive. The
+strict C15 resume smoke (`8002565`) independently advanced the seed-99 parent
+from 100,040,704 to 102,039,552 frames and completed cleanly.
+
+The first C15 production submission revealed that the historical adapter still
+used the old 100M online-spatial ceiling. Those three just-started jobs were
+stopped, and no output directory was reused. The corrected companion StudySpec
+uses the clean `c15_r2` namespace and explicitly schedules 100M, 200M, 300M,
+450M, and 600M snapshots. The logging path was also made safe when there is no
+future snapshot. The authoritative remote telemetry/workflow regression suite
+passed 15 tests after this correction.
+
+Production submission completed as 36 running jobs:
+
+- Primary workdir:
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_persistent_intrinsic_control_20260908/20260908T021801Z`
+  (jobs `8002719`, `8002721`, and `8002723`–`8002753`).
+- Corrected C15 workdir:
+  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_persistent_intrinsic_control_c15_r2_20260908/20260908T022742Z`
+  (jobs `8002791`–`8002793`).
+- Primary StudySpec SHA-256:
+  `b03aeba21b2eaa6478c9a67f653b10cfab3cc4d0eaa615137f30e827480bb396`.
+- C15 r2 StudySpec SHA-256:
+  `75afa81ce9f82545a5adeba45f070aa2d5237befc9d66939d9d04f2028049844`.
+
+Both submitted-manifest audits report complete exact matrices and valid
+workspace paths. At the final health check all 36 jobs were running, the 33
+scratch/warm-start runs had advanced frames without tracebacks, and all three
+C15 jobs had advanced from 100,040,704 to 100,171,776 frames with their next
+online snapshot correctly set to 200M. Lightweight authoritative records are
+preserved under
+`06_experiments/results/persistent_intrinsic_control_submission_20260908/`.

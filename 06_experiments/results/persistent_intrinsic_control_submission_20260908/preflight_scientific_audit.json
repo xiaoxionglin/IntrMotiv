@@ -1,0 +1,572 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.5.0",
+  "study_workflow_version": "1.5.0",
+  "study_id": "persistent_intrinsic_control_20260908",
+  "study_spec": "hpc_runs/studies/persistent_intrinsic_control.study.json",
+  "study_sha256": "b03aeba21b2eaa6478c9a67f653b10cfab3cc4d0eaa615137f30e827480bb396",
+  "batch_name": "intrmotiv_persistent_intrinsic_control_20260908",
+  "training_mode": "sample_factory",
+  "expected_runs": 33,
+  "preflight_seed": 99,
+  "expected_conditions": 11,
+  "required_frames": 2000000,
+  "passed": true,
+  "runs": [
+    {
+      "run": "PIC_F_BASE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.224609375,
+        "max": 0.2353515625,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_hit": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_ambiguous": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.12041573226451874,
+        "max": 0.47091078758239746,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.22314453125,
+        "max": 0.234375,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_F_GATE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.26025390625,
+        "max": 0.26904296875,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_hit": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_ambiguous": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.14779439568519592,
+        "max": 0.40711405873298645,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0830078125,
+        "max": 0.08935546875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_F_INHIB_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.16650390625,
+        "max": 0.1962890625,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_hit": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_ambiguous": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.22046591341495514,
+        "max": 0.47038888931274414,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.099609375,
+        "max": 0.11669921875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_F_SIGNED_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.029296875,
+        "max": 0.0888671875,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_hit": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "goal_ambiguous": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "replay_mismatch": {
+        "last": null,
+        "max": 0.0,
+        "samples": 0,
+        "applicable": false
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.060442183166742325,
+        "max": 0.2825811505317688,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.01611328125,
+        "max": 0.04736328125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_G_SHARED_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.23779296875,
+        "max": 0.23779296875,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.001953125,
+        "max": 0.00341796875,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0,
+        "max": 0.00390625,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.12967346608638763,
+        "max": 0.42234858870506287,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.001953125,
+        "max": 0.00341796875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_G_INHIB_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.14990234375,
+        "max": 0.16845703125,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0009765625,
+        "max": 0.00341796875,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0,
+        "max": 0.00341796875,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.19309084117412567,
+        "max": 0.465149462223053,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0009765625,
+        "max": 0.00341796875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_G_CONTEXT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.22265625,
+        "max": 0.2421875,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.00146484375,
+        "max": 0.00244140625,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0,
+        "max": 0.00146484375,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.12833330035209656,
+        "max": 0.5837434530258179,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.00146484375,
+        "max": 0.00244140625,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_G_SEPARATE_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.20556640625,
+        "max": 0.20947265625,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.00244140625,
+        "max": 0.00390625,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0,
+        "max": 0.0009765625,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.1418427675962448,
+        "max": 0.38149788975715637,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.00244140625,
+        "max": 0.00390625,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_G_LONG_DISCOUNT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.21044921875,
+        "max": 0.22607421875,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.00341796875,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0,
+        "max": 0.0048828125,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.15984219312667847,
+        "max": 0.4633360803127289,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0,
+        "max": 0.00341796875,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_W_REF_STOP_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.23779296875,
+        "max": 0.23876953125,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0009765625,
+        "max": 0.001953125,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.00732421875,
+        "max": 0.08740234375,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.10347333550453186,
+        "max": 0.40685218572616577,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0009765625,
+        "max": 0.001953125,
+        "samples": 63
+      }
+    },
+    {
+      "run": "PIC_W_REF_JOINT_S99",
+      "errors": [],
+      "frames": {
+        "last": 2031616.0,
+        "max": 2031616.0,
+        "samples": 63
+      },
+      "onset": {
+        "last": 0.2099609375,
+        "max": 0.2099609375,
+        "samples": 63
+      },
+      "goal_active": {
+        "last": 1.0,
+        "max": 1.0,
+        "samples": 63
+      },
+      "goal_hit": {
+        "last": 0.0,
+        "max": 0.00146484375,
+        "samples": 63
+      },
+      "goal_ambiguous": {
+        "last": 0.0234375,
+        "max": 0.09228515625,
+        "samples": 63
+      },
+      "replay_mismatch": {
+        "last": 0.0,
+        "max": 0.0,
+        "samples": 63
+      },
+      "ppo_gradient": {
+        "last": 0.06587186455726624,
+        "max": 0.17307192087173462,
+        "samples": 63
+      },
+      "encoder_gradient": {
+        "last": 0.11358717083930969,
+        "max": 0.37693989276885986,
+        "samples": 63
+      },
+      "reward_nonzero": {
+        "last": 0.0,
+        "max": 0.00146484375,
+        "samples": 63
+      }
+    }
+  ]
+}

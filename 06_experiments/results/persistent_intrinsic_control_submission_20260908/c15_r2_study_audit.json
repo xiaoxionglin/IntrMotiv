@@ -1,0 +1,24 @@
+{
+  "batch_name": "intrmotiv_persistent_intrinsic_control_c15_r2_20260908",
+  "commands_match_study": true,
+  "expected_runs": 3,
+  "job_ids": [
+    "8002791",
+    "8002792",
+    "8002793"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_persistent_intrinsic_control_c15_r2_20260908/20260908T022742Z/jobs.tsv",
+  "rows": 3,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 3
+  },
+  "study_id": "persistent_intrinsic_control_c15_r2_20260908",
+  "study_sha256": "75afa81ce9f82545a5adeba45f070aa2d5237befc9d66939d9d04f2028049844",
+  "study_spec": "hpc_runs/studies/persistent_intrinsic_control_c15.study.json",
+  "study_workflow_version": "1.5.0",
+  "submitted_complete": true,
+  "training_mode": "supplemental_args",
+  "workflow_version": "1.5.0",
+  "workspace_paths_valid": true
+}

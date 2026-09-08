@@ -1,15 +1,15 @@
 {
   "schema":"intrmotiv/study/v1",
   "workflow_version":"1.5.0",
-  "study_id":"persistent_intrinsic_control_c15_20260908",
+  "study_id":"persistent_intrinsic_control_c15_r2_20260908",
   "description":"Exact 100M-to-600M continuation of original corrected-core C15 exploration controls.",
   "expected_runs":3,
   "metadata":{"project":"SF_IntrMotiv_PersistentIntrinsicControl","training_steps":600000000,"parent_frames":100040704,"design_cells":1},
   "training":{
     "mode":"supplemental_args",
-    "batch_name":"intrmotiv_persistent_intrinsic_control_c15_20260908",
+    "batch_name":"intrmotiv_persistent_intrinsic_control_c15_r2_20260908",
     "workspace_root":"/work/classic/fr_xl1014-train",
-    "output_root":"/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_persistent_intrinsic_control_c15_20260908",
+    "output_root":"/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_persistent_intrinsic_control_c15_r2_20260908",
     "run_name_template":"PIC_C15_CONTINUE_S{seed}",
     "condition_name_template":"PIC_C15_CONTINUE",
     "seed_arg":"--seed={seed}",
@@ -17,7 +17,7 @@
       "--train_for_env_steps=600000000",
       "--load_model_path=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S{seed}_/00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S{seed}/checkpoint_p0/checkpoint_000006106_100040704.pth",
       "--wandb_project=SF_IntrMotiv_PersistentIntrinsicControl",
-      "--wandb_group=intrmotiv_persistent_intrinsic_control_c15_20260908",
+      "--wandb_group=intrmotiv_persistent_intrinsic_control_c15_r2_20260908",
       "--online_spatial_snapshot_targets=100000000,200000000,300000000,450000000,600000000",
       "--online_spatial_snapshot_max_frames=600000000"
     ]
