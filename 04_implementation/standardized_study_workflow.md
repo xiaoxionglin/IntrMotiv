@@ -168,6 +168,16 @@ The audit requires the exact run matrix, study arguments in every generated
 command, matching `--experiment` names, unique job IDs, and workspace-only
 training and Slurm paths.
 
+For a shortened training preflight, validate all coupled cadence constraints,
+not only the shortened frame target. In particular, an online-spatial snapshot
+maximum must be at least one snapshot interval and divisible by that interval;
+override the interval together with the maximum when the production cadence is
+longer than the smoke run. Rerun a failed preflight in a new batch/output
+namespace so incomplete event files or configs cannot be mistaken for the
+corrected run. A strict legacy-checkpoint smoke should instantiate the model and
+advance frames; print-only argument validation cannot exercise state-dict
+compatibility.
+
 ### 3. Collect and analyze online metrics
 
 From the NEMO2 source checkout:

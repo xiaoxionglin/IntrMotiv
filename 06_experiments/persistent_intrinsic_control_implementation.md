@@ -49,7 +49,7 @@ Authoritative specifications:
 
 The primary preflight is derived from the production specification and selects
 seed 99 once per condition. It changes only the frame target, spatial snapshot
-targets, and W&B group. Goal success is not required at 2M frames; the gate
+targets/cadence, and W&B group. Goal success is not required at 2M frames; the gate
 requires finite telemetry, active commands, correct replay, landmark learning
 signals, and correct STOP/JOINT gradient routing.
 
@@ -84,10 +84,16 @@ or biological thresholds.
 
 Source snapshot:
 `hpc_runs/source_snapshots/persistent_intrinsic_control_20260908.tar.gz`
-(SHA-256 `b8e42cf371afccdca19e3d7af24addcd8cd54b9656ee373957215ab2faa066e0`).
+(SHA-256 `527066b61a9803ab4666431f7f8770e6875099bd793136175cd6916d8a9d5fa0`).
 
-The final local focused runtime suite passed 28 tests; the StudySpec/workflow
-suite passed 29 tests. NEMO2 deployment transfers completed, after which the
-remote test command encountered a fresh OTP authentication boundary. Remaining
-remote tests, preflight job IDs, audits, and production job IDs are appended
-only after direct verification.
+The final local focused runtime suite passed 47 tests; the StudySpec/workflow
+suite passed 29 tests. The complete deployed NEMO2 runtime suite passed 260
+tests. Deployed source hashes match the sealed local source tree.
+
+The first live preflight exposed two launch blockers before production: its 2M
+snapshot maximum violated the default 25M cadence contract, and the frozen-DG
+wrapper rejected legacy checkpoints that lacked only newly introduced
+bookkeeping buffers. The second preflight uses a valid 1M cadence and retains
+strict loading of learned DG tensors while allowing the DG module's existing
+legacy defaults for those buffers. The failed zero-frame jobs were stopped and
+their output namespace was not reused.
