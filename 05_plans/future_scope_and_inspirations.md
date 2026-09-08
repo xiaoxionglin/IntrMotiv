@@ -14,6 +14,8 @@ This is a synthesis of project notes and recovered discussions, not a comprehens
 
 ## 1. Place fields form to make control reliable
 
+**Literature check:** [Control relevance, Fisher sensitivity, and place fields](../08_literature/control_relevance_fisher_place_fields_20260908.md) records close precedents and a narrower possible contribution. In particular, reward-driven place-field reorganization and empowerment-based representation learning already have direct treatments.
+
 **Expanded mathematical note:** [Control as a principle for representation: equations and recovered inspirations](control_representation_principle.md). This develops the user's squared-gradient/Fisher-information intuition, the Lin et al. continuation, and related ideas recovered from past tasks.
 
 **Possible paper thesis:** Localized fields emerge because an agent needs sensory identities that support repeatable, distinguishable behavioral outcomes.

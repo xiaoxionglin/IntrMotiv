@@ -2,6 +2,8 @@
 
 Date: 2026-09-08. Mathematical development of [Future Scope and Research Inspirations](future_scope_and_inspirations.md), with provenance from earlier discussions and implemented designs.
 
+**Prior-art update:** [Targeted literature review](../08_literature/control_relevance_fisher_place_fields_20260908.md) identifies close precedents for control-based spatial representations, reward-driven field reorganization, task-dependent Fisher precision, and empowerment-based representation learning. The squared-gradient/policy-Fisher proportionality below remains a conjecture; the Fisher identities are standard mathematics. Lin is the immediate architectural predecessor, not the first control-based account of spatial representation.
+
 ## Why this could be a deeper continuation of Lin et al.
 
 The user's motivation is explanatory: control might determine why a nervous system needs particular distinctions in the first place. A field would be valuable because it makes action reliable, with spatial tuning emerging when that requires distinguishing locations. This could advance the Lin storyline beyond another source of training reward.
