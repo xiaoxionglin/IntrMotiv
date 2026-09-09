@@ -82,6 +82,7 @@
       "--benchmark=False",
       "--with_number_instruction=True",
       "--number_instruction_coef=9",
+      "--with_pos_obs=False",
       "--device=cpu",
       "--rec_distances=True",
       "--distance_learning=True",
@@ -480,4 +481,3 @@
     }
   }
 }
-
