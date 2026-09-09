@@ -204,3 +204,38 @@ checkpoint explicitly and gate continuation on the startup log's actual
 and absence of traceback. A forced failure-path preflight should likewise
 trigger the event itself and verify its count, rather than merely exercise the
 surrounding configuration.
+
+## F_SIGNED early termination, 9 September 2026
+
+At the user's request, jobs `8002730` (seed 8), `8002731` (seed 99), and
+`8002732` (seed 123) were cancelled at 14:35:23 CEST. Slurm accounting confirms
+CANCELLED for all three. The other 33 production jobs remained RUNNING.
+Spatial information is a primary selection criterion: replicated near-zero
+selectivity and recent-window silence made F_SIGNED unsuitable for further
+investment in this batch. This is intentional early termination, not a completed
+600M result; preserve it in comparisons rather than omitting the failed condition.
+
+Latest checkpoints verified immediately before cancellation:
+
+- Seed 8: `checkpoint_000018620_305070080.pth` (305,070,080 frames).
+- Seed 99: `checkpoint_000014292_234160128.pth` (234,160,128 frames).
+- Seed 123: `checkpoint_000014534_238125056.pth` (238,125,056 frames).
+
+All checkpoints, logs and telemetry were retained in the original production
+directories. The original StudySpec remains unchanged as the experimental
+record. F_SIGNED is the flat, CA3-absence-gated decoder condition with signed
+encoder feedback on dominant onsets:
+
+$$
+r_{\mathrm{enc}}=0.1(d-R),\qquad R=8.
+$$
+
+Here $d$ is the implementation's temporal transition distance, not physical
+separation. Relative to F_GATE, the changed factor is
+`--dg_ca3_temporal_exclusion_coeff=1.0` instead of zero. It has no commanded
+goal and no DG reentry inhibition. The decoder retains distance scaling and
+only pays when the arriving landmark is absent from CA3 memory.
+
+Reusable procedure: confirm exact job identities and recoverable checkpoints,
+cancel only the selected condition's jobs, check Slurm accounting, and retain
+the early-stop decision alongside the unchanged scientific specification.
