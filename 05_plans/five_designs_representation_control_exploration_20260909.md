@@ -12,12 +12,12 @@
 
 > Learn a compact, reusable DG–CA3 representation that recognizes behaviorally distinct situations, supports reliable and efficient travel to independently specified destinations, and expands the agent's known reachable world through its own actions.
 
-| Requirement | What counts | What does not count |
-|---|---|---|
+| Requirement            | What counts                                                                                                                             | What does not count                                                                                      |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | Spatial representation | Reproducible fields; high spatial information; broad collective support; little unnecessary duplication; sufficient population identity | Silence, rare spikes, many labels for one place, or localized maps caused solely by restricted occupancy |
-| Controllability | High arrival probability across starts and approaches, with low travel cost | Any-event activation, fastest successful trial alone, or an easy two-node loop |
-| Exploration | Discover new regions and connections; preserve opportunities to expand; learn to revisit where possible | Repeated familiar tours, episode-reset novelty, or sensory noise |
-| Minimality | Fixed budgets for DG units, memory, stored anchors, and computation | One fresh state per frame or an ever-growing history lookup |
+| Controllability        | High arrival probability across starts and approaches, with low travel cost                                                             | Any-event activation, fastest successful trial alone, or an easy two-node loop                           |
+| Exploration            | Discover new regions and connections; preserve opportunities to expand; learn to revisit where possible                                 | Repeated familiar tours, episode-reset novelty, or sensory noise                                         |
+| Minimality             | Fixed budgets for DG units, memory, stored anchors, and computation                                                                     | One fresh state per frame or an ever-growing history lookup                                              |
 
 Interpret “no nearby neighbors” as **no unnecessary local duplication**. Nearby junctions may need different codes; places across a wall can be close physically and distant behaviorally. Mono-fields are an explicit scientific target, especially when one unit means one destination, but not a universal definition of physiological validity. Multiple fields have been recorded across DG, CA3, and CA1 in larger environments. [Park et al., 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3137630/)
 
