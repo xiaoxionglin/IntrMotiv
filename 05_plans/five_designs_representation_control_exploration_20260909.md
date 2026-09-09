@@ -86,13 +86,13 @@ The return-and-explore principle has strong algorithmic precedent. Use policy-ba
 
 ## At a glance
 
-| Plan | What shapes representation? | How routes are selected | Added machinery | Main scientific question |
-|---|---|---|---|---|
-| **1. Anchored goal control** | Goal success and time cost | Controlled transition graph | Goal readout + sparse graph | Is diverse intrinsic control enough? |
-| **2. Predictive contextual states** | Consequences of the same intervention | Outcome model on compressed states | Categorical abstraction + predictor | Which ambiguities must be separated? |
-| **3. Replay of routes to many goals** | Bellman errors across goals | Cached all-goal action costs | Replay + multi-goal critic | Can experience teach unexecuted route combinations? |
-| **4. Distinguishable intrinsic skills** | Command-to-outcome information | Graph of learned options | Skill head + outcome decoder | Can diverse reliable outcomes bootstrap landmarks? |
-| **5. Local reachability landmarks** | Membership in controllable neighborhoods | Anchor graph + local worker | Reachability detector + sparse cover | Does action-defined locality produce better fields? |
+| Plan                                    | What shapes representation?              | How routes are selected            | Added machinery                      | Main scientific question                            |
+| --------------------------------------- | ---------------------------------------- | ---------------------------------- | ------------------------------------ | --------------------------------------------------- |
+| **1. Anchored goal control**            | Goal success and time cost               | Controlled transition graph        | Goal readout + sparse graph          | Is diverse intrinsic control enough?                |
+| **2. Predictive contextual states**     | Consequences of the same intervention    | Outcome model on compressed states | Categorical abstraction + predictor  | Which ambiguities must be separated?                |
+| **3. Replay of routes to many goals**   | Bellman errors across goals              | Cached all-goal action costs       | Replay + multi-goal critic           | Can experience teach unexecuted route combinations? |
+| **4. Distinguishable intrinsic skills** | Command-to-outcome information           | Graph of learned options           | Skill head + outcome decoder         | Can diverse reliable outcomes bootstrap landmarks?  |
+| **5. Local reachability landmarks**     | Membership in controllable neighborhoods | Anchor graph + local worker        | Reachability detector + sparse cover | Does action-defined locality produce better fields? |
 
 All five use a global **relational memory**, not a global geometric embedding. None requires a local geometric embedding either. Plans 2 and 5 permit categorical/contextual locality; probability comparisons do not imply a Euclidean map.
 
