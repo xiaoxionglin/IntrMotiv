@@ -264,7 +264,7 @@ This directly addresses the weak-policy problem: observed trajectories only prov
 
 ### Sagiv, Akam, Witten, and Daw 2025: Replay for Future Goals / Geodesic Representation
 
-- PubMed: https://pubmed.ncbi.nlm.nih.gov/38496674/
+- PubMed: https://pubmed.ncbi.nlm.nih.gov/41151586/ (verified 2026-09-09; corrected the earlier mismatched PMID)
 - Neuron article: https://www.sciencedirect.com/science/article/pii/S0896627325007093
 
 **What it contributes.** Extends replay accounts from immediate planning to map-building for possible future goals, using a geodesic/successor-like representation.
