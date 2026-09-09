@@ -21,7 +21,7 @@ Canonical production fingerprint:
 `c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094`.
 
 Canonical preflight fingerprint:
-`379522c86e5c23f89c7b63a5d30f522d93778ac0b5ad9a7f828612569ba81bce`.
+`03faa975cff104e91c2a4f34668ce9f154f201528fcb77ef39703669442852d2`.
 
 ## Runtime implementation
 
@@ -50,7 +50,7 @@ Deployed file hashes:
 - `custom_params.py`: `14ab520456b3418b74eac3981ee0744aef32d93c9bf80963b7e7b91c6d22ccdd`
 - `dmlab_env.py`: `bd906eea63bd0f526283e90d6dae88053b6d0c5c426d208fe233bf368702d7a0`
 - `dmlab_gym.py`: `a75665a83046fcec7011d7744cc5fe148005be2ebbaa08da65108dcaf0e9e743`
-- Complete deployed git diff: `44577c1d401fc6d99afdbd5f9607db6bf67fb87abad05b1d6deccf48b80b7359`
+- Tracked runtime diff: `44577c1d401fc6d99afdbd5f9607db6bf67fb87abad05b1d6deccf48b80b7359`
 
 ## Study and evaluation contract
 
@@ -99,9 +99,32 @@ Submitted preflight directory:
 `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_preflight_20260909/20260909T163801Z`.
 
 Jobs `8035135`–`8035140` were submitted successfully and passed the canonical
-post-submission audit. At the final check they were pending for resources, with
-no scheduler or startup failure. Production submission remains blocked until
-all six finish with exit 0 and runtime artifacts confirm the expected action
+post-submission audit, but failed on the first learner batch. The 2M preflight
+cap was below the inherited 5M online-spatial snapshot interval, and the
+telemetry contract rejected that inconsistent configuration. The allocations
+were cancelled after the shared failure was diagnosed. The corrected preflight
+spec explicitly uses a 1M snapshot interval with 1M and 2M targets; a focused
+test now preserves this invariant. It uses a new study, batch, output, run-name,
+and W&B namespace so failed artifacts cannot be mistaken for corrected results.
+
+Corrected print-only directory:
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_preflight2_20260909/20260909T165501Z`.
+
+Corrected submitted directory:
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_preflight2_20260909/20260909T165538Z`.
+
+Replacement jobs are `8035420`, `8035421`, and `8035423`–`8035426`. The
+canonical post-submission audit reports six exact commands, six unique numeric
+job IDs, the corrected fingerprint, and workspace-valid paths. All six reached
+the first training update, reported positive frame counts, and remained free of
+runtime exceptions in the startup check. Completion and artifact checks remain
+pending.
+
+Production print-only review generated and audited all 18 scripts under
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_20260909/20260909T164712Z`.
+The commands exactly match the production StudySpec and all paths remain in the
+workspace. Production submission remains blocked until all six corrected
+preflights finish with exit 0 and runtime artifacts confirm the expected action
 space, finite learning signals, correct frame accounting, and spatial snapshot
 generation. `hpc_runs/audit_navigation8_algorithm_screen_preflight.py` performs
 that fail-closed post-run audit from the submitted `jobs.tsv`.

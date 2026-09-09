@@ -133,6 +133,8 @@ class Navigation8AlgorithmScreenStudyTests(unittest.TestCase):
         self.assertEqual({run.seed for run in preflight_runs}, {99})
         for run in preflight_runs:
             self.assertIn("--train_for_env_steps=2000000", run.args)
+            self.assertIn("--online_spatial_snapshot_interval=1000000", run.args)
+            self.assertIn("--online_spatial_snapshot_max_frames=2000000", run.args)
         self.assertEqual(len(build_run_description(preflight).experiments), 6)
 
 
