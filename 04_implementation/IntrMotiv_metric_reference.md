@@ -236,6 +236,23 @@ behavior target with the target from the preceding minibatch row, and rerun
 only the policy/value tail. They are cheap perturbation proxies rather than
 the full frozen intervention evaluation.
 
+As of 2026-09-10, the alternate-target pass runs only on the epoch/minibatch
+selected by the existing learner summary schedule, rather than on every loss
+calculation. Normal summary sampling and metric definitions are unchanged.
+Unexpected high-loss summaries from other minibatches omit these four
+unmeasured diagnostics rather than publishing zeros or cached values. Existing
+training processes must reload the updated source to use this optimization.
+
+Maintenance lesson: gate diagnostic computation at the loss call site, not just
+at logging. The authoritative source is NEMO2 `dmlab/custom_learner.py`; the local
+SFgit checkout may predate these metrics. The focused regression suite is
+`tests/test_goal_diagnostic_schedule.py` under the NEMO2 IntrMotiv package and
+checks tail-call skipping, selected-minibatch scheduling, numerical values, and
+omission from unscheduled summaries without importing DMLab.
+Run it with `/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python`; the separate
+`miniforge3/envs/dmlab0` environment lacks PyTorch. All four focused tests passed
+locally and in the NEMO2 SFgit environment; `git diff --check` also passed.
+
 | Tag | Exact quantity | Interpretation |
 |---|---|---|
 | intrmotiv/hrl/goal_condition/target_valid_fraction | Rows with a nonempty behavior target / valid learner rows. | Denominator health for the perturbation. |
