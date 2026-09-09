@@ -1,5 +1,6 @@
 """Target-conditioned shadow head extracted verbatim; see PROVENANCE.json."""
 
+import torch
 from torch import Tensor, nn
 
 class CA3TargetPredictor(nn.Module):
