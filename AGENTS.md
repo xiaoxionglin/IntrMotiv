@@ -12,8 +12,7 @@
 
 - In Markdown reports and notes, use `$...$` for inline math and `$$...$$`
   for display equations so formulas render correctly in Obsidian.
-- Put display delimiters on separate lines, with blank lines around the math
-  block. Do not use `\(...\)` or `\[...\]` as math delimiters.
+-  In chat, use `\(...\)` or `\[...\]` as math delimiters.
 
 ## Figure Readability
 
