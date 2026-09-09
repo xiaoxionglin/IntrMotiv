@@ -1,0 +1,1398 @@
+{
+  "date": "2026-09-09",
+  "time": "14:24–14:30 CEST",
+  "method": "W&B sampled coverage histories: 500 points per run, means and sample counts shown; recent window latest 20M, matched window 180–200M. Spatial snapshot records from canonical collect_spatial_records with analysis-only DEFAULT_TARGETS override to actual unchanged StudySpec targets because CLI rejects targets above 100M. No production edits or new rollouts.",
+  "spatial": [
+    {
+      "run_name": "PIC_F_BASE_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.19125764021521333,
+      "active_unit_mean_spatial_information": 0.12975700199604034,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.0793671072009325,
+      "stationary_step_fraction": 0.012898369393837672
+    },
+    {
+      "run_name": "PIC_F_BASE_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.09693415638098507,
+      "active_unit_mean_spatial_information": 0.18904101848602295,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.0692521642690385,
+      "stationary_step_fraction": 0.007565434910821419
+    },
+    {
+      "run_name": "PIC_F_BASE_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.10175174687728822,
+      "active_unit_mean_spatial_information": 0.16907086968421936,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.03492739606459686,
+      "stationary_step_fraction": 0.002990266377811003
+    },
+    {
+      "run_name": "PIC_F_BASE_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.0792817030774271,
+      "active_unit_mean_spatial_information": 0.18360865116119385,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.06547742623367524,
+      "stationary_step_fraction": 0.005338892561143032
+    },
+    {
+      "run_name": "PIC_F_BASE_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.15839009949391383,
+      "active_unit_mean_spatial_information": 0.13561096787452698,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.07334319455970553,
+      "stationary_step_fraction": 0.014065455728901817
+    },
+    {
+      "run_name": "PIC_F_BASE_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.09002544768237349,
+      "active_unit_mean_spatial_information": 0.1648055464029312,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.062343947285280935,
+      "stationary_step_fraction": 0.010188828894786615
+    },
+    {
+      "run_name": "PIC_F_GATE_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0.375,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.12632371831908634,
+      "active_unit_mean_spatial_information": 0.18980653584003448,
+      "unique_active_peak_bins": 13,
+      "path_efficiency": 0.18304253000089882,
+      "stationary_step_fraction": 0.16115580598244525
+    },
+    {
+      "run_name": "PIC_F_GATE_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.25,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.14384819427730994,
+      "active_unit_mean_spatial_information": 0.11043818295001984,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.17753064776640573,
+      "stationary_step_fraction": 0.03588351331014988
+    },
+    {
+      "run_name": "PIC_F_GATE_S123",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.4375,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.09367491272198943,
+      "active_unit_mean_spatial_information": 0.19507142901420593,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.21386805000847398,
+      "stationary_step_fraction": 0.022701152347921603
+    },
+    {
+      "run_name": "PIC_F_GATE_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3375281030469136,
+      "active_unit_mean_spatial_information": 0.08273768424987793,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.23870543219489854,
+      "stationary_step_fraction": 0.027232483590291557
+    },
+    {
+      "run_name": "PIC_F_GATE_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.26872832601187574,
+      "active_unit_mean_spatial_information": 0.10118941962718964,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.23937136374883355,
+      "stationary_step_fraction": 0.050614370575311256
+    },
+    {
+      "run_name": "PIC_F_GATE_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.22704521831066335,
+      "active_unit_mean_spatial_information": 0.10730792582035065,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.20489244097809234,
+      "stationary_step_fraction": 0.06099074356626996
+    },
+    {
+      "run_name": "PIC_F_GATE_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.1875,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.20612225390746353,
+      "active_unit_mean_spatial_information": 0.12870372831821442,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.22680421644886042,
+      "stationary_step_fraction": 0.1523996460789
+    },
+    {
+      "run_name": "PIC_F_INHIB_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.128205736651877,
+      "active_unit_mean_spatial_information": 0.09048710763454437,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.147469461431987,
+      "stationary_step_fraction": 0.017859503880068753
+    },
+    {
+      "run_name": "PIC_F_INHIB_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.06701337090573865,
+      "active_unit_mean_spatial_information": 0.16308197379112244,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.14062404093958947,
+      "stationary_step_fraction": 0.023407868379040703
+    },
+    {
+      "run_name": "PIC_F_INHIB_S123",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.0891683821149983,
+      "active_unit_mean_spatial_information": 0.12768246233463287,
+      "unique_active_peak_bins": 14,
+      "path_efficiency": 0.14071820886146486,
+      "stationary_step_fraction": 0.01587608315365526
+    },
+    {
+      "run_name": "PIC_F_INHIB_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.26318731871919515,
+      "active_unit_mean_spatial_information": 0.0579497255384922,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.21759586640305711,
+      "stationary_step_fraction": 0.02099090936854214
+    },
+    {
+      "run_name": "PIC_F_INHIB_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.22015167639776587,
+      "active_unit_mean_spatial_information": 0.05840252339839935,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.19614109792801598,
+      "stationary_step_fraction": 0.020312833925282152
+    },
+    {
+      "run_name": "PIC_F_INHIB_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.27265265482248063,
+      "active_unit_mean_spatial_information": 0.05665794387459755,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.24460311453566153,
+      "stationary_step_fraction": 0.036230630703958815
+    },
+    {
+      "run_name": "PIC_F_INHIB_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.21757392714646542,
+      "active_unit_mean_spatial_information": 0.060930684208869934,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.22199943608944098,
+      "stationary_step_fraction": 0.03263566837523391
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0.25,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.2667797093213718,
+      "active_unit_mean_spatial_information": 0.00046946422662585974,
+      "unique_active_peak_bins": 10,
+      "path_efficiency": 0.3418418632553767,
+      "stationary_step_fraction": 0.07771683271087955
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.4976881269705249,
+      "active_unit_mean_spatial_information": 0.0009380944538861513,
+      "unique_active_peak_bins": 7,
+      "path_efficiency": 0.46070523289815396,
+      "stationary_step_fraction": 0.10228683037984986
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.30912417366125894,
+      "active_unit_mean_spatial_information": 0.0004225143347866833,
+      "unique_active_peak_bins": 10,
+      "path_efficiency": 0.5013169580849912,
+      "stationary_step_fraction": 0.12345088622535154
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.4,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.16929173161008199,
+      "active_unit_mean_spatial_information": 0.0004934220341965556,
+      "unique_active_peak_bins": 14,
+      "path_efficiency": 0.4077099037836156,
+      "stationary_step_fraction": 0.09974570237005391
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S8",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.5,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3240429081543711,
+      "active_unit_mean_spatial_information": 0.0015220636269077659,
+      "unique_active_peak_bins": 11,
+      "path_efficiency": 0.5045428222040464,
+      "stationary_step_fraction": 0.13464903357070193
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3989043983258325,
+      "active_unit_mean_spatial_information": 0.001729457639157772,
+      "unique_active_peak_bins": 11,
+      "path_efficiency": 0.559408998047049,
+      "stationary_step_fraction": 0.17689365424915057
+    },
+    {
+      "run_name": "PIC_F_SIGNED_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.45176010377077847,
+      "active_unit_mean_spatial_information": 0.0010349303483963013,
+      "unique_active_peak_bins": 7,
+      "path_efficiency": 0.5629275274340538,
+      "stationary_step_fraction": 0.20044756382870513
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3520332672544742,
+      "active_unit_mean_spatial_information": 0.11874602735042572,
+      "unique_active_peak_bins": 14,
+      "path_efficiency": 0.46378462467399567,
+      "stationary_step_fraction": 0.040587553150367224
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.384442690867265,
+      "active_unit_mean_spatial_information": 0.12491059303283691,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4372656271576496,
+      "stationary_step_fraction": 0.035501032479884446
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.4154211715538444,
+      "active_unit_mean_spatial_information": 0.11399003863334656,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4453969848693042,
+      "stationary_step_fraction": 0.02564806901884182
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0.125,
+      "active_only_map_cosine": 0.49845044323758103,
+      "active_unit_mean_spatial_information": 0.14969658851623535,
+      "unique_active_peak_bins": 12,
+      "path_efficiency": 0.4888514126416483,
+      "stationary_step_fraction": 0.04742339337109848
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.38299798318628486,
+      "active_unit_mean_spatial_information": 0.1614776849746704,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.46424104187699644,
+      "stationary_step_fraction": 0.04070400325550638
+    },
+    {
+      "run_name": "PIC_G_CONTEXT_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.468029523180855,
+      "active_unit_mean_spatial_information": 0.144825279712677,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4543917036816986,
+      "stationary_step_fraction": 0.027307504476640078
+    },
+    {
+      "run_name": "PIC_G_INHIB_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.30257421481202823,
+      "active_unit_mean_spatial_information": 0.04829970747232437,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.413264065071118,
+      "stationary_step_fraction": 0.041940965191644364
+    },
+    {
+      "run_name": "PIC_G_INHIB_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.2968551749368509,
+      "active_unit_mean_spatial_information": 0.0535571314394474,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4198807529214371,
+      "stationary_step_fraction": 0.053067909020629044
+    },
+    {
+      "run_name": "PIC_G_INHIB_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.25867849294617506,
+      "active_unit_mean_spatial_information": 0.05070290341973305,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4025271583873117,
+      "stationary_step_fraction": 0.03428699332573661
+    },
+    {
+      "run_name": "PIC_G_INHIB_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.27224349264811726,
+      "active_unit_mean_spatial_information": 0.049074936658144,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.44124510974621006,
+      "stationary_step_fraction": 0.04923803129260005
+    },
+    {
+      "run_name": "PIC_G_INHIB_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.30287448784798227,
+      "active_unit_mean_spatial_information": 0.05206894874572754,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.480041675773821,
+      "stationary_step_fraction": 0.05679841294063787
+    },
+    {
+      "run_name": "PIC_G_INHIB_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3249693709857214,
+      "active_unit_mean_spatial_information": 0.0499231219291687,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.3196134937065181,
+      "stationary_step_fraction": 0.030681586978636825
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3725975913091331,
+      "active_unit_mean_spatial_information": 0.06475970149040222,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.34172396956785706,
+      "stationary_step_fraction": 0.019290249063975258
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.37044521949066817,
+      "active_unit_mean_spatial_information": 0.07039158046245575,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4654290351164444,
+      "stationary_step_fraction": 0.028270887801503577
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3299934238897469,
+      "active_unit_mean_spatial_information": 0.0727837085723877,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.36121060597837035,
+      "stationary_step_fraction": 0.029520407851756875
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3670632999266008,
+      "active_unit_mean_spatial_information": 0.06843133270740509,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.40447440864951156,
+      "stationary_step_fraction": 0.025736752693203666
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3767105964352311,
+      "active_unit_mean_spatial_information": 0.06695482134819031,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.33912594509971894,
+      "stationary_step_fraction": 0.02455454813729381
+    },
+    {
+      "run_name": "PIC_G_LONG_DISCOUNT_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.358365230103329,
+      "active_unit_mean_spatial_information": 0.07269710302352905,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.413613797914503,
+      "stationary_step_fraction": 0.03833475766084727
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3678317137121792,
+      "active_unit_mean_spatial_information": 0.06857777386903763,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.39457349573600686,
+      "stationary_step_fraction": 0.05620218134461989
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.37860207875289514,
+      "active_unit_mean_spatial_information": 0.06809394061565399,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.38474454822896137,
+      "stationary_step_fraction": 0.06967755060522836
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.40423496411874,
+      "active_unit_mean_spatial_information": 0.06183663010597229,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4142913886055815,
+      "stationary_step_fraction": 0.06442095410566583
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.4182749253191826,
+      "active_unit_mean_spatial_information": 0.06061181798577309,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.34230080213759545,
+      "stationary_step_fraction": 0.044596354166666664
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3799736197862317,
+      "active_unit_mean_spatial_information": 0.07234852015972137,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.36811094775005737,
+      "stationary_step_fraction": 0.06109471970698952
+    },
+    {
+      "run_name": "PIC_G_SEPARATE_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3863700159394779,
+      "active_unit_mean_spatial_information": 0.06800854206085205,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.37583507371675634,
+      "stationary_step_fraction": 0.05613931583069709
+    },
+    {
+      "run_name": "PIC_G_SHARED_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.379437360770049,
+      "active_unit_mean_spatial_information": 0.06796223670244217,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.3937336939528469,
+      "stationary_step_fraction": 0.023300773300773302
+    },
+    {
+      "run_name": "PIC_G_SHARED_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3908800601942491,
+      "active_unit_mean_spatial_information": 0.06296622008085251,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.43685228856062513,
+      "stationary_step_fraction": 0.031760241711512836
+    },
+    {
+      "run_name": "PIC_G_SHARED_S123",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3741722284310312,
+      "active_unit_mean_spatial_information": 0.07078476250171661,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.41615875807562747,
+      "stationary_step_fraction": 0.031438222366921696
+    },
+    {
+      "run_name": "PIC_G_SHARED_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.35286663362658405,
+      "active_unit_mean_spatial_information": 0.07410969585180283,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.44033000314605913,
+      "stationary_step_fraction": 0.035010428854860866
+    },
+    {
+      "run_name": "PIC_G_SHARED_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3660618684926122,
+      "active_unit_mean_spatial_information": 0.06346508115530014,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.26855433552847646,
+      "stationary_step_fraction": 0.019155256251144434
+    },
+    {
+      "run_name": "PIC_G_SHARED_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3436683162884518,
+      "active_unit_mean_spatial_information": 0.07686423510313034,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.36742175489424583,
+      "stationary_step_fraction": 0.03043624263516195
+    },
+    {
+      "run_name": "PIC_G_SHARED_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3095391668265022,
+      "active_unit_mean_spatial_information": 0.08519645035266876,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4304283494790128,
+      "stationary_step_fraction": 0.03106335785435935
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.4137886567424722,
+      "active_unit_mean_spatial_information": 0.06452174484729767,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.3869813110966,
+      "stationary_step_fraction": 0.03104300845517536
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3706421528041363,
+      "active_unit_mean_spatial_information": 0.07116641104221344,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.49425769124626207,
+      "stationary_step_fraction": 0.04227243593004446
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3379340386596332,
+      "active_unit_mean_spatial_information": 0.07256241142749786,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.3212025614847564,
+      "stationary_step_fraction": 0.023053992735855774
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.125,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.2951441200066974,
+      "active_unit_mean_spatial_information": 0.08900521695613861,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.25921704278759133,
+      "stationary_step_fraction": 0.03043986778540554
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3609068238164586,
+      "active_unit_mean_spatial_information": 0.07366868853569031,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4189407131324836,
+      "stationary_step_fraction": 0.030117110792303857
+    },
+    {
+      "run_name": "PIC_W_REF_JOINT_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.34431230934789286,
+      "active_unit_mean_spatial_information": 0.0687425434589386,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4722048859198333,
+      "stationary_step_fraction": 0.0444419579281442
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S123",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3953488484754907,
+      "active_unit_mean_spatial_information": 0.06424270570278168,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4734470484299894,
+      "stationary_step_fraction": 0.04041667938271228
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3669408093199672,
+      "active_unit_mean_spatial_information": 0.06188303232192993,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.4333369676698728,
+      "stationary_step_fraction": 0.10526904575455867
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S8",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3300376223673935,
+      "active_unit_mean_spatial_information": 0.0857299193739891,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.5603099599321368,
+      "stationary_step_fraction": 0.3189082511876787
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.37480803195519186,
+      "active_unit_mean_spatial_information": 0.07196199148893356,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.3073794413305944,
+      "stationary_step_fraction": 0.14032392618064174
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S8",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.34990755038113186,
+      "active_unit_mean_spatial_information": 0.07497194409370422,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.28009552342398186,
+      "stationary_step_fraction": 0.15247010938692446
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S99",
+      "target_env_steps": 100000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3208406941023518,
+      "active_unit_mean_spatial_information": 0.07415858656167984,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.2562219818053304,
+      "stationary_step_fraction": 0.020129856913150557
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.4053416091871657,
+      "active_unit_mean_spatial_information": 0.06466430425643921,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.37347868875029794,
+      "stationary_step_fraction": 0.03298614642878939
+    },
+    {
+      "run_name": "PIC_W_REF_STOP_S99",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.3540314160219226,
+      "active_unit_mean_spatial_information": 0.07568860054016113,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.4595371606549063,
+      "stationary_step_fraction": 0.03250518862165792
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S123",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.24725578670251788,
+      "active_unit_mean_spatial_information": 0.10493604838848114,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.13409317309316926,
+      "stationary_step_fraction": 0.034686196724646526
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S123",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.18810491218895475,
+      "active_unit_mean_spatial_information": 0.1326533555984497,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.11486677042728335,
+      "stationary_step_fraction": 0.015543303562346143
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S8",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.1812288158606228,
+      "active_unit_mean_spatial_information": 0.11895624548196793,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.10456940042305822,
+      "stationary_step_fraction": 0.01492233671383088
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S8",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.0625,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.10481393899491734,
+      "active_unit_mean_spatial_information": 0.16780808568000793,
+      "unique_active_peak_bins": 16,
+      "path_efficiency": 0.08053716236387813,
+      "stationary_step_fraction": 0.006698243616848268
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S99",
+      "target_env_steps": 200000000,
+      "mono_field_unit_fraction": 0.1875,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.1441506745615526,
+      "active_unit_mean_spatial_information": 0.13726681470870972,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.6723414652989913,
+      "stationary_step_fraction": 0.06021253877052931
+    },
+    {
+      "run_name": "PIC_C15_CONTINUE_S99",
+      "target_env_steps": 300000000,
+      "mono_field_unit_fraction": 0.125,
+      "silent_unit_fraction": 0,
+      "active_only_map_cosine": 0.1109105094301491,
+      "active_unit_mean_spatial_information": 0.155775249004364,
+      "unique_active_peak_bins": 15,
+      "path_efficiency": 0.6881347534503268,
+      "stationary_step_fraction": 0.0697194341905895
+    }
+  ],
+  "coverage": [
+    {
+      "id": "00_PIC_F_BASE_S8_20260908_041813_446023",
+      "early": [
+        19.54,
+        52
+      ],
+      "matched200": [
+        21.83,
+        43
+      ],
+      "recent": [
+        21.41,
+        48
+      ]
+    },
+    {
+      "id": "00_PIC_F_BASE_S99_20260908_041813_806261",
+      "early": [
+        34.63,
+        50
+      ],
+      "matched200": [
+        25.39,
+        44
+      ],
+      "recent": [
+        27.74,
+        46
+      ]
+    },
+    {
+      "id": "00_PIC_F_GATE_S8_20260908_041812_695251",
+      "early": [
+        81.7,
+        38
+      ],
+      "matched200": [
+        75.84,
+        37
+      ],
+      "recent": [
+        50.04,
+        37
+      ]
+    },
+    {
+      "id": "00_PIC_F_BASE_S123_20260908_041813_500723",
+      "early": [
+        36.55,
+        50
+      ],
+      "matched200": [
+        28.57,
+        43
+      ],
+      "recent": [
+        26.21,
+        47
+      ]
+    },
+    {
+      "id": "00_PIC_F_GATE_S99_20260908_041819_664787",
+      "early": [
+        72.82,
+        38
+      ],
+      "matched200": [
+        50.97,
+        38
+      ],
+      "recent": [
+        41.9,
+        36
+      ]
+    },
+    {
+      "id": "00_PIC_F_GATE_S123_20260908_041819_655521",
+      "early": [
+        64.89,
+        37
+      ],
+      "matched200": [
+        51.71,
+        37
+      ],
+      "recent": [
+        47.53,
+        41
+      ]
+    },
+    {
+      "id": "00_PIC_F_INHIB_S123_20260908_041819_673658",
+      "early": [
+        63.07,
+        37
+      ],
+      "matched200": [
+        45.19,
+        38
+      ],
+      "recent": [
+        43.88,
+        39
+      ]
+    },
+    {
+      "id": "00_PIC_F_INHIB_S8_20260908_041819_665632",
+      "early": [
+        79.75,
+        38
+      ],
+      "matched200": [
+        77.15,
+        37
+      ],
+      "recent": [
+        69.05,
+        37
+      ]
+    },
+    {
+      "id": "00_PIC_F_INHIB_S99_20260908_041819_665078",
+      "early": [
+        83.54,
+        39
+      ],
+      "matched200": [
+        76.55,
+        38
+      ],
+      "recent": [
+        66.83,
+        32
+      ]
+    },
+    {
+      "id": "00_PIC_F_SIGNED_S8_20260908_041822_913467",
+      "early": [
+        97.08,
+        37
+      ],
+      "matched200": [
+        97.73,
+        36
+      ],
+      "recent": [
+        90.05,
+        46
+      ]
+    },
+    {
+      "id": "00_PIC_G_CONTEXT_S8_20260908_041841_607955",
+      "early": [
+        87.67,
+        50
+      ],
+      "matched200": [
+        88.94,
+        44
+      ],
+      "recent": [
+        80.47,
+        46
+      ]
+    },
+    {
+      "id": "00_PIC_G_SHARED_S99_20260908_041843_386465",
+      "early": [
+        94.99,
+        50
+      ],
+      "matched200": [
+        94.14,
+        44
+      ],
+      "recent": [
+        90.95,
+        47
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_STOP_S123_20260908_041842_813911",
+      "early": [
+        73.2,
+        38
+      ],
+      "matched200": [
+        71.27,
+        37
+      ],
+      "recent": [
+        71.07,
+        36
+      ]
+    },
+    {
+      "id": "00_PIC_G_CONTEXT_S123_20260908_041843_586114",
+      "early": [
+        85.83,
+        50
+      ],
+      "matched200": [
+        85.22,
+        44
+      ],
+      "recent": [
+        84.73,
+        45
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_STOP_S99_20260908_041842_829787",
+      "early": [
+        79.79,
+        37
+      ],
+      "matched200": [
+        79.89,
+        38
+      ],
+      "recent": [
+        87.19,
+        39
+      ]
+    },
+    {
+      "id": "00_PIC_G_INHIB_S123_20260908_041844_244830",
+      "early": [
+        91.59,
+        39
+      ],
+      "matched200": [
+        90.89,
+        37
+      ],
+      "recent": [
+        89.43,
+        31
+      ]
+    },
+    {
+      "id": "00_PIC_G_CONTEXT_S99_20260908_041843_522684",
+      "early": [
+        87.67,
+        52
+      ],
+      "matched200": [
+        85.99,
+        45
+      ],
+      "recent": [
+        87.69,
+        44
+      ]
+    },
+    {
+      "id": "00_PIC_G_LONG_DISCOUNT_S8_20260908_041843_373683",
+      "early": [
+        92.13,
+        50
+      ],
+      "matched200": [
+        88.62,
+        44
+      ],
+      "recent": [
+        84.47,
+        46
+      ]
+    },
+    {
+      "id": "00_PIC_G_LONG_DISCOUNT_S123_20260908_041843_503149",
+      "early": [
+        89.12,
+        50
+      ],
+      "matched200": [
+        96.23,
+        43
+      ],
+      "recent": [
+        94.04,
+        46
+      ]
+    },
+    {
+      "id": "00_PIC_G_LONG_DISCOUNT_S99_20260908_041843_587023",
+      "early": [
+        91.19,
+        52
+      ],
+      "matched200": [
+        91.03,
+        43
+      ],
+      "recent": [
+        90.7,
+        43
+      ]
+    },
+    {
+      "id": "00_PIC_G_SHARED_S8_20260908_041843_583230",
+      "early": [
+        89.23,
+        50
+      ],
+      "matched200": [
+        91.7,
+        43
+      ],
+      "recent": [
+        92.18,
+        48
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_STOP_S8_20260908_041844_331205",
+      "early": [
+        70.24,
+        37
+      ],
+      "matched200": [
+        76.07,
+        37
+      ],
+      "recent": [
+        71.95,
+        37
+      ]
+    },
+    {
+      "id": "00_PIC_F_SIGNED_S123_20260908_041844_575564",
+      "early": [
+        95.87,
+        50
+      ],
+      "matched200": [
+        96.53,
+        44
+      ],
+      "recent": [
+        90.1,
+        48
+      ]
+    },
+    {
+      "id": "00_PIC_G_INHIB_S8_20260908_041844_543202",
+      "early": [
+        90.7,
+        40
+      ],
+      "matched200": [
+        92.56,
+        39
+      ],
+      "recent": [
+        92.62,
+        27
+      ]
+    },
+    {
+      "id": "00_PIC_G_INHIB_S99_20260908_041844_622498",
+      "early": [
+        90.18,
+        41
+      ],
+      "matched200": [
+        93.29,
+        40
+      ],
+      "recent": [
+        88.61,
+        29
+      ]
+    },
+    {
+      "id": "00_PIC_G_SHARED_S123_20260908_041844_812289",
+      "early": [
+        88.4,
+        37
+      ],
+      "matched200": [
+        93.39,
+        37
+      ],
+      "recent": [
+        92.29,
+        37
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_JOINT_S8_20260908_041844_270389",
+      "early": [
+        88.43,
+        39
+      ],
+      "matched200": [
+        81.04,
+        39
+      ],
+      "recent": [
+        87.15,
+        31
+      ]
+    },
+    {
+      "id": "00_PIC_G_SEPARATE_S123_20260908_041845_809516",
+      "early": [
+        86.1,
+        52
+      ],
+      "matched200": [
+        81.82,
+        45
+      ],
+      "recent": [
+        81.53,
+        43
+      ]
+    },
+    {
+      "id": "00_PIC_G_SEPARATE_S8_20260908_041845_813627",
+      "early": [
+        85.39,
+        52
+      ],
+      "matched200": [
+        83.38,
+        43
+      ],
+      "recent": [
+        83.12,
+        45
+      ]
+    },
+    {
+      "id": "00_PIC_G_SEPARATE_S99_20260908_041845_809873",
+      "early": [
+        81.59,
+        52
+      ],
+      "matched200": [
+        85.97,
+        45
+      ],
+      "recent": [
+        84.75,
+        43
+      ]
+    },
+    {
+      "id": "00_PIC_F_SIGNED_S99_20260908_041846_164518",
+      "early": [
+        77.86,
+        52
+      ],
+      "matched200": [
+        84.86,
+        43
+      ],
+      "recent": [
+        76.2,
+        44
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_JOINT_S99_20260908_041901_548126",
+      "early": [
+        80.23,
+        42
+      ],
+      "matched200": [
+        79.45,
+        40
+      ],
+      "recent": [
+        90.92,
+        26
+      ]
+    },
+    {
+      "id": "00_PIC_W_REF_JOINT_S123_20260908_041902_567286",
+      "early": [
+        76.41,
+        48
+      ],
+      "matched200": [
+        87.82,
+        46
+      ],
+      "recent": [
+        88.27,
+        40
+      ]
+    },
+    {
+      "id": "00_PIC_C15_CONTINUE_S99_20260908_042801_287189",
+      "early": null,
+      "matched200": [
+        82.07,
+        30
+      ],
+      "recent": [
+        79.65,
+        31
+      ]
+    },
+    {
+      "id": "00_PIC_C15_CONTINUE_S8_20260908_042803_400960",
+      "early": null,
+      "matched200": [
+        43.58,
+        36
+      ],
+      "recent": [
+        39.58,
+        45
+      ]
+    },
+    {
+      "id": "00_PIC_C15_CONTINUE_S123_20260908_042805_172797",
+      "early": null,
+      "matched200": [
+        58.51,
+        32
+      ],
+      "recent": [
+        40.78,
+        36
+      ]
+    }
+  ]
+}
