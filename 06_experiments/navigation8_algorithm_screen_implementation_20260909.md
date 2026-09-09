@@ -3,8 +3,8 @@
 ## Status
 
 The six-cell navigation8 algorithm screen is implemented in the canonical
-StudySpec workflow. The production matrix is ready but remains gated on six
-submitted 2M-frame preflights.
+StudySpec workflow. All six corrected 2M-frame preflights passed, and the
+18-run production batch is running on NEMO2.
 
 - Production: 6 configurations × seeds 8, 99, and 123 = 18 runs at 300M
   simulator frames each.
@@ -116,18 +116,27 @@ Corrected submitted directory:
 Replacement jobs are `8035420`, `8035421`, and `8035423`–`8035426`. The
 canonical post-submission audit reports six exact commands, six unique numeric
 job IDs, the corrected fingerprint, and workspace-valid paths. All six reached
-the first training update, reported positive frame counts, and remained free of
-runtime exceptions in the startup check. Completion and artifact checks remain
-pending.
+2,015,232 TensorBoard frames, saved a 2,031,616-frame checkpoint, produced both
+required spatial targets, and completed with exit `0:0`. The fail-closed runtime
+audit passed all six runs with no errors. Its result is
+`runtime_audit.json` in the corrected submitted directory.
 
 Production print-only review generated and audited all 18 scripts under
 `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_20260909/20260909T164712Z`.
 The commands exactly match the production StudySpec and all paths remain in the
-workspace. Production submission remains blocked until all six corrected
-preflights finish with exit 0 and runtime artifacts confirm the expected action
-space, finite learning signals, correct frame accounting, and spatial snapshot
-generation. `hpc_runs/audit_navigation8_algorithm_screen_preflight.py` performs
-that fail-closed post-run audit from the submitted `jobs.tsv`.
+workspace.
+
+Production was submitted from:
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_navigation8_algorithm_screen_20260909/20260909T173703Z`.
+
+The 18 production job IDs are `8035815`, `8035816`, and `8035825`–`8035840`.
+The canonical post-submission audit reports exact command agreement, a complete
+18-job matrix, unique numeric job IDs, fingerprint
+`c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094`,
+and workspace-valid paths. At the startup verification, all 18 jobs were
+`RUNNING`, every environment reported `Discrete(8)` with frame skip 4, every
+log confirmed the eight-action navigation set, every learner had positive
+frame progress, and no exception signature was present.
 
 ## Reusable lesson
 
