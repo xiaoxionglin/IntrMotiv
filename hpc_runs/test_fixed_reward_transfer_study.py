@@ -6,7 +6,7 @@ from hpc_runs.intrmotiv_study import load_study
 
 ROOT = Path(__file__).parent
 PRODUCTION = ROOT / "studies" / "fixed_reward_transfer.study.json"
-PREFLIGHT = ROOT / "studies" / "fixed_reward_transfer_preflight.study.json"
+PREFLIGHT = ROOT / "studies" / "fixed_reward_transfer_preflight2.study.json"
 
 
 class FixedRewardTransferStudyTests(unittest.TestCase):
@@ -73,4 +73,3 @@ class FixedRewardTransferStudyTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
