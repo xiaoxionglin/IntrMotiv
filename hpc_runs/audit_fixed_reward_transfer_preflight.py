@@ -92,29 +92,35 @@ def audit(study, jobs_tsv: Path, train_root: Path, required_frames: int):
 
         transfer_path = config.get("transfer_model_path")
         scope = config.get("transfer_scope", "none")
-        if transfer_path and initial:
+        if transfer_path and Path(transfer_path).is_file():
             source = source_models.setdefault(transfer_path, _load_model(Path(transfer_path)))
-            initialized = _load_model(initial)
             prefixes = ("encoder.DG_projection.linear.", "encoder.DG_projection.batchnorm1d.")
             if scope == "policy":
                 prefixes += ("decoder.", "action_parameterization.")
-            for key in (k for k in initialized if k.startswith(prefixes)):
-                if key not in source or not torch.equal(initialized[key], source[key]):
-                    errors.append(f"initial transfer mismatch {key}")
-            if scope == "policy" and torch.equal(initialized["critic_linear.weight"], source["critic_linear.weight"]):
-                errors.append("critic was transferred instead of freshly initialized")
+            if initial:
+                initialized = _load_model(initial)
+                for key in (k for k in initialized if k.startswith(prefixes)):
+                    if key not in source or not torch.equal(initialized[key], source[key]):
+                        errors.append(f"initial transfer mismatch {key}")
+                if scope == "policy" and torch.equal(
+                    initialized["critic_linear.weight"], source["critic_linear.weight"]
+                ):
+                    errors.append("critic was transferred instead of freshly initialized")
             if config.get("transfer_freeze_dg") and terminal_path:
                 terminal = _load_model(terminal_path)
                 for key in (k for k in source if k.startswith(prefixes[:2])):
                     if key in terminal and not torch.equal(terminal[key], source[key]):
                         errors.append(f"frozen DG changed: {key}")
         elif scope != "none":
-            errors.append("transfer scope has no source checkpoint or initial checkpoint")
+            errors.append("transfer scope has no readable source checkpoint")
 
-        if initial:
-            target = _load_model(initial).get("core.fixed_task_target")
-            if target is None or not torch.allclose(target, torch.full((16,), 1 / 16)):
-                errors.append("constant task vector is missing or not uniformly initialized")
+        inspected = initial or terminal_path
+        if inspected:
+            target = _load_model(inspected).get("core.fixed_task_target")
+            if target is None or not torch.isfinite(target).all() or tuple(target.shape) != (16,):
+                errors.append("constant task vector is missing, nonfinite, or has the wrong shape")
+            elif initial and not torch.allclose(target, torch.full((16,), 1 / 16)):
+                errors.append("constant task vector is not uniformly initialized")
 
         stdout = Path(job["stdout"].replace("%j", job.get("job_id", "")))
         stderr = Path(job["stderr"].replace("%j", job.get("job_id", "")))
@@ -161,4 +167,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

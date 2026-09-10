@@ -290,6 +290,23 @@ preflight and ordinary-job production submission. Postprocess with the existing
 summarizer, manifest analyzer, trajectory plotter, and stability tool documented
 in `reusable_place_field_telemetry.md`.
 
+### Weights-only transfer runtime gates
+
+For a StudySpec that initializes selected modules from an older checkpoint,
+hash the declared source checkpoints and run one ordinary-job preflight per
+design cell before production. The preflight must exercise the actual launcher
+and old checkpoint format, check the declared load scope, and compare terminal
+tensors exactly for every frozen module. Freezing a normalization layer includes
+its running statistics; setting only its parameters to `requires_grad=False` is
+insufficient when the module remains in training mode.
+
+Do not assume a frame-zero checkpoint exists. If the backend first saves after
+training has begun, verify selective initialization and fresh excluded modules
+with focused tests and explicit runtime load logs, then use terminal checkpoints
+only for properties that must remain invariant. Record this limitation in the
+study report rather than treating a tuned terminal tensor as evidence of its
+initial value.
+
 ## Extending the standard
 
 When a later task needs another repeated capability:
