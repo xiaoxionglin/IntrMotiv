@@ -2,6 +2,7 @@
 import argparse,csv,json,math,re
 from pathlib import Path
 import torch
+import numpy as np
 from hpc_runs.intrmotiv_study import load_study
 from hpc_runs.audit_navigation8_algorithm_screen_preflight import _events
 
@@ -39,16 +40,26 @@ def audit(spec,jobs,root,required_frames):
         def peak(fragment):return max([float(e.value) for tag,es in values.items() if fragment in tag for e in es],default=0.)
         if cfg['dg_goal_input']=='write' and peak('dg_goal_modulation_gradient_norm')<=0:errors.append('missing live modulation gradient')
         signals={k:peak(k) for k in ['validation_success','waypoint_navigation_fraction','waypoint_step_hit','route_available']}
+        signals['validation_success']=max(signals['validation_success'],peak('hrl/validation/success_rate'))
         if run.base=='WAYPOINT_DG':
             if signals['validation_success']<=0:errors.append('waypoint validation never succeeded')
             if signals['waypoint_navigation_fraction']<=0:errors.append('multi-hop routing never exercised')
+        snapshots=Path(root)/'analysis'/'online_spatial'/study.batch_name/run.name/'policy_00'
+        present=set()
+        for snapshot in snapshots.glob('*.npz'):
+            with np.load(snapshot,allow_pickle=False) as data:
+                present.add(int(data['target_env_steps']))
+                if int(data['frameskip'])!=4:errors.append('snapshot frameskip mismatch')
+                if not np.isfinite(data['dg_activity']).all():errors.append('nonfinite snapshot DG')
+        for target in (1000000,2000000):
+            if target not in present:errors.append(f'missing spatial snapshot {target}')
         for key in ['stdout','stderr']:
             p=Path(job[key].replace('%j',job['job_id']))
             text=p.read_text(errors='replace') if p.exists() else ''
             if 'Traceback (most recent call last)' in text:errors.append(f'traceback in {key}')
         result=dict(run=run.name,job_id=job['job_id'],frames=frames,passed=not errors,errors=errors,signals=signals)
         results.append(result);print(json.dumps(result),flush=True)
-    return dict(schema='intrmotiv/study/v1',workflow_version='1.5.0',study_id=study.study_id,passed=all(r['passed'] for r in results),runs=results)
+    return dict(schema='intrmotiv/study/v1',workflow_version='1.5.0',study_id=study.study_id,study_sha256=study.fingerprint,passed=all(r['passed'] for r in results),runs=results)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('study');p.add_argument('jobs');p.add_argument('train_root');p.add_argument('--required-frames',type=int,default=2000000);p.add_argument('--output',required=True);a=p.parse_args()

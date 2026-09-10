@@ -156,7 +156,8 @@
       "--dg_orthogonal_recruitment=False",
       "--dg_orthogonal_recruitment_max_per_rollout=0",
       "--ppo_dg_gradient=stop",
-      "--save_initial_checkpoint=True"
+      "--save_initial_checkpoint=True",
+      "--checkpoint_frame_targets=5000000,25000000,75000000,150000000,300000000"
     ]
   },
   "bases": [

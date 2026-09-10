@@ -17,6 +17,11 @@ inputs. Goal input to DG and waypoint execution are experimental hypotheses.
 
 ## Agreed matrix: 27 production runs
 
+Final scope confirmation: remove goal discrimination and the waypoint
+worker-only condition. Retain waypoint execution with **both DG and worker
+goal conditioning**. The resulting three arms below each contribute nine
+runs (three DG sizes × three seeds).
+
 | Execution | Goal conditioning | DG sizes | Seeds |
 |---|---|---|---|
 | C15 direct frontier | Worker only | 16, 32, 64 | 8, 99, 123 |
