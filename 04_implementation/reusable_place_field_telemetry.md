@@ -508,3 +508,26 @@ period-1–4 repeated-event motifs, physical displacement, stationarity, and
 64-decision path straightness. Read these with coverage and raw/post-inhibition
 field diagnostics; neither fewer events nor low straightness alone proves a
 change in cyclic exploration.
+
+## Goal-conditioned DG probes (2026-09-10)
+
+`observation_panel.replay_observations` accepts an optional forced landmark ID
+before recurrent DG writes and optionally returns worker activity separately.
+`place_fields.py --panel-goal` exposes this for matched observation histories.
+Canonical detector maps remain comparable across commands; conditioned worker
+maps are separate arrays. The real DMLab smoke verified exact panel replay and
+canonical detector invariance while worker activity changed.
+
+The compatible `landmark-matched-commands-v1` intervention evaluator reconstructs
+physical starts with seeded engines and identical action prefixes. It rejects
+any observation or recurrent-state mismatch and checks that model/graph tensors
+remain frozen. It executes all selected alternate commands, measures canonical
+arrival, and records paired arrival lift, initial action total variation,
+physical endpoints, censoring, and panel coverage. Exposed sources/targets are
+an observed subset, not proof of control over all allocated DG units. DG-write
+models reject the legacy decoder-only intervention path.
+
+Use this through the standard StudySpec intervention metadata and manifest
+backend. Workflow 1.6.0 supports more than one intervention checkpoint; the
+DG-capacity study declares 75M and 300M. Do not infer control from an evaluator
+smoke passing: the real two-comparison smoke had zero arrival lift.
