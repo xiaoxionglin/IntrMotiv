@@ -1,0 +1,340 @@
+--- a/sample_factory/algo/learning/learner.py
++++ b/sample_factory/algo/learning/learner.py
+@@ -577,6 +577,10 @@
+             if head_only:
+                 return outputs
+ 
++        replay_head = getattr(self, "_prepare_recurrent_replay_head", None)
++        if replay_head is not None:
++            head_outputs = replay_head(head_outputs, mb)
++
+         # initial rnn states
+         with self.timing.add_time("bptt_initial"):
+             if self.cfg.use_rnn:
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -207,8 +207,8 @@
+         raise ValueError("Motion policy input requires action path integration")
+     if getattr(cfg, "hrl_landmark_geometry", "none") != "none" and not topological:
+         raise ValueError("Landmark geometry requires a topological frontier manager")
+-    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode != "control_graph":
+-        raise ValueError("Connectivity-aware edge exploration requires hrl_manager_mode=control_graph")
++    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode not in ("control_graph", "frontier_waypoint"):
++        raise ValueError("Edge exploration requires a waypoint or control_graph manager")
+     goal_conditioning = getattr(cfg, "hrl_goal_conditioning", "legacy")
+     intrinsic_goal = getattr(cfg, "intrinsic_goal_mode", "none") != "none"
+     memory_inhibition = getattr(cfg, "dg_ca3_reentry_inhibition", "none") != "none"
+@@ -307,6 +307,14 @@
+             # conditioning this stores target id, four geometry values, and
+             # mode id; otherwise it stores only target id.
+             rnn_size += 1 + GEOMETRY_POLICY_SIZE + 1 if getattr(cfg, "hrl_behavior_mode_condition", False) else 1
++        if getattr(cfg, "dg_goal_input", "none") == "write":
++            if (cfg.core_name != "BypassSS" or not getattr(cfg, "hrl_controllable_graph", False)
++                or getattr(cfg, "hrl_target_timing", "delayed") != "immediate"
++                or getattr(cfg, "hrl_graph_memory", "episode") != "policy_buffer"
++                or getattr(cfg, "dg_context_feedback", "none") != "none"
++                or getattr(cfg, "ppo_dg_gradient", "stop") != "stop"):
++                raise ValueError("DG goal writes require immediate policy-buffer BypassSS, no context feedback, and PPO STOP")
++            rnn_size += hippo_n_feature * (R + L - 1)
+         cfg.cli_args["rnn_size"] = rnn_size
+         cfg.rnn_size = rnn_size
+ 
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
+@@ -225,7 +225,12 @@
+         # bypass, target, geometry, and manager-mode features retain their
+         # existing PPO gradient paths.
+         ca3_size = int(getattr(self.core, "core_output_size", 0))
+-        controller_output = controller_core_view(core_output, ca3_size, getattr(self, "ppo_dg_gradient", "stop"))
++        if getattr(self.core, "dg_goal_modulation", None) is not None:
++            # The worker trace is differentiated only through goal modulation;
++            # canonical CA3 remains in core_output for representation losses.
++            controller_output = self.core.worker_view(core_output)
++        else:
++            controller_output = controller_core_view(core_output, ca3_size, getattr(self, "ppo_dg_gradient", "stop"))
+         if getattr(self, "separate_goal_controllers", False):
+             start = self.core.target_condition_start
+             target = controller_output[:, start : start + int(self.cfg.Hippo_n_feature)]
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_core.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_core.py
+@@ -1993,7 +1993,11 @@
+                 getattr(cfg, "intrinsic_goal_mode", "none") != "none"
+                 or getattr(cfg, "dg_ca3_reentry_inhibition", "none") != "none"
+             )
+-            core = (FiniteMemoryCore if memory else SimpleSequenceWithBypassCore)(cfg, core_input_size)
++            if getattr(cfg, "dg_goal_input", "none") == "write":
++                from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++                core = GoalConditionedDGCore(cfg, core_input_size)
++            else:
++                core = (FiniteMemoryCore if memory else SimpleSequenceWithBypassCore)(cfg, core_input_size)
+         elif cfg.core_name == "BypassSS_binary":
+             core = SimpleSequenceWithBypassCore_binary(cfg, core_input_size)
+         elif cfg.core_name == "Default":
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
+@@ -0,0 +1,103 @@
++"""Goal-conditioned worker memory with independent, canonical landmark evidence.
++
++Core output keeps the canonical layout intact and appends a worker-memory
++payload. Only the policy tail consumes that payload. Encoder objectives and
++graph updates therefore never use goal-dependent achievement evidence.
++"""
++import torch
++from torch import nn
++from torch.nn.utils.rnn import PackedSequence, pad_packed_sequence, pack_padded_sequence
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++
++
++class GoalConditionedDGCore(SimpleSequenceWithBypassCore):
++    def __init__(self, cfg, input_size):
++        n = int(cfg.Hippo_n_feature)
++        super().__init__(cfg, input_size - n)
++        if not self.hrl_enabled or self.hrl_graph_memory != 'policy_buffer' or self.hrl_target_timing != 'immediate':
++            raise ValueError('Goal-conditioned DG requires immediate policy-buffer HRL')
++        if self.context_feedback is not None or self.graph_recruitment:
++            raise ValueError('Goal-conditioned DG currently excludes contextual feedback and recruitment')
++        self.canonical_input_size = input_size - n
++        self.canonical_state_size = self.total_state_size
++        self.total_state_size += self.core_output_size
++        self.dg_goal_modulation = nn.Parameter(torch.zeros(n, 2 * n))
++        self.dg_intercept = float(getattr(cfg, 'DG_BN_intercept', 2.43))
++        self.last_worker_dg_activity = None
++        self.last_worker_memory = None
++
++    def split_worker_state(self, state):
++        k = self.canonical_state_size - self.behavior_goal_state_size
++        canonical = torch.cat((state[..., :k], state[..., k + self.core_output_size:]), -1)
++        return canonical, state[..., k:k + self.core_output_size]
++
++    def join_worker_state(self, canonical, worker):
++        k = self.canonical_state_size - self.behavior_goal_state_size
++        return torch.cat((canonical[..., :k], worker, canonical[..., k:]), -1)
++
++    def _split_state(self, state):
++        if state.size(-1) == self.total_state_size:
++            state, _ = self.split_worker_state(state)
++        return super()._split_state(state)
++
++    def write_activity(self, preactivation, goal):
++        scale, bias = (goal @ self.dg_goal_modulation).chunk(2, -1)
++        return torch.relu((1 + scale) * preactivation.detach() + bias - self.dg_intercept)
++
++    def advance_worker(self, state, activity):
++        shifted = state.roll(1, -1)
++        shifted = torch.cat((torch.zeros_like(shifted[..., :1]), shifted[..., 1:]), -1)
++        injected = torch.nn.functional.pad(activity.unsqueeze(-1).expand(-1, -1, self.R),
++                                            (0, self.expanded_length - self.R))
++        return shifted + injected
++
++    def worker_view(self, output):
++        expected = self.total_output_size + self.core_output_size
++        if output.size(-1) != expected:
++            raise ValueError(f'Worker memory payload missing: expected {expected}, got {output.size(-1)}')
++        return torch.cat((output[..., self.total_output_size:],
++                          output[..., self.core_output_size:self.total_output_size]), -1)
++
++    def forward(self, head_output, rnn_states):
++        canonical_state, worker = self.split_worker_state(rnn_states)
++        n = self.Hippo_n_feature
++        packed = isinstance(head_output, PackedSequence)
++        data = head_output.data if packed else head_output
++        replay = data.size(-1) == self.canonical_input_size + 2 * n
++        if data.size(-1) not in (self.canonical_input_size + n, self.canonical_input_size + 2*n):
++            raise ValueError('Unexpected goal-conditioned head payload width')
++        canonical_data = data[..., :self.canonical_input_size]
++        canonical_head = head_output._replace(data=canonical_data) if packed else canonical_data
++        canonical_out, canonical_new_state = super().forward(canonical_head, canonical_state)
++        worker = worker.reshape(-1, n, self.expanded_length).detach()
++        if packed:
++            padded_head, lengths = pad_packed_sequence(head_output)
++            padded_out, out_lengths = pad_packed_sequence(canonical_out)
++            assert torch.equal(lengths, out_lengths)
++            result = []
++            for t in range(padded_head.size(0)):
++                valid = (lengths > t).to(worker.device)
++                pre = padded_head[t, :, self.canonical_input_size:self.canonical_input_size+n]
++                goal = (padded_head[t, :, -n:] if replay else
++                        padded_out[t, :, self.target_condition_start:self.target_condition_start+n])
++                activity = self.write_activity(pre, goal)
++                advanced = self.advance_worker(worker, activity)
++                worker = torch.where(valid[:, None, None], advanced, worker)
++                canonical_step = padded_out[t]
++                if replay:
++                    canonical_step = canonical_step.clone()
++                    canonical_step[:, self.target_condition_start:self.target_condition_start+n] = goal
++                result.append(torch.cat((canonical_step, worker.flatten(1)), -1))
++            output = pack_padded_sequence(torch.stack(result), lengths, enforce_sorted=False)
++        else:
++            pre = data[:, self.canonical_input_size:self.canonical_input_size+n]
++            goal = data[:, -n:] if replay else canonical_out[:, self.target_condition_start:self.target_condition_start+n]
++            activity = self.write_activity(pre, goal)
++            worker = self.advance_worker(worker, activity)
++            self.last_worker_dg_activity = activity.detach()
++            if replay:
++                canonical_out = canonical_out.clone()
++                canonical_out[:, self.target_condition_start:self.target_condition_start+n] = goal
++            output = torch.cat((canonical_out, worker.flatten(1)), -1)
++        self.last_worker_memory = worker.detach()
++        return output, self.join_worker_state(canonical_new_state, worker.flatten(1))
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -886,6 +886,12 @@
+         stored = option_state[..., self._hrl_layout().persistent_start]
+         current = self._policy_graph().representation_generation.to(device=stored.device, dtype=stored.dtype)
+         return stored.eq(current)
++
++    def _prepare_recurrent_replay_head(self, head_outputs, mb):
++        if getattr(self.cfg, "dg_goal_input", "none") != "write":
++            return head_outputs
++        target = self._behavior_targets_from_states(mb.rnn_states)
++        return torch.cat((head_outputs, target.to(head_outputs.dtype)), dim=-1)
+ 
+     def _override_core_outputs_for_replay(self, core_outputs: Tensor, mb: AttrDict) -> Tensor:
+         """Teacher-force the behavior target before PPO evaluates the decoder."""
+@@ -4917,6 +4923,29 @@
+         stats.dg_recruitment_goal_adapter_reset_count = float(self._last_recruitment_stats["goal_adapter_reset_count"])
+         stats.dg_recruitment_goal_adapter_reset_total = float(self._goal_adapter_reset_count)
+         decoder = self.actor_critic.decoder
++        dg_modulation = getattr(self.actor_critic.core, "dg_goal_modulation", None)
++        if dg_modulation is not None:
++            stats.dg_goal_modulation_norm = dg_modulation.detach().norm().float()
++            grad = dg_modulation.grad
++            stats.dg_goal_modulation_gradient_norm = grad.norm().detach().float() if grad is not None else 0.0
++            for goal_id in range(int(self.cfg.Hippo_n_feature)):
++                stats[f"dg_goal_gradient_{goal_id:03d}"] = grad[goal_id].norm().detach().float() if grad is not None else 0.0
++        if self._uses_policy_graph():
++            goals = self._behavior_targets_from_states(var.mb.rnn_states).detach()
++            valid_goal = goals.sum(-1) > 0
++            decision_counts = (goals * var.mb.valids.unsqueeze(-1)).sum(0)
++            probabilities = decision_counts / decision_counts.sum().clamp_min(1)
++            stats.goal_command_entropy = -(probabilities * probabilities.clamp_min(1e-12).log()).sum()
++            stats.goal_commanded_count = (decision_counts > 0).sum().float()
++            stats.goal_eligible_count = (self._policy_graph().node_visits > 0).sum().float()
++            raw_hrl = self._hrl_state_from_rnn(var.mb.rnn_states)
++            new_attempt = (raw_hrl[:, self._hrl_layout().option_reset] > 0) & var.mb.valids
++            for goal_id in range(int(self.cfg.Hippo_n_feature)):
++                stats[f"goal_decisions_{goal_id:03d}"] = decision_counts[goal_id]
++                stats[f"goal_attempts_{goal_id:03d}"] = (goals[:, goal_id] * new_attempt).sum()
++                commanded = var.mb["hrl_control_command_target"].long() == goal_id
++                stats[f"goal_successes_{goal_id:03d}"] = (commanded & var.mb["hrl_control_correct_outcome"].bool() & var.mb.valids).sum().float()
++                stats[f"goal_timeouts_{goal_id:03d}"] = (commanded & var.mb["hrl_control_target_timeout"].bool() & var.mb.valids).sum().float()
+         stats.hrl_goal_decoder_parameter_count = float(sum(parameter.numel() for parameter in decoder.parameters()))
+         target_modulation = getattr(decoder, "target_modulation", None)
+         if torch.is_tensor(target_modulation):
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -539,6 +539,8 @@
+         type=str2bool,
+         help="Alternate encoder and decoder updates using the baseline single optimizer/checkpoint format.",
+     )
++    p.add_argument("--dg_goal_input", choices=["none", "write"], default="none",
++                        help="Condition worker DG writes while keeping landmark evidence unconditioned")
+     p.add_argument(
+         "--ppo_dg_gradient",
+         default="stop",
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
+@@ -983,6 +983,9 @@
+             else:
+                 self.context_action_count = 9
+             self.encoder_out_size += self.context_action_count
++        self.dg_goal_write = getattr(cfg, "dg_goal_input", "none") == "write"
++        if self.dg_goal_write:
++            self.encoder_out_size += int(cfg.Hippo_n_feature)
+         self.cpu_device = torch.device("cpu")
+ 
+         # log.info("=================================== memory=========================")
+@@ -1058,7 +1061,11 @@
+         # feature stream is a controller bypass and is not part of DG credit.
+         # Detaching here keeps encoder-only updates local to DG while the
+         # unchanged bypass below remains differentiable for PPO.
+-        if self.context_feedback == "none":
++        goal_preactivation = None
++        if self.dg_goal_write:
++            goal_preactivation = self.DG_projection.preactivation(x.detach())
++            tmp_out = self.DG_projection.activation(goal_preactivation - self.DG_projection.intercept)
++        elif self.context_feedback == "none":
+             tmp_out = self.DG_projection(x.detach())
+         else:
+             if not isinstance(self.DG_projection, DGProjection_batchnorm_relu):
+@@ -1106,6 +1113,8 @@
+             action_onehot = action_onehot * valid_action.unsqueeze(1).to(dtype=tmp_out.dtype)
+             tmp_out = torch.cat((tmp_out, action_onehot), dim=1)
+ 
++        if goal_preactivation is not None:
++            tmp_out = torch.cat((tmp_out, goal_preactivation.detach()), dim=1)
+         return tmp_out
+ 
+     def get_out_size(self) -> int:
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_goal_conditioned_dg.py
+@@ -0,0 +1,69 @@
++from types import SimpleNamespace
++import torch
++from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++
++
++def make_core(n=3):
++    cfg=SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=n,hrl_controllable_graph=True,
++        hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++        dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=1.0)
++    core=GoalConditionedDGCore(cfg,2*n+2)
++    return core
++
++
++def head(pre,n):
++    return torch.cat((torch.relu(pre-1),torch.zeros(*pre.shape[:-1],2),pre),-1)
++
++
++def test_identity_and_detector_invariance():
++    c=make_core(); x=torch.tensor([[2.,0.,1.5]])
++    s=torch.zeros(1,c.total_state_size)
++    a,sa=c(head(x,3),s)
++    assert torch.equal(a[:,:c.core_output_size],a[:,c.total_output_size:])
++    with torch.no_grad(): c.dg_goal_modulation.normal_()
++    h=head(x,3);h=torch.cat((h,torch.tensor([[0.,1.,0.]])),-1)
++    b,sb=c(h,s)
++    assert torch.equal(a[:,:c.core_output_size],b[:,:c.core_output_size])
++    assert torch.equal(sa[:,:c.canonical_state_size-c.behavior_goal_state_size],sb[:,:c.canonical_state_size-c.behavior_goal_state_size])
++    assert not torch.equal(a[:,c.total_output_size:],b[:,c.total_output_size:])
++
++
++def test_packed_replay_matches_actor_and_gradient_stops_at_base():
++    torch.manual_seed(4); c=make_core()
++    with torch.no_grad(): c.dg_goal_modulation.normal_(std=.1)
++    x=(torch.rand(4,2,3)+1.5).requires_grad_(); h=head(x,3)
++    goals=torch.nn.functional.one_hot(torch.tensor([[0,1],[2,0],[1,2],[0,2]]),3).float()
++    replay=torch.cat((h,goals),-1); initial=torch.zeros(2,c.total_state_size)
++    state=initial;outs=[]
++    for t in range(4):
++        out,state=c(replay[t],state);outs.append(out)
++    packed=pack_padded_sequence(replay,[4,3],enforce_sorted=False)
++    result,newstate=c(packed,initial);unpacked,_=pad_packed_sequence(result)
++    for t in range(4):
++        assert torch.allclose(unpacked[t,0],outs[t][0],atol=1e-6)
++        if t<3: assert torch.allclose(unpacked[t,1],outs[t][1],atol=1e-6)
++    loss=c.worker_view(result.data).sum();loss.backward()
++    assert c.dg_goal_modulation.grad.abs().sum()>0
++    assert x.grad is None or x.grad.abs().sum()==0
++    assert torch.allclose(newstate[0],state[0],atol=1e-6)
++
++
++def test_goal_switch_and_zero_goal_identity_and_reset():
++    c=make_core();pre=torch.tensor([[2.,2.,2.]])
++    with torch.no_grad():c.dg_goal_modulation[1,3:]=2
++    assert torch.equal(c.write_activity(pre,torch.zeros(1,3)),torch.relu(pre-1))
++    a=c.write_activity(pre,torch.tensor([[1.,0.,0.]]));b=c.write_activity(pre,torch.tensor([[0.,1.,0.]]))
++    assert (b>a).all()
++    h=torch.cat((head(pre,3),torch.tensor([[0.,1.,0.]])),-1)
++    z=torch.zeros(1,c.total_state_size);o,s=c(h,z);o2,s2=c(h,z)
++    assert torch.equal(o,o2) and torch.equal(s,s2)
++    restored=make_core();restored.load_state_dict(c.state_dict());o3,s3=restored(h,z)
++    assert torch.equal(o,o3) and torch.equal(s,s3)
++
++
++def test_all_capacity_state_widths():
++    for n in (16,32,64):
++        c=make_core(n);s=torch.zeros(1,c.total_state_size);o,s=c(head(torch.full((1,n),2.),n),s)
++        assert s.shape[-1]==c.total_state_size
++        assert c.worker_view(o).shape[-1]==c.get_out_size()
