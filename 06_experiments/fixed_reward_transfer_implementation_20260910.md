@@ -1,5 +1,11 @@
 # Fixed-reward transfer implementation and launch, 2026-09-10
 
+Status update: jobs 8040710–8040730 were cancelled at the user's request on
+2026-09-10 after identifying the repeat-8 source / repeat-4 destination
+mismatch. Existing data are retained. See the
+[repeat-8 replacement record](fixed_reward_transfer_repeat8_launch_20260910.md).
+The submission details below describe the original launch.
+
 ## Scientific question
 
 The study tests whether IntrMotiv pretraining accelerates learning in

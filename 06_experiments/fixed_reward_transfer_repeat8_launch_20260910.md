@@ -7,9 +7,9 @@ the user's request. Slurm accounting confirms all 21 cancellations. Existing
 checkpoints and logs are retained. Unrelated algorithm-search jobs were not
 targeted.
 
-The replacement seven-cell, three-seed study is validated. Its seven ordinary
-preflight jobs are running; production awaits their completion and runtime
-audit. This record will be updated after production submission.
+The replacement seven-cell, three-seed study is validated. All seven ordinary
+preflight jobs completed with exit `0:0` and passed the full runtime audit.
+Production submission is in progress; its manifest will be recorded below.
 
 ## Controlled change
 
@@ -20,7 +20,7 @@ task conditioning, normalization behavior, learning settings, seeds, and
 108,000-second training budget remain identical. A focused test compares every
 expanded old/new command with only repeat and namespace differences excluded.
 
-The 21 conditions are generated from the StudySpec: scratch and three transfer
+The 21 runs are generated from the StudySpec: scratch and three transfer
 scopes (frozen DG, tuned DG, policy) for SCR and SAT, each at seeds 42, 1234,
 and 9999. A new repeat-8 scratch control is included. The previous repeat-4
 scratch runs remain secondary timing references, not the matched control.
@@ -78,6 +78,10 @@ Preflight submitted directory:
 `_slurm/intrmotiv_fixed_reward_transfer_repeat8_preflight_20260910/20260910T115629Z`.
 Jobs: 8046996–8047002. The submitted audit confirms exactly seven matching
 commands, unique job IDs, and workspace-valid paths.
+All seven saved 2,064,384-frame terminal checkpoints, with recorded telemetry
+through 2,031,616 frames. The runtime audit passed 7/7 with no errors, including
+initialization, source-interface matching, finite learning metrics, and exact
+terminal equality of frozen DG tensors. Slurm elapsed times were 16:43–23:37.
 
 Production print-only directory:
 `_slurm/intrmotiv_fixed_reward_transfer_repeat8_20260910/20260910T115736Z`.

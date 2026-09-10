@@ -1,6 +1,8 @@
 # Matched-timing transfer replan
 
-Status: recommendation and plan only; no replacement jobs submitted.
+Status: replacement authorized. The old transfer batch is cancelled; progress
+and job IDs are recorded in the
+[repeat-8 launch record](fixed_reward_transfer_repeat8_launch_20260910.md).
 
 ## Immediate recommendation
 
