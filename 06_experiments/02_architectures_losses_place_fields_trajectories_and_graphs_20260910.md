@@ -97,15 +97,15 @@ JOINT does not unfreeze ResNet or learn $A$. It changes which objective shapes t
 
 The table uses the exact gallery's **75M-frame, retained 100k-sample** artifacts. All listed units are eligible in these snapshots. Values are selected checkpoints, not condition means. $J$ is the amplitude-weighted spatial score defined in section 6. Graph edges are operationally “reliable,” not verified physical skills.
 
-| Candidate, seed | Mono / 16 | Active map cosine | $J$ | Unique peak bins | Reliable edges / 240 | Reachable ordered-pair fraction | Grounded score |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| SCR ARR DIRS, 123 | 11 | .0605 | .242 | 13 | 66 | .883 | .392 |
-| SAT ARR DIRO FiLM, 8 | 9 | .1147 | .212 | 15 | 78 | 1.000 | .175 |
-| DGP HIT JOINT LEG, 123 | 5 | .1068 | .172 | 15 | 166 | 1.000 | .056 |
-| DGP FIRST JOINT LEG, 99 | 4 | .1136 | .166 | 11 | 8 | .071 | .232 |
-| CPD GATE CA3 BPTT, 99 | 3 | .1781 | .541 | 13 | 12 | .179 | .051 |
-| CPD GATE ACT DIR GOAL, 8 | 7 | .2492 | .410 | 8 | 13 | .125 | .111 |
-| SAT SRC MON FiLM, 8: exploration reference | 0 | .5004 | .061 | 15 | 98 | 1.000 | .000 |
+| Candidate, seed                            | Mono / 16 | Active map cosine |  $J$ | Unique peak bins | Reliable edges / 240 | Reachable ordered-pair fraction | Grounded score |
+| ------------------------------------------ | --------: | ----------------: | ---: | ---------------: | -------------------: | ------------------------------: | -------------: |
+| SCR ARR DIRS, 123                          |        11 |             .0605 | .242 |               13 |                   66 |                            .883 |           .392 |
+| SAT ARR DIRO FiLM, 8                       |         9 |             .1147 | .212 |               15 |                   78 |                           1.000 |           .175 |
+| DGP HIT JOINT LEG, 123                     |         5 |             .1068 | .172 |               15 |                  166 |                           1.000 |           .056 |
+| DGP FIRST JOINT LEG, 99                    |         4 |             .1136 | .166 |               11 |                    8 |                            .071 |           .232 |
+| CPD GATE CA3 BPTT, 99                      |         3 |             .1781 | .541 |               13 |                   12 |                            .179 |           .051 |
+| CPD GATE ACT DIR GOAL, 8                   |         7 |             .2492 | .410 |                8 |                   13 |                            .125 |           .111 |
+| SAT SRC MON FiLM, 8: exploration reference |         0 |             .5004 | .061 |               15 |                   98 |                           1.000 |           .000 |
 
 Gallery conventions: occupancy-corrected, smoothed maps are divided by each unit's own peak; light masked bins are unvisited. Orange graph-node outlines mark classified mono-fields; node size encodes visits. Circular graph layouts are **non-spatial**. Trajectory panels draw every tenth adjacent within-segment line over log occupancy, not a single continuous 100k-step tour. Roughly 1,700 retained segments per page reflect parallel rollouts/resets. Aggregate visited-bin fractions of about .85–.88 are not per-episode coverage or navigable-area percentages.
 
