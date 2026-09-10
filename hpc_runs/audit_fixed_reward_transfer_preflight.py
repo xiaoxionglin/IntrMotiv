@@ -16,6 +16,25 @@ from hpc_runs.intrmotiv_study import load_study
 from hpc_runs.intrmotiv_study.spec import SpecError
 
 
+def declared_frameskip(run):
+    values = [int(arg.split("=", 1)[1]) for arg in run.args if arg.startswith("--env_frameskip=")]
+    if len(values) != 1 or values[0] <= 0:
+        raise SpecError(f"{run.name}: expected one positive explicit env_frameskip")
+    return values[0]
+
+
+def source_interface_errors(source_config, destination_config):
+    errors = []
+    for key in ("env_frameskip", "core_name", "Hippo_n_feature", "Hippo_R", "Hippo_L",
+                "encoder_conv_architecture", "depth_sensor", "normalize_input", "hrl_goal_conditioning"):
+        if key not in source_config or source_config[key] != destination_config.get(key):
+            errors.append(f"source interface mismatch {key}: {source_config.get(key)!r} vs {destination_config.get(key)!r}")
+    for key in ("dmlab_reduced_action_set", "dmlab_extended_action_set", "dmlab_navigation_action_set"):
+        if source_config.get(key, False) != destination_config.get(key, False):
+            errors.append(f"source action mismatch {key}")
+    return errors
+
+
 def _events(run_dir: Path):
     values = {}
     for directory in sorted({p.parent for p in run_dir.rglob("events.out.tfevents.*")}):
@@ -58,7 +77,7 @@ def audit(study, jobs_tsv: Path, train_root: Path, required_frames: int):
         config = json.loads(config_path.read_text()) if config_path.is_file() else {}
         required = {
             "env": "openfield_map2_fixed_loc3",
-            "env_frameskip": 4,
+            "env_frameskip": declared_frameskip(run),
             "dmlab_reduced_action_set": True,
             "dmlab_navigation_action_set": False,
             "num_policies": 1,
@@ -93,7 +112,12 @@ def audit(study, jobs_tsv: Path, train_root: Path, required_frames: int):
         transfer_path = config.get("transfer_model_path")
         scope = config.get("transfer_scope", "none")
         if transfer_path and Path(transfer_path).is_file():
-            source = source_models.setdefault(transfer_path, _load_model(Path(transfer_path)))
+            if study.study_metadata.get("require_source_interface_match", False):
+                source_config = json.loads((Path(transfer_path).parents[1] / "config.json").read_text())
+                errors.extend(source_interface_errors(source_config, config))
+            if transfer_path not in source_models:
+                source_models[transfer_path] = _load_model(Path(transfer_path))
+            source = source_models[transfer_path]
             prefixes = ("encoder.DG_projection.linear.", "encoder.DG_projection.batchnorm1d.")
             if scope == "policy":
                 prefixes += ("decoder.", "action_parameterization.")
