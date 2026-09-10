@@ -1,4 +1,4 @@
-# Why suppression became collapse: Jannek versus later IntrMotiv
+# 03 — Mean, punishment, and silent units: comparison with Jannek
 
 10 September 2026. Read-only investigation of saved reports and local source; no new training or runtime comparison. The evidence supports several concrete contributors, but not a uniquely identified cause of the Jannek-to-IntrMotiv difference.
 

@@ -10,7 +10,7 @@ existing metric contract and call it an amplitude-weighted spatial score when
 comparing gains/gates. A future normalized metric must be added compatibly,
 with unit-level mean activity and gain-scaling tests. Also distinguish latest-10k
 W&B summaries from retained-100k snapshots, and verify paired-seed assertions
-against saved numbers. See the [technical briefing and concrete discrepancies](../06_experiments/promising_architectures_technical_briefing_20260910.md).
+against saved numbers. See the [technical briefing and concrete discrepancies](../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md).
 
 This is the standard offline workflow for diagnosing whether IntrMotiv DG
 units form active, spatially distributed, and reasonably stable receptive

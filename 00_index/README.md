@@ -30,9 +30,14 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../04_implementation/IntrMotiv_metric_reference|IntrMotiv Metric Reference]]
 - [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]
 
+## Boss briefing — reading order (10 September 2026)
+
+- [[../05_plans/01_findings_scientific_claims_and_publication_plan_20260910|01 — Findings, scientific claims, and ICLR / Bernstein / Cosyne plan]]
+- [[../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910|02 — Architectures and losses: place fields, trajectories, and graphs]]
+- [[../06_experiments/03_mean_punishment_and_silent_units_jannek_comparison_20260910|03 — Mean, punishment, and silent units: comparison with Jannek]]
+
 ## Plans
 
-- [[../05_plans/boss_briefing_and_publication_plan_20260910|Boss Briefing and Publication Plan, 2026-09-10]]
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
 - [[../08_literature/control_relevance_fisher_place_fields_20260908|Control Relevance and Place Fields: Prior-Art Review]]
 - [[../05_plans/future_scope_and_inspirations|Future Scope and Research Inspirations]]
@@ -41,8 +46,6 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
-- [[../06_experiments/punishment_sparsity_reconciliation_20260910|Punishment and Sparsity: Jannek versus Later Batches]]
-- [[../06_experiments/promising_architectures_technical_briefing_20260910|Promising Architectures: Technical Briefing, 2026-09-10]]
 - [[../06_experiments/navigation8_algorithm_screen_implementation_20260909|Navigation8 Algorithm Screen Implementation]]
 - [[../06_experiments/late_target_hit_lift_audit_20260908|Late Target-Hit-Lift Jumps: Full-History Audit]]
 - [[../06_experiments/late_training_outliers_20260908|Late-Training Outliers: Spatial Specialization, Exploration, and Control]]
