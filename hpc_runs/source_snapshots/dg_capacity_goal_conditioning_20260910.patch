@@ -467,7 +467,7 @@
              _, pre_threshold_maps, pre_threshold_mean, pre_threshold_std = compute_pre_threshold_maps(
 --- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
 +++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
-@@ -293,6 +293,155 @@
+@@ -293,6 +293,157 @@
      }
  
  
@@ -577,11 +577,13 @@
 +                            if hit in first_times and first_times[hit] is None:first_times[hit]=elapsed
 +                        for target in targets:
 +                            deadline=pair_deadline(graph,source,target);hit_time=first_times[target]
++                            hit = hit_time is not None and hit_time <= deadline
++                            censored = not hit and done and elapsed < deadline
 +                            rows.append(dict(source=source,repeat=rep,prefix_seed=seed,command=command,target=target,
 +                                initial_action_probabilities=json.dumps(initial_prob),
-+                                commanded=command==target,deadline=deadline,hit=hit_time is not None and hit_time<=deadline,
-+                                hit_time=hit_time,first_distinct=first_other,censored=done and elapsed<deadline,
-+                                timeout=hit_time is None and not (done and elapsed<deadline),
++                                commanded=command==target,deadline=deadline,hit=hit,
++                                hit_time=hit_time,first_distinct=first_other,censored=censored,
++                                timeout=not hit and not censored,
 +                                elapsed=elapsed,path_length=path,start_position=json.dumps(start_pos.tolist()),
 +                                endpoint=json.dumps(last.tolist()),exact_start_verified=True))
 +    finally:
@@ -623,7 +625,7 @@
  def run_interventions(
      run_dir: pathlib.Path,
      checkpoint: pathlib.Path,
-@@ -303,10 +452,17 @@
+@@ -303,10 +454,17 @@
      observed_targets_only: bool = False,
      local_successor_targets_only: bool = False,
      absent_options: dict | None = None,
@@ -641,7 +643,7 @@
      if getattr(cfg, "intrinsic_goal_mode", "none") == "ca3_absent_target":
          from sf_working_directories.IntrMotiv.evaluation.absent_goal_interventions import run_absent_goal_interventions
  
-@@ -470,6 +626,8 @@
+@@ -470,6 +628,8 @@
              )
              if source in intervention
          },
@@ -774,7 +776,7 @@
 +    assert saved==[104,304]
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,87 @@
 +from types import SimpleNamespace
 +import numpy as np
 +import pytest
@@ -831,3 +833,34 @@
 +    cfg=configure_fake_runtime(monkeypatch,unstable=True)
 +    with pytest.raises(RuntimeError,match='Nonreproducible'):
 +        ev.run_landmark_matched_interventions(cfg,Env(),None,Actor(),'test',torch.device('cpu'),1000,True,max_sources=1,targets_per_source=2,repeats=1,prefix_cap=4)
++
++
++def test_late_arrival_is_a_timeout(monkeypatch):
++    cfg=configure_fake_runtime(monkeypatch)
++    import sample_factory.algo.utils.make_env as maker
++    class Delayed(Env):
++        def reset(self):self.steps=0;return super().reset()
++        def step(self,a):
++            self.steps+=1
++            return super().step(a if self.steps>=2 else 0)
++    monkeypatch.setattr(maker,'make_env_func_batched',lambda *a,**k:Delayed())
++    monkeypatch.setattr(ev,'pair_deadline',lambda graph,source,target:1 if target==1 else 3)
++    rows,_=ev.run_landmark_matched_interventions(cfg,Env(),None,Actor(),'test',torch.device('cpu'),1000,True,max_sources=1,targets_per_source=2,repeats=1,prefix_cap=4)
++    late=rows[(rows.command==1)&(rows.target==1)].iloc[0]
++    assert late.hit_time==2 and not late.hit and late.timeout and not late.censored
++
++
++def test_observed_success_is_not_censored_by_later_termination(monkeypatch):
++    cfg=configure_fake_runtime(monkeypatch)
++    import sample_factory.algo.utils.make_env as maker
++    class EarlyTerminal(Env):
++        def reset(self):self.steps=0;return super().reset()
++        def step(self,a):
++            self.steps+=1;obs,rew,term,trunc,info=super().step(a)
++            return obs,rew,torch.tensor([self.steps==2]),trunc,info
++    monkeypatch.setattr(maker,'make_env_func_batched',lambda *a,**k:EarlyTerminal())
++    monkeypatch.setattr(ev,'pair_deadline',lambda *a:3)
++    rows,_=ev.run_landmark_matched_interventions(cfg,Env(),None,Actor(),'test',torch.device('cpu'),1000,True,max_sources=1,targets_per_source=2,repeats=1,prefix_cap=4)
++    assert rows[rows.commanded].hit.all()
++    assert not rows[rows.commanded].censored.any()
++    assert rows[~rows.commanded].censored.all()

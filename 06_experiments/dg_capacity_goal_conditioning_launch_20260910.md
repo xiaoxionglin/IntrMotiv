@@ -141,3 +141,15 @@ frames. The same job ID, training directory, seed, and scientific arguments are
 retained. Pre-requeue logs and checkpoint SHA are in the submitted directory's
 `requeue_8048800/`. This resource change is additional scheduler provenance;
 the original generated script still records its original CPU partition.
+
+Retained frame-zero comparisons also confirm that all 113 common state tensors
+are exactly equal between worker-only and each DG-conditioned arm at every
+capacity (six paired comparisons). The new modulator alone adds identity-zero
+parameters. Evidence: `initial_pair_comparison.json` in the final-preflight
+submission directory.
+
+The final evaluator review corrected two outcome-bookkeeping cases: arrivals
+after a target deadline are timeouts, and an observed on-time success is not
+censored by a later episode termination. All four matched-intervention tests
+pass, including concrete delayed-arrival and early-terminal environments.
+These changes affect evaluation summaries only; training is unchanged.
