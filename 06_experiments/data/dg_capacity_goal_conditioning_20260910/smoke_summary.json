@@ -1,0 +1,23 @@
+{
+  "study_sha256": "dbbfc58291a8e76197f94f3e6208c2324f92234510055733796a440af5490069",
+  "panel_exact_replay": true,
+  "detector_goal_invariant": true,
+  "worker_goal_difference": 0.011573553085327148,
+  "interventions": {
+    "protocol": "landmark-matched-commands-v1",
+    "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910/DGCPF2_DIRECT_DG_F16_S99_/00_DGCPF2_DIRECT_DG_F16_S99/checkpoint_p0/checkpoint_000000054_442368.pth",
+    "decisions": 140,
+    "sources_evaluated": 1,
+    "starts_evaluated": 1,
+    "max_sources": 1,
+    "targets_per_source": 2,
+    "repeats_requested": 1,
+    "missing": [],
+    "exact_start_verified": true,
+    "policy_frozen": true,
+    "graph_frozen": true,
+    "paired_arrival_lift": 0.0,
+    "paired_comparisons": 2,
+    "rows": 4
+  }
+}

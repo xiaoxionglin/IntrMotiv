@@ -1,0 +1,127 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.6.0",
+  "study_workflow_version": "1.5.0",
+  "study_id": "dg_capacity_goal_conditioning_preflight2_20260910",
+  "study_sha256": "dbbfc58291a8e76197f94f3e6208c2324f92234510055733796a440af5490069",
+  "passed": true,
+  "runs": [
+    {
+      "run": "DGCPF2_DIRECT_WORKER_F16_S99",
+      "job_id": "8048800",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0205078125
+      }
+    },
+    {
+      "run": "DGCPF2_DIRECT_WORKER_F32_S99",
+      "job_id": "8048801",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0166015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.017578125
+      }
+    },
+    {
+      "run": "DGCPF2_DIRECT_WORKER_F64_S99",
+      "job_id": "8048802",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0166015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.017578125
+      }
+    },
+    {
+      "run": "DGCPF2_DIRECT_DG_F16_S99",
+      "job_id": "8048803",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.02001953125
+      }
+    },
+    {
+      "run": "DGCPF2_DIRECT_DG_F32_S99",
+      "job_id": "8048804",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0166015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.01904296875
+      }
+    },
+    {
+      "run": "DGCPF2_DIRECT_DG_F64_S99",
+      "job_id": "8048805",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.01708984375,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.017578125
+      }
+    },
+    {
+      "run": "DGCPF2_WAYPOINT_DG_F16_S99",
+      "job_id": "8048806",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.009765625,
+        "waypoint_navigation_fraction": 0.00732421875,
+        "waypoint_step_hit": 0.6000000238418579,
+        "route_available": 0.02685546875
+      }
+    },
+    {
+      "run": "DGCPF2_WAYPOINT_DG_F32_S99",
+      "job_id": "8048807",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.009765625,
+        "waypoint_navigation_fraction": 0.00634765625,
+        "waypoint_step_hit": 0.5,
+        "route_available": 0.02392578125
+      }
+    },
+    {
+      "run": "DGCPF2_WAYPOINT_DG_F64_S99",
+      "job_id": "8048808",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.01220703125,
+        "waypoint_navigation_fraction": 0.01318359375,
+        "waypoint_step_hit": 0.75,
+        "route_available": 0.03662109375
+      }
+    }
+  ]
+}
