@@ -41,6 +41,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/promising_architectures_technical_briefing_20260910|Promising Architectures: Technical Briefing, 2026-09-10]]
 - [[../06_experiments/navigation8_algorithm_screen_implementation_20260909|Navigation8 Algorithm Screen Implementation]]
 - [[../06_experiments/late_target_hit_lift_audit_20260908|Late Target-Hit-Lift Jumps: Full-History Audit]]
 - [[../06_experiments/late_training_outliers_20260908|Late-Training Outliers: Spatial Specialization, Exploration, and Control]]

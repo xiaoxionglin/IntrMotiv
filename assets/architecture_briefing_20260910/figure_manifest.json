@@ -1,0 +1,56 @@
+{
+  "source": "06_experiments/results/persistent_intrinsic_control_submission_20260908/status_20260909.json",
+  "sha256": "23ce4ec77c9c495374e4b5ae641a095f0d90df5e61fb9516f15b89f79fe8287b",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "matplotlib": "3.10.8",
+  "pairs": [
+    {
+      "seed": 8,
+      "STOP": {
+        "coverage": 76.07,
+        "logged_window_samples": 37,
+        "map_cosine": 0.37480803195519186,
+        "mono_fraction": 0
+      },
+      "JOINT": {
+        "coverage": 81.04,
+        "logged_window_samples": 39,
+        "map_cosine": 0.2951441200066974,
+        "mono_fraction": 0.125
+      }
+    },
+    {
+      "seed": 99,
+      "STOP": {
+        "coverage": 79.89,
+        "logged_window_samples": 38,
+        "map_cosine": 0.4053416091871657,
+        "mono_fraction": 0
+      },
+      "JOINT": {
+        "coverage": 79.45,
+        "logged_window_samples": 40,
+        "map_cosine": 0.34431230934789286,
+        "mono_fraction": 0
+      }
+    },
+    {
+      "seed": 123,
+      "STOP": {
+        "coverage": 71.27,
+        "logged_window_samples": 37,
+        "map_cosine": 0.3669408093199672,
+        "mono_fraction": 0
+      },
+      "JOINT": {
+        "coverage": 87.82,
+        "logged_window_samples": 46,
+        "map_cosine": 0.3706421528041363,
+        "mono_fraction": 0
+      }
+    }
+  ],
+  "selection": "All three W_REF STOP/JOINT seed pairs at the declared matched window",
+  "transform": "No smoothing or statistical aggregation beyond the saved window means. Each line is one seed.",
+  "architecture_source": "Sealed persistent_intrinsic_control_hotfix_20260908.tar.gz plus dated StudySpecs; diagram is schematic."
+}

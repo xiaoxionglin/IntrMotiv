@@ -2,6 +2,16 @@
 
 ## Purpose
 
+**Interpretation check, 2026-09-10:** the canonical `_spatial_information`
+returns `sum(p * rate * log2(rate / mean_rate))`, retaining an activity-amplitude
+factor. It is not normalized bits per activation; multiplying a unit's activity
+by a positive constant multiplies this score by that constant. Preserve the
+existing metric contract and call it an amplitude-weighted spatial score when
+comparing gains/gates. A future normalized metric must be added compatibly,
+with unit-level mean activity and gain-scaling tests. Also distinguish latest-10k
+W&B summaries from retained-100k snapshots, and verify paired-seed assertions
+against saved numbers. See the [technical briefing and concrete discrepancies](../06_experiments/promising_architectures_technical_briefing_20260910.md).
+
 This is the standard offline workflow for diagnosing whether IntrMotiv DG
 units form active, spatially distributed, and reasonably stable receptive
 fields. Use it across flat, HRL, manager, loss, threshold, and update-schedule
