@@ -1,5 +1,8 @@
 # 04 — Three-goal HippoSLAM: context conditioning and DG capacity
 
+Follow-up: [agreed DG-capacity and goal-conditioning batch plan](dg_capacity_goal_conditioning_plan_20260910.md)
+(27 intrinsic-training runs; downstream transfer deferred until joint review).
+
 Read-only W&B API audit, 10 September 2026. Project: [HippoSLAM_R3_2](https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2). Thirty December 2025 runs cross 8/16/32 DG units, instruction scales 1/9, and five seeds. Each run contains eight PBT policies; those policies are not independent seeds. All runs are marked crashed but retain substantial training metrics. No crash diagnosis or matched-history analysis was performed.
 
 ## Observed terminal summaries
