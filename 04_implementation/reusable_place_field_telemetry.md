@@ -531,3 +531,11 @@ Use this through the standard StudySpec intervention metadata and manifest
 backend. Workflow 1.6.0 supports more than one intervention checkpoint; the
 DG-capacity study declares 75M and 300M. Do not infer control from an evaluator
 smoke passing: the real two-comparison smoke had zero arrival lift.
+
+The legacy online goal-action sensitivity/TV diagnostic changes the worker FiLM
+command while holding replayed memory fixed. In DG-conditioned arms it therefore
+measures the **readout-only** response, not the total response through DG writes.
+Retain its historical metric contract, label that limitation in comparisons,
+and use forced-goal observation replay and matched-command interventions to
+measure the complete DG-plus-worker pathway. No goal-discrimination loss is
+introduced by these no-gradient diagnostic forwards.

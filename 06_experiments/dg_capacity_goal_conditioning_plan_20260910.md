@@ -155,3 +155,11 @@ direct and waypoint eligibility/timeout rules differ, and worker FiLM already
 is goal-conditioned CA3 readout. Keep tested mechanisms separate from proposed
 ones; preserve explicit graph-construction and frame-repeat differences in
 future comparisons.
+
+The legacy online goal-action sensitivity/TV diagnostic changes the worker FiLM
+command while holding replayed memory fixed. In DG-conditioned arms it therefore
+measures the **readout-only** response, not the total response through DG writes.
+Retain its historical metric contract, label that limitation in comparisons,
+and use forced-goal observation replay and matched-command interventions to
+measure the complete DG-plus-worker pathway. No goal-discrimination loss is
+introduced by these no-gradient diagnostic forwards.

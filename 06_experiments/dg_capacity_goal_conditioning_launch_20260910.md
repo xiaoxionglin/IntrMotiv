@@ -169,3 +169,11 @@ not only the 13 modified files; every archived file hash matches NEMO2. The
 baseline-relative patch remains scoped to this implementation. The final
 print-only directory also retains the runtime Git revision and tracked runtime
 diff, preserving existing source changes without reverting them.
+
+The legacy online goal-action sensitivity/TV diagnostic changes the worker FiLM
+command while holding replayed memory fixed. In DG-conditioned arms it therefore
+measures the **readout-only** response, not the total response through DG writes.
+Retain its historical metric contract, label that limitation in comparisons,
+and use forced-goal observation replay and matched-command interventions to
+measure the complete DG-plus-worker pathway. No goal-discrimination loss is
+introduced by these no-gradient diagnostic forwards.
