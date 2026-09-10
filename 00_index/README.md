@@ -32,6 +32,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Plans
 
+- [[../05_plans/boss_briefing_and_publication_plan_20260910|Boss Briefing and Publication Plan, 2026-09-10]]
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
 - [[../08_literature/control_relevance_fisher_place_fields_20260908|Control Relevance and Place Fields: Prior-Art Review]]
 - [[../05_plans/future_scope_and_inspirations|Future Scope and Research Inspirations]]

@@ -9,7 +9,9 @@ targeted.
 
 The replacement seven-cell, three-seed study is validated. All seven ordinary
 preflight jobs completed with exit `0:0` and passed the full runtime audit.
-Production submission is in progress; its manifest will be recorded below.
+Production jobs 8047305–8047325 are submitted. The first startup audit found
+18 running and three queued; every started job logged five actions and repeat 8
+without a startup traceback.
 
 ## Controlled change
 
@@ -88,6 +90,15 @@ Production print-only directory:
 The audit confirms 21 matching commands and workspace-valid paths. All 21
 generated scripts request 32 hours to accommodate 30 hours of training and
 shutdown.
+
+Production submitted directory:
+`_slurm/intrmotiv_fixed_reward_transfer_repeat8_20260910/20260910T122201Z`.
+Jobs: 8047305–8047325. The submitted canonical audit confirms all 21 exact
+commands, unique job IDs, and workspace-valid paths, with the production
+fingerprint above. `jobs.tsv` is the authoritative job-to-condition mapping.
+`startup_snapshot.json` records scheduler status and available initial
+checkpoints preserved under `initialization/` before checkpoint rotation.
+Production outcome and learning-speed comparisons remain pending.
 
 ## Reusable lesson
 
