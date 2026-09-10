@@ -292,6 +292,14 @@ in `reusable_place_field_telemetry.md`.
 
 ### Weights-only transfer runtime gates
 
+Validate the actual source config against the destination's frame repeat and
+ordered action interface before launching. Compatible tensor dimensions do not
+establish compatible control semantics. For a timing-only rerun, compare every
+expanded command against its parent, allowing only the declared timing and
+namespace changes. `hpc_runs/audit_fixed_reward_transfer_preflight.py` derives
+repeat from RunSpec and supports source-interface checks for the repeat-8
+transfer study.
+
 For a StudySpec that initializes selected modules from an older checkpoint,
 hash the declared source checkpoints and run one ordinary-job preflight per
 design cell before production. The preflight must exercise the actual launcher
