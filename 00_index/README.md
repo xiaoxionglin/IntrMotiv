@@ -65,3 +65,5 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Inbox
 
 - [[../99_inbox/temp|Unresolved: Global CA3-State Credit Assignment]]
+
+- [2026-09-11 fixed-reward transfer: latest shared-step comparison and reusable collector](../06_experiments/fixed_reward_transfer_latest_common_20260911.md)

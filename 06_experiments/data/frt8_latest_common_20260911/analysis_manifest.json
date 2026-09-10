@@ -1,0 +1,34 @@
+{
+  "batch_name": "intrmotiv_fixed_reward_transfer_repeat8_20260910",
+  "collection": {
+    "mode": "latest_common",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        50784640,
+        60784640
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [],
+  "expected_runs": 21,
+  "group_by": [],
+  "input_rows": 21,
+  "metrics": [
+    "lenweighted_score",
+    "raw_score",
+    "episode_length"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "fixed_reward_transfer_repeat8_20260910",
+  "study_sha256": "99910170169d07d10d584d0aa645b3993189daaa9dbe78ba28b9ad1e2c74b56d",
+  "study_spec": "hpc_runs/studies/fixed_reward_transfer_repeat8.study.json",
+  "study_workflow_version": "1.5.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.7.0"
+}

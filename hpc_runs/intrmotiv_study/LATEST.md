@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.6.0`
+- Implementation: `1.7.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -8,6 +8,17 @@
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 ## Deployment status
+
+Version 1.7.0 adds `collect-online --latest-common`: it loads each run once,
+uses the latest step covered by every declared run and metric, and applies
+`analysis.terminal_width` to that common endpoint. This mode disables scalar
+reservoir sampling and fails on missing histories or empty/nonfinite window
+means. Existing explicit-window and per-run-terminal modes remain available.
+The fixed-reward repeat-8 study is the reference application; its StudySpec and
+fingerprint are unchanged. See the canonical guide for the repeatable command.
+Synchronized to NEMO2 on 2026-09-11; all 35 canonical, common-window, and
+repeat-8 tests passed both locally and on NEMO2.
+
 
 Version 1.6.0 accepts sorted, unique intervention checkpoint targets and
 requires exactly one row per selected condition, seed, and target. This supports

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.6.0**; study schema:
+Current implementation: **1.7.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -205,6 +205,42 @@ Standard outputs are:
 
 `analyze-csv` applies the same validation and statistics to an existing
 standardized `per_run.csv`. It requires exactly one row for every declared run.
+
+### Latest shared-step comparisons (1.7.0)
+
+For repeated “check again at the latest steps” requests, use:
+
+```bash
+python -m hpc_runs.intrmotiv_study collect-online \
+  hpc_runs/studies/fixed_reward_transfer_repeat8.study.json \
+  /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_fixed_reward_transfer_repeat8_20260910 \
+  /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/frt8_latest_comparison \
+  --latest-common
+```
+
+The high endpoint is the minimum latest event step across all declared runs'
+step and metric histories. The low endpoint is `max(0, high - terminal_width)`.
+For this study the width is 10M environment frames. This is global environment
+progress, not optimizer updates or wall time. The command rejects a simultaneous
+explicit window, missing required histories, and empty/nonfinite window means.
+It retains all scalar events in this mode (no reservoir sampling), loads each
+event directory once, and retains only the declared histories for aggregation.
+The resulting means remain event-sample means, as in the existing collector.
+
+`per_run.csv` records each run's actual maximum and the exact common window;
+`analysis_manifest.json` records collection mode, step tag, scalar sampling,
+schema, workflow version and StudySpec SHA-256. Use a new output directory for
+each snapshot that must be preserved. For condition-level interpretation, use
+StudySpec condition/base identities and pair seeds against the declared control;
+check the study's `analysis.group_by` before interpreting `condition_summary.csv`
+(an empty list means an overall summary).
+
+Reusable lesson: the previous transfer check read all 21 histories twice to
+first discover endpoints and then collect a fixed window. This repeated I/O and
+parsing took minutes and sampled long histories under the old scalar cap.
+Prefer the single-pass common-window option; use recorded TensorBoard event
+steps, not checkpoint filenames or W&B run ordering, as the alignment evidence.
+A shared endpoint does not establish convergence or account for pretraining cost.
 
 ### 3a. Collect compact online spatial snapshots
 
