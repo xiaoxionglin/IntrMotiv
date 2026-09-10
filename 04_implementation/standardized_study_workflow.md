@@ -374,3 +374,11 @@ Check telemetry aliases before interpreting an absent audit signal: validation
 success is `intrmotiv/hrl/validation/success_rate`, while waypoint routing remains
 a raw `train/hrl_planning_waypoint_navigation_fraction` tag. Use initial/terminal
 tensor comparisons to verify frozen visual trunks including normalization buffers.
+
+For a time-limited preflight resume, check the telemetry ring as well as the
+checkpoint. The current ring is not checkpointed. A retained-100k snapshot at
+repeat 4 needs at least 400k fresh valid frames after resume; resuming too close
+to a snapshot/terminal target may leave that artifact pending even when the
+model reaches its frame target. Preserve old logs and checkpoint hashes when
+requeueing, and inspect the actual runner's timer semantics rather than assuming
+wall-clock progress is restored with optimizer/model state.

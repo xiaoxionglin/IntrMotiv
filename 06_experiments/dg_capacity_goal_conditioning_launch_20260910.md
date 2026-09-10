@@ -153,3 +153,19 @@ after a target deadline are timeouts, and an observed on-time success is not
 censored by a later episode termination. All four matched-intervention tests
 pass, including concrete delayed-arrival and early-terminal environments.
 These changes affect evaluation summaries only; training is unchanged.
+
+Eight preflights passed every runtime gate by 20:02 CEST. The final waypoint-F64
+preflight was requeued at 20:03 CEST from **1,572,864 frames**, preserving job
+8048808 and its training directory, now in `genoa`. At its measured throughput,
+the one-hour training ceiling would stop it below 2M. Requeueing before 1.6M
+also leaves enough post-resume frames to refill the 100k-sample telemetry ring
+before the 2M snapshot. Its pre-requeue logs and checkpoint SHA are archived in
+`requeue_8048808/` beside `jobs.tsv`. The runner's elapsed-training timer resets
+on resume; model/optimizer progress is restored. Scientific arguments remain
+unchanged. Final completion/audit remains pending.
+
+The final source archive now contains all **153 relevant runtime Python files**,
+not only the 13 modified files; every archived file hash matches NEMO2. The
+baseline-relative patch remains scoped to this implementation. The final
+print-only directory also retains the runtime Git revision and tracked runtime
+diff, preserving existing source changes without reverting them.
