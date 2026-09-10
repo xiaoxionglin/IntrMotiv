@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.5.0**; study schema:
+Current implementation: **1.6.0**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -285,6 +285,13 @@ seed, independently of the smaller ordinary place-field seed subset. Omitting
 `where` preserves all-run intervention behavior. This avoids duplicate run lists
 and ensures extra goal-probe seeds use the same checkpoint inventory.
 
+Since 1.6.0, `telemetry.intervention.target_frames` may contain multiple sorted,
+unique positive frame targets. The manifest requires exactly one row per
+selected condition, seed, and target. Test manifest generation with a synthetic
+checkpoint inventory before training: study expansion alone cannot demonstrate
+that a new telemetry protocol is executable. The DG-capacity study exercises
+all 27 runs at both 75M and 300M, producing 54 intervention rows.
+
 Then use `evaluation/submit_place_field_sweep.py` for its required print-only
 preflight and ordinary-job production submission. Postprocess with the existing
 summarizer, manifest analyzer, trajectory plotter, and stability tool documented
@@ -348,3 +355,22 @@ planning. Slurm submission, monitoring, cancellation, and raw place-field
 execution intentionally remain with the established launchers. Generic figure
 recipes and automated report/index assembly are suitable next components, but
 scientific conclusions should continue to require explicit review.
+
+### Goal-conditioned memory deployment lessons (2026-09-10)
+
+Once a command affects recurrent writes, force it before the core during both
+learner replay and interventions. A decoder-only override tests a different
+policy. Keep canonical detection separate, and verify alternate commands from
+identical observations and recurrent starts. Reuse the observation-panel and
+matched-command evaluators; the real DMLab smoke passed on an ordinary Slurm job.
+
+Explicit frame-zero checkpoints and permanent frame milestones must be requested;
+rolling and wall-clock saves do not guarantee the planned evaluation inventory.
+The runtime supports `save_initial_checkpoint` and `checkpoint_frame_targets`.
+Save each target at the first learner batch crossing it, preserving actual frame
+counts in standard milestone filenames. Resume does not backfill earlier targets.
+
+Check telemetry aliases before interpreting an absent audit signal: validation
+success is `intrmotiv/hrl/validation/success_rate`, while waypoint routing remains
+a raw `train/hrl_planning_waypoint_navigation_fraction` tag. Use initial/terminal
+tensor comparisons to verify frozen visual trunks including normalization buffers.

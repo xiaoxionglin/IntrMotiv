@@ -7,13 +7,13 @@ production startup. Downstream transfer remains deferred.
 ## Declarative study
 
 - Production: `hpc_runs/studies/dg_capacity_goal_conditioning.study.json`,
-  27 runs, schema `intrmotiv/study/v1`, workflow 1.5.0.
+  27 runs, schema `intrmotiv/study/v1`, workflow 1.6.0.
 - Current production SHA-256:
-  `53197eede2cf4183a1546bf2b7320c8e58a593b558f1a9673973897680bb5ed7`.
+  `eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e`.
 - Preflight: `hpc_runs/studies/dg_capacity_goal_conditioning_preflight.study.json`,
-  nine runs, same schema/workflow.
+  nine runs, same schema, declared workflow 1.5.0 (compatible with 1.6.0).
 - Current preflight SHA-256:
-  `7cb93f9e133d18f7582cdccb231a1d5746f8250b665cfb55f887420eff775e95`.
+  `dbbfc58291a8e76197f94f3e6208c2324f92234510055733796a440af5490069`.
 
 The matrix is direct worker-only, direct DG+worker, waypoint DG+worker, crossed
 with 16/32/64 DG and seeds 8/99/123. All use repeat 4, navigation8, PPO STOP into
@@ -42,8 +42,10 @@ changes. No unrelated source edits were reverted.
 
 ## Verification so far
 
-- 289 IntrMotiv tests passed on NEMO2, including four new goal-memory tests.
-- 29 canonical/study tests passed locally and on NEMO2.
+- 294 IntrMotiv tests passed on NEMO2; subsequent summary-only evaluator
+  additions passed both focused intervention tests.
+- 30 canonical/study tests passed locally and on NEMO2, including the
+  54-row two-checkpoint intervention inventory.
 - All 36 production/preflight commands parsed through the actual entry point.
 - Synthetic full-model smoke passed with actual encoder, core, and decoder;
   new modulation gradient norm was 2.00045 in its forced-active test case.
@@ -87,3 +89,55 @@ before adding goal input to memory. Overriding only decoder goals after replay
 is insufficient once the goal changes memory writes. Preserve separate
 grounding and worker features rather than allowing a command to create its
 own achievement event.
+
+## Final preflight and evaluator evidence (in progress)
+
+The first diagnostic submission (8048750–8048758) was cancelled after it exposed
+missing frame-zero checkpoints. Its study definition is archived in its submitted
+directory as `study.reviewed.json`; its outputs remain diagnostic only.
+
+Final preflight jobs **8048800–8048808** use the separate
+`intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910` namespace.
+Submitted metadata: `_slurm/intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910/20260910T171148Z`.
+All nine preserved true frame-zero checkpoints. The submitted matrix audit passed.
+Progress audits show finite learning, unchanged frozen trunk tensors including
+normalization buffers, trainable DG projections, nonzero modulation training,
+and successful waypoint validation/routing in all three waypoint cells.
+The complete 2M-frame gate remains pending; no production submission yet.
+
+Real DMLab evaluation smoke **8049046 completed, exit 0**. Its workspace output
+is `analysis/dg_capacity_preflight/evaluation_smoke_8049046/`. It verified exact
+observation-panel replay, command-invariant canonical DG, goal-sensitive worker
+DG, and alternate commands from identical physical/recurrent starts with frozen
+policy and graph. Its tiny panel had two paired comparisons and zero arrival
+lift; this is infrastructure verification, not evidence of learned control.
+Subsequent summary additions report unsupported panels, coverage, timeout, and
+initial action total variation explicitly; both intervention tests passed.
+
+Permanent frame checkpoints now use the established `checkpoint_p0/milestones`
+format at the first batch crossing each requested target. Initial checkpoints
+use a separate `initial_` prefix outside rolling retention. The focused tests
+verify crossing, no repeated saves, and resume behavior. This retention-only
+change does not alter learning, and was added after the final preflights started.
+
+Canonical workflow **1.6.0** extends intervention manifests to multiple targets
+without changing existing row fields. Production uses 75M and 300M across all
+27 runs. The compatible 1.5.0 preflight study is unchanged.
+
+Final production print-only review:
+`_slurm/intrmotiv_dg_capacity_goal_conditioning_20260910/20260910T173152Z`.
+Its audit confirms 27 exact commands, final study SHA, and workspace-only output
+paths. Reviewed scripts request **40 CPUs, 80G, 96 hours, partition genoa**.
+The Milan preflight was substantially slower than Genoa preflights; production
+uses the faster architecture while preserving scientific settings. A 96-hour
+allocation is not a promise that 300M frames finish on every node. Any run that
+reaches the allocation limit before 300M must resume its existing checkpoint;
+it must not be counted as a completed 300M replicate.
+
+At 19:35 CEST, job 8048800 was checkpoint-preservingly requeued from Milan to
+Genoa using `scontrol requeuehold`, partition update, and release. Its config
+explicitly sets `restart_behavior=resume`; the saved checkpoint was at 720,896
+frames. The same job ID, training directory, seed, and scientific arguments are
+retained. Pre-requeue logs and checkpoint SHA are in the submitted directory's
+`requeue_8048800/`. This resource change is additional scheduler provenance;
+the original generated script still records its original CPU partition.

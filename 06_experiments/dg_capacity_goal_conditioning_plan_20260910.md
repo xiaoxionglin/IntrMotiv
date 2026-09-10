@@ -82,7 +82,8 @@ rescaling is included.
 
 ## Evaluation and interpretation
 
-Save checkpoints at 5M, 25M, 75M, 150M, and 300M frames. Reuse canonical online
+Retain permanent checkpoints at the first learner batch crossing 5M, 25M,
+75M, 150M, and 300M frames; record actual frame counts. Reuse canonical online
 spatial telemetry and manifest-driven place-field evaluation: five checkpoints
 for seed 99 and terminal checkpoints for seeds 8 and 123.
 
@@ -121,11 +122,11 @@ density, or action sensitivity alone does not establish controllability.
 
 ## Implementation and launch gates
 
-Use StudySpec schema `intrmotiv/study/v1`, workflow **1.5.0**, and the canonical
+Use StudySpec schema `intrmotiv/study/v1`, workflow **1.6.0**, and the canonical
 package under `hpc_runs/intrmotiv_study/`. Create the declarative study under
 `hpc_runs/studies/` during implementation; it becomes the sole run inventory.
 The study is now declared in `dg_capacity_goal_conditioning.study.json`, with
-validated SHA-256 `53197eede2cf4183a1546bf2b7320c8e58a593b558f1a9673973897680bb5ed7`.
+validated SHA-256 `eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e`.
 Record updated fingerprints after study changes and repeat print-only review.
 
 Before launch, resolve the waypoint configuration and validate identity

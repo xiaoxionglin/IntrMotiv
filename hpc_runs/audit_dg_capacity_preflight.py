@@ -4,6 +4,7 @@ from pathlib import Path
 import torch
 import numpy as np
 from hpc_runs.intrmotiv_study import load_study
+from hpc_runs.intrmotiv_study.version import WORKFLOW_VERSION
 from hpc_runs.audit_navigation8_algorithm_screen_preflight import _events
 
 
@@ -32,6 +33,12 @@ def audit(spec,jobs,root,required_frames):
         if cfg['dg_goal_input']=='write' and final:
             mod=final['model']['core.dg_goal_modulation']
             if not torch.isfinite(mod).all() or mod.norm()<=0:errors.append('modulation did not learn finite nonzero weights')
+        if initial and final:
+            frozen=[k for k in start['model'] if k.startswith('encoder.basic_encoder.')]
+            if not frozen:errors.append('missing frozen visual trunk tensors')
+            if any(not torch.equal(start['model'][k],final['model'][k]) for k in frozen):errors.append('frozen trunk changed, including normalization state')
+            projection=[k for k in start['model'] if k.startswith('encoder.DG_projection.') and k.endswith('weight')]
+            if not projection or not any(not torch.equal(start['model'][k],final['model'][k]) for k in projection):errors.append('DG projection did not train')
         values=_events(directory)
         learning=[(tag,es) for tag,es in values.items() if any(x in tag.lower() for x in ['loss','gradient'])]
         if not learning:errors.append('missing learning scalars')
@@ -59,7 +66,7 @@ def audit(spec,jobs,root,required_frames):
             if 'Traceback (most recent call last)' in text:errors.append(f'traceback in {key}')
         result=dict(run=run.name,job_id=job['job_id'],frames=frames,passed=not errors,errors=errors,signals=signals)
         results.append(result);print(json.dumps(result),flush=True)
-    return dict(schema='intrmotiv/study/v1',workflow_version='1.5.0',study_id=study.study_id,study_sha256=study.fingerprint,passed=all(r['passed'] for r in results),runs=results)
+    return dict(schema='intrmotiv/study/v1',workflow_version=WORKFLOW_VERSION,study_workflow_version=study.declared_workflow_version,study_id=study.study_id,study_sha256=study.fingerprint,passed=all(r['passed'] for r in results),runs=results)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('study');p.add_argument('jobs');p.add_argument('train_root');p.add_argument('--required-frames',type=int,default=2000000);p.add_argument('--output',required=True);a=p.parse_args()

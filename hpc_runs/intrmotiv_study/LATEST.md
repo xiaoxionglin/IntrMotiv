@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.5.0`
+- Implementation: `1.6.0`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -8,6 +8,13 @@
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 ## Deployment status
+
+Version 1.6.0 accepts sorted, unique intervention checkpoint targets and
+requires exactly one row per selected condition, seed, and target. This supports
+the DG-capacity study's 75M and 300M intervention panels (54 rows). Single-target
+studies retain their existing row contract. Local canonical/study suite: 30 tests
+passed; NEMO2 synchronization verification is recorded in the DG-capacity launch
+record.
 
 Version 1.5.0 adds optional `telemetry.intervention.where` selection by validated
 RunSpec context. Selected runs receive the intervention checkpoint in the

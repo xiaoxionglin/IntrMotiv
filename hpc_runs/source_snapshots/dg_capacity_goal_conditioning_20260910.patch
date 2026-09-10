@@ -11,34 +11,6 @@
          # initial rnn states
          with self.timing.add_time("bptt_initial"):
              if self.cfg.use_rnn:
---- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
-+++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
-@@ -207,8 +207,8 @@
-         raise ValueError("Motion policy input requires action path integration")
-     if getattr(cfg, "hrl_landmark_geometry", "none") != "none" and not topological:
-         raise ValueError("Landmark geometry requires a topological frontier manager")
--    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode != "control_graph":
--        raise ValueError("Connectivity-aware edge exploration requires hrl_manager_mode=control_graph")
-+    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode not in ("control_graph", "frontier_waypoint"):
-+        raise ValueError("Edge exploration requires a waypoint or control_graph manager")
-     goal_conditioning = getattr(cfg, "hrl_goal_conditioning", "legacy")
-     intrinsic_goal = getattr(cfg, "intrinsic_goal_mode", "none") != "none"
-     memory_inhibition = getattr(cfg, "dg_ca3_reentry_inhibition", "none") != "none"
-@@ -307,6 +307,14 @@
-             # conditioning this stores target id, four geometry values, and
-             # mode id; otherwise it stores only target id.
-             rnn_size += 1 + GEOMETRY_POLICY_SIZE + 1 if getattr(cfg, "hrl_behavior_mode_condition", False) else 1
-+        if getattr(cfg, "dg_goal_input", "none") == "write":
-+            if (cfg.core_name != "BypassSS" or not getattr(cfg, "hrl_controllable_graph", False)
-+                or getattr(cfg, "hrl_target_timing", "delayed") != "immediate"
-+                or getattr(cfg, "hrl_graph_memory", "episode") != "policy_buffer"
-+                or getattr(cfg, "dg_context_feedback", "none") != "none"
-+                or getattr(cfg, "ppo_dg_gradient", "stop") != "stop"):
-+                raise ValueError("DG goal writes require immediate policy-buffer BypassSS, no context feedback, and PPO STOP")
-+            rnn_size += hippo_n_feature * (R + L - 1)
-         cfg.cli_args["rnn_size"] = rnn_size
-         cfg.rnn_size = rnn_size
- 
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
 @@ -225,7 +225,12 @@
@@ -70,6 +42,126 @@
          elif cfg.core_name == "BypassSS_binary":
              core = SimpleSequenceWithBypassCore_binary(cfg, core_input_size)
          elif cfg.core_name == "Default":
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
+@@ -983,6 +983,9 @@
+             else:
+                 self.context_action_count = 9
+             self.encoder_out_size += self.context_action_count
++        self.dg_goal_write = getattr(cfg, "dg_goal_input", "none") == "write"
++        if self.dg_goal_write:
++            self.encoder_out_size += int(cfg.Hippo_n_feature)
+         self.cpu_device = torch.device("cpu")
+ 
+         # log.info("=================================== memory=========================")
+@@ -1058,7 +1061,11 @@
+         # feature stream is a controller bypass and is not part of DG credit.
+         # Detaching here keeps encoder-only updates local to DG while the
+         # unchanged bypass below remains differentiable for PPO.
+-        if self.context_feedback == "none":
++        goal_preactivation = None
++        if self.dg_goal_write:
++            goal_preactivation = self.DG_projection.preactivation(x.detach())
++            tmp_out = self.DG_projection.activation(goal_preactivation - self.DG_projection.intercept)
++        elif self.context_feedback == "none":
+             tmp_out = self.DG_projection(x.detach())
+         else:
+             if not isinstance(self.DG_projection, DGProjection_batchnorm_relu):
+@@ -1106,6 +1113,8 @@
+             action_onehot = action_onehot * valid_action.unsqueeze(1).to(dtype=tmp_out.dtype)
+             tmp_out = torch.cat((tmp_out, action_onehot), dim=1)
+ 
++        if goal_preactivation is not None:
++            tmp_out = torch.cat((tmp_out, goal_preactivation.detach()), dim=1)
+         return tmp_out
+ 
+     def get_out_size(self) -> int:
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -713,6 +713,17 @@
+         BaseLearner.__init__(self, cfg, env_info, policy_versions_tensor, policy_id, param_server)
+         self._online_spatial = None
+ 
++    def init(self):
++        result = super().init()
++        if getattr(self.cfg, "save_initial_checkpoint", False) and self.env_steps == 0 and self.train_step == 0:
++            self._save_impl("initial", "", 1)
++        return result
++
++    def _save_crossed_frame_targets(self, previous_frames):
++        targets = [int(x) for x in getattr(self.cfg, "checkpoint_frame_targets", "").split(",") if x.strip()]
++        if any(previous_frames < target <= self.env_steps for target in targets):
++            self.save_milestone()
++
+     def _capture_online_spatial(self, buff: TensorDict) -> None:
+         if not bool(getattr(self.cfg, "online_spatial_telemetry", False)):
+             return
+@@ -733,7 +744,9 @@
+         self._maybe_update_cfg()
+         self._maybe_load_policy()
+         self._capture_online_spatial(batch)
++        previous_frames = self.env_steps
+         stats = super().train(batch)
++        self._save_crossed_frame_targets(previous_frames)
+         if stats is None or getattr(self, "_online_spatial", None) is None:
+             return stats
+         spatial_stats = self._online_spatial.on_env_steps(self.env_steps)
+@@ -886,6 +899,12 @@
+         stored = option_state[..., self._hrl_layout().persistent_start]
+         current = self._policy_graph().representation_generation.to(device=stored.device, dtype=stored.dtype)
+         return stored.eq(current)
++
++    def _prepare_recurrent_replay_head(self, head_outputs, mb):
++        if getattr(self.cfg, "dg_goal_input", "none") != "write":
++            return head_outputs
++        target = self._behavior_targets_from_states(mb.rnn_states)
++        return torch.cat((head_outputs, target.to(head_outputs.dtype)), dim=-1)
+ 
+     def _override_core_outputs_for_replay(self, core_outputs: Tensor, mb: AttrDict) -> Tensor:
+         """Teacher-force the behavior target before PPO evaluates the decoder."""
+@@ -4917,6 +4936,29 @@
+         stats.dg_recruitment_goal_adapter_reset_count = float(self._last_recruitment_stats["goal_adapter_reset_count"])
+         stats.dg_recruitment_goal_adapter_reset_total = float(self._goal_adapter_reset_count)
+         decoder = self.actor_critic.decoder
++        dg_modulation = getattr(self.actor_critic.core, "dg_goal_modulation", None)
++        if dg_modulation is not None:
++            stats.dg_goal_modulation_norm = dg_modulation.detach().norm().float()
++            grad = dg_modulation.grad
++            stats.dg_goal_modulation_gradient_norm = grad.norm().detach().float() if grad is not None else 0.0
++            for goal_id in range(int(self.cfg.Hippo_n_feature)):
++                stats[f"dg_goal_gradient_{goal_id:03d}"] = grad[goal_id].norm().detach().float() if grad is not None else 0.0
++        if self._uses_policy_graph():
++            goals = self._behavior_targets_from_states(var.mb.rnn_states).detach()
++            valid_goal = goals.sum(-1) > 0
++            decision_counts = (goals * var.mb.valids.unsqueeze(-1)).sum(0)
++            probabilities = decision_counts / decision_counts.sum().clamp_min(1)
++            stats.goal_command_entropy = -(probabilities * probabilities.clamp_min(1e-12).log()).sum()
++            stats.goal_commanded_count = (decision_counts > 0).sum().float()
++            stats.goal_eligible_count = (self._policy_graph().node_visits > 0).sum().float()
++            raw_hrl = self._hrl_state_from_rnn(var.mb.rnn_states)
++            new_attempt = (raw_hrl[:, self._hrl_layout().option_reset] > 0) & var.mb.valids
++            for goal_id in range(int(self.cfg.Hippo_n_feature)):
++                stats[f"goal_decisions_{goal_id:03d}"] = decision_counts[goal_id]
++                stats[f"goal_attempts_{goal_id:03d}"] = (goals[:, goal_id] * new_attempt).sum()
++                commanded = var.mb["hrl_control_command_target"].long() == goal_id
++                stats[f"goal_successes_{goal_id:03d}"] = (commanded & var.mb["hrl_control_correct_outcome"].bool() & var.mb.valids).sum().float()
++                stats[f"goal_timeouts_{goal_id:03d}"] = (commanded & var.mb["hrl_control_target_timeout"].bool() & var.mb.valids).sum().float()
+         stats.hrl_goal_decoder_parameter_count = float(sum(parameter.numel() for parameter in decoder.parameters()))
+         target_modulation = getattr(decoder, "target_modulation", None)
+         if torch.is_tensor(target_modulation):
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -539,6 +539,10 @@
+         type=str2bool,
+         help="Alternate encoder and decoder updates using the baseline single optimizer/checkpoint format.",
+     )
++    p.add_argument("--checkpoint_frame_targets", type=str, default="", help="Comma-separated frame targets retained as permanent milestones")
++    p.add_argument("--save_initial_checkpoint", type=str2bool, default=False, help="Preserve initialized model and optimizer before training")
++    p.add_argument("--dg_goal_input", choices=["none", "write"], default="none",
++                        help="Condition worker DG writes while keeping landmark evidence unconditioned")
+     p.add_argument(
+         "--ppo_dg_gradient",
+         default="stop",
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
 @@ -0,0 +1,103 @@
@@ -176,99 +268,391 @@
 +            output = torch.cat((canonical_out, worker.flatten(1)), -1)
 +        self.last_worker_memory = worker.detach()
 +        return output, self.join_worker_state(canonical_new_state, worker.flatten(1))
---- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
-+++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
-@@ -886,6 +886,12 @@
-         stored = option_state[..., self._hrl_layout().persistent_start]
-         current = self._policy_graph().representation_generation.to(device=stored.device, dtype=stored.dtype)
-         return stored.eq(current)
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -207,8 +207,8 @@
+         raise ValueError("Motion policy input requires action path integration")
+     if getattr(cfg, "hrl_landmark_geometry", "none") != "none" and not topological:
+         raise ValueError("Landmark geometry requires a topological frontier manager")
+-    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode != "control_graph":
+-        raise ValueError("Connectivity-aware edge exploration requires hrl_manager_mode=control_graph")
++    if getattr(cfg, "hrl_edge_exploration", False) and manager_mode not in ("control_graph", "frontier_waypoint"):
++        raise ValueError("Edge exploration requires a waypoint or control_graph manager")
+     goal_conditioning = getattr(cfg, "hrl_goal_conditioning", "legacy")
+     intrinsic_goal = getattr(cfg, "intrinsic_goal_mode", "none") != "none"
+     memory_inhibition = getattr(cfg, "dg_ca3_reentry_inhibition", "none") != "none"
+@@ -307,6 +307,14 @@
+             # conditioning this stores target id, four geometry values, and
+             # mode id; otherwise it stores only target id.
+             rnn_size += 1 + GEOMETRY_POLICY_SIZE + 1 if getattr(cfg, "hrl_behavior_mode_condition", False) else 1
++        if getattr(cfg, "dg_goal_input", "none") == "write":
++            if (cfg.core_name != "BypassSS" or not getattr(cfg, "hrl_controllable_graph", False)
++                or getattr(cfg, "hrl_target_timing", "delayed") != "immediate"
++                or getattr(cfg, "hrl_graph_memory", "episode") != "policy_buffer"
++                or getattr(cfg, "dg_context_feedback", "none") != "none"
++                or getattr(cfg, "ppo_dg_gradient", "stop") != "stop"):
++                raise ValueError("DG goal writes require immediate policy-buffer BypassSS, no context feedback, and PPO STOP")
++            rnn_size += hippo_n_feature * (R + L - 1)
+         cfg.cli_args["rnn_size"] = rnn_size
+         cfg.rnn_size = rnn_size
+ 
+--- a/sf_working_directories/IntrMotiv/evaluation/observation_panel.py
++++ b/sf_working_directories/IntrMotiv/evaluation/observation_panel.py
+@@ -35,7 +35,7 @@
+     np.savez_compressed(path, **{key: np.stack(value) for key, value in records.items()})
+ 
+ 
+-def replay_observations(actor, cfg, path, device):
++def replay_observations(actor, cfg, path, device, goal_id=None, include_worker=False):
+     # NPZ indexing decompresses the whole member: materialize once, not once
+     # per observation (which becomes quadratic for a long image trajectory).
+     with np.load(path, allow_pickle=False) as archive:
+@@ -48,14 +48,24 @@
+         raise ValueError("Panel arrays must have identical temporal lengths")
+     batch = data["dones"].shape[1]
+     state = torch.zeros(batch, get_rnn_size(cfg), device=device)
+-    activity, logits, rows = [], [], []
++    activity, logits, rows, worker_activity = [], [], [], []
++    n = int(cfg.Hippo_n_feature)
++    if goal_id is not None and not 0 <= goal_id < n:
++        raise ValueError("Panel goal is outside the landmark vocabulary")
+     episode = np.zeros(batch, dtype=int)
+     with torch.no_grad():
+         for t in range(count):
+             obs = {key[4:]: torch.as_tensor(data[key][t], device=device) for key in keys}
+             normalized = prepare_and_normalize_obs(actor, obs)
+             head = actor.forward_head(normalized)
++            if goal_id is not None and getattr(cfg, "dg_goal_input", "none") == "write":
++                goal = torch.zeros(head.size(0), n, device=device, dtype=head.dtype)
++                goal[:, goal_id] = 1
++                head = torch.cat((head, goal), -1)
+             core, state = actor.forward_core(head, state)
++            worker = getattr(getattr(actor, "core", None), "last_worker_dg_activity", None)
++            if worker is not None:
++                worker_activity.append(worker.cpu().numpy().copy())
+             n, e = int(cfg.Hippo_n_feature), int(cfg.Hippo_R + cfg.Hippo_L - 1)
+             # Keep snapshots independent of the in-place episode-state reset.
+             activity.append(core[:, : n * e : e].cpu().numpy().copy())
+@@ -78,4 +88,7 @@
+             done = torch.as_tensor(data["dones"][t], device=device).bool()
+             state[done] = 0
+             episode += data["dones"][t].astype(int)
+-    return pd.DataFrame(rows), np.concatenate(activity), np.concatenate(logits)
++    result = (pd.DataFrame(rows), np.concatenate(activity), np.concatenate(logits))
++    if include_worker:
++        return result + ({"worker_dg_activity": np.concatenate(worker_activity)} if worker_activity else {},)
++    return result
+--- a/sf_working_directories/IntrMotiv/evaluation/place_fields.py
++++ b/sf_working_directories/IntrMotiv/evaluation/place_fields.py
+@@ -48,6 +48,7 @@
+     panel = parser.add_mutually_exclusive_group()
+     panel.add_argument("--record-observation-panel", type=pathlib.Path)
+     panel.add_argument("--replay-observation-panel", type=pathlib.Path)
++    parser.add_argument("--panel-goal", type=int, default=None, help="Force one landmark command during a common observation-panel replay")
+     return parser.parse_args()
+ 
+ 
+@@ -204,6 +205,28 @@
+     return float(np.nansum(rate_map[valid] * p_occ[valid] * np.log2(ratio[valid])))
+ 
+ 
++def goal_behavior_diagnostics(pose, goals, timeouts):
++    """Measure uninterrupted commands within physical episodes, not option timers."""
++    goals = np.asarray(goals).reshape(-1)
++    timeouts = np.asarray(timeouts).reshape(-1).astype(bool)
++    segments = []
++    for (_, _), group in pose.groupby(['agent', 'num_traj'], sort=False):
++        previous = -1; duration = 0; repeats = 0
++        for index in group.index:
++            goal = int(goals[index])
++            if goal == previous and goal >= 0:
++                duration += 1
++                repeats += int(timeouts[index])
++            else:
++                if previous >= 0: segments.append(dict(goal=previous,decisions=duration,same_goal_timeouts=repeats))
++                previous=goal;duration=int(goal>=0);repeats=0
++        if previous>=0:segments.append(dict(goal=previous,decisions=duration,same_goal_timeouts=repeats))
++    return dict(segments=segments,max_uninterrupted_decisions=max((s['decisions'] for s in segments),default=0),
++                max_same_goal_timeouts=max((s['same_goal_timeouts'] for s in segments),default=0),
++                timeout_reselections=sum(s['same_goal_timeouts'] for s in segments),
++                window_censored=True)
 +
-+    def _prepare_recurrent_replay_head(self, head_outputs, mb):
-+        if getattr(self.cfg, "dg_goal_input", "none") != "write":
-+            return head_outputs
-+        target = self._behavior_targets_from_states(mb.rnn_states)
-+        return torch.cat((head_outputs, target.to(head_outputs.dtype)), dim=-1)
++
+ def rollout_dg(
+     run_dir: pathlib.Path,
+     max_num_frames: int,
+@@ -212,6 +235,7 @@
+     checkpoint_path: pathlib.Path | None = None,
+     record_panel: pathlib.Path | None = None,
+     replay_panel: pathlib.Path | None = None,
++    panel_goal: int | None = None,
+ ):
+     cfg, env, env_info, actor_critic, checkpoint, device = load_policy_env(
+         run_dir, max_num_frames, deterministic, checkpoint_rank, checkpoint_path
+@@ -220,17 +244,34 @@
+         from sf_working_directories.IntrMotiv.evaluation.observation_panel import replay_observations
  
-     def _override_core_outputs_for_replay(self, core_outputs: Tensor, mb: AttrDict) -> Tensor:
-         """Teacher-force the behavior target before PPO evaluates the decoder."""
-@@ -4917,6 +4923,29 @@
-         stats.dg_recruitment_goal_adapter_reset_count = float(self._last_recruitment_stats["goal_adapter_reset_count"])
-         stats.dg_recruitment_goal_adapter_reset_total = float(self._goal_adapter_reset_count)
-         decoder = self.actor_critic.decoder
-+        dg_modulation = getattr(self.actor_critic.core, "dg_goal_modulation", None)
-+        if dg_modulation is not None:
-+            stats.dg_goal_modulation_norm = dg_modulation.detach().norm().float()
-+            grad = dg_modulation.grad
-+            stats.dg_goal_modulation_gradient_norm = grad.norm().detach().float() if grad is not None else 0.0
-+            for goal_id in range(int(self.cfg.Hippo_n_feature)):
-+                stats[f"dg_goal_gradient_{goal_id:03d}"] = grad[goal_id].norm().detach().float() if grad is not None else 0.0
-+        if self._uses_policy_graph():
-+            goals = self._behavior_targets_from_states(var.mb.rnn_states).detach()
-+            valid_goal = goals.sum(-1) > 0
-+            decision_counts = (goals * var.mb.valids.unsqueeze(-1)).sum(0)
-+            probabilities = decision_counts / decision_counts.sum().clamp_min(1)
-+            stats.goal_command_entropy = -(probabilities * probabilities.clamp_min(1e-12).log()).sum()
-+            stats.goal_commanded_count = (decision_counts > 0).sum().float()
-+            stats.goal_eligible_count = (self._policy_graph().node_visits > 0).sum().float()
-+            raw_hrl = self._hrl_state_from_rnn(var.mb.rnn_states)
-+            new_attempt = (raw_hrl[:, self._hrl_layout().option_reset] > 0) & var.mb.valids
-+            for goal_id in range(int(self.cfg.Hippo_n_feature)):
-+                stats[f"goal_decisions_{goal_id:03d}"] = decision_counts[goal_id]
-+                stats[f"goal_attempts_{goal_id:03d}"] = (goals[:, goal_id] * new_attempt).sum()
-+                commanded = var.mb["hrl_control_command_target"].long() == goal_id
-+                stats[f"goal_successes_{goal_id:03d}"] = (commanded & var.mb["hrl_control_correct_outcome"].bool() & var.mb.valids).sum().float()
-+                stats[f"goal_timeouts_{goal_id:03d}"] = (commanded & var.mb["hrl_control_target_timeout"].bool() & var.mb.valids).sum().float()
-         stats.hrl_goal_decoder_parameter_count = float(sum(parameter.numel() for parameter in decoder.parameters()))
-         target_modulation = getattr(decoder, "target_modulation", None)
-         if torch.is_tensor(target_modulation):
---- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
-+++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
-@@ -539,6 +539,8 @@
-         type=str2bool,
-         help="Alternate encoder and decoder updates using the baseline single optimizer/checkpoint format.",
+         env.close()
+-        pose, dg, logits = replay_observations(actor_critic, cfg, replay_panel, device)
+-        return cfg, checkpoint, pose, dg, logits, optional_graph_arrays(actor_critic)
++        pose, dg, logits, worker = replay_observations(actor_critic, cfg, replay_panel, device, goal_id=panel_goal, include_worker=True)
++        arrays = optional_graph_arrays(actor_critic)
++        arrays.update(worker)
++        arrays["panel_goal"] = -1 if panel_goal is None else panel_goal
++        return cfg, checkpoint, pose, dg, logits, arrays
+     panel_records = defaultdict(list)
+ 
+     core_buffers = []
++    worker_buffers = []
++    goal_buffers, timeout_buffers = [], []
+     pre_threshold_buffers = []
+ 
+     def core_hook(_module, _inp, out):
++        if isinstance(out, (tuple, list)) and getattr(_module, "hrl_enabled", False):
++            from sf_working_directories.IntrMotiv.dmlab.hrl_controllable_graph import HRLStateLayout
++            output, state = out
++            start = _module.target_condition_start
++            goal = output[:, start:start+_module.Hippo_n_feature]
++            goal_id = torch.where(goal.sum(-1)>0, goal.argmax(-1), torch.full_like(goal.argmax(-1), -1))
++            hrl = _module._split_state(state)[1]
++            goal_buffers.append(goal_id.detach().cpu().clone())
++            timeout_buffers.append(hrl[:, HRLStateLayout(_module.Hippo_n_feature).option_expired].detach().cpu().clone())
+         if isinstance(out, (tuple, list)):
+             out = out[0]
+         core_buffers.append(out.detach().cpu().clone())
++        worker = getattr(_module, "last_worker_dg_activity", None)
++        if worker is not None:
++            worker_buffers.append(worker.detach().cpu().clone())
+ 
+     dict(actor_critic.named_modules())["core"].register_forward_hook(core_hook)
+ 
+@@ -336,7 +377,13 @@
+         if pre_threshold_logits.shape[1] != n_feature:
+             raise ValueError(f"Pre-threshold DG logits {pre_threshold_logits.shape} do not match F={n_feature}")
+     pose = pd.DataFrame(pose_records).iloc[: dg.shape[0]].reset_index(drop=True)
+-    return cfg, checkpoint, pose, dg, pre_threshold_logits, optional_graph_arrays(actor_critic)
++    arrays = optional_graph_arrays(actor_critic)
++    if goal_buffers:
++        arrays["behavior_goal_ids"] = torch.cat(goal_buffers).numpy()
++        arrays["option_timeouts"] = torch.cat(timeout_buffers).numpy()
++    if worker_buffers:
++        arrays["worker_dg_activity"] = torch.cat(worker_buffers).numpy()
++    return cfg, checkpoint, pose, dg, pre_threshold_logits, arrays
+ 
+ 
+ def _occupancy_corrected_maps(pose: pd.DataFrame, values: np.ndarray, grain: int):
+@@ -488,6 +535,7 @@
+             checkpoint_path=args.checkpoint,
+             record_panel=args.record_observation_panel,
+             replay_panel=args.replay_observation_panel,
++            panel_goal=args.panel_goal,
+         )
+         occupancy, rate_maps, si, active_fraction = compute_place_fields(pose, dg, args.grain)
+         artifact = {
+@@ -504,6 +552,15 @@
+             "observation_panel": str(args.replay_observation_panel or ""),
+         }
+         artifact.update(graph_arrays)
++        if "behavior_goal_ids" in graph_arrays:
++            (run_out / "goal_behavior_diagnostics.json").write_text(json.dumps(
++                goal_behavior_diagnostics(pose, graph_arrays["behavior_goal_ids"], graph_arrays["option_timeouts"]), indent=2)+"\n")
++        if "worker_dg_activity" in graph_arrays:
++            worker = graph_arrays["worker_dg_activity"]
++            _, worker_maps, worker_si, worker_fraction = compute_place_fields(pose, worker, args.grain)
++            artifact.update(worker_rate_maps=worker_maps, worker_spatial_information=worker_si,
++                            worker_active_fraction=worker_fraction)
++            artifact.update({"worker_" + key: value for key, value in spatial_details_for_artifact(pose, worker, args.grain).items()})
+         pre_threshold_summary = {}
+         if pre_threshold_logits is not None:
+             _, pre_threshold_maps, pre_threshold_mean, pre_threshold_std = compute_pre_threshold_maps(
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -293,6 +293,155 @@
+     }
+ 
+ 
++def run_landmark_matched_interventions(cfg, env, env_info, actor, checkpoint, device,
++                                       decision_cap, deterministic=False, max_sources=16,
++                                       targets_per_source=4, repeats=5, prefix_cap=512):
++    """Execute different commands from identical engine/prefix states.
++
++    Prefixes are selected by exclusive source observations, never trial success.
++    Only observed outgoing passive pairs form the evaluation panel. Both a
++    target's own command and all selected alternative commands score that target.
++    """
++    from sample_factory.algo.utils.make_env import make_env_func_batched
++    n = int(cfg.Hippo_n_feature)
++    graph = actor.core.policy_graph
++    before = {k: v.detach().clone() for k, v in actor.state_dict().items()}
++    pairs = (graph.passive_confidence > 0).cpu().numpy()
++    np.fill_diagonal(pairs, False)
++    rows, panel, missing = [], {}, []
++    decisions = 0
++
++    def fresh(seed):
++        nonlocal env
++        env.close()
++        ecfg = AttrDict(dict(cfg)); ecfg.dmlab_use_level_cache = False
++        env = make_env_func_batched(ecfg, env_config=AttrDict(worker_index=0, vector_index=0, env_id=0), render_mode=None)
++        base = env.unwrapped
++        if hasattr(base, 'reset_on_init'): base.reset_on_init = False
++        base.seed(seed); torch.manual_seed(seed)
++        obs, _ = env.reset()
++        return obs, torch.zeros(1, get_rnn_size(cfg), device=device)
++
++    def advance(action):
++        nonlocal decisions
++        if decisions >= decision_cap: raise RuntimeError('Matched intervention decision cap exhausted')
++        actions = torch.as_tensor([[action]], device=device)
++        obs, _, term, trunc, _ = env.step(preprocess_actions(env_info, actions)); decisions += 1
++        return obs, bool(make_dones(term, trunc)[0])
++
++    def encode(obs, state, command=None):
++        h = actor.forward_head(prepare_and_normalize_obs(actor, obs))
++        if command is not None and getattr(cfg, 'dg_goal_input', 'none') == 'write':
++            goal = h.new_zeros((1, n)); goal[:, command] = 1
++            h = torch.cat((h, goal), -1)
++        out, nxt = actor.forward_core(h, state)
++        if command is not None: out = condition_for_target(actor, out, -1, command)
++        return h[:, :n], out, nxt
++
++    def signature(obs, state):
++        return {**{k:v.detach().clone() for k,v in obs.items() if torch.is_tensor(v)}, '__state':state.detach().clone()}
++
++    def replay(seed, prefix):
++        obs, state = fresh(seed)
++        for action in prefix:
++            _, _, state = encode(obs, state)
++            obs, done = advance(action)
++            if done: raise RuntimeError('Episode boundary in retained prefix')
++        return obs, state
++
++    try:
++        with torch.no_grad():
++            # Bounded discovery; record multiple starts per source where possible.
++            for attempt in range(max_sources * repeats * 2):
++                if decisions + prefix_cap >= decision_cap // 4: break
++                seed = 31000 + attempt; obs, state = fresh(seed); prefix = []
++                actions = np.random.default_rng(seed).integers(0, actor.action_space.n, prefix_cap)
++                for action in actions:
++                    h = actor.forward_head(prepare_and_normalize_obs(actor, obs))
++                    active = torch.nonzero(h[0,:n] > 0).flatten()
++                    source = int(active.item()) if active.numel() == 1 else -1
++                    if source >= 0 and (source in panel or len(panel) < max_sources):
++                        targets = np.flatnonzero(pairs[source]).tolist()[:targets_per_source]
++                        if len(targets) >= 2 and len(panel.get(source, [])) < repeats:
++                            panel.setdefault(source, []).append((seed, list(prefix), targets, signature(obs,state)))
++                            break
++                    _, state = actor.forward_core(h,state)
++                    obs,done = advance(int(action));prefix.append(int(action))
++                    if done: break
++                if len(panel)==max_sources and all(len(v)==repeats for v in panel.values()): break
++            exhausted = False
++            for source, starts in sorted(panel.items()):
++                for rep,(seed,prefix,targets,reference) in enumerate(starts):
++                    horizon = max(pair_deadline(graph,source,t) for t in targets)
++                    cost = len(targets) * (len(prefix) + horizon)
++                    if decisions + cost > decision_cap:
++                        exhausted=True;missing.append(dict(source=source,repeat=rep,reason='decision_budget'));continue
++                    for command in targets:
++                        obs,state = replay(seed,prefix)
++                        actual=signature(obs,state)
++                        if actual.keys()!=reference.keys() or any(not torch.equal(reference[k],actual[k]) for k in reference):
++                            raise RuntimeError(f'Nonreproducible landmark start: source={source}, repeat={rep}')
++                        first_times={t:None for t in targets};elapsed=0;first_other=None;done=False
++                        rng=torch.Generator(device=device).manual_seed(41000+seed)
++                        start_pos=as_numpy(obs['pos'][0]).copy();last=start_pos.copy();path=0.
++                        for elapsed in range(1,horizon+1):
++                            _,out,state=encode(obs,state,command)
++                            result=actor.forward_tail(out,values_only=False,sample_actions=False)
++                            prob=result['action_logits'].softmax(-1)
++                            if elapsed == 1: initial_prob = prob[0].cpu().tolist()
++                            action=prob.argmax(-1) if deterministic else torch.multinomial(prob,1,generator=rng)
++                            obs,done=advance(int(action.item()))
++                            if done: break
++                            pos=as_numpy(obs['pos'][0]).copy();path+=float(np.linalg.norm(pos[:2]-last[:2]));last=pos
++                            h=actor.forward_head(prepare_and_normalize_obs(actor,obs));active=torch.nonzero(h[0,:n]>0).flatten()
++                            hit=int(active.item()) if active.numel()==1 else -1
++                            if hit>=0 and hit!=source and first_other is None:first_other=hit
++                            if hit in first_times and first_times[hit] is None:first_times[hit]=elapsed
++                        for target in targets:
++                            deadline=pair_deadline(graph,source,target);hit_time=first_times[target]
++                            rows.append(dict(source=source,repeat=rep,prefix_seed=seed,command=command,target=target,
++                                initial_action_probabilities=json.dumps(initial_prob),
++                                commanded=command==target,deadline=deadline,hit=hit_time is not None and hit_time<=deadline,
++                                hit_time=hit_time,first_distinct=first_other,censored=done and elapsed<deadline,
++                                timeout=hit_time is None and not (done and elapsed<deadline),
++                                elapsed=elapsed,path_length=path,start_position=json.dumps(start_pos.tolist()),
++                                endpoint=json.dumps(last.tolist()),exact_start_verified=True))
++    finally:
++        env.close()
++    if any(not torch.equal(v,actor.state_dict()[k]) for k,v in before.items()):
++        raise RuntimeError('Policy or graph changed during matched intervention')
++    differences=[]
++    for source, starts in panel.items():
++        for rep in range(len(starts)):
++            for target in starts[rep][2]:
++                group=[r for r in rows if r['source']==source and r['repeat']==rep and r['target']==target]
++                actual=[float(r['hit']) for r in group if r['commanded'] and not r['censored']]
++                alternate=[float(r['hit']) for r in group if not r['commanded'] and not r['censored']]
++                if actual and alternate:differences.append(actual[0]-float(np.mean(alternate)))
++    supported_sources=int((pairs.sum(axis=1)>=2).sum())
++    if len(panel)<min(max_sources,supported_sources):
++        missing.append(dict(reason='source_discovery_limit',requested=min(max_sources,supported_sources),found=len(panel)))
++    if supported_sources<max_sources:
++        missing.append(dict(reason='insufficient_observed_outgoing_pairs',requested=max_sources,supported=supported_sources))
++    for source,starts in panel.items():
++        if len(starts)<repeats:missing.append(dict(reason='insufficient_repeated_starts',source=source,requested=repeats,found=len(starts)))
++    action_distances=[]
++    for source,starts in panel.items():
++        for rep in range(len(starts)):
++            commands={r['command']:np.asarray(json.loads(r['initial_action_probabilities'])) for r in rows if r['source']==source and r['repeat']==rep}
++            ids=sorted(commands)
++            action_distances.extend(float(np.abs(commands[a]-commands[b]).sum()/2) for i,a in enumerate(ids) for b in ids[i+1:])
++    summary=dict(protocol='landmark-matched-commands-v1',checkpoint=str(checkpoint),decisions=decisions,
++                 supported_sources=supported_sources,source_panel_coverage=len(panel)/supported_sources if supported_sources else 0.,
++                 mean_initial_action_total_variation=float(np.mean(action_distances)) if action_distances else None,
++                 sources_evaluated=len(panel),starts_evaluated=sum(len(v) for v in panel.values()),
++                 max_sources=max_sources,targets_per_source=targets_per_source,repeats_requested=repeats,
++                 missing=missing,exact_start_verified=bool(rows),policy_frozen=True,graph_frozen=True,
++                 paired_arrival_lift=float(np.mean(differences)) if differences else None,
++                 paired_comparisons=len(differences),rows=len(rows))
++    return pd.DataFrame(rows),summary
++
++
+ def run_interventions(
+     run_dir: pathlib.Path,
+     checkpoint: pathlib.Path,
+@@ -303,10 +452,17 @@
+     observed_targets_only: bool = False,
+     local_successor_targets_only: bool = False,
+     absent_options: dict | None = None,
++    landmark_options: dict | None = None,
+ ) -> tuple[pd.DataFrame, dict[str, object]]:
+     cfg, env, env_info, actor_critic, checkpoint, device = load_policy_env(
+         run_dir, decision_cap, deterministic, 0, checkpoint
      )
-+    p.add_argument("--dg_goal_input", choices=["none", "write"], default="none",
-+                        help="Condition worker DG writes while keeping landmark evidence unconditioned")
-     p.add_argument(
-         "--ppo_dg_gradient",
-         default="stop",
---- a/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
-+++ b/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
-@@ -983,6 +983,9 @@
-             else:
-                 self.context_action_count = 9
-             self.encoder_out_size += self.context_action_count
-+        self.dg_goal_write = getattr(cfg, "dg_goal_input", "none") == "write"
-+        if self.dg_goal_write:
-+            self.encoder_out_size += int(cfg.Hippo_n_feature)
-         self.cpu_device = torch.device("cpu")
++    if landmark_options is not None:
++        return run_landmark_matched_interventions(cfg, env, env_info, actor_critic, checkpoint, device,
++                                                  decision_cap, deterministic, **landmark_options)
++    if getattr(cfg, "dg_goal_input", "none") == "write":
++        env.close()
++        raise ValueError("DG-conditioned policies require landmark-matched-commands-v1 interventions")
+     if getattr(cfg, "intrinsic_goal_mode", "none") == "ca3_absent_target":
+         from sf_working_directories.IntrMotiv.evaluation.absent_goal_interventions import run_absent_goal_interventions
  
-         # log.info("=================================== memory=========================")
-@@ -1058,7 +1061,11 @@
-         # feature stream is a controller bypass and is not part of DG credit.
-         # Detaching here keeps encoder-only updates local to DG while the
-         # unchanged bypass below remains differentiable for PPO.
--        if self.context_feedback == "none":
-+        goal_preactivation = None
-+        if self.dg_goal_write:
-+            goal_preactivation = self.DG_projection.preactivation(x.detach())
-+            tmp_out = self.DG_projection.activation(goal_preactivation - self.DG_projection.intercept)
-+        elif self.context_feedback == "none":
-             tmp_out = self.DG_projection(x.detach())
-         else:
-             if not isinstance(self.DG_projection, DGProjection_batchnorm_relu):
-@@ -1106,6 +1113,8 @@
-             action_onehot = action_onehot * valid_action.unsqueeze(1).to(dtype=tmp_out.dtype)
-             tmp_out = torch.cat((tmp_out, action_onehot), dim=1)
- 
-+        if goal_preactivation is not None:
-+            tmp_out = torch.cat((tmp_out, goal_preactivation.detach()), dim=1)
-         return tmp_out
- 
-     def get_out_size(self) -> int:
+@@ -470,6 +626,8 @@
+             )
+             if source in intervention
+         },
++        landmark_options=({key: intervention[key] for key in ("max_sources", "targets_per_source", "repeats") if key in intervention}
++                          if intervention.get("evaluation") == "landmark-matched-commands-v1" else None),
+         first_distinct=bool(intervention.get("terminate_on_first_distinct_exclusive_outcome", False)),
+         observed_targets_only=bool(intervention.get("balanced_observed_alternative_targets", False)),
+         local_successor_targets_only=bool(intervention.get("balanced_local_successor_targets", False)),
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_goal_conditioned_dg.py
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,119 @@
 +from types import SimpleNamespace
 +import torch
 +from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
@@ -338,3 +722,112 @@
 +        c=make_core(n);s=torch.zeros(1,c.total_state_size);o,s=c(head(torch.full((1,n),2.),n),s)
 +        assert s.shape[-1]==c.total_state_size
 +        assert c.worker_view(o).shape[-1]==c.get_out_size()
++
++
++def test_fixed_observation_panel_separates_worker_from_detector(tmp_path, monkeypatch):
++    import numpy as np
++    from sf_working_directories.IntrMotiv.evaluation import observation_panel as panel
++    c=make_core()
++    with torch.no_grad(): c.dg_goal_modulation[1,3:]=1
++    class Actor:
++        core=c
++        encoder=SimpleNamespace(DG_projection=SimpleNamespace(last_pre_threshold_logits=None))
++        def forward_head(self,obs):
++            self.encoder.DG_projection.last_pre_threshold_logits=obs['pre']
++            return head(obs['pre'],3)
++        def forward_core(self,h,s):return self.core(h,s)
++    actor=Actor();cfg=SimpleNamespace(Hippo_n_feature=3,Hippo_R=2,Hippo_L=3,dg_goal_input='write')
++    monkeypatch.setattr(panel,'get_rnn_size',lambda cfg:c.total_state_size)
++    monkeypatch.setattr(panel,'prepare_and_normalize_obs',lambda actor,obs:obs)
++    path=tmp_path/'panel.npz'
++    np.savez(path,obs_pre=np.full((3,1,3),2.,dtype=np.float32),obs_pos=np.zeros((3,1,3)),obs_rot=np.zeros((3,1,3)),dones=np.array([[False],[True],[False]]))
++    a=panel.replay_observations(actor,cfg,path,'cpu',goal_id=0,include_worker=True)
++    b=panel.replay_observations(actor,cfg,path,'cpu',goal_id=1,include_worker=True)
++    assert np.array_equal(a[1],b[1])
++    assert np.array_equal(a[2],b[2])
++    assert (b[3]['worker_dg_activity']>a[3]['worker_dg_activity']).all()
++
++
++def test_uninterrupted_goal_diagnostics_respect_episode_boundaries():
++    import pandas as pd
++    from sf_working_directories.IntrMotiv.evaluation.place_fields import goal_behavior_diagnostics
++    pose=pd.DataFrame({'agent':[0]*6,'num_traj':[0,0,0,0,1,1]})
++    result=goal_behavior_diagnostics(pose,[1,1,1,2,2,2],[0,1,1,0,1,1])
++    assert result['max_uninterrupted_decisions']==3
++    assert result['max_same_goal_timeouts']==2
++    assert [x['decisions'] for x in result['segments']]==[3,1,2]
++
++
++def test_frame_milestones_crossing_and_resume():
++    from sf_working_directories.IntrMotiv.dmlab.custom_learner import BaseDistanceRecorder
++    saved=[]
++    fake=SimpleNamespace(cfg=SimpleNamespace(checkpoint_frame_targets='100,200,300'),env_steps=96,save_milestone=lambda:saved.append(fake.env_steps))
++    save=BaseDistanceRecorder._save_crossed_frame_targets
++    save(fake,88)
++    fake.env_steps=104;save(fake,96)
++    fake.env_steps=112;save(fake,104)
++    # A restored model already beyond earlier milestones does not resave them.
++    fake.env_steps=208;save(fake,200)
++    fake.env_steps=304;save(fake,296)
++    assert saved==[104,304]
++    fake.cfg.checkpoint_frame_targets='';fake.env_steps=400;save(fake,304)
++    assert saved==[104,304]
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
+@@ -0,0 +1,56 @@
++from types import SimpleNamespace
++import numpy as np
++import pytest
++import torch
++from torch import nn
++from sf_working_directories.IntrMotiv.evaluation import target_control_interventions as ev
++
++class Graph(nn.Module):
++    def __init__(self):
++        super().__init__()
++        for key,val in [('passive_confidence',torch.ones(3,3)),('edge_confidence',torch.ones(3,3)),('control_attempts',torch.ones(3,3)),('tctrl',torch.ones(3,3))]:self.register_buffer(key,val)
++
++class Actor(nn.Module):
++    def __init__(self):
++        super().__init__();self.core=nn.Module();self.core.policy_graph=Graph()
++        self.core.Hippo_n_feature=3;self.core.target_condition_start=3
++        self.action_space=SimpleNamespace(n=3)
++    def forward_head(self,obs):return obs['dg']
++    def forward_core(self,h,s):
++        goal=h[:,3:] if h.shape[-1]==6 else torch.zeros_like(h)
++        return torch.cat((h[:,:3],goal),-1),s+1
++    def forward_tail(self,o,**kwargs):return {'action_logits':o[:,3:]*100}
++
++class Env:
++    num_agents=1
++    def __init__(self,offset=0):self.unwrapped=self;self.node=0;self.offset=offset
++    def close(self):pass
++    def seed(self,seed):self.node=0
++    def obs(self):return {'dg':torch.nn.functional.one_hot(torch.tensor([self.node]),3).float(),'pos':torch.tensor([[float(self.node)+self.offset,0,0]]),'rot':torch.zeros(1,3)}
++    def reset(self):self.node=0;return self.obs(),{}
++    def step(self,a):self.node=int(torch.as_tensor(a).flatten()[0]);return self.obs(),torch.zeros(1),torch.tensor([False]),torch.tensor([False]),{}
++
++def configure_fake_runtime(monkeypatch,unstable=False):
++    import sample_factory.algo.utils.make_env as maker
++    count=[0]
++    def create(*a,**k):
++        count[0]+=1;return Env(count[0] if unstable else 0)
++    monkeypatch.setattr(maker,'make_env_func_batched',create)
++    monkeypatch.setattr(ev,'prepare_and_normalize_obs',lambda actor,obs:obs)
++    monkeypatch.setattr(ev,'preprocess_actions',lambda info,actions:actions)
++    monkeypatch.setattr(ev,'get_rnn_size',lambda cfg:3)
++    return ev.AttrDict(Hippo_n_feature=3,dg_goal_input='write')
++
++def test_executes_alternative_commands_and_scores_same_destination(monkeypatch):
++    cfg=configure_fake_runtime(monkeypatch)
++    frame,summary=ev.run_landmark_matched_interventions(cfg,Env(),None,Actor(),'test',torch.device('cpu'),1000,True,max_sources=1,targets_per_source=2,repeats=1,prefix_cap=4)
++    assert summary['exact_start_verified']
++    assert summary['paired_arrival_lift']==1
++    assert set(frame.command)=={1,2}
++    assert frame[frame.commanded].hit.all()
++    assert not frame[~frame.commanded].hit.any()
++
++def test_rejects_unmatched_engine_starts(monkeypatch):
++    cfg=configure_fake_runtime(monkeypatch,unstable=True)
++    with pytest.raises(RuntimeError,match='Nonreproducible'):
++        ev.run_landmark_matched_interventions(cfg,Env(),None,Actor(),'test',torch.device('cpu'),1000,True,max_sources=1,targets_per_source=2,repeats=1,prefix_cap=4)
