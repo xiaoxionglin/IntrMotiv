@@ -1,7 +1,7 @@
 # DG capacity, goal conditioning, and waypoint planning
 
-Status: agreed experimental matrix recorded on 10 September 2026. The user
-subsequently authorized implementation through verified production startup.
+Status: all 27 production runs verified running and advancing on 10 September
+2026 at 20:44 CEST. The authorized implementation and startup are complete.
 See the [implementation and launch record](dg_capacity_goal_conditioning_launch_20260910.md).
 This replaces the earlier conversational matrices.
 

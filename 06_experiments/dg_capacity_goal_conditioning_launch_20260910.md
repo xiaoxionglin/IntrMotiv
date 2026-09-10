@@ -1,179 +1,161 @@
-# DG capacity and goal conditioning: implementation and launch
+# DG capacity and goal conditioning: verified production launch
 
-Status: implementation in progress; nine preflights running. Production has
-not been submitted. The user authorized pursuing the plan through verified
-production startup. Downstream transfer remains deferred.
+**Status: all 27 production runs are running and advancing.** Verified on
+10 September 2026 at **20:44 CEST** (18:44 UTC). Every run has its preserved
+frame-zero checkpoint, matches the declared configuration, and has nonzero
+training progress. Observed progress ranged from 327,680 to 1,015,808 frames.
 
-## Declarative study
+Production jobs: **8049414–8049440**. The
+[authoritative job manifest](data/dg_capacity_goal_conditioning_20260910/production_jobs.tsv)
+contains the exact run-to-job mapping and commands. The
+[submission audit](data/dg_capacity_goal_conditioning_20260910/production_submission_audit.json)
+and [startup audit](data/dg_capacity_goal_conditioning_20260910/production_startup_audit.json)
+both pass. No startup tracebacks were found in stdout or stderr.
 
-- Production: `hpc_runs/studies/dg_capacity_goal_conditioning.study.json`,
-  27 runs, schema `intrmotiv/study/v1`, workflow 1.6.0.
-- Current production SHA-256:
-  `eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e`.
-- Preflight: `hpc_runs/studies/dg_capacity_goal_conditioning_preflight.study.json`,
-  nine runs, same schema, declared workflow 1.5.0 (compatible with 1.6.0).
-- Current preflight SHA-256:
-  `dbbfc58291a8e76197f94f3e6208c2324f92234510055733796a440af5490069`.
+## Scientific scope and provenance
 
-The matrix is direct worker-only, direct DG+worker, waypoint DG+worker, crossed
-with 16/32/64 DG and seeds 8/99/123. All use repeat 4, navigation8, PPO STOP into
-base DG, no replacements, and a 300M-frame production target.
+The [agreed plan](dg_capacity_goal_conditioning_plan_20260910.md) specifies three
+arms: C15 direct with worker conditioning, C15 direct with DG + worker
+conditioning, and waypoint execution with DG + worker conditioning. Each uses
+DG 16/32/64 and seeds 8/99/123. All start fresh, use **frameskip 4, navigation8,
+and a 300M-frame target per run**. Goal discrimination, waypoint worker-only,
+compact goal embeddings, and new goal-selection heuristics are excluded.
 
-## Implemented runtime
+Production StudySpec: `hpc_runs/studies/dg_capacity_goal_conditioning.study.json`.
+Schema: `intrmotiv/study/v1`; workflow: **1.6.0**. SHA-256:
+`eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e`.
 
-`GoalConditionedDGCore` keeps canonical DG/CA3 and graph evidence unchanged,
-with a separate worker trace from goal-modulated preactivations. It reuses one
-projection/BatchNorm evaluation. The policy tail reads the worker trace;
-encoder objectives read the canonical prefix. A small generic learner hook
-supplies action-aligned goals before recurrent packing. The stored behavior
-descriptor remains the persistent state suffix.
+Final preflight StudySpec:
+`hpc_runs/studies/dg_capacity_goal_conditioning_preflight.study.json`.
+It declares compatible workflow 1.5.0 and SHA-256:
+`dbbfc58291a8e76197f94f3e6208c2324f92234510055733796a440af5490069`.
 
-The waypoint study explicitly enables existing passive discovery and deliberate
-edge validation. The implementation existed, but parser validation formerly
-allowed edge exploration only for `control_graph`; it now also permits
-`frontier_waypoint`. Direct controls are unchanged. No timeout exclusion,
-goal discrimination, compact embeddings, or balanced selection was added.
+All training, logging, checkpoints, caches, and analysis data resolve under
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/`.
+The production group is `intrmotiv_dg_capacity_goal_conditioning_20260910`
+in W&B project `SF_IntrMotiv_DGCapacityGoalConditioning`.
 
-Runtime modifications were context-applied on top of the existing dirty NEMO2
-checkout. Baseline and work snapshots are under `/tmp/dg_capacity_runtime/`
-locally. Versioned patch/source snapshots are under `hpc_runs/source_snapshots/`
-with the `dg_capacity_goal_conditioning_20260910` stem; refresh after further
-changes. No unrelated source edits were reverted.
+## Implementation
 
-## Verification so far
+`GoalConditionedDGCore` preserves canonical DG/CA3 for graph evidence,
+achievement, and encoder objectives. A separate worker trace receives
+identity-initialized goal modulation of DG preactivations. The visual projection
+and BatchNorm run once per observation; PPO cannot update the base DG through
+this worker path. Existing worker FiLM remains enabled in every arm.
 
-- 294 IntrMotiv tests passed on NEMO2; subsequent summary-only evaluator
-  additions passed both focused intervention tests.
-- 30 canonical/study tests passed locally and on NEMO2, including the
-  54-row two-checkpoint intervention inventory.
-- All 36 production/preflight commands parsed through the actual entry point.
-- Synthetic full-model smoke passed with actual encoder, core, and decoder;
-  new modulation gradient norm was 2.00045 in its forced-active test case.
-- Tests cover identity initialization, unconditioned detector invariance,
-  packed/plain replay, goal switches, gradients stopping at base inputs,
-  checkpoint restoration, and all three state sizes.
+Recorded behavior goals enter the recurrent replay head before memory writes.
+The persistent behavior descriptor remains the state suffix. The policy tail
+consumes the worker trace; encoder losses consume the canonical prefix.
 
-The full regression run first exposed a minimal actor fixture without `cfg`;
-the tail now detects the core capability directly. The suite passed after that
-compatibility fix. Runtime learning and scientific preflight gates remain to
-be checked.
+The waypoint arm enables existing passive discovery and deliberate edge
+validation. Parser validation now allows that machinery with
+`frontier_waypoint`. This contrast tests routing plus graph construction, not
+routing alone. Direct C15 selection and timeout behavior remain the controls.
 
-## Preflight submission
+Initial checkpoints use a separate `initial_` prefix outside rolling retention.
+Permanent checkpoints use the existing milestone format at the first learner
+batch crossing 5M, 25M, 75M, 150M, and 300M; actual frame counts are retained.
+The canonical selector discovers these milestones. Resume does not backfill
+previous frame targets.
 
-Workspace train root:
-`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/`.
+Runtime edits were context-applied over the existing NEMO2 worktree. No unrelated
+source edits were reverted. The source archive under
+`hpc_runs/source_snapshots/dg_capacity_goal_conditioning_20260910.tar.gz`
+contains **153 relevant Python files**, all verified against deployed hashes.
+The adjacent patch records this task's changes relative to its starting
+snapshot. The final print-only directory also preserves the runtime Git revision
+and tracked runtime diff.
 
-Print-only directory:
-`_slurm/intrmotiv_dg_capacity_goal_conditioning_preflight_20260910/20260910T165529Z`.
-Submitted directory:
-`_slurm/intrmotiv_dg_capacity_goal_conditioning_preflight_20260910/20260910T165742Z`.
-Both canonical submission audits passed. The submitted `jobs.tsv` is the
-authoritative mapping; jobs 8048750–8048758 were all running at the initial
-scheduler check, without startup tracebacks in stderr.
+## Verification
 
-Preflights request two hours and target 2M frames with a one-hour training-time
-ceiling. Checkpoint retention is 100 to preserve frame-zero evidence. Logs for
-print, submit, and regression tests are in the workspace analysis directory
-with the `dg_capacity_` prefix.
+- **294 full IntrMotiv tests passed** on NEMO2. Subsequent evaluator-only outcome
+  corrections passed all **four focused intervention tests**, including late
+  arrivals and observed successes before later termination.
+- **30 canonical/study tests passed locally and on NEMO2.** The workflow now
+  supports both 75M and 300M intervention targets, with exactly 54 rows for the
+  27 runs and rejection of missing or duplicate rows.
+- All 27 final commands passed the actual parser, including state sizing,
+  checkpoint targets, and a training-time ceiling longer than the allocation.
+- Tests and source checks cover initial identity, canonical detector invariance,
+  packed/plain replay, goal switches, resets, gradient boundaries, checkpoint
+  restoration, and milestone/resume behavior. A real model smoke using the
+  encoder, core, and decoder produced a nonzero modulation gradient.
+- [Initial checkpoint comparisons](data/dg_capacity_goal_conditioning_20260910/initial_pair_comparison.json)
+  found **all 113 common tensors exactly equal** between the worker-only arm
+  and each DG-conditioned arm at every capacity.
 
-## Remaining gates
+All nine final preflights, jobs **8048800–8048808**, reached **2,031,616 frames**
+and [exited cleanly](data/dg_capacity_goal_conditioning_20260910/completion_states.json).
+Their [full runtime audit](data/dg_capacity_goal_conditioning_20260910/runtime_audit.json)
+passes: initial identity, frozen visual trunk including normalization buffers,
+trainable DG, finite learning, live nonzero modulation gradients, successful
+waypoint validation/multihop execution, and both 1M and 2M spatial snapshots.
 
-Verify real learning, finite metrics, nonzero new-modulation training, retained
-checkpoints, independent detection, telemetry, and exercised waypoint
-validation/routing. Finish compatible evaluation/diagnostic additions and
-record their tests. Then review production scripts and all workspace paths,
-submit, audit exact job membership, and verify every production job starts.
+Real DMLab evaluation smoke **8049046** completed with exit 0. Its
+[summary](data/dg_capacity_goal_conditioning_20260910/smoke_summary.json) verifies
+exact observation-panel replay, canonical detector invariance, goal-sensitive
+worker DG, identical physical/recurrent starts, and frozen policy/graph tensors.
+Its two paired comparisons had zero arrival lift: this validates infrastructure,
+not learned controllability.
 
-Reusable lesson: inspect the actual model payload and recurrent replay path
-before adding goal input to memory. Overriding only decoder goals after replay
-is insufficient once the goal changes memory writes. Preserve separate
-grounding and worker features rather than allowing a command to create its
-own achievement event.
+The evaluator records unsupported panels, coverage, initial action total
+variation, physical endpoints, arrival deadlines, and censoring. Legacy online
+sensitivity/TV changes the worker command while holding replayed memory fixed;
+it is a **readout-only** diagnostic in DG-conditioned arms. Use forced-goal
+replay and matched-command interventions for the full DG-plus-worker effect.
+These no-gradient diagnostics add no goal-discrimination loss.
 
-## Final preflight and evaluator evidence (in progress)
+## Submission and operational history
 
-The first diagnostic submission (8048750–8048758) was cancelled after it exposed
-missing frame-zero checkpoints. Its study definition is archived in its submitted
-directory as `study.reviewed.json`; its outputs remain diagnostic only.
+All paths below are relative to the workspace `train_dir/`.
 
-Final preflight jobs **8048800–8048808** use the separate
-`intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910` namespace.
-Submitted metadata: `_slurm/intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910/20260910T171148Z`.
-All nine preserved true frame-zero checkpoints. The submitted matrix audit passed.
-Progress audits show finite learning, unchanged frozen trunk tensors including
-normalization buffers, trainable DG projections, nonzero modulation training,
-and successful waypoint validation/routing in all three waypoint cells.
-The complete 2M-frame gate remains pending; no production submission yet.
+- Final print-only review:
+  `_slurm/intrmotiv_dg_capacity_goal_conditioning_20260910/20260910T173152Z`.
+- Production submission:
+  `_slurm/intrmotiv_dg_capacity_goal_conditioning_20260910/20260910T182743Z`.
+  Its `scancel.sh` contains only this production submission's job IDs.
+- Final preflight submission:
+  `_slurm/intrmotiv_dg_capacity_goal_conditioning_preflight2_20260910/20260910T171148Z`.
+- Real evaluator smoke:
+  `analysis/dg_capacity_preflight/evaluation_smoke_8049046/`.
 
-Real DMLab evaluation smoke **8049046 completed, exit 0**. Its workspace output
-is `analysis/dg_capacity_preflight/evaluation_smoke_8049046/`. It verified exact
-observation-panel replay, command-invariant canonical DG, goal-sensitive worker
-DG, and alternate commands from identical physical/recurrent starts with frozen
-policy and graph. Its tiny panel had two paired comparisons and zero arrival
-lift; this is infrastructure verification, not evidence of learned control.
-Subsequent summary additions report unsupported panels, coverage, timeout, and
-initial action total variation explicitly; both intervention tests passed.
+The first diagnostic preflights (8048750–8048758) were cancelled after exposing
+missing frame-zero saves. Their definition and logs remain in the original
+preflight submission directory, timestamp `20260910T165742Z`; they were not
+counted as passed gates.
 
-Permanent frame checkpoints now use the established `checkpoint_p0/milestones`
-format at the first batch crossing each requested target. Initial checkpoints
-use a separate `initial_` prefix outside rolling retention. The focused tests
-verify crossing, no repeated saves, and resume behavior. This retention-only
-change does not alter learning, and was added after the final preflights started.
+Final preflight 8048800 resumed from 720,896 frames on Genoa after measured Milan
+throughput was too slow. Preflight 8048808 resumed from 1,572,864 frames before
+its one-hour training ceiling, leaving enough frames to refill the 100k-sample
+telemetry ring before 2M. Their job IDs, directories, seeds, and scientific
+arguments were preserved. Pre-requeue logs and checkpoint hashes are in
+`requeue_8048800/` and `requeue_8048808/` beside the final-preflight manifest.
 
-Canonical workflow **1.6.0** extends intervention manifests to multiple targets
-without changing existing row fields. Production uses 75M and 300M across all
-27 runs. The compatible 1.5.0 preflight study is unchanged.
+Production retains the reviewed **40 CPUs, 80 GB, 96 hours, partition genoa**
+for every job. Preflight memory peaks were about 19–21 GB. The last production
+jobs waited for resources; no production resource requests were changed to
+bypass that wait.
 
-Final production print-only review:
-`_slurm/intrmotiv_dg_capacity_goal_conditioning_20260910/20260910T173152Z`.
-Its audit confirms 27 exact commands, final study SHA, and workspace-only output
-paths. Reviewed scripts request **40 CPUs, 80G, 96 hours, partition genoa**.
-The Milan preflight was substantially slower than Genoa preflights; production
-uses the faster architecture while preserving scientific settings. A 96-hour
-allocation is not a promise that 300M frames finish on every node. Any run that
-reaches the allocation limit before 300M must resume its existing checkpoint;
-it must not be counted as a completed 300M replicate.
+All CPU partitions have a four-day allocation limit. Measured waypoint-F64
+throughput suggests that some 300M-frame runs will require checkpoint
+continuation beyond one allocation. A timed-out allocation must not be treated
+as a completed 300M replicate; resume the existing run with the established
+launcher workflow. The startup objective is complete; the training and its
+later scientific evaluations remain ongoing.
 
-At 19:35 CEST, job 8048800 was checkpoint-preservingly requeued from Milan to
-Genoa using `scontrol requeuehold`, partition update, and release. Its config
-explicitly sets `restart_behavior=resume`; the saved checkpoint was at 720,896
-frames. The same job ID, training directory, seed, and scientific arguments are
-retained. Pre-requeue logs and checkpoint SHA are in the submitted directory's
-`requeue_8048800/`. This resource change is additional scheduler provenance;
-the original generated script still records its original CPU partition.
+## Reusable lessons and review boundary
 
-Retained frame-zero comparisons also confirm that all 113 common state tensors
-are exactly equal between worker-only and each DG-conditioned arm at every
-capacity (six paired comparisons). The new modulator alone adds identity-zero
-parameters. Evidence: `initial_pair_comparison.json` in the final-preflight
-submission directory.
+Use the actual recurrent write/replay path as evidence: overriding only decoder
+goals is insufficient when commands affect DG writes. Keep independent canonical
+grounding and test interventions from matched starts. Exercise telemetry manifest
+generation before training; expansion alone missed the former single-target
+restriction. Verify telemetry aliases before interpreting absent signals.
 
-The final evaluator review corrected two outcome-bookkeeping cases: arrivals
-after a target deadline are timeouts, and an observed on-time success is not
-censored by a later episode termination. All four matched-intervention tests
-pass, including concrete delayed-arrival and early-terminal environments.
-These changes affect evaluation summaries only; training is unchanged.
+Request frame-zero and frame-target saves explicitly. A resumed telemetry ring
+needs fresh valid samples; at repeat 4, a 100k-sample window requires at least
+400k fresh frames. Preserve scheduler requeue provenance and inspect actual
+runner timer semantics. These lessons are recorded in the canonical workflow
+and reusable telemetry guides.
 
-Eight preflights passed every runtime gate by 20:02 CEST. The final waypoint-F64
-preflight was requeued at 20:03 CEST from **1,572,864 frames**, preserving job
-8048808 and its training directory, now in `genoa`. At its measured throughput,
-the one-hour training ceiling would stop it below 2M. Requeueing before 1.6M
-also leaves enough post-resume frames to refill the 100k-sample telemetry ring
-before the 2M snapshot. Its pre-requeue logs and checkpoint SHA are archived in
-`requeue_8048808/` beside `jobs.tsv`. The runner's elapsed-training timer resets
-on resume; model/optimizer progress is restored. Scientific arguments remain
-unchanged. Final completion/audit remains pending.
-
-The final source archive now contains all **153 relevant runtime Python files**,
-not only the 13 modified files; every archived file hash matches NEMO2. The
-baseline-relative patch remains scoped to this implementation. The final
-print-only directory also retains the runtime Git revision and tracked runtime
-diff, preserving existing source changes without reverting them.
-
-The legacy online goal-action sensitivity/TV diagnostic changes the worker FiLM
-command while holding replayed memory fixed. In DG-conditioned arms it therefore
-measures the **readout-only** response, not the total response through DG writes.
-Retain its historical metric contract, label that limitation in comparisons,
-and use forced-goal observation replay and matched-command interventions to
-measure the complete DG-plus-worker pathway. No goal-discrimination loss is
-introduced by these no-gradient diagnostic forwards.
+Review pretraining representation and controllability jointly before defining
+or launching downstream transfer to the three-randomized-goal task.

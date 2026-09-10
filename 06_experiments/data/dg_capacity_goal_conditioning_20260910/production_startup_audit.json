@@ -1,0 +1,279 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.6.0",
+  "study_sha256": "eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e",
+  "observed_utc": "2026-09-10T18:44:06.155192+00:00",
+  "passed": true,
+  "runs": [
+    {
+      "run": "DGC_DIRECT_WORKER_F16_S8",
+      "job_id": "8049414",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4116",
+      "frames": 1015808,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F16_S99",
+      "job_id": "8049415",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4127",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F16_S123",
+      "job_id": "8049416",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4222",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F32_S8",
+      "job_id": "8049417",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4526",
+      "frames": 1015808,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F32_S99",
+      "job_id": "8049418",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4216",
+      "frames": 966656,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F32_S123",
+      "job_id": "8049419",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4217",
+      "frames": 1015808,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F64_S8",
+      "job_id": "8049420",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4217",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F64_S99",
+      "job_id": "8049421",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4217",
+      "frames": 1015808,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_WORKER_F64_S123",
+      "job_id": "8049422",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4513",
+      "frames": 950272,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F16_S8",
+      "job_id": "8049423",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4514",
+      "frames": 917504,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F16_S99",
+      "job_id": "8049424",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4511",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F16_S123",
+      "job_id": "8049425",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4512",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F32_S8",
+      "job_id": "8049426",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4512",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F32_S99",
+      "job_id": "8049427",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4512",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F32_S123",
+      "job_id": "8049428",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4215",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F64_S8",
+      "job_id": "8049429",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4215",
+      "frames": 983040,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F64_S99",
+      "job_id": "8049430",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4226",
+      "frames": 950272,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_DIRECT_DG_F64_S123",
+      "job_id": "8049431",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4226",
+      "frames": 917504,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F16_S8",
+      "job_id": "8049432",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4217",
+      "frames": 851968,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F16_S99",
+      "job_id": "8049433",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4616",
+      "frames": 606208,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F16_S123",
+      "job_id": "8049434",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4522",
+      "frames": 540672,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F32_S8",
+      "job_id": "8049435",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4522",
+      "frames": 540672,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F32_S99",
+      "job_id": "8049436",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4613",
+      "frames": 458752,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F32_S123",
+      "job_id": "8049437",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4613",
+      "frames": 458752,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F64_S8",
+      "job_id": "8049438",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4613",
+      "frames": 409600,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F64_S99",
+      "job_id": "8049439",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4613",
+      "frames": 425984,
+      "initial_checkpoint": true,
+      "errors": []
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F64_S123",
+      "job_id": "8049440",
+      "state": "RUNNING",
+      "partition": "genoa",
+      "node": "n4524",
+      "frames": 327680,
+      "initial_checkpoint": true,
+      "errors": []
+    }
+  ]
+}
