@@ -155,7 +155,8 @@
       "--hrl_goal_conditioning=target_id_film",
       "--dg_orthogonal_recruitment=False",
       "--dg_orthogonal_recruitment_max_per_rollout=0",
-      "--ppo_dg_gradient=stop"
+      "--ppo_dg_gradient=stop",
+      "--save_initial_checkpoint=True"
     ]
   },
   "bases": [
