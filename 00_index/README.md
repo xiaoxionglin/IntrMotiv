@@ -36,6 +36,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910|02 — Architectures and losses: place fields, trajectories, and graphs]]
 - [[../06_experiments/03_mean_punishment_and_silent_units_jannek_comparison_20260910|03 — Mean, punishment, and silent units: comparison with Jannek]]
 
+- [[../06_experiments/04_three_goal_context_conditioning_and_dg_capacity_20260910|04 — Three-goal HippoSLAM: context conditioning and DG capacity]]
+
 ## Plans
 
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
