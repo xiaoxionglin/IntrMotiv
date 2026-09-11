@@ -49,6 +49,10 @@ def build_cfg(args, runtime, parent_cfg):
         raise ValueError('serial qualification requires --sf-async=false')
     if cfg.batch_size % cfg.rollout:
         raise ValueError('SF batch size must contain complete rollouts')
+    # A fresh child must never resume the parent's W&B identity or labels.
+    cfg.pop('wandb_unique_id', None)
+    cfg.wandb_group = None
+    cfg.wandb_tags = []
     cfg.cli_args = {}
     return cfg
 

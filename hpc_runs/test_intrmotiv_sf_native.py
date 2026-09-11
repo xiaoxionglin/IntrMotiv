@@ -83,6 +83,20 @@ class NativeContractTest(unittest.TestCase):
         self.assertEqual(int(goals[1]),1)
         self.assertTrue(torch.all(result['new_rnn_states'][:,-2]==63))
 
+    def test_fresh_child_does_not_inherit_wandb_run_identity(self):
+        from sample_factory.utils.attr_dict import AttrDict
+        parent=AttrDict(Hippo_n_feature=2,Hippo_R=1,Hippo_L=3,
+            wandb_unique_id='parent-id',wandb_group='parent-study',wandb_tags=['parent'])
+        args=SimpleNamespace(env='fixture',seed=99,experiment='child',train_dir=Path('/tmp/child'),
+            device='cpu',num_envs=4,total_frames=4096,torch_threads=1,registry='0,1')
+        runtime=SimpleNamespace(sf_workers=2,sf_splits=2,sf_rollout=8,sf_batch_size=32,
+            sf_async=True,sf_serial=False,sf_learner_threads=1,with_wandb=True,wandb_project='IntrMotiv')
+        cfg=build_cfg(args,runtime,parent)
+        self.assertNotIn('wandb_unique_id',cfg)
+        self.assertIsNone(cfg.wandb_group)
+        self.assertEqual(cfg.wandb_tags,[])
+        self.assertEqual(parent.wandb_unique_id,'parent-id')
+
     def test_existing_entrypoint_dispatches_to_sf(self):
         from unittest.mock import patch
         from hpc_runs.intrmotiv_offpolicy.train import train
@@ -108,7 +122,7 @@ class NativeContractTest(unittest.TestCase):
         self.assertEqual(obs['ddqn_identity'].tolist(),[2,1,0,1])
 
 
-def smoke(output,serial):
+def smoke(output,serial,with_wandb=False):
     from sample_factory.cfg.arguments import parse_sf_args,parse_full_cfg
     from sample_factory.algo.utils.model_context import global_model_factory,global_learner_factory
     from sample_factory.algo.utils.multiprocessing_utils import get_mp_ctx
@@ -126,7 +140,7 @@ def smoke(output,serial):
         replay_capacity=2000,learning_start=32,learner_execution='batched',her_fraction=.8,
         decisions_per_update=64,td_positions_per_update=64)
     runtime=SimpleNamespace(sf_workers=2,sf_splits=1 if serial else 2,sf_rollout=8,sf_batch_size=32,
-        sf_async=not serial,sf_serial=serial,sf_learner_threads=1,with_wandb=False,wandb_project='unused')
+        sf_async=not serial,sf_serial=serial,sf_learner_threads=1,with_wandb=with_wandb,wandb_project='IntrMotiv')
     cfg=build_cfg(args,runtime,parent_cfg);cfg.ddqn_packet_width=8;cfg.ddqn_parent={'fixture':True}
     cfg.heartbeat_interval=5;cfg.heartbeat_reporting_interval=10;cfg.heartbeat_timeout=30
     cfg.train_for_seconds=60
@@ -149,6 +163,6 @@ def smoke(output,serial):
 if __name__=='__main__':
     import sys
     if '--smoke-output' in sys.argv:
-        parser=argparse.ArgumentParser();parser.add_argument('--smoke-output',type=Path,required=True);parser.add_argument('--serial',action='store_true')
-        args=parser.parse_args();smoke(args.smoke_output,args.serial)
+        parser=argparse.ArgumentParser();parser.add_argument('--smoke-output',type=Path,required=True);parser.add_argument('--serial',action='store_true');parser.add_argument('--with-wandb',action='store_true')
+        args=parser.parse_args();smoke(args.smoke_output,args.serial,args.with_wandb)
     else:unittest.main()

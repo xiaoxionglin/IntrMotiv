@@ -126,3 +126,11 @@ the local test also needs the installed SF source on PYTHONPATH. The desktop
 sandbox may block `torch_shm_manager`; use the ordinary permitted runtime rather
 than replacing SF shared-memory transport. Seed the model factory explicitly:
 this fork's inference-process initialization does not seed Torch itself.
+
+W&B qualification (2026-09-12): fresh child configs now clear the parent's
+`wandb_unique_id`, group and tags before SF initializes logging. SF then creates
+an independent run ID. Keep the regression test when changing parent-config
+copying. The actual compute-node smoke run completed and its `ddqn/*` metrics
+and `train/env_steps` were verified through the W&B API; installed SDK support
+alone is not evidence of a successful upload. The production record is
+`06_experiments/intrmotiv_ddqn_sf_production_20260912.md`.
