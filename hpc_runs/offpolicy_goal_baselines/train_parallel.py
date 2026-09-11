@@ -26,6 +26,7 @@ from hpc_runs.offpolicy_goal_baselines.train import (
     _baseline_parser,
     _save_checkpoint,
     _tensor,
+    _validate_baseline_config,
     _workspace_output,
     _write_json,
 )
@@ -152,6 +153,7 @@ def parse_args(argv=None):
     baseline = BaselineConfig(
         **{key[len("baseline_") :]: value for key, value in vars(baseline_ns).items()}
     )
+    _validate_baseline_config(baseline)
     vector = VectorConfig(
         num_envs=int(vector_ns.baseline_num_envs), context=str(vector_ns.baseline_vector_context)
     )
@@ -234,7 +236,7 @@ def _optimize(
         _tensor(batch, "random_goal", device),
         entropy_coeff=float(log_alpha.exp().detach()),
         logsumexp_coeff=baseline.logsumexp_coeff,
-        landmark_loss_coeff=baseline.landmark_loss_coeff,
+        landmark_loss_coeff=(baseline.landmark_loss_coeff if baseline.method == "l3p" else 0.0),
         max_future=baseline.max_future,
     )
     critic_loss.backward()
@@ -378,7 +380,8 @@ def train(argv=None) -> int:
             frames += sum(step_frames)
             decisions += vector.num_envs
             option_steps += 1
-            planner_steps_remaining -= 1
+            if baseline.method == "l3p":
+                planner_steps_remaining -= 1
 
             for i in range(vector.num_envs):
                 episode_actions[i].append(int(actions[i]))

@@ -40,20 +40,29 @@ $$
 f(s,a,g)=-\lVert \phi(s,a)-\psi(g)\rVert_2^2/\tau
 $$
 
-with symmetric InfoNCE. L3P+ adds a directed temporal-distance head, farthest-
-point landmark medoids drawn from achieved observations, a sparse directed
-graph, and Floyd-Warshall replanning. Medoids replace the original decoded
-coordinate centroids so every landmark remains a realizable frozen-visual goal.
+with symmetric InfoNCE. L3P+ adds a directed temporal-distance head, a separate
+symmetric temporal landmark embedding, farthest-point landmark medoids drawn
+from achieved observations, a reachability-filtered sparse directed graph, and
+Floyd-Warshall planning. Medoids replace the original decoded coordinate
+centroids so every landmark remains a realizable frozen-visual goal. The
+controller commits to a selected landmark for its predicted travel time and
+excludes the immediately failed landmark on replanning, following the source
+method's anti-sticking mechanism.
+
+Long DMLab episodes are streamed into replay as ordered 512-decision segments.
+This preserves valid future-goal pairs while allowing learning to begin before
+the environment's 120-second timeout. The L3P-only landmark objective is not
+evaluated or optimized in the CRL cell.
 
 ## Validation and launch
 
 ```bash
 python -m unittest hpc_runs.test_offpolicy_goal_baselines
 python -m hpc_runs.intrmotiv_study validate \
-  hpc_runs/studies/offpolicy_goal_baselines_preflight.study.json
+  hpc_runs/studies/offpolicy_goal_baselines_parallel_strong_preflight.study.json
 
 hpc_runs/offpolicy_goal_baselines/launch_nemo2.sh \
-  hpc_runs.offpolicy_goal_baselines_preflight --print-only
+  hpc_runs.offpolicy_goal_baselines_parallel_strong_preflight --print-only
 ```
 
 Always run the canonical `audit-submission` command on the generated `jobs.tsv`

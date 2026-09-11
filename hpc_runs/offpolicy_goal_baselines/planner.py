@@ -131,7 +131,15 @@ class LandmarkPlanner:
         """
         self.subgoal_queries += 1
         if self.features is None or self.graph_cost is None:
-            return PlanDecision(final_goal, 1, None, math.inf)
+            direct_cost = float(
+                self._distances(agent, state[None], final_goal[None], device)[0, 0]
+            )
+            steps = (
+                max(1, min(int(max_horizon), int(math.ceil(direct_cost))))
+                if math.isfinite(direct_cost)
+                else int(max_horizon)
+            )
+            return PlanDecision(final_goal, steps, None, direct_cost)
         n = len(self.features)
         augmented = np.full((n + 2, n + 2), np.inf, dtype=np.float64)
         augmented[:n, :n] = self.graph_cost

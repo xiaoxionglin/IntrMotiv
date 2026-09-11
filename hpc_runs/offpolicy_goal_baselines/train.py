@@ -101,6 +101,7 @@ def parse_args(argv=None):
     cfg = parse_dmlab_args(remaining)
     values = {key[len("baseline_") :]: value for key, value in vars(baseline_ns).items()}
     baseline = BaselineConfig(**values)
+    _validate_baseline_config(baseline)
     if cfg.encoder_conv_architecture != "layer2_resnet18":
         raise ValueError("off-policy baselines require --encoder_conv_architecture=layer2_resnet18")
     if bool(cfg.with_pos_obs):
@@ -108,6 +109,33 @@ def parse_args(argv=None):
     if not bool(cfg.online_spatial_telemetry) or not bool(cfg.exploration_coverage_telemetry):
         raise ValueError("pose and coverage telemetry are required for evaluation (but are excluded from policy input)")
     return baseline, cfg
+
+
+def _validate_baseline_config(baseline: BaselineConfig) -> None:
+    if min(
+        baseline.total_frames,
+        baseline.replay_capacity,
+        baseline.replay_min,
+        baseline.replay_segment_steps,
+        baseline.batch_size,
+        baseline.max_future,
+        baseline.goal_horizon,
+        baseline.planner_horizon,
+        baseline.update_every_steps,
+        baseline.planner_rebuild_frames,
+        baseline.checkpoint_frames,
+    ) <= 0:
+        raise ValueError("frame, replay, batch, horizon, and cadence settings must be positive")
+    if baseline.replay_segment_steps < baseline.max_future:
+        raise ValueError("replay_segment_steps must be at least max_future")
+    if baseline.replay_min > baseline.replay_capacity:
+        raise ValueError("replay_min must not exceed replay_capacity")
+    if not 0.0 < baseline.target_entropy_fraction <= 1.0:
+        raise ValueError("target_entropy_fraction must be in (0, 1]")
+    if baseline.landmark_loss_coeff < 0.0:
+        raise ValueError("landmark_loss_coeff must be nonnegative")
+    if baseline.landmark_local_horizon <= 0.0 or baseline.landmark_edge_horizon <= 0.0:
+        raise ValueError("landmark horizons must be positive")
 
 
 class FrozenVisualFeatures:
@@ -220,16 +248,6 @@ def _save_checkpoint(
 
 def train(argv=None) -> int:
     baseline, cfg = parse_args(argv)
-    if min(
-        baseline.total_frames,
-        baseline.replay_capacity,
-        baseline.batch_size,
-        baseline.max_future,
-        baseline.update_every_steps,
-    ) <= 0:
-        raise ValueError("frame, replay, batch, and future settings must be positive")
-    if not 0.0 < baseline.target_entropy_fraction <= 1.0:
-        raise ValueError("target_entropy_fraction must be in (0, 1]")
     random.seed(cfg.seed)
     np.random.seed(cfg.seed)
     torch.manual_seed(cfg.seed)
@@ -339,7 +357,8 @@ def train(argv=None) -> int:
             frames += step_frames
             decisions += 1
             option_steps += 1
-            planner_steps_remaining -= 1
+            if baseline.method == "l3p":
+                planner_steps_remaining -= 1
             done = bool(terminated or truncated)
             # DMLab does not expose a fresh terminal image. Its compatibility
             # path returns the cached observation, which PixelFormatChwWrapper
@@ -404,7 +423,9 @@ def train(argv=None) -> int:
                         _tensor(batch, "random_goal", device),
                         entropy_coeff=float(log_alpha.exp().detach()),
                         logsumexp_coeff=baseline.logsumexp_coeff,
-                        landmark_loss_coeff=baseline.landmark_loss_coeff,
+                        landmark_loss_coeff=(
+                            baseline.landmark_loss_coeff if baseline.method == "l3p" else 0.0
+                        ),
                         max_future=baseline.max_future,
                     )
                     critic_loss.backward()

@@ -139,11 +139,16 @@ class ContrastiveGoalAgent(nn.Module):
         negative_floor = math.log1p(max_future)
         distance_loss = distance_loss + 0.5 * F.relu(negative_floor - negative_distance).square().mean()
 
-        landmark_state = self.landmark_repr(state)
-        landmark_goal = self.landmark_repr(future_goal)
-        landmark_distance = (landmark_state - landmark_goal).square().mean(dim=-1)
-        landmark_target = torch.log1p(offset.float())
-        landmark_loss = F.smooth_l1_loss(landmark_distance, landmark_target)
+        if landmark_loss_coeff > 0.0:
+            landmark_state = self.landmark_repr(state)
+            landmark_goal = self.landmark_repr(future_goal)
+            landmark_distance = (landmark_state - landmark_goal).square().mean(dim=-1)
+            landmark_target = torch.log1p(offset.float())
+            landmark_loss = F.smooth_l1_loss(landmark_distance, landmark_target)
+        else:
+            # Keep the CRL cell free of L3P-only forward/backward work.
+            landmark_loss = state.new_zeros(())
+            landmark_distance = state.new_zeros(state.shape[0])
 
         logits = self.policy_logits(state, future_goal)
         log_probs = F.log_softmax(logits, dim=-1)

@@ -10,7 +10,11 @@ from hpc_runs.offpolicy_goal_baselines import (
     floyd_warshall_next,
 )
 from hpc_runs.offpolicy_goal_baselines.planner import LandmarkPlanner
-from hpc_runs.offpolicy_goal_baselines.train import FrozenVisualFeatures
+from hpc_runs.offpolicy_goal_baselines.train import (
+    BaselineConfig,
+    FrozenVisualFeatures,
+    _validate_baseline_config,
+)
 from hpc_runs.offpolicy_goal_baselines.train_parallel import _select_info
 
 
@@ -87,6 +91,56 @@ class OffPolicyGoalBaselineTest(unittest.TestCase):
             ),
             0.0,
         )
+
+    def test_crl_can_skip_l3p_landmark_objective(self):
+        agent = ContrastiveGoalAgent(7, 5, hidden_dim=16, repr_dim=4, action_dim=3)
+        state = torch.randn(8, 7)
+        goal = torch.randn(8, 7)
+        action = torch.randint(0, 5, (8,))
+        critic, actor, metrics = agent.losses(
+            state,
+            action,
+            goal,
+            torch.ones(8),
+            goal.roll(1, 0),
+            landmark_loss_coeff=0.0,
+        )
+        (critic + actor).backward()
+        self.assertEqual(metrics["landmark_loss"], 0.0)
+        self.assertTrue(all(p.grad is None for p in agent.landmark_encoder.parameters()))
+
+    def test_baseline_config_rejects_segments_shorter_than_future_horizon(self):
+        values = dict(
+            method="l3p",
+            total_frames=100,
+            replay_capacity=100,
+            replay_min=10,
+            replay_segment_steps=8,
+            batch_size=4,
+            max_future=16,
+            discount=0.99,
+            goal_horizon=16,
+            planner_horizon=16,
+            updates_per_step=1,
+            update_every_steps=1,
+            learning_rate=3e-4,
+            entropy_coeff=0.1,
+            target_entropy_fraction=0.5,
+            logsumexp_coeff=0.1,
+            landmark_loss_coeff=1.0,
+            hidden_dim=16,
+            repr_dim=4,
+            landmark_count=4,
+            landmark_candidates=8,
+            landmark_neighbors=2,
+            landmark_local_horizon=4.0,
+            landmark_edge_horizon=16.0,
+            planner_rebuild_frames=50,
+            checkpoint_frames=50,
+            torch_threads=1,
+        )
+        with self.assertRaisesRegex(ValueError, "at least max_future"):
+            _validate_baseline_config(BaselineConfig(**values))
 
     def test_farthest_points(self):
         points = np.asarray([[0.0], [1.0], [10.0], [11.0]])
