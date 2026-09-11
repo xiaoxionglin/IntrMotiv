@@ -115,16 +115,16 @@ ordinary job. Its workspace is
 The existing exact-start evaluator now accepts an optional worker callback,
 common deadline, and registry filter; defaults retain the original behavior.
 Six evaluator tests pass locally and in the isolated evaluator checkout,
-including an deliberately wrong callback that reverses measured command lift.
+including a deliberately wrong callback that reverses measured command lift.
 This evaluates detector arrival and physical-start equality. Independent
 spatial destination qualification remains necessary for claims about unique
 places; perceptual aliases are not silently relabeled as navigation success.
 
 ## Validation and limitations
 
-Fourteen learner/contract tests plus 30 canonical workflow tests pass locally.
-The first 13 learner tests and 30 workflow tests passed remotely; the final
-additional goal-write separation test is local. The optimized source passes
+Sixteen learner/contract tests plus 30 canonical workflow tests pass locally
+and in the separate production checkout, including explicit pose-sidecar
+isolation and runtime-gate rejection tests. The optimized source passes
 39 planner tests remotely. Six exact-start evaluator tests pass in both
 locations. Tests cover disagreeing DDQN heads, finite budget and first arrival,
 invalid terminal data, physical boundaries and eviction, replay RNG restoration,
@@ -195,3 +195,69 @@ records intentional differences, including 32 collectors versus 64 source
 actor environments. The complete system is still in the controlled frozen
 stage. Passing the runtime gate is not evidence for adaptive-DG or manager
 integration, nor for PPO superiority.
+
+## Matched smoke and production-diagnostic release
+
+Ordinary matched-smoke jobs **8056008 / 8056011 / 8056012** all completed with
+exit `0:0`. They reused one exactly reproduced physical start and three
+commands, with the same passive source inventory. The
+[retained summaries and trial rows](data/intrmotiv_ddqn_her_20260911/matched_smoke/raw)
+show:
+
+| Policy | Commanded detector arrivals | Paired command lift | Q range over evaluated actions |
+| --- | --- | --- | --- |
+| Intact parent | 1 / 3 | 0 | Not a Q model |
+| DDQN at 500,096 child frames | 0 / 3 | 0 | −0.248 to 0.345 |
+| DDQN+HER at 500,096 child frames | 0 / 3 | 0 | −0.817 to 0.292 |
+
+HER's value-range issue is primarily negative predictions on this panel,
+not an exploding positive value scale. Both children selected the same initial
+action across commands at this start. One start cannot establish general
+failure or success; it establishes that useful deliberate control has **not**
+yet been demonstrated. The 500k preflight also ends while epsilon is still
+0.55, before its 1M-frame annealing endpoint. The broader parent qualification
+job 8055902 is separate from this smoke.
+
+Proceeding to 5M is a **controlled learning experiment**, not promotion of an
+established successful controller. The six-run diagnostic was submitted as
+**8056085–8056090** after the runtime gate, checkpoint-load/command smoke,
+updated-source tests, repeated print-only review, and canonical submitted audit.
+The ordered mapping is DDQN seeds 8/99/123, then DDQN+HER seeds 8/99/123.
+The source is
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_production_20260911`.
+Its new instrumentation logs Q extrema/mean, actual valid original/HER loss
+positions, and collection/learning time. No loss or target changes were made
+between the passing preflight and production diagnostic.
+
+The [submitted audit](data/intrmotiv_ddqn_her_20260911/production_submission_audit.json)
+confirms all six exact commands and workspace paths. Source hashes are retained
+in [production_source_files.sha256](data/intrmotiv_ddqn_her_20260911/production_source_files.sha256).
+The submission directory is
+`.../train_dir/_slurm/intrmotiv_ddqn_her_frozen_pilot_20260911/20260911T171402Z/`.
+Study fingerprint remains
+`a9771c14657cf6e59c6e9d6358b96d4d53452951dfd4235112bc01324ea18bef`.
+
+The next scientific decision must use all three child seeds at common frames,
+exact-start commanded arrival, failure-inclusive first-arrival cost, and
+independent spatial destination qualification. The current manifest runner is
+explicitly a one-start smoke adapter; use the evaluator's declared larger panel
+for scientific assessment. Do not treat the parent's preserved-head advantage,
+the small development panel, nominal HER fraction, or critic-loss reduction as
+a comparison of mature controllers. Do not enable online DG updates on the
+cached-preactivation replay contract, import PPO reliability into a new worker,
+or enable a waypoint manager before real controller-specific revalidation.
+
+At the final startup inspection all six production-diagnostic jobs were RUNNING,
+at approximately 122k–149k frames with finite TD updates. The new timing records
+showed roughly 0.123–0.127 seconds for prefix rebuilding plus batch preparation,
+versus 0.020–0.031 seconds for the learner update itself. This identifies a
+measured next optimization target: batch prefix reconstruction across sequences
+and verify numerical equivalence before another batch. Do not change these
+running jobs to chase throughput. The broader parent evaluation 8055902 remained
+running at that inspection.
+
+[Preflight receipts](data/intrmotiv_ddqn_her_20260911/preflight_receipts) retain
+conversion key inventories, exact run configs, metrics, and terminal gate
+records. The parent manifest's qualification field records discovery-time
+status; the matched-smoke results above supersede that initial status for the
+primary parent.

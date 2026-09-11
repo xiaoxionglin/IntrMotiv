@@ -489,3 +489,10 @@ errors on the initial copy; the unchanged tests passed after copying fixtures.
 Use the [DDQN batch record](../06_experiments/intrmotiv_ddqn_her_implementation_20260911.md)
 for exact source, tests, manifests, and the distinction between frozen-reference
 control and future adaptive-DG work.
+
+The DDQN production startup records subsequently measured about 0.123–0.127 s
+for prefix reconstruction plus batch preparation and 0.020–0.031 s for the
+learner update. Future optimization should batch independent prefix histories,
+verify full-history and target-network equivalence, and measure the same
+components again. This is a measured infrastructure bottleneck, not evidence
+that the scientific loss should change; do not patch active jobs mid-comparison.

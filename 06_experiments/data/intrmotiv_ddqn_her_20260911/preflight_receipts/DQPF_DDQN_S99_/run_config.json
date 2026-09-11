@@ -1,0 +1,48 @@
+{
+  "schema": "intrmotiv/ddqn-run/v1",
+  "args": {
+    "parent_manifest": "06_experiments/data/intrmotiv_ddqn_her_20260911/parent_manifest.json",
+    "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+    "train_dir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_preflight2_20260911/DQPF_DDQN_S99_",
+    "experiment": "00_DQPF_DDQN_S99",
+    "seed": 99,
+    "her_fraction": 0.0,
+    "total_frames": 500000,
+    "num_envs": 32,
+    "device": "cpu",
+    "torch_threads": 8,
+    "registry": "1,4,11",
+    "replay_capacity": 200000,
+    "learning_start": 16384,
+    "milestones": "0,250000,500000,1000000,2500000,5000000",
+    "train_for_env_steps": null,
+    "env": "openfield_map2_fixed_loc3_fixedlength_noreward"
+  },
+  "parent": {
+    "run": "DGC_DIRECT_WORKER_F16_S99",
+    "source_seed": 99,
+    "learner_seeds": [
+      8,
+      99,
+      123
+    ],
+    "capacity": 16,
+    "dg_goal_input": "none",
+    "recognition": "exclusive",
+    "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_capacity_goal_conditioning_20260910/DGC_DIRECT_WORKER_F16_S99_/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+    "sha256": "04ccec999e7b9748a960b6b421a91e9bcf6ce3ce9c44cea246359d34f0633585",
+    "actual_frames": 25001984,
+    "qualification": "not_yet_evaluated"
+  },
+  "representation": "frozen_source",
+  "exploration": "epsilon_greedy_fixed_command",
+  "control": "first_arrival",
+  "development_registry": [
+    1,
+    4,
+    11
+  ],
+  "graph_learning": false,
+  "pose_input": false,
+  "source_frames": 25001984
+}

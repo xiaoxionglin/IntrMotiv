@@ -1,0 +1,27 @@
+{
+  "batch_name": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+  "commands_match_study": true,
+  "expected_runs": 6,
+  "job_ids": [
+    "8056085",
+    "8056086",
+    "8056087",
+    "8056088",
+    "8056089",
+    "8056090"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ddqn_her_frozen_pilot_20260911/20260911T171402Z/jobs.tsv",
+  "rows": 6,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 6
+  },
+  "study_id": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+  "study_sha256": "a9771c14657cf6e59c6e9d6358b96d4d53452951dfd4235112bc01324ea18bef",
+  "study_spec": "hpc_runs/studies/intrmotiv_ddqn_her_frozen_pilot.study.json",
+  "study_workflow_version": "1.8.0",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.0",
+  "workspace_paths_valid": true
+}
