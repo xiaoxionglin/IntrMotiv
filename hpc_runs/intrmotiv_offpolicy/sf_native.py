@@ -39,6 +39,8 @@ def build_cfg(args, runtime, parent_cfg):
         normalize_input=False, normalize_returns=False, reward_scale=1., reward_clip=1000.,
         benchmark=False, default_niceness=0,
         ddqn_registry=[int(x) for x in args.registry.split(',')],
+        ddqn_telemetry=True, online_spatial_telemetry=True, exploration_coverage_telemetry=True,
+        extra_policy_output_shapes=(),
         ddqn_learner_threads=runtime.sf_learner_threads, ddqn_inference_threads=args.torch_threads,
         ddqn_args=json.loads(json.dumps(vars(args),default=str)),
         ddqn_max_pending=8*max(args.num_envs*runtime.sf_rollout, runtime.sf_batch_size*2),
@@ -51,9 +53,13 @@ def build_cfg(args, runtime, parent_cfg):
         raise ValueError('SF batch size must contain complete rollouts')
     # A fresh child must never resume the parent's W&B identity or labels.
     cfg.pop('wandb_unique_id', None)
+    if getattr(runtime, 'sf_telemetry_snapshot_targets', None):
+        cfg.online_spatial_snapshot_targets = runtime.sf_telemetry_snapshot_targets
     cfg.wandb_group = None
     cfg.wandb_tags = []
     cfg.cli_args = {}
+    cfg.command_line = ' '.join(__import__('sys').argv[1:])
+    cfg.wandb_step_metric_namespaces = ('intrmotiv', 'ddqn')
     return cfg
 
 
@@ -67,6 +73,7 @@ def main(argv=None):
     from sample_factory.utils.utils import str2bool
     p.add_argument('--sf-async', type=str2bool, default=True)
     p.add_argument('--sf-serial', action='store_true')
+    p.add_argument('--sf-telemetry-snapshot-targets', default=None)
     p.add_argument('--with-wandb', action='store_true')
     p.add_argument('--wandb-project', default='IntrMotiv')
     runtime, remaining = p.parse_known_args(argv)
@@ -121,6 +128,8 @@ def main(argv=None):
     global_learner_factory().register_learner_factory(make_native_learner)
     register_env(cfg.env,make_native_env)
     cfg, runner = make_runner(cfg)
+    from sf_working_directories.IntrMotiv.dmlab.train_hipposlam import register_msg_handlers
+    register_msg_handlers(cfg, runner)
     runner.policy_msg_handlers['ddqn_metrics'] = [ddqn_summary]
     status = runner.init()
     if status == 0:

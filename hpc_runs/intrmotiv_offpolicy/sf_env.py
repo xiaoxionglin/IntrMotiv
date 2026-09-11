@@ -36,6 +36,8 @@ class StreamIdentity(gym.Wrapper):
 
 def make_native_env(env_name, cfg, env_config, render_mode):
     from sf_working_directories.IntrMotiv.dmlab.dmlab_env import make_dmlab_env
+    from .sf_telemetry import install_sampling_reports
+    install_sampling_reports()
     stream = int(env_config.get('env_id', 0)) if env_config else 0
     env = make_dmlab_env(env_name, cfg, env_config, render_mode)
     return StreamIdentity(env, stream, cfg.seed+stream, cfg.env_frameskip)

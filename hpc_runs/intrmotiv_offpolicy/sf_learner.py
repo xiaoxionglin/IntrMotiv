@@ -47,6 +47,10 @@ class NativeLearner(BaseLearner):
         self.accepted = self.invalid = self.decisions = self.positions = self.her_positions = 0
         self.samples = self.her_samples = self.attempts = self.arrivals = 0
         self.last_metrics = {}
+        self.telemetry = None
+        if getattr(self.cfg, 'ddqn_telemetry', False):
+            from .sf_telemetry import NativeTelemetry
+            self.telemetry = NativeTelemetry(self.cfg, self.env_info, self.policy_id, self.actor_critic)
         self.ingestion_seconds = self.learning_seconds = 0.
         self.started = self.last_log = time.monotonic()
         self.finished = False
@@ -120,6 +124,13 @@ class NativeLearner(BaseLearner):
         return dict(frames=self.env_steps, decisions=self.decisions, accepted=self.accepted,
             updates=self.train_step, invalid_final=self.invalid, attempts=self.attempts,
             arrivals=self.arrivals, throughput_fps=self.env_steps/max(1e-9,time.monotonic()-self.started),
+            requested_her_fraction=self.args['her_fraction'],
+            target_period_updates=self.args['target_period'],
+            decisions_per_update=self.args['decisions_per_update'],
+            td_positions_per_update=self.args['td_positions_per_update'],
+            effective_loss_positions_per_decision=self.positions/max(1,self.decisions),
+            inference_decisions=int(self.actor_critic.counter.item()),
+            epsilon=max(.1,1-.9*int(self.actor_critic.counter.item())/250000),
             realized_her_fraction=self.her_samples/max(1,self.samples),
             valid_loss_positions_total=self.positions, her_loss_positions=self.her_positions,
             original_loss_positions=self.positions-self.her_positions,
@@ -133,10 +144,13 @@ class NativeLearner(BaseLearner):
         if self.finished:
             return {LEARNER_ENV_STEPS:self.env_steps, POLICY_ID_KEY:self.policy_id}
         report = False
+        telemetry_stats = {}
         if not self.finished:
             before = self.env_steps
             start = time.monotonic()
             self._ingest(batch)
+            if self.telemetry is not None:
+                telemetry_stats = self.telemetry.capture(batch, self.policy_id, self.env_steps)
             self.ingestion_seconds += time.monotonic()-start
             start = time.monotonic()
             self._learn()
@@ -156,7 +170,9 @@ class NativeLearner(BaseLearner):
         metrics = self.metrics()
         result = {LEARNER_ENV_STEPS:self.env_steps, POLICY_ID_KEY:self.policy_id}
         if report:
-            result.update({TRAIN_STATS:self.last_metrics, 'ddqn_metrics':metrics})
+            result.update({TRAIN_STATS:dict(self.last_metrics), 'ddqn_metrics':metrics})
+        if telemetry_stats:
+            result.setdefault(TRAIN_STATS, {}).update(telemetry_stats)
         return result
 
     def save(self):
