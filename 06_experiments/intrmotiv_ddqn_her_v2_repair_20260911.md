@@ -6,7 +6,7 @@ The bounded frozen-reference repair is implemented. This is still a selected-par
 
 The supplied audit was extracted under `/tmp/intrmotiv_repair_audit`, and its original `diagnostics.py` ran unchanged with the `SF_git` Python. Its three archived files match the **live v1 production source**, not only the old report: contracts `bac5a766…`, worker `cafc265c…`, replay `f1a189cc…`. Full hashes and scheduler evidence are in [v1 live provenance](data/intrmotiv_ddqn_her_v2_20260911/v1_live_provenance.txt). Archived source was never installed over current code.
 
-Development checkout: `/tmp/intrmotiv_ddqn_her_v2_20260911`, branch `codex/ddqn-her-v2`. Runtime checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_v2_20260911`, copied from the actual isolated v1 runtime before applying the repair. Existing v1 jobs, source, checkpoints and outputs were preserved.
+Development checkout: `/tmp/intrmotiv_ddqn_her_v2_20260911`, branch `codex/ddqn-her-v2`. Runtime checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_v2_20260911`, copied from the actual isolated v1 runtime before applying the repair. Existing v1 jobs, source, checkpoints and outputs were preserved. The inherited runtime includes the previously documented DMLab terminal/vector-worker and matched-evaluator patches; these external runtime files differ from the unpatched vault base. [Source comparison](data/intrmotiv_ddqn_her_v2_20260911/source_comparison.json) separates inherited runtime hashes from repaired package/study files, which match byte-for-byte.
 
 Parent remains `DGC_DIRECT_WORKER_F16_S99`, exactly **25,001,984** source frames, SHA-256 `04ccec999e7b9748a960b6b421a91e9bcf6ce3ce9c44cea246359d34f0633585`. Its authoritative path remains in [the canonical parent manifest](data/intrmotiv_ddqn_her_20260911/parent_manifest.json). Seeds 8/99/123 are child learner seeds, not independent parent pretraining seeds.
 
@@ -24,6 +24,8 @@ Parent remains `DGC_DIRECT_WORKER_F16_S99`, exactly **25,001,984** source frames
 | Infrequent target copies | Optimization hypothesis, not a correctness bug | Exposed period in optimizer-update units; selected 100 using controlled neural sparse-path evidence below |
 | Longer HER batches get more TD positions | Comparison confound if nominal batch count retained | Exact 256 valid TD positions/update in both arms; complete remaining suffix carried into the next update |
 | Sparse achieved-goal coverage | Unresolved empirical hypothesis | Per-goal real events, arrivals, contributing episodes, HER request/realization, hit offsets, reward segments and remaining-budget histograms now logged |
+
+Eligible HER goals are sampled uniformly over distinct observed registry goals, rather than weighting a goal by repeated event occurrences; its earliest verified hit defines termination. This is an intentional v1-to-v2 sampling change.
 
 Child checkpoint, replay, conversion and run schemas are versioned to v2. Old v1 child checkpoints are rejected with an explicit incompatibility error; no migration is claimed. Parent actor logits are never treated as Q-values. Parent decoder weights are retained, while joint/Q layers receive matched fresh initialization for each paired child seed.
 
@@ -58,7 +60,7 @@ The deterministic sparse-path test uses the production `QWorker` and `DoubleDQNL
 | 40 | 0.67573 | 0.00091 | 0.67646 | 0.00571 | Yes |
 | 64 | 0.53091 | -0.00168 | 0.52705 | 0.00524 | Yes |
 
-At 5,000 updates even period 100 failed the 64-step fixture; both periods were extended equally to 10,000. Period 1000 failed the longer value tests and greedy control on 40/64 steps. Select **100 optimizer updates per target copy** for this diagnostic. This supports faster refresh under these fixtures, not a general neural propagation bound or a promised DMLab rescue. Numerical artifacts retain both budgets: [5k](data/intrmotiv_ddqn_her_v2_20260911/qualification_5000.json), [10k](data/intrmotiv_ddqn_her_v2_20260911/qualification_10000.json), and [final expressivity](data/intrmotiv_ddqn_her_v2_20260911/expressivity_final.json).
+At 5,000 updates even period 100 failed the 64-step fixture; both periods were extended equally to 10,000. Period 1000 failed the longer value tests and greedy control on 40/64 steps. Select **100 optimizer updates per target copy** for this diagnostic. This supports faster refresh under these fixtures, not a general neural propagation bound or a promised DMLab rescue. Numerical artifacts retain both budgets; [final-source qualification](data/intrmotiv_ddqn_her_v2_20260911/qualification_final.json) reruns the complete suite after fixture stabilization: [5k](data/intrmotiv_ddqn_her_v2_20260911/qualification_5000.json), [10k](data/intrmotiv_ddqn_her_v2_20260911/qualification_10000.json), and [final expressivity](data/intrmotiv_ddqn_her_v2_20260911/expressivity_final.json).
 
 Reproduce with:
 
@@ -93,7 +95,7 @@ Per-seed numbers and exact provenance are in [canonical terminal analysis](data/
 - Intentional update differences: nonlinear joint readout; coherent HER/full valid original sequences up to 64; boundary corrections; **100** target period; **256 valid positions per optimizer update**, every **64 accepted aggregate decisions** after 16,384 accepted warmup decisions. Thus 4 valid positions/accepted post-warmup decision, versus approximately 3.4 realized previously. This is controlled across v2 arms, not an equal-compute v1/v2 comparison.
 - New data root `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_20260911`. All caches, temporary files and logs remain in the allocated workspace.
 
-Ordinary preflight jobs **8056773 / 8056774** were submitted after print-only inspection and passing source tests. Submission: `_slurm/intrmotiv_ddqn_her_v2_preflight_20260911/20260911T193626Z`. Full matrix was **printed and audited, not submitted**: `_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T193631Z`.
+Ordinary preflight jobs **8056773 / 8056774** were submitted after print-only inspection and passing source tests. Submission: `_slurm/intrmotiv_ddqn_her_v2_preflight_20260911/20260911T193626Z`. Full matrix was first printed and audited at `_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T193631Z`. After both preflights passed all required runtime gates, the unchanged six-run matrix was submitted at `_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T194512Z`. Job IDs: **8056789, 8056790, 8056791, 8056792, 8056793, 8056794**. [Submission audit](data/intrmotiv_ddqn_her_v2_20260911/production_submission_audit.json) confirms six jobs, exact commands and workspace-only output paths.
 
 Commands from the isolated NEMO2 v2 checkout:
 
@@ -102,7 +104,13 @@ python -m hpc_runs.intrmotiv_offpolicy.audit_runtime hpc_runs/studies/intrmotiv_
 sf_working_directories/IntrMotiv/launcher/launch_nemo2.sh hpc_runs.intrmotiv_ddqn_her_v2 --print-only --slurm_sbatch_template=hpc_runs/intrmotiv_offpolicy/nemo2_ddqn_v2.sh --slurm_timeout=08:00:00
 ```
 
-Do not release the full sweep before the preflight runtime gate passes. Repeat print-only review if the study changes. Preserve the new source fingerprint; do not patch a running source checkout.
+The full sweep was released only after the preflight runtime gate passed. Repeat print-only review if the study changes. Preserve the new source fingerprint; do not patch a running source checkout.
+
+## Completed v2 runtime preflight
+
+Both jobs completed with exit 0: DDQN in **5:43**, HER in **6:37**. Each reached **250,112 frames**, **720 updates**, **7 target copies**, **184,320 valid TD positions** and **32 invalid-final exclusions**. Encoder freeze and paired initialization passed. The [formal runtime audit](data/intrmotiv_ddqn_her_v2_20260911/preflight_runtime_audit.json) passed; learner-active throughput was **971.4 / 776.1 frames/s** for DDQN/HER. Pending suffixes contained 11/18 positions at shutdown and are explicitly accounted for.
+
+HER's achieved-event counts for goals 1/4/11 were **451/118/906**, spanning **27/29/42 distinct stream-episodes**. Its replay supplied **212/363/1,589 reward-bearing segments**, and **71/170/532 valid loss positions at remaining budgets 1–8**. Thus all three goals have observed successes and lower-budget supervision, although coverage is uneven. These are overlapping replay segments and collector events, not independent successes. Training commanded arrivals were 17/336, 29/372 and 104/356 completed attempts; these epsilon-greedy behavior rates do not qualify independent goal control. [Full counters](data/intrmotiv_ddqn_her_v2_20260911/preflight_final_metrics.json).
 
 ## Control evaluation and recommendation
 

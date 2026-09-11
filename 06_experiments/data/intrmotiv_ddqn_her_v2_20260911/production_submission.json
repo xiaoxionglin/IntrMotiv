@@ -1,0 +1,56 @@
+{
+  "run_name": "intrmotiv_ddqn_her_v2_20260911",
+  "created_at": "2026-09-11T19:45:14.232180+00:00",
+  "launcher_args": {
+    "train_dir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir",
+    "run": "hpc_runs.intrmotiv_ddqn_her_v2",
+    "backend": "slurm",
+    "pause_between": 1,
+    "experiment_suffix": "",
+    "slurm_gpus_per_job": 0,
+    "slurm_cpus_per_gpu": 14,
+    "slurm_cpus_per_job": 40,
+    "slurm_memory": "80G",
+    "slurm_print_only": false,
+    "slurm_workdir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T194512Z",
+    "slurm_log_dir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T194512Z/logs",
+    "slurm_separate_stderr": true,
+    "slurm_partition": "cpu",
+    "slurm_sbatch_template": "hpc_runs/intrmotiv_offpolicy/nemo2_ddqn_v2.sh",
+    "slurm_timeout": "08:00:00"
+  },
+  "template_sha256": "5d20a67af49403f00664c6c70e823e11b23615e0412b4ef51f90a918b6f800b0",
+  "git": {},
+  "jobs": [
+    {
+      "job_id": "8056789",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_S8"
+    },
+    {
+      "job_id": "8056790",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_S99"
+    },
+    {
+      "job_id": "8056791",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_S123"
+    },
+    {
+      "job_id": "8056792",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_HER_S8"
+    },
+    {
+      "job_id": "8056793",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_HER_S99"
+    },
+    {
+      "job_id": "8056794",
+      "status": "submitted",
+      "experiment": "00_DQV2_DDQN_HER_S123"
+    }
+  ]
+}

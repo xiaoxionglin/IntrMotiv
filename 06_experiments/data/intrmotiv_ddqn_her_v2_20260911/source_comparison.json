@@ -1,0 +1,37 @@
+{
+  "repaired_files_match": [
+    "hpc_runs/intrmotiv_offpolicy/__init__.py",
+    "hpc_runs/intrmotiv_offpolicy/audit_runtime.py",
+    "hpc_runs/intrmotiv_offpolicy/batch.py",
+    "hpc_runs/intrmotiv_offpolicy/checkpoint.py",
+    "hpc_runs/intrmotiv_offpolicy/contracts.py",
+    "hpc_runs/intrmotiv_offpolicy/evaluate.py",
+    "hpc_runs/intrmotiv_offpolicy/evaluate_manifest.py",
+    "hpc_runs/intrmotiv_offpolicy/features.py",
+    "hpc_runs/intrmotiv_offpolicy/qualify.py",
+    "hpc_runs/intrmotiv_offpolicy/replay.py",
+    "hpc_runs/intrmotiv_offpolicy/telemetry.py",
+    "hpc_runs/intrmotiv_offpolicy/terminal.py",
+    "hpc_runs/intrmotiv_offpolicy/train.py",
+    "hpc_runs/intrmotiv_offpolicy/worker.py",
+    "hpc_runs/studies/intrmotiv_ddqn_her_v2.study.json",
+    "hpc_runs/studies/intrmotiv_ddqn_her_v2_preflight.study.json"
+  ],
+  "inherited_runtime_files": [
+    {
+      "path": "hpc_runs/offpolicy_goal_baselines/train_parallel.py",
+      "live_sha256": "9e4b835f7cc30cceef609a74af1eac16aac550e18e1a7c78f33fb0b784512519",
+      "provenance": "unchanged inherited v1 runtime; includes documented terminal/selector and canonical evaluator patches"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py",
+      "live_sha256": "a68be89601811c715d292ea770dc6b38559be3ed3a8eb7158fd471251e63efe6",
+      "provenance": "unchanged inherited v1 runtime; includes documented terminal/selector and canonical evaluator patches"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py",
+      "live_sha256": "52fc066692a3c1e143860486eeda559e200c4c5918672143c6ab602afa654930",
+      "provenance": "unchanged inherited v1 runtime; includes documented terminal/selector and canonical evaluator patches"
+    }
+  ]
+}

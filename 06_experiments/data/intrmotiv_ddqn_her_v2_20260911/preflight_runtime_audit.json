@@ -1,0 +1,50 @@
+{
+  "schema": "intrmotiv/ddqn-runtime-audit/v1",
+  "study_sha256": "a95d0e5ab85ebb3568f09ad42bb69409fe2b5b1e0c7d8f82835fad1367f79516",
+  "workflow_version": "1.8.0",
+  "runtime_passed": true,
+  "scientific_qualification": "pending_independent_commanded_and_spatial_evaluation",
+  "runs": [
+    {
+      "run": "DQV2PF_DDQN_S99",
+      "frames": 250112,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 0,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "pending_loss_positions": 11,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 971.3791081601435,
+      "realized_her_fraction": 0.0,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_preflight_20260911/DQV2PF_DDQN_S99_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_preflight_20260911/DQV2PF_DDQN_S99_/checkpoint_p0/checkpoint_000000720_250112.pth"
+      ]
+    },
+    {
+      "run": "DQV2PF_DDQN_HER_S99",
+      "frames": 250112,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2384,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "pending_loss_positions": 18,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 776.086274714134,
+      "realized_her_fraction": 0.34782608695652173,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_preflight_20260911/DQV2PF_DDQN_HER_S99_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_preflight_20260911/DQV2PF_DDQN_HER_S99_/checkpoint_p0/checkpoint_000000000_0.pth"
+      ]
+    }
+  ]
+}
+

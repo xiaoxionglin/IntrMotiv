@@ -1,0 +1,27 @@
+{
+  "batch_name": "intrmotiv_ddqn_her_v2_20260911",
+  "commands_match_study": true,
+  "expected_runs": 6,
+  "job_ids": [
+    "8056789",
+    "8056790",
+    "8056791",
+    "8056792",
+    "8056793",
+    "8056794"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_ddqn_her_v2_20260911/20260911T194512Z/jobs.tsv",
+  "rows": 6,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 6
+  },
+  "study_id": "intrmotiv_ddqn_her_v2_20260911",
+  "study_sha256": "716caaf3d3358a7813d2af37c691dbf92eb0193c851f3f965638f40ac1056cab",
+  "study_spec": "hpc_runs/studies/intrmotiv_ddqn_her_v2.study.json",
+  "study_workflow_version": "1.8.0",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.0",
+  "workspace_paths_valid": true
+}
