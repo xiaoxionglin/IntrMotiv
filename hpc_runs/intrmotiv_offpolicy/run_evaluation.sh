@@ -5,5 +5,5 @@ mkdir -p "$TMPDIR"
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
-cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_eval_20260911
+cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_eval2_20260911
 exec /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.intrmotiv_offpolicy.evaluate_manifest "$@"

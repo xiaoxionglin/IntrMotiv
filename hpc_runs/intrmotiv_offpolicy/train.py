@@ -57,7 +57,8 @@ def save_checkpoint(output,learner,replay,frames,decisions,config,reference_hash
     # artifact, not an exact-resume checkpoint. Resume is not silently accepted.
     torch.save(dict(schema='intrmotiv/ddqn-worker/v1',model=learner.online.state_dict(),
         target=learner.target.state_dict(),optimizer=learner.optimizer.state_dict(),
-        frames=frames,decisions=decisions,updates=learner.updates,config=config,
+        frames=frames,decisions=decisions,updates=learner.updates,
+        config=json.loads(json.dumps(config,default=str)),
         reference_hash=reference_hash,replay_schema=replay.schema,
         replay_rng=replay.rng.bit_generator.state,replay_insertions=replay.insertions,
         restart_kind='warm_restart_requires_refill',environment_state_restored=False),temporary)
@@ -140,10 +141,13 @@ def train(argv=None):
     for i in range(args.num_envs): select(i)
     frames=decisions=invalid_final=arrivals=attempts=realized_her=sample_count=0
     accepted=0; milestones=sorted(set(int(x) for x in args.milestones.split(',')))
+    valid_positions = original_positions = her_positions = 0
+    collection_seconds = learning_seconds = 0.0
     started=time.monotonic(); last_log=started; last_metrics={}
     save_checkpoint(output,learner,replay,0,0,vars(args),reference_hash)
     try:
         while frames<args.total_frames:
+            collection_started = time.monotonic()
             epsilon=max(.1,1-.9*decisions/250000.)
             with torch.no_grad():
                 q,memory=worker.step(memory,stack(current,'preactivation'),stack(current,'bypass'),
@@ -178,6 +182,8 @@ def train(argv=None):
                     attempts+=1; select(i)
                 frames+=int(info.get('num_frames',cfg.env_frameskip))
                 decisions+=1
+            collection_seconds += time.monotonic() - collection_started
+            learning_started = time.monotonic()
             due=max(0,(accepted-args.learning_start)//64-learner.updates)
             for _ in range(due):
                 try:
@@ -186,6 +192,10 @@ def train(argv=None):
                     break
                 last_metrics=learn_batch(learner,samples,device)
                 sample_count+=len(samples); realized_her+=sum(s['relabeled'] for s in samples)
+                valid_positions += last_metrics['valid_loss_positions']
+                her_positions += sum(int(s['mask'].sum()) for s in samples if s['relabeled'])
+                original_positions += sum(int(s['mask'].sum()) for s in samples if not s['relabeled'])
+            learning_seconds += time.monotonic() - learning_started
             if any(before<m<=frames for m in milestones):
                 save_checkpoint(output,learner,replay,frames,decisions,vars(args),reference_hash)
             now=time.monotonic()
@@ -193,6 +203,10 @@ def train(argv=None):
                 metrics=dict(frames=frames,decisions=decisions,updates=learner.updates,accepted=accepted,
                     invalid_final=invalid_final,attempts=attempts,arrivals=arrivals,epsilon=epsilon,
                     throughput_fps=frames/(now-started),realized_her_fraction=realized_her/max(1,sample_count),
+                    effective_loss_positions_per_decision=valid_positions/max(1,decisions),
+                    valid_loss_positions_total=valid_positions,original_loss_positions=original_positions,
+                    her_loss_positions=her_positions,collection_seconds=collection_seconds,
+                    learning_seconds=learning_seconds,
                     replay_size=len(replay.rows),**last_metrics)
                 metrics_file.write(json.dumps(metrics)+'\n')
                 for key,value in metrics.items(): writer.add_scalar('ddqn/'+key,value,frames)

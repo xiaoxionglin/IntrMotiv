@@ -14,6 +14,8 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--decision-cap',type=int,default=100000)
     p.add_argument('--registry',default='1,4,11')
+    p.add_argument('--max-sources',type=int,default=4)
+    p.add_argument('--repeats',type=int,default=3)
     args=p.parse_args()
     output=args.output.resolve();output.relative_to(Path('/work/classic/fr_xl1014-train'))
     output.mkdir(parents=True,exist_ok=False)
@@ -21,6 +23,7 @@ def main():
     from sf_working_directories.IntrMotiv.evaluation.target_control_interventions import run_landmark_matched_interventions
     cfg,env,env_info,actor,path,device=load_policy_env(args.parent_run_dir,args.decision_cap*4,True,0,args.parent_checkpoint)
     callback=None
+    q_statistics=[]
     if args.child_checkpoint:
         with torch.serialization.safe_globals([type(Path('.'))]):
             child=load_checkpoint_dict(args.child_checkpoint,device)
@@ -33,10 +36,12 @@ def main():
             state=out[:,:actor.core.get_out_size()]
             hidden=worker.decoder(state)+worker.budget_layer(out.new_tensor([[budget/64.,clock/1800.]]))
             q=worker.q_head(hidden)
+            q_statistics.append((float(q.min()),float(q.max()),float(q.mean()),
+                                 int(((q<0)|(q>1)).sum()),q.numel()))
             logits=torch.full_like(q,-torch.inf).scatter(1,q.argmax(-1,keepdim=True),0.)
             return {'action_logits':logits}
     rows,summary=run_landmark_matched_interventions(cfg,env,env_info,actor,path,device,
-        args.decision_cap,deterministic=True,max_sources=4,targets_per_source=3,repeats=3,
+        args.decision_cap,deterministic=True,max_sources=args.max_sources,targets_per_source=3,repeats=args.repeats,
         policy_step=callback,deadline_override=64,target_registry=[int(x) for x in args.registry.split(',')])
     rows.to_csv(output/'trials.csv',index=False)
     if len(rows):
@@ -49,6 +54,10 @@ def main():
     summary.update(child_checkpoint=str(args.child_checkpoint) if args.child_checkpoint else None,
         independent_spatial_destination_qualification=False,registry_scope='post_hoc_development',
         physical_prefixes='same seeds and passive source inventory across parent/child')
+    if q_statistics:
+        summary.update(q_min=min(s[0] for s in q_statistics),q_max=max(s[1] for s in q_statistics),
+            q_mean=sum(s[2] for s in q_statistics)/len(q_statistics),
+            q_out_of_range_fraction=sum(s[3] for s in q_statistics)/sum(s[4] for s in q_statistics))
     (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
 
 

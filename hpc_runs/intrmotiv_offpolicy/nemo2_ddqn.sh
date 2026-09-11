@@ -8,7 +8,7 @@
 set -euo pipefail
 source /home/fr/fr_xl1014/miniforge3/etc/profile.d/conda.sh
 conda activate SFgit
-cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_20260911
+cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_her_production_20260911
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 export XDG_CACHE_HOME=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/cache
 export MPLCONFIGDIR=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/matplotlib

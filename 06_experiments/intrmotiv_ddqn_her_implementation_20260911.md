@@ -162,3 +162,36 @@ preflight length from the slowest cadence, bound process temporary paths,
 and reuse the canonical discovery/submit/evaluator extensions. Preserve every
 failed namespace. Evaluate learner-active throughput separately from initial
 collection speed; do not interpret a cumulative average as steady-state FPS.
+
+## Completed 500k runtime gate
+
+Both retry jobs completed with `ExitCode=0:0`: DDQN in 9:55 and DDQN+HER in
+11:16. Each processed **500,096 frames / 125,024 real decisions**, made
+**1,696 learner updates and one target copy**, and excluded **64 invalid final
+transitions** across two resets per collector. The frozen encoder checksums
+remained unchanged, and the two arms' converted initialization hashes match.
+The retained child checkpoints are at 0, 250,112, and 500,096 frames.
+
+The [runtime audit](data/intrmotiv_ddqn_her_20260911/runtime_audit.json) is separate
+from scientific qualification. Learner-active throughput, computed between
+recorded active points rather than from the initial collection burst, was
+**954 frames/s for DDQN** and **826 frames/s for HER**. Peak batch-process RSS
+was 15,776,380 KiB and 14,443,456 KiB respectively (Slurm accounting; not a
+standalone replay-memory measurement). HER used 8,581 relabeled sequences,
+31.62% of sampled sequences; the requested 80% is reduced by eligible-future
+event availability and legitimate original-goal fallback.
+
+Final observed TD losses were 0.0091 and 0.0378, but HER had 96.8% out-of-range
+selected-action Q predictions in the final logged minibatch, versus 14.0% for
+DDQN. This diagnostic does not reveal the magnitude or sign and cannot by
+itself diagnose divergence. The next-source instrumentation adds Q min/max/mean,
+actual original/HER loss-position counts, and collection/learning timing.
+These logging additions do not alter the targets or losses and were not patched
+into the completed jobs mid-run. A small exact-start parent/child panel is
+being used to inspect real action choices and Q magnitudes before release.
+
+The machine-readable [config delta](data/intrmotiv_ddqn_her_20260911/config_delta.json)
+records intentional differences, including 32 collectors versus 64 source
+actor environments. The complete system is still in the controlled frozen
+stage. Passing the runtime gate is not evidence for adaptive-DG or manager
+integration, nor for PPO superiority.

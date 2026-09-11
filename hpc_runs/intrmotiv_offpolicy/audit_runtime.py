@@ -15,6 +15,8 @@ def audit(study,batch_root):
         gate=json.loads((path/'runtime_gate.json').read_text())
         conversion=json.loads((path/'conversion.json').read_text())
         metrics=[json.loads(line) for line in (path/'metrics.jsonl').read_text().splitlines() if line]
+        if not metrics or metrics[-1]['frames'] != gate['frames']:
+            raise ValueError(f'{run.name}: gate and final metrics disagree')
         arguments=dict(arg[2:].split('=',1) for arg in run.args if arg.startswith('--') and '=' in arg)
         expected=int(arguments['total-frames'])
         if gate['frames']<expected or gate['updates']<=0 or gate['target_copies']<=0:

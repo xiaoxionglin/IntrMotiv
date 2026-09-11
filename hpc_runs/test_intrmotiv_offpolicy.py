@@ -168,3 +168,58 @@ class GoalWriteTest(unittest.TestCase):
         _,b=worker.step(worker.initial(1),pre,torch.zeros(1,1),torch.tensor([1]),torch.tensor([64]))
         self.assertFalse(torch.equal(a,b))
         self.assertTrue(torch.equal(canonical,canonical_events(torch.relu(pre-2.43),exclusive=True)))
+
+class RuntimeAuditTest(unittest.TestCase):
+    def test_completion_gate_rejects_missing_target_copy(self):
+        import json
+        from pathlib import Path
+        import tempfile
+        from hpc_runs.intrmotiv_study import load_study
+        from hpc_runs.intrmotiv_offpolicy.audit_runtime import audit
+        study=load_study(Path(__file__).with_name('studies')/'intrmotiv_ddqn_her_preflight2.study.json')
+        with tempfile.TemporaryDirectory() as tmp:
+            for run in study.expand_runs():
+                path=Path(tmp)/run.name;path.mkdir()
+                (path/'runtime_gate.json').write_text(json.dumps(dict(frames=500096,updates=1696,target_copies=1,
+                    invalid_final_exclusions=64,frozen_reference_unchanged=True,her_samples=100)))
+                (path/'conversion.json').write_text(json.dumps(dict(worker_hash='same')))
+                (path/'metrics.jsonl').write_text('\n'.join(json.dumps(dict(frames=f,updates=u,throughput_fps=1000.,realized_her_fraction=.3)) for f,u in [(100000,100),(500096,1696)]))
+                (path/'checkpoint_p0').mkdir()
+                for frames in (0,500096): (path/'checkpoint_p0'/f'checkpoint_000000001_{frames}.pth').touch()
+            self.assertTrue(audit(study,tmp)['runtime_passed'])
+            gate_path=path/'runtime_gate.json'; gate=json.loads(gate_path.read_text());gate['target_copies']=0
+            gate_path.write_text(json.dumps(gate))
+            with self.assertRaisesRegex(ValueError,'target-copy'):
+                audit(study,tmp)
+
+class FeatureIsolationTest(unittest.TestCase):
+    def test_pose_sidecar_cannot_change_source_features(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from hpc_runs.intrmotiv_offpolicy.features import FrozenParentFeatures
+        from sf_working_directories.IntrMotiv.dmlab.dmlab30 import DMLAB_INSTRUCTIONS
+        class Projection(nn.Module):
+            intercept=2.43
+            def preactivation(self,x): return x[:,:2]
+            def activation(self,x): return torch.relu(x)
+        class Encoder(nn.Module):
+            depth_sensor=True; bypass=True; goal_reference_projection=None
+            context_feedback='none';action_path_integration=False;context_action_count=0
+            instructions_lstm_units=1;dg_goal_write=False
+            def __init__(self):
+                super().__init__();self.DG_projection=Projection();self.depth_encoder=nn.Identity()
+            def projection_input(self,obs):
+                assert set(obs)=={'obs',DMLAB_INSTRUCTIONS}
+                return torch.cat((obs['obs'][:,:2].flatten(1),obs[DMLAB_INSTRUCTIONS].float()),-1)
+        class Actor(nn.Module):
+            def __init__(self):
+                super().__init__();self.encoder=Encoder();self.core=SimpleNamespace(Hippo_n_feature=2)
+            def forward_head(self,obs):
+                x=self.encoder.projection_input(obs)
+                return torch.cat((torch.relu(x[:,:2]-2.43),obs['obs'][:,-1:].flatten(1),x[:,-1:]),-1)
+        actor=Actor();extract=FrozenParentFeatures(actor,True)
+        obs={'obs':torch.tensor([3.,0.,0.,.5]).reshape(1,4,1,1),DMLAB_INSTRUCTIONS:torch.ones(1,1)}
+        with patch('sample_factory.algo.utils.rl_utils.prepare_and_normalize_obs',lambda actor,value:value):
+            a=extract({**obs,'telemetry_pose':torch.zeros(1,3)})[0]
+            b=extract({**obs,'telemetry_pose':torch.ones(1,3)*1e9,'pos':torch.randn(1,3)})[0]
+        for name in vars(a):self.assertTrue(torch.equal(getattr(a,name),getattr(b,name)))

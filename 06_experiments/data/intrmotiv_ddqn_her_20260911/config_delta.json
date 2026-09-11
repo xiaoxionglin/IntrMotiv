@@ -1,0 +1,49 @@
+{
+  "schema": "intrmotiv/offpolicy-config-delta/v1",
+  "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+  "parent_config_sha256": "6826ccbe7bfeef958db7dcbcba77a318ca2d1d326b4174d7fcb699648b94a103",
+  "preserved": [
+    "environment",
+    "navigation8_ordered_actions",
+    "action_repeat_4",
+    "source_ImageNet_layer2_trunk",
+    "source_DG_weights_and_normalization",
+    "CA3_R8_L64",
+    "depth_and_map_bypass",
+    "target_ID_FiLM_decoder"
+  ],
+  "changed": {
+    "worker_algorithm": "one_step_double_DQN",
+    "action_head": "fresh_Q_head_not_copied_PPO_logits",
+    "optimizer": "fresh_Adam_2e-4",
+    "canonical_DG": "frozen_including_running_statistics",
+    "encoder_auxiliary_losses": "disabled",
+    "reward": "exclusive_canonical_first_arrival_1_else_0",
+    "discount_per_decision": 0.99,
+    "attempt_budget": 64,
+    "option_budget_input": "zero_initialized_linear_budget_divided_by_64",
+    "physical_clock_input": "zero_initialized_linear_episode_decision_divided_by_1800",
+    "exploration": "epsilon_1_to_0.1_over_250k_child_decisions",
+    "manager": "externally_sampled_development_registry_1_4_11",
+    "graph_updates": "disabled",
+    "behavior_collectors": 32,
+    "source_collectors": 64,
+    "replay": "200k_exact_frozen_preactivation_transitions_with_71_step_prefix_validity",
+    "her_fraction": [
+      0,
+      0.8
+    ],
+    "learning_start_valid_transitions": 16384,
+    "updates_per_new_aggregate_valid_decisions": "1/64",
+    "minibatch": "16_sequences_up_to_16_valid_positions",
+    "target_copy_updates": 1000,
+    "checkpoints": "new_child_counters; replay_omitted_explicit_warm_restart_only"
+  },
+  "unsupported": [
+    "online_original_DG_adaptation",
+    "write_conditioned_collection",
+    "manager_integration",
+    "matched_PPO_control",
+    "exact_resume"
+  ]
+}

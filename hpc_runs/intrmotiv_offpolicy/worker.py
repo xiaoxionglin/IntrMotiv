@@ -92,4 +92,7 @@ class DoubleDQNLearner:
             self.target.load_state_dict(self.online.state_dict(), strict=True)
         return {'td_loss': float(loss.detach()), 'grad_norm': float(norm),
                 'valid_loss_positions': int(mask.sum()),
+                'q_min': float(predicted[mask].detach().min()),
+                'q_max': float(predicted[mask].detach().max()),
+                'q_mean': float(predicted[mask].detach().mean()),
                 'q_out_of_range_fraction': float(((predicted[mask] < 0) | (predicted[mask] > 1)).float().mean())}
