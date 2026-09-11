@@ -157,6 +157,11 @@ source 9 and **107/170 (62.9%)** from source 34. Thus the low global graph
 coverage was not the decisive weakness: robust success on a small spatially
 meaningful target subset is itself not yet established in these DG64 snapshots.
 
+Across all 73 collected snapshots (5M, 25M, and available 75M), this is the
+only checkpoint with any single-field target passing that ≥80%, ≥20-attempt
+screen on currently reliable edges. This is a post-hoc screen, not an independent
+validation result.
+
 At the available 75M snapshots, the attractive five-pair ≥80% subset in
 DIRECT_WORKER F16 seed 99 no longer appears under the same screen. That is
 another reason to test the saved 25M checkpoint rather than assume the current

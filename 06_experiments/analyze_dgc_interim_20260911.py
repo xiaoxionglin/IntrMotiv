@@ -47,7 +47,7 @@ def main():
                 q=matched[matched.base==base]
                 xs=np.arange(3)+(k-1)*0.15
                 means=q.groupby('capacity')[metric].mean().reindex([16,32,64])
-                ax.plot(xs,means*scale,'-',color=color,linewidth=2,label=LABELS[base])
+                ax.plot(xs,means*scale,linestyle=['-','--',':'][k],color=color,linewidth=2,label=LABELS[base])
                 for seed,marker in [(8,'o'),(99,'s'),(123,'^')]:
                     values=q[q.seed==seed].set_index('capacity')[metric].reindex([16,32,64])
                     ax.scatter(xs,values*scale,marker=marker,s=55,color=color,edgecolor='white',linewidth=.5,zorder=3)
