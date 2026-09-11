@@ -10,9 +10,44 @@ from hpc_runs.offpolicy_goal_baselines import (
     floyd_warshall_next,
 )
 from hpc_runs.offpolicy_goal_baselines.planner import LandmarkPlanner
+from hpc_runs.offpolicy_goal_baselines.train import FrozenVisualFeatures
+from hpc_runs.offpolicy_goal_baselines.train_parallel import _select_info
 
 
 class OffPolicyGoalBaselineTest(unittest.TestCase):
+    def test_frozen_feature_batch_encodes_once_and_appends_instruction(self):
+        class MeanTrunk(torch.nn.Module):
+            def forward(self, image):
+                return image.mean(dim=(-2, -1))
+
+        extractor = object.__new__(FrozenVisualFeatures)
+        extractor.trunk = MeanTrunk()
+        extractor.device = torch.device("cpu")
+        extractor.number_instruction_coef = 9.0
+        observations = {
+            "obs": np.stack(
+                (np.full((3, 2, 2), 255, dtype=np.uint8), np.zeros((3, 2, 2), dtype=np.uint8))
+            ),
+            "instruction": np.asarray([1, 3]),
+            "telemetry_pose": np.zeros((2, 3), dtype=np.float32),
+        }
+        features = extractor.batch(observations)
+        self.assertEqual(features.shape, (2, 6))
+        np.testing.assert_allclose(features[0], [1, 1, 1, 9, 0, 0])
+        np.testing.assert_allclose(features[1], [0, 0, 0, 0, 0, 9])
+
+    def test_vector_info_prefers_terminal_episode_info(self):
+        infos = {
+            "score": np.asarray([1.0, 2.0]),
+            "_score": np.asarray([True, True]),
+            "final_info": np.asarray([None, {"episode_extra_stats": {"coverage": 7.0}}], dtype=object),
+            "_final_info": np.asarray([False, True]),
+        }
+        self.assertEqual(_select_info(infos, 0, 2)["score"], 1.0)
+        self.assertEqual(
+            _select_info(infos, 1, 2)["episode_extra_stats"]["coverage"], 7.0
+        )
+
     def test_replay_future_pairs_are_ordered_and_bounded(self):
         replay = EpisodeReplay(100, seed=3)
         features = np.arange(11, dtype=np.float32)[:, None]
