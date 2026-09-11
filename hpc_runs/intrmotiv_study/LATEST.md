@@ -15,6 +15,12 @@ is nested inside. Ancestors with their own config, summary, or checkpoint payloa
 and distinct duplicate directories still fail as ambiguous. This is an
 analysis/discovery-only fix; training code and study fingerprints are unchanged.
 
+Synchronized and tested on NEMO2 on 2026-09-11: 41 tests passed locally and
+remotely (canonical, common-window, repeat-8, and DG-capacity suites). Separately,
+the DG-capacity study's analysis tag paths and grouping were corrected after
+checking actual TensorBoard tags. Its revised fingerprint is recorded in the
+interim report; submission audit confirms the original training commands.
+
 Version 1.7.0 adds `collect-online --latest-common`: it loads each run once,
 uses the latest step covered by every declared run and metric, and applies
 `analysis.terminal_width` to that common endpoint. This mode disables scalar

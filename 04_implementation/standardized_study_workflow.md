@@ -208,6 +208,28 @@ standardized `per_run.csv`. It requires exactly one row for every declared run.
 
 ### Latest shared-step comparisons (1.7.0)
 
+Directory discovery in 1.7.1 recognizes `RUN_/00_RUN` as a launcher container
+and one actual experiment when the container has no experiment payload. It
+still rejects genuine duplicate runs. This fixes the DG-capacity batch's 27
+false duplicate matches; 41 canonical/common-window/study tests passed locally
+and on NEMO2.
+
+Before a multi-gigabyte `--latest-common` scan for a new study, verify declared
+tags against enough initial events to include episode and online-spatial
+summaries (the first few batches are insufficient). In the DG-capacity study,
+graph summaries use `intrmotiv/hrl/summary/…`, and the across-arm replay check
+is `intrmotiv/hrl/behavior_replay_mismatch`; the memory-only replay tag is absent
+in worker-only runs. Group by both base arm and capacity. Correcting these
+analysis declarations changes the StudySpec fingerprint, so preserve the
+launch fingerprint, regenerate print-only rows, and audit them against the
+original submission to prove training commands are unchanged.
+
+Failed strict scans currently wait for other threaded loads and discard their
+histories. This caused expensive repeat reads during the September 11 interim
+analysis. A future general improvement should validate tag coverage early and
+cache selected histories with event-file provenance, while preserving exact
+common-window semantics; do not recreate event readers in each report.
+
 For repeated “check again at the latest steps” requests, use:
 
 ```bash
