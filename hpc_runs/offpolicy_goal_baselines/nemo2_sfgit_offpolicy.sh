@@ -11,7 +11,13 @@
 set -euo pipefail
 
 source ~/miniforge3/etc/profile.d/conda.sh
-conda activate SFgit
+CONDA_ENV=$${INTRMOTIV_OFFPOLICY_CONDA_ENV:-SFgit}
+set +u
+conda activate "$$CONDA_ENV"
+set -u
+if [[ $${INTRMOTIV_OFFPOLICY_PRELOAD_CONDA_LIBSTDCXX:-0} == 1 ]]; then
+  export LD_PRELOAD="$$CONDA_PREFIX/lib/libstdc++.so.6$${LD_PRELOAD:+:$$LD_PRELOAD}"
+fi
 cd ~/SF_git_XXL/SF_hipposlam || exit 1
 
 RUNTIME_ROOT=$${INTRMOTIV_RUNTIME_ROOT:-/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime}

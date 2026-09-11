@@ -11,6 +11,7 @@ from pathlib import Path
 import random
 import sys
 import time
+import traceback
 
 import gymnasium as gym
 import numpy as np
@@ -59,6 +60,70 @@ class DmlabEnvFactory:
         )
 
 
+def _same_step_vector_worker(index, env_fn, pipe, parent_pipe, shared_memory, error_queue):
+    """Gymnasium 1.x worker with the 0.29 same-step autoreset contract.
+
+    This retains Gymnasium's shared-memory and command protocol. Only the
+    terminal branch differs: reset observations are written immediately and
+    terminal info is preserved, avoiding DMLab's stale terminal-image path.
+    """
+    from gymnasium.spaces.utils import is_space_dtype_shape_equiv
+    from gymnasium.vector.utils import write_to_shared_memory
+
+    env = env_fn()
+    observation_space, action_space = env.observation_space, env.action_space
+    parent_pipe.close()
+    try:
+        while True:
+            command, data = pipe.recv()
+            if command == "reset":
+                observation, info = env.reset(**data)
+                if shared_memory:
+                    write_to_shared_memory(observation_space, index, observation, shared_memory)
+                    observation = None
+                pipe.send(((observation, info), True))
+            elif command == "step":
+                observation, reward, terminated, truncated, info = env.step(data)
+                if terminated or truncated:
+                    final_info = info
+                    observation, info = env.reset()
+                    info = dict(info)
+                    info["final_info"] = final_info
+                if shared_memory:
+                    write_to_shared_memory(observation_space, index, observation, shared_memory)
+                    observation = None
+                pipe.send(((observation, reward, terminated, truncated, info), True))
+            elif command == "close":
+                pipe.send((None, True))
+                break
+            elif command == "_call":
+                name, args, kwargs = data
+                if name in ("reset", "step", "close", "_setattr", "_check_spaces"):
+                    raise ValueError(f"invalid vector call target {name!r}")
+                attr = env.get_wrapper_attr(name)
+                pipe.send((attr(*args, **kwargs) if callable(attr) else attr, True))
+            elif command == "_setattr":
+                name, value = data
+                env.set_wrapper_attr(name, value)
+                pipe.send((None, True))
+            elif command == "_check_spaces":
+                obs_mode, single_obs_space, single_action_space = data
+                observation_matches = (
+                    single_obs_space == observation_space
+                    if obs_mode == "same"
+                    else is_space_dtype_shape_equiv(single_obs_space, observation_space)
+                )
+                pipe.send(((observation_matches, single_action_space == action_space), True))
+            else:
+                raise RuntimeError(f"unknown vector worker command {command!r}")
+    except (KeyboardInterrupt, Exception):
+        error_type, error_message, _ = sys.exc_info()
+        error_queue.put((index, error_type, error_message, traceback.format_exc()))
+        pipe.send((None, False))
+    finally:
+        env.close()
+
+
 def parse_args(argv=None):
     vector_parser = argparse.ArgumentParser(add_help=False)
     vector_parser.add_argument("--baseline-num-envs", type=int, default=16)
@@ -97,7 +162,10 @@ def _poses(observations: dict, num_envs: int) -> np.ndarray:
 def _select_info(infos: dict, index: int, num_envs: int) -> dict:
     """Convert Gymnasium's dict-of-arrays vector info into one environment info."""
     if bool(np.asarray(infos.get("_final_info", np.zeros(num_envs, dtype=bool)))[index]):
-        final = np.asarray(infos["final_info"], dtype=object)[index]
+        final = infos["final_info"]
+        if isinstance(final, dict):
+            return _select_nested(final, index, num_envs)
+        final = np.asarray(final, dtype=object)[index]
         return {} if final is None else dict(final)
     selected = {}
     for key, value in infos.items():
@@ -181,10 +249,12 @@ def train(argv=None) -> int:
 
     # Start workers before constructing a CUDA context. AsyncVectorEnv supplies
     # shared-memory observations and its established reset/exception handling.
+    gym_major = int(gym.__version__.split(".", 1)[0])
     env = gym.vector.AsyncVectorEnv(
         [DmlabEnvFactory(cfg, index) for index in range(vector.num_envs)],
         shared_memory=True,
         context=vector.context,
+        worker=_same_step_vector_worker if gym_major >= 1 else None,
     )
     observations, _ = env.reset(seed=[int(cfg.seed) + i for i in range(vector.num_envs)])
     device = torch.device("cpu" if str(cfg.device).lower() == "cpu" else "cuda")

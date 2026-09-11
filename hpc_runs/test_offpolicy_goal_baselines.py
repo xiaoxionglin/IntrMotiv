@@ -47,6 +47,19 @@ class OffPolicyGoalBaselineTest(unittest.TestCase):
         self.assertEqual(
             _select_info(infos, 1, 2)["episode_extra_stats"]["coverage"], 7.0
         )
+        nested_infos = {
+            "final_info": {
+                "episode_extra_stats": {
+                    "coverage": np.asarray([5.0, 7.0]),
+                    "_coverage": np.asarray([True, True]),
+                },
+                "_episode_extra_stats": np.asarray([True, True]),
+            },
+            "_final_info": np.asarray([True, True]),
+        }
+        self.assertEqual(
+            _select_info(nested_infos, 1, 2)["episode_extra_stats"]["coverage"], 7.0
+        )
 
     def test_replay_future_pairs_are_ordered_and_bounded(self):
         replay = EpisodeReplay(100, seed=3)
