@@ -44,6 +44,10 @@ class LandmarkPlanner:
         self.features: np.ndarray | None = None
         self.poses: np.ndarray | None = None
         self.graph_cost: np.ndarray | None = None
+        self.rebuild_count = 0
+        self.subgoal_queries = 0
+        self.landmark_subgoals = 0
+        self.finite_edges = 0
 
     @staticmethod
     def _distances(agent, states: np.ndarray, goals: np.ndarray, device: torch.device, block: int = 4096) -> np.ndarray:
@@ -72,8 +76,11 @@ class LandmarkPlanner:
             order = order[order != row][: self.neighbors]
             cost[row, order] = dense[row, order]
         self.graph_cost = cost
+        self.rebuild_count += 1
+        self.finite_edges = int(np.isfinite(cost).sum() - len(cost))
 
     def subgoal(self, state: np.ndarray, final_goal: np.ndarray, agent, device: torch.device) -> np.ndarray:
+        self.subgoal_queries += 1
         if self.features is None or self.graph_cost is None:
             return final_goal
         n = len(self.features)
@@ -90,4 +97,7 @@ class LandmarkPlanner:
         augmented[start, goal] = float(self._distances(agent, state[None], final_goal[None], device)[0, 0])
         _, next_hop = floyd_warshall_next(augmented)
         hop = int(next_hop[start, goal])
-        return final_goal if hop in (-1, goal) else self.features[hop]
+        if hop in (-1, goal):
+            return final_goal
+        self.landmark_subgoals += 1
+        return self.features[hop]

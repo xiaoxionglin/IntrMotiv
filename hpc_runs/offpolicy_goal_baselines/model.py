@@ -28,7 +28,8 @@ def contrastive_loss(scores: torch.Tensor, logsumexp_coeff: float = 0.1) -> tupl
         torch.logsumexp(scores, dim=1).square().mean()
         + torch.logsumexp(scores, dim=0).square().mean()
     )
-    loss = 0.5 * (forward + backward) + float(logsumexp_coeff) * regularizer
+    # JaxGCRL's symmetric objective is the sum of the two directions.
+    loss = forward + backward + float(logsumexp_coeff) * regularizer
     with torch.no_grad():
         accuracy = (scores.argmax(dim=1) == labels).float().mean()
         positive = scores.diagonal().mean()

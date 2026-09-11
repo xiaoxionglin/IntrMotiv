@@ -60,13 +60,17 @@ class EpisodeReplay:
         sampled = [self.sample_goal() for _ in range(int(count))]
         return np.stack([item[0] for item in sampled]), np.stack([item[1] for item in sampled])
 
-    def sample(self, batch_size: int, max_future: int) -> dict[str, np.ndarray]:
+    def sample(self, batch_size: int, max_future: int, discount: float = 0.99) -> dict[str, np.ndarray]:
+        if not 0.0 < discount <= 1.0:
+            raise ValueError("discount must be in (0, 1]")
         states, actions, goals, offsets, random_goals = [], [], [], [], []
         for _ in range(int(batch_size)):
             episode = self._episode()
             t = int(self.rng.integers(0, episode.transitions))
             high = min(episode.transitions, t + int(max_future))
-            future = int(self.rng.integers(t + 1, high + 1))
+            possible = np.arange(t + 1, high + 1)
+            weights = np.power(float(discount), possible - t)
+            future = int(self.rng.choice(possible, p=weights / weights.sum()))
             random_goal, _ = self.sample_goal()
             states.append(episode.features[t])
             actions.append(episode.actions[t])

@@ -37,11 +37,14 @@ class BaselineConfig:
     replay_min: int
     batch_size: int
     max_future: int
+    discount: float
     goal_horizon: int
     planner_horizon: int
     updates_per_step: int
+    update_every_steps: int
     learning_rate: float
     entropy_coeff: float
+    target_entropy_fraction: float
     logsumexp_coeff: float
     hidden_dim: int
     repr_dim: int
@@ -61,11 +64,14 @@ def _baseline_parser() -> argparse.ArgumentParser:
     parser.add_argument("--baseline-replay-min", type=int, default=5_000)
     parser.add_argument("--baseline-batch-size", type=int, default=256)
     parser.add_argument("--baseline-max-future", type=int, default=64)
+    parser.add_argument("--baseline-discount", type=float, default=0.99)
     parser.add_argument("--baseline-goal-horizon", type=int, default=64)
     parser.add_argument("--baseline-planner-horizon", type=int, default=16)
     parser.add_argument("--baseline-updates-per-step", type=int, default=1)
+    parser.add_argument("--baseline-update-every-steps", type=int, default=16)
     parser.add_argument("--baseline-learning-rate", type=float, default=3e-4)
-    parser.add_argument("--baseline-entropy-coeff", type=float, default=0.01)
+    parser.add_argument("--baseline-entropy-coeff", type=float, default=0.1)
+    parser.add_argument("--baseline-target-entropy-fraction", type=float, default=0.5)
     parser.add_argument("--baseline-logsumexp-coeff", type=float, default=0.1)
     parser.add_argument("--baseline-hidden-dim", type=int, default=256)
     parser.add_argument("--baseline-repr-dim", type=int, default=64)
@@ -172,7 +178,9 @@ def _write_json(path: Path, payload) -> None:
     os.replace(temporary, path)
 
 
-def _save_checkpoint(path: Path, frames: int, agent, critic_optimizer, actor_optimizer, baseline, cfg) -> None:
+def _save_checkpoint(
+    path: Path, frames: int, agent, critic_optimizer, actor_optimizer, alpha_optimizer, log_alpha, baseline, cfg
+) -> None:
     temporary = path.with_suffix(".tmp")
     torch.save(
         {
@@ -181,6 +189,8 @@ def _save_checkpoint(path: Path, frames: int, agent, critic_optimizer, actor_opt
             "model": agent.state_dict(),
             "critic_optimizer": critic_optimizer.state_dict(),
             "actor_optimizer": actor_optimizer.state_dict(),
+            "alpha_optimizer": alpha_optimizer.state_dict(),
+            "log_alpha": log_alpha.detach().cpu(),
             "baseline": asdict(baseline),
             "seed": int(cfg.seed),
             "visual_encoder": "layer2_resnet18_imagenet_frozen",
@@ -192,8 +202,16 @@ def _save_checkpoint(path: Path, frames: int, agent, critic_optimizer, actor_opt
 
 def train(argv=None) -> int:
     baseline, cfg = parse_args(argv)
-    if min(baseline.total_frames, baseline.replay_capacity, baseline.batch_size, baseline.max_future) <= 0:
+    if min(
+        baseline.total_frames,
+        baseline.replay_capacity,
+        baseline.batch_size,
+        baseline.max_future,
+        baseline.update_every_steps,
+    ) <= 0:
         raise ValueError("frame, replay, batch, and future settings must be positive")
+    if not 0.0 < baseline.target_entropy_fraction <= 1.0:
+        raise ValueError("target_entropy_fraction must be in (0, 1]")
     random.seed(cfg.seed)
     np.random.seed(cfg.seed)
     torch.manual_seed(cfg.seed)
@@ -221,6 +239,11 @@ def train(argv=None) -> int:
     ]
     critic_optimizer = torch.optim.Adam(critic_parameters, lr=baseline.learning_rate)
     actor_optimizer = torch.optim.Adam(agent.actor.parameters(), lr=baseline.learning_rate)
+    log_alpha = torch.tensor(
+        np.log(baseline.entropy_coeff), device=device, dtype=torch.float32, requires_grad=True
+    )
+    alpha_optimizer = torch.optim.Adam([log_alpha], lr=baseline.learning_rate)
+    target_entropy = baseline.target_entropy_fraction * np.log(int(env.action_space.n))
     replay = EpisodeReplay(baseline.replay_capacity, seed=cfg.seed)
     planner = LandmarkPlanner(
         baseline.landmark_count, baseline.landmark_candidates, baseline.landmark_neighbors
@@ -247,7 +270,7 @@ def train(argv=None) -> int:
     episode_features = [current_feature]
     episode_poses = [_pose(observation)]
     episode_actions: list[int] = []
-    frames = updates = option_steps = planner_steps = 0
+    frames = decisions = updates = option_steps = planner_steps = 0
     goal = goal_pose = final_goal = None
     option_attempts = option_successes = 0
     next_checkpoint = baseline.checkpoint_frames
@@ -277,6 +300,7 @@ def train(argv=None) -> int:
             next_observation, _, terminated, truncated, info = env.step(action)
             step_frames = int(info.get("num_frames", cfg.env_frameskip))
             frames += step_frames
+            decisions += 1
             option_steps += 1
             planner_steps += 1
             done = bool(terminated or truncated)
@@ -315,9 +339,9 @@ def train(argv=None) -> int:
             for key, value in info.get("periodic_stats", {}).items():
                 writer.add_scalar(key, float(value), frames)
 
-            if replay.size >= baseline.replay_min:
+            if replay.size >= baseline.replay_min and decisions % baseline.update_every_steps == 0:
                 for _ in range(baseline.updates_per_step):
-                    batch = replay.sample(baseline.batch_size, baseline.max_future)
+                    batch = replay.sample(baseline.batch_size, baseline.max_future, baseline.discount)
                     agent.train()
                     critic_optimizer.zero_grad(set_to_none=True)
                     actor_optimizer.zero_grad(set_to_none=True)
@@ -327,7 +351,7 @@ def train(argv=None) -> int:
                         _tensor(batch, "future_goal", device),
                         _tensor(batch, "offset", device),
                         _tensor(batch, "random_goal", device),
-                        entropy_coeff=baseline.entropy_coeff,
+                        entropy_coeff=float(log_alpha.exp().detach()),
                         logsumexp_coeff=baseline.logsumexp_coeff,
                         max_future=baseline.max_future,
                     )
@@ -337,10 +361,21 @@ def train(argv=None) -> int:
                     actor_loss.backward()
                     torch.nn.utils.clip_grad_norm_(agent.actor.parameters(), 10.0)
                     actor_optimizer.step()
+                    alpha_optimizer.zero_grad(set_to_none=True)
+                    observed_entropy = torch.as_tensor(train_metrics["policy_entropy"], device=device)
+                    alpha_loss = log_alpha.exp() * (observed_entropy - target_entropy)
+                    alpha_loss.backward()
+                    alpha_optimizer.step()
+                    train_metrics["entropy_alpha"] = float(log_alpha.exp().detach())
+                    train_metrics["alpha_loss"] = float(alpha_loss.detach())
                     updates += 1
-                if baseline.method == "l3p" and frames >= next_planner_rebuild:
-                    planner.rebuild(replay, agent, device)
-                    next_planner_rebuild += baseline.planner_rebuild_frames
+            if (
+                replay.size >= baseline.replay_min
+                and baseline.method == "l3p"
+                and frames >= next_planner_rebuild
+            ):
+                planner.rebuild(replay, agent, device)
+                next_planner_rebuild += baseline.planner_rebuild_frames
 
             if time.monotonic() - last_log >= 30.0:
                 record = {
@@ -352,6 +387,15 @@ def train(argv=None) -> int:
                 }
                 if replay.size >= baseline.replay_min:
                     record.update(train_metrics)
+                if baseline.method == "l3p":
+                    record.update(
+                        planner_rebuilds=planner.rebuild_count,
+                        planner_finite_edges=planner.finite_edges,
+                        planner_queries=planner.subgoal_queries,
+                        planner_landmark_fraction=(
+                            planner.landmark_subgoals / max(planner.subgoal_queries, 1)
+                        ),
+                    )
                 metrics_file.write(json.dumps(record, sort_keys=True) + "\n")
                 for key, value in record.items():
                     if key != "frames":
@@ -367,6 +411,8 @@ def train(argv=None) -> int:
                     agent,
                     critic_optimizer,
                     actor_optimizer,
+                    alpha_optimizer,
+                    log_alpha,
                     baseline,
                     cfg,
                 )
@@ -378,6 +424,8 @@ def train(argv=None) -> int:
             agent,
             critic_optimizer,
             actor_optimizer,
+            alpha_optimizer,
+            log_alpha,
             baseline,
             cfg,
         )
