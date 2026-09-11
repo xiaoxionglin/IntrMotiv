@@ -35,6 +35,7 @@ class BaselineConfig:
     total_frames: int
     replay_capacity: int
     replay_min: int
+    replay_segment_steps: int
     batch_size: int
     max_future: int
     discount: float
@@ -46,12 +47,14 @@ class BaselineConfig:
     entropy_coeff: float
     target_entropy_fraction: float
     logsumexp_coeff: float
+    landmark_loss_coeff: float
     hidden_dim: int
     repr_dim: int
     landmark_count: int
     landmark_candidates: int
     landmark_neighbors: int
     landmark_local_horizon: float
+    landmark_edge_horizon: float
     planner_rebuild_frames: int
     checkpoint_frames: int
     torch_threads: int
@@ -63,6 +66,7 @@ def _baseline_parser() -> argparse.ArgumentParser:
     parser.add_argument("--baseline-total-frames", type=int, required=True)
     parser.add_argument("--baseline-replay-capacity", type=int, default=200_000)
     parser.add_argument("--baseline-replay-min", type=int, default=5_000)
+    parser.add_argument("--baseline-replay-segment-steps", type=int, default=512)
     parser.add_argument("--baseline-batch-size", type=int, default=256)
     parser.add_argument("--baseline-max-future", type=int, default=64)
     parser.add_argument("--baseline-discount", type=float, default=0.99)
@@ -74,12 +78,14 @@ def _baseline_parser() -> argparse.ArgumentParser:
     parser.add_argument("--baseline-entropy-coeff", type=float, default=0.1)
     parser.add_argument("--baseline-target-entropy-fraction", type=float, default=0.5)
     parser.add_argument("--baseline-logsumexp-coeff", type=float, default=0.1)
+    parser.add_argument("--baseline-landmark-loss-coeff", type=float, default=1.0)
     parser.add_argument("--baseline-hidden-dim", type=int, default=256)
     parser.add_argument("--baseline-repr-dim", type=int, default=64)
     parser.add_argument("--baseline-landmark-count", type=int, default=50)
     parser.add_argument("--baseline-landmark-candidates", type=int, default=1000)
     parser.add_argument("--baseline-landmark-neighbors", type=int, default=8)
     parser.add_argument("--baseline-landmark-local-horizon", type=float, default=16.0)
+    parser.add_argument("--baseline-landmark-edge-horizon", type=float, default=64.0)
     parser.add_argument("--baseline-planner-rebuild-frames", type=int, default=100_000)
     parser.add_argument("--baseline-checkpoint-frames", type=int, default=1_000_000)
     parser.add_argument("--baseline-torch-threads", type=int, default=8)
@@ -262,6 +268,7 @@ def train(argv=None) -> int:
         baseline.landmark_candidates,
         baseline.landmark_neighbors,
         baseline.landmark_local_horizon,
+        baseline.landmark_edge_horizon,
     )
 
     output = _workspace_output(cfg)
@@ -287,7 +294,9 @@ def train(argv=None) -> int:
     episode_features = [current_feature]
     episode_poses = [_pose(observation)]
     episode_actions: list[int] = []
-    frames = decisions = updates = option_steps = planner_steps = 0
+    frames = decisions = updates = option_steps = 0
+    planner_steps_remaining = 0
+    previous_landmark = None
     goal = goal_pose = final_goal = None
     option_attempts = option_successes = 0
     next_checkpoint = baseline.checkpoint_frames
@@ -303,11 +312,22 @@ def train(argv=None) -> int:
                 if final_goal is None or option_steps >= baseline.goal_horizon:
                     final_goal, goal_pose = replay.sample_goal()
                     goal = final_goal
-                    option_steps = planner_steps = 0
+                    option_steps = 0
+                    planner_steps_remaining = 0
+                    previous_landmark = None
                     option_attempts += 1
-                if baseline.method == "l3p" and planner_steps >= baseline.planner_horizon:
-                    goal = planner.subgoal(current_feature, final_goal, agent, device)
-                    planner_steps = 0
+                if baseline.method == "l3p" and planner_steps_remaining <= 0:
+                    decision = planner.plan(
+                        current_feature,
+                        final_goal,
+                        agent,
+                        device,
+                        previous_landmark=previous_landmark,
+                        max_horizon=baseline.planner_horizon,
+                    )
+                    goal = decision.goal
+                    planner_steps_remaining = decision.steps
+                    previous_landmark = decision.landmark_index
                 state_tensor = torch.as_tensor(current_feature, device=device).unsqueeze(0)
                 goal_tensor = torch.as_tensor(goal, device=device).unsqueeze(0)
                 agent.eval()
@@ -319,7 +339,7 @@ def train(argv=None) -> int:
             frames += step_frames
             decisions += 1
             option_steps += 1
-            planner_steps += 1
+            planner_steps_remaining -= 1
             done = bool(terminated or truncated)
             # DMLab does not expose a fresh terminal image. Its compatibility
             # path returns the cached observation, which PixelFormatChwWrapper
@@ -352,6 +372,20 @@ def train(argv=None) -> int:
                 episode_poses = [_pose(observation)]
                 episode_actions = []
                 final_goal = goal = goal_pose = None
+                planner_steps_remaining = 0
+                previous_landmark = None
+            elif len(episode_actions) >= baseline.replay_segment_steps:
+                # Long DMLab episodes otherwise delay all learning until the
+                # first timeout. Bounded trajectory segments retain valid
+                # future-goal ordering while making replay available online.
+                replay.add(
+                    np.asarray(episode_features),
+                    np.asarray(episode_actions),
+                    np.asarray(episode_poses),
+                )
+                episode_features = [current_feature.copy()]
+                episode_poses = [next_pose.copy()]
+                episode_actions = []
 
             for key, value in info.get("periodic_stats", {}).items():
                 writer.add_scalar(key, float(value), frames)
@@ -370,6 +404,7 @@ def train(argv=None) -> int:
                         _tensor(batch, "random_goal", device),
                         entropy_coeff=float(log_alpha.exp().detach()),
                         logsumexp_coeff=baseline.logsumexp_coeff,
+                        landmark_loss_coeff=baseline.landmark_loss_coeff,
                         max_future=baseline.max_future,
                     )
                     critic_loss.backward()
@@ -412,6 +447,10 @@ def train(argv=None) -> int:
                         planner_landmark_fraction=(
                             planner.landmark_subgoals / max(planner.subgoal_queries, 1)
                         ),
+                        planner_reachable_pair_fraction=planner.reachable_pair_fraction,
+                        planner_unreachable_queries=planner.unreachable_queries,
+                        planner_repeat_avoided=planner.repeat_avoided,
+                        planner_mean_commitment=planner.mean_commitment,
                     )
                 metrics_file.write(json.dumps(record, sort_keys=True) + "\n")
                 for key, value in record.items():

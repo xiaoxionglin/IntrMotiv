@@ -234,6 +234,7 @@ def _optimize(
         _tensor(batch, "random_goal", device),
         entropy_coeff=float(log_alpha.exp().detach()),
         logsumexp_coeff=baseline.logsumexp_coeff,
+        landmark_loss_coeff=baseline.landmark_loss_coeff,
         max_future=baseline.max_future,
     )
     critic_loss.backward()
@@ -295,6 +296,7 @@ def train(argv=None) -> int:
         baseline.landmark_candidates,
         baseline.landmark_neighbors,
         baseline.landmark_local_horizon,
+        baseline.landmark_edge_horizon,
     )
 
     output = _workspace_output(cfg)
@@ -323,7 +325,8 @@ def train(argv=None) -> int:
     goal_poses = [None] * vector.num_envs
     active_goals = [None] * vector.num_envs
     option_steps = np.zeros(vector.num_envs, dtype=np.int64)
-    planner_steps = np.zeros(vector.num_envs, dtype=np.int64)
+    planner_steps_remaining = np.zeros(vector.num_envs, dtype=np.int64)
+    previous_landmarks = [None] * vector.num_envs
     frames = decisions = updates = update_buckets = 0
     option_attempts = option_successes = 0
     next_checkpoint = baseline.checkpoint_frames
@@ -343,13 +346,22 @@ def train(argv=None) -> int:
                     if final_goals[i] is None or option_steps[i] >= baseline.goal_horizon:
                         final_goals[i], goal_poses[i] = replay.sample_goal()
                         active_goals[i] = final_goals[i]
-                        option_steps[i] = planner_steps[i] = 0
+                        option_steps[i] = 0
+                        planner_steps_remaining[i] = 0
+                        previous_landmarks[i] = None
                         option_attempts += 1
-                    if baseline.method == "l3p" and planner_steps[i] >= baseline.planner_horizon:
-                        active_goals[i] = planner.subgoal(
-                            current_features[i], final_goals[i], agent, device
+                    if baseline.method == "l3p" and planner_steps_remaining[i] <= 0:
+                        decision = planner.plan(
+                            current_features[i],
+                            final_goals[i],
+                            agent,
+                            device,
+                            previous_landmark=previous_landmarks[i],
+                            max_horizon=baseline.planner_horizon,
                         )
-                        planner_steps[i] = 0
+                        active_goals[i] = decision.goal
+                        planner_steps_remaining[i] = decision.steps
+                        previous_landmarks[i] = decision.landmark_index
                 agent.eval()
                 with torch.no_grad():
                     actions = agent.policy(
@@ -366,7 +378,7 @@ def train(argv=None) -> int:
             frames += sum(step_frames)
             decisions += vector.num_envs
             option_steps += 1
-            planner_steps += 1
+            planner_steps_remaining -= 1
 
             for i in range(vector.num_envs):
                 episode_actions[i].append(int(actions[i]))
@@ -387,7 +399,9 @@ def train(argv=None) -> int:
                     episode_poses[i] = [next_poses[i].copy()]
                     episode_actions[i] = []
                     final_goals[i] = goal_poses[i] = active_goals[i] = None
-                    option_steps[i] = planner_steps[i] = 0
+                    option_steps[i] = 0
+                    planner_steps_remaining[i] = 0
+                    previous_landmarks[i] = None
                 else:
                     episode_features[i].append(next_features[i].copy())
                     episode_poses[i].append(next_poses[i].copy())
@@ -396,6 +410,15 @@ def train(argv=None) -> int:
                         if distance <= float(cfg.exploration_coverage_grid_size):
                             option_successes += 1
                             final_goals[i] = None
+                    if len(episode_actions[i]) >= baseline.replay_segment_steps:
+                        replay.add(
+                            np.asarray(episode_features[i]),
+                            np.asarray(episode_actions[i]),
+                            np.asarray(episode_poses[i]),
+                        )
+                        episode_features[i] = [next_features[i].copy()]
+                        episode_poses[i] = [next_poses[i].copy()]
+                        episode_actions[i] = []
                 for key, value in per_info[i].get("periodic_stats", {}).items():
                     writer.add_scalar(key, float(value), frames)
             current_features, current_poses = next_features, next_poses
@@ -448,6 +471,10 @@ def train(argv=None) -> int:
                         planner_landmark_fraction=(
                             planner.landmark_subgoals / max(planner.subgoal_queries, 1)
                         ),
+                        planner_reachable_pair_fraction=planner.reachable_pair_fraction,
+                        planner_unreachable_queries=planner.unreachable_queries,
+                        planner_repeat_avoided=planner.repeat_avoided,
+                        planner_mean_commitment=planner.mean_commitment,
                     )
                 metrics_file.write(json.dumps(record, sort_keys=True) + "\n")
                 for key, value in record.items():

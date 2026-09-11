@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+import math
+
 import numpy as np
 import torch
 
@@ -36,6 +39,14 @@ def floyd_warshall_next(cost: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return distance, next_hop
 
 
+@dataclass(frozen=True)
+class PlanDecision:
+    goal: np.ndarray
+    steps: int
+    landmark_index: int | None
+    estimated_steps: float
+
+
 class LandmarkPlanner:
     def __init__(
         self,
@@ -43,18 +54,25 @@ class LandmarkPlanner:
         candidates: int = 1000,
         neighbors: int = 8,
         local_horizon: float = 16.0,
+        edge_horizon: float = 64.0,
     ) -> None:
         self.landmark_count = int(landmark_count)
         self.candidates = int(candidates)
         self.neighbors = int(neighbors)
         self.local_horizon = float(local_horizon)
+        self.edge_horizon = float(edge_horizon)
         self.features: np.ndarray | None = None
         self.poses: np.ndarray | None = None
         self.graph_cost: np.ndarray | None = None
+        self.graph_distance: np.ndarray | None = None
         self.rebuild_count = 0
         self.subgoal_queries = 0
         self.landmark_subgoals = 0
         self.finite_edges = 0
+        self.reachable_pair_fraction = 0.0
+        self.unreachable_queries = 0
+        self.repeat_avoided = 0
+        self.commitment_steps = 0
 
     @staticmethod
     def _distances(agent, states: np.ndarray, goals: np.ndarray, device: torch.device, block: int = 4096) -> np.ndarray:
@@ -72,7 +90,7 @@ class LandmarkPlanner:
     def rebuild(self, replay, agent, device: torch.device) -> None:
         features, poses = replay.sample_candidates(self.candidates)
         with torch.no_grad():
-            embedding = agent.goal_repr(torch.as_tensor(features, device=device)).cpu().numpy()
+            embedding = agent.landmark_repr(torch.as_tensor(features, device=device)).cpu().numpy()
         indices = farthest_point_indices(embedding, min(self.landmark_count, len(features)))
         self.features, self.poses = features[indices], poses[indices]
         dense = self._distances(agent, self.features, self.features, device)
@@ -80,26 +98,59 @@ class LandmarkPlanner:
         np.fill_diagonal(cost, 0.0)
         for row in range(len(cost)):
             order = np.argsort(dense[row])
-            order = order[order != row][: self.neighbors]
+            order = order[(order != row) & np.isfinite(dense[row, order])]
+            order = order[dense[row, order] <= self.edge_horizon][: self.neighbors]
             cost[row, order] = dense[row, order]
         self.graph_cost = cost
+        self.graph_distance, _ = floyd_warshall_next(cost)
         self.rebuild_count += 1
         self.finite_edges = int(np.isfinite(cost).sum() - len(cost))
+        off_diagonal = ~np.eye(len(cost), dtype=bool)
+        self.reachable_pair_fraction = float(
+            np.isfinite(self.graph_distance[off_diagonal]).mean()
+        )
 
-    def subgoal(self, state: np.ndarray, final_goal: np.ndarray, agent, device: torch.device) -> np.ndarray:
+    @property
+    def mean_commitment(self) -> float:
+        return self.commitment_steps / max(self.landmark_subgoals, 1)
+
+    def plan(
+        self,
+        state: np.ndarray,
+        final_goal: np.ndarray,
+        agent,
+        device: torch.device,
+        previous_landmark: int | None = None,
+        max_horizon: int = 64,
+    ) -> PlanDecision:
+        """Choose an L3P subgoal and persist it for predicted travel time.
+
+        The immediate previously attempted landmark is excluded, matching the
+        paper's anti-sticking mechanism. A direct goal is used whenever the
+        learned temporal model says it is locally reachable.
+        """
         self.subgoal_queries += 1
         if self.features is None or self.graph_cost is None:
-            return final_goal
+            return PlanDecision(final_goal, 1, None, math.inf)
         n = len(self.features)
         augmented = np.full((n + 2, n + 2), np.inf, dtype=np.float64)
         augmented[:n, :n] = self.graph_cost
         np.fill_diagonal(augmented, 0.0)
         start, goal = n, n + 1
         start_cost = self._distances(agent, state[None], self.features, device)[0]
-        for index in np.argsort(start_cost)[: self.neighbors]:
+        valid_start = np.flatnonzero(np.isfinite(start_cost) & (start_cost <= self.edge_horizon))
+        valid_start = valid_start[np.argsort(start_cost[valid_start])[: self.neighbors]]
+        if previous_landmark is not None and previous_landmark in valid_start:
+            valid_start = valid_start[valid_start != previous_landmark]
+            self.repeat_avoided += 1
+        for index in valid_start:
             augmented[start, index] = start_cost[index]
         finish_cost = self._distances(agent, self.features, final_goal[None], device)[:, 0]
-        for index in np.argsort(finish_cost)[: self.neighbors]:
+        valid_finish = np.flatnonzero(
+            np.isfinite(finish_cost) & (finish_cost <= self.edge_horizon)
+        )
+        valid_finish = valid_finish[np.argsort(finish_cost[valid_finish])[: self.neighbors]]
+        for index in valid_finish:
             augmented[index, goal] = finish_cost[index]
         direct_cost = float(self._distances(agent, state[None], final_goal[None], device)[0, 0])
         if direct_cost <= self.local_horizon:
@@ -107,6 +158,16 @@ class LandmarkPlanner:
         _, next_hop = floyd_warshall_next(augmented)
         hop = int(next_hop[start, goal])
         if hop in (-1, goal):
-            return final_goal
+            if hop == -1:
+                self.unreachable_queries += 1
+            steps = max(1, min(int(max_horizon), int(math.ceil(direct_cost)))) if math.isfinite(direct_cost) else 1
+            return PlanDecision(final_goal, steps, None, direct_cost)
+        estimated = float(start_cost[hop])
+        steps = max(1, min(int(max_horizon), int(math.ceil(estimated))))
         self.landmark_subgoals += 1
-        return self.features[hop]
+        self.commitment_steps += steps
+        return PlanDecision(self.features[hop], steps, hop, estimated)
+
+    def subgoal(self, state: np.ndarray, final_goal: np.ndarray, agent, device: torch.device) -> np.ndarray:
+        """Compatibility wrapper for callers that only need the goal feature."""
+        return self.plan(state, final_goal, agent, device).goal

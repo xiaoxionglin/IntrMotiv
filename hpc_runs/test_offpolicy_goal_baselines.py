@@ -78,6 +78,15 @@ class OffPolicyGoalBaselineTest(unittest.TestCase):
         (critic + actor).backward()
         self.assertEqual(agent.all_action_scores(state, goal).shape, (8, 5))
         self.assertIn("critic_accuracy", metrics)
+        self.assertIn("landmark_loss", metrics)
+        self.assertGreater(
+            sum(
+                float(parameter.grad.abs().sum())
+                for parameter in agent.landmark_encoder.parameters()
+                if parameter.grad is not None
+            ),
+            0.0,
+        )
 
     def test_farthest_points(self):
         points = np.asarray([[0.0], [1.0], [10.0], [11.0]])
@@ -110,6 +119,40 @@ class OffPolicyGoalBaselineTest(unittest.TestCase):
         )
         np.testing.assert_array_equal(subgoal, np.asarray([3.0], dtype=np.float32))
         self.assertEqual(planner.landmark_subgoals, 1)
+
+    def test_planner_commits_for_predicted_time_and_excludes_failed_landmark(self):
+        class DistanceAgent:
+            def eval(self):
+                return self
+
+            def temporal_distance(self, state, goal):
+                return torch.log1p(torch.abs(goal[:, 0] - state[:, 0]))
+
+        planner = LandmarkPlanner(
+            landmark_count=2, candidates=2, neighbors=2, local_horizon=2, edge_horizon=20
+        )
+        planner.features = np.asarray([[3.0], [7.0]], dtype=np.float32)
+        planner.graph_cost = np.asarray([[0.0, 4.0], [4.0, 0.0]])
+        first = planner.plan(
+            np.asarray([0.0], dtype=np.float32),
+            np.asarray([10.0], dtype=np.float32),
+            DistanceAgent(),
+            torch.device("cpu"),
+            max_horizon=64,
+        )
+        self.assertEqual(first.landmark_index, 0)
+        self.assertEqual(first.steps, 3)
+        second = planner.plan(
+            np.asarray([0.0], dtype=np.float32),
+            np.asarray([10.0], dtype=np.float32),
+            DistanceAgent(),
+            torch.device("cpu"),
+            previous_landmark=first.landmark_index,
+            max_horizon=64,
+        )
+        self.assertEqual(second.landmark_index, 1)
+        self.assertEqual(second.steps, 7)
+        self.assertEqual(planner.repeat_avoided, 1)
 
 
 if __name__ == "__main__":

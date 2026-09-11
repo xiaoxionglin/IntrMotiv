@@ -75,6 +75,10 @@ class ContrastiveGoalAgent(nn.Module):
         self.distance_head = nn.Sequential(
             nn.Linear(3 * repr_dim, hidden_dim), nn.ReLU(), nn.Linear(hidden_dim, 1), nn.Softplus()
         )
+        # L3P requires a symmetric landmark space whose geometry reflects
+        # temporal reachability. Medoids make a decoder unnecessary: every
+        # selected node remains an actually achieved frozen-visual feature.
+        self.landmark_encoder = _mlp(feature_dim, hidden_dim, repr_dim)
 
     def policy_logits(self, state: torch.Tensor, goal: torch.Tensor) -> torch.Tensor:
         return self.actor(torch.cat((state, goal), dim=-1))
@@ -113,6 +117,9 @@ class ContrastiveGoalAgent(nn.Module):
         g = self.distance_goal(goal)
         return self.distance_head(torch.cat((s, g, s - g), dim=-1)).squeeze(-1)
 
+    def landmark_repr(self, goal: torch.Tensor) -> torch.Tensor:
+        return self.landmark_encoder(goal)
+
     def losses(
         self,
         state: torch.Tensor,
@@ -122,6 +129,7 @@ class ContrastiveGoalAgent(nn.Module):
         random_goal: torch.Tensor,
         entropy_coeff: float = 0.01,
         logsumexp_coeff: float = 0.1,
+        landmark_loss_coeff: float = 1.0,
         max_future: int = 64,
     ) -> tuple[torch.Tensor, torch.Tensor, dict[str, float]]:
         critic, metrics = contrastive_loss(self.score_matrix(state, action, future_goal), logsumexp_coeff)
@@ -130,6 +138,12 @@ class ContrastiveGoalAgent(nn.Module):
         negative_distance = self.temporal_distance(state, random_goal)
         negative_floor = math.log1p(max_future)
         distance_loss = distance_loss + 0.5 * F.relu(negative_floor - negative_distance).square().mean()
+
+        landmark_state = self.landmark_repr(state)
+        landmark_goal = self.landmark_repr(future_goal)
+        landmark_distance = (landmark_state - landmark_goal).square().mean(dim=-1)
+        landmark_target = torch.log1p(offset.float())
+        landmark_loss = F.smooth_l1_loss(landmark_distance, landmark_target)
 
         logits = self.policy_logits(state, future_goal)
         log_probs = F.log_softmax(logits, dim=-1)
@@ -142,6 +156,8 @@ class ContrastiveGoalAgent(nn.Module):
             critic_loss=float(critic.detach()),
             distance_loss=float(distance_loss.detach()),
             distance_positive=float(torch.expm1(positive_distance.detach()).mean()),
+            landmark_loss=float(landmark_loss.detach()),
+            landmark_distance=float(landmark_distance.detach().mean()),
             policy_entropy=float((-(probs * log_probs).sum(dim=-1)).mean().detach()),
         )
-        return critic + distance_loss, actor, metrics
+        return critic + distance_loss + float(landmark_loss_coeff) * landmark_loss, actor, metrics
