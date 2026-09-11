@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.7.0**; study schema:
+Current implementation: **1.7.1**; study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -385,6 +385,24 @@ notes. “This batch is unusual” is not by itself sufficient reason to fork th
 core.
 
 ## Current boundaries
+
+### Future graph-planning runtime prerequisite (2026-09-11)
+
+Before the next new batch using topological/waypoint planning, incorporate the
+[validated graph-planning optimization](graph_planning_optimization_20260911.md)
+into that batch's source checkout and rerun its focused tests. It is currently
+staged, not deployed to the active DG-capacity batch. Preserve the source
+revision/diff in the ordinary print-only review and measure end-to-end FPS in
+the usual Slurm preflight; synthetic graph-function timings are not training
+throughput measurements. This source-only optimization does not change the
+StudySpec or workflow contract.
+
+Cache derived graph quantities by their actual effective inputs: current
+policy synchronization may bypass tensor mutation counters. Check exact
+selection and recurrent-state equivalence against archived source, including
+graph updates and checkpoint reloads. For FPS diagnosis, inspect 60-/300-second
+rates and cumulative frames; 10-second rates can read zero between learner
+counter updates.
 
 Version 1.x standardizes definition, collection, analysis, and telemetry
 planning. Slurm submission, monitoring, cancellation, and raw place-field

@@ -1,0 +1,79 @@
+{
+  "batch_name": "intrmotiv_dg_capacity_goal_conditioning_20260910",
+  "complete": false,
+  "condition_summary_rows": 9,
+  "expected_runs": 27,
+  "expected_snapshots": 81,
+  "expected_targets": [
+    5000000,
+    25000000,
+    75000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 126576,
+  "group_by": [
+    "capacity"
+  ],
+  "include_details": true,
+  "missing": [
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F16_S99",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F16_S123",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F32_S8",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F32_S99",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F32_S123",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F64_S8",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F64_S99",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "DGC_WAYPOINT_DG_F64_S123",
+      "target_env_steps": 75000000
+    }
+  ],
+  "observed_snapshots": 73,
+  "per_field_rows": 38098,
+  "per_snapshot_rows": 73,
+  "per_unit_rows": 2704,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 27,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_dg_capacity_goal_conditioning_20260910",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "dg_capacity_goal_conditioning_20260910",
+  "study_sha256": "eeb8bafd190ceb15da1fa6066532cb5f44b20c742cc4c1b9fb56b698fe01f47e",
+  "study_spec": "hpc_runs/studies/dg_capacity_goal_conditioning.study.json",
+  "study_workflow_version": "1.6.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.7.0"
+}

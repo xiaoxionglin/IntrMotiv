@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.7.0`
+- Implementation: `1.7.1`
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -8,6 +8,12 @@
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 ## Deployment status
+
+Version 1.7.1 fixes exact run discovery for the standard nested launcher layout
+`RUN_/00_RUN`: an empty outer container is excluded when its declared experiment
+is nested inside. Ancestors with their own config, summary, or checkpoint payload
+and distinct duplicate directories still fail as ambiguous. This is an
+analysis/discovery-only fix; training code and study fingerprints are unchanged.
 
 Version 1.7.0 adds `collect-online --latest-common`: it loads each run once,
 uses the latest step covered by every declared run and metric, and applies

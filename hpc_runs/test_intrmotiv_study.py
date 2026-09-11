@@ -60,6 +60,29 @@ class StudySpecTests(unittest.TestCase):
     def setUp(self) -> None:
         self.study = load_study(SPEC_PATH)
 
+    def test_nested_launcher_container_is_not_duplicate_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for run in self.study.expand_runs():
+                actual = root / f"{run.name}_" / f"00_{run.name}"
+                actual.mkdir(parents=True)
+                (actual / "config.json").write_text("{}")
+            found = discover_run_directories(self.study, root)
+            self.assertTrue(all(path.name.startswith("00_") for path in found.values()))
+            first = self.study.expand_runs()[0]
+            (root / f"{first.name}_" / "config.json").write_text("{}")
+            with self.assertRaises(SpecError):
+                discover_run_directories(self.study, root)
+
+    def test_distinct_duplicate_experiments_remain_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for run in self.study.expand_runs():
+                (root / run.name).mkdir()
+            (root / "copy" / self.study.expand_runs()[0].name).mkdir(parents=True)
+            with self.assertRaises(SpecError):
+                discover_run_directories(self.study, root)
+
     def test_real_factorial_study_expands_to_unique_runs(self):
         runs = self.study.expand_runs()
         self.assertEqual(self.study.expected_runs, 36)
@@ -70,7 +93,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.7.0")
+        self.assertEqual(WORKFLOW_VERSION, "1.7.1")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):

@@ -1,5 +1,14 @@
 # Scoped runtime source snapshots
 
+`graph_planning_optimization_20260911.tar.gz` and its adjacent reviewable patch
+contain the behavior-preserving graph-planning acceleration, regression tests,
+and reusable microbenchmark. **Staged only: apply before the next new batch,
+not silently during the current DG-capacity comparison.** Both local and
+isolated NEMO2 focused suites passed 39 tests; the patch passes live-source
+print-only application review. See
+[implementation and deployment record](../../04_implementation/graph_planning_optimization_20260911.md)
+and the adjacent SHA-256 metadata. The original DG-capacity archive is unchanged.
+
 `persistent_intrinsic_control_hotfix_20260908.tar.gz` preserves the complete
 Persistent Intrinsic Control runtime source after the legacy-recruitment /
 policy-graph invalidation hotfix. It retains the original implementation files

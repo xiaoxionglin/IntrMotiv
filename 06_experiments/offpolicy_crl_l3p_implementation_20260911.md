@@ -21,6 +21,12 @@ The promoted three-seed, one-million-frame pilot is declared by
 `aa3a7077e88657bfad711f86ceb872221e691ba3ecca0315d2cbc703a19d0f15`.
 Its six audited jobs are `8052591`--`8052596` for seeds 8, 99, and 123.
 
+The strengthened production implementation is declared by
+`hpc_runs/studies/offpolicy_goal_baselines_parallel_production_v2.study.json`,
+workflow version `1.7.0`, SHA-256
+`8ecad0d54b17f9ee5f67fe0a65b9e2eda880decfe2c171058facc5f2d6e05ebe`.
+Its six released L40S jobs are `8054886`--`8054891`.
+
 ## Why this is an adaptation
 
 The official CRL code is Acme/JAX/Reverb with continuous SAC-style policies.
@@ -46,10 +52,27 @@ while preserving the requested frozen visual encoder.
 
 The coordinate decoder and Gaussian-mixture centroids in original L3P are not
 well-defined visual goals under a fixed trunk. L3P+ therefore uses achieved
-observation medoids selected by farthest-point sampling in learned goal space.
-Every node is actionable. A directed temporal-distance model is supervised by
-future offsets and censored random negatives; its predicted costs form a
-sparse nearest-neighbor graph. Floyd-Warshall supplies the next visual subgoal.
+observation medoids selected by farthest-point sampling in a symmetric temporal
+landmark space. Every node is actionable. A directed temporal-distance model
+is supervised by future offsets and censored random negatives; only predicted-
+reachable edges enter the sparse directed graph. Floyd-Warshall supplies the
+next visual subgoal.
+
+The initial adaptation had three substantive weak links. It selected medoids
+in the generic contrastive goal embedding rather than a reachability-aligned
+space, replanned on a fixed cadence rather than committing for predicted travel
+time, and admitted every nearest-neighbor edge even when the distance model
+predicted it was unreachable. The strengthened implementation adds an L3P-only
+symmetric temporal landmark objective, clips graph edges at the trained
+64-decision horizon, commits to a landmark for its predicted duration, and
+excludes the immediately failed landmark on replanning. CRL does not evaluate
+or optimize the L3P-only head.
+
+Long 120-second DMLab episodes also delayed replay learning until timeout. Both
+methods now stream ordered 512-decision trajectory segments into replay. This
+preserves future-state ordering and the 64-decision relabeling horizon while
+making the first replay data available around 66k aggregate frames with 32
+collectors.
 
 A local-reachability gate permits the direct current-to-goal edge only when
 predicted distance is at most 16 decisions. Without this gate, the direct edge
@@ -163,10 +186,11 @@ and completed 500,096 frames with exit code zero in 5:21 and 5:22. Its
 StudySpec fingerprint is
 `8f578bd09b14e14ef84ff04bf2e7b73f0fc13ea3006ea9b8923c68171f062bf0`.
 
-Production requires both CRL+ and L3P+ to reach 500k frames with finite metrics,
-nonzero replay updates, active L3P graph use, and learner-active throughput of
-at least 2,500 frames/s each (76.5% of the reference). The staged production
-StudySpec is `hpc_runs/studies/offpolicy_goal_baselines_parallel_production.study.json`,
+The original launch decision required both CRL+ and L3P+ to reach 500k frames
+with finite metrics, nonzero replay updates, active L3P graph use, and learner-
+active throughput of at least 2,500 frames/s each (76.5% of the reference). The
+staged production StudySpec is
+`hpc_runs/studies/offpolicy_goal_baselines_parallel_production.study.json`,
 workflow `1.7.0`, fingerprint
 `85feeb53089aef1f4f68a0d31c1a6a2ba571c0a295d3af258dc24194bd9e91df`.
 Its six 10M-frame L40S runs passed local validation, the 35-test focused suite,
@@ -209,5 +233,45 @@ rebuilds and 400 finite directed edges, and landmark-subgoal fractions were
 85.8%, 86.2%, and 86.6%. The matched pilot therefore provides no evidence that
 explicit landmark planning improves exploration over CRL+ at 1M frames. Given
 the failed throughput gate and small, inconsistent seed-wise coverage effects,
-neither method warrants the staged 10M production matrix in its current
-synchronous learner architecture.
+neither method showed an empirical advantage that independently warranted the
+staged 10M matrix. The throughput measurements and pilot result remain valid;
+the later production decision was an explicit choice to obtain the longer-
+horizon comparison after strengthening the algorithmic implementation.
+
+## Strengthened gate and production v2 launch
+
+The strengthened code passed 38 local and synchronized NEMO2 tests. A fresh
+L40S correctness pair (`8054884`, `8054885`) was audited but remained pending
+because all partition GPUs were allocated, then was canceled without running.
+The correctness-only CPU fallback StudySpec has SHA-256
+`effabeee3649a3d0feba17f1f1d31797215768074453bf9690dbcb9742da9164`.
+Jobs `8054893` (CRL+) and `8054894` (L3P+) completed 250,112 frames with exit
+code `0:0` in 5:51 and 7:10. Both wrote 125k, 250k, and terminal checkpoints.
+
+The gate exercised the causal weak links rather than merely importing the
+modules. Replay contained 16,384 transitions by the first records at 65,792--
+72,576 frames, well before full-episode timeout. CRL reported zero landmark
+loss and no gradient path through the L3P-only head. L3P's landmark loss fell
+from 2.51 to 0.50 by its last periodic record. At that record its retrieval
+accuracy was 0.273 (chance is 0.0078), graph pair reachability was 0.710, 400
+filtered directed edges remained, 93.4% of 1,795 planner queries selected a
+landmark, mean commitment was 29.6 decisions, and 540 immediate repeats had
+been avoided. Pair reachability reached 1.0 at the preceding rebuild and later
+varied as the learned geometry changed; this is a useful production diagnostic,
+not a fixed invariant.
+
+Production v2 uses the same 32-collector L40S configuration whose measured
+throughput was accepted, the exact frozen ImageNet ResNet-18 layer-2 trunk, no
+pose policy input, paired seeds 8/99/123, and 10M frames per cell. Its print-only
+and submitted manifests passed the canonical audit. The scheduler ignored an
+attempted `SBATCH_DEPENDENCY` environment variable, so jobs `8054886`--
+`8054891` were explicitly held before allocation, then released only after the
+CPU correctness gate passed. They are now eligible in the L40S queue; a
+`Priority` pending reason reflects partition saturation rather than a hold or
+dependency.
+
+Reusable launch lesson: do not assume a launcher-propagated `SBATCH_DEPENDENCY`
+environment variable is honored. Verify `Dependency=` in `scontrol show job`
+immediately. For a manually gated batch, explicit `scontrol hold`/`release`
+provided the authoritative scheduler state, while the StudySpec audit remained
+authoritative for the scientific command matrix.

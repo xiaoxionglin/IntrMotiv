@@ -249,6 +249,7 @@
     ],
     "max_workers": 4,
     "group_by": [
+      "base",
       "capacity"
     ],
     "contrast_group_by": [],
@@ -266,8 +267,8 @@
       "target_hit_event_count": "intrmotiv/hrl/target_hit_event_count",
       "shuffled_hit_numerator": "intrmotiv/hrl/shuffled_hit_numerator",
       "shuffled_hit_event_count": "intrmotiv/hrl/shuffled_hit_event_count",
-      "grounded_controllability": "intrmotiv/hrl/grounded_controllability",
-      "reliable_global_efficiency": "intrmotiv/hrl/reliable/global_efficiency",
+      "grounded_controllability": "intrmotiv/hrl/summary/grounded_controllability",
+      "reliable_global_efficiency": "intrmotiv/hrl/summary/reliable_global_efficiency",
       "goal_hit_fraction": "intrmotiv/memory/goal_hit_fraction",
       "goal_active_fraction": "intrmotiv/memory/goal_active_fraction",
       "goal_ambiguous_fraction": "intrmotiv/memory/goal_ambiguous_fraction",

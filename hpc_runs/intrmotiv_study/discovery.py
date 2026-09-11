@@ -22,6 +22,17 @@ def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Pa
     for path in batch_root.rglob("*"):
         if path.is_dir() and path.name in accepted_names:
             found[accepted_names[path.name]].append(path)
+    # RUN_/00_RUN is a launcher container plus its actual experiment, not two
+    # experiments. Only discard an ancestor without any run payload; genuine
+    # duplicates (including nested experiments) must still fail closed.
+    for run_name, paths in found.items():
+        found[run_name] = [
+            path for path in paths
+            if not (
+                any(path in other.parents for other in paths if other != path)
+                and not any((path / marker).exists() for marker in ("config.json", "cfg.json", ".summary", "checkpoint_p0"))
+            )
+        ]
     errors = {
         run_name: paths for run_name, paths in found.items() if len(paths) != 1
     }
