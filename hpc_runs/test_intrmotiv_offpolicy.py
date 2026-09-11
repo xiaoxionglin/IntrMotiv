@@ -157,3 +157,14 @@ class IntegrationContractsTest(unittest.TestCase):
         self.assertEqual(q.argmax(-1).tolist(),[0,1])
         self.assertLess(torch.max(torch.abs(q-torch.eye(2))).item(),.1)
         self.assertEqual(learner.updates//learner.target_period,50)
+
+class GoalWriteTest(unittest.TestCase):
+    def test_goal_changes_memory_but_not_achievement(self):
+        modulation=torch.zeros(2,4);modulation[1,:2]=1
+        worker=QWorker(Decoder(),2,1,repeat_width=1,length=3,write_modulation=modulation,n_actions=2)
+        pre=torch.tensor([[3.,2.]])
+        canonical=canonical_events(torch.relu(pre-2.43),exclusive=True)
+        _,a=worker.step(worker.initial(1),pre,torch.zeros(1,1),torch.tensor([0]),torch.tensor([64]))
+        _,b=worker.step(worker.initial(1),pre,torch.zeros(1,1),torch.tensor([1]),torch.tensor([64]))
+        self.assertFalse(torch.equal(a,b))
+        self.assertTrue(torch.equal(canonical,canonical_events(torch.relu(pre-2.43),exclusive=True)))

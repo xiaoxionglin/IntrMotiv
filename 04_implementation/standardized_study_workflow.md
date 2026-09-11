@@ -469,3 +469,23 @@ to a snapshot/terminal target may leave that artifact pending even when the
 model reaches its frame target. Preserve old logs and checkpoint hashes when
 requeueing, and inspect the actual runner's timer semantics rather than assuming
 wall-clock progress is restored with optimizer/model state.
+
+### Recurrent off-policy preflight lessons (2026-09-11)
+
+Derive preflight length from aggregate decisions and all delayed cadences.
+With 16,384 warmup decisions, one update per 64 decisions, and a target copy
+every 1,000 updates, a 250k-frame/repeat-4 preflight cannot reach the first copy.
+The DDQN diagnostic uses 500k frames and checks physical resets separately.
+
+Keep multiprocessing TMPDIR paths short while staying inside the allocated
+workspace. The first isolated DDQN jobs (8055861/8055862) failed at forkserver
+startup with `AF_UNIX path too long`; `/work/classic/fr_xl1014-train/tmp/ddqn_JOBID`
+leaves room for Python's generated socket suffix. Preserve the failed artifacts
+and use a new run namespace after corrections.
+
+When deploying canonical tests into an isolated runtime, include their reference
+StudySpecs. A missing `graph_stabilized_recruitment.study.json` caused fixture
+errors on the initial copy; the unchanged tests passed after copying fixtures.
+Use the [DDQN batch record](../06_experiments/intrmotiv_ddqn_her_implementation_20260911.md)
+for exact source, tests, manifests, and the distinction between frozen-reference
+control and future adaptive-DG work.

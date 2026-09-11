@@ -20,6 +20,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Implementation
 
+- [[../06_experiments/intrmotiv_ddqn_her_implementation_20260911|Recurrent DDQN/HER implementation and batch gates, 2026-09-11]]
+
 - [[../04_implementation/graph_planning_optimization_20260911|Graph-planning optimization for future batches, 2026-09-11]]
 - [[../04_implementation/architecture/README|Architecture Reference]]
 - [[../04_implementation/architecture/losses|Loss Catalogue]]

@@ -1,0 +1,93 @@
+{
+  "batch_name": "intrmotiv_ddqn_her_preflight2_20260911",
+  "expected_runs": 2,
+  "rows": [
+    {
+      "args": [
+        "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
+        "--parent-manifest=06_experiments/data/intrmotiv_ddqn_her_20260911/parent_manifest.json",
+        "--parent-run=DGC_DIRECT_WORKER_F16_S99",
+        "--total-frames=500000",
+        "--num-envs=32",
+        "--device=cpu",
+        "--torch-threads=8",
+        "--registry=1,4,11",
+        "--replay-capacity=200000",
+        "--learning-start=16384",
+        "--milestones=0,250000,500000,1000000,2500000,5000000",
+        "--her-fraction=0.0",
+        "--seed=99"
+      ],
+      "base": "DDQN",
+      "batch": "intrmotiv_ddqn_her_preflight2_20260911",
+      "condition": "DQPF_DDQN",
+      "factor_labels": {},
+      "factors": {},
+      "metadata": {
+        "action_repeat": 4,
+        "action_set": "navigation8",
+        "comparison": "DDQN_vs_DDQN_HER_only",
+        "development_goals": "1,4,11",
+        "graph_learning": false,
+        "her": false,
+        "parent_frames": 25001984,
+        "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+        "parent_source_seed": 99,
+        "policy_pose_input": false,
+        "recognition": "exclusive",
+        "release_status": "gated",
+        "representation": "frozen",
+        "stage": "preflight"
+      },
+      "name": "DQPF_DDQN_S99",
+      "seed": 99
+    },
+    {
+      "args": [
+        "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
+        "--parent-manifest=06_experiments/data/intrmotiv_ddqn_her_20260911/parent_manifest.json",
+        "--parent-run=DGC_DIRECT_WORKER_F16_S99",
+        "--total-frames=500000",
+        "--num-envs=32",
+        "--device=cpu",
+        "--torch-threads=8",
+        "--registry=1,4,11",
+        "--replay-capacity=200000",
+        "--learning-start=16384",
+        "--milestones=0,250000,500000,1000000,2500000,5000000",
+        "--her-fraction=0.8",
+        "--seed=99"
+      ],
+      "base": "DDQN_HER",
+      "batch": "intrmotiv_ddqn_her_preflight2_20260911",
+      "condition": "DQPF_DDQN_HER",
+      "factor_labels": {},
+      "factors": {},
+      "metadata": {
+        "action_repeat": 4,
+        "action_set": "navigation8",
+        "comparison": "DDQN_vs_DDQN_HER_only",
+        "development_goals": "1,4,11",
+        "graph_learning": false,
+        "her": true,
+        "parent_frames": 25001984,
+        "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+        "parent_source_seed": 99,
+        "policy_pose_input": false,
+        "recognition": "exclusive",
+        "release_status": "gated",
+        "representation": "frozen",
+        "stage": "preflight"
+      },
+      "name": "DQPF_DDQN_HER_S99",
+      "seed": 99
+    }
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "intrmotiv_ddqn_her_preflight2_20260911",
+  "study_sha256": "e7de99e78d56c8d7cc2c51550dd79d5ef4f09fdab95ff4f9a0155970cab632c0",
+  "study_spec": "hpc_runs/studies/intrmotiv_ddqn_her_preflight2.study.json",
+  "study_workflow_version": "1.8.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.0"
+}

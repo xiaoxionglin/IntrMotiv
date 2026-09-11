@@ -22,7 +22,8 @@ def main():
     cfg,env,env_info,actor,path,device=load_policy_env(args.parent_run_dir,args.decision_cap*4,True,0,args.parent_checkpoint)
     callback=None
     if args.child_checkpoint:
-        child=load_checkpoint_dict(args.child_checkpoint,device)
+        with torch.serialization.safe_globals([type(Path('.'))]):
+            child=load_checkpoint_dict(args.child_checkpoint,device)
         if child['schema']!='intrmotiv/ddqn-worker/v1': raise ValueError('wrong child checkpoint schema')
         if cfg.dg_goal_input!='none': raise ValueError('write-conditioned actor evaluation not qualified')
         worker,_=convert_actor(actor,cfg,env.unwrapped.action_list,int(child['config']['seed']))
@@ -38,6 +39,13 @@ def main():
         args.decision_cap,deterministic=True,max_sources=4,targets_per_source=3,repeats=3,
         policy_step=callback,deadline_override=64,target_registry=[int(x) for x in args.registry.split(',')])
     rows.to_csv(output/'trials.csv',index=False)
+    if len(rows):
+        commanded = rows[rows.commanded]
+        summary.update(commanded_successes=int(commanded.hit.sum()),commanded_trials=len(commanded),
+            commanded_arrival_lower_bound=float(commanded.hit.mean()),
+            censored_commanded_trials=int(commanded.censored.sum()),
+            restricted_mean_first_arrival=float(commanded.apply(
+                lambda row: row.hit_time if row.hit else row.deadline,axis=1).mean()))
     summary.update(child_checkpoint=str(args.child_checkpoint) if args.child_checkpoint else None,
         independent_spatial_destination_qualification=False,registry_scope='post_hoc_development',
         physical_prefixes='same seeds and passive source inventory across parent/child')
