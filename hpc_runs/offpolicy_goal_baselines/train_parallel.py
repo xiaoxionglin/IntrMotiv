@@ -132,13 +132,25 @@ def parse_args(argv=None):
     )
     vector_ns, remaining = vector_parser.parse_known_args(argv)
     baseline_ns, remaining = _baseline_parser().parse_known_args(remaining)
-    from sf_working_directories.IntrMotiv.dmlab.train_hipposlam import parse_dmlab_args
+    # Reuse the established argument definitions without importing the APPO
+    # runner, learner, and telemetry stack that this standalone learner does
+    # not instantiate. This also keeps the collector runtime dependency-small.
+    from sample_factory.cfg.arguments import parse_full_cfg, parse_sf_args
+    from sf_working_directories.IntrMotiv.dmlab.custom_params import (
+        add_hipposlam_env_args,
+        hipposlam_override_defaults,
+    )
+    from sf_working_directories.IntrMotiv.dmlab.dmlab_params import add_dmlab_env_args
 
-    cfg = parse_dmlab_args(remaining)
+    parser, _ = parse_sf_args(remaining, evaluation=False)
+    add_hipposlam_env_args(parser)
+    add_dmlab_env_args(parser)
+    hipposlam_override_defaults(parser)
+    cfg = parse_full_cfg(parser, remaining)
     from hpc_runs.offpolicy_goal_baselines.train import BaselineConfig
 
     baseline = BaselineConfig(
-        **{key.removeprefix("baseline_"): value for key, value in vars(baseline_ns).items()}
+        **{key[len("baseline_") :]: value for key, value in vars(baseline_ns).items()}
     )
     vector = VectorConfig(
         num_envs=int(vector_ns.baseline_num_envs), context=str(vector_ns.baseline_vector_context)

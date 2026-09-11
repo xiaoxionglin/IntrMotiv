@@ -93,7 +93,7 @@ def parse_args(argv=None):
     from sf_working_directories.IntrMotiv.dmlab.train_hipposlam import parse_dmlab_args
 
     cfg = parse_dmlab_args(remaining)
-    values = {key.removeprefix("baseline_"): value for key, value in vars(baseline_ns).items()}
+    values = {key[len("baseline_") :]: value for key, value in vars(baseline_ns).items()}
     baseline = BaselineConfig(**values)
     if cfg.encoder_conv_architecture != "layer2_resnet18":
         raise ValueError("off-policy baselines require --encoder_conv_architecture=layer2_resnet18")
