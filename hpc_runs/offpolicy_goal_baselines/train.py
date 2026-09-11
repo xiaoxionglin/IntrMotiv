@@ -160,7 +160,15 @@ def _workspace_output(cfg) -> Path:
 
 def _write_json(path: Path, payload) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    temporary.write_text(
+        json.dumps(
+            payload,
+            indent=2,
+            sort_keys=True,
+            default=lambda value: value.item() if isinstance(value, np.generic) else str(value),
+        )
+        + "\n"
+    )
     os.replace(temporary, path)
 
 
@@ -226,7 +234,7 @@ def train(argv=None) -> int:
             "baseline": asdict(baseline),
             "seed": int(cfg.seed),
             "environment": cfg.env,
-            "action_count": env.action_space.n,
+            "action_count": int(env.action_space.n),
             "action_repeat": int(cfg.env_frameskip),
             "visual_encoder": "layer2_resnet18_imagenet_frozen",
             "policy_pose_input": False,
@@ -271,10 +279,20 @@ def train(argv=None) -> int:
             frames += step_frames
             option_steps += 1
             planner_steps += 1
-            next_feature = feature_extractor(next_observation)
+            done = bool(terminated or truncated)
+            # DMLab does not expose a fresh terminal image. Its compatibility
+            # path returns the cached observation, which PixelFormatChwWrapper
+            # would otherwise transpose a second time. Retain the last valid
+            # feature/pose as the absorbing terminal sample.
+            if done:
+                next_feature = current_feature.copy()
+                next_pose = episode_poses[-1].copy()
+            else:
+                next_feature = feature_extractor(next_observation)
+                next_pose = _pose(next_observation)
             episode_actions.append(action)
             episode_features.append(next_feature)
-            episode_poses.append(_pose(next_observation))
+            episode_poses.append(next_pose)
             current_feature = next_feature
 
             if ready and goal_pose is not None:
@@ -283,7 +301,6 @@ def train(argv=None) -> int:
                     option_successes += 1
                     final_goal = None
 
-            done = bool(terminated or truncated)
             if done:
                 replay.add(np.asarray(episode_features), np.asarray(episode_actions), np.asarray(episode_poses))
                 for key, value in info.get("episode_extra_stats", {}).items():
