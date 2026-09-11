@@ -108,3 +108,25 @@ finite, entropy has not collapsed, and the corrected planner is actively used.
 The one-million-frame pilot therefore advances the same settings without new
 tuning. Interpret its paired three-seed terminal windows before deciding on a
 long production comparison with IntrMotiv.
+
+## Production screen
+
+The production screen is declared by
+`hpc_runs/studies/offpolicy_goal_baselines_production.study.json`, workflow
+version `1.7.0`, SHA-256
+`d1dbe5065ecc820606b4490ed79366bd414c241412e1a779ea61016e5ca1cb6e`.
+It runs CRL+ and graph-gated L3P+ for 10M frames at paired seeds 8, 99, and 123,
+with checkpoints every 1M frames and synchronized analysis milestones at 1M,
+2.5M, 5M, 7.5M, and 10M. The replay holds 200k frozen feature transitions;
+all other learned-objective settings are unchanged from the passing gate.
+
+Ten million frames is the production screening horizon rather than the usual
+75M IntrMotiv horizon. Measured single-environment throughput projects 75M to
+roughly four days per run, beyond the established 30-hour NEMO2 CPU envelope;
+10M is expected to finish in approximately 12--13 hours and includes forty L3P
+graph rebuild opportunities. Escalate the winner to the shared longer horizon
+only if paired coverage and control evidence at 10M warrants the cost.
+
+The print-only matrix and submitted manifest both passed the canonical audit.
+NEMO2 jobs `8052615`--`8052620` were submitted with a 30-hour limit, and all
+six entered the running state.

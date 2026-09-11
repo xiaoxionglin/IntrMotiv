@@ -125,21 +125,31 @@ class FrozenVisualFeatures:
                 raise RuntimeError("visual trunk is not frozen")
 
     def __call__(self, observation: dict) -> np.ndarray:
-        image = np.asarray(observation["obs"])
-        if image.shape[0] not in (3, 4):
-            image = np.transpose(image, (2, 0, 1))
-        tensor = torch.as_tensor(image[:3], device=self.device, dtype=torch.float32).unsqueeze(0) / 255.0
+        batched = {key: np.expand_dims(np.asarray(value), 0) for key, value in observation.items()}
+        return self.batch(batched)[0]
+
+    def batch(self, observations: dict) -> np.ndarray:
+        """Encode a vector-environment observation batch in one trunk call."""
+        image = np.asarray(observations["obs"])
+        if image.ndim != 4:
+            raise ValueError(f"expected batched images [N,C,H,W] or [N,H,W,C], got {image.shape}")
+        if image.shape[1] not in (3, 4):
+            if image.shape[-1] not in (3, 4):
+                raise ValueError(f"cannot identify RGB channels in batched shape {image.shape}")
+            image = np.transpose(image, (0, 3, 1, 2))
+        tensor = torch.as_tensor(image[:, :3], device=self.device, dtype=torch.float32) / 255.0
         with torch.no_grad():
-            visual = self.trunk(tensor).squeeze(0).cpu().numpy()
-        instruction = np.zeros(3, dtype=np.float32)
-        for key, value in observation.items():
+            visual = self.trunk(tensor).cpu().numpy()
+        batch_size = image.shape[0]
+        instruction = np.zeros((batch_size, 3), dtype=np.float32)
+        for key, value in observations.items():
             array = np.asarray(value)
-            if key not in ("obs", "telemetry_pose", "prev_action") and array.size == 1:
-                index = int(array.reshape(-1)[0]) - 1
-                if 0 <= index < 3:
-                    instruction[index] = self.number_instruction_coef
+            if key not in ("obs", "telemetry_pose", "prev_action") and array.size == batch_size:
+                indices = array.reshape(batch_size).astype(np.int64) - 1
+                valid = (indices >= 0) & (indices < 3)
+                instruction[np.arange(batch_size)[valid], indices[valid]] = self.number_instruction_coef
                 break
-        return np.concatenate((visual.astype(np.float32), instruction))
+        return np.concatenate((visual.astype(np.float32), instruction), axis=1)
 
 
 def _pose(observation: dict) -> np.ndarray:

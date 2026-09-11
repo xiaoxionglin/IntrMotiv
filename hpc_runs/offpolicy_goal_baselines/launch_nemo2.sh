@@ -20,6 +20,11 @@ REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
 PYTHON=${SFGIT_PYTHON:-/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python}
 TRAIN_ROOT=${INTRMOTIV_TRAIN_ROOT:-/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir}
 TIMEOUT=${INTRMOTIV_OFFPOLICY_SLURM_TIMEOUT:-02:00:00}
+TRAIN_MODULE=${INTRMOTIV_OFFPOLICY_TRAIN_MODULE:-hpc_runs.offpolicy_goal_baselines.train}
+PARTITION=${INTRMOTIV_OFFPOLICY_SLURM_PARTITION:-cpu}
+GPUS=${INTRMOTIV_OFFPOLICY_SLURM_GPUS:-0}
+CPUS=${INTRMOTIV_OFFPOLICY_SLURM_CPUS:-16}
+MEMORY=${INTRMOTIV_OFFPOLICY_SLURM_MEMORY:-40G}
 RUN_NAME=$(
   "$PYTHON" -c 'import importlib, sys; print(importlib.import_module(sys.argv[1]).RUN_DESCRIPTION.run_name)' "$RUN_MODULE"
 )
@@ -42,10 +47,10 @@ exec "$PYTHON" -m sample_factory.launcher.run \
   --slurm_workdir="$WORKDIR" \
   --slurm_log_dir="$WORKDIR/logs" \
   --slurm_sbatch_template="$REPO_ROOT/hpc_runs/offpolicy_goal_baselines/nemo2_sfgit_offpolicy.sh" \
-  --slurm_partition=cpu \
-  --slurm_gpus_per_job=0 \
-  --slurm_cpus_per_job=16 \
-  --slurm_memory=40G \
+  --slurm_partition="$PARTITION" \
+  --slurm_gpus_per_job="$GPUS" \
+  --slurm_cpus_per_job="$CPUS" \
+  --slurm_memory="$MEMORY" \
   --slurm_timeout="$TIMEOUT" \
   --slurm_separate_stderr=True \
   --slurm_print_only="$PRINT_ONLY" \

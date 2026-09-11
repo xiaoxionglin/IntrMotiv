@@ -23,4 +23,5 @@ export WANDB_DIR="$$RUNTIME_ROOT/wandb"
 export TMPDIR="$$RUNTIME_ROOT/tmp/$${SLURM_JOB_ID:-manual}"
 mkdir -p "$$XDG_CACHE_HOME" "$$MPLCONFIGDIR" "$$WANDB_CACHE_DIR" "$$WANDB_DATA_DIR" "$$WANDB_DIR" "$$TMPDIR"
 
-exec python -m hpc_runs.offpolicy_goal_baselines.train $CMD
+TRAIN_MODULE=$${INTRMOTIV_OFFPOLICY_TRAIN_MODULE:-hpc_runs.offpolicy_goal_baselines.train}
+exec python -m "$$TRAIN_MODULE" $CMD
