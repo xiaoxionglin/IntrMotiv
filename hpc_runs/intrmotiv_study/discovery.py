@@ -12,7 +12,11 @@ def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Pa
     accepted_names = {
         candidate: run_name
         for run_name in expected
-        for candidate in (run_name, f"00_{run_name}")
+        # Sample Factory's launcher normally creates ``00_RUN``. Its custom
+        # ``train_dir`` projection for standalone entry points can instead
+        # remove the numeric prefix while retaining the separator as
+        # ``RUN_``. Both are deterministic renderings of the declared name.
+        for candidate in (run_name, f"00_{run_name}", f"{run_name}_", f"00_{run_name}_")
     }
     found: dict[str, list[Path]] = {run_name: [] for run_name in expected}
     for path in batch_root.rglob("*"):
@@ -27,4 +31,3 @@ def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Pa
         )
         raise SpecError(f"expected exactly one directory per declared run; {details}")
     return {run_name: paths[0] for run_name, paths in found.items()}
-

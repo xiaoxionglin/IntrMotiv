@@ -13,6 +13,7 @@ import numpy as np
 from hpc_runs.graph_stabilized_recruitment_manifest import rows as legacy_rows
 from hpc_runs.intrmotiv_study import SCHEMA_ID, SpecError, WORKFLOW_VERSION, load_study
 from hpc_runs.intrmotiv_study.analysis import linear_contrasts, summarize_records
+from hpc_runs.intrmotiv_study.discovery import discover_run_directories
 from hpc_runs.intrmotiv_study.sample_factory import build_run_description
 from hpc_runs.intrmotiv_study.submission import audit_submission
 from hpc_runs.intrmotiv_study.telemetry import (
@@ -77,6 +78,16 @@ class StudySpecTests(unittest.TestCase):
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
         self.assertEqual(schema["$id"], SCHEMA_ID)
         self.assertIn("training", schema["properties"])
+
+    def test_discovery_accepts_launcher_separator_suffix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            expected = self.study.expand_runs()
+            for run in expected:
+                (root / f"{run.name}_").mkdir()
+            found = discover_run_directories(self.study, root)
+        self.assertEqual(set(found), {run.name for run in expected})
+        self.assertTrue(all(path.name.endswith("_") for path in found.values()))
 
     def test_goal_subset_interventions_include_all_five_seeds(self):
         study = load_study(SPEC_PATH.with_name("ca3_memory_novelty_goal.study.json"))

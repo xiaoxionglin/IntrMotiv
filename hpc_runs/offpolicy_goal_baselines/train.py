@@ -269,7 +269,9 @@ def train(argv=None) -> int:
             "feature_dim": feature_dim,
         },
     )
-    writer = SummaryWriter(str(output / "events"))
+    # Match the canonical IntrMotiv/Sample Factory event-directory contract so
+    # collect-online can consume these standalone off-policy runs unchanged.
+    writer = SummaryWriter(str(output / ".summary" / "0"))
     metrics_file = (output / "metrics.jsonl").open("a", buffering=1)
 
     episode_features = [current_feature]

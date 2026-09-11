@@ -19,6 +19,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
 PYTHON=${SFGIT_PYTHON:-/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python}
 TRAIN_ROOT=${INTRMOTIV_TRAIN_ROOT:-/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir}
+TIMEOUT=${INTRMOTIV_OFFPOLICY_SLURM_TIMEOUT:-02:00:00}
 RUN_NAME=$(
   "$PYTHON" -c 'import importlib, sys; print(importlib.import_module(sys.argv[1]).RUN_DESCRIPTION.run_name)' "$RUN_MODULE"
 )
@@ -45,7 +46,7 @@ exec "$PYTHON" -m sample_factory.launcher.run \
   --slurm_gpus_per_job=0 \
   --slurm_cpus_per_job=16 \
   --slurm_memory=40G \
-  --slurm_timeout=02:00:00 \
+  --slurm_timeout="$TIMEOUT" \
   --slurm_separate_stderr=True \
   --slurm_print_only="$PRINT_ONLY" \
   --pause_between=1 \

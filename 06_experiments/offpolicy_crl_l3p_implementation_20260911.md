@@ -5,15 +5,21 @@ Date: 2026-09-11
 ## Status
 
 CRL+ and L3P+ are implemented as discrete-action, visual goal-conditioned
-off-policy baselines. The canonical preflight3 StudySpec is
+off-policy baselines. The corrected canonical preflight5 StudySpec is
 `hpc_runs/studies/offpolicy_goal_baselines_preflight.study.json`, workflow
 version `1.7.0`, SHA-256
-`9906edd19692afe8540a85d1899559d07e67e251d176ad738c51b9705cbedf0d`.
+`34fcd452196234686fb3e1320f384bb4d38fa0ecc6544513fbc5b9723c66b8f0`.
 
-NEMO2 jobs `8052513` (CRL+) and `8052514` (L3P+) passed environment creation,
-the frozen encoder contract, a complete 1,800-step episode, future-goal replay,
-and the first learner updates. They are 100k-frame runtime gates, not final
-performance runs.
+NEMO2 jobs `8052564` (CRL+) and `8052565` (L3P+) completed 100k frames with
+exit code zero in 7:30 and 6:27 respectively. Both wrote final checkpoints,
+TensorBoard histories, provenance, and finite learner metrics. These are
+runtime/learning gates, not final performance runs.
+
+The promoted three-seed, one-million-frame pilot is declared by
+`hpc_runs/studies/offpolicy_goal_baselines_pilot.study.json`, workflow version
+`1.7.0`, SHA-256
+`aa3a7077e88657bfad711f86ceb872221e691ba3ecca0315d2cbc703a19d0f15`.
+Its six audited jobs are `8052591`--`8052596` for seeds 8, 99, and 123.
 
 ## Why this is an adaptation
 
@@ -45,6 +51,10 @@ Every node is actionable. A directed temporal-distance model is supervised by
 future offsets and censored random negatives; its predicted costs form a
 sparse nearest-neighbor graph. Floyd-Warshall supplies the next visual subgoal.
 
+A local-reachability gate permits the direct current-to-goal edge only when
+predicted distance is at most 16 decisions. Without this gate, the direct edge
+always bypassed the landmark graph even though its nodes and edges were valid.
+
 This is intended as a stronger compatible variant, not a claim of exact source
 reproduction. The matched CRL+ cell isolates the effect of explicit landmark
 planning because both cells share the controller and representation objective.
@@ -62,17 +72,39 @@ again. The trainer now treats the last valid feature and pose as the absorbing
 terminal sample. Each correction used a new batch/output namespace, preventing
 failed artifacts from being confused with valid results.
 
+The preflight4 pair (`8052541`, `8052542`) completed cleanly but exposed the
+planner bypass: L3P+ rebuilt 50-node graphs with 400 finite directed edges, yet
+its landmark-subgoal fraction remained exactly zero. Preflight5 added the
+local-reachability gate. At its last periodic record, L3P+ had rebuilt three
+graphs and selected landmark subgoals for 83.6% of 972 planner queries.
+
+The canonical collector then exposed two standalone-launcher integration
+details. Sample Factory projected `00_RUN` into a `RUN_` directory, and the
+standalone trainer initially wrote events to `events/` rather than
+`.summary/0/`. Discovery now accepts the deterministic separator suffix, with
+a regression test, and new training writes the canonical summary layout.
+Compatibility symlinks were added only to the two completed preflight batches.
+
 The authoritative checks were the generated `jobs.tsv`, canonical submission
-audit, Slurm stderr, workspace `run_config.json`, and live `metrics.jsonl`.
-Repository-only unit tests could not expose either runtime boundary. Future
-off-policy environment integrations should run a one-episode Slurm gate before
-larger matrix work and should validate JSON scalar types and terminal
-observation shapes explicitly.
+audit, Slurm stderr, workspace `run_config.json`, checkpoints, TensorBoard
+events, and live `metrics.jsonl`. Repository-only unit tests could not expose
+the environment/runtime boundaries. Future off-policy integrations should run
+a one-episode Slurm gate before larger matrices and validate JSON scalar types,
+terminal observation shapes, planner use, run-directory discovery, and event
+layout explicitly.
 
-## Decision gate
+## 100k-frame result and decision gate
 
-Do not launch multi-seed production solely because losses are finite. First
-require both preflights to finish with checkpoints and event files, confirm L3P
-rebuilds and uses its graph, inspect policy entropy for collapse, and compare
-coverage against random-action behavior over the same 100k frames. Only then
-freeze a production StudySpec and repeat print-only review.
+Over the final 50k-frame TensorBoard window for seed 99, CRL+ reached mean
+coverage AUC 51.16, contrastive retrieval accuracy 0.128, policy entropy 1.45,
+and option success 0.0309. L3P+ reached coverage AUC 49.53, retrieval accuracy
+0.131, entropy 1.63, and option success 0.0259. Chance retrieval is 1/128, so
+both critics learned nontrivial matching. There is no credible winner at one
+seed and 100k frames; CRL+'s AUC lead is only 1.63, and L3P+ has only recently
+begun using its graph.
+
+The gate criteria are satisfied: terminal checkpoints exist, metrics are
+finite, entropy has not collapsed, and the corrected planner is actively used.
+The one-million-frame pilot therefore advances the same settings without new
+tuning. Interpret its paired three-seed terminal windows before deciding on a
+long production comparison with IntrMotiv.
