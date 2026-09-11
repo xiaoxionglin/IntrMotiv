@@ -1,0 +1,11 @@
+{
+  "deployment": "staged_only_active_runtime_unchanged",
+  "baseline_runtime_module_sha256": "fb750827843e5db5f91779a4ceb387b4c7f2ed777819dae5349fb0d960e5e8c7",
+  "files": {
+    "sf_working_directories/IntrMotiv/dmlab/topological_frontier.py": "eb10a8538d058bdd3c65f0f4160e3e3d5ef50c1e0f2542cfe4f80b5af34c2f40",
+    "sf_working_directories/IntrMotiv/tests/test_graph_planning_performance.py": "51f059853bbbd3d3ca179f81f47dc6444a91061c39d558e9f27b1239523acf93",
+    "sf_working_directories/IntrMotiv/analysis/benchmark_graph_planning.py": "3152dbca2b0a7039412c7bff58fbff55b6a13ea70c80cf08672afc9de044d6b6"
+  },
+  "archive_sha256": "36d2c4ad54fcc560d94cc1e8e1e8f9d111fc5393870b4a91771ffd751d0917eb",
+  "patch_sha256": "93d33b01a53f271c009a7a68b410a4c9f42f218a75a746c1d2ce8392a97b0337"
+}

@@ -1,0 +1,348 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
++++ b/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
+@@ -312,7 +312,15 @@
+     """All-pairs controlled cost, first hop, and hop count for one policy graph."""
+     n = graph.n_nodes
+     known = reliable_edges(graph, confidence_threshold, reliability_threshold)
+-    dist = torch.where(known, graph.tctrl, torch.full_like(graph.tctrl, torch.inf)).clone()
++    # Compare effective inputs, not Tensor._version: policy synchronization may
++    # copy through .data and bypass version counters. Caches are ordinary Python
++    # attributes, excluded from state_dict/checkpoints and rebuilt after changes.
++    costs = torch.where(known, graph.tctrl, torch.full_like(graph.tctrl, torch.inf))
++    cached = getattr(graph, "_validated_paths_cache", None)
++    if (cached is not None and _same_graph_tensor(cached[0], costs)
++            and _same_graph_tensor(cached[1], known)):
++        return tuple(value.clone() for value in cached[2])
++    dist = costs.clone()
+     idx = torch.arange(n, device=dist.device)
+     dist[idx, idx] = 0.0
+     next_hop = torch.where(known, idx.view(1, n).expand(n, n), torch.full((n, n), -1, device=dist.device))
+@@ -326,6 +334,9 @@
+         next_hop = torch.where(better, next_hop[:, k].unsqueeze(1), next_hop)
+         candidate_hops = hops[:, k].unsqueeze(1) + hops[k, :].unsqueeze(0)
+         hops = torch.where(better, candidate_hops, hops)
++    graph._validated_paths_cache = (
++        costs.detach().clone(), known.clone(), (dist.clone(), next_hop.clone(), hops.clone())
++    )
+     return dist, next_hop, hops
+ 
+ 
+@@ -431,14 +442,39 @@
+     return reach
+ 
+ 
++def _same_graph_tensor(previous: Tensor, current: Tensor) -> bool:
++    return (
++        previous.device == current.device
++        and previous.dtype == current.dtype
++        and torch.equal(previous, current)
++    )
++
++
+ def connectivity_gain(adjacency: Tensor, source: int, destination: int) -> float:
+-    """Increase in ordered reachable pairs after adding one directed edge."""
++    """Exact reachable-pair gain from inserting one edge (including cycles)."""
+     before = _transitive_reachability(adjacency)
+-    after_graph = adjacency.clone()
+-    after_graph[source, destination] = True
+-    after = _transitive_reachability(after_graph)
+-    diagonal = torch.eye(adjacency.size(0), dtype=torch.bool, device=adjacency.device)
+-    return float(((after & ~before) & ~diagonal).sum().item())
++    # A newly reachable pair must cross the new edge. Repeated crossings can
++    # be removed from the path, so one outer product suffices even with cycles.
++    added = before[:, source].unsqueeze(1) & before[destination].unsqueeze(0) & ~before
++    added.fill_diagonal_(False)
++    return float(added.sum().item())
++
++
++def _graph_connectivity_gains(graph, adjacency: Tensor) -> Tensor:
++    """All edge-insertion gains, sharing one closure per distinct adjacency."""
++    cached = getattr(graph, "_connectivity_gains_cache", None)
++    if cached is not None and _same_graph_tensor(cached[0], adjacency):
++        return cached[1]
++    reach = _transitive_reachability(adjacency)
++    missing = ~reach
++    missing.fill_diagonal_(False)
++    # gain[s,d] = sum_ij reach[i,s] * missing[i,j] * reach[d,j].
++    # Float64 counts are exact for any graph small enough to hold these dense
++    # matrices; this also supports CPU and CUDA without integer matmul kernels.
++    ancestors = reach.to(torch.float64).T
++    gains = ancestors @ missing.to(torch.float64) @ ancestors
++    graph._connectivity_gains_cache = (adjacency.detach().clone(), gains)
++    return gains
+ 
+ 
+ def select_connectivity_probe(
+@@ -457,7 +493,8 @@
+     attempts = graph.control_attempts
+     successes = graph.edge_confidence
+     total_attempts = attempts.sum()
+-    gains = [connectivity_gain(reliable, int(pair[0]), int(pair[1])) for pair in edge_ids]
++    all_gains = _graph_connectivity_gains(graph, reliable)
++    gains = all_gains[edge_ids[:, 0], edge_ids[:, 1]].tolist()
+     max_gain = max(gains) if gains else 0.0
+     best_pair = None
+     best_score = -math.inf
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_graph_planning_performance.py
+@@ -0,0 +1,138 @@
++"""Behavior and invalidation contracts for graph-planning acceleration."""
++from types import SimpleNamespace
++from unittest.mock import patch
++
++import pytest
++import torch
++
++from sf_working_directories.IntrMotiv.dmlab import topological_frontier as tf
++from sf_working_directories.IntrMotiv.dmlab.hrl_controllable_graph import PolicyControllableGraph
++
++
++def reference_reach(adjacency):
++    # Independent graph traversal, not the matrix closure used in production.
++    edges = adjacency.tolist()
++    n = len(edges)
++    result = torch.eye(n, dtype=torch.bool)
++    for start in range(n):
++        seen, pending = {start}, [start]
++        while pending:
++            current = pending.pop()
++            for end, exists in enumerate(edges[current]):
++                if exists and end not in seen:
++                    seen.add(end)
++                    pending.append(end)
++        result[start, list(seen)] = True
++    return result
++
++
++def reference_gain(adjacency, source, destination):
++    before = reference_reach(adjacency)
++    after = adjacency.clone()
++    after[source, destination] = True
++    return float((reference_reach(after) & ~before).sum())
++
++
++def graph(n):
++    return SimpleNamespace(n_nodes=n, tctrl=torch.ones(n, n),
++                           edge_confidence=torch.ones(n, n), control_attempts=torch.ones(n, n))
++
++
++def test_exhaustive_three_node_gains():
++    for bits in range(1 << 9):
++        adjacency = torch.tensor([(bits >> k) & 1 for k in range(9)], dtype=torch.bool).view(3, 3)
++        actual = tf._graph_connectivity_gains(SimpleNamespace(), adjacency)
++        for source in range(3):
++            for destination in range(3):
++                expected = reference_gain(adjacency, source, destination)
++                assert actual[source, destination] == expected
++                assert tf.connectivity_gain(adjacency, source, destination) == expected
++
++
++@pytest.mark.parametrize('n', [16, 32, 64])
++def test_sparse_dense_disconnected_and_cyclic_gains(n):
++    rng = torch.Generator().manual_seed(n)
++    for density in [0.0, 0.015, 0.05, 0.5, 1.0]:
++        adjacency = torch.rand((n, n), generator=rng) < density
++        actual = tf._graph_connectivity_gains(SimpleNamespace(), adjacency)
++        for source, destination in torch.randint(n, (12, 2), generator=rng).tolist():
++            assert actual[source, destination] == reference_gain(adjacency, source, destination)
++
++
++def test_probe_selection_and_ties_unchanged():
++    rng = torch.Generator().manual_seed(471)
++    for _ in range(12):
++        g = graph(8)
++        g.tctrl = (torch.rand((8, 8), generator=rng) < 0.15).float()
++        g.control_attempts = torch.randint(0, 4, (8, 8), generator=rng).float()
++        candidates = torch.rand((8, 8), generator=rng) < 0.5
++        reachable = torch.rand(8, generator=rng) < 0.7
++        actual = tf.select_connectivity_probe(g, candidates, reachable, 0.5, 0.5)
++        def reference_matrix(unused, adjacency):
++            return torch.tensor([[reference_gain(adjacency, s, d) for d in range(8)] for s in range(8)])
++        with patch.object(tf, '_graph_connectivity_gains', side_effect=reference_matrix):
++            assert tf.select_connectivity_probe(g, candidates, reachable, 0.5, 0.5) == actual
++    g = graph(4)
++    g.tctrl.zero_()
++    candidates = ~torch.eye(4, dtype=torch.bool)
++    assert tf.select_connectivity_probe(g, candidates, torch.ones(4, dtype=torch.bool), 0.5, 0.5)[0] == (0, 1)
++    assert tf.select_connectivity_probe(g, candidates & False, torch.ones(4, dtype=torch.bool), 0.5, 0.5) == (None, -float('inf'))
++
++
++def test_path_cache_and_all_input_invalidations():
++    g = graph(5)
++    tf.validated_paths(g, 0.5)
++    original = g._validated_paths_cache
++    tf.validated_paths(g, 0.5)
++    assert g._validated_paths_cache is original
++    # Protect cache from accidental caller modification.
++    for tensor in tf.validated_paths(g, 0.5):
++        tensor.zero_()
++    mutations = [lambda: g.tctrl.data.fill_(2),
++                 lambda: g.edge_confidence.data.zero_(),
++                 lambda: g.edge_confidence.data.fill_(1),
++                 lambda: g.control_attempts.data.fill_(10),
++                 lambda: setattr(g, 'tctrl', torch.full((5, 5), 3.0))]
++    for mutate in mutations:
++        mutate()
++        actual = tf.validated_paths(g, 0.5)
++        fresh = SimpleNamespace(n_nodes=5, tctrl=g.tctrl.clone(), edge_confidence=g.edge_confidence.clone(),
++                                control_attempts=g.control_attempts.clone())
++        for x, y in zip(actual, tf.validated_paths(fresh, 0.5)):
++            assert torch.equal(x, y)
++    for threshold, reliability in [(0.0, 0.0), (2.0, 0.5), (0.5, 0.01)]:
++        actual = tf.validated_paths(g, threshold, reliability)
++        fresh = SimpleNamespace(n_nodes=5, tctrl=g.tctrl, edge_confidence=g.edge_confidence,
++                                control_attempts=g.control_attempts)
++        assert all(torch.equal(a, b) for a, b in zip(actual, tf.validated_paths(fresh, threshold, reliability)))
++    g.tctrl = g.tctrl.double()
++    assert tf.validated_paths(g, 0.0, 0.0)[0].dtype == torch.float64
++
++
++def test_reachability_cache_invalidates_data_copy_and_reuses_unchanged_graph():
++    g = SimpleNamespace()
++    adjacency = torch.zeros((8, 8), dtype=torch.bool)
++    with patch.object(tf, '_transitive_reachability', wraps=tf._transitive_reachability) as closure:
++        tf._graph_connectivity_gains(g, adjacency)
++        tf._graph_connectivity_gains(g, adjacency.clone())
++        assert closure.call_count == 1
++        adjacency.data[1, 2] = True
++        actual = tf._graph_connectivity_gains(g, adjacency)
++        assert closure.call_count == 2
++        assert actual[0, 1] == 2
++
++
++def test_caches_do_not_change_checkpoint_keys_and_load_refreshes():
++    g = PolicyControllableGraph(4)
++    keys = set(g.state_dict())
++    tf.validated_paths(g, 0.5)
++    tf._graph_connectivity_gains(g, tf.reliable_edges(g, 0.5))
++    assert set(g.state_dict()) == keys
++    replacement = PolicyControllableGraph(4)
++    replacement.tctrl.fill_(1)
++    replacement.edge_confidence.fill_(2)
++    replacement.control_attempts.fill_(2)
++    g.load_state_dict(replacement.state_dict())
++    assert all(torch.equal(a, b) for a, b in zip(tf.validated_paths(g, 0.5), tf.validated_paths(replacement, 0.5)))
++    assert torch.equal(tf._graph_connectivity_gains(g, tf.reliable_edges(g, 0.5)),
++                       tf._graph_connectivity_gains(replacement, tf.reliable_edges(replacement, 0.5)))
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/analysis/benchmark_graph_planning.py
+@@ -0,0 +1,119 @@
++"""Synthetic CPU microbenchmark; no environment, checkpoint, or training writes.
++
++Pass an archived pre-optimization topological_frontier.py as --baseline.
++This measures graph functions only, not end-to-end training FPS.
++"""
++import argparse
++import copy
++import importlib.util
++import json
++import statistics
++import sys
++import time
++from types import SimpleNamespace
++
++import torch
++from sf_working_directories.IntrMotiv.dmlab import topological_frontier as optimized
++from sf_working_directories.IntrMotiv.dmlab.hrl_controllable_graph import (
++    PolicyControllableGraph, hrl_option_state_size,
++)
++
++
++def median_ms(fn, count=12):
++    fn()
++    times = []
++    for _ in range(count):
++        start = time.perf_counter()
++        fn()
++        times.append(1000 * (time.perf_counter() - start))
++    return statistics.median(times)
++
++
++def check_manager_replay(baseline, n):
++    graph = PolicyControllableGraph(n)
++    graph.node_visits.fill_(1)
++    for i in range(n - 1):
++        graph.tctrl[i, i + 1] = 2
++        graph.edge_confidence[i, i + 1] = 3
++        graph.control_attempts[i, i + 1] = 3
++    for i in range(min(6, n)):
++        graph.passive_confidence[i, (i + 2) % n] = 3
++        graph.passive_time[i, (i + 2) % n] = 2
++    new_graph = copy.deepcopy(graph)
++    old_option = torch.zeros(2, hrl_option_state_size(n))
++    old_topo = torch.zeros(2, optimized.topological_state_size(n))
++    new_option, new_topo = old_option.clone(), old_topo.clone()
++    for step in range(24):
++        if step == 8:
++            for g in (graph, new_graph):
++                g.control_attempts.data[0, 1] = 50
++                g.tctrl.data[1, 2] = 5
++        if step == 16:
++            for g in (graph, new_graph):
++                g.invalidate_node(1)
++        dg = torch.zeros(2, n)
++        if step % 3 == 0:
++            for row in range(2):
++                target = int(old_option[row, 0]) - 1
++                dg[row, target if 0 <= target < n else row] = 1
++        kwargs = dict(fallback_horizon=3, margin_ratio=0.2, margin_steps=2,
++                      confidence_threshold=0.5, passive_threshold=2.0,
++                      passive_min_displacement=2.0, passive_max_length=64.0,
++                      use_motion_filter=False, frontier_uncertainty_weight=1.0,
++                      waypoint_planning=True, exploration_horizon=3,
++                      target_timing='immediate', edge_exploration=True)
++        actions = torch.zeros(2, 4)
++        old = baseline.advance_topological_manager(old_option, old_topo, dg, actions, graph, **kwargs)
++        new = optimized.advance_topological_manager(new_option, new_topo, dg, actions, new_graph, **kwargs)
++        assert all(torch.equal(a, b) for a, b in zip(old, new)), (n, step)
++        old_option, old_topo = old[:2]
++        new_option, new_topo = new[:2]
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--baseline', required=True)
++    args = parser.parse_args()
++    spec = importlib.util.spec_from_file_location('graph_planning_baseline', args.baseline)
++    baseline = importlib.util.module_from_spec(spec)
++    sys.modules[spec.name] = baseline
++    spec.loader.exec_module(baseline)
++    torch.set_num_threads(1)
++    rows = []
++    for n in [16, 32, 64]:
++        check_manager_replay(baseline, n)
++        rng = torch.Generator().manual_seed(991 + n)
++        known = torch.rand((n, n), generator=rng) < 0.02
++        known.fill_diagonal_(False)
++        graph = SimpleNamespace(n_nodes=n, tctrl=torch.rand((n, n), generator=rng) * 50 + 1,
++                                edge_confidence=known.float() * 3, control_attempts=known.float() * 3)
++        candidates = (torch.rand((n, n), generator=rng) < 0.10) & ~known
++        candidates.fill_diagonal_(False)
++        reachable = torch.ones(n, dtype=torch.bool)
++        paths_old = lambda: baseline.validated_paths(graph, 0.5, 0.5)
++        paths_new = lambda: optimized.validated_paths(graph, 0.5, 0.5)
++        probe_old = lambda: baseline.select_connectivity_probe(graph, candidates, reachable, 0.5, 0.5)
++        probe_new = lambda: optimized.select_connectivity_probe(graph, candidates, reachable, 0.5, 0.5)
++        assert all(torch.equal(a, b) for a, b in zip(paths_old(), paths_new()))
++        assert probe_old() == probe_new()
++        def cold(fn):
++            for name in ('_validated_paths_cache', '_connectivity_gains_cache'):
++                if hasattr(graph, name):
++                    delattr(graph, name)
++            return fn()
++        rows.append(dict(n=n, candidates=int(candidates.sum()),
++                         paths_before_ms=median_ms(paths_old),
++                         paths_cached_ms=median_ms(paths_new),
++                         paths_rebuild_ms=median_ms(lambda: cold(paths_new)),
++                         probe_before_ms=median_ms(probe_old),
++                         probe_cached_ms=median_ms(probe_new),
++                         probe_rebuild_ms=median_ms(lambda: cold(probe_new))))
++    print(json.dumps(dict(kind='synthetic_graph_microbenchmark', torch=torch.__version__, threads=1,
++                          seed_rule='991 + n', reliable_density=0.02, candidate_density=0.10,
++                          reachable_sources='all', exact_outputs_match=True,
++                          manager_replay='24 steps x 2 streams per DG size; hits, silence, expiry, graph updates, retirement',
++                          rows=rows), indent=2))
++
++
++if __name__ == '__main__':
++    main()

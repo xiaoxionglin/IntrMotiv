@@ -1,0 +1,43 @@
+{
+  "kind": "synthetic_graph_microbenchmark",
+  "torch": "2.7.1",
+  "threads": 1,
+  "seed_rule": "991 + n",
+  "reliable_density": 0.02,
+  "candidate_density": 0.1,
+  "reachable_sources": "all",
+  "exact_outputs_match": true,
+  "manager_replay": "24 steps x 2 streams per DG size; hits, silence, expiry, graph updates, retirement",
+  "rows": [
+    {
+      "n": 16,
+      "candidates": 18,
+      "paths_before_ms": 0.3600609488785267,
+      "paths_cached_ms": 0.0215600011870265,
+      "paths_rebuild_ms": 0.36969647044315934,
+      "probe_before_ms": 3.6714624729938805,
+      "probe_cached_ms": 0.0951024703681469,
+      "probe_rebuild_ms": 0.1981714740395546
+    },
+    {
+      "n": 32,
+      "candidates": 100,
+      "paths_before_ms": 0.7303329766727984,
+      "paths_cached_ms": 0.024720968212932348,
+      "paths_rebuild_ms": 0.7174640195444226,
+      "probe_before_ms": 43.54717250680551,
+      "probe_cached_ms": 0.3932254621759057,
+      "probe_rebuild_ms": 0.6073540425859392
+    },
+    {
+      "n": 64,
+      "candidates": 391,
+      "paths_before_ms": 1.8177725141867995,
+      "paths_cached_ms": 0.03830698551610112,
+      "paths_rebuild_ms": 1.9125404651276767,
+      "probe_before_ms": 444.9491665000096,
+      "probe_cached_ms": 1.5625300002284348,
+      "probe_rebuild_ms": 2.15712352655828
+    }
+  ]
+}
