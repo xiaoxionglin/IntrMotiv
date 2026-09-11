@@ -10,6 +10,7 @@ class FrozenParentFeatures:
     def __init__(self, actor, exclusive):
         self.actor = actor.eval().requires_grad_(False)
         self.exclusive = exclusive
+        self.parity_verified = False
         self.n = actor.core.Hippo_n_feature
         encoder = actor.encoder
         if not encoder.depth_sensor or not encoder.bypass or encoder.goal_reference_projection is not None:
@@ -32,4 +33,12 @@ class FrozenParentFeatures:
             depth = encoder.depth_encoder(obs['obs'][:, -1:]).flatten(1)
             bypass = torch.cat((depth,feature[:, -encoder.instructions_lstm_units:]),-1)
             events = canonical_events(activity,self.exclusive)
+            if not self.parity_verified:
+                reconstructed = torch.cat((activity,bypass),-1)
+                if encoder.dg_goal_write:
+                    reconstructed = torch.cat((reconstructed,pre),-1)
+                source = self.actor.forward_head(obs)
+                if not torch.equal(source,reconstructed):
+                    raise RuntimeError('source head/feature adapter parity failure')
+                self.parity_verified = True
         return [Observation(p,d,e) for p,d,e in zip(pre,bypass,events)]

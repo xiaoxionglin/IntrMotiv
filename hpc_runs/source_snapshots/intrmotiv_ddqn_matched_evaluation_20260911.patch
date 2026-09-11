@@ -1,0 +1,65 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -295,7 +295,8 @@
+ 
+ def run_landmark_matched_interventions(cfg, env, env_info, actor, checkpoint, device,
+                                        decision_cap, deterministic=False, max_sources=16,
+-                                       targets_per_source=4, repeats=5, prefix_cap=512):
++                                       targets_per_source=4, repeats=5, prefix_cap=512,
++                                       policy_step=None, deadline_override=None, target_registry=None):
+     """Execute different commands from identical engine/prefix states.
+ 
+     Prefixes are selected by exclusive source observations, never trial success.
+@@ -310,6 +311,16 @@
+     np.fill_diagonal(pairs, False)
+     rows, panel, missing = [], {}, []
+     decisions = 0
++    if deadline_override is not None and deadline_override < 1:
++        raise ValueError('deadline override must be positive')
++    if target_registry is not None:
++        if not target_registry or any(t < 0 or t >= n for t in target_registry):
++            raise ValueError('invalid evaluation target registry')
++        excluded = np.ones(n, dtype=bool); excluded[target_registry] = False
++        pairs[:, excluded] = False
++
++    def deadline(source, target):
++        return deadline_override if deadline_override is not None else pair_deadline(graph,source,target)
+ 
+     def fresh(seed):
+         nonlocal env
+@@ -372,7 +383,7 @@
+             exhausted = False
+             for source, starts in sorted(panel.items()):
+                 for rep,(seed,prefix,targets,reference) in enumerate(starts):
+-                    horizon = max(pair_deadline(graph,source,t) for t in targets)
++                    horizon = max(deadline(source,t) for t in targets)
+                     cost = len(targets) * (len(prefix) + horizon)
+                     if decisions + cost > decision_cap:
+                         exhausted=True;missing.append(dict(source=source,repeat=rep,reason='decision_budget'));continue
+@@ -386,7 +397,8 @@
+                         start_pos=as_numpy(obs['pos'][0]).copy();last=start_pos.copy();path=0.
+                         for elapsed in range(1,horizon+1):
+                             _,out,state=encode(obs,state,command)
+-                            result=actor.forward_tail(out,values_only=False,sample_actions=False)
++                            result=(actor.forward_tail(out,values_only=False,sample_actions=False)
++                                    if policy_step is None else policy_step(out,command,horizon-elapsed+1,len(prefix)+elapsed-1))
+                             prob=result['action_logits'].softmax(-1)
+                             if elapsed == 1: initial_prob = prob[0].cpu().tolist()
+                             action=prob.argmax(-1) if deterministic else torch.multinomial(prob,1,generator=rng)
+@@ -398,12 +410,12 @@
+                             if hit>=0 and hit!=source and first_other is None:first_other=hit
+                             if hit in first_times and first_times[hit] is None:first_times[hit]=elapsed
+                         for target in targets:
+-                            deadline=pair_deadline(graph,source,target);hit_time=first_times[target]
+-                            hit = hit_time is not None and hit_time <= deadline
+-                            censored = not hit and done and elapsed < deadline
++                            target_deadline=deadline(source,target);hit_time=first_times[target]
++                            hit = hit_time is not None and hit_time <= target_deadline
++                            censored = not hit and done and elapsed < target_deadline
+                             rows.append(dict(source=source,repeat=rep,prefix_seed=seed,command=command,target=target,
+                                 initial_action_probabilities=json.dumps(initial_prob),
+-                                commanded=command==target,deadline=deadline,hit=hit,
++                                commanded=command==target,deadline=target_deadline,hit=hit,
+                                 hit_time=hit_time,first_distinct=first_other,censored=censored,
+                                 timeout=not hit and not censored,
+                                 elapsed=elapsed,path_length=path,start_position=json.dumps(start_pos.tolist()),
