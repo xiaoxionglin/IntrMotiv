@@ -272,7 +272,7 @@
       "goal_hit_fraction": "intrmotiv/memory/goal_hit_fraction",
       "goal_active_fraction": "intrmotiv/memory/goal_active_fraction",
       "goal_ambiguous_fraction": "intrmotiv/memory/goal_ambiguous_fraction",
-      "replay_mismatch": "intrmotiv/memory/replay_mismatch",
+      "replay_mismatch": "intrmotiv/hrl/behavior_replay_mismatch",
       "ppo_dg_gradient_norm": "intrmotiv/dg/gradient/ppo_norm",
       "encoder_gradient_norm": "intrmotiv/dg/gradient/encoder_norm"
     },

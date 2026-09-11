@@ -1,0 +1,9 @@
+{
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "aggregation": "unweighted mean of three seeds; individual seeds shown",
+  "snapshot_target_frames": 25000000,
+  "snapshot_window_decisions": 100000,
+  "map_normalization": "each unit divided by its peak; unvisited bins masked",
+  "spatial_data": "spatial/per_snapshot.csv; exact raw paths in spatial/snapshot_inventory.csv",
+  "limits": "policy-driven thresholded maps; no pre-threshold arrays or fixed-panel stability; graph success is observational"
+}
