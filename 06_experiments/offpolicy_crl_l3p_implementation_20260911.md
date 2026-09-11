@@ -158,8 +158,9 @@ overlay, conda activation without nounset, and preloading that environment's
 `libstdc++`. RTX preflight7 (`8052759`, `8052760`) proved all 32 custom DMLab
 workers initialize, then correctly failed before training because the RTX PRO
 6000 Blackwell GPU requires `sm_120` kernels absent from the installed CUDA
-wheel. L40S preflight8 jobs `8052765` and `8052766` use a compatible Ada GPU and
-are the authoritative pending throughput gate. Its StudySpec fingerprint is
+wheel. L40S preflight8 jobs `8052765` and `8052766` used a compatible Ada GPU
+and completed 500,096 frames with exit code zero in 5:21 and 5:22. Its
+StudySpec fingerprint is
 `8f578bd09b14e14ef84ff04bf2e7b73f0fc13ea3006ea9b8923c68171f062bf0`.
 
 Production requires both CRL+ and L3P+ to reach 500k frames with finite metrics,
@@ -168,10 +169,16 @@ at least 2,500 frames/s each (76.5% of the reference). The staged production
 StudySpec is `hpc_runs/studies/offpolicy_goal_baselines_parallel_production.study.json`,
 workflow `1.7.0`, fingerprint
 `85feeb53089aef1f4f68a0d31c1a6a2ba571c0a295d3af258dc24194bd9e91df`.
-Its six 10M-frame L40S runs have passed local validation, the 35-test focused
-suite, NEMO2 validation, print-only review, and canonical submission audit. It
-has not been submitted while the gate is pending. The existing heartbeat will
-submit and audit it only if both gate cells pass.
+Its six 10M-frame L40S runs passed local validation, the 35-test focused suite,
+NEMO2 validation, print-only review, and canonical submission audit. It was not
+submitted because the throughput gate failed. Between the first learner-active
+and last recorded TensorBoard points, CRL+ processed 216,192 frames in 150.231 s
+(1,439 frames/s) and L3P+ processed 206,336 frames in 150.242 s (1,373 frames/s).
+Their final recorded cumulative rates were 2,291 and 2,239 frames/s, also below
+the 2,500-frame/s threshold. Both learners made thousands of finite updates;
+L3P+ rebuilt four graphs, retained 400 finite edges, and used a landmark for
+88.0% of 2,787 planner queries at its last periodic record. Correctness passed,
+but throughput did not, so no production jobs were submitted.
 
 The reusable lesson is to benchmark collection-only and learner-active phases
 separately. Off-policy replay makes collectors easy to parallelize, but it does
@@ -179,3 +186,28 @@ not automatically parallelize frozen visual inference or gradient updates; a
 single CPU learner simply moves the bottleneck. Reusing a GPU environment also
 requires matching GPU compute capability, not merely observing that CUDA is
 available.
+
+## One-million-frame pilot result
+
+All six pilot jobs `8052591`--`8052596` completed with exit code zero. The
+canonical latest-common analysis used steps 893,364--993,364 and preserved
+StudySpec fingerprint
+`aa3a7077e88657bfad711f86ceb872221e691ba3ecca0315d2cbc703a19d0f15`.
+The analysis artifacts are under
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/offpolicy_goal_baselines_pilot_20260911_final/`.
+
+Across seeds 8, 99, and 123, CRL+ achieved coverage AUC $57.32 \pm 5.16$ and
+100.46 $\pm$ 9.39 unique cells; L3P+ achieved $55.45 \pm 4.18$ and
+99.69 $\pm$ 6.83. The paired L3P-minus-CRL coverage difference was -1.87 AUC
+and -0.77 unique cells. Option success was essentially identical (0.03874 for
+CRL+, 0.03862 for L3P+), as was entropy (1.0368 versus 1.0316). L3P+ had modestly
+higher contrastive retrieval accuracy, 0.3754 versus 0.3518, but this did not
+translate into higher coverage.
+
+L3P+'s graph was operational rather than bypassed: every seed ended with nine
+rebuilds and 400 finite directed edges, and landmark-subgoal fractions were
+85.8%, 86.2%, and 86.6%. The matched pilot therefore provides no evidence that
+explicit landmark planning improves exploration over CRL+ at 1M frames. Given
+the failed throughput gate and small, inconsistent seed-wise coverage effects,
+neither method warrants the staged 10M production matrix in its current
+synchronous learner architecture.
