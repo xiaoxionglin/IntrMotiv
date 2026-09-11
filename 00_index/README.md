@@ -67,6 +67,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]]
 - [[../06_experiments/recent_batch_statistics_report|Recent Batch Statistics Report]]
 
+- [[../06_experiments/intrmotiv_ddqn_metric_consistency_20260912|DDQN Dashboard Consistency: Old Metrics and Qualified Telemetry Repair]]
+
 ## Inbox
 
 - [[../99_inbox/temp|Unresolved: Global CA3-State Credit Assignment]]

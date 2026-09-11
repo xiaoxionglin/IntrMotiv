@@ -134,3 +134,23 @@ copying. The actual compute-node smoke run completed and its `ddqn/*` metrics
 and `train/env_steps` were verified through the W&B API; installed SDK support
 alone is not evidence of a successful upload. The production record is
 `06_experiments/intrmotiv_ddqn_sf_production_20260912.md`.
+
+## Dashboard parity gate (2026-09-12)
+
+Native SF execution must also connect application telemetry: register IntrMotiv's
+summary router and call its existing `TrainingSpatialTelemetry` coordinator.
+`sf_telemetry.py` reconstructs thresholded activity from frozen preactivations,
+uses the existing bounded spatial ring/NPZ contract, and forwards the environment's
+otherwise discarded batched episode statistics. It must not use exclusive
+recognition masks as DG activity or expose inherited parent graph state as a
+learned child graph. Missing graph diagnostics are unavailable, not zero.
+
+Qualify dashboard changes with `intrmotiv_ddqn_telemetry_preflight.study.json`:
+check actual W&B tags for DG, spatial/trajectory and episode coverage, a valid
+100k-sample NPZ, and unchanged runtime budget/frozen-reference gates. The original
+native production batch omitted these spatial artifacts; completed training
+history cannot be backfilled from checkpoints. Old DG-capacity dashboards remain
+in their original W&B project, while DDQN runs are in `IntrMotiv`. See
+`06_experiments/intrmotiv_ddqn_metric_consistency_20260912.md` for the comparison
+and exact artifact locations. Prefer config/cloud metadata over rescanning all
+historical TensorBoard events simply to locate dashboards.
