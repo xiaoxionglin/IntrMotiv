@@ -127,6 +127,55 @@ roughly four days per run, beyond the established 30-hour NEMO2 CPU envelope;
 graph rebuild opportunities. Escalate the winner to the shared longer horizon
 only if paired coverage and control evidence at 10M warrants the cost.
 
-The print-only matrix and submitted manifest both passed the canonical audit.
-NEMO2 jobs `8052615`--`8052620` were submitted with a 30-hour limit, and all
-six entered the running state.
+The original print-only matrix and submitted manifest passed the canonical
+audit, but its single-environment jobs `8052615`--`8052620` were cancelled once
+their roughly 200-frame/s design was judged incomparable with the approximately
+3,267-frame/s IntrMotiv/APPO reference. The one-million-frame pilot jobs remain
+valid scientific runs; the cancelled 10M matrix must not be resumed or treated
+as production evidence.
+
+## Parallel throughput implementation and gate
+
+`hpc_runs/offpolicy_goal_baselines/train_parallel.py` replaces serial collection
+with 32 shared-memory Gymnasium `AsyncVectorEnv` workers, batches the exact
+frozen ImageNet ResNet-18 layer-2 trunk across observations, batches policy
+action inference, and retains a single shared episode replay and learner. The
+scientific update intensity is unchanged at one replay update per 16 decisions.
+The vector worker implements same-step reset while preserving final terminal
+information under both Gymnasium API variants used by the project.
+
+The CPU gate (`8052658`, `8052659`) completed 500k frames with exit code zero.
+Collection-only throughput reached about 2.4k frames/s, but sustained throughput
+after learner activation was only 770.94 frames/s for CRL+ and 767.30 frames/s
+for L3P+. This isolates the bottleneck: environment collection parallelizes,
+whereas the frozen trunk and replay updates were still serialized through one
+CPU learner.
+
+The GPU path deliberately reuses the existing `dmlab_pack` CUDA environment,
+rather than rebuilding PyTorch or DMLab wheels. Compatibility fixes were kept
+small: Python 3.8-safe annotations, an idempotent source-controlled Lua-level
+overlay, conda activation without nounset, and preloading that environment's
+`libstdc++`. RTX preflight7 (`8052759`, `8052760`) proved all 32 custom DMLab
+workers initialize, then correctly failed before training because the RTX PRO
+6000 Blackwell GPU requires `sm_120` kernels absent from the installed CUDA
+wheel. L40S preflight8 jobs `8052765` and `8052766` use a compatible Ada GPU and
+are the authoritative pending throughput gate. Its StudySpec fingerprint is
+`8f578bd09b14e14ef84ff04bf2e7b73f0fc13ea3006ea9b8923c68171f062bf0`.
+
+Production requires both CRL+ and L3P+ to reach 500k frames with finite metrics,
+nonzero replay updates, active L3P graph use, and learner-active throughput of
+at least 2,500 frames/s each (76.5% of the reference). The staged production
+StudySpec is `hpc_runs/studies/offpolicy_goal_baselines_parallel_production.study.json`,
+workflow `1.7.0`, fingerprint
+`85feeb53089aef1f4f68a0d31c1a6a2ba571c0a295d3af258dc24194bd9e91df`.
+Its six 10M-frame L40S runs have passed local validation, the 35-test focused
+suite, NEMO2 validation, print-only review, and canonical submission audit. It
+has not been submitted while the gate is pending. The existing heartbeat will
+submit and audit it only if both gate cells pass.
+
+The reusable lesson is to benchmark collection-only and learner-active phases
+separately. Off-policy replay makes collectors easy to parallelize, but it does
+not automatically parallelize frozen visual inference or gradient updates; a
+single CPU learner simply moves the bottleneck. Reusing a GPU environment also
+requires matching GPU compute capability, not merely observing that CUDA is
+available.
