@@ -1,0 +1,96 @@
+{
+  "study_id": {
+    "v1": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+    "v2": "intrmotiv_ddqn_her_v2_20260911"
+  },
+  "description": {
+    "v1": "Selected F16 parent: frozen representation, finite-budget local Double DQN with a matched HER ablation. Production release requires runtime and independent control gates.",
+    "v2": "Corrected frozen-reference DDQN/HER v2: nonlinear clock readout, complete virtual attempts, exact TD budgets; runtime and independent commanded-control gates required."
+  },
+  "metadata": {
+    "v1": {
+      "stage": "frozen_pilot",
+      "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+      "parent_frames": 25001984,
+      "parent_source_seed": 99,
+      "representation": "frozen",
+      "recognition": "exclusive",
+      "action_set": "navigation8",
+      "action_repeat": 4,
+      "policy_pose_input": false,
+      "graph_learning": false,
+      "release_status": "gated",
+      "comparison": "DDQN_vs_DDQN_HER_only",
+      "development_goals": "1,4,11"
+    },
+    "v2": {
+      "stage": "v2",
+      "parent_run": "DGC_DIRECT_WORKER_F16_S99",
+      "parent_frames": 25001984,
+      "parent_source_seed": 99,
+      "representation": "frozen",
+      "recognition": "exclusive",
+      "action_set": "navigation8",
+      "action_repeat": 4,
+      "policy_pose_input": false,
+      "graph_learning": false,
+      "release_status": "gated",
+      "comparison": "DDQN_vs_DDQN_HER_only",
+      "development_goals": "1,4,11",
+      "child_schema": "intrmotiv/ddqn-worker/v2",
+      "target_period_updates": 100,
+      "accepted_decisions_per_update": 64,
+      "valid_td_positions_per_update": 256,
+      "her_horizon": 64
+    }
+  },
+  "training": {
+    "v1": {
+      "mode": "sample_factory",
+      "batch_name": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+      "workspace_root": "/work/classic/fr_xl1014-train",
+      "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911",
+      "run_name_template": "DQ_{base_label}_S{seed}",
+      "condition_name_template": "DQ_{base_label}",
+      "seed_arg": "--seed={seed}",
+      "common_args": [
+        "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
+        "--parent-manifest=06_experiments/data/intrmotiv_ddqn_her_20260911/parent_manifest.json",
+        "--parent-run=DGC_DIRECT_WORKER_F16_S99",
+        "--total-frames=5000000",
+        "--num-envs=32",
+        "--device=cpu",
+        "--torch-threads=8",
+        "--registry=1,4,11",
+        "--replay-capacity=200000",
+        "--learning-start=16384",
+        "--milestones=0,250000,500000,1000000,2500000,5000000"
+      ]
+    },
+    "v2": {
+      "mode": "sample_factory",
+      "batch_name": "intrmotiv_ddqn_her_v2_20260911",
+      "workspace_root": "/work/classic/fr_xl1014-train",
+      "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_20260911",
+      "run_name_template": "DQV2_{base_label}_S{seed}",
+      "condition_name_template": "DQV2_{base_label}",
+      "seed_arg": "--seed={seed}",
+      "common_args": [
+        "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
+        "--parent-manifest=06_experiments/data/intrmotiv_ddqn_her_20260911/parent_manifest.json",
+        "--parent-run=DGC_DIRECT_WORKER_F16_S99",
+        "--total-frames=5000000",
+        "--num-envs=32",
+        "--device=cpu",
+        "--torch-threads=8",
+        "--registry=1,4,11",
+        "--replay-capacity=200000",
+        "--learning-start=16384",
+        "--milestones=0,250000,500000,1000000,2500000,5000000",
+        "--target-period=100",
+        "--decisions-per-update=64",
+        "--td-positions-per-update=256"
+      ]
+    }
+  }
+}

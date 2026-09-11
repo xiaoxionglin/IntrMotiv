@@ -12,11 +12,13 @@ import random
 import time
 import numpy as np
 import torch
-from .batch import learn_batch, prefix_memory
+from .batch import learn_batch, prefix_memory, PositionBatcher
 from .checkpoint import convert_actor, state_hash
 from .features import FrozenParentFeatures
 from .replay import SequenceReplay, Transition
-from .worker import DoubleDQNLearner
+from .worker import DoubleDQNLearner, QWorker
+from .terminal import certified_successor, vector_final_info
+from .telemetry import Coverage
 
 
 def parse_args(argv=None):
@@ -34,11 +36,14 @@ def parse_args(argv=None):
     p.add_argument('--registry',default='1,4,11')
     p.add_argument('--replay-capacity',type=int,default=200000)
     p.add_argument('--learning-start',type=int,default=16384)
+    p.add_argument('--target-period',type=int,default=100)  # optimizer updates
+    p.add_argument('--decisions-per-update',type=int,default=64)  # accepted aggregate decisions
+    p.add_argument('--td-positions-per-update',type=int,default=256)
     p.add_argument('--milestones',default='0,250000,1000000,2500000,5000000')
     p.add_argument('--train_for_env_steps',type=int)  # Sample Factory launcher compatibility
     p.add_argument('--env',default='openfield_map2_fixed_loc3_fixedlength_noreward')
     args=p.parse_args(argv)
-    if min(args.num_envs,args.total_frames,args.torch_threads,args.learning_start) < 1:
+    if min(args.num_envs,args.total_frames,args.torch_threads,args.learning_start,args.target_period,args.decisions_per_update,args.td_positions_per_update) < 1:
         p.error('positive runtime budgets are required')
     return args
 
@@ -55,7 +60,7 @@ def save_checkpoint(output,learner,replay,frames,decisions,config,reference_hash
     temporary=path.with_suffix('.tmp')
     # Replay is intentionally omitted here: this is explicitly a warm-restart
     # artifact, not an exact-resume checkpoint. Resume is not silently accepted.
-    torch.save(dict(schema='intrmotiv/ddqn-worker/v1',model=learner.online.state_dict(),
+    torch.save(dict(schema=QWorker.schema,model=learner.online.state_dict(),
         target=learner.target.state_dict(),optimizer=learner.optimizer.state_dict(),
         frames=frames,decisions=decisions,updates=learner.updates,
         config=json.loads(json.dumps(config,default=str)),
@@ -106,16 +111,18 @@ def train(argv=None):
     probe.close()
     if cfg.dg_goal_input!='none':
         raise ValueError('write-conditioned collection requires actor rebuild integration; not production-qualified')
-    learner=DoubleDQNLearner(worker.to(args.device))
+    learner=DoubleDQNLearner(worker.to(args.device),target_period=args.target_period)
     extractor=FrozenParentFeatures(actor,exclusive=actor.core.topological_enabled)
     reference_hash=state_hash(actor.encoder)
     registry=[int(x) for x in args.registry.split(',')]
     if not registry or len(set(registry))!=len(registry) or any(g<0 or g>=cfg.Hippo_n_feature for g in registry):
         raise ValueError('invalid diagnostic registry')
+    batcher=PositionBatcher()
+    coverage=Coverage(registry)
     replay=SequenceReplay(args.replay_capacity,actor.core.expanded_length,args.seed,reference_hash)
     json_write(output/'conversion.json',report)
     json_write(output/'config.json',dict(cfg))
-    json_write(output/'run_config.json',dict(schema='intrmotiv/ddqn-run/v1',args=vars(args),parent=parent,
+    json_write(output/'run_config.json',dict(schema='intrmotiv/ddqn-run/v2',args=vars(args),parent=parent,
         representation='frozen_source',exploration='epsilon_greedy_fixed_command',control='first_arrival',
         development_registry=registry,graph_learning=False,pose_input=False,source_frames=parent['actual_frames']))
     env=gym.vector.AsyncVectorEnv([DmlabEnvFactory(cfg,i) for i in range(args.num_envs)],
@@ -164,15 +171,19 @@ def train(argv=None):
             before=frames
             for i in range(args.num_envs):
                 info=_select_info(infos,i,args.num_envs)
-                valid=not bool(ended[i])
-                if ended[i]: invalid_final+=1
-                successor=next_rows[i] if valid else None
+                info.update(vector_final_info(infos,i,args.num_envs))
+                physical=certified_successor(None,info,bool(ended[i])) if ended[i] else True
+                valid=physical is not None
+                if ended[i] and not valid: invalid_final+=1
+                successor=(extract({k:np.expand_dims(v,0) for k,v in physical.items()})[0]
+                           if ended[i] and valid else next_rows[i] if valid else None)
                 # Invalid final rows retain boundary metadata and no successor payload.
                 replay.append(Transition(i,int(episodes[i]),int(indexes[i]),current[i],successor,
                     int(actions[i]),int(goals[i]),int(options[i]),int(budgets[i]),
                     bool(terminated[i]),bool(truncated[i]),valid,learner.updates))
                 accepted+=int(valid)
                 hit=valid and bool(successor.events[goals[i]])
+                coverage.collect(i,int(episodes[i]),successor,int(goals[i]),hit or budgets[i]<=1 or bool(ended[i]))
                 arrivals+=int(hit)
                 budgets[i]-=1; indexes[i]+=1
                 current[i]=next_rows[i]
@@ -184,13 +195,14 @@ def train(argv=None):
                 decisions+=1
             collection_seconds += time.monotonic() - collection_started
             learning_started = time.monotonic()
-            due=max(0,(accepted-args.learning_start)//64-learner.updates)
+            due=max(0,(accepted-args.learning_start)//args.decisions_per_update-learner.updates)
             for _ in range(due):
                 try:
-                    samples=[replay.sample(registry,args.her_fraction) for _ in range(16)]
+                    samples=batcher.sample(replay,registry,args.her_fraction,args.td_positions_per_update)
                 except ValueError:
                     break
                 last_metrics=learn_batch(learner,samples,device)
+                coverage.replay(samples)
                 sample_count+=len(samples); realized_her+=sum(s['relabeled'] for s in samples)
                 valid_positions += last_metrics['valid_loss_positions']
                 her_positions += sum(int(s['mask'].sum()) for s in samples if s['relabeled'])
@@ -207,7 +219,10 @@ def train(argv=None):
                     valid_loss_positions_total=valid_positions,original_loss_positions=original_positions,
                     her_loss_positions=her_positions,collection_seconds=collection_seconds,
                     learning_seconds=learning_seconds,
-                    replay_size=len(replay.rows),**last_metrics)
+                    replay_size=len(replay.rows),requested_her_fraction=args.her_fraction,
+                    target_period_updates=args.target_period,decisions_per_update=args.decisions_per_update,
+                    td_positions_per_update=args.td_positions_per_update,
+                    **coverage.metrics(),**last_metrics)
                 metrics_file.write(json.dumps(metrics)+'\n')
                 for key,value in metrics.items(): writer.add_scalar('ddqn/'+key,value,frames)
                 writer.add_scalar('train/env_steps',frames,frames)
@@ -218,6 +233,9 @@ def train(argv=None):
         json_write(output/'runtime_gate.json',dict(frames=frames,updates=learner.updates,
             target_copies=learner.updates//learner.target_period,invalid_final_exclusions=invalid_final,
             frozen_reference_unchanged=True,her_samples=realized_her,
+            target_period_updates=args.target_period,valid_loss_positions=valid_positions,
+            td_positions_per_update=args.td_positions_per_update,
+            pending_loss_positions=len(batcher.pending["segment"]) if batcher.pending else 0,
             scientific_qualification='pending_independent_commanded_evaluation'))
     finally:
         env.close(); writer.close(); metrics_file.close()

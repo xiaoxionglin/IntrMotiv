@@ -1,0 +1,167 @@
+{
+  "scope": "Synthetic deterministic replay; not DMLab performance",
+  "expressivity": {
+    "max_abs_error": 0.014952749013900757,
+    "q": [
+      [
+        1.001595139503479,
+        -0.0009869150817394257
+      ],
+      [
+        1.0030637979507446,
+        0.9901995658874512
+      ],
+      [
+        -0.002338796854019165,
+        0.0035332702100276947
+      ],
+      [
+        -0.0013046562671661377,
+        0.9930814504623413
+      ],
+      [
+        0.014952749013900757,
+        0.997646689414978
+      ],
+      [
+        0.999947190284729,
+        1.002028226852417
+      ]
+    ],
+    "expected": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.9900000095367432
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.9900000095367432
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.9900000095367432,
+        1.0
+      ]
+    ],
+    "passed": true
+  },
+  "chains": [
+    {
+      "length": 4,
+      "target_period_updates": 1000,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 40000,
+      "unique_environment_transitions": 8,
+      "target_copies": 5,
+      "start_q": 0.971682608127594,
+      "expected_start": 0.9702990055084229,
+      "max_abs_error": 0.0016748905181884766,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 4,
+      "target_period_updates": 100,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 40000,
+      "unique_environment_transitions": 8,
+      "target_copies": 50,
+      "start_q": 0.9681646823883057,
+      "expected_start": 0.9702990055084229,
+      "max_abs_error": 0.0021343231201171875,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 16,
+      "target_period_updates": 1000,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 160000,
+      "unique_environment_transitions": 32,
+      "target_copies": 5,
+      "start_q": 0.23969237506389618,
+      "expected_start": 0.8600584864616394,
+      "max_abs_error": 0.7531777620315552,
+      "greedy_success": true,
+      "passed": false
+    },
+    {
+      "length": 16,
+      "target_period_updates": 100,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 160000,
+      "unique_environment_transitions": 32,
+      "target_copies": 50,
+      "start_q": 0.8535030484199524,
+      "expected_start": 0.8600584864616394,
+      "max_abs_error": 0.006555438041687012,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 40,
+      "target_period_updates": 1000,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 400000,
+      "unique_environment_transitions": 80,
+      "target_copies": 5,
+      "start_q": 0.002088010311126709,
+      "expected_start": 0.6757293343544006,
+      "max_abs_error": 0.9283536076545715,
+      "greedy_success": false,
+      "passed": false
+    },
+    {
+      "length": 40,
+      "target_period_updates": 100,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 400000,
+      "unique_environment_transitions": 80,
+      "target_copies": 50,
+      "start_q": 0.6771031022071838,
+      "expected_start": 0.6757293343544006,
+      "max_abs_error": 0.007575094699859619,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 64,
+      "target_period_updates": 1000,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 640000,
+      "unique_environment_transitions": 128,
+      "target_copies": 5,
+      "start_q": -0.002204100601375103,
+      "expected_start": 0.5309058427810669,
+      "max_abs_error": 0.998977541923523,
+      "greedy_success": false,
+      "passed": false
+    },
+    {
+      "length": 64,
+      "target_period_updates": 100,
+      "optimizer_updates": 5000,
+      "valid_td_positions": 640000,
+      "unique_environment_transitions": 128,
+      "target_copies": 50,
+      "start_q": 0.0005146488547325134,
+      "expected_start": 0.5309058427810669,
+      "max_abs_error": 0.6346657872200012,
+      "greedy_success": false,
+      "passed": false
+    }
+  ],
+  "selected_target_period_updates": 100,
+  "passed": false
+}

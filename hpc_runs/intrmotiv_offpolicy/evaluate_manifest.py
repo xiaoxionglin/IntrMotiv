@@ -26,7 +26,7 @@ def run():
     sys.argv=[sys.argv[0],'--parent-run-dir',parent_dir,'--parent-checkpoint',parent_checkpoint,
               '--output',str(Path(output)/'raw'/row['label_suffix']),
               '--decision-cap',os.environ.get('PLACE_FIELD_MAX_FRAMES','100000'),
-              '--max-sources','1','--repeats','1']+extra
+              '--max-sources',str(row.get('max_sources',4)),'--repeats',str(row.get('repeats',3))]+extra
     main()
 
 

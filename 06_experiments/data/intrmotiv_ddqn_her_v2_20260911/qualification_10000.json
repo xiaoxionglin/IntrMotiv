@@ -1,0 +1,184 @@
+{
+  "scope": "Synthetic deterministic replay; not DMLab performance",
+  "expressivity": {
+    "max_abs_error": 0.010799763724207878,
+    "q": [
+      [
+        1.0068591833114624,
+        0.003110211342573166
+      ],
+      [
+        1.0043007135391235,
+        0.9912635684013367
+      ],
+      [
+        0.004218695685267448,
+        0.00598708912730217
+      ],
+      [
+        0.0021337252110242844,
+        0.9933266043663025
+      ],
+      [
+        0.010799763724207878,
+        0.993573009967804
+      ],
+      [
+        0.9973137378692627,
+        1.0078872442245483
+      ],
+      [
+        0.500445544719696,
+        0.0030445270240306854
+      ],
+      [
+        0.4998771548271179,
+        0.9898869395256042
+      ]
+    ],
+    "expected": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.9900000095367432
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.9900000095367432
+      ],
+      [
+        0.0,
+        1.0
+      ],
+      [
+        0.9900000095367432,
+        1.0
+      ],
+      [
+        0.5,
+        0.0
+      ],
+      [
+        0.5,
+        0.9900000095367432
+      ]
+    ],
+    "action_switch": true,
+    "passed": true
+  },
+  "chains": [
+    {
+      "length": 4,
+      "target_period_updates": 1000,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 80000,
+      "unique_environment_transitions": 8,
+      "target_copies": 10,
+      "start_q": 0.9699113965034485,
+      "expected_start": 0.9702990055084229,
+      "max_abs_error": 0.0005904436111450195,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 4,
+      "target_period_updates": 100,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 80000,
+      "unique_environment_transitions": 8,
+      "target_copies": 100,
+      "start_q": 0.970211386680603,
+      "expected_start": 0.9702990055084229,
+      "max_abs_error": 0.0004831552505493164,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 16,
+      "target_period_updates": 1000,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 320000,
+      "unique_environment_transitions": 32,
+      "target_copies": 10,
+      "start_q": 0.23527145385742188,
+      "expected_start": 0.8600584864616394,
+      "max_abs_error": 0.7162752151489258,
+      "greedy_success": true,
+      "passed": false
+    },
+    {
+      "length": 16,
+      "target_period_updates": 100,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 320000,
+      "unique_environment_transitions": 32,
+      "target_copies": 100,
+      "start_q": 0.8547866940498352,
+      "expected_start": 0.8600584864616394,
+      "max_abs_error": 0.0053498148918151855,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 40,
+      "target_period_updates": 1000,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 800000,
+      "unique_environment_transitions": 80,
+      "target_copies": 10,
+      "start_q": 0.0009128749370574951,
+      "expected_start": 0.6757293343544006,
+      "max_abs_error": 0.8818655014038086,
+      "greedy_success": false,
+      "passed": false
+    },
+    {
+      "length": 40,
+      "target_period_updates": 100,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 800000,
+      "unique_environment_transitions": 80,
+      "target_copies": 100,
+      "start_q": 0.6764571666717529,
+      "expected_start": 0.6757293343544006,
+      "max_abs_error": 0.0057106614112854,
+      "greedy_success": true,
+      "passed": true
+    },
+    {
+      "length": 64,
+      "target_period_updates": 1000,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 1280000,
+      "unique_environment_transitions": 128,
+      "target_copies": 10,
+      "start_q": -0.0016812682151794434,
+      "expected_start": 0.5309058427810669,
+      "max_abs_error": 0.9488613605499268,
+      "greedy_success": false,
+      "passed": false
+    },
+    {
+      "length": 64,
+      "target_period_updates": 100,
+      "optimizer_updates": 10000,
+      "valid_td_positions": 1280000,
+      "unique_environment_transitions": 128,
+      "target_copies": 100,
+      "start_q": 0.527045488357544,
+      "expected_start": 0.5309058427810669,
+      "max_abs_error": 0.0052391886711120605,
+      "greedy_success": true,
+      "passed": true
+    }
+  ],
+  "selected_target_period_updates": 100,
+  "passed": true
+}

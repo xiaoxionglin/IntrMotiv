@@ -6,6 +6,11 @@ import torch
 from .checkpoint import convert_actor, state_hash
 
 
+def validate_child_schema(child):
+    if child.get("schema") != "intrmotiv/ddqn-worker/v2":
+        raise ValueError("incompatible child checkpoint: v2 requires fresh initialization; no v1 migration")
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--parent-run-dir',type=Path,required=True)
@@ -27,15 +32,14 @@ def main():
     if args.child_checkpoint:
         with torch.serialization.safe_globals([type(Path('.'))]):
             child=load_checkpoint_dict(args.child_checkpoint,device)
-        if child['schema']!='intrmotiv/ddqn-worker/v1': raise ValueError('wrong child checkpoint schema')
+        validate_child_schema(child)
         if cfg.dg_goal_input!='none': raise ValueError('write-conditioned actor evaluation not qualified')
         worker,_=convert_actor(actor,cfg,env.unwrapped.action_list,int(child['config']['seed']))
         worker.load_state_dict(child['model'],strict=True);worker.eval().requires_grad_(False)
         if state_hash(actor.encoder)!=child['reference_hash']: raise ValueError('reference detector changed')
         def callback(out,command,budget,clock):
             state=out[:,:actor.core.get_out_size()]
-            hidden=worker.decoder(state)+worker.budget_layer(out.new_tensor([[budget/64.,clock/1800.]]))
-            q=worker.q_head(hidden)
+            q=worker.readout_state(state, out.new_tensor([budget]), out.new_tensor([clock]))
             q_statistics.append((float(q.min()),float(q.max()),float(q.mean()),
                                  int(((q<0)|(q>1)).sum()),q.numel()))
             logits=torch.full_like(q,-torch.inf).scatter(1,q.argmax(-1,keepdim=True),0.)
@@ -51,6 +55,13 @@ def main():
             censored_commanded_trials=int(commanded.censored.sum()),
             restricted_mean_first_arrival=float(commanded.apply(
                 lambda row: row.hit_time if row.hit else row.deadline,axis=1).mean()))
+    if len(rows):
+        summary['per_goal'] = {str(goal):dict(successes=int(group.hit.sum()),trials=len(group),
+            censored=int(group.censored.sum()),success_lower_bound=float(group.hit.mean()),
+            failure_inclusive_arrival_time=float(group.apply(
+                lambda row: row.hit_time if row.hit else row.deadline,axis=1).mean()))
+            for goal,group in rows[rows.commanded].groupby('target')}
+    summary['child_seed'] = int(child['config']['seed']) if args.child_checkpoint else None
     summary.update(child_checkpoint=str(args.child_checkpoint) if args.child_checkpoint else None,
         independent_spatial_destination_qualification=False,registry_scope='post_hoc_development',
         physical_prefixes='same seeds and passive source inventory across parent/child')

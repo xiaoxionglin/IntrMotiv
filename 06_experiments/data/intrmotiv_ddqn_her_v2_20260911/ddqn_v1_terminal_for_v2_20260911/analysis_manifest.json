@@ -1,0 +1,38 @@
+{
+  "batch_name": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+  "collection": {
+    "loader_backend": "thread",
+    "mode": "latest_common",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        4750064,
+        5000064
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [],
+  "expected_runs": 6,
+  "group_by": [
+    "base"
+  ],
+  "input_rows": 6,
+  "metrics": [
+    "throughput_fps",
+    "td_loss",
+    "realized_her_fraction",
+    "q_out_of_range_fraction"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "intrmotiv_ddqn_her_frozen_pilot_20260911",
+  "study_sha256": "a9771c14657cf6e59c6e9d6358b96d4d53452951dfd4235112bc01324ea18bef",
+  "study_spec": "hpc_runs/studies/intrmotiv_ddqn_her_frozen_pilot.study.json",
+  "study_workflow_version": "1.8.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.0"
+}

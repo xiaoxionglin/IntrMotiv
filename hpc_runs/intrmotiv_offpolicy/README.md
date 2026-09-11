@@ -57,3 +57,21 @@ The runtime must be isolated from existing jobs. Use the reviewed terminal
 contract patch and planner optimization in the selected new source checkout.
 The deployment and submitted preflights are recorded in
 `06_experiments/intrmotiv_ddqn_her_implementation_20260911.md`.
+
+## v2 finite-budget repair
+
+The current child model uses `intrmotiv/ddqn-worker/v2` and a shared nonlinear
+clock-aware readout. V1 children require the preserved v1 evaluator; there is no
+implicit migration. HER attempts retain the first-hit suffix through at most 64
+steps; `PositionBatcher` carries splits with their original deadline and delivers
+exactly 256 valid TD positions/update. Target-copy cadence and accepted-decision
+update cadence are explicit CLI settings. Unknown environment remaining time is
+`None`; certified final observations are read from outer vector autoreset fields.
+See `06_experiments/intrmotiv_ddqn_her_v2_repair_20260911.md` for the boundary
+bootstrap table, numerical qualification, v1 evidence and staged v2 studies.
+
+For future repairs, run archived audit assertions only against archived source.
+Compare actual runtime hashes, test the vector-info selector as well as reset,
+and verify nonlinear expressivity on both local and cluster Python builds.
+Preserve failed fitting and short-budget cadence measurements. Do not promote
+from TD loss alone; require matched-command evaluation and per-goal coverage.

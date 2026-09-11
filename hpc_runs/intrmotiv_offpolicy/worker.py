@@ -7,6 +7,7 @@ from .contracts import advance_memory, double_dqn_target
 
 
 class QWorker(nn.Module):
+    schema = "intrmotiv/ddqn-worker/v2"
     def __init__(self, decoder, n_goals, bypass_size, repeat_width=8, length=64,
                  write_modulation=None, intercept=2.43, n_actions=8):
         super().__init__()
@@ -17,8 +18,7 @@ class QWorker(nn.Module):
         self.write_modulation = (nn.Parameter(write_modulation.detach().clone())
                                  if write_modulation is not None else None)
         hidden = decoder.get_out_size()
-        self.budget_layer = nn.Linear(2, hidden, bias=False)
-        nn.init.zeros_(self.budget_layer.weight)
+        self.joint = nn.Sequential(nn.Linear(hidden + 2, hidden), nn.Tanh())
         self.q_head = nn.Linear(hidden, n_actions)
 
     def initial(self, batch, device=None):
@@ -33,16 +33,23 @@ class QWorker(nn.Module):
         return F.relu(pre - self.intercept)
 
     def step(self, memory, preactivation, bypass, goal, budget, episode_decision=None):
-        condition = F.one_hot(goal.long(), self.n_goals).to(preactivation.dtype)
-        memory = advance_memory(memory, self.activity(preactivation,goal), self.repeat_width)
+        memory = advance_memory(memory, self.activity(preactivation, goal), self.repeat_width)
+        return self.readout(memory, bypass, goal, budget, episode_decision), memory
+
+    def readout(self, memory, bypass, goal, budget, episode_decision=None):
+        """Read already-updated memory. Shared by actors, TD learning and evaluation."""
         if bypass.shape != (len(goal), self.bypass_size):
             raise ValueError('parent depth/context bypass layout changed')
+        condition = F.one_hot(goal.long(), self.n_goals).to(memory.dtype)
         state = torch.cat((memory.flatten(1), bypass.detach(), condition), -1)
+        return self.readout_state(state, budget, episode_decision)
+
+    def readout_state(self, state, budget, episode_decision=None):
+        """Canonical evaluator core output includes memory, bypass and goal already."""
         if episode_decision is None:
             episode_decision = torch.zeros_like(budget)
         clocks = torch.stack((budget.float()/64.0, episode_decision.float()/1800.0), -1)
-        hidden = self.decoder(state) + self.budget_layer(clocks)
-        return self.q_head(hidden), memory
+        return self.q_head(self.joint(torch.cat((self.decoder(state), clocks), -1)))
 
     def rebuild(self, preactivation, bypass, goals, budgets, episode_start=False):
         if not episode_start and len(preactivation) < self.width:
@@ -90,9 +97,23 @@ class DoubleDQNLearner:
         self.updates += 1
         if self.updates % self.target_period == 0:
             self.target.load_state_dict(self.online.state_dict(), strict=True)
-        return {'td_loss': float(loss.detach()), 'grad_norm': float(norm),
+        metrics = {'td_loss': float(loss.detach()), 'grad_norm': float(norm),
                 'valid_loss_positions': int(mask.sum()),
+                'target_copies': self.updates // self.target_period,
+                'td_target_min': float(target[mask].min()),
+                'td_target_max': float(target[mask].max()),
+                'td_target_mean': float(target[mask].mean()),
+                'action_gap_mean': float(online_q[:-1].detach().topk(2, dim=-1).values.diff(dim=-1).neg().squeeze(-1)[mask].mean()),
                 'q_min': float(predicted[mask].detach().min()),
                 'q_max': float(predicted[mask].detach().max()),
                 'q_mean': float(predicted[mask].detach().mean()),
                 'q_out_of_range_fraction': float(((predicted[mask] < 0) | (predicted[mask] > 1)).float().mean())}
+
+        for goal in goals[:-1][mask].unique().tolist():
+            selected = mask & (goals[:-1] == goal)
+            for name, values in (('prediction',predicted.detach()),('td_target',target)):
+                for stat in ('min','max','mean'):
+                    metrics[f'goal_{goal}/{name}_{stat}'] = float(getattr(values[selected],stat)())
+            gaps=online_q[:-1].detach().topk(2,dim=-1).values.diff(dim=-1).neg().squeeze(-1)
+            metrics[f'goal_{goal}/action_gap_mean'] = float(gaps[selected].mean())
+        return metrics

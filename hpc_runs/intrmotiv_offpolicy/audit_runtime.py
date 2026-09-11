@@ -27,6 +27,15 @@ def audit(study,batch_root):
             raise ValueError(f'{run.name}: no genuine HER samples')
         if any(not math.isfinite(v) for m in metrics for v in m.values() if isinstance(v,(int,float))):
             raise ValueError(f'{run.name}: nonfinite recorded metrics')
+        if 'td-positions-per-update' in arguments:
+            positions=int(arguments['td-positions-per-update'])
+            period=int(arguments['target-period'])
+            if gate.get('valid_loss_positions') != gate['updates']*positions:
+                raise ValueError('v2 valid TD-position budget mismatch')
+            if gate['target_copies'] != gate['updates']//period:
+                raise ValueError('v2 target-copy cadence mismatch')
+            if metrics[-1].get('valid_loss_positions_total') != gate['valid_loss_positions']:
+                raise ValueError('v2 TD telemetry and gate disagree')
         seed=int(arguments['seed']); initial=conversion['worker_hash']
         if seed in initial_by_seed and initial_by_seed[seed]!=initial:
             raise ValueError('matched HER arms have different initialization')

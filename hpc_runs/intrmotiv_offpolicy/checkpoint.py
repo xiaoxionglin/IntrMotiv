@@ -48,9 +48,9 @@ def convert_actor(actor, cfg, action_vectors, learner_seed):
     worker.requires_grad_(True)
     copied = [k for k in actor.state_dict() if k.startswith(('encoder.','obs_normalizer.','decoder.'))]
     copied += [k for k in actor.state_dict() if k == 'core.dg_goal_modulation']
-    report = dict(schema='intrmotiv/ddqn-conversion/v1', learner_seed=learner_seed,
+    report = dict(schema='intrmotiv/ddqn-conversion/v2', learner_seed=learner_seed,
                   copied=copied, excluded=[k for k in actor.state_dict() if k not in copied],
-                  initialized=['q_head.weight','q_head.bias','budget_layer.weight'],
+                  initialized=['q_head.weight','q_head.bias','joint.0.weight','joint.0.bias'],
                   encoder_hash=state_hash(actor.encoder), worker_hash=state_hash(worker),
                   parent_frames_are_child_frames=False, graph_learning=False,
                   dg_update_mode='frozen', decoder_parameter_count=sum(p.numel() for p in worker.parameters()),

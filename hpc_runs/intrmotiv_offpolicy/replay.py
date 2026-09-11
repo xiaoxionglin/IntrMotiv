@@ -28,7 +28,7 @@ class Transition:
     episode: int
     index: int
     observation: Observation
-    successor: Observation
+    successor: Observation | None
     action: int
     goal: int
     option: int
@@ -37,11 +37,11 @@ class Transition:
     truncated: bool = False
     successor_valid: bool = True
     model_version: int = 0
-    environment_remaining: int = 1800
+    environment_remaining: int | None = None
 
 
 class SequenceReplay:
-    schema = 'intrmotiv/first-arrival-replay/v1'
+    schema = 'intrmotiv/first-arrival-replay/v2'
 
     def __init__(self, capacity=200000, width=71, seed=0, reference_hash=''):
         if capacity <= width or width < 1 or not reference_hash:
@@ -105,37 +105,63 @@ class SequenceReplay:
             raise ValueError('no valid successor')
         return prefix, future[:unroll], future
 
-    def sample(self, registry, her_fraction=0.8, unroll=16, horizon=64):
+    def attempt(self, key, registry, request_her=False, unroll=64, horizon=64):
+        """A complete relabeled attempt, including its first verified reward.
+
+        Completion and successor validity are independent: an observed hit is
+        sufficient even in an incomplete future or before an invalid final row.
+        Truncation bootstraps from a certified final state; termination does not.
+        """
+        prefix, segment, future = self.segment(key, unroll, horizon)
+        start = segment[0]
+        goal, budget, relabeled = start.goal, start.budget, False
+        virtual_budget = horizon if start.environment_remaining is None else min(horizon, start.environment_remaining)
+        first_hits = {}
+        if request_her:
+            for offset, row in enumerate(future[:virtual_budget]):
+                for g in registry:
+                    if not bool(start.observation.events[g]) and bool(row.successor.events[g]):
+                        first_hits.setdefault(g, offset)
+            if first_hits:
+                goal = int(self.rng.choice(list(first_hits)))
+                budget, relabeled = virtual_budget, True
+                # Never discard the reward-bearing suffix to satisfy unroll.
+                segment = future[:first_hits[goal] + 1]
+        if not relabeled:
+            stop = next((i for i,r in enumerate(segment) if r.option != start.option), len(segment))
+            segment = segment[:stop]
+        observations = [segment[0].observation] + [r.successor for r in segment]
+        events = torch.stack([o.events for o in observations])
+        reward, done, mask = first_arrival(events, goal, budget,
+            torch.tensor([r.terminated for r in segment]), torch.ones(len(segment), dtype=torch.bool))
+        if not mask.any():
+            raise ValueError('no valid loss positions')
+        # Remove all post-arrival/expiration positions, including their observations.
+        count = int(mask.sum())
+        segment, observations = segment[:count], observations[:count+1]
+        # A missing/invalid successor after this prefix remains a physical boundary,
+        # but is never itself a TD position or an invented terminal reward.
+        next_row = self.rows.get((start.stream, start.episode, start.index + len(future)))
+        completed = future[-1].terminated or future[-1].truncated or bool(
+            next_row and (next_row.terminated or next_row.truncated))
+        return dict(prefix=prefix, segment=segment, observations=observations, goal=goal,
+            budget=budget, relabeled=relabeled, requested_her=request_her,
+            reward=reward[:count], done=done[:count], mask=mask[:count],
+            virtual_attempt=dict(stream=start.stream, episode=start.episode,
+                start_index=start.index, deadline=start.index+budget,
+                first_hit_index=start.index+first_hits[goal]+1 if relabeled else None),
+            episode_complete=completed, selected_goal_offset=first_hits[goal]+1 if relabeled else None)
+
+    def sample(self, registry, her_fraction=0.8, unroll=64, horizon=64):
         if not 0 <= her_fraction <= 1 or unroll < 1 or horizon < 1:
             raise ValueError('invalid sampling configuration')
         count = len(self.rows)
-        # Bounded retry; missing history is never replaced by invented zero state.
         for _ in range(min(count, 128)):
             key = self.slots[int(self.rng.integers(count))]
             try:
-                prefix, segment, future = self.segment(key, unroll, horizon)
+                return self.attempt(key, registry, self.rng.random() < her_fraction, unroll, horizon)
             except ValueError:
                 continue
-            start = segment[0]
-            goal, budget, relabeled = start.goal, start.budget, False
-            virtual_budget = min(horizon, start.environment_remaining)
-            future_ready = len(future) >= virtual_budget or future[-1].terminated or future[-1].truncated
-            if self.rng.random() < her_fraction and future_ready:
-                choices = [(offset, g) for offset, r in enumerate(future[:virtual_budget])
-                           for g in registry if not bool(start.observation.events[g]) and bool(r.successor.events[g])]
-                if choices:
-                    _, goal = choices[int(self.rng.integers(len(choices)))]
-                    budget, relabeled = virtual_budget, True
-            if not relabeled:
-                stop = next((i for i,r in enumerate(segment) if r.option != start.option), len(segment))
-                segment = segment[:stop]
-            observations = [segment[0].observation] + [r.successor for r in segment]
-            events = torch.stack([o.events for o in observations])
-            reward, done, mask = first_arrival(events, goal, budget,
-                torch.tensor([r.terminated for r in segment]), torch.ones(len(segment), dtype=torch.bool))
-            if mask.any():
-                return dict(prefix=prefix, segment=segment, observations=observations, goal=goal,
-                            budget=budget, relabeled=relabeled, reward=reward, done=done, mask=mask)
         raise ValueError('no eligible replay sequence after bounded sampling')
 
     def state_dict(self):

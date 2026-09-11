@@ -1,0 +1,130 @@
+{
+  "schema": "intrmotiv/ddqn-runtime-audit/v1",
+  "study_sha256": "a9771c14657cf6e59c6e9d6358b96d4d53452951dfd4235112bc01324ea18bef",
+  "workflow_version": "1.8.0",
+  "runtime_passed": true,
+  "scientific_qualification": "pending_independent_commanded_and_spatial_evaluation",
+  "runs": [
+    {
+      "run": "DQ_DDQN_S8",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 0,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 847.7127547059179,
+      "realized_her_fraction": 0.0,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000003648_1000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000019265_5000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000009505_2500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S8_/checkpoint_p0/checkpoint_000000720_250112.pth"
+      ]
+    },
+    {
+      "run": "DQ_DDQN_S99",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 0,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 768.1561282229881,
+      "realized_her_fraction": 0.0,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000003648_1000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000019265_5000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S99_/checkpoint_p0/checkpoint_000009505_2500096.pth"
+      ]
+    },
+    {
+      "run": "DQ_DDQN_S123",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 0,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 789.7972228872995,
+      "realized_her_fraction": 0.0,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000003648_1000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000019265_5000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000009505_2500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_S123_/checkpoint_p0/checkpoint_000000720_250112.pth"
+      ]
+    },
+    {
+      "run": "DQ_DDQN_HER_S8",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 114600,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 786.5635472962509,
+      "realized_her_fraction": 0.37178821697378667,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000009505_2500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000019265_5000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S8_/checkpoint_p0/checkpoint_000003648_1000064.pth"
+      ]
+    },
+    {
+      "run": "DQ_DDQN_HER_S99",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 104636,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 761.8604649865463,
+      "realized_her_fraction": 0.339462756293797,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000003648_1000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000019265_5000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S99_/checkpoint_p0/checkpoint_000009505_2500096.pth"
+      ]
+    },
+    {
+      "run": "DQ_DDQN_HER_S123",
+      "frames": 5000064,
+      "updates": 19265,
+      "target_copies": 19,
+      "invalid_final_exclusions": 672,
+      "frozen_reference_unchanged": true,
+      "her_samples": 108568,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 778.5909229231665,
+      "realized_her_fraction": 0.3522190500908383,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000001696_500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000003648_1000064.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000009505_2500096.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_frozen_pilot_20260911/DQ_DDQN_HER_S123_/checkpoint_p0/checkpoint_000019265_5000064.pth"
+      ]
+    }
+  ]
+}
+
