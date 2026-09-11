@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.7.1**; study schema:
+Current implementation: **1.8.0** (local; NEMO2 **1.7.1**); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -207,6 +207,17 @@ Standard outputs are:
 standardized `per_run.csv`. It requires exactly one row for every declared run.
 
 ### Latest shared-step comparisons (1.7.0)
+
+Optional `analysis.loader_backend: "process"` in locally staged 1.8.0 uses
+spawned workers bounded by `analysis.max_workers`; the default is `"thread"`.
+The CLI reports each finished run, and the manifest records the backend.
+A September 11 full-batch threaded scan remained at one CPU after about 30
+minutes and was stopped without results. Process loading addresses Python
+thread contention, but full-batch speedup is unmeasured. Forty-three focused
+tests pass locally, including real-event backend equivalence; deploy and test
+on NEMO2 before use. Changing this study analysis option requires the usual
+fingerprint preservation, print-only review, and submission audit.
+
 
 Directory discovery in 1.7.1 recognizes `RUN_/00_RUN` as a launcher container
 and one actual experiment when the container has no experiment payload. It

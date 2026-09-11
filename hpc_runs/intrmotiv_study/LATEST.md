@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.7.1`
+- Implementation: `1.8.0` (local; NEMO2 remains `1.7.1`)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -8,6 +8,13 @@
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 ## Deployment status
+
+Version 1.8.0 is staged locally: optional `analysis.loader_backend: "process"`
+uses spawned workers for TensorBoard parsing; the default remains `"thread"`.
+Both backends preserve row order and shared-window semantics, and the CLI
+reports each completed run. All 43 focused tests pass locally, including
+real-event process/thread equivalence and error propagation. Not yet deployed
+or benchmarked on NEMO2; synchronize and rerun tests there before use.
 
 Version 1.7.1 fixes exact run discovery for the standard nested launcher layout
 `RUN_/00_RUN`: an empty outer container is excluded when its declared experiment

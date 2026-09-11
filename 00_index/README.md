@@ -49,6 +49,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG Capacity and Goal Conditioning: Interim Checkpoint Analysis]]
+
 - [[../06_experiments/navigation8_algorithm_screen_implementation_20260909|Navigation8 Algorithm Screen Implementation]]
 - [[../06_experiments/late_target_hit_lift_audit_20260908|Late Target-Hit-Lift Jumps: Full-History Audit]]
 - [[../06_experiments/late_training_outliers_20260908|Late-Training Outliers: Spatial Specialization, Exploration, and Control]]
