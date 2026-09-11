@@ -1,0 +1,323 @@
+{
+  "scope": "Synthetic cached-feature learner benchmark; no DMLab FPS claim",
+  "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_her_v2_preflight_20260911/DQV2PF_DDQN_S99_/checkpoint_p0/checkpoint_000000720_250112.pth",
+  "checkpoint_sha256": "98e2c8b279ed05bfad24ad362fb05ff2f4f72400874ac53674378701e1fd43f3",
+  "decoder": "TargetFiLMDecoder",
+  "shape": {
+    "goals": 16,
+    "width": 71,
+    "bypass": 13
+  },
+  "torch_version": "2.9.1",
+  "threads": "1,2,4,8",
+  "steps": 20,
+  "repeats": 3,
+  "parity": {
+    "1": {
+      "DDQN": {
+        "max_loss_difference": 9.313225746154785e-10,
+        "max_parameter_difference": 4.0978193283081055e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      },
+      "DDQN_HER": {
+        "max_loss_difference": 0.0,
+        "max_parameter_difference": 1.3294629752635956e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      }
+    },
+    "2": {
+      "DDQN": {
+        "max_loss_difference": 9.313225746154785e-10,
+        "max_parameter_difference": 2.8312206268310547e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      },
+      "DDQN_HER": {
+        "max_loss_difference": 0.0,
+        "max_parameter_difference": 1.3294629752635956e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      }
+    },
+    "4": {
+      "DDQN": {
+        "max_loss_difference": 9.313225746154785e-10,
+        "max_parameter_difference": 4.0978193283081055e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      },
+      "DDQN_HER": {
+        "max_loss_difference": 0.0,
+        "max_parameter_difference": 1.3294629752635956e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      }
+    },
+    "8": {
+      "DDQN": {
+        "max_loss_difference": 9.313225746154785e-10,
+        "max_parameter_difference": 2.8312206268310547e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      },
+      "DDQN_HER": {
+        "max_loss_difference": 0.0,
+        "max_parameter_difference": 1.3294629752635956e-07,
+        "updates": 3,
+        "valid_td_positions": 768,
+        "target_copies": 1
+      }
+    }
+  },
+  "measurements": [
+    {
+      "arm": "DDQN",
+      "backend": "reference",
+      "threads": 1,
+      "seconds_per_update": 0.15704024150036275,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1630.1554146515284,
+      "prefix_batch_ms": 88.26300344662741,
+      "learner_ms": 68.74206033632315,
+      "repetition_seconds_per_update": [
+        0.15696289690095,
+        0.15704024150036275,
+        0.15731219364970456
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "batched",
+      "threads": 1,
+      "seconds_per_update": 0.03528292950068135,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 7255.633350826393,
+      "prefix_batch_ms": 4.1856975168533,
+      "learner_ms": 31.024896596015118,
+      "repetition_seconds_per_update": [
+        0.03644397814932745,
+        0.035088073450606314,
+        0.03528292950068135
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "reference",
+      "threads": 1,
+      "seconds_per_update": 0.15343898285063914,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1668.4156479921141,
+      "prefix_batch_ms": 84.18542219927379,
+      "learner_ms": 70.53933808541237,
+      "repetition_seconds_per_update": [
+        0.15343898285063914,
+        0.15779751439986284,
+        0.15327379515219947
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "batched",
+      "threads": 1,
+      "seconds_per_update": 0.03270170500036329,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 7828.3380024728385,
+      "prefix_batch_ms": 4.291421497085443,
+      "learner_ms": 29.56888897072834,
+      "repetition_seconds_per_update": [
+        0.03766716775135137,
+        0.03227764864859637,
+        0.03270170500036329
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "reference",
+      "threads": 2,
+      "seconds_per_update": 0.17199413210037165,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1488.4228716047392,
+      "prefix_batch_ms": 87.84579766894845,
+      "learner_ms": 84.0815479294785,
+      "repetition_seconds_per_update": [
+        0.16983471509884113,
+        0.17199413210037165,
+        0.17431755645084196
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "batched",
+      "threads": 2,
+      "seconds_per_update": 0.03380463214998599,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 7572.92665881312,
+      "prefix_batch_ms": 4.2294364830013365,
+      "learner_ms": 28.919479314936325,
+      "repetition_seconds_per_update": [
+        0.033919125751708634,
+        0.03295482230023481,
+        0.03380463214998599
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "reference",
+      "threads": 2,
+      "seconds_per_update": 0.15162054289830848,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1688.4255596664007,
+      "prefix_batch_ms": 83.51237269719908,
+      "learner_ms": 73.88880518459094,
+      "repetition_seconds_per_update": [
+        0.17144725704856684,
+        0.15162054289830848,
+        0.14946616145025474
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "batched",
+      "threads": 2,
+      "seconds_per_update": 0.029872569849248975,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 8569.734753049246,
+      "prefix_batch_ms": 4.299034132660988,
+      "learner_ms": 25.91393080462391,
+      "repetition_seconds_per_update": [
+        0.032763304701074955,
+        0.029872569849248975,
+        0.029604712600121274
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "reference",
+      "threads": 4,
+      "seconds_per_update": 0.16661090565030462,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1536.5140655156865,
+      "prefix_batch_ms": 88.57031763570072,
+      "learner_ms": 80.32097645433775,
+      "repetition_seconds_per_update": [
+        0.17676885944965762,
+        0.16661090565030462,
+        0.16365184894821141
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "batched",
+      "threads": 4,
+      "seconds_per_update": 0.028813024450209924,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 8884.870813974367,
+      "prefix_batch_ms": 4.243280146814262,
+      "learner_ms": 24.472148605855182,
+      "repetition_seconds_per_update": [
+        0.029090366000309585,
+        0.028813024450209924,
+        0.028797107699210754
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "reference",
+      "threads": 4,
+      "seconds_per_update": 0.16189980685012414,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 1581.2248635786664,
+      "prefix_batch_ms": 85.0178753976555,
+      "learner_ms": 76.54453130089678,
+      "repetition_seconds_per_update": [
+        0.16003686779877171,
+        0.1630879432486836,
+        0.16189980685012414
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "batched",
+      "threads": 4,
+      "seconds_per_update": 0.030065620501409283,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 8514.708684891448,
+      "prefix_batch_ms": 4.367491017910652,
+      "learner_ms": 25.440144351644754,
+      "repetition_seconds_per_update": [
+        0.030940035299863666,
+        0.030065620501409283,
+        0.030016490950947626
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "reference",
+      "threads": 8,
+      "seconds_per_update": 0.260932813747786,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 981.0954640892579,
+      "prefix_batch_ms": 88.26716853460918,
+      "learner_ms": 177.36097737700524,
+      "repetition_seconds_per_update": [
+        0.2762913076992845,
+        0.2599947948998306,
+        0.260932813747786
+      ]
+    },
+    {
+      "arm": "DDQN",
+      "backend": "batched",
+      "threads": 8,
+      "seconds_per_update": 0.03369155510154087,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 7598.343241457915,
+      "prefix_batch_ms": 4.382808148511685,
+      "learner_ms": 28.347556752851233,
+      "repetition_seconds_per_update": [
+        0.033827361851581375,
+        0.03190048350079451,
+        0.03369155510154087
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "reference",
+      "threads": 8,
+      "seconds_per_update": 0.2588540076976642,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 988.9744504130003,
+      "prefix_batch_ms": 85.51715998425304,
+      "learner_ms": 175.75075428370232,
+      "repetition_seconds_per_update": [
+        0.2571395783976186,
+        0.26814074509893543,
+        0.2588540076976642
+      ]
+    },
+    {
+      "arm": "DDQN_HER",
+      "backend": "batched",
+      "threads": 8,
+      "seconds_per_update": 0.03692846639896743,
+      "valid_td_positions_per_update": 256,
+      "td_positions_per_second": 6932.321457225695,
+      "prefix_batch_ms": 4.4241248348650215,
+      "learner_ms": 31.601303762484648,
+      "repetition_seconds_per_update": [
+        0.03776633345114533,
+        0.034264096451806836,
+        0.03692846639896743
+      ]
+    }
+  ]
+}

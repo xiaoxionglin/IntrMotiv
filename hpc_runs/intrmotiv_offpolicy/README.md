@@ -75,3 +75,19 @@ Compare actual runtime hashes, test the vector-info selector as well as reset,
 and verify nonlinear expressivity on both local and cluster Python builds.
 Preserve failed fitting and short-budget cadence measurements. Do not promote
 from TD loss alone; require matched-command evaluation and per-goal coverage.
+
+## Optional batched execution
+
+`--learner-execution=batched` batches frozen physical-prefix reconstruction and
+time×batch decoder evaluation. Default remains `reference`. It is qualified for
+the inspected row-independent TargetFiLMDecoder and goal-independent writes;
+requalify after decoder changes. The objective, TD budget and v2 state dict stay
+unchanged. See `06_experiments/intrmotiv_ddqn_throughput_20260911.md` for paired
+runtime evidence, limits and SF integration choices.
+
+For repeated throughput work, use `profile_runtime` with the canonical StudySpec
+and existing scalar counters before adding instrumentation. Use `benchmark`
+with the actual runtime decoder/checkpoint, then an isolated paired end-to-end
+preflight and `audit_runtime`. Learner-only speedup does not establish overall
+FPS or scientific improvement. Preserve exact accepted-decision/update budgets
+when adding async collection; off-policy DDQN needs no PPO policy-lag filter.

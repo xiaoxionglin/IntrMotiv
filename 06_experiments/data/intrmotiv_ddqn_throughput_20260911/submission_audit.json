@@ -1,0 +1,23 @@
+{
+  "batch_name": "intrmotiv_ddqn_throughput_preflight_20260911",
+  "commands_match_study": true,
+  "expected_runs": 2,
+  "job_ids": [
+    "8056866",
+    "8056867"
+  ],
+  "jobs_tsv": "06_experiments/data/intrmotiv_ddqn_throughput_20260911/jobs.tsv",
+  "rows": 2,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 2
+  },
+  "study_id": "intrmotiv_ddqn_throughput_preflight_20260911",
+  "study_sha256": "5ca30e197467022adec06c55d18e3ec6a694710b04ed9715eb70c942bd463229",
+  "study_spec": "hpc_runs/studies/intrmotiv_ddqn_throughput_preflight.study.json",
+  "study_workflow_version": "1.8.0",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.0",
+  "workspace_paths_valid": true
+}

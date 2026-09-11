@@ -9,9 +9,10 @@ from .contracts import advance_memory, double_dqn_target
 class QWorker(nn.Module):
     schema = "intrmotiv/ddqn-worker/v2"
     def __init__(self, decoder, n_goals, bypass_size, repeat_width=8, length=64,
-                 write_modulation=None, intercept=2.43, n_actions=8):
+                 write_modulation=None, intercept=2.43, n_actions=8, batch_independent=False):
         super().__init__()
         self.decoder = copy.deepcopy(decoder)
+        self.batch_independent = bool(batch_independent)
         self.n_goals, self.bypass_size = n_goals, bypass_size
         self.repeat_width, self.width = repeat_width, repeat_width + length - 1
         self.intercept = float(intercept)
@@ -51,6 +52,27 @@ class QWorker(nn.Module):
         clocks = torch.stack((budget.float()/64.0, episode_decision.float()/1800.0), -1)
         return self.q_head(self.joint(torch.cat((self.decoder(state), clocks), -1)))
 
+    def sequence(self, memory, pre, bypass, goals, budgets, clocks):
+        """Batched decoder over physical time; preserve every CA3 transition.
+
+        Only qualified row-independent decoders and goal-independent writes use
+        this path. No replay sample, TD mask, update count or target changes.
+        """
+        if not self.batch_independent or self.write_modulation is not None:
+            raise ValueError('batched execution requires a qualified row-independent frozen-write worker')
+        if any(isinstance(m, (nn.modules.batchnorm._BatchNorm, nn.Dropout)) and m.training
+               for m in self.decoder.modules()):
+            raise ValueError('batch-dependent or stochastic decoder cannot use batched execution')
+        memories = []
+        for t in range(len(pre)):
+            memory = advance_memory(memory, self.activity(pre[t], goals[t]), self.repeat_width)
+            memories.append(memory)
+        stacked = torch.stack(memories)
+        t, b = goals.shape
+        return self.readout(stacked.reshape(t*b, self.n_goals, self.width),
+            bypass.reshape(t*b, self.bypass_size), goals.reshape(-1), budgets.reshape(-1),
+            clocks.reshape(-1)).reshape(t,b,-1)
+
     def rebuild(self, preactivation, bypass, goals, budgets, episode_start=False):
         if not episode_start and len(preactivation) < self.width:
             raise ValueError('missing washout prefix')
@@ -62,9 +84,14 @@ class QWorker(nn.Module):
 
 
 class DoubleDQNLearner:
-    def __init__(self, worker, learning_rate=2e-4, target_period=1000):
+    def __init__(self, worker, learning_rate=2e-4, target_period=1000, execution="reference"):
         if target_period < 1:
             raise ValueError('invalid target period')
+        if execution not in ('reference','batched'):
+            raise ValueError('unknown learner execution backend')
+        if execution == 'batched' and (not worker.batch_independent or worker.write_modulation is not None):
+            raise ValueError('batched execution requires a qualified row-independent frozen-write worker')
+        self.execution = execution
         self.online = worker
         self.target = copy.deepcopy(worker).eval().requires_grad_(False)
         self.optimizer = torch.optim.Adam(worker.parameters(), lr=learning_rate)
@@ -76,13 +103,18 @@ class DoubleDQNLearner:
         online_q, target_q = [], []
         if episode_decisions is None:
             episode_decisions = torch.zeros_like(budgets)
-        for t in range(len(pre)):
-            q, online_memory = self.online.step(online_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
-            online_q.append(q)
+        if self.execution == 'batched':
+            online_q = self.online.sequence(online_memory,pre,bypass,goals,budgets,episode_decisions)
             with torch.no_grad():
-                q, target_memory = self.target.step(target_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
-                target_q.append(q)
-        online_q, target_q = torch.stack(online_q), torch.stack(target_q)
+                target_q = self.target.sequence(target_memory,pre,bypass,goals,budgets,episode_decisions)
+        else:
+            for t in range(len(pre)):
+                q, online_memory = self.online.step(online_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
+                online_q.append(q)
+                with torch.no_grad():
+                    q, target_memory = self.target.step(target_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
+                    target_q.append(q)
+            online_q, target_q = torch.stack(online_q), torch.stack(target_q)
         target = double_dqn_target(rewards, done, online_q[1:], target_q[1:])
         predicted = online_q[:-1].gather(-1, actions[..., None]).squeeze(-1)
         if not mask.any():

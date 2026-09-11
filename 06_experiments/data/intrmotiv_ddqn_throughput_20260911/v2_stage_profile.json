@@ -1,0 +1,86 @@
+{
+  "schema": "intrmotiv/ddqn-stage-profile/v1",
+  "study_sha256": "716caaf3d3358a7813d2af37c691dbf92eb0193c851f3f965638f40ac1056cab",
+  "workflow_version": "1.8.0",
+  "caveat": "Per-run latest windows; sampled substage means are not a full profiler trace. FPS includes log/checkpoint time after learner warmup; startup excluded.",
+  "runs": [
+    {
+      "run": "DQV2_DDQN_S8",
+      "low_frames": 2484992,
+      "high_frames": 2738304,
+      "collection_fraction_of_timed": 0.3630588142890937,
+      "learning_fraction_of_timed": 0.6369411857109063,
+      "learner_active_fps": 1046.8090417121357,
+      "sampled_prefix_batch_ms": 72.32733187872024,
+      "sampled_learner_ms": 72.88620458105773,
+      "optimizer_updates": 989,
+      "collection_seconds": 87.73217353317887,
+      "learning_seconds": 153.91510255614412
+    },
+    {
+      "run": "DQV2_DDQN_S99",
+      "low_frames": 2225024,
+      "high_frames": 2482176,
+      "collection_fraction_of_timed": 0.37810701506792316,
+      "learning_fraction_of_timed": 0.6218929849320768,
+      "learner_active_fps": 943.5662175685741,
+      "sampled_prefix_batch_ms": 74.87559356054084,
+      "sampled_learner_ms": 85.62205400085077,
+      "optimizer_updates": 1004,
+      "collection_seconds": 102.8793380864663,
+      "learning_seconds": 169.2111918075243
+    },
+    {
+      "run": "DQV2_DDQN_S123",
+      "low_frames": 2165888,
+      "high_frames": 2420992,
+      "collection_fraction_of_timed": 0.37522453458951743,
+      "learning_fraction_of_timed": 0.6247754654104826,
+      "learner_active_fps": 899.2162912930918,
+      "sampled_prefix_batch_ms": 75.3542949616011,
+      "sampled_learner_ms": 104.16742611102693,
+      "optimizer_updates": 996,
+      "collection_seconds": 106.2881784606725,
+      "learning_seconds": 176.977356339572
+    },
+    {
+      "run": "DQV2_DDQN_HER_S8",
+      "low_frames": 2348800,
+      "high_frames": 2600576,
+      "collection_fraction_of_timed": 0.3927215770443227,
+      "learning_fraction_of_timed": 0.6072784229556774,
+      "learner_active_fps": 958.2715743572122,
+      "sampled_prefix_batch_ms": 71.95972910715052,
+      "sampled_learner_ms": 75.54423307346252,
+      "optimizer_updates": 983,
+      "collection_seconds": 102.77548622875474,
+      "learning_seconds": 158.92514912277693
+    },
+    {
+      "run": "DQV2_DDQN_HER_S99",
+      "low_frames": 2246784,
+      "high_frames": 2506496,
+      "collection_fraction_of_timed": 0.3857019509444591,
+      "learning_fraction_of_timed": 0.614298049055541,
+      "learner_active_fps": 916.3058041777708,
+      "sampled_prefix_batch_ms": 70.65365185345789,
+      "sampled_learner_ms": 84.14293063937554,
+      "optimizer_updates": 1014,
+      "collection_seconds": 108.90009564353386,
+      "learning_seconds": 173.44251469813753
+    },
+    {
+      "run": "DQV2_DDQN_HER_S123",
+      "low_frames": 2294272,
+      "high_frames": 2548608,
+      "collection_fraction_of_timed": 0.38956342238042474,
+      "learning_fraction_of_timed": 0.6104365776195753,
+      "learner_active_fps": 930.055257508343,
+      "sampled_prefix_batch_ms": 80.94800478149276,
+      "sampled_learner_ms": 74.03700644607414,
+      "optimizer_updates": 993,
+      "collection_seconds": 106.1125550158904,
+      "learning_seconds": 166.2758390676463
+    }
+  ]
+}

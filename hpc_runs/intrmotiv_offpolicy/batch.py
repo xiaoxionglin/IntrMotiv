@@ -20,9 +20,11 @@ def learn_batch(learner, samples, device):
     length = max(len(s['segment']) for s in samples)
     pre, bypass, goals, budgets, clocks, actions, rewards, dones, masks = [],[],[],[],[],[],[],[],[]
     online_memory, target_memory = [],[]
+    batched = learner.execution == "batched"
     for s in samples:
-        online_memory.append(prefix_memory(learner.online,s['prefix'],device))
-        target_memory.append(prefix_memory(learner.target,s['prefix'],device))
+        if not batched:
+            online_memory.append(prefix_memory(learner.online,s['prefix'],device))
+            target_memory.append(prefix_memory(learner.target,s['prefix'],device))
         rows,obs = s['segment'],s['observations']
         t = len(rows)
         padded = obs + [obs[-1]]*(length-t)
@@ -36,8 +38,16 @@ def learn_batch(learner, samples, device):
         dones.append(torch.nn.functional.pad(s['done'],(0,length-t),value=True))
         masks.append(torch.nn.functional.pad(s['mask'],(0,length-t),value=False))
     tensors = [torch.stack(x,1).to(device) for x in (pre,bypass,goals,budgets,actions,rewards,dones,masks)]
+    if batched:
+        online_memory = batched_prefix_memory(learner.online,[s['prefix'] for s in samples],device)
+        if prefix_signature(learner.online) == prefix_signature(learner.target):
+            target_memory = online_memory  # read-only inputs; advance_memory never mutates
+        else:
+            target_memory = batched_prefix_memory(learner.target,[s['prefix'] for s in samples],device)
+    else:
+        online_memory, target_memory = torch.cat(online_memory), torch.cat(target_memory)
     prepared = time.monotonic()
-    result = learner.update(*tensors,torch.cat(online_memory),torch.cat(target_memory),
+    result = learner.update(*tensors,online_memory,target_memory,
                             episode_decisions=torch.stack(clocks,1).to(device))
     result['prefix_and_batch_seconds'] = prepared - started
     result['learner_update_seconds'] = time.monotonic() - prepared
@@ -81,3 +91,39 @@ class PositionBatcher:
                             if n < len(self.pending['segment']) else None)
             remaining -= n
         return samples
+
+
+def prefix_signature(worker):
+    if worker.write_modulation is not None:
+        raise ValueError('batched prefix reuse requires goal-independent writes')
+    return (worker.n_goals,worker.width,worker.repeat_width,worker.intercept)
+
+
+def batched_prefix_memory(worker, prefixes, device):
+    """Right-align independent physical histories and reconstruct all at once.
+
+    Padding injects zero activity *before* the real history; it cannot erase a
+    short history or fabricate an observation. Different physical streams never
+    share state. Frozen writes make online/target histories identical.
+    """
+    from .contracts import advance_memory
+    prefix_signature(worker)
+    width = max((len(p) for p in prefixes),default=0)
+    memory = worker.initial(len(prefixes),device)
+    if width == 0:
+        return memory
+    activity = []
+    for prefix in prefixes:
+        if prefix and prefix[0].index != 0 and len(prefix) < worker.width:
+            raise ValueError('missing washout prefix')
+        if any(not row.successor_valid for row in prefix):
+            raise ValueError('invalid recurrent prefix')
+        pre = (torch.stack([r.observation.preactivation for r in prefix]) if prefix
+               else torch.empty(0,worker.n_goals))
+        values = torch.relu(pre.detach()-worker.intercept)
+        activity.append(torch.nn.functional.pad(values,(0,0,width-len(prefix),0)))
+    activity = torch.stack(activity,1).to(device)
+    with torch.no_grad():
+        for row in activity:
+            memory = advance_memory(memory,row,worker.repeat_width)
+    return memory

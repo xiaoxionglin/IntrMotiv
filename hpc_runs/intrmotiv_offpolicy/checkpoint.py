@@ -44,7 +44,8 @@ def convert_actor(actor, cfg, action_vectors, learner_seed):
     with torch.random.fork_rng():
         torch.manual_seed(learner_seed)
         worker = QWorker(actor.decoder,n,core.bypass_size,core.R,int(cfg.Hippo_L),
-                         getattr(core,'dg_goal_modulation',None),float(cfg.DG_BN_intercept))
+                         getattr(core,'dg_goal_modulation',None),float(cfg.DG_BN_intercept),
+                         batch_independent=type(actor.decoder).__name__ == 'TargetFiLMDecoder')
     worker.requires_grad_(True)
     copied = [k for k in actor.state_dict() if k.startswith(('encoder.','obs_normalizer.','decoder.'))]
     copied += [k for k in actor.state_dict() if k == 'core.dg_goal_modulation']

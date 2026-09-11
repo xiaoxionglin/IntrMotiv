@@ -1,0 +1,49 @@
+{
+  "schema": "intrmotiv/ddqn-runtime-audit/v1",
+  "study_sha256": "5ca30e197467022adec06c55d18e3ec6a694710b04ed9715eb70c942bd463229",
+  "workflow_version": "1.8.0",
+  "runtime_passed": true,
+  "scientific_qualification": "pending_independent_commanded_and_spatial_evaluation",
+  "runs": [
+    {
+      "run": "DQPERF_REFERENCE_S99",
+      "frames": 250112,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2384,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "pending_loss_positions": 18,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 1025.0453268407668,
+      "realized_her_fraction": 0.34782608695652173,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_throughput_preflight_20260911/DQPERF_REFERENCE_S99_/checkpoint_p0/checkpoint_000000720_250112.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_throughput_preflight_20260911/DQPERF_REFERENCE_S99_/checkpoint_p0/checkpoint_000000000_0.pth"
+      ]
+    },
+    {
+      "run": "DQPERF_BATCHED_S99",
+      "frames": 250112,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2363,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "pending_loss_positions": 11,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 2004.6026509660999,
+      "realized_her_fraction": 0.3447621826670557,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_throughput_preflight_20260911/DQPERF_BATCHED_S99_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_throughput_preflight_20260911/DQPERF_BATCHED_S99_/checkpoint_p0/checkpoint_000000720_250112.pth"
+      ]
+    }
+  ]
+}

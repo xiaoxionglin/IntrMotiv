@@ -36,6 +36,7 @@ def parse_args(argv=None):
     p.add_argument('--registry',default='1,4,11')
     p.add_argument('--replay-capacity',type=int,default=200000)
     p.add_argument('--learning-start',type=int,default=16384)
+    p.add_argument('--learner-execution',choices=('reference','batched'),default='reference')
     p.add_argument('--target-period',type=int,default=100)  # optimizer updates
     p.add_argument('--decisions-per-update',type=int,default=64)  # accepted aggregate decisions
     p.add_argument('--td-positions-per-update',type=int,default=256)
@@ -111,7 +112,7 @@ def train(argv=None):
     probe.close()
     if cfg.dg_goal_input!='none':
         raise ValueError('write-conditioned collection requires actor rebuild integration; not production-qualified')
-    learner=DoubleDQNLearner(worker.to(args.device),target_period=args.target_period)
+    learner=DoubleDQNLearner(worker.to(args.device),target_period=args.target_period,execution=args.learner_execution)
     extractor=FrozenParentFeatures(actor,exclusive=actor.core.topological_enabled)
     reference_hash=state_hash(actor.encoder)
     registry=[int(x) for x in args.registry.split(',')]

@@ -1,0 +1,34 @@
+{
+  "schema": "intrmotiv/ddqn-stage-profile/v1",
+  "study_sha256": "5ca30e197467022adec06c55d18e3ec6a694710b04ed9715eb70c942bd463229",
+  "workflow_version": "1.8.0",
+  "caveat": "Per-run latest windows; sampled substage means are not a full profiler trace. FPS includes log/checkpoint time after learner warmup; startup excluded.",
+  "runs": [
+    {
+      "run": "DQPERF_REFERENCE_S99",
+      "low_frames": 124416,
+      "high_frames": 250112,
+      "collection_fraction_of_timed": 0.3636345581133514,
+      "learning_fraction_of_timed": 0.6363654418866486,
+      "learner_active_fps": 1040.9463938791919,
+      "sampled_prefix_batch_ms": 70.79946077339208,
+      "sampled_learner_ms": 71.85185838786239,
+      "optimizer_updates": 490,
+      "collection_seconds": 43.68269736797083,
+      "learning_seconds": 76.4453168521577
+    },
+    {
+      "run": "DQPERF_BATCHED_S99",
+      "low_frames": 112768,
+      "high_frames": 250112,
+      "collection_fraction_of_timed": 0.7400865735620963,
+      "learning_fraction_of_timed": 0.2599134264379037,
+      "learner_active_fps": 2056.3948058967176,
+      "sampled_prefix_batch_ms": 3.84331400605983,
+      "sampled_learner_ms": 17.974921855576603,
+      "optimizer_updates": 536,
+      "collection_seconds": 49.1366795952199,
+      "learning_seconds": 17.25647135564941
+    }
+  ]
+}
