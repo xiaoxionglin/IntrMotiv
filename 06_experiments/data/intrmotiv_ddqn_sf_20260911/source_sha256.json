@@ -1,0 +1,61 @@
+{
+  "sample_factory_core_unchanged": true,
+  "sf_python_files": 97,
+  "sf_core_tree_sha256": "8bdbba6052fbf3a996fee057465e95ef0ce0704f4076fddbabe6aa53aa505902",
+  "sources": {
+    "initial": {
+      "root": "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_sf_20260911",
+      "files": {
+        "hpc_runs/intrmotiv_offpolicy/__init__.py": "38a845c9ec9ba4c5c2a3f2dd74d1ebbc31f7cf8b5686b9f4e6991d858613e999",
+        "hpc_runs/intrmotiv_offpolicy/audit_runtime.py": "d70a5a5c352bcb9055092f5273a5131997e14620873962eb17f8eee0688498c3",
+        "hpc_runs/intrmotiv_offpolicy/batch.py": "40b1b220b851918d611b0000b2e8b9740f0397f8c01735487dae4597779b12c0",
+        "hpc_runs/intrmotiv_offpolicy/benchmark.py": "6d113bb1a9fc5bf4ee3f23863c172ad61632b223adf0ad4ebf243f343f70a639",
+        "hpc_runs/intrmotiv_offpolicy/checkpoint.py": "4b45f8af5f22ee7c14471dbe63ee9538cdc1e03d435596f24fdeca601e66ab51",
+        "hpc_runs/intrmotiv_offpolicy/contracts.py": "bac5a766ac26e5a0da1f035db5adef6a99b7039d91a52b16ece63d175e0c5acc",
+        "hpc_runs/intrmotiv_offpolicy/evaluate.py": "b06bf327c72b4b12ab8ffc4324d43045dc94f139bd19a2874ca1a4db4dde191b",
+        "hpc_runs/intrmotiv_offpolicy/evaluate_manifest.py": "9546f6a87007bb8e2d7719a79e609c31da8d35bfdc202246fdcfc659fe8b9396",
+        "hpc_runs/intrmotiv_offpolicy/features.py": "18f0879faf1ec86ab9fabf764d4f9975410c6254398ff1da2bee6fa3fca1ad16",
+        "hpc_runs/intrmotiv_offpolicy/profile_runtime.py": "960426a7d0d0667195002ff0ae77b95b15e1dc418988b7924b4d63f2934cf97a",
+        "hpc_runs/intrmotiv_offpolicy/qualify.py": "941d14bad1340a25f759c5f403d309528b96856145685c9c46751f4ac5500740",
+        "hpc_runs/intrmotiv_offpolicy/replay.py": "90cbbdf719f4c0ed2d97662d004b487e3605aa5f1b201f06bfac58b6536fefdb",
+        "hpc_runs/intrmotiv_offpolicy/sf_buffers.py": "9c7ea357ddfbb300f1d1e604e2154dce10f6274099c2e14adc612c6d401da347",
+        "hpc_runs/intrmotiv_offpolicy/sf_env.py": "f8efb467a651d69bb66c38d1092a2b2ba7cab55c15d1cf167b329f0e5cce693a",
+        "hpc_runs/intrmotiv_offpolicy/sf_learner.py": "ee5cbfd0233355df21f9b9b25fca5ea5b009d527f7a007160fbdb509c388714a",
+        "hpc_runs/intrmotiv_offpolicy/sf_model.py": "48287bbba4380b49a6fb0def2dbb43954d231e767d9c5a9adda0c101f2e88ddd",
+        "hpc_runs/intrmotiv_offpolicy/sf_native.py": "2e10ee5daceaa0579f260fb4d530939605ce94c6973d580266c70026d5b4337f",
+        "hpc_runs/intrmotiv_offpolicy/sf_transport.py": "21f85ec25dc19fb02847cd438f20bd4f8ebf26ce042bddd1fc65a24414932e29",
+        "hpc_runs/intrmotiv_offpolicy/telemetry.py": "72dcfbf4c8fd442a458d8fc21cec326774b293b00ac57282227fd7f9b6dff6ad",
+        "hpc_runs/intrmotiv_offpolicy/terminal.py": "84467841de5129f73f5bf506654cadf8421f73621651ca72759b00dadbc41051",
+        "hpc_runs/intrmotiv_offpolicy/train.py": "5a0d71aa3a610dda4dda7c2e50543b42f580ed52cd244cbd7d8980d29b03f1eb",
+        "hpc_runs/intrmotiv_offpolicy/worker.py": "becdd0df2687648eb1c9f9db33628e19fa78d12d26b27115cb8b34bfba9d402a"
+      }
+    },
+    "release": {
+      "root": "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ddqn_sf_release_20260911",
+      "files": {
+        "hpc_runs/intrmotiv_offpolicy/__init__.py": "38a845c9ec9ba4c5c2a3f2dd74d1ebbc31f7cf8b5686b9f4e6991d858613e999",
+        "hpc_runs/intrmotiv_offpolicy/audit_runtime.py": "18ef8306a6b8c7bad34771fd92bfba6cc57e939884ff6a51991de8d13aa80511",
+        "hpc_runs/intrmotiv_offpolicy/batch.py": "40b1b220b851918d611b0000b2e8b9740f0397f8c01735487dae4597779b12c0",
+        "hpc_runs/intrmotiv_offpolicy/benchmark.py": "6d113bb1a9fc5bf4ee3f23863c172ad61632b223adf0ad4ebf243f343f70a639",
+        "hpc_runs/intrmotiv_offpolicy/checkpoint.py": "4b45f8af5f22ee7c14471dbe63ee9538cdc1e03d435596f24fdeca601e66ab51",
+        "hpc_runs/intrmotiv_offpolicy/contracts.py": "bac5a766ac26e5a0da1f035db5adef6a99b7039d91a52b16ece63d175e0c5acc",
+        "hpc_runs/intrmotiv_offpolicy/evaluate.py": "b06bf327c72b4b12ab8ffc4324d43045dc94f139bd19a2874ca1a4db4dde191b",
+        "hpc_runs/intrmotiv_offpolicy/evaluate_manifest.py": "9546f6a87007bb8e2d7719a79e609c31da8d35bfdc202246fdcfc659fe8b9396",
+        "hpc_runs/intrmotiv_offpolicy/features.py": "18f0879faf1ec86ab9fabf764d4f9975410c6254398ff1da2bee6fa3fca1ad16",
+        "hpc_runs/intrmotiv_offpolicy/profile_runtime.py": "960426a7d0d0667195002ff0ae77b95b15e1dc418988b7924b4d63f2934cf97a",
+        "hpc_runs/intrmotiv_offpolicy/qualify.py": "941d14bad1340a25f759c5f403d309528b96856145685c9c46751f4ac5500740",
+        "hpc_runs/intrmotiv_offpolicy/replay.py": "90cbbdf719f4c0ed2d97662d004b487e3605aa5f1b201f06bfac58b6536fefdb",
+        "hpc_runs/intrmotiv_offpolicy/sf_buffers.py": "9c7ea357ddfbb300f1d1e604e2154dce10f6274099c2e14adc612c6d401da347",
+        "hpc_runs/intrmotiv_offpolicy/sf_env.py": "f8efb467a651d69bb66c38d1092a2b2ba7cab55c15d1cf167b329f0e5cce693a",
+        "hpc_runs/intrmotiv_offpolicy/sf_learner.py": "3a31602af9a404a447266dc5653ebce017fc3a27fe656c1bab8f2c4de206bb57",
+        "hpc_runs/intrmotiv_offpolicy/sf_model.py": "9514c201cdcb6a1c405abc339e97e078ba4ec0332b13226c05c7504dc71d89b7",
+        "hpc_runs/intrmotiv_offpolicy/sf_native.py": "4e15b53f688f422619793f4784c659d896167479f89b90dbbecb1c538915deae",
+        "hpc_runs/intrmotiv_offpolicy/sf_transport.py": "21f85ec25dc19fb02847cd438f20bd4f8ebf26ce042bddd1fc65a24414932e29",
+        "hpc_runs/intrmotiv_offpolicy/telemetry.py": "72dcfbf4c8fd442a458d8fc21cec326774b293b00ac57282227fd7f9b6dff6ad",
+        "hpc_runs/intrmotiv_offpolicy/terminal.py": "84467841de5129f73f5bf506654cadf8421f73621651ca72759b00dadbc41051",
+        "hpc_runs/intrmotiv_offpolicy/train.py": "8d39e10c3d2179a076e7ca40aaf1fe0e65c0c04372ea5b1ec4028c5d0e302075",
+        "hpc_runs/intrmotiv_offpolicy/worker.py": "becdd0df2687648eb1c9f9db33628e19fa78d12d26b27115cb8b34bfba9d402a"
+      }
+    }
+  }
+}

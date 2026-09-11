@@ -91,3 +91,38 @@ with the actual runtime decoder/checkpoint, then an isolated paired end-to-end
 preflight and `audit_runtime`. Learner-only speedup does not establish overall
 FPS or scientific improvement. Preserve exact accepted-decision/update budgets
 when adding async collection; off-policy DDQN needs no PPO policy-lag filter.
+
+## Native Sample Factory execution
+
+Use the existing `train` entry point with `--execution-backend=sample_factory`.
+The qualified CPU topology is `--num-envs=32 --sf-workers=16 --sf-splits=2
+--sf-rollout=32 --sf-batch-size=1024 --sf-async=true --torch-threads=8
+--sf-learner-threads=1 --learner-execution=batched`. All parent, replay and
+learning-budget arguments remain the same. `standalone` remains the default.
+
+This reuses SF's ParallelRunner, RolloutWorker, InferenceWorker, Batcher,
+BufferMgr, ParameterServer/Client, double buffering, backpressure, summaries,
+W&B integration and Slurm launcher. The upstream DQN PR is not required: the
+installed fork already exposes a custom learner factory. DDQN loss, recurrent
+replay, HER, PositionBatcher and checkpoint/evaluation schemas are reused here.
+
+`sf_buffers` adds one opt-in policy-output shape. Existing SF copying code carries
+that feature/command packet; no SF source files are modified. `sf_transport`
+restores per-stream physical order because SF merges trajectory slices by buffer
+index. A nonterminal rollout tail waits for the next actor feature packet. It
+never uses a reset image or re-encodes a duplicate successor. Transport tails at
+the requested training endpoint are counted separately from consumed frames.
+
+The adapter supports the existing frozen, goal-independent worker and fixed
+frames per decision. Certified terminal images, multi-policy/PBT and exact
+resume remain unsupported and fail closed where encountered. Checkpoints retain
+the v2 worker contract and use the existing manifest-driven evaluator. Native
+SF improves execution; it does not implement adaptive DG or a new manager.
+
+Reuse `audit_runtime` for final TD/update/transport accounting and SF's built-in
+worker profiles for bottlenecks. Test serial and actual multiprocessing with
+`hpc_runs.test_intrmotiv_sf_native --smoke-output /tmp/UNIQUE_NAME [--serial]`;
+the local test also needs the installed SF source on PYTHONPATH. The desktop
+sandbox may block `torch_shm_manager`; use the ordinary permitted runtime rather
+than replacing SF shared-memory transport. Seed the model factory explicitly:
+this fork's inference-process initialization does not seed Torch itself.

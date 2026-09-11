@@ -1,0 +1,57 @@
+{
+  "schema": "intrmotiv/ddqn-runtime-audit/v1",
+  "study_sha256": "d24f0b021f2d8887f5db30966967430bb73085efc484b784e703103251287ac4",
+  "workflow_version": "1.8.0",
+  "runtime_passed": true,
+  "scientific_qualification": "pending_independent_commanded_and_spatial_evaluation",
+  "runs": [
+    {
+      "run": "DQSFR_STANDALONE_S99",
+      "frames": 250112,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2363,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "pending_loss_positions": 11,
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 1693.5119696280572,
+      "realized_her_fraction": 0.3447621826670557,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_release_preflight_20260911/DQSFR_STANDALONE_S99_/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_release_preflight_20260911/DQSFR_STANDALONE_S99_/checkpoint_p0/checkpoint_000000720_250112.pth"
+      ]
+    },
+    {
+      "run": "DQSFR_SF_S99",
+      "frames": 250000,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2109,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "accepted": 62468,
+      "decisions": 62500,
+      "update_debt": 0,
+      "transport_received": 63488,
+      "transport_pending": 988,
+      "transport_emitted": 62500,
+      "pending_loss_positions": 17,
+      "execution": "sample_factory_native",
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 3326.8821726759497,
+      "realized_her_fraction": 0.3153880663974877,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_release_preflight_20260911/DQSFR_SF_S99_/00_DQSFR_SF_S99/checkpoint_p0/checkpoint_000000127_98176.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_release_preflight_20260911/DQSFR_SF_S99_/00_DQSFR_SF_S99/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_release_preflight_20260911/DQSFR_SF_S99_/00_DQSFR_SF_S99/checkpoint_p0/checkpoint_000000720_250000.pth"
+      ]
+    }
+  ]
+}

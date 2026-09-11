@@ -1,0 +1,65 @@
+{
+  "schema": "intrmotiv/ddqn-runtime-audit/v1",
+  "study_sha256": "5d91a7f7d740d43e3c13053036404e63bfe4db0328727f1b6cb885f765db52dd",
+  "workflow_version": "1.8.0",
+  "runtime_passed": true,
+  "scientific_qualification": "pending_independent_commanded_and_spatial_evaluation",
+  "runs": [
+    {
+      "run": "DQSF_SYNC_S99",
+      "frames": 250000,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2435,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "accepted": 62468,
+      "decisions": 62500,
+      "update_debt": 0,
+      "transport_received": 63488,
+      "transport_pending": 988,
+      "transport_emitted": 62500,
+      "pending_loss_positions": 13,
+      "execution": "sample_factory_native",
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 1871.722596911633,
+      "realized_her_fraction": 0.3584044745363556,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_SYNC_S99_/00_DQSF_SYNC_S99/checkpoint_p0/checkpoint_000000720_250000.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_SYNC_S99_/00_DQSF_SYNC_S99/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_SYNC_S99_/00_DQSF_SYNC_S99/checkpoint_p0/checkpoint_000000000_61312.pth"
+      ]
+    },
+    {
+      "run": "DQSF_ASYNC_S99",
+      "frames": 250000,
+      "updates": 720,
+      "target_copies": 7,
+      "invalid_final_exclusions": 32,
+      "frozen_reference_unchanged": true,
+      "her_samples": 2320,
+      "target_period_updates": 100,
+      "valid_loss_positions": 184320,
+      "td_positions_per_update": 256,
+      "accepted": 62468,
+      "decisions": 62500,
+      "update_debt": 0,
+      "transport_received": 63488,
+      "transport_pending": 988,
+      "transport_emitted": 62500,
+      "pending_loss_positions": 11,
+      "execution": "sample_factory_native",
+      "scientific_qualification": "pending_independent_commanded_evaluation",
+      "learner_active_fps": 3802.2914861704044,
+      "realized_her_fraction": 0.3460104399701715,
+      "checkpoint_files": [
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_ASYNC_S99_/00_DQSF_ASYNC_S99/checkpoint_p0/checkpoint_000000111_94080.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_ASYNC_S99_/00_DQSF_ASYNC_S99/checkpoint_p0/checkpoint_000000000_0.pth",
+        "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ddqn_sf_preflight_20260911/DQSF_ASYNC_S99_/00_DQSF_ASYNC_S99/checkpoint_p0/checkpoint_000000720_250000.pth"
+      ]
+    }
+  ]
+}

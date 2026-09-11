@@ -7,6 +7,23 @@ from hpc_runs.intrmotiv_study import load_study
 from hpc_runs.intrmotiv_study.discovery import discover_run_directories
 
 
+
+def validate_native_accounting(gate, final, arguments):
+    """Native SF counts consumed physical transitions, excluding transport tails."""
+    if gate.get('execution') != 'sample_factory_native':
+        return
+    accepted, decisions = gate['accepted'], gate['decisions']
+    if accepted + gate['invalid_final_exclusions'] != decisions:
+        raise ValueError('SF accepted/invalid decision accounting mismatch')
+    expected = max(0, (accepted-int(arguments['learning-start']))//int(arguments['decisions-per-update']))
+    if gate['updates'] != expected or gate['update_debt'] != 0:
+        raise ValueError('SF exact optimizer update budget mismatch')
+    if gate['transport_emitted'] != decisions or gate['transport_received'] != decisions + gate['transport_pending']:
+        raise ValueError('SF transport accounting mismatch')
+    if final['accepted'] != accepted or final['decisions'] != decisions:
+        raise ValueError('SF final telemetry accounting mismatch')
+
+
 def audit(study,batch_root):
     directories=discover_run_directories(study,Path(batch_root))
     rows=[]; initial_by_seed={}
@@ -18,6 +35,7 @@ def audit(study,batch_root):
         if not metrics or metrics[-1]['frames'] != gate['frames']:
             raise ValueError(f'{run.name}: gate and final metrics disagree')
         arguments=dict(arg[2:].split('=',1) for arg in run.args if arg.startswith('--') and '=' in arg)
+        validate_native_accounting(gate, metrics[-1], arguments)
         expected=int(arguments['total-frames'])
         if gate['frames']<expected or gate['updates']<=0 or gate['target_copies']<=0:
             raise ValueError(f'{run.name}: incomplete frame/update/target-copy gate')

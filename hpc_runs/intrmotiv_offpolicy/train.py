@@ -36,6 +36,7 @@ def parse_args(argv=None):
     p.add_argument('--registry',default='1,4,11')
     p.add_argument('--replay-capacity',type=int,default=200000)
     p.add_argument('--learning-start',type=int,default=16384)
+    p.add_argument('--execution-backend',choices=('standalone','sample_factory'),default='standalone')
     p.add_argument('--learner-execution',choices=('reference','batched'),default='reference')
     p.add_argument('--target-period',type=int,default=100)  # optimizer updates
     p.add_argument('--decisions-per-update',type=int,default=64)  # accepted aggregate decisions
@@ -72,6 +73,12 @@ def save_checkpoint(output,learner,replay,frames,decisions,config,reference_hash
 
 
 def train(argv=None):
+    backend_parser=argparse.ArgumentParser(add_help=False)
+    backend_parser.add_argument('--execution-backend',choices=('standalone','sample_factory'),default='standalone')
+    backend,_=backend_parser.parse_known_args(argv)
+    if backend.execution_backend == 'sample_factory':
+        from .sf_native import main
+        return main(argv)
     args=parse_args(argv)
     output=args.train_dir.resolve()
     output.relative_to(Path('/work/classic/fr_xl1014-train'))
