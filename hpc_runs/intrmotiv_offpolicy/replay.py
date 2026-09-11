@@ -37,6 +37,7 @@ class Transition:
     truncated: bool = False
     successor_valid: bool = True
     model_version: int = 0
+    environment_remaining: int = 1800
 
 
 class SequenceReplay:
@@ -48,10 +49,13 @@ class SequenceReplay:
         self.capacity, self.width, self.reference_hash = capacity, width, reference_hash
         self.rows = OrderedDict()
         self.last = {}
+        self.slots = [None] * capacity
         self.rng = np.random.default_rng(seed)
         self.insertions = 0
 
     def append(self, row):
+        if row.successor_valid != (row.successor is not None):
+            raise ValueError('successor validity must match optional physical observation')
         key = (row.stream, row.episode, row.index)
         if key in self.rows or row.index < 0 or row.budget < 1:
             raise ValueError('duplicate transition or invalid index/budget')
@@ -68,11 +72,12 @@ class SequenceReplay:
                         raise ValueError('successor/current observation mismatch')
         elif not (previous.terminated or previous.truncated) or row.index != 0 or row.episode <= previous.episode:
             raise ValueError('new episode requires a physical reset and increasing ID')
-        row = Transition(**{**vars(row), 'observation': row.observation.owned(), 'successor': row.successor.owned()})
+        row = Transition(**{**vars(row), 'observation': row.observation.owned(), 'successor': row.successor.owned() if row.successor is not None else None})
         if not 0 <= row.goal < len(row.observation.events) or row.action < 0:
             raise ValueError('invalid action/goal')
         self.rows[key] = row
         self.last[row.stream] = row
+        self.slots[self.insertions % self.capacity] = key
         self.insertions += 1
         while len(self.rows) > self.capacity:
             self.rows.popitem(last=False)
@@ -103,24 +108,27 @@ class SequenceReplay:
     def sample(self, registry, her_fraction=0.8, unroll=16, horizon=64):
         if not 0 <= her_fraction <= 1 or unroll < 1 or horizon < 1:
             raise ValueError('invalid sampling configuration')
-        keys = list(self.rows)
+        count = len(self.rows)
         # Bounded retry; missing history is never replaced by invented zero state.
-        for _ in range(min(len(keys), 128)):
-            key = keys[int(self.rng.integers(len(keys)))]
+        for _ in range(min(count, 128)):
+            key = self.slots[int(self.rng.integers(count))]
             try:
                 prefix, segment, future = self.segment(key, unroll, horizon)
             except ValueError:
                 continue
             start = segment[0]
             goal, budget, relabeled = start.goal, start.budget, False
-            if self.rng.random() < her_fraction:
-                choices = [(offset, g) for offset, r in enumerate(future[:horizon])
+            virtual_budget = min(horizon, start.environment_remaining)
+            future_ready = len(future) >= virtual_budget or future[-1].terminated or future[-1].truncated
+            if self.rng.random() < her_fraction and future_ready:
+                choices = [(offset, g) for offset, r in enumerate(future[:virtual_budget])
                            for g in registry if not bool(start.observation.events[g]) and bool(r.successor.events[g])]
                 if choices:
                     _, goal = choices[int(self.rng.integers(len(choices)))]
-                    budget, relabeled = horizon, True
+                    budget, relabeled = virtual_budget, True
             if not relabeled:
-                segment = [r for r in segment if r.option == start.option]
+                stop = next((i for i,r in enumerate(segment) if r.option != start.option), len(segment))
+                segment = segment[:stop]
             observations = [segment[0].observation] + [r.successor for r in segment]
             events = torch.stack([o.events for o in observations])
             reward, done, mask = first_arrival(events, goal, budget,
@@ -132,13 +140,13 @@ class SequenceReplay:
 
     def state_dict(self):
         return copy.deepcopy(dict(schema=self.schema, capacity=self.capacity, width=self.width,
-            reference_hash=self.reference_hash, rows=self.rows, last=self.last,
+            reference_hash=self.reference_hash, rows=self.rows, last=self.last, slots=self.slots,
             rng=self.rng.bit_generator.state, insertions=self.insertions))
 
     def load_state_dict(self, state):
         if (state['schema'], state['capacity'], state['width'], state['reference_hash']) != (
                 self.schema, self.capacity, self.width, self.reference_hash):
             raise ValueError('incompatible replay state')
-        self.rows, self.last = copy.deepcopy((state['rows'], state['last']))
+        self.rows, self.last, self.slots = copy.deepcopy((state['rows'], state['last'], state['slots']))
         self.rng.bit_generator.state = state['rng']
         self.insertions = state['insertions']

@@ -17,24 +17,31 @@ class QWorker(nn.Module):
         self.write_modulation = (nn.Parameter(write_modulation.detach().clone())
                                  if write_modulation is not None else None)
         hidden = decoder.get_out_size()
-        self.budget_layer = nn.Linear(1, hidden, bias=False)
+        self.budget_layer = nn.Linear(2, hidden, bias=False)
         nn.init.zeros_(self.budget_layer.weight)
         self.q_head = nn.Linear(hidden, n_actions)
 
     def initial(self, batch, device=None):
         return torch.zeros(batch, self.n_goals, self.width, device=device)
 
-    def step(self, memory, preactivation, bypass, goal, budget):
+    def activity(self, preactivation, goal):
         condition = F.one_hot(goal.long(), self.n_goals).to(preactivation.dtype)
         pre = preactivation.detach()
         if self.write_modulation is not None:
             scale, bias = (condition @ self.write_modulation).chunk(2, -1)
             pre = pre * (1 + scale) + bias
-        memory = advance_memory(memory, F.relu(pre - self.intercept), self.repeat_width)
+        return F.relu(pre - self.intercept)
+
+    def step(self, memory, preactivation, bypass, goal, budget, episode_decision=None):
+        condition = F.one_hot(goal.long(), self.n_goals).to(preactivation.dtype)
+        memory = advance_memory(memory, self.activity(preactivation,goal), self.repeat_width)
         if bypass.shape != (len(goal), self.bypass_size):
             raise ValueError('parent depth/context bypass layout changed')
         state = torch.cat((memory.flatten(1), bypass.detach(), condition), -1)
-        hidden = self.decoder(state) + self.budget_layer(budget[:, None].float() / 64.0)
+        if episode_decision is None:
+            episode_decision = torch.zeros_like(budget)
+        clocks = torch.stack((budget.float()/64.0, episode_decision.float()/1800.0), -1)
+        hidden = self.decoder(state) + self.budget_layer(clocks)
         return self.q_head(hidden), memory
 
     def rebuild(self, preactivation, bypass, goals, budgets, episode_start=False):
@@ -43,7 +50,7 @@ class QWorker(nn.Module):
         memory = self.initial(preactivation.shape[1], preactivation.device)
         with torch.no_grad():
             for p, d, g, b in zip(preactivation, bypass, goals, budgets):
-                _, memory = self.step(memory, p, d, g, b)
+                memory = advance_memory(memory,self.activity(p,g),self.repeat_width)
         return memory
 
 
@@ -57,14 +64,16 @@ class DoubleDQNLearner:
         self.updates, self.target_period = 0, target_period
 
     def update(self, pre, bypass, goals, budgets, actions, rewards, done, mask,
-               online_memory, target_memory):
+               online_memory, target_memory, episode_decisions=None):
         """Input T+1 states already hold one virtual command and its budget."""
         online_q, target_q = [], []
+        if episode_decisions is None:
+            episode_decisions = torch.zeros_like(budgets)
         for t in range(len(pre)):
-            q, online_memory = self.online.step(online_memory, pre[t], bypass[t], goals[t], budgets[t])
+            q, online_memory = self.online.step(online_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
             online_q.append(q)
             with torch.no_grad():
-                q, target_memory = self.target.step(target_memory, pre[t], bypass[t], goals[t], budgets[t])
+                q, target_memory = self.target.step(target_memory, pre[t], bypass[t], goals[t], budgets[t], episode_decisions[t])
                 target_q.append(q)
         online_q, target_q = torch.stack(online_q), torch.stack(target_q)
         target = double_dqn_target(rewards, done, online_q[1:], target_q[1:])
