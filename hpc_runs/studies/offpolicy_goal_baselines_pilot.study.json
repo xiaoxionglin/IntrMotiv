@@ -1,9 +1,9 @@
 {
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.7.0",
-  "study_id": "offpolicy_goal_baselines_preflight5_20260911",
-  "description": "Matched 100k-frame DMLab runtime preflight for discrete CRL+ and L3P+ with the frozen IntrMotiv visual trunk.",
-  "expected_runs": 2,
+  "study_id": "offpolicy_goal_baselines_pilot_20260911",
+  "description": "Matched three-seed, one-million-frame pilot of discrete CRL+ and graph-gated L3P+ with the frozen IntrMotiv visual trunk.",
+  "expected_runs": 6,
   "metadata": {
     "visual_encoder": "layer2_resnet18_imagenet_frozen",
     "policy_pose_input": false,
@@ -13,11 +13,11 @@
   },
   "training": {
     "mode": "sample_factory",
-    "batch_name": "intrmotiv_offpolicy_goal_baselines_preflight5_20260911",
+    "batch_name": "intrmotiv_offpolicy_goal_baselines_pilot_20260911",
     "workspace_root": "/work/classic/fr_xl1014-train",
-    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_offpolicy_goal_baselines_preflight5_20260911",
-    "run_name_template": "OPF5_{base_label}_S{seed}",
-    "condition_name_template": "OPF5_{base_label}",
+    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_offpolicy_goal_baselines_pilot_20260911",
+    "run_name_template": "OP1M_{base_label}_S{seed}",
+    "condition_name_template": "OP1M_{base_label}",
     "seed_arg": "--seed={seed}",
     "common_args": [
       "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
@@ -39,9 +39,9 @@
       "--exploration_coverage_grid_size=100",
       "--exploration_window_steps=10000",
       "--online_spatial_telemetry=True",
-      "--baseline-total-frames=100000",
-      "--baseline-replay-capacity=25000",
-      "--baseline-replay-min=2000",
+      "--baseline-total-frames=1000000",
+      "--baseline-replay-capacity=100000",
+      "--baseline-replay-min=5000",
       "--baseline-batch-size=128",
       "--baseline-max-future=64",
       "--baseline-discount=0.99",
@@ -50,8 +50,8 @@
       "--baseline-update-every-steps=16",
       "--baseline-entropy-coeff=0.1",
       "--baseline-target-entropy-fraction=0.5",
-      "--baseline-checkpoint-frames=50000",
-      "--baseline-planner-rebuild-frames=25000",
+      "--baseline-checkpoint-frames=250000",
+      "--baseline-planner-rebuild-frames=100000",
       "--baseline-landmark-local-horizon=16",
       "--baseline-torch-threads=8"
     ]
@@ -71,17 +71,18 @@
     }
   ],
   "factors": [],
-  "seeds": [99],
+  "seeds": [8, 99, 123],
   "analysis": {
     "step_tag": "train/env_steps",
-    "terminal_width": 50000,
-    "synchronized_steps": [50000, 100000],
-    "max_workers": 2,
+    "terminal_width": 100000,
+    "synchronized_steps": [250000, 500000, 750000, 1000000],
+    "max_workers": 6,
     "group_by": ["base"],
     "contrast_group_by": [],
     "replicate_by": ["seed"],
     "window_metrics": {
       "coverage_auc": "z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc",
+      "coverage_unique_cells": "z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_unique_cells",
       "option_success": "offpolicy/option_success_rate",
       "critic_accuracy": "offpolicy/critic_accuracy",
       "policy_entropy": "offpolicy/policy_entropy"

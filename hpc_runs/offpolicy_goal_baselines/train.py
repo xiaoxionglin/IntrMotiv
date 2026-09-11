@@ -51,6 +51,7 @@ class BaselineConfig:
     landmark_count: int
     landmark_candidates: int
     landmark_neighbors: int
+    landmark_local_horizon: float
     planner_rebuild_frames: int
     checkpoint_frames: int
     torch_threads: int
@@ -78,6 +79,7 @@ def _baseline_parser() -> argparse.ArgumentParser:
     parser.add_argument("--baseline-landmark-count", type=int, default=50)
     parser.add_argument("--baseline-landmark-candidates", type=int, default=1000)
     parser.add_argument("--baseline-landmark-neighbors", type=int, default=8)
+    parser.add_argument("--baseline-landmark-local-horizon", type=float, default=16.0)
     parser.add_argument("--baseline-planner-rebuild-frames", type=int, default=100_000)
     parser.add_argument("--baseline-checkpoint-frames", type=int, default=1_000_000)
     parser.add_argument("--baseline-torch-threads", type=int, default=8)
@@ -246,7 +248,10 @@ def train(argv=None) -> int:
     target_entropy = baseline.target_entropy_fraction * np.log(int(env.action_space.n))
     replay = EpisodeReplay(baseline.replay_capacity, seed=cfg.seed)
     planner = LandmarkPlanner(
-        baseline.landmark_count, baseline.landmark_candidates, baseline.landmark_neighbors
+        baseline.landmark_count,
+        baseline.landmark_candidates,
+        baseline.landmark_neighbors,
+        baseline.landmark_local_horizon,
     )
 
     output = _workspace_output(cfg)

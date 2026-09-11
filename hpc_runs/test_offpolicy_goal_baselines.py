@@ -9,6 +9,7 @@ from hpc_runs.offpolicy_goal_baselines import (
     farthest_point_indices,
     floyd_warshall_next,
 )
+from hpc_runs.offpolicy_goal_baselines.planner import LandmarkPlanner
 
 
 class OffPolicyGoalBaselineTest(unittest.TestCase):
@@ -41,6 +42,26 @@ class OffPolicyGoalBaselineTest(unittest.TestCase):
         distance, next_hop = floyd_warshall_next(cost)
         self.assertEqual(distance[0, 2], 3)
         self.assertEqual(next_hop[0, 2], 1)
+
+    def test_planner_uses_landmark_outside_local_horizon(self):
+        class DistanceAgent:
+            def eval(self):
+                return self
+
+            def temporal_distance(self, state, goal):
+                return torch.log1p(torch.abs(goal[:, 0] - state[:, 0]))
+
+        planner = LandmarkPlanner(landmark_count=2, candidates=2, neighbors=1, local_horizon=2)
+        planner.features = np.asarray([[3.0], [7.0]], dtype=np.float32)
+        planner.graph_cost = np.asarray([[0.0, 4.0], [np.inf, 0.0]])
+        subgoal = planner.subgoal(
+            np.asarray([0.0], dtype=np.float32),
+            np.asarray([10.0], dtype=np.float32),
+            DistanceAgent(),
+            torch.device("cpu"),
+        )
+        np.testing.assert_array_equal(subgoal, np.asarray([3.0], dtype=np.float32))
+        self.assertEqual(planner.landmark_subgoals, 1)
 
 
 if __name__ == "__main__":

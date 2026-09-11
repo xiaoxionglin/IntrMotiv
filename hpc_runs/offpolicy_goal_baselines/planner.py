@@ -37,10 +37,17 @@ def floyd_warshall_next(cost: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 
 class LandmarkPlanner:
-    def __init__(self, landmark_count: int = 50, candidates: int = 1000, neighbors: int = 8) -> None:
+    def __init__(
+        self,
+        landmark_count: int = 50,
+        candidates: int = 1000,
+        neighbors: int = 8,
+        local_horizon: float = 16.0,
+    ) -> None:
         self.landmark_count = int(landmark_count)
         self.candidates = int(candidates)
         self.neighbors = int(neighbors)
+        self.local_horizon = float(local_horizon)
         self.features: np.ndarray | None = None
         self.poses: np.ndarray | None = None
         self.graph_cost: np.ndarray | None = None
@@ -94,7 +101,9 @@ class LandmarkPlanner:
         finish_cost = self._distances(agent, self.features, final_goal[None], device)[:, 0]
         for index in np.argsort(finish_cost)[: self.neighbors]:
             augmented[index, goal] = finish_cost[index]
-        augmented[start, goal] = float(self._distances(agent, state[None], final_goal[None], device)[0, 0])
+        direct_cost = float(self._distances(agent, state[None], final_goal[None], device)[0, 0])
+        if direct_cost <= self.local_horizon:
+            augmented[start, goal] = direct_cost
         _, next_hop = floyd_warshall_next(augmented)
         hop = int(next_hop[start, goal])
         if hop in (-1, goal):
