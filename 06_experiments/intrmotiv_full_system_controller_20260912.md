@@ -3,8 +3,8 @@
 **Current status: screened preflights running; production is not yet submitted.**
 Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
 runtime audit. DDQN jobs **8057325–8057328** resumed from complete immutable
-checkpoints with 128 GB host memory each. Exact GPU reload job **8057329** is
-checking the four new baselines; both original PPO certificates are retained.
+checkpoints with 128 GB host memory each. Exact GPU reload job **8057329 passed**
+all four new baselines with exit 0; both original PPO certificates are retained.
 The authoritative mixed manifest is
 `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/screened_submission/jobs.tsv`.
 
