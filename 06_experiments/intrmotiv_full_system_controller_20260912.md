@@ -1,6 +1,10 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: clean R5 preflights submitted; production is not yet submitted.**
+**Current status: clean R5 DDQN preflights running; both PPO gates pass; production is not yet submitted.**
+R5 direct PPO finished at 2,031,616 frames and waypoint PPO at 2,048,000.
+Both pass the completed-run DG/frozen-trunk/spatial audit. Live DDQN Adam counts
+match their respective fresh DG and main controller clocks, with zero update
+debt and actor-version failures in the latest checks.
 The six 2M jobs are **8057349–8057354** in canonical manifest order: direct PPO,
 DDQN, DDQN+HER, then waypoint PPO, DDQN, DDQN+HER. All start from scratch with the
 fixed ImageNet trunk. Manifest: `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r5/canonical_submission/jobs.tsv`.
