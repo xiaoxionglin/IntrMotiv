@@ -82,6 +82,17 @@ StudySpec hashes and final gate artifacts. Review resource/storage capacity and
 canonical print-only/submission audits before launching. Source performance is
 still limited by replay preparation; no large throughput improvement was deployed.
 
+A 30-minute frame-counter measurement ending around the cluster log timestamp
+2026-09-12 16:35 reports direct DDQN **81.9 FPS**, direct HER **45.5 FPS**,
+waypoint decoder DDQN **54.6 FPS**, and waypoint decoder HER **54.6 FPS**.
+Divide by action repeat four for decisions/s. Completed PPO whole-run averages
+were 3,031.2 FPS direct and 1,473.9 FPS waypoint; these use a different averaging
+window. The DDQN rates imply approximately 42–76 days for 300M frames if
+sustained. Short SF FPS windows are bursty (often zero between completed replay
+transactions); use timestamped frame differences over a declared longer window.
+This remains a material production performance limitation, not a claimed speedup
+from the decoder-only architecture. The user was informed of these measurements.
+
 
 
 ## Historical R5 goal-write qualification (waypoint cells superseded)
