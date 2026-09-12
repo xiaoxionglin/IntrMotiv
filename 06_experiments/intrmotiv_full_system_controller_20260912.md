@@ -1,5 +1,15 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current performance release requirement
+
+The user now requires finishing the replay implementation to restore throughput
+comparable to previous batches before deployment. Passing the 2M correctness
+gates alone no longer suffices to release the existing slow pipeline. Preserve
+the 18-run objective, decoder-only architecture, main-update budget and exact
+learning behavior. See `04_implementation/replay_tensor_batching_20260912.md`
+for the active performance candidates and measurements. Do not launch the old
+slow source or claim a small tensor-packing gain completes this request.
+
 ## Current approved architecture revision
 
 The user has replaced goal-write waypoint F64 with **goal-independent worker
