@@ -144,3 +144,16 @@ changes, then synchronize and test the NEMO2 runtime copy.
   `analysis.max_workers` and defaulting to four workers.
 - Added `audit-submission` for exact matrix, command, job-ID, and workspace-path
   validation against real Sample Factory `jobs.tsv` files.
+
+## Full-system controller qualification
+
+The active clean R5 qualification uses the isolated source
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912`
+with workflow 1.8.1. Study: `hpc_runs/studies/full_system_controller_preflight_r5.study.json`;
+SHA `b68edd0bcb84fd25d2779013e17511c2a97dfb0624741f0a56e48343a6d0d4d9`.
+Its 379 runtime and 5 controller-audit tests pass remotely; canonical print-only
+and submitted audits pass. Both PPO preflights completed and passed DG, frozen
+trunk and spatial telemetry gates. R4 is debugging evidence only after optimizer
+ownership drift was found. The optional collated-input performance candidate
+was not deployed. Follow the current experiment record for R5 job IDs, checkpoint
+resume and the final production gate; do not reuse historical R4 launch helpers.
