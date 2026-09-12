@@ -18,8 +18,9 @@ Its SHA is `581955c17e808cffb2a038bbbdaa21da70eb13d6ea9aab6b264124fb5bca5159`
 subset SHA is `fa9df8f17b3bcc1acad2f03458e20621e5ec3274f6afb9f9f32a7f9d26539b85`;
 its commands were audited against the original R5 submitted jobs.
 
-**New waypoint jobs 8057437 / 8057438 / 8057439 are RUNNING**, respectively
-PPO / DDQN / DDQN+HER, with new W&B IDs. Source:
+The revised waypoint preflights launched as jobs **8057437 / 8057438 / 8057439**,
+respectively PPO / DDQN / DDQN+HER, with new W&B IDs. PPO is now complete;
+the DDQN arms resumed as 8057450 / 8057451, as recorded below. Source:
 `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_decoder_only_20260912`.
 This is a source copy with no runtime-code changes: the existing `none` core
 and FiLM decoder implement the revision. Local focused tests: 21 passed;
