@@ -68,6 +68,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 - [[../06_experiments/recent_batch_statistics_report|Recent Batch Statistics Report]]
 
 - [[../06_experiments/intrmotiv_ddqn_metric_consistency_20260912|DDQN Dashboard Consistency: Old Metrics and Qualified Telemetry Repair]]
+- [[../06_experiments/intrmotiv_full_system_controller_20260912|Full-System Controller Integration: Preservation Checks and Remaining Gates]]
 
 ## Inbox
 

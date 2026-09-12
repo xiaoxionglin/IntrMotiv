@@ -1,0 +1,29 @@
+........................................................................ [ 22%]
+........................................................................ [ 45%]
+........................................................................ [ 67%]
+........................................................................ [ 90%]
+..............................                                           [100%]
+=============================== warnings summary ===============================
+../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
+  /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26
+  /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+sf_working_directories/IntrMotiv/tests/test_ca3_memory.py: 7 warnings
+sf_working_directories/IntrMotiv/tests/test_contextual_dg.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_history.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_q.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py: 1 warning
+sf_working_directories/IntrMotiv/tests/test_goal_conditioned_dg.py: 8 warnings
+sf_working_directories/IntrMotiv/tests/test_graph_stabilized_recruitment.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_source_credit_retirement.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_topological_frontier.py: 3 warnings
+  /tmp/intrmotiv_full_system_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:474: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+318 passed, 38 warnings in 2.79s

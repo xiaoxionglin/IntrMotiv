@@ -52,6 +52,17 @@ design, novel diagnostics, failures, and genuine schema extensions. Do not
 repeat repository-wide searches merely to rediscover commands already captured
 by this workflow.
 
+For controller migrations, qualify the actual runtime model before creating the
+study matrix. Preserve tracked modifications and required untracked modules in
+an isolated source copy; save complete parent configs and checkpoint/source
+hashes. Check imported module paths: missing package markers can make a local
+snapshot silently import an older editable installation. Use Sample Factory's
+`prepare_and_normalize_obs` for replay so instruction/action channels retain
+their required integer types. Distinguish module tests, model parity, full
+learner preservation, and environment preflight in qualification records. The
+current worked example and remaining gates are recorded in
+`06_experiments/intrmotiv_full_system_controller_20260912.md`.
+
 ## Source-of-truth hierarchy
 
 1. The study JSON defines bases, factors, seeds, run names, arguments, metrics,

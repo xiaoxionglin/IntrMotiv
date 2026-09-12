@@ -490,6 +490,67 @@
     "configuration_replication",
     "checkpoint_continuation"
   ],
-  "controller_delta": {},
-  "status": "preservation_contract_pending_implementation"
+  "controller_delta": {
+    "ppo": [
+      {
+        "field": "controller_her",
+        "parent": null,
+        "candidate": false,
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      },
+      {
+        "field": "controller_learning",
+        "parent": null,
+        "candidate": "ppo",
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      }
+    ],
+    "ddqn": [
+      {
+        "field": "controller_her",
+        "parent": null,
+        "candidate": false,
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      },
+      {
+        "field": "controller_learning",
+        "parent": null,
+        "candidate": "ddqn",
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      }
+    ],
+    "ddqn_auxiliary_her": [
+      {
+        "field": "controller_her",
+        "parent": null,
+        "candidate": true,
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      },
+      {
+        "field": "controller_learning",
+        "parent": null,
+        "candidate": "ddqn",
+        "classification": "controller_learning",
+        "reason": "Opt-in controller implementation option",
+        "parent_present": false,
+        "candidate_present": true
+      }
+    ]
+  },
+  "status": "preservation_components_tested; native_learner_and_actor_publication_incomplete; no_training_release"
 }

@@ -2,6 +2,8 @@
   {
     "parent": "DGC_DIRECT_WORKER_F16_S99",
     "state_dict_equal": true,
+    "actual_model_replay_snapshot_isolated": true,
+    "actual_decoder_replay_gradients": true,
     "initialization_rng_equal": true,
     "ppo_and_shadow_outputs_equal": true,
     "forced_observation_steps": 5,
@@ -101,6 +103,8 @@
   {
     "parent": "DGC_WAYPOINT_DG_F64_S8",
     "state_dict_equal": true,
+    "actual_model_replay_snapshot_isolated": true,
+    "actual_decoder_replay_gradients": true,
     "initialization_rng_equal": true,
     "ppo_and_shadow_outputs_equal": true,
     "forced_observation_steps": 5,
@@ -200,6 +204,8 @@
   {
     "parent": "DGC_WAYPOINT_DG_F64_S99",
     "state_dict_equal": true,
+    "actual_model_replay_snapshot_isolated": true,
+    "actual_decoder_replay_gradients": true,
     "initialization_rng_equal": true,
     "ppo_and_shadow_outputs_equal": true,
     "forced_observation_steps": 5,

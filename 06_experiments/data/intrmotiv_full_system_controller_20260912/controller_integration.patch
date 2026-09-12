@@ -1,0 +1,1194 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
+@@ -197,6 +197,49 @@
+             self.exploration_critic_linear.apply(self.initialize_weights)
+             self.exploration_action_parameterization.apply(self.initialize_weights)
+ 
++        self.controller_learning = getattr(cfg, "controller_learning", "ppo")
++        if self.controller_learning not in ("ppo", "shadow", "ddqn"):
++            raise ValueError(f"Unknown controller_learning={self.controller_learning}")
++        if self.controller_learning != "ppo":
++            if not isinstance(action_space, gym.spaces.Discrete):
++                raise ValueError("DDQN requires the parent's discrete action space")
++            if self.separate_exploration or self.separate_goal_controllers:
++                raise ValueError("Separate controller branches need their own Q-head ownership contract")
++            from .controller_q import ControllerQHeads
++            # Adding a shadow head must not advance the parent's RNG stream.
++            with torch.random.fork_rng(devices=[]):
++                torch.random.default_generator.manual_seed(int(cfg.seed))
++                self.controller_q = ControllerQHeads(
++                    self.decoder.get_out_size(), action_space.n, bool(getattr(cfg, "controller_her", False))
++                )
++
++    def controller_hidden(self, core_output):
++        if getattr(self.core, "dg_goal_modulation", None) is not None:
++            view = self.core.worker_view(core_output)
++        else:
++            view = controller_core_view(core_output, self.core.core_output_size, self.ppo_dg_gradient)
++        return self.decoder(view)
++
++    def _forward_q_tail(self, controller_output, values_only, sample_actions, action_mask):
++        from .controller_q import epsilon_distribution
++        q = self.controller_q(self.decoder(controller_output))
++        valid_q = q
++        if action_mask is not None:
++            if action_mask.shape != q.shape or not action_mask.bool().any(-1).all():
++                raise ValueError("Invalid Q action mask")
++            valid_q = q.masked_fill(~action_mask.bool(), -torch.inf)
++        result = TensorDict(values=valid_q.max(-1).values)
++        if values_only:
++            return result
++        probabilities = epsilon_distribution(q, float(self.cfg.controller_epsilon), action_mask)
++        # SF entropy computes p*log(p), so -inf logits would produce NaNs
++        # for epsilon=0 or masked actions. Finite minima still softmax to zero.
++        logits = probabilities.log().masked_fill(probabilities == 0, torch.finfo(q.dtype).min)
++        self.last_action_distribution = get_action_distribution(self.action_space, logits)
++        result["action_logits"] = logits
++        self._maybe_sample_actions(sample_actions, result)
++        return result
++
+     def forward_head(self, normalized_obs_dict: Dict[str, Tensor]) -> Tensor:
+         x = super().forward_head(normalized_obs_dict)
+         if (
+@@ -231,6 +274,8 @@
+             controller_output = self.core.worker_view(core_output)
+         else:
+             controller_output = controller_core_view(core_output, ca3_size, getattr(self, "ppo_dg_gradient", "stop"))
++        if getattr(self, "controller_learning", "ppo") == "ddqn":
++            return self._forward_q_tail(controller_output, values_only, sample_actions, action_mask)
+         if getattr(self, "separate_goal_controllers", False):
+             start = self.core.target_condition_start
+             target = controller_output[:, start : start + int(self.cfg.Hippo_n_feature)]
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -25,6 +25,15 @@
+ 
+ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+     p = parser
++    p.add_argument("--controller_learning", choices=["ppo", "shadow", "ddqn"], default="ppo")
++    p.add_argument("--controller_her", type=str2bool, default=False)
++    p.add_argument("--controller_epsilon", type=float, default=0.1)
++    p.add_argument("--controller_target_updates", type=int, default=100)
++    p.add_argument("--controller_replay_capacity", type=int, default=200000)
++    p.add_argument("--controller_td_positions", type=int, default=256)
++    p.add_argument("--controller_decisions_per_update", type=int, default=64)
++    p.add_argument("--controller_learning_starts", type=int, default=16384)
++    p.add_argument("--controller_her_fraction", type=float, default=0.8)
+     p.add_argument("--decoder_reward_gate", choices=["none", "ca3_absent"], default="none")
+     p.add_argument("--dg_ca3_reentry_inhibition", choices=["none", "trace_subtractive", "hard"], default="none")
+     p.add_argument("--intrinsic_goal_mode", choices=["none", "ca3_absent_target"], default="none")
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -3247,233 +3247,15 @@
+         else:
+             return 0
+ 
+-    def _calculate_losses(
+-        self, mb: AttrDict, num_invalids: int, iterative_phase: str, *, record_goal_diagnostics: bool = True
+-    ) -> Tuple[ActionDistribution, Tensor, Tensor | float, Optional[Tensor], Tensor | float, Tensor, Dict]:
+-        additional_stats = AttrDict()
+-        with torch.no_grad(), self.timing.add_time("losses_init"):
+-            recurrence: int = self.cfg.recurrence
+-
+-            # PPO clipping
+-            clip_ratio_high = 1.0 + self.cfg.ppo_clip_ratio  # e.g. 1.1
+-            # this still works with e.g. clip_ratio = 2, while PPO's 1-r would give negative ratio
+-            clip_ratio_low = 1.0 / clip_ratio_high
+-            clip_value = self.cfg.ppo_clip_value
+-
+-            valids = mb.valids
+-            if int(valids.sum().item()) < 2:
+-                raise RuntimeError("Learner update invariant violated: fewer than two valid decisions reached PPO")
+-
+-        projection = self.actor_critic.encoder.DG_projection
+-        update_running_stats = iterative_phase in (SIMULTANEOUS, ENCODER) and not bool(
+-            getattr(self.cfg, "transfer_freeze_dg", False)
+-        )
+-        stats_context = getattr(projection, "running_stats_update", None)
+-        if stats_context is None:
+-            outputs = self._forward_pass(mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True])
+-        else:
+-            with stats_context(update_running_stats):
+-                outputs = self._forward_pass(
+-                    mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True]
+-                )
+-        additional_stats["dg_forward_count"] = outputs.head_outputs.new_tensor(1.0)
+-        additional_stats["dg_running_stats_update_count"] = outputs.head_outputs.new_tensor(
+-            float(bool(getattr(projection, "last_running_stats_updated", False)))
+-        )
+-
+-        # CA3 slot zero is exactly the current post-feedback DG activation.
+-        # Reconstructing it here keeps every existing DG loss on the true
+-        # landmark representation without another visual or DG forward.
++    def _calculate_fresh_encoder_loss(self, outputs, mb, valids, num_invalids, recurrence, additional_stats):
++        """Original real-rollout DG objective, independent of controller losses.
++
++        The caller owns the single fresh forward and optimizer schedule. Replay
++        must never call this method or use it to update normalization statistics.
++        """
+         n_dg = int(self.cfg.Hippo_n_feature)
+         expanded = int(self.cfg.Hippo_R) + int(self.cfg.Hippo_L) - 1
+         learner_dg = outputs.core_outputs[:, : n_dg * expanded].view(-1, n_dg, expanded)[:, :, 0]
+-        outputs.head_outputs = torch.cat((learner_dg, outputs.head_outputs[:, n_dg:]), dim=-1)
+-        feedback_stats = getattr(self.actor_critic.core, "last_context_feedback_stats", {})
+-        feedback_zero = learner_dg.detach().sum() * 0.0
+-        for name in (
+-            "created_fraction",
+-            "suppressed_fraction",
+-            "unchanged_fraction",
+-            "modulation_abs_mean",
+-            "modulation_saturation_fraction",
+-        ):
+-            additional_stats[f"dg_context_{name}"] = feedback_stats.get(name, feedback_zero).detach()
+-
+-        raw_logits = getattr(projection, "last_raw_logits", None)
+-        normalized_logits = getattr(projection, "last_pre_threshold_logits", None)
+-        valid_logits = valids.bool()
+-        if torch.is_tensor(raw_logits) and torch.is_tensor(normalized_logits) and valid_logits.any():
+-            raw_valid = raw_logits[valid_logits]
+-            normalized_valid = normalized_logits[valid_logits]
+-            raw_row_mean = raw_valid.mean(dim=0)
+-            raw_row_var = raw_valid.var(dim=0, unbiased=False)
+-            normalized_row_mean = normalized_valid.mean(dim=0)
+-            normalized_row_var = normalized_valid.var(dim=0, unbiased=False)
+-            additional_stats["dg_raw_logit_mean_abs"] = raw_row_mean.abs().mean().detach()
+-            additional_stats["dg_raw_logit_variance_mean"] = raw_row_var.mean().detach()
+-            additional_stats["dg_normalized_logit_mean_abs"] = normalized_row_mean.abs().mean().detach()
+-            additional_stats["dg_normalized_logit_variance_error"] = (normalized_row_var - 1.0).abs().mean().detach()
+-        else:
+-            zero = outputs.head_outputs.detach().sum() * 0.0
+-            additional_stats["dg_raw_logit_mean_abs"] = zero
+-            additional_stats["dg_raw_logit_variance_mean"] = zero
+-            additional_stats["dg_normalized_logit_mean_abs"] = zero
+-            additional_stats["dg_normalized_logit_variance_error"] = zero
+-
+-        additional_stats["Head Output"] = outputs.head_outputs[:, : getattr(self.cfg, "Hippo_n_feature", 64)]
+-
+-        with self.timing.add_time("post_forward"):
+-            action_distribution = self.actor_critic.action_distribution()
+-            log_prob_actions = action_distribution.log_prob(mb.actions)
+-            ratio = torch.exp(log_prob_actions - mb.log_prob_actions)  # pi / pi_old
+-
+-            # super large/small values can cause numerical problems and are probably noise anyway
+-            ratio = torch.clamp(ratio, 0.05, 20.0)
+-
+-            values = outputs.result["values"].squeeze()
+-
+-        # these computations are not the part of the computation graph
+-        with torch.no_grad(), self.timing.add_time("advantages_returns"):
+-            with self.timing.add_time("Distance Matrix"):
+-                distance_matrix, masked_distance_matrix, progression = self._record_distance_matrix(
+-                    outputs.core_outputs.detach(),
+-                    minibatch_size=outputs.minibatch_size,
+-                    masked_matrix=True,
+-                    return_progression=True,
+-                )
+-                additional_stats["Distance Matrix"] = distance_matrix
+-                additional_stats["Distance Matrix Masked"] = masked_distance_matrix
+-
+-            # using regular GAE
+-            adv = mb.advantages
+-            targets = mb.returns
+-
+-            adv_std, adv_mean = torch.std_mean(masked_select(adv, valids, num_invalids))
+-            if self.cfg.normalize_advantage:
+-                adv = (adv - adv_mean) / torch.clamp_min(adv_std, 1e-7)  # normalize advantage
+-            # log.info(f'Advantage Shape: {adv.shape}')
+-
+-        with self.timing.add_time("decoder_losses"):
+-            # noinspection PyTypeChecker
+-            old_values = mb["values"]
+-            value_loss = self._value_loss(values, old_values, targets, clip_value, valids, num_invalids)
+-            policy_loss = self._policy_loss(ratio, adv, clip_ratio_low, clip_ratio_high, valids, num_invalids)
+-
+-            exploration_loss = self.exploration_loss_func(action_distribution, valids, num_invalids)
+-            additional_stats["behavior_replay_mismatch"] = getattr(
+-                self, "_last_behavior_replay_mismatch", outputs.core_outputs.detach().sum() * 0.0
+-            )
+-            if bool(getattr(self.cfg, "hrl_behavior_mode_condition", False)):
+-                _, _, behavior_mode = self._behavior_condition_from_states(mb.rnn_states)
+-                free_mask = behavior_mode[:, MODE_EXPLORE].bool()
+-                for name, branch_valid in (
+-                    ("goal", valids & ~free_mask),
+-                    ("free", valids & free_mask),
+-                ):
+-                    branch_invalid = int((~branch_valid).sum().item())
+-                    if branch_valid.any():
+-                        additional_stats[f"{name}_policy_loss"] = self._policy_loss(
+-                            ratio, adv, clip_ratio_low, clip_ratio_high, branch_valid, branch_invalid
+-                        ).detach()
+-                        additional_stats[f"{name}_value_loss"] = self._value_loss(
+-                            values, old_values, targets, clip_value, branch_valid, branch_invalid
+-                        ).detach()
+-                        additional_stats[f"{name}_entropy_loss"] = self.exploration_loss_func(
+-                            action_distribution, branch_valid, branch_invalid
+-                        ).detach()
+-                    else:
+-                        zero = values.detach().sum() * 0.0
+-                        additional_stats[f"{name}_policy_loss"] = zero
+-                        additional_stats[f"{name}_value_loss"] = zero
+-                        additional_stats[f"{name}_entropy_loss"] = zero
+-            else:
+-                zero = values.detach().sum() * 0.0
+-                for name in ("goal", "free"):
+-                    additional_stats[f"{name}_policy_loss"] = zero
+-                    additional_stats[f"{name}_value_loss"] = zero
+-                    additional_stats[f"{name}_entropy_loss"] = zero
+-
+-            extra_decoder_loss = self._extra_decoder_loss(
+-                ratio,
+-                mb["encoder_dominant_activation_mask"],
+-                clip_ratio_low,
+-                clip_ratio_high,
+-                valids,
+-                num_invalids,
+-            )
+-            predictor_loss, predictor_hit_accuracy, predictor_time_mae, predictor_positive_fraction = (
+-                self._ca3_predictor_loss(outputs.core_outputs, outputs.head_outputs, mb, recurrence)
+-            )
+-            extra_decoder_loss = extra_decoder_loss + float(self.cfg.ca3_predictor_loss_coeff) * predictor_loss
+-            (
+-                empirical_her_loss,
+-                empirical_her_policy_loss,
+-                empirical_her_value_loss,
+-                empirical_her_ratio,
+-                empirical_her_clip_fraction,
+-                empirical_her_valid_fraction,
+-            ) = self._empirical_her_loss(
+-                outputs.core_outputs,
+-                outputs.head_outputs,
+-                mb,
+-                recurrence,
+-                clip_ratio_low,
+-                clip_ratio_high,
+-                clip_value,
+-            )
+-            extra_decoder_loss = extra_decoder_loss + empirical_her_loss
+-            additional_stats["ca3_predictor_loss"] = predictor_loss
+-            additional_stats["ca3_predictor_hit_accuracy"] = predictor_hit_accuracy
+-            additional_stats["ca3_predictor_time_mae"] = predictor_time_mae
+-            additional_stats["ca3_predictor_positive_fraction"] = predictor_positive_fraction
+-            additional_stats["empirical_her_loss"] = empirical_her_loss
+-            additional_stats["empirical_her_policy_loss"] = empirical_her_policy_loss
+-            additional_stats["empirical_her_value_loss"] = empirical_her_value_loss
+-            additional_stats["empirical_her_ratio"] = empirical_her_ratio
+-            additional_stats["empirical_her_clip_fraction"] = empirical_her_clip_fraction
+-            additional_stats["empirical_her_valid_fraction"] = empirical_her_valid_fraction
+-            # Evaluate the alternate target only when this minibatch will be summarized.
+-            if record_goal_diagnostics:
+-                with torch.no_grad():
+-                    if self._uses_policy_graph():
+-                        behavior_target = self._behavior_targets_from_states(mb.rnn_states)
+-                        alternate_target = behavior_target.roll(1, dims=0)
+-                        alternate = self.actor_critic.forward_tail(
+-                            self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
+-                            values_only=False,
+-                            sample_actions=False,
+-                        )
+-                        goal_valid = behavior_target.sum(dim=-1).gt(0)
+-                        action_delta = (
+-                            (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
+-                        )
+-                        action_probability_tv = categorical_action_total_variation(
+-                            outputs.result["action_logits"].detach(), alternate["action_logits"]
+-                        )
+-                        value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
+-                        additional_stats["goal_condition_action_sensitivity"] = (
+-                            action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_action_probability_tv"] = (
+-                            action_probability_tv[goal_valid].mean()
+-                            if goal_valid.any()
+-                            else action_probability_tv.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_value_span"] = (
+-                            value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
+-                        )
+-                    else:
+-                        goal_zero = outputs.core_outputs.detach().sum() * 0.0
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_zero
+-                        additional_stats["goal_condition_action_sensitivity"] = goal_zero
+-                        additional_stats["goal_condition_action_probability_tv"] = goal_zero
+-                        additional_stats["goal_condition_value_span"] = goal_zero
+-
+-            kl_old, kl_loss = self.kl_loss_func(
+-                self.actor_critic.action_space, mb.action_logits, action_distribution, valids, num_invalids
+-            )
+-
+         with self.timing.add_time("encoder_losses"):
+             learner_active = outputs.head_outputs[:, : int(self.cfg.Hippo_n_feature)] > 0
+             scheduled_credit_mask = mb["encoder_credit_activation_mask"].bool()
+@@ -3522,6 +3304,7 @@
+             else:
+                 encoder_loss += l1_loss
+                 encoder_batch_unused_count = outputs.head_outputs.sum() * 0.0
++                encoder_penalty_loss = encoder_reward_loss = encoder_batch_loss = encoder_batch_unused_count
+             population_loss, usage_loss, density_loss, collision_loss = self._population_usage_loss(
+                 outputs.head_outputs
+             )
+@@ -3634,6 +3417,239 @@
+             additional_stats["dg_ca3_conflicting_activation_fraction"] = dg_regularizer_stats[3]
+             additional_stats["dg_ca3_conflict_activity"] = dg_regularizer_stats[4]
+             additional_stats["dg_path_scatter_conflict_fraction"] = dg_regularizer_stats[5]
++
++        return encoder_loss
++
++    def _calculate_losses(
++        self, mb: AttrDict, num_invalids: int, iterative_phase: str, *, record_goal_diagnostics: bool = True
++    ) -> Tuple[ActionDistribution, Tensor, Tensor | float, Optional[Tensor], Tensor | float, Tensor, Dict]:
++        additional_stats = AttrDict()
++        with torch.no_grad(), self.timing.add_time("losses_init"):
++            recurrence: int = self.cfg.recurrence
++
++            # PPO clipping
++            clip_ratio_high = 1.0 + self.cfg.ppo_clip_ratio  # e.g. 1.1
++            # this still works with e.g. clip_ratio = 2, while PPO's 1-r would give negative ratio
++            clip_ratio_low = 1.0 / clip_ratio_high
++            clip_value = self.cfg.ppo_clip_value
++
++            valids = mb.valids
++            if int(valids.sum().item()) < 2:
++                raise RuntimeError("Learner update invariant violated: fewer than two valid decisions reached PPO")
++
++        projection = self.actor_critic.encoder.DG_projection
++        update_running_stats = iterative_phase in (SIMULTANEOUS, ENCODER) and not bool(
++            getattr(self.cfg, "transfer_freeze_dg", False)
++        )
++        stats_context = getattr(projection, "running_stats_update", None)
++        if stats_context is None:
++            outputs = self._forward_pass(mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True])
++        else:
++            with stats_context(update_running_stats):
++                outputs = self._forward_pass(
++                    mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True]
++                )
++        additional_stats["dg_forward_count"] = outputs.head_outputs.new_tensor(1.0)
++        additional_stats["dg_running_stats_update_count"] = outputs.head_outputs.new_tensor(
++            float(bool(getattr(projection, "last_running_stats_updated", False)))
++        )
++
++        # CA3 slot zero is exactly the current post-feedback DG activation.
++        # Reconstructing it here keeps every existing DG loss on the true
++        # landmark representation without another visual or DG forward.
++        n_dg = int(self.cfg.Hippo_n_feature)
++        expanded = int(self.cfg.Hippo_R) + int(self.cfg.Hippo_L) - 1
++        learner_dg = outputs.core_outputs[:, : n_dg * expanded].view(-1, n_dg, expanded)[:, :, 0]
++        outputs.head_outputs = torch.cat((learner_dg, outputs.head_outputs[:, n_dg:]), dim=-1)
++        feedback_stats = getattr(self.actor_critic.core, "last_context_feedback_stats", {})
++        feedback_zero = learner_dg.detach().sum() * 0.0
++        for name in (
++            "created_fraction",
++            "suppressed_fraction",
++            "unchanged_fraction",
++            "modulation_abs_mean",
++            "modulation_saturation_fraction",
++        ):
++            additional_stats[f"dg_context_{name}"] = feedback_stats.get(name, feedback_zero).detach()
++
++        raw_logits = getattr(projection, "last_raw_logits", None)
++        normalized_logits = getattr(projection, "last_pre_threshold_logits", None)
++        valid_logits = valids.bool()
++        if torch.is_tensor(raw_logits) and torch.is_tensor(normalized_logits) and valid_logits.any():
++            raw_valid = raw_logits[valid_logits]
++            normalized_valid = normalized_logits[valid_logits]
++            raw_row_mean = raw_valid.mean(dim=0)
++            raw_row_var = raw_valid.var(dim=0, unbiased=False)
++            normalized_row_mean = normalized_valid.mean(dim=0)
++            normalized_row_var = normalized_valid.var(dim=0, unbiased=False)
++            additional_stats["dg_raw_logit_mean_abs"] = raw_row_mean.abs().mean().detach()
++            additional_stats["dg_raw_logit_variance_mean"] = raw_row_var.mean().detach()
++            additional_stats["dg_normalized_logit_mean_abs"] = normalized_row_mean.abs().mean().detach()
++            additional_stats["dg_normalized_logit_variance_error"] = (normalized_row_var - 1.0).abs().mean().detach()
++        else:
++            zero = outputs.head_outputs.detach().sum() * 0.0
++            additional_stats["dg_raw_logit_mean_abs"] = zero
++            additional_stats["dg_raw_logit_variance_mean"] = zero
++            additional_stats["dg_normalized_logit_mean_abs"] = zero
++            additional_stats["dg_normalized_logit_variance_error"] = zero
++
++        additional_stats["Head Output"] = outputs.head_outputs[:, : getattr(self.cfg, "Hippo_n_feature", 64)]
++
++        with self.timing.add_time("post_forward"):
++            action_distribution = self.actor_critic.action_distribution()
++            log_prob_actions = action_distribution.log_prob(mb.actions)
++            ratio = torch.exp(log_prob_actions - mb.log_prob_actions)  # pi / pi_old
++
++            # super large/small values can cause numerical problems and are probably noise anyway
++            ratio = torch.clamp(ratio, 0.05, 20.0)
++
++            values = outputs.result["values"].squeeze()
++
++        # these computations are not the part of the computation graph
++        with torch.no_grad(), self.timing.add_time("advantages_returns"):
++            with self.timing.add_time("Distance Matrix"):
++                distance_matrix, masked_distance_matrix, progression = self._record_distance_matrix(
++                    outputs.core_outputs.detach(),
++                    minibatch_size=outputs.minibatch_size,
++                    masked_matrix=True,
++                    return_progression=True,
++                )
++                additional_stats["Distance Matrix"] = distance_matrix
++                additional_stats["Distance Matrix Masked"] = masked_distance_matrix
++
++            # using regular GAE
++            adv = mb.advantages
++            targets = mb.returns
++
++            adv_std, adv_mean = torch.std_mean(masked_select(adv, valids, num_invalids))
++            if self.cfg.normalize_advantage:
++                adv = (adv - adv_mean) / torch.clamp_min(adv_std, 1e-7)  # normalize advantage
++            # log.info(f'Advantage Shape: {adv.shape}')
++
++        with self.timing.add_time("decoder_losses"):
++            # noinspection PyTypeChecker
++            old_values = mb["values"]
++            value_loss = self._value_loss(values, old_values, targets, clip_value, valids, num_invalids)
++            policy_loss = self._policy_loss(ratio, adv, clip_ratio_low, clip_ratio_high, valids, num_invalids)
++
++            exploration_loss = self.exploration_loss_func(action_distribution, valids, num_invalids)
++            additional_stats["behavior_replay_mismatch"] = getattr(
++                self, "_last_behavior_replay_mismatch", outputs.core_outputs.detach().sum() * 0.0
++            )
++            if bool(getattr(self.cfg, "hrl_behavior_mode_condition", False)):
++                _, _, behavior_mode = self._behavior_condition_from_states(mb.rnn_states)
++                free_mask = behavior_mode[:, MODE_EXPLORE].bool()
++                for name, branch_valid in (
++                    ("goal", valids & ~free_mask),
++                    ("free", valids & free_mask),
++                ):
++                    branch_invalid = int((~branch_valid).sum().item())
++                    if branch_valid.any():
++                        additional_stats[f"{name}_policy_loss"] = self._policy_loss(
++                            ratio, adv, clip_ratio_low, clip_ratio_high, branch_valid, branch_invalid
++                        ).detach()
++                        additional_stats[f"{name}_value_loss"] = self._value_loss(
++                            values, old_values, targets, clip_value, branch_valid, branch_invalid
++                        ).detach()
++                        additional_stats[f"{name}_entropy_loss"] = self.exploration_loss_func(
++                            action_distribution, branch_valid, branch_invalid
++                        ).detach()
++                    else:
++                        zero = values.detach().sum() * 0.0
++                        additional_stats[f"{name}_policy_loss"] = zero
++                        additional_stats[f"{name}_value_loss"] = zero
++                        additional_stats[f"{name}_entropy_loss"] = zero
++            else:
++                zero = values.detach().sum() * 0.0
++                for name in ("goal", "free"):
++                    additional_stats[f"{name}_policy_loss"] = zero
++                    additional_stats[f"{name}_value_loss"] = zero
++                    additional_stats[f"{name}_entropy_loss"] = zero
++
++            extra_decoder_loss = self._extra_decoder_loss(
++                ratio,
++                mb["encoder_dominant_activation_mask"],
++                clip_ratio_low,
++                clip_ratio_high,
++                valids,
++                num_invalids,
++            )
++            predictor_loss, predictor_hit_accuracy, predictor_time_mae, predictor_positive_fraction = (
++                self._ca3_predictor_loss(outputs.core_outputs, outputs.head_outputs, mb, recurrence)
++            )
++            extra_decoder_loss = extra_decoder_loss + float(self.cfg.ca3_predictor_loss_coeff) * predictor_loss
++            (
++                empirical_her_loss,
++                empirical_her_policy_loss,
++                empirical_her_value_loss,
++                empirical_her_ratio,
++                empirical_her_clip_fraction,
++                empirical_her_valid_fraction,
++            ) = self._empirical_her_loss(
++                outputs.core_outputs,
++                outputs.head_outputs,
++                mb,
++                recurrence,
++                clip_ratio_low,
++                clip_ratio_high,
++                clip_value,
++            )
++            extra_decoder_loss = extra_decoder_loss + empirical_her_loss
++            additional_stats["ca3_predictor_loss"] = predictor_loss
++            additional_stats["ca3_predictor_hit_accuracy"] = predictor_hit_accuracy
++            additional_stats["ca3_predictor_time_mae"] = predictor_time_mae
++            additional_stats["ca3_predictor_positive_fraction"] = predictor_positive_fraction
++            additional_stats["empirical_her_loss"] = empirical_her_loss
++            additional_stats["empirical_her_policy_loss"] = empirical_her_policy_loss
++            additional_stats["empirical_her_value_loss"] = empirical_her_value_loss
++            additional_stats["empirical_her_ratio"] = empirical_her_ratio
++            additional_stats["empirical_her_clip_fraction"] = empirical_her_clip_fraction
++            additional_stats["empirical_her_valid_fraction"] = empirical_her_valid_fraction
++            # Evaluate the alternate target only when this minibatch will be summarized.
++            if record_goal_diagnostics:
++                with torch.no_grad():
++                    if self._uses_policy_graph():
++                        behavior_target = self._behavior_targets_from_states(mb.rnn_states)
++                        alternate_target = behavior_target.roll(1, dims=0)
++                        alternate = self.actor_critic.forward_tail(
++                            self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
++                            values_only=False,
++                            sample_actions=False,
++                        )
++                        goal_valid = behavior_target.sum(dim=-1).gt(0)
++                        action_delta = (
++                            (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
++                        )
++                        action_probability_tv = categorical_action_total_variation(
++                            outputs.result["action_logits"].detach(), alternate["action_logits"]
++                        )
++                        value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
++                        additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
++                        additional_stats["goal_condition_action_sensitivity"] = (
++                            action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
++                        )
++                        additional_stats["goal_condition_action_probability_tv"] = (
++                            action_probability_tv[goal_valid].mean()
++                            if goal_valid.any()
++                            else action_probability_tv.sum() * 0.0
++                        )
++                        additional_stats["goal_condition_value_span"] = (
++                            value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
++                        )
++                    else:
++                        goal_zero = outputs.core_outputs.detach().sum() * 0.0
++                        additional_stats["goal_condition_target_valid_fraction"] = goal_zero
++                        additional_stats["goal_condition_action_sensitivity"] = goal_zero
++                        additional_stats["goal_condition_action_probability_tv"] = goal_zero
++                        additional_stats["goal_condition_value_span"] = goal_zero
++
++            kl_old, kl_loss = self.kl_loss_func(
++                self.actor_critic.action_space, mb.action_logits, action_distribution, valids, num_invalids
++            )
++
++        encoder_loss = self._calculate_fresh_encoder_loss(
++            outputs, mb, valids, num_invalids, recurrence, additional_stats
++        )
+ 
+         loss_summaries = dict(
+             ratio=ratio,
+@@ -5009,6 +5025,13 @@
+ def make_hipposlam_learner(
+     cfg: Config, env_info: EnvInfo, policy_versions_tensor: Tensor, policy_id: PolicyID, param_server: ParameterServer
+ ) -> BaseLearner:
++    if getattr(cfg, "controller_learning", "ppo") != "ppo":
++        raise RuntimeError(
++            "Full-system off-policy learner integration is not qualified yet: "
++            "adaptive replay and actor-memory publication gates must pass before training"
++        )
++    if bool(getattr(cfg, "controller_her", False)):
++        raise ValueError("controller_her requires the separate off-policy auxiliary learner")
+     if cfg.distance_learning:
+         if cfg.double_value:
+             return DoubleDistanceLearnerReward(cfg, env_info, policy_versions_tensor, policy_id, param_server)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_q.py
+@@ -0,0 +1,62 @@
++"""Opt-in action-value heads at the original IntrMotiv controller boundary.
++
++The main head estimates the parent's continuing return. Hindsight is a separate
++bounded worker auxiliary; its predictions never select the acting controller.
++No encoder, core, goal selector, reward, or graph implementation lives here.
++"""
++from __future__ import annotations
++
++import torch
++from torch import nn
++
++
++class ControllerQHeads(nn.Module):
++    def __init__(self, hidden_size: int, actions: int, auxiliary: bool):
++        super().__init__()
++        self.main = nn.Linear(hidden_size, actions)
++        # A deadline-conditioned auxiliary needs state/deadline interactions.
++        # It does not change the original decoder or the main return interface.
++        self.auxiliary = nn.Linear(2 * hidden_size + 1, actions) if auxiliary else None
++        self.register_buffer('publication_version', torch.zeros((), dtype=torch.int64))
++        self.register_buffer('environment_decisions', torch.zeros((), dtype=torch.int64))
++
++    def forward(self, hidden):
++        return self.main(hidden)
++
++    def hindsight(self, hidden, remaining, time_scale):
++        if self.auxiliary is None:
++            raise RuntimeError('Hindsight head is not enabled')
++        if time_scale <= 0 or torch.any(remaining < 0):
++            raise ValueError('Invalid auxiliary deadline')
++        clock = remaining.to(hidden.dtype).reshape(-1, 1) / time_scale
++        return self.auxiliary(torch.cat((hidden, hidden * clock, clock), dim=-1))
++
++
++def epsilon_distribution(q, epsilon, action_mask=None):
++    if not 0 <= epsilon <= 1:
++        raise ValueError('epsilon must be in [0,1]')
++    allowed = torch.ones_like(q, dtype=torch.bool) if action_mask is None else action_mask.bool()
++    if not allowed.any(-1).all():
++        raise ValueError('No valid action')
++    greedy = q.masked_fill(~allowed, -torch.inf).argmax(-1)
++    probabilities = epsilon * allowed.to(q.dtype) / allowed.sum(-1, keepdim=True)
++    probabilities = probabilities.scatter_add(-1, greedy[:, None], q.new_full((len(q), 1), 1-epsilon))
++    return probabilities
++
++
++def continuing_double_q_target(reward, physical_done, next_online, next_target, gamma):
++    """Retargeting/waypoints/options are successor context, not episode dones."""
++    if not 0 <= gamma <= 1:
++        raise ValueError('Invalid discount')
++    if next_online.shape != next_target.shape or next_online.shape[:-1] != reward.shape:
++        raise ValueError('Incompatible Bellman arrays')
++    with torch.no_grad():
++        selected = next_online.argmax(-1, keepdim=True)
++        continuation = next_target.gather(-1, selected).squeeze(-1)
++        return reward + gamma * torch.where(physical_done.bool(), torch.zeros_like(continuation), continuation)
++
++
++def bounded_auxiliary_target(reward, task_ended, remaining, next_online, next_target, gamma):
++    """Explicit auxiliary boundary; never substitute this for main-return done."""
++    ended = task_ended.bool() | (remaining <= 1)
++    return continuing_double_q_target(reward, ended, next_online, next_target, gamma)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py
+@@ -0,0 +1,73 @@
++"""Snapshot ownership for controller replay through the actual IntrMotiv model.
++
++A snapshot owns every parameter and buffer influencing its value input, including
++DG, worker-write modulation, normalization, and manager graph. It is constructed
++through the original factory, not by copying a model with live autograd caches.
++"""
++import torch
++from torch import nn
++
++
++class ControllerSnapshot:
++    def __init__(self, model_factory, source, version: int):
++        if version < 0:
++            raise ValueError('Snapshot version must be nonnegative')
++        # Auxiliary/target construction must not perturb behavior RNG streams.
++        devices = sorted({p.device.index for p in source.parameters() if p.is_cuda})
++        with torch.random.fork_rng(devices=devices):
++            self.model = model_factory()
++        self.model.load_state_dict(
++            {k: v.detach().clone() for k, v in source.state_dict().items()}, strict=True, assign=True
++        )
++        self.model.eval()
++        self.model.requires_grad_(False)
++        self.version = int(version)
++
++    @torch.no_grad()
++    def refresh(self, source, version: int):
++        if version <= self.version:
++            raise ValueError('Snapshot refresh must advance its version')
++        self.model.load_state_dict(source.state_dict(), strict=True)
++        self.model.eval()
++        self.version = int(version)
++
++
++class _ReplayCall(nn.Module):
++    def __init__(self, model, operation):
++        super().__init__()
++        self.model = model
++        self.operation = operation
++
++    def forward(self, *args):
++        return self.operation(self.model, *args)
++
++
++def differentiable_replay(snapshot, source, operation, *args, source_version: int):
++    """Use live online parameters with immutable snapshot buffers and private caches.
++
++    `operation` must use the supplied actual model. Gradients reach `source`
++    parameters; replay forwards cannot mutate its graph, running statistics, or
++    forward caches. Each call clones snapshot buffers so even an accidental
++    in-place buffer update cannot become additional real-data graph evidence.
++    Only use an online snapshot from the same parameter version as `source`.
++    Target evaluation uses its own snapshot directly under no_grad instead.
++    """
++    if source_version != snapshot.version:
++        raise ValueError('Online parameters and replay buffers must have the same version')
++    if snapshot.model.training:
++        raise RuntimeError('Replay snapshot must be in evaluation mode')
++    wrapper = _ReplayCall(snapshot.model, operation)
++    parameters = {f'model.{k}': v for k, v in source.named_parameters()}
++    buffers = {f'model.{k}': v.detach().clone() for k, v in snapshot.model.named_buffers()}
++    # strict matching catches target/online architecture drift, including HER.
++    devices = sorted({p.device.index for p in source.parameters() if p.is_cuda})
++    with torch.random.fork_rng(devices=devices):
++        return torch.func.functional_call(wrapper, (parameters, buffers), args, strict=True)
++
++
++@torch.no_grad()
++def evaluate_replay(snapshot, operation, *args):
++    """Evaluate a target with its own parameters and immutable cloned buffers."""
++    return differentiable_replay(
++        snapshot, snapshot.model, operation, *args, source_version=snapshot.version
++    )
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_history.py
+@@ -0,0 +1,89 @@
++"""Finite-history reconstruction through the original simple IntrMotiv core.
++
++This operation runs on a private controller snapshot. It does not train the DG
++auxiliary, publish actor weights, or treat replay as new manager graph evidence.
++The ingress layer must supply one contiguous physical episode per call.
++"""
++from dataclasses import dataclass
++from sample_factory.algo.utils.rl_utils import prepare_and_normalize_obs
++import torch
++from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++
++
++@dataclass(frozen=True)
++class ControllerHistory:
++    observations: dict
++    decision_ids: torch.Tensor
++    initial_context: torch.Tensor
++    # The complete action-time condition in original core output order:
++    # target, followed by any enabled geometry/mode fields.
++    conditions: torch.Tensor
++    episode_start: bool
++    burn_in: int
++
++
++def reconstruct_controller_history(model, history: ControllerHistory):
++    """Rebuild canonical/worker traces; return original decoder features.
++
++    The action-time manager command is exogenous replay context. Historical
++    decisions are not re-planned with today's graph. HER supplies its virtual
++    command over the whole history, including worker writes before TD positions.
++    Caller constructs online and target histories using their own snapshots.
++
++    A non-reset prefix is only accepted for the actual finite simple core.
++    Context feedback/recruitment require a separate, validated state contract.
++    No actor memory is cleared by this function.
++    """
++    core = model.core
++    if type(core) not in (SimpleSequenceWithBypassCore, GoalConditionedDGCore):
++        raise ValueError('Finite replay washout is not established for this core')
++    if core.context_feedback is not None or core.graph_recruitment or core.context_action_history_size:
++        raise ValueError('Contextual/recruitment history needs its own reconstruction contract')
++    if model.training:
++        raise ValueError('Reconstruction requires an immutable evaluation snapshot')
++    steps = history.decision_ids.numel()
++    if history.decision_ids.ndim != 1 or steps < 1:
++        raise ValueError('Expected a nonempty physical history')
++    if not torch.all(history.decision_ids[1:] == history.decision_ids[:-1] + 1):
++        raise ValueError('Replay history has a physical decision gap')
++    if not 0 <= history.burn_in < steps:
++        raise ValueError('Replay must retain TD positions after burn-in')
++    if not history.episode_start and history.burn_in < core.expanded_length:
++        raise ValueError('Incomplete finite washout prefix')
++    condition_width = core.total_output_size - core.target_condition_start
++    if history.conditions.shape != (steps, condition_width):
++        raise ValueError('Incomplete action-time worker condition')
++    if history.initial_context.shape != (1, core.total_state_size):
++        raise ValueError('Invalid initial context layout')
++    if any(value.shape[0] != steps for value in history.observations.values()):
++        raise ValueError('Observation/history length mismatch')
++
++    state = history.initial_context.detach().clone()
++    if isinstance(core, GoalConditionedDGCore):
++        canonical, worker = core.split_worker_state(state)
++        canonical = canonical.clone()
++        canonical[:, :core.core_output_size] = 0
++        state = core.join_worker_state(canonical, torch.zeros_like(worker))
++    else:
++        state[:, :core.core_output_size] = 0
++    # Original preprocessing and all trainable encoder/bypass modules run again.
++    normalized = prepare_and_normalize_obs(model, dict(history.observations))
++    head = model.forward_head(normalized)
++    if isinstance(core, GoalConditionedDGCore):
++        head = torch.cat((head, history.conditions[:, :core.Hippo_n_feature].to(head)), -1)
++    # One packed sequence preserves the original goal-write BPTT path; calling
++    # single-step core repeatedly would detach its worker memory at every step.
++    packed = pack_padded_sequence(head.unsqueeze(1), [steps], enforce_sorted=False)
++    packed_output, final_state = model.forward_core(packed, state)
++    padded, _ = pad_packed_sequence(packed_output)
++    output = padded[:, 0].clone()
++    output[:, core.target_condition_start:core.total_output_size] = history.conditions.to(output)
++    hidden = model.controller_hidden(output)
++    return {
++        'hidden': hidden[history.burn_in:],
++        'core_outputs': output[history.burn_in:],
++        'head_outputs': head[history.burn_in:],
++        'decision_ids': history.decision_ids[history.burn_in:],
++    }
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_contract.py
+@@ -0,0 +1,40 @@
++"""Fail-closed classification of full-parent controller experiment deltas."""
++import json
++
++# Enumerate real parser options. A broad controller_* exemption would hide typos
++# and silently authorize new scientific factors.
++CONTROLLER_OPTIONS = frozenset({
++    'controller_learning', 'controller_her', 'controller_epsilon',
++    'controller_target_updates', 'controller_replay_capacity',
++    'controller_td_positions', 'controller_decisions_per_update',
++    'controller_learning_starts', 'controller_her_fraction',
++})
++
++
++def preservation_delta(parent, candidate, *, approved_factors=None):
++    """Return every config difference and reject unclassified changes.
++
++    Approval descriptions must identify why execution/initialization/seed fields
++    differ. Architecture changes are never exempted by a prefix or allowlist.
++    Canonical StudySpec remains responsible for run expansion and submission.
++    """
++    approved_factors = approved_factors or {}
++    result = []
++    for key in sorted(parent.keys() | candidate.keys()):
++        before = parent.get(key)
++        after = candidate.get(key)
++        # JSON normalization handles tuples restored from serialized configs.
++        if key in parent and key in candidate and json.dumps(before, sort_keys=True) == json.dumps(after, sort_keys=True):
++            continue
++        if key in CONTROLLER_OPTIONS:
++            classification = 'controller_learning'
++            reason = 'Opt-in controller implementation option'
++        elif key in approved_factors and approved_factors[key].strip():
++            classification = 'explicit_experimental_factor'
++            reason = approved_factors[key]
++        else:
++            raise ValueError(f'Unclassified parent change: {key}: {before!r} -> {after!r}')
++        result.append({'field': key, 'parent': before, 'candidate': after,
++            'classification': classification, 'reason': reason,
++            'parent_present': key in parent, 'candidate_present': key in candidate})
++    return result
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_q.py
+@@ -0,0 +1,102 @@
++"""Controller return and gradient contracts, using the original worker modules."""
++from types import SimpleNamespace
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.dmlab.controller_q import (
++    ControllerQHeads, epsilon_distribution, continuing_double_q_target, bounded_auxiliary_target,
++)
++from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder, controller_core_view
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++
++
++def test_continuing_return_uses_online_selection_target_evaluation_and_physical_boundary():
++    reward = torch.tensor([2.5, -3., 0.7], requires_grad=True)
++    online = torch.tensor([[1., 5.], [9., 1.], [2., 3.]], requires_grad=True)
++    target = torch.tensor([[100., 7.], [8., 100.], [99., 4.]], requires_grad=True)
++    # The second row is a physical terminal. Rows one/three may cross manager switches.
++    actual = continuing_double_q_target(reward, torch.tensor([False, True, False]), online, target, .9)
++    torch.testing.assert_close(actual, torch.tensor([8.8, -3., 4.3]))
++    assert not actual.requires_grad
++
++
++def test_auxiliary_deadline_does_not_end_main_return():
++    reward = torch.tensor([2.5, 1., -2.])
++    online = torch.ones(3, 2)
++    target = torch.full((3, 2), 5.)
++    main = continuing_double_q_target(reward, torch.zeros(3, dtype=torch.bool), online, target, .9)
++    aux = bounded_auxiliary_target(reward, torch.tensor([True, False, False]), torch.tensor([8, 1, 4]), online, target, .9)
++    torch.testing.assert_close(main, reward + 4.5)
++    torch.testing.assert_close(aux, torch.tensor([2.5, 1., 2.5]))
++
++
++@pytest.mark.parametrize('epsilon', [0., .1, 1.])
++def test_epsilon_greedy_preserves_action_mask(epsilon):
++    q = torch.tensor([[100., -4., -2.], [3., 99., 0.]])
++    mask = torch.tensor([[False, True, True], [True, False, False]])
++    p = epsilon_distribution(q, epsilon, mask)
++    torch.testing.assert_close(p.sum(-1), torch.ones(2))
++    assert not p[~mask].any()
++    assert p[0, 2] >= p[0, 1]
++    with pytest.raises(ValueError, match='No valid action'):
++        epsilon_distribution(q, epsilon, torch.zeros_like(mask))
++
++
++@pytest.mark.parametrize('routing', ['stop', 'joint'])
++def test_auxiliary_trains_shared_worker_without_main_head_gradient(routing):
++    torch.manual_seed(41)
++    layout = SimpleNamespace(Hippo_n_feature=3, target_condition_start=12, get_out_size=lambda:15)
++    decoder = TargetFiLMDecoder(layout, hidden_size=8)
++    heads = ControllerQHeads(8, 4, auxiliary=True)
++    features = torch.randn(5, 15, requires_grad=True)
++    hidden = decoder(controller_core_view(features, 12, routing))
++    loss = heads.hindsight(hidden, torch.tensor([1, 2, 3, 4, 5]), 5).square().mean()
++    loss.backward()
++    assert all(p.grad is None for p in heads.main.parameters())
++    assert sum(p.grad.abs().sum() for p in heads.auxiliary.parameters()) > 0
++    assert sum(p.grad.abs().sum() for p in decoder.parameters()) > 0
++    assert bool(features.grad[:, :12].abs().sum() > 0) == (routing == 'joint')
++
++
++def test_goal_write_her_rebuilds_worker_history_with_each_network_parameters():
++    cfg = SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=3,hrl_controllable_graph=True,
++        hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++        dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=1.)
++    online = GoalConditionedDGCore(cfg, 8)
++    target = GoalConditionedDGCore(cfg, 8)
++    with torch.no_grad():
++        online.dg_goal_modulation[1, 3:] = 1.
++        target.dg_goal_modulation[1, 3:] = 2.
++    state_o = torch.zeros(1, online.total_state_size)
++    state_t = torch.zeros_like(state_o)
++    pre = torch.tensor([[2., 1.5, 2.5]], requires_grad=True)
++    head = torch.cat((torch.relu(pre - 1.), torch.zeros(1, 2), pre), -1)
++    virtual_goal = torch.tensor([[0., 1., 0.]])
++    canonical = []
++    for _ in range(4):
++        out_o, state_o = online(torch.cat((head, virtual_goal), -1), state_o)
++        with torch.no_grad():
++            out_t, state_t = target(torch.cat((head, virtual_goal), -1), state_t)
++        torch.testing.assert_close(out_o[:, :online.core_output_size], out_t[:, :target.core_output_size])
++    assert not torch.equal(online.worker_view(out_o), target.worker_view(out_t))
++    online.worker_view(out_o).sum().backward()
++    assert online.dg_goal_modulation.grad.abs().sum() > 0
++    assert pre.grad is None or not pre.grad.any()
++    assert target.dg_goal_modulation.grad is None
++
++
++def test_native_sf_q_distribution_has_finite_entropy_and_masks_value():
++    import gymnasium as gym
++    from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import IntrMotivActorCriticSharedWeights
++    from sample_factory.utils.attr_dict import AttrDict
++    actor=IntrMotivActorCriticSharedWeights.__new__(IntrMotivActorCriticSharedWeights)
++    torch.nn.Module.__init__(actor)
++    actor.cfg=AttrDict(controller_epsilon=0.)
++    actor.action_space=gym.spaces.Discrete(3)
++    actor.decoder=torch.nn.Identity()
++    actor.controller_q=torch.nn.Identity()
++    q=torch.tensor([[100.,-4.,-2.]])
++    out=actor._forward_q_tail(q,False,True,torch.tensor([[False,True,True]]))
++    assert out['values'].item()==-2.
++    assert out['actions'].item()==2
++    assert torch.isfinite(actor.action_distribution().entropy()).all()
++    assert torch.equal(actor.action_distribution().probs,torch.tensor([[0.,0.,1.]]))
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_snapshot.py
+@@ -0,0 +1,75 @@
++import torch
++from torch import nn
++import pytest
++from sf_working_directories.IntrMotiv.dmlab.controller_snapshot import ControllerSnapshot, differentiable_replay
++from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
++
++
++class SmallModel(nn.Module):
++    def __init__(self):
++        super().__init__()
++        self.dg = DGProjection_batchnorm_relu(4, 3, intercept=-2., batchnorm_semantics='legacy_batch')
++        self.head = nn.Linear(3, 2)
++        self.register_buffer('graph_evidence', torch.tensor([4.]))
++
++    def forward(self, x):
++        return self.head(self.dg(x))
++
++
++def test_replay_preserves_live_bn_graph_cache_and_routes_gradients():
++    model = SmallModel().train()
++    model(torch.randn(8, 4))
++    old_cache = model.dg.last_pre_threshold_logits
++    before = {k:v.clone() for k,v in model.state_dict().items()}
++    rng = torch.get_rng_state().clone()
++    snap = ControllerSnapshot(SmallModel, model, 0)
++    assert torch.equal(rng, torch.get_rng_state())
++    x = torch.randn(5, 4)
++    result = differentiable_replay(snap, model, lambda m,x:m(x), x, source_version=0)
++    result.square().mean().backward()
++    assert model.dg.linear.weight.grad.abs().sum() > 0
++    assert model.dg.last_pre_threshold_logits is old_cache
++    assert model.training and model.dg.training
++    for k,v in model.state_dict().items():
++        torch.testing.assert_close(v, before[k], rtol=0, atol=0)
++    assert all(p.grad is None for p in snap.model.parameters())
++
++
++def test_replay_cannot_accumulate_graph_evidence_even_if_operation_mutates_buffer():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    def mistaken_operation(m, x):
++        m.graph_evidence.add_(1.)
++        return m(x)
++    differentiable_replay(snap, model, mistaken_operation, torch.ones(4, 4), source_version=1)
++    assert model.graph_evidence.item() == 4.
++    assert snap.model.graph_evidence.item() == 4.
++
++
++def test_target_owns_representation_and_normalization_until_explicit_refresh():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    x = torch.ones(4, 4)
++    before = snap.model(x).clone()
++    with torch.no_grad():
++        model.dg.linear.weight.add_(2.)
++        model.dg.batchnorm1d.running_mean.add_(3.)
++    torch.testing.assert_close(snap.model(x), before, rtol=0, atol=0)
++    snap.refresh(model, 2)
++    assert not torch.equal(snap.model(x), before)
++    with pytest.raises(ValueError, match='advance'):
++        snap.refresh(model, 2)
++
++
++def test_online_snapshot_version_mismatch_is_rejected():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    with pytest.raises(ValueError, match='same version'):
++        differentiable_replay(snap, model, lambda m,x:m(x), torch.ones(4,4), source_version=2)
++
++
++def test_replay_does_not_advance_parent_random_stream():
++    model=SmallModel();snap=ControllerSnapshot(SmallModel,model,0)
++    before=torch.get_rng_state().clone()
++    differentiable_replay(snap,model,lambda m,x:m(x)+torch.rand(1),torch.ones(4,4),source_version=0)
++    assert torch.equal(before,torch.get_rng_state())
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_history.py
+@@ -0,0 +1,82 @@
++from dataclasses import replace
++from types import SimpleNamespace
++import pytest
++import torch
++from torch import nn
++from sf_working_directories.IntrMotiv.dmlab.controller_history import ControllerHistory, reconstruct_controller_history
++from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder, controller_core_view
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
++
++
++class SmallHistoryModel(nn.Module):
++    """Small observation adapter, original DG/core/FiLM implementations."""
++    def __init__(self, write=True):
++        super().__init__()
++        cfg=SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=3,hrl_controllable_graph=True,
++            hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++            dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=-2.)
++        self.dg=DGProjection_batchnorm_relu(4,3,intercept=-2.)
++        self.core=GoalConditionedDGCore(cfg,8) if write else SimpleSequenceWithBypassCore(cfg,5)
++        self.decoder=TargetFiLMDecoder(self.core,8)
++        self.write=write
++    def device_for_input_tensor(self,key): return torch.device("cpu")
++    def type_for_input_tensor(self,key): return torch.float32
++    def normalize_obs(self,obs): return obs
++    def forward_head(self,obs):
++        pre=self.dg.preactivation(obs['obs'])
++        head=torch.cat((torch.relu(pre+2),obs['bypass']),-1)
++        return torch.cat((head,pre.detach()),-1) if self.write else head
++    def forward_core(self,head,state):return self.core(head,state)
++    def controller_hidden(self,out):
++        view=self.core.worker_view(out) if self.write else controller_core_view(out,self.core.core_output_size,'stop')
++        return self.decoder(view)
++
++
++def history(model,steps=7,burn=4,start=False):
++    return ControllerHistory({'obs':torch.randn(steps,4),'bypass':torch.randn(steps,2)},torch.arange(10,10+steps),
++        torch.zeros(1,model.core.total_state_size),torch.tensor([[0.,1.,0.]]).repeat(steps,1),start,burn)
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_reconstructed_canonical_trace_matches_physical_forward_after_washout(write):
++    model=SmallHistoryModel(write).eval(); h=history(model)
++    state=h.initial_context.clone(); outputs=[]
++    # Arbitrary stale memory is deliberately excluded by finite washout.
++    state[:,:model.core.core_output_size]=17.
++    with torch.no_grad():
++        heads=model.forward_head(h.observations)
++        for t in range(7):
++            head=heads[t:t+1]
++            if write:head=torch.cat((head,h.conditions[t:t+1]),-1)
++            out,state=model.forward_core(head,state);outputs.append(out)
++        result=reconstruct_controller_history(model,h)
++    expected=torch.cat(outputs)[4:,:model.core.core_output_size]
++    torch.testing.assert_close(result['core_outputs'][:,:model.core.core_output_size],expected)
++
++
++def test_virtual_goal_rebuild_changes_worker_not_canonical_and_retains_history_gradient():
++    model=SmallHistoryModel().eval()
++    with torch.no_grad():model.core.dg_goal_modulation[1,3:]=1.
++    h=history(model,steps=4,burn=0,start=True)
++    a=reconstruct_controller_history(model,h)
++    b=reconstruct_controller_history(model,replace(h,conditions=torch.tensor([[1.,0.,0.]]).repeat(4,1)))
++    width=model.core.core_output_size
++    torch.testing.assert_close(a['core_outputs'][:,:width],b['core_outputs'][:,:width])
++    assert not torch.equal(a['core_outputs'][:,model.core.total_output_size:],b['core_outputs'][:,model.core.total_output_size:])
++    # Oldest retained worker slot at the final decision depends on earlier writes.
++    oldest=a['core_outputs'][-1,model.core.total_output_size:].reshape(3,4)[:,-1].sum()
++    oldest.backward()
++    assert model.core.dg_goal_modulation.grad.abs().sum()>0
++    assert model.dg.linear.weight.grad is None or not model.dg.linear.weight.grad.any()
++
++
++def test_history_rejects_gaps_and_incomplete_nonreset_washout():
++    model=SmallHistoryModel().eval();h=history(model)
++    with pytest.raises(ValueError,match='gap'):
++        reconstruct_controller_history(model,replace(h,decision_ids=torch.tensor([1,2,3,8,9,10,11])))
++    with pytest.raises(ValueError,match='washout'):
++        reconstruct_controller_history(model,replace(h,burn_in=3))
++    # At a real episode start, no historical trace is missing.
++    assert len(reconstruct_controller_history(model,replace(h,episode_start=True,burn_in=0))['hidden'])==7
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_contract.py
+@@ -0,0 +1,21 @@
++import pytest
++from sf_working_directories.IntrMotiv.dmlab.controller_contract import preservation_delta
++
++
++def test_controller_delta_cannot_hide_frozen_dg_or_reduced_manager():
++    parent={'transfer_freeze_dg':False,'Hippo_n_feature':64,'hrl_manager_mode':'frontier_waypoint'}
++    candidate=dict(parent,controller_learning='ddqn',controller_her=True)
++    assert len(preservation_delta(parent,candidate))==2
++    for field,value in [('transfer_freeze_dg',True),('Hippo_n_feature',3),('hrl_manager_mode','frontier_direct'),('controller_typo',True)]:
++        with pytest.raises(ValueError,match=field):
++            preservation_delta(parent,dict(candidate,**{field:value}))
++
++
++def test_seed_change_requires_an_explicit_factor_and_no_fields_are_dropped():
++    parent={'seed':99,'gamma':.99}
++    with pytest.raises(ValueError,match='seed'):
++        preservation_delta(parent,dict(parent,seed=8))
++    delta=preservation_delta(parent,dict(parent,seed=8),approved_factors={'seed':'New learner seed; source seed remains 99 in parent manifest'})
++    assert delta[0]['classification']=='explicit_experimental_factor'
++    with pytest.raises(ValueError,match='gamma'):
++        preservation_delta(parent,{'seed':99})
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_fresh_encoder_loss.py
+@@ -0,0 +1,40 @@
++from contextlib import nullcontext
++from types import SimpleNamespace
++import pytest
++import torch
++from sample_factory.utils.attr_dict import AttrDict
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++
++
++@pytest.mark.parametrize('extra', [False, True])
++def test_fresh_auxiliary_objective_has_no_controller_dependency_and_runs_each_component_once(extra):
++    calls=[]
++    def record(name, result):
++        def operation(*args):calls.append(name);return result(*args)
++        return operation
++    head=torch.tensor([[1.,2.],[3.,4.]],requires_grad=True)
++    zero=head.sum()*0
++    learner=SimpleNamespace(
++        cfg=SimpleNamespace(Hippo_n_feature=2,Hippo_R=1,Hippo_L=1,
++            extra_encoder_losses=extra,encoder_grad_coeff=2.,dg_transition_prediction='none'),
++        timing=SimpleNamespace(add_time=lambda name:nullcontext()),actor_critic=SimpleNamespace(),
++        _encoder_loss=record('credit',lambda x,r,m,*a:-(x*r*m).sum()/2),
++        _l1_loss=record('l1',lambda x,*a:x.sum()/2),
++        _extra_encoder_loss=record('extra',lambda *a:(zero+1,zero+2,zero+3,zero)),
++        _population_usage_loss=record('population',lambda x:(zero+4,zero,zero,zero)),
++        _anti_collapse_losses=record('anticollapse',lambda *a:(zero+5,zero+6,zero+7,zero+8,[zero]*6)),
++    )
++    outputs=AttrDict(head_outputs=head,core_outputs=head,minibatch_size=2)
++    mb={'encoder_credit_activation_mask':torch.ones_like(head,dtype=torch.bool),
++        'rewards_encoder':torch.ones_like(head),'rnn_states':torch.zeros(2,2),
++        'encoder_dominant_activation_mask':torch.ones_like(head,dtype=torch.bool),
++        'encoder_non_dominant_activation_mask':torch.zeros_like(head,dtype=torch.bool),'rewards':torch.ones(2)}
++    stats={}
++    loss=DistanceLearnerReward._calculate_fresh_encoder_loss(learner,outputs,mb,torch.ones(2,dtype=torch.bool),0,1,stats)
++    expected=(-5+(6 if extra else 5)+4+5+6+7+8)*2
++    torch.testing.assert_close(loss,torch.tensor(float(expected)))
++    loss.backward()
++    torch.testing.assert_close(head.grad,torch.full_like(head,-1. if extra else 0.))
++    assert calls==(['credit','l1','extra','population','anticollapse'] if extra else ['credit','l1','population','anticollapse'])
++    if not extra:
++        assert stats['encoder_penalty_loss'].item()==stats['encoder_reward_loss'].item()==0
