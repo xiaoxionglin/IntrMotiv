@@ -46,8 +46,8 @@ class OrderedIngress:
                     continue
                 if not ended and (following.episode != row.episode or following.index != row.index + 1):
                     raise ValueError('SF successor crosses a physical reset or gap')
-                result = replace(row, successor=None if ended else following.observation,
-                                 successor_valid=not ended)
+                result = replace(row, successor=row.successor if ended else following.observation,
+                                 successor_valid=row.successor_valid if ended else True)
                 del queue[serial]
                 self.expected[stream] += 1
                 self.emitted += 1
