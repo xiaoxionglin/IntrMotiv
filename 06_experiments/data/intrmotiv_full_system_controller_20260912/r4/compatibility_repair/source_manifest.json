@@ -1,0 +1,58 @@
+[
+  {
+    "path": "sample_factory/algo/learning/learner_worker.py",
+    "sha256": "7856a2333b2ba1b33d36015c1f4f017581cd2a1f0b8e9ab985131ced4cb16729"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/dmlab/controller_learner.py",
+    "sha256": "916ae0fe1fdcc2cfc915d19bbd5bb3cd1c84888ab1cf23bd7beb3a44f33e96f2"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/dmlab/controller_replay.py",
+    "sha256": "3ff1cdd00f1e1bffe43f6ae47a383edda68b9c617f9fe77fefe03dbc1d65daa1"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/dmlab/controller_transition.py",
+    "sha256": "464afbb5170223d3173d355204b3dd3560f957108cca67c1932992defbf84aed"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/evaluation/build_place_field_sweep.py",
+    "sha256": "5515696f0676430aa035bbf6de30af7aca8615adc57dd0cc044a8746883226e9"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/evaluation/place_fields.py",
+    "sha256": "6d05d3d1cbabfa5089a933bf1bdf33ce7c074dcbbbdfab113e52d739dde2faca"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_single.sh",
+    "sha256": "0a5e270eca59882caacf3047cf81f0e15a4304482e186727ac9e4fe7bee671bd"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py",
+    "sha256": "a3f1c336e9a8c1ca0263f316197e65aab50508ec55cfc89e7bef8be49a9d8952"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_checkpoint_mmap.py",
+    "sha256": "08b231209feede6a59f38b81fe3c6b4580d7e64cdfb453986e08ad8e368a0a25"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_controller_progress_heartbeat.py",
+    "sha256": "fd188a375b6ed609f9e1e31a0bd48a0954e0224605d9c428b96817fbcf1de113"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_controller_restart_counts.py",
+    "sha256": "6eb7119efe350461e6f49769252335209b54e313a9894b287e159141c749bc57"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_controller_transition.py",
+    "sha256": "aeb42ec299c42246ad6104f66e7ad1729290d9a46d49e92dd5519a7c3027bb24"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_place_field_checkpoint_targets.py",
+    "sha256": "1994dd0cbd3e1688de4e2c133749eafd98179ca647adeea4d45920f6ce220228"
+  },
+  {
+    "path": "sf_working_directories/IntrMotiv/tests/test_place_field_submission.py",
+    "sha256": "d74a93d08ac20e3a8ae30a3a4a48f2fd1ceb14c006de6c11c0a60a1537afdef8"
+  }
+]

@@ -1,33 +1,28 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: controlled R4 maintenance; continue until production is running.**
-Jobs 8057308–8057311 received an approved graceful SIGINT after review of the
-actual SF save-on-stop path and exact GPU restore certificates. Three have
-stopped; 8057311 is finishing its transaction/checkpoint. Do not submit their
-replacement manifest until all four are stopped and final baselines are captured.
-The candidate is `SF_hipposlam_controller_compatibility_20260912`, local mirror
-`/tmp/intrmotiv_compatibility_benchmark`. It passes 367 local runtime tests.
-Recovery gate **8057314 passed**: 670→701 main updates, +7,936 main positions,
-+227 HER positions, target refresh to 700, goal-write norm 0.1674, peak GPU 11.48GB.
-The six-run replacement is rendered print-only under `compatibility_submission`.
-Workflow 1.8.1 and the evaluator probe are undergoing remote verification.
-The previous active mixed manifest is listed below for provenance.
+**Current status: compatibility preflights running; production remains gated.**
+Both PPO jobs **8057292/8057295** completed 2M frames with exit 0. Four DDQN
+jobs **8057315–8057318** resumed from immutable full-state baselines after all
+prior jobs stopped. Canonical print-only and submitted-manifest audits passed.
+The authoritative mixed manifest is
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/compatibility_submission/jobs.tsv`.
 
-Authoritative mixed manifest:
-`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/telemetry_submission/jobs.tsv`.
-DDQN jobs **8057308–8057311** run the sampler, GPU publication barrier,
-bounded-memory selection, original control telemetry, and full-state checkpoint
-retention from `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_telemetry_20260912`.
-Direct PPO **8057292** completed its 2M horizon and passes its full audit;
-waypoint PPO **8057295** continues on the unchanged PPO path in the CUDA checkout.
-All **359 runtime tests** pass locally and remotely.
+Active DDQN source:
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912`,
+local mirror `/tmp/intrmotiv_compatibility_benchmark`. Do not modify this source
+while training is active. All **367 runtime tests** and **35 focused workflow/
+audit tests** pass locally and remotely. Recovery GPU gate **8057314** passed:
+670→701 main updates, +7,936 main positions, +227 HER positions, target refresh
+to 700, goal-write norm 0.1674, peak GPU allocation 11.48GB.
 
-Second-restart immutable baselines are under
-`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_telemetry/`.
-Exact reload job **8057312** checks the four new DDQN baselines (two independent
-cases at a time); both original PPO checkpoint-bound certificates are retained.
-Do not change the active telemetry checkout. The local matching source is
-`/tmp/intrmotiv_telemetry_benchmark`.
+Third-restart immutable baselines are under
+`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_compatibility/`.
+Exact GPU reload job **8057319** checks all four new DDQN baselines, retaining
+both original checkpoint-bound PPO certificates. Ordinary CPU place-field job
+**8057320** evaluates 10,000 decisions from the waypoint/HER 327,680-frame
+checkpoint via canonical workflow 1.8.1 and the existing manifest evaluator.
+Both qualification results are pending. Production has not been rendered or
+submitted. Continue through all runtime gates and actual production startup.
 
 R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.

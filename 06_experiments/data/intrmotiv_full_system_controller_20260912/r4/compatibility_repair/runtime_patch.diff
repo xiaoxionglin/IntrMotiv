@@ -1,0 +1,313 @@
+--- a/sample_factory/algo/learning/learner_worker.py
++++ b/sample_factory/algo/learning/learner_worker.py
+@@ -136,6 +136,8 @@
+         if not self.cfg.serial_mode:
+             self.start_batcher_thread()
+ 
++        if hasattr(self.learner, "set_progress_callback"):
++            self.learner.set_progress_callback(self._report_heartbeat)
+         init_model_data = self.learner.init()
+         # signal other components that the model is ready
+         self.model_initialized.emit(init_model_data)
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -216,6 +216,19 @@
+         elif len(suffix)<2:raise ReplayRejected('missing_successor_context')
+         else:successor=suffix[1]
+         return TransitionInput(tuple(prefix+[row,successor]),len(prefix))
++
++    def set_progress_callback(self, callback):
++        self._progress_callback=callback
++        self._last_progress_heartbeat=time.monotonic()
++
++    def _report_controller_progress(self):
++        # Reuse SF's watchdog signal only after actual work has completed.
++        # A blocked GPU operation still fails the ordinary heartbeat timeout.
++        callback=getattr(self,'_progress_callback',None)
++        if callback is not None:
++            now=time.monotonic()
++            if now-self._last_progress_heartbeat>=self.cfg.heartbeat_interval:
++                callback();self._last_progress_heartbeat=now
+ 
+     def _reconstruction_width(self):
+         return min(self.cfg.controller_td_positions,256 if self.device.type=='cuda' else 16)
+@@ -310,6 +323,7 @@
+                         self.replay.reject(result);incompatible.add(key);continue
+                     examples.append(example)
+                     if len(examples)==self.cfg.controller_td_positions:break
++                self._report_controller_progress()
+                 if len(examples)==self.cfg.controller_td_positions:break
+             main_seconds+=time.perf_counter()-started
+             if not examples:
+@@ -327,12 +341,13 @@
+             qs=[result[1]['q'].detach() for result in selected_results]
+             main_loss=torch.stack(losses).mean()
+             main_seconds+=time.perf_counter()-started
+-            aux=[];started=time.perf_counter()
++            aux=[];aux_qs=[];started=time.perf_counter()
+             if self.cfg.controller_her:
+                 selected=[examples[int(self.her_rng.integers(len(examples)))] for _ in range(self.cfg.controller_her_positions)]
+                 for result in self._evaluate_pairs(self._her_examples(selected)):
+                     if isinstance(result,str):self.replay.reject(result)
+-                    else:aux.append(result[0])
++                    else:
++                        aux.append(result[0]);aux_qs.append(result[1]['q'].detach())
+             aux_loss=torch.stack(aux).mean() if aux else main_loss.new_zeros(())
+             her_seconds+=time.perf_counter()-started
+             self.optimizer.zero_grad(set_to_none=True)
+@@ -346,12 +361,15 @@
+             self.optimizer.step()
+             self.controller_version+=1
+             refresh=self.clock.finish(len(losses),len(aux))
++            self._report_controller_progress()
+             if refresh:
+                 self.target_snapshot.refresh(self.actor_critic,self.controller_version)
+                 incompatible.clear()
+             all_q=torch.cat(qs)
+             self.controller_stats.update(main_loss=float(main_loss.detach()),auxiliary_loss=float(aux_loss.detach()),
+-                q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()))
++                q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()),
++                auxiliary_q_mean=float(torch.cat(aux_qs).mean()) if aux_qs else 0.,
++                auxiliary_q_abs_max=float(torch.cat(aux_qs).abs().max()) if aux_qs else 0.)
+         self.controller_stats.update(main_compute_seconds=main_seconds,her_compute_seconds=her_seconds,
+             her_overhead_ratio=her_seconds/max(main_seconds,1e-9))
+ 
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
+@@ -120,4 +120,5 @@
+         # DMLab itself is not restored. New actors start genuinely new episodes.
+         self.session=int(state['session'])+1
+         self.ingress=OrderedIngress(max_pending=self.capacity)
+-        if state['pending']:self.rejected['restart_pending_tail']=state['pending']
++        if state['pending']:
++            self.rejected['restart_pending_tail']=self.rejected.get('restart_pending_tail',0)+state['pending']
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
+@@ -117,11 +117,11 @@
+     # Recognition must agree with the context on which the actual manager acted.
+     with torch.no_grad():
+         active,_,count=current_dg_from_activity(canonical_dg[None])
+-        if example.virtual_goal is None:
+-            prefix_dg=outputs[:b+1,:core.core_output_size].reshape(-1,n,core.expanded_length)[:,:,0]
+-            ids,_,counts=current_dg_from_activity(prefix_dg)
+-            if not torch.equal((ids+1).to(contexts),contexts[:b+1,layout.active_dg]) or not torch.equal(counts>1,contexts[:b+1,layout.multi_activation].bool()):
+-                raise ReplayRejected('history_recognition_changed')
++        # Burn-in is reconstructed under this snapshot with exogenous actual
++        # commands, just like actor publication rebuilds. Historical recognition
++        # may change; it is not a counterfactual re-plan of the real manager.
++        # Validate the action-time context and successor events at the evaluated
++        # transition below. Temporal bonuses use the reconstructed history.
+         if active.item()+1!=contexts[b,layout.active_dg].item() or bool(count.item()>1)!=bool(contexts[b,layout.multi_activation].item()):
+             raise ReplayRejected('current_recognition_changed')
+         context=contexts[b].clone()
+--- a/sf_working_directories/IntrMotiv/evaluation/build_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/build_place_field_sweep.py
+@@ -97,14 +97,14 @@
+     return int(match.group(1))
+ 
+ 
+-def select_checkpoints(run_dir: Path) -> list[tuple[int, Path]]:
++def select_checkpoints(run_dir: Path, target_frames=TARGET_FRAMES) -> list[tuple[int, Path]]:
+     files = list((run_dir / "checkpoint_p0").glob("checkpoint_*.pth"))
+     files += list((run_dir / "checkpoint_p0" / "milestones").glob("checkpoint_*.pth"))
+     indexed = {checkpoint_frames(path): path for path in files}
+     if not indexed:
+         raise FileNotFoundError(f"No checkpoints under {run_dir}")
+     candidates = sorted(indexed.items())
+-    return [(target, min(candidates, key=lambda pair: abs(pair[0] - target))[1]) for target in TARGET_FRAMES]
++    return [(target, min(candidates, key=lambda pair: abs(pair[0] - target))[1]) for target in target_frames]
+ 
+ 
+ def parse_args() -> argparse.Namespace:
+--- a/sf_working_directories/IntrMotiv/evaluation/place_fields.py
++++ b/sf_working_directories/IntrMotiv/evaluation/place_fields.py
+@@ -113,7 +113,11 @@
+     """
+     safe_globals = [np.core.multiarray.scalar, np.dtype, type(np.dtype(np.float64))]
+     with torch.serialization.safe_globals(safe_globals):
+-        return torch.load(checkpoint, map_location=device, weights_only=True)
++        # CPU audits/evaluation need model and metadata, not eager copies of
++        # gigabytes of replay tensors. Torch's private mmap preserves tensor
++        # values and safe unpickling while faulting storage pages on demand.
++        return torch.load(checkpoint, map_location=device, weights_only=True,
++                          mmap=device.type == "cpu")
+ 
+ 
+ def load_policy_env(
+--- a/sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_single.sh
++++ b/sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_single.sh
+@@ -93,13 +93,31 @@
+ export XDG_CACHE_HOME=$output_dir/cache
+ export WANDB_DIR=$output_dir/wandb
+ export WANDB_MODE=disabled
++export TORCH_HOME="$workspace_root/IntrMotiv/SF_hipposlam/runtime/cache/torch"
+ require_workspace_path "$TMPDIR" "TMPDIR"
+ require_workspace_path "$DMLAB_CACHE_DIR" "DMLab cache"
+ require_workspace_path "$XDG_CACHE_HOME" "XDG cache"
+ require_workspace_path "$WANDB_DIR" "W&B directory"
++require_workspace_path "$TORCH_HOME" "Fixed pretrained-model cache"
+ mkdir -p "$output_dir/raw" "$output_dir/slurm" "$TMPDIR" "$DMLAB_CACHE_DIR" "$XDG_CACHE_HOME" "$WANDB_DIR"
+ 
+-cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam
++# sbatch executes a spool copy: BASH_SOURCE alone cannot locate the checkout.
++runtime_source=${INTRMOTIV_RUNTIME_SOURCE:-${SLURM_SUBMIT_DIR:-}}
++if [[ -z $runtime_source ]]; then
++  script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
++  runtime_source=$(cd "$script_dir/../../.." && pwd)
++fi
++if [[ ! -f $runtime_source/sf_working_directories/IntrMotiv/evaluation/place_fields.py ]]; then
++  echo "Invalid IntrMotiv evaluator source: $runtime_source" >&2
++  exit 2
++fi
++cd "$runtime_source"
++# A direct Python script otherwise resolves an older editable installation.
++export PYTHONPATH="$runtime_source${PYTHONPATH:+:$PYTHONPATH}"
++terminal_binding=${INTRMOTIV_TERMINAL_BINDING:-$workspace_root/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1}
++if [[ -d $terminal_binding ]]; then
++  export PYTHONPATH="$runtime_source:$terminal_binding${PYTHONPATH:+:$PYTHONPATH}"
++fi
+ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+--- a/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
+@@ -13,6 +13,7 @@
+ import time
+ from dataclasses import dataclass
+ 
++SOURCE_ROOT = pathlib.Path(__file__).resolve().parents[3]
+ WORKSPACE_ROOT = pathlib.Path("/work/classic/fr_xl1014-train")
+ REQUIRED_COLUMNS = (
+     "condition",
+@@ -115,6 +116,7 @@
+     export = ",".join(
+         (
+             "ALL",
++            f"INTRMOTIV_RUNTIME_SOURCE={SOURCE_ROOT}",
+             f"PLACE_FIELD_MAX_FRAMES={max_num_frames}",
+             f"TMPDIR={output_dir / 'tmp'}",
+             f"DMLAB_CACHE_DIR={output_dir / 'dmlab_cache'}",
+--- a/sf_working_directories/IntrMotiv/tests/test_checkpoint_mmap.py
++++ b/sf_working_directories/IntrMotiv/tests/test_checkpoint_mmap.py
+@@ -0,0 +1,18 @@
++import numpy as np
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.evaluation.place_fields import load_checkpoint_dict
++
++
++def test_mmap_checkpoint_values_aliases_and_private_storage(tmp_path):
++    path=tmp_path/'checkpoint.pth';values=torch.arange(12,dtype=torch.float32)
++    torch.save({'model':{'weight':values.view(3,4)},'view':values[3:6],
++                'metadata':np.float64(1.25),'controller':{'replay':{'rows':[torch.arange(5)]}}},path)
++    state=load_checkpoint_dict(path,torch.device('cpu'))
++    torch.testing.assert_close(state['model']['weight'],values.view(3,4))
++    assert state['metadata']==1.25
++    state['view'][0]=99
++    assert state['model']['weight'][0,3]==99  # preserve original storage aliases
++    fresh=load_checkpoint_dict(path,torch.device('cpu'))
++    assert fresh['model']['weight'][0,3]==3  # caller cannot alter checkpoint bytes
++    torch.testing.assert_close(fresh['controller']['replay']['rows'][0],torch.arange(5))
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_progress_heartbeat.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_progress_heartbeat.py
+@@ -0,0 +1,26 @@
++from types import SimpleNamespace
++from unittest.mock import Mock,patch
++import pytest
++from sample_factory.algo.learning.learner_worker import LearnerWorker
++from sf_working_directories.IntrMotiv.dmlab.controller_learner import ControllerLearner
++
++
++def test_controller_progress_uses_existing_heartbeat_cadence():
++    learner=object.__new__(ControllerLearner);learner.cfg=SimpleNamespace(heartbeat_interval=40)
++    callback=Mock()
++    with patch('sf_working_directories.IntrMotiv.dmlab.controller_learner.time.monotonic',side_effect=[0,39,40,50,80]):
++        learner.set_progress_callback(callback)
++        for _ in range(4):learner._report_controller_progress()
++    assert callback.call_count==2
++
++
++@pytest.mark.parametrize('controller',[False,True])
++def test_worker_connects_existing_watchdog_without_changing_default_ppo(controller):
++    learner=SimpleNamespace(init=Mock(return_value='model'),env_steps=0,policy_id=0)
++    if controller:learner.set_progress_callback=Mock()
++    worker=SimpleNamespace(cfg=SimpleNamespace(serial_mode=True),learner=learner,
++                           _report_heartbeat=Mock(),model_initialized=Mock(),report_msg=Mock(),initialized=Mock(),object_id='test')
++    LearnerWorker.init(worker)
++    learner.init.assert_called_once()
++    if controller:learner.set_progress_callback.assert_called_once_with(worker._report_heartbeat)
++    worker.model_initialized.emit.assert_called_once_with('model')
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_restart_counts.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_restart_counts.py
+@@ -0,0 +1,12 @@
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++
++
++def test_multiple_restart_discard_counts_accumulate_without_inventing_interactions():
++    replay=PhysicalReplay(100,99);state=replay.state_dict()
++    state.update(pending=3,received=13,accepted=10)
++    replay.load_state_dict(state)
++    assert replay.rejected['restart_pending_tail']==3
++    state=replay.state_dict();state['pending']=2
++    replay.load_state_dict(state)
++    assert replay.rejected['restart_pending_tail']==5
++    assert replay.received==13 and replay.accepted==10 and replay.session==2
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
+@@ -105,3 +105,25 @@
+     for a,b in zip(model.parameters(),other.parameters()):
+         assert (a.grad is None)==(b.grad is None)
+         if a.grad is not None:torch.testing.assert_close(a.grad,b.grad)
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_rebuilt_prefix_keeps_actual_manager_context_and_validates_transition(write):
++    from sf_working_directories.IntrMotiv.dmlab.controller_transition import transition_values_batch
++    model=RewardModel(write).eval();rows,_=physical_rows(model)
++    example=TransitionInput(tuple(rows),1)
++    before=transition_values(model,example)
++    recorded=[r.context.copy() for r in rows]
++    # The burn-in landmark changes, but current and successor recognition agree.
++    # Actor publication already rebuilds exactly this changed worker history.
++    with torch.no_grad():model.scale[0]=-1
++    after=transition_values(model,example)
++    batched=transition_values_batch(model,[example])[0]
++    assert torch.equal(before['signature'],after['signature'])
++    torch.testing.assert_close(after['q'],batched['q'])
++    torch.testing.assert_close(after['reward'],batched['reward'])
++    for row,context in zip(rows,recorded):np.testing.assert_array_equal(row.context,context)
++    # A changed current label still invalidates the actual manager context.
++    with torch.no_grad():model.scale[1]=-1
++    with pytest.raises(ReplayRejected,match='current_recognition_changed'):
++        transition_values(model,example)
+--- a/sf_working_directories/IntrMotiv/tests/test_place_field_checkpoint_targets.py
++++ b/sf_working_directories/IntrMotiv/tests/test_place_field_checkpoint_targets.py
+@@ -0,0 +1,10 @@
++from sf_working_directories.IntrMotiv.evaluation.build_place_field_sweep import select_checkpoints,TARGET_FRAMES
++
++
++def test_study_targets_use_existing_nearest_checkpoint_selection(tmp_path):
++    directory=tmp_path/'checkpoint_p0'/'milestones';directory.mkdir(parents=True)
++    files=[]
++    for i,frames in enumerate((327680,150003712,300007424)):
++        path=directory/f'checkpoint_{i:09d}_{frames}.pth';path.touch();files.append(path)
++    assert select_checkpoints(tmp_path,target_frames=[327680,150000000,300000000])==list(zip([327680,150000000,300000000],files))
++    assert [t for t,p in select_checkpoints(tmp_path)]==list(TARGET_FRAMES)
+--- a/sf_working_directories/IntrMotiv/tests/test_place_field_submission.py
++++ b/sf_working_directories/IntrMotiv/tests/test_place_field_submission.py
+@@ -4,6 +4,7 @@
+ 
+ from sf_working_directories.IntrMotiv.evaluation.submit_place_field_sweep import (
+     ManifestRow,
++    SOURCE_ROOT,
+     build_sbatch_command,
+     parse_job_id,
+     selected_indices,
+@@ -34,6 +35,7 @@
+         "33",
+         "/work/classic/fr_xl1014-train/analysis/c05",
+     ]
++    assert f"INTRMOTIV_RUNTIME_SOURCE={SOURCE_ROOT}" in command[7]
+     assert "PLACE_FIELD_MAX_FRAMES=10000" in command[7]
+     assert "PLACE_FIELD_REPLAY_PANEL=/work/classic/fr_xl1014-train/panel.npz" in command[7]
+ 
