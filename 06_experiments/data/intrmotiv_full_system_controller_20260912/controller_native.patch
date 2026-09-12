@@ -1196,7 +1196,7 @@
 +            'canonical':canonical_dg.detach(),'next_canonical':next_dg.detach()}
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/dmlab/controller_transport.py
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,93 @@
 +"""Original-environment identity and explicitly certified terminal transport."""
 +import gymnasium as gym
 +import numpy as np
@@ -1258,6 +1258,7 @@
 +        'hrl_graph_memory':'policy_buffer', 'hrl_target_timing':'immediate',
 +        'hrl_exploration_policy':'shared','policy_workers_per_policy':1,
 +        'batched_sampling':False, 'serial_mode':False, 'with_pbt':False,
++        'decorrelate_envs_on_one_worker':False,
 +        'dg_orthogonal_recruitment':False, 'hrl_behavior_mode_condition':False,
 +        'hrl_motion_policy_input':False, 'hrl_landmark_geometry':'none',
 +        'hrl_action_path_integration':False, 'value_bootstrap':False,
@@ -2174,6 +2175,26 @@
          if self.with_pos_telemetry and self.last_debug_position is not None and self.last_debug_rotation is not None:
              # DMLab rotations are (pitch, yaw, roll) in degrees. Keep only the
              # horizontal pose needed by telemetry. This private value is
+--- a/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
++++ b/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
+@@ -12,7 +12,7 @@
+ 
+ source ~/miniforge3/etc/profile.d/conda.sh
+ conda activate SFgit
+-cd ~/SF_git_XXL/SF_hipposlam || exit 1
++cd "$${SLURM_SUBMIT_DIR:?Submit from the intended source checkout}" || exit 1
+ 
+ export OMP_NUM_THREADS=1
+ export MKL_NUM_THREADS=1
+@@ -26,7 +26,7 @@
+ export WANDB_CACHE_DIR="$$RUNTIME_ROOT/wandb_cache"
+ export WANDB_DATA_DIR="$$RUNTIME_ROOT/wandb_data"
+ export WANDB_DIR="$$RUNTIME_ROOT/wandb"
+-export TMPDIR="$$RUNTIME_ROOT/tmp/$${SLURM_JOB_ID:-manual}"
++export TMPDIR="/work/classic/fr_xl1014-train/tmp/intrmotiv_$${SLURM_JOB_ID:-manual}"
+ mkdir -p "$$XDG_CACHE_HOME" "$$MPLCONFIGDIR" "$$WANDB_CACHE_DIR" "$$WANDB_DATA_DIR" "$$WANDB_DIR" "$$TMPDIR"
+ 
+ exec python -m sf_working_directories.IntrMotiv.dmlab.train_hipposlam $CMD \
 --- a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
 @@ -58,7 +58,7 @@
@@ -2796,7 +2817,7 @@
 +        if a.grad is not None:torch.testing.assert_close(a.grad,b.grad)
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_controller_transport.py
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,101 @@
 +import numpy as np
 +import gymnasium as gym
 +from dataclasses import replace
@@ -2890,6 +2911,14 @@
 +    restored=PhysicalReplay(100,2);restored.load_state_dict(state)
 +    np.testing.assert_array_equal(restored.rows[row(0).key].observation['obs'],row(0).observation['obs'])
 +    assert restored.session==1
++
++
++def test_unrecorded_startup_walk_is_rejected():
++    from types import SimpleNamespace
++    from sf_working_directories.IntrMotiv.dmlab.controller_transport import validate_controller_config
++    import pytest
++    with pytest.raises(ValueError,match='decorrelate_envs_on_one_worker'):
++        validate_controller_config(SimpleNamespace(decorrelate_envs_on_one_worker=True))
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_fresh_encoder_loss.py
 @@ -0,0 +1,40 @@

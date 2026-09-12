@@ -1,9 +1,9 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Status: implementation in progress; not a qualified DDQN training release.**
-No production run was started from this integration. The original running source
-and its jobs are unchanged. The learner factory currently rejects non-PPO modes
-rather than silently train a DDQN actor with the PPO learner.
+**Status: six 2M-frame Slurm preflights running; production remains guarded.**
+Jobs **8057249–8057254** use the isolated checkout. The original running source
+and its jobs are unchanged. DDQN is allowed only through the bounded preflight
+flag; no 18-run production study has been rendered or launched.
 
 ## Scope and provenance
 
@@ -80,36 +80,71 @@ and equal-TD-budget study configuration are **not yet qualified**; no fixed
 - Per-config delta validation rejects unclassified changes, including freezing DG,
   reducing its vocabulary, changing manager families, or misspelled new options.
 
-The history operation is a component, not a finished ingress or actor-publication
-system. Physical stream/episode identity and snapshot-consistent reward/label
-construction must be supplied and checked by the pending integration.
+## Native integration and qualification
 
-## Validation evidence and remaining gates
+Native SF transport now carries stream/episode/decision/publication identity,
+action-time conditions, physical frame counts, separate termination/truncation,
+and certified terminal observations. Ordered ingress owns observations before SF
+buffer reuse and joins physical successors across rollout boundaries. Replay
+stores frozen visual features after exact equivalence checks, retaining depth
+and instructions. Uncertified terminal observations are rejected.
 
-Full IntrMotiv suite: **318 passed locally and 318 passed on NEMO2** in the
-isolated checkout, including the final SF observation-preparation fix. The original model parity audit also
-passed for all three parents using their actual eight-action navigation vocabulary,
-real pretrained encoder, DG, core, and decoder. It compares all state tensors,
-initialization RNG, and outputs over five synthetic-observation steps in two
-streams. It also checks differentiable replay through each actual model: gradients
-reach its original decoder while source state tensors remain unchanged. It covers
-default PPO and shadow-head initialization. This is not a
-DMLab rollout, full learner-update parity test, or checkpoint-continuation test.
+Online and target snapshots reconstruct recognition, original reward components
+and event labels together. Main DDQN follows the actual successor command;
+auxiliary HER reconstructs a separate fixed-goal history and budget. Structural
+or event incompatibility is counted. HER positions add gradients and never replace
+main positions or write virtual evidence into the real graph.
 
-Remaining required work:
+The original learner owns optimization. Fresh DG updates and graph processing
+precede replay, which does not run DG auxiliary losses or update normalization or
+graph buffers. A separate published model prevents actors seeing intermediate
+fresh/controller updates. Publication includes buffers and version; inference
+rebuilds finite history while preserving the actual manager state. Checkpoints
+include replay, online/target parameters, optimizer, RNGs and counters. Restart
+opens new physical sessions and discards unfinished joins.
 
-1. Native SF physical replay ingress, terminal provenance, and interaction/TD counters.
-2. Snapshot-consistent original reward/event reconstruction and HER sample construction.
-3. Actor memory rebuilding at parameter publication, including stream identity and
-   failure telemetry; the replay helper alone does not solve actor memory mixing.
-4. Actual DDQN learner/optimizer ownership and scheduling, fresh DG-only forward path,
-   target-update clock, checkpoint/resume state, and verified shadow isolation.
-5. Full-parent checkpoint initialization with explicit new-parameter reporting.
-6. Forced-action full-system preservation tests, bounded Slurm preflights, and
-   canonical matched PPO/DDQN/DDQN+auxiliary-HER StudySpec after those gates pass.
+- **341 tests pass locally and on NEMO2**, including transport ordering, certified
+  terminal wrappers, reward/HER parity, actor history, safe checkpoint loading,
+  finite-history values/gradients and matched controller clocks.
+- **31 canonical workflow tests pass locally and remotely.**
+- Actual native learner update and complete checkpoint-resume audits pass for all
+  three parent configurations. These use synthetic observations, not DMLab.
+- PPO full learner audit matches all updated model/buffer and optimizer tensors
+  bitwise against the saved original learner for all three configurations.
+- Full 256-position replay benchmark preserves loss and Q statistics while smaller
+  internal batches reduce one measured waypoint update from about 32 to 10 seconds
+  on the desktop CPU. This is not yet a cluster-throughput guarantee. Internal
+  batching does not change positions per optimizer update or loss scaling.
 
-Do not remove the launch guard or label the old frozen diagnostic as satisfying
-these gates. No training-ready command is supplied for this unfinished release.
+## Six preflights
+
+The canonical [StudySpec](../hpc_runs/studies/full_system_controller_preflight.study.json)
+is the source of truth: schema `intrmotiv/study/v1`, workflow **1.8.0**, SHA-256
+`7cf685ed23f8cd92532cc6b08b80915a8603154cc2868c9825a9b4a7b6a8e948`.
+All six start fresh with the fixed ImageNet trunk, seed 99, original fresh DG
+schedule, W&B, exploration/control dashboards and online spatial telemetry.
+Checkpoint/snapshot targets are 1M and 2M frames for qualification.
+
+| Architecture | PPO | DDQN | DDQN + auxiliary HER |
+|---|---|---|---|
+| Direct F16 | 8057249 | 8057250 | 8057251 |
+| Waypoint / goal-write F64 | 8057252 | 8057253 | 8057254 |
+
+Submission artifacts are under workspace
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912/submission/`.
+The [submitted audit](data/intrmotiv_full_system_controller_20260912/controller_preflight_submitted_audit.json)
+confirms six submitted rows, matching canonical commands and workspace paths.
+The template uses the submitting checkout and a short workspace TMPDIR. The
+first print-only review caught its old hardcoded original-checkout path before
+submission. No training outputs or caches are directed to the home filesystem.
+
+Remaining gates: real DMLab terminal provenance, active-episode publication
+rebuilds, main update debt/counts, positive auxiliary HER learning, fresh DG and
+frozen-trunk changes, W&B dashboard delivery, full 2M completion and runtime
+checkpoint reload. The controller runtime auditor extends the existing DG
+preflight auditor. Its numerical checks do not substitute for a live restart or
+W&B API check. Only after all gates pass may the 18-run, 300M-frame production
+StudySpec be rendered, reviewed and submitted.
 
 ## Reusable experience
 
@@ -127,3 +162,12 @@ parity against the saved pre-change actor source, exact checkpoint/source hashes
 and generated config deltas. Reuse these artifacts rather than re-inventorying the
 historical batch scripts. Every subsequent claim should distinguish module tests,
 full learner parity, environment preflight, and production qualification.
+
+For subsequent replay optimization, profile a full 256-position update, including
+backward. The dominant desktop cost was tensor copies/zero fills during backward,
+not environment collection. Batched history slices caused repeated large gradient
+scatters; a single indexed gather and smaller internal batches improved the same
+objective. Preserve gradient/value parity and total TD counts when changing this.
+Keep checkpoint replay payloads as tensors/plain containers so the established
+weights-only place-field evaluator can load them. Never deploy into the running
+original checkout; verify patch preimages and audit the rendered template's `cd`.

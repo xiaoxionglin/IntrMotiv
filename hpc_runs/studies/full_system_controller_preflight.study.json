@@ -1,11 +1,11 @@
 {
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.8.0",
-  "study_id": "full_system_controller_preflight_20260912",
+  "study_id": "full_system_controller_preflight_20260912_r2",
   "description": "Six bounded from-scratch original-system controller qualifications: direct F16 and waypoint/goal-write F64, PPO/DDQN/DDQN plus separate HER.",
   "expected_runs": 6,
   "metadata": {
-    "project": "SF_IntrMotiv_Navigation8AlgorithmScreen",
+    "project": "SF_IntrMotiv_FullSystemController",
     "training_steps": 2000000,
     "preflight_steps": 2000000,
     "design_cells": 6,
@@ -13,19 +13,20 @@
     "action_set": "navigation8",
     "action_repeat": 4,
     "action_vectors": "[[0,0,0,1,0,0,0],[0,0,0,-1,0,0,0],[0,0,-1,0,0,0,0],[0,0,1,0,0,0,0],[-20,0,0,0,0,0,0],[20,0,0,0,0,0,0],[-20,0,0,1,0,0,0],[20,0,0,1,0,0,0]]",
-    "reference_checkpoint_frames": 75038720,
+    "reference_checkpoint_frames": 25001984,
     "goal_detector": "unconditioned",
     "discrete_replacement": false,
     "initialization": "fresh DG/controller/optimizer/graph; fixed ImageNet trunk retained",
     "main_update_budget": "256 TD positions per 64 accepted physical replay decisions after 16384 warm-up",
     "her_budget": "additional up to 256 positions; coefficient 1.0; separate sampling RNG",
-    "production_gate": "six 2M preflights and checkpoint/runtime audits must pass before the 18-run production study is rendered"
+    "production_gate": "six 2M preflights and checkpoint/runtime audits must pass before the 18-run production study is rendered",
+    "startup_boundary": "All arms disable SF unrecorded pre-policy action walks; initial policy history begins at physical reset. Worker startup delays retained."
   },
   "training": {
     "mode": "sample_factory",
-    "batch_name": "intrmotiv_full_system_controller_preflight_20260912",
+    "batch_name": "intrmotiv_full_system_controller_preflight_20260912_r2",
     "workspace_root": "/work/classic/fr_xl1014-train",
-    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912",
+    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r2",
     "run_name_template": "FSCP_{base_label}_{controller}_S{seed}",
     "condition_name_template": "FSCP_{base_label}_{controller}",
     "seed_arg": "--seed={seed}",
@@ -82,7 +83,7 @@
       "--with_wandb=True",
       "--wandb_user=xiaoxionglin-bernstein-center-freiburg",
       "--wandb_project=SF_IntrMotiv_FullSystemController",
-      "--wandb_group=intrmotiv_full_system_controller_preflight_20260912",
+      "--wandb_group=intrmotiv_full_system_controller_preflight_20260912_r2",
       "--wandb_dir=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/wandb",
       "--benchmark=False",
       "--with_number_instruction=True",
@@ -175,7 +176,8 @@
       "--controller_epsilon=0.1",
       "--controller_epsilon_decay_decisions=250000",
       "--heartbeat_interval=40",
-      "--heartbeat_reporting_interval=600"
+      "--heartbeat_reporting_interval=600",
+      "--decorrelate_envs_on_one_worker=False"
     ]
   },
   "bases": [

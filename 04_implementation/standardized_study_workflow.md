@@ -507,3 +507,30 @@ learner update. Future optimization should batch independent prefix histories,
 verify full-history and target-network equivalence, and measure the same
 components again. This is a measured infrastructure bottleneck, not evidence
 that the scientific loss should change; do not patch active jobs mid-comparison.
+
+### Full-system replay qualification (2026-09-12)
+
+Before finite actor-history qualification, check SF's
+`decorrelate_envs_on_one_worker`: its startup random-action walk happens before
+inference sees any observations. The first full-system controller preflight
+correctly failed with `Actor history missing at non-reset decision`. Use the
+existing switch set to `False` consistently across comparison arms when the
+contract requires the first policy decision at a physical reset; retain ordinary
+worker startup delays. Record this explicit startup difference in StudySpec and
+parent-delta classification. Do not weaken the missing-history check or silently
+clear memory. Preserve failed artifacts and use a fresh batch namespace.
+
+For isolated checkouts, inspect the rendered Slurm script, not only its command
+arguments: the historical template hardcoded the original source directory.
+`SLURM_SUBMIT_DIR` keeps execution in the reviewed checkout when the canonical
+launcher is invoked from that root. Keep multiprocessing TMPDIR short and under
+the allocated workspace. NEMO2 lacks `rg`; after that discovery use `grep` for
+remote logs instead of repeatedly retrying ripgrep.
+
+Profile full requested replay updates including backward before claiming batching
+is faster. The full-system 256-position waypoint test spent most CPU time copying
+and zeroing gradient tensors. One indexed history gather and internal 16-history
+batches reduced measured cost without changing the 256-position mean loss or
+optimizer clock. This is a desktop measurement; the 2M Slurm gate must establish
+actual cluster throughput and HER overhead. Preserve plain/tensor replay
+checkpoint serialization for the established weights-only place-field loader.

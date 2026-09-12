@@ -12,6 +12,7 @@ class FullSystemControllerStudy(unittest.TestCase):
         for run in runs:
             args=dict(item.removeprefix('--').split('=',1) for item in run.args)
             self.assertEqual(args['seed'],'99')
+            self.assertEqual(args['decorrelate_envs_on_one_worker'],'False')
             self.assertEqual(args['train_for_env_steps'],'2000000')
             self.assertEqual(args['controller_preflight'],'True')
             self.assertEqual(args['controller_td_positions'],'256')

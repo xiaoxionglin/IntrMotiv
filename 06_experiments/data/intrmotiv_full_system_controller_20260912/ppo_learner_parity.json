@@ -1,0 +1,23 @@
+[
+  {
+    "parent": "DGC_DIRECT_WORKER_F16_S99",
+    "model_and_buffers_bitwise_equal": true,
+    "optimizer_bitwise_equal": true,
+    "fresh_updates": 1,
+    "decisions": 8
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S8",
+    "model_and_buffers_bitwise_equal": true,
+    "optimizer_bitwise_equal": true,
+    "fresh_updates": 1,
+    "decisions": 8
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S99",
+    "model_and_buffers_bitwise_equal": true,
+    "optimizer_bitwise_equal": true,
+    "fresh_updates": 1,
+    "decisions": 8
+  }
+]
