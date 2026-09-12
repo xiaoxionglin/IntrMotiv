@@ -1,0 +1,39 @@
+--- a/python/dmlab_module.c
++++ b/python/dmlab_module.c
+@@ -573,10 +573,10 @@
+   return (PyObject*)array;
+ }
+ 
+-static PyObject* Lab_observations(PyObject* pself, PyObject* no_arg) {
++static PyObject* Lab_read_observations(PyObject* pself, int terminal) {
+   LabObject* self = (LabObject*)pself;
+ 
+-  if (!is_running((self))) {
++  if (terminal ? self->status != EnvCApi_EnvironmentStatus_Terminated : !is_running(self)) {
+     PyErr_SetString(PyExc_RuntimeError,
+                     "Environment in wrong status for call to observations()");
+     return NULL;
+@@ -607,6 +607,15 @@
+     Py_DECREF(entry);
+   }
+   return result;
++}
++
++// Explicit opt-in final-state access; normal observations() retains its guard.
++static PyObject* Lab_observations(PyObject* pself, PyObject* no_arg) {
++  return Lab_read_observations(pself, 0);
++}
++
++static PyObject* Lab_terminal_observations(PyObject* pself, PyObject* no_arg) {
++  return Lab_read_observations(pself, 1);
+ }
+ 
+ static PyObject* Lab_events(PyObject* pself, PyObject* no_arg) {
+@@ -798,6 +807,7 @@
+      "The shape of the observations"},
+     {"action_spec", Lab_action_spec, METH_NOARGS, "The shape of the actions"},
+     {"observations", Lab_observations, METH_NOARGS, "Get the observations"},
++    {"terminal_observations", Lab_terminal_observations, METH_NOARGS, "Render final engine state before reset; only valid after termination"},
+     {"events", Lab_events, METH_NOARGS, "Get the events"},
+     {"close", Lab_close, METH_NOARGS, "Close the environment"},
+     {NULL} /* Sentinel */

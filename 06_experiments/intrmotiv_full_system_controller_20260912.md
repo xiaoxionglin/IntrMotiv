@@ -1,9 +1,26 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Status: six 2M-frame Slurm preflights running; production remains guarded.**
-Jobs **8057255–8057260** use the isolated checkout. The original running source
-and its jobs are unchanged. DDQN is allowed only through the bounded preflight
-flag; no 18-run production study has been rendered or launched.
+**Current status: repaired revision-3 preflights are submitted; continue autonomously until production is running.**
+Jobs **8057267–8057272** use
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_terminal_20260912` and the
+isolated native terminal binding under workspace `runtime/controller_terminal_binding_v1`.
+The 18-run production guard is still active. The thread heartbeat
+`qualify-and-launch-intrmotiv-production` must continue qualification/repairs and
+launch, and pause only after production is verified running.
+
+Revision-3 canonical batch: `intrmotiv_full_system_controller_preflight_20260912_r3`;
+study SHA-256 `d12812ca420f6da68e7fa0d8f1c3e63e369329a49e4896dca801f3f7d97347b9`.
+Its submission manifest is workspace `train_dir/_slurm/` followed by that batch
+name and `/submission/jobs.tsv`. Older revision-2 jobs were stopped and preserved.
+The later sections below retain their historical evidence; use this status and
+the latest canonical StudySpec for current operations.
+
+Native terminal gate 8057262 passed, full PPO episode parity 8057263 passed with
+identical 1,800-decision observation/reward/termination hash, and end-to-end
+wrapper gate 8057266 passed with a certified final RGBD observation. All 342
+system tests and 32 workflow/auditor tests passed remotely. The engine and assets
+are unchanged; only an explicit terminal reader was added to an isolated Python
+binding. Neither the shared installation nor unrelated jobs were modified.
 
 ## Scope and provenance
 

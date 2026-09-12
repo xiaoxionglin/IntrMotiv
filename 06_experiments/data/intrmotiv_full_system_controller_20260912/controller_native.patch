@@ -2153,13 +2153,14 @@
          self.width = res_w
          self.height = res_h
  
-@@ -588,11 +591,20 @@
+@@ -588,11 +591,21 @@
          if not terminated:
              obs_dict = self.format_obs_dict(self.dmlab.observations())
              self.last_observation = obs_dict
 +        terminal_observation_valid = not terminated
 +        if terminated and getattr(self, 'capture_terminal_observation', False):
-+            final = self._terminal_debug_observations()
++            terminal_reader = getattr(self.dmlab, 'terminal_observations', None)
++            final = terminal_reader() if terminal_reader is not None else self._terminal_debug_observations()
 +            if final is not None and self.main_observation in final:
 +                # Read the engine after the action and before SF autoresets it.
 +                # Never certify the Python-side previous-observation fallback.
@@ -2167,9 +2168,11 @@
 +                terminal_observation_valid = True
          terminal_pose_fresh = True
          if terminated and self.with_pos_telemetry:
-             terminal_pose_fresh = self._refresh_terminal_debug_pose()
- 
+-            terminal_pose_fresh = self._refresh_terminal_debug_pose()
+-
 -        info = {"num_frames": self.action_repeat}
++            terminal_pose_fresh = terminal_observation_valid or self._refresh_terminal_debug_pose()
++
 +        info = {"num_frames": self.action_repeat,
 +                "intrmotiv_final_observation_valid": terminal_observation_valid}
          if self.with_pos_telemetry and self.last_debug_position is not None and self.last_debug_rotation is not None:
@@ -2177,16 +2180,18 @@
              # horizontal pose needed by telemetry. This private value is
 --- a/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
 +++ b/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
-@@ -12,7 +12,7 @@
+@@ -12,8 +12,9 @@
  
  source ~/miniforge3/etc/profile.d/conda.sh
  conda activate SFgit
 -cd ~/SF_git_XXL/SF_hipposlam || exit 1
 +cd "$${SLURM_SUBMIT_DIR:?Submit from the intended source checkout}" || exit 1
  
++export PYTHONPATH="/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1:$${PYTHONPATH:-}"
  export OMP_NUM_THREADS=1
  export MKL_NUM_THREADS=1
-@@ -26,7 +26,7 @@
+ export OPENBLAS_NUM_THREADS=1
+@@ -26,7 +27,7 @@
  export WANDB_CACHE_DIR="$$RUNTIME_ROOT/wandb_cache"
  export WANDB_DATA_DIR="$$RUNTIME_ROOT/wandb_data"
  export WANDB_DIR="$$RUNTIME_ROOT/wandb"
@@ -2817,7 +2822,7 @@
 +        if a.grad is not None:torch.testing.assert_close(a.grad,b.grad)
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_controller_transport.py
-@@ -0,0 +1,101 @@
+@@ -0,0 +1,104 @@
 +import numpy as np
 +import gymnasium as gym
 +from dataclasses import replace
@@ -2901,6 +2906,9 @@
 +    env.last_observation={'obs':np.array([1])}
 +    obs,_,_,_,info=env.step(0)
 +    assert not info['intrmotiv_final_observation_valid'] and obs['obs'][0]==1
++    env.dmlab.terminal_observations=lambda:{'RGBD_INTERLEAVED':np.array([101])}
++    obs,_,_,_,info=env.step(0)
++    assert info['intrmotiv_final_observation_valid'] and obs['obs'][0]==101
 +
 +
 +def test_replay_checkpoint_uses_safe_tensor_serialization(tmp_path):

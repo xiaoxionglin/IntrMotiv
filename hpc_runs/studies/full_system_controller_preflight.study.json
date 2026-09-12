@@ -1,7 +1,7 @@
 {
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.8.0",
-  "study_id": "full_system_controller_preflight_20260912_r2",
+  "study_id": "full_system_controller_preflight_20260912_r3",
   "description": "Six bounded from-scratch original-system controller qualifications: direct F16 and waypoint/goal-write F64, PPO/DDQN/DDQN plus separate HER.",
   "expected_runs": 6,
   "metadata": {
@@ -20,13 +20,15 @@
     "main_update_budget": "256 TD positions per 64 accepted physical replay decisions after 16384 warm-up",
     "her_budget": "additional up to 256 positions; coefficient 1.0; separate sampling RNG",
     "production_gate": "six 2M preflights and checkpoint/runtime audits must pass before the 18-run production study is rendered",
-    "startup_boundary": "All arms disable SF unrecorded pre-policy action walks; initial policy history begins at physical reset. Worker startup delays retained."
+    "startup_boundary": "All arms disable SF unrecorded pre-policy action walks; initial policy history begins at physical reset. Worker startup delays retained.",
+    "native_terminal_binding": "intrmotiv/terminal-binding/v1; explicit terminal rendering; unchanged underlying engine",
+    "native_terminal_binding_sha256": "6e2b1842bf78d8f77841854194efe2ada2114813d2b0fa1cddb4524e3aecb804"
   },
   "training": {
     "mode": "sample_factory",
-    "batch_name": "intrmotiv_full_system_controller_preflight_20260912_r2",
+    "batch_name": "intrmotiv_full_system_controller_preflight_20260912_r3",
     "workspace_root": "/work/classic/fr_xl1014-train",
-    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r2",
+    "output_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r3",
     "run_name_template": "FSCP_{base_label}_{controller}_S{seed}",
     "condition_name_template": "FSCP_{base_label}_{controller}",
     "seed_arg": "--seed={seed}",
@@ -83,7 +85,7 @@
       "--with_wandb=True",
       "--wandb_user=xiaoxionglin-bernstein-center-freiburg",
       "--wandb_project=SF_IntrMotiv_FullSystemController",
-      "--wandb_group=intrmotiv_full_system_controller_preflight_20260912_r2",
+      "--wandb_group=intrmotiv_full_system_controller_preflight_20260912_r3",
       "--wandb_dir=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/wandb",
       "--benchmark=False",
       "--with_number_instruction=True",

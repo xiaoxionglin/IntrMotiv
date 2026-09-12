@@ -1,0 +1,25 @@
+{
+  "schema": "intrmotiv/terminal-binding/v1",
+  "source_sha256": "02c08384516ba0dcc7c6a583db510b4402787a5fdb1fcd1cfb356fef5a274828",
+  "binding_sha256": "6e2b1842bf78d8f77841854194efe2ada2114813d2b0fa1cddb4524e3aecb804",
+  "original_loader_sha256": "514a90e4af9c255147e8cb9ba8e424f8e06371a3433d503a5286e1b02d4acf30",
+  "overlay": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1",
+  "build_command": [
+    "gcc",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-std=c99",
+    "-fno-strict-aliasing",
+    "-DDEEPMIND_LAB_MODULE_RUNFILES_DIR",
+    "-I/home/fr/fr_xl1014/deepmindlab/lab",
+    "-I/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/numpy/core/include",
+    "-I/home/fr/fr_xl1014/.conda/envs/SFgit/include/python3.10",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/dmlab_module.c",
+    "-L/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab",
+    "-Wl,-rpath,$ORIGIN",
+    "-l:libdmlab_binding_base.so",
+    "-o",
+    "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/deepmind_lab.so"
+  ]
+}
