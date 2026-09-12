@@ -21,7 +21,9 @@ Exact GPU reload job **8057319** checks all four new DDQN baselines, retaining
 both original checkpoint-bound PPO certificates. Ordinary CPU place-field job
 **8057320** evaluates 10,000 decisions from the waypoint/HER 327,680-frame
 checkpoint via canonical workflow 1.8.1 and the existing manifest evaluator.
-Both qualification results are pending. Production has not been rendered or
+Exact reload **8057319 completed with exit 0**, matching all four DDQN model/
+buffer, optimizer and counter states; the complete six-run certificate is saved.
+The place-field result remains pending. Production has not been rendered or
 submitted. Continue through all runtime gates and actual production startup.
 
 R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256

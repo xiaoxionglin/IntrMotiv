@@ -15,8 +15,10 @@ targets to the existing NEMO2 selector. The old selector defaulted to historical
 production targets to fail `render-telemetry`. The selector retains its original
 default for legacy callers. Synchronize both `intrmotiv_study/telemetry.py` and
 `evaluation/build_place_field_sweep.py`; focused tests cover custom and late
-horizon targets. Deployment to the isolated controller compatibility checkout
-is being qualified; the original shared checkout remains at 1.7.1.
+horizon targets. Deployed to the isolated `SF_hipposlam_controller_compatibility_20260912`
+checkout: 35 focused canonical/target/audit tests pass remotely. The original
+shared checkout remains at 1.7.1. The real one-row 327,680-frame manifest rendered
+successfully; ordinary Slurm evaluator job 8057320 is qualifying its rollout.
 
 ## Deployment status
 

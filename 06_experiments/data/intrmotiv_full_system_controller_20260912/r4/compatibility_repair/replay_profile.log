@@ -1,0 +1,49 @@
+         80673619 function calls (75728166 primitive calls) in 128.229 seconds
+
+   Ordered by: cumulative time
+   List reduced from 678 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.089    0.089  128.393  128.393 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_learner.py:295(_controller_updates)
+      155    0.055    0.000  124.445    0.803 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_learner.py:236(_evaluate_pairs)
+      316    0.005    0.000  124.374    0.394 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:45(differentiable_replay)
+      316    0.008    0.000  122.569    0.388 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/_functorch/functional_call.py:11(functional_call)
+      316    0.003    0.000  122.551    0.388 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/utils/stateless.py:246(_functional_call)
+18858/316    0.021    0.000  121.950    0.386 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:1771(_wrapped_call_impl)
+18858/316    0.029    0.000  121.950    0.386 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:1779(_call_impl)
+      316    0.823    0.003  121.949    0.386 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:41(forward)
+      310    0.403    0.001  120.971    0.390 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:48(transition_values_batch)
+      167    0.001    0.000   53.609    0.321 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/utils/_contextlib.py:117(decorate_context)
+      161    0.014    0.000   53.593    0.333 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:68(evaluate_replay)
+      310    0.051    0.000   52.461    0.169 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:51(<listcomp>)
+    77914    0.851    0.000   52.410    0.001 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:36(make_history)
+    77914    1.189    0.000   40.454    0.001 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:39(<dictcomp>)
+      310    0.021    0.000   34.343    0.111 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:699(_update_hrl)
+      310    1.705    0.005   34.312    0.111 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:523(advance_topological_manager)
+   468984   18.588    0.000   31.457    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:372(stack)
+     7547    0.301    0.000   31.113    0.004 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:708(choose_task)
+     2347    0.141    0.000   30.304    0.013 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:444(select_connectivity_probe)
+     2092    0.319    0.000   29.584    0.014 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:460(<listcomp>)
+    18214    0.504    0.000   29.265    0.002 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:434(connectivity_gain)
+    36428   24.216    0.001   28.230    0.001 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:426(_transitive_reachability)
+    77914    2.415    0.000   18.959    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:101(_prepare_transition)
+   469610   16.524    0.000   16.524    0.000 {built-in method torch.as_tensor}
+      316    0.083    0.000   14.061    0.044 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_history.py:55(reconstruct_controller_histories)
+    85008    7.721    0.000    7.721    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+      316    0.027    0.000    7.151    0.023 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py:61(forward)
+   158034    0.051    0.000    4.898    0.000 {built-in method builtins.next}
+   337872    0.393    0.000    4.828    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2656(parameters)
+   454476    0.955    0.000    4.576    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2636(_named_members)
+   381480    0.134    0.000    4.443    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2681(named_parameters)
+   468984    4.419    0.000    4.419    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:455(<listcomp>)
+   468984    4.358    0.000    4.358    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:447(<setcomp>)
+   468984    1.890    0.000    3.932    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:443(<listcomp>)
+      316    0.031    0.000    3.856    0.012 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:807(forward)
+  4818417    3.829    0.000    3.829    0.000 {method 'unsqueeze' of 'torch._C.TensorBase' objects}
+    78824    1.158    0.000    3.414    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py:167(current_dg_from_activity)
+   418145    2.833    0.000    2.833    0.000 {method 'item' of 'torch._C.TensorBase' objects}
+    38144    0.144    0.000    2.827    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912/sf_working_directories/IntrMotiv/dmlab/controller_learner.py:199(_example)
+7541820/2658420    2.417    0.000    2.706    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2823(named_modules)
+
+
+{"checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_WAYPOINT_F64_DDQN_HER_S99_/00_FSCP_WAYPOINT_F64_DDQN_HER_S99/checkpoint_p0/checkpoint_000000048_393216.pth", "before": {"learning_starts": 16384, "cadence": 64, "target_interval": 100, "completed": 1277, "main_positions": 326912, "auxiliary_positions": 123, "target_at": 1200}, "after": {"learning_starts": 16384, "cadence": 64, "target_interval": 100, "completed": 1280, "main_positions": 327680, "auxiliary_positions": 243, "target_at": 1200}, "peak_gpu_bytes": 10563412480, "seconds": 128.41643261397257, "goal_modulation_norm": 0.04512627795338631, "stats": {"main_loss": 0.11000311374664307, "auxiliary_loss": 0.18681703507900238, "q_mean": 0.21189869940280914, "q_abs_max": 1.3342117071151733, "auxiliary_q_mean": 0.265712171792984, "auxiliary_q_abs_max": 1.803918719291687, "main_compute_seconds": 127.22702213504817, "her_compute_seconds": 1.1242439490160905, "her_overhead_ratio": 0.008836518611767355}, "rejected": {"missing_successor_context": 3379, "her_budget_expired": 326869, "history_recognition_changed": 1511879, "successor_events_changed": 5018, "restart_pending_tail": 128, "her_no_future_achievement": 568, "no_compatible_main_replay": 8, "current_recognition_changed": 33023}}
