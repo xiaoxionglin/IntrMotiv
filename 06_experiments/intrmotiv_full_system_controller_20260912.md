@@ -1,19 +1,29 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: repaired revision-3 preflights are submitted; continue autonomously until production is running.**
-Jobs **8057267–8057272** use
-`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_terminal_20260912` and the
-isolated native terminal binding under workspace `runtime/controller_terminal_binding_v1`.
-The 18-run production guard is still active. The thread heartbeat
-`qualify-and-launch-intrmotiv-production` must continue qualification/repairs and
-launch, and pause only after production is verified running.
+**Current status: corrected R4 GPU preflights 8057292–8057297 are submitted; continue autonomously until production is running.**
+The inactive candidate source is `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_cuda_20260912`.
+It includes batched original event/reward reconstruction, complete uniform replay
+search (removing the arbitrary 4× candidate cutoff), and a CUDA RNG restore fix.
+351 runtime tests pass locally/remotely. GPU PPO model/optimizer parity passed
+for both parents (8057291), and one real debt-bearing main update recovered
+without weakened validity checks (8057289). The original CPU-only integer
+progression helper was evaluated on CPU in the GPU reference test; its arithmetic
+was unchanged. Unmodified CPU PPO preservation remains separately established.
 
-Revision-3 canonical batch: `intrmotiv_full_system_controller_preflight_20260912_r3`;
-study SHA-256 `d12812ca420f6da68e7fa0d8f1c3e63e369329a49e4896dca801f3f7d97347b9`.
-Its submission manifest is workspace `train_dir/_slurm/` followed by that batch
-name and `/submission/jobs.tsv`. Older revision-2 jobs were stopped and preserved.
-The later sections below retain their historical evidence; use this status and
-the latest canonical StudySpec for current operations.
+R4 batch: `intrmotiv_full_system_controller_preflight_20260912_r4`;
+Study SHA-256 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
+All six R4 arms will start fresh on matching CUDA Torch 2.9.1 / torchvision 0.24.1
+with NumPy 1.26.4 in workspace `runtime/torch_cuda_2_9_1`. No production study has
+been rendered; its guard remains active. Pause heartbeat
+`qualify-and-launch-intrmotiv-production` only after production is verified running.
+
+R3 CPU evidence is preserved. Direct PPO completed 2M; waypoint PPO 8057276 is
+still progressing. Controlled SIGINT was sent to DDQN jobs 8057274/75/77/78 around
+05:51 to prevent further accumulation of confirmed update debt. They are saving
+and stopping. Do not interpret their requested exit 2 as a new runtime failure.
+Their full exact checkpoint restore gate passed earlier (8057281). R4 needs its
+own full runtime counters, positive HER, real terminal and checkpoint reload gates.
+See latest sections below and canonical StudySpec for current operations.
 
 Native terminal gate 8057262 passed, full PPO episode parity 8057263 passed with
 identical 1,800-decision observation/reward/termination hash, and end-to-end
@@ -340,3 +350,13 @@ candidates from a real latest direct checkpoint using the isolated GPU candidate
 Use its evidence to replace the premature candidate cutoff with principled
 sampling/accounting, and qualify the repair before production. Existing CPU
 preflights 8057273–8057278 remain running on unchanged padded source.
+
+R4 submission and canonical audit passed: **8057292–8057297** in canonical order.
+Direct PPO 8057292 started with 40 CPUs; other jobs initially waited because free
+L40S GPUs had fewer than 40 CPU cores available. A second canonical print-only
+review with `--slurm_cpus_per_job=16` passed. Pending jobs 8057293–8057297 were
+updated through `scontrol` to 16 CPUs/16 CPUsPerTask without altering training
+commands, worker counts, model/data settings or GPU type. The actual reservation
+record is workspace `analysis/controller_r4_resource_adjustment.log`. Use 16 CPU
+cores per L40S GPU for the eventual canonical submission unless runtime evidence
+requires a different reservation. Keep 32 SF workers and two environments each.

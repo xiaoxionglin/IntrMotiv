@@ -1,0 +1,294 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -56,7 +56,7 @@
+             self.online_snapshot.version=self.controller_version
+             self.fresh_dg_steps=c['fresh_dg_steps'];self.fresh_graph_batches=c['fresh_graph_batches']
+             torch.set_rng_state(c['torch_rng'].cpu());np.random.set_state((c['numpy_rng'][0],c['numpy_rng'][1].cpu().numpy().astype(np.uint32),*c['numpy_rng'][2:]));random.setstate(c['python_rng'])
+-            if torch.cuda.is_available() and c['cuda_rng']:torch.cuda.set_rng_state_all(c['cuda_rng'])
++            if torch.cuda.is_available() and c['cuda_rng']:torch.cuda.set_rng_state_all([rng.cpu() for rng in c['cuda_rng']])
+         # Actors only see this copy. The parent's minibatch optimizer/publication
+         # writes affect private learner storage until the transaction finishes.
+         self._published_versions=self.policy_versions_tensor
+@@ -194,13 +194,17 @@
+         else:successor=suffix[1]
+         return TransitionInput(tuple(prefix+[row,successor]),len(prefix))
+ 
++    def _reconstruction_width(self):
++        return min(self.cfg.controller_td_positions,256 if self.device.type=='cuda' else 16)
++
+     def _evaluate_pairs(self,examples):
+         if not examples:return []
+         # This is a memory bound, not a sampling or optimizer batch size. All
+         # accepted positions still contribute to one mean and one optimizer step.
+-        if len(examples)>16:
+-            return [result for start in range(0,len(examples),16)
+-                    for result in self._evaluate_pairs(examples[start:start+16])]
++        width=self._reconstruction_width()
++        if len(examples)>width:
++            return [result for start in range(0,len(examples),width)
++                    for result in self._evaluate_pairs(examples[start:start+width])]
+         online=differentiable_replay(self.online_snapshot,self.actor_critic,transition_values_batch,examples,
+             source_version=self.controller_version)
+         target=evaluate_replay(self.target_snapshot,transition_values_batch,examples)
+@@ -254,32 +258,42 @@
+ 
+     def _controller_updates(self):
+         main_seconds=her_seconds=0.
++        # Under STOP, canonical recognition/events remain fixed between fresh
++        # DG transactions and target refreshes. Q/worker updates cannot make a
++        # rejected physical context compatible. JOINT invalidates every step.
++        incompatible=set()
+         for _ in range(self.clock.due(self.replay.accepted)):
++            if self.cfg.ppo_dg_gradient!='stop':incompatible.clear()
+             # Refresh online buffers after each optimizer transaction, target only
+             # on its independent completed-main-update clock.
+             self.online_snapshot.refresh(self.actor_critic,self.controller_version+1)
+             self.controller_version+=1
+             losses=[];examples=[];qs=[];started=time.perf_counter()
+-            # Bounded work on a depleted/incompatible replay retains update debt.
+-            candidates=[]
+-            for key in self.replay.candidates(self.cfg.controller_td_positions*4):
+-                try:candidates.append(self._example(key))
+-                except (ReplayRejected,ValueError) as exc:
+-                    if type(exc) is ValueError and str(exc) not in ('missing_history','cross_episode'):raise
+-                    self.replay.reject(str(exc))
+-            width=min(16,self.cfg.controller_td_positions)
+-            for start in range(0,len(candidates),width):
+-                group=candidates[start:start+width]
+-                for example,result in zip(group,self._evaluate_pairs(group)):
++            keys=self.replay.candidate_order(incompatible)
++            width=self._reconstruction_width()
++            for start in range(0,len(keys),width):
++                group=[];group_keys=[]
++                for key in keys[start:start+width]:
++                    try:group.append(self._example(key));group_keys.append(key)
++                    except (ReplayRejected,ValueError) as exc:
++                        if type(exc) is ValueError and str(exc) not in ('missing_history','cross_episode'):raise
++                        self.replay.reject(str(exc));incompatible.add(key)
++                for key,example,result in zip(group_keys,group,self._evaluate_pairs(group)):
+                     if isinstance(result,str):
+-                        self.replay.reject(result);continue
++                        self.replay.reject(result);incompatible.add(key);continue
+                     loss,values=result
+                     losses.append(loss);examples.append(example);qs.append(values['q'].detach())
+                     if len(losses)==self.cfg.controller_td_positions:break
+                 if len(losses)==self.cfg.controller_td_positions:break
+             main_seconds+=time.perf_counter()-started
+-            if len(losses)<self.cfg.controller_td_positions:
+-                self.replay.reject('insufficient_main_batch');break
++            if not losses:
++                self.replay.reject('no_compatible_main_replay');break
++            # If the full admissible population is smaller than the TD budget,
++            # uniform resampling fills it without discarding valid main updates.
++            available=len(losses)
++            while len(losses)<self.cfg.controller_td_positions:
++                index=int(self.replay.rng.integers(available))
++                losses.append(losses[index]);examples.append(examples[index]);qs.append(qs[index])
+             main_loss=torch.stack(losses).mean()
+             aux=[];started=time.perf_counter()
+             if self.cfg.controller_her:
+@@ -300,7 +314,9 @@
+             self.optimizer.step()
+             self.controller_version+=1
+             refresh=self.clock.finish(len(losses),len(aux))
+-            if refresh:self.target_snapshot.refresh(self.actor_critic,self.controller_version)
++            if refresh:
++                self.target_snapshot.refresh(self.actor_critic,self.controller_version)
++                incompatible.clear()
+             all_q=torch.cat(qs)
+             self.controller_stats.update(main_loss=float(main_loss.detach()),auxiliary_loss=float(aux_loss.detach()),
+                 q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()))
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
+@@ -89,6 +89,12 @@
+         indices=self.rng.integers(0,len(keys),size=count)
+         return [keys[int(i)] for i in indices]
+ 
++    def candidate_order(self, excluded=()):
++        """One complete uniformly shuffled search of the current replay."""
++        keys=[key for key in self.rows if key not in excluded]
++        self.rng.shuffle(keys)
++        return keys
++
+     def state_dict(self):
+         # Tensor/plain-container serialization keeps the established safe
+         # weights-only place-field loader usable; no custom pickle classes.
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
+@@ -46,16 +46,59 @@
+ 
+ 
+ def transition_values_batch(model,examples):
++    from .custom_learner import DistanceLearnerReward
++    if not examples:return []
+     histories=[make_history(model,example) for example in examples]
+     reconstructed=reconstruct_controller_histories(model,histories)
+-    results=[]
+-    for example,history in zip(examples,reconstructed):
+-        try:results.append(transition_values(model,example,history))
+-        except ReplayRejected as exc:results.append(str(exc))
++    prepared=[];indices=[];results=[None]*len(examples)
++    for index,(example,history) in enumerate(zip(examples,reconstructed)):
++        try:prepared.append(_prepare_transition(model,example,history));indices.append(index)
++        except ReplayRejected as exc:results[index]=str(exc)
++    if not prepared:return results
++    core=model.core;n=core.Hippo_n_feature;device=next(model.parameters()).device
++    layout=HRLStateLayout(n)
++    with torch.no_grad():
++        states=torch.cat([p['state'] for p in prepared])
++        currents=torch.stack([p['current'] for p in prepared])
++        next_dg=torch.stack([p['next_dg'] for p in prepared])
++        hrl=core._split_state(states)[1].clone()
++        next_hrl,_=core._update_hrl(hrl,next_dg,currents[:,:core.core_output_size])
++        descriptors=torch.stack([p['contexts'][p['b']+1,-core.behavior_goal_state_size:] for p in prepared])
++        next_contexts=torch.cat((next_hrl,descriptors),-1)
++        signatures=event_signature(next_contexts,n)
++        recorded=event_signature(torch.stack([p['contexts'][p['b']+1] for p in prepared]),n)
++        compatible=(signatures==recorded).all(-1).cpu().tolist()
++        physical=[p['rows'][p['b']].terminated or p['rows'][p['b']].truncated for p in prepared]
++        keep=[]
++        for i,p in enumerate(prepared):
++            if examples[indices[i]].virtual_goal is None and not physical[i] and not compatible[i]:
++                results[indices[i]]='successor_events_changed'
++            else:keep.append(i)
++        if not keep:return results
++        previous=torch.cat([assemble_state(core,prepared[i]['outputs'][prepared[i]['b']-1].detach(),
++            prepared[i]['contexts'][prepared[i]['b']-1]) if prepared[i]['b'] else torch.zeros_like(prepared[i]['state']) for i in keep])
++        successors=torch.cat([assemble_state(core,prepared[i]['next_output'].detach(),next_contexts[i]) for i in keep])
++        adapter=object.__new__(DistanceLearnerReward);adapter.cfg=model.cfg;adapter.actor_critic=model
++        buff={'rnn_states':torch.stack((previous,states[keep]),1),'rewards':torch.zeros(len(keep),1,device=device),
++              'dones':torch.tensor([[physical[i]] for i in keep],device=device)}
++        adapter._calculate_reward_components(buff,{'new_rnn_states':successors})
++        rewards=buff['rewards'].flatten()
++        hits=(next_contexts[:,layout.target_hit]>0).cpu().tolist()
++    for j,i in enumerate(keep):
++        p=prepared[i];example=examples[indices[i]];history=reconstructed[indices[i]]
++        hidden=history['hidden']
++        if getattr(model.cfg,'controller_learning','ddqn')=='shadow':hidden=hidden.detach()
++        if example.virtual_goal is None:q=model.controller_q(hidden)
++        else:
++            remaining=torch.tensor([example.remaining,max(0,example.remaining-1)],device=device)
++            q=model.controller_q.hindsight(hidden,remaining,float(model.cfg.Hippo_L))
++        ended=physical[i] or (example.virtual_goal is not None and (hits[i] or example.remaining<=1))
++        results[indices[i]]=dict(q=q,reward=rewards[j],signature=signatures[i],done=ended,
++                                canonical=p['canonical_dg'].detach(),next_canonical=p['next_dg'].detach())
+     return results
+ 
+ 
+-def transition_values(model,example,reconstructed=None):
++def _prepare_transition(model,example,reconstructed=None):
+     """Only private snapshots call this; real manager/graph state is never updated."""
+     from .custom_learner import DistanceLearnerReward
+     core=model.core;device=next(model.parameters()).device
+@@ -96,6 +139,17 @@
+             context[offset+topo.pending_source]=0
+             context[offset+topo.pending_destination]=0
+         state=assemble_state(core,current.detach(),context)
++    return dict(state=state,current=current,next_output=next_output,canonical_dg=canonical_dg,next_dg=next_dg,
++                contexts=contexts,outputs=outputs,b=b,rows=rows,reconstructed=reconstructed)
++
++
++def transition_values(model,example,reconstructed=None):
++    from .custom_learner import DistanceLearnerReward
++    p=_prepare_transition(model,example,reconstructed)
++    core=model.core;device=next(model.parameters()).device;n=core.Hippo_n_feature;layout=HRLStateLayout(n)
++    state=p['state'];current=p['current'];next_output=p['next_output'];canonical_dg=p['canonical_dg'];next_dg=p['next_dg']
++    contexts=p['contexts'];outputs=p['outputs'];b=p['b'];rows=p['rows'];reconstructed=p['reconstructed']
++    with torch.no_grad():
+         hrl=core._split_state(state)[1].clone()
+         next_hrl,_=core._update_hrl(hrl,next_dg.detach()[None],current[:core.core_output_size].detach()[None])
+         # Descriptor is an actual action-time label. It is not a new graph choice.
+--- a/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
++++ b/sf_working_directories/IntrMotiv/dmlab/experiments/nemo2_sfgit_intrmotiv.sh
+@@ -14,7 +14,7 @@
+ conda activate SFgit
+ cd "$${SLURM_SUBMIT_DIR:?Submit from the intended source checkout}" || exit 1
+ 
+-export PYTHONPATH="/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1:$${PYTHONPATH:-}"
++export PYTHONPATH="/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1:$${PYTHONPATH:-}"
+ export OMP_NUM_THREADS=1
+ export MKL_NUM_THREADS=1
+ export OPENBLAS_NUM_THREADS=1
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_batched_events.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_batched_events.py
+@@ -0,0 +1,31 @@
++from copy import deepcopy
++from dataclasses import replace
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel,physical_rows
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput,transition_values,transition_values_batch,ReplayRejected
++
++@pytest.mark.parametrize('write',[False,True])
++def test_mixed_main_her_terminal_and_rejections_match_scalar_events_and_gradients(write):
++    model=RewardModel(write).eval();other=deepcopy(model);rows,_=physical_rows(model)
++    first=TransitionInput(tuple(rows[:2]),0)
++    terminal=TransitionInput((rows[0],replace(rows[1],truncated=True),rows[2]),1)
++    examples=[first,replace(first,virtual_goal=1,remaining=3),terminal,
++              replace(first,virtual_goal=2,remaining=1),
++              replace(first,virtual_goal=0,remaining=3),
++              replace(first,rows=(replace(rows[0],generation=5),rows[1]))]
++    separate=[]
++    for example in examples:
++        try:separate.append(transition_values(other,example))
++        except ReplayRejected as exc:separate.append(str(exc))
++    together=transition_values_batch(model,examples)
++    for a,b in zip(separate,together):
++        if isinstance(a,str):assert a==b;continue
++        assert a['done']==b['done']
++        for key in ('q','reward','signature','canonical','next_canonical'):
++            torch.testing.assert_close(a[key],b[key])
++    sum(r['q'].square().mean() for r in separate if not isinstance(r,str)).backward()
++    sum(r['q'].square().mean() for r in together if not isinstance(r,str)).backward()
++    for a,b in zip(model.parameters(),other.parameters()):
++        assert (a.grad is None)==(b.grad is None)
++        if a.grad is not None:torch.testing.assert_close(a.grad,b.grad)
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_complete_sampling.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_complete_sampling.py
+@@ -0,0 +1,46 @@
++from types import SimpleNamespace
++from collections import Counter
++import numpy as np
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.dmlab.controller_learner import ControllerLearner
++from sf_working_directories.IntrMotiv.dmlab.controller_schedule import UpdateClock
++
++class Replay:
++    def __init__(self):self.accepted=2;self.rng=np.random.default_rng(19);self.rejected=Counter()
++    def candidate_order(self,excluded):return [i for i in range(20) if i not in excluded]
++    def reject(self,reason):self.rejected[reason]+=1
++
++@pytest.mark.parametrize('routing,target_interval,expected_checks',[('stop',100,23),('joint',100,40),('stop',1,40)])
++def test_complete_search_fills_main_budget_and_invalidates_cached_rejections(routing,target_interval,expected_checks):
++    learner=object.__new__(ControllerLearner)
++    learner.cfg=SimpleNamespace(controller_td_positions=4,controller_her=False,controller_her_loss_coeff=1.,
++                                max_grad_norm=0.,ppo_dg_gradient=routing)
++    learner.device=torch.device('cpu');learner.replay=Replay()
++    learner.clock=UpdateClock(0,1,target_interval);learner.controller_version=0;learner.controller_stats={}
++    learner.actor_critic=torch.nn.Linear(1,1,bias=False)
++    with torch.no_grad():learner.actor_critic.weight.fill_(1.)
++    learner.optimizer=torch.optim.SGD(learner.actor_critic.parameters(),lr=.1)
++    learner.curr_lr=.1;learner._apply_lr=lambda lr:None
++    learner.online_snapshot=learner.target_snapshot=SimpleNamespace(refresh=lambda *args:None)
++    learner._example=lambda key:key
++    evaluated=[]
++    def evaluate(keys):
++        evaluated.extend(keys)
++        return ['history_recognition_changed' if key<17 else
++                (learner.actor_critic.weight.square().sum(),{'q':learner.actor_critic.weight.detach()}) for key in keys]
++    learner._evaluate_pairs=evaluate
++    learner._controller_updates()
++    assert learner.clock.completed==2 and learner.clock.main_positions==8
++    assert learner.clock.due(learner.replay.accepted)==0
++    assert len(evaluated)==expected_checks
++    torch.testing.assert_close(learner.actor_critic.weight,torch.tensor([[.64]]))
++
++
++def test_uniform_search_covers_remaining_replay_once():
++    from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++    replay=PhysicalReplay(100,99);replay.rows={i:None for i in range(100)}
++    result=replay.candidate_order({1,2,3})
++    assert set(result)==set(range(100))-{1,2,3}
++    assert len(result)==len(set(result))
++    assert result!=sorted(result)
