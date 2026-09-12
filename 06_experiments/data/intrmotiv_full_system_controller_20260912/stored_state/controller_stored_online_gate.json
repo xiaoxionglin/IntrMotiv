@@ -1,0 +1,170 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.8.1",
+  "study_workflow_version": "1.8.1",
+  "study_id": "full_system_controller_stored_online_20260912",
+  "study_sha256": "d0059468b4703790ec58f44f565ec4e60288b0a7498e4e46b4f3675949e22978",
+  "passed": true,
+  "runs": [
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_S99",
+      "job_id": "8058060",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.01708984375,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.02734375
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 7743,
+          "main_positions": 1982208,
+          "auxiliary_positions": 0,
+          "target_at": 7700
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.4937635660171509,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 1982208.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 512000.0,
+          "accepted_replay_decisions": 511936.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 43.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0015472492668777704,
+          "fresh_dg_steps": 250.0,
+          "fresh_graph_batches": 125.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job_id": "8058061",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.02392578125
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 7743,
+          "main_positions": 1982208,
+          "auxiliary_positions": 1235157,
+          "target_at": 7700
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.725335955619812,
+          "auxiliary_loss": 0.027902979403734207,
+          "main_td_positions": 1982208.0,
+          "auxiliary_td_positions": 1235157.0,
+          "physical_interactions": 512000.0,
+          "accepted_replay_decisions": 511936.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 43.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 4.8760151863098145,
+          "fresh_dg_steps": 250.0,
+          "fresh_graph_batches": 125.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job_id": "8058062",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.00830078125,
+        "waypoint_navigation_fraction": 0.0185546875,
+        "waypoint_step_hit": 0.5,
+        "route_available": 0.03564453125
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 7743,
+          "main_positions": 1982208,
+          "auxiliary_positions": 0,
+          "target_at": 7700
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.5964645147323608,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 1982208.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 512000.0,
+          "accepted_replay_decisions": 511936.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 43.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0011429076548665762,
+          "fresh_dg_steps": 250.0,
+          "fresh_graph_batches": 125.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job_id": "8058063",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0078125,
+        "waypoint_navigation_fraction": 0.0087890625,
+        "waypoint_step_hit": 0.8333333134651184,
+        "route_available": 0.0302734375
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 7743,
+          "main_positions": 1982208,
+          "auxiliary_positions": 1089844,
+          "target_at": 7700
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.6951358318328857,
+          "auxiliary_loss": 0.04742356389760971,
+          "main_td_positions": 1982208.0,
+          "auxiliary_td_positions": 1089844.0,
+          "physical_interactions": 512000.0,
+          "accepted_replay_decisions": 511936.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 43.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 3.2041399478912354,
+          "fresh_dg_steps": 250.0,
+          "fresh_graph_batches": 125.0
+        }
+      }
+    }
+  ]
+}

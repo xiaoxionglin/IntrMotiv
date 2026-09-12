@@ -1,0 +1,13 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -5053,7 +5053,9 @@
+     cfg: Config, env_info: EnvInfo, policy_versions_tensor: Tensor, policy_id: PolicyID, param_server: ParameterServer
+ ) -> BaseLearner:
+     if getattr(cfg, "controller_learning", "ppo") != "ppo":
+-        if not getattr(cfg, "controller_preflight", False):
++        # Stored-state production passed all six fresh and real-restart gates.
++        # Keep unreleased reconstruction behind its original guard.
++        if not getattr(cfg, "controller_preflight", False) and getattr(cfg, "controller_replay_state", "reconstruct") != "stored":
+             raise RuntimeError(
+                 "Full-system production remains guarded until all six 2M-frame preflights pass"
+             )

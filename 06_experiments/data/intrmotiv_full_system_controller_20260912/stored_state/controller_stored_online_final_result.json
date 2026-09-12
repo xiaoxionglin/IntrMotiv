@@ -1,0 +1,66 @@
+{
+  "throughput": [
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+      "job": "8058060",
+      "start_frames": 1015808,
+      "end_frames": 1998848,
+      "fps": 1149.7543859649122
+    },
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job": "8058061",
+      "start_frames": 1015808,
+      "end_frames": 1998848,
+      "fps": 677.9586206896552
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job": "8058062",
+      "start_frames": 1015808,
+      "end_frames": 1998848,
+      "fps": 762.046511627907
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job": "8058063",
+      "start_frames": 1015808,
+      "end_frames": 1998848,
+      "fps": 518.7546174142481
+    }
+  ],
+  "wandb": [
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_183848_601399",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_183848_601399",
+      "stored": 1,
+      "main_updates": 7743,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_183859_614516",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_183859_614516",
+      "stored": 1,
+      "main_updates": 7743,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_183859_761436",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_183859_761436",
+      "stored": 1,
+      "main_updates": 7743,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_183903_153529",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_183903_153529",
+      "stored": 1,
+      "main_updates": 7743,
+      "dg_metric_keys": 113
+    }
+  ]
+}
