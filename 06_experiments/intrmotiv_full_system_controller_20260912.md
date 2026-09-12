@@ -209,3 +209,20 @@ already handles that metadata safely. The auditor now reuses
 `place_fields.load_checkpoint_dict`; its focused regression test passes. This
 was an audit-loader mismatch, not evidence of a corrupted training checkpoint.
 See [interim gate evidence](data/intrmotiv_full_system_controller_20260912/r2/interim_gate_check.json).
+
+## Autonomous continuation and terminal blocker
+
+The user explicitly required autonomous continuation until production is running.
+A 15-minute thread heartbeat `qualify-and-launch-intrmotiv-production` is active
+to continue qualification/repairs and launch only after all original gates pass.
+It must be paused once production is verified running.
+
+Independent compute-node terminal gate **8057261** failed: the actual environment
+ended after 1,800 decisions with `controller_final_observation_valid=False`.
+The native Python binding rejects `observations()` once the engine reports
+termination. Keep the replay rejection in place. A minimal explicit native
+terminal-observation API is being investigated; preserve default PPO behavior and
+the original 120-second episode boundary. Do not substitute the preceding image,
+shorten episodes, or declare this gate passed based on the wrapper's mocked tests.
+Existing native source is `/home/fr/fr_xl1014/deepmindlab/lab` with locally modified
+BUILD/WORKSPACE. Do not modify the installed shared engine used by running jobs.
