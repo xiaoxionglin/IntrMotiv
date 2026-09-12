@@ -539,3 +539,21 @@ Retain its historical metric contract, label that limitation in comparisons,
 and use forced-goal observation replay and matched-command interventions to
 measure the complete DG-plus-worker pathway. No goal-discrimination loss is
 introduced by these no-gradient diagnostic forwards.
+
+## Isolated controller checkout qualification (2026-09-12)
+
+The existing submitter exports its resolved source root as
+`INTRMOTIV_RUNTIME_SOURCE`; the Slurm worker validates and imports that checkout.
+Do not infer the source from `BASH_SOURCE` inside a submitted job: Slurm runs a
+spool copy. Reuse the workspace `TORCH_HOME` pretrained cache and certified
+terminal binding when evaluating full-system controller checkpoints. The CPU
+loader retains its exact safe allowlist and uses private mmap to avoid eagerly
+copying full replay storage; metadata deserialization can still take a minute.
+
+Job 8057320 qualified this path with the canonical one-row controller probe.
+The legacy inclusive rollout bound produced 10,001 decisions; use the recorded
+sample count. Validate occupied-cell maps and activation arrays, while retaining
+expected NaNs for unvisited cells and absent peaks. Reuse
+`analyze_place_field_manifest.py` for active-only cosine, silent units, peak
+diversity and pre-threshold metrics. Exact artifacts and source provenance are
+in `06_experiments/intrmotiv_full_system_controller_20260912.md`.

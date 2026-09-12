@@ -18,7 +18,8 @@ default for legacy callers. Synchronize both `intrmotiv_study/telemetry.py` and
 horizon targets. Deployed to the isolated `SF_hipposlam_controller_compatibility_20260912`
 checkout: 35 focused canonical/target/audit tests pass remotely. The original
 shared checkout remains at 1.7.1. The real one-row 327,680-frame manifest rendered
-successfully; ordinary Slurm evaluator job 8057320 is qualifying its rollout.
+successfully; ordinary Slurm evaluator job 8057320 completed its rollout and
+produced validated DG, worker and pre-threshold maps across six episodes.
 
 ## Deployment status
 
