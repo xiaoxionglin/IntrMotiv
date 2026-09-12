@@ -1,0 +1,54 @@
+         15159612 function calls (13796870 primitive calls) in 20.316 seconds
+
+   Ordered by: cumulative time
+   List reduced from 642 to 45 due to restriction <45>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.040    0.040   20.340   20.340 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_learner.py:304(_controller_updates)
+       33    0.084    0.003   19.501    0.591 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_learner.py:242(_evaluate_pairs)
+       46    0.001    0.000   18.956    0.412 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:46(differentiable_replay)
+       46    0.001    0.000   18.884    0.411 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/_functorch/functional_call.py:11(functional_call)
+       46    0.001    0.000   18.882    0.410 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/utils/stateless.py:246(_functional_call)
+ 42918/46    0.037    0.000   18.794    0.409 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:1771(_wrapped_call_impl)
+ 42918/46    0.046    0.000   18.794    0.409 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:1779(_call_impl)
+       46    0.051    0.001   18.794    0.409 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:42(forward)
+    72/46    0.170    0.002   18.743    0.407 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:85(transition_values_batch)
+    70/57    0.000    0.000    9.125    0.160 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/utils/_contextlib.py:117(decorate_context)
+       46    0.008    0.000    8.804    0.191 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:94(<listcomp>)
+    11766    0.123    0.000    8.796    0.001 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:36(make_history)
+       23    0.002    0.000    8.737    0.380 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py:76(evaluate_replay)
+    11766    0.169    0.000    6.559    0.001 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:39(<dictcomp>)
+    70700    3.375    0.000    5.243    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:372(stack)
+    11766    0.431    0.000    3.429    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:144(_prepare_transition)
+       46    0.014    0.000    3.395    0.074 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_history.py:79(reconstruct_controller_histories)
+    70792    2.537    0.000    2.537    0.000 {built-in method torch.as_tensor}
+       46    0.003    0.000    1.656    0.036 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:699(_update_hrl)
+       46    1.066    0.023    1.651    0.036 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py:528(advance_topological_manager)
+   147354    0.082    0.000    1.615    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2656(parameters)
+   153702    0.041    0.000    1.533    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2681(named_parameters)
+   164328    0.235    0.000    1.529    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2636(_named_members)
+       72    0.015    0.000    1.521    0.021 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_history.py:55(reconstruction_head)
+     3150    0.017    0.000    1.392    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py:252(forward_head)
+     3150    0.003    0.000    1.353    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sample_factory/model/actor_critic.py:160(forward_head)
+     3150    0.086    0.000    1.333    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py:1067(forward)
+       46    0.004    0.000    1.262    0.027 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py:61(forward)
+    24004    0.008    0.000    1.236    0.000 {built-in method builtins.next}
+    15868    1.204    0.000    1.204    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+1757322/519792    1.006    0.000    1.069    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/nn/modules/module.py:2823(named_modules)
+    43332    0.119    0.000    0.771    0.000 {built-in method builtins.any}
+       46    0.005    0.000    0.770    0.017 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:807(forward)
+     3150    0.068    0.000    0.761    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py:1013(projection_input)
+    35278    0.174    0.000    0.722    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:22(assemble_state)
+    70700    0.680    0.000    0.680    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:447(<setcomp>)
+    85876    0.647    0.000    0.647    0.000 {method 'item' of 'torch._C.TensorBase' objects}
+    70700    0.282    0.000    0.584    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:443(<listcomp>)
+    70700    0.580    0.000    0.580    0.000 /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/numpy/core/shape_base.py:455(<listcomp>)
+    11838    0.188    0.000    0.555    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py:167(current_dg_from_activity)
+    84918    0.470    0.000    0.470    0.000 {built-in method torch.cat}
+       26    0.025    0.001    0.466    0.018 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_transition.py:48(current_context_rejections)
+    97650    0.025    0.000    0.418    0.000 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py:1021(<genexpr>)
+    17741    0.351    0.000    0.351    0.000 {built-in method torch.tensor}
+       46    0.003    0.000    0.346    0.008 /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912/sf_working_directories/IntrMotiv/dmlab/controller_history.py:84(<listcomp>)
+
+
+{"seconds": 20.349874785984866, "stats": {"main_loss": 0.00011923028796445578, "auxiliary_loss": 0.0, "q_mean": 0.036034733057022095, "q_abs_max": 0.04955829679965973, "auxiliary_q_mean": 0.0, "auxiliary_q_abs_max": 0.0, "main_compute_seconds": 20.148815704975277, "her_compute_seconds": 0.008751823974307626, "her_overhead_ratio": 0.00043435922500132697}}

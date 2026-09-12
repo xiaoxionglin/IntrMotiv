@@ -595,3 +595,13 @@ R4 optimizer history is contaminated, so it cannot qualify the corrected fresh
 system. R5 is a clean six-run 2M StudySpec, schema `intrmotiv/study/v1`, workflow
 1.8.1, SHA `b68edd0bcb84fd25d2779013e17511c2a97dfb0624741f0a56e48343a6d0d4d9`.
 It is validated but not yet submitted; launch only after the corrected GPU gate.
+
+## Bounded collation probe (not deployed)
+
+Clean R5 profile 8057356 measured repeated physical-input packing as the largest
+remaining replay cost. An isolated bulk-collation candidate passed 386 runtime
+and audit tests and bitwise ten-update model/optimizer/target/RNG/rejection parity
+in GPU job 8057357. Its measured speedup was only 1.069× (18.48 to 17.28 seconds),
+so it was not deployed. Active R5 remains `controller_stable_head_20260912`; do
+not switch to the experimental `controller_collated_20260912` copy. Focus on
+finishing the current qualification and production launch.
