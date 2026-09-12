@@ -175,3 +175,31 @@ reconstruction cost without another transport or learner framework. For short
 qualification runs, size the existing spatial observation window to fit the
 available decisions before submission; the canonical audit and W&B server
 summaries are the authoritative completion checks.
+
+## Online deployment after user request
+
+The user requested putting the current implementation online and checking for
+obvious obstacles. Deploy the passing stored-state implementation unchanged;
+the proposed current-DG finite-window reconstruction is not part of this run.
+
+Study `hpc_runs/studies/full_system_controller_stored_online.study.json`:
+`intrmotiv/study/v1`, workflow `1.8.1`, SHA
+`d0059468b4703790ec58f44f565ec4e60288b0a7498e4e46b4f3675949e22978`.
+Four fresh seed-99 runs, direct F16 and waypoint decoder F64, each DDQN/HER,
+with a 2M-frame horizon. Restore the ordinary 100,000-observation spatial window
+and require 1M/2M snapshots. Immutable source:
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_online_20260912`.
+
+All 36 focused deployment/workflow/audit tests passed. Canonical print-only
+review matched the StudySpec and verified all output/cache/temp paths under
+allocated workspace storage. Training jobs 8058060–8058063 were submitted and
+entered RUNNING; dependent runtime audit 8058064 checks the completed 2M runs.
+The previous production automation remains paused.
+
+No immediate correctness blocker was found. Two material limitations remain:
+behavior-time DG identity/feature drift is accepted by this baseline, and the
+main sampler shuffles the full replay key list per update, so its cost grows
+until the 200,000-decision capacity is reached. The longer run tests capacity
+and epsilon annealing; short-trial throughput is not a saturated-buffer promise.
+Checkpoint size/save time also grows with stored worker tensors. Process-restart
+qualification remains distinct from successful saving and fresh startup.
