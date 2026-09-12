@@ -12,7 +12,8 @@ from hpc_runs.intrmotiv_offpolicy.sf_transport import updates_due
 def audit(study, jobs, root, required_frames=2000000):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
-    for job in csv.DictReader(Path(jobs).open(),delimiter='\t'):
+    with Path(jobs).open() as stream:job_rows=list(csv.DictReader(stream,delimiter='\t'))
+    for job in job_rows:
         row=by_name[job['experiment'].removeprefix('00_')]
         directory=Path(root)/job['train_root']/job['experiment']
         cfg=json.loads((directory/'config.json').read_text())
@@ -26,6 +27,10 @@ def audit(study, jobs, root, required_frames=2000000):
         if state is None:
             errors.append('missing complete controller checkpoint');row['passed']=False;continue
         clock=state['clock'];replay=state['replay']
+        terminals=[item for item in replay.get('rows',[]) if item['terminated'] or item['truncated']]
+        if not terminals:errors.append('physical episode end not exercised in retained replay')
+        elif not any(item['successor_valid'] and item['successor'] is not None for item in terminals):
+            errors.append('no certified terminal successors in real DMLab replay')
         debt=updates_due(replay['accepted'],cfg['controller_learning_starts'],
                          cfg['controller_decisions_per_update'],clock['completed'])
         if debt:errors.append(f'unpaid main update debt: {debt}')

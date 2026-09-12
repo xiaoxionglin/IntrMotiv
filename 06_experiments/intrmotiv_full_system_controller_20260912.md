@@ -1,7 +1,7 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
 **Status: six 2M-frame Slurm preflights running; production remains guarded.**
-Jobs **8057249–8057254** use the isolated checkout. The original running source
+Jobs **8057255–8057260** use the isolated checkout. The original running source
 and its jobs are unchanged. DDQN is allowed only through the bounded preflight
 flag; no 18-run production study has been rendered or launched.
 
@@ -103,10 +103,10 @@ rebuilds finite history while preserving the actual manager state. Checkpoints
 include replay, online/target parameters, optimizer, RNGs and counters. Restart
 opens new physical sessions and discards unfinished joins.
 
-- **341 tests pass locally and on NEMO2**, including transport ordering, certified
+- **342 tests pass locally and on NEMO2**, including transport ordering, certified
   terminal wrappers, reward/HER parity, actor history, safe checkpoint loading,
   finite-history values/gradients and matched controller clocks.
-- **31 canonical workflow tests pass locally and remotely.**
+- **32 canonical workflow/auditor tests pass locally and remotely.**
 - Actual native learner update and complete checkpoint-resume audits pass for all
   three parent configurations. These use synthetic observations, not DMLab.
 - PPO full learner audit matches all updated model/buffer and optimizer tensors
@@ -120,23 +120,31 @@ opens new physical sessions and discards unfinished joins.
 
 The canonical [StudySpec](../hpc_runs/studies/full_system_controller_preflight.study.json)
 is the source of truth: schema `intrmotiv/study/v1`, workflow **1.8.0**, SHA-256
-`7cf685ed23f8cd92532cc6b08b80915a8603154cc2868c9825a9b4a7b6a8e948`.
+`3a40649a9a79b3c5de3edf9c587722524ef3a11779c591891c0a607fda458fd3`.
 All six start fresh with the fixed ImageNet trunk, seed 99, original fresh DG
 schedule, W&B, exploration/control dashboards and online spatial telemetry.
 Checkpoint/snapshot targets are 1M and 2M frames for qualification.
 
 | Architecture | PPO | DDQN | DDQN + auxiliary HER |
 |---|---|---|---|
-| Direct F16 | 8057249 | 8057250 | 8057251 |
-| Waypoint / goal-write F64 | 8057252 | 8057253 | 8057254 |
+| Direct F16 | 8057255 | 8057256 | 8057257 |
+| Waypoint / goal-write F64 | 8057258 | 8057259 | 8057260 |
 
 Submission artifacts are under workspace
-`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912/submission/`.
-The [submitted audit](data/intrmotiv_full_system_controller_20260912/controller_preflight_submitted_audit.json)
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r2/submission/`.
+The [submitted audit](data/intrmotiv_full_system_controller_20260912/r2/controller_preflight_submitted_r2.json)
 confirms six submitted rows, matching canonical commands and workspace paths.
 The template uses the submitting checkout and a short workspace TMPDIR. The
 first print-only review caught its old hardcoded original-checkout path before
 submission. No training outputs or caches are directed to the home filesystem.
+
+First-attempt jobs 8057249–8057254 were stopped and preserved. DDQN correctly
+rejected missing initial history because SF's default startup decorrelation walks
+occur before inference. Revision 2 uses SF's existing
+`decorrelate_envs_on_one_worker=False` in **all six arms** so policy history starts
+at physical reset. Worker delays remain enabled. This explicit startup difference
+is classified in the parent-config delta audit; model/fresh-learner preservation
+tests do not claim runtime identity for that startup walk.
 
 Remaining gates: real DMLab terminal provenance, active-episode publication
 rebuilds, main update debt/counts, positive auxiliary HER learning, fresh DG and
@@ -171,3 +179,10 @@ objective. Preserve gradient/value parity and total TD counts when changing this
 Keep checkpoint replay payloads as tensors/plain containers so the established
 weights-only place-field evaluator can load them. Never deploy into the running
 original checkout; verify patch preimages and audit the rendered template's `cd`.
+
+At the first corrected live telemetry check, all six runs were collecting without
+startup exceptions. Each had 113 DG/spatial metric tags. At 65,536 frames, each
+DDQN arm recorded eight fresh DG steps, four fresh graph batches, over 100 actor
+history rebuilds and zero actor-memory version failures. Replay warm-up was still
+completing (about 16,330 accepted decisions); these observations do not yet
+qualify TD learning or HER overhead. All six W&B runs connected successfully.
