@@ -1,36 +1,32 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: controlled checkpoint restart for qualified replay screening.**
-Four DDQN jobs 8057315–8057318 received graceful SIGINT after GPU gate 8057324
-passed exact optimizer-state parity with a 2.23× speedup. Wait for their final
-saves before capturing screened baselines and resuming the audited
-`screened_submission` manifest. Production remains gated.
-
-Previous active state:
-Both PPO jobs **8057292/8057295** completed 2M frames with exit 0. Four DDQN
-jobs **8057315–8057318** resumed from immutable full-state baselines after all
-prior jobs stopped. Canonical print-only and submitted-manifest audits passed.
+**Current status: screened preflights running; production is not yet submitted.**
+Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
+runtime audit. DDQN jobs **8057325–8057328** resumed from complete immutable
+checkpoints with 128 GB host memory each. Exact GPU reload job **8057329** is
+checking the four new baselines; both original PPO certificates are retained.
 The authoritative mixed manifest is
-`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/compatibility_submission/jobs.tsv`.
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/screened_submission/jobs.tsv`.
 
 Active DDQN source:
-`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912`,
-local mirror `/tmp/intrmotiv_compatibility_benchmark`. Do not modify this source
-while training is active. All **367 runtime tests** and **35 focused workflow/
-audit tests** pass locally and remotely. Recovery GPU gate **8057314** passed:
-670→701 main updates, +7,936 main positions, +227 HER positions, target refresh
-to 700, goal-write norm 0.1674, peak GPU allocation 11.48GB.
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_screened_20260912`, local
+mirror `/tmp/intrmotiv_screened_benchmark`. Do not modify active source. All
+**371 runtime tests** pass locally and remotely. GPU gate **8057324** proved
+bitwise-identical model, optimizer and main/HER RNG states after three full
+updates, with a **2.23× speedup**. Canonical print-only and submitted audits pass.
 
-Third-restart immutable baselines are under
-`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_compatibility/`.
-Exact GPU reload job **8057319** checks all four new DDQN baselines, retaining
-both original checkpoint-bound PPO certificates. Ordinary CPU place-field job
-**8057320** evaluates 10,000 decisions from the waypoint/HER 327,680-frame
-checkpoint via canonical workflow 1.8.1 and the existing manifest evaluator.
-Exact reload **8057319 completed with exit 0**, matching all four DDQN model/
-buffer, optimizer and counter states; the complete six-run certificate is saved.
-The place-field result remains pending. Production has not been rendered or
-submitted. Continue through all runtime gates and actual production startup.
+Fourth-restart baselines are under
+`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_screened/`.
+All four prior jobs 8057315–8057318 finished deliberate SIGINT shutdowns and
+saved complete state before resubmission. Final old-source waypoint DDQN and
+HER summaries both show nonzero goal-write gradients and zero update debt.
+Peak host memory reached about 68 GB, so the reviewed reservation was raised
+from 80 to 128 GB on verified 512 GB GPU nodes. Use 128 GB for production too.
+
+The canonical offline place-field probe **8057320 passed** and produced valid
+DG, worker and pre-threshold maps across six physical episodes. Continue until
+all four DDQN runs finish 2M and the full restart/runtime audit passes; only
+then release the guard, render/audit the 18-run 300M StudySpec and launch it.
 
 R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
