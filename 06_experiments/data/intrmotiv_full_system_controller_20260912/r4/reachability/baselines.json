@@ -1,0 +1,149 @@
+[
+  {
+    "run": "00_FSCP_DIRECT_F16_PPO_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_DIRECT_F16_PPO_S99_/00_FSCP_DIRECT_F16_PPO_S99/checkpoint_p0/checkpoint_000000250_2048000.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4/00_FSCP_DIRECT_F16_PPO_S99.pth",
+    "env_steps": 2048000,
+    "train_step": 250,
+    "bytes": 5591177
+  },
+  {
+    "run": "00_FSCP_DIRECT_F16_DDQN_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_DIRECT_F16_DDQN_S99_/00_FSCP_DIRECT_F16_DDQN_S99/checkpoint_p0/checkpoint_000000086_704512.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/00_FSCP_DIRECT_F16_DDQN_S99.pth",
+    "env_steps": 704512,
+    "train_step": 86,
+    "bytes": 8474348753,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 2491,
+      "main_positions": 637696,
+      "auxiliary_positions": 0,
+      "target_at": 2400
+    },
+    "session": 4,
+    "accepted": 175808,
+    "received": 176128,
+    "publication": 43,
+    "fresh_dg_steps": 86,
+    "fresh_graph_batches": 43,
+    "pending": 64,
+    "rejected": {
+      "missing_successor_context": 4339,
+      "history_recognition_changed": 794117,
+      "successor_events_changed": 102392,
+      "restart_pending_tail": 192,
+      "current_recognition_changed": 289731
+    }
+  },
+  {
+    "run": "00_FSCP_DIRECT_F16_DDQN_HER_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_DIRECT_F16_DDQN_HER_S99_/00_FSCP_DIRECT_F16_DDQN_HER_S99/checkpoint_p0/checkpoint_000000088_720896.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/00_FSCP_DIRECT_F16_DDQN_HER_S99.pth",
+    "env_steps": 720896,
+    "train_step": 88,
+    "bytes": 8671905221,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 2555,
+      "main_positions": 654080,
+      "auxiliary_positions": 128821,
+      "target_at": 2500
+    },
+    "session": 4,
+    "accepted": 179904,
+    "received": 180224,
+    "publication": 44,
+    "fresh_dg_steps": 88,
+    "fresh_graph_batches": 44,
+    "pending": 64,
+    "rejected": {
+      "her_budget_expired": 481638,
+      "missing_successor_context": 4161,
+      "history_recognition_changed": 990372,
+      "successor_events_changed": 84148,
+      "restart_pending_tail": 192,
+      "her_no_future_achievement": 43621,
+      "no_compatible_main_replay": 1,
+      "current_recognition_changed": 263956
+    }
+  },
+  {
+    "run": "00_FSCP_WAYPOINT_F64_PPO_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_WAYPOINT_F64_PPO_S99_/00_FSCP_WAYPOINT_F64_PPO_S99/checkpoint_p0/checkpoint_000000066_540672.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4/00_FSCP_WAYPOINT_F64_PPO_S99.pth",
+    "env_steps": 540672,
+    "train_step": 66,
+    "bytes": 13565089
+  },
+  {
+    "run": "00_FSCP_WAYPOINT_F64_DDQN_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_WAYPOINT_F64_DDQN_S99_/00_FSCP_WAYPOINT_F64_DDQN_S99/checkpoint_p0/checkpoint_000000058_475136.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/00_FSCP_WAYPOINT_F64_DDQN_S99.pth",
+    "env_steps": 475136,
+    "train_step": 58,
+    "bytes": 5810892511,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 1595,
+      "main_positions": 408320,
+      "auxiliary_positions": 0,
+      "target_at": 1500
+    },
+    "session": 4,
+    "accepted": 118464,
+    "received": 118784,
+    "publication": 29,
+    "fresh_dg_steps": 58,
+    "fresh_graph_batches": 29,
+    "pending": 64,
+    "rejected": {
+      "missing_successor_context": 5152,
+      "history_recognition_changed": 661240,
+      "successor_events_changed": 79464,
+      "restart_pending_tail": 192,
+      "no_compatible_main_replay": 4,
+      "current_recognition_changed": 952241
+    }
+  },
+  {
+    "run": "00_FSCP_WAYPOINT_F64_DDQN_HER_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_preflight_20260912_r4/FSCP_WAYPOINT_F64_DDQN_HER_S99_/00_FSCP_WAYPOINT_F64_DDQN_HER_S99/checkpoint_p0/checkpoint_000000062_507904.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/00_FSCP_WAYPOINT_F64_DDQN_HER_S99.pth",
+    "env_steps": 507904,
+    "train_step": 62,
+    "bytes": 6212288523,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 1723,
+      "main_positions": 441088,
+      "auxiliary_positions": 18983,
+      "target_at": 1700
+    },
+    "session": 4,
+    "accepted": 126656,
+    "received": 126976,
+    "publication": 31,
+    "fresh_dg_steps": 62,
+    "fresh_graph_batches": 31,
+    "pending": 64,
+    "rejected": {
+      "missing_successor_context": 4655,
+      "her_budget_expired": 411763,
+      "history_recognition_changed": 1511879,
+      "successor_events_changed": 73541,
+      "restart_pending_tail": 192,
+      "her_no_future_achievement": 10342,
+      "no_compatible_main_replay": 8,
+      "current_recognition_changed": 378462
+    }
+  }
+]

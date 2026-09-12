@@ -1,32 +1,36 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: screened preflights running; production is not yet submitted.**
+**Current status: optimized preflights running; production is not yet submitted.**
 Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
-runtime audit. DDQN jobs **8057325–8057328** resumed from complete immutable
-checkpoints with 128 GB host memory each. Exact GPU reload job **8057329 passed**
-all four new baselines with exit 0; both original PPO certificates are retained.
-The authoritative mixed manifest is
-`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/screened_submission/jobs.tsv`.
+runtime audit. DDQN jobs **8057335–8057338** resumed from complete immutable
+checkpoints with 128 GB host memory each. Exact GPU reload job **8057339** is
+running; both original PPO certificates are retained. The authoritative mixed
+manifest is `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/reachability_submission/jobs.tsv`.
 
 Active DDQN source:
-`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_screened_20260912`, local
-mirror `/tmp/intrmotiv_screened_benchmark`. Do not modify active source. All
-**371 runtime tests** pass locally and remotely. GPU gate **8057324** proved
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_reachability_20260912`,
+local mirror `/tmp/intrmotiv_reachability_benchmark`. Do not modify active source.
+All **373 runtime tests** pass locally and remotely. GPU gate **8057330** proved
 bitwise-identical model, optimizer and main/HER RNG states after three full
-updates, with a **2.23× speedup**. Canonical print-only and submitted audits pass.
+updates, with a **1.94× speedup** over the previously qualified screened source.
+The prior screening improvement itself passed GPU gate 8057324 with a 2.23×
+speedup. Canonical print-only and submitted audits pass for the new source.
 
-Fourth-restart baselines are under
-`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_screened/`.
-All four prior jobs 8057315–8057318 finished deliberate SIGINT shutdowns and
-saved complete state before resubmission. Final old-source waypoint DDQN and
-HER summaries both show nonzero goal-write gradients and zero update debt.
-Peak host memory reached about 68 GB, so the reviewed reservation was raised
-from 80 to 128 GB on verified 512 GB GPU nodes. Use 128 GB for production too.
+Fifth-restart baselines are under
+`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/`.
+All four prior jobs 8057325–8057328 completed deliberate SIGINT shutdowns and
+saved complete state before resubmission. Their final frame counts were
+704,512 / 720,896 / 475,136 / 507,904 in manifest DDQN order. Main update counts
+were 2,491 / 2,555 / 1,595 / 1,723 with exactly 256 main positions per update;
+HER separately added 128,821 and 18,983 positions. Fresh DG counts match the
+parent clock. New sessions must advance from 4 to 5 and cumulative incomplete
+tail discards from 192 to 256. W&B resumes the original four run IDs.
 
 The canonical offline place-field probe **8057320 passed** and produced valid
 DG, worker and pre-threshold maps across six physical episodes. Continue until
 all four DDQN runs finish 2M and the full restart/runtime audit passes; only
 then release the guard, render/audit the 18-run 300M StudySpec and launch it.
+Use 16 CPU cores, 128 GB host memory and one L40S GPU per production run.
 
 R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
