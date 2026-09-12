@@ -158,3 +158,55 @@ batching approach over proliferating new replay workflows.
 Candidate 1's 101-update HER GPU checks completed with exact optimizer/target/RNG
 parity across refresh: direct 380.28→344.21 seconds (1.105×), waypoint
 433.47→368.25 seconds (1.177×). These are not adequate final throughput gains.
+
+## Profile-driven removal of redundant work
+
+The five-update waypoint profile, job **8057464**, measured 18.117 seconds and
+13.61 million Python calls. Manager advancement alone consumed 5.51 seconds,
+including 2,722 calls to `choose_task`; 220,312 `Tensor.item` calls consumed
+1.63 seconds. Replay was computing new manager plans even though its worker
+reward uses the recorded action-time command and reconstructed outcome pulses.
+This was avoidable integration overhead, not a necessary cost of auxiliary HER.
+
+Candidate 2's completed 101-update HER comparisons preserved exact optimizer,
+target and RNG state: direct 371.824→209.945 seconds (1.771×); waypoint
+388.430→248.043 seconds (1.566×). CPU diagnostic **8057466**, eight Torch threads,
+was slower: ten HER updates 62.486→41.773 seconds. Moving this implementation to
+CPU is not a remedy.
+
+Candidate 3 now factors `option_outcome_masks` out of the real topological
+manager and reuses it for replay event reconstruction. Replay retains the actual
+successor context and overwrites only outcome fields used by reward and event
+validation. It does not run graph routing or successor task selection. The fast
+path covers the approved parents without motion filtering; other parents retain
+the original reconstruction. Exploration/passive-event priority is preserved.
+Four additional tests cross target vocabulary, modes, expiry, recognition and
+passive ages, comparing against complete manager advancement without graph
+mutation. HER future selection now transfers canonical activities once per
+snapshot and uses vector masks, preserving future ordering and duplicate goals.
+Current-label and already-achieved checks are batched as well.
+
+Candidate 3 source: `/tmp/intrmotiv_replay_work_20260912`; remote immutable copy
+`SF_hipposlam_controller_replay_work_20260912`. Local runtime suite: 399 tests
+(including the four new manager tests); remote runtime plus audit tests passed
+before comparison jobs **8057467 direct / 8057468 waypoint** were submitted.
+These are optimizer comparisons, not production jobs.
+
+Candidate 4, `/tmp/intrmotiv_vector_replay_20260912`, additionally skips complete
+worker-history reconstruction for eligibility-only queries in supported parents.
+It batches main/auxiliary Q readout and Bellman/Huber operations, following the
+previous implementation's flattened readout pattern. Local runtime: 399 passed;
+remote tests passed; GPU jobs **8057470 direct / 8057471 waypoint** compare against
+the original implementation. Discrete labels, rejection counts, update clocks and
+RNG state must remain exact; floating model/optimizer tensors are measured with
+explicit `atol=1e-6, rtol=1e-5`, and all nonzero differences are recorded.
+This is a numerical batching qualification, not an assertion of bitwise equality.
+
+Candidate 5 is local only at `/tmp/intrmotiv_batched_context_20260912`. It batches
+context overrides and current/previous/successor state assembly, and keeps
+physical decision IDs on CPU for ordering validation. These IDs are metadata,
+not GPU model inputs. This removes per-row scalar synchronization and tiny
+context-write kernels. All 399 runtime tests pass; remote qualification remains.
+
+Do not describe any of these intermediate improvements as comparable sustained
+throughput until complete fresh-data/controller transactions have been measured.
