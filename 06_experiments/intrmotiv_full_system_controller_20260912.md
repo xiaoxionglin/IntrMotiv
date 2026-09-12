@@ -360,3 +360,26 @@ commands, worker counts, model/data settings or GPU type. The actual reservation
 record is workspace `analysis/controller_r4_resource_adjustment.log`. Use 16 CPU
 cores per L40S GPU for the eventual canonical submission unless runtime evidence
 requires a different reservation. Keep 32 SF workers and two environments each.
+
+## R4 GPU checkpoint restart and publication qualification
+
+GPU publication probe **8057300** measured the original client returning in 5 ms
+while its queued GPU copy took 45 ms. The repaired client waited 40 ms and its
+completion event was finished before the lock/version became visible. The fix
+reuses SF `synchronize` inside its existing lock, only for DDQN/shadow; PPO's
+path is unchanged. All **355 tests** pass locally and remotely.
+
+The restart candidate is
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_publication_20260912`;
+local `/tmp/intrmotiv_publication_benchmark`. Its extra patch is
+[publication barrier](data/intrmotiv_full_system_controller_20260912/r4/publication_barrier.patch).
+At about 06:16, controlled SIGINT was sent to DDQN jobs 8057293/94/96/97. They
+finish transactions and save before restart. Direct PPO 8057292 completed 2M;
+waypoint PPO 8057295 continues on the unchanged PPO path. Preserve both PPO jobs.
+The canonical R4 `restart_review` passed with 1 L40S GPU, 16 CPUs, 80G and
+unchanged scientific commands/Study SHA. After all four DDQN jobs stop and their
+baselines load, render `restart_submission` print-only, preserve the original
+PPO rows, mark only the four DDQN rows `pending_submission`, and use the existing
+`resume_slurm_submission.py` utility. `controller_prepare_partial_restart.py`
+in workspace analysis performs this artifact adaptation and rejects active old
+DDQN jobs. Then run full submitted audit and verify GPU checkpoint restore.

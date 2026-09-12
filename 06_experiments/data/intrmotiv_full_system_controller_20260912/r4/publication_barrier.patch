@@ -1,0 +1,48 @@
+--- a/sample_factory/algo/utils/model_sharing.py
++++ b/sample_factory/algo/utils/model_sharing.py
+@@ -9,6 +9,7 @@
+ from torch import Tensor
+ 
+ from sample_factory.algo.utils.multiprocessing_utils import get_lock, get_mp_ctx
++from sample_factory.algo.utils.torch_utils import synchronize
+ from sample_factory.model.actor_critic import create_actor_critic
+ from sample_factory.utils.timing import Timing
+ from sample_factory.utils.utils import log
+@@ -130,6 +131,10 @@
+         if self.latest_policy_version < server_policy_version and self._shared_model_weights is not None:
+             with self.timing.time_avg("weight_update"), self._policy_lock:
+                 self._actor_critic.load_state_dict(self._shared_model_weights)
++                if getattr(self.cfg, "controller_learning", "ppo") in ("ddqn", "shadow"):
++                    # CUDA device-to-device copies outlive the host call. Keep
++                    # the writer excluded until this snapshot is fully copied.
++                    synchronize(self.cfg, next(self._actor_critic.parameters()).device)
+                 loaded_version = self._get_server_policy_version()
+ 
+             self.latest_policy_version = loaded_version
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_publication_barrier.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_publication_barrier.py
+@@ -0,0 +1,24 @@
++from contextlib import nullcontext
++from threading import Lock
++from types import SimpleNamespace
++import pytest
++import torch
++from sample_factory.algo.utils.model_sharing import ParameterClientAsync
++
++@pytest.mark.parametrize('device,mode,expected',[('cpu','ddqn',0),('cuda','ppo',0),('cuda','ddqn',1),('cuda','shadow',1)])
++def test_controller_gpu_copy_finishes_inside_weight_lock(monkeypatch,device,mode,expected):
++    client=object.__new__(ParameterClientAsync);calls=[]
++    client.cfg=SimpleNamespace(controller_learning=mode,serial_mode=False)
++    client.policy_id=0;client.policy_versions=torch.tensor([1]);client.latest_policy_version=0
++    client.num_policy_updates=0;client._policy_lock=Lock();client.timing=SimpleNamespace(time_avg=lambda name:nullcontext())
++    client._shared_model_weights={}
++    client._actor_critic=SimpleNamespace(load_state_dict=lambda weights:calls.append('copy'),
++        parameters=lambda:iter([SimpleNamespace(device=torch.device(device))]))
++    def synchronize(device):
++        assert client._policy_lock.locked()
++        assert client.latest_policy_version==0 and calls==['copy']
++        calls.append('synchronize')
++    monkeypatch.setattr(torch.cuda,'synchronize',synchronize)
++    client.ensure_weights_updated()
++    assert client.latest_policy_version==1 and not client._policy_lock.locked()
++    assert calls.count('synchronize')==expected
