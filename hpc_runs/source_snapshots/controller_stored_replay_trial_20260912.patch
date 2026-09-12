@@ -1,0 +1,507 @@
+--- a/sample_factory/algo/sampling/inference_worker.py
++++ b/sample_factory/algo/sampling/inference_worker.py
+@@ -330,7 +330,8 @@
+                 )
+                 rnn_states = ensure_torch_tensor(rnn_states).to(self.device).float()
+                 controller_memory = None
+-                if getattr(self.cfg, "controller_learning", "ppo") != "ppo":
++                if (getattr(self.cfg, "controller_learning", "ppo") != "ppo"
++                        and getattr(self.cfg,"controller_replay_state","reconstruct") != "stored"):
+                     from sf_working_directories.IntrMotiv.dmlab.controller_actor_memory import ActorMemory
+                     if not hasattr(self, "controller_memory"):
+                         self.controller_memory = ActorMemory()
+@@ -345,10 +346,11 @@
+                 policy_outputs["policy_version"] = torch.empty([num_samples]).fill_(self.param_client.policy_version)
+                 if controller_memory is not None:
+                     controller_memory.after_forward(actor_critic, policy_outputs["controller_condition"])
++                if getattr(self.cfg, "controller_learning", "ppo") != "ppo":
+                     policy_outputs["controller_input_state"] = rnn_states
+-                    policy_outputs["controller_memory_stats"] = rnn_states.new_tensor([
+-                        controller_memory.rebuilds, controller_memory.failures, controller_memory.seconds
+-                    ]).expand(num_samples, -1)
++                    stats=([controller_memory.rebuilds, controller_memory.failures, controller_memory.seconds]
++                           if controller_memory is not None else [0.,0.,0.])
++                    policy_outputs["controller_memory_stats"] = rnn_states.new_tensor(stats).expand(num_samples, -1)
+ 
+             with timing.add_time("prepare_outputs"):
+                 signals_to_send = self._prepare_policy_outputs_func(num_samples, policy_outputs, self.requests)
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_contract.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_contract.py
+@@ -4,7 +4,7 @@
+ # Enumerate real parser options. A broad controller_* exemption would hide typos
+ # and silently authorize new scientific factors.
+ CONTROLLER_OPTIONS = frozenset({
+-    'controller_learning', 'controller_her', 'controller_epsilon',
++    'controller_replay_state', 'controller_learning', 'controller_her', 'controller_epsilon',
+     'controller_target_updates', 'controller_replay_capacity',
+     'controller_td_positions', 'controller_decisions_per_update',
+     'controller_learning_starts', 'controller_her_positions', 'controller_her_loss_coeff',
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -99,6 +99,8 @@
+         if load_progress:
+             if 'controller' not in checkpoint_dict:raise RuntimeError('Controller resume requires complete replay/target state')
+             self._restore_controller=checkpoint_dict['controller']
++            if self._restore_controller.get('replay_state','reconstruct')!=getattr(self.cfg,'controller_replay_state','reconstruct'):
++                raise RuntimeError('Replay state contract changed; start a fresh run')
+ 
+     def _optimizer_step_counts(self):
+         groups={'dg':self.actor_critic.encoder.DG_projection,'main':self.actor_critic.controller_q.main}
+@@ -109,7 +111,7 @@
+     def _get_checkpoint_dict(self):
+         checkpoint=super()._get_checkpoint_dict()
+         if hasattr(self,'target_snapshot'):
+-            checkpoint['controller']=dict(optimizer_step_counts=self._optimizer_step_counts(),replay=self.replay.state_dict(),clock=self.clock.state_dict(),
++            checkpoint['controller']=dict(replay_state=getattr(self.cfg,'controller_replay_state','reconstruct'),optimizer_step_counts=self._optimizer_step_counts(),replay=self.replay.state_dict(),clock=self.clock.state_dict(),
+                 frame_milestones=sorted(self.frame_milestones),
+                 her_rng=copy.deepcopy(self.her_rng.bit_generator.state),version=self.controller_version,publication=self.publication,
+                 target=self.target_snapshot.model.state_dict(),target_version=self.target_snapshot.version,
+@@ -123,7 +125,7 @@
+         if invalid<size:
+             identities=batch['obs'][IDENTITY_KEY][:,:-1].reshape(-1,4).cpu().tolist()
+             labels=('hrl_control_correct_outcome','hrl_control_wrong_outcome','hrl_control_target_timeout',
+-                    'hrl_control_exploration_timeout','hrl_control_outcome_id')
++                    'hrl_control_exploration_timeout','hrl_control_outcome_id','hrl_control_reward_magnitude')
+             for index,(stream,episode,decision,serial) in enumerate(identities):
+                 key=((self.replay.session,int(stream)),int(episode),int(decision))
+                 self.replay.annotate(key,buff['rewards'][index],
+@@ -181,15 +183,26 @@
+         cpu=lambda x:x.detach().cpu().numpy().copy()
+         n,t=batch['actions'].shape[:2]
+         layout=HRLStateLayout(self.cfg.Hippo_n_feature)
++        stored=getattr(self.cfg,'controller_replay_state','reconstruct')=='stored'
++        terminal_labels={}
++        if stored:
++            from .controller_history import reconstruction_head
++            mask=batch['dones'].bool() & batch['controller_final_valid'].bool()
++            if mask.any():
++                coordinates=mask.nonzero().cpu().tolist()
++                observations={k:v[mask] for k,v in batch['controller_final_obs'].items() if k!=IDENTITY_KEY}
++                with torch.no_grad():
++                    dg=reconstruction_head(self.published,observations)[:,:self.cfg.Hippo_n_feature].cpu().numpy()
++                terminal_labels={tuple(key):value.copy() for key,value in zip(coordinates,dg)}
+         for i in range(n):
+             for j in range(t):
+                 stream,episode,index,serial=map(int,cpu(batch['obs'][IDENTITY_KEY][i,j]))
+-                obs={k:cpu(v[i,j]) for k,v in batch['obs'].items() if k!=IDENTITY_KEY}
+-                if self.cfg.controller_cache_visual:
++                obs={} if stored else {k:cpu(v[i,j]) for k,v in batch['obs'].items() if k!=IDENTITY_KEY}
++                if not stored and self.cfg.controller_cache_visual:
+                     obs=cached_observation(obs,cpu(batch['controller_visual'][i,j]))
+                 done=bool(batch['dones'][i,j]);valid=bool(batch['controller_final_valid'][i,j])
+                 successor=None
+-                if done and valid:
++                if done and valid and not stored:
+                     successor={k:cpu(v[i,j]) for k,v in batch['controller_final_obs'].items() if k!=IDENTITY_KEY}
+                     # Terminal RGB is retained. It is converted once when sampled.
+                 context=cpu(batch['controller_context'][i,j])
+@@ -197,12 +210,18 @@
+                     int(batch['actions'][i,j].item()),cpu(batch['controller_condition'][i,j]),context,
+                     int(batch['policy_version'][i,j]),int(context[layout.persistent_start]),
+                     bool(batch['controller_terminated'][i,j]),bool(batch['time_outs'][i,j]),
+-                    int(batch['controller_frames'][i,j]),successor,valid))
++                    int(batch['controller_frames'][i,j]),successor,valid,
++                    worker_state=cpu(batch['controller_worker_state'][i,j]) if stored else None,
++                    terminal_dg=terminal_labels.get((i,j)),
++                    terminal_publication=self.publication if (i,j) in terminal_labels else None))
+         self.controller_stats['actor_memory_rebuilds']=float(batch['controller_memory_stats'][...,0].max())
+         self.controller_stats['actor_memory_rebuild_seconds']=float(batch['controller_memory_stats'][...,2].max())
+         self.controller_stats['actor_memory_version_failures']=float(batch['controller_memory_stats'][...,1].max())
+ 
+     def _example(self,key):
++        if getattr(self.cfg,'controller_replay_state','reconstruct')=='stored':
++            from .controller_stored_replay import example_from_replay
++            return example_from_replay(self,key)
+         prefix,suffix=self.replay.sequence(key,self.actor_critic.core.expanded_length,2)
+         row=suffix[0]
+         generation=int(self.actor_critic.core.policy_graph.representation_generation.item())
+@@ -240,6 +259,9 @@
+         return min(self.cfg.controller_td_positions,256 if self.device.type=='cuda' else 16)
+ 
+     def _evaluate_pairs(self,examples):
++        if getattr(self.cfg,'controller_replay_state','reconstruct')=='stored':
++            from .controller_stored_replay import evaluate_pairs
++            return evaluate_pairs(self,examples)
+         if not examples:return []
+         # This is a memory bound, not a sampling or optimizer batch size. All
+         # accepted positions still contribute to one mean and one optimizer step.
+@@ -268,6 +290,9 @@
+         return results
+ 
+     def _her_examples(self,examples):
++        if getattr(self.cfg,'controller_replay_state','reconstruct')=='stored':
++            from .controller_stored_replay import hindsight_examples
++            return hindsight_examples(self,examples)
+         core=self.actor_critic.core;layout=HRLStateLayout(core.Hippo_n_feature)
+         histories=[];eligible_examples=[];budgets=[]
+         for example in examples:
+@@ -379,6 +404,7 @@
+                 q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()),
+                 auxiliary_q_mean=float(torch.cat(aux_qs).mean()) if aux_qs else 0.,
+                 auxiliary_q_abs_max=float(torch.cat(aux_qs).abs().max()) if aux_qs else 0.)
++        self.controller_stats['stored_state_replay']=float(getattr(self.cfg,'controller_replay_state','reconstruct')=='stored')
+         self.controller_stats.update(main_compute_seconds=main_seconds,her_compute_seconds=her_seconds,
+             her_overhead_ratio=her_seconds/max(main_seconds,1e-9))
+ 
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
+@@ -24,6 +24,9 @@
+     physical_frames: int
+     successor: dict | None = None
+     successor_valid: bool = False
++    worker_state: np.ndarray | None = None
++    terminal_dg: np.ndarray | None = None
++    terminal_publication: int | None = None
+     real_reward: float | None = None
+     real_events: dict | None = None
+ 
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_stored_replay.py
+@@ -0,0 +1,119 @@
++"""Stored-state DDQN/HER: replay the behavior memory, relabel only the decoder.
++
++This explicit STOP baseline accepts representation lag. It performs no encoder,
++recurrent-core, manager, normalization or graph forward during replay.
++"""
++from dataclasses import replace
++from functools import partial
++import numpy as np
++import torch
++import torch.nn.functional as F
++from .controller_transition import TransitionInput, ReplayRejected
++from .controller_snapshot import differentiable_replay, evaluate_replay
++from .controller_q import continuing_double_q_target
++from .hrl_controllable_graph import HRLStateLayout
++from .custom_learner import worker_reward_from_magnitude
++
++
++def canonical(core, row):
++    return row.worker_state[:core.core_output_size].reshape(core.Hippo_n_feature,core.expanded_length)[:,0]
++
++
++def example_from_replay(learner,key):
++    _,rows=learner.replay.sequence(key,0,2);row=rows[0]
++    if row.worker_state is None:raise ReplayRejected('stored_worker_state_missing')
++    if row.real_reward is None:raise ReplayRejected('stored_reward_missing')
++    if row.terminated or row.truncated:
++        if not row.successor_valid:raise ReplayRejected('uncertified_terminal_observation')
++        successor=replace(row,index=row.index+1,serial=row.serial+1,worker_state=np.zeros_like(row.worker_state))
++    elif len(rows)<2:raise ReplayRejected('missing_successor_context')
++    else:successor=rows[1]
++    generation=int(learner.actor_critic.core.policy_graph.representation_generation)
++    if row.generation!=generation or successor.generation!=generation:raise ReplayRejected('stale_structural_generation')
++    if successor.worker_state is None:raise ReplayRejected('stored_worker_state_missing')
++    return TransitionInput((row,successor),0)
++
++
++def hindsight_examples(learner,examples):
++    core=learner.actor_critic.core;layout=HRLStateLayout(core.Hippo_n_feature);result=[]
++    for example in examples:
++        row=example.rows[0];budget=int(row.context[layout.countdown])
++        if budget<1:learner.replay.reject('her_budget_expired');continue
++        _,future=learner.replay.sequence(row.key,0,budget+1)
++        start=canonical(core,row);goals=[]
++        for candidate in future[1:]:
++            if candidate.generation!=row.generation or candidate.worker_state is None:break
++            dg=canonical(core,candidate);active=np.flatnonzero(dg>0)
++            if len(active)==1 and start[active[0]]<=0:goals.append(int(active[0]))
++        # A certified final observation is a future achievement too. Its label
++        # was encoded once before fresh DG learning, not reconstructed in replay.
++        if future:
++            last=future[-1]
++            if last.index-row.index<budget and last.generation==row.generation and last.terminal_dg is not None:
++                active=np.flatnonzero(last.terminal_dg>0)
++                if len(active)==1 and start[active[0]]<=0:goals.append(int(active[0]))
++        if not goals:learner.replay.reject('her_no_future_achievement');continue
++        result.append(replace(example,virtual_goal=goals[int(learner.her_rng.integers(len(goals)))],remaining=budget))
++    return result
++
++
++def _q_batch(model,examples):
++    # The existing decoder and Q heads own all replay gradients. Stored states
++    # are constants even when their generating representation has since changed.
++    device=next(model.parameters()).device;outputs=[]
++    for example in examples:
++        for row in example.rows:
++            condition=row.condition
++            if example.virtual_goal is not None:
++                condition=np.zeros_like(condition);condition[example.virtual_goal]=1
++            outputs.append(np.concatenate((row.worker_state,condition)))
++    hidden=model.controller_hidden(torch.as_tensor(np.stack(outputs),device=device))
++    result=[None]*len(examples)
++    for auxiliary in (False,True):
++        indices=[i for i,e in enumerate(examples) if (e.virtual_goal is not None)==auxiliary]
++        if not indices:continue
++        positions=torch.tensor([[2*i,2*i+1] for i in indices],device=device).flatten()
++        if auxiliary:
++            remaining=torch.tensor([[examples[i].remaining,max(0,examples[i].remaining-1)] for i in indices],device=device).flatten()
++            q=model.controller_q.hindsight(hidden[positions],remaining,float(model.cfg.Hippo_L))
++        else:q=model.controller_q(hidden[positions])
++        for i,value in zip(indices,q.split(2)):result[i]=value
++    return result
++
++
++def evaluate_pairs(learner,examples):
++    core=learner.actor_critic.core;n=core.Hippo_n_feature;layout=HRLStateLayout(n)
++    device=learner.device;results=[None]*len(examples);kept=[];rewards=[];dones=[]
++    for i,e in enumerate(examples):
++        row,successor=e.rows;physical=row.terminated or row.truncated
++        reward=row.real_reward;ended=physical
++        if e.virtual_goal is not None:
++            if canonical(core,row)[e.virtual_goal]>0:results[i]='her_start_already_achieved';continue
++            if e.remaining is None or e.remaining<1:results[i]='her_budget_expired';continue
++            dg=row.terminal_dg if physical else canonical(core,successor)
++            if dg is None:results[i]='stored_terminal_label_missing';continue
++            magnitude=(row.real_events or {}).get('hrl_control_reward_magnitude')
++            if magnitude is None:results[i]='stored_reward_magnitude_missing';continue
++            active=np.flatnonzero(dg>0);node=int(active[0]) if len(active)==1 else -1
++            hit=node==e.virtual_goal
++            wrong=node>=0 and node!=e.virtual_goal and node!=int(row.context[layout.source])-1
++            reward=worker_reward_from_magnitude(torch.tensor([[magnitude]]),torch.tensor([[hit]]),
++                control_outcome=getattr(learner.cfg,'hrl_control_outcome','target_hit'),
++                wrong_outcome=torch.tensor([[wrong]]),n_targets=n).item()
++            ended=physical or hit or e.remaining<=1
++        if reward is None:results[i]='stored_reward_missing';continue
++        kept.append(i);rewards.append(reward);dones.append(ended)
++    if not kept:return results
++    if not torch.is_grad_enabled():
++        for i in kept:results[i]=(torch.zeros((),device=device),{})
++        return results
++    selected=[examples[i] for i in kept]
++    online=differentiable_replay(learner.online_snapshot,learner.actor_critic,_q_batch,selected,
++        source_version=learner.controller_version)
++    target=evaluate_replay(learner.target_snapshot,_q_batch,selected)
++    desired=continuing_double_q_target(torch.tensor(rewards,device=device),torch.tensor(dones,device=device),
++        torch.stack([q[1] for q in online]),torch.stack([q[1] for q in target]),learner.cfg.gamma)
++    prediction=torch.stack([q[0,e.rows[0].action] for q,e in zip(online,selected)])
++    losses=F.smooth_l1_loss(prediction,desired,reduction='none')
++    for i,loss,q in zip(kept,losses,online):results[i]=(loss,{'q':q})
++    return results
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_transport.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transport.py
+@@ -55,6 +55,9 @@
+ 
+ 
+ def validate_controller_config(cfg):
++    if getattr(cfg,'controller_replay_state','reconstruct')=='stored':
++        if getattr(cfg,'dg_goal_input','none')!='none' or getattr(cfg,'ppo_dg_gradient','stop')!='stop':
++            raise ValueError('Stored-state replay requires goal-independent memory and STOP routing')
+     required = {'core_name':'BypassSS', 'dg_context_feedback':'none',
+         'hrl_graph_memory':'policy_buffer', 'hrl_target_timing':'immediate',
+         'hrl_exploration_policy':'shared','policy_workers_per_policy':1,
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
+@@ -269,6 +269,8 @@
+             if getattr(self.cfg, "controller_cache_visual", True):
+                 result["controller_visual"] = self.encoder._controller_visual
+             result["controller_fresh_version"] = self.controller_q.fresh_version.expand(canonical.size(0), 1)
++            if getattr(self.cfg,'controller_replay_state','reconstruct')=='stored':
++                result["controller_worker_state"] = self._controller_core_output[:, :self.core.target_condition_start]
+             result["controller_context"] = canonical[:, self.core.base_state_size:]
+             result["controller_condition"] = self._controller_core_output[:,
+                 self.core.target_condition_start:self.core.total_output_size]
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -591,6 +591,31 @@
+     return reward
+ 
+ 
++def worker_reward_from_magnitude(reward, hit, *, control_outcome="target_hit", wrong_outcome=None,
++                                 n_targets=None, command_set_size=None):
++    worker_reward = hit * reward
++    if control_outcome == "first_distinct":
++        if wrong_outcome is None:
++            raise ValueError("first_distinct reward requires wrong_outcome")
++        wrong = wrong_outcome.to(dtype=reward.dtype)
++        if wrong.shape != worker_reward.shape:
++            raise ValueError("Wrong-outcome mask must align with worker reward transitions")
++        if command_set_size is None:
++            if n_targets is None or int(n_targets) <= 2:
++                raise ValueError("first_distinct reward requires n_targets > 2 or command_set_size")
++            # One source is excluded, leaving n_targets - 1 possible commands;
++            # for a fixed in-set outcome, n_targets - 2 commands are wrong.
++            wrong_denominator = float(int(n_targets) - 2)
++        else:
++            if command_set_size.shape != worker_reward.shape:
++                raise ValueError("Command-set size must align with worker reward transitions")
++            wrong_denominator = (command_set_size.to(reward.dtype) - 1.0).clamp_min(1.0)
++        worker_reward = worker_reward - wrong * reward / wrong_denominator
++    elif control_outcome != "target_hit":
++        raise ValueError(f"Unknown HRL control outcome: {control_outcome}")
++    return worker_reward
++
++
+ def target_success_worker_reward(
+     internal_reward: Tensor,
+     target_hit: Tensor,
+@@ -609,26 +634,8 @@
+ ) -> Tensor:
+     hit = target_hit[:, 2:].to(dtype=internal_reward.dtype)
+     reward = target_reward_magnitude(internal_reward, baseline, reward_scale, mode, hit_reward, distance_bonus_coeff)
+-    worker_reward = hit * reward
+-    if control_outcome == "first_distinct":
+-        if wrong_outcome is None:
+-            raise ValueError("first_distinct reward requires wrong_outcome")
+-        wrong = wrong_outcome.to(dtype=internal_reward.dtype)
+-        if wrong.shape != worker_reward.shape:
+-            raise ValueError("Wrong-outcome mask must align with worker reward transitions")
+-        if command_set_size is None:
+-            if n_targets is None or int(n_targets) <= 2:
+-                raise ValueError("first_distinct reward requires n_targets > 2 or command_set_size")
+-            # One source is excluded, leaving n_targets - 1 possible commands;
+-            # for a fixed in-set outcome, n_targets - 2 commands are wrong.
+-            wrong_denominator = float(int(n_targets) - 2)
+-        else:
+-            if command_set_size.shape != worker_reward.shape:
+-                raise ValueError("Command-set size must align with worker reward transitions")
+-            wrong_denominator = (command_set_size.to(reward.dtype) - 1.0).clamp_min(1.0)
+-        worker_reward = worker_reward - wrong * reward / wrong_denominator
+-    elif control_outcome != "target_hit":
+-        raise ValueError(f"Unknown HRL control outcome: {control_outcome}")
++    worker_reward = worker_reward_from_magnitude(reward,hit,control_outcome=control_outcome,
++        wrong_outcome=wrong_outcome,n_targets=n_targets,command_set_size=command_set_size)
+     if exploration_mode is None:
+         return worker_reward
+     if exploration_reward is None:
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -26,6 +26,7 @@
+ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+     p = parser
+     p.add_argument("--controller_learning", choices=["ppo", "shadow", "ddqn"], default="ppo")
++    p.add_argument("--controller_replay_state", choices=("reconstruct", "stored"), default="reconstruct")
+     p.add_argument("--controller_her", type=str2bool, default=False)
+     p.add_argument("--controller_epsilon", type=float, default=0.1)
+     p.add_argument("--controller_target_updates", type=int, default=100)
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -346,6 +346,8 @@
+             ("controller_input_state", [int(cfg.rnn_size)]),
+             ("controller_memory_stats", [3]),
+         )
++        if getattr(cfg,'controller_replay_state','reconstruct')=='stored':
++            cfg.extra_policy_output_shapes += (("controller_worker_state", [int(cfg.rnn_size)-context_size]),)
+         if cfg.controller_cache_visual:
+             if cfg.encoder_conv_architecture != "layer2_resnet18":
+                 raise ValueError("Exact visual cache dimensions require layer2_resnet18")
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_stored_replay.py
+@@ -0,0 +1,93 @@
++from dataclasses import replace
++from types import SimpleNamespace
++from unittest.mock import patch
++import numpy as np
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel,physical_rows
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput,transition_values
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++from sf_working_directories.IntrMotiv.dmlab.controller_snapshot import ControllerSnapshot
++from sf_working_directories.IntrMotiv.dmlab.controller_stored_replay import evaluate_pairs,hindsight_examples,example_from_replay
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++
++
++def fixture():
++    model=RewardModel(False).eval();model.cfg.gamma=.99;model.cfg.ppo_dg_gradient='stop'
++    rows,states=physical_rows(model)
++    adapter=object.__new__(DistanceLearnerReward);adapter.cfg=model.cfg;adapter.actor_critic=model
++    retained=[]
++    for i,row in enumerate(rows):
++        reward=0.;magnitude=1.
++        if i+2<len(states):
++            buff={'rnn_states':torch.stack([states[i][0],states[i+1][0]])[None],
++                'rewards':torch.zeros(1,1),'dones':torch.zeros(1,1,dtype=torch.bool)}
++            adapter._calculate_reward_components(buff,{'new_rnn_states':states[i+2]})
++            reward=float(buff['rewards'].item());magnitude=float(buff['hrl_control_reward_magnitude'].item())
++        retained.append(replace(row,observation={},worker_state=states[i+1][0,:model.core.base_state_size].numpy().copy(),
++            real_reward=reward,real_events={'hrl_control_reward_magnitude':magnitude}))
++    factory=lambda:RewardModel(False)
++    learner=SimpleNamespace(actor_critic=model,cfg=model.cfg,device=torch.device('cpu'),controller_version=0,
++        online_snapshot=ControllerSnapshot(factory,model,0),target_snapshot=ControllerSnapshot(factory,model,0),
++        replay=PhysicalReplay(20,99),her_rng=np.random.default_rng(99))
++    for row in retained:learner.replay.receive(row)
++    return learner,rows,retained
++
++
++def test_stored_batch_matches_frozen_reference_and_never_runs_encoder_or_core():
++    learner,raw,rows=fixture();reference=transition_values(learner.actor_critic,TransitionInput(tuple(raw[:2]),0))
++    example=TransitionInput(tuple(rows[:2]),0)
++    with patch.object(learner.online_snapshot.model,'forward_head',side_effect=AssertionError('encoder forward')),\
++         patch.object(learner.online_snapshot.model.core,'forward',side_effect=AssertionError('core forward')),\
++         patch.object(learner.target_snapshot.model,'forward_head',side_effect=AssertionError('target encoder')),\
++         patch.object(learner.target_snapshot.model.core,'forward',side_effect=AssertionError('target core')):
++        result=evaluate_pairs(learner,[example])[0]
++        torch.testing.assert_close(result[1]['q'],reference['q'])
++        result[0].backward()
++    assert learner.actor_critic.scale.grad is None
++    assert learner.actor_critic.controller_q.main.weight.grad is not None
++
++
++def test_her_relabels_decoder_and_reward_with_shared_stored_memory():
++    learner,raw,rows=fixture();example=TransitionInput(tuple(rows[:2]),0,virtual_goal=1,remaining=3)
++    reference=transition_values(learner.actor_critic,TransitionInput(tuple(raw[:2]),0,virtual_goal=1,remaining=3))
++    result=evaluate_pairs(learner,[example])[0]
++    torch.testing.assert_close(result[1]['q'],reference['q'])
++    expected=torch.nn.functional.smooth_l1_loss(result[1]['q'][0,rows[0].action],reference['reward'])
++    torch.testing.assert_close(result[0],expected)
++    result[0].backward()
++    assert learner.actor_critic.controller_q.auxiliary.weight.grad is not None
++    assert learner.actor_critic.controller_q.main.weight.grad is None
++    assert learner.actor_critic.scale.grad is None
++
++
++@pytest.mark.parametrize('truncated',[False,True])
++def test_terminal_main_and_her_use_certified_label_and_never_bootstrap(truncated):
++    learner,_,rows=fixture()
++    terminal=replace(rows[0],terminated=not truncated,truncated=truncated,successor_valid=True,
++        terminal_dg=np.array([0.,1.,0.],dtype=np.float32),terminal_publication=0)
++    learner.replay=PhysicalReplay(10,99);learner.replay.receive(terminal)
++    main=example_from_replay(learner,terminal.key);aux=replace(main,virtual_goal=1,remaining=3)
++    with torch.no_grad():learner.target_snapshot.model.controller_q.main.bias.fill_(1e6)
++    result=evaluate_pairs(learner,[main,aux])
++    for value,reward in zip(result,[terminal.real_reward,terminal.real_events['hrl_control_reward_magnitude']]):
++        torch.testing.assert_close(value[0],torch.nn.functional.smooth_l1_loss(value[1]['q'][0,terminal.action],torch.tensor(reward)))
++    # A terminal row is not joined to a subsequent reset episode.
++    assert len(main.rows)==2 and not main.rows[1].worker_state.any()
++
++
++def test_main_and_her_sampling_preserve_separate_rng_and_exclude_initial_goal():
++    learner,_,rows=fixture();example=example_from_replay(learner,rows[0].key)
++    rng_before=repr(learner.replay.rng.bit_generator.state)
++    selected=hindsight_examples(learner,[example]*8)
++    assert selected and all(e.virtual_goal!=0 for e in selected)
++    assert repr(learner.replay.rng.bit_generator.state)==rng_before
++
++
++def test_replay_checkpoint_retains_stored_states_and_terminal_provenance():
++    learner,_,rows=fixture();saved=learner.replay.state_dict();restored=PhysicalReplay(20,2)
++    restored.load_state_dict(saved)
++    for key,row in learner.replay.rows.items():
++        np.testing.assert_array_equal(restored.rows[key].worker_state,row.worker_state)
++        assert restored.rows[key].real_events==row.real_events
++    assert restored.session==learner.replay.session+1
+--- a/sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py
++++ b/sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py
+@@ -1,4 +1,5 @@
+ from types import SimpleNamespace
++from pathlib import Path
+ 
+ import numpy as np
+ import pandas as pd
+@@ -23,9 +24,14 @@
+     assert summarize_commands(rows, 2)["ctc_auc"] is None
+ 
+ 
+-def test_observation_panel_rejects_home_storage(tmp_path):
++def test_observation_panel_rejects_home_storage(monkeypatch):
++    # tmp_path may correctly live in the allocated workspace on NEMO2.
++    # Exercise an actual home path and forbid writing even if validation breaks.
++    def forbidden_write(*args, **kwargs):
++        raise AssertionError("Home-storage validation did not run before writing")
++    monkeypatch.setattr(np, "savez_compressed", forbidden_write)
+     with pytest.raises(ValueError):
+-        save_panel(tmp_path / "panel.npz", {"dones": [np.zeros(1)]})
++        save_panel(Path.home() / "intrmotiv_forbidden_panel.npz", {"dones": [np.zeros(1)]})
+ 
+ 
+ def test_common_panel_records_actions_for_contextual_replay_without_policy_input_changes():

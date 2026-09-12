@@ -1,0 +1,20 @@
+{
+  "status": "trial_candidate",
+  "base": "/tmp/intrmotiv_decoder_only_20260912",
+  "candidate": "/tmp/intrmotiv_stored_state_20260912",
+  "patch_sha256": "c0b4e773dc673901abae09a239c13aa972ad4b47286b7165658fab069164e056",
+  "files": {
+    "sample_factory/algo/sampling/inference_worker.py": "f3eaaf489e3a409e8bdb3e939632b0ba23026f859a55f8bfe0e713c1581d01a6",
+    "sf_working_directories/IntrMotiv/dmlab/controller_contract.py": "b0ebdd74c7df6162349e69b696917d7c892504593e81bd2064a516378cd57274",
+    "sf_working_directories/IntrMotiv/dmlab/controller_learner.py": "aa43dcd18c2d190ec966b83b7e78e4c75431fdc96aa4bb17c4271661f16bf991",
+    "sf_working_directories/IntrMotiv/dmlab/controller_replay.py": "08047f4a1d52433fcda9d3c22578dc66fbd13f3b4edfc48d4dac42d34c4cef01",
+    "sf_working_directories/IntrMotiv/dmlab/controller_stored_replay.py": "64f4e29a4c7fdc706d7f52667bfc66b915c1e61eac9ecd69356485b90390b81f",
+    "sf_working_directories/IntrMotiv/dmlab/controller_transport.py": "fbbc4f3b9b1c499f89f37f1a5b5b194eb996815ee0155369c47fb437db3c6b92",
+    "sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "60ca8adb54a8383f72a965c0d8d9325ecccbbbef22f406d45c11e1dcaa4e5440",
+    "sf_working_directories/IntrMotiv/dmlab/custom_learner.py": "25e1ac7f46f92a8dd4aec795feff9ebb2a4190dc73a4e2cfaf6c07bc1b3f67e4",
+    "sf_working_directories/IntrMotiv/dmlab/custom_params.py": "4070f21c0fe0059e19140c335e97fba29eff44ea6147df9ce5f8ae4af4c9f09b",
+    "sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py": "a71a1849e76a92011f2c9c8eb2ad354bf5f508d3e5f3ff3766482354e1dc9546",
+    "sf_working_directories/IntrMotiv/tests/test_controller_stored_replay.py": "a212631532e60c962e9ff0754a846bf3a4d32582bc76f8da61865aa3eb01ad2e",
+    "sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py": "922aa8e4675173a38d44e3bb6524e8c53bf0b6dd7e81c0c60efaba8e960bc67f"
+  }
+}

@@ -1,5 +1,16 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current user-approved trial: stored-state replay
+
+The user paused the reconstruction-optimization approach and approved trying
+batch-stored recurrent states with decoder-only HER. See
+[the explicit trial contract](../04_implementation/stored_state_replay_20260912.md).
+This changes the representation-freshness assumption. Earlier reconstruction
+preflights and performance probes do not qualify this trial or authorize releasing
+it as production. Start the trial fresh; old replay lacks action-time worker outputs.
+Do not build substantial new machinery without discussing it with the user.
+
+
 ## Current performance release requirement
 
 The user now requires finishing the replay implementation to restore throughput
