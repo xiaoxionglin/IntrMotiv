@@ -377,3 +377,15 @@ flags before submitting the matrix; passing preflight-mode training is not enoug
 to prove the release path. Preserve running arms and the original manifest when
 repairing a launch. Study metadata values must be scalars; encode qualification
 SHA values as separate scalar fields rather than a nested metadata object.
+
+### Monitoring paused at user request
+
+On 12 September 2026, the user requested stopping monitoring. The production
+heartbeat was paused with ten jobs still training and eight awaiting Slurm
+resources/priority; training and queued jobs were left intact. Last check found
+no current-job exceptions and advancing W&B counters in all ten active runs:
+direct PPO 30.7–33.8M frames, waypoint PPO 15.7–15.9M, direct DDQN 11.1–11.6M,
+and direct HER seed 8 at 8.11M. All eighteen starts have not yet been verified.
+The earlier instruction to keep the heartbeat active until all starts is
+superseded by this user request. Reuse the canonical manifest and current-job
+logs for future on-demand checks; pending W&B failure labels remain historical.
