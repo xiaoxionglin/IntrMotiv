@@ -1,11 +1,22 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.8.0` (local; NEMO2 remains `1.7.1`)
+- Implementation: `1.8.1` (local; NEMO2 remains `1.7.1`)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+## 1.8.1 checkpoint target discovery
+
+Checkpoint discovery now passes the StudySpec's telemetry and intervention
+targets to the existing NEMO2 selector. The old selector defaulted to historical
+5M/25M/50M/75M/100M targets, causing nonstandard preflights and the 150M/300M
+production targets to fail `render-telemetry`. The selector retains its original
+default for legacy callers. Synchronize both `intrmotiv_study/telemetry.py` and
+`evaluation/build_place_field_sweep.py`; focused tests cover custom and late
+horizon targets. Deployment to the isolated controller compatibility checkout
+is being qualified; the original shared checkout remains at 1.7.1.
 
 ## Deployment status
 

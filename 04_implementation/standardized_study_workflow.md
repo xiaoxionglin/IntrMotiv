@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.8.0** (local; NEMO2 **1.7.1**); study schema:
+Current implementation: **1.8.1** (local; original shared NEMO2 checkout **1.7.1**); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -544,3 +544,30 @@ checkpoints. A zero HER count before the manager has any active landmarks or
 positive option budgets is an unmet qualification gate, not by itself a replay
 transport bug. Confirm both context labels and fresh DG parameter changes before
 changing the scientific objective.
+
+## Controller qualification lessons (2026-09-12)
+
+Use both Slurm log streams and generic exception/traceback detection: a crashed
+learner can leave the enclosing job RUNNING, and a fixed exception-name list
+misses `torch.OutOfMemoryError`. Long replay searches must select compatible
+examples under no-grad before constructing the fixed TD batch, otherwise one
+accepted example can retain each large candidate batch's backward graph.
+Reuse SF's existing heartbeat signal at completed-work boundaries for long
+controller transactions; do not disable the watchdog or send unconditional
+background heartbeats that could hide a blocked operation.
+
+A checkpoint's learner-init equality certificate should be bound to its immutable
+file SHA and include PPO too. Completed bounded PPO runs need exact reload proof,
+not extra training past their horizon. SF's worker SIGINT handlers and
+`LearnerWorker.on_stop` provide the controlled full-checkpoint shutdown path;
+verify that path and exact reload evidence before maintenance. The worked record
+is `06_experiments/intrmotiv_full_system_controller_20260912.md`.
+
+The first real `render-telemetry` qualification exposed legacy hardcoded
+checkpoint targets. Version 1.8.1 passes StudySpec targets into the existing
+selector, preserving legacy defaults. Test the actual runtime bridge, not only
+manifest construction from a fabricated inventory. In isolated source checkouts,
+the evaluator shell must resolve its own source and put that root on PYTHONPATH.
+Safe private mmap reduces CPU audit RSS for replay-bearing checkpoints, but
+Python metadata parsing still dominated the measured load time (50–55 seconds);
+avoid repeating full checkpoint audits when compact counters suffice.

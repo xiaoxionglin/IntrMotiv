@@ -1,6 +1,18 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: repaired R4 GPU preflights submitted; continue until production is running.**
+**Current status: controlled R4 maintenance; continue until production is running.**
+Jobs 8057308–8057311 received an approved graceful SIGINT after review of the
+actual SF save-on-stop path and exact GPU restore certificates. Three have
+stopped; 8057311 is finishing its transaction/checkpoint. Do not submit their
+replacement manifest until all four are stopped and final baselines are captured.
+The candidate is `SF_hipposlam_controller_compatibility_20260912`, local mirror
+`/tmp/intrmotiv_compatibility_benchmark`. It passes 367 local runtime tests.
+Recovery gate **8057314 passed**: 670→701 main updates, +7,936 main positions,
++227 HER positions, target refresh to 700, goal-write norm 0.1674, peak GPU 11.48GB.
+The six-run replacement is rendered print-only under `compatibility_submission`.
+Workflow 1.8.1 and the evaluator probe are undergoing remote verification.
+The previous active mixed manifest is listed below for provenance.
+
 Authoritative mixed manifest:
 `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/telemetry_submission/jobs.tsv`.
 DDQN jobs **8057308–8057311** run the sampler, GPU publication barrier,
@@ -475,3 +487,33 @@ worker now resolves its own source checkout and the certified terminal binding,
 instead of importing the unrelated original editable installation. Active
 telemetry training source remains unchanged. The offline mmap loader preserves
 `weights_only=True` and its exact NumPy allowlist.
+
+## Replay recovery and maintenance safety evidence
+
+Paired GPU probe 8057313 tested the same 4,096 examples from the waypoint/HER
+360,448-frame checkpoint. The old prefix veto rejected all; reconstruction with
+unchanged current/successor checks admitted 54 (including a commanded example).
+GPU gate 8057314 then completed 31 full main updates through target refresh:
+670→701 updates, 171,520→179,456 main positions, 123→350 HER positions, target
+600→700. Goal-write norm rose from 0.0183 to 0.1674; main/auxiliary losses were
+0.6727/0.1440 and peak allocation was 11,480,076,288 bytes. Runtime was 315.2s.
+
+Automatic review initially rejected stopping the four active preflights as
+unproven disruption. The stop was approved after concrete evidence: SF workers
+ignore SIGINT (`learner_worker.py:38`), `LearnerWorker.on_stop` saves complete
+state, the regular save uses atomic rename, exact GPU reload job 8057312 passed
+all four states, and 8057314 proved recovery on a current real checkpoint.
+Only these four preflights were signaled; no unrelated production job was touched.
+A queued replay transaction can make this graceful stop take many minutes.
+
+Long catch-up transactions now report actual completed work through SF's existing
+heartbeat callback at its configured cadence. This avoids confusing a progressing
+learner with a dead one without background heartbeats or disabling the watchdog.
+Auxiliary Q mean/absolute maximum are logged separately. Private mmap reduced the
+real checkpoint audit's peak RSS from 6.15GB to 2.47GB with equal model/counters;
+load time stayed 50–55s, showing metadata parsing remains expensive.
+
+Before production: use architecture and controller as separate analysis groups,
+include HER-minus-DDQN contrasts within each architecture, and retain the parent's
+5M/25M/75M/150M/300M checkpoints and intervention telemetry. L40S jobs have a 48h
+maximum allocation; the 300M learning horizon remains a separate setting.
