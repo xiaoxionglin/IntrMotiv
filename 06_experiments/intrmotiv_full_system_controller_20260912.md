@@ -74,6 +74,12 @@ arms, with zero debt and actor-version failures. Both HER arms have exceeded
 30,000 auxiliary positions. These are runtime liveness checks, not a performance
 comparison between conditions at unmatched experience.
 
+The direct DDQN 1M spatial snapshot was verified at actual 1,015,808 frames:
+`analysis/online_spatial/intrmotiv_full_system_controller_preflight_20260912_r5/FSCP_DIRECT_F16_DDQN_S99/policy_00/snapshot_target_000001000000_actual_000001015808.npz`.
+It retains 100,000 decisions, finite DG activity of shape `(100000, 16)`, repeat 4,
+and original field, graph and control arrays after checkpoint restart. The other
+DDQN 1M/2M snapshots and final six-run audit remain pending.
+
 ## Scope and provenance
 
 The intervention is controller learning only. All three historical parents are
