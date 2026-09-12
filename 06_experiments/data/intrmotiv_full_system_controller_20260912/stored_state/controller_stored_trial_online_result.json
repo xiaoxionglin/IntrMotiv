@@ -1,0 +1,78 @@
+{
+  "throughput": [
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+      "job_id": "8057485",
+      "post_warmup_first_frame": 65536,
+      "post_warmup_last_frame": 278528,
+      "post_warmup_seconds": 120.0,
+      "post_warmup_fps": 1774.9333333333334
+    },
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job_id": "8057486",
+      "post_warmup_first_frame": 65536,
+      "post_warmup_last_frame": 278528,
+      "post_warmup_seconds": 125.0,
+      "post_warmup_fps": 1703.936
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job_id": "8057487",
+      "post_warmup_first_frame": 65536,
+      "post_warmup_last_frame": 278528,
+      "post_warmup_seconds": 150.0,
+      "post_warmup_fps": 1419.9466666666667
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job_id": "8057488",
+      "post_warmup_first_frame": 65536,
+      "post_warmup_last_frame": 278528,
+      "post_warmup_seconds": 155.001,
+      "post_warmup_fps": 1374.1330701092252
+    }
+  ],
+  "wandb": [
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_180130_631171",
+      "id": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_180130_631171",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_180130_631171",
+      "stored_state_replay": 1,
+      "main_updates": 959,
+      "auxiliary_td_positions": 2617,
+      "dg_metric_count": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_180130_562733",
+      "id": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_180130_562733",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_180130_562733",
+      "stored_state_replay": 1,
+      "main_updates": 959,
+      "auxiliary_td_positions": 0,
+      "dg_metric_count": 113
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_180132_010837",
+      "id": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_180132_010837",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_180132_010837",
+      "stored_state_replay": 1,
+      "main_updates": 959,
+      "auxiliary_td_positions": 0,
+      "dg_metric_count": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_180130_562811",
+      "id": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_180130_562811",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_180130_562811",
+      "stored_state_replay": 1,
+      "main_updates": 959,
+      "auxiliary_td_positions": 7368,
+      "dg_metric_count": 113
+    }
+  ]
+}

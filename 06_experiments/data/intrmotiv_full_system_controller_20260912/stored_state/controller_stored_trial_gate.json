@@ -1,0 +1,178 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.8.1",
+  "study_workflow_version": "1.8.1",
+  "study_id": "full_system_controller_stored_trial_20260912",
+  "study_sha256": "05a68eb91d17699580d65c47836b33c77e2dcb50ba37082758d7f3f89f3ff127",
+  "passed": false,
+  "runs": [
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_S99",
+      "job_id": "8057485",
+      "frames": 311296,
+      "passed": false,
+      "errors": [
+        "missing spatial snapshot 262144"
+      ],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.013671875,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.013671875
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 959,
+          "main_positions": 245504,
+          "auxiliary_positions": 0,
+          "target_at": 900
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 5.844757106387988e-05,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 245504.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 77824.0,
+          "accepted_replay_decisions": 77760.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 59.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0012166488450020552,
+          "fresh_dg_steps": 38.0,
+          "fresh_graph_batches": 19.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job_id": "8057486",
+      "frames": 311296,
+      "passed": false,
+      "errors": [
+        "missing spatial snapshot 262144"
+      ],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.01416015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.01416015625
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 959,
+          "main_positions": 245504,
+          "auxiliary_positions": 2617,
+          "target_at": 900
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 2.8801921871490777e-05,
+          "auxiliary_loss": 0.001793102128431201,
+          "main_td_positions": 245504.0,
+          "auxiliary_td_positions": 2617.0,
+          "physical_interactions": 77824.0,
+          "accepted_replay_decisions": 77760.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 59.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 1.1988146305084229,
+          "fresh_dg_steps": 38.0,
+          "fresh_graph_batches": 19.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job_id": "8057487",
+      "frames": 311296,
+      "passed": false,
+      "errors": [
+        "missing spatial snapshot 262144"
+      ],
+      "signals": {
+        "validation_success": 0.0009765625,
+        "waypoint_navigation_fraction": 0.0,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 959,
+          "main_positions": 245504,
+          "auxiliary_positions": 0,
+          "target_at": 900
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.07712410390377045,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 245504.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 77824.0,
+          "accepted_replay_decisions": 77760.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 59.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0014586348552256823,
+          "fresh_dg_steps": 38.0,
+          "fresh_graph_batches": 19.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job_id": "8057488",
+      "frames": 311296,
+      "passed": false,
+      "errors": [
+        "missing spatial snapshot 262144"
+      ],
+      "signals": {
+        "validation_success": 0.00048828125,
+        "waypoint_navigation_fraction": 0.0,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 959,
+          "main_positions": 245504,
+          "auxiliary_positions": 7368,
+          "target_at": 900
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.06896445155143738,
+          "auxiliary_loss": 0.04851599410176277,
+          "main_td_positions": 245504.0,
+          "auxiliary_td_positions": 7368.0,
+          "physical_interactions": 77824.0,
+          "accepted_replay_decisions": 77760.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 59.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 1.745303988456726,
+          "fresh_dg_steps": 38.0,
+          "fresh_graph_batches": 19.0
+        }
+      }
+    }
+  ]
+}

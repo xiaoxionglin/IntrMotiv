@@ -80,3 +80,44 @@ decoder-only source. Remote source:
 `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_state_20260912`.
 Trial output remains in the allocated workspace under
 `train_dir/intrmotiv_full_system_controller_stored_trial_20260912`.
+
+### First trial results and telemetry correction
+
+Jobs 8057485–8057488 all completed, in 4:28, 4:32, 5:15 and 5:17 respectively.
+All four checkpoints reached 311,296 frames because SF drained in-flight work
+past the 262,144-frame stop threshold. The W&B server reports all four finished,
+`stored_state_replay=1`, 959 main updates each, and 113 DG metric keys per run.
+HER learned 2,617 additional positions for direct and 7,368 for waypoint; the
+plain DDQN arms learned zero auxiliary positions. This is an early-training
+workload with relatively few eligible HER positions, not a worst-case full
+256-auxiliary-position throughput measurement.
+
+Post-warm-up end-to-end rates measured between the first 65,536-frame log point
+and the first 278,528-frame log point, excluding startup and shutdown-only log
+repeats:
+
+| Architecture | DDQN FPS | DDQN+HER FPS |
+|---|---:|---:|
+| Direct F16 | 1,774.93 | 1,703.94 |
+| Waypoint decoder F64 | 1,419.95 | 1,374.13 |
+
+Canonical runtime audit job 8057490 found the first trial lacked the declared
+262,144-frame place-field artifact: the inherited 100,000-observation window
+cannot fill in this short trial. This is a trial configuration error, not a
+missing telemetry backend. Do not label the first trial as fully qualified.
+
+R2 uses exactly the same learner, a 32,768-observation artifact window and
+131,072-frame scalar cadence. It starts fresh in a separate namespace.
+Study: `hpc_runs/studies/full_system_controller_stored_trial_r2.study.json`;
+SHA `8272c2097863e16fecd0417fca886d842a16745a81057b4e6f95d2227bb1cc4c`.
+Schema/workflow remain `intrmotiv/study/v1` / `1.8.1`.
+
+The reusable auditor now consumes the StudySpec's declared spatial targets,
+validates stored worker tensors and certified terminal-label publication, and
+requires zero custom actor rebuilds for stored mode. Reconstruction mode retains
+its original rebuild and terminal-observation checks. Six controller-audit and
+30 workflow tests pass (36 total); runtime code is unchanged for R2.
+
+Reusable short-trial rule: compare the artifact window in observations against
+the horizon divided by frameskip, as well as checking snapshot/scalar cadence.
+The original 100k-observation window remains appropriate for longer studies.
