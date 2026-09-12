@@ -1,0 +1,6 @@
+{"run": "00_FSCP_DIRECT_F16_PPO_S99", "exact_restore": true, "frames": 507904, "controller": "ppo"}
+{"run": "00_FSCP_DIRECT_F16_DDQN_S99", "exact_restore": true, "frames": 131072, "controller": "ddqn"}
+{"run": "00_FSCP_DIRECT_F16_DDQN_HER_S99", "exact_restore": true, "frames": 131072, "controller": "ddqn"}
+{"run": "00_FSCP_WAYPOINT_F64_PPO_S99", "exact_restore": true, "frames": 425984, "controller": "ppo"}
+{"run": "00_FSCP_WAYPOINT_F64_DDQN_S99", "exact_restore": true, "frames": 98304, "controller": "ddqn"}
+{"run": "00_FSCP_WAYPOINT_F64_DDQN_HER_S99", "exact_restore": true, "frames": 114688, "controller": "ddqn"}

@@ -296,3 +296,15 @@ model/optimizer/target/RNG restore from the immutable baselines using SF's real
 environment-info extraction and learner initialization. The final runtime auditor
 now accepts `--restart-baselines <baselines.json>`; focused tests pass locally
 and remotely and require a fresh physical session and preserved counters.
+
+Exact restore gate **8057281 COMPLETED 0:0**: all six model/optimizer states and
+all four DDQN target/clock/main+HER RNG/Python/NumPy/Torch RNG states match their
+immutable baselines. Physical sessions increment and ingress starts empty.
+See [exact restore results](data/intrmotiv_full_system_controller_20260912/r3/exact_restore_results.jsonl).
+
+CPU replay remains the dominant runtime cost. A bounded GPU benchmark (8057282)
+failed because the existing SFgit Torch 2.9.1 build is CPU-only, before training.
+A matching Torch 2.9.1 / torchvision 0.24.1 CUDA 12.8 overlay is being installed
+under workspace `runtime/torch_cuda_2_9_1`, with NumPy pinned to existing 1.26.4.
+The installed shared SFgit environment and active CPU runs are unchanged. Only
+consider GPU deployment after benchmark and preservation/runtime qualification.
