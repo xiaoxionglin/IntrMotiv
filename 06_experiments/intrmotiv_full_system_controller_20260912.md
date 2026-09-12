@@ -44,11 +44,32 @@ refresh 1,000. HER added **13,077 auxiliary positions**; each checkpoint retaine
 64 incomplete physical tails for explicit restart discard. Resumed jobs are
 **8057450 (DDQN) and 8057451 (HER)**; their existing W&B IDs are preserved.
 Canonical resume pre/post-submission audits pass. The new three-run exact GPU
-reload job is **8057452**, with immutable baselines under
+reload job **8057452 passed** (4m31s), with checkpoint-SHA-bound exact CUDA
+model/buffer/optimizer/counter restoration for PPO, DDQN and HER. Immutable baselines are under
 `analysis/restart_baselines/intrmotiv_full_system_controller_decoder_preflight_20260912/`.
 The combined monitoring manifest now references these resumed IDs. New waypoint
-reload completion and DDQN 2M runtime gates remain pending.
+DDQN 2M runtime and final restarted-session gates remain pending.
 The original R5 goal-write reload certificates do not qualify these new runs.
+
+Final qualification is two canonical three-cell audits, both from the isolated
+decoder-only source, using `hpc_runs.audit_full_system_controller_preflight`:
+
+- Direct: `analysis/full_system_controller_direct_qualification.study.json`,
+  `analysis/decoder_qualification/direct_jobs.tsv`, R5 restart baseline/certificate.
+- Waypoint: `hpc_runs/studies/full_system_controller_decoder_preflight.study.json`,
+  `analysis/decoder_qualification/waypoint_jobs.tsv`, decoder-preflight restart
+  baseline/certificate.
+
+Use the original train root and `--restart-baselines` / `--reload-certificate`
+for both. Require all rows to pass at 2M before releasing the DDQN guard in a
+separate production source copy. Retain the shadow-mode production guard.
+The new 18-run production study must contain DIRECT_F16 and WAYPOINT_DECODER_F64,
+all three learner modes and seeds 8/99/123, with fresh state and the parent
+300M horizon, 5M/25M/75M/150M/300M telemetry/checkpoints. Preserve both qualification
+StudySpec hashes and final gate artifacts. Review resource/storage capacity and
+canonical print-only/submission audits before launching. Source performance is
+still limited by replay preparation; no large throughput improvement was deployed.
+
 
 
 ## Historical R5 goal-write qualification (waypoint cells superseded)

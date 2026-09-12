@@ -179,3 +179,9 @@ matrix. Do not launch the superseded goal-write matrix.
 Use the ordinary SF launcher `--submit` after print-only generation.
 `resume_slurm_submission.py` operates on pending rows and skips rows still marked
 `generated`; it is not the first-submission entry point for a print-only manifest.
+
+Decoder-only checkpoint qualification: new waypoint PPO completed 2,048,000
+frames with fixed trunk, learned DG/decoder and finite 1M/2M snapshots. Both
+DDQN arms stopped at 327,680 with identical 1,023 main updates; HER added
+13,077 positions. They resumed as 8057450/8057451. All three exact GPU reloads
+passed in 8057452. See the experiment record for the remaining full 2M gates.
