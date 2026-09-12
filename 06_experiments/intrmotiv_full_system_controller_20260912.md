@@ -590,3 +590,22 @@ rejection and event labels. A canonical print-only resume was rendered in
 `reachability_submission`, and jobs 8057325–8057328 received graceful SIGINT.
 The existing coordinator waits for complete shutdown before immutable baseline
 capture, submission audits, replacement jobs and exact GPU reload checks.
+
+## Batch-independent reconstruction repair
+
+Waypoint HER job 8057338 stopped on the strict selected-example eligibility
+recheck near 557,056 frames. GPU reproduction 8057342 reproduced a changed
+`current_recognition_changed` label for physical key `((4,52),0,22)` after
+regrouping unchanged examples under the same snapshot (2,304 selected positions
+checked). This exposes floating-point batch geometry at DG's zero threshold;
+normalization and parameter snapshots were unchanged.
+
+The isolated `controller_stable_head_20260912` candidate uses fixed 256-row
+encoder chunks for both cheap recognition screening and full finite histories.
+Only the last chunk is padded by repeating its final valid observation, and
+padded outputs are discarded. Frozen evaluation normalization prevents padding
+from changing real examples. No recognition tolerance, reward change or manager
+rule is introduced. Sample Factory observation preparation and the original
+encoder are reused. All 375 tests pass locally/remotely, including regrouping
+invariance and exact real-position gradient counts. GPU job 8057343 reruns
+the failing checkpoint search before deployment. Active source remains unchanged.
