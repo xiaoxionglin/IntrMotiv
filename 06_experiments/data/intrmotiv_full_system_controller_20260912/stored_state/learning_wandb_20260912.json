@@ -1,0 +1,1644 @@
+[
+  {
+    "name": "00_FSCS_DIRECT_F16_PPO_S8_20260912_194653_557561",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S8_20260912_194653_557561",
+    "frames": 35340290.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.9766843,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.003801507,
+      "intrmotiv/hrl/option_success_fraction": 0.14814815,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1651,
+      "intrmotiv/hrl/shuffled_hit_numerator": 6,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.565625,
+      "intrmotiv/hrl/target_hit_event_count": 1663,
+      "intrmotiv/hrl/target_hit_numerator": 6,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.11497603,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.1346972,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 51.017452
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 43
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 43
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 43
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.994562930232558,
+          "n": 43
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.00025570226302325586,
+          "n": 43
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.4404988293023256,
+          "n": 43
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1114.0697674418604,
+          "n": 43
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 17.093023255813954,
+          "n": 43
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.2608383,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1132.3953488372092,
+          "n": 43
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 17.325581395348838,
+          "n": 43
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.140841575,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.08202700199999999,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 67.60385747619047,
+          "n": 42
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 92
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 92
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 92
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9939656540217389,
+          "n": 92
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.001498326424130435,
+          "n": 92
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.5114953563043481,
+          "n": 92
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 875.054347826087,
+          "n": 92
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 14.293478260869565,
+          "n": 92
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.6069097075000001,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 895.0,
+          "n": 92
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.554347826086957,
+          "n": 92
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.14120587875,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.08485221125,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 77.84103951020408,
+          "n": 98
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_DDQN_HER_S8_20260912_194708_818407",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S8_20260912_194708_818407",
+    "frames": 8978432.0,
+    "latest": {
+      "intrmotiv/controller/auxiliary_loss": 0.008939437,
+      "intrmotiv/controller/main_loss": 1.3288429,
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.99585664,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.016284639,
+      "intrmotiv/hrl/option_success_fraction": 0.3125,
+      "intrmotiv/hrl/shuffled_hit_event_count": 970,
+      "intrmotiv/hrl/shuffled_hit_numerator": 6,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.60694444,
+      "intrmotiv/hrl/target_hit_event_count": 987,
+      "intrmotiv/hrl/target_hit_numerator": 6,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.14102542,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.11770633,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 57.123318
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.04927703778688522,
+          "n": 122
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 0.6918932476229507,
+          "n": 122
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9912681423770494,
+          "n": 122
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.016851324012295082,
+          "n": 122
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.476175135327869,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1051.27868852459,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 14.62295081967213,
+          "n": 122
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.51770835,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1070.155737704918,
+          "n": 122
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.811475409836065,
+          "n": 122
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.1098997,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.090333525,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 58.711975278688506,
+          "n": 122
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.011198253587295088,
+          "n": 244
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 1.3659927188114753,
+          "n": 244
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9923378426229509,
+          "n": 244
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.02486252076844263,
+          "n": 244
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.44819626926229506,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1014.3934426229508,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.704918032786885,
+          "n": 244
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.5595486275,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1033.389344262295,
+          "n": 244
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.004098360655737,
+          "n": 244
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.1258698025,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.10691080624999999,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 55.96224645491803,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_DDQN_S123_20260912_194708_818428",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S123_20260912_194708_818428",
+    "frames": 12582912.0,
+    "latest": {
+      "intrmotiv/controller/auxiliary_loss": 0,
+      "intrmotiv/controller/main_loss": 2.3057356,
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.9957725,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.03606746,
+      "intrmotiv/hrl/option_success_fraction": 0.59090906,
+      "intrmotiv/hrl/shuffled_hit_event_count": 666,
+      "intrmotiv/hrl/shuffled_hit_numerator": 14,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.61319447,
+      "intrmotiv/hrl/target_hit_event_count": 683,
+      "intrmotiv/hrl/target_hit_numerator": 14,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.1659821,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.08398025,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 58.10079
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 0.5974407207377049,
+          "n": 122
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9878422946721309,
+          "n": 122
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.017972507188524597,
+          "n": 122
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.4112320623770491,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1114.3032786885246,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.459016393442623,
+          "n": 122
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.492777775,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1132.0737704918033,
+          "n": 122
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 13.62295081967213,
+          "n": 122
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.11088354,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.071748615,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 63.43490684426228,
+          "n": 122
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 1.099297520819672,
+          "n": 244
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9917187098360659,
+          "n": 244
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.023692601370901647,
+          "n": 244
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.413055650614754,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1092.5081967213114,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.28688524590164,
+          "n": 244
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.4849305475000001,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1110.967213114754,
+          "n": 244
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 13.51639344262295,
+          "n": 244
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.11359593600000001,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.0989529125,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 59.20250126229502,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_DDQN_S8_20260912_194708_826756",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S8_20260912_194708_826756",
+    "frames": 12369920.0,
+    "latest": {
+      "intrmotiv/controller/auxiliary_loss": 0,
+      "intrmotiv/controller/main_loss": 2.065916,
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.9896977,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.02376986,
+      "intrmotiv/hrl/option_success_fraction": 0.39130434,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1063,
+      "intrmotiv/hrl/shuffled_hit_numerator": 8,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.50243056,
+      "intrmotiv/hrl/target_hit_event_count": 1082,
+      "intrmotiv/hrl/target_hit_numerator": 8,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.13477434,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.09899393,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 58.762226
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 0.7120249600000003,
+          "n": 122
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9930911210655741,
+          "n": 122
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0194767507147541,
+          "n": 122
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.4841495418032785,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1057.4754098360656,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.655737704918034,
+          "n": 122
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.497569455,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1076.377049180328,
+          "n": 122
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 13.901639344262295,
+          "n": 122
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.11644753299999999,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.0840949525,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 56.92333100000002,
+          "n": 122
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 1.2818104398770491,
+          "n": 244
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9928270297131151,
+          "n": 244
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.022196990203278706,
+          "n": 244
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.4527481906557381,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1094.5696721311476,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 15.524590163934427,
+          "n": 244
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.58776043,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1113.0040983606557,
+          "n": 244
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 15.795081967213115,
+          "n": 244
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.09755485,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.09644820500000001,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 62.28447884836065,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_PPO_S123_20260912_194708_825646",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S123_20260912_194708_825646",
+    "frames": 37306370.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.99308646,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.009634956,
+      "intrmotiv/hrl/option_success_fraction": 0.3125,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1080,
+      "intrmotiv/hrl/shuffled_hit_numerator": 9,
+      "intrmotiv/hrl/summary/grounded_controllability": 0.00532303,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.67291665,
+      "intrmotiv/hrl/target_hit_event_count": 1108,
+      "intrmotiv/hrl/target_hit_numerator": 10,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.11474045,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.12922567,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 54.72263
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 46
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 46
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 46
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9932536489130435,
+          "n": 46
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0003573558134130435,
+          "n": 46
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.5028848171739131,
+          "n": 46
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 946.0869565217391,
+          "n": 46
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.73913043478261,
+          "n": 46
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0073649505,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.5278472,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 965.6304347826087,
+          "n": 46
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.130434782608695,
+          "n": 46
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.0894670525,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.105365432,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 66.83041206818183,
+          "n": 44
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 97
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 97
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 97
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9919496043298967,
+          "n": 97
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0007135368819793813,
+          "n": 97
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.3136073545670103,
+          "n": 97
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1300.340206185567,
+          "n": 97
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 16.65979381443299,
+          "n": 97
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0041846365,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.46430554999999996,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1315.639175257732,
+          "n": 97
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 16.969072164948454,
+          "n": 97
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.07931249,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.12632954,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 26.436023966666674,
+          "n": 90
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_PPO_S99_20260912_194711_010399",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S99_20260912_194711_010399",
+    "frames": 33882110.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.99617726,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.009027998,
+      "intrmotiv/hrl/option_success_fraction": 0.45454547,
+      "intrmotiv/hrl/shuffled_hit_event_count": 471,
+      "intrmotiv/hrl/shuffled_hit_numerator": 14,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.63506943,
+      "intrmotiv/hrl/target_hit_event_count": 492,
+      "intrmotiv/hrl/target_hit_numerator": 15,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.2762906,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.07539499,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 21.139088
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 51
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 51
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 51
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9949718750980392,
+          "n": 51
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.000148362242372549,
+          "n": 51
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.3959254468627451,
+          "n": 51
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1213.8235294117646,
+          "n": 51
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.176470588235293,
+          "n": 51
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 1
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.39319444,
+          "n": 1
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1230.5098039215686,
+          "n": 51
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 13.372549019607844,
+          "n": 51
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.1646273,
+          "n": 1
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.066230245,
+          "n": 1
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 1
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 36.905320980392155,
+          "n": 51
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 95
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 95
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 95
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9964688522105255,
+          "n": 95
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0011658316031578951,
+          "n": 95
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.48215372021052616,
+          "n": 95
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 949.978947368421,
+          "n": 95
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.76842105263158,
+          "n": 95
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 3
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.5881712866666667,
+          "n": 3
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 969.2210526315789,
+          "n": 95
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.08421052631579,
+          "n": 95
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.21072149666666665,
+          "n": 3
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.06821004666666668,
+          "n": 3
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 3
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 47.793253775510195,
+          "n": 98
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_194711_082447",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_194711_082447",
+    "frames": 12828672.0,
+    "latest": {
+      "intrmotiv/controller/auxiliary_loss": 0,
+      "intrmotiv/controller/main_loss": 3.8600402,
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0,
+      "intrmotiv/dg/usage_entropy": 0.9910508,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.039198555,
+      "intrmotiv/hrl/option_success_fraction": 0.46875,
+      "intrmotiv/hrl/shuffled_hit_event_count": 880,
+      "intrmotiv/hrl/shuffled_hit_numerator": 16,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.61875,
+      "intrmotiv/hrl/target_hit_event_count": 903,
+      "intrmotiv/hrl/target_hit_numerator": 16,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.15594894,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.10581108,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 42.180904
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 0.8814995386885245,
+          "n": 122
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 122
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9938582564754097,
+          "n": 122
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.01807932229180328,
+          "n": 122
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.4949815163934425,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 994.688524590164,
+          "n": 122
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 14.631147540983607,
+          "n": 122
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.557638875,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1013.6803278688525,
+          "n": 122
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.950819672131148,
+          "n": 122
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.161525445,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.08649001249999999,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 53.92154318852459,
+          "n": 122
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/controller/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/controller/main_loss": {
+          "mean": 2.0800494706967214,
+          "n": 244
+        },
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 244
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.9938412304508194,
+          "n": 244
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.024184987500819686,
+          "n": 244
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.43944607385245904,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1028.3319672131147,
+          "n": 244
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 13.942622950819672,
+          "n": 244
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.567013875,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1047.6967213114754,
+          "n": 244
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 14.25,
+          "n": 244
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.13372709500000002,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.09411730750000001,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 50.8024174631148,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S8_20260912_194712_366109",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S8_20260912_194712_366109",
+    "frames": 17301504.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0.328125,
+      "intrmotiv/dg/usage_entropy": 0.8887134,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.0065183444,
+      "intrmotiv/hrl/option_success_fraction": 0.23972602,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1738,
+      "intrmotiv/hrl/shuffled_hit_numerator": 83,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.018879715,
+      "intrmotiv/hrl/target_hit_event_count": 1843,
+      "intrmotiv/hrl/target_hit_numerator": 85,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.07388762,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.110795215,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0.109375,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 23.004835
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 66
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 66
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.10819128787878787,
+          "n": 66
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.8963560215151514,
+          "n": 66
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0008782931112121216,
+          "n": 66
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.17488199348484845,
+          "n": 66
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1524.5151515151515,
+          "n": 66
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 59.13636363636363,
+          "n": 66
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.013144841,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1654.6060606060605,
+          "n": 66
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 62.31818181818182,
+          "n": 66
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.06858373,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.035346318,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.03125,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 59.475999942148775,
+          "n": 121
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.18183876811594202,
+          "n": 138
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.8798434705072461,
+          "n": 138
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.002118743566666666,
+          "n": 138
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.12560248402173912,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1511.0434782608695,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 47.43478260869565,
+          "n": 138
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.005011987425,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1667.5869565217392,
+          "n": 138
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 48.43478260869565,
+          "n": 138
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.073824363,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.0582013445,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.08203125,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 55.24786971311477,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S99_20260912_194731_062697",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S99_20260912_194731_062697",
+    "frames": 17547264.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0.0625,
+      "intrmotiv/dg/usage_entropy": 0.93886197,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.0073310975,
+      "intrmotiv/hrl/option_success_fraction": 0.13666667,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1448,
+      "intrmotiv/hrl/shuffled_hit_numerator": 57,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.0046296297,
+      "intrmotiv/hrl/target_hit_event_count": 1644,
+      "intrmotiv/hrl/target_hit_numerator": 63,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.10832034,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.0735239,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0.015625,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 67.622734
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 72
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 72
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.10460069444444445,
+          "n": 72
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.8996505869444444,
+          "n": 72
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.00075470564375,
+          "n": 72
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.17606981933333332,
+          "n": 72
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1542.263888888889,
+          "n": 72
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 64.18055555555556,
+          "n": 72
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.013640873,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1664.388888888889,
+          "n": 72
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 65.56944444444444,
+          "n": 72
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.07030625,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.0348708155,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0390625,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 49.820948413223164,
+          "n": 121
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.15058876811594202,
+          "n": 138
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.90036112557971,
+          "n": 138
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0019750599478260858,
+          "n": 138
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.18327207830434789,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1485.6376811594203,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 65.0,
+          "n": 138
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.0082258598,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1646.0797101449275,
+          "n": 138
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 72.85507246376811,
+          "n": 138
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.09484907399999999,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.04281210975,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.046875,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 54.600997815573756,
+          "n": 244
+        }
+      }
+    }
+  },
+  {
+    "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S123_20260912_194733_015728",
+    "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123_20260912_194733_015728",
+    "frames": 17416192.0,
+    "latest": {
+      "intrmotiv/decoder/auxiliary_loss": 0,
+      "intrmotiv/dg/prediction/main_loss": 0,
+      "intrmotiv/dg/silent_unit_fraction": 0.140625,
+      "intrmotiv/dg/usage_entropy": 0.8872922,
+      "intrmotiv/hrl/goal_condition/action_sensitivity": 0.009165646,
+      "intrmotiv/hrl/option_success_fraction": 0.1097561,
+      "intrmotiv/hrl/shuffled_hit_event_count": 1444,
+      "intrmotiv/hrl/shuffled_hit_numerator": 45,
+      "intrmotiv/hrl/summary/grounded_controllability": 0,
+      "intrmotiv/hrl/summary/reliable_global_efficiency": 0.003720238,
+      "intrmotiv/hrl/target_hit_event_count": 1650,
+      "intrmotiv/hrl/target_hit_numerator": 53,
+      "intrmotiv/online/place_field/active_only_map_cosine": 0.12683868,
+      "intrmotiv/online/place_field/active_unit_mean_spatial_information": 0.05172504,
+      "intrmotiv/online/place_field/silent_unit_fraction": 0.03125,
+      "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": 72.97411
+    },
+    "windows": {
+      "(1000000, 3000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 71
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 71
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.14612676056338028,
+          "n": 71
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.8866042232394367,
+          "n": 71
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.0009171288609859154,
+          "n": 71
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.16622307442253523,
+          "n": 71
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1560.4366197183099,
+          "n": 71
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 60.028169014084504,
+          "n": 71
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.00327281865,
+          "n": 2
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.00874256,
+          "n": 2
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1673.4647887323943,
+          "n": 71
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 59.605633802816904,
+          "n": 71
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.051537244999999995,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.03444665500000001,
+          "n": 2
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.0234375,
+          "n": 2
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 50.42071692622948,
+          "n": 122
+        }
+      },
+      "(3000000, 7000000)": {
+        "intrmotiv/decoder/auxiliary_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/prediction/main_loss": {
+          "mean": 0.0,
+          "n": 138
+        },
+        "intrmotiv/dg/silent_unit_fraction": {
+          "mean": 0.1724411231884058,
+          "n": 138
+        },
+        "intrmotiv/dg/usage_entropy": {
+          "mean": 0.8876029280434785,
+          "n": 138
+        },
+        "intrmotiv/hrl/goal_condition/action_sensitivity": {
+          "mean": 0.001852867563043479,
+          "n": 138
+        },
+        "intrmotiv/hrl/option_success_fraction": {
+          "mean": 0.18261874728260877,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_event_count": {
+          "mean": 1490.876811594203,
+          "n": 138
+        },
+        "intrmotiv/hrl/shuffled_hit_numerator": {
+          "mean": 70.34057971014492,
+          "n": 138
+        },
+        "intrmotiv/hrl/summary/grounded_controllability": {
+          "mean": 0.0,
+          "n": 4
+        },
+        "intrmotiv/hrl/summary/reliable_global_efficiency": {
+          "mean": 0.0072854665,
+          "n": 4
+        },
+        "intrmotiv/hrl/target_hit_event_count": {
+          "mean": 1636.9927536231885,
+          "n": 138
+        },
+        "intrmotiv/hrl/target_hit_numerator": {
+          "mean": 70.40579710144928,
+          "n": 138
+        },
+        "intrmotiv/online/place_field/active_only_map_cosine": {
+          "mean": 0.07598136999999999,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/active_unit_mean_spatial_information": {
+          "mean": 0.04708673875,
+          "n": 4
+        },
+        "intrmotiv/online/place_field/silent_unit_fraction": {
+          "mean": 0.09765625,
+          "n": 4
+        },
+        "policy_stats/avg_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc": {
+          "mean": 57.169644440816334,
+          "n": 245
+        }
+      }
+    }
+  }
+]
