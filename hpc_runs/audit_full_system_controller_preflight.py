@@ -59,6 +59,18 @@ def restart_errors(final, baseline, completed_reload=False):
     return errors
 
 
+def optimizer_ownership_errors(state, routing):
+    counts=state.get('optimizer_step_counts',{})
+    errors=[]
+    for group in ('dg','main'):
+        if not counts.get(group):errors.append('missing '+group+' optimizer step counts')
+    if routing=='stop' and any(value!=state['fresh_dg_steps'] for value in counts.get('dg',{}).values()):
+        errors.append('STOP DG Adam steps diverge from fresh DG steps')
+    if any(value!=state['clock']['completed'] for value in counts.get('main',{}).values()):
+        errors.append('main Adam steps diverge from completed main updates')
+    return errors
+
+
 def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, reload_certificate=None):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
@@ -104,6 +116,7 @@ def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, re
         state=final.get('controller')
         if state is None:
             errors.append('missing complete controller checkpoint');row['passed']=False;continue
+        errors.extend(optimizer_ownership_errors(state,cfg['ppo_dg_gradient']))
         clock=state['clock'];replay=state['replay']
         terminals=[item for item in replay.get('rows',[]) if item['terminated'] or item['truncated']]
         if not terminals:errors.append('physical episode end not exercised in retained replay')

@@ -65,7 +65,7 @@ class ControllerRuntimeAudit(unittest.TestCase):
     def test_reports_main_debt_and_missing_auxiliary_without_passing_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);run=root/'00_test';(run/'checkpoint_p0').mkdir(parents=True)
-            cfg=dict(controller_learning='ddqn',controller_learning_starts=10,controller_decisions_per_update=2,
+            cfg=dict(controller_learning='ddqn',ppo_dg_gradient='stop',controller_learning_starts=10,controller_decisions_per_update=2,
                      controller_td_positions=4,controller_target_updates=1,controller_her=True)
             (run/'config.json').write_text(json.dumps(cfg))
             state=dict(clock=dict(completed=1,main_positions=4,auxiliary_positions=0,target_at=1),
@@ -85,3 +85,16 @@ class ControllerRuntimeAudit(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+def test_optimizer_ownership_audit_uses_actual_adam_steps():
+    from hpc_runs.audit_full_system_controller_preflight import optimizer_ownership_errors
+    state={'fresh_dg_steps':12,'clock':{'completed':35},
+           'optimizer_step_counts':{'dg':{'weight':12},'main':{'weight':35,'bias':35}}}
+    assert optimizer_ownership_errors(state,'stop')==[]
+    state['optimizer_step_counts']['dg']['weight']=47
+    assert 'STOP DG Adam steps diverge from fresh DG steps' in optimizer_ownership_errors(state,'stop')
+    state['optimizer_step_counts']['main']['bias']=47
+    assert 'main Adam steps diverge from completed main updates' in optimizer_ownership_errors(state,'stop')
+    state['optimizer_step_counts']={}
+    assert len(optimizer_ownership_errors(state,'stop'))==2

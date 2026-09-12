@@ -2,7 +2,7 @@
 
 **Current status: waypoint HER replay consistency failure under investigation; production is blocked.**
 Job 8057338 failed its selected replay eligibility recheck at about 557,056 frames.
-The other three DDQN preflights remain running. A bounded checkpoint reproduction
+The other three DDQN preflights received graceful SIGINT after optimizer ownership drift was confirmed; R4 is retired as debugging evidence. A bounded checkpoint reproduction
 is testing batch-dependent recognition/event labels; no compatibility checks have
 been relaxed and active training source remains immutable.
 Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
@@ -609,3 +609,20 @@ rule is introduced. Sample Factory observation preparation and the original
 encoder are reused. All 375 tests pass locally/remotely, including regrouping
 invariance and exact real-position gradient counts. GPU job 8057343 reruns
 the failing checkpoint search before deployment. Active source remains unchanged.
+
+GPU gate 8057344 exposed a second correctness defect after 101 replay updates:
+STOP DG parameters moved through pre-existing Adam momentum because detaching
+a slice of a concatenated head can leave zero gradients rather than `None`.
+The repair binds detached DG parameters in the private replay functional call.
+Fresh DG-only transactions similarly suspend non-DG parameter gradients during
+the parent step, restoring original flags afterward. Actual three-parent fresh
+learner checks confirm exact DG weights, buffers and Adam state, with no worker
+changes; prior waypoint goal-write parameters did drift during DG-only steps.
+PPO remains unchanged. All 379 runtime tests pass, including STOP/JOINT replay
+and both optimizer ownership directions. GPU job 8057345 repeats the 101-update
+gate with the repair. The auditor now also checks actual DG/main Adam step counts.
+
+R4 optimizer history is contaminated, so it cannot qualify the corrected fresh
+system. R5 is a clean six-run 2M StudySpec, schema `intrmotiv/study/v1`, workflow
+1.8.1, SHA `b68edd0bcb84fd25d2779013e17511c2a97dfb0624741f0a56e48343a6d0d4d9`.
+It is validated but not yet submitted; launch only after the corrected GPU gate.
