@@ -1,5 +1,23 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current production launch
+
+All qualification gates passed. The canonical 18-run stored-state production
+batch has been submitted under StudySpec
+`hpc_runs/studies/full_system_controller_stored_production.study.json`, SHA
+`4ba8a352faaa2f101c571f625eddb87626d98e90b75dd9ed5354aa7880075997`.
+Ten jobs are verified collecting frames and reporting W&B; eight are queued for
+L40S resources. Do not create another production batch. The authoritative jobs
+are PPO 8058080–8058082 and 8058089–8058091, plus DDQN/HER 8058098–8058109.
+Follow the latest section in the stored-state record for manifests and status.
+
+A minimal factory-guard release was required after initial DDQN startup failed
+before learning. The released source is
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_production_release_20260912`.
+All 428 tests passed. Six already-running PPO jobs were preserved. The launch
+heartbeat stays active until every queued run has been verified training; no
+additional user confirmation is required.
+
 ## Current production authorization
 
 The user requested auditing current progress and bringing production online when

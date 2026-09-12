@@ -1,0 +1,454 @@
+{
+  "logs": [
+    {
+      "job": "8058080",
+      "run": "00_FSCS_DIRECT_F16_PPO_S8",
+      "fps_latest": [
+        [
+          "3276.8",
+          "3276.8",
+          "3387.9",
+          "1327104"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058081",
+      "run": "00_FSCS_DIRECT_F16_PPO_S99",
+      "fps_latest": [
+        [
+          "3276.7",
+          "3276.8",
+          "3387.9",
+          "1294336"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058082",
+      "run": "00_FSCS_DIRECT_F16_PPO_S123",
+      "fps_latest": [
+        [
+          "3276.7",
+          "3276.8",
+          "3332.3",
+          "1261568"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058098",
+      "run": "00_FSCS_DIRECT_F16_DDQN_S8",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1638.4",
+          "1395.5",
+          "180224"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058099",
+      "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1638.4",
+          "1393.1",
+          "180224"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058100",
+      "run": "00_FSCS_DIRECT_F16_DDQN_S123",
+      "fps_latest": [
+        [
+          "1638.3",
+          "1911.5",
+          "1454.2",
+          "163840"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058101",
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S8",
+      "fps_latest": [
+        [
+          "3276.7",
+          "1911.5",
+          "1454.3",
+          "163840"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058102",
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058103",
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S123",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058089",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S8",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1365.3",
+          "1777.2",
+          "704512"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058090",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S99",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1365.3",
+          "1832.8",
+          "688128"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058091",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S123",
+      "fps_latest": [
+        [
+          "1638.3",
+          "1638.4",
+          "1832.8",
+          "688128"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058104",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S8",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058105",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058106",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S123",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058107",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S8",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058108",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "fps_latest": null,
+      "errors": []
+    },
+    {
+      "job": "8058109",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S123",
+      "fps_latest": null,
+      "errors": []
+    }
+  ],
+  "wandb": [
+    {
+      "name": "00_FSCS_DIRECT_F16_PPO_S8_20260912_194653_557561",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S8_20260912_194653_557561",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S8_20260912_194708_818407",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S8_20260912_194708_818407",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 191,
+        "main_loss": 0.0006587538,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 14,
+        "fresh_graph_batches": 7,
+        "update_debt": 0,
+        "accepted_replay_decisions": 28623
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S123_20260912_194708_818428",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S123_20260912_194708_818428",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 255,
+        "main_loss": 4.215697e-06,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 16,
+        "fresh_graph_batches": 8,
+        "update_debt": 0,
+        "accepted_replay_decisions": 32717
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S8_20260912_194708_826756",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S8_20260912_194708_826756",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 383,
+        "main_loss": 0.00015456529,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 20,
+        "fresh_graph_batches": 10,
+        "update_debt": 0,
+        "accepted_replay_decisions": 40905
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_PPO_S123_20260912_194708_825646",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S123_20260912_194708_825646",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_PPO_S99_20260912_194711_010399",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_PPO_S99_20260912_194711_010399",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_194711_082447",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_194711_082447",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 383,
+        "main_loss": 4.295283e-05,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 20,
+        "fresh_graph_batches": 10,
+        "update_debt": 0,
+        "accepted_replay_decisions": 40904
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S123_20260912_194712_366127",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S123_20260912_194712_366127",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_194712_366161",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_194712_366161",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S8_20260912_194712_366109",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S8_20260912_194712_366109",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S99_20260912_194731_062697",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S99_20260912_194731_062697",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S8_20260912_194732_945238",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S8_20260912_194732_945238",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_PPO_S123_20260912_194733_015728",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123_20260912_194733_015728",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S8_20260912_194739_229541",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S8_20260912_194739_229541",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_194735_158761",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_194735_158761",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S123_20260912_194739_229659",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S123_20260912_194739_229659",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_194756_282212",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_194756_282212",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S123_20260912_194807_817925",
+      "state": "failed",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S123_20260912_194807_817925",
+      "metrics": {
+        "stored_state_replay": null,
+        "main_updates": null,
+        "main_loss": null,
+        "auxiliary_td_positions": null,
+        "fresh_dg_steps": null,
+        "fresh_graph_batches": null,
+        "update_debt": null,
+        "accepted_replay_decisions": null
+      }
+    }
+  ]
+}

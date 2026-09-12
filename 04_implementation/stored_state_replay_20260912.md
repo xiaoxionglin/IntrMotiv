@@ -312,3 +312,68 @@ The fresh online gate remains pending: both plain DDQN arms completed, each with
 500 FPS over five minutes. All four have finite main losses and zero update debt;
 both HER arms have substantial positive auxiliary training. No new runtime fix
 is indicated. Wait for audit 8058064 before production rendering/submission.
+
+## Production submitted; ten runs verified training, eight queued
+
+All three qualification audits passed. The final online audit 8058064 completed
+successfully in 6m53s: every DDQN arm finished at 2,048,000 frames, 7,743 main
+updates, 1,982,208 main TD positions, 250 fresh DG steps and 125 graph batches.
+HER added 1,235,157 direct / 1,089,844 waypoint positions. Main debt and actor
+version failures were zero. All six fresh preflights have verified finished
+W&B runs with DG telemetry. Full-buffer frame slopes over 1,015,808–1,998,848:
+direct DDQN 1,149.75 FPS, direct HER 677.96, waypoint DDQN 762.05, waypoint HER
+518.75. These qualify runtime behavior, not long-horizon scientific superiority.
+
+Production StudySpec: `hpc_runs/studies/full_system_controller_stored_production.study.json`,
+SHA **4ba8a352faaa2f101c571f625eddb87626d98e90b75dd9ed5354aa7880075997**,
+schema `intrmotiv/study/v1`, workflow `1.8.1`. All 18 commands passed validation,
+rendering, print-only review and submission audit. The canonical telemetry
+contract retains the parent intervention protocol at 75M/300M in addition to
+5M/25M/75M/150M/300M ordinary checkpoints and terminal seeds 8/123.
+
+The first production launch exposed a second hard-coded learner-factory guard:
+`controller_preflight=False` alone did not release it. Twelve DDQN jobs failed
+before learner initialization; no training updates were performed. Six PPO jobs
+were unaffected and preserved. The minimal release delta permits only qualified
+`controller_replay_state=stored` production through this factory; unreleased
+reconstruction remains guarded. Training equations, replay and optimizer code
+are unchanged. New tests exercise production, preflight, unreleased reconstruction
+and PPO routing. All **428 runtime/workflow/audit tests passed remotely** (392
+runtime including five new routing tests, plus 36 workflow/audit tests).
+
+Immutable released DDQN source:
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_production_release_20260912`.
+The six preserved PPO jobs use the original immutable production source without
+this irrelevant-to-PPO factory release. Exact delta and hashes are archived as
+`hpc_runs/source_snapshots/controller_stored_production_release_guard_20260912.patch`
+and `.json`. Use the released source for all future production resubmissions.
+The initial guarded manifest is preserved as `jobs_initial_guarded.tsv` beside
+the authoritative current `jobs.tsv`.
+
+Current jobs: PPO **8058080–8058082, 8058089–8058091**; DDQN/HER **8058098–8058109**.
+Canonical manifest:
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_full_system_controller_stored_production_20260912/canonical_submission/jobs.tsv`.
+Do not create or submit another production matrix. Existing partial-resubmission
+workflow preserved the six PPO rows and resubmitted only the twelve failed rows;
+post-submit audit still matches the unchanged production StudySpec hash above.
+
+Live verification found ten jobs collecting frames (six PPO plus direct DDQN
+seeds 8/99/123 and direct HER seed 8), with W&B reporting active training and
+positive main updates in all four allocated DDQN jobs. No current-job exceptions.
+Eight jobs **8058102–8058109** remain PENDING(Resources). Their W&B runs can still
+show the earlier guard failure until the pending jobs resume the same run IDs;
+Slurm's current manifest is authoritative for the pending status. Keep the launch
+follow-up active until every declared run has actually collected frames and
+reported W&B; do not claim all eighteen are running yet.
+
+Do not reduce waypoint RAM to force scheduling: measured full-capacity peak RSS
+was 95,013,812 KiB plain waypoint and 113,312,212 KiB waypoint HER (about 108 GiB).
+The qualified request remains 128 GiB, 16 CPUs, one L40S, 48 hours. Unrelated jobs
+must remain untouched. A 300M horizon can require resuming after the allocation
+limit through the established checkpoint workflow.
+
+Reusable release lesson: exercise the actual learner factory with production
+flags before submitting the matrix; passing preflight-mode training is not enough
+to prove the release path. Preserve running arms and the original manifest when
+repairing a launch. Study metadata values must be scalars; encode qualification
+SHA values as separate scalar fields rather than a nested metadata object.
