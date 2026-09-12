@@ -448,3 +448,30 @@ This keeps the estimated production checkpoint footprint around 2.6 TB at
 PPO checkpoint behavior is unchanged. Complete runtime suite: 359 passed locally
 and remotely. All four DDQN jobs resumed only after canonical print-only review
 and submission audit; their IDs are 8057308, 8057309, 8057310 and 8057311.
+
+## Pending: align replay burn-in with actor reconstruction
+
+Jobs 8057308–8057311 have no logged memory exceptions, but waypoint/HER still
+has update debt (418 at 344,064 frames). The remaining prefix-wide recognition
+veto conflicts with the actor contract: actor publication rebuilds changed
+71-decision memory while retaining actual manager context. Replay must likewise
+reconstruct its worker prefix under the declared snapshot and treat recorded
+commands as exogenous; it must not counterfactually re-plan the real manager.
+`_calculate_reward_components` uses reconstructed traces for temporal rewards,
+and only current/successor manager contexts for transition outcome labels.
+A candidate removes the historical-prefix veto, retaining structural-generation,
+current-recognition, successor-event, and online/target compatibility checks.
+This is being compared against the old filter on the same stalled real replay
+before deployment. New tests cover changed burn-in with unchanged actual
+manager context, plus continued rejection of changed current recognition.
+
+Candidate (not active training source):
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_compatibility_20260912`,
+local `/tmp/intrmotiv_compatibility_benchmark`; 363 tests pass locally.
+It also fixes cumulative restart-tail rejection counts and makes offline
+checkpoint loading use safe private mmap on CPU (exact values/aliasing tested),
+avoiding eager replay loads during audits. The existing place-field shell
+worker now resolves its own source checkout and the certified terminal binding,
+instead of importing the unrelated original editable installation. Active
+telemetry training source remains unchanged. The offline mmap loader preserves
+`weights_only=True` and its exact NumPy allowlist.

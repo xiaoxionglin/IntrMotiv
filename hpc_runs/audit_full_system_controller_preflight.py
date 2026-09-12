@@ -53,7 +53,8 @@ def restart_errors(final, baseline, completed_reload=False):
         if state[key]<=baseline[key]:errors.append('restart did not preserve/advance '+key)
     for key in ('completed','main_positions','auxiliary_positions','target_at'):
         if state['clock'][key]<baseline['clock'][key]:errors.append('restart regressed '+key)
-    if baseline['pending'] and replay['rejected'].get('restart_pending_tail')!=baseline['pending']:
+    expected_discarded=baseline.get('rejected',{}).get('restart_pending_tail',0)+baseline['pending']
+    if baseline['pending'] and replay['rejected'].get('restart_pending_tail')!=expected_discarded:
         errors.append('restart did not discard incomplete physical tails')
     return errors
 

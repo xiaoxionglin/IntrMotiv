@@ -49,6 +49,19 @@ class ControllerRuntimeAudit(unittest.TestCase):
         self.assertIn('restart physical session did not advance exactly once',errors)
         self.assertIn('restart regressed completed',errors)
 
+    def test_restart_discard_metric_must_accumulate_previous_rejections(self):
+        baseline=dict(env_steps=100,train_step=2,session=1,accepted=20,received=21,
+                      publication=1,fresh_dg_steps=2,fresh_graph_batches=1,pending=3,
+                      rejected=dict(restart_pending_tail=5),clock={})
+        replay=dict(session=2,accepted=40,received=42,rows=[dict(stream=(2,0))],
+                    rejected=dict(restart_pending_tail=8))
+        state=dict(replay=replay,publication=2,fresh_dg_steps=4,fresh_graph_batches=2,clock={})
+        baseline['clock']=state['clock']={key:0 for key in ('completed','main_positions','auxiliary_positions','target_at')}
+        final=dict(env_steps=200,train_step=4,controller=state)
+        self.assertEqual(restart_errors(final,baseline),[])
+        replay['rejected']['restart_pending_tail']=3
+        self.assertIn('restart did not discard incomplete physical tails',restart_errors(final,baseline))
+
     def test_reports_main_debt_and_missing_auxiliary_without_passing_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);run=root/'00_test';(run/'checkpoint_p0').mkdir(parents=True)
