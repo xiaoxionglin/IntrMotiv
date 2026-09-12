@@ -58,11 +58,21 @@ Each checkpoint records 64 incomplete physical tails for explicit restart discar
 Canonical print-only and pre/post-submission audits pass for `resume_submission`.
 Resumed jobs are **8057362–8057365**, respectively direct DDQN, direct HER,
 waypoint DDQN and waypoint HER. Both completed PPO job records are retained.
-The checkpoint-bound six-run exact GPU reload gate is **8057366**. Immutable
+The checkpoint-bound six-run exact GPU reload gate **8057366 passed** (8m46s). All six certificates verify exact model/buffer/optimizer/counter restoration on CUDA and bind the immutable checkpoint SHA-256. Immutable
 baseline hardlinks and counters live under
 `train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/`.
-Qualification is still pending: require successful reload certificates, continued
-DDQN physical sessions, complete 2M runtime gates and all dashboard checks.
+All four resumed DDQN runs have advanced beyond their saved frame counts.
+Qualification still requires final physical-session counters, complete 2M runtime
+gates and all dashboard checks. W&B resumed the existing four run IDs; DG/spatial
+tags, zero update debt and zero actor-version failures are present.
+
+The first post-restart learning check confirms positive waypoint goal-write
+weights and gradients in both DDQN arms. At 393,216 plain-DDQN frames, goal-write
+norm is 0.4666 and gradient norm 0.003487; at 376,832 HER frames they are 0.8737
+and 0.03052. DG/main Adam counts match fresh/main update counters in all four
+arms, with zero debt and actor-version failures. Both HER arms have exceeded
+30,000 auxiliary positions. These are runtime liveness checks, not a performance
+comparison between conditions at unmatched experience.
 
 ## Scope and provenance
 

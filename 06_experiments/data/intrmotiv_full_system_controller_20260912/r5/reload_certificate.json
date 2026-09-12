@@ -1,0 +1,89 @@
+{
+  "schema": "intrmotiv/checkpoint-reload/v1",
+  "runs": [
+    {
+      "run": "00_FSCP_DIRECT_F16_PPO_S99",
+      "exact_restore": true,
+      "frames": 2031616,
+      "train_step": 248,
+      "controller": "ppo",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_DIRECT_F16_PPO_S99.pth",
+      "checkpoint_sha256": "6aab017674dc6a08ebd901d4ec504c4a4f55e9ed6dd22355207d544d3ebbc7cb",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    },
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_S99",
+      "exact_restore": true,
+      "frames": 376832,
+      "train_step": 46,
+      "controller": "ddqn",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_DIRECT_F16_DDQN_S99.pth",
+      "checkpoint_sha256": "4e1aa27e8b061bf087f1a311afe24d5eab6ed99310c696e66f875d9a0edf518b",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    },
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_HER_S99",
+      "exact_restore": true,
+      "frames": 376832,
+      "train_step": 46,
+      "controller": "ddqn",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_DIRECT_F16_DDQN_HER_S99.pth",
+      "checkpoint_sha256": "be5573c9a85852a308dddf35027c10408eedeb471dda6b24288c5c77a64beae0",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_PPO_S99",
+      "exact_restore": true,
+      "frames": 2048000,
+      "train_step": 250,
+      "controller": "ppo",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_WAYPOINT_F64_PPO_S99.pth",
+      "checkpoint_sha256": "baf85b3ed51cdda79c24302af6093c75de537e4775ba124394b7f176830d00d5",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_DDQN_S99",
+      "exact_restore": true,
+      "frames": 344064,
+      "train_step": 42,
+      "controller": "ddqn",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_WAYPOINT_F64_DDQN_S99.pth",
+      "checkpoint_sha256": "a97157bed5cbef19121bd986d4c34825233edd281b14a41de6663b7ef72f4eaa",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_DDQN_HER_S99",
+      "exact_restore": true,
+      "frames": 327680,
+      "train_step": 40,
+      "controller": "ddqn",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/00_FSCP_WAYPOINT_F64_DDQN_HER_S99.pth",
+      "checkpoint_sha256": "0a56096bd6c116ab293595ea034874b106743e5de4456bc6ae402666056b140e",
+      "model_and_buffers_exact": true,
+      "optimizer_exact": true,
+      "counters_exact": true,
+      "device": "cuda:0",
+      "job_id": "8057366"
+    }
+  ]
+}
