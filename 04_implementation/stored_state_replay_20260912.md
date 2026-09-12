@@ -203,3 +203,20 @@ until the 200,000-decision capacity is reached. The longer run tests capacity
 and epsilon annealing; short-trial throughput is not a saturated-buffer promise.
 Checkpoint size/save time also grows with stored worker tensors. Process-restart
 qualification remains distinct from successful saving and fresh startup.
+
+Live startup verification: all four runs advanced to 294,912–409,600 logged
+frames without logged exceptions. Recent 60-second throughput was 1,365–1,638
+FPS. W&B server summaries confirmed finite main losses, 831–1,215 main updates,
+zero update debt, continuing fresh DG/graph updates, and auxiliary positions
+5,131 direct / 1,754 waypoint. Early zero auxiliary counts were transient lack
+of eligible future achievements, not a disabled HER arm. These are asynchronous
+live summaries, so differing counts at this wall time are not a budget mismatch.
+Evidence: `controller_stored_online_startup.json` in the archived stored-state
+folder. Full-capacity performance, 1M/2M spatial gates and long-run control quality
+remain pending; do not infer success from the startup check alone.
+
+Efficient follow-up: use the canonical jobs.tsv and W&B group
+`intrmotiv_full_system_controller_stored_online_20260912`, then inspect dependent
+audit 8058064 and `analysis/controller_stored_online_gate.json`. No runtime
+patch was necessary for this deployment; keep proposed sampler improvements
+separate until full-buffer measurements establish the bottleneck.

@@ -1,0 +1,25 @@
+{
+  "batch_name": "intrmotiv_full_system_controller_stored_online_20260912",
+  "commands_match_study": true,
+  "expected_runs": 4,
+  "job_ids": [
+    "8058060",
+    "8058061",
+    "8058062",
+    "8058063"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_full_system_controller_stored_online_20260912/canonical_submission/jobs.tsv",
+  "rows": 4,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 4
+  },
+  "study_id": "full_system_controller_stored_online_20260912",
+  "study_sha256": "d0059468b4703790ec58f44f565ec4e60288b0a7498e4e46b4f3675949e22978",
+  "study_spec": "hpc_runs/studies/full_system_controller_stored_online.study.json",
+  "study_workflow_version": "1.8.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.1",
+  "workspace_paths_valid": true
+}

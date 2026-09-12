@@ -1,5 +1,18 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current online deployment
+
+After the four short stored-state trials passed, the user requested online
+deployment and an obstacle check. Four fresh 2M-frame seed-99 DDQN/HER runs
+are running as jobs 8058060–8058063, with dependent runtime audit 8058064.
+The learner is unchanged from passing R2; current-DG window reconstruction is
+only a proposal. Study: `hpc_runs/studies/full_system_controller_stored_online.study.json`;
+SHA `d0059468b4703790ec58f44f565ec4e60288b0a7498e4e46b4f3675949e22978`,
+schema `intrmotiv/study/v1`, workflow `1.8.1`. See the linked trial record for
+runtime evidence and limitations. The old 18-run production automation remains
+paused. Historical reconstruction release requirements below are not the active
+stored-state online contract.
+
 ## Current user-approved trial: stored-state replay
 
 The user paused the reconstruction-optimization approach and approved trying

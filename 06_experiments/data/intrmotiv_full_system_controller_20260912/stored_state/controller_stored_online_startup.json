@@ -1,0 +1,118 @@
+{
+  "logs": [
+    {
+      "job": "8058060",
+      "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1638.4",
+          "1680.9",
+          "409600"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058061",
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+      "fps_latest": [
+        [
+          "0.0",
+          "1365.3",
+          "1538.0",
+          "360448"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058062",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1365.3",
+          "1423.2",
+          "327680"
+        ]
+      ],
+      "errors": []
+    },
+    {
+      "job": "8058063",
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "fps_latest": [
+        [
+          "1638.4",
+          "1365.3",
+          "1262.2",
+          "294912"
+        ]
+      ],
+      "errors": []
+    }
+  ],
+  "wandb": [
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_183848_601399",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_183848_601399",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 1215,
+        "main_loss": 0.0007182137,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 46,
+        "fresh_graph_batches": 23,
+        "update_debt": 0,
+        "accepted_replay_decisions": 94144
+      }
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_183859_614516",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_183859_614516",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 1087,
+        "main_loss": 5.222525e-05,
+        "auxiliary_td_positions": 5131,
+        "fresh_dg_steps": 42,
+        "fresh_graph_batches": 21,
+        "update_debt": 0,
+        "accepted_replay_decisions": 85952
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_183859_761436",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_183859_761436",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 831,
+        "main_loss": 0.020827945,
+        "auxiliary_td_positions": 1754,
+        "fresh_dg_steps": 34,
+        "fresh_graph_batches": 17,
+        "update_debt": 0,
+        "accepted_replay_decisions": 69568
+      }
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_183903_153529",
+      "state": "running",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_183903_153529",
+      "metrics": {
+        "stored_state_replay": 1,
+        "main_updates": 959,
+        "main_loss": 0.0925506,
+        "auxiliary_td_positions": 0,
+        "fresh_dg_steps": 38,
+        "fresh_graph_batches": 19,
+        "update_debt": 0,
+        "accepted_replay_decisions": 77760
+      }
+    }
+  ]
+}
