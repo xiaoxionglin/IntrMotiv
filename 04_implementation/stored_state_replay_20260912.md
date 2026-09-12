@@ -52,8 +52,9 @@ required before reporting throughput or defining a new production release.
 
 Earlier throughput candidates and their Slurm comparisons are historical
 performance diagnostics. They do not constitute qualification for stored-state
-training. The existing production heartbeat still requires qualification and
-must read this revised scientific contract through the active experiment record.
+training. The older production heartbeat was paused after explicit user approval. Its
+first pause attempt was rejected by automatic approval review; the approved
+second attempt succeeded. Do not resume it against the superseded contract.
 
 ## Reusable lesson
 
@@ -63,3 +64,19 @@ Keep the approximation explicit: it learns a decoder over behavior-time states,
 not end-to-end recurrent gradients through the generating history. Preserve
 terminal provenance and never infer a post-observation state from SF's pre-input
 state without checking temporal alignment.
+
+## Fresh SF feasibility trial
+
+Canonical StudySpec: `hpc_runs/studies/full_system_controller_stored_trial.study.json`.
+Schema `intrmotiv/study/v1`, workflow `1.8.1`, SHA-256
+`05a68eb91d17699580d65c47836b33c77e2dcb50ba37082758d7f3f89f3ff127`.
+Four fresh runs: direct F16 and waypoint decoder F64, DDQN and DDQN+HER, seed 99,
+262,144 frames each. Warm-up/cadence/main TD budget are unchanged. Remote runtime
+and audit tests: 392 passed; 35 local workflow/audit tests passed. Canonical
+print-only review and workspace/submission checks passed before submission.
+Source snapshot: `hpc_runs/source_snapshots/controller_stored_replay_trial_20260912.patch`
+with a sibling JSON hash manifest. The patch dry-runs cleanly against the original
+decoder-only source. Remote source:
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_state_20260912`.
+Trial output remains in the allocated workspace under
+`train_dir/intrmotiv_full_system_controller_stored_trial_20260912`.

@@ -58,7 +58,7 @@ def audit(spec,jobs,root,required_frames):
                 present.add(int(data['target_env_steps']))
                 if int(data['frameskip'])!=4:errors.append('snapshot frameskip mismatch')
                 if not np.isfinite(data['dg_activity']).all():errors.append('nonfinite snapshot DG')
-        for target in (1000000,2000000):
+        for target in study.telemetry.get("target_frames", (1000000,2000000)):
             if target not in present:errors.append(f'missing spatial snapshot {target}')
         for key in ['stdout','stderr']:
             p=Path(job[key].replace('%j',job['job_id']))

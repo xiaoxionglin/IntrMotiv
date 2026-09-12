@@ -71,6 +71,30 @@ def optimizer_ownership_errors(state, routing):
     return errors
 
 
+def stored_replay_errors(state, cfg):
+    """Validate retained behavior states and certified terminal label provenance."""
+    errors=[]
+    if state.get('replay_state')!='stored':errors.append('stored replay checkpoint contract mismatch')
+    shapes=dict(cfg.get('extra_policy_output_shapes',()))
+    width=shapes.get('controller_worker_state',[None])[0]
+    rows=state['replay'].get('rows',[])
+    if not rows:errors.append('no stored worker states')
+    for item in rows:
+        worker=item.get('worker_state')
+        if not torch.is_tensor(worker) or worker.ndim!=1 or (width is not None and worker.numel()!=width):
+            errors.append('missing or malformed stored worker state');break
+        if not torch.isfinite(worker).all():errors.append('nonfinite stored worker state');break
+    terminals=[r for r in rows if r['terminated'] or r['truncated']]
+    for item in terminals:
+        if not item['successor_valid']:continue
+        dg=item.get('terminal_dg');publication=item.get('terminal_publication')
+        if not torch.is_tensor(dg) or dg.shape!=(cfg['Hippo_n_feature'],) or not torch.isfinite(dg).all():
+            errors.append('missing certified terminal DG label');break
+        if publication is None or not 0<=publication<=state['publication']:
+            errors.append('invalid terminal label publication');break
+    return errors
+
+
 def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, reload_certificate=None):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
@@ -118,9 +142,11 @@ def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, re
             errors.append('missing complete controller checkpoint');row['passed']=False;continue
         errors.extend(optimizer_ownership_errors(state,cfg['ppo_dg_gradient']))
         clock=state['clock'];replay=state['replay']
+        stored=cfg.get('controller_replay_state','reconstruct')=='stored'
+        if stored:errors.extend(stored_replay_errors(state,cfg))
         terminals=[item for item in replay.get('rows',[]) if item['terminated'] or item['truncated']]
         if not terminals:errors.append('physical episode end not exercised in retained replay')
-        elif not any(item['successor_valid'] and item['successor'] is not None for item in terminals):
+        elif not any(item['successor_valid'] and (item.get('terminal_dg') is not None if stored else item['successor'] is not None) for item in terminals):
             errors.append('no certified terminal successors in real DMLab replay')
         debt=updates_due(replay['accepted'],cfg['controller_learning_starts'],
                          cfg['controller_decisions_per_update'],clock['completed'])
@@ -152,7 +178,10 @@ def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, re
         metrics={key:last('controller/'+key) for key in required}
         for key,value in metrics.items():
             if value is None:errors.append('missing controller dashboard scalar '+key)
-        if (metrics['actor_memory_rebuilds'] or 0)<=0:errors.append('actor publication rebuild not exercised')
+        if stored:
+            if metrics['actor_memory_rebuilds']!=0:errors.append('stored-state actor unexpectedly rebuilt history')
+            if last('controller/stored_state_replay')!=1:errors.append('stored-state replay mode not reported')
+        elif (metrics['actor_memory_rebuilds'] or 0)<=0:errors.append('actor publication rebuild not exercised')
         if (metrics['actor_memory_version_failures'] or 0)>0:errors.append('actor memory version failure')
         row['controller']=dict(clock=clock,update_debt=debt,metrics=metrics)
         row['passed']=not errors

@@ -98,3 +98,19 @@ def test_optimizer_ownership_audit_uses_actual_adam_steps():
     assert 'main Adam steps diverge from completed main updates' in optimizer_ownership_errors(state,'stop')
     state['optimizer_step_counts']={}
     assert len(optimizer_ownership_errors(state,'stop'))==2
+
+
+class StoredReplayAudit(unittest.TestCase):
+    def test_requires_stored_inputs_and_terminal_provenance(self):
+        from hpc_runs.audit_full_system_controller_preflight import stored_replay_errors
+        cfg=dict(Hippo_n_feature=3,extra_policy_output_shapes=[['controller_worker_state',[4]]])
+        row=dict(worker_state=torch.zeros(4),terminated=True,truncated=False,successor_valid=True,
+                 terminal_dg=torch.ones(3),terminal_publication=2)
+        state=dict(replay_state='stored',publication=3,replay=dict(rows=[row]))
+        self.assertEqual(stored_replay_errors(state,cfg),[])
+        row['terminal_publication']=4
+        self.assertIn('invalid terminal label publication',stored_replay_errors(state,cfg))
+        row['terminal_publication']=2;row['terminal_dg']=None
+        self.assertIn('missing certified terminal DG label',stored_replay_errors(state,cfg))
+        row['worker_state']=torch.zeros(5)
+        self.assertIn('missing or malformed stored worker state',stored_replay_errors(state,cfg))
