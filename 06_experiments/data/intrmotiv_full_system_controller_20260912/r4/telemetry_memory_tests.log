@@ -2,7 +2,7 @@
 ........................................................................ [ 40%]
 ........................................................................ [ 60%]
 ........................................................................ [ 80%]
-.....................................................................    [100%]
+.......................................................................  [100%]
 =============================== warnings summary ===============================
 ../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
   /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
@@ -30,4 +30,4 @@ sf_working_directories/IntrMotiv/tests/test_topological_frontier.py: 3 warnings
     log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-357 passed, 52 warnings in 2.89s
+359 passed, 52 warnings in 2.83s

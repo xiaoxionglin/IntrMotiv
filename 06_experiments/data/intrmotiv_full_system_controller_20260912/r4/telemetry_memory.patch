@@ -120,7 +120,62 @@
              valid_goal = goals.sum(-1) > 0
 --- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
-@@ -141,6 +141,8 @@
+@@ -1,5 +1,6 @@
+ """Original fresh DG learner followed by separately budgeted controller replay."""
+ import copy
++from pathlib import Path
+ from functools import partial
+ from dataclasses import replace
+ import random
+@@ -31,6 +32,7 @@
+         self.clock=UpdateClock(c.controller_learning_starts,c.controller_decisions_per_update,c.controller_target_updates)
+         self.controller_version=0
+         self.controller_stats={}
++        self.frame_milestones=set()
+         self.fresh_dg_steps=self.fresh_graph_batches=0
+         self._restore_controller=None
+         self.publication=0
+@@ -49,6 +51,7 @@
+         if self._restore_controller is not None:
+             c=self._restore_controller
+             self.replay.load_state_dict(c['replay']);self.clock.load_state_dict(c['clock'])
++            self.frame_milestones=set(c.get('frame_milestones',()))
+             self.her_rng.bit_generator.state=c['her_rng']
+             self.controller_version=c['version'];self.publication=c['publication']
+             self.target_snapshot.model.load_state_dict(c['target'])
+@@ -70,6 +73,23 @@
+         if not hasattr(self,'target_snapshot'):return False
+         return super()._save_impl(*args,**kwargs)
+ 
++    def save_milestone(self):
++        # Keep complete restart state, including replay. Bound periodic archives
++        # by SF's existing retention setting, while pinning canonical targets.
++        super().save_milestone()
++        directory=Path(self.checkpoint_dir(self.cfg,self.policy_id))/'milestones'
++        files=[Path(path) for path in self.get_checkpoints(str(directory)) if Path(path).suffix=='.pth']
++        keep=max(1,int(self.cfg.keep_checkpoints))
++        retained={path.name for path in files[-keep:]} | self.frame_milestones
++        for path in files:
++            if path.name not in retained:path.unlink()
++
++    def _save_completed_frame_targets(self,previous_frames):
++        targets=[int(x) for x in self.cfg.checkpoint_frame_targets.split(',') if x.strip()]
++        if any(previous_frames<target<=self.env_steps for target in targets):
++            self.frame_milestones.add(f'checkpoint_{self.train_step:09d}_{self.env_steps}.pth')
++        super()._save_crossed_frame_targets(previous_frames)
++
+     def _save_crossed_frame_targets(self,previous_frames):
+         # The parent invokes this before replay. Save only after publication.
+         self._milestone_previous=previous_frames
+@@ -84,6 +104,7 @@
+         checkpoint=super()._get_checkpoint_dict()
+         if hasattr(self,'target_snapshot'):
+             checkpoint['controller']=dict(replay=self.replay.state_dict(),clock=self.clock.state_dict(),
++                frame_milestones=sorted(self.frame_milestones),
+                 her_rng=copy.deepcopy(self.her_rng.bit_generator.state),version=self.controller_version,publication=self.publication,
+                 target=self.target_snapshot.model.state_dict(),target_version=self.target_snapshot.version,
+                 fresh_dg_steps=self.fresh_dg_steps,fresh_graph_batches=self.fresh_graph_batches,
+@@ -141,6 +162,8 @@
              'goal_condition_target_valid_fraction','goal_condition_action_sensitivity',
              'goal_condition_action_probability_tv','goal_condition_value_span'):
              additional[name]=zero
@@ -129,7 +184,7 @@
          for mode in ('goal','free'):
              for name in ('policy_loss','value_loss','entropy_loss'):additional[f'{mode}_{name}']=zero
          summaries=dict(ratio=torch.ones_like(mb.advantages),clip_ratio_low=1.,clip_ratio_high=1.,
-@@ -268,7 +270,7 @@
+@@ -268,7 +291,7 @@
              # on its independent completed-main-update clock.
              self.online_snapshot.refresh(self.actor_critic,self.controller_version+1)
              self.controller_version+=1
@@ -138,7 +193,7 @@
              keys=self.replay.candidate_order(incompatible)
              width=self._reconstruction_width()
              for start in range(0,len(keys),width):
-@@ -278,23 +280,32 @@
+@@ -278,23 +301,32 @@
                      except (ReplayRejected,ValueError) as exc:
                          if type(exc) is ValueError and str(exc) not in ('missing_history','cross_episode'):raise
                          self.replay.reject(str(exc));incompatible.add(key)
@@ -181,7 +236,16 @@
              aux=[];started=time.perf_counter()
              if self.cfg.controller_her:
                  selected=[examples[int(self.her_rng.integers(len(examples)))] for _ in range(self.cfg.controller_her_positions)]
-@@ -347,5 +358,9 @@
+@@ -337,7 +369,7 @@
+             self.published.load_state_dict(self.actor_critic.state_dict())
+             if self.device.type=='cuda':torch.cuda.synchronize(self.device)
+             self._published_versions[self.policy_id]=self.publication
+-        super()._save_crossed_frame_targets(before)
++        self._save_completed_frame_targets(before)
+         stats=stats or {POLICY_ID_KEY:self.policy_id}
+         stats[LEARNER_ENV_STEPS]=self.env_steps
+         self.controller_stats.update(physical_interactions=self.replay.received,physical_frames=self.replay.physical_frames,
+@@ -347,5 +379,9 @@
              fresh_dg_steps=self.fresh_dg_steps,fresh_graph_batches=self.fresh_graph_batches,
              transaction_seconds=time.perf_counter()-started)
          self.controller_stats.update({f'rejected/{k}':v for k,v in self.replay.rejected.items()})
@@ -275,3 +339,36 @@
 +    assert stats['goal_condition_value_span']==1
 +    assert calls==[(False,{'values_only':False,'sample_actions':False})]
 +    assert all(not value.requires_grad for value in stats.values())
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py
+@@ -0,0 +1,30 @@
++from types import SimpleNamespace
++from pathlib import Path
++from unittest.mock import patch
++from sf_working_directories.IntrMotiv.dmlab.controller_learner import ControllerLearner
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++
++
++def test_periodic_retention_pins_canonical_checkpoints_and_keeps_latest(tmp_path):
++    learner=object.__new__(ControllerLearner)
++    learner.cfg=SimpleNamespace(keep_checkpoints=2);learner.policy_id=0
++    learner.checkpoint_dir=lambda *args:str(tmp_path)
++    directory=tmp_path/'milestones';directory.mkdir()
++    names=[f'checkpoint_{i:09d}_{i*100}.pth' for i in range(1,7)]
++    for name in names:(directory/name).write_text('full replay checkpoint fixture')
++    learner.frame_milestones={names[0],names[2]}
++    with patch.object(DistanceLearnerReward,'save_milestone') as save:
++        learner.save_milestone();save.assert_called_once()
++    assert sorted(p.name for p in directory.iterdir())==[names[0],names[2],names[4],names[5]]
++    assert all(p.read_text()=='full replay checkpoint fixture' for p in directory.iterdir())
++
++
++def test_canonical_frame_is_pinned_before_parent_save_and_retained_in_state():
++    learner=object.__new__(ControllerLearner)
++    learner.cfg=SimpleNamespace(checkpoint_frame_targets='100,200')
++    learner.env_steps=112;learner.train_step=7;learner.frame_milestones=set()
++    seen=[];learner.save_milestone=lambda:seen.append(set(learner.frame_milestones))
++    learner._save_completed_frame_targets(96)
++    assert seen==[{'checkpoint_000000007_112.pth'}]
++    learner.env_steps=128;learner._save_completed_frame_targets(112)
++    assert len(seen)==1

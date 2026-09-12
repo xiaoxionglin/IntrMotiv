@@ -1,14 +1,21 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: R4 GPU preflights continue; do not stop until production is running.**
+**Current status: repaired R4 GPU preflights submitted; continue until production is running.**
 Authoritative mixed manifest:
-`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/restart_submission/jobs.tsv`.
-DDQN jobs **8057301–8057304** run the corrected sampler and GPU publication barrier
-from `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_publication_20260912`.
-Direct PPO **8057292** completed its 2M horizon; waypoint PPO **8057295** continues
-on the unchanged PPO path in the CUDA checkout. The four DDQN baselines all had
-163,840 frames, 383 main updates and 98,048 main positions with zero debt.
-All four resumed successfully with unchanged W&B IDs. All 355 runtime tests pass.
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/telemetry_submission/jobs.tsv`.
+DDQN jobs **8057308–8057311** run the sampler, GPU publication barrier,
+bounded-memory selection, original control telemetry, and full-state checkpoint
+retention from `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_telemetry_20260912`.
+Direct PPO **8057292** completed its 2M horizon and passes its full audit;
+waypoint PPO **8057295** continues on the unchanged PPO path in the CUDA checkout.
+All **359 runtime tests** pass locally and remotely.
+
+Second-restart immutable baselines are under
+`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_telemetry/`.
+Exact reload job **8057312** checks the four new DDQN baselines (two independent
+cases at a time); both original PPO checkpoint-bound certificates are retained.
+Do not change the active telemetry checkout. The local matching source is
+`/tmp/intrmotiv_telemetry_benchmark`.
 
 R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
@@ -26,11 +33,11 @@ uploaded and its remote tests pass: it retains all PPO validation and requires
 checkpoint-bound exact reload evidence for an already-completed PPO preflight.
 All original DG/telemetry/horizon and DDQN live-progress checks remain active.
 
-A further telemetry repair is staged locally in `/tmp/intrmotiv_telemetry_benchmark`:
+The deployed telemetry repair is mirrored in `/tmp/intrmotiv_telemetry_benchmark`:
 reuse the original goal-sensitivity diagnostics in DDQN and record goal-write
 gradients after controller replay. All 357 tests pass and full CPU PPO learner
 model/buffer/optimizer parity passes for all three parent references. This is
-not yet deployed to running jobs. At 262,144 frames, waypoint DDQN+HER has 113
+now included in jobs 8057308–8057311. At 262,144 frames, waypoint DDQN+HER had 113
 unpaid updates because its current snapshot has no compatible replay. The
 strict rejection rule remains intact; recovery is a required production gate.
 
@@ -422,3 +429,22 @@ sensitivity helper is also reused in DDQN instead of placeholder zeros. Both
 changes preserve original metric names; CPU full PPO model/buffer/optimizer
 parity passed for all three parent references. The isolated candidate source is
 `SF_hipposlam_controller_telemetry_20260912`; no active source was overwritten.
+
+## Production checkpoint storage qualification
+
+The workspace filesystem has 4.6 TB total and 3.7 TB free at this check. A
+53k-decision controller checkpoint is already 2.6 GB; an unbounded full-replay
+archive every 30 minutes would exceed capacity during the 300M horizon.
+Controller periodic milestones now use the existing SF `keep_checkpoints=8`
+retention limit, **plus protected canonical frame checkpoints**. Every retained
+checkpoint still contains full replay, online/target models, optimizer, RNG and
+counters. Regular rolling/best/initial checkpoints and save times are unchanged.
+The parent SF save and discovery methods are reused; only periodic milestone
+retention is bounded. Canonical filenames are recorded before save and restored
+from checkpoints so a later restart cannot unpin them. Two focused tests verify
+pinning before save and retention of canonical plus latest periodic checkpoints.
+This keeps the estimated production checkpoint footprint around 2.6 TB at
+200k replay capacity across the 12 DDQN runs, instead of unbounded growth.
+PPO checkpoint behavior is unchanged. Complete runtime suite: 359 passed locally
+and remotely. All four DDQN jobs resumed only after canonical print-only review
+and submission audit; their IDs are 8057308, 8057309, 8057310 and 8057311.
