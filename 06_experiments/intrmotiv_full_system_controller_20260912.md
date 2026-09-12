@@ -17,16 +17,22 @@ GPU Torch 2.9.1 / torchvision 0.24.1 / NumPy 1.26.4 are isolated in workspace
 Jobs use one L40S GPU and 16 CPU cores (first completed PPO had 40); all retain
 32 SF workers × 2 environments and the original scientific parameters.
 
-Exact GPU reload job **8057305** is testing all six immutable R4 checkpoints,
+Exact GPU reload job **8057305 passed all six immutable R4 checkpoints**,
 including PPO model/buffers/optimizer/counters, with checkpoint SHA-bound results.
-Its certificate will be `analysis/restart_baselines/<R4 batch>/reload_certificate.json`.
+Certificate: `analysis/restart_baselines/<R4 batch>/reload_certificate.json`.
 A proposed audit upload that skipped PPO restart validation was rejected by
-automatic approval review; it was reverted. **Do not bypass that rejection.**
-The new local audit proposal retains PPO checks and requires an exact reload
-certificate for a PPO run already at its bounded horizon; it has not been
-uploaded. Wait for real certificate evidence, test the stronger audit, and retain
-all original DG/telemetry/horizon and DDQN live-progress gates. Tests verify that
-missing, failed or digest-mismatched PPO reload evidence fails qualification.
+ automatic approval review and reverted. The stronger replacement has now been
+uploaded and its remote tests pass: it retains all PPO validation and requires
+checkpoint-bound exact reload evidence for an already-completed PPO preflight.
+All original DG/telemetry/horizon and DDQN live-progress checks remain active.
+
+A further telemetry repair is staged locally in `/tmp/intrmotiv_telemetry_benchmark`:
+reuse the original goal-sensitivity diagnostics in DDQN and record goal-write
+gradients after controller replay. All 357 tests pass and full CPU PPO learner
+model/buffer/optimizer parity passes for all three parent references. This is
+not yet deployed to running jobs. At 262,144 frames, waypoint DDQN+HER has 113
+unpaid updates because its current snapshot has no compatible replay. The
+strict rejection rule remains intact; recovery is a required production gate.
 
 No production study has been rendered and its guard remains active. Heartbeat
 `qualify-and-launch-intrmotiv-production` must continue until the canonical
