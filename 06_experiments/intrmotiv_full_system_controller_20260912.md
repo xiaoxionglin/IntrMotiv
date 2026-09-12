@@ -186,3 +186,26 @@ DDQN arm recorded eight fresh DG steps, four fresh graph batches, over 100 actor
 history rebuilds and zero actor-memory version failures. Replay warm-up was still
 completing (about 16,330 accepted decisions); these observations do not yet
 qualify TD learning or HER overhead. All six W&B runs connected successfully.
+
+## Interim production-gate check
+
+The follow-up production request remains gated: all six jobs were still running
+below 2M frames. At the live check, PPO reached approximately 1.08M direct / 0.67M
+waypoint frames; DDQN arms were around 0.10–0.18M. Main controller clocks had zero
+update debt and exactly 256 TD positions per completed update; target refreshes
+were exercised and actor-memory version failures remained zero. The W&B API
+confirmed delivery of controller counters and 113–114 DG/spatial summary tags.
+
+Both HER arms still had zero auxiliary positions. Saved direct-arm replay
+contexts had zero active-landmark IDs and zero positive manager budgets, so no
+eligible virtual option was available in those early snapshots. DG projection
+weights changed while all frozen-trunk tensors matched initialization. Real
+terminal observations and positive HER learning remain unqualified, as does a
+live process restart. No production jobs were submitted; preflights continue.
+
+The interim auditor initially used bare `weights_only=True`, which rejected a
+PPO checkpoint's original NumPy scalar metadata. The established evaluator
+already handles that metadata safely. The auditor now reuses
+`place_fields.load_checkpoint_dict`; its focused regression test passes. This
+was an audit-loader mismatch, not evidence of a corrupted training checkpoint.
+See [interim gate evidence](data/intrmotiv_full_system_controller_20260912/r2/interim_gate_check.json).

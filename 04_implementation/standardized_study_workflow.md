@@ -534,3 +534,13 @@ batches reduced measured cost without changing the 256-position mean loss or
 optimizer clock. This is a desktop measurement; the 2M Slurm gate must establish
 actual cluster throughput and HER overhead. Preserve plain/tensor replay
 checkpoint serialization for the established weights-only place-field loader.
+
+For controller runtime audits, call the established evaluator's
+`place_fields.load_checkpoint_dict`. Bare PyTorch `weights_only=True` rejects
+original PPO NumPy scalar metadata after best-performance reporting starts;
+the existing loader already has the narrowly scoped allowlist. Check live
+counters and required frame completion before repeatedly loading large replay
+checkpoints. A zero HER count before the manager has any active landmarks or
+positive option budgets is an unmet qualification gate, not by itself a replay
+transport bug. Confirm both context labels and fresh DG parameter changes before
+changing the scientific objective.

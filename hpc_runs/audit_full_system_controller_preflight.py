@@ -9,6 +9,12 @@ from hpc_runs.audit_navigation8_algorithm_screen_preflight import _events
 from hpc_runs.intrmotiv_offpolicy.sf_transport import updates_due
 
 
+def load_runtime_checkpoint(path):
+    # Reuse the evaluator's exact allowlist for original NumPy scalar metadata.
+    from sf_working_directories.IntrMotiv.evaluation.place_fields import load_checkpoint_dict
+    return load_checkpoint_dict(path,torch.device('cpu'))
+
+
 def audit(study, jobs, root, required_frames=2000000):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
@@ -22,7 +28,7 @@ def audit(study, jobs, root, required_frames=2000000):
         checkpoints=sorted((directory/'checkpoint_p0').glob('checkpoint_*.pth'))
         if not checkpoints:continue
         # The ordinary place-field evaluator uses this safe loader too.
-        final=torch.load(checkpoints[-1],map_location='cpu',weights_only=True)
+        final=load_runtime_checkpoint(checkpoints[-1])
         state=final.get('controller')
         if state is None:
             errors.append('missing complete controller checkpoint');row['passed']=False;continue

@@ -1,0 +1,146 @@
+{
+  "status": "incomplete_no_production_submission",
+  "checkpoint_checks": [
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_HER_S99",
+      "frames": 163840,
+      "frozen_trunk_unchanged": true,
+      "dg_weights_changed": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "clock": {
+        "learning_starts": 16384,
+        "cadence": 64,
+        "target_interval": 100,
+        "completed": 383,
+        "main_positions": 98048,
+        "auxiliary_positions": 0,
+        "target_at": 300
+      },
+      "rows": 40896,
+      "budget_positive": 0,
+      "target_positive": 0,
+      "active_positive": 0,
+      "terminal_rows": 0,
+      "certified_terminal_rows": 0
+    },
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_S99",
+      "frames": 147456,
+      "frozen_trunk_unchanged": true,
+      "dg_weights_changed": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "clock": {
+        "learning_starts": 16384,
+        "cadence": 64,
+        "target_interval": 100,
+        "completed": 319,
+        "main_positions": 81664,
+        "auxiliary_positions": 0,
+        "target_at": 300
+      },
+      "rows": 36800,
+      "budget_positive": 0,
+      "target_positive": 0,
+      "active_positive": 0,
+      "terminal_rows": 0,
+      "certified_terminal_rows": 0
+    }
+  ],
+  "wandb_checks": [
+    {
+      "run": "00_FSCP_DIRECT_F16_PPO_S99_20260912_040351_074620",
+      "state": "running",
+      "controller": {},
+      "dg_tags": 114
+    },
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_HER_S99_20260912_040408_525016",
+      "state": "running",
+      "controller": {
+        "intrmotiv/controller/actor_memory_version_failures": 0,
+        "intrmotiv/controller/auxiliary_td_positions": 0,
+        "intrmotiv/controller/fresh_dg_steps": 20,
+        "intrmotiv/controller/main_updates": 383,
+        "intrmotiv/controller/update_debt": 0
+      },
+      "dg_tags": 113
+    },
+    {
+      "run": "00_FSCP_DIRECT_F16_DDQN_S99_20260912_040408_535270",
+      "state": "running",
+      "controller": {
+        "intrmotiv/controller/actor_memory_version_failures": 0,
+        "intrmotiv/controller/auxiliary_td_positions": 0,
+        "intrmotiv/controller/fresh_dg_steps": 18,
+        "intrmotiv/controller/main_updates": 319,
+        "intrmotiv/controller/update_debt": 0
+      },
+      "dg_tags": 113
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_PPO_S99_20260912_040408_564300",
+      "state": "running",
+      "controller": {},
+      "dg_tags": 113
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_DDQN_HER_S99_20260912_040409_094147",
+      "state": "running",
+      "controller": {
+        "intrmotiv/controller/actor_memory_version_failures": 0,
+        "intrmotiv/controller/auxiliary_td_positions": 0,
+        "intrmotiv/controller/fresh_dg_steps": 12,
+        "intrmotiv/controller/main_updates": 127,
+        "intrmotiv/controller/update_debt": 0
+      },
+      "dg_tags": 113
+    },
+    {
+      "run": "00_FSCP_WAYPOINT_F64_DDQN_S99_20260912_040409_164259",
+      "state": "running",
+      "controller": {
+        "intrmotiv/controller/actor_memory_version_failures": 0,
+        "intrmotiv/controller/auxiliary_td_positions": 0,
+        "intrmotiv/controller/fresh_dg_steps": 12,
+        "intrmotiv/controller/main_updates": 127,
+        "intrmotiv/controller/update_debt": 0
+      },
+      "dg_tags": 113
+    }
+  ],
+  "remaining": [
+    "2M completion for every arm",
+    "positive auxiliary HER learning",
+    "real certified terminal successors",
+    "runtime checkpoint restart"
+  ],
+  "auditor_fix": "Reuse place_fields.load_checkpoint_dict for original NumPy scalar metadata; training unchanged",
+  "additional_checkpoint_checks": [
+    {
+      "run": "FSCP_DIRECT_F16_PPO_S99",
+      "frames": 1261568,
+      "frozen_trunk_unchanged": true,
+      "dg_projection_changed": true
+    },
+    {
+      "run": "FSCP_WAYPOINT_F64_DDQN_HER_S99",
+      "frames": 131072,
+      "frozen_trunk_unchanged": true,
+      "dg_projection_changed": true
+    },
+    {
+      "run": "FSCP_WAYPOINT_F64_DDQN_S99",
+      "frames": 114688,
+      "frozen_trunk_unchanged": true,
+      "dg_projection_changed": true
+    },
+    {
+      "run": "FSCP_WAYPOINT_F64_PPO_S99",
+      "frames": 753664,
+      "frozen_trunk_unchanged": true,
+      "dg_projection_changed": true
+    }
+  ]
+}

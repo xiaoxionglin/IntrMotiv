@@ -21,7 +21,7 @@ class ControllerRuntimeAudit(unittest.TestCase):
                        run/'checkpoint_p0/checkpoint_001.pth')
             jobs=root/'jobs.tsv';jobs.write_text('experiment\ttrain_root\n00_test\t.\n')
             parent=dict(passed=True,runs=[dict(run='test',errors=[],passed=True)])
-            with patch('hpc_runs.audit_full_system_controller_preflight.audit_parent',return_value=parent),patch(
+            with patch('hpc_runs.audit_full_system_controller_preflight.load_runtime_checkpoint',side_effect=lambda p:torch.load(p,weights_only=True)),patch('hpc_runs.audit_full_system_controller_preflight.audit_parent',return_value=parent),patch(
                     'hpc_runs.audit_full_system_controller_preflight._events',return_value={}):
                 result=audit('unused',jobs,root)
             self.assertFalse(result['passed'])
