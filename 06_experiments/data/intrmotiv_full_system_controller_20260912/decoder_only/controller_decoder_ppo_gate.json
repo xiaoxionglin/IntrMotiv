@@ -1,0 +1,12 @@
+{
+  "run": "FSCD_WAYPOINT_DECODER_F64_PPO_S99",
+  "frames": 2048000,
+  "fixed_trunk": true,
+  "dg_learned": true,
+  "decoder_goal_modulation_learned": true,
+  "goal_write_absent": true,
+  "spatial_targets": [
+    1000000,
+    2000000
+  ]
+}

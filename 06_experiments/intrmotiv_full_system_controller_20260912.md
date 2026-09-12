@@ -26,12 +26,19 @@ and FiLM decoder implement the revision. Local focused tests: 21 passed;
 remote focused runtime and canonical workflow tests: **51 passed**.
 Canonical print-only and submitted audits passed with workspace-only paths.
 Source remains immutable while running. Obsolete goal-write DDQN jobs
-8057364/8057365 received graceful SIGINT; their artifacts are retained.
+8057364/8057365 finished graceful SIGINT shutdown; their artifacts are retained.
+Slurm reports these intentional signal stops as FAILED, not new qualification failures.
 The existing direct jobs 8057349/8057362/8057363 are retained unchanged.
 Combined monitoring manifest (derived from both StudySpecs, not a new study):
 `train_dir/analysis/decoder_qualification/jobs.tsv`.
 
-New waypoint checkpoint restart/reload and 2M runtime gates remain pending.
+The new waypoint PPO job 8057437 completed at **2,048,000 frames**. Its runtime
+check confirms a bitwise unchanged fixed ImageNet trunk, changed DG projection
+weights, learned decoder goal modulation, no goal-write parameters, and finite
+1M/2M spatial snapshots. New DDQN arms passed 200k without reported errors;
+actual main/DG Adam counts match their clocks. All three initial checkpoints
+were verified fresh with F64, waypoint manager and decoder-only conditioning.
+New waypoint checkpoint restart/reload and DDQN 2M runtime gates remain pending.
 The original R5 goal-write reload certificates do not qualify these new runs.
 
 
