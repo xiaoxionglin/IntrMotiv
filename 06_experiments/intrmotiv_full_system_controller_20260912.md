@@ -243,3 +243,30 @@ the original 120-second episode boundary. Do not substitute the preceding image,
 shorten episodes, or declare this gate passed based on the wrapper's mocked tests.
 Existing native source is `/home/fr/fr_xl1014/deepmindlab/lab` with locally modified
 BUILD/WORKSPACE. Do not modify the installed shared engine used by running jobs.
+
+## Checkpointed restart qualification in progress
+
+A private replay optimization removes a redundant large output pack/unpack while
+retaining SF's packed input and the original core. Full 256-position desktop
+update time decreased from about 10 s to 3.7 s with identical loss/Q statistics;
+value/gradient parity tests cover both cores, and full original PPO learner parity
+passes for all parents. The full suite with three new tests has 345 cases.
+
+Current action: a deliberate SIGINT was sent to batch processes 8057267–8057272
+at about 05:01 local time. Workers ignore SIGINT and finish their transactions;
+`LearnerWorker.on_stop` saves before exiting. Exit code 2 here is the requested
+interruption, not a new runtime defect. **Do not restart experiment directories
+until all six original jobs have stopped and each has a complete checkpoint.**
+
+The optimized inactive source is
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_padded_20260912`.
+Its hash-checked patch is [padded replay patch](data/intrmotiv_full_system_controller_20260912/r3/padded_replay.patch).
+Remote tests and canonical `restart_review` are being run. After they pass,
+archive/hardlink each latest immutable checkpoint as a restart baseline, then
+submit the **same R3 StudySpec and experiment directories** using the new source
+and Slurm workdir `_slurm/intrmotiv_full_system_controller_preflight_20260912_r3/restart_submission`.
+This resumes the already fresh-initialized preflights, rather than restarting
+scientific learning. Verify new physical replay session, restored main/target/DG
+clocks, nondecreasing checkpoint counters, actor-history correctness, and final
+2M completion. Retain original submission artifacts and record replacement job
+IDs. This live restart is part of the user's mandatory qualification gate.

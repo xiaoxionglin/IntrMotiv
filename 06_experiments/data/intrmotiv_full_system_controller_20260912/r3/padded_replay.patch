@@ -1,0 +1,118 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_core.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_core.py
+@@ -804,7 +804,7 @@
+             raise RuntimeError("CA3 target predictor is disabled")
+         return self.ca3_predictor(ca3_state, target_onehot)
+ 
+-    def forward(self, head_output, rnn_states, *, replay_conditions=None):
++    def forward(self, head_output, rnn_states, *, replay_conditions=None, replay_padded=False):
+         """
+         Args:
+             head_output: Either a Tensor of shape (B, input_size) (single time step)
+@@ -818,6 +818,8 @@
+                 or is a PackedSequence with the time dimension preserved.
+               - new_rnn_states is updated similarly.
+         """
++        if replay_padded and replay_conditions is None:
++            raise ValueError('Padded outputs require explicit replay conditions')
+         if replay_conditions is not None:
+             if not isinstance(head_output, PackedSequence) or self.context_feedback is not None or self.graph_recruitment:
+                 raise ValueError('Exogenous conditions require finite packed replay without contextual/recruitment state')
+@@ -846,7 +848,7 @@
+                 final_state=torch.cat((final_base,hrl),-1)
+                 if self.behavior_goal_state_size:
+                     final_state=torch.cat((final_state,self._behavior_descriptor(replay_conditions[indices,batch_indices])),-1)
+-                return nn.utils.rnn.pack_padded_sequence(output,lengths,enforce_sorted=False),final_state
++                return (output if replay_padded else nn.utils.rnn.pack_padded_sequence(output,lengths,enforce_sorted=False)),final_state
+ 
+             # Separate core state and bypass part from the recurrent state.
+             base_rnn_states, hrl_state, recruitment_history, context_action_history = self._split_state(rnn_states)
+--- a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
++++ b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
+@@ -58,7 +58,7 @@
+         return torch.cat((output[..., self.total_output_size:],
+                           output[..., self.core_output_size:self.total_output_size]), -1)
+ 
+-    def forward(self, head_output, rnn_states, *, replay_conditions=None):
++    def forward(self, head_output, rnn_states, *, replay_conditions=None, replay_padded=False):
+         canonical_state, worker = self.split_worker_state(rnn_states)
+         n = self.Hippo_n_feature
+         packed = isinstance(head_output, PackedSequence)
+@@ -68,12 +68,15 @@
+             raise ValueError('Unexpected goal-conditioned head payload width')
+         canonical_data = data[..., :self.canonical_input_size]
+         canonical_head = head_output._replace(data=canonical_data) if packed else canonical_data
+-        canonical_out, canonical_new_state = super().forward(canonical_head, canonical_state, replay_conditions=replay_conditions)
++        canonical_out, canonical_new_state = super().forward(canonical_head, canonical_state, replay_conditions=replay_conditions,replay_padded=replay_padded)
+         worker = worker.reshape(-1, n, self.expanded_length).detach()
+         if packed:
+             padded_head, lengths = pad_packed_sequence(head_output)
+-            padded_out, out_lengths = pad_packed_sequence(canonical_out)
+-            assert torch.equal(lengths, out_lengths)
++            if replay_padded:
++                padded_out=canonical_out
++            else:
++                padded_out, out_lengths = pad_packed_sequence(canonical_out)
++                assert torch.equal(lengths, out_lengths)
+             if replay_conditions is not None:
+                 from .ca3_memory import finite_shift_history
+                 if worker.count_nonzero():raise ValueError('Finite worker replay requires zero initial traces')
+@@ -83,7 +86,8 @@
+                 memories=finite_shift_history(activity,self.R,self.expanded_length).flatten(2)
+                 batch=torch.arange(len(lengths),device=memories.device)
+                 final=memories[lengths.to(memories.device)-1,batch]
+-                output=pack_padded_sequence(torch.cat((padded_out,memories),-1),lengths,enforce_sorted=False)
++                output=torch.cat((padded_out,memories),-1)
++                if not replay_padded:output=pack_padded_sequence(output,lengths,enforce_sorted=False)
+                 self.last_worker_memory=final.detach()
+                 return output,self.join_worker_state(canonical_new_state,final)
+             result = []
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_history.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_history.py
+@@ -78,8 +78,7 @@
+         head=torch.cat((head,torch.cat(conditions)[:,:core.Hippo_n_feature]),-1)
+     heads=head.split(lengths)
+     packed=pack_padded_sequence(pad_sequence(heads),lengths,enforce_sorted=False)
+-    packed_output,final_states=core(packed,states,replay_conditions=pad_sequence(conditions))
+-    outputs,_=pad_packed_sequence(packed_output)
++    outputs,final_states=core(packed,states,replay_conditions=pad_sequence(conditions),replay_padded=True)
+     if memory_only:
+         return [{'reconstructed_state':final_states[i:i+1]} for i in range(len(histories))]
+     per_history=[outputs[:length,i] for i,length in enumerate(lengths)]
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_padded_transport.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_padded_transport.py
+@@ -0,0 +1,34 @@
++from copy import deepcopy
++import pytest
++import torch
++from torch.nn.utils.rnn import pack_padded_sequence,pad_packed_sequence
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_padded_replay_matches_packed_values_states_and_gradients(write):
++    model=RewardModel(write).eval();other=deepcopy(model)
++    conditions=torch.zeros(3,2,3);conditions[:,:,1]=1
++    lengths=[3,2]
++    observations=torch.eye(3).repeat_interleave(2,dim=0)
++    def run(m,padded):
++        head=m.forward_head({'obs':observations}).reshape(3,2,-1)
++        if write:head=torch.cat((head,conditions),-1)
++        packet=pack_padded_sequence(head,lengths,enforce_sorted=False)
++        out,state=m.core(packet,torch.zeros(2,m.core.total_state_size),
++                         replay_conditions=conditions,replay_padded=padded)
++        if not padded:out,_=pad_packed_sequence(out)
++        selected=out[torch.tensor(lengths)-1,torch.arange(2)]
++        return selected,state,m.controller_hidden(selected).sum()
++    a,sa,la=run(model,True);b,sb,lb=run(other,False)
++    torch.testing.assert_close(a,b);torch.testing.assert_close(sa,sb)
++    la.backward();lb.backward()
++    for x,y in zip(model.parameters(),other.parameters()):
++        assert (x.grad is None)==(y.grad is None)
++        if x.grad is not None:torch.testing.assert_close(x.grad,y.grad)
++
++
++def test_padded_transport_cannot_change_default_acting_api():
++    model=RewardModel(False).eval()
++    with pytest.raises(ValueError,match='explicit replay conditions'):
++        model.core(torch.zeros(1,16),torch.zeros(1,model.core.total_state_size),replay_padded=True)
