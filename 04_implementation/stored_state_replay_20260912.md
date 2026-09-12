@@ -296,3 +296,19 @@ updated to this stored-state contract and reactivated every 15 minutes under the
 new user authorization. It waits for the three qualification gates and then
 performs canonical production review, submission and live verification without
 another confirmation. It pauses after verified launch.
+
+Qualification follow-up: **PPO audit 8058071 and real restart audit 8058076 both
+passed**. Both PPO arms finished at 2,048,000 frames. All four resumed DDQN arms
+finished at 491,520 frames with exactly 1,662 main updates, 425,472 main TD
+positions, 60 fresh DG steps and 30 graph batches. All exact checkpoint-bound
+reload checks passed; new physical sessions advanced correctly, with zero debt
+and no actor version failures. HER retained/advanced auxiliary positions to
+41,582 direct and 58,685 waypoint. Gate JSONs are archived in the stored-state
+experiment data folder.
+
+The fresh online gate remains pending: both plain DDQN arms completed, each with
+7,743 main updates, 250 fresh DG steps and 125 graph batches. Direct HER crossed
+2M and is finishing; waypoint HER reached 1,589,248 logged frames at roughly
+500 FPS over five minutes. All four have finite main losses and zero update debt;
+both HER arms have substantial positive auxiliary training. No new runtime fix
+is indicated. Wait for audit 8058064 before production rendering/submission.

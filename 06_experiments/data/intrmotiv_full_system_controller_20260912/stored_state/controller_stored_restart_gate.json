@@ -1,0 +1,238 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.8.1",
+  "study_workflow_version": "1.8.1",
+  "study_id": "full_system_controller_stored_restart_20260912",
+  "study_sha256": "ed18afcad7819ad79e050522e9999d5789c4a5bdf369c6950f8abab240efe368",
+  "passed": true,
+  "runs": [
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_S99",
+      "job_id": "8058072",
+      "frames": 491520,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.015625
+      },
+      "exact_checkpoint_reload": {
+        "verified": true,
+        "certificate": {
+          "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+          "exact_restore": true,
+          "frames": 311296,
+          "train_step": 38,
+          "controller": "ddqn",
+          "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_stored_restart_20260912/00_FSCS_DIRECT_F16_DDQN_S99.pth",
+          "checkpoint_sha256": "3d53bf9f5f039984c8d1da8bc0c668e14e133e472a58ea9121a5eb37e4763607",
+          "model_and_buffers_exact": true,
+          "optimizer_exact": true,
+          "counters_exact": true,
+          "device": "cuda:0",
+          "job_id": "8058070"
+        }
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 1662,
+          "main_positions": 425472,
+          "auxiliary_positions": 0,
+          "target_at": 1600
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.04594675824046135,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 425472.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 122880.0,
+          "accepted_replay_decisions": 122752.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 62.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0014715461293235421,
+          "fresh_dg_steps": 60.0,
+          "fresh_graph_batches": 30.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job_id": "8058073",
+      "frames": 491520,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0146484375,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0185546875
+      },
+      "exact_checkpoint_reload": {
+        "verified": true,
+        "certificate": {
+          "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+          "exact_restore": true,
+          "frames": 311296,
+          "train_step": 38,
+          "controller": "ddqn",
+          "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_stored_restart_20260912/00_FSCS_DIRECT_F16_DDQN_HER_S99.pth",
+          "checkpoint_sha256": "ca87ff058f38748118413e0533024070b2860dc128fc0ec1aef2da0870349ecc",
+          "model_and_buffers_exact": true,
+          "optimizer_exact": true,
+          "counters_exact": true,
+          "device": "cuda:0",
+          "job_id": "8058070"
+        }
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 1662,
+          "main_positions": 425472,
+          "auxiliary_positions": 41582,
+          "target_at": 1600
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.048886265605688095,
+          "auxiliary_loss": 0.01132285501807928,
+          "main_td_positions": 425472.0,
+          "auxiliary_td_positions": 41582.0,
+          "physical_interactions": 122880.0,
+          "accepted_replay_decisions": 122752.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 62.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 2.5126078128814697,
+          "fresh_dg_steps": 60.0,
+          "fresh_graph_batches": 30.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job_id": "8058074",
+      "frames": 491520,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.00537109375,
+        "waypoint_navigation_fraction": 0.00732421875,
+        "waypoint_step_hit": 0.5,
+        "route_available": 0.03125
+      },
+      "exact_checkpoint_reload": {
+        "verified": true,
+        "certificate": {
+          "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+          "exact_restore": true,
+          "frames": 311296,
+          "train_step": 38,
+          "controller": "ddqn",
+          "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_stored_restart_20260912/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99.pth",
+          "checkpoint_sha256": "e50aed6d3739be5b030829d90c2eaf1c8386f4151fc426eadcaddeaeffa89507",
+          "model_and_buffers_exact": true,
+          "optimizer_exact": true,
+          "counters_exact": true,
+          "device": "cuda:0",
+          "job_id": "8058070"
+        }
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 1662,
+          "main_positions": 425472,
+          "auxiliary_positions": 0,
+          "target_at": 1600
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.07231641560792923,
+          "auxiliary_loss": 0.0,
+          "main_td_positions": 425472.0,
+          "auxiliary_td_positions": 0.0,
+          "physical_interactions": 122880.0,
+          "accepted_replay_decisions": 122752.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 62.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.0014326260425150394,
+          "fresh_dg_steps": 60.0,
+          "fresh_graph_batches": 30.0
+        }
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job_id": "8058075",
+      "frames": 491520,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0068359375,
+        "waypoint_navigation_fraction": 0.00439453125,
+        "waypoint_step_hit": 0.5,
+        "route_available": 0.03125
+      },
+      "exact_checkpoint_reload": {
+        "verified": true,
+        "certificate": {
+          "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+          "exact_restore": true,
+          "frames": 311296,
+          "train_step": 38,
+          "controller": "ddqn",
+          "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_stored_restart_20260912/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99.pth",
+          "checkpoint_sha256": "b2fe741f056c6ecf5e379d309c2282d840b80f963853038cd0b83d13de6e084b",
+          "model_and_buffers_exact": true,
+          "optimizer_exact": true,
+          "counters_exact": true,
+          "device": "cuda:0",
+          "job_id": "8058070"
+        }
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 64,
+          "target_interval": 100,
+          "completed": 1662,
+          "main_positions": 425472,
+          "auxiliary_positions": 58685,
+          "target_at": 1600
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.10729540884494781,
+          "auxiliary_loss": 0.034630514681339264,
+          "main_td_positions": 425472.0,
+          "auxiliary_td_positions": 58685.0,
+          "physical_interactions": 122880.0,
+          "accepted_replay_decisions": 122752.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 62.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 2.346372365951538,
+          "fresh_dg_steps": 60.0,
+          "fresh_graph_batches": 30.0
+        }
+      }
+    }
+  ]
+}

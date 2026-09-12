@@ -1,0 +1,36 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.8.1",
+  "study_workflow_version": "1.8.1",
+  "study_id": "full_system_controller_stored_ppo_20260912",
+  "study_sha256": "7f31786ee7d549ae2d78a946ebc20d4ba1813a78486b1963a7ef5d145caaccde",
+  "passed": true,
+  "runs": [
+    {
+      "run": "FSCS_DIRECT_F16_PPO_S99",
+      "job_id": "8058067",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.01953125
+      }
+    },
+    {
+      "run": "FSCS_WAYPOINT_DECODER_F64_PPO_S99",
+      "job_id": "8058068",
+      "frames": 2048000,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.009765625,
+        "waypoint_navigation_fraction": 0.0224609375,
+        "waypoint_step_hit": 1.0,
+        "route_available": 0.03955078125
+      }
+    }
+  ]
+}
