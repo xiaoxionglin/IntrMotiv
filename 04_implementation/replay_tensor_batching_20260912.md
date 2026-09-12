@@ -88,8 +88,9 @@ eligibility and auxiliary evaluations while retaining the actual decoder updates
 
 Local runtime tests: 391 passed, including cache reuse, independent targets,
 invalidation, rejection of trainable encoders, and exact main/HER values and
-shared-worker gradients. Remote source setup/tests/GPU submission currently run
-in unified exec session 58054; inspect its result before continuing.
+shared-worker gradients. Remote runtime plus audit tests: 396 passed. GPU jobs **8057462 (direct)**
+and **8057463 (waypoint)** are running. Ten main updates are bitwise identical;
+initial speedups are only 1.271× and 1.378×, so more work is required.
 Expected report/job records in `train_dir/analysis/`:
 `controller_snapshot_replay_tests.log`,
 `controller_snapshot_replay_profile_jobs.json`, and
@@ -111,3 +112,49 @@ then test restart and real ingestion before deploying a performance candidate.
 Read a real GPU profile when a candidate's measured gain is insufficient.
 Never edit a source checkout while its training or qualification job is running.
 All bulk artifacts remain in the allocated workspace.
+
+## Candidate 3 in development: skip computations unused by selection
+
+Local source: `/tmp/intrmotiv_replay_work_20260912`; no remote copy yet.
+Based on snapshot-cache candidate, with two exact work eliminations:
+
+- Main eligibility search reconstructs canonical/event state but skips decoder,
+  Q prediction, Bellman losses and reward calculations that search does not use.
+  Selected main/HER updates retain the complete original calculations.
+- HER future-goal selection uses canonical DG head activity directly: it equals
+  trace slot zero. It no longer reconstructs preceding or future worker-memory
+  states solely to extract those activities. Actual auxiliary TD evaluation still
+  reconstructs its required memory under each snapshot.
+
+391 existing runtime tests and four new eligibility/canonical-equivalence tests
+pass locally. Remote staging and full GPU qualification remain to do.
+A five-update cProfile job **8057464** measures the snapshot-cache candidate's
+remaining waypoint HER cost; output `controller-replay-stage-profile-8057464.out`.
+A separate CPU probe has been submitted from `controller_cpu_replay_profile.sh`
+for the same waypoint checkpoint workload at eight Torch threads; record its job
+ID and results before considering any device change. These are diagnostics,
+not production changes.
+
+## Authoritative earlier HER baseline and correction
+
+The actual earlier recurrent HER implementation is documented in
+`06_experiments/intrmotiv_ddqn_throughput_20260911.md`, with code in
+`hpc_runs/intrmotiv_offpolicy/batch.py` and `worker.py`. It achieved **2,004.60
+learner-active FPS** in Slurm job 8056867 versus 1,025.05 reference, on 40 allocated
+CPUs/eight Torch threads, no GPU. Both performed 720 updates and 184,320 TD
+positions over 250,112 frames. It used frozen DG, batched prefix rebuilding,
+read-only prefix sharing when valid, and flattened time/batch decoder readout.
+The earlier explanation that this was merely a fresh-batch HER update was
+incorrect for these recurrent DDQN/HER runs; this correction was given to the user.
+
+Its original numerical qualification allowed floating-point batching differences:
+maximum parameter difference below 4.1e-7 and loss difference below 1e-9 over
+three optimizer updates, with exact accounting. Do not confuse bitwise trajectory
+identity with the user's algorithmic preservation requirement when batching
+row-independent Q operations. Keep discrete reward/recognition/boundary checks
+strict and measure numerical differences explicitly. Prefer reusing this proven
+batching approach over proliferating new replay workflows.
+
+Candidate 1's 101-update HER GPU checks completed with exact optimizer/target/RNG
+parity across refresh: direct 380.28→344.21 seconds (1.105×), waypoint
+433.47→368.25 seconds (1.177×). These are not adequate final throughput gains.
