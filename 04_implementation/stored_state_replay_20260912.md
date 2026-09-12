@@ -121,3 +121,57 @@ its original rebuild and terminal-observation checks. Six controller-audit and
 Reusable short-trial rule: compare the artifact window in observations against
 the horizon divided by frameskip, as well as checking snapshot/scalar cadence.
 The original 100k-observation window remains appropriate for longer studies.
+
+R2 submitted jobs: 8057491 direct DDQN, 8057492 direct HER, 8057493 waypoint
+DDQN, 8057494 waypoint HER. Dependent canonical audit: 8057495. Its immutable
+source is `SF_hipposlam_controller_stored_state_r2_20260912`; only the trial
+configuration and compatible audit checks differ from the original trial source.
+Canonical print-only and submitted audits pass for the R2 SHA above.
+
+The first trial's completed controller audit confirmed exactly 245,504 main TD
+positions, 38 fresh DG optimizer steps and 19 graph batches in every arm, zero
+update debt, finite losses, learned DG projection, unchanged fixed trunk,
+certified terminal labels and zero actor-history rebuilds. Its only failed gate
+was the missing short-trial spatial snapshot. End-to-end checkpoint restart and
+longer-horizon learning quality are still separate qualification work; the local
+stored-state checkpoint round-trip test alone does not establish those results.
+
+## R2 completed qualification
+
+Jobs 8057491–8057494 and audit 8057495 completed successfully. The canonical
+runtime gate passes all four runs, including the declared place-field snapshot.
+Each checkpoint contains 311,296 frames (the 262,144-frame stopping threshold
+plus SF's in-flight collection), 959 main updates, 245,504 main TD positions,
+38 fresh DG steps and 19 graph batches. Update debt, custom actor rebuilds and
+actor version failures are zero. HER adds 3,357 direct and 6,586 waypoint TD
+positions. W&B confirms all four runs finished with stored-state mode enabled,
+959 main updates and 113 DG metric keys each.
+
+Measured post-warm-up throughput from distinct runner frame timestamps,
+65,536–278,528 frames:
+
+| Architecture | DDQN FPS | DDQN + auxiliary HER FPS |
+| --- | ---: | ---: |
+| Direct F16 | 1,704 | 1,638 |
+| Waypoint decoder F64 | 1,420 | 1,420 |
+
+These short trials exercise relatively few eligible HER examples; they do not
+measure the worst-case full auxiliary budget or establish long-horizon learning
+quality. Stored representations remain behavior-time approximations, and replay
+trains the decoder/Q heads, not the recurrent representation. A real process
+restart qualification remains outstanding. The original production automation
+remains paused with user approval; this trial does not authorize silently
+restoring the superseded reconstruction production contract.
+
+Evidence is archived under
+`06_experiments/data/intrmotiv_full_system_controller_20260912/stored_state/`:
+`controller_stored_trial_r2_gate.json`,
+`controller_stored_trial_r2_online_result.json`, and
+`controller_stored_trial_r2_submission_audit.json`.
+
+Reusable lesson: reuse SF's batched action-time worker outputs when accepting
+representation lag. A thin decoder replay adapter removed the dominant history
+reconstruction cost without another transport or learner framework. For short
+qualification runs, size the existing spatial observation window to fit the
+available decisions before submission; the canonical audit and W&B server
+summaries are the authoritative completion checks.

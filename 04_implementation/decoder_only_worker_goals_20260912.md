@@ -34,12 +34,13 @@ in outputs and decoder gradients. Main DDQN still uses the actual successor
 command across manager/waypoint switches; virtual outcomes never update the
 real manager or graph.
 
-This does not make old representation snapshots reusable indefinitely. Online
-and target DG/normalization snapshots can differ and still need their own
-consistent physical-memory reconstruction. Nor does a configuration change
-remove the existing per-example Python/NumPy replay preparation overhead.
-Do not claim a throughput improvement until measured. Efficient SF tensor-backed
-storage/gathering is a separate implementation improvement.
+In the original reconstruction mode, online and target DG/normalization snapshots
+can differ and require their own physical-memory reconstruction. The user has
+subsequently approved an explicit [stored-state trial](stored_state_replay_20260912.md):
+it accepts behavior-time representation lag and shares stored worker inputs
+between online and target decoders. That trial supersedes the reconstruction
+requirement only for its labeled mode; it does not claim snapshot equivalence.
+Its measured throughput and qualification are recorded in the linked contract.
 
 Qualification uses the unchanged direct R5 evidence and three new fresh 2M
 waypoint preflights in

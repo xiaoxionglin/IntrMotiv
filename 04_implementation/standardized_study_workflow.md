@@ -180,7 +180,11 @@ command, matching `--experiment` names, unique job IDs, and workspace-only
 training and Slurm paths.
 
 For a shortened training preflight, validate all coupled cadence constraints,
-not only the shortened frame target. In particular, an online-spatial snapshot
+not only the shortened frame target. Also check that the spatial artifact window, measured in observations,
+can fill within the horizon divided by frameskip; otherwise snapshots remain
+pending even after their target frame. The stored-state 262k-frame trial exposed
+this with the inherited 100k-observation window. Use an explicitly declared
+short-trial window or a sufficiently long horizon. In particular, an online-spatial snapshot
 maximum must be at least one snapshot interval and divisible by that interval;
 override the interval together with the maximum when the production cadence is
 longer than the smoke run. Rerun a failed preflight in a new batch/output

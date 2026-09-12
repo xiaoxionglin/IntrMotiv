@@ -1,0 +1,66 @@
+{
+  "throughput": [
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_S99",
+      "job": "8057491",
+      "start_frames": 65536,
+      "end_frames": 278528,
+      "fps": 1703.922368621051
+    },
+    {
+      "run": "00_FSCS_DIRECT_F16_DDQN_HER_S99",
+      "job": "8057492",
+      "start_frames": 65536,
+      "end_frames": 278528,
+      "fps": 1638.4
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99",
+      "job": "8057493",
+      "start_frames": 65536,
+      "end_frames": 278528,
+      "fps": 1419.9466666666667
+    },
+    {
+      "run": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+      "job": "8057494",
+      "start_frames": 65536,
+      "end_frames": 278528,
+      "fps": 1419.9466666666667
+    }
+  ],
+  "wandb": [
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_181729_112089",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_HER_S99_20260912_181729_112089",
+      "stored": 1,
+      "main_updates": 959,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_DIRECT_F16_DDQN_S99_20260912_181729_028011",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_DIRECT_F16_DDQN_S99_20260912_181729_028011",
+      "stored": 1,
+      "main_updates": 959,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_181729_032717",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_HER_S99_20260912_181729_032717",
+      "stored": 1,
+      "main_updates": 959,
+      "dg_metric_keys": 113
+    },
+    {
+      "name": "00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_181729_032392",
+      "state": "finished",
+      "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_FullSystemController/runs/00_FSCS_WAYPOINT_DECODER_F64_DDQN_S99_20260912_181729_032392",
+      "stored": 1,
+      "main_updates": 959,
+      "dg_metric_keys": 113
+    }
+  ]
+}
