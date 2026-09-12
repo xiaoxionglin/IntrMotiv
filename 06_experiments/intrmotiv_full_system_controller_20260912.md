@@ -397,3 +397,28 @@ PPO rows, mark only the four DDQN rows `pending_submission`, and use the existin
 `resume_slurm_submission.py` utility. `controller_prepare_partial_restart.py`
 in workspace analysis performs this artifact adaptation and rejects active old
 DDQN jobs. Then run full submitted audit and verify GPU checkpoint restore.
+
+## R4 sparse-candidate GPU memory and original control telemetry repair
+
+The interim full audit detected CUDA OOM in direct/waypoint plain DDQN jobs
+8057301/8057303; their learner processes failed while Slurm still showed RUNNING.
+The lightweight status helper had matched only a fixed list of exception names,
+missing `torch.OutOfMemoryError` in stderr. Use the full gate; the helper now
+checks generic exception names and traceback headers in both log streams.
+Sparse compatibility search retained an autograd graph for every candidate
+batch containing even one accepted position. Selection now runs under no-grad,
+then reconstructs only the selected 256 positions under the unchanged snapshot.
+A changed eligibility result in this same-snapshot pass raises an explicit error.
+Uniform selection, loss mean, optimizer steps, rejection rules and RNG streams
+are unchanged. Tests require no gradient-enabled candidate search and exactly
+one 256-position main budget; the complete runtime suite passes 357 tests.
+Real-checkpoint GPU job 8057306 completed a full update (574→575, +256 TD positions)
+in 5.75 seconds with peak allocated GPU memory 4,883,519,488 bytes.
+
+The original goal-write gradient metric was sampled during fresh DG processing,
+before controller replay, so it reported zero even when HER changed the weights.
+A shared parent helper now records it after replay. The original goal-readout
+sensitivity helper is also reused in DDQN instead of placeholder zeros. Both
+changes preserve original metric names; CPU full PPO model/buffer/optimizer
+parity passed for all three parent references. The isolated candidate source is
+`SF_hipposlam_controller_telemetry_20260912`; no active source was overwritten.

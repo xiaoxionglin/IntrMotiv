@@ -1,0 +1,604 @@
+/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[2026-09-12 06:51:48,685][00003] register_encoder_factory: <function make_hipposlam_encoder at 0x790ec007b490>
+[2026-09-12 06:51:48,685][00003] register_model_core_factory: <function make_hipposlam_core at 0x790ece8917e0>
+[2026-09-12 06:51:48,685][00003] register_decoder_factory: <function make_hipposlam_decoder at 0x790ece892680>
+[2026-09-12 06:51:48,685][00003] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x790ece83cb80>
+[2026-09-12 06:51:48,685][00003] register_learner_factory: <function make_hipposlam_learner at 0x790ec00f64d0>
+[2026-09-12 06:51:48,689][00003] Setting fixed seed 99
+[2026-09-12 06:51:48,690][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:48,690][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:48,696][00003] True
+[2026-09-12 06:51:48,696][00003] using depth sensor True
+[2026-09-12 06:51:48,697][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:48,697][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:48,803][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:48,804][00003] denpth_sensor True
+[2026-09-12 06:51:48,804][00003] denpth_sensor True
+[2026-09-12 06:51:48,804][00003] using bypass, dim 13
+[2026-09-12 06:51:48,804][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:48,804][00003] get out size called: 1165
+[2026-09-12 06:51:48,834][00003] get out size called: 1165
+[2026-09-12 06:51:48,837][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:48,837][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=16, bias=False)
+      (batchnorm1d): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): SimpleSequenceWithBypassCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=1149, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:48,846][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:48,846][00003] No checkpoints found
+[2026-09-12 06:51:48,846][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:48,846][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:48,846][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:48,846][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 06:51:48,847][00003] Setting fixed seed 99
+[2026-09-12 06:51:48,847][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:48,848][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:48,852][00003] True
+[2026-09-12 06:51:48,852][00003] using depth sensor True
+[2026-09-12 06:51:48,852][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:48,852][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:48,949][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:48,949][00003] denpth_sensor True
+[2026-09-12 06:51:48,950][00003] denpth_sensor True
+[2026-09-12 06:51:48,950][00003] using bypass, dim 13
+[2026-09-12 06:51:48,950][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:48,950][00003] get out size called: 1165
+[2026-09-12 06:51:48,958][00003] get out size called: 1165
+[2026-09-12 06:51:48,961][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:48,961][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=16, bias=False)
+      (batchnorm1d): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): SimpleSequenceWithBypassCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=1149, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:48,970][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:48,970][00003] No checkpoints found
+[2026-09-12 06:51:48,970][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:48,970][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:48,970][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:48,970][00003] Initialized policy 0 weights for model version 0
+PASS DGC_DIRECT_WORKER_F16_S99
+[2026-09-12 06:51:49,184][00003] Setting fixed seed 8
+[2026-09-12 06:51:49,184][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:49,184][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:49,189][00003] True
+[2026-09-12 06:51:49,189][00003] using depth sensor True
+[2026-09-12 06:51:49,189][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:49,189][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:49,288][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:49,289][00003] denpth_sensor True
+[2026-09-12 06:51:49,289][00003] denpth_sensor True
+[2026-09-12 06:51:49,289][00003] using bypass, dim 13
+[2026-09-12 06:51:49,290][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:49,290][00003] get out size called: 4621
+[2026-09-12 06:51:49,300][00003] get out size called: 4621
+[2026-09-12 06:51:49,308][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:49,309][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=64, bias=False)
+      (batchnorm1d): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): GoalConditionedDGCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=4557, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:49,316][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:49,317][00003] No checkpoints found
+[2026-09-12 06:51:49,317][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:49,317][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:49,317][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:49,317][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 06:51:49,317][00003] Setting fixed seed 8
+[2026-09-12 06:51:49,318][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:49,318][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:49,322][00003] True
+[2026-09-12 06:51:49,322][00003] using depth sensor True
+[2026-09-12 06:51:49,322][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:49,322][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:49,416][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:49,418][00003] denpth_sensor True
+[2026-09-12 06:51:49,418][00003] denpth_sensor True
+[2026-09-12 06:51:49,418][00003] using bypass, dim 13
+[2026-09-12 06:51:49,418][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:49,419][00003] get out size called: 4621
+[2026-09-12 06:51:49,429][00003] get out size called: 4621
+[2026-09-12 06:51:49,438][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:49,438][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=64, bias=False)
+      (batchnorm1d): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): GoalConditionedDGCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=4557, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:49,443][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:49,443][00003] No checkpoints found
+[2026-09-12 06:51:49,443][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:49,443][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:49,443][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:49,443][00003] Initialized policy 0 weights for model version 0
+PASS DGC_WAYPOINT_DG_F64_S8
+[2026-09-12 06:51:49,612][00003] Setting fixed seed 99
+[2026-09-12 06:51:49,612][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:49,612][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:49,617][00003] True
+[2026-09-12 06:51:49,617][00003] using depth sensor True
+[2026-09-12 06:51:49,617][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:49,617][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:49,712][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:49,713][00003] denpth_sensor True
+[2026-09-12 06:51:49,713][00003] denpth_sensor True
+[2026-09-12 06:51:49,713][00003] using bypass, dim 13
+[2026-09-12 06:51:49,714][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:49,714][00003] get out size called: 4621
+[2026-09-12 06:51:49,724][00003] get out size called: 4621
+[2026-09-12 06:51:49,733][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:49,733][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=64, bias=False)
+      (batchnorm1d): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): GoalConditionedDGCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=4557, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:49,746][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:49,746][00003] No checkpoints found
+[2026-09-12 06:51:49,746][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:49,746][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:49,746][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:49,746][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 06:51:49,747][00003] Setting fixed seed 99
+[2026-09-12 06:51:49,747][00003] Initializing actor-critic model on device cpu
+[2026-09-12 06:51:49,747][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 06:51:49,752][00003] True
+[2026-09-12 06:51:49,752][00003] using depth sensor True
+[2026-09-12 06:51:49,752][00003] Num input channels for depth encoder: 1
+[2026-09-12 06:51:49,752][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 06:51:49,847][00003] DMLab policy head output size: 3843
+[2026-09-12 06:51:49,849][00003] denpth_sensor True
+[2026-09-12 06:51:49,849][00003] denpth_sensor True
+[2026-09-12 06:51:49,849][00003] using bypass, dim 13
+[2026-09-12 06:51:49,849][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 06:51:49,850][00003] get out size called: 4621
+[2026-09-12 06:51:49,859][00003] get out size called: 4621
+[2026-09-12 06:51:49,867][00003] Created Actor Critic model with architecture:
+[2026-09-12 06:51:49,867][00003] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=64, bias=False)
+      (batchnorm1d): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): GoalConditionedDGCore(
+    (policy_graph): PolicyControllableGraph()
+  )
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=4557, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)
+[2026-09-12 06:51:49,872][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 06:51:49,872][00003] No checkpoints found
+[2026-09-12 06:51:49,872][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 06:51:49,872][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 06:51:49,872][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 06:51:49,872][00003] Initialized policy 0 weights for model version 0
+PASS DGC_WAYPOINT_DG_F64_S99

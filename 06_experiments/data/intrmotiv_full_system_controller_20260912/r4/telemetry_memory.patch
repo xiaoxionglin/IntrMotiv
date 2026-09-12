@@ -1,0 +1,277 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -3484,6 +3484,43 @@
+ 
+         return outputs
+ 
++    def _record_goal_condition_diagnostics(self, outputs, mb, additional_stats):
++        with torch.no_grad():
++            if self._uses_policy_graph():
++                behavior_target = self._behavior_targets_from_states(mb.rnn_states)
++                alternate_target = behavior_target.roll(1, dims=0)
++                alternate = self.actor_critic.forward_tail(
++                    self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
++                    values_only=False,
++                    sample_actions=False,
++                )
++                goal_valid = behavior_target.sum(dim=-1).gt(0)
++                action_delta = (
++                    (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
++                )
++                action_probability_tv = categorical_action_total_variation(
++                    outputs.result["action_logits"].detach(), alternate["action_logits"]
++                )
++                value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
++                additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
++                additional_stats["goal_condition_action_sensitivity"] = (
++                    action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
++                )
++                additional_stats["goal_condition_action_probability_tv"] = (
++                    action_probability_tv[goal_valid].mean()
++                    if goal_valid.any()
++                    else action_probability_tv.sum() * 0.0
++                )
++                additional_stats["goal_condition_value_span"] = (
++                    value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
++                )
++            else:
++                goal_zero = outputs.core_outputs.detach().sum() * 0.0
++                additional_stats["goal_condition_target_valid_fraction"] = goal_zero
++                additional_stats["goal_condition_action_sensitivity"] = goal_zero
++                additional_stats["goal_condition_action_probability_tv"] = goal_zero
++                additional_stats["goal_condition_value_span"] = goal_zero
++
+     def _calculate_losses(
+         self, mb: AttrDict, num_invalids: int, iterative_phase: str, *, record_goal_diagnostics: bool = True
+     ) -> Tuple[ActionDistribution, Tensor, Tensor | float, Optional[Tensor], Tensor | float, Tensor, Dict]:
+@@ -3615,41 +3652,7 @@
+             additional_stats["empirical_her_valid_fraction"] = empirical_her_valid_fraction
+             # Evaluate the alternate target only when this minibatch will be summarized.
+             if record_goal_diagnostics:
+-                with torch.no_grad():
+-                    if self._uses_policy_graph():
+-                        behavior_target = self._behavior_targets_from_states(mb.rnn_states)
+-                        alternate_target = behavior_target.roll(1, dims=0)
+-                        alternate = self.actor_critic.forward_tail(
+-                            self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
+-                            values_only=False,
+-                            sample_actions=False,
+-                        )
+-                        goal_valid = behavior_target.sum(dim=-1).gt(0)
+-                        action_delta = (
+-                            (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
+-                        )
+-                        action_probability_tv = categorical_action_total_variation(
+-                            outputs.result["action_logits"].detach(), alternate["action_logits"]
+-                        )
+-                        value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
+-                        additional_stats["goal_condition_action_sensitivity"] = (
+-                            action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_action_probability_tv"] = (
+-                            action_probability_tv[goal_valid].mean()
+-                            if goal_valid.any()
+-                            else action_probability_tv.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_value_span"] = (
+-                            value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
+-                        )
+-                    else:
+-                        goal_zero = outputs.core_outputs.detach().sum() * 0.0
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_zero
+-                        additional_stats["goal_condition_action_sensitivity"] = goal_zero
+-                        additional_stats["goal_condition_action_probability_tv"] = goal_zero
+-                        additional_stats["goal_condition_value_span"] = goal_zero
++                self._record_goal_condition_diagnostics(outputs, mb, additional_stats)
+ 
+             kl_old, kl_loss = self.kl_loss_func(
+                 self.actor_critic.action_space, mb.action_logits, action_distribution, valids, num_invalids
+@@ -4245,6 +4248,15 @@
+                 buff["log_prob_actions"][invalid_indices] = -1  # -1 seems like a safe value
+ 
+             return buff, dataset_size, num_invalids
++
++    def _record_goal_modulation_summaries(self, stats):
++        dg_modulation = getattr(self.actor_critic.core, "dg_goal_modulation", None)
++        if dg_modulation is not None:
++            stats["dg_goal_modulation_norm"] = dg_modulation.detach().norm().float()
++            grad = dg_modulation.grad
++            stats["dg_goal_modulation_gradient_norm"] = grad.norm().detach().float() if grad is not None else 0.0
++            for goal_id in range(int(self.cfg.Hippo_n_feature)):
++                stats[f"dg_goal_gradient_{goal_id:03d}"] = grad[goal_id].norm().detach().float() if grad is not None else 0.0
+ 
+     def _record_summaries(self, train_loop_vars):
+         var = train_loop_vars  # TODO: Think of a better way, why is this necessary? Just redirecting pointer?
+@@ -4966,13 +4978,7 @@
+         stats.dg_recruitment_goal_adapter_reset_count = float(self._last_recruitment_stats["goal_adapter_reset_count"])
+         stats.dg_recruitment_goal_adapter_reset_total = float(self._goal_adapter_reset_count)
+         decoder = self.actor_critic.decoder
+-        dg_modulation = getattr(self.actor_critic.core, "dg_goal_modulation", None)
+-        if dg_modulation is not None:
+-            stats.dg_goal_modulation_norm = dg_modulation.detach().norm().float()
+-            grad = dg_modulation.grad
+-            stats.dg_goal_modulation_gradient_norm = grad.norm().detach().float() if grad is not None else 0.0
+-            for goal_id in range(int(self.cfg.Hippo_n_feature)):
+-                stats[f"dg_goal_gradient_{goal_id:03d}"] = grad[goal_id].norm().detach().float() if grad is not None else 0.0
++        self._record_goal_modulation_summaries(stats)
+         if self._uses_policy_graph():
+             goals = self._behavior_targets_from_states(var.mb.rnn_states).detach()
+             valid_goal = goals.sum(-1) > 0
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -141,6 +141,8 @@
+             'goal_condition_target_valid_fraction','goal_condition_action_sensitivity',
+             'goal_condition_action_probability_tv','goal_condition_value_span'):
+             additional[name]=zero
++        if kwargs.get('record_goal_diagnostics', True):
++            self._record_goal_condition_diagnostics(outputs, mb, additional)
+         for mode in ('goal','free'):
+             for name in ('policy_loss','value_loss','entropy_loss'):additional[f'{mode}_{name}']=zero
+         summaries=dict(ratio=torch.ones_like(mb.advantages),clip_ratio_low=1.,clip_ratio_high=1.,
+@@ -268,7 +270,7 @@
+             # on its independent completed-main-update clock.
+             self.online_snapshot.refresh(self.actor_critic,self.controller_version+1)
+             self.controller_version+=1
+-            losses=[];examples=[];qs=[];started=time.perf_counter()
++            examples=[];started=time.perf_counter()
+             keys=self.replay.candidate_order(incompatible)
+             width=self._reconstruction_width()
+             for start in range(0,len(keys),width):
+@@ -278,23 +280,32 @@
+                     except (ReplayRejected,ValueError) as exc:
+                         if type(exc) is ValueError and str(exc) not in ('missing_history','cross_episode'):raise
+                         self.replay.reject(str(exc));incompatible.add(key)
+-                for key,example,result in zip(group_keys,group,self._evaluate_pairs(group)):
++                # Eligibility search must not retain autograd graphs for every
++                # mostly-rejected candidate batch. Reconstruct the selected TD
++                # positions under the same snapshot only after selection ends.
++                with torch.no_grad():results=self._evaluate_pairs(group)
++                for key,example,result in zip(group_keys,group,results):
+                     if isinstance(result,str):
+                         self.replay.reject(result);incompatible.add(key);continue
+-                    loss,values=result
+-                    losses.append(loss);examples.append(example);qs.append(values['q'].detach())
+-                    if len(losses)==self.cfg.controller_td_positions:break
+-                if len(losses)==self.cfg.controller_td_positions:break
++                    examples.append(example)
++                    if len(examples)==self.cfg.controller_td_positions:break
++                if len(examples)==self.cfg.controller_td_positions:break
+             main_seconds+=time.perf_counter()-started
+-            if not losses:
++            if not examples:
+                 self.replay.reject('no_compatible_main_replay');break
+             # If the full admissible population is smaller than the TD budget,
+             # uniform resampling fills it without discarding valid main updates.
+-            available=len(losses)
+-            while len(losses)<self.cfg.controller_td_positions:
+-                index=int(self.replay.rng.integers(available))
+-                losses.append(losses[index]);examples.append(examples[index]);qs.append(qs[index])
++            available=len(examples)
++            while len(examples)<self.cfg.controller_td_positions:
++                examples.append(examples[int(self.replay.rng.integers(available))])
++            started=time.perf_counter()
++            selected_results=self._evaluate_pairs(examples)
++            if any(isinstance(result,str) for result in selected_results):
++                raise RuntimeError('Replay eligibility changed within the same optimizer snapshot')
++            losses=[result[0] for result in selected_results]
++            qs=[result[1]['q'].detach() for result in selected_results]
+             main_loss=torch.stack(losses).mean()
++            main_seconds+=time.perf_counter()-started
+             aux=[];started=time.perf_counter()
+             if self.cfg.controller_her:
+                 selected=[examples[int(self.her_rng.integers(len(examples)))] for _ in range(self.cfg.controller_her_positions)]
+@@ -347,5 +358,9 @@
+             fresh_dg_steps=self.fresh_dg_steps,fresh_graph_batches=self.fresh_graph_batches,
+             transaction_seconds=time.perf_counter()-started)
+         self.controller_stats.update({f'rejected/{k}':v for k,v in self.replay.rejected.items()})
+-        stats.setdefault(TRAIN_STATS,{}).update({f'controller/{k}':v for k,v in self.controller_stats.items()})
++        summaries=stats.setdefault(TRAIN_STATS,{})
++        modulation_stats={}
++        self._record_goal_modulation_summaries(modulation_stats)
++        summaries.update({key:float(value) for key,value in modulation_stats.items()})
++        summaries.update({f'controller/{k}':v for k,v in self.controller_stats.items()})
+         return stats
+--- a/sf_working_directories/IntrMotiv/tests/test_goal_diagnostic_schedule.py
++++ b/sf_working_directories/IntrMotiv/tests/test_goal_diagnostic_schedule.py
+@@ -44,6 +44,10 @@
+                                 _uses_policy_graph=lambda: True,
+                                 _behavior_targets_from_states=lambda states: torch.eye(2),
+                                 _with_worker_target=lambda core, target: core)
++        helper_namespace = dict(torch=torch, categorical_action_total_variation=lambda a, b:
++                                (a.softmax(-1) - b.softmax(-1)).abs().sum(-1) / 2)
++        execute(method('_record_goal_condition_diagnostics'), helper_namespace)
++        owner._record_goal_condition_diagnostics = lambda *args: helper_namespace['_record_goal_condition_diagnostics'](owner, *args)
+         stats = {}
+         execute(gate, dict(torch=torch, self=owner, record_goal_diagnostics=enabled,
+                            additional_stats=stats, mb=SimpleNamespace(rnn_states=None),
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_complete_sampling.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_complete_sampling.py
+@@ -24,9 +24,10 @@
+     learner.curr_lr=.1;learner._apply_lr=lambda lr:None
+     learner.online_snapshot=learner.target_snapshot=SimpleNamespace(refresh=lambda *args:None)
+     learner._example=lambda key:key
+-    evaluated=[]
++    evaluated=[];gradient_batches=[]
+     def evaluate(keys):
+-        evaluated.extend(keys)
++        if torch.is_grad_enabled():gradient_batches.append(len(keys))
++        else:evaluated.extend(keys)
+         return ['history_recognition_changed' if key<17 else
+                 (learner.actor_critic.weight.square().sum(),{'q':learner.actor_critic.weight.detach()}) for key in keys]
+     learner._evaluate_pairs=evaluate
+@@ -34,6 +35,7 @@
+     assert learner.clock.completed==2 and learner.clock.main_positions==8
+     assert learner.clock.due(learner.replay.accepted)==0
+     assert len(evaluated)==expected_checks
++    assert gradient_batches==[4,4]
+     torch.testing.assert_close(learner.actor_critic.weight,torch.tensor([[.64]]))
+ 
+ 
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_goal_telemetry.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_goal_telemetry.py
+@@ -0,0 +1,44 @@
++from types import SimpleNamespace
++import torch
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++from sf_working_directories.IntrMotiv.dmlab.reward_summaries import write_intrmotiv_summaries
++from sample_factory.algo.utils.misc import LEARNER_ENV_STEPS, TRAIN_STATS
++
++
++def test_goal_write_dashboard_reports_actual_controller_gradient_without_mutation():
++    learner=object.__new__(DistanceLearnerReward)
++    modulation=torch.nn.Parameter(torch.ones(3,2))
++    (modulation * torch.tensor([[1.,2.],[0.,0.],[3.,4.]])).sum().backward()
++    learner.actor_critic=SimpleNamespace(core=SimpleNamespace(dg_goal_modulation=modulation))
++    learner.cfg=SimpleNamespace(Hippo_n_feature=3)
++    before=modulation.detach().clone();grad=modulation.grad.clone();stats={}
++    learner._record_goal_modulation_summaries(stats)
++    assert stats['dg_goal_modulation_gradient_norm']==grad.norm()
++    assert stats['dg_goal_gradient_001']==0 and stats['dg_goal_gradient_002']==5
++    torch.testing.assert_close(modulation,before);torch.testing.assert_close(modulation.grad,grad)
++    scalars=[];runner=SimpleNamespace(writers={0:SimpleNamespace(add_scalar=lambda *args:scalars.append(args))},env_steps={0:0})
++    msg={LEARNER_ENV_STEPS:100,TRAIN_STATS:stats}
++    write_intrmotiv_summaries(runner,msg,0)
++    # Original unmapped metrics retain SF's train/ namespace.
++    assert msg[TRAIN_STATS]['dg_goal_modulation_gradient_norm']>0
++
++
++def test_shared_goal_diagnostics_measure_readout_sensitivity_without_gradients():
++    learner=object.__new__(DistanceLearnerReward)
++    goals=torch.eye(2);features=torch.tensor([[1.,2.],[3.,4.]],requires_grad=True)
++    calls=[]
++    def tail(values,**kwargs):
++        calls.append((torch.is_grad_enabled(),kwargs))
++        return {'action_logits':values,'values':values[:,0]}
++    learner.actor_critic=SimpleNamespace(forward_tail=tail)
++    learner._uses_policy_graph=lambda:True
++    learner._behavior_targets_from_states=lambda states:goals
++    learner._with_worker_target=lambda core,target:core+target
++    outputs=SimpleNamespace(core_outputs=features,result={'action_logits':features+goals,'values':(features+goals)[:,0]})
++    stats={};learner._record_goal_condition_diagnostics(outputs,SimpleNamespace(rnn_states=None),stats)
++    assert stats['goal_condition_target_valid_fraction']==1
++    assert stats['goal_condition_action_sensitivity']==1
++    assert stats['goal_condition_action_probability_tv']>0
++    assert stats['goal_condition_value_span']==1
++    assert calls==[(False,{'values_only':False,'sample_actions':False})]
++    assert all(not value.requires_grad for value in stats.values())
