@@ -30,9 +30,13 @@
       "before_sha256": null,
       "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
+    "sf_working_directories/IntrMotiv/dmlab/ca3_memory.py": {
+      "before_sha256": "cdd654ffca61212379942f58e29fa00d70a18be0f29bb943c36b9db5130f180c",
+      "after_sha256": "d89ca340f05571400f5f4fa20129ff9156dffce2f7bb229700847302398bb147"
+    },
     "sf_working_directories/IntrMotiv/dmlab/controller_actor_memory.py": {
       "before_sha256": null,
-      "after_sha256": "96fdad6b310219e286e316b8828d5f45a764a0b4970de4dc22936bafbeaef00c"
+      "after_sha256": "739a9483171f0f16c39c905ea7d46ee93716eaf7d3d809e068da566a2d794d31"
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_contract.py": {
       "before_sha256": null,
@@ -40,11 +44,11 @@
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_history.py": {
       "before_sha256": null,
-      "after_sha256": "94d4ea57e209f6de255323b3a55b84bea301e59b4e5c5ee3f8340c05b954100a"
+      "after_sha256": "2305e0f0b516429efd509f4e4bcc7b4a20d90396d4c3f1f7067c755377cba1a5"
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_learner.py": {
       "before_sha256": null,
-      "after_sha256": "d1df99183d98598b7c80bed840c14260ee8e3bc7f84a6bcaaf3e649707f2f0aa"
+      "after_sha256": "d6f48127b848fba23f6bf3c980d8b023163d9f3f1158cf4fc4527f08b9cf9a42"
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_q.py": {
       "before_sha256": null,
@@ -52,7 +56,7 @@
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_replay.py": {
       "before_sha256": null,
-      "after_sha256": "70c226f70132ce156b9636f1532ce07a875fa1aa3f12037ac2be82e41d08da6f"
+      "after_sha256": "41273a12729558e26a4690dbd53f1cfb82f649a69ae19defd49ae5027bb1958b"
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_schedule.py": {
       "before_sha256": null,
@@ -64,7 +68,7 @@
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_transition.py": {
       "before_sha256": null,
-      "after_sha256": "82ae9573dd206bbc16e912e02f88a9f58df2fa63b89963521312b4eec7a8079b"
+      "after_sha256": "3eed454e24873f43bf52dc99a506b554cd84b38fa52acce498cd5982f8b636ef"
     },
     "sf_working_directories/IntrMotiv/dmlab/controller_transport.py": {
       "before_sha256": null,
@@ -74,13 +78,17 @@
       "before_sha256": "688f7341651c51796d5cd6d2d2518903b054f737357fafa0d6498c378a9b21c0",
       "after_sha256": "01f576e60377c4407a19814ec8fac3e04836b6c15c11430fa4de731a64376a24"
     },
+    "sf_working_directories/IntrMotiv/dmlab/custom_core.py": {
+      "before_sha256": "cc13c89a7e9f6fbfe4d6f90199300a05ef5c23faebb5db62cfdf9712bb8899a0",
+      "after_sha256": "a8e2706e850557f11f994f03820b3cf44c61bdc991265af79540377b3d5e5d7a"
+    },
     "sf_working_directories/IntrMotiv/dmlab/custom_encoder.py": {
       "before_sha256": "f128d3424faf1d16d593c112f5414e21a95e51ce1f8b56cbab9a61a8d61bd2c1",
       "after_sha256": "8e87873df7b6e3448c907e145f67d828758eb48f25285c5f4aeee22159c79d9e"
     },
     "sf_working_directories/IntrMotiv/dmlab/custom_learner.py": {
       "before_sha256": "6d4ded55aa170a689febeee5d08b99983cb816c8ceb2c668beafe17a1415d897",
-      "after_sha256": "e69ec9522a5fa89897a19fae048bb8b8b30783ed0ce05fb7cdf97a017dbfc0cf"
+      "after_sha256": "1384009444aedd489aa2569a3cbbb00b7e3997f0c1c930dfe749861b30b8058b"
     },
     "sf_working_directories/IntrMotiv/dmlab/custom_params.py": {
       "before_sha256": "9b3d8f573f370fc44ea40711d37f54168d3015e6c4ab94e892d0bcc48a606bfd",
@@ -88,11 +96,19 @@
     },
     "sf_working_directories/IntrMotiv/dmlab/dmlab_env.py": {
       "before_sha256": "bd906eea63bd0f526283e90d6dae88053b6d0c5c426d208fe233bf368702d7a0",
-      "after_sha256": "e12baa6a4ce51f310f24860b9878cbdd1a6d1e49d1fddbd893b54fb514e1b8ed"
+      "after_sha256": "e3568ac6b6bfc258bacfdc194e31552575fd3ea6333f264186e2c7925b9c4ef7"
     },
     "sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py": {
       "before_sha256": "a75665a83046fcec7011d7744cc5fe148005be2ebbaa08da65108dcaf0e9e743",
-      "after_sha256": "a68be89601811c715d292ea770dc6b38559be3ed3a8eb7158fd471251e63efe6"
+      "after_sha256": "6482d6881a1464d04b3fb1b6844ce8fa41cb4b04ee4b93fb2bd911f4ff79e48b"
+    },
+    "sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py": {
+      "before_sha256": "bcf9403cf5f29ed9c575a25e7bce1a013beb0c213220c4732d0dd9afc00bb184",
+      "after_sha256": "9ee52b4bb6ea63b46175e67c74400f0cf518e991ce680f9de2ab45efb9801f59"
+    },
+    "sf_working_directories/IntrMotiv/dmlab/reward_summaries.py": {
+      "before_sha256": "c6f1a6b800c707c6faa507e76e47ba58a6afcf440c3b3a7c22366d3ddbb0e90e",
+      "after_sha256": "d3d25cbd50f9f8e1b03324483248405bd1031ee7abc9bb32f6b7f28b9ec99635"
     },
     "sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py": {
       "before_sha256": "83ac96ef0cc9abce7845eaaad7bdf06f6d9454ca39e200e29c6280ac08a05e13",
@@ -100,7 +116,7 @@
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_actor_memory.py": {
       "before_sha256": null,
-      "after_sha256": "ca7f4d00d324f30014e33889033a2abd55057ba51d6c60dea7dd55abad387a49"
+      "after_sha256": "54b9e162c5dd007a85f49390b8fd5b86ed8aa8b6656c58907d3bffe33508aabf"
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_contract.py": {
       "before_sha256": null,
@@ -108,7 +124,7 @@
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_history.py": {
       "before_sha256": null,
-      "after_sha256": "6e495587b90a7eb6b4f2a59cd3fbe9fe4223ddee6f4ca9f247b2e7669a763ce0"
+      "after_sha256": "46f961569ad12a17adc5a66241662da81a7c5ce05c9165c40097be9df678231a"
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_q.py": {
       "before_sha256": null,
@@ -116,7 +132,7 @@
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_schedule.py": {
       "before_sha256": null,
-      "after_sha256": "7d0479efc15f78645859ab705b0fd77ca5d99bfc06e324c712851038f9d7fbc2"
+      "after_sha256": "305d780a1c9e5c8a886218b29759f05be85e23d251742ac216de5b57a8669cbf"
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_snapshot.py": {
       "before_sha256": null,
@@ -124,11 +140,11 @@
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_transition.py": {
       "before_sha256": null,
-      "after_sha256": "3e97022f820f8596bf247d0bd023ff570f63f9f28070979f3ad441fdf1f2969f"
+      "after_sha256": "7f5cef11c93f830f36d4303aebc85711de1baa74e1ffa1a0ba12ee6b33aae2f8"
     },
     "sf_working_directories/IntrMotiv/tests/test_controller_transport.py": {
       "before_sha256": null,
-      "after_sha256": "55991292a516118599491281d964d9c856d6255e998a5a49659aa1247962b26d"
+      "after_sha256": "100380f1c4650f9d57f6b1e34236407d01d87d4353f3e533d5155a7540d5e964"
     },
     "sf_working_directories/IntrMotiv/tests/test_fresh_encoder_loss.py": {
       "before_sha256": null,

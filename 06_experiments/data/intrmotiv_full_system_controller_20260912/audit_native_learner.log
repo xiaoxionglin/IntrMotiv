@@ -1,26 +1,26 @@
 /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   import pkg_resources
-[2026-09-12 03:20:35,313][00004] register_encoder_factory: <function make_hipposlam_encoder at 0x7fdc41db0280>
-[2026-09-12 03:20:35,313][00004] register_model_core_factory: <function make_hipposlam_core at 0x7fdc504a6170>
-[2026-09-12 03:20:35,313][00004] register_decoder_factory: <function make_hipposlam_decoder at 0x7fdc504a70a0>
-[2026-09-12 03:20:35,313][00004] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7fdc50455510>
-[2026-09-12 03:20:35,313][00004] register_learner_factory: <function make_hipposlam_learner at 0x7fdc41c07370>
-[2026-09-12 03:20:35,316][00004] Setting fixed seed 99
-[2026-09-12 03:20:35,317][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:35,318][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:35,323][00004] True
-[2026-09-12 03:20:35,323][00004] using depth sensor True
-[2026-09-12 03:20:35,324][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:35,324][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:35,427][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:35,427][00004] denpth_sensor True
-[2026-09-12 03:20:35,428][00004] denpth_sensor True
-[2026-09-12 03:20:35,428][00004] using bypass, dim 13
-[2026-09-12 03:20:35,428][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:35,428][00004] get out size called: 1165
-[2026-09-12 03:20:35,456][00004] get out size called: 1165
-[2026-09-12 03:20:35,459][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:35,459][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:09,662][00003] register_encoder_factory: <function make_hipposlam_encoder at 0x7073b20a8310>
+[2026-09-12 03:52:09,662][00003] register_model_core_factory: <function make_hipposlam_core at 0x7073c07ae200>
+[2026-09-12 03:52:09,663][00003] register_decoder_factory: <function make_hipposlam_decoder at 0x7073c07af130>
+[2026-09-12 03:52:09,663][00003] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7073c0755510>
+[2026-09-12 03:52:09,663][00003] register_learner_factory: <function make_hipposlam_learner at 0x7073b1f03400>
+[2026-09-12 03:52:09,670][00003] Setting fixed seed 99
+[2026-09-12 03:52:09,674][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:09,674][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:09,691][00003] True
+[2026-09-12 03:52:09,692][00003] using depth sensor True
+[2026-09-12 03:52:09,692][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:09,692][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:09,813][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:09,814][00003] denpth_sensor True
+[2026-09-12 03:52:09,815][00003] denpth_sensor True
+[2026-09-12 03:52:09,815][00003] using bypass, dim 13
+[2026-09-12 03:52:09,815][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:09,815][00003] get out size called: 1165
+[2026-09-12 03:52:09,852][00003] get out size called: 1165
+[2026-09-12 03:52:09,857][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:09,857][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -102,68 +102,68 @@
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:35,471][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:35,471][00004] No checkpoints found
-[2026-09-12 03:20:35,471][00004] Did not load a downstream checkpoint, starting a new run
-[2026-09-12 03:20:35,471][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:35,471][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:35,471][00004] Initialized policy 0 weights for model version 0
-[2026-09-12 03:20:35,472][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:35,476][00004] True
-[2026-09-12 03:20:35,476][00004] using depth sensor True
-[2026-09-12 03:20:35,476][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:35,476][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:35,566][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:35,567][00004] denpth_sensor True
-[2026-09-12 03:20:35,567][00004] denpth_sensor True
-[2026-09-12 03:20:35,567][00004] using bypass, dim 13
-[2026-09-12 03:20:35,567][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:35,568][00004] get out size called: 1165
-[2026-09-12 03:20:35,575][00004] get out size called: 1165
-[2026-09-12 03:20:35,582][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:35,586][00004] True
-[2026-09-12 03:20:35,586][00004] using depth sensor True
-[2026-09-12 03:20:35,586][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:35,586][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:35,676][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:35,676][00004] denpth_sensor True
-[2026-09-12 03:20:35,676][00004] denpth_sensor True
-[2026-09-12 03:20:35,676][00004] using bypass, dim 13
-[2026-09-12 03:20:35,677][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:35,677][00004] get out size called: 1165
-[2026-09-12 03:20:35,683][00004] get out size called: 1165
-[2026-09-12 03:20:35,690][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:35,694][00004] True
-[2026-09-12 03:20:35,694][00004] using depth sensor True
-[2026-09-12 03:20:35,694][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:35,694][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:35,786][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:35,786][00004] denpth_sensor True
-[2026-09-12 03:20:35,788][00004] denpth_sensor True
-[2026-09-12 03:20:35,788][00004] using bypass, dim 13
-[2026-09-12 03:20:35,788][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:35,788][00004] get out size called: 1165
-[2026-09-12 03:20:35,794][00004] get out size called: 1165
-[2026-09-12 03:20:35,809][00004] Initialized policy 0 weights for model version 0
-DGC_DIRECT_WORKER_F16_S99 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 1, 'her_budget_expired': 2}
-DGC_DIRECT_WORKER_F16_S99 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 3, 'her_budget_expired': 6}
-[2026-09-12 03:20:36,095][00004] Saving /tmp/native-controller-audit-z8hzyy0t/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:36,107][00004] Setting fixed seed 99
-[2026-09-12 03:20:36,107][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:36,107][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,112][00004] True
-[2026-09-12 03:20:36,112][00004] using depth sensor True
-[2026-09-12 03:20:36,112][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,112][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,202][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,203][00004] denpth_sensor True
-[2026-09-12 03:20:36,203][00004] denpth_sensor True
-[2026-09-12 03:20:36,203][00004] using bypass, dim 13
-[2026-09-12 03:20:36,203][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,204][00004] get out size called: 1165
-[2026-09-12 03:20:36,210][00004] get out size called: 1165
-[2026-09-12 03:20:36,213][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:36,214][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:09,869][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:09,869][00003] No checkpoints found
+[2026-09-12 03:52:09,870][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 03:52:09,870][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:09,870][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:09,870][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 03:52:09,870][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:09,875][00003] True
+[2026-09-12 03:52:09,875][00003] using depth sensor True
+[2026-09-12 03:52:09,875][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:09,875][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:09,977][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:09,977][00003] denpth_sensor True
+[2026-09-12 03:52:09,978][00003] denpth_sensor True
+[2026-09-12 03:52:09,978][00003] using bypass, dim 13
+[2026-09-12 03:52:09,978][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:09,978][00003] get out size called: 1165
+[2026-09-12 03:52:09,989][00003] get out size called: 1165
+[2026-09-12 03:52:09,998][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:10,004][00003] True
+[2026-09-12 03:52:10,004][00003] using depth sensor True
+[2026-09-12 03:52:10,004][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:10,004][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:10,123][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:10,124][00003] denpth_sensor True
+[2026-09-12 03:52:10,125][00003] denpth_sensor True
+[2026-09-12 03:52:10,125][00003] using bypass, dim 13
+[2026-09-12 03:52:10,125][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:10,125][00003] get out size called: 1165
+[2026-09-12 03:52:10,134][00003] get out size called: 1165
+[2026-09-12 03:52:10,144][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:10,149][00003] True
+[2026-09-12 03:52:10,149][00003] using depth sensor True
+[2026-09-12 03:52:10,150][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:10,150][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:10,260][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:10,261][00003] denpth_sensor True
+[2026-09-12 03:52:10,261][00003] denpth_sensor True
+[2026-09-12 03:52:10,261][00003] using bypass, dim 13
+[2026-09-12 03:52:10,261][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:10,261][00003] get out size called: 1165
+[2026-09-12 03:52:10,270][00003] get out size called: 1165
+[2026-09-12 03:52:10,295][00003] Initialized policy 0 weights for model version 0
+DGC_DIRECT_WORKER_F16_S99 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 2, 'her_budget_expired': 2}
+DGC_DIRECT_WORKER_F16_S99 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 4, 'her_budget_expired': 6}
+[2026-09-12 03:52:10,578][00003] Saving /tmp/native-controller-audit-8ly_4rg5/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:10,593][00003] Setting fixed seed 99
+[2026-09-12 03:52:10,593][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:10,593][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:10,599][00003] True
+[2026-09-12 03:52:10,599][00003] using depth sensor True
+[2026-09-12 03:52:10,599][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:10,599][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:10,708][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:10,709][00003] denpth_sensor True
+[2026-09-12 03:52:10,709][00003] denpth_sensor True
+[2026-09-12 03:52:10,709][00003] using bypass, dim 13
+[2026-09-12 03:52:10,709][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:10,710][00003] get out size called: 1165
+[2026-09-12 03:52:10,718][00003] get out size called: 1165
+[2026-09-12 03:52:10,722][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:10,722][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -245,67 +245,67 @@ DGC_DIRECT_WORKER_F16_S99 1 UpdateClock(learning_starts=1, cadence=4, target_int
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:36,225][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:36,225][00004] Loading state from checkpoint /tmp/native-controller-audit-z8hzyy0t/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:36,234][00004] Loading model from checkpoint
-[2026-09-12 03:20:36,235][00004] Loaded experiment state at self.train_step=2, self.env_steps=64
-[2026-09-12 03:20:36,235][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:36,235][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:36,235][00004] Initialized policy 0 weights for model version 2
-[2026-09-12 03:20:36,236][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,240][00004] True
-[2026-09-12 03:20:36,240][00004] using depth sensor True
-[2026-09-12 03:20:36,240][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,240][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,324][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,325][00004] denpth_sensor True
-[2026-09-12 03:20:36,325][00004] denpth_sensor True
-[2026-09-12 03:20:36,325][00004] using bypass, dim 13
-[2026-09-12 03:20:36,325][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,325][00004] get out size called: 1165
-[2026-09-12 03:20:36,331][00004] get out size called: 1165
-[2026-09-12 03:20:36,338][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,342][00004] True
-[2026-09-12 03:20:36,343][00004] using depth sensor True
-[2026-09-12 03:20:36,343][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,343][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,436][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,436][00004] denpth_sensor True
-[2026-09-12 03:20:36,436][00004] denpth_sensor True
-[2026-09-12 03:20:36,437][00004] using bypass, dim 13
-[2026-09-12 03:20:36,437][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,437][00004] get out size called: 1165
-[2026-09-12 03:20:36,443][00004] get out size called: 1165
-[2026-09-12 03:20:36,450][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,454][00004] True
-[2026-09-12 03:20:36,454][00004] using depth sensor True
-[2026-09-12 03:20:36,454][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,454][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,548][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,548][00004] denpth_sensor True
-[2026-09-12 03:20:36,548][00004] denpth_sensor True
-[2026-09-12 03:20:36,548][00004] using bypass, dim 13
-[2026-09-12 03:20:36,548][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,549][00004] get out size called: 1165
-[2026-09-12 03:20:36,555][00004] get out size called: 1165
-[2026-09-12 03:20:36,566][00004] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:10,735][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:10,736][00003] Loading state from checkpoint /tmp/native-controller-audit-8ly_4rg5/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:10,748][00003] Loading model from checkpoint
+[2026-09-12 03:52:10,751][00003] Loaded experiment state at self.train_step=2, self.env_steps=64
+[2026-09-12 03:52:10,751][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:10,751][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:10,751][00003] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:10,752][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:10,758][00003] True
+[2026-09-12 03:52:10,758][00003] using depth sensor True
+[2026-09-12 03:52:10,758][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:10,758][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:10,872][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:10,873][00003] denpth_sensor True
+[2026-09-12 03:52:10,873][00003] denpth_sensor True
+[2026-09-12 03:52:10,873][00003] using bypass, dim 13
+[2026-09-12 03:52:10,874][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:10,874][00003] get out size called: 1165
+[2026-09-12 03:52:10,882][00003] get out size called: 1165
+[2026-09-12 03:52:10,890][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:10,896][00003] True
+[2026-09-12 03:52:10,896][00003] using depth sensor True
+[2026-09-12 03:52:10,896][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:10,896][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,005][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,006][00003] denpth_sensor True
+[2026-09-12 03:52:11,006][00003] denpth_sensor True
+[2026-09-12 03:52:11,006][00003] using bypass, dim 13
+[2026-09-12 03:52:11,006][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,007][00003] get out size called: 1165
+[2026-09-12 03:52:11,016][00003] get out size called: 1165
+[2026-09-12 03:52:11,025][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:11,030][00003] True
+[2026-09-12 03:52:11,030][00003] using depth sensor True
+[2026-09-12 03:52:11,030][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:11,030][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,148][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,149][00003] denpth_sensor True
+[2026-09-12 03:52:11,149][00003] denpth_sensor True
+[2026-09-12 03:52:11,149][00003] using bypass, dim 13
+[2026-09-12 03:52:11,149][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,149][00003] get out size called: 1165
+[2026-09-12 03:52:11,157][00003] get out size called: 1165
+[2026-09-12 03:52:11,171][00003] Initialized policy 0 weights for model version 2
 PASS DGC_DIRECT_WORKER_F16_S99
-[2026-09-12 03:20:36,589][00004] Setting fixed seed 8
-[2026-09-12 03:20:36,589][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:36,590][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,594][00004] True
-[2026-09-12 03:20:36,594][00004] using depth sensor True
-[2026-09-12 03:20:36,594][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,594][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,686][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,688][00004] denpth_sensor True
-[2026-09-12 03:20:36,688][00004] denpth_sensor True
-[2026-09-12 03:20:36,688][00004] using bypass, dim 13
-[2026-09-12 03:20:36,688][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,688][00004] get out size called: 4621
-[2026-09-12 03:20:36,699][00004] get out size called: 4621
-[2026-09-12 03:20:36,709][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:36,709][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:11,197][00003] Setting fixed seed 8
+[2026-09-12 03:52:11,197][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:11,198][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:11,203][00003] True
+[2026-09-12 03:52:11,204][00003] using depth sensor True
+[2026-09-12 03:52:11,204][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:11,204][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,319][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,321][00003] denpth_sensor True
+[2026-09-12 03:52:11,321][00003] denpth_sensor True
+[2026-09-12 03:52:11,321][00003] using bypass, dim 13
+[2026-09-12 03:52:11,321][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,322][00003] get out size called: 4621
+[2026-09-12 03:52:11,333][00003] get out size called: 4621
+[2026-09-12 03:52:11,343][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:11,343][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -387,68 +387,68 @@ PASS DGC_DIRECT_WORKER_F16_S99
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:36,717][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:36,718][00004] No checkpoints found
-[2026-09-12 03:20:36,718][00004] Did not load a downstream checkpoint, starting a new run
-[2026-09-12 03:20:36,718][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:36,718][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:36,718][00004] Initialized policy 0 weights for model version 0
-[2026-09-12 03:20:36,718][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,722][00004] True
-[2026-09-12 03:20:36,723][00004] using depth sensor True
-[2026-09-12 03:20:36,723][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,723][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,814][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,816][00004] denpth_sensor True
-[2026-09-12 03:20:36,816][00004] denpth_sensor True
-[2026-09-12 03:20:36,816][00004] using bypass, dim 13
-[2026-09-12 03:20:36,816][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,816][00004] get out size called: 4621
-[2026-09-12 03:20:36,827][00004] get out size called: 4621
-[2026-09-12 03:20:36,839][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,843][00004] True
-[2026-09-12 03:20:36,843][00004] using depth sensor True
-[2026-09-12 03:20:36,843][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,844][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:36,934][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:36,935][00004] denpth_sensor True
-[2026-09-12 03:20:36,935][00004] denpth_sensor True
-[2026-09-12 03:20:36,936][00004] using bypass, dim 13
-[2026-09-12 03:20:36,936][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:36,936][00004] get out size called: 4621
-[2026-09-12 03:20:36,945][00004] get out size called: 4621
-[2026-09-12 03:20:36,958][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:36,962][00004] True
-[2026-09-12 03:20:36,963][00004] using depth sensor True
-[2026-09-12 03:20:36,963][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:36,963][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:37,056][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:37,057][00004] denpth_sensor True
-[2026-09-12 03:20:37,057][00004] denpth_sensor True
-[2026-09-12 03:20:37,057][00004] using bypass, dim 13
-[2026-09-12 03:20:37,057][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:37,058][00004] get out size called: 4621
-[2026-09-12 03:20:37,067][00004] get out size called: 4621
-[2026-09-12 03:20:37,085][00004] Initialized policy 0 weights for model version 0
-DGC_WAYPOINT_DG_F64_S8 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 1, 'her_budget_expired': 2}
-DGC_WAYPOINT_DG_F64_S8 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 1, 'her_budget_expired': 6}
-[2026-09-12 03:20:37,450][00004] Saving /tmp/native-controller-audit-6deeefnx/00_DGC_WAYPOINT_DG_F64_S8/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:37,466][00004] Setting fixed seed 8
-[2026-09-12 03:20:37,467][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:37,467][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:37,471][00004] True
-[2026-09-12 03:20:37,471][00004] using depth sensor True
-[2026-09-12 03:20:37,471][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:37,472][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:37,564][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:37,566][00004] denpth_sensor True
-[2026-09-12 03:20:37,566][00004] denpth_sensor True
-[2026-09-12 03:20:37,566][00004] using bypass, dim 13
-[2026-09-12 03:20:37,566][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:37,566][00004] get out size called: 4621
-[2026-09-12 03:20:37,575][00004] get out size called: 4621
-[2026-09-12 03:20:37,584][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:37,584][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:11,360][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:11,361][00003] No checkpoints found
+[2026-09-12 03:52:11,361][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 03:52:11,361][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:11,361][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:11,361][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 03:52:11,361][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:11,366][00003] True
+[2026-09-12 03:52:11,366][00003] using depth sensor True
+[2026-09-12 03:52:11,366][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:11,366][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,470][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,471][00003] denpth_sensor True
+[2026-09-12 03:52:11,471][00003] denpth_sensor True
+[2026-09-12 03:52:11,471][00003] using bypass, dim 13
+[2026-09-12 03:52:11,471][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,472][00003] get out size called: 4621
+[2026-09-12 03:52:11,483][00003] get out size called: 4621
+[2026-09-12 03:52:11,497][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:11,502][00003] True
+[2026-09-12 03:52:11,502][00003] using depth sensor True
+[2026-09-12 03:52:11,502][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:11,502][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,605][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,607][00003] denpth_sensor True
+[2026-09-12 03:52:11,607][00003] denpth_sensor True
+[2026-09-12 03:52:11,607][00003] using bypass, dim 13
+[2026-09-12 03:52:11,608][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,608][00003] get out size called: 4621
+[2026-09-12 03:52:11,618][00003] get out size called: 4621
+[2026-09-12 03:52:11,632][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:11,637][00003] True
+[2026-09-12 03:52:11,637][00003] using depth sensor True
+[2026-09-12 03:52:11,637][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:11,637][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:11,741][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:11,742][00003] denpth_sensor True
+[2026-09-12 03:52:11,742][00003] denpth_sensor True
+[2026-09-12 03:52:11,742][00003] using bypass, dim 13
+[2026-09-12 03:52:11,743][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:11,743][00003] get out size called: 4621
+[2026-09-12 03:52:11,753][00003] get out size called: 4621
+[2026-09-12 03:52:11,771][00003] Initialized policy 0 weights for model version 0
+DGC_WAYPOINT_DG_F64_S8 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 2, 'her_budget_expired': 2}
+DGC_WAYPOINT_DG_F64_S8 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 5, 'her_budget_expired': 6}
+[2026-09-12 03:52:12,043][00003] Saving /tmp/native-controller-audit-8cw7pt5k/00_DGC_WAYPOINT_DG_F64_S8/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:12,060][00003] Setting fixed seed 8
+[2026-09-12 03:52:12,061][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:12,061][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,066][00003] True
+[2026-09-12 03:52:12,066][00003] using depth sensor True
+[2026-09-12 03:52:12,066][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,066][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,169][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,171][00003] denpth_sensor True
+[2026-09-12 03:52:12,171][00003] denpth_sensor True
+[2026-09-12 03:52:12,171][00003] using bypass, dim 13
+[2026-09-12 03:52:12,171][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,171][00003] get out size called: 4621
+[2026-09-12 03:52:12,181][00003] get out size called: 4621
+[2026-09-12 03:52:12,191][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:12,191][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -530,67 +530,67 @@ DGC_WAYPOINT_DG_F64_S8 1 UpdateClock(learning_starts=1, cadence=4, target_interv
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:37,588][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:37,588][00004] Loading state from checkpoint /tmp/native-controller-audit-6deeefnx/00_DGC_WAYPOINT_DG_F64_S8/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:37,599][00004] Loading model from checkpoint
-[2026-09-12 03:20:37,600][00004] Loaded experiment state at self.train_step=2, self.env_steps=64
-[2026-09-12 03:20:37,601][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:37,601][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:37,601][00004] Initialized policy 0 weights for model version 2
-[2026-09-12 03:20:37,601][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:37,605][00004] True
-[2026-09-12 03:20:37,606][00004] using depth sensor True
-[2026-09-12 03:20:37,606][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:37,606][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:37,699][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:37,701][00004] denpth_sensor True
-[2026-09-12 03:20:37,701][00004] denpth_sensor True
-[2026-09-12 03:20:37,701][00004] using bypass, dim 13
-[2026-09-12 03:20:37,701][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:37,701][00004] get out size called: 4621
-[2026-09-12 03:20:37,711][00004] get out size called: 4621
-[2026-09-12 03:20:37,724][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:37,728][00004] True
-[2026-09-12 03:20:37,729][00004] using depth sensor True
-[2026-09-12 03:20:37,729][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:37,729][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:37,823][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:37,825][00004] denpth_sensor True
-[2026-09-12 03:20:37,825][00004] denpth_sensor True
-[2026-09-12 03:20:37,825][00004] using bypass, dim 13
-[2026-09-12 03:20:37,825][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:37,825][00004] get out size called: 4621
-[2026-09-12 03:20:37,835][00004] get out size called: 4621
-[2026-09-12 03:20:37,849][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:37,853][00004] True
-[2026-09-12 03:20:37,853][00004] using depth sensor True
-[2026-09-12 03:20:37,853][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:37,853][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:37,945][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:37,947][00004] denpth_sensor True
-[2026-09-12 03:20:37,947][00004] denpth_sensor True
-[2026-09-12 03:20:37,947][00004] using bypass, dim 13
-[2026-09-12 03:20:37,947][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:37,947][00004] get out size called: 4621
-[2026-09-12 03:20:37,957][00004] get out size called: 4621
-[2026-09-12 03:20:37,976][00004] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:12,196][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:12,196][00003] Loading state from checkpoint /tmp/native-controller-audit-8cw7pt5k/00_DGC_WAYPOINT_DG_F64_S8/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:12,212][00003] Loading model from checkpoint
+[2026-09-12 03:52:12,214][00003] Loaded experiment state at self.train_step=2, self.env_steps=64
+[2026-09-12 03:52:12,214][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:12,214][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:12,215][00003] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:12,215][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,220][00003] True
+[2026-09-12 03:52:12,220][00003] using depth sensor True
+[2026-09-12 03:52:12,220][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,220][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,322][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,324][00003] denpth_sensor True
+[2026-09-12 03:52:12,324][00003] denpth_sensor True
+[2026-09-12 03:52:12,324][00003] using bypass, dim 13
+[2026-09-12 03:52:12,324][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,325][00003] get out size called: 4621
+[2026-09-12 03:52:12,335][00003] get out size called: 4621
+[2026-09-12 03:52:12,350][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,354][00003] True
+[2026-09-12 03:52:12,355][00003] using depth sensor True
+[2026-09-12 03:52:12,355][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,355][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,457][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,458][00003] denpth_sensor True
+[2026-09-12 03:52:12,459][00003] denpth_sensor True
+[2026-09-12 03:52:12,459][00003] using bypass, dim 13
+[2026-09-12 03:52:12,459][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,459][00003] get out size called: 4621
+[2026-09-12 03:52:12,470][00003] get out size called: 4621
+[2026-09-12 03:52:12,485][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,490][00003] True
+[2026-09-12 03:52:12,490][00003] using depth sensor True
+[2026-09-12 03:52:12,490][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,490][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,592][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,593][00003] denpth_sensor True
+[2026-09-12 03:52:12,593][00003] denpth_sensor True
+[2026-09-12 03:52:12,594][00003] using bypass, dim 13
+[2026-09-12 03:52:12,594][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,594][00003] get out size called: 4621
+[2026-09-12 03:52:12,605][00003] get out size called: 4621
+[2026-09-12 03:52:12,627][00003] Initialized policy 0 weights for model version 2
 PASS DGC_WAYPOINT_DG_F64_S8
-[2026-09-12 03:20:38,001][00004] Setting fixed seed 99
-[2026-09-12 03:20:38,001][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:38,001][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:38,005][00004] True
-[2026-09-12 03:20:38,005][00004] using depth sensor True
-[2026-09-12 03:20:38,005][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:38,006][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:38,098][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:38,100][00004] denpth_sensor True
-[2026-09-12 03:20:38,100][00004] denpth_sensor True
-[2026-09-12 03:20:38,100][00004] using bypass, dim 13
-[2026-09-12 03:20:38,100][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:38,100][00004] get out size called: 4621
-[2026-09-12 03:20:38,111][00004] get out size called: 4621
-[2026-09-12 03:20:38,120][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:38,120][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:12,653][00003] Setting fixed seed 99
+[2026-09-12 03:52:12,653][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:12,653][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,750][00003] True
+[2026-09-12 03:52:12,751][00003] using depth sensor True
+[2026-09-12 03:52:12,751][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,751][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,849][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,850][00003] denpth_sensor True
+[2026-09-12 03:52:12,850][00003] denpth_sensor True
+[2026-09-12 03:52:12,850][00003] using bypass, dim 13
+[2026-09-12 03:52:12,850][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,851][00003] get out size called: 4621
+[2026-09-12 03:52:12,861][00003] get out size called: 4621
+[2026-09-12 03:52:12,871][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:12,871][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -672,68 +672,68 @@ PASS DGC_WAYPOINT_DG_F64_S8
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:38,132][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:38,133][00004] No checkpoints found
-[2026-09-12 03:20:38,133][00004] Did not load a downstream checkpoint, starting a new run
-[2026-09-12 03:20:38,133][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:38,133][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:38,133][00004] Initialized policy 0 weights for model version 0
-[2026-09-12 03:20:38,133][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:38,138][00004] True
-[2026-09-12 03:20:38,138][00004] using depth sensor True
-[2026-09-12 03:20:38,138][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:38,138][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:38,299][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:38,300][00004] denpth_sensor True
-[2026-09-12 03:20:38,300][00004] denpth_sensor True
-[2026-09-12 03:20:38,300][00004] using bypass, dim 13
-[2026-09-12 03:20:38,300][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:38,301][00004] get out size called: 4621
-[2026-09-12 03:20:38,310][00004] get out size called: 4621
-[2026-09-12 03:20:38,323][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:38,327][00004] True
-[2026-09-12 03:20:38,327][00004] using depth sensor True
-[2026-09-12 03:20:38,327][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:38,327][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:38,419][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:38,420][00004] denpth_sensor True
-[2026-09-12 03:20:38,420][00004] denpth_sensor True
-[2026-09-12 03:20:38,420][00004] using bypass, dim 13
-[2026-09-12 03:20:38,420][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:38,421][00004] get out size called: 4621
-[2026-09-12 03:20:38,430][00004] get out size called: 4621
-[2026-09-12 03:20:38,444][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:38,448][00004] True
-[2026-09-12 03:20:38,448][00004] using depth sensor True
-[2026-09-12 03:20:38,448][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:38,449][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:38,541][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:38,543][00004] denpth_sensor True
-[2026-09-12 03:20:38,543][00004] denpth_sensor True
-[2026-09-12 03:20:38,543][00004] using bypass, dim 13
-[2026-09-12 03:20:38,543][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:38,543][00004] get out size called: 4621
-[2026-09-12 03:20:38,554][00004] get out size called: 4621
-[2026-09-12 03:20:38,570][00004] Initialized policy 0 weights for model version 0
-DGC_WAYPOINT_DG_F64_S99 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 1, 'her_budget_expired': 2}
-DGC_WAYPOINT_DG_F64_S99 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 3, 'her_budget_expired': 6}
-[2026-09-12 03:20:38,969][00004] Saving /tmp/native-controller-audit-jg53clvp/00_DGC_WAYPOINT_DG_F64_S99/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:38,986][00004] Setting fixed seed 99
-[2026-09-12 03:20:38,986][00004] Initializing actor-critic model on device cpu
-[2026-09-12 03:20:38,986][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:38,990][00004] True
-[2026-09-12 03:20:38,991][00004] using depth sensor True
-[2026-09-12 03:20:38,991][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:38,991][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:39,082][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:39,084][00004] denpth_sensor True
-[2026-09-12 03:20:39,084][00004] denpth_sensor True
-[2026-09-12 03:20:39,084][00004] using bypass, dim 13
-[2026-09-12 03:20:39,084][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:39,084][00004] get out size called: 4621
-[2026-09-12 03:20:39,094][00004] get out size called: 4621
-[2026-09-12 03:20:39,102][00004] Created Actor Critic model with architecture:
-[2026-09-12 03:20:39,102][00004] IntrMotivActorCriticSharedWeights(
+[2026-09-12 03:52:12,876][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:12,877][00003] No checkpoints found
+[2026-09-12 03:52:12,877][00003] Did not load a downstream checkpoint, starting a new run
+[2026-09-12 03:52:12,877][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:12,877][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:12,877][00003] Initialized policy 0 weights for model version 0
+[2026-09-12 03:52:12,878][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:12,883][00003] True
+[2026-09-12 03:52:12,883][00003] using depth sensor True
+[2026-09-12 03:52:12,883][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:12,883][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:12,983][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:12,985][00003] denpth_sensor True
+[2026-09-12 03:52:12,985][00003] denpth_sensor True
+[2026-09-12 03:52:12,985][00003] using bypass, dim 13
+[2026-09-12 03:52:12,985][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:12,986][00003] get out size called: 4621
+[2026-09-12 03:52:12,996][00003] get out size called: 4621
+[2026-09-12 03:52:13,010][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,014][00003] True
+[2026-09-12 03:52:13,015][00003] using depth sensor True
+[2026-09-12 03:52:13,015][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,015][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:13,114][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:13,116][00003] denpth_sensor True
+[2026-09-12 03:52:13,116][00003] denpth_sensor True
+[2026-09-12 03:52:13,116][00003] using bypass, dim 13
+[2026-09-12 03:52:13,116][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:13,117][00003] get out size called: 4621
+[2026-09-12 03:52:13,126][00003] get out size called: 4621
+[2026-09-12 03:52:13,139][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,144][00003] True
+[2026-09-12 03:52:13,144][00003] using depth sensor True
+[2026-09-12 03:52:13,144][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,144][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:13,240][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:13,242][00003] denpth_sensor True
+[2026-09-12 03:52:13,242][00003] denpth_sensor True
+[2026-09-12 03:52:13,242][00003] using bypass, dim 13
+[2026-09-12 03:52:13,242][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:13,242][00003] get out size called: 4621
+[2026-09-12 03:52:13,251][00003] get out size called: 4621
+[2026-09-12 03:52:13,268][00003] Initialized policy 0 weights for model version 0
+DGC_WAYPOINT_DG_F64_S99 0 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=1, main_positions=2, auxiliary_positions=0, target_at=0) {'missing_successor_context': 2, 'her_budget_expired': 2}
+DGC_WAYPOINT_DG_F64_S99 1 UpdateClock(learning_starts=1, cadence=4, target_interval=2, completed=3, main_positions=6, auxiliary_positions=0, target_at=2) {'missing_successor_context': 4, 'her_budget_expired': 6}
+[2026-09-12 03:52:13,525][00003] Saving /tmp/native-controller-audit-q_wwjgox/00_DGC_WAYPOINT_DG_F64_S99/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:13,542][00003] Setting fixed seed 99
+[2026-09-12 03:52:13,542][00003] Initializing actor-critic model on device cpu
+[2026-09-12 03:52:13,542][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,547][00003] True
+[2026-09-12 03:52:13,547][00003] using depth sensor True
+[2026-09-12 03:52:13,547][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,547][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:13,640][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:13,642][00003] denpth_sensor True
+[2026-09-12 03:52:13,642][00003] denpth_sensor True
+[2026-09-12 03:52:13,642][00003] using bypass, dim 13
+[2026-09-12 03:52:13,642][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:13,642][00003] get out size called: 4621
+[2026-09-12 03:52:13,652][00003] get out size called: 4621
+[2026-09-12 03:52:13,662][00003] Created Actor Critic model with architecture:
+[2026-09-12 03:52:13,662][00003] IntrMotivActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer()
   (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
   (encoder): HipposlamEncoder(
@@ -815,48 +815,48 @@ DGC_WAYPOINT_DG_F64_S99 1 UpdateClock(learning_starts=1, cadence=4, target_inter
     (auxiliary): Linear(in_features=257, out_features=8, bias=True)
   )
 )
-[2026-09-12 03:20:39,107][00004] Using optimizer <class 'torch.optim.adam.Adam'>
-[2026-09-12 03:20:39,107][00004] Loading state from checkpoint /tmp/native-controller-audit-jg53clvp/00_DGC_WAYPOINT_DG_F64_S99/checkpoint_p0/checkpoint_000000002_64.pth...
-[2026-09-12 03:20:39,118][00004] Loading model from checkpoint
-[2026-09-12 03:20:39,120][00004] Loaded experiment state at self.train_step=2, self.env_steps=64
-[2026-09-12 03:20:39,120][00004] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
-[2026-09-12 03:20:39,120][00004] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
-[2026-09-12 03:20:39,120][00004] Initialized policy 0 weights for model version 2
-[2026-09-12 03:20:39,121][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:39,125][00004] True
-[2026-09-12 03:20:39,125][00004] using depth sensor True
-[2026-09-12 03:20:39,125][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:39,125][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:39,217][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:39,218][00004] denpth_sensor True
-[2026-09-12 03:20:39,219][00004] denpth_sensor True
-[2026-09-12 03:20:39,219][00004] using bypass, dim 13
-[2026-09-12 03:20:39,219][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:39,219][00004] get out size called: 4621
-[2026-09-12 03:20:39,228][00004] get out size called: 4621
-[2026-09-12 03:20:39,241][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:39,245][00004] True
-[2026-09-12 03:20:39,246][00004] using depth sensor True
-[2026-09-12 03:20:39,246][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:39,246][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:39,337][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:39,338][00004] denpth_sensor True
-[2026-09-12 03:20:39,338][00004] denpth_sensor True
-[2026-09-12 03:20:39,338][00004] using bypass, dim 13
-[2026-09-12 03:20:39,339][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:39,339][00004] get out size called: 4621
-[2026-09-12 03:20:39,348][00004] get out size called: 4621
-[2026-09-12 03:20:39,362][00004] RunningMeanStd input shape: (1,)
-[2026-09-12 03:20:39,366][00004] True
-[2026-09-12 03:20:39,366][00004] using depth sensor True
-[2026-09-12 03:20:39,366][00004] Num input channels for depth encoder: 1
-[2026-09-12 03:20:39,366][00004] original obs space: Box(0, 255, (4, 72, 96), uint8)
-[2026-09-12 03:20:39,460][00004] DMLab policy head output size: 3843
-[2026-09-12 03:20:39,461][00004] denpth_sensor True
-[2026-09-12 03:20:39,461][00004] denpth_sensor True
-[2026-09-12 03:20:39,461][00004] using bypass, dim 13
-[2026-09-12 03:20:39,462][00004] USING SIMPLESEQUENCEWITHBYPASSCORE
-[2026-09-12 03:20:39,462][00004] get out size called: 4621
-[2026-09-12 03:20:39,472][00004] get out size called: 4621
-[2026-09-12 03:20:39,491][00004] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:13,669][00003] Using optimizer <class 'torch.optim.adam.Adam'>
+[2026-09-12 03:52:13,669][00003] Loading state from checkpoint /tmp/native-controller-audit-q_wwjgox/00_DGC_WAYPOINT_DG_F64_S99/checkpoint_p0/checkpoint_000000002_64.pth...
+[2026-09-12 03:52:13,681][00003] Loading model from checkpoint
+[2026-09-12 03:52:13,684][00003] Loaded experiment state at self.train_step=2, self.env_steps=64
+[2026-09-12 03:52:13,684][00003] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.
+[2026-09-12 03:52:13,684][00003] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.
+[2026-09-12 03:52:13,684][00003] Initialized policy 0 weights for model version 2
+[2026-09-12 03:52:13,685][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,689][00003] True
+[2026-09-12 03:52:13,690][00003] using depth sensor True
+[2026-09-12 03:52:13,690][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,690][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:13,787][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:13,788][00003] denpth_sensor True
+[2026-09-12 03:52:13,788][00003] denpth_sensor True
+[2026-09-12 03:52:13,789][00003] using bypass, dim 13
+[2026-09-12 03:52:13,789][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:13,789][00003] get out size called: 4621
+[2026-09-12 03:52:13,798][00003] get out size called: 4621
+[2026-09-12 03:52:13,813][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,817][00003] True
+[2026-09-12 03:52:13,817][00003] using depth sensor True
+[2026-09-12 03:52:13,817][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,817][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:13,914][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:13,916][00003] denpth_sensor True
+[2026-09-12 03:52:13,916][00003] denpth_sensor True
+[2026-09-12 03:52:13,916][00003] using bypass, dim 13
+[2026-09-12 03:52:13,916][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:13,916][00003] get out size called: 4621
+[2026-09-12 03:52:13,926][00003] get out size called: 4621
+[2026-09-12 03:52:13,940][00003] RunningMeanStd input shape: (1,)
+[2026-09-12 03:52:13,944][00003] True
+[2026-09-12 03:52:13,945][00003] using depth sensor True
+[2026-09-12 03:52:13,945][00003] Num input channels for depth encoder: 1
+[2026-09-12 03:52:13,945][00003] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-09-12 03:52:14,041][00003] DMLab policy head output size: 3843
+[2026-09-12 03:52:14,043][00003] denpth_sensor True
+[2026-09-12 03:52:14,043][00003] denpth_sensor True
+[2026-09-12 03:52:14,043][00003] using bypass, dim 13
+[2026-09-12 03:52:14,043][00003] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-09-12 03:52:14,044][00003] get out size called: 4621
+[2026-09-12 03:52:14,054][00003] get out size called: 4621
+[2026-09-12 03:52:14,076][00003] Initialized policy 0 weights for model version 2
 PASS DGC_WAYPOINT_DG_F64_S99

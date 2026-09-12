@@ -1,8 +1,8 @@
 ........................................................................ [ 21%]
-........................................................................ [ 43%]
-........................................................................ [ 65%]
-........................................................................ [ 87%]
-........................................                                 [100%]
+........................................................................ [ 42%]
+........................................................................ [ 63%]
+........................................................................ [ 84%]
+.....................................................                    [100%]
 =============================== warnings summary ===============================
 ../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
   /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
@@ -14,9 +14,10 @@
 
 sf_working_directories/IntrMotiv/tests/test_ca3_memory.py: 7 warnings
 sf_working_directories/IntrMotiv/tests/test_contextual_dg.py: 3 warnings
-sf_working_directories/IntrMotiv/tests/test_controller_actor_memory.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_actor_memory.py: 4 warnings
 sf_working_directories/IntrMotiv/tests/test_controller_history.py: 4 warnings
 sf_working_directories/IntrMotiv/tests/test_controller_q.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_transition.py: 5 warnings
 sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py: 1 warning
 sf_working_directories/IntrMotiv/tests/test_goal_conditioned_dg.py: 8 warnings
 sf_working_directories/IntrMotiv/tests/test_graph_stabilized_recruitment.py: 2 warnings
@@ -27,4 +28,4 @@ sf_working_directories/IntrMotiv/tests/test_topological_frontier.py: 3 warnings
     log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-328 passed, 41 warnings in 2.86s
+341 passed, 47 warnings in 2.94s
