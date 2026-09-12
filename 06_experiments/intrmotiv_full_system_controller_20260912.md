@@ -86,7 +86,8 @@ construction must be supplied and checked by the pending integration.
 
 ## Validation evidence and remaining gates
 
-Local full IntrMotiv suite: **318 passed**. The original model parity audit also
+Full IntrMotiv suite: **318 passed locally and 318 passed on NEMO2** in the
+isolated checkout, including the final SF observation-preparation fix. The original model parity audit also
 passed for all three parents using their actual eight-action navigation vocabulary,
 real pretrained encoder, DG, core, and decoder. It compares all state tensors,
 initialization RNG, and outputs over five synthetic-observation steps in two
