@@ -514,3 +514,30 @@ Before production: use architecture and controller as separate analysis groups,
 include HER-minus-DDQN contrasts within each architecture, and retain the parent's
 5M/25M/75M/150M/300M checkpoints and intervention telemetry. L40S jobs have a 48h
 maximum allocation; the 300M learning horizon remains a separate setting.
+
+## Throughput evidence and screened candidate
+
+GPU profile **8057321** restored the immutable 393,216-frame waypoint/HER state
+and completed three main updates (1277→1280, +768 main positions, +120 HER).
+Of 128.4 profiled seconds, history assembly accounted for 52.4s, manager advance
+34.3s (28.2s in transitive reachability), and finite neural history reconstruction
+14.1s. Most history assembly was discarded by the unchanged current-recognition
+veto. This is evidence for screening that veto before reconstructing history.
+
+The isolated candidate `SF_hipposlam_controller_screened_20260912` (local
+`/tmp/intrmotiv_screened_benchmark`) adds that early screen using each snapshot's
+unconditioned DG head and SF observation preparation. Accepted examples still
+use the original complete history, event/reward reconstruction and gradients.
+370 tests pass locally and remotely; paired GPU gate **8057322** compares 8,192
+physical examples under online and target snapshots and then repeats the same
+three-update profile. This candidate is not deployed to training yet.
+
+Offline evaluator **8057320 completed with exit 0**. The legacy inclusive loop
+recorded 10,001 decisions across six physical episodes. Occupied-cell maps and
+activities are finite; absent peaks/unvisited cells retain their documented NaNs.
+All 64 DG units were active, with 53 distinct peak bins, active-only map cosine
+0.1289 and 41 pre-threshold peak bins across 277 occupied bins. The existing
+spatial-information scalar is amplitude-weighted (mean 0.05212), despite legacy
+CSV columns containing `bits`; it is not normalized bits per activation.
+The probe used the 327,680-frame waypoint/HER checkpoint and qualifies the
+telemetry path, not a training-result comparison or fixed-trajectory drift test.
