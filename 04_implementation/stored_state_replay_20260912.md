@@ -220,3 +220,79 @@ Efficient follow-up: use the canonical jobs.tsv and W&B group
 audit 8058064 and `analysis/controller_stored_online_gate.json`. No runtime
 patch was necessary for this deployment; keep proposed sampler improvements
 separate until full-buffer measurements establish the bottleneck.
+
+## Authorized production qualification and release follow-up
+
+The user now requests auditing current progress and bringing production online
+when possible. This authorizes a new stored-state production release after its
+own gates; it does not revive the superseded reconstruction implementation.
+
+At approximately 1M frames, replay reached its 200,000-decision capacity in all
+arms with finite losses and zero update debt. Five-minute throughput was about
+550–1,150 FPS across the four arms; short-trial throughput overestimated sustained
+performance. Full-key-list shuffling remains a measured scaling concern, not a
+reason to silently change the algorithm in this release. Stored worker-state
+checkpoints can reach about 4 GB for F64. Existing `ControllerLearner.save_milestone`
+already bounds periodic archives using `keep_checkpoints` while pinning canonical
+frame targets. Production must retain this behavior and workspace-only paths.
+
+Both online and qualification source files match every SHA in
+`hpc_runs/source_snapshots/controller_stored_replay_trial_20260912.json`.
+The original 387 runtime tests remain applicable; the unchanged deployed
+qualification source additionally passed all 36 focused workflow/audit tests.
+
+Remaining qualification uses isolated source
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stored_qualification_20260912`:
+
+- Fresh online DDQN/HER: jobs 8058060–8058063; 2M audit 8058064;
+  `analysis/controller_stored_online_gate.json`.
+- Fresh PPO on this exact source: jobs 8058067–8058068; audit 8058071;
+  `analysis/controller_stored_ppo_gate.json`. Study
+  `full_system_controller_stored_ppo.study.json`, SHA
+  `7f31786ee7d549ae2d78a946ebc20d4ba1813a78486b1963a7ef5d145caaccde`.
+- Exact GPU restore **passed**, job 8058070, all four 311,296-frame R2 checkpoints.
+  It verifies online/target parameters, normalization buffers, optimizer, full
+  replay rows, CPU/CUDA/Python/NumPy and replay/HER RNGs, counters and pending-tail
+  discard. The initial helper job 8058069 failed before loading any model due to
+  a wrong source path in the adapted shell script; correction required no runtime
+  change. Immutable baselines and certificate:
+  `analysis/restart_baselines/intrmotiv_full_system_controller_stored_restart_20260912/`.
+- Real resumed-training checks: jobs 8058072–8058075; resume R2 into independent
+  output directories, preserve original initial checkpoints, start new physical
+  episodes, advance to the 442,368-frame threshold. Study
+  `full_system_controller_stored_restart.study.json`, SHA
+  `ed18afcad7819ad79e050522e9999d5789c4a5bdf369c6950f8abab240efe368`.
+  Check `analysis/controller_stored_restart_gate.json`, bound to the immutable
+  baselines and exact-reload certificate. Snapshot window is 32,768 observations;
+  if the valid-observation ring cannot fill at the declared target, correct only
+  that qualification configuration and repeat canonical review before resubmission.
+
+All paths above with `analysis/` are relative to
+`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/`.
+All new studies use schema `intrmotiv/study/v1`, workflow `1.8.1`.
+
+After these three runtime gate documents pass, verify paired main-update
+accounting at matched accepted-decision counts, positive HER positions, DG and
+fixed-trunk checks, W&B delivery, spatial snapshots and physical-session restart.
+Only then render the canonical production StudySpec: 18 fresh runs, direct F16
+and waypoint decoder F64, PPO/DDQN/DDQN+HER, seeds 8/99/123. Both memories remain
+goal-independent, STOP routing, stored replay. Inherit 300M frames and the parent
+5M/25M/75M/150M/300M checkpoints/telemetry targets, 300-second regular saves,
+1,800-second milestones and keep=8; use terminal telemetry for seeds 8 and 123.
+Set `controller_preflight=False` in the qualified production study, never skip a
+failed gate. Production gets its own immutable source and output/W&B namespace.
+Use the established SF launcher with 48-hour L40S allocations, canonical
+print-only review and submission audit. Verify real training and W&B before
+claiming launch. The 300M horizon can exceed a Slurm allocation; checkpoint
+continuation must use the existing resume workflow, not fresh reinitialization.
+
+Reusable approach: run exact restore and short real resumes alongside long
+preflights. Reuse existing GPU loader and canonical restart auditors; verify
+adapted source paths before submitting helper jobs. Do not optimize or replace
+the learner while qualifying an unchanged release.
+
+Real restart audit job: **8058076**. The existing production heartbeat was
+updated to this stored-state contract and reactivated every 15 minutes under the
+new user authorization. It waits for the three qualification gates and then
+performs canonical production review, submission and live verification without
+another confirmation. It pauses after verified launch.

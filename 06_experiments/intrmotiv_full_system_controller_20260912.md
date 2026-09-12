@@ -1,5 +1,17 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current production authorization
+
+The user requested auditing current progress and bringing production online when
+possible. Follow the latest qualification/release section in
+[the stored-state record](../04_implementation/stored_state_replay_20260912.md).
+Online DDQN/HER audit 8058064, exact-source PPO audit 8058071 and real restart
+audit 8058076 must pass before rendering and launching the new 18-run, 300M
+stored-state production matrix. Exact GPU restoration passed in 8058070.
+The existing heartbeat has been updated to this contract and reactivated every
+15 minutes; it must not resurrect the old reconstruction release. No further
+user confirmation is needed for the qualified production launch.
+
 ## Current online deployment
 
 After the four short stored-state trials passed, the user requested online
@@ -9,8 +21,8 @@ The learner is unchanged from passing R2; current-DG window reconstruction is
 only a proposal. Study: `hpc_runs/studies/full_system_controller_stored_online.study.json`;
 SHA `d0059468b4703790ec58f44f565ec4e60288b0a7498e4e46b4f3675949e22978`,
 schema `intrmotiv/study/v1`, workflow `1.8.1`. See the linked trial record for
-runtime evidence and limitations. The old 18-run production automation remains
-paused. Historical reconstruction release requirements below are not the active
+runtime evidence and limitations. The old reconstruction contract is superseded; the updated stored-state
+production follow-up is now active. Historical reconstruction release requirements below are not the active
 stored-state online contract.
 
 ## Current user-approved trial: stored-state replay
