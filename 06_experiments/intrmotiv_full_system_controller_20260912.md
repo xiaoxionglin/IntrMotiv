@@ -54,6 +54,17 @@ The original R5 goal-write reload certificates do not qualify these new runs.
 Final qualification is two canonical three-cell audits, both from the isolated
 decoder-only source, using `hpc_runs.audit_full_system_controller_preflight`:
 
+The final audits are scheduled as CPU jobs **8057457 (direct)** and
+**8057458 (decoder-only waypoint)** with Slurm `afterok` dependencies on their
+two active DDQN jobs. They invoke the canonical auditor unchanged and write
+`analysis/controller_direct_final_gate.json` and
+`analysis/controller_decoder_final_gate.json`. Inspect these jobs and reports;
+do not duplicate the audits while they are pending. Submission provenance is
+`analysis/controller_final_audit_jobs.json`. This removes manual delay after
+training finishes without weakening the 2M gate. W&B's server API confirms
+the revised DDQN runs retain 113 DG/spatial tags, zero update debt and zero
+actor-memory version failures; HER has positive additional positions.
+
 - Direct: `analysis/full_system_controller_direct_qualification.study.json`,
   `analysis/decoder_qualification/direct_jobs.tsv`, R5 restart baseline/certificate.
 - Waypoint: `hpc_runs/studies/full_system_controller_decoder_preflight.study.json`,
