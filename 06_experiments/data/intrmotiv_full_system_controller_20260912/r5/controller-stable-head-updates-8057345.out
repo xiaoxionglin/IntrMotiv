@@ -1,0 +1,8 @@
+{"completed": 1927}
+{"completed": 1941}
+{"completed": 1955}
+{"completed": 1969}
+{"completed": 1983}
+{"completed": 1999}
+{"completed": 2012}
+{"full_updates_passed": true, "before": {"learning_starts": 16384, "cadence": 64, "target_interval": 100, "completed": 1914, "main_positions": 489984, "auxiliary_positions": 29390, "target_at": 1900}, "after": {"learning_starts": 16384, "cadence": 64, "target_interval": 100, "completed": 2015, "main_positions": 515840, "auxiliary_positions": 36057, "target_at": 2000}, "unchanged_online_buffers": true, "unchanged_stop_dg_parameters": true, "seconds": 291.9285016770009, "stats": {"main_loss": 0.02591801807284355, "auxiliary_loss": 0.006266589742153883, "q_mean": 0.43067556619644165, "q_abs_max": 1.0933830738067627, "auxiliary_q_mean": 0.9763530492782593, "auxiliary_q_abs_max": 2.557328701019287, "main_compute_seconds": 244.83438668987947, "her_compute_seconds": 45.79089394042967, "her_overhead_ratio": 0.1870280337640272}}

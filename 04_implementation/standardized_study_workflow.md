@@ -599,3 +599,28 @@ including model buffers and RNG states. The 2026-09-12 qualification passed
 373 runtime tests and bitwise GPU transaction parity, reducing its three-update
 profile from 55.00 to 28.42 seconds. Keep active source immutable and reuse the
 existing checkpoint-preserving restart and submission audit workflow.
+
+### Controller reconstruction and optimizer ownership gates
+
+Two R4 failures on 2026-09-12 require stronger controller qualification. First,
+fixed parameters and normalization do not guarantee identical discrete DG
+labels when encoder batch geometry changes. Regrouped examples reproduced a
+recognition mismatch at a saved checkpoint. Fixed 256-row encoder chunks for
+both screening and history reconstruction eliminated the mismatch across
+13,824 selected positions. Reuse Sample Factory observation preparation and
+the original encoder; discard repeated-row padding outputs, and never loosen
+recognition thresholds to hide a numerical inconsistency.
+
+Second, a detached slice of a concatenated output can still produce zero
+gradients in an upstream parameter. Adam then advances that parameter through
+existing momentum. Test ownership with nonzero optimizer history: STOP replay
+must leave DG parameters **and optimizer state** unchanged; fresh DG-only steps
+must leave controller parameters and optimizer state unchanged. Bind detached
+DG parameters at the private replay functional-call boundary, and suspend
+non-DG parameter gradients during the fresh DG-only transaction, restoring
+original flags afterward. The parent PPO path remains unchanged. Inspect actual
+Adam step counts in checkpoint/runtime audits, not only declared update counters.
+Retire contaminated preflights and qualify the corrected system from fresh state.
+GPU gate 8057345 passed 101 complete updates and a target refresh with unchanged
+STOP DG parameters and online buffers; three-parent fresh-step checks preserved
+DG weights, normalization buffers and Adam updates exactly.

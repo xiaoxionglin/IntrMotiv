@@ -1,0 +1,27 @@
+[
+  {
+    "parent": "DGC_DIRECT_WORKER_F16_S99",
+    "fresh_dg_parameters_and_buffers_exact": true,
+    "fresh_dg_optimizer_exact": true,
+    "non_dg_parameters_unchanged": true,
+    "previously_drifting_parameters": []
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S8",
+    "fresh_dg_parameters_and_buffers_exact": true,
+    "fresh_dg_optimizer_exact": true,
+    "non_dg_parameters_unchanged": true,
+    "previously_drifting_parameters": [
+      "core.dg_goal_modulation"
+    ]
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S99",
+    "fresh_dg_parameters_and_buffers_exact": true,
+    "fresh_dg_optimizer_exact": true,
+    "non_dg_parameters_unchanged": true,
+    "previously_drifting_parameters": [
+      "core.dg_goal_modulation"
+    ]
+  }
+]

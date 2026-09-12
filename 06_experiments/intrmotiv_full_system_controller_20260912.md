@@ -1,76 +1,45 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: waypoint HER replay consistency failure under investigation; production is blocked.**
-Job 8057338 failed its selected replay eligibility recheck at about 557,056 frames.
-The other three DDQN preflights received graceful SIGINT after optimizer ownership drift was confirmed; R4 is retired as debugging evidence. A bounded checkpoint reproduction
-is testing batch-dependent recognition/event labels; no compatibility checks have
-been relaxed and active training source remains immutable.
-Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
-runtime audit. DDQN jobs **8057335–8057338** resumed from complete immutable
-checkpoints with 128 GB host memory each. Exact GPU reload job **8057339 passed** all four new checkpoints
-with exit 0; both original PPO certificates are retained. The authoritative mixed
-manifest is `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/reachability_submission/jobs.tsv`.
+**Current status: clean R5 preflights submitted; production is not yet submitted.**
+The six 2M jobs are **8057349–8057354** in canonical manifest order: direct PPO,
+DDQN, DDQN+HER, then waypoint PPO, DDQN, DDQN+HER. All start from scratch with the
+fixed ImageNet trunk. Manifest: `train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r5/canonical_submission/jobs.tsv`.
+Study schema `intrmotiv/study/v1`, workflow **1.8.1**, SHA
+`b68edd0bcb84fd25d2779013e17511c2a97dfb0624741f0a56e48343a6d0d4d9`.
+Canonical print-only and submitted command/workspace audits pass.
 
-Active DDQN source:
-`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_reachability_20260912`,
-local mirror `/tmp/intrmotiv_reachability_benchmark`. Do not modify active source.
-All **373 runtime tests** pass locally and remotely. GPU gate **8057330** proved
-bitwise-identical model, optimizer and main/HER RNG states after three full
-updates, with a **1.94× speedup** over the previously qualified screened source.
-The prior screening improvement itself passed GPU gate 8057324 with a 2.23×
-speedup. Canonical print-only and submitted audits pass for the new source.
+Active source: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_stable_head_20260912`;
+local mirror `/tmp/intrmotiv_stable_head_benchmark`. Do not modify active source.
+**379 runtime + 5 audit tests pass remotely.** GPU 8057343 passed 13,824 regrouped
+selected replay positions after fixed encoder batch geometry eliminated the
+reproduced recognition mismatch. GPU **8057345 passed 101 complete updates**,
+25,856 main positions, 6,667 additional HER positions and a target refresh,
+with unchanged STOP DG weights and online buffers. Actual three-parent fresh
+learner tests preserve DG weights/buffers/Adam state exactly while preventing
+worker movement during DG-only updates. Three original PPO checks remain bitwise
+identical. Runtime and checkpoint telemetry now includes actual DG/main Adam
+step counts, and the final audit checks their ownership.
 
-Fifth-restart baselines are under
-`analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r4_reachability/`.
-All four prior jobs 8057325–8057328 completed deliberate SIGINT shutdowns and
-saved complete state before resubmission. Their final frame counts were
-704,512 / 720,896 / 475,136 / 507,904 in manifest DDQN order. Main update counts
-were 2,491 / 2,555 / 1,595 / 1,723 with exactly 256 main positions per update;
-HER separately added 128,821 and 18,983 positions. Fresh DG counts match the
-parent clock. New sessions must advance from 4 to 5 and cumulative incomplete
-tail discards from 192 to 256. W&B resumes the original four run IDs.
+R4 is retired as debugging evidence: it exposed batch-dependent recognition
+and zero-gradient Adam momentum crossing DG/controller transaction ownership.
+Jobs 8057335–8057337 received graceful SIGINT; failed 8057338 was stopped with
+its last complete checkpoint preserved. Do not resume R4 into production or
+use its contaminated optimizer history to qualify the corrected fresh system.
+Earlier R4 records remain below; their pass statements are historical only.
 
-The canonical offline place-field probe **8057320 passed** and produced valid
-DG, worker and pre-threshold maps across six physical episodes. Continue until
-all four DDQN runs finish 2M and the full restart/runtime audit passes; only
-then release the guard, render/audit the 18-run 300M StudySpec and launch it.
-Use 16 CPU cores, 128 GB host memory and one L40S GPU per production run.
+Continue R5 to 2M, validate W&B and spatial telemetry, exact checkpoint reload
+and live resume with new physical episodes, then run the strengthened final
+audit. Only after these gates pass, release the DDQN guard (retain shadow as a
+test facility), render/audit the canonical 18-run 300M StudySpec and submit it.
+User explicitly requires production verified running before stopping. Use one
+L40S, 16 CPU cores and 128 GB host memory per run; all bulk outputs stay in
+`/work/classic/fr_xl1014-train`. Preserve parent 5M/25M/75M/150M/300M checkpoint
+and telemetry targets for production. Pause the existing qualification heartbeat
+only after production is active.
 
-R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
-`2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
-GPU Torch 2.9.1 / torchvision 0.24.1 / NumPy 1.26.4 are isolated in workspace
-`runtime/torch_cuda_2_9_1`; the native terminal binding is also isolated there.
-Jobs use one L40S GPU and 16 CPU cores (first completed PPO had 40); all retain
-32 SF workers × 2 environments and the original scientific parameters.
-
-Exact GPU reload job **8057305 passed all six immutable R4 checkpoints**,
-including PPO model/buffers/optimizer/counters, with checkpoint SHA-bound results.
-Certificate: `analysis/restart_baselines/<R4 batch>/reload_certificate.json`.
-A proposed audit upload that skipped PPO restart validation was rejected by
- automatic approval review and reverted. The stronger replacement has now been
-uploaded and its remote tests pass: it retains all PPO validation and requires
-checkpoint-bound exact reload evidence for an already-completed PPO preflight.
-All original DG/telemetry/horizon and DDQN live-progress checks remain active.
-
-The deployed telemetry repair is mirrored in `/tmp/intrmotiv_telemetry_benchmark`:
-reuse the original goal-sensitivity diagnostics in DDQN and record goal-write
-gradients after controller replay. All 357 tests pass and full CPU PPO learner
-model/buffer/optimizer parity passes for all three parent references. This is
-now included in jobs 8057308–8057311. At 262,144 frames, waypoint DDQN+HER had 113
-unpaid updates because its current snapshot has no compatible replay. The
-strict rejection rule remains intact; recovery is a required production gate.
-
-No production study has been rendered and its guard remains active. Heartbeat
-`qualify-and-launch-intrmotiv-production` must continue until the canonical
-18-run production batch is verified running, then pause. Earlier sections below
-retain the complete CPU R1–R3 and R4 repair evidence.
-
-Native terminal gate 8057262 passed, full PPO episode parity 8057263 passed with
-identical 1,800-decision observation/reward/termination hash, and end-to-end
-wrapper gate 8057266 passed with a certified final RGBD observation. All 342
-system tests and 32 workflow/auditor tests passed remotely. The engine and assets
-are unchanged; only an explicit terminal reader was added to an isolated Python
-binding. Neither the shared installation nor unrelated jobs were modified.
+The original native-terminal gates and full PPO episode parity passed, and the
+canonical offline place-field probe 8057320 passed. Reuse the established
+manifest evaluator and checkpoint-bound reload scripts, updated to R5 paths.
 
 ## Scope and provenance
 
