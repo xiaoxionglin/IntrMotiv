@@ -1,5 +1,40 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Current approved architecture revision
+
+The user has replaced goal-write waypoint F64 with **goal-independent worker
+memory and decoder-only subgoal conditioning**. See
+[the explicit architecture difference](../04_implementation/decoder_only_worker_goals_20260912.md).
+This supersedes the goal-write requirement below; historical R5 statements are
+preserved as provenance. Direct F16 is unchanged. All three new waypoint arms
+(PPO/DDQN/HER) use existing `dg_goal_input=none`, `target_id_film`, F64 capacity
+and the original waypoint manager. New identity: `WAYPOINT_DECODER_F64`.
+No production launch of the superseded goal-write matrix is authorized by the
+current plan. Qualify the unchanged direct arms and revised waypoint arms before
+rendering the updated canonical 18-run production study. The new waypoint
+preflight StudySpec is `full_system_controller_decoder_preflight.study.json`.
+Its SHA is `581955c17e808cffb2a038bbbdaa21da70eb13d6ea9aab6b264124fb5bca5159`
+(schema `intrmotiv/study/v1`, workflow 1.8.1). The unchanged direct qualification
+subset SHA is `fa9df8f17b3bcc1acad2f03458e20621e5ec3274f6afb9f9f32a7f9d26539b85`;
+its commands were audited against the original R5 submitted jobs.
+
+**New waypoint jobs 8057437 / 8057438 / 8057439 are RUNNING**, respectively
+PPO / DDQN / DDQN+HER, with new W&B IDs. Source:
+`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_decoder_only_20260912`.
+This is a source copy with no runtime-code changes: the existing `none` core
+and FiLM decoder implement the revision. Local focused tests: 21 passed;
+remote focused runtime and canonical workflow tests: **51 passed**.
+Canonical print-only and submitted audits passed with workspace-only paths.
+Source remains immutable while running. Obsolete goal-write DDQN jobs
+8057364/8057365 received graceful SIGINT; their artifacts are retained.
+The existing direct jobs 8057349/8057362/8057363 are retained unchanged.
+Combined monitoring manifest (derived from both StudySpecs, not a new study):
+`train_dir/analysis/decoder_qualification/jobs.tsv`.
+
+New waypoint checkpoint restart/reload and 2M runtime gates remain pending.
+The original R5 goal-write reload certificates do not qualify these new runs.
+
+
 **Current status: clean R5 DDQN preflights running; both PPO gates and all six exact GPU reloads pass; production is not yet submitted.**
 R5 direct PPO finished at 2,031,616 frames and waypoint PPO at 2,048,000.
 Both pass the completed-run DG/frozen-trunk/spatial audit. Live DDQN Adam counts

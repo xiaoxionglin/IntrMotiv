@@ -1,0 +1,56 @@
+[33m[2026-09-12 14:52:06,734][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,734][1257326] get out size called: 17[0m
+[33m[2026-09-12 14:52:06,735][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,735][1257326] get out size called: 1154[0m
+.[33m[2026-09-12 14:52:06,811][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,812][1257326] get out size called: 17[0m
+[33m[2026-09-12 14:52:06,812][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,813][1257326] get out size called: 4610[0m
+.[33m[2026-09-12 14:52:06,821][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,822][1257326] get out size called: 17[0m
+.[33m[2026-09-12 14:52:06,832][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,832][1257326] get out size called: 17[0m
+.[33m[2026-09-12 14:52:06,843][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,844][1257326] get out size called: 17[0m
+.[33m[2026-09-12 14:52:06,851][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,852][1257326] get out size called: 17[0m
+....[33m[2026-09-12 14:52:06,885][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,886][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:06,901][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,902][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:06,917][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,917][1257326] get out size called: 28[0m
+..[33m[2026-09-12 14:52:06,928][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,929][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:06,951][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,951][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:06,976][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:06,977][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:07,023][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:07,024][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:07,043][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:07,044][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:07,062][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:07,063][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:07,082][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:07,082][1257326] get out size called: 28[0m
+.[33m[2026-09-12 14:52:07,089][1257326] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-09-12 14:52:07,089][1257326] get out size called: 28[0m
+...............................
+=============================== warnings summary ===============================
+../../.conda/envs/SFgit/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
+  /home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../../.conda/envs/SFgit/lib/python3.10/site-packages/deepmind_lab/__init__.py:26
+  /home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+sf_working_directories/IntrMotiv/tests/test_controller_decoder_only.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_history.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_transition.py: 11 warnings
+  /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_decoder_only_20260912/sf_working_directories/IntrMotiv/dmlab/custom_core.py:474: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+51 passed, 21 warnings in 5.16s

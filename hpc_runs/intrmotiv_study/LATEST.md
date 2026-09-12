@@ -159,3 +159,23 @@ was not deployed. All six exact GPU reload checks passed in job 8057366; the fou
 resumed as 8057362–8057365 and have advanced beyond their saved checkpoints.
 Follow the current experiment record for the final 2M production gate; do not
 reuse historical R4 launch helpers.
+
+## Approved decoder-only waypoint revision
+
+The user replaced goal-write waypoint F64 with goal-independent worker memory
+and the existing target-ID FiLM decoder. See
+`04_implementation/decoder_only_worker_goals_20260912.md`. This supersedes the
+waypoint architecture in the earlier controller qualification section.
+Three new 2M preflights use `full_system_controller_decoder_preflight.study.json`
+(SHA `581955c17e808cffb2a038bbbdaa21da70eb13d6ea9aab6b264124fb5bca5159`),
+jobs 8057437–8057439, isolated `SF_hipposlam_controller_decoder_only_20260912`
+source. Fifty-one focused runtime/workflow tests and submission audits pass.
+The direct R5 cells are unchanged and retained through
+`full_system_controller_direct_qualification.study.json` (SHA
+`fa9df8f17b3bcc1acad2f03458e20621e5ec3274f6afb9f9f32a7f9d26539b85`).
+Require both three-cell qualifications before the revised 18-run production
+matrix. Do not launch the superseded goal-write matrix.
+
+Use the ordinary SF launcher `--submit` after print-only generation.
+`resume_slurm_submission.py` operates on pending rows and skips rows still marked
+`generated`; it is not the first-submission entry point for a print-only manifest.
