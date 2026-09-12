@@ -1,6 +1,10 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: optimized preflights running; production is not yet submitted.**
+**Current status: waypoint HER replay consistency failure under investigation; production is blocked.**
+Job 8057338 failed its selected replay eligibility recheck at about 557,056 frames.
+The other three DDQN preflights remain running. A bounded checkpoint reproduction
+is testing batch-dependent recognition/event labels; no compatibility checks have
+been relaxed and active training source remains immutable.
 Both PPO jobs **8057292/8057295** completed their 2M horizons and pass the parent
 runtime audit. DDQN jobs **8057335–8057338** resumed from complete immutable
 checkpoints with 128 GB host memory each. Exact GPU reload job **8057339 passed** all four new checkpoints
