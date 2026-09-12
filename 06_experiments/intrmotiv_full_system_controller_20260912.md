@@ -45,6 +45,25 @@ The original native-terminal gates and full PPO episode parity passed, and the
 canonical offline place-field probe 8057320 passed. Reuse the established
 manifest evaluator and checkpoint-bound reload scripts, updated to R5 paths.
 
+## R5 checkpoint restart qualification
+
+All four DDQN learners received the existing SF graceful SIGINT shutdown and
+saved complete checkpoints. Direct DDQN and HER both stopped at 376,832 frames,
+with 1,215 main updates and 311,040 main positions; HER added 16,553 positions.
+Waypoint DDQN stopped at 344,064 frames (1,087 updates), and waypoint HER at
+327,680 (1,023 updates, 14,322 auxiliary positions). Every main Adam count equals
+its main-update clock and every STOP DG Adam count equals its fresh DG clock.
+Each checkpoint records 64 incomplete physical tails for explicit restart discard.
+
+Canonical print-only and pre/post-submission audits pass for `resume_submission`.
+Resumed jobs are **8057362–8057365**, respectively direct DDQN, direct HER,
+waypoint DDQN and waypoint HER. Both completed PPO job records are retained.
+The checkpoint-bound six-run exact GPU reload gate is **8057366**. Immutable
+baseline hardlinks and counters live under
+`train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r5/`.
+Qualification is still pending: require successful reload certificates, continued
+DDQN physical sessions, complete 2M runtime gates and all dashboard checks.
+
 ## Scope and provenance
 
 The intervention is controller learning only. All three historical parents are
