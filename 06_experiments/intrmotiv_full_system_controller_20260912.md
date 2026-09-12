@@ -38,7 +38,16 @@ weights, learned decoder goal modulation, no goal-write parameters, and finite
 1M/2M spatial snapshots. New DDQN arms passed 200k without reported errors;
 actual main/DG Adam counts match their clocks. All three initial checkpoints
 were verified fresh with F64, waypoint manager and decoder-only conditioning.
-New waypoint checkpoint restart/reload and DDQN 2M runtime gates remain pending.
+Both revised DDQN arms gracefully stopped at 327,680 frames with identical
+1,023 main updates, 261,888 main positions, 40 fresh DG/Adam steps and target
+refresh 1,000. HER added **13,077 auxiliary positions**; each checkpoint retained
+64 incomplete physical tails for explicit restart discard. Resumed jobs are
+**8057450 (DDQN) and 8057451 (HER)**; their existing W&B IDs are preserved.
+Canonical resume pre/post-submission audits pass. The new three-run exact GPU
+reload job is **8057452**, with immutable baselines under
+`analysis/restart_baselines/intrmotiv_full_system_controller_decoder_preflight_20260912/`.
+The combined monitoring manifest now references these resumed IDs. New waypoint
+reload completion and DDQN 2M runtime gates remain pending.
 The original R5 goal-write reload certificates do not qualify these new runs.
 
 

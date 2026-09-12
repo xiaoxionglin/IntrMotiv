@@ -1,0 +1,24 @@
+{
+  "batch_name": "intrmotiv_full_system_controller_decoder_preflight_20260912",
+  "commands_match_study": true,
+  "expected_runs": 3,
+  "job_ids": [
+    "8057437",
+    "8057450",
+    "8057451"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_full_system_controller_decoder_preflight_20260912/resume_submission/jobs.tsv",
+  "rows": 3,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 3
+  },
+  "study_id": "full_system_controller_decoder_preflight_20260912",
+  "study_sha256": "581955c17e808cffb2a038bbbdaa21da70eb13d6ea9aab6b264124fb5bca5159",
+  "study_spec": "hpc_runs/studies/full_system_controller_decoder_preflight.study.json",
+  "study_workflow_version": "1.8.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.1",
+  "workspace_paths_valid": true
+}

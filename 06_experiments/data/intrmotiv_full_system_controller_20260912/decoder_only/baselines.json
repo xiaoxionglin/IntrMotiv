@@ -1,0 +1,90 @@
+[
+  {
+    "run": "00_FSCD_WAYPOINT_DECODER_F64_PPO_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_decoder_preflight_20260912/FSCD_WAYPOINT_DECODER_F64_PPO_S99_/00_FSCD_WAYPOINT_DECODER_F64_PPO_S99/checkpoint_p0/checkpoint_000000250_2048000.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_decoder_preflight_20260912/00_FSCD_WAYPOINT_DECODER_F64_PPO_S99.pth",
+    "env_steps": 2048000,
+    "train_step": 250,
+    "bytes": 13465609
+  },
+  {
+    "run": "00_FSCD_WAYPOINT_DECODER_F64_DDQN_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_decoder_preflight_20260912/FSCD_WAYPOINT_DECODER_F64_DDQN_S99_/00_FSCD_WAYPOINT_DECODER_F64_DDQN_S99/checkpoint_p0/checkpoint_000000040_327680.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_decoder_preflight_20260912/00_FSCD_WAYPOINT_DECODER_F64_DDQN_S99.pth",
+    "env_steps": 327680,
+    "train_step": 40,
+    "bytes": 4018602136,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 1023,
+      "main_positions": 261888,
+      "auxiliary_positions": 0,
+      "target_at": 1000
+    },
+    "session": 0,
+    "accepted": 81856,
+    "received": 81920,
+    "publication": 20,
+    "fresh_dg_steps": 40,
+    "fresh_graph_batches": 20,
+    "pending": 64,
+    "rejected": {
+      "missing_successor_context": 486,
+      "successor_events_changed": 16423,
+      "current_recognition_changed": 33290,
+      "target_event_incompatible": 1
+    },
+    "optimizer_step_counts": {
+      "dg": {
+        "linear.weight": 40
+      },
+      "main": {
+        "weight": 1023,
+        "bias": 1023
+      }
+    }
+  },
+  {
+    "run": "00_FSCD_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+    "source": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_decoder_preflight_20260912/FSCD_WAYPOINT_DECODER_F64_DDQN_HER_S99_/00_FSCD_WAYPOINT_DECODER_F64_DDQN_HER_S99/checkpoint_p0/checkpoint_000000040_327680.pth",
+    "baseline": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_decoder_preflight_20260912/00_FSCD_WAYPOINT_DECODER_F64_DDQN_HER_S99.pth",
+    "env_steps": 327680,
+    "train_step": 40,
+    "bytes": 4018628228,
+    "clock": {
+      "learning_starts": 16384,
+      "cadence": 64,
+      "target_interval": 100,
+      "completed": 1023,
+      "main_positions": 261888,
+      "auxiliary_positions": 13077,
+      "target_at": 1000
+    },
+    "session": 0,
+    "accepted": 81856,
+    "received": 81920,
+    "publication": 20,
+    "fresh_dg_steps": 40,
+    "fresh_graph_batches": 20,
+    "pending": 64,
+    "rejected": {
+      "her_budget_expired": 245581,
+      "missing_successor_context": 514,
+      "current_recognition_changed": 37094,
+      "successor_events_changed": 17271,
+      "her_no_future_achievement": 3230,
+      "target_event_incompatible": 1
+    },
+    "optimizer_step_counts": {
+      "dg": {
+        "linear.weight": 40
+      },
+      "main": {
+        "weight": 1023,
+        "bias": 1023
+      }
+    }
+  }
+]
