@@ -1,0 +1,299 @@
+[
+  {
+    "parent": "DGC_DIRECT_WORKER_F16_S99",
+    "state_dict_equal": true,
+    "initialization_rng_equal": true,
+    "ppo_and_shadow_outputs_equal": true,
+    "forced_observation_steps": 5,
+    "environments": 2,
+    "action_vectors": [
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "new_shadow_parameters": {
+      "controller_q.main.weight": [
+        8,
+        128
+      ],
+      "controller_q.main.bias": [
+        8
+      ],
+      "controller_q.auxiliary.weight": [
+        8,
+        257
+      ],
+      "controller_q.auxiliary.bias": [
+        8
+      ]
+    },
+    "scope": "actual encoder/core/decoder; synthetic observations, no environment rollout"
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S8",
+    "state_dict_equal": true,
+    "initialization_rng_equal": true,
+    "ppo_and_shadow_outputs_equal": true,
+    "forced_observation_steps": 5,
+    "environments": 2,
+    "action_vectors": [
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "new_shadow_parameters": {
+      "controller_q.main.weight": [
+        8,
+        128
+      ],
+      "controller_q.main.bias": [
+        8
+      ],
+      "controller_q.auxiliary.weight": [
+        8,
+        257
+      ],
+      "controller_q.auxiliary.bias": [
+        8
+      ]
+    },
+    "scope": "actual encoder/core/decoder; synthetic observations, no environment rollout"
+  },
+  {
+    "parent": "DGC_WAYPOINT_DG_F64_S99",
+    "state_dict_equal": true,
+    "initialization_rng_equal": true,
+    "ppo_and_shadow_outputs_equal": true,
+    "forced_observation_steps": 5,
+    "environments": 2,
+    "action_vectors": [
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        -20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        20,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    ],
+    "new_shadow_parameters": {
+      "controller_q.main.weight": [
+        8,
+        128
+      ],
+      "controller_q.main.bias": [
+        8
+      ],
+      "controller_q.auxiliary.weight": [
+        8,
+        257
+      ],
+      "controller_q.auxiliary.bias": [
+        8
+      ]
+    },
+    "scope": "actual encoder/core/decoder; synthetic observations, no environment rollout"
+  }
+]

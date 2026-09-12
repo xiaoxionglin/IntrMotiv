@@ -1,0 +1,77 @@
+{
+  "schema": "intrmotiv/full-parent/v1",
+  "parents": [
+    {
+      "run": "DGC_DIRECT_WORKER_F16_S99",
+      "source_seed": 99,
+      "learner_seeds": [
+        8,
+        99,
+        123
+      ],
+      "capacity": 16,
+      "dg_goal_input": "none",
+      "recognition": "exclusive",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_capacity_goal_conditioning_20260910/DGC_DIRECT_WORKER_F16_S99_/00_DGC_DIRECT_WORKER_F16_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+      "sha256": "04ccec999e7b9748a960b6b421a91e9bcf6ce3ce9c44cea246359d34f0633585",
+      "actual_frames": 25001984,
+      "qualification": "not_yet_evaluated",
+      "selection": "historical_compatibility_shortlist_not_new_ranking",
+      "source_manifest": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/full_system_controller_20260912/source_manifest.json",
+      "initialization_modes": [
+        "configuration_replication",
+        "checkpoint_continuation"
+      ],
+      "controller_delta": {},
+      "status": "preservation_contract_pending_implementation"
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F64_S8",
+      "source_seed": 8,
+      "learner_seeds": [
+        8,
+        99,
+        123
+      ],
+      "capacity": 64,
+      "dg_goal_input": "write",
+      "recognition": "exclusive",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_capacity_goal_conditioning_20260910/DGC_WAYPOINT_DG_F64_S8_/00_DGC_WAYPOINT_DG_F64_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+      "sha256": "a8852f8ad5b93df597563bd5c87551cbae025f202a1400b90ab92c7e0beff45c",
+      "actual_frames": 25001984,
+      "qualification": "not_yet_evaluated",
+      "selection": "historical_compatibility_shortlist_not_new_ranking",
+      "source_manifest": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/full_system_controller_20260912/source_manifest.json",
+      "initialization_modes": [
+        "configuration_replication",
+        "checkpoint_continuation"
+      ],
+      "controller_delta": {},
+      "status": "preservation_contract_pending_implementation"
+    },
+    {
+      "run": "DGC_WAYPOINT_DG_F64_S99",
+      "source_seed": 99,
+      "learner_seeds": [
+        8,
+        99,
+        123
+      ],
+      "capacity": 64,
+      "dg_goal_input": "write",
+      "recognition": "exclusive",
+      "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_capacity_goal_conditioning_20260910/DGC_WAYPOINT_DG_F64_S99_/00_DGC_WAYPOINT_DG_F64_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+      "sha256": "e9025a4d7df91814565188f0b3629408499556b8590c7c8ba01218f8047d2859",
+      "actual_frames": 25001984,
+      "qualification": "not_yet_evaluated",
+      "selection": "historical_compatibility_shortlist_not_new_ranking",
+      "source_manifest": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/full_system_controller_20260912/source_manifest.json",
+      "initialization_modes": [
+        "configuration_replication",
+        "checkpoint_continuation"
+      ],
+      "controller_delta": {},
+      "status": "preservation_contract_pending_implementation"
+    }
+  ]
+}
