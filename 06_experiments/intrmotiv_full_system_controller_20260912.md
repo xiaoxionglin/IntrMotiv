@@ -1,6 +1,12 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: compatibility preflights running; production remains gated.**
+**Current status: controlled checkpoint restart for qualified replay screening.**
+Four DDQN jobs 8057315–8057318 received graceful SIGINT after GPU gate 8057324
+passed exact optimizer-state parity with a 2.23× speedup. Wait for their final
+saves before capturing screened baselines and resuming the audited
+`screened_submission` manifest. Production remains gated.
+
+Previous active state:
 Both PPO jobs **8057292/8057295** completed 2M frames with exit 0. Four DDQN
 jobs **8057315–8057318** resumed from immutable full-state baselines after all
 prior jobs stopped. Canonical print-only and submitted-manifest audits passed.
@@ -541,3 +547,21 @@ spatial-information scalar is amplitude-weighted (mean 0.05212), despite legacy
 CSV columns containing `bits`; it is not normalized bits per activation.
 The probe used the 327,680-frame waypoint/HER checkpoint and qualifies the
 telemetry path, not a training-result comparison or fixed-trajectory drift test.
+
+## Qualified candidate-only screening
+
+The first two exploratory GPU comparisons (8057322/8057323) found float32
+roundoff when candidate histories were packed into smaller batches. Screening
+is now used **only for no-gradient candidate search**; all main/HER gradient and
+target-value evaluations retain the original full batch geometry. It does not
+change the sampler, TD counts, losses, reward/event functions or target schedule.
+
+GPU gate **8057324 passed**: 8,192 physical examples (16,384 online/target checks)
+had identical rejection/event/boundary labels. Three complete updates from the
+same immutable checkpoint produced **bitwise-identical model, optimizer, main
+RNG, HER RNG and clock states**. Time fell from 126.02s to 56.58s (2.23×).
+371 tests pass locally and remotely; the canonical print-only six-run manifest
+and audit passed. Source is `SF_hipposlam_controller_screened_20260912`, local
+`/tmp/intrmotiv_screened_benchmark`. Main and HER learning values are never
+approximated by screening results. Preserve this exact optimizer-transaction
+comparison for future replay batching optimizations.

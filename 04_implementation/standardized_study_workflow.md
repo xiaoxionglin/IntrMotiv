@@ -571,3 +571,18 @@ the evaluator shell must resolve its own source and put that root on PYTHONPATH.
 Safe private mmap reduces CPU audit RSS for replay-bearing checkpoints, but
 Python metadata parsing still dominated the measured load time (50–55 seconds);
 avoid repeating full checkpoint audits when compact counters suffice.
+
+### Replay batching qualification lesson (2026-09-12)
+
+Profile a restored real checkpoint before changing replay execution. GPU gate
+8057321 showed discarded history assembly and repeated manager reachability
+work dominated neural execution. Early current-label screening may accelerate
+candidate search, but keep the original batch geometry for main/HER gradients
+and target values: changing GPU batch shapes can perturb float32 outputs.
+Require exact rejection/event/boundary labels, then compare model, optimizer,
+main/HER RNG and update clocks after complete transactions from the same
+checkpoint. Gate 8057324 demonstrated bitwise-identical states and a 2.23×
+speedup. This is stronger evidence than relaxing forward-value tolerances.
+Use the existing SF graceful stop/save path for deployment, wait for all old
+jobs to terminate, capture immutable full-state baselines, and reuse canonical
+print-only/audit plus `resume_slurm_submission.py`; never mutate active source.

@@ -1,0 +1,141 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -241,9 +241,12 @@
+         if len(examples)>width:
+             return [result for start in range(0,len(examples),width)
+                     for result in self._evaluate_pairs(examples[start:start+width])]
+-        online=differentiable_replay(self.online_snapshot,self.actor_critic,transition_values_batch,examples,
++        # Screening only changes eligibility-search work. Keep the original
++        # batch geometry for all main/HER gradient and target-value evaluations.
++        operation=partial(transition_values_batch,screen_current=not torch.is_grad_enabled())
++        online=differentiable_replay(self.online_snapshot,self.actor_critic,operation,examples,
+             source_version=self.controller_version)
+-        target=evaluate_replay(self.target_snapshot,transition_values_batch,examples)
++        target=evaluate_replay(self.target_snapshot,operation,examples)
+         results=[]
+         for example,a,b in zip(examples,online,target):
+             if isinstance(a,str) or isinstance(b,str):
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
+@@ -45,7 +45,50 @@
+         torch.zeros(1,core.total_state_size,device=device),conditions,rows[0].index==0,b)
+ 
+ 
+-def transition_values_batch(model,examples):
++@torch.no_grad()
++def current_context_rejections(model, examples):
++    """Screen the existing current-label veto before expensive finite histories.
++
++    Canonical trace slot zero is exactly the current unconditioned DG activity.
++    This uses each private snapshot's encoder and SF normalization; no worker
++    history, target choice, reward or replay acceptance rule is approximated.
++    """
++    from sample_factory.algo.utils.rl_utils import prepare_and_normalize_obs
++    if model.training:raise ValueError('Reconstruction requires an immutable evaluation snapshot')
++    if not examples:return []
++    core=model.core;device=next(model.parameters()).device
++    generation=int(core.policy_graph.representation_generation.item())
++    layout=HRLStateLayout(core.Hippo_n_feature)
++    results=[];indices=[];rows=[]
++    for i,example in enumerate(examples):
++        b=example.burn_in;history=example.rows
++        if b<0 or len(history)!=b+2:raise ValueError('Expected prefix, current and physical successor')
++        if any(y.index!=x.index+1 for x,y in zip(history,history[1:])):
++            raise ValueError('Replay history has a physical decision gap')
++        if history[0].index!=0 and b<core.expanded_length:
++            raise ValueError('Incomplete finite washout prefix')
++        stale=any(row.generation!=generation for row in history)
++        results.append('snapshot_structural_generation_incompatible' if stale else None)
++        if not stale:indices.append(i);rows.append(history[b])
++    if not rows:return results
++    obs={key:torch.as_tensor(np.stack([row.observation[key] for row in rows]),device=device)
++         for key in rows[0].observation}
++    head=model.forward_head(prepare_and_normalize_obs(model,obs))
++    active,_,count=current_dg_from_activity(head[:,:core.Hippo_n_feature])
++    active=active.cpu().tolist();count=count.cpu().tolist()
++    for i,row,node,n_active in zip(indices,rows,active,count):
++        if node+1!=row.context[layout.active_dg] or (n_active>1)!=bool(row.context[layout.multi_activation]):
++            results[i]='current_recognition_changed'
++    return results
++
++
++def transition_values_batch(model,examples,*,screen_current=False):
++    if screen_current:
++        results=current_context_rejections(model,examples)
++        indices=[i for i,result in enumerate(results) if result is None]
++        accepted=transition_values_batch(model,[examples[i] for i in indices])
++        for i,result in zip(indices,accepted):results[i]=result
++        return results
+     from .custom_learner import DistanceLearnerReward
+     if not examples:return []
+     histories=[make_history(model,example) for example in examples]
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
+@@ -127,3 +127,67 @@
+     with torch.no_grad():model.scale[1]=-1
+     with pytest.raises(ReplayRejected,match='current_recognition_changed'):
+         transition_values(model,example)
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_early_current_screen_preserves_rejections_values_and_gradients(write):
++    from copy import deepcopy
++    from sf_working_directories.IntrMotiv.dmlab.controller_transition import transition_values_batch
++    model=RewardModel(write).eval();rows,_=physical_rows(model)
++    examples=[TransitionInput(tuple(rows[:2]),0),TransitionInput(tuple(rows),1)]
++    examples.append(replace(examples[0],virtual_goal=1,remaining=3))
++    examples.append(replace(examples[1],virtual_goal=2,remaining=3))
++    # One current label fails, while another example has only changed burn-in.
++    with torch.no_grad():model.scale[0]=-1
++    other=deepcopy(model)
++    plain=transition_values_batch(model,examples)
++    screened=transition_values_batch(other,examples,screen_current=True)
++    for a,b in zip(plain,screened):
++        if isinstance(a,str):assert a==b
++        else:
++            torch.testing.assert_close(a['q'],b['q']);torch.testing.assert_close(a['reward'],b['reward'])
++            assert torch.equal(a['signature'],b['signature']) and a['done']==b['done']
++    sum(a['q'].sum() for a in plain if not isinstance(a,str)).backward()
++    sum(a['q'].sum() for a in screened if not isinstance(a,str)).backward()
++    for a,b in zip(model.parameters(),other.parameters()):
++        assert (a.grad is None)==(b.grad is None)
++        if a.grad is not None:torch.testing.assert_close(a.grad,b.grad)
++
++
++def test_early_screen_skips_rejected_histories_but_keeps_validation(monkeypatch):
++    import sf_working_directories.IntrMotiv.dmlab.controller_transition as module
++    model=RewardModel(True).eval();rows,_=physical_rows(model)
++    example=TransitionInput(tuple(rows[:2]),0)
++    with torch.no_grad():model.scale[0]=-1
++    def no_history(model,histories):
++        assert not histories
++        return []
++    monkeypatch.setattr(module,'reconstruct_controller_histories',no_history)
++    assert module.transition_values_batch(model,[example],screen_current=True)==['current_recognition_changed']
++    gap=replace(example,rows=(rows[0],replace(rows[1],index=4)))
++    with pytest.raises(ValueError,match='gap'):module.transition_values_batch(model,[gap],screen_current=True)
++    stale=replace(example,rows=tuple(replace(row,generation=1) for row in example.rows))
++    assert module.transition_values_batch(model,[stale],screen_current=True)==['snapshot_structural_generation_incompatible']
++
++
++def test_learner_screens_only_no_gradient_candidate_search(monkeypatch):
++    from copy import deepcopy
++    import sf_working_directories.IntrMotiv.dmlab.controller_learner as module
++    model=RewardModel(True).eval();rows,_=physical_rows(model)
++    learner=object.__new__(module.ControllerLearner)
++    learner.actor_critic=model;learner.cfg=model.cfg
++    learner.cfg.controller_td_positions=256;learner.cfg.gamma=.99
++    learner.device=torch.device('cpu');learner.controller_version=0
++    learner.online_snapshot=SimpleNamespace(model=deepcopy(model),version=0)
++    learner.target_snapshot=SimpleNamespace(model=deepcopy(model),version=0)
++    operation=module.transition_values_batch;calls=[]
++    def record(model,examples,*,screen_current=False):
++        calls.append(screen_current)
++        return operation(model,examples,screen_current=screen_current)
++    monkeypatch.setattr(module,'transition_values_batch',record)
++    examples=[TransitionInput(tuple(rows[:2]),0)]
++    result=learner._evaluate_pairs(examples)
++    assert calls==[False,False] and result[0][0].requires_grad
++    calls.clear()
++    with torch.no_grad():result=learner._evaluate_pairs(examples)
++    assert calls==[True,True] and not result[0][0].requires_grad
