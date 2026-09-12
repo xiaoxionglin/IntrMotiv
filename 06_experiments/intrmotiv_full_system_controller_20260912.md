@@ -270,3 +270,19 @@ scientific learning. Verify new physical replay session, restored main/target/DG
 clocks, nondecreasing checkpoint counters, actor-history correctness, and final
 2M completion. Retain original submission artifacts and record replacement job
 IDs. This live restart is part of the user's mandatory qualification gate.
+
+All six controlled stops completed by 05:12 local. The optimized checkout passed
+345 runtime tests and 32 canonical/auditor tests on NEMO2. The restart print-only
+audit passed with unchanged R3 study SHA and workspace-only output paths.
+Before submission, latest checkpoints are hardlinked and safely loaded under
+`train_dir/analysis/restart_baselines/intrmotiv_full_system_controller_preflight_20260912_r3/`.
+Direct DDQN and DDQN+HER both stopped at 131,072 frames, 255 main updates and
+65,280 main TD positions, with 32,704 accepted decisions and zero update debt.
+
+Restart submitted successfully: **8057273–8057278**, in canonical order direct
+PPO/DDQN/DDQN+HER, waypoint PPO/DDQN/DDQN+HER. New authoritative jobs manifest:
+`_slurm/intrmotiv_full_system_controller_preflight_20260912_r3/restart_submission/jobs.tsv`.
+The submitted audit passed exact commands, all six IDs and workspace paths.
+Baseline counters are in [restart baselines](data/intrmotiv_full_system_controller_20260912/r3/restart_baselines.json).
+These are resumed preflights, not the 18-run production batch. Production remains
+gated on complete 2M-frame runtime and live restart evidence.
