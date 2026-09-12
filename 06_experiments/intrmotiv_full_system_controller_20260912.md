@@ -286,3 +286,13 @@ The submitted audit passed exact commands, all six IDs and workspace paths.
 Baseline counters are in [restart baselines](data/intrmotiv_full_system_controller_20260912/r3/restart_baselines.json).
 These are resumed preflights, not the 18-run production batch. Production remains
 gated on complete 2M-frame runtime and live restart evidence.
+
+All six replacements loaded their exact pre-stop checkpoint paths and entered
+RUNNING. W&B retained the original R3 run IDs. The first comparable resumed
+Direct F16 updates match: 318 completed main updates, 81,408 main positions,
+zero debt and zero actor-memory failures in both DDQN arms. HER remains zero at
+this early checkpoint. Independent compute-node job **8057281** tests exact
+model/optimizer/target/RNG restore from the immutable baselines using SF's real
+environment-info extraction and learner initialization. The final runtime auditor
+now accepts `--restart-baselines <baselines.json>`; focused tests pass locally
+and remotely and require a fresh physical session and preserved counters.

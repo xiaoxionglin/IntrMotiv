@@ -5,10 +5,25 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 import torch
-from hpc_runs.audit_full_system_controller_preflight import audit
+from hpc_runs.audit_full_system_controller_preflight import audit, restart_errors
 
 
 class ControllerRuntimeAudit(unittest.TestCase):
+    def test_restart_requires_new_physical_session_and_preserved_clocks(self):
+        baseline=dict(env_steps=100,train_step=2,session=0,accepted=20,received=21,
+                      publication=1,fresh_dg_steps=2,fresh_graph_batches=1,pending=1,
+                      clock=dict(completed=3,main_positions=12,auxiliary_positions=0,target_at=2))
+        state=dict(replay=dict(session=1,accepted=40,received=42,rows=[dict(stream=(1,0))],
+                               rejected=dict(restart_pending_tail=1)),
+                   publication=2,fresh_dg_steps=4,fresh_graph_batches=2,clock=baseline['clock'].copy())
+        final=dict(env_steps=200,train_step=4,controller=state)
+        self.assertEqual(restart_errors(final,baseline),[])
+        state['replay']['session']=0
+        state['clock']['completed']=0
+        errors=restart_errors(final,baseline)
+        self.assertIn('restart physical session did not advance exactly once',errors)
+        self.assertIn('restart regressed completed',errors)
+
     def test_reports_main_debt_and_missing_auxiliary_without_passing_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);run=root/'00_test';(run/'checkpoint_p0').mkdir(parents=True)

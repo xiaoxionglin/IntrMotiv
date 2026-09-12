@@ -15,20 +15,50 @@ def load_runtime_checkpoint(path):
     return load_checkpoint_dict(path,torch.device('cpu'))
 
 
-def audit(study, jobs, root, required_frames=2000000):
+def restart_errors(final, baseline):
+    errors=[]
+    for key in ('env_steps','train_step'):
+        if final[key]<=baseline[key]:errors.append('restart did not advance '+key)
+    if 'session' not in baseline:return errors
+    state=final['controller'];replay=state['replay']
+    if replay['session']!=baseline['session']+1:
+        errors.append('restart physical session did not advance exactly once')
+    if not any(item['stream'][0]==replay['session'] for item in replay['rows']):
+        errors.append('no replay collected in restarted physical session')
+    for key in ('accepted','received'):
+        if replay[key]<=baseline[key]:errors.append('restart did not preserve/advance '+key)
+    for key in ('publication','fresh_dg_steps','fresh_graph_batches'):
+        if state[key]<=baseline[key]:errors.append('restart did not preserve/advance '+key)
+    for key in ('completed','main_positions','auxiliary_positions','target_at'):
+        if state['clock'][key]<baseline['clock'][key]:errors.append('restart regressed '+key)
+    if baseline['pending'] and replay['rejected'].get('restart_pending_tail')!=baseline['pending']:
+        errors.append('restart did not discard incomplete physical tails')
+    return errors
+
+
+def audit(study, jobs, root, required_frames=2000000, restart_baselines=None):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
     with Path(jobs).open() as stream:job_rows=list(csv.DictReader(stream,delimiter='\t'))
+    baselines={r['run']:r for r in json.loads(Path(restart_baselines).read_text())} if restart_baselines else None
     for job in job_rows:
         row=by_name[job['experiment'].removeprefix('00_')]
         directory=Path(root)/job['train_root']/job['experiment']
         cfg=json.loads((directory/'config.json').read_text())
+        final=None
+        if baselines is not None:
+            checkpoints=sorted((directory/'checkpoint_p0').glob('checkpoint_*.pth'))
+            if job['experiment'] not in baselines:row['errors'].append('missing restart baseline')
+            elif checkpoints:
+                final=load_runtime_checkpoint(checkpoints[-1])
+                row['errors'].extend(restart_errors(final,baselines[job['experiment']]))
+            row['passed']=not row['errors']
         if cfg.get('controller_learning','ppo')=='ppo':continue
         errors=row['errors']
         checkpoints=sorted((directory/'checkpoint_p0').glob('checkpoint_*.pth'))
         if not checkpoints:continue
         # The ordinary place-field evaluator uses this safe loader too.
-        final=load_runtime_checkpoint(checkpoints[-1])
+        if final is None:final=load_runtime_checkpoint(checkpoints[-1])
         state=final.get('controller')
         if state is None:
             errors.append('missing complete controller checkpoint');row['passed']=False;continue
@@ -78,6 +108,7 @@ def audit(study, jobs, root, required_frames=2000000):
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('study');p.add_argument('jobs');p.add_argument('train_root')
     p.add_argument('--required-frames',type=int,default=2000000);p.add_argument('--output',required=True)
-    a=p.parse_args();result=audit(a.study,a.jobs,a.train_root,a.required_frames)
+    p.add_argument('--restart-baselines')
+    a=p.parse_args();result=audit(a.study,a.jobs,a.train_root,a.required_frames,a.restart_baselines)
     Path(a.output).write_text(json.dumps(result,indent=2)+'\n')
     raise SystemExit(0 if result['passed'] else 1)
