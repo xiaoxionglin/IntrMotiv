@@ -308,3 +308,35 @@ A matching Torch 2.9.1 / torchvision 0.24.1 CUDA 12.8 overlay is being installed
 under workspace `runtime/torch_cuda_2_9_1`, with NumPy pinned to existing 1.26.4.
 The installed shared SFgit environment and active CPU runs are unchanged. Only
 consider GPU deployment after benchmark and preservation/runtime qualification.
+
+GPU benchmark lesson: jobs 8057283/8057284 used an invalid synthetic CPU training
+buffer with a GPU learner. SF's real Batcher already allocates training buffers
+on `policy_device`; fixing the harness removed both device errors. The exploratory
+graph-device patch was reverted and must not be promoted. Correct harness job
+8057285 completed a full 256-position update (~4.78 s main) but found a real GPU
+checkpoint issue: `map_location=cuda` moves saved CUDA RNG byte tensors, while
+`set_rng_state_all` needs CPU ByteTensors. An isolated one-line `.cpu()` restore
+fix and wider GPU-only benchmark batching are being tested in 8057286. Active
+CPU source remains the padded checkout. No GPU production decision has been made.
+
+Batched parent event/reward reconstruction passed **347 tests** including mixed
+main/HER, terminal, rejection and gradient parity against scalar evaluation.
+GPU benchmark **8057287** reduced main 256-position time from 4.36 s to **0.903 s**
+(whole fresh/replay transaction 1.55 s), with identical loss and successful GPU
+checkpoint reload. Candidate code is only in inactive
+`SF_hipposlam_controller_cuda_20260912`; local prototype `/tmp/intrmotiv_cuda_benchmark`.
+It currently uses experimental internal width 256 for all devices; before any
+promotion retain CPU width 16, qualify GPU width explicitly, and run full remote
+suite. No new production or GPU preflight has been submitted.
+
+**New production blocker at 05:42:** direct DDQN at 376,832 frames had 645 main
+updates and debt 569; direct HER at 442,368 had 638 main updates and debt 832.
+HER has learned 21 auxiliary positions. Actor memory failures remain zero.
+Rejections are predominantly `history_recognition_changed`; the implementation
+abandons a main batch after only four times its size in candidates. This arbitrary
+bound is not in the user's contract. Do not weaken recognition/event rejection or
+clear debt to pass the gate. Slurm job **8057288** measures eligibility of 4,096
+candidates from a real latest direct checkpoint using the isolated GPU candidate.
+Use its evidence to replace the premature candidate cutoff with principled
+sampling/accounting, and qualify the repair before production. Existing CPU
+preflights 8057273–8057278 remain running on unchanged padded source.
