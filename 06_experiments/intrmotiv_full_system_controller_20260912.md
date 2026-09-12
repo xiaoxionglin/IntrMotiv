@@ -561,3 +561,24 @@ and audit passed. Source is `SF_hipposlam_controller_screened_20260912`, local
 `/tmp/intrmotiv_screened_benchmark`. Main and HER learning values are never
 approximated by screening results. Preserve this exact optimizer-transaction
 comparison for future replay batching optimizations.
+
+## Exact graph reachability qualification
+
+The remaining graph bottleneck recomputed a transitive closure for every
+candidate edge. The isolated reachability candidate computes the closure once;
+newly connected pairs equal old predecessors of the source crossed with old
+successors of the destination, excluding already reachable pairs. Scores and
+tie-breaking are unchanged. Exhaustive three-node graphs and larger cyclic and
+acyclic graphs match an independent BFS oracle. All 373 runtime tests pass
+locally and remotely; three parent PPO fresh updates retain bitwise model,
+buffer and optimizer parity. GPU job 8057330 checks complete DDQN/HER update
+parity and runtime before any deployment to active training.
+
+GPU gate **8057330 passed** with exact model, optimizer, clock and both replay
+RNG states after three complete updates. Existing screened search plus the
+original graph helper took 55.00 seconds; the exact reachability helper took
+28.42 seconds (**1.94×**). All 16,384 online/target eligibility checks preserved
+rejection and event labels. A canonical print-only resume was rendered in
+`reachability_submission`, and jobs 8057325–8057328 received graceful SIGINT.
+The existing coordinator waits for complete shutdown before immutable baseline
+capture, submission audits, replacement jobs and exact GPU reload checks.

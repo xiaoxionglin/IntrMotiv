@@ -586,3 +586,16 @@ speedup. This is stronger evidence than relaxing forward-value tolerances.
 Use the existing SF graceful stop/save path for deployment, wait for all old
 jobs to terminate, capture immutable full-state baselines, and reuse canonical
 print-only/audit plus `resume_slurm_submission.py`; never mutate active source.
+
+### Exact graph optimizations
+
+Before profiling graph-heavy controller reconstruction, check whether a helper
+recomputes reachability per candidate edge. For a fixed directed graph, adding
+$(u,v)$ connects the old predecessors of $u$ to the old successors of $v$;
+subtract already reachable pairs. Reuse one reflexive transitive closure across
+all candidates in that selector call. Validate against an independent BFS oracle
+on cyclic and acyclic graphs, then compare complete optimizer transactions,
+including model buffers and RNG states. The 2026-09-12 qualification passed
+373 runtime tests and bitwise GPU transaction parity, reducing its three-update
+profile from 55.00 to 28.42 seconds. Keep active source immutable and reuse the
+existing checkpoint-preserving restart and submission audit workflow.
