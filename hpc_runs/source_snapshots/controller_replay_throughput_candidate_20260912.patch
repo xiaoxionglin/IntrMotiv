@@ -1,0 +1,1043 @@
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_head_cache.py
+@@ -0,0 +1,52 @@
++"""Snapshot-local reuse of encoder outputs when STOP freezes the entire head.
++
++Lifetime is one fresh-DG/controller transaction. Online and target entries are
++separate, and a target refresh explicitly drops its entries. No learned output
++is reused across a fresh DG update, serialized, or shared with actors.
++"""
++import numpy as np
++import torch
++from .controller_history import reconstruction_head
++
++
++class SnapshotHeadCache:
++    def __init__(self, replay, device):
++        self.replay = replay
++        self.device = device
++        self.rows = list(replay.rows.values())
++        self.indices = {id(row.observation): i for i, row in enumerate(self.rows)}
++        self.snapshots = {}
++
++    def invalidate(self, model):
++        self.snapshots.pop(id(model), None)
++
++    def __call__(self, model, rows):
++        if model.training or any(p.requires_grad for p in model.encoder.parameters()):
++            raise RuntimeError('Head reuse requires an evaluation snapshot with a frozen encoder')
++        key = id(model)
++        if key not in self.snapshots:
++            self.snapshots[key] = [np.zeros(len(self.rows), dtype=bool), None]
++        valid, table = self.snapshots[key]
++        indices = np.fromiter((self.indices.get(id(row.observation), -1) for row in rows),
++                              dtype=np.int64, count=len(rows))
++        physical = indices[indices >= 0]
++        missing = np.unique(physical[~valid[physical]])
++        external_positions = np.flatnonzero(indices < 0)
++        encode_rows = [self.rows[int(i)] for i in missing]
++        encode_rows.extend(rows[int(i)] for i in external_positions)
++        encoded = None
++        if encode_rows:
++            inputs = self.replay.tensor_rows(encode_rows, self.device)['observation']
++            encoded = reconstruction_head(model, inputs)
++            if encoded.requires_grad:
++                raise RuntimeError('Head reuse would discard an encoder gradient')
++            if table is None:
++                table = encoded.new_empty((len(self.rows), encoded.shape[-1]))
++                self.snapshots[key][1] = table
++            if len(missing):
++                table[torch.as_tensor(missing, device=self.device)] = encoded[:len(missing)]
++                valid[missing] = True
++        result = table[torch.as_tensor(indices.clip(min=0), device=self.device)]
++        if len(external_positions):
++            result[torch.as_tensor(external_positions, device=self.device)] = encoded[len(missing):]
++        return result
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_history.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_history.py
+@@ -76,7 +76,7 @@
+     return torch.cat(heads)
+ 
+ 
+-def reconstruct_controller_histories(model, histories, *, memory_only=False, decode=True):
++def reconstruct_controller_histories(model, histories, *, memory_only=False, decode=True, head_outputs=None):
+     """Batch finite histories using the parent's PackedSequence core transport."""
+     from torch.nn.utils.rnn import pad_sequence
+     if not histories:
+@@ -90,8 +90,13 @@
+         states=core.join_worker_state(canonical,torch.zeros_like(worker))
+     else:
+         states[:,:core.core_output_size]=0
+-    observations={key:torch.cat([h.observations[key] for h in histories]) for key in histories[0].observations}
+-    head=reconstruction_head(model,observations)
++    if head_outputs is None:
++        observations={key:torch.cat([h.observations[key] for h in histories]) for key in histories[0].observations}
++        head=reconstruction_head(model,observations)
++    else:
++        if head_outputs.ndim!=2 or head_outputs.shape[0]!=sum(lengths):
++            raise ValueError('Encoded input/history length mismatch')
++        head=head_outputs
+     # STOP already excludes these DG gradients at the controller boundary.
+     # Detaching before history reconstruction avoids retaining unused CA3 graphs.
+     if getattr(getattr(model,'cfg',None),'ppo_dg_gradient','joint')=='stop':
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -249,27 +249,42 @@
+                     for result in self._evaluate_pairs(examples[start:start+width])]
+         # Screening only changes eligibility-search work. Keep the original
+         # batch geometry for all main/HER gradient and target-value evaluations.
+-        operation=partial(transition_values_batch,screen_current=not torch.is_grad_enabled())
++        from .controller_tensor_replay import ReplayTensorBatch
++        head_cache=getattr(self,'_replay_head_cache',None)
++        operation=partial(transition_values_batch,screen_current=not torch.is_grad_enabled(),
++                          pack_rows=ReplayTensorBatch(self.replay,self.device,head_cache is None),
++                          head_cache=head_cache,values=torch.is_grad_enabled())
+         online=differentiable_replay(self.online_snapshot,self.actor_critic,operation,examples,
+             source_version=self.controller_version)
+         target=evaluate_replay(self.target_snapshot,operation,examples)
+-        results=[]
+-        for example,a,b in zip(examples,online,target):
+-            if isinstance(a,str) or isinstance(b,str):
+-                results.append(a if isinstance(a,str) else b);continue
+-            if not torch.equal(a['signature'],b['signature']):
+-                results.append('target_event_incompatible');continue
+-            if a['done']!=b['done']:
+-                results.append('target_boundary_incompatible');continue
+-            row=example.rows[example.burn_in]
+-            desired=continuing_double_q_target(a['reward'][None],torch.tensor([a['done']],device=self.device),
+-                a['q'][1:2],b['q'][1:2],self.cfg.gamma)
+-            results.append((F.smooth_l1_loss(a['q'][0,row.action],desired[0],reduction='none'),a))
++        results=[None]*len(examples)
++        candidates=[]
++        for i,(a,b) in enumerate(zip(online,target)):
++            if isinstance(a,str) or isinstance(b,str):results[i]=a if isinstance(a,str) else b
++            else:candidates.append(i)
++        if not candidates:return results
++        compatible=(torch.stack([online[i]['signature'] for i in candidates])
++            ==torch.stack([target[i]['signature'] for i in candidates])).all(-1).cpu().tolist()
++        selected=[]
++        for i,matches in zip(candidates,compatible):
++            a=online[i];b=target[i]
++            if not matches:results[i]='target_event_incompatible'
++            elif a['done']!=b['done']:results[i]='target_boundary_incompatible'
++            elif not torch.is_grad_enabled():results[i]=(a['reward'],a)
++            else:selected.append(i)
++        if selected:
++            desired=continuing_double_q_target(torch.stack([online[i]['reward'] for i in selected]),
++                torch.tensor([online[i]['done'] for i in selected],device=self.device),
++                torch.stack([online[i]['q'][1] for i in selected]),
++                torch.stack([target[i]['q'][1] for i in selected]),self.cfg.gamma)
++            prediction=torch.stack([online[i]['q'][0,examples[i].rows[examples[i].burn_in].action] for i in selected])
++            losses=F.smooth_l1_loss(prediction,desired,reduction='none')
++            for i,loss in zip(selected,losses):results[i]=(loss,online[i])
+         return results
+ 
+     def _her_examples(self,examples):
+         core=self.actor_critic.core;layout=HRLStateLayout(core.Hippo_n_feature)
+-        histories=[];eligible_examples=[];budgets=[]
++        futures=[];eligible_examples=[];budgets=[]
+         for example in examples:
+             row=example.rows[example.burn_in];budget=int(row.context[layout.countdown])
+             if budget<1:
+@@ -277,24 +292,33 @@
+             _,future=self.replay.sequence(row.key,0,budget+1)
+             if len(future)<2:
+                 self.replay.reject('her_no_future_achievement');continue
+-            prefix=list(example.rows[:example.burn_in]);rows=prefix+future
+-            observations={k:torch.as_tensor(np.stack([r.observation[k] for r in rows]),device=self.device) for k in row.observation}
+-            histories.append(ControllerHistory(observations,torch.tensor([r.index for r in rows],device=self.device),
+-                torch.zeros(1,core.total_state_size,device=self.device),
+-                torch.as_tensor(np.stack([r.condition for r in rows]),device=self.device),rows[0].index==0,len(prefix)))
+-            eligible_examples.append(example);budgets.append(budget)
+-        if not histories:return []
+-        operation=partial(reconstruct_controller_histories,decode=False)
+-        online=evaluate_replay(self.online_snapshot,operation,histories)
+-        target=evaluate_replay(self.target_snapshot,operation,histories)
++            futures.append(future);eligible_examples.append(example);budgets.append(budget)
++        if not futures:return []
++        flat=[row for future in futures for row in future]
++        lengths=[len(future) for future in futures]
++        head_cache=getattr(self,'_replay_head_cache',None)
++        # Canonical recognition is trace slot zero, exactly the current DG head.
++        # Selecting a future achievement needs no preceding worker-memory states.
++        from .controller_history import reconstruction_head
++        observations=None if head_cache is not None else self.replay.tensor_rows(flat,self.device)['observation']
++        def operation(model):
++            head=head_cache(model,flat) if head_cache is not None else reconstruction_head(model,dict(observations))
++            return head[:,:core.Hippo_n_feature].split(lengths)
++        online=evaluate_replay(self.online_snapshot,operation)
++        target=evaluate_replay(self.target_snapshot,operation)
++        # Transfer canonical activities once per snapshot, not one scalar at a
++        # time per future decision. Keep future order and duplicate goals so the
++        # established HER sampling distribution and RNG calls are unchanged.
++        online_cpu=torch.cat(online).detach().cpu().split(lengths)
++        target_cpu=torch.cat(target).detach().cpu().split(lengths)
+         result=[]
+-        for example,budget,a,b in zip(eligible_examples,budgets,online,target):
+-            dg=a['core_outputs'][:,:core.core_output_size].reshape(-1,core.Hippo_n_feature,core.expanded_length)[:,:,0]
+-            tdg=b['core_outputs'][:,:core.core_output_size].reshape(-1,core.Hippo_n_feature,core.expanded_length)[:,:,0]
++        for example,budget,dg,tdg in zip(eligible_examples,budgets,online_cpu,target_cpu):
+             ids,active,count=current_dg_from_activity(dg)
+             tids,tactive,tcount=current_dg_from_activity(tdg)
+-            eligible=[int(ids[i]) for i in range(1,len(dg)) if bool(active[i]) and int(count[i])==1 and dg[0,ids[i]]<=0
+-                and bool(tactive[i]) and int(tcount[i])==1 and tids[i]==ids[i] and tdg[0,ids[i]]<=0]
++            eligible_mask=(active & (count==1) & tactive & (tcount==1) & (ids==tids)
++                & (dg[0,ids]<=0) & (tdg[0,ids]<=0))
++            eligible_mask[0]=False
++            eligible=ids[eligible_mask].tolist()
+             if not eligible:
+                 self.replay.reject('her_no_future_achievement');continue
+             goal=eligible[int(self.her_rng.integers(len(eligible)))]
+@@ -303,6 +327,15 @@
+ 
+     def _controller_updates(self):
+         main_seconds=her_seconds=0.
++        # STOP leaves DG fixed until the next fresh-data transaction. Reuse only
++        # when the rest of the encoder is fixed too (e.g. no trainable text head).
++        from .controller_head_cache import SnapshotHeadCache
++        encoder=getattr(self.actor_critic,'encoder',None)
++        projection=getattr(encoder,'DG_projection',None)
++        owned={id(p) for p in projection.parameters()} if projection is not None else set()
++        frozen_head=(self.cfg.ppo_dg_gradient=='stop' and projection is not None and not any(
++            p.requires_grad and id(p) not in owned for p in encoder.parameters()))
++        self._replay_head_cache=SnapshotHeadCache(self.replay,self.device) if frozen_head else None
+         # Under STOP, canonical recognition/events remain fixed between fresh
+         # DG transactions and target refreshes. Q/worker updates cannot make a
+         # rejected physical context compatible. JOINT invalidates every step.
+@@ -374,11 +407,14 @@
+             if refresh:
+                 self.target_snapshot.refresh(self.actor_critic,self.controller_version)
+                 incompatible.clear()
++                if self._replay_head_cache is not None:
++                    self._replay_head_cache.invalidate(self.target_snapshot.model)
+             all_q=torch.cat(qs)
+             self.controller_stats.update(main_loss=float(main_loss.detach()),auxiliary_loss=float(aux_loss.detach()),
+                 q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()),
+                 auxiliary_q_mean=float(torch.cat(aux_qs).mean()) if aux_qs else 0.,
+                 auxiliary_q_abs_max=float(torch.cat(aux_qs).abs().max()) if aux_qs else 0.)
++        self._replay_head_cache=None
+         self.controller_stats.update(main_compute_seconds=main_seconds,her_compute_seconds=her_seconds,
+             her_overhead_ratio=her_seconds/max(main_seconds,1e-9))
+ 
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
+@@ -40,6 +40,7 @@
+         self.received=self.accepted=self.physical_frames=0
+         self.session=0
+         self.rejected={}
++        self._tensor_store=None
+ 
+     def receive(self,row):
+         # Ingress validation precedes accounting: duplicates are not interactions.
+@@ -51,6 +52,7 @@
+             if ready.key in self.rows:raise ValueError('Duplicate physical replay row')
+             self.rows[ready.key]=ready
+             self.accepted+=1
++            if self._tensor_store is not None:self._tensor_store.add(ready)
+             while len(self.rows)>self.capacity:self.rows.popitem(last=False)
+ 
+     def annotate(self,key,reward,events):
+@@ -80,6 +82,13 @@
+             suffix.append(item)
+             if item.terminated or item.truncated:break
+         return prefix[:-1],suffix
++
++    def tensor_rows(self,rows,device,include_observations=True):
++        from .controller_tensor_replay import PhysicalTensorStore
++        if self._tensor_store is None:
++            self._tensor_store=PhysicalTensorStore(self.capacity,next(iter(self.rows.values())))
++            for row in self.rows.values():self._tensor_store.add(row)
++        return self._tensor_store.gather(rows,device,include_observations)
+ 
+     def reject(self,reason):self.rejected[reason]=self.rejected.get(reason,0)+1
+ 
+@@ -113,6 +122,7 @@
+             if torch.is_tensor(value):return value.detach().cpu().numpy().copy()
+             if isinstance(value,dict):return {k:decode(v) for k,v in value.items()}
+             return value
++        self._tensor_store=None
+         rows=[PhysicalDecision(**{k:decode(v) for k,v in item.items()}) for item in state['rows']]
+         self.rows=OrderedDict((row.key,row) for row in rows);self.capacity=state['capacity']
+         self.rng.bit_generator.state=state['rng']
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_tensor_replay.py
+@@ -0,0 +1,93 @@
++"""Indexed physical inputs using Sample Factory's tensor-buffer primitives.
++
++This derived CPU store contains no learned representations. Checkpoints retain
++PhysicalReplay's existing owned-row contract; restore rebuilds this index lazily.
++"""
++from collections import OrderedDict
++
++import numpy as np
++import torch
++from sample_factory.algo.utils.shared_buffers import init_tensor
++from sample_factory.algo.utils.tensor_dict import TensorDict, tensor_dict_to_numpy
++
++
++class PhysicalTensorStore:
++    def __init__(self, capacity, example):
++        self.capacity = capacity
++        fields = dict(observation=example.observation, condition=example.condition,
++                      context=example.context)
++
++        def allocate(value):
++            if isinstance(value, dict):
++                return TensorDict({key: allocate(item) for key, item in value.items()})
++            array = np.asarray(value)
++            return init_tensor([capacity], array.dtype, array.shape, torch.device('cpu'), False)
++
++        self.tensors = allocate(fields)
++        self.arrays = tensor_dict_to_numpy(self.tensors)
++        self.slots = {}
++        self.owners = [None] * capacity
++        self.position = 0
++
++    def add(self, row):
++        slot = self.position
++        previous = self.owners[slot]
++        if previous is not None:
++            del self.slots[previous.key]
++        for key, value in row.observation.items():
++            self.arrays['observation'][key][slot] = value
++        self.arrays['condition'][slot] = row.condition
++        self.arrays['context'][slot] = row.context
++        self.owners[slot] = row
++        self.slots[row.key] = slot
++        self.position = (slot + 1) % self.capacity
++
++    def gather(self, rows, device, include_observations=True):
++        slots = []
++        missing = []
++        for index, row in enumerate(rows):
++            slot = self.slots.get(row.key)
++            owner = self.owners[slot] if slot is not None else None
++            # Synthetic certified terminal successors and evicted held rows must
++            # never alias a different physical row at a recycled ring position.
++            if (owner is None or owner.observation is not row.observation
++                    or owner.condition is not row.condition or owner.context is not row.context):
++                missing.append((index, row))
++                slot = 0
++            slots.append(slot)
++        source = self.tensors if include_observations else TensorDict(
++            condition=self.tensors['condition'], context=self.tensors['context'])
++        batch = source[torch.tensor(slots, dtype=torch.long)]
++        for index, row in missing:
++            values = TensorDict(condition=row.condition, context=row.context)
++            if include_observations:values['observation'] = row.observation
++            batch[index] = values
++
++        def move(value):
++            if isinstance(value, dict):
++                return TensorDict({key: move(item) for key, item in value.items()})
++            return value.to(device)
++
++        return move(batch)
++
++
++class ReplayTensorBatch:
++    """Share raw input gathers across online/target calls in one evaluation.
++
++    Two entries retain current-label screening plus its accepted history batch.
++    No model output or normalization result is cached across snapshots.
++    """
++    def __init__(self, replay, device, include_observations=True):
++        self.include_observations = include_observations
++        self.replay = replay
++        self.device = device
++        self.cache = OrderedDict()
++
++    def __call__(self, rows):
++        key = tuple(id(row) for row in rows)
++        if key not in self.cache:
++            self.cache[key] = self.replay.tensor_rows(rows, self.device, self.include_observations)
++            while len(self.cache) > 2:
++                self.cache.popitem(last=False)
++        self.cache.move_to_end(key)
++        return self.cache[key]
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
+@@ -26,6 +26,29 @@
+     return canonical
+ 
+ 
++def assemble_states(core, outputs, contexts):
++    canonical=torch.cat((outputs[:,:core.base_state_size],contexts),-1)
++    if isinstance(core,GoalConditionedDGCore):
++        canonical=core.join_worker_state(canonical,outputs[:,core.total_output_size:])
++    return canonical
++
++
++def virtual_contexts(core, contexts, examples):
++    """Apply only the auxiliary command override, with one indexed batch write."""
++    indices=[i for i,e in enumerate(examples) if e.virtual_goal is not None
++        and e.remaining is not None and e.remaining>=1]
++    result=contexts.clone()
++    if not indices:return result
++    n=core.Hippo_n_feature;layout=HRLStateLayout(n);topo=TopologicalStateLayout(n)
++    offset=hrl_option_state_size(n)
++    fields=[layout.target,layout.countdown,layout.selected_deadline,layout.age,
++        offset+topo.mode,offset+topo.final_goal,offset+topo.pending_source,offset+topo.pending_destination]
++    values=[[examples[i].virtual_goal+1,examples[i].remaining,examples[i].remaining,0,
++        MODE_NAVIGATE,examples[i].virtual_goal+1,0,0] for i in indices]
++    result[torch.tensor(indices,device=result.device)[:,None],torch.tensor(fields,device=result.device)[None,:]]=result.new_tensor(values)
++    return result
++
++
+ def event_signature(context,n):
+     layout=HRLStateLayout(n)
+     return torch.stack((context[...,layout.active_dg],context[...,layout.multi_activation],
+@@ -41,12 +64,12 @@
+     conditions=torch.as_tensor(np.stack([r.condition for r in rows]),device=device)
+     if example.virtual_goal is not None:
+         conditions=torch.zeros_like(conditions);conditions[:,example.virtual_goal]=1
+-    return ControllerHistory(obs,torch.tensor([r.index for r in rows],device=device),
++    return ControllerHistory(obs,torch.tensor([r.index for r in rows]),
+         torch.zeros(1,core.total_state_size,device=device),conditions,rows[0].index==0,b)
+ 
+ 
+ @torch.no_grad()
+-def current_context_rejections(model, examples):
++def current_context_rejections(model, examples, pack_rows=None, head_cache=None):
+     """Screen the existing current-label veto before expensive finite histories.
+ 
+     Canonical trace slot zero is exactly the current unconditioned DG activity.
+@@ -71,9 +94,13 @@
+         results.append('snapshot_structural_generation_incompatible' if stale else None)
+         if not stale:indices.append(i);rows.append(history[b])
+     if not rows:return results
+-    obs={key:torch.as_tensor(np.stack([row.observation[key] for row in rows]),device=device)
+-         for key in rows[0].observation}
+-    head=reconstruction_head(model,obs)
++    if head_cache is not None:
++        head=head_cache(model,rows)
++    else:
++        obs=(dict(pack_rows(rows)['observation']) if pack_rows is not None else
++             {key:torch.as_tensor(np.stack([row.observation[key] for row in rows]),device=device)
++              for key in rows[0].observation})
++        head=reconstruction_head(model,obs)
+     active,_,count=current_dg_from_activity(head[:,:core.Hippo_n_feature])
+     active=active.cpu().tolist();count=count.cpu().tolist()
+     for i,row,node,n_active in zip(indices,rows,active,count):
+@@ -82,21 +109,166 @@
+     return results
+ 
+ 
+-def transition_values_batch(model,examples,*,screen_current=False):
++def event_only_replay_supported(core):
++    return (getattr(core, 'hrl_graph_memory', None) == 'policy_buffer'
++        and getattr(core, 'topological_enabled', False)
++        and not getattr(core, 'action_path_integration', False))
++
++
++@torch.no_grad()
++def transition_eligibility_batch(model, examples, pack_rows=None, head_cache=None):
++    """Validate canonical outcomes without reconstructing unused worker traces."""
++    results=current_context_rejections(model,examples,pack_rows,head_cache)
++    indices=[i for i,result in enumerate(results) if result is None]
++    if not indices:return results
++    core=model.core;device=next(model.parameters()).device;n=core.Hippo_n_feature
++    layout=HRLStateLayout(n)
++    selected=[examples[i] for i in indices]
++    rows=[row for e in selected for row in e.rows[e.burn_in:]]
++    if pack_rows is None:
++        contexts=torch.as_tensor(np.stack([r.context for r in rows]),device=device)
++        observations={k:torch.as_tensor(np.stack([r.observation[k] for r in rows]),device=device) for k in rows[0].observation}
++    else:
++        packed=pack_rows(rows);contexts=packed['context'];observations=packed.get('observation',{})
++    head=head_cache(model,rows) if head_cache is not None else reconstruction_head(model,dict(observations))
++    canonical=head[:,:n].reshape(len(selected),2,n)
++    contexts=contexts.reshape(len(selected),2,-1)
++    current=contexts[:,0,:-core.behavior_goal_state_size].clone()
++    topo=TopologicalStateLayout(n);offset=hrl_option_state_size(n)
++    goals=torch.tensor([e.virtual_goal if e.virtual_goal is not None else 0 for e in selected],device=device)
++    achieved=(canonical[:,0].gather(1,goals[:,None]).squeeze(1)>0).cpu().tolist()
++    current=virtual_contexts(core,current,selected)
++    for i,e in enumerate(selected):
++        if e.virtual_goal is not None:
++            if achieved[i]:results[indices[i]]='her_start_already_achieved'
++            elif e.remaining is None or e.remaining<1:results[indices[i]]='her_budget_expired'
++    successor=replay_successor_events(core,current,canonical[:,1],
++        head.new_zeros(len(selected),core.core_output_size),contexts[:,1,:-core.behavior_goal_state_size])
++    signatures=event_signature(successor,n)
++    compatible=(signatures==event_signature(contexts[:,1],n)).all(-1).cpu().tolist()
++    hits=(successor[:,layout.target_hit]>0).cpu().tolist()
++    for j,(i,e) in enumerate(zip(indices,selected)):
++        if results[i] is not None:continue
++        row=e.rows[e.burn_in];physical=row.terminated or row.truncated
++        if e.virtual_goal is None and not physical and not compatible[j]:
++            results[i]='successor_events_changed';continue
++        done=physical or (e.virtual_goal is not None and (hits[j] or e.remaining<=1))
++        results[i]=dict(q=None,reward=head.new_zeros(()),signature=signatures[j],done=done,
++            canonical=canonical[j,0],next_canonical=canonical[j,1])
++    return results
++
++
++@torch.no_grad()
++def replay_successor_events(core, hrl, next_dg, previous_core, recorded):
++    """Rebuild reward events without running a new manager policy in replay.
++
++    Recorded successor context supplies the actual next command. Only the
++    outcome fields consumed by event validation and worker rewards are replaced.
++    Motion-filtered and non-topological parents retain their original path.
++    """
++    if not event_only_replay_supported(core):
++        return core._update_hrl(hrl, next_dg, previous_core)[0]
++    from .topological_frontier import option_outcome_masks, MODE_EXPLORE, decode_node
++    n = core.Hippo_n_feature
++    layout = HRLStateLayout(n); topo_layout = TopologicalStateLayout(n)
++    option_size = hrl_option_state_size(n)
++    option = hrl[:, :option_size].clone()
++    topo = hrl[:, option_size:].clone()
++    generation = core.policy_graph.representation_generation.to(option)
++    has_option = (option[:, layout.target] > 0) | (option[:, layout.source] > 0)
++    stale = has_option & (option[:, layout.persistent_start] != generation)
++    option[stale, :layout.persistent_start] = 0
++    topo[stale] = 0
++    current, active, count = current_dg_from_activity(next_dg)
++    exclusive = active & (count == 1)
++    last = decode_node(topo[:, topo_layout.last_landmark])
++    elapsed_passive = topo[:, topo_layout.last_landmark_age] + 1.0
++    passive = (exclusive & (last >= 0) & (last != current) & (elapsed_passive > 0)
++        & (elapsed_passive <= float(getattr(core.cfg, 'hrl_passive_max_path_length', core.L))))
++    target, source, mode, hit, wrong, expired, elapsed = option_outcome_masks(
++        option, topo, current, exclusive, n_nodes=n, control_outcome=core.hrl_control_outcome)
++    interrupted = ((mode == MODE_EXPLORE) & passive
++        & bool(getattr(core.cfg, 'hrl_edge_exploration', False)))
++    hit = hit & ~interrupted
++    wrong = wrong & ~interrupted & ~hit
++    expired = expired & ~interrupted & ~hit & ~wrong
++    result = recorded.clone()
++    result[:, layout.active_dg] = (current + 1).to(result.dtype)
++    result[:, layout.multi_activation] = (count > 1).to(result.dtype)
++    result[:, layout.target_hit] = hit.to(result.dtype)
++    result[:, layout.option_expired] = (wrong | expired).to(result.dtype)
++    negative = wrong | (expired & (mode == MODE_EXPLORE))
++    result[:, layout.completion_elapsed] = torch.where(
++        hit | wrong | expired, torch.where(negative, -elapsed, elapsed), 0.0)
++    return result
++
++
++def transition_values_batch(model,examples,*,screen_current=False,pack_rows=None,head_cache=None,values=True):
++    if not values and event_only_replay_supported(model.core):
++        return transition_eligibility_batch(model,examples,pack_rows,head_cache)
+     if screen_current:
+-        results=current_context_rejections(model,examples)
++        results=current_context_rejections(model,examples,pack_rows,head_cache)
+         indices=[i for i,result in enumerate(results) if result is None]
+-        accepted=transition_values_batch(model,[examples[i] for i in indices])
++        accepted=transition_values_batch(model,[examples[i] for i in indices],pack_rows=pack_rows,head_cache=head_cache,values=values)
+         for i,result in zip(indices,accepted):results[i]=result
+         return results
+     from .custom_learner import DistanceLearnerReward
+     if not examples:return []
+-    histories=[make_history(model,example) for example in examples]
+-    reconstructed=reconstruct_controller_histories(model,histories)
++    histories=[];contexts=[]
++    if pack_rows is None:
++        histories=[make_history(model,example) for example in examples]
++    else:
++        flat=[row for example in examples for row in example.rows]
++        packed=pack_rows(flat)
++        core=model.core;device=next(model.parameters()).device
++        offset=0
++        for example in examples:
++            rows=example.rows;end=offset+len(rows)
++            tensors=packed[offset:end]
++            conditions=tensors['condition']
++            if example.virtual_goal is not None:
++                conditions=torch.zeros_like(conditions);conditions[:,example.virtual_goal]=1
++            histories.append(ControllerHistory(tensors.get('observation',{}),
++                torch.tensor([row.index for row in rows]),
++                torch.zeros(1,core.total_state_size,device=device),conditions,
++                rows[0].index==0,example.burn_in))
++            contexts.append(tensors['context']);offset=end
++    heads=head_cache(model,[row for example in examples for row in example.rows]) if head_cache is not None else None
++    reconstructed=reconstruct_controller_histories(model,histories,head_outputs=heads,decode=values)
++    for result,context in zip(reconstructed,contexts):result['contexts']=context
+     prepared=[];indices=[];results=[None]*len(examples)
++    core=model.core;n=core.Hippo_n_feature;layout=HRLStateLayout(n)
++    generation=int(core.policy_graph.representation_generation.item())
++    canonical=torch.stack([history['all_core_outputs'][example.burn_in,:core.core_output_size]
++        .reshape(n,core.expanded_length)[:,0] for example,history in zip(examples,reconstructed)])
++    for example,history in zip(examples,reconstructed):
++        if 'contexts' not in history:
++            history['contexts']=torch.as_tensor(np.stack([r.context for r in example.rows]),device=canonical.device)
++    current_contexts=torch.stack([history['contexts'][example.burn_in]
++        for example,history in zip(examples,reconstructed)])
++    active,_,count=current_dg_from_activity(canonical)
++    recognized=((active+1==current_contexts[:,layout.active_dg])
++        & ((count>1)==current_contexts[:,layout.multi_activation].bool())).cpu().tolist()
++    virtual_goals=torch.tensor([e.virtual_goal if e.virtual_goal is not None else 0 for e in examples],device=canonical.device)
++    achieved=(canonical.gather(1,virtual_goals[:,None]).squeeze(1)>0).cpu().tolist()
++    currents=torch.stack([h['all_core_outputs'][e.burn_in] for e,h in zip(examples,reconstructed)])
++    next_outputs=torch.stack([h['all_core_outputs'][e.burn_in+1] for e,h in zip(examples,reconstructed)])
++    contexts_now=virtual_contexts(core,current_contexts,examples)
++    all_states=assemble_states(core,currents.detach(),contexts_now)
++    next_canonical=next_outputs[:,:core.core_output_size].reshape(len(examples),n,core.expanded_length)[:,:,0]
+     for index,(example,history) in enumerate(zip(examples,reconstructed)):
+-        try:prepared.append(_prepare_transition(model,example,history));indices.append(index)
+-        except ReplayRejected as exc:results[index]=str(exc)
++        if any(row.generation!=generation for row in example.rows):
++            results[index]='snapshot_structural_generation_incompatible'
++        elif not recognized[index]:results[index]='current_recognition_changed'
++        elif example.virtual_goal is not None and achieved[index]:results[index]='her_start_already_achieved'
++        elif example.virtual_goal is not None and (example.remaining is None or example.remaining<1):
++            results[index]='her_budget_expired'
++        else:
++            prepared.append(dict(state=all_states[index:index+1],current=currents[index],
++                next_output=next_outputs[index],canonical_dg=canonical[index],next_dg=next_canonical[index],
++                contexts=history['contexts'],outputs=history['all_core_outputs'],b=example.burn_in,
++                rows=example.rows,reconstructed=history))
++            indices.append(index)
+     if not prepared:return results
+     core=model.core;n=core.Hippo_n_feature;device=next(model.parameters()).device
+     layout=HRLStateLayout(n)
+@@ -105,7 +277,8 @@
+         currents=torch.stack([p['current'] for p in prepared])
+         next_dg=torch.stack([p['next_dg'] for p in prepared])
+         hrl=core._split_state(states)[1].clone()
+-        next_hrl,_=core._update_hrl(hrl,next_dg,currents[:,:core.core_output_size])
++        recorded_hrl=torch.stack([p['contexts'][p['b']+1,:-core.behavior_goal_state_size] for p in prepared])
++        next_hrl=replay_successor_events(core,hrl,next_dg,currents[:,:core.core_output_size],recorded_hrl)
+         descriptors=torch.stack([p['contexts'][p['b']+1,-core.behavior_goal_state_size:] for p in prepared])
+         next_contexts=torch.cat((next_hrl,descriptors),-1)
+         signatures=event_signature(next_contexts,n)
+@@ -118,40 +291,62 @@
+                 results[indices[i]]='successor_events_changed'
+             else:keep.append(i)
+         if not keep:return results
+-        previous=torch.cat([assemble_state(core,prepared[i]['outputs'][prepared[i]['b']-1].detach(),
+-            prepared[i]['contexts'][prepared[i]['b']-1]) if prepared[i]['b'] else torch.zeros_like(prepared[i]['state']) for i in keep])
+-        successors=torch.cat([assemble_state(core,prepared[i]['next_output'].detach(),next_contexts[i]) for i in keep])
++        if not values:
++            # Eligibility depends on canonical labels and successor context, not
++            # decoder/Q predictions or reward magnitudes. Actual selected losses
++            # still execute the complete original reward and value calculation.
++            for i in keep:
++                p=prepared[i];example=examples[indices[i]]
++                ended=physical[i] or (example.virtual_goal is not None and (
++                    bool(next_contexts[i,layout.target_hit]>0) or example.remaining<=1))
++                results[indices[i]]=dict(q=None,reward=states.new_zeros(()),
++                    signature=signatures[i],done=ended,canonical=p['canonical_dg'].detach(),
++                    next_canonical=p['next_dg'].detach())
++            return results
++        previous=assemble_states(core,
++            torch.stack([prepared[i]['outputs'][max(0,prepared[i]['b']-1)].detach() for i in keep]),
++            torch.stack([prepared[i]['contexts'][max(0,prepared[i]['b']-1)] for i in keep]))
++        previous[torch.tensor([prepared[i]['b']==0 for i in keep],device=device)]=0
++        successors=assemble_states(core,torch.stack([prepared[i]['next_output'].detach() for i in keep]),next_contexts[keep])
+         adapter=object.__new__(DistanceLearnerReward);adapter.cfg=model.cfg;adapter.actor_critic=model
+         buff={'rnn_states':torch.stack((previous,states[keep]),1),'rewards':torch.zeros(len(keep),1,device=device),
+               'dones':torch.tensor([[physical[i]] for i in keep],device=device)}
+         adapter._calculate_reward_components(buff,{'new_rnn_states':successors})
+         rewards=buff['rewards'].flatten()
+         hits=(next_contexts[:,layout.target_hit]>0).cpu().tolist()
++    q_values={}
++    for auxiliary in (False,True):
++        positions=[i for i in keep if (examples[indices[i]].virtual_goal is not None)==auxiliary]
++        if not positions:continue
++        hidden=torch.cat([reconstructed[indices[i]]['hidden'] for i in positions])
++        if getattr(model.cfg,'controller_learning','ddqn')=='shadow':hidden=hidden.detach()
++        if auxiliary:
++            budgets=[examples[indices[i]].remaining for i in positions]
++            remaining=torch.tensor([[b,max(0,b-1)] for b in budgets],device=device).flatten()
++            q=model.controller_q.hindsight(hidden,remaining,float(model.cfg.Hippo_L))
++        else:q=model.controller_q(hidden)
++        q_values.update(zip(positions,q.split(2)))
+     for j,i in enumerate(keep):
+-        p=prepared[i];example=examples[indices[i]];history=reconstructed[indices[i]]
+-        hidden=history['hidden']
+-        if getattr(model.cfg,'controller_learning','ddqn')=='shadow':hidden=hidden.detach()
+-        if example.virtual_goal is None:q=model.controller_q(hidden)
+-        else:
+-            remaining=torch.tensor([example.remaining,max(0,example.remaining-1)],device=device)
+-            q=model.controller_q.hindsight(hidden,remaining,float(model.cfg.Hippo_L))
++        p=prepared[i];example=examples[indices[i]]
+         ended=physical[i] or (example.virtual_goal is not None and (hits[i] or example.remaining<=1))
+-        results[indices[i]]=dict(q=q,reward=rewards[j],signature=signatures[i],done=ended,
++        results[indices[i]]=dict(q=q_values[i],reward=rewards[j],signature=signatures[i],done=ended,
+                                 canonical=p['canonical_dg'].detach(),next_canonical=p['next_dg'].detach())
+     return results
+ 
+ 
+-def _prepare_transition(model,example,reconstructed=None):
++def _prepare_transition(model,example,reconstructed=None,*,validated=False):
+     """Only private snapshots call this; real manager/graph state is never updated."""
+     from .custom_learner import DistanceLearnerReward
+     core=model.core;device=next(model.parameters()).device
+     rows=example.rows;b=example.burn_in;n=core.Hippo_n_feature
+     if len(rows)!=b+2:raise ValueError('Expected prefix, current and physical successor')
+-    generation=int(core.policy_graph.representation_generation.item())
+-    if any(row.generation!=generation for row in rows):raise ReplayRejected('snapshot_structural_generation_incompatible')
++    if not validated:
++        generation=int(core.policy_graph.representation_generation.item())
++        if any(row.generation!=generation for row in rows):raise ReplayRejected('snapshot_structural_generation_incompatible')
+     if reconstructed is None:
+         reconstructed=reconstruct_controller_history(model,make_history(model,example))
+-    contexts=torch.as_tensor(np.stack([r.context for r in rows]),device=device)
++    contexts=reconstructed.get('contexts')
++    if contexts is None:contexts=torch.as_tensor(np.stack([r.context for r in rows]),device=device)
+     outputs=reconstructed['all_core_outputs']
+     current,next_output=outputs[b:b+2]
+     canonical_dg=current[:core.core_output_size].reshape(n,core.expanded_length)[:,0]
+@@ -159,18 +354,18 @@
+     layout=HRLStateLayout(n)
+     # Recognition must agree with the context on which the actual manager acted.
+     with torch.no_grad():
+-        active,_,count=current_dg_from_activity(canonical_dg[None])
++        if not validated:active,_,count=current_dg_from_activity(canonical_dg[None])
+         # Burn-in is reconstructed under this snapshot with exogenous actual
+         # commands, just like actor publication rebuilds. Historical recognition
+         # may change; it is not a counterfactual re-plan of the real manager.
+         # Validate the action-time context and successor events at the evaluated
+         # transition below. Temporal bonuses use the reconstructed history.
+-        if active.item()+1!=contexts[b,layout.active_dg].item() or bool(count.item()>1)!=bool(contexts[b,layout.multi_activation].item()):
++        if not validated and (active.item()+1!=contexts[b,layout.active_dg].item() or bool(count.item()>1)!=bool(contexts[b,layout.multi_activation].item())):
+             raise ReplayRejected('current_recognition_changed')
+         context=contexts[b].clone()
+         if example.virtual_goal is not None:
+             goal=example.virtual_goal
+-            if canonical_dg[goal]>0:raise ReplayRejected('her_start_already_achieved')
++            if not validated and canonical_dg[goal]>0:raise ReplayRejected('her_start_already_achieved')
+             if example.remaining is None or example.remaining<1:raise ReplayRejected('her_budget_expired')
+             context[layout.target]=goal+1
+             context[layout.countdown]=example.remaining
+--- a/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
++++ b/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
+@@ -523,6 +523,31 @@
+     dy = -s * delta_world[0] + c * delta_world[1]
+     dtheta = target_pose[2] - source_pose[2]
+     return torch.stack((dx / 32.0, dy / 32.0, torch.sin(dtheta), torch.cos(dtheta))).to(dtype=dtype)
++
++
++def option_outcome_masks(option, topo, current, exclusive, *, n_nodes, control_outcome):
++    """Shared event calculation, independent of successor task selection.
++
++    Call after structural reset and passive-event reconstruction. The real
++    manager consumes these masks before choosing its next task; replay needs
++    the same masks while retaining the actual recorded successor command.
++    """
++    if control_outcome not in ("target_hit", "first_distinct"):
++        raise ValueError(f"Unknown control_outcome={control_outcome}")
++    layout = HRLStateLayout(n_nodes)
++    topo_layout = TopologicalStateLayout(n_nodes)
++    target = decode_node(option[:, layout.target])
++    source = decode_node(option[:, layout.source])
++    mode = topo[:, topo_layout.mode].long()
++    normal_target = (target >= 0) & (target < n_nodes)
++    exploring = target == n_nodes
++    hit = exclusive & normal_target & (current == target)
++    wrong = (
++        (control_outcome == "first_distinct") & exclusive & normal_target
++        & (current != source) & (current != target)
++    )
++    expired = (~hit) & (normal_target | exploring) & (option[:, layout.countdown] <= 1.0)
++    return target, source, mode, hit, wrong, expired, option[:, layout.age] + 1.0
+ 
+ 
+ def advance_topological_manager(
+@@ -785,17 +810,9 @@
+                     return
+         start_exploration(row, source, float(scores[source].item()) if torch.isfinite(scores[source]) else 0.0)
+ 
+-    target = decode_node(option[:, option_layout.target])
+-    source = decode_node(option[:, option_layout.source])
+-    mode = topo[:, topo_layout.mode].long()
+-    normal_target = (target >= 0) & (target < n_nodes)
+-    exploring = target == n_nodes
+-    hit = exclusive & normal_target & (current == target)
+-    wrong = (
+-        (control_outcome == "first_distinct") & exclusive & normal_target & (current != source) & (current != target)
++    target, source, mode, hit, wrong, expired, elapsed = option_outcome_masks(
++        option, topo, current, exclusive, n_nodes=n_nodes, control_outcome=control_outcome
+     )
+-    expired = (~hit) & (normal_target | exploring) & (option[:, option_layout.countdown] <= 1.0)
+-    elapsed = option[:, option_layout.age] + 1.0
+ 
+     for row in range(option.size(0)):
+         current_node = int(current[row].item()) if exclusive[row] else int(source[row].item())
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_decoder_only.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_decoder_only.py
+@@ -3,7 +3,7 @@
+ from types import SimpleNamespace
+ import pytest
+ import torch
+-from test_controller_history import SmallHistoryModel, history
++from sf_working_directories.IntrMotiv.tests.test_controller_history import SmallHistoryModel, history
+ from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
+ from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
+ from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_head_cache.py
+@@ -0,0 +1,70 @@
++from copy import deepcopy
++from dataclasses import replace
++from unittest.mock import patch
++
++import pytest
++import torch
++from torch import nn
++from sf_working_directories.IntrMotiv.dmlab.controller_head_cache import SnapshotHeadCache
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++from sf_working_directories.IntrMotiv.dmlab.controller_tensor_replay import ReplayTensorBatch
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput, transition_values_batch
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel, physical_rows
++
++
++def fixture(write=False):
++    model=RewardModel(write).eval()
++    model.encoder=nn.Identity()
++    model.scale.requires_grad_(False)
++    physical,_=physical_rows(model)
++    replay=PhysicalReplay(10,99)
++    for row in physical:replay.receive(row)
++    return model,replay,list(replay.rows.values())
++
++
++def test_cache_reuses_physical_rows_and_separates_target_and_fresh_snapshots():
++    model,replay,rows=fixture()
++    cache=SnapshotHeadCache(replay,'cpu')
++    with patch.object(model,'forward_head',wraps=model.forward_head) as head:
++        first=cache(model,rows)
++        assert torch.equal(cache(model,rows[::-1]),first.flip(0))
++        assert head.call_count==1
++    target=deepcopy(model)
++    with torch.no_grad():target.scale.mul_(2)
++    different=cache(target,rows)
++    assert not torch.equal(first,different)
++    with torch.no_grad():target.scale.mul_(2)
++    cache.invalidate(target)
++    refreshed=cache(target,rows)
++    assert not torch.equal(different,refreshed)
++    assert torch.equal(cache(model,rows),first)
++    with torch.no_grad():model.scale.mul_(3)
++    fresh=SnapshotHeadCache(replay,'cpu')
++    assert not torch.equal(fresh(model,rows),first)
++
++
++def test_head_cache_refuses_trainable_encoder():
++    model,replay,rows=fixture()
++    model.encoder=nn.Linear(3,3)
++    with pytest.raises(RuntimeError,match='frozen encoder'):
++        SnapshotHeadCache(replay,'cpu')(model,rows)
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_cached_head_preserves_main_her_values_and_shared_worker_gradients(write):
++    model,replay,rows=fixture(write);other=deepcopy(model)
++    main=TransitionInput(tuple(rows),0)
++    examples=[main,replace(main,virtual_goal=1,remaining=3),main]
++    cache=SnapshotHeadCache(replay,'cpu')
++    packed=ReplayTensorBatch(replay,'cpu',False)
++    expected=transition_values_batch(other,examples)
++    actual=transition_values_batch(model,examples,pack_rows=packed,head_cache=cache)
++    for a,b in zip(actual,expected):
++        assert a['done']==b['done']
++        for key in ('q','reward','signature','canonical','next_canonical'):
++            assert torch.equal(a[key],b[key]),key
++    sum(item['q'].sum() for item in actual).backward()
++    sum(item['q'].sum() for item in expected).backward()
++    for a,b in zip(model.parameters(),other.parameters()):
++        assert (a.grad is None)==(b.grad is None)
++        if a.grad is not None:assert torch.equal(a.grad,b.grad)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_replay_work.py
+@@ -0,0 +1,75 @@
++from dataclasses import replace
++from unittest.mock import patch
++
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput, transition_values_batch
++from sf_working_directories.IntrMotiv.dmlab.controller_history import reconstruction_head,reconstruct_controller_histories
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import make_history
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel,physical_rows
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_eligibility_matches_full_evaluation_without_decoder_work(write):
++    model=RewardModel(write).eval();rows,_=physical_rows(model)
++    main=TransitionInput(tuple(rows[:2]),0)
++    examples=[main,replace(main,virtual_goal=1,remaining=3),TransitionInput(tuple(rows),1)]
++    full=transition_values_batch(model,examples)
++    with patch.object(model,'controller_hidden',side_effect=AssertionError('Eligibility executed the decoder')):
++        screened=transition_values_batch(model,examples,screen_current=True,values=False)
++    for a,b in zip(screened,full):
++        assert type(a) is type(b)
++        if isinstance(a,str):assert a==b;continue
++        assert a['done']==b['done']
++        for key in ('signature','canonical','next_canonical'):
++            assert torch.equal(a[key],b[key]),key
++        assert a['q'] is None
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_future_canonical_achievements_need_only_current_head(write):
++    model=RewardModel(write).eval();rows,_=physical_rows(model)
++    example=TransitionInput(tuple(rows),1)
++    history=make_history(model,example)
++    rebuilt=reconstruct_controller_histories(model,[history],decode=False)[0]
++    canonical=rebuilt['all_core_outputs'][:,:model.core.core_output_size]
++    canonical=canonical.reshape(len(rows),model.core.Hippo_n_feature,model.core.expanded_length)[:,:,0]
++    head=reconstruction_head(model,history.observations)
++    assert torch.equal(canonical,head[:,:model.core.Hippo_n_feature])
++
++
++@pytest.mark.parametrize('outcome',['target_hit','first_distinct'])
++@pytest.mark.parametrize('edge',[False,True])
++def test_replay_event_only_matches_manager_for_all_outcomes(outcome,edge):
++    from sf_working_directories.IntrMotiv.dmlab.controller_transition import replay_successor_events,event_signature
++    from sf_working_directories.IntrMotiv.dmlab.hrl_controllable_graph import HRLStateLayout,hrl_option_state_size
++    from sf_working_directories.IntrMotiv.dmlab.topological_frontier import TopologicalStateLayout
++    model=RewardModel(False).eval();core=model.core;n=core.Hippo_n_feature
++    core.hrl_control_outcome=outcome;core.cfg.hrl_edge_exploration=edge
++    core.policy_graph.node_visits[:]=1
++    layout=HRLStateLayout(n);topo=TopologicalStateLayout(n);offset=hrl_option_state_size(n)
++    # Cross target vocabulary, manager mode, expiry, silence/ambiguity, passive
++    # transition ages and stale generations, including exploration interrupts.
++    rows=[];activities=[]
++    for mode in range(5):
++        for target in range(n+2):
++            for countdown in (0,1,2):
++                for activity in (torch.zeros(n),*torch.eye(n),torch.ones(n)):
++                    for age in (0,core.L,core.L+1):
++                        state=torch.zeros(core.hrl_state_size)
++                        state[layout.target]=target;state[layout.source]=1
++                        state[layout.countdown]=countdown;state[layout.age]=2
++                        state[offset+topo.mode]=mode;state[offset+topo.final_goal]=1
++                        state[offset+topo.last_landmark]=1;state[offset+topo.last_landmark_age]=age
++                        state[offset+topo.pending_destination]=2
++                        rows.append(state);activities.append(activity)
++    hrl=torch.stack(rows);dg=torch.stack(activities)
++    previous=torch.zeros(len(rows),core.core_output_size)
++    before={k:v.clone() for k,v in core.policy_graph.state_dict().items()}
++    expected=core._update_hrl(hrl,dg,previous)[0]
++    # Replay must not invoke manager planning, even when an option finishes.
++    with patch.object(core,'_update_hrl',side_effect=AssertionError('Replay replanned manager')):
++        actual=replay_successor_events(core,hrl,dg,previous,torch.zeros_like(hrl))
++    assert torch.equal(event_signature(actual,n),event_signature(expected,n))
++    assert torch.equal(actual[:,layout.completion_elapsed],expected[:,layout.completion_elapsed])
++    for key,value in before.items():assert torch.equal(value,core.policy_graph.state_dict()[key])
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_tensor_replay.py
+@@ -0,0 +1,76 @@
++from copy import deepcopy
++from dataclasses import replace
++from unittest.mock import patch
++
++import numpy as np
++import pytest
++import torch
++from sample_factory.algo.utils.tensor_dict import TensorDict
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++from sf_working_directories.IntrMotiv.dmlab.controller_tensor_replay import ReplayTensorBatch
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput, transition_values_batch
++from sf_working_directories.IntrMotiv.tests.test_controller_transport import row
++from sf_working_directories.IntrMotiv.tests.test_controller_transition import RewardModel, physical_rows
++
++
++def test_tensor_gather_order_dtype_eviction_and_terminal_override():
++    replay=PhysicalReplay(2,99)
++    for i in (1,0,2):replay.receive(row(i))
++    old=list(replay.rows.values())
++    packed=replay.tensor_rows([old[1],old[0],old[1]],'cpu')
++    assert isinstance(packed,TensorDict)
++    assert packed['observation']['obs'].dtype==torch.uint8
++    assert packed['observation']['obs'].flatten().tolist()==[1,0,1]
++    replay.receive(row(3));replay.receive(row(4))
++    newest=list(replay.rows.values())[-1]
++    terminal=replace(newest,observation={'obs':np.array([99],np.uint8)})
++    packed=replay.tensor_rows([old[0],newest,terminal],'cpu')
++    assert packed['observation']['obs'].flatten().tolist()==[0,3,99]
++    assert newest.observation['obs'][0]==3
++    np.testing.assert_array_equal(packed['context'].numpy(),np.stack([old[0].context,newest.context,terminal.context]))
++
++
++def test_raw_gather_cache_is_shared_but_not_checkpointed():
++    replay=PhysicalReplay(8,8)
++    for i in range(4):replay.receive(row(i))
++    rows=list(replay.rows.values())
++    pack=ReplayTensorBatch(replay,'cpu')
++    with patch.object(replay,'tensor_rows',wraps=replay.tensor_rows) as gather:
++        first=pack(rows);assert pack(rows) is first
++        assert gather.call_count==1
++    state=replay.state_dict()
++    assert '_tensor_store' not in state
++    restored=PhysicalReplay(8,8);restored.load_state_dict(state)
++    assert restored._tensor_store is None
++    other=restored.tensor_rows(list(restored.rows.values()),'cpu')
++    assert torch.equal(first['observation']['obs'],other['observation']['obs'])
++    assert restored.session==1
++    assert restored.rejected['restart_pending_tail']==1
++
++
++@pytest.mark.parametrize('write',[False,True])
++@pytest.mark.parametrize('screen',[False,True])
++def test_tensor_path_matches_rewards_labels_q_and_gradients(write,screen):
++    model=RewardModel(write).eval();other=deepcopy(model)
++    physical,_=physical_rows(model)
++    replay=PhysicalReplay(10,99)
++    for item in physical:replay.receive(item)
++    # Last physical observation is still ingress pending: gathering must also
++    # handle that external row without reading an unrelated ring slot.
++    rows=list(replay.rows.values())+[physical[-1]]
++    main=TransitionInput(tuple(rows[:2]),0)
++    examples=[main,replace(main,virtual_goal=1,remaining=3),TransitionInput(tuple(rows),1)]
++    expected=transition_values_batch(other,examples,screen_current=screen)
++    actual=transition_values_batch(model,examples,screen_current=screen,
++                                  pack_rows=ReplayTensorBatch(replay,'cpu'))
++    for a,b in zip(actual,expected):
++        assert type(a) is type(b)
++        if isinstance(a,str):assert a==b;continue
++        assert a['done']==b['done']
++        for key in ('q','reward','signature','canonical','next_canonical'):
++            assert torch.equal(a[key],b[key]),key
++    sum(item['q'].sum() for item in actual if not isinstance(item,str)).backward()
++    sum(item['q'].sum() for item in expected if not isinstance(item,str)).backward()
++    for a,b in zip(model.parameters(),other.parameters()):
++        assert (a.grad is None)==(b.grad is None)
++        if a.grad is not None:assert torch.equal(a.grad,b.grad)
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
+@@ -180,10 +180,13 @@
+     learner.device=torch.device('cpu');learner.controller_version=0
+     learner.online_snapshot=SimpleNamespace(model=deepcopy(model),version=0)
+     learner.target_snapshot=SimpleNamespace(model=deepcopy(model),version=0)
++    from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalReplay
++    learner.replay=PhysicalReplay(10,99)
++    for row in rows:learner.replay.receive(row)
+     operation=module.transition_values_batch;calls=[]
+-    def record(model,examples,*,screen_current=False):
++    def record(model,examples,*,screen_current=False,pack_rows=None,head_cache=None,values=True):
+         calls.append(screen_current)
+-        return operation(model,examples,screen_current=screen_current)
++        return operation(model,examples,screen_current=screen_current,pack_rows=pack_rows,head_cache=head_cache,values=values)
+     monkeypatch.setattr(module,'transition_values_batch',record)
+     examples=[TransitionInput(tuple(rows[:2]),0)]
+     result=learner._evaluate_pairs(examples)
+--- a/sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py
++++ b/sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py
+@@ -1,4 +1,5 @@
+ from types import SimpleNamespace
++from pathlib import Path
+ 
+ import numpy as np
+ import pandas as pd
+@@ -23,9 +24,14 @@
+     assert summarize_commands(rows, 2)["ctc_auc"] is None
+ 
+ 
+-def test_observation_panel_rejects_home_storage(tmp_path):
++def test_observation_panel_rejects_home_storage(monkeypatch):
++    # tmp_path may correctly live in the allocated workspace on NEMO2.
++    # Exercise an actual home path and forbid writing even if validation breaks.
++    def forbidden_write(*args, **kwargs):
++        raise AssertionError("Home-storage validation did not run before writing")
++    monkeypatch.setattr(np, "savez_compressed", forbidden_write)
+     with pytest.raises(ValueError):
+-        save_panel(tmp_path / "panel.npz", {"dones": [np.zeros(1)]})
++        save_panel(Path.home() / "intrmotiv_forbidden_panel.npz", {"dones": [np.zeros(1)]})
+ 
+ 
+ def test_common_panel_records_actions_for_contextual_replay_without_policy_input_changes():

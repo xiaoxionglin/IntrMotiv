@@ -1,0 +1,21 @@
+{
+  "status": "candidate_under_qualification_not_deployed",
+  "base": "/tmp/intrmotiv_decoder_only_20260912",
+  "candidate": "/tmp/intrmotiv_batched_context_20260912",
+  "files": {
+    "sf_working_directories/IntrMotiv/dmlab/controller_head_cache.py": "ba35016e7156f7c6bfb72b4057121fc098e7c9bdf9c0916b342a9e949a15554d",
+    "sf_working_directories/IntrMotiv/dmlab/controller_history.py": "57732ad2c0b980b7319ddbc040b7e86f192e93060adeafeda5f88279eac3d08b",
+    "sf_working_directories/IntrMotiv/dmlab/controller_learner.py": "79755a8bafd33b59d103755f93f5fc677d89cc4047b3336bdb49a00829354af9",
+    "sf_working_directories/IntrMotiv/dmlab/controller_replay.py": "8290dd6e0b2a56924981f90aefb3396266c018d926ca6e3de45af735e585f535",
+    "sf_working_directories/IntrMotiv/dmlab/controller_tensor_replay.py": "26897c8399a238506be23ff96cede6c037ca8a16dc31a19a39a23338ebb3697b",
+    "sf_working_directories/IntrMotiv/dmlab/controller_transition.py": "2a3cc8d8c33daf437dd3a8974428944ea4562f8f71206b58cd4906018afb6cd0",
+    "sf_working_directories/IntrMotiv/dmlab/topological_frontier.py": "cbf40f16243b4b2569f445096f7979d3a528205358c215427e1a1f01ac066164",
+    "sf_working_directories/IntrMotiv/tests/test_controller_decoder_only.py": "3e128711f6901656e53c626a4699a228f0c1d02c70dea17a45b2afc200c16883",
+    "sf_working_directories/IntrMotiv/tests/test_controller_head_cache.py": "196c7151e45ea4fa20404b84026e896626a7f6d258232afc0e331b029bd30bd8",
+    "sf_working_directories/IntrMotiv/tests/test_controller_replay_work.py": "2a17332cea864ca984af7ecc8483c305f683fbb2c7a0a0f18a292c01ee5d4970",
+    "sf_working_directories/IntrMotiv/tests/test_controller_tensor_replay.py": "4ee4e1234e6e167bedd553d2eced33c46a6e31d0276e34ffd7c7685c644fcb91",
+    "sf_working_directories/IntrMotiv/tests/test_controller_transition.py": "f7536fccf62574ce63959463c81fee88de3b39d3d0238d0774ebcf8232415057",
+    "sf_working_directories/IntrMotiv/tests/test_memory_evaluation.py": "922aa8e4675173a38d44e3bb6524e8c53bf0b6dd7e81c0c60efaba8e960bc67f"
+  },
+  "patch_sha256": "67c4e2e0d786adbd071130bb208cd772e98468cf3b21e9a81ba6c297ee20610a"
+}
