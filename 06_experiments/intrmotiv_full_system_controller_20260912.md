@@ -1,29 +1,37 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: corrected R4 GPU preflights 8057292–8057297 are submitted; continue autonomously until production is running.**
-The inactive candidate source is `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_cuda_20260912`.
-It includes batched original event/reward reconstruction, complete uniform replay
-search (removing the arbitrary 4× candidate cutoff), and a CUDA RNG restore fix.
-351 runtime tests pass locally/remotely. GPU PPO model/optimizer parity passed
-for both parents (8057291), and one real debt-bearing main update recovered
-without weakened validity checks (8057289). The original CPU-only integer
-progression helper was evaluated on CPU in the GPU reference test; its arithmetic
-was unchanged. Unmodified CPU PPO preservation remains separately established.
+**Current status: R4 GPU preflights continue; do not stop until production is running.**
+Authoritative mixed manifest:
+`train_dir/_slurm/intrmotiv_full_system_controller_preflight_20260912_r4/restart_submission/jobs.tsv`.
+DDQN jobs **8057301–8057304** run the corrected sampler and GPU publication barrier
+from `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_controller_publication_20260912`.
+Direct PPO **8057292** completed its 2M horizon; waypoint PPO **8057295** continues
+on the unchanged PPO path in the CUDA checkout. The four DDQN baselines all had
+163,840 frames, 383 main updates and 98,048 main positions with zero debt.
+All four resumed successfully with unchanged W&B IDs. All 355 runtime tests pass.
 
-R4 batch: `intrmotiv_full_system_controller_preflight_20260912_r4`;
-Study SHA-256 `2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
-All six R4 arms will start fresh on matching CUDA Torch 2.9.1 / torchvision 0.24.1
-with NumPy 1.26.4 in workspace `runtime/torch_cuda_2_9_1`. No production study has
-been rendered; its guard remains active. Pause heartbeat
-`qualify-and-launch-intrmotiv-production` only after production is verified running.
+R4 batch `intrmotiv_full_system_controller_preflight_20260912_r4`, Study SHA-256
+`2890df1aa1152fd94e12ee30b09ada873f474b0e11eb4f9400e6033866aafdae`.
+GPU Torch 2.9.1 / torchvision 0.24.1 / NumPy 1.26.4 are isolated in workspace
+`runtime/torch_cuda_2_9_1`; the native terminal binding is also isolated there.
+Jobs use one L40S GPU and 16 CPU cores (first completed PPO had 40); all retain
+32 SF workers × 2 environments and the original scientific parameters.
 
-R3 CPU evidence is preserved. Direct PPO completed 2M; waypoint PPO 8057276 is
-still progressing. Controlled SIGINT was sent to DDQN jobs 8057274/75/77/78 around
-05:51 to prevent further accumulation of confirmed update debt. They are saving
-and stopping. Do not interpret their requested exit 2 as a new runtime failure.
-Their full exact checkpoint restore gate passed earlier (8057281). R4 needs its
-own full runtime counters, positive HER, real terminal and checkpoint reload gates.
-See latest sections below and canonical StudySpec for current operations.
+Exact GPU reload job **8057305** is testing all six immutable R4 checkpoints,
+including PPO model/buffers/optimizer/counters, with checkpoint SHA-bound results.
+Its certificate will be `analysis/restart_baselines/<R4 batch>/reload_certificate.json`.
+A proposed audit upload that skipped PPO restart validation was rejected by
+automatic approval review; it was reverted. **Do not bypass that rejection.**
+The new local audit proposal retains PPO checks and requires an exact reload
+certificate for a PPO run already at its bounded horizon; it has not been
+uploaded. Wait for real certificate evidence, test the stronger audit, and retain
+all original DG/telemetry/horizon and DDQN live-progress gates. Tests verify that
+missing, failed or digest-mismatched PPO reload evidence fails qualification.
+
+No production study has been rendered and its guard remains active. Heartbeat
+`qualify-and-launch-intrmotiv-production` must continue until the canonical
+18-run production batch is verified running, then pause. Earlier sections below
+retain the complete CPU R1–R3 and R4 repair evidence.
 
 Native terminal gate 8057262 passed, full PPO episode parity 8057263 passed with
 identical 1,800-decision observation/reward/termination hash, and end-to-end

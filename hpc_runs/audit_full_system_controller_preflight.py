@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+import hashlib
 from pathlib import Path
 import torch
 from hpc_runs.audit_dg_capacity_preflight import audit as audit_parent
@@ -15,10 +16,31 @@ def load_runtime_checkpoint(path):
     return load_checkpoint_dict(path,torch.device('cpu'))
 
 
-def restart_errors(final, baseline):
+def reload_certificate_errors(baseline, certificate, mode, device):
+    """Bind exact learner-init checks to the immutable checkpoint that was tested."""
+    if certificate is None:return ['missing exact checkpoint reload certificate']
+    errors=[]
+    for key in ('exact_restore','model_and_buffers_exact','optimizer_exact','counters_exact'):
+        if certificate.get(key) is not True:errors.append('checkpoint reload did not verify '+key)
+    expected=dict(run=baseline['run'],checkpoint=baseline['baseline'],frames=baseline['env_steps'],
+                  train_step=baseline['train_step'],controller=mode)
+    for key,value in expected.items():
+        if certificate.get(key)!=value:errors.append('reload certificate mismatch '+key)
+    if not str(certificate.get('device','')).startswith('cuda' if device=='gpu' else 'cpu'):
+        errors.append('reload certificate device mismatch')
+    digest=hashlib.sha256()
+    with Path(baseline['baseline']).open('rb') as stream:
+        for chunk in iter(lambda:stream.read(1024*1024),b''):digest.update(chunk)
+    if certificate.get('checkpoint_sha256')!=digest.hexdigest():
+        errors.append('reload certificate checkpoint digest mismatch')
+    return errors
+
+
+def restart_errors(final, baseline, completed_reload=False):
     errors=[]
     for key in ('env_steps','train_step'):
-        if final[key]<=baseline[key]:errors.append('restart did not advance '+key)
+        if final[key]<baseline[key] or (final[key]==baseline[key] and not completed_reload):
+            errors.append('restart did not advance '+key)
     if 'session' not in baseline:return errors
     state=final['controller'];replay=state['replay']
     if replay['session']!=baseline['session']+1:
@@ -36,11 +58,17 @@ def restart_errors(final, baseline):
     return errors
 
 
-def audit(study, jobs, root, required_frames=2000000, restart_baselines=None):
+def audit(study, jobs, root, required_frames=2000000, restart_baselines=None, reload_certificate=None):
     result=audit_parent(study,jobs,root,required_frames)
     by_name={r['run']:r for r in result['runs']}
     with Path(jobs).open() as stream:job_rows=list(csv.DictReader(stream,delimiter='\t'))
     baselines={r['run']:r for r in json.loads(Path(restart_baselines).read_text())} if restart_baselines else None
+    certificates=None
+    if reload_certificate:
+        if baselines is None:raise ValueError('Reload certificates require immutable restart baselines')
+        document=json.loads(Path(reload_certificate).read_text())
+        if document.get('schema')!='intrmotiv/checkpoint-reload/v1':raise ValueError('Unsupported reload certificate')
+        certificates={r['run']:r for r in document['runs']}
     for job in job_rows:
         row=by_name[job['experiment'].removeprefix('00_')]
         directory=Path(root)/job['train_root']/job['experiment']
@@ -51,7 +79,20 @@ def audit(study, jobs, root, required_frames=2000000, restart_baselines=None):
             if job['experiment'] not in baselines:row['errors'].append('missing restart baseline')
             elif checkpoints:
                 final=load_runtime_checkpoint(checkpoints[-1])
-                row['errors'].extend(restart_errors(final,baselines[job['experiment']]))
+                baseline=baselines[job['experiment']]
+                reload_verified=False
+                if certificates is not None:
+                    certificate=certificates.get(job['experiment'])
+                    errors=reload_certificate_errors(baseline,certificate,cfg.get('controller_learning','ppo'),cfg['device'])
+                    row['errors'].extend(errors);reload_verified=not errors
+                    row['exact_checkpoint_reload']=dict(verified=reload_verified,certificate=certificate)
+                # A completed PPO preflight needs an exact reload, not extra
+                # training beyond its bounded horizon. Require checkpoint-bound
+                # model/buffer/optimizer/counter evidence for this case. All DG,
+                # telemetry, horizon and counter-regression gates remain active.
+                completed_reload=(cfg.get('controller_learning','ppo')=='ppo'
+                                  and baseline['env_steps']>=required_frames and reload_verified)
+                row['errors'].extend(restart_errors(final,baseline,completed_reload))
             row['passed']=not row['errors']
         if cfg.get('controller_learning','ppo')=='ppo':continue
         errors=row['errors']
@@ -109,6 +150,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('study');p.add_argument('jobs');p.add_argument('train_root')
     p.add_argument('--required-frames',type=int,default=2000000);p.add_argument('--output',required=True)
     p.add_argument('--restart-baselines')
-    a=p.parse_args();result=audit(a.study,a.jobs,a.train_root,a.required_frames,a.restart_baselines)
+    p.add_argument('--reload-certificate')
+    a=p.parse_args();result=audit(a.study,a.jobs,a.train_root,a.required_frames,a.restart_baselines,a.reload_certificate)
     Path(a.output).write_text(json.dumps(result,indent=2)+'\n')
     raise SystemExit(0 if result['passed'] else 1)

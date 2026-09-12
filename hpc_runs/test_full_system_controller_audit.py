@@ -1,4 +1,5 @@
 import json
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,30 @@ from hpc_runs.audit_full_system_controller_preflight import audit, restart_error
 
 
 class ControllerRuntimeAudit(unittest.TestCase):
+    def test_completed_ppo_requires_exact_checkpoint_bound_reload_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);run=root/'00_test';(run/'checkpoint_p0').mkdir(parents=True)
+            (run/'config.json').write_text(json.dumps(dict(controller_learning='ppo',device='gpu')))
+            checkpoint=run/'checkpoint_p0/checkpoint_001.pth'
+            torch.save(dict(env_steps=2000000,train_step=10),checkpoint)
+            baseline=dict(run='00_test',baseline=str(checkpoint),env_steps=2000000,train_step=10)
+            baseline_path=root/'baselines.json';baseline_path.write_text(json.dumps([baseline]))
+            certificate=dict(run='00_test',checkpoint=str(checkpoint),frames=2000000,train_step=10,
+                controller='ppo',device='cuda:0',exact_restore=True,model_and_buffers_exact=True,
+                optimizer_exact=True,counters_exact=True,checkpoint_sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest())
+            jobs=root/'jobs.tsv';jobs.write_text('experiment\ttrain_root\n00_test\t.\n')
+            for proof,passed in ((None,False),(certificate,True),
+                                 ({**certificate,'optimizer_exact':False},False),
+                                 ({**certificate,'checkpoint_sha256':'incorrect'},False)):
+                path=None
+                if proof is not None:
+                    path=root/'reload.json';path.write_text(json.dumps(dict(schema='intrmotiv/checkpoint-reload/v1',runs=[proof])))
+                parent=dict(passed=True,runs=[dict(run='test',errors=[],passed=True)])
+                with patch('hpc_runs.audit_full_system_controller_preflight.load_runtime_checkpoint',side_effect=lambda p:torch.load(p,weights_only=True)),patch(
+                        'hpc_runs.audit_full_system_controller_preflight.audit_parent',return_value=parent):
+                    result=audit('unused',jobs,root,restart_baselines=baseline_path,reload_certificate=path)
+                self.assertEqual(result['passed'],passed)
+
     def test_restart_requires_new_physical_session_and_preserved_clocks(self):
         baseline=dict(env_steps=100,train_step=2,session=0,accepted=20,received=21,
                       publication=1,fresh_dg_steps=2,fresh_graph_batches=1,pending=1,
