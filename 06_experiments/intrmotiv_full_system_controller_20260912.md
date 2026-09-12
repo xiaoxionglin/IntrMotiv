@@ -1,6 +1,6 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
-**Current status: clean R5 DDQN preflights running; both PPO gates pass; production is not yet submitted.**
+**Current status: clean R5 DDQN preflights running; both PPO gates and all six exact GPU reloads pass; production is not yet submitted.**
 R5 direct PPO finished at 2,031,616 frames and waypoint PPO at 2,048,000.
 Both pass the completed-run DG/frozen-trunk/spatial audit. Live DDQN Adam counts
 match their respective fresh DG and main controller clocks, with zero update

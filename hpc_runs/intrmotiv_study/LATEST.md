@@ -155,5 +155,7 @@ Its 379 runtime and 5 controller-audit tests pass remotely; canonical print-only
 and submitted audits pass. Both PPO preflights completed and passed DG, frozen
 trunk and spatial telemetry gates. R4 is debugging evidence only after optimizer
 ownership drift was found. The optional collated-input performance candidate
-was not deployed. Follow the current experiment record for R5 job IDs, checkpoint
-resume and the final production gate; do not reuse historical R4 launch helpers.
+was not deployed. All six exact GPU reload checks passed in job 8057366; the four DDQN runs
+resumed as 8057362–8057365 and have advanced beyond their saved checkpoints.
+Follow the current experiment record for the final 2M production gate; do not
+reuse historical R4 launch helpers.
