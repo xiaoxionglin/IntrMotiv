@@ -1,0 +1,2541 @@
+--- /dev/null
++++ b/hpc_runs/intrmotiv_offpolicy/sf_transport.py
+@@ -0,0 +1,62 @@
++"""Ordered physical replay ingestion from asynchronously delivered SF packets."""
++from collections import defaultdict
++from dataclasses import replace
++
++
++class OrderedIngress:
++    """SF's batcher may reorder buffer slices. Never treat a slice as a stream.
++
++    A nonterminal action waits for the next actor feature packet, including at
++    rollout boundaries. This avoids re-encoding and reset-image bootstrapping.
++    Unconsumed transport tails remain outside the training-frame budget.
++    """
++    def __init__(self, max_pending):
++        self.expected = defaultdict(int)
++        self.waiting = defaultdict(dict)
++        self.max_pending = max_pending
++        self.received = 0
++        self.emitted = 0
++
++    @property
++    def pending(self):
++        return sum(len(q) for q in self.waiting.values())
++
++    def add(self, stream, serial, row):
++        queue = self.waiting[stream]
++        if row.stream != stream or serial < self.expected[stream] or serial in queue:
++            raise ValueError('duplicate or inconsistent SF stream packet')
++        queue[serial] = row
++        self.received += 1
++        if self.pending > self.max_pending:
++            raise ValueError('SF reorder queue exceeded transport bound')
++
++    def drain(self):
++        # Interleave streams instead of draining one physical episode at a time.
++        while True:
++            advanced = False
++            for stream in sorted(self.waiting):
++                queue = self.waiting[stream]
++                serial = self.expected[stream]
++                row = queue.get(serial)
++                if row is None:
++                    continue
++                ended = row.terminated or row.truncated
++                following = queue.get(serial + 1)
++                if not ended and following is None:
++                    continue
++                if not ended and (following.episode != row.episode or following.index != row.index + 1):
++                    raise ValueError('SF successor crosses a physical reset or gap')
++                result = replace(row, successor=row.successor if ended else following.observation,
++                                 successor_valid=row.successor_valid if ended else True)
++                del queue[serial]
++                self.expected[stream] += 1
++                self.emitted += 1
++                advanced = True
++                yield result
++            if not advanced:
++                break
++
++
++def updates_due(accepted, warmup, cadence, completed):
++    """Debt is based on completed optimizer updates, never on a capped request."""
++    return max(0, (accepted - warmup) // cadence - completed)
+--- a/sample_factory/algo/sampling/inference_worker.py
++++ b/sample_factory/algo/sampling/inference_worker.py
+@@ -328,12 +328,27 @@
+                 action_mask = (
+                     ensure_torch_tensor(obs.pop("action_mask")).to(self.device) if "action_mask" in obs else None
+                 )
++                rnn_states = ensure_torch_tensor(rnn_states).to(self.device).float()
++                controller_memory = None
++                if getattr(self.cfg, "controller_learning", "ppo") != "ppo":
++                    from sf_working_directories.IntrMotiv.dmlab.controller_actor_memory import ActorMemory
++                    if not hasattr(self, "controller_memory"):
++                        self.controller_memory = ActorMemory()
++                    controller_memory = self.controller_memory
++                    raw_obs = {k:ensure_torch_tensor(v) for k,v in obs.items()}
++                    rnn_states = controller_memory.before_forward(
++                        actor_critic, raw_obs, rnn_states, self.param_client.policy_version)
+                 normalized_obs = prepare_and_normalize_obs(actor_critic, obs)
+-                rnn_states = ensure_torch_tensor(rnn_states).to(self.device).float()
+ 
+             with timing.add_time("forward"):
+                 policy_outputs = actor_critic(normalized_obs, rnn_states, action_mask=action_mask)
+                 policy_outputs["policy_version"] = torch.empty([num_samples]).fill_(self.param_client.policy_version)
++                if controller_memory is not None:
++                    controller_memory.after_forward(actor_critic, policy_outputs["controller_condition"])
++                    policy_outputs["controller_input_state"] = rnn_states
++                    policy_outputs["controller_memory_stats"] = rnn_states.new_tensor([
++                        controller_memory.rebuilds, controller_memory.failures, controller_memory.seconds
++                    ]).expand(num_samples, -1)
+ 
+             with timing.add_time("prepare_outputs"):
+                 signals_to_send = self._prepare_policy_outputs_func(num_samples, policy_outputs, self.requests)
+--- a/sample_factory/algo/sampling/non_batched_sampling.py
++++ b/sample_factory/algo/sampling/non_batched_sampling.py
+@@ -203,6 +203,10 @@
+         self.curr_traj_buffer["rewards"][rollout_step] = float(reward)
+         self.curr_traj_buffer["dones"][rollout_step] = done
+         self.curr_traj_buffer["time_outs"][rollout_step] = truncated
++        if "controller_final_valid" in self.curr_traj_buffer:
++            from sf_working_directories.IntrMotiv.dmlab.controller_transport import record_terminal
++            record_terminal(self.curr_traj_buffer, rollout_step, terminated, info)
++            self.curr_traj_buffer["controller_frames"][rollout_step] = int(info.get("num_frames", self.env_info.frameskip))
+ 
+         # -1 policy_id does not match any valid policy on the learner, therefore this will be treated as
+         # invalid data coming from a different policy and should be ignored by the learner.
+@@ -498,6 +502,8 @@
+ 
+                     # save parsed trajectory outputs directly into the trajectory buffer
+                     actor_state.set_trajectory_data(policy_outputs_dict, self.rollout_step)
++                    if "controller_input_state" in policy_outputs_dict:
++                        actor_state.curr_traj_buffer["rnn_states"][self.rollout_step] = policy_outputs_dict["controller_input_state"]
+                     actor_state.last_actions = policy_outputs_dict["actions"].squeeze()
+ 
+                     # this is an rnn state for the next iteration in the rollout
+--- a/sample_factory/algo/utils/model_sharing.py
++++ b/sample_factory/algo/utils/model_sharing.py
+@@ -130,8 +130,9 @@
+         if self.latest_policy_version < server_policy_version and self._shared_model_weights is not None:
+             with self.timing.time_avg("weight_update"), self._policy_lock:
+                 self._actor_critic.load_state_dict(self._shared_model_weights)
++                loaded_version = self._get_server_policy_version()
+ 
+-            self.latest_policy_version = server_policy_version
++            self.latest_policy_version = loaded_version
+ 
+             self.num_policy_updates += 1
+             if self.num_policy_updates % 10 == 0:
+--- a/sample_factory/algo/utils/shared_buffers.py
++++ b/sample_factory/algo/utils/shared_buffers.py
+@@ -102,6 +102,14 @@
+     # we need to allocate an extra rollout step here to calculate the value estimates for the last step
+     for space_name, space in obs_space.spaces.items():
+         tensors["obs"][space_name] = init_tensor([num_traj, rollout + 1], space.dtype, space.shape, device, share)
++    if getattr(cfg, "controller_learning", "ppo") in ("ddqn", "shadow"):
++        tensors["controller_final_obs"] = TensorDict()
++        for name, space in obs_space.spaces.items():
++            tensors["controller_final_obs"][name] = init_tensor(
++                [num_traj, rollout], space.dtype, space.shape, device, share)
++        tensors["controller_final_valid"] = init_tensor([num_traj, rollout], torch.bool, [], device, share)
++        tensors["controller_frames"] = init_tensor([num_traj, rollout], torch.int64, [], device, share)
++        tensors["controller_terminated"] = init_tensor([num_traj, rollout], torch.bool, [], device, share)
+     tensors["rnn_states"] = init_tensor([num_traj, rollout + 1], torch.float32, [rnn_size], device, share)
+ 
+     num_actions, num_action_distribution_parameters = action_info(env_info)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_actor_memory.py
+@@ -0,0 +1,78 @@
++"""Version-consistent actor traces using original replay/core implementations."""
++from collections import deque
++from dataclasses import dataclass,field
++import time
++import torch
++from .controller_history import ControllerHistory,reconstruct_controller_history
++
++
++@dataclass
++class StreamMemory:
++    episode:int
++    version:int
++    next_index:int=0
++    rows:deque=field(default_factory=deque)
++
++
++class ActorMemory:
++    def __init__(self):
++        self.streams={}
++        self.rebuilds=self.failures=0
++        self.seconds=0.
++        self.pending=None
++
++    @torch.no_grad()
++    def before_forward(self,model,raw_obs,state,version):
++        ids=raw_obs['controller_identity'].detach().cpu().long().tolist()
++        corrected=state.clone()
++        self.pending=[]
++        try:
++            for batch,(stream,episode,index,serial) in enumerate(ids):
++                memory=self.streams.get(stream)
++                if memory is None or memory.episode!=episode:
++                    if index!=0:raise RuntimeError('Actor history missing at non-reset decision')
++                    memory=StreamMemory(episode,version)
++                    self.streams[stream]=memory
++                if index!=memory.next_index:raise RuntimeError('Actor stream gap or duplicate decision')
++                if memory.version!=version and index:
++                    started=time.perf_counter()
++                    rows=list(memory.rows)
++                    needed=min(index,model.core.expanded_length)
++                    if len(rows)!=needed:raise RuntimeError('Incomplete actor reconstruction prefix')
++                    obs={key:torch.stack([row[1][key] for row in rows]) for key in rows[0][1]}
++                    initial=state[batch:batch+1]
++                    h=ControllerHistory(obs,torch.tensor([row[0] for row in rows]),initial,
++                        torch.stack([row[2] for row in rows]).to(state.device),
++                        rows[0][0]==0,0)
++                    devices=sorted({p.device.index for p in model.parameters() if p.is_cuda})
++                    with torch.random.fork_rng(devices=devices):
++                        rebuilt=reconstruct_controller_history(model,h,memory_only=True)['reconstructed_state']
++                    if hasattr(model.core,'split_worker_state'):
++                        old_canonical,_=model.core.split_worker_state(initial)
++                        new_canonical,worker=model.core.split_worker_state(rebuilt)
++                        merged=old_canonical.clone()
++                        merged[:,:model.core.base_state_size]=new_canonical[:,:model.core.base_state_size]
++                        corrected[batch:batch+1]=model.core.join_worker_state(merged,worker)
++                    else:
++                        corrected[batch,:model.core.base_state_size]=rebuilt[0,:model.core.base_state_size]
++                    self.rebuilds+=1
++                    self.seconds+=time.perf_counter()-started
++                memory.version=version
++                observation={k:v[batch].detach().cpu().clone() for k,v in raw_obs.items()
++                    if k not in getattr(model,'privileged_obs_keys',()) and k!='controller_identity'}
++                self.pending.append((memory,index,observation))
++        except Exception:
++            self.failures+=1
++            raise
++        return corrected
++
++    def after_forward(self,model,conditions):
++        if self.pending is None:raise RuntimeError('Missing actor pre-forward transaction')
++        for batch,(memory,index,observation) in enumerate(self.pending):
++            if getattr(model, "cfg", None) is not None and getattr(model.cfg, "controller_cache_visual", False):
++                from .controller_transport import cached_observation
++                observation = cached_observation(observation, model.encoder._controller_visual[batch].detach().cpu())
++            memory.rows.append((index,observation,conditions[batch].detach().cpu().clone()))
++            while len(memory.rows)>model.core.expanded_length:memory.rows.popleft()
++            memory.next_index=index+1
++        self.pending=None
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_contract.py
+@@ -0,0 +1,41 @@
++"""Fail-closed classification of full-parent controller experiment deltas."""
++import json
++
++# Enumerate real parser options. A broad controller_* exemption would hide typos
++# and silently authorize new scientific factors.
++CONTROLLER_OPTIONS = frozenset({
++    'controller_learning', 'controller_her', 'controller_epsilon',
++    'controller_target_updates', 'controller_replay_capacity',
++    'controller_td_positions', 'controller_decisions_per_update',
++    'controller_learning_starts', 'controller_her_positions', 'controller_her_loss_coeff',
++    'controller_epsilon_decay_decisions', 'controller_preflight', 'controller_cache_visual',
++})
++
++
++def preservation_delta(parent, candidate, *, approved_factors=None):
++    """Return every config difference and reject unclassified changes.
++
++    Approval descriptions must identify why execution/initialization/seed fields
++    differ. Architecture changes are never exempted by a prefix or allowlist.
++    Canonical StudySpec remains responsible for run expansion and submission.
++    """
++    approved_factors = approved_factors or {}
++    result = []
++    for key in sorted(parent.keys() | candidate.keys()):
++        before = parent.get(key)
++        after = candidate.get(key)
++        # JSON normalization handles tuples restored from serialized configs.
++        if key in parent and key in candidate and json.dumps(before, sort_keys=True) == json.dumps(after, sort_keys=True):
++            continue
++        if key in CONTROLLER_OPTIONS:
++            classification = 'controller_learning'
++            reason = 'Opt-in controller implementation option'
++        elif key in approved_factors and approved_factors[key].strip():
++            classification = 'explicit_experimental_factor'
++            reason = approved_factors[key]
++        else:
++            raise ValueError(f'Unclassified parent change: {key}: {before!r} -> {after!r}')
++        result.append({'field': key, 'parent': before, 'candidate': after,
++            'classification': classification, 'reason': reason,
++            'parent_present': key in parent, 'candidate_present': key in candidate})
++    return result
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_history.py
+@@ -0,0 +1,92 @@
++"""Finite-history reconstruction through the original simple IntrMotiv core.
++
++This operation runs on a private controller snapshot. It does not train the DG
++auxiliary, publish actor weights, or treat replay as new manager graph evidence.
++The ingress layer must supply one contiguous physical episode per call.
++"""
++from dataclasses import dataclass
++from sample_factory.algo.utils.rl_utils import prepare_and_normalize_obs
++import torch
++from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++
++
++@dataclass(frozen=True)
++class ControllerHistory:
++    observations: dict
++    decision_ids: torch.Tensor
++    initial_context: torch.Tensor
++    # The complete action-time condition in original core output order:
++    # target, followed by any enabled geometry/mode fields.
++    conditions: torch.Tensor
++    episode_start: bool
++    burn_in: int
++
++
++def reconstruct_controller_history(model, history: ControllerHistory, *, memory_only=False):
++    """Rebuild canonical/worker traces; return original decoder features.
++
++    The action-time manager command is exogenous replay context. Historical
++    decisions are not re-planned with today's graph. HER supplies its virtual
++    command over the whole history, including worker writes before TD positions.
++    Caller constructs online and target histories using their own snapshots.
++
++    A non-reset prefix is only accepted for the actual finite simple core.
++    Context feedback/recruitment require a separate, validated state contract.
++    No actor memory is cleared by this function.
++    """
++    core = model.core
++    if type(core) not in (SimpleSequenceWithBypassCore, GoalConditionedDGCore):
++        raise ValueError('Finite replay washout is not established for this core')
++    if core.context_feedback is not None or core.graph_recruitment or core.context_action_history_size:
++        raise ValueError('Contextual/recruitment history needs its own reconstruction contract')
++    if model.training:
++        raise ValueError('Reconstruction requires an immutable evaluation snapshot')
++    steps = history.decision_ids.numel()
++    if history.decision_ids.ndim != 1 or steps < 1:
++        raise ValueError('Expected a nonempty physical history')
++    if not torch.all(history.decision_ids[1:] == history.decision_ids[:-1] + 1):
++        raise ValueError('Replay history has a physical decision gap')
++    if not 0 <= history.burn_in < steps:
++        raise ValueError('Replay must retain TD positions after burn-in')
++    if not history.episode_start and (steps if memory_only else history.burn_in) < core.expanded_length:
++        raise ValueError('Incomplete finite washout prefix')
++    condition_width = core.total_output_size - core.target_condition_start
++    if history.conditions.shape != (steps, condition_width):
++        raise ValueError('Incomplete action-time worker condition')
++    if history.initial_context.shape != (1, core.total_state_size):
++        raise ValueError('Invalid initial context layout')
++    if any(value.shape[0] != steps for value in history.observations.values()):
++        raise ValueError('Observation/history length mismatch')
++
++    state = history.initial_context.detach().clone()
++    if isinstance(core, GoalConditionedDGCore):
++        canonical, worker = core.split_worker_state(state)
++        canonical = canonical.clone()
++        canonical[:, :core.core_output_size] = 0
++        state = core.join_worker_state(canonical, torch.zeros_like(worker))
++    else:
++        state[:, :core.core_output_size] = 0
++    # Original preprocessing and all trainable encoder/bypass modules run again.
++    normalized = prepare_and_normalize_obs(model, dict(history.observations))
++    head = model.forward_head(normalized)
++    if isinstance(core, GoalConditionedDGCore):
++        head = torch.cat((head, history.conditions[:, :core.Hippo_n_feature].to(head)), -1)
++    # One packed sequence preserves the original goal-write BPTT path; calling
++    # single-step core repeatedly would detach its worker memory at every step.
++    packed = pack_padded_sequence(head.unsqueeze(1), [steps], enforce_sorted=False)
++    packed_output, final_state = model.forward_core(packed, state)
++    padded, _ = pad_packed_sequence(packed_output)
++    output = padded[:, 0].clone()
++    output[:, core.target_condition_start:core.total_output_size] = history.conditions.to(output)
++    if memory_only:
++        return {'reconstructed_state': final_state}
++    hidden = model.controller_hidden(output)
++    return {
++        'hidden': hidden[history.burn_in:],
++        'core_outputs': output[history.burn_in:],
++        'all_core_outputs': output,
++        'head_outputs': head[history.burn_in:],
++        'decision_ids': history.decision_ids[history.burn_in:],
++    }
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -0,0 +1,286 @@
++"""Original fresh DG learner followed by separately budgeted controller replay."""
++import copy
++from dataclasses import replace
++import random
++import time
++import numpy as np
++import torch
++import torch.nn.functional as F
++from sample_factory.algo.learning.learner import model_initialization_data
++from sample_factory.model.actor_critic import create_actor_critic
++from sample_factory.utils.attr_dict import AttrDict
++from sample_factory.algo.utils.misc import TRAIN_STATS,LEARNER_ENV_STEPS,POLICY_ID_KEY
++from .custom_learner import DistanceLearnerReward
++from .controller_snapshot import ControllerSnapshot,differentiable_replay,evaluate_replay
++from .controller_replay import PhysicalReplay,PhysicalDecision
++from .controller_schedule import UpdateClock,replay_rngs
++from .controller_transition import TransitionInput,ReplayRejected,transition_values
++from .controller_transport import cached_observation,IDENTITY_KEY
++from .controller_history import ControllerHistory,reconstruct_controller_history
++from .controller_q import continuing_double_q_target
++from .hrl_controllable_graph import HRLStateLayout,current_dg_from_activity
++
++
++class ControllerLearner(DistanceLearnerReward):
++    def __init__(self,*args,**kwargs):
++        super().__init__(*args,**kwargs)
++        c=self.cfg
++        self.replay=PhysicalReplay(c.controller_replay_capacity,c.seed)
++        self.replay.rng,self.her_rng=replay_rngs(c.seed)
++        self.clock=UpdateClock(c.controller_learning_starts,c.controller_decisions_per_update,c.controller_target_updates)
++        self.controller_version=0
++        self.controller_stats={}
++        self.fresh_dg_steps=self.fresh_graph_batches=0
++        self._restore_controller=None
++        self.publication=0
++        self._milestone_previous=None
++
++    def init(self):
++        super().init()
++        def factory():
++            model=create_actor_critic(self.cfg,self.env_info.obs_space,self.env_info.action_space)
++            model.model_to_device(self.device)
++            return model
++        self.online_snapshot=ControllerSnapshot(factory,self.actor_critic,self.controller_version)
++        self.target_snapshot=ControllerSnapshot(factory,self.actor_critic,self.controller_version)
++        self.published=ControllerSnapshot(factory,self.actor_critic,self.controller_version).model
++        self.published._apply(lambda t:t.share_memory_() if not t.is_cuda else t)
++        if self._restore_controller is not None:
++            c=self._restore_controller
++            self.replay.load_state_dict(c['replay']);self.clock.load_state_dict(c['clock'])
++            self.her_rng.bit_generator.state=c['her_rng']
++            self.controller_version=c['version'];self.publication=c['publication']
++            self.target_snapshot.model.load_state_dict(c['target'])
++            self.target_snapshot.version=c['target_version']
++            self.online_snapshot.version=self.controller_version
++            self.fresh_dg_steps=c['fresh_dg_steps'];self.fresh_graph_batches=c['fresh_graph_batches']
++            torch.set_rng_state(c['torch_rng'].cpu());np.random.set_state(c['numpy_rng']);random.setstate(c['python_rng'])
++            if torch.cuda.is_available() and c['cuda_rng']:torch.cuda.set_rng_state_all(c['cuda_rng'])
++        # Actors only see this copy. The parent's minibatch optimizer/publication
++        # writes affect private learner storage until the transaction finishes.
++        self._published_versions=self.policy_versions_tensor
++        self.policy_versions_tensor=self.policy_versions_tensor.clone()
++        self.param_server.init(self.published,self.publication,self.device)
++        if getattr(self.cfg,'save_initial_checkpoint',False) and self.env_steps==0:
++            self._save_impl('initial','',1)
++        return model_initialization_data(self.cfg,self.policy_id,self.published,self.publication,self.device)
++
++    def _save_impl(self,*args,**kwargs):
++        if not hasattr(self,'target_snapshot'):return False
++        return super()._save_impl(*args,**kwargs)
++
++    def _save_crossed_frame_targets(self,previous_frames):
++        # The parent invokes this before replay. Save only after publication.
++        self._milestone_previous=previous_frames
++
++    def _load_state(self,checkpoint_dict,load_progress=True):
++        super()._load_state(checkpoint_dict,load_progress)
++        if load_progress:
++            if 'controller' not in checkpoint_dict:raise RuntimeError('Controller resume requires complete replay/target state')
++            self._restore_controller=checkpoint_dict['controller']
++
++    def _get_checkpoint_dict(self):
++        checkpoint=super()._get_checkpoint_dict()
++        if hasattr(self,'target_snapshot'):
++            checkpoint['controller']=dict(replay=self.replay.state_dict(),clock=self.clock.state_dict(),
++                her_rng=copy.deepcopy(self.her_rng.bit_generator.state),version=self.controller_version,publication=self.publication,
++                target=self.target_snapshot.model.state_dict(),target_version=self.target_snapshot.version,
++                fresh_dg_steps=self.fresh_dg_steps,fresh_graph_batches=self.fresh_graph_batches,
++                torch_rng=torch.get_rng_state(),cuda_rng=torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
++                numpy_rng=np.random.get_state(),python_rng=random.getstate())
++        return checkpoint
++
++    def _prepare_recurrent_replay_head(self,head_outputs,mb):
++        if self.cfg.controller_learning=='ddqn' and getattr(self.cfg,'dg_goal_input','none')=='write':
++            return torch.cat((head_outputs,mb.controller_condition),-1)
++        return super()._prepare_recurrent_replay_head(head_outputs,mb)
++
++    def _override_core_outputs_for_replay(self,core_outputs,mb):
++        if self.cfg.controller_learning=='ddqn':
++            out=core_outputs.clone();core=self.actor_critic.core
++            out[:,core.target_condition_start:core.total_output_size]=mb.controller_condition
++            return out
++        return super()._override_core_outputs_for_replay(core_outputs,mb)
++
++    def _update_policy_graph_from_rollout(self,*args,**kwargs):
++        result=super()._update_policy_graph_from_rollout(*args,**kwargs)
++        self.fresh_graph_batches+=1
++        return result
++
++    def _calculate_losses(self,mb,num_invalids,iterative_phase,**kwargs):
++        if self.cfg.controller_learning!='ddqn':return super()._calculate_losses(mb,num_invalids,iterative_phase,**kwargs)
++        additional=AttrDict();valids=mb.valids;recurrence=self.cfg.recurrence
++        outputs=self._forward_fresh_dg(mb,recurrence,valids,iterative_phase,additional)
++        distance,masked,_=self._record_distance_matrix(outputs.core_outputs.detach(),
++            minibatch_size=outputs.minibatch_size,masked_matrix=True,return_progression=True)
++        additional['Distance Matrix']=distance;additional['Distance Matrix Masked']=masked
++        encoder_loss=self._calculate_fresh_encoder_loss(outputs,mb,valids,num_invalids,recurrence,additional)
++        zero=encoder_loss.new_zeros(())
++        # Retain the parent's dashboard contract without computing PPO losses.
++        for name in ('behavior_replay_mismatch','ca3_predictor_loss','ca3_predictor_hit_accuracy',
++            'ca3_predictor_time_mae','ca3_predictor_positive_fraction','empirical_her_loss',
++            'empirical_her_policy_loss','empirical_her_value_loss','empirical_her_ratio',
++            'empirical_her_clip_fraction','empirical_her_valid_fraction',
++            'goal_condition_target_valid_fraction','goal_condition_action_sensitivity',
++            'goal_condition_action_probability_tv','goal_condition_value_span'):
++            additional[name]=zero
++        for mode in ('goal','free'):
++            for name in ('policy_loss','value_loss','entropy_loss'):additional[f'{mode}_{name}']=zero
++        summaries=dict(ratio=torch.ones_like(mb.advantages),clip_ratio_low=1.,clip_ratio_high=1.,
++            values=outputs.result['values'],adv=mb.advantages,adv_std=zero,adv_mean=zero,additional_stats=additional)
++        self.fresh_dg_steps+=1
++        return self.actor_critic.action_distribution(),zero,zero,zero[None],zero,zero,zero,encoder_loss,summaries
++
++    def _ingest(self,batch):
++        # Shared SF buffers may be reused immediately after this transaction.
++        cpu=lambda x:x.detach().cpu().numpy().copy()
++        n,t=batch['actions'].shape[:2]
++        layout=HRLStateLayout(self.cfg.Hippo_n_feature)
++        for i in range(n):
++            for j in range(t):
++                stream,episode,index,serial=map(int,cpu(batch['obs'][IDENTITY_KEY][i,j]))
++                obs={k:cpu(v[i,j]) for k,v in batch['obs'].items() if k!=IDENTITY_KEY}
++                if self.cfg.controller_cache_visual:
++                    obs=cached_observation(obs,cpu(batch['controller_visual'][i,j]))
++                done=bool(batch['dones'][i,j]);valid=bool(batch['controller_final_valid'][i,j])
++                successor=None
++                if done and valid:
++                    successor={k:cpu(v[i,j]) for k,v in batch['controller_final_obs'].items() if k!=IDENTITY_KEY}
++                    # Terminal RGB is retained. It is converted once when sampled.
++                context=cpu(batch['controller_context'][i,j])
++                self.replay.receive(PhysicalDecision((self.replay.session,stream),episode,index,serial,obs,
++                    int(batch['actions'][i,j].item()),cpu(batch['controller_condition'][i,j]),context,
++                    int(batch['policy_version'][i,j]),int(context[layout.persistent_start]),
++                    bool(batch['controller_terminated'][i,j]),bool(batch['time_outs'][i,j]),
++                    int(batch['controller_frames'][i,j]),successor,valid))
++        self.controller_stats['actor_memory_rebuilds']=float(batch['controller_memory_stats'][...,0].max())
++        self.controller_stats['actor_memory_rebuild_seconds']=float(batch['controller_memory_stats'][...,2].max())
++        self.controller_stats['actor_memory_version_failures']=float(batch['controller_memory_stats'][...,1].max())
++
++    def _example(self,key):
++        prefix,suffix=self.replay.sequence(key,self.actor_critic.core.expanded_length,2)
++        row=suffix[0]
++        generation=int(self.actor_critic.core.policy_graph.representation_generation.item())
++        if any(r.generation!=generation for r in prefix+suffix):raise ReplayRejected('stale_structural_generation')
++        if row.terminated or row.truncated:
++            if not row.successor_valid:raise ReplayRejected('uncertified_terminal_observation')
++            obs=row.successor
++            if self.cfg.controller_cache_visual:
++                from sample_factory.algo.utils.rl_utils import prepare_and_normalize_obs
++                raw={k:torch.as_tensor(v,device=self.device)[None] for k,v in obs.items()}
++                with torch.no_grad():
++                    norm=prepare_and_normalize_obs(self.online_snapshot.model,raw)
++                    self.online_snapshot.model.forward_head(norm)
++                    visual=self.online_snapshot.model.encoder._controller_visual[0].cpu().numpy()
++                obs=cached_observation(obs,visual)
++            successor=replace(row,index=row.index+1,serial=row.serial+1,observation=obs)
++        elif len(suffix)<2:raise ReplayRejected('missing_successor_context')
++        else:successor=suffix[1]
++        return TransitionInput(tuple(prefix+[row,successor]),len(prefix))
++
++    def _evaluate_pair(self,example):
++        online=differentiable_replay(self.online_snapshot,self.actor_critic,transition_values,example,
++            source_version=self.controller_version)
++        target=evaluate_replay(self.target_snapshot,transition_values,example)
++        if not torch.equal(online['signature'],target['signature']):raise ReplayRejected('target_event_incompatible')
++        # Virtual recognition is goal-local; both snapshots must agree on success.
++        if online['done']!=target['done']:raise ReplayRejected('target_boundary_incompatible')
++        row=example.rows[example.burn_in]
++        desired=continuing_double_q_target(online['reward'][None],torch.tensor([online['done']],device=self.device),
++            online['q'][1:2],target['q'][1:2],self.cfg.gamma)
++        return F.smooth_l1_loss(online['q'][0,row.action],desired[0],reduction='none'),online
++
++    def _her_example(self,example):
++        row=example.rows[example.burn_in];layout=HRLStateLayout(self.cfg.Hippo_n_feature)
++        budget=int(row.context[layout.countdown])
++        if budget<1:raise ReplayRejected('her_budget_expired')
++        _,future=self.replay.sequence(row.key,0,budget+1)
++        if len(future)<2:raise ReplayRejected('her_no_future_achievement')
++        # Use the same canonical reconstruction as controller evaluation. Future
++        # candidates are real observations, never virtual graph entries.
++        prefix=list(example.rows[:example.burn_in]);rows=prefix+future
++        device=self.device;core=self.actor_critic.core
++        observations={k:torch.as_tensor(np.stack([r.observation[k] for r in rows]),device=device) for k in row.observation}
++        h=ControllerHistory(observations,torch.tensor([r.index for r in rows],device=device),
++            torch.zeros(1,core.total_state_size,device=device),
++            torch.as_tensor(np.stack([r.condition for r in rows]),device=device),rows[0].index==0,len(prefix))
++        result=evaluate_replay(self.online_snapshot,reconstruct_controller_history,h)
++        target_result=evaluate_replay(self.target_snapshot,reconstruct_controller_history,h)
++        target_dg=target_result['core_outputs'][:,:core.core_output_size].reshape(-1,core.Hippo_n_feature,core.expanded_length)[:,:,0]
++        target_ids,target_active,target_count=current_dg_from_activity(target_dg)
++        dg=result['core_outputs'][:,:core.core_output_size].reshape(-1,core.Hippo_n_feature,core.expanded_length)[:,:,0]
++        ids,active,count=current_dg_from_activity(dg)
++        eligible=[int(ids[i]) for i in range(1,len(future)) if bool(active[i]) and int(count[i])==1 and dg[0,ids[i]]<=0
++            and bool(target_active[i]) and int(target_count[i])==1 and target_ids[i]==ids[i] and target_dg[0,ids[i]]<=0]
++        if not eligible:raise ReplayRejected('her_no_future_achievement')
++        goal=eligible[int(self.her_rng.integers(len(eligible)))]
++        return replace(example,virtual_goal=goal,remaining=budget)
++
++    def _controller_updates(self):
++        main_seconds=her_seconds=0.
++        for _ in range(self.clock.due(self.replay.accepted)):
++            # Refresh online buffers after each optimizer transaction, target only
++            # on its independent completed-main-update clock.
++            self.online_snapshot.refresh(self.actor_critic,self.controller_version+1)
++            self.controller_version+=1
++            losses=[];examples=[];qs=[];started=time.perf_counter()
++            # Bounded work on a depleted/incompatible replay: retain update debt.
++            for key in self.replay.candidates(self.cfg.controller_td_positions*4):
++                try:
++                    example=self._example(key);loss,result=self._evaluate_pair(example)
++                except (ReplayRejected,ValueError) as exc:
++                    if type(exc) is ValueError and str(exc) not in ('missing_history','cross_episode'):raise
++                    self.replay.reject(str(exc));continue
++                losses.append(loss);examples.append(example);qs.append(result['q'].detach())
++                if len(losses)==self.cfg.controller_td_positions:break
++            if len(losses)<self.cfg.controller_td_positions:
++                self.replay.reject('insufficient_main_batch');break
++            main_loss=torch.stack(losses).mean();main_seconds+=time.perf_counter()-started
++            aux=[];started=time.perf_counter()
++            if self.cfg.controller_her:
++                for _ in range(self.cfg.controller_her_positions):
++                    example=examples[int(self.her_rng.integers(len(examples)))]
++                    try:loss,_=self._evaluate_pair(self._her_example(example))
++                    except ReplayRejected as exc:self.replay.reject(str(exc));continue
++                    aux.append(loss)
++            aux_loss=torch.stack(aux).mean() if aux else main_loss.new_zeros(())
++            her_seconds+=time.perf_counter()-started
++            self.optimizer.zero_grad(set_to_none=True)
++            (main_loss+self.cfg.controller_her_loss_coeff*aux_loss).backward()
++            if self.cfg.max_grad_norm>0:torch.nn.utils.clip_grad_norm_(self.actor_critic.parameters(),self.cfg.max_grad_norm)
++            self._apply_lr(self.curr_lr)
++            self.optimizer.step()
++            refresh=self.clock.finish(len(losses),len(aux))
++            if refresh:self.target_snapshot.refresh(self.actor_critic,self.controller_version)
++            all_q=torch.cat(qs)
++            self.controller_stats.update(main_loss=float(main_loss.detach()),auxiliary_loss=float(aux_loss.detach()),
++                q_mean=float(all_q.mean()),q_abs_max=float(all_q.abs().max()))
++        self.controller_stats.update(main_compute_seconds=main_seconds,her_compute_seconds=her_seconds,
++            her_overhead_ratio=her_seconds/max(main_seconds,1e-9))
++
++    def train(self,batch):
++        started=time.perf_counter();self._ingest(batch)
++        before=self.env_steps
++        stats=super().train(batch)
++        self.env_steps=before+(int(batch['controller_frames'].sum()) if self.cfg.summaries_use_frameskip else batch['actions'].numel())
++        self._controller_updates()
++        with torch.no_grad(),self.param_server.policy_lock:
++            self.actor_critic.controller_q.environment_decisions.fill_(self.replay.accepted)
++            self.publication+=1
++            self.actor_critic.controller_q.publication_version.fill_(self.publication)
++            self.actor_critic.controller_q.fresh_version.fill_(self.train_step)
++            self.published.load_state_dict(self.actor_critic.state_dict())
++            if self.device.type=='cuda':torch.cuda.synchronize(self.device)
++            self._published_versions[self.policy_id]=self.publication
++        super()._save_crossed_frame_targets(before)
++        stats=stats or {POLICY_ID_KEY:self.policy_id}
++        stats[LEARNER_ENV_STEPS]=self.env_steps
++        self.controller_stats.update(physical_interactions=self.replay.received,physical_frames=self.replay.physical_frames,
++            accepted_replay_decisions=self.replay.accepted,main_updates=self.clock.completed,
++            main_td_positions=self.clock.main_positions,auxiliary_td_positions=self.clock.auxiliary_positions,
++            target_age=self.clock.completed-self.clock.target_at,update_debt=self.clock.due(self.replay.accepted),
++            fresh_dg_steps=self.fresh_dg_steps,fresh_graph_batches=self.fresh_graph_batches,
++            transaction_seconds=time.perf_counter()-started)
++        self.controller_stats.update({f'rejected/{k}':v for k,v in self.replay.rejected.items()})
++        stats.setdefault(TRAIN_STATS,{}).update({f'controller/{k}':v for k,v in self.controller_stats.items()})
++        return stats
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_q.py
+@@ -0,0 +1,73 @@
++"""Opt-in action-value heads at the original IntrMotiv controller boundary.
++
++The main head estimates the parent's continuing return. Hindsight is a separate
++bounded worker auxiliary; its predictions never select the acting controller.
++No encoder, core, goal selector, reward, or graph implementation lives here.
++"""
++from __future__ import annotations
++
++import torch
++from torch import nn
++
++
++class ControllerQHeads(nn.Module):
++    def __init__(self, hidden_size: int, actions: int, auxiliary: bool):
++        super().__init__()
++        self.main = nn.Linear(hidden_size, actions)
++        # A deadline-conditioned auxiliary needs state/deadline interactions.
++        # It does not change the original decoder or the main return interface.
++        self.auxiliary = nn.Linear(2 * hidden_size + 1, actions) if auxiliary else None
++        self.register_buffer('fresh_version', torch.zeros((), dtype=torch.int64))
++        self.register_buffer('publication_version', torch.zeros((), dtype=torch.int64))
++        self.register_buffer('environment_decisions', torch.zeros((), dtype=torch.int64))
++
++    def forward(self, hidden):
++        return self.main(hidden)
++
++    def hindsight(self, hidden, remaining, time_scale):
++        if self.auxiliary is None:
++            raise RuntimeError('Hindsight head is not enabled')
++        if time_scale <= 0 or torch.any(remaining < 0):
++            raise ValueError('Invalid auxiliary deadline')
++        clock = remaining.to(hidden.dtype).reshape(-1, 1) / time_scale
++        return self.auxiliary(torch.cat((hidden, hidden * clock, clock), dim=-1))
++
++
++def epsilon_distribution(q, epsilon, action_mask=None):
++    if not 0 <= epsilon <= 1:
++        raise ValueError('epsilon must be in [0,1]')
++    allowed = torch.ones_like(q, dtype=torch.bool) if action_mask is None else action_mask.bool()
++    if not allowed.any(-1).all():
++        raise ValueError('No valid action')
++    greedy = q.masked_fill(~allowed, -torch.inf).argmax(-1)
++    probabilities = epsilon * allowed.to(q.dtype) / allowed.sum(-1, keepdim=True)
++    probabilities = probabilities.scatter_add(-1, greedy[:, None], q.new_full((len(q), 1), 1-epsilon))
++    return probabilities
++
++
++def continuing_double_q_target(reward, physical_done, next_online, next_target, gamma):
++    """Retargeting/waypoints/options are successor context, not episode dones."""
++    if not 0 <= gamma <= 1:
++        raise ValueError('Invalid discount')
++    if next_online.shape != next_target.shape or next_online.shape[:-1] != reward.shape:
++        raise ValueError('Incompatible Bellman arrays')
++    with torch.no_grad():
++        selected = next_online.argmax(-1, keepdim=True)
++        continuation = next_target.gather(-1, selected).squeeze(-1)
++        return reward + gamma * torch.where(physical_done.bool(), torch.zeros_like(continuation), continuation)
++
++
++def bounded_auxiliary_target(reward, task_ended, remaining, next_online, next_target, gamma):
++    """Explicit auxiliary boundary; never substitute this for main-return done."""
++    ended = task_ended.bool() | (remaining <= 1)
++    return continuing_double_q_target(reward, ended, next_online, next_target, gamma)
++
++
++def exploration_epsilon(decisions, cfg):
++    if not hasattr(cfg, 'controller_learning_starts'):
++        return float(cfg.controller_epsilon)
++    elapsed = max(0, decisions - int(cfg.controller_learning_starts))
++    decay = int(cfg.controller_epsilon_decay_decisions)
++    if decay <= 0:
++        raise ValueError('Epsilon decay decisions must be positive')
++    return 1. - (1. - float(cfg.controller_epsilon)) * min(1., elapsed / decay)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_replay.py
+@@ -0,0 +1,92 @@
++"""Owned physical replay, without frozen-DG representations or virtual graph rows."""
++from collections import OrderedDict
++from dataclasses import dataclass
++import copy
++import numpy as np
++from hpc_runs.intrmotiv_offpolicy.sf_transport import OrderedIngress
++
++
++@dataclass(frozen=True)
++class PhysicalDecision:
++    stream: tuple
++    episode: int
++    index: int
++    serial: int
++    observation: dict
++    action: int
++    condition: np.ndarray
++    context: np.ndarray
++    publication: int
++    generation: int
++    terminated: bool
++    truncated: bool
++    physical_frames: int
++    successor: dict | None = None
++    successor_valid: bool = False
++    real_reward: float | None = None
++    real_events: dict | None = None
++
++    @property
++    def key(self):return self.stream,self.episode,self.index
++
++
++class PhysicalReplay:
++    def __init__(self,capacity,seed):
++        self.capacity=int(capacity)
++        self.rows=OrderedDict()
++        self.rng=np.random.default_rng(seed)
++        self.ingress=OrderedIngress(max_pending=capacity)
++        self.received=self.accepted=self.physical_frames=0
++        self.session=0
++        self.rejected={}
++
++    def receive(self,row):
++        # Ingress validation precedes accounting: duplicates are not interactions.
++        owned=copy.deepcopy(row)
++        self.ingress.add(row.stream,row.serial,owned)
++        self.received+=1
++        self.physical_frames+=row.physical_frames
++        for ready in self.ingress.drain():
++            if ready.key in self.rows:raise ValueError('Duplicate physical replay row')
++            self.rows[ready.key]=ready
++            self.accepted+=1
++            while len(self.rows)>self.capacity:self.rows.popitem(last=False)
++
++    def sequence(self,key,washout,future=1):
++        row=self.rows[key]
++        start=max(0,row.index-washout)
++        prefix=[]
++        for index in range(start,row.index+1):
++            item=self.rows.get((row.stream,row.episode,index))
++            if item is None:raise ValueError('missing_history')
++            if index<row.index and (item.terminated or item.truncated):raise ValueError('cross_episode')
++            prefix.append(item)
++        suffix=[]
++        for index in range(row.index,row.index+future):
++            item=self.rows.get((row.stream,row.episode,index))
++            if item is None:break
++            suffix.append(item)
++            if item.terminated or item.truncated:break
++        return prefix[:-1],suffix
++
++    def reject(self,reason):self.rejected[reason]=self.rejected.get(reason,0)+1
++
++    def candidates(self,count):
++        keys=list(self.rows)
++        if not keys:return []
++        indices=self.rng.integers(0,len(keys),size=count)
++        return [keys[int(i)] for i in indices]
++
++    def state_dict(self):
++        return copy.deepcopy(dict(rows=self.rows,capacity=self.capacity,rng=self.rng.bit_generator.state,
++            received=self.received,accepted=self.accepted,physical_frames=self.physical_frames,
++            session=self.session,rejected=self.rejected,pending=self.ingress.pending))
++
++    def load_state_dict(self,state):
++        self.rows=copy.deepcopy(state['rows']);self.capacity=state['capacity']
++        self.rng.bit_generator.state=state['rng']
++        for key in ('received','accepted','physical_frames','rejected'):setattr(self,key,copy.deepcopy(state[key]))
++        # DMLab itself is not restored. New actors start genuinely new episodes.
++        self.session=int(state['session'])+1
++        self.ingress=OrderedIngress(max_pending=self.capacity)
++        if state['pending']:self.rejected['restart_pending_tail']=state['pending']
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_schedule.py
+@@ -0,0 +1,40 @@
++"""Main update accounting is independent of auxiliary sampling and acceptance."""
++from dataclasses import dataclass, asdict
++import numpy as np
++from hpc_runs.intrmotiv_offpolicy.sf_transport import updates_due
++
++
++@dataclass
++class UpdateClock:
++    learning_starts: int = 16384
++    cadence: int = 64
++    target_interval: int = 100
++    completed: int = 0
++    main_positions: int = 0
++    auxiliary_positions: int = 0
++    target_at: int = 0
++
++    def due(self, accepted):
++        # Warm-up itself does not accumulate replay update debt.
++        return updates_due(int(accepted),self.learning_starts,self.cadence,self.completed)
++
++    def finish(self, main_positions, auxiliary_positions):
++        if main_positions <= 0 or auxiliary_positions < 0:
++            raise ValueError('A completed update requires main TD positions')
++        self.completed += 1
++        self.main_positions += main_positions
++        self.auxiliary_positions += auxiliary_positions
++        refresh = self.completed-self.target_at >= self.target_interval
++        if refresh:self.target_at=self.completed
++        return refresh
++
++    def state_dict(self):return asdict(self)
++
++    def load_state_dict(self, state):
++        for key in asdict(self):setattr(self,key,int(state[key]))
++
++
++def replay_rngs(seed):
++    # Auxiliary sample counts never advance the main replay generator.
++    main, auxiliary = np.random.SeedSequence(seed).spawn(2)
++    return np.random.default_rng(main),np.random.default_rng(auxiliary)
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_snapshot.py
+@@ -0,0 +1,73 @@
++"""Snapshot ownership for controller replay through the actual IntrMotiv model.
++
++A snapshot owns every parameter and buffer influencing its value input, including
++DG, worker-write modulation, normalization, and manager graph. It is constructed
++through the original factory, not by copying a model with live autograd caches.
++"""
++import torch
++from torch import nn
++
++
++class ControllerSnapshot:
++    def __init__(self, model_factory, source, version: int):
++        if version < 0:
++            raise ValueError('Snapshot version must be nonnegative')
++        # Auxiliary/target construction must not perturb behavior RNG streams.
++        devices = sorted({p.device.index for p in source.parameters() if p.is_cuda})
++        with torch.random.fork_rng(devices=devices):
++            self.model = model_factory()
++        self.model.load_state_dict(
++            {k: v.detach().clone() for k, v in source.state_dict().items()}, strict=True, assign=True
++        )
++        self.model.eval()
++        self.model.requires_grad_(False)
++        self.version = int(version)
++
++    @torch.no_grad()
++    def refresh(self, source, version: int):
++        if version <= self.version:
++            raise ValueError('Snapshot refresh must advance its version')
++        self.model.load_state_dict(source.state_dict(), strict=True)
++        self.model.eval()
++        self.version = int(version)
++
++
++class _ReplayCall(nn.Module):
++    def __init__(self, model, operation):
++        super().__init__()
++        self.model = model
++        self.operation = operation
++
++    def forward(self, *args):
++        return self.operation(self.model, *args)
++
++
++def differentiable_replay(snapshot, source, operation, *args, source_version: int):
++    """Use live online parameters with immutable snapshot buffers and private caches.
++
++    `operation` must use the supplied actual model. Gradients reach `source`
++    parameters; replay forwards cannot mutate its graph, running statistics, or
++    forward caches. Each call clones snapshot buffers so even an accidental
++    in-place buffer update cannot become additional real-data graph evidence.
++    Only use an online snapshot from the same parameter version as `source`.
++    Target evaluation uses its own snapshot directly under no_grad instead.
++    """
++    if source_version != snapshot.version:
++        raise ValueError('Online parameters and replay buffers must have the same version')
++    if snapshot.model.training:
++        raise RuntimeError('Replay snapshot must be in evaluation mode')
++    wrapper = _ReplayCall(snapshot.model, operation)
++    parameters = {f'model.{k}': v for k, v in source.named_parameters()}
++    buffers = {f'model.{k}': v.detach().clone() for k, v in snapshot.model.named_buffers()}
++    # strict matching catches target/online architecture drift, including HER.
++    devices = sorted({p.device.index for p in source.parameters() if p.is_cuda})
++    with torch.random.fork_rng(devices=devices):
++        return torch.func.functional_call(wrapper, (parameters, buffers), args, strict=True)
++
++
++@torch.no_grad()
++def evaluate_replay(snapshot, operation, *args):
++    """Evaluate a target with its own parameters and immutable cloned buffers."""
++    return differentiable_replay(
++        snapshot, snapshot.model, operation, *args, source_version=snapshot.version
++    )
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transition.py
+@@ -0,0 +1,103 @@
++"""Snapshot-consistent worker values and original reward/event reconstruction."""
++from dataclasses import dataclass
++import numpy as np
++import torch
++from .controller_history import ControllerHistory,reconstruct_controller_history
++from .goal_conditioned_dg import GoalConditionedDGCore
++from .hrl_controllable_graph import HRLStateLayout,current_dg_from_activity
++
++
++class ReplayRejected(ValueError):pass
++
++
++@dataclass(frozen=True)
++class TransitionInput:
++    rows: tuple
++    burn_in: int
++    virtual_goal: int | None = None
++    remaining: int | None = None
++
++
++def assemble_state(core, output, context):
++    canonical=torch.cat((output[:core.base_state_size],context),-1).unsqueeze(0)
++    if isinstance(core,GoalConditionedDGCore):
++        canonical=core.join_worker_state(canonical,output[core.total_output_size:].unsqueeze(0))
++    return canonical
++
++
++def event_signature(context,n):
++    layout=HRLStateLayout(n)
++    return torch.stack((context[...,layout.active_dg],context[...,layout.multi_activation],
++        context[...,layout.target_hit],context[...,layout.option_expired],
++        context[...,layout.completion_elapsed].sign()),-1)
++
++
++def transition_values(model,example):
++    """Only private snapshots call this; real manager/graph state is never updated."""
++    from .custom_learner import DistanceLearnerReward
++    core=model.core;device=next(model.parameters()).device
++    rows=example.rows;b=example.burn_in;n=core.Hippo_n_feature
++    if len(rows)!=b+2:raise ValueError('Expected prefix, current and physical successor')
++    obs={k:torch.as_tensor(np.stack([r.observation[k] for r in rows]),device=device)
++         for k in rows[0].observation}
++    conditions=torch.as_tensor(np.stack([r.condition for r in rows]),device=device)
++    contexts=torch.as_tensor(np.stack([r.context for r in rows]),device=device)
++    if example.virtual_goal is not None:
++        conditions=torch.zeros_like(conditions);conditions[:,example.virtual_goal]=1
++    history=ControllerHistory(obs,torch.tensor([r.index for r in rows],device=device),
++        torch.zeros(1,core.total_state_size,device=device),conditions,rows[0].index==0,b)
++    reconstructed=reconstruct_controller_history(model,history)
++    outputs=reconstructed['all_core_outputs']
++    current,next_output=outputs[b:b+2]
++    canonical_dg=current[:core.core_output_size].reshape(n,core.expanded_length)[:,0]
++    next_dg=next_output[:core.core_output_size].reshape(n,core.expanded_length)[:,0]
++    layout=HRLStateLayout(n)
++    # Recognition must agree with the context on which the actual manager acted.
++    with torch.no_grad():
++        active,_,count=current_dg_from_activity(canonical_dg[None])
++        if example.virtual_goal is None:
++            prefix_dg=outputs[:b+1,:core.core_output_size].reshape(-1,n,core.expanded_length)[:,:,0]
++            ids,_,counts=current_dg_from_activity(prefix_dg)
++            if not torch.equal((ids+1).to(contexts),contexts[:b+1,layout.active_dg]) or not torch.equal(counts>1,contexts[:b+1,layout.multi_activation].bool()):
++                raise ReplayRejected('history_recognition_changed')
++        if active.item()+1!=contexts[b,layout.active_dg].item() or bool(count.item()>1)!=bool(contexts[b,layout.multi_activation].item()):
++            raise ReplayRejected('current_recognition_changed')
++        context=contexts[b].clone()
++        if example.virtual_goal is not None:
++            goal=example.virtual_goal
++            if canonical_dg[goal]>0:raise ReplayRejected('her_start_already_achieved')
++            if example.remaining is None or example.remaining<1:raise ReplayRejected('her_budget_expired')
++            context[layout.target]=goal+1
++            context[layout.countdown]=example.remaining
++            context[layout.selected_deadline]=example.remaining
++        state=assemble_state(core,current.detach(),context)
++        hrl=core._split_state(state)[1].clone()
++        next_hrl,_=core._update_hrl(hrl,next_dg.detach()[None],current[:core.core_output_size].detach()[None])
++        # Descriptor is an actual action-time label. It is not a new graph choice.
++        next_context=torch.cat((next_hrl[0],contexts[b+1,-core.behavior_goal_state_size:]),-1)
++        signature=event_signature(next_context,n)
++        physical_done=rows[b].terminated or rows[b].truncated
++        if example.virtual_goal is None and not physical_done:
++            if not torch.equal(signature,event_signature(contexts[b+1],n)):
++                raise ReplayRejected('successor_events_changed')
++        previous=(assemble_state(core,outputs[b-1].detach(),contexts[b-1]) if b else torch.zeros_like(state))
++        successor=assemble_state(core,next_output.detach(),next_context)
++        # Invoke the parent's exact temporal and control-reward functions, without
++        # credit assignment, DG losses, normalizer updates, or graph accumulation.
++        adapter=object.__new__(DistanceLearnerReward)
++        adapter.cfg=model.cfg;adapter.actor_critic=model
++        buff={'rnn_states':torch.stack((previous[0],state[0]))[None],
++            'rewards':torch.zeros(1,1,device=device),'dones':torch.tensor([[physical_done]],device=device)}
++        adapter._calculate_reward_components(buff,{'new_rnn_states':successor})
++        reward=buff['rewards'].reshape(())
++        hit=next_context[layout.target_hit]>0
++        ended=physical_done or (example.virtual_goal is not None and (bool(hit) or example.remaining<=1))
++    hidden=reconstructed['hidden']
++    if getattr(model.cfg,'controller_learning','ddqn')=='shadow':hidden=hidden.detach()
++    if example.virtual_goal is None:
++        q=model.controller_q(hidden)
++    else:
++        remaining=torch.tensor([example.remaining, max(0,example.remaining-1)],device=device)
++        q=model.controller_q.hindsight(hidden,remaining,float(model.cfg.Hippo_L))
++    return {'q':q,'reward':reward,'signature':signature,'done':ended,
++            'canonical':canonical_dg.detach(),'next_canonical':next_dg.detach()}
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_transport.py
+@@ -0,0 +1,92 @@
++"""Original-environment identity and explicitly certified terminal transport."""
++import gymnasium as gym
++import numpy as np
++
++IDENTITY_KEY = 'controller_identity'
++FINAL_OBSERVATION = 'controller_final_observation'
++FINAL_VALID = 'controller_final_observation_valid'
++
++
++def enabled(cfg):
++    return getattr(cfg, 'controller_learning', 'ppo') in ('ddqn', 'shadow')
++
++
++class ControllerIdentity(gym.Wrapper):
++    """Do not alter environment seeding, rewards, actions, or reset semantics."""
++    def __init__(self, env, stream):
++        super().__init__(env)
++        self.stream, self.episode, self.index, self.serial = int(stream), -1, 0, 0
++        self.observation_space = gym.spaces.Dict(dict(env.observation_space.spaces,
++            controller_identity=gym.spaces.Box(0, np.iinfo(np.int64).max, (4,), dtype=np.int64)))
++
++    def annotate(self, obs):
++        return dict(obs, controller_identity=np.array(
++            [self.stream,self.episode,self.index,self.serial], dtype=np.int64))
++
++    def reset(self, **kwargs):
++        obs, info = self.env.reset(**kwargs)
++        self.episode += 1
++        self.index = 0
++        return self.annotate(obs), info
++
++    def step(self, action):
++        obs, reward, terminated, truncated, info = self.env.step(action)
++        self.index += 1
++        self.serial += 1
++        obs = self.annotate(obs)
++        if terminated or truncated:
++            # The underlying environment must explicitly certify freshness.
++            valid = bool(info.get('intrmotiv_final_observation_valid', False))
++            info = dict(info, controller_final_observation_valid=valid)
++            if valid:
++                info[FINAL_OBSERVATION] = {k:np.array(v,copy=True) for k,v in obs.items()}
++        return obs,reward,terminated,truncated,info
++
++
++def record_terminal(buffer, step, terminated, info):
++    """Write all validity fields, including on reused nonterminal buffers."""
++    buffer['controller_terminated'][step] = terminated
++    valid = bool(info.get(FINAL_VALID,False))
++    buffer['controller_final_valid'][step] = valid
++    if valid:
++        terminal = info[FINAL_OBSERVATION]
++        for key in buffer['controller_final_obs']:
++            buffer['controller_final_obs'][key][step] = terminal[key]
++
++
++def validate_controller_config(cfg):
++    required = {'core_name':'BypassSS', 'dg_context_feedback':'none',
++        'hrl_graph_memory':'policy_buffer', 'hrl_target_timing':'immediate',
++        'hrl_exploration_policy':'shared','policy_workers_per_policy':1,
++        'batched_sampling':False, 'serial_mode':False, 'with_pbt':False,
++        'dg_orthogonal_recruitment':False, 'hrl_behavior_mode_condition':False,
++        'hrl_motion_policy_input':False, 'hrl_landmark_geometry':'none',
++        'hrl_action_path_integration':False, 'value_bootstrap':False,
++        'distance_learning':True,'double_value':False, 'num_epochs':1,
++        'ca3_predictor_shadow':False,'hrl_empirical_her':False}
++    for key, expected in required.items():
++        if getattr(cfg,key,expected) != expected:
++            raise ValueError(f'Controller integration requires {key}={expected!r}')
++    if cfg.hrl_manager_mode not in ('frontier_direct','frontier_waypoint'):
++        raise ValueError('Controller integration requires a preserved direct/waypoint parent')
++    for key in ('controller_replay_capacity','controller_td_positions','controller_decisions_per_update',
++                'controller_learning_starts','controller_target_updates','controller_epsilon_decay_decisions'):
++        if int(getattr(cfg,key)) <= 0:raise ValueError(f'{key} must be positive')
++    if cfg.controller_her_positions < 0 or cfg.controller_her_loss_coeff < 0:
++        raise ValueError('Invalid auxiliary HER budget or coefficient')
++    if not 0 <= cfg.controller_epsilon <= 1:raise ValueError('Invalid epsilon')
++    if cfg.controller_preflight and cfg.train_for_env_steps > 2_000_000:
++        raise ValueError('Unqualified controller preflights are limited to 2M frames')
++
++
++def cached_observation(observation,visual):
++    """Exact FP32 frozen features plus raw trainable depth/instruction inputs.
++
++    These selected parents have four-channel RGB+depth observations. RGB can be
++    omitted only after the actor computed the actual original frozen trunk.
++    """
++    result=dict(observation)
++    if result['obs'].shape[-3]!=4:raise ValueError('Expected original RGB+depth observations')
++    result['obs']=result['obs'][-1:].copy() if isinstance(result['obs'],np.ndarray) else result['obs'][-1:].clone()
++    result['controller_visual']=visual.copy() if isinstance(visual,np.ndarray) else visual.clone()
++    return result
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py
+@@ -197,6 +197,58 @@
+             self.exploration_critic_linear.apply(self.initialize_weights)
+             self.exploration_action_parameterization.apply(self.initialize_weights)
+ 
++        self.controller_learning = getattr(cfg, "controller_learning", "ppo")
++        if self.controller_learning not in ("ppo", "shadow", "ddqn"):
++            raise ValueError(f"Unknown controller_learning={self.controller_learning}")
++        if self.controller_learning != "ppo":
++            if not isinstance(action_space, gym.spaces.Discrete):
++                raise ValueError("DDQN requires the parent's discrete action space")
++            if self.separate_exploration or self.separate_goal_controllers:
++                raise ValueError("Separate controller branches need their own Q-head ownership contract")
++            from .controller_q import ControllerQHeads
++            # Adding a shadow head must not advance the parent's RNG stream.
++            with torch.random.fork_rng(devices=[]):
++                torch.random.default_generator.manual_seed(int(cfg.seed))
++                self.controller_q = ControllerQHeads(
++                    self.decoder.get_out_size(), action_space.n, bool(getattr(cfg, "controller_her", False))
++                )
++
++    def controller_hidden(self, core_output):
++        if getattr(self.core, "dg_goal_modulation", None) is not None:
++            view = self.core.worker_view(core_output)
++        else:
++            view = controller_core_view(core_output, self.core.core_output_size, self.ppo_dg_gradient)
++        return self.decoder(view)
++
++    def _forward_q_tail(self, controller_output, values_only, sample_actions, action_mask):
++        from .controller_q import epsilon_distribution
++        q = self.controller_q(self.decoder(controller_output))
++        valid_q = q
++        if action_mask is not None:
++            if action_mask.shape != q.shape or not action_mask.bool().any(-1).all():
++                raise ValueError("Invalid Q action mask")
++            valid_q = q.masked_fill(~action_mask.bool(), -torch.inf)
++        result = TensorDict(values=valid_q.max(-1).values)
++        if values_only:
++            return result
++        from .controller_q import exploration_epsilon
++        decisions = int(self.controller_q.environment_decisions.item()) if hasattr(self.controller_q, "environment_decisions") else 0
++        epsilon = exploration_epsilon(decisions, self.cfg)
++        probabilities = epsilon_distribution(q, epsilon, action_mask)
++        # SF entropy computes p*log(p), so -inf logits would produce NaNs
++        # for epsilon=0 or masked actions. Finite minima still softmax to zero.
++        logits = probabilities.log().masked_fill(probabilities == 0, torch.finfo(q.dtype).min)
++        self.last_action_distribution = get_action_distribution(self.action_space, logits)
++        result["action_logits"] = logits
++        self._maybe_sample_actions(sample_actions, result)
++        return result
++
++    def forward_core(self, head_output, rnn_states):
++        output, state = super().forward_core(head_output, rnn_states)
++        if getattr(self, "controller_learning", "ppo") != "ppo":
++            self._controller_core_output = output
++        return output, state
++
+     def forward_head(self, normalized_obs_dict: Dict[str, Tensor]) -> Tensor:
+         x = super().forward_head(normalized_obs_dict)
+         if (
+@@ -210,6 +262,16 @@
+         self, normalized_obs_dict, rnn_states, values_only=False, action_mask: Optional[Tensor] = None
+     ) -> TensorDict:
+         result = super().forward(normalized_obs_dict, rnn_states, values_only, action_mask)
++        if getattr(self, "controller_learning", "ppo") != "ppo" and not values_only:
++            canonical = result["new_rnn_states"]
++            if hasattr(self.core, "split_worker_state"):
++                canonical, _ = self.core.split_worker_state(canonical)
++            if getattr(self.cfg, "controller_cache_visual", True):
++                result["controller_visual"] = self.encoder._controller_visual
++            result["controller_fresh_version"] = self.controller_q.fresh_version.expand(canonical.size(0), 1)
++            result["controller_context"] = canonical[:, self.core.base_state_size:]
++            result["controller_condition"] = self._controller_core_output[:,
++                self.core.target_condition_start:self.core.total_output_size]
+         if getattr(self.cfg, "online_spatial_telemetry", False) and not values_only:
+             contextual_activity = getattr(getattr(self, "core", None), "last_dg_activity", None)
+             if torch.is_tensor(contextual_activity):
+@@ -231,6 +293,8 @@
+             controller_output = self.core.worker_view(core_output)
+         else:
+             controller_output = controller_core_view(core_output, ca3_size, getattr(self, "ppo_dg_gradient", "stop"))
++        if getattr(self, "controller_learning", "ppo") == "ddqn":
++            return self._forward_q_tail(controller_output, values_only, sample_actions, action_mask)
+         if getattr(self, "separate_goal_controllers", False):
+             start = self.core.target_condition_start
+             target = controller_output[:, start : start + int(self.cfg.Hippo_n_feature)]
+@@ -360,6 +424,8 @@
+ 
+     model_factory = global_model_factory()
+     obs_space = obs_space_without_action_mask(obs_space)
++    if "controller_identity" in obs_space.spaces:
++        obs_space = gym.spaces.Dict({k:v for k,v in obs_space.spaces.items() if k != "controller_identity"})
+     online_spatial = bool(getattr(cfg, "online_spatial_telemetry", False))
+     if online_spatial:
+         if not isinstance(obs_space, gym.spaces.Dict) or "telemetry_pose" not in obs_space.spaces:
+@@ -390,5 +456,7 @@
+             actor_critic = IntrMotivActorCriticSharedWeights(model_factory, obs_space, action_space, cfg)
+     else:
+         actor_critic = IntrMotivActorCriticSeparateWeights(model_factory, obs_space, action_space, cfg)
+-    actor_critic.privileged_obs_keys = ("telemetry_pose",) if online_spatial else ()
++    actor_critic.privileged_obs_keys = (("telemetry_pose",) if online_spatial else ()) + (
++        ("controller_identity",) if getattr(cfg, "controller_learning", "ppo") != "ppo" else ()
++    )
+     return actor_critic
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py
+@@ -1017,7 +1017,16 @@
+             obs_cnn = obs_dict["obs"][:, :3, :, :]
+         else:
+             obs_cnn = obs_dict["obs"][:, :, :, :]
+-        x = self.basic_encoder(obs_cnn)
++        if "controller_visual" in obs_dict:
++            if any(parameter.requires_grad for parameter in self.basic_encoder.parameters()):
++                raise ValueError("Only a genuinely fixed visual trunk may be cached")
++            x = obs_dict["controller_visual"]
++            if x.size(-1) != self.basic_encoder.get_out_size() or x.dtype != torch.float32:
++                raise ValueError("Invalid exact frozen-trunk cache")
++        else:
++            x = self.basic_encoder(obs_cnn)
++        if getattr(self.cfg, "controller_learning", "ppo") != "ppo":
++            self._controller_visual = x.detach()
+ 
+         if self.with_number_instruction:
+             instr = obs_dict[DMLAB_INSTRUCTIONS]
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -121,8 +121,10 @@
+             "cosine": zero,
+             "row_conflict_fraction": zero,
+         }
+-    decoder_grads = torch.autograd.grad(decoder_loss, parameters, retain_graph=True, allow_unused=True)
+-    encoder_grads = torch.autograd.grad(encoder_loss, parameters, retain_graph=True, allow_unused=True)
++    decoder_grads = (torch.autograd.grad(decoder_loss, parameters, retain_graph=True, allow_unused=True)
++                     if decoder_loss.requires_grad else (None,) * len(parameters))
++    encoder_grads = (torch.autograd.grad(encoder_loss, parameters, retain_graph=True, allow_unused=True)
++                     if encoder_loss.requires_grad else (None,) * len(parameters))
+     ppo_sq = zero.clone()
+     encoder_sq = zero.clone()
+     dot = zero.clone()
+@@ -734,7 +736,7 @@
+                 self.cfg, self.env_info, self.policy_id, self.env_steps, getattr(self, "actor_critic", None)
+             )
+         valids = (buff["policy_id"] == self.policy_id) & (
+-            self.train_step - buff["policy_version"] < self.cfg.max_policy_lag
++            self.train_step - (buff["controller_fresh_version"].squeeze(-1) if "controller_fresh_version" in buff else buff["policy_version"]) < self.cfg.max_policy_lag
+         )
+         self._online_spatial.append_batch(buff, valids)
+ 
+@@ -1227,7 +1229,7 @@
+             torch.cat(
+                 (
+                     (sequence_core != 0).to(dtype=torch.int),
+-                    torch.ones(sequence_core.shape[:-1] + (1,), dtype=torch.int),
++                    torch.ones(sequence_core.shape[:-1] + (1,), dtype=torch.int, device=sequence_core.device),
+                 ),
+                 dim=-1,
+             ),
+@@ -2325,7 +2327,7 @@
+             valids: Tensor = buff["policy_id"] == self.policy_id
+             # ignore experience that was older than the threshold even before training started
+             curr_policy_version: int = self.train_step
+-            buff["valids"][:, :-1] = valids & (curr_policy_version - buff["policy_version"] < self.cfg.max_policy_lag)
++            buff["valids"][:, :-1] = valids & (curr_policy_version - (buff["controller_fresh_version"].squeeze(-1) if "controller_fresh_version" in buff else buff["policy_version"]) < self.cfg.max_policy_lag)
+             # for last T+1 step, we want to use the validity of the previous step
+             buff["valids"][:, -1] = buff["valids"][:, -2]
+             # log.info(f'RNN_states Shape: {buff["rnn_states"].shape}')
+@@ -3247,233 +3249,15 @@
+         else:
+             return 0
+ 
+-    def _calculate_losses(
+-        self, mb: AttrDict, num_invalids: int, iterative_phase: str, *, record_goal_diagnostics: bool = True
+-    ) -> Tuple[ActionDistribution, Tensor, Tensor | float, Optional[Tensor], Tensor | float, Tensor, Dict]:
+-        additional_stats = AttrDict()
+-        with torch.no_grad(), self.timing.add_time("losses_init"):
+-            recurrence: int = self.cfg.recurrence
+-
+-            # PPO clipping
+-            clip_ratio_high = 1.0 + self.cfg.ppo_clip_ratio  # e.g. 1.1
+-            # this still works with e.g. clip_ratio = 2, while PPO's 1-r would give negative ratio
+-            clip_ratio_low = 1.0 / clip_ratio_high
+-            clip_value = self.cfg.ppo_clip_value
+-
+-            valids = mb.valids
+-            if int(valids.sum().item()) < 2:
+-                raise RuntimeError("Learner update invariant violated: fewer than two valid decisions reached PPO")
+-
+-        projection = self.actor_critic.encoder.DG_projection
+-        update_running_stats = iterative_phase in (SIMULTANEOUS, ENCODER) and not bool(
+-            getattr(self.cfg, "transfer_freeze_dg", False)
+-        )
+-        stats_context = getattr(projection, "running_stats_update", None)
+-        if stats_context is None:
+-            outputs = self._forward_pass(mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True])
+-        else:
+-            with stats_context(update_running_stats):
+-                outputs = self._forward_pass(
+-                    mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True]
+-                )
+-        additional_stats["dg_forward_count"] = outputs.head_outputs.new_tensor(1.0)
+-        additional_stats["dg_running_stats_update_count"] = outputs.head_outputs.new_tensor(
+-            float(bool(getattr(projection, "last_running_stats_updated", False)))
+-        )
+-
+-        # CA3 slot zero is exactly the current post-feedback DG activation.
+-        # Reconstructing it here keeps every existing DG loss on the true
+-        # landmark representation without another visual or DG forward.
++    def _calculate_fresh_encoder_loss(self, outputs, mb, valids, num_invalids, recurrence, additional_stats):
++        """Original real-rollout DG objective, independent of controller losses.
++
++        The caller owns the single fresh forward and optimizer schedule. Replay
++        must never call this method or use it to update normalization statistics.
++        """
+         n_dg = int(self.cfg.Hippo_n_feature)
+         expanded = int(self.cfg.Hippo_R) + int(self.cfg.Hippo_L) - 1
+         learner_dg = outputs.core_outputs[:, : n_dg * expanded].view(-1, n_dg, expanded)[:, :, 0]
+-        outputs.head_outputs = torch.cat((learner_dg, outputs.head_outputs[:, n_dg:]), dim=-1)
+-        feedback_stats = getattr(self.actor_critic.core, "last_context_feedback_stats", {})
+-        feedback_zero = learner_dg.detach().sum() * 0.0
+-        for name in (
+-            "created_fraction",
+-            "suppressed_fraction",
+-            "unchanged_fraction",
+-            "modulation_abs_mean",
+-            "modulation_saturation_fraction",
+-        ):
+-            additional_stats[f"dg_context_{name}"] = feedback_stats.get(name, feedback_zero).detach()
+-
+-        raw_logits = getattr(projection, "last_raw_logits", None)
+-        normalized_logits = getattr(projection, "last_pre_threshold_logits", None)
+-        valid_logits = valids.bool()
+-        if torch.is_tensor(raw_logits) and torch.is_tensor(normalized_logits) and valid_logits.any():
+-            raw_valid = raw_logits[valid_logits]
+-            normalized_valid = normalized_logits[valid_logits]
+-            raw_row_mean = raw_valid.mean(dim=0)
+-            raw_row_var = raw_valid.var(dim=0, unbiased=False)
+-            normalized_row_mean = normalized_valid.mean(dim=0)
+-            normalized_row_var = normalized_valid.var(dim=0, unbiased=False)
+-            additional_stats["dg_raw_logit_mean_abs"] = raw_row_mean.abs().mean().detach()
+-            additional_stats["dg_raw_logit_variance_mean"] = raw_row_var.mean().detach()
+-            additional_stats["dg_normalized_logit_mean_abs"] = normalized_row_mean.abs().mean().detach()
+-            additional_stats["dg_normalized_logit_variance_error"] = (normalized_row_var - 1.0).abs().mean().detach()
+-        else:
+-            zero = outputs.head_outputs.detach().sum() * 0.0
+-            additional_stats["dg_raw_logit_mean_abs"] = zero
+-            additional_stats["dg_raw_logit_variance_mean"] = zero
+-            additional_stats["dg_normalized_logit_mean_abs"] = zero
+-            additional_stats["dg_normalized_logit_variance_error"] = zero
+-
+-        additional_stats["Head Output"] = outputs.head_outputs[:, : getattr(self.cfg, "Hippo_n_feature", 64)]
+-
+-        with self.timing.add_time("post_forward"):
+-            action_distribution = self.actor_critic.action_distribution()
+-            log_prob_actions = action_distribution.log_prob(mb.actions)
+-            ratio = torch.exp(log_prob_actions - mb.log_prob_actions)  # pi / pi_old
+-
+-            # super large/small values can cause numerical problems and are probably noise anyway
+-            ratio = torch.clamp(ratio, 0.05, 20.0)
+-
+-            values = outputs.result["values"].squeeze()
+-
+-        # these computations are not the part of the computation graph
+-        with torch.no_grad(), self.timing.add_time("advantages_returns"):
+-            with self.timing.add_time("Distance Matrix"):
+-                distance_matrix, masked_distance_matrix, progression = self._record_distance_matrix(
+-                    outputs.core_outputs.detach(),
+-                    minibatch_size=outputs.minibatch_size,
+-                    masked_matrix=True,
+-                    return_progression=True,
+-                )
+-                additional_stats["Distance Matrix"] = distance_matrix
+-                additional_stats["Distance Matrix Masked"] = masked_distance_matrix
+-
+-            # using regular GAE
+-            adv = mb.advantages
+-            targets = mb.returns
+-
+-            adv_std, adv_mean = torch.std_mean(masked_select(adv, valids, num_invalids))
+-            if self.cfg.normalize_advantage:
+-                adv = (adv - adv_mean) / torch.clamp_min(adv_std, 1e-7)  # normalize advantage
+-            # log.info(f'Advantage Shape: {adv.shape}')
+-
+-        with self.timing.add_time("decoder_losses"):
+-            # noinspection PyTypeChecker
+-            old_values = mb["values"]
+-            value_loss = self._value_loss(values, old_values, targets, clip_value, valids, num_invalids)
+-            policy_loss = self._policy_loss(ratio, adv, clip_ratio_low, clip_ratio_high, valids, num_invalids)
+-
+-            exploration_loss = self.exploration_loss_func(action_distribution, valids, num_invalids)
+-            additional_stats["behavior_replay_mismatch"] = getattr(
+-                self, "_last_behavior_replay_mismatch", outputs.core_outputs.detach().sum() * 0.0
+-            )
+-            if bool(getattr(self.cfg, "hrl_behavior_mode_condition", False)):
+-                _, _, behavior_mode = self._behavior_condition_from_states(mb.rnn_states)
+-                free_mask = behavior_mode[:, MODE_EXPLORE].bool()
+-                for name, branch_valid in (
+-                    ("goal", valids & ~free_mask),
+-                    ("free", valids & free_mask),
+-                ):
+-                    branch_invalid = int((~branch_valid).sum().item())
+-                    if branch_valid.any():
+-                        additional_stats[f"{name}_policy_loss"] = self._policy_loss(
+-                            ratio, adv, clip_ratio_low, clip_ratio_high, branch_valid, branch_invalid
+-                        ).detach()
+-                        additional_stats[f"{name}_value_loss"] = self._value_loss(
+-                            values, old_values, targets, clip_value, branch_valid, branch_invalid
+-                        ).detach()
+-                        additional_stats[f"{name}_entropy_loss"] = self.exploration_loss_func(
+-                            action_distribution, branch_valid, branch_invalid
+-                        ).detach()
+-                    else:
+-                        zero = values.detach().sum() * 0.0
+-                        additional_stats[f"{name}_policy_loss"] = zero
+-                        additional_stats[f"{name}_value_loss"] = zero
+-                        additional_stats[f"{name}_entropy_loss"] = zero
+-            else:
+-                zero = values.detach().sum() * 0.0
+-                for name in ("goal", "free"):
+-                    additional_stats[f"{name}_policy_loss"] = zero
+-                    additional_stats[f"{name}_value_loss"] = zero
+-                    additional_stats[f"{name}_entropy_loss"] = zero
+-
+-            extra_decoder_loss = self._extra_decoder_loss(
+-                ratio,
+-                mb["encoder_dominant_activation_mask"],
+-                clip_ratio_low,
+-                clip_ratio_high,
+-                valids,
+-                num_invalids,
+-            )
+-            predictor_loss, predictor_hit_accuracy, predictor_time_mae, predictor_positive_fraction = (
+-                self._ca3_predictor_loss(outputs.core_outputs, outputs.head_outputs, mb, recurrence)
+-            )
+-            extra_decoder_loss = extra_decoder_loss + float(self.cfg.ca3_predictor_loss_coeff) * predictor_loss
+-            (
+-                empirical_her_loss,
+-                empirical_her_policy_loss,
+-                empirical_her_value_loss,
+-                empirical_her_ratio,
+-                empirical_her_clip_fraction,
+-                empirical_her_valid_fraction,
+-            ) = self._empirical_her_loss(
+-                outputs.core_outputs,
+-                outputs.head_outputs,
+-                mb,
+-                recurrence,
+-                clip_ratio_low,
+-                clip_ratio_high,
+-                clip_value,
+-            )
+-            extra_decoder_loss = extra_decoder_loss + empirical_her_loss
+-            additional_stats["ca3_predictor_loss"] = predictor_loss
+-            additional_stats["ca3_predictor_hit_accuracy"] = predictor_hit_accuracy
+-            additional_stats["ca3_predictor_time_mae"] = predictor_time_mae
+-            additional_stats["ca3_predictor_positive_fraction"] = predictor_positive_fraction
+-            additional_stats["empirical_her_loss"] = empirical_her_loss
+-            additional_stats["empirical_her_policy_loss"] = empirical_her_policy_loss
+-            additional_stats["empirical_her_value_loss"] = empirical_her_value_loss
+-            additional_stats["empirical_her_ratio"] = empirical_her_ratio
+-            additional_stats["empirical_her_clip_fraction"] = empirical_her_clip_fraction
+-            additional_stats["empirical_her_valid_fraction"] = empirical_her_valid_fraction
+-            # Evaluate the alternate target only when this minibatch will be summarized.
+-            if record_goal_diagnostics:
+-                with torch.no_grad():
+-                    if self._uses_policy_graph():
+-                        behavior_target = self._behavior_targets_from_states(mb.rnn_states)
+-                        alternate_target = behavior_target.roll(1, dims=0)
+-                        alternate = self.actor_critic.forward_tail(
+-                            self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
+-                            values_only=False,
+-                            sample_actions=False,
+-                        )
+-                        goal_valid = behavior_target.sum(dim=-1).gt(0)
+-                        action_delta = (
+-                            (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
+-                        )
+-                        action_probability_tv = categorical_action_total_variation(
+-                            outputs.result["action_logits"].detach(), alternate["action_logits"]
+-                        )
+-                        value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
+-                        additional_stats["goal_condition_action_sensitivity"] = (
+-                            action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_action_probability_tv"] = (
+-                            action_probability_tv[goal_valid].mean()
+-                            if goal_valid.any()
+-                            else action_probability_tv.sum() * 0.0
+-                        )
+-                        additional_stats["goal_condition_value_span"] = (
+-                            value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
+-                        )
+-                    else:
+-                        goal_zero = outputs.core_outputs.detach().sum() * 0.0
+-                        additional_stats["goal_condition_target_valid_fraction"] = goal_zero
+-                        additional_stats["goal_condition_action_sensitivity"] = goal_zero
+-                        additional_stats["goal_condition_action_probability_tv"] = goal_zero
+-                        additional_stats["goal_condition_value_span"] = goal_zero
+-
+-            kl_old, kl_loss = self.kl_loss_func(
+-                self.actor_critic.action_space, mb.action_logits, action_distribution, valids, num_invalids
+-            )
+-
+         with self.timing.add_time("encoder_losses"):
+             learner_active = outputs.head_outputs[:, : int(self.cfg.Hippo_n_feature)] > 0
+             scheduled_credit_mask = mb["encoder_credit_activation_mask"].bool()
+@@ -3522,6 +3306,7 @@
+             else:
+                 encoder_loss += l1_loss
+                 encoder_batch_unused_count = outputs.head_outputs.sum() * 0.0
++                encoder_penalty_loss = encoder_reward_loss = encoder_batch_loss = encoder_batch_unused_count
+             population_loss, usage_loss, density_loss, collision_loss = self._population_usage_loss(
+                 outputs.head_outputs
+             )
+@@ -3635,6 +3420,245 @@
+             additional_stats["dg_ca3_conflict_activity"] = dg_regularizer_stats[4]
+             additional_stats["dg_path_scatter_conflict_fraction"] = dg_regularizer_stats[5]
+ 
++        return encoder_loss
++
++    def _forward_fresh_dg(self, mb, recurrence, valids, iterative_phase, additional_stats):
++        """The parent's one fresh forward and its original DG diagnostics."""
++        projection = self.actor_critic.encoder.DG_projection
++        update_running_stats = iterative_phase in (SIMULTANEOUS, ENCODER) and not bool(
++            getattr(self.cfg, "transfer_freeze_dg", False)
++        )
++        stats_context = getattr(projection, "running_stats_update", None)
++        if stats_context is None:
++            outputs = self._forward_pass(mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True])
++        else:
++            with stats_context(update_running_stats):
++                outputs = self._forward_pass(
++                    mb=mb, recurrence=recurrence, valids=valids, return_outputs=[True, True, True]
++                )
++        additional_stats["dg_forward_count"] = outputs.head_outputs.new_tensor(1.0)
++        additional_stats["dg_running_stats_update_count"] = outputs.head_outputs.new_tensor(
++            float(bool(getattr(projection, "last_running_stats_updated", False)))
++        )
++
++        # CA3 slot zero is exactly the current post-feedback DG activation.
++        # Reconstructing it here keeps every existing DG loss on the true
++        # landmark representation without another visual or DG forward.
++        n_dg = int(self.cfg.Hippo_n_feature)
++        expanded = int(self.cfg.Hippo_R) + int(self.cfg.Hippo_L) - 1
++        learner_dg = outputs.core_outputs[:, : n_dg * expanded].view(-1, n_dg, expanded)[:, :, 0]
++        outputs.head_outputs = torch.cat((learner_dg, outputs.head_outputs[:, n_dg:]), dim=-1)
++        feedback_stats = getattr(self.actor_critic.core, "last_context_feedback_stats", {})
++        feedback_zero = learner_dg.detach().sum() * 0.0
++        for name in (
++            "created_fraction",
++            "suppressed_fraction",
++            "unchanged_fraction",
++            "modulation_abs_mean",
++            "modulation_saturation_fraction",
++        ):
++            additional_stats[f"dg_context_{name}"] = feedback_stats.get(name, feedback_zero).detach()
++
++        raw_logits = getattr(projection, "last_raw_logits", None)
++        normalized_logits = getattr(projection, "last_pre_threshold_logits", None)
++        valid_logits = valids.bool()
++        if torch.is_tensor(raw_logits) and torch.is_tensor(normalized_logits) and valid_logits.any():
++            raw_valid = raw_logits[valid_logits]
++            normalized_valid = normalized_logits[valid_logits]
++            raw_row_mean = raw_valid.mean(dim=0)
++            raw_row_var = raw_valid.var(dim=0, unbiased=False)
++            normalized_row_mean = normalized_valid.mean(dim=0)
++            normalized_row_var = normalized_valid.var(dim=0, unbiased=False)
++            additional_stats["dg_raw_logit_mean_abs"] = raw_row_mean.abs().mean().detach()
++            additional_stats["dg_raw_logit_variance_mean"] = raw_row_var.mean().detach()
++            additional_stats["dg_normalized_logit_mean_abs"] = normalized_row_mean.abs().mean().detach()
++            additional_stats["dg_normalized_logit_variance_error"] = (normalized_row_var - 1.0).abs().mean().detach()
++        else:
++            zero = outputs.head_outputs.detach().sum() * 0.0
++            additional_stats["dg_raw_logit_mean_abs"] = zero
++            additional_stats["dg_raw_logit_variance_mean"] = zero
++            additional_stats["dg_normalized_logit_mean_abs"] = zero
++            additional_stats["dg_normalized_logit_variance_error"] = zero
++
++        additional_stats["Head Output"] = outputs.head_outputs[:, : getattr(self.cfg, "Hippo_n_feature", 64)]
++
++        return outputs
++
++    def _calculate_losses(
++        self, mb: AttrDict, num_invalids: int, iterative_phase: str, *, record_goal_diagnostics: bool = True
++    ) -> Tuple[ActionDistribution, Tensor, Tensor | float, Optional[Tensor], Tensor | float, Tensor, Dict]:
++        additional_stats = AttrDict()
++        with torch.no_grad(), self.timing.add_time("losses_init"):
++            recurrence: int = self.cfg.recurrence
++
++            # PPO clipping
++            clip_ratio_high = 1.0 + self.cfg.ppo_clip_ratio  # e.g. 1.1
++            # this still works with e.g. clip_ratio = 2, while PPO's 1-r would give negative ratio
++            clip_ratio_low = 1.0 / clip_ratio_high
++            clip_value = self.cfg.ppo_clip_value
++
++            valids = mb.valids
++            if int(valids.sum().item()) < 2:
++                raise RuntimeError("Learner update invariant violated: fewer than two valid decisions reached PPO")
++
++        outputs = self._forward_fresh_dg(mb, recurrence, valids, iterative_phase, additional_stats)
++
++        with self.timing.add_time("post_forward"):
++            action_distribution = self.actor_critic.action_distribution()
++            log_prob_actions = action_distribution.log_prob(mb.actions)
++            ratio = torch.exp(log_prob_actions - mb.log_prob_actions)  # pi / pi_old
++
++            # super large/small values can cause numerical problems and are probably noise anyway
++            ratio = torch.clamp(ratio, 0.05, 20.0)
++
++            values = outputs.result["values"].squeeze()
++
++        # these computations are not the part of the computation graph
++        with torch.no_grad(), self.timing.add_time("advantages_returns"):
++            with self.timing.add_time("Distance Matrix"):
++                distance_matrix, masked_distance_matrix, progression = self._record_distance_matrix(
++                    outputs.core_outputs.detach(),
++                    minibatch_size=outputs.minibatch_size,
++                    masked_matrix=True,
++                    return_progression=True,
++                )
++                additional_stats["Distance Matrix"] = distance_matrix
++                additional_stats["Distance Matrix Masked"] = masked_distance_matrix
++
++            # using regular GAE
++            adv = mb.advantages
++            targets = mb.returns
++
++            adv_std, adv_mean = torch.std_mean(masked_select(adv, valids, num_invalids))
++            if self.cfg.normalize_advantage:
++                adv = (adv - adv_mean) / torch.clamp_min(adv_std, 1e-7)  # normalize advantage
++            # log.info(f'Advantage Shape: {adv.shape}')
++
++        with self.timing.add_time("decoder_losses"):
++            # noinspection PyTypeChecker
++            old_values = mb["values"]
++            value_loss = self._value_loss(values, old_values, targets, clip_value, valids, num_invalids)
++            policy_loss = self._policy_loss(ratio, adv, clip_ratio_low, clip_ratio_high, valids, num_invalids)
++
++            exploration_loss = self.exploration_loss_func(action_distribution, valids, num_invalids)
++            additional_stats["behavior_replay_mismatch"] = getattr(
++                self, "_last_behavior_replay_mismatch", outputs.core_outputs.detach().sum() * 0.0
++            )
++            if bool(getattr(self.cfg, "hrl_behavior_mode_condition", False)):
++                _, _, behavior_mode = self._behavior_condition_from_states(mb.rnn_states)
++                free_mask = behavior_mode[:, MODE_EXPLORE].bool()
++                for name, branch_valid in (
++                    ("goal", valids & ~free_mask),
++                    ("free", valids & free_mask),
++                ):
++                    branch_invalid = int((~branch_valid).sum().item())
++                    if branch_valid.any():
++                        additional_stats[f"{name}_policy_loss"] = self._policy_loss(
++                            ratio, adv, clip_ratio_low, clip_ratio_high, branch_valid, branch_invalid
++                        ).detach()
++                        additional_stats[f"{name}_value_loss"] = self._value_loss(
++                            values, old_values, targets, clip_value, branch_valid, branch_invalid
++                        ).detach()
++                        additional_stats[f"{name}_entropy_loss"] = self.exploration_loss_func(
++                            action_distribution, branch_valid, branch_invalid
++                        ).detach()
++                    else:
++                        zero = values.detach().sum() * 0.0
++                        additional_stats[f"{name}_policy_loss"] = zero
++                        additional_stats[f"{name}_value_loss"] = zero
++                        additional_stats[f"{name}_entropy_loss"] = zero
++            else:
++                zero = values.detach().sum() * 0.0
++                for name in ("goal", "free"):
++                    additional_stats[f"{name}_policy_loss"] = zero
++                    additional_stats[f"{name}_value_loss"] = zero
++                    additional_stats[f"{name}_entropy_loss"] = zero
++
++            extra_decoder_loss = self._extra_decoder_loss(
++                ratio,
++                mb["encoder_dominant_activation_mask"],
++                clip_ratio_low,
++                clip_ratio_high,
++                valids,
++                num_invalids,
++            )
++            predictor_loss, predictor_hit_accuracy, predictor_time_mae, predictor_positive_fraction = (
++                self._ca3_predictor_loss(outputs.core_outputs, outputs.head_outputs, mb, recurrence)
++            )
++            extra_decoder_loss = extra_decoder_loss + float(self.cfg.ca3_predictor_loss_coeff) * predictor_loss
++            (
++                empirical_her_loss,
++                empirical_her_policy_loss,
++                empirical_her_value_loss,
++                empirical_her_ratio,
++                empirical_her_clip_fraction,
++                empirical_her_valid_fraction,
++            ) = self._empirical_her_loss(
++                outputs.core_outputs,
++                outputs.head_outputs,
++                mb,
++                recurrence,
++                clip_ratio_low,
++                clip_ratio_high,
++                clip_value,
++            )
++            extra_decoder_loss = extra_decoder_loss + empirical_her_loss
++            additional_stats["ca3_predictor_loss"] = predictor_loss
++            additional_stats["ca3_predictor_hit_accuracy"] = predictor_hit_accuracy
++            additional_stats["ca3_predictor_time_mae"] = predictor_time_mae
++            additional_stats["ca3_predictor_positive_fraction"] = predictor_positive_fraction
++            additional_stats["empirical_her_loss"] = empirical_her_loss
++            additional_stats["empirical_her_policy_loss"] = empirical_her_policy_loss
++            additional_stats["empirical_her_value_loss"] = empirical_her_value_loss
++            additional_stats["empirical_her_ratio"] = empirical_her_ratio
++            additional_stats["empirical_her_clip_fraction"] = empirical_her_clip_fraction
++            additional_stats["empirical_her_valid_fraction"] = empirical_her_valid_fraction
++            # Evaluate the alternate target only when this minibatch will be summarized.
++            if record_goal_diagnostics:
++                with torch.no_grad():
++                    if self._uses_policy_graph():
++                        behavior_target = self._behavior_targets_from_states(mb.rnn_states)
++                        alternate_target = behavior_target.roll(1, dims=0)
++                        alternate = self.actor_critic.forward_tail(
++                            self._with_worker_target(outputs.core_outputs.detach(), alternate_target),
++                            values_only=False,
++                            sample_actions=False,
++                        )
++                        goal_valid = behavior_target.sum(dim=-1).gt(0)
++                        action_delta = (
++                            (outputs.result["action_logits"].detach() - alternate["action_logits"]).abs().mean(dim=-1)
++                        )
++                        action_probability_tv = categorical_action_total_variation(
++                            outputs.result["action_logits"].detach(), alternate["action_logits"]
++                        )
++                        value_delta = (outputs.result["values"].detach() - alternate["values"]).abs()
++                        additional_stats["goal_condition_target_valid_fraction"] = goal_valid.float().mean()
++                        additional_stats["goal_condition_action_sensitivity"] = (
++                            action_delta[goal_valid].mean() if goal_valid.any() else action_delta.sum() * 0.0
++                        )
++                        additional_stats["goal_condition_action_probability_tv"] = (
++                            action_probability_tv[goal_valid].mean()
++                            if goal_valid.any()
++                            else action_probability_tv.sum() * 0.0
++                        )
++                        additional_stats["goal_condition_value_span"] = (
++                            value_delta[goal_valid].mean() if goal_valid.any() else value_delta.sum() * 0.0
++                        )
++                    else:
++                        goal_zero = outputs.core_outputs.detach().sum() * 0.0
++                        additional_stats["goal_condition_target_valid_fraction"] = goal_zero
++                        additional_stats["goal_condition_action_sensitivity"] = goal_zero
++                        additional_stats["goal_condition_action_probability_tv"] = goal_zero
++                        additional_stats["goal_condition_value_span"] = goal_zero
++
++            kl_old, kl_loss = self.kl_loss_func(
++                self.actor_critic.action_space, mb.action_logits, action_distribution, valids, num_invalids
++            )
++
++        encoder_loss = self._calculate_fresh_encoder_loss(
++            outputs, mb, valids, num_invalids, recurrence, additional_stats
++        )
++
+         loss_summaries = dict(
+             ratio=ratio,
+             clip_ratio_low=clip_ratio_low,
+@@ -3945,7 +3969,7 @@
+             non_dominant_activations,
+         )
+ 
+-    def _calculate_internal_reward(self, buff, additional_step):
++    def _calculate_reward_components(self, buff, additional_step):
+         buff["rewards_external"] = buff["rewards"].clone()
+         (
+             internal_reward,
+@@ -4039,6 +4063,12 @@
+             if command_set_size is not None:
+                 buff["hrl_control_command_set_size"] = command_set_size
+         buff["rewards"] = decoder_reward
++        return baseline, encoder_reward, progression, candidate_activations, dominant_activations, non_dominant_activations
++
++    def _calculate_internal_reward(self, buff, additional_step):
++        baseline, encoder_reward, progression, candidate_activations, dominant_activations, non_dominant_activations = (
++            self._calculate_reward_components(buff, additional_step)
++        )
+         dominant_rollout = dominant_activations[:, 1:-1]
+         credit_mask = dominant_rollout
+         if bool(getattr(self.cfg, "encoder_reward_require_local_predecessor", False)):
+@@ -4075,7 +4105,7 @@
+             valids: Tensor = buff["policy_id"] == self.policy_id
+             # ignore experience that was older than the threshold even before training started
+             curr_policy_version: int = self.train_step
+-            buff["valids"][:, :-1] = valids & (curr_policy_version - buff["policy_version"] < self.cfg.max_policy_lag)
++            buff["valids"][:, :-1] = valids & (curr_policy_version - (buff["controller_fresh_version"].squeeze(-1) if "controller_fresh_version" in buff else buff["policy_version"]) < self.cfg.max_policy_lag)
+             eligible_before_generation = buff["valids"][:, :-1].clone()
+             generation_matches = self._current_generation_mask(buff["rnn_states"][:, :-1])
+             generation_valids, stale_rollouts = complete_rollout_generation_mask(
+@@ -4150,7 +4180,7 @@
+ 
+             self._calculate_internal_reward(buff, additional_step)
+ 
+-            if self.cfg.normalize_returns:
++            if self.cfg.normalize_returns and getattr(self.cfg, "controller_learning", "ppo") != "ddqn":
+                 # Since our value targets are normalized, the values will also have normalized statistics.
+                 # We need to denormalize them before using them for GAE caculation and value bootstrapping.
+                 # rl_games PPO uses a similar approach, see:
+@@ -4198,7 +4228,7 @@
+             buff["rewards_cpu"] = buff["rewards"].to("cpu", copy=True, dtype=torch.float, non_blocking=True)
+ 
+             # return normalization parameters are only used on the learner, no need to lock the mutex
+-            if self.cfg.normalize_returns:
++            if self.cfg.normalize_returns and getattr(self.cfg, "controller_learning", "ppo") != "ddqn":
+                 self.actor_critic.returns_normalizer(buff["returns"])  # in-place
+ 
+             num_invalids = dataset_size - buff["valids"].sum().item()
+@@ -5009,6 +5039,13 @@
+ def make_hipposlam_learner(
+     cfg: Config, env_info: EnvInfo, policy_versions_tensor: Tensor, policy_id: PolicyID, param_server: ParameterServer
+ ) -> BaseLearner:
++    if getattr(cfg, "controller_learning", "ppo") != "ppo":
++        raise RuntimeError(
++            "Full-system off-policy learner integration is not qualified yet: "
++            "adaptive replay and actor-memory publication gates must pass before training"
++        )
++    if bool(getattr(cfg, "controller_her", False)):
++        raise ValueError("controller_her requires the separate off-policy auxiliary learner")
+     if cfg.distance_learning:
+         if cfg.double_value:
+             return DoubleDistanceLearnerReward(cfg, env_info, policy_versions_tensor, policy_id, param_server)
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -25,6 +25,19 @@
+ 
+ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+     p = parser
++    p.add_argument("--controller_learning", choices=["ppo", "shadow", "ddqn"], default="ppo")
++    p.add_argument("--controller_her", type=str2bool, default=False)
++    p.add_argument("--controller_epsilon", type=float, default=0.1)
++    p.add_argument("--controller_target_updates", type=int, default=100)
++    p.add_argument("--controller_replay_capacity", type=int, default=200000)
++    p.add_argument("--controller_td_positions", type=int, default=256)
++    p.add_argument("--controller_decisions_per_update", type=int, default=64)
++    p.add_argument("--controller_learning_starts", type=int, default=16384)
++    p.add_argument("--controller_her_positions", type=int, default=256)
++    p.add_argument("--controller_her_loss_coeff", type=float, default=1.0)
++    p.add_argument("--controller_epsilon_decay_decisions", type=int, default=250000)
++    p.add_argument("--controller_preflight", type=str2bool, default=False)
++    p.add_argument("--controller_cache_visual", type=str2bool, default=True)
+     p.add_argument("--decoder_reward_gate", choices=["none", "ca3_absent"], default="none")
+     p.add_argument("--dg_ca3_reentry_inhibition", choices=["none", "trace_subtractive", "hard"], default="none")
+     p.add_argument("--intrinsic_goal_mode", choices=["none", "ca3_absent_target"], default="none")
+--- a/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
++++ b/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
+@@ -192,6 +192,9 @@
+         exploration_window_steps=getattr(cfg, "exploration_window_steps", 0),
+         action_path_integration=getattr(cfg, "hrl_action_path_integration", False),
+     )
++    from .controller_transport import enabled, ControllerIdentity
++    if enabled(cfg):
++        env = ControllerIdentity(env, int(env_config.get("env_id", 0)) if env_config else 0)
+     return env
+ 
+ 
+--- a/sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py
++++ b/sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py
+@@ -237,7 +237,8 @@
+         if not terminated:
+             obs_dict = self.format_obs_dict(self.dmlab.observations())
+             self.last_observation = obs_dict
+-        info = {"num_frames": self.action_repeat}
++        info = {"num_frames": self.action_repeat,
++                "intrmotiv_final_observation_valid": not terminated}
+         return self.last_observation, reward, terminated, truncated, info
+ 
+     def render(self) -> Optional[np.ndarray]:
+@@ -592,7 +593,8 @@
+         if terminated and self.with_pos_telemetry:
+             terminal_pose_fresh = self._refresh_terminal_debug_pose()
+ 
+-        info = {"num_frames": self.action_repeat}
++        info = {"num_frames": self.action_repeat,
++                "intrmotiv_final_observation_valid": not terminated}
+         if self.with_pos_telemetry and self.last_debug_position is not None and self.last_debug_rotation is not None:
+             # DMLab rotations are (pitch, yaw, roll) in degrees. Keep only the
+             # horizontal pose needed by telemetry. This private value is
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -336,6 +336,24 @@
+         cfg.rnn_persistent_state_size = 0
+     if intrinsic_goal:
+         cfg.rnn_persistent_state_size = 1
++    if getattr(cfg, "controller_learning", "ppo") != "ppo":
++        from .controller_transport import validate_controller_config
++        validate_controller_config(cfg)
++        n = int(cfg.Hippo_n_feature)
++        context_size = hrl_option_state_size(n) + topological_state_size(n) + 1
++        cfg.extra_policy_output_shapes += (
++            ("controller_fresh_version", [1]), ("controller_context", [context_size]), ("controller_condition", [n]),
++            ("controller_input_state", [int(cfg.rnn_size)]),
++            ("controller_memory_stats", [3]),
++        )
++        if cfg.controller_cache_visual:
++            if cfg.encoder_conv_architecture != "layer2_resnet18":
++                raise ValueError("Exact visual cache dimensions require layer2_resnet18")
++            # Layer2 has 128 channels; the original stem/layer2/pool use
++            # four padded stride-two reductions. Actual encoder width is
++            # also checked when using the cached features.
++            visual_size = 128 * ((int(cfg.res_h) + 15) // 16) * ((int(cfg.res_w) + 15) // 16)
++            cfg.extra_policy_output_shapes += (("controller_visual", [visual_size]),)
+ 
+ 
+ def parse_dmlab_args(argv=None, evaluation=False):
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_actor_memory.py
+@@ -0,0 +1,56 @@
++from copy import deepcopy
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.tests.test_controller_history import SmallHistoryModel
++from sf_working_directories.IntrMotiv.dmlab.controller_actor_memory import ActorMemory
++from sf_working_directories.IntrMotiv.dmlab.controller_history import ControllerHistory,reconstruct_controller_history
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_publication_rebuilds_traces_preserves_manager_and_does_not_touch_graph(write):
++    torch.manual_seed(62)
++    model=SmallHistoryModel(write).eval();cache=ActorMemory()
++    state=torch.zeros(1,model.core.total_state_size)
++    observations=[];goals=[]
++    for t in range(8):
++        obs={'obs':torch.randn(1,4),'bypass':torch.randn(1,2),
++             'controller_identity':torch.tensor([[7,0,t,t]])}
++        state=cache.before_forward(model,obs,state,0)
++        goal=torch.nn.functional.one_hot(torch.tensor([t%3]),3).float()
++        head=model.forward_head(obs)
++        if write:head=torch.cat((head,goal),-1)
++        with torch.no_grad():_,state=model.forward_core(head,state)
++        cache.after_forward(model,goal)
++        observations.append(obs);goals.append(goal[0])
++    old_state=state.clone()
++    with torch.no_grad():
++        model.dg.linear.weight.mul_(1.7)
++        if write:model.core.dg_goal_modulation.add_(.3)
++    before={k:v.clone() for k,v in model.state_dict().items()}
++    next_obs={'obs':torch.randn(1,4),'bypass':torch.randn(1,2),
++        'controller_identity':torch.tensor([[7,0,8,8]])}
++    rng=torch.get_rng_state().clone()
++    rebuilt=cache.before_forward(model,next_obs,state,1)
++    assert torch.equal(rng,torch.get_rng_state())
++    assert cache.rebuilds==1 and cache.failures==0
++    h=ControllerHistory({k:torch.cat([o[k] for o in observations]) for k in ('obs','bypass')},
++        torch.arange(8),torch.zeros_like(state),torch.stack(goals),True,0)
++    with torch.no_grad():expected=reconstruct_controller_history(model,h,memory_only=True)['reconstructed_state']
++    if write:
++        old_c,_=model.core.split_worker_state(old_state)
++        new_c,new_w=model.core.split_worker_state(rebuilt)
++        exp_c,exp_w=model.core.split_worker_state(expected)
++        torch.testing.assert_close(new_w,exp_w)
++    else:old_c,new_c,exp_c=old_state,rebuilt,expected
++    torch.testing.assert_close(new_c[:,:model.core.base_state_size],exp_c[:,:model.core.base_state_size])
++    torch.testing.assert_close(new_c[:,model.core.base_state_size:],old_c[:,model.core.base_state_size:],rtol=0,atol=0)
++    for k,v in model.state_dict().items():torch.testing.assert_close(v,before[k],rtol=0,atol=0)
++
++
++def test_missing_actor_history_fails_instead_of_zeroing_state():
++    model=SmallHistoryModel().eval();cache=ActorMemory()
++    state=torch.ones(1,model.core.total_state_size)
++    obs={'obs':torch.ones(1,4),'bypass':torch.zeros(1,2),'controller_identity':torch.tensor([[0,0,4,4]])}
++    with pytest.raises(RuntimeError,match='missing'):
++        cache.before_forward(model,obs,state,1)
++    assert torch.all(state==1) and cache.failures==1
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_contract.py
+@@ -0,0 +1,21 @@
++import pytest
++from sf_working_directories.IntrMotiv.dmlab.controller_contract import preservation_delta
++
++
++def test_controller_delta_cannot_hide_frozen_dg_or_reduced_manager():
++    parent={'transfer_freeze_dg':False,'Hippo_n_feature':64,'hrl_manager_mode':'frontier_waypoint'}
++    candidate=dict(parent,controller_learning='ddqn',controller_her=True)
++    assert len(preservation_delta(parent,candidate))==2
++    for field,value in [('transfer_freeze_dg',True),('Hippo_n_feature',3),('hrl_manager_mode','frontier_direct'),('controller_typo',True)]:
++        with pytest.raises(ValueError,match=field):
++            preservation_delta(parent,dict(candidate,**{field:value}))
++
++
++def test_seed_change_requires_an_explicit_factor_and_no_fields_are_dropped():
++    parent={'seed':99,'gamma':.99}
++    with pytest.raises(ValueError,match='seed'):
++        preservation_delta(parent,dict(parent,seed=8))
++    delta=preservation_delta(parent,dict(parent,seed=8),approved_factors={'seed':'New learner seed; source seed remains 99 in parent manifest'})
++    assert delta[0]['classification']=='explicit_experimental_factor'
++    with pytest.raises(ValueError,match='gamma'):
++        preservation_delta(parent,{'seed':99})
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_history.py
+@@ -0,0 +1,82 @@
++from dataclasses import replace
++from types import SimpleNamespace
++import pytest
++import torch
++from torch import nn
++from sf_working_directories.IntrMotiv.dmlab.controller_history import ControllerHistory, reconstruct_controller_history
++from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder, controller_core_view
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
++
++
++class SmallHistoryModel(nn.Module):
++    """Small observation adapter, original DG/core/FiLM implementations."""
++    def __init__(self, write=True):
++        super().__init__()
++        cfg=SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=3,hrl_controllable_graph=True,
++            hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++            dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=-2.)
++        self.dg=DGProjection_batchnorm_relu(4,3,intercept=-2.)
++        self.core=GoalConditionedDGCore(cfg,8) if write else SimpleSequenceWithBypassCore(cfg,5)
++        self.decoder=TargetFiLMDecoder(self.core,8)
++        self.write=write
++    def device_for_input_tensor(self,key): return torch.device("cpu")
++    def type_for_input_tensor(self,key): return torch.float32
++    def normalize_obs(self,obs): return obs
++    def forward_head(self,obs):
++        pre=self.dg.preactivation(obs['obs'])
++        head=torch.cat((torch.relu(pre+2),obs['bypass']),-1)
++        return torch.cat((head,pre.detach()),-1) if self.write else head
++    def forward_core(self,head,state):return self.core(head,state)
++    def controller_hidden(self,out):
++        view=self.core.worker_view(out) if self.write else controller_core_view(out,self.core.core_output_size,'stop')
++        return self.decoder(view)
++
++
++def history(model,steps=7,burn=4,start=False):
++    return ControllerHistory({'obs':torch.randn(steps,4),'bypass':torch.randn(steps,2)},torch.arange(10,10+steps),
++        torch.zeros(1,model.core.total_state_size),torch.tensor([[0.,1.,0.]]).repeat(steps,1),start,burn)
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_reconstructed_canonical_trace_matches_physical_forward_after_washout(write):
++    model=SmallHistoryModel(write).eval(); h=history(model)
++    state=h.initial_context.clone(); outputs=[]
++    # Arbitrary stale memory is deliberately excluded by finite washout.
++    state[:,:model.core.core_output_size]=17.
++    with torch.no_grad():
++        heads=model.forward_head(h.observations)
++        for t in range(7):
++            head=heads[t:t+1]
++            if write:head=torch.cat((head,h.conditions[t:t+1]),-1)
++            out,state=model.forward_core(head,state);outputs.append(out)
++        result=reconstruct_controller_history(model,h)
++    expected=torch.cat(outputs)[4:,:model.core.core_output_size]
++    torch.testing.assert_close(result['core_outputs'][:,:model.core.core_output_size],expected)
++
++
++def test_virtual_goal_rebuild_changes_worker_not_canonical_and_retains_history_gradient():
++    model=SmallHistoryModel().eval()
++    with torch.no_grad():model.core.dg_goal_modulation[1,3:]=1.
++    h=history(model,steps=4,burn=0,start=True)
++    a=reconstruct_controller_history(model,h)
++    b=reconstruct_controller_history(model,replace(h,conditions=torch.tensor([[1.,0.,0.]]).repeat(4,1)))
++    width=model.core.core_output_size
++    torch.testing.assert_close(a['core_outputs'][:,:width],b['core_outputs'][:,:width])
++    assert not torch.equal(a['core_outputs'][:,model.core.total_output_size:],b['core_outputs'][:,model.core.total_output_size:])
++    # Oldest retained worker slot at the final decision depends on earlier writes.
++    oldest=a['core_outputs'][-1,model.core.total_output_size:].reshape(3,4)[:,-1].sum()
++    oldest.backward()
++    assert model.core.dg_goal_modulation.grad.abs().sum()>0
++    assert model.dg.linear.weight.grad is None or not model.dg.linear.weight.grad.any()
++
++
++def test_history_rejects_gaps_and_incomplete_nonreset_washout():
++    model=SmallHistoryModel().eval();h=history(model)
++    with pytest.raises(ValueError,match='gap'):
++        reconstruct_controller_history(model,replace(h,decision_ids=torch.tensor([1,2,3,8,9,10,11])))
++    with pytest.raises(ValueError,match='washout'):
++        reconstruct_controller_history(model,replace(h,burn_in=3))
++    # At a real episode start, no historical trace is missing.
++    assert len(reconstruct_controller_history(model,replace(h,episode_start=True,burn_in=0))['hidden'])==7
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_q.py
+@@ -0,0 +1,102 @@
++"""Controller return and gradient contracts, using the original worker modules."""
++from types import SimpleNamespace
++import pytest
++import torch
++from sf_working_directories.IntrMotiv.dmlab.controller_q import (
++    ControllerQHeads, epsilon_distribution, continuing_double_q_target, bounded_auxiliary_target,
++)
++from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder, controller_core_view
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++
++
++def test_continuing_return_uses_online_selection_target_evaluation_and_physical_boundary():
++    reward = torch.tensor([2.5, -3., 0.7], requires_grad=True)
++    online = torch.tensor([[1., 5.], [9., 1.], [2., 3.]], requires_grad=True)
++    target = torch.tensor([[100., 7.], [8., 100.], [99., 4.]], requires_grad=True)
++    # The second row is a physical terminal. Rows one/three may cross manager switches.
++    actual = continuing_double_q_target(reward, torch.tensor([False, True, False]), online, target, .9)
++    torch.testing.assert_close(actual, torch.tensor([8.8, -3., 4.3]))
++    assert not actual.requires_grad
++
++
++def test_auxiliary_deadline_does_not_end_main_return():
++    reward = torch.tensor([2.5, 1., -2.])
++    online = torch.ones(3, 2)
++    target = torch.full((3, 2), 5.)
++    main = continuing_double_q_target(reward, torch.zeros(3, dtype=torch.bool), online, target, .9)
++    aux = bounded_auxiliary_target(reward, torch.tensor([True, False, False]), torch.tensor([8, 1, 4]), online, target, .9)
++    torch.testing.assert_close(main, reward + 4.5)
++    torch.testing.assert_close(aux, torch.tensor([2.5, 1., 2.5]))
++
++
++@pytest.mark.parametrize('epsilon', [0., .1, 1.])
++def test_epsilon_greedy_preserves_action_mask(epsilon):
++    q = torch.tensor([[100., -4., -2.], [3., 99., 0.]])
++    mask = torch.tensor([[False, True, True], [True, False, False]])
++    p = epsilon_distribution(q, epsilon, mask)
++    torch.testing.assert_close(p.sum(-1), torch.ones(2))
++    assert not p[~mask].any()
++    assert p[0, 2] >= p[0, 1]
++    with pytest.raises(ValueError, match='No valid action'):
++        epsilon_distribution(q, epsilon, torch.zeros_like(mask))
++
++
++@pytest.mark.parametrize('routing', ['stop', 'joint'])
++def test_auxiliary_trains_shared_worker_without_main_head_gradient(routing):
++    torch.manual_seed(41)
++    layout = SimpleNamespace(Hippo_n_feature=3, target_condition_start=12, get_out_size=lambda:15)
++    decoder = TargetFiLMDecoder(layout, hidden_size=8)
++    heads = ControllerQHeads(8, 4, auxiliary=True)
++    features = torch.randn(5, 15, requires_grad=True)
++    hidden = decoder(controller_core_view(features, 12, routing))
++    loss = heads.hindsight(hidden, torch.tensor([1, 2, 3, 4, 5]), 5).square().mean()
++    loss.backward()
++    assert all(p.grad is None for p in heads.main.parameters())
++    assert sum(p.grad.abs().sum() for p in heads.auxiliary.parameters()) > 0
++    assert sum(p.grad.abs().sum() for p in decoder.parameters()) > 0
++    assert bool(features.grad[:, :12].abs().sum() > 0) == (routing == 'joint')
++
++
++def test_goal_write_her_rebuilds_worker_history_with_each_network_parameters():
++    cfg = SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=3,hrl_controllable_graph=True,
++        hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++        dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=1.)
++    online = GoalConditionedDGCore(cfg, 8)
++    target = GoalConditionedDGCore(cfg, 8)
++    with torch.no_grad():
++        online.dg_goal_modulation[1, 3:] = 1.
++        target.dg_goal_modulation[1, 3:] = 2.
++    state_o = torch.zeros(1, online.total_state_size)
++    state_t = torch.zeros_like(state_o)
++    pre = torch.tensor([[2., 1.5, 2.5]], requires_grad=True)
++    head = torch.cat((torch.relu(pre - 1.), torch.zeros(1, 2), pre), -1)
++    virtual_goal = torch.tensor([[0., 1., 0.]])
++    canonical = []
++    for _ in range(4):
++        out_o, state_o = online(torch.cat((head, virtual_goal), -1), state_o)
++        with torch.no_grad():
++            out_t, state_t = target(torch.cat((head, virtual_goal), -1), state_t)
++        torch.testing.assert_close(out_o[:, :online.core_output_size], out_t[:, :target.core_output_size])
++    assert not torch.equal(online.worker_view(out_o), target.worker_view(out_t))
++    online.worker_view(out_o).sum().backward()
++    assert online.dg_goal_modulation.grad.abs().sum() > 0
++    assert pre.grad is None or not pre.grad.any()
++    assert target.dg_goal_modulation.grad is None
++
++
++def test_native_sf_q_distribution_has_finite_entropy_and_masks_value():
++    import gymnasium as gym
++    from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import IntrMotivActorCriticSharedWeights
++    from sample_factory.utils.attr_dict import AttrDict
++    actor=IntrMotivActorCriticSharedWeights.__new__(IntrMotivActorCriticSharedWeights)
++    torch.nn.Module.__init__(actor)
++    actor.cfg=AttrDict(controller_epsilon=0.)
++    actor.action_space=gym.spaces.Discrete(3)
++    actor.decoder=torch.nn.Identity()
++    actor.controller_q=torch.nn.Identity()
++    q=torch.tensor([[100.,-4.,-2.]])
++    out=actor._forward_q_tail(q,False,True,torch.tensor([[False,True,True]]))
++    assert out['values'].item()==-2.
++    assert out['actions'].item()==2
++    assert torch.isfinite(actor.action_distribution().entropy()).all()
++    assert torch.equal(actor.action_distribution().probs,torch.tensor([[0.,0.,1.]]))
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_schedule.py
+@@ -0,0 +1,33 @@
++import numpy as np
++from sf_working_directories.IntrMotiv.dmlab.controller_schedule import UpdateClock,replay_rngs
++from sf_working_directories.IntrMotiv.dmlab.controller_q import exploration_epsilon
++from types import SimpleNamespace
++
++
++def test_main_budget_identical_with_auxiliary_and_checkpoint_resume():
++    clocks=[UpdateClock(),UpdateClock()]
++    for accepted in (16000,16384,20480,24576):
++        for i,c in enumerate(clocks):
++            for _ in range(c.due(accepted)):c.finish(256,256*i)
++    assert clocks[0].completed==clocks[1].completed==128
++    assert clocks[0].main_positions==clocks[1].main_positions==32768
++    assert clocks[1].auxiliary_positions==32768
++    assert clocks[0].target_at==clocks[1].target_at==100
++    resumed=UpdateClock();resumed.load_state_dict(clocks[1].state_dict())
++    assert resumed.due(28672)==64
++    assert resumed.state_dict()==clocks[1].state_dict()
++
++
++def test_auxiliary_rng_does_not_perturb_main_selection():
++    a,ha=replay_rngs(99);b,hb=replay_rngs(99)
++    for _ in range(5):
++        ha.integers(1000,size=256)
++        hb.integers(1000,size=0)
++        np.testing.assert_array_equal(a.integers(1000,size=256),b.integers(1000,size=256))
++
++
++def test_warmup_and_annealing():
++    cfg=SimpleNamespace(controller_learning_starts=16384,controller_epsilon_decay_decisions=250000,controller_epsilon=.1)
++    assert exploration_epsilon(0,cfg)==exploration_epsilon(16384,cfg)==1
++    assert abs(exploration_epsilon(141384,cfg)-.55)<1e-8
++    assert abs(exploration_epsilon(999999,cfg)-.1)<1e-8
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_snapshot.py
+@@ -0,0 +1,75 @@
++import torch
++from torch import nn
++import pytest
++from sf_working_directories.IntrMotiv.dmlab.controller_snapshot import ControllerSnapshot, differentiable_replay
++from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
++
++
++class SmallModel(nn.Module):
++    def __init__(self):
++        super().__init__()
++        self.dg = DGProjection_batchnorm_relu(4, 3, intercept=-2., batchnorm_semantics='legacy_batch')
++        self.head = nn.Linear(3, 2)
++        self.register_buffer('graph_evidence', torch.tensor([4.]))
++
++    def forward(self, x):
++        return self.head(self.dg(x))
++
++
++def test_replay_preserves_live_bn_graph_cache_and_routes_gradients():
++    model = SmallModel().train()
++    model(torch.randn(8, 4))
++    old_cache = model.dg.last_pre_threshold_logits
++    before = {k:v.clone() for k,v in model.state_dict().items()}
++    rng = torch.get_rng_state().clone()
++    snap = ControllerSnapshot(SmallModel, model, 0)
++    assert torch.equal(rng, torch.get_rng_state())
++    x = torch.randn(5, 4)
++    result = differentiable_replay(snap, model, lambda m,x:m(x), x, source_version=0)
++    result.square().mean().backward()
++    assert model.dg.linear.weight.grad.abs().sum() > 0
++    assert model.dg.last_pre_threshold_logits is old_cache
++    assert model.training and model.dg.training
++    for k,v in model.state_dict().items():
++        torch.testing.assert_close(v, before[k], rtol=0, atol=0)
++    assert all(p.grad is None for p in snap.model.parameters())
++
++
++def test_replay_cannot_accumulate_graph_evidence_even_if_operation_mutates_buffer():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    def mistaken_operation(m, x):
++        m.graph_evidence.add_(1.)
++        return m(x)
++    differentiable_replay(snap, model, mistaken_operation, torch.ones(4, 4), source_version=1)
++    assert model.graph_evidence.item() == 4.
++    assert snap.model.graph_evidence.item() == 4.
++
++
++def test_target_owns_representation_and_normalization_until_explicit_refresh():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    x = torch.ones(4, 4)
++    before = snap.model(x).clone()
++    with torch.no_grad():
++        model.dg.linear.weight.add_(2.)
++        model.dg.batchnorm1d.running_mean.add_(3.)
++    torch.testing.assert_close(snap.model(x), before, rtol=0, atol=0)
++    snap.refresh(model, 2)
++    assert not torch.equal(snap.model(x), before)
++    with pytest.raises(ValueError, match='advance'):
++        snap.refresh(model, 2)
++
++
++def test_online_snapshot_version_mismatch_is_rejected():
++    model = SmallModel()
++    snap = ControllerSnapshot(SmallModel, model, 1)
++    with pytest.raises(ValueError, match='same version'):
++        differentiable_replay(snap, model, lambda m,x:m(x), torch.ones(4,4), source_version=2)
++
++
++def test_replay_does_not_advance_parent_random_stream():
++    model=SmallModel();snap=ControllerSnapshot(SmallModel,model,0)
++    before=torch.get_rng_state().clone()
++    differentiable_replay(snap,model,lambda m,x:m(x)+torch.rand(1),torch.ones(4,4),source_version=0)
++    assert torch.equal(before,torch.get_rng_state())
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_transition.py
+@@ -0,0 +1,87 @@
++from types import SimpleNamespace
++from dataclasses import replace
++import numpy as np
++import pytest
++import torch
++from torch import nn
++from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
++from sf_working_directories.IntrMotiv.dmlab.custom_actor_critic import TargetFiLMDecoder,controller_core_view
++from sf_working_directories.IntrMotiv.dmlab.controller_q import ControllerQHeads,continuing_double_q_target
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalDecision
++from sf_working_directories.IntrMotiv.dmlab.controller_transition import TransitionInput,transition_values,ReplayRejected
++from sf_working_directories.IntrMotiv.dmlab.hrl_controllable_graph import HRLStateLayout
++
++
++class RewardModel(nn.Module):
++    def __init__(self,write):
++        super().__init__()
++        self.cfg=SimpleNamespace(Hippo_R=2,Hippo_L=3,Hippo_n_feature=3,hrl_controllable_graph=True,
++            hrl_graph_memory='policy_buffer',hrl_target_timing='immediate',hrl_manager_mode='frontier_direct',
++            dg_context_feedback='none',dg_orthogonal_recruitment=False,DG_BN_intercept=0.,
++            reward_scale=.1,encoder_reward_method='encourage',hrl_worker_reward_mode='hit_distance',
++            hrl_target_hit_reward=1.,hrl_distance_bonus_coeff=.1,controller_learning='ddqn')
++        self.core=GoalConditionedDGCore(self.cfg,19) if write else SimpleSequenceWithBypassCore(self.cfg,16)
++        self.scale=nn.Parameter(torch.ones(3));self.decoder=TargetFiLMDecoder(self.core,8)
++        self.controller_q=ControllerQHeads(8,2,True);self.write=write
++    def device_for_input_tensor(self,key):return torch.device('cpu')
++    def type_for_input_tensor(self,key):return torch.float32
++    def normalize_obs(self,obs):return obs
++    def forward_head(self,obs):
++        pre=obs['obs']*self.scale
++        head=torch.cat((pre.relu(),torch.zeros(len(pre),13)),-1)
++        return torch.cat((head,pre.detach()),-1) if self.write else head
++    def forward_core(self,head,state):return self.core(head,state)
++    def controller_hidden(self,out):
++        view=self.core.worker_view(out) if self.write else controller_core_view(out,self.core.core_output_size,'stop')
++        return self.decoder(view)
++
++
++def physical_rows(model):
++    state=torch.zeros(1,model.core.total_state_size);rows=[];states=[state]
++    with torch.no_grad():
++        for t,obs in enumerate(torch.eye(3)):
++            out,state=model.forward_core(model.forward_head({'obs':obs[None]}),state)
++            canonical=model.core.split_worker_state(state)[0] if model.write else state
++            rows.append(PhysicalDecision((0,0),0,t,t,{'obs':obs.numpy()},0,
++                out[0,model.core.target_condition_start:model.core.total_output_size].numpy(),
++                canonical[0,model.core.base_state_size:].numpy(),0,0,False,False,4))
++            states.append(state)
++    return rows,states
++
++
++@pytest.mark.parametrize('write',[False,True])
++def test_original_reward_parity_and_virtual_goal_has_positive_learning_signal(write):
++    from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++    model=RewardModel(write).eval();rows,states=physical_rows(model)
++    example=TransitionInput(tuple(rows[:2]),0)
++    main=transition_values(model,example)
++    adapter=object.__new__(DistanceLearnerReward);adapter.cfg=model.cfg;adapter.actor_critic=model
++    buff={'rnn_states':torch.stack([s[0] for s in states[:2]])[None],
++        'rewards':torch.zeros(1,1),'dones':torch.zeros(1,1,dtype=torch.bool)}
++    adapter._calculate_reward_components(buff,{'new_rnn_states':states[2]})
++    torch.testing.assert_close(main['reward'],buff['rewards'].reshape(()))
++    before={k:v.clone() for k,v in model.state_dict().items()}
++    virtual=transition_values(model,replace(example,virtual_goal=1,remaining=3))
++    assert virtual['reward']>0 and virtual['done']
++    virtual['q'][0,0].backward()
++    assert model.controller_q.auxiliary.weight.grad.abs().sum()>0
++    assert model.controller_q.main.weight.grad is None
++    for k,v in model.state_dict().items():torch.testing.assert_close(v,before[k])
++
++
++def test_changed_recognition_rejected_and_physical_truncation_stops_main():
++    model=RewardModel(True).eval();rows,_=physical_rows(model)
++    example=TransitionInput(tuple(rows[:2]),0)
++    ended=replace(rows[0],truncated=True)
++    result=transition_values(model,replace(example,rows=(ended,rows[1])))
++    assert result['done']
++    with torch.no_grad():model.scale[0]=-1
++    with pytest.raises(ReplayRejected,match='recognition_changed'):transition_values(model,example)
++
++
++def test_main_target_continues_after_an_actual_goal_switch():
++    # Done is physical, regardless of target-hit/manager goal-switch events.
++    reward=torch.tensor([1.]);online=torch.tensor([[2.,5.]]);target=torch.tensor([[9.,7.]])
++    result=continuing_double_q_target(reward,torch.tensor([False]),online,target,.9)
++    torch.testing.assert_close(result,torch.tensor([7.3]))
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_transport.py
+@@ -0,0 +1,63 @@
++import numpy as np
++import gymnasium as gym
++from dataclasses import replace
++from sample_factory.algo.utils.make_env import NonBatchedMultiAgentWrapper
++from sf_working_directories.IntrMotiv.dmlab.controller_transport import ControllerIdentity,record_terminal
++from sf_working_directories.IntrMotiv.dmlab.controller_replay import PhysicalDecision,PhysicalReplay
++
++
++class TerminalEnv(gym.Env):
++    observation_space=gym.spaces.Dict({'obs':gym.spaces.Box(0,255,(1,),np.uint8)})
++    action_space=gym.spaces.Discrete(2)
++    def __init__(self,valid=True):self.valid=valid;self.seeds=[]
++    def reset(self,**kwargs):self.seeds.append(kwargs);return {'obs':np.array([1],np.uint8)},{}
++    def step(self,action):return {'obs':np.array([99],np.uint8)},3.,True,False,{'intrmotiv_final_observation_valid':self.valid}
++
++
++def test_terminal_image_survives_native_autoreset_and_seeding_is_unchanged():
++    base=TerminalEnv();env=NonBatchedMultiAgentWrapper(ControllerIdentity(base,7))
++    env.reset(seed=123)
++    obs,_,_,_,infos=env.step([0]);info=infos[0]
++    assert obs[0]['obs'].item()==1
++    assert info['controller_final_observation']['obs'].item()==99
++    assert base.seeds==[{'seed':123},{}]
++    buffer={'controller_terminated':np.zeros(1,bool),'controller_final_valid':np.ones(1,bool),
++        'controller_final_obs':{'obs':np.zeros((1,1),np.uint8),'controller_identity':np.zeros((1,4),np.int64)}}
++    record_terminal(buffer,0,True,info)
++    assert buffer['controller_final_obs']['obs'][0,0]==99
++    record_terminal(buffer,0,False,{})
++    assert not buffer['controller_final_valid'][0]
++
++
++def test_stale_terminal_image_is_never_certified():
++    env=NonBatchedMultiAgentWrapper(ControllerIdentity(TerminalEnv(False),0));env.reset()
++    *_,infos=env.step([0])
++    assert not infos[0]['controller_final_observation_valid']
++    assert 'controller_final_observation' not in infos[0]
++
++
++def row(i,**kw):
++    return PhysicalDecision((0,4),0,i,i,{'obs':np.array([i],np.uint8)},0,
++        np.array([1.,0.]),np.zeros(3),2,0,False,False,4,**kw)
++
++
++def test_out_of_order_packets_join_across_rollouts_and_keep_certified_terminal():
++    replay=PhysicalReplay(100,1)
++    last=replace(row(2),terminated=True,successor={'obs':np.array([17],np.uint8)},successor_valid=True)
++    replay.receive(row(1));assert replay.accepted==0
++    replay.receive(row(0));assert replay.accepted==1
++    replay.receive(last);assert replay.accepted==3
++    assert replay.rows[row(0).key].successor['obs'][0]==1
++    assert replay.rows[last.key].successor['obs'][0]==17
++    assert replay.physical_frames==12
++
++
++def test_restart_retains_replay_but_starts_new_physical_stream_session():
++    replay=PhysicalReplay(100,1);replay.receive(row(0));replay.receive(row(1))
++    saved=replay.state_dict();restored=PhysicalReplay(100,2);restored.load_state_dict(saved)
++    assert restored.session==1 and restored.accepted==1 and restored.physical_frames==8
++    assert restored.rejected['restart_pending_tail']==1
++    restored.receive(replace(row(0),stream=(1,4)))
++    assert restored.accepted==1
++    restored.receive(replace(row(1),stream=(1,4)))
++    assert restored.accepted==2 and len(restored.rows)==2
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_fresh_encoder_loss.py
+@@ -0,0 +1,40 @@
++from contextlib import nullcontext
++from types import SimpleNamespace
++import pytest
++import torch
++from sample_factory.utils.attr_dict import AttrDict
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++
++
++@pytest.mark.parametrize('extra', [False, True])
++def test_fresh_auxiliary_objective_has_no_controller_dependency_and_runs_each_component_once(extra):
++    calls=[]
++    def record(name, result):
++        def operation(*args):calls.append(name);return result(*args)
++        return operation
++    head=torch.tensor([[1.,2.],[3.,4.]],requires_grad=True)
++    zero=head.sum()*0
++    learner=SimpleNamespace(
++        cfg=SimpleNamespace(Hippo_n_feature=2,Hippo_R=1,Hippo_L=1,
++            extra_encoder_losses=extra,encoder_grad_coeff=2.,dg_transition_prediction='none'),
++        timing=SimpleNamespace(add_time=lambda name:nullcontext()),actor_critic=SimpleNamespace(),
++        _encoder_loss=record('credit',lambda x,r,m,*a:-(x*r*m).sum()/2),
++        _l1_loss=record('l1',lambda x,*a:x.sum()/2),
++        _extra_encoder_loss=record('extra',lambda *a:(zero+1,zero+2,zero+3,zero)),
++        _population_usage_loss=record('population',lambda x:(zero+4,zero,zero,zero)),
++        _anti_collapse_losses=record('anticollapse',lambda *a:(zero+5,zero+6,zero+7,zero+8,[zero]*6)),
++    )
++    outputs=AttrDict(head_outputs=head,core_outputs=head,minibatch_size=2)
++    mb={'encoder_credit_activation_mask':torch.ones_like(head,dtype=torch.bool),
++        'rewards_encoder':torch.ones_like(head),'rnn_states':torch.zeros(2,2),
++        'encoder_dominant_activation_mask':torch.ones_like(head,dtype=torch.bool),
++        'encoder_non_dominant_activation_mask':torch.zeros_like(head,dtype=torch.bool),'rewards':torch.ones(2)}
++    stats={}
++    loss=DistanceLearnerReward._calculate_fresh_encoder_loss(learner,outputs,mb,torch.ones(2,dtype=torch.bool),0,1,stats)
++    expected=(-5+(6 if extra else 5)+4+5+6+7+8)*2
++    torch.testing.assert_close(loss,torch.tensor(float(expected)))
++    loss.backward()
++    torch.testing.assert_close(head.grad,torch.full_like(head,-1. if extra else 0.))
++    assert calls==(['credit','l1','extra','population','anticollapse'] if extra else ['credit','l1','population','anticollapse'])
++    if not extra:
++        assert stats['encoder_penalty_loss'].item()==stats['encoder_reward_loss'].item()==0
