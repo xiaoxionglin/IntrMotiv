@@ -51,6 +51,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/dg_capacity_health_20260913|DG-capacity Run Health: Late Control Failure and Movement]]
+
 - [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG Capacity and Goal Conditioning: Interim Checkpoint Analysis]]
 
 - [[../06_experiments/navigation8_algorithm_screen_implementation_20260909|Navigation8 Algorithm Screen Implementation]]
