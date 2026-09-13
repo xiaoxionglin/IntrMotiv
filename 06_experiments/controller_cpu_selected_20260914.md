@@ -37,3 +37,28 @@ The existing launcher already supports CPU jobs; reuse it rather than adding
 another execution backend. The existing stored replay path batches the decoder
 and bypasses the reconstruction path's CPU microbatch limit. Monitoring stays
 paused unless explicitly requested otherwise.
+
+## User-added F64 configurations
+
+The user additionally requested the high-initial-sensitivity F64 candidates.
+The stored-online preflights actually completed approximately 2M frames, with
+terminal TV 0.071597 DDQN and 0.090323 HER; failed production entries have no
+TV metrics. Add both waypoint decoder F64 modes at seed 99, fresh, using the
+same CPU/RR1 contract. These are selected preflight candidates rather than the
+top two current-production sustained scores. All four use the same new project.
+
+Additional StudySpec hashes (schema v1, workflow 1.8.1):
+
+- `controller_cpu_f64_ddqn.study.json`:
+  `ae3b21126799528c5b8476e4c37891c32efbc78b1690e883f6f17bfeb6f3da0e`.
+- `controller_cpu_f64_her.study.json`:
+  `3ea18be8bace7b5eadd0a3cd388a5a9e8b4f697a5afc4dcc2a756a7bc8ba1b4a`.
+
+39 focused runtime/workflow tests passed remotely before submission. Each
+one-run canonical manifest receives print-only review and a submitted audit.
+
+Submitted successfully with canonical submitted audits: 8061402 direct DDQN
+seed 99; 8061403 direct HER seed 8; 8061404 waypoint DDQN seed 99; 8061405
+waypoint HER seed 99. Initial queue check reports CPU partition pending,
+`ReqNodeNotAvail, Reserved for maintenance`. Submission is verified; training
+and W&B startup are not yet verified. Do not claim measured CPU throughput.
