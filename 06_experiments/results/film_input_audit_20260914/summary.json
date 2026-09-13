@@ -1,0 +1,50 @@
+[
+  {
+    "run": "SCR_C15_ARR_DIRS_S123",
+    "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_source_credit_retirement_20260904/SCR_C15_ARR_DIRS_S123_/00_SCR_C15_ARR_DIRS_S123/checkpoint_p0/checkpoint_000004580_75038720.pth",
+    "checkpoint_sha256": "ec95b4319f17fa1d8c2c10b0a7778df2932a4f710a8c615f06dc95930a56da20",
+    "scale_rms": 0.03556210495348894,
+    "shift_rms": 0.06179374790413634,
+    "goal_scale_sd_rms": 0.02469723756221896,
+    "goal_shift_sd_rms": 0.036339201032962266,
+    "median_dimension_normalized_depth_share": 0.5177946650620309,
+    "median_total_weight_energy_depth_share": 0.009364000109262024,
+    "correlation_depth_scale": 0.1963786589041149,
+    "correlation_depth_shift": 0.03215991304481635,
+    "scale_goal_specific_energy_fraction": 0.48230508388877086,
+    "shift_goal_specific_energy_fraction": 0.3458292123168929,
+    "negative_gain_count": 0
+  },
+  {
+    "run": "SAT_C15_ARR_DIRO_FILM_S8",
+    "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_saturday_batch_20260905/SAT_C15_ARR_DIRO_FILM_S8_/00_SAT_C15_ARR_DIRO_FILM_S8/checkpoint_p0/checkpoint_000004580_75038720.pth",
+    "checkpoint_sha256": "7b3275e28ef78df68d523d6203925fbb6ee01c0edd2bc380bcbc54107a43b3fb",
+    "scale_rms": 0.03894222767807289,
+    "shift_rms": 0.061622317471317474,
+    "goal_scale_sd_rms": 0.024723299365307712,
+    "goal_shift_sd_rms": 0.029367255302551656,
+    "median_dimension_normalized_depth_share": 0.5069000445091276,
+    "median_total_weight_energy_depth_share": 0.008968031362391663,
+    "correlation_depth_scale": 0.08904095891650118,
+    "correlation_depth_shift": -0.18013952872542704,
+    "scale_goal_specific_energy_fraction": 0.4030614584788185,
+    "shift_goal_specific_energy_fraction": 0.2271175336257442,
+    "negative_gain_count": 0
+  },
+  {
+    "run": "DGP_C15_HIT_JOINT_FILM_S99",
+    "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_dg_policy_gradient_first_outcome_20260906/DGP_C15_HIT_JOINT_FILM_S99_/00_DGP_C15_HIT_JOINT_FILM_S99/checkpoint_p0/checkpoint_000004580_75038720.pth",
+    "checkpoint_sha256": "0cbb3ce047909276d7281346621217bac7474260d74176e8afbd32a7ac3447eb",
+    "scale_rms": 0.05412655508357739,
+    "shift_rms": 0.0615088939595642,
+    "goal_scale_sd_rms": 0.04425654710963419,
+    "goal_shift_sd_rms": 0.0340886069924457,
+    "median_dimension_normalized_depth_share": 0.5078003588340139,
+    "median_total_weight_energy_depth_share": 0.009000232744441462,
+    "correlation_depth_scale": -0.12194719302734178,
+    "correlation_depth_shift": 0.05136216043971076,
+    "scale_goal_specific_energy_fraction": 0.6685505963518399,
+    "shift_goal_specific_energy_fraction": 0.30714445093774795,
+    "negative_gain_count": 0
+  }
+]

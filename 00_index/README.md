@@ -45,6 +45,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 - [[../06_experiments/06_high_option_success_goal_sets_and_controls_20260914|06 — High option success: goal sets and matched controls]]
 
+- [[../06_experiments/07_film_goal_parameters_and_ca3_depth_weights_20260914|07 — FiLM goal parameters and CA3/depth input weights]]
+
 ## Plans
 
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
