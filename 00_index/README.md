@@ -41,6 +41,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 - [[../06_experiments/04_three_goal_context_conditioning_and_dg_capacity_20260910|04 — Three-goal HippoSLAM: context conditioning and DG capacity]]
 
+- [[../06_experiments/05_ca3_feedback_matched_results_and_full_state_gap_20260913|05 — CA3 feedback: matched results and full-state gap]]
+
 ## Plans
 
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
