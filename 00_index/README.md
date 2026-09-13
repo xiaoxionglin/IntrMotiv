@@ -43,6 +43,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 - [[../06_experiments/05_ca3_feedback_matched_results_and_full_state_gap_20260913|05 — CA3 feedback: matched results and full-state gap]]
 
+- [[../06_experiments/06_high_option_success_goal_sets_and_controls_20260914|06 — High option success: goal sets and matched controls]]
+
 ## Plans
 
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
