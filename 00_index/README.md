@@ -50,6 +50,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Plans
 
+- [[../05_plans/encoder_objective_scrutiny_20260914|Encoder objective scrutiny: temporal geometry and command-specific progress]]
 - [[../05_plans/oracle_dg_place_fields_20260914|Oracle DG place fields: four precise goals and matched controls]]
 - [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
 - [[../08_literature/control_relevance_fisher_place_fields_20260908|Control Relevance and Place Fields: Prior-Art Review]]

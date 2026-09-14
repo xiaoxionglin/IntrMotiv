@@ -1,5 +1,12 @@
 # IntrMotiv Loss Catalogue
 
+**Historical scope:** the gradient-clearing and separate-forward descriptions
+below predate the explicit update contract and DGP STOP/JOINT experiments.
+Use the selected dated StudySpec/source for current routing. The
+[2026-09-14 objective scrutiny](../../05_plans/encoder_objective_scrutiny_20260914.md)
+distinguishes those implementation changes from the remaining geometric limits
+of the interval-weighted encoder objective; its proposed replacement is unimplemented.
+
 All learner averages below exclude invalid/padded replay entries. `F` is the
 number of DG units, `z_{tj}` is the pre-threshold DG logit, `a_{tj}` is
 post-threshold DG activity, and `theta` is the DG threshold. The standard
