@@ -1,5 +1,12 @@
 # Scoped runtime source snapshots
 
+`topological_manager_device_20260915.tar.gz` contains the local device-resident
+manager update, reference fixtures, tests, and benchmark. Applied to the desktop
+runtime; G500 transfer and CUDA validation await authorization. The adjacent
+text patch excludes the binary NPZ fixture; the archive includes all five files.
+See the [implementation record](../../04_implementation/topological_manager_device_20260915.md)
+and adjacent file hashes before applying to another checkout.
+
 `graph_planning_optimization_20260911.tar.gz` and its adjacent reviewable patch
 contain the behavior-preserving graph-planning acceleration, regression tests,
 and reusable microbenchmark. **Staged only: apply before the next new batch,

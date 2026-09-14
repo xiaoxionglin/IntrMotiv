@@ -43,6 +43,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   Core code iterates sequence steps and invokes HRL state updates. Profile
   that path before adding more samplers; these wall timers do not yet isolate
   individual CUDA kernels or synchronization. Source remains unchanged.
+- **Core device fix (September 15):** Local runtime now batches the non-probing
+  topological manager and shared landmark bookkeeping on the state device,
+  removing per-stream scalar reads from the active study's path. 106 focused
+  tests pass; 10 CUDA tests are skipped on the desktop. Reference comparisons
+  cover 192 configurations and nine edge-probing cases. See the
+  [implementation, fixtures, and timing record](04_implementation/topological_manager_device_20260915.md).
+  G500 source transfer was blocked by automatic approval review pending explicit
+  export authorization; CUDA timing and end-to-end qualification remain open.
+  Acceptance: device/oracle tests pass on G500 and a fresh isolated benchmark
+  measures improvement before qualifying the next production source snapshot.
 - **Lesson:** Select by completed-update throughput and full process lifecycle,
   not GPU memory alone or short-window FPS. Reuse compact resource summaries
   instead of loading checkpoints repeatedly for monitoring. Validate complete
