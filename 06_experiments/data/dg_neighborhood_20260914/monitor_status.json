@@ -1,46 +1,24 @@
 {
-  "checked_at_utc": "2026-09-14T22:11:57Z",
-  "stage": "production_running",
+  "checked_at_utc": "2026-09-14T22:40:58+00:00",
+  "stage": "profiling",
+  "search_pid": 1270880,
+  "candidate": "w32_e8_ep1",
   "running": 4,
-  "pending": 8,
-  "completed": 0,
-  "tracebacks": false,
-  "available_ram_gib": 296.62,
+  "frames_per_run": [
+    65536,
+    65536,
+    65536,
+    65536
+  ],
+  "available_ram_gib": 171.98,
   "gpu_free_mib": [
-    80485,
-    78431
+    79238,
+    78635
   ],
   "gpu_utilization_percent": [
-    10,
-    14
+    7,
+    7
   ],
-  "action": "No intervention; all four active runs progressing normally with ample resource headroom.",
-  "frames_by_run": {
-    "DGN_BASE_S99": 4915200,
-    "DGN_BASE_S8": 4521984,
-    "DGN_BASE_S123": 4554752,
-    "DGN_SELF_S99": 5898240
-  },
-  "online_snapshot_count": 9,
-  "validated_snapshot_targets": [
-    1000000,
-    2500000
-  ],
-  "validated_snapshots_by_target": {
-    "1000000": [
-      "DGN_BASE_S99",
-      "DGN_BASE_S8",
-      "DGN_BASE_S123",
-      "DGN_SELF_S99"
-    ],
-    "2500000": [
-      "DGN_BASE_S99",
-      "DGN_BASE_S8",
-      "DGN_BASE_S123",
-      "DGN_SELF_S99"
-    ],
-    "5000000": [
-      "DGN_SELF_S99"
-    ]
-  }
+  "cpu_percent": 3.2,
+  "action": "First aggressive candidate advancing; no resource limit breach. Original production remains cancelled."
 }
