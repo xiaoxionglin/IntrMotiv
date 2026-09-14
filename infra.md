@@ -6,6 +6,30 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Explicit depth preprocessing contract — proposed
+
+- **Evidence:** The local runtime `DepthEncoder` consumes the RGBD channel,
+  and both the standard encoder and `hpc_runs/intrmotiv_offpolicy/features.py`
+  reuse it. Its capped inverse response now assumes unnormalized depth codes;
+  study configurations use `normalize_input=False`, while DMLab defaults expose
+  image normalization settings.
+- **Impact:** Enabling image normalization could silently change the meaning
+  of the depth response. Depth codes also should not be described as calibrated
+  world distances without checking the renderer's conversion.
+- **Proposed improvement:** Make the shared RGB/depth preprocessing contract
+  explicit and validate it at encoder construction before supporting other
+  normalization configurations.
+- **Acceptance criteria:** Tests cover supported normalization settings and
+  reject or correctly convert incompatible depth inputs.
+- **Status:** Proposed; the requested inverse response is implemented locally
+  in `/home/xiaoxiong/SFgit/SF_hipposlam`, with two focused tests passing.
+- **Reusable lesson:** Locate runtime source through the canonical setup record
+  and search source-file types first. An unrestricted vault search pulled in
+  large saved experiment artifacts. Reusing `DepthEncoder` covers both consumers
+  without duplicate transforms. Authoritative verification:
+  `python -m pytest -q -p no:cacheprovider sf_working_directories/IntrMotiv/tests/test_depth_encoder.py`
+  from the runtime checkout using the `SF_git` Python environment.
+
 ### Portable runtime bootstrap — verified; patcher cleanup proposed
 
 - **Evidence:** G500 setup found a nonportable absolute DMLab wheel path in the
