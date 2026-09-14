@@ -139,7 +139,7 @@
       "--hrl_control_outcome=target_hit",
       "--ppo_dg_gradient=stop",
       "--hrl_goal_conditioning=target_id_film",
-      "--dg_recruitment_reset_goal_adapter=True",
+      "--dg_recruitment_reset_goal_adapter=False",
       "--train_for_env_steps=10000000",
       "--num_workers=8",
       "--num_envs_per_worker=2",
@@ -160,7 +160,8 @@
       "--online_spatial_scalar_interval_frames=1000000",
       "--online_spatial_snapshot_max_frames=10000000",
       "--save_initial_checkpoint=True",
-      "--checkpoint_frame_targets=1000000,2500000,5000000,10000000"
+      "--checkpoint_frame_targets=1000000,2500000,5000000,10000000",
+      "--online_spatial_snapshot_interval_frames=1000000"
     ]
   },
   "bases": [

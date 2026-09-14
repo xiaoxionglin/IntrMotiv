@@ -67,7 +67,7 @@ def log_status(path):
     frames = re.findall(r'Total num frames: (\d+)', text)
     return {'frames': int(frames[-1]) if frames else 0,
             'traceback': 'Traceback (most recent call last)' in text,
-            'wandb_urls': sorted(set(re.findall(r'https://wandb.ai/[^\s\x1b]+/runs/[a-zA-Z0-9]+', text)))}
+            'wandb_urls': sorted(set(re.findall(r'https://wandb.ai/[^\s\x1b]+/runs/[a-zA-Z0-9_-]+', text)))}
 
 
 def run_queue(manifest, resource_probe, *, poll_seconds=10):

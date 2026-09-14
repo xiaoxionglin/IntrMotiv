@@ -1,7 +1,7 @@
 {
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.8.1",
-  "study_id": "intrmotiv_dg_neighborhood_preflight_20260914",
+  "study_id": "intrmotiv_dg_neighborhood_preflight_20260914_r4",
   "description": "Activation-anchored pose enclosure supervision with separate sampled local repulsion; online HIT STOP FiLM control.",
   "expected_runs": 4,
   "metadata": {
@@ -14,9 +14,9 @@
   },
   "training": {
     "mode": "sample_factory",
-    "batch_name": "intrmotiv_dg_neighborhood_preflight_20260914",
+    "batch_name": "intrmotiv_dg_neighborhood_preflight_20260914_r4",
     "workspace_root": "/scratch/lin/IntrMotiv",
-    "output_root": "/scratch/lin/IntrMotiv/train_dir/intrmotiv_dg_neighborhood_preflight_20260914",
+    "output_root": "/scratch/lin/IntrMotiv/train_dir/intrmotiv_dg_neighborhood_preflight_20260914_r4",
     "run_name_template": "DGN_{objective_label}_S{seed}",
     "condition_name_template": "DGN_{objective_label}",
     "seed_arg": "--seed={seed}",
@@ -139,7 +139,7 @@
       "--hrl_control_outcome=target_hit",
       "--ppo_dg_gradient=stop",
       "--hrl_goal_conditioning=target_id_film",
-      "--dg_recruitment_reset_goal_adapter=True",
+      "--dg_recruitment_reset_goal_adapter=False",
       "--train_for_env_steps=500000",
       "--num_workers=8",
       "--num_envs_per_worker=2",
@@ -150,17 +150,18 @@
       "--decorrelate_envs_on_one_worker=False",
       "--dmlab_level_cache_path=/scratch/lin/IntrMotiv/cache/dmlab",
       "--wandb_project=SF_IntrMotiv_DGNeighborhood",
-      "--wandb_group=intrmotiv_dg_neighborhood_preflight_20260914",
+      "--wandb_group=intrmotiv_dg_neighborhood_preflight_20260914_r4",
       "--wandb_dir=/scratch/lin/IntrMotiv/logs/wandb",
       "--dg_orthogonal_recruitment=False",
       "--online_spatial_telemetry=True",
       "--online_spatial_workspace_root=/scratch/lin/IntrMotiv",
-      "--online_spatial_output_root=/scratch/lin/IntrMotiv/train_dir/analysis/intrmotiv_dg_neighborhood_preflight_20260914",
+      "--online_spatial_output_root=/scratch/lin/IntrMotiv/train_dir/analysis/intrmotiv_dg_neighborhood_preflight_20260914_r4",
       "--online_spatial_snapshot_targets=262144,500000",
       "--online_spatial_scalar_interval_frames=131072",
       "--online_spatial_snapshot_max_frames=500000",
       "--save_initial_checkpoint=True",
-      "--checkpoint_frame_targets=262144,500000"
+      "--checkpoint_frame_targets=262144,500000",
+      "--online_spatial_snapshot_interval_frames=250000"
     ]
   },
   "bases": [
