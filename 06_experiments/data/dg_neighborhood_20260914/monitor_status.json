@@ -1,25 +1,28 @@
 {
-  "checked_at_utc": "2026-09-14T18:52:07Z",
+  "checked_at_utc": "2026-09-14T18:57:59Z",
   "stage": "production_running",
   "running": 4,
   "pending": 8,
   "completed": 0,
   "tracebacks": false,
-  "available_ram_gib": 295.12,
+  "available_ram_gib": 295.04,
   "gpu_free_mib": [
-    78141,
-    78435
+    80489,
+    78429
   ],
   "gpu_utilization_percent": [
     14,
     14
   ],
-  "action": "No intervention; normal progress. First 1M snapshot target not yet crossed.",
+  "action": "Validated all four first-wave 1M snapshots with canonical contract: 100000 observations, 16 units, finite activity. No intervention.",
   "frames_by_run": {
-    "DGN_BASE_S99": 983040,
-    "DGN_BASE_S8": 950272,
-    "DGN_BASE_S123": 950272,
-    "DGN_SELF_S99": 983040
+    "DGN_BASE_S99": 1114112,
+    "DGN_BASE_S8": 1081344,
+    "DGN_BASE_S123": 1081344,
+    "DGN_SELF_S99": 1114112
   },
-  "online_snapshot_count": 0
+  "online_snapshot_count": 4,
+  "validated_snapshot_targets": [
+    1000000
+  ]
 }

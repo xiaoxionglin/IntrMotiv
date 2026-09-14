@@ -313,3 +313,9 @@ Production startup verification: all four first-wave runs reached 32,768
 completed frames without tracebacks, with online W&B URLs. Available host RAM
 was 295.96 GiB and GPU utilization was 14% on each GPU. The heartbeat is now
 named **G500 DG production monitor** and follows the existing production queue.
+
+Production milestone verification (18:58 UTC): the first four runs passed 1M
+frames without tracebacks. All four 1M online snapshots passed canonical
+`load_spatial_snapshot` validation at actual frame 1,015,808, each containing
+100,000 observations and finite activity for 16 units. RAM remained about
+295 GiB available and both GPUs remained at 14% utilization.
