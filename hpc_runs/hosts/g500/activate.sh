@@ -15,6 +15,7 @@ export WANDB_CACHE_DIR="$XDG_CACHE_HOME/wandb"
 export WANDB_DATA_DIR="$INTRMOTIV_ROOT/artifacts/wandb"
 export TMPDIR="$INTRMOTIV_ROOT/tmp"
 export PYTHONNOUSERSITE=1
+export LD_LIBRARY_PATH="$INTRMOTIV_ROOT/tools/sysroot/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
 export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
 source "$INTRMOTIV_ROOT/envs/SF_git/bin/activate"

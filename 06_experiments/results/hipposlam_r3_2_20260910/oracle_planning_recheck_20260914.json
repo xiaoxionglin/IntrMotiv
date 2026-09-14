@@ -1,0 +1,265 @@
+{
+  "checked_date": "2026-09-14",
+  "project": "xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2",
+  "method": "Live read-only W&B API terminal summaries; mean over eight policies within run, then five seeds; unequal terminal frames, not aligned evaluation.",
+  "groups": [
+    {
+      "units": 8,
+      "instruction_scale": 1,
+      "raw_mean": 8.1975,
+      "weighted_mean": 5.932916,
+      "runs": [
+        {
+          "run_id": "00_Grid_hippo_Rand_see_1111_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010118_038077",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/00_Grid_hippo_Rand_see_1111_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010118_038077",
+          "seed": 1111,
+          "raw": 8.6625,
+          "weighted": 6.2819
+        },
+        {
+          "run_id": "06_Grid_hippo_Rand_see_2222_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010126_829324",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/06_Grid_hippo_Rand_see_2222_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010126_829324",
+          "seed": 2222,
+          "raw": 7.85,
+          "weighted": 5.53628
+        },
+        {
+          "run_id": "12_Grid_hippo_Rand_see_3333_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010130_392857",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/12_Grid_hippo_Rand_see_3333_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010130_392857",
+          "seed": 3333,
+          "raw": 6.925,
+          "weighted": 4.58488
+        },
+        {
+          "run_id": "18_Grid_hippo_Rand_see_4444_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010136_497989",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/18_Grid_hippo_Rand_see_4444_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010136_497989",
+          "seed": 4444,
+          "raw": 7.7,
+          "weighted": 5.41231
+        },
+        {
+          "run_id": "24_Grid_hippo_Rand_see_5555_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010143_552335",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/24_Grid_hippo_Rand_see_5555_H.n.fea_8_r.siz_581_n.i.coe_1_20251212_010143_552335",
+          "seed": 5555,
+          "raw": 9.85,
+          "weighted": 7.84921
+        }
+      ]
+    },
+    {
+      "units": 8,
+      "instruction_scale": 9,
+      "raw_mean": 7.9075,
+      "weighted_mean": 5.6424520000000005,
+      "runs": [
+        {
+          "run_id": "01_Grid_hippo_Rand_see_1111_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010120_225120",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/01_Grid_hippo_Rand_see_1111_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010120_225120",
+          "seed": 1111,
+          "raw": 9.5,
+          "weighted": 7.43294
+        },
+        {
+          "run_id": "07_Grid_hippo_Rand_see_2222_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010126_023938",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/07_Grid_hippo_Rand_see_2222_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010126_023938",
+          "seed": 2222,
+          "raw": 7.925,
+          "weighted": 5.50413
+        },
+        {
+          "run_id": "13_Grid_hippo_Rand_see_3333_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010130_759868",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/13_Grid_hippo_Rand_see_3333_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010130_759868",
+          "seed": 3333,
+          "raw": 7.375,
+          "weighted": 5.09659
+        },
+        {
+          "run_id": "19_Grid_hippo_Rand_see_4444_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010136_508928",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/19_Grid_hippo_Rand_see_4444_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010136_508928",
+          "seed": 4444,
+          "raw": 6.575,
+          "weighted": 4.40289
+        },
+        {
+          "run_id": "25_Grid_hippo_Rand_see_5555_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010143_552325",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/25_Grid_hippo_Rand_see_5555_H.n.fea_8_r.siz_581_n.i.coe_9_20251212_010143_552325",
+          "seed": 5555,
+          "raw": 8.1625,
+          "weighted": 5.77571
+        }
+      ]
+    },
+    {
+      "units": 16,
+      "instruction_scale": 1,
+      "raw_mean": 9.49,
+      "weighted_mean": 7.37224,
+      "runs": [
+        {
+          "run_id": "02_Grid_hippo_Rand_see_1111_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010119_297997",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/02_Grid_hippo_Rand_see_1111_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010119_297997",
+          "seed": 1111,
+          "raw": 9.5,
+          "weighted": 7.46914
+        },
+        {
+          "run_id": "08_Grid_hippo_Rand_see_2222_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010125_376951",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/08_Grid_hippo_Rand_see_2222_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010125_376951",
+          "seed": 2222,
+          "raw": 9.5625,
+          "weighted": 7.36959
+        },
+        {
+          "run_id": "14_Grid_hippo_Rand_see_3333_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010132_696643",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/14_Grid_hippo_Rand_see_3333_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010132_696643",
+          "seed": 3333,
+          "raw": 8.7875,
+          "weighted": 6.59432
+        },
+        {
+          "run_id": "20_Grid_hippo_Rand_see_4444_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010138_659693",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/20_Grid_hippo_Rand_see_4444_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010138_659693",
+          "seed": 4444,
+          "raw": 9.6875,
+          "weighted": 7.40711
+        },
+        {
+          "run_id": "26_Grid_hippo_Rand_see_5555_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010144_359268",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/26_Grid_hippo_Rand_see_5555_H.n.fea_16_r.siz_1149_n.i.coe_1_20251212_010144_359268",
+          "seed": 5555,
+          "raw": 9.9125,
+          "weighted": 8.02104
+        }
+      ]
+    },
+    {
+      "units": 16,
+      "instruction_scale": 9,
+      "raw_mean": 9.535,
+      "weighted_mean": 7.498114,
+      "runs": [
+        {
+          "run_id": "03_Grid_hippo_Rand_see_1111_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010125_465659",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/03_Grid_hippo_Rand_see_1111_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010125_465659",
+          "seed": 1111,
+          "raw": 9.5125,
+          "weighted": 7.27453
+        },
+        {
+          "run_id": "09_Grid_hippo_Rand_see_2222_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010130_393107",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/09_Grid_hippo_Rand_see_2222_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010130_393107",
+          "seed": 2222,
+          "raw": 9.8625,
+          "weighted": 7.95353
+        },
+        {
+          "run_id": "15_Grid_hippo_Rand_see_3333_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010132_706700",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/15_Grid_hippo_Rand_see_3333_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010132_706700",
+          "seed": 3333,
+          "raw": 8.799999999999999,
+          "weighted": 6.40904
+        },
+        {
+          "run_id": "21_Grid_hippo_Rand_see_4444_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010138_659613",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/21_Grid_hippo_Rand_see_4444_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010138_659613",
+          "seed": 4444,
+          "raw": 9.9375,
+          "weighted": 8.36466
+        },
+        {
+          "run_id": "27_Grid_hippo_Rand_see_5555_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010155_174894",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/27_Grid_hippo_Rand_see_5555_H.n.fea_16_r.siz_1149_n.i.coe_9_20251212_010155_174894",
+          "seed": 5555,
+          "raw": 9.5625,
+          "weighted": 7.48881
+        }
+      ]
+    },
+    {
+      "units": 32,
+      "instruction_scale": 1,
+      "raw_mean": 9.91,
+      "weighted_mean": 8.365120000000001,
+      "runs": [
+        {
+          "run_id": "04_Grid_hippo_Rand_see_1111_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010125_514474",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/04_Grid_hippo_Rand_see_1111_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010125_514474",
+          "seed": 1111,
+          "raw": 9.8875,
+          "weighted": 8.64066
+        },
+        {
+          "run_id": "10_Grid_hippo_Rand_see_2222_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010130_389586",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/10_Grid_hippo_Rand_see_2222_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010130_389586",
+          "seed": 2222,
+          "raw": 10,
+          "weighted": 8.84534
+        },
+        {
+          "run_id": "16_Grid_hippo_Rand_see_3333_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010133_264169",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/16_Grid_hippo_Rand_see_3333_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010133_264169",
+          "seed": 3333,
+          "raw": 9.975,
+          "weighted": 8.57672
+        },
+        {
+          "run_id": "22_Grid_hippo_Rand_see_4444_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010141_301702",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/22_Grid_hippo_Rand_see_4444_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010141_301702",
+          "seed": 4444,
+          "raw": 9.762500000000001,
+          "weighted": 7.73336
+        },
+        {
+          "run_id": "28_Grid_hippo_Rand_see_5555_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010155_578486",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/28_Grid_hippo_Rand_see_5555_H.n.fea_32_r.siz_2285_n.i.coe_1_20251212_010155_578486",
+          "seed": 5555,
+          "raw": 9.925,
+          "weighted": 8.02952
+        }
+      ]
+    },
+    {
+      "units": 32,
+      "instruction_scale": 9,
+      "raw_mean": 9.83,
+      "weighted_mean": 8.233666,
+      "runs": [
+        {
+          "run_id": "05_Grid_hippo_Rand_see_1111_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010125_366402",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/05_Grid_hippo_Rand_see_1111_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010125_366402",
+          "seed": 1111,
+          "raw": 9.762500000000001,
+          "weighted": 7.55948
+        },
+        {
+          "run_id": "11_Grid_hippo_Rand_see_2222_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010130_557663",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/11_Grid_hippo_Rand_see_2222_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010130_557663",
+          "seed": 2222,
+          "raw": 9.9875,
+          "weighted": 8.97069
+        },
+        {
+          "run_id": "17_Grid_hippo_Rand_see_3333_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010133_230608",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/17_Grid_hippo_Rand_see_3333_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010133_230608",
+          "seed": 3333,
+          "raw": 9.975,
+          "weighted": 8.84023
+        },
+        {
+          "run_id": "23_Grid_hippo_Rand_see_4444_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010141_307226",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/23_Grid_hippo_Rand_see_4444_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010141_307226",
+          "seed": 4444,
+          "raw": 9.45,
+          "weighted": 7.30427
+        },
+        {
+          "run_id": "29_Grid_hippo_Rand_see_5555_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010155_127635",
+          "url": "https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2/runs/29_Grid_hippo_Rand_see_5555_H.n.fea_32_r.siz_2285_n.i.coe_9_20251212_010155_127635",
+          "seed": 5555,
+          "raw": 9.975,
+          "weighted": 8.49366
+        }
+      ]
+    }
+  ]
+}

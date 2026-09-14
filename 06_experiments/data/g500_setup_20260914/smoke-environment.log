@@ -1,0 +1,31 @@
+/scratch/lin/IntrMotiv/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Map number:	3
+{
+  "python": "3.10.21 (main, Sep  1 2026, 14:16:49) [Clang 22.1.3 ]",
+  "torch": "2.8.0+cu128",
+  "torchvision": "0.23.0+cu128",
+  "cuda": "12.8",
+  "devices": [
+    {
+      "index": 0,
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+      "capability": [
+        12,
+        0
+      ]
+    },
+    {
+      "index": 1,
+      "name": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+      "capability": [
+        12,
+        0
+      ]
+    }
+  ],
+  "dmlab_steps": 128,
+  "reward": 0.0,
+  "torch_home": "/scratch/lin/IntrMotiv/cache/torch",
+  "status": "passed"
+}

@@ -1,0 +1,12 @@
+....................................................................
+=============================== warnings summary ===============================
+../../envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
+  /scratch/lin/IntrMotiv/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../../envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26
+  /scratch/lin/IntrMotiv/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+68 passed, 2 warnings in 1.89s

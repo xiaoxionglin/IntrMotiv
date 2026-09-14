@@ -21,6 +21,52 @@ input, not that the learned visual representation can acquire these fields.
 Precision, stability, orientation invariance, and spatial placement change
 together; the first experiment does not isolate width alone.
 
+## Scope correction after checking R3
+
+The user’s successful randomized three-goal task materially narrows the value
+of this proposal. A live read-only W&B API recheck of
+[HippoSLAM_R3_2](https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/HippoSLAM_R3_2)
+on 14 September found 30 runs. At 32 DG units, mean raw scores are 9.91 and
+9.83, with length-weighted scores 8.3651 and 8.2337 for instruction scales 1
+and 9. Each value averages eight PBT policy summaries within a run and then
+five seeds. These are unequal-age terminal summaries, not success percentages
+or matched evaluations. They reproduce the prior saved audit.
+
+A representative live config confirms `BypassSS`, `R=8`, `L=64`, numerical
+instructions, repeat 8, eight PBT policies, and a frozen loaded visual encoder
+(`pretrained_resnet` with an explicit load path). This is not the exact frozen
+ImageNet layer-2 trunk/FiLM/JOINT setup proposed here. W&B configs and scores
+alone still do not reconstruct the archived task randomization or reward code;
+the three-randomized-goal description is supplied by the user.
+
+**Do not present four fixed oracle destinations as a new demonstration that
+DG–CA3 can support goal-directed navigation.** R3 already provides strong prior
+evidence for that broad ability. The justified remaining question is whether
+stable, localized landmark identities repair command dependence within the
+otherwise failing IntrMotiv objective, memory, and self-selected-goal system.
+
+Accordingly, treat this as a bounded diagnostic, not a new large training/count
+sweep by default. Keep the 32-unit/no-option-deadline settings matched, preserve
+IntrMotiv goal selection and learning mechanics, and compare learned versus
+oracle goal channels. Removing passive discovery and manually/randomly supplying
+all goals, as suggested in conversation, would further turn it into a supplied-
+goal navigation task; do not silently fold that into the primary experiment.
+If discovery prevents testing the worker, document that failure and label an
+externally commanded worker probe as a separate localization of the bottleneck.
+Any benefit relative to historical DGP cannot be assigned solely to precision
+because width and option expiration also changed; use the matched new control.
+
+Success would support the oracle landmark package as a repair in this IntrMotiv
+setting, not prove precision alone or autonomous landmark discovery. Failure
+would show that representation replacement is insufficient here despite R3’s
+successful navigation; it would not imply DG–CA3 cannot navigate.
+
+Recheck artifact: [compact per-run and grouped scores](../06_experiments/results/hipposlam_r3_2_20260910/oracle_planning_recheck_20260914.json).
+Process lesson: check already successful supplied-goal baselines before expanding
+an oracle study. The first sandboxed API connection could not verify the token;
+the authorized network-enabled read succeeded. Reuse compact API summaries for
+this question; no history scan, training modification or cluster login was needed.
+
 ## Why this parent
 
 Saved 65–75M behavior and 75M, 100k-observation spatial snapshots show:

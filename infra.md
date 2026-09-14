@@ -6,7 +6,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
-### Portable runtime bootstrap — in progress
+### Portable runtime bootstrap — verified; patcher cleanup proposed
 
 - **Evidence:** G500 setup found a nonportable absolute DMLab wheel path in the
   runtime `requirements.txt`, plus a conda-only guard in the DMLab asset patcher.
@@ -19,8 +19,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   make the asset patcher accept an explicitly selected Python environment.
 - **Acceptance criteria:** `pip check`, GPU/ResNet inference, custom DMLab
   reset/step, and focused runtime tests pass in an isolated target environment.
-- **Status:** Python installed on G500; public dependencies installing. Private
-  runtime transfer awaits user approval after an automatic review rejection.
+- **Status:** G500 environment complete after explicit source-transfer approval.
+  All listed acceptance checks passed, including 68 focused tests. The existing
+  patcher was reused with a command-scoped `CONDA_PREFIX`; removing its conda-only
+  guard remains a proposed runtime-source cleanup.
+- **Outcome:** A fresh matched CUDA environment and user-local Ubuntu SDL2 library
+  worked. `ldd` isolated the only missing native dependency. Reuse the recorded
+  activation helper, resolved package manifest and smoke script next time.
 
 For each finding, record:
 
