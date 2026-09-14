@@ -1,9 +1,12 @@
 # DG neighborhood experiment and G500 resource qualification
 
-Status: **original production stopped at the user's request on September 15;
-a controlled throughput search is running before a fresh production restart**.
-The original four parents exited cleanly after SIGINT; pending runs were cancelled,
-and all partial outputs remain available. Do not resume the old supervisor.
+Status: **stopped by the user for GPU core implementation work**.
+On September 15 the user requested stopping throughput tests before revising the
+core. Search supervisor1293198 was stopped, six active trial parents received
+SIGINT, and the heartbeat is PAUSED. Automatic production launch is disabled.
+All prior production and throughput artifacts are retained. Do not restart
+until the user requests it. The timing bottleneck is core forward (~730.5 of
+739.1 learner seconds in the completed SELF trial), not the visual encoder.
 
 ## September 15 throughput search and restart
 

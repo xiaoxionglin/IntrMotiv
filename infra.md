@@ -36,6 +36,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   tests pass. The earlier worker comparison also changed batch size and was
   confounded; the new search fixes all learning settings and measures concurrent
   throughput plus resource peaks before a fresh scientific gate and production.
+- **Measured bottleneck (September 15):** Completed `w32_e8_ep1` SELF-arm
+  profile reports 739.09 s training, of which 730.51 s is
+  `bptt_forward_core`; visual head 1.66 s, encoder losses 3.86 s, optimizer
+  update 0.98 s. Inference forward is 706.75/709.15 s of policy handling.
+  Core code iterates sequence steps and invokes HRL state updates. Profile
+  that path before adding more samplers; these wall timers do not yet isolate
+  individual CUDA kernels or synchronization. Source remains unchanged.
 - **Lesson:** Select by completed-update throughput and full process lifecycle,
   not GPU memory alone or short-window FPS. Reuse compact resource summaries
   instead of loading checkpoints repeatedly for monitoring. Validate complete
