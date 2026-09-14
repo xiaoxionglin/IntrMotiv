@@ -8,8 +8,11 @@ Based on saved run results and checkpoint/config extraction, not a fresh cluster
 Use the **DGP C15 HIT / JOINT / target-ID FiLM** configuration, with
 `DGP_C15_HIT_JOINT_FILM_S99` as the concrete reference. Start with four fixed,
 compact oracle DG fields near the four accessible corners, within a total of
-16 DG channels. Only those four identities are manager goals. The remaining
-12 learned channels continue to provide CA3 context.
+32 DG channels: **4 oracle + 28 learned**. Only those four identities are
+manager goals. The learned channels continue to provide CA3 context. The
+initial proposal has **no option deadline**: retain the commanded goal until
+arrival or the existing physical episode boundary. These revisions follow the
+user’s review; they are proposed experimental settings, not runtime changes.
 
 The question is whether stable, spatially unambiguous goal landmarks allow the
 existing worker to learn command-specific navigation. This is an oracle
@@ -41,13 +44,18 @@ retirement/manager histories. The recent direct DG64 runs also show substantial
 late control and movement failure, making them less clean starting points.
 
 Retain the parent environment `openfield_map2_fixed_loc3_fixedlength_noreward`,
-repeat 8, frozen ImageNet ResNet-18 through layer 2, 16 DG channels,
+repeat 8, frozen ImageNet ResNet-18 through layer 2,
 `R=8`, `L=64`, depth/instruction bypass, immediate target-ID FiLM, APPO,
 JOINT gradients on learned DG, ARR encourage, legacy BatchNorm for learned
 channels, and `hit_distance` reward. Keep recruitment replacements disabled.
-Preserve complete expanded parent arguments, not just this summary.
+Increase total DG width from the historical 16 to 32 in both primary arms,
+and disable option expiration in both. Preserve complete expanded parent
+arguments and explicitly record these deltas, not just this summary.
+With `R=8`, `L=64`, CA3 grows from 16×71=1,136 to 32×71=2,272 values;
+this also changes decoder input and graph/goal-table dimensions. More context
+capacity is plausible, but an improvement is not established by the prior runs.
 
-Use **fresh training with the parent configuration** for the main comparison.
+Use **fresh training with the revised parent configuration** for the main comparison.
 Replacing four learned identities inside the trained checkpoint would invalidate
 their old CA3 histories, FiLM meanings, value estimates, and graph edges. A
 checkpoint rescue experiment is a separate transfer question requiring explicit
@@ -81,7 +89,7 @@ Do not pass them through learned BatchNorm, row normalization, recruitment, or
 DG losses. Learned-row losses must explicitly mask oracle output rows and use
 the learned-row denominator. Oracle values can remain fixed context when a
 learned-row temporal loss needs them. Record that this is a mixed representation
-objective, not the original 16-learned-row objective.
+objective, distinct from the 32-learned-row control objective.
 
 Only the field transform may consume privileged position. The worker sees
 oracle activity through ordinary CA3 and target IDs; it receives no coordinates,
@@ -97,8 +105,8 @@ checkpoint/config state; default behavior must remain unchanged.
 For the restricted-goal arms, apply the same identity mask to manager landmark
 recognition, source/target identities, passive evidence, hit detection, and
 graph updates. Channels outside the mask remain CA3 context, not manager nodes.
-This prevents a broad learned context unit from winning an all-16 argmax or
-breaking an exclusive oracle event. Keep tensor dimensions fixed at 16 and
+This prevents a broad learned context unit from winning an all-channel argmax or
+breaking an exclusive oracle event. Keep tensor dimensions fixed at 32 in the primary comparison and
 mask unused graph rows/columns rather than changing the controller architecture.
 
 Preserve the parent's least-tested selection among observed passive successors,
@@ -120,15 +128,64 @@ correct action/outcome alignment. Exclude currently occupied goals at command
 selection. Do not reward dwelling, reset teleports, or repeated samples within
 one arrival as new completions.
 
+## Parent name and the meaning of context
+
+- **DGP** identifies the DG policy-gradient experiment family.
+- **C15** is the inherited configuration label, not a count of DG units. In
+  this DGP batch the target rule was changed to least-tested observed passive
+  successors with direct control; it should not be confused with the original
+  C15 frontier-UCB curriculum.
+- **HIT** rewards eventual activation of the commanded identity; encountering
+  another identity does not terminate the option as a wrong FIRST outcome.
+- **JOINT** lets PPO gradients reach learned DG through the worker’s CA3 input,
+  alongside the separate DG objective. The visual ResNet remains fixed, and
+  oracle fields have no trainable parameters.
+- **FiLM** uses the commanded target ID to modulate worker hidden activations.
+
+“Context” means the activity histories of the 28 learned DG channels in CA3,
+which can help distinguish observations and recent routes between oracle fields.
+They are not 28 additional goals. For example, at oracle corner 0 its activity
+could be 0.8 while a broad learned channel is 1.4. Recognition based on a global
+argmax could select the learned channel, while an all-channel exclusivity test
+could reject the event entirely. This is an interface hazard to test against the
+chosen runtime, not a newly verified bug. Restrict manager recognition to the
+four goal channels; preserve all 32 channels for worker CA3 context.
+
+## No-deadline initial variant
+
+No bootstrap or learned-edge option expiration: an active command persists
+through other landmark encounters until its own hit or a physical episode end.
+Do not encode this by setting a huge horizon or changing `Hippo_L`. Keep
+`L=64`, rollout/recurrence length, and the physical episode duration unchanged.
+The fixed-length level’s 120-second boundary still bounds a failed attempt
+(about 900 decisions at repeat 8). At reset, terminate the pending attempt
+without hit credit and record episode termination separately from option timeout.
+
+Longer attempts can make accidental eventual arrival easier, so compare
+commanded and shuffled-command arrival curves versus elapsed decisions, not
+only final success. Use a common bounded evaluation observation window in both
+arms; that measurement window is not a training timeout. Report time to hit,
+pending/unfinished attempts, and goal exposure as well as completed attempts.
+A bad command can occupy the remainder of an episode; quantify that behavior
+before deciding whether deadlines should become a later experimental factor.
+
+The passive-successor temporal eligibility limit is a separate mechanism from
+option expiration. Retaining its parent value can still prevent discovery of
+widely separated goals even with unlimited option duration. Log this explicitly
+and qualify discovery before interpreting learning; removing option deadlines
+does not remove that gate. Likewise, CA3 memory still has a finite horizon.
+
 ## Minimal comparison and optional count sweep
 
-The proposed main comparison has three arms, each with seeds 8, 99, and 123:
+The primary comparison has two matched arms, each with seeds 8, 99, and 123.
+The historical configuration is a reference, not a capacity/deadline-matched
+control; an exact fresh parent rerun is optional:
 
 | Arm | DG input to CA3 | Allowed manager identities | Purpose |
 |---|---|---|---|
-| Parent | 16 learned | All 16, parent discovery | Reproduce the historical configuration on the qualified source |
-| Learned-4 | 16 learned | Fixed IDs 0–3 | Control for restricting the manager vocabulary/recognition |
-| Oracle-4 | 4 fixed oracle + 12 learned | Fixed IDs 0–3 | Test stable precise goal landmarks at the same vocabulary size |
+| Historical parent (reference) | 16 learned | All 16, parent discovery | Original finite deadlines; contextual comparison only |
+| Learned-4 | 32 learned | Fixed IDs 0–3 | Matched width, restricted vocabulary, no option deadline |
+| Oracle-4 | 4 fixed oracle + 28 learned | Fixed IDs 0–3 | Same width/vocabulary/deadline setting; oracle representation intervention |
 
 Predeclare learned IDs; do not select the four best-looking fields after
 training. Learned-4 controls vocabulary size and recognition mechanics, but
@@ -146,10 +203,10 @@ An early null at 25M is diagnostic, not a final impossibility claim.
 
 Do not initially cross controller, gradient mode, width, and oracle count.
 After the four-goal test, a useful count series is $K=2,4,8$ at fixed total
-$F=16$ and fixed field width: two opposite corners; four corners; then those
+$F=32$ and fixed field width: two opposite corners; four corners; then those
 four plus four accessible edge midpoints. Match learned-mask controls at each
 $K$. This changes goal count, landmark coverage, and learned context capacity
-($16-K$), so report it as such rather than a pure capacity effect. Avoid $K=1$:
+($32-K$), so report it as such rather than a pure capacity effect. Avoid $K=1$:
 it cannot test choosing between destinations. For precision specifically, the
 next control is broader fixed fields at the same four centers and peak amplitude,
 with a common narrow physical-arrival evaluation region for both widths.
@@ -163,16 +220,20 @@ with a common narrow physical-arrival evaluation region for both widths.
    fixed oracle fields, learned-row updates, and zero oracle replacement.
 2. Exercise simultaneous learned-context and oracle activation. Confirm only
    masked identities affect manager events and the commanded arrival is detected.
-   Test empty candidate sets, source absence, timeouts, and no repeated hits.
-3. Check travel feasibility at repeat 8 and the inherited 64-decision bootstrap
-   and passive-transition limits. Widely separated corners may exceed them;
+   Test empty candidate sets, source absence, episode ends, and no repeated hits.
+   Verify goals survive both the old bootstrap deadline and learned-edge
+   deadlines, remain unchanged at wrong landmarks, and end correctly on hit/reset.
+3. Check travel feasibility at repeat 8 within a physical episode, and
+   separately qualify the inherited 64-decision passive-transition limit.
+   Widely separated corners may exceed the passive discovery window;
    an 80-unit field may also be crossed between decision observations. Measure
    attainable path times and decision-time detection using a scripted/manual
    environment preflight independent of the trained policy. Do not infer
    feasibility from a straight-line distance or the parent’s mean movement.
-   If inadequate, revise and declare common horizons in both restricted arms
-   before production and repeat print-only review. Do not silently change
-   `L`, action repeat, or use swept-path hit credit.
+   If discovery is inadequate, revise and declare the common eligibility
+   protocol in both restricted arms before production and repeat print-only
+   review. Do not reintroduce an option deadline as an implicit fix, silently
+   change `L` or action repeat, or use swept-path hit credit.
 4. Run frozen-policy command interventions with all three alternative commands
    from each oracle source region: 12 ordered pairs, initially at least 20
    matched attempts per pair per seed, balanced over heading and episode/start
@@ -181,10 +242,10 @@ with a common narrow physical-arrival evaluation region for both widths.
    starts; otherwise report randomized, start-stratified trials as approximate
    matching. Reuse/extend the established intervention evaluator compatibly.
 5. Primary evidence is goal-macro physical arrival probability before a common
-   declared deadline, and its difference from a command-shuffled execution
+   declared evaluation window, and its difference from a command-shuffled execution
    control. In that control, give a balanced alternative command to the worker
    while scoring the originally assigned target from the same starting context.
-   Keep graph and normalization frozen. Include every timeout/failure and report
+   Keep graph and normalization frozen. Include every unfinished/failed trial and report
    trial counts, per-goal/per-seed results and uncertainty. A post-hoc shuffled
    activation curve is not this intervention.
 6. Also record first distinct goal arrival, eventual arrival, time/path length,
@@ -198,7 +259,7 @@ with a common narrow physical-arrival evaluation region for both widths.
 A positive result requires improved commanded physical arrivals relative to the
 execution null across seeds, not merely more hits or reliable graph edges.
 Accurate fields plus no command advantage points toward worker credit assignment,
-memory, or exploration; missing candidates or impossible deadlines make the
+memory, or exploration; missing candidates or unreachable goal regions make the
 worker test inconclusive. An overall negative result does not rule out precise
 representations generally: four sparse corners are not a complete state code.
 
@@ -255,6 +316,10 @@ the parent StudySpec and distinguish checkpoint frames from snapshot targets.
 Read only named metadata/config keys from checkpoint extracts: dumping a
 list-backed extraction accidentally includes large parameter arrays and obscures
 the evidence. For oracle interventions, define activity support, vocabulary,
-recognition, replay alignment and deadline feasibility before a count sweep.
+recognition, replay alignment and physical-episode feasibility before a count sweep.
+The user review also separates DG width, goal count, option expiration, passive
+discovery windows and CA3 memory length: changing one does not change the others.
+Use matched 32-unit/no-deadline arms rather than attributing their difference
+from the historical 16-unit parent entirely to the oracle fields.
 The planning checks passed; runtime feasibility and scientific outcomes remain
 untested. Reuse this contract and the canonical workflow on implementation.
