@@ -134,6 +134,39 @@ With depth enabled, the encoder uses:
 For the current level the instruction vector is therefore normally
 `[0, 0, 9]`.
 
+#### Optional inverse-depth response (local runtime, 2026-09-14)
+
+The local checkout `/home/xiaoxiong/SFgit/SF_hipposlam` supports
+`--depth_sensor_inverse=True|False`. The default for historical configurations
+and new runs is legacy behavior: sampled input
+passes through exactly as before. Tensor dimensions and checkpoint parameter
+keys are unchanged. This update has not been synchronized to remote runtimes.
+
+For a new inverse-depth run, use:
+
+```text
+--depth_sensor=True --depth_sensor_inverse=True --normalize_input=False
+```
+
+Inverse mode returns $g / \max(d, 1)$, where $d$ is the raw RGBD depth code and
+$g=10$ is fixed; there is no separate gain option for new runs. The denominator floor of 1 prevents
+division by zero and caps each output at $g$. The fixed gain preserves absolute
+proximity. For ten equal readings, the norm is $g\sqrt{10}/\max(d,1)$: about
+1.05 at 30 and 0.21 at 150 with gain 10. This is a heuristic reference scale,
+not a measured match to visual-feature norms. There is no hard cutoff at 150;
+inverse sensitivity decreases as $g/d^2$.
+
+Sample Factory applies fixed `obs_scale` and `obs_subtract_mean` preprocessing
+even when `normalize_input=False`; inverse mode undoes those operations before
+computing proximity. Running normalization of `obs` is rejected in inverse
+mode. Legacy mode preserves all historical preprocessing behavior. Raw depth
+codes are not verified world distances. Keep the same depth response when evaluating a trained policy. The earlier
+`depth_sensor_mode` and `depth_sensor_gain` fields are accepted only when loading
+saved configurations, if the new switch is unspecified. An explicit new switch
+takes precedence and uses the fixed gain. Configurations without any of these
+fields retain legacy behavior, including any runs made with the temporary
+hard-coded inverse implementation (those need the inverse switch explicitly).
+
 ## 5. Visual and DG Encoder
 
 ### 5.1 Layer-2 ResNet path
