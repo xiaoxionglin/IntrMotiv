@@ -1,4 +1,3 @@
-diff --git a/sample_factory/utils/wandb_utils.py b/sample_factory/utils/wandb_utils.py
 --- a/sample_factory/utils/wandb_utils.py
 +++ b/sample_factory/utils/wandb_utils.py
 @@ -43,7 +43,6 @@
@@ -9,7 +8,6 @@ diff --git a/sample_factory/utils/wandb_utils.py b/sample_factory/utils/wandb_ut
              dir=wandb_dir(cfg, True),
          )
  
-diff --git a/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py b/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py
 @@ -0,0 +1,162 @@
@@ -175,7 +173,6 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py b/sf_work
 +        "pair_count": scores.new_tensor(len(pairs)),
 +    }
 +    return self_loss, repulsion, diagnostics
-diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 @@ -1,4 +1,5 @@
@@ -357,7 +354,6 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_worki
          stats.decoder_loss = var.decoder_loss.detach().float()
          for name in (
              "onset",
-diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_params.py b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
 @@ -25,6 +25,9 @@
@@ -370,10 +366,15 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_params.py b/sf_workin
      p.add_argument("--decoder_reward_gate", choices=["none", "ca3_absent"], default="none")
      p.add_argument("--dg_ca3_reentry_inhibition", choices=["none", "trace_subtractive", "hard"], default="none")
      p.add_argument("--intrinsic_goal_mode", choices=["none", "ca3_absent_target"], default="none")
-diff --git a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
 --- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
-@@ -96,6 +96,15 @@
+@@ -1,4 +1,5 @@
+ import sys
++import os
+ from multiprocessing.context import BaseContext
+ from typing import Optional
+ 
+@@ -96,6 +97,15 @@
  
  
  def maybe_overwrite_rnn_size(cfg):
@@ -389,7 +390,18 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py b/sf_work
      if getattr(cfg, "extra_decoder_loss", False):
          raise ValueError(
              "extra_decoder_loss is disabled: its historical objective had the wrong sign and must be repaired "
-diff --git a/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py b/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py
+@@ -356,6 +366,11 @@
+ def main():
+     """Script entry point."""
+     cfg = parse_dmlab_args()
++    # Bind W&B and saved config to the reviewed direct-execution manifest.
++    for key in ("schema", "workflow_version", "study_sha256", "source_sha256", "manifest_sha256"):
++        value = os.environ.get("INTRMOTIV_" + key.upper())
++        if value is not None:
++            setattr(cfg, "intrmotiv_" + key, value)
+ 
+     # explicitly create the runner instead of simply calling run_rl()
+     # this allows us to register additional message handlers
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py
 @@ -0,0 +1,87 @@

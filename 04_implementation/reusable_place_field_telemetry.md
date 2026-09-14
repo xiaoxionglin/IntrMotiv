@@ -557,3 +557,26 @@ expected NaNs for unvisited cells and absent peaks. Reuse
 `analyze_place_field_manifest.py` for active-only cosine, silent units, peak
 diversity and pre-threshold metrics. Exact artifacts and source provenance are
 in `06_experiments/intrmotiv_full_system_controller_20260912.md`.
+
+## G500 shared-feature neighborhood experiment (2026-09-14)
+
+The isolated neighborhood-loss experiment reuses the observation-panel record
+contract, `place_fields.load_policy_env`, and canonical place-field calculations
+through `hpc_runs/hosts/g500/evaluate_neighborhood.py`. Its fixed random-policy
+panel is split by whole episodes into calibration and held-out observations.
+Frozen feature caching includes the historical fixed instruction embedding;
+each checkpoint must match the trunk and preprocessing hashes. Replay checks
+exact sparse thresholding and unchanged DG BN buffers. Calibration anchors
+support held-out recall/FPR; missing denominators remain undefined rather than
+being treated as perfect or zero performance. Compactness is the RMS radius
+of occupancy-corrected rate mass. Field counts retain canonical thresholds and
+eligibility, and the existing spatial score remains amplitude weighted.
+
+This opt-in training experiment intentionally uses privileged raw pose only
+for detached neighborhood labels. It preserves pose before the usual stripping
+step; neither the encoder nor controller receives coordinates as an input.
+Other objectives retain the ordinary telemetry-only behavior described above.
+The active training snapshot is immutable, so the small G500 panel adapter
+writes the same NPZ arrays under its explicit scratch root without modifying
+the legacy NEMO-only save guard during a run. See the
+[experiment record](../06_experiments/dg_neighborhood_g500_20260914.md).

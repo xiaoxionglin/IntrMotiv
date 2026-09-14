@@ -43,27 +43,37 @@
     "workers": 32,
     "batch_size": 2048,
     "concurrency": 1,
-    "results": null,
-    "sample_count": 12,
-    "cpu_p95": 6.814999999999998,
-    "minimum_available_ram_gib": 301.6585693359375,
+    "results": [
+      {
+        "name": "PROFILE_W32_B2048_P1_w32b2048_fixed_0",
+        "returncode": 0,
+        "frames": 163840,
+        "fps_after_warmup": 280.1182443508955,
+        "has_traceback": false,
+        "wandb_online": true,
+        "deadline_signal_sent": false
+      }
+    ],
+    "sample_count": 134,
+    "cpu_p95": 3.4,
+    "minimum_available_ram_gib": 299.97515869140625,
     "latest_runs": [
       {
         "name": "PROFILE_W32_B2048_P1_w32b2048_fixed_0",
-        "frames": 0,
+        "frames": 163840,
         "returncode": null
       }
     ],
     "gpus": {
       "0": {
-        "utilization_mean": 0.16666666666666666,
-        "utilization_p95": 1.0,
-        "minimum_free_mib": 87733.0
+        "utilization_mean": 3.843283582089552,
+        "utilization_p95": 8.0,
+        "minimum_free_mib": 83882.0
       },
       "1": {
-        "utilization_mean": 2.25,
+        "utilization_mean": 4.313432835820896,
         "utilization_p95": 8.0,
-        "minimum_free_mib": 87122.0
+        "minimum_free_mib": 84927.0
       }
     }
   },
@@ -72,27 +82,37 @@
     "workers": 8,
     "batch_size": 1024,
     "concurrency": 1,
-    "results": null,
-    "sample_count": 11,
-    "cpu_p95": 6.8,
-    "minimum_available_ram_gib": 301.6410140991211,
+    "results": [
+      {
+        "name": "PROFILE_W8_B1024_P1_w8b1024_fixed_0",
+        "returncode": 0,
+        "frames": 147456,
+        "fps_after_warmup": 325.6492682244601,
+        "has_traceback": false,
+        "wandb_online": true,
+        "deadline_signal_sent": false
+      }
+    ],
+    "sample_count": 108,
+    "cpu_p95": 3.4,
+    "minimum_available_ram_gib": 299.96690368652344,
     "latest_runs": [
       {
         "name": "PROFILE_W8_B1024_P1_w8b1024_fixed_0",
-        "frames": 0,
+        "frames": 147456,
         "returncode": null
       }
     ],
     "gpus": {
       "0": {
-        "utilization_mean": 0.2727272727272727,
-        "utilization_p95": 1.0,
-        "minimum_free_mib": 87741.0
+        "utilization_mean": 4.518518518518518,
+        "utilization_p95": 8.0,
+        "minimum_free_mib": 83882.0
       },
       "1": {
-        "utilization_mean": 1.9090909090909092,
-        "utilization_p95": 8.0,
-        "minimum_free_mib": 87122.0
+        "utilization_mean": 5.416666666666667,
+        "utilization_p95": 8.649999999999991,
+        "minimum_free_mib": 84927.0
       }
     }
   },

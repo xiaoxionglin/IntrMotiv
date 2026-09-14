@@ -63,6 +63,19 @@ def qualify(output, panel, evaluation_root):
         require(any(not torch.equal(initial['model'][k],terminal['model'][k]) for k in decoder), 'Controller decoder did not learn')
         if cfg['dg_objective']=='neighborhood':
             require(not any(cfg[k] for k in ('extra_encoder_losses','encoder_batch_loss','encoder_multi_activation_loss')), 'Old loss enabled in new arm')
+            from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+            diagnostics={}
+            for event in run.rglob('events.out.tfevents.*'):
+                accumulator=EventAccumulator(str(event),size_guidance={'scalars':0}).Reload()
+                for tag in accumulator.Tags()['scalars']:
+                    if 'dg_neighborhood_' in tag:
+                        diagnostics.setdefault(tag,[]).extend(e.value for e in accumulator.Scalars(tag))
+            for key in ('self_loss','positive_count','negative_count'):
+                values=diagnostics.get('train/dg_neighborhood_'+key,[])
+                require(bool(values) and np.isfinite(values).all() and max(values)>0, 'Missing or invalid actual loss diagnostics: '+key)
+            pair_counts=diagnostics.get('train/dg_neighborhood_pair_count',[])
+            require(bool(pair_counts), 'Missing actual local-pair diagnostics')
+            require(max(pair_counts)>0 if cfg['dg_local_repulsion']!='none' else max(pair_counts)==0, 'Wrong local-pair mode executed')
         # Reconstruct the real model and reload the real Adam state, preserving
         # the parameter order used by BaseLearner.init (all actor parameters).
         actor_cfg,env,_,actor,_,_=load_policy_env(run,1,True,0,terminal_path)
@@ -73,10 +86,11 @@ def qualify(output, panel, evaluation_root):
         require(len(optimizer.state)>0 and finite_tensors(optimizer.state_dict()), 'Optimizer reload failed')
         for key,value in actor.state_dict().items():
             require(torch.equal(value,terminal['model'][key]), f'Exact model reload mismatch: {key}')
-        spatial=list((Path(cfg['online_spatial_output_root'])/spec['name']).rglob('*.npz'))
+        spatial=list(Path(cfg['online_spatial_output_root']).glob(f"*/{spec['name']}/policy_*/*.npz"))
         require(len(spatial)>=2,'Missing milestone spatial snapshots')
         for path in spatial:
-            load_spatial_snapshot(path)
+            snapshot=load_spatial_snapshot(path)
+            require(str(np.asarray(snapshot['run_name']).item())==spec['name'], 'Telemetry run identity mismatch')
         evaluation=json.loads((evaluation_root/spec['name']/'summary.json').read_text())
         require(evaluation['panel_sha256']==panel_meta['panel_sha256'], 'Evaluation used a different trajectory')
         require(evaluation['checkpoint']==str(terminal_path), 'Evaluation checkpoint is not terminal')

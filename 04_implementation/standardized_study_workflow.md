@@ -639,3 +639,28 @@ Retire contaminated preflights and qualify the corrected system from fresh state
 GPU gate 8057345 passed 101 complete updates and a target refresh with unchanged
 STOP DG parameters and online buffers; three-parent fresh-step checks preserved
 DG weights, normalization buffers and Adam updates exactly.
+
+## Direct GPU workstation execution (G500, experimental adapter)
+
+`python -m hpc_runs.intrmotiv_study.direct STUDY --source SOURCE --gpus 0 1 0 1`
+prints a StudySpec-derived direct Sample Factory manifest. Repeated GPU indices
+specify multiple slots on one GPU. Pass the printed manifest SHA to
+`--execute SHA` after review. The adapter retains workflow/schema 1.8.1/v1
+contracts and is deployed only to the isolated G500 DG checkout; NEMO execution
+continues to use its established Slurm backend.
+
+The adapter records source and study fingerprints, exact arguments, physical
+GPU assignments, PID/create-time, real exit status, W&B links and host resource
+samples under `output_root/direct_execution/`. It requires online W&B, rejects
+implicit resume or duplicate starts, waits for RAM/GPU headroom and blocks queued
+runs after failure. It checks completed frame counts as well as process exit;
+Sample Factory's generic process launcher return code alone is insufficient.
+Credentials are passed over SSH stdin by `hpc_runs/hosts/g500/launch_study.py`,
+then inherited through the environment; never print or persist them.
+
+Focused checks: `python -m pytest -q hpc_runs/intrmotiv_study/test_direct.py
+hpc_runs/hosts/g500/test_profile_training.py` (7 passed). The resource callback
+currently uses the G500 profiler's Linux/NVIDIA probe; generalizing host admission
+is deferred until a second direct-execution host needs it. See the
+[active DG launch record](../06_experiments/dg_neighborhood_g500_20260914.md)
+for the scientific gate, current paths, and recovery rules.

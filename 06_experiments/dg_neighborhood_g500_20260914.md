@@ -1,7 +1,10 @@
 # DG neighborhood experiment and G500 resource qualification
 
-Status: implementation staged and focused tests passed; resource qualification
-is running. Scientific preflights and production have **not** been launched.
+Status: the four corrected scientific preflights (revision r4) are running
+with online W&B. The shared held-out panel and replay smoke have passed.
+The unattended transition process is waiting for preflight completion and will
+launch production only after exact checkpoint/evaluation gates pass. Production
+has **not yet** started at this update.
 This is the activation-anchored revision agreed in the task, not the earlier
 fixed physical-center oracle proposal.
 
@@ -110,55 +113,103 @@ For a compact update, run on G500:
 The [saved compact summary](data/dg_neighborhood_20260914/resource_profiles.json)
 is a snapshot, not a live status source.
 
-## Selection and remaining qualification
+## Selected resources and unattended execution
 
-1. Complete fixed-frame worker/batch comparisons. Include a qualified 8-worker,
-   batch-2048 reference; interrupted diagnostics cannot establish the optimum.
-   Test batch 4096 only with enough frames for at least four reported updates
-   (262144 frames). Keep the smaller worker allocation when throughput differs
-   by less than 10%.
-2. Prefer batch 2048 to preserve historical BN sampling unless an alternative
-   provides at least 20% repeatable throughput improvement and passes the same
-   numerical/BN/update gates. Fix batch geometry across scientific arms;
-   never resize it during an active run.
-3. Compare matched configurations at 2 and 4 simultaneous runs, then 8 and up
-   to 12 only if aggregate throughput continues to improve and admission limits
-   hold. Select by aggregate **completed training frames/sec**, with policy lag,
-   update latency, valid samples, and CPU/RAM/GPU headroom alongside it. Require
-   at least 70% scaling efficiency when doubling concurrency. Do not increase
-   actors just because GPU utilization is low.
-4. Keep at least 16 GiB free per GPU and 64 GiB available host RAM; defer queued
-   starts when another user's workload removes that headroom. Preserve existing
-   user processes. Each run uses one explicitly selected GPU, with one CPU thread
-   per DMLab environment and BLAS thread limits. Default inference workers remain
-   one per policy; test an increase only if timing isolates inference as limiting.
-5. The [preflight](../hpc_runs/studies/dg_neighborhood_preflight.study.json) and
-   [production](../hpc_runs/studies/dg_neighborhood_production.study.json)
-   StudySpecs currently validate under `intrmotiv/study/v1`, workflow 1.8.1,
-   but their resource settings are explicitly provisional. After selecting
-   resources, update both and repeat print-only review; preserve new SHA-256s.
-6. Finish a general direct-process audit/queue adapter around existing SF
-   execution; preserve real exit status, resource sampling, and duplicate-start
-   protection. Record study/source hashes in W&B config. The existing SF process
-   launcher returns success even when children fail, so its return code alone
-   is not a production gate.
-7. Run all four 500k-frame preflights with the actual new objective. Validate
-   finite losses, score/pose alignment, identical initial weights/BN, frozen
-   trunk, updated DG and controller parameters, STOP gradients, full checkpoint
-   reloads, and visible W&B histories. Unit tests are not this runtime gate.
-8. Complete shared observation-panel evaluation using the existing
-   `evaluation/observation_panel.py` and `place_fields.py`. Generalize the former's
-   hardcoded NEMO output-root check to an explicit workspace argument. Collect
-   a fixed exploratory-policy panel, split by complete episodes into calibration
-   and held-out subsets, and exclude both from training. Freeze BN for replay;
-   calibrate checkpoint-specific diagnostic anchors only on calibration episodes.
-   Add compactness, field count, recall/FPR with support counts, heading specificity,
-   sparsity, and held-out metrics using canonical spatial helpers. Preserve NPZ
-   contracts; use no Slurm on G500.
-9. Once all four runtime gates pass, the user has authorized automatically
-   launching 12 fresh 10M-frame production runs. Do not request confirmation
-   again. Save initialization and 1M/2.5M/5M/10M milestones. Keep monitoring; notify
-   on meaningful changes, failures, completion, or required user action.
+Eight workers, two environments per worker, batch 2048, recurrence/rollout 64,
+one BLAS thread, one selected GPU per run. All four 500k preflights run together,
+two on each GPU. A 32-worker profile did not improve throughput. Completed
+normal-exit profiles measured 325.65 frames/s for 8 workers/batch1024 and
+280.12 frames/s for 32 workers/batch2048; these are confounded comparisons,
+so they do not establish a batch-size optimum. Keep historical batch2048.
+
+Production uses two or four slots. The transition compares aggregate completed-
+update preflight throughput to the conservative two-GPU profile reference
+560.24 frames/s. Four slots require at least 1.4 times that reference and the
+memory reserves below; otherwise use two. This is a practical resource decision
+using mixed-objective evidence, not a global optimum. Further 8/12-way profiling
+is deferred to avoid delaying the first interpretable experiment.
+
+The canonical direct queue keeps at least 64 GiB host RAM and 16 GiB free per
+GPU, plus admission allowance for each new run. It waits when other workloads
+consume headroom. It owns only its children and does not stop other users' jobs.
+Scientific batch geometry never changes mid-run.
+
+### Authoritative live artifacts on G500
+
+All paths below are under `/scratch/lin/IntrMotiv`:
+
+- Preflights: `train_dir/intrmotiv_dg_neighborhood_preflight_20260914_r4/`.
+  `direct_execution/state.json` contains exact process identity, progress,
+  real exit status and W&B links. `manifest.json` binds commands and hashes.
+  Queue PID at launch: **1239255**.
+- Transition: `train_dir/analysis/dg_neighborhood_transition_20260914/`.
+  `status.json` is the stage indicator; `evaluations/qualification.json`
+  is the fail-closed gate; `resource_decision.json` records slot selection;
+  `production_review.json` is the print-only manifest before launch.
+  Log: `logs/dg-production-transition.log`. Transition PID: **1244478**.
+- Production: `train_dir/intrmotiv_dg_neighborhood_production_20260914/`.
+  Its own `direct_execution/` appears only after qualification.
+- Panel: `train_dir/analysis/dg_neighborhood_shared_panel_20260914/`.
+  **20,700 decisions / 23 whole episodes**; first 9,900 calibration,
+  remaining 10,800 held out. Seed 314159, random action held for 8 decisions.
+  Panel SHA: `8307d87cbb943d20986bdba2bb2db982bebcb6659fbad0f1d73567f460add2da`.
+- Replay smoke: `train_dir/analysis/dg_neighborhood_evaluation_smoke_20260914/`.
+  Log: `logs/dg-evaluation-smoke.log`; exact reload/paired-init checks:
+  `logs/dg-reload-smoke.log`.
+
+Do not launch a second transition or production queue while these owned
+processes are active. The five-minute heartbeat monitors them and handles
+failures; it should report only meaningful changes. A completed queue does not
+need resubmission. Failed output directories are retained as evidence; recovery
+must use an explicit new revision rather than implicit resume.
+
+### Correctness and evaluation gates
+
+The four initial model state dictionaries match exactly. Actual learner logs
+show finite neighborhood losses, positive/negative supervision support, zero
+pairs for self-only, and nonzero pairs/penalties for both repulsion arms.
+The real model/Adam reload smoke passed. Queue tests cover successful child
+completion and failure blocking a queued sibling (4 canonical tests total),
+plus 3 profile-counter tests. Two remote metric tests cover silent-unit undefined
+values and circular heading boundaries; full frozen-panel replay also passed.
+
+At 500k, require normal exits, actual terminal frame counts, online W&B,
+finite model/optimizer tensors, unchanged frozen visual trunk, learned DG and
+controller weights, saved source/study/manifest provenance, valid milestone
+NPZs, exact model/optimizer reloads and shared held-out evaluation. Scientific
+metric quality is reported, not used to silently drop an experimental arm.
+
+Evaluation reuses `observation_panel.record_observation`, the existing
+`place_fields.load_policy_env` checkpoint loader and canonical
+`calculate_place_field_details`. The small workstation adapter writes the
+existing panel arrays under scratch rather than modifying the active source's
+legacy NEMO-only `save_panel` guard. Frozen visual features retain the existing
+fixed instruction embedding. DG replay keeps BN in eval mode and checks that
+its buffers do not change and activations equal `relu(z - 2.43)` exactly.
+
+Per-unit summaries include occupancy-corrected spatial RMS radius, disconnected
+fields at canonical 0.3/0.5/0.7 peak thresholds, eligibility, recall/FPR and support
+counts, active fraction, heading resultant and amplitude-weighted spatial score.
+Population summaries include sparsity, silent units, active-only map cosine and
+peak diversity. Calibration anchors are never selected from held-out episodes.
+Undefined metrics are null. The raw activity/pre-threshold/pose arrays and maps
+are retained for both splits. Online learning trajectories are not the fixed-
+trajectory comparison.
+
+### Startup failures retained for diagnosis
+
+- Original preflight: inherited `dg_recruitment_reset_goal_adapter=True`
+  conflicted with recruitment disabled; failed before training.
+- r2: the new provenance assignment treated argparse Namespace as a dictionary;
+  corrected to `setattr`, before any training updates.
+- r3: inherited default telemetry interval 25M exceeded the 500k maximum;
+  explicit compatible intervals are now 250k preflight / 1M production.
+- r4: the corrected matrix is executing real learner updates with online W&B.
+
+Production remains the authorized four arms × seeds 99/8/123 × 10M frames,
+with initial and 1M/2.5M/5M/10M milestones. It starts automatically after these
+gates, with no further confirmation. The same panel is reused at terminal
+production checkpoints.
 
 ## Reusable findings
 
@@ -175,3 +226,10 @@ verify the owned process tree has actually exited before redeployment. Never
 blindly send repeated interrupts during checkpoint writes. Failed learners can
 leave the runner alive; scan for tracebacks and check real completed-frame
 counters. Short FPS windows are misleading when updates arrive in large bursts.
+
+## Current provenance
+
+- Schema: `intrmotiv/study/v1`; workflow: `1.8.1`.
+- Preflight StudySpec SHA: `04969ce9f0a4db548d57bde58ae38ec4a3ab245936426b0ff6b9479a1396f8d2`.
+- Production StudySpec SHA: `a0748f739149bade77db00c46e5dc2cbcab7dc6ba0d0ec2ebe2cb7306921cb5b`.
+- Running source SHA: `cfaaba2f7d3f116520837bb6965e8a1d5682629f1ddd5229fa8d4d716ed840cc`.

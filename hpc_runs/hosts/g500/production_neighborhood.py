@@ -50,13 +50,14 @@ def concurrency_from_samples(path):
           limitation='Mixed-objective preflights versus existing-objective resource baseline; practical admission decision, not a global optimum.')
 
 
-def publish_evaluation(report, manifest):
+def publish_evaluation(report, manifest, report_path=None):
     import wandb
     run=wandb.init(project='SF_IntrMotiv_DGNeighborhood',entity='xiaoxionglin-bernstein-center-freiburg',
                    group=manifest['study_id'],job_type='heldout_evaluation',
                    name=manifest['study_id']+'_qualification',dir='/scratch/lin/IntrMotiv/logs/wandb',
                    config={k:manifest[k] for k in ('study_sha256','source_sha256','manifest_sha256')},mode='online')
-    run.summary['qualification_passed']=True
+    run.summary['evaluation_completed']=True
+    if report.get('passed') is True: run.summary['qualification_passed']=True
     run.summary['panel_sha256']=report['panel_sha256']
     for item in report['runs']:
         for key in ('population_active_fraction','silent_units','active_only_map_cosine','peak_diversity'):
@@ -67,6 +68,10 @@ def publish_evaluation(report, manifest):
         for j in range(len(units['active_fraction'])):
             table.add_data(j,*(units[k][j] for k in ('spatial_rms_radius','positive_recall','false_positive_rate','active_fraction','spatial_information')))
         run.log({item['name']+'/heldout_units':table})
+    if report_path is not None:
+        artifact=wandb.Artifact(manifest['study_id']+'-evaluation',type='evaluation')
+        artifact.add_file(str(report_path))
+        run.log_artifact(artifact)
     url=run.url
     run.finish()
     return url
@@ -97,7 +102,7 @@ def main():
         checkpoint=max(run.glob('checkpoint_p0/checkpoint_*.pth'),key=lambda p:int(p.stem.split('_')[-1]))
         evaluate(run,checkpoint,a.panel,evaluation_root/spec['name'])
     report=qualify(a.preflight,a.panel,evaluation_root)
-    url=publish_evaluation(report,manifest)
+    url=publish_evaluation(report,manifest,evaluation_root/'qualification.json')
     slots,evidence=concurrency_from_samples(audit/'resources.jsonl')
     study=load_study(a.production_study)
     if study.expected_runs!=12 or sorted(study.seeds)!=[8,99,123]: raise RuntimeError('Unexpected production matrix')
@@ -111,13 +116,25 @@ def main():
                 production_manifest_sha256=reviewed['manifest_sha256'],gpu_slots=slots))
     run_queue(reviewed,resources)
     atomic_json(a.output/'status.json',dict(stage='production_finished_evaluation_pending',evaluation_wandb_url=url))
-    # The same shared panel is reused after production. Checkpoint discovery
-    # follows declared identities and records the actual terminal frame count.
-    for spec in reviewed['runs']:
-        run=Path(reviewed['output_root'])/spec['name']
-        checkpoint=max(run.glob('checkpoint_p0/checkpoint_*.pth'),key=lambda p:int(p.stem.split('_')[-1]))
-        evaluate(run,checkpoint,a.panel,a.output/'production_evaluations'/spec['name'])
-    atomic_json(a.output/'status.json',dict(stage='production_and_terminal_evaluation_completed',evaluation_wandb_url=url))
+    # Use the canonical manifest selector: all declared checkpoints for seed99,
+    # terminal checkpoints for replication seeds. No condition-name parsing.
+    from hpc_runs.intrmotiv_study.telemetry import discover_nemo_checkpoints, build_place_field_manifests, write_manifest
+    inventory=discover_nemo_checkpoints(study,Path(reviewed['output_root']))
+    rows,_=build_place_field_manifests(study,inventory)
+    write_manifest(a.output/'production_evaluation_manifest.tsv',rows)
+    production_results=[]
+    for row in rows:
+        destination=a.output/'production_evaluations'/row['label_suffix']
+        evaluate(Path(row['run_dir']),Path(row['checkpoint']),a.panel,destination)
+        summary=json.loads((destination/'summary.json').read_text())
+        production_results.append(dict(name=row['label_suffix'],checkpoint=row['checkpoint'],
+                                       target_frames=int(row['target_frames']),heldout=summary['heldout']))
+    production_report=dict(panel_sha256=report['panel_sha256'],study_sha256=reviewed['study_sha256'],
+                           source_sha256=reviewed['source_sha256'],runs=production_results)
+    atomic_json(a.output/'production_evaluation_summary.json',production_report)
+    production_url=publish_evaluation(production_report,reviewed,a.output/'production_evaluation_summary.json')
+    atomic_json(a.output/'status.json',dict(stage='production_and_declared_evaluation_completed',
+                evaluation_wandb_url=url,production_evaluation_wandb_url=production_url))
 
 
 if __name__=='__main__':

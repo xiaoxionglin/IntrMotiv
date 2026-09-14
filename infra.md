@@ -19,17 +19,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   profiler with five-second resource samples, real frame counters, process
   identities and failure detection. Reuse the
   [canonical study workflow](04_implementation/standardized_study_workflow.md)
-  for the scientific matrix; finish compatible direct-process auditing.
+  for the scientific matrix. `intrmotiv_study.direct` now preserves real child
+  failure, resource admission, duplicate-start exclusion and manifest provenance.
 - **Status:** 38 desktop regression tests passed (one CUDA skip), 9 G500
-  CPU/CUDA tests passed, and 3 profiler-counter tests passed. Fixed-frame
-  worker/batch probes are running; scientific training has not been launched.
+  CPU/CUDA tests passed, 4 direct-queue and 3 profiler tests passed, and 2
+  metric tests passed. Four scientific preflights are running; shared-panel
+  replay and exact model/optimizer reload passed. Automatic production gate active.
 - **Acceptance criteria:** Qualified worker/batch/concurrency measurements;
   accurate child failure propagation; no duplicate starts or source mutation
   during active jobs; online W&B; matched four-arm preflights pass before the
   already-authorized production queue starts.
 - **Lesson:** Select by completed-update throughput and full process lifecycle,
   not GPU memory alone or short-window FPS. Reuse compact resource summaries
-  instead of loading checkpoints repeatedly for monitoring.
+  instead of loading checkpoints repeatedly for monitoring. Validate complete
+  scientific configs, including recruitment-dependent flags and telemetry
+  interval/max consistency, before launch. G500 lacks `rg`; use `grep` there.
 
 ### Portable runtime bootstrap — verified; patcher cleanup proposed
 

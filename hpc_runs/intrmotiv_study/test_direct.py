@@ -27,3 +27,22 @@ def test_atomic_json_replaces(tmp_path):
     atomic_json(path, {'state':'done'})
     assert 'done' in path.read_text()
     assert not list(tmp_path.glob('*.tmp'))
+
+
+def test_queue_records_success_and_blocks_after_failure(tmp_path, monkeypatch):
+    import json, sys
+    from hpc_runs.intrmotiv_study.direct import run_queue
+    monkeypatch.setenv('WANDB_API_KEY', 'test-placeholder-never-sent')
+    probe=lambda: {'available_ram_gib':100,'gpus':[{'index':0,'free_mib':64000,'utilization':0}]}
+    common=dict(source_root=str(tmp_path),source_sha256=source_digest(tmp_path),gpu_slots=[0],
+                schema='test',workflow_version='test',study_sha256='test',manifest_sha256='test')
+    success=dict(name='success',target_frames=10,command=[sys.executable,'-c',
+                 "print('Total num frames: 10\\nhttps://wandb.ai/e/p/runs/unit_test')"])
+    passed=run_queue(dict(common,output_root=str(tmp_path/'pass'),runs=[success]),probe,poll_seconds=.01)
+    assert passed[0]['status']=='completed'
+    assert passed[0]['wandb_urls']==['https://wandb.ai/e/p/runs/unit_test']
+    failure=dict(name='failure',target_frames=10,command=[sys.executable,'-c',"raise RuntimeError('test failure')"])
+    with pytest.raises(RuntimeError,match='run failed'):
+        run_queue(dict(common,output_root=str(tmp_path/'fail'),runs=[failure,success]),probe,poll_seconds=.01)
+    states=json.loads((tmp_path/'fail/direct_execution/state.json').read_text())
+    assert [s['status'] for s in states]==['failed','blocked_by_failure']
