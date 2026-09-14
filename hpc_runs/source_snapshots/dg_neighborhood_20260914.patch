@@ -1,0 +1,482 @@
+diff --git a/sample_factory/utils/wandb_utils.py b/sample_factory/utils/wandb_utils.py
+--- a/sample_factory/utils/wandb_utils.py
++++ b/sample_factory/utils/wandb_utils.py
+@@ -43,7 +43,6 @@
+             job_type=cfg.wandb_job_type,
+             tags=cfg.wandb_tags,
+             resume="allow",
+-            settings=wandb.Settings(start_method="fork"),
+             dir=wandb_dir(cfg, True),
+         )
+ 
+diff --git a/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py b/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/dmlab/dg_neighborhood.py
+@@ -0,0 +1,162 @@
++"""Activation-anchored DG supervision and sampled, cross-unit local repulsion.
++
++Coordinates are raw DMLab world x/y and yaw in degrees. Labels and anchor
++selection are detached; only DG scores/activities participate in autograd.
++The loss deliberately does not recruit a unit silent for an entire segment.
++"""
++from dataclasses import dataclass
++
++import numpy as np
++from scipy.spatial import cKDTree
++import torch
++import torch.nn.functional as F
++
++
++@dataclass(frozen=True)
++class NeighborhoodConfig:
++    positive_along: float = 150.0
++    positive_across: float = 100.0
++    negative_along: float = 300.0
++    negative_across: float = 200.0
++    positive_angle: float = 15.0
++    negative_angle: float = 30.0
++    margin: float = 1.0
++    negative_weight: float = 1.0
++    repulsion: str = "none"
++    repulsion_coefficient: float = 0.1
++    repulsion_radius: float = 100.0
++    distance_floor: float = 10.0
++
++    def __post_init__(self):
++        if not (0 < self.positive_along < self.negative_along and
++                0 < self.positive_across < self.negative_across and
++                0 <= self.positive_angle < self.negative_angle <= 180):
++            raise ValueError("Positive enclosure must be strictly inside the outer enclosure")
++        if self.repulsion not in ("none", "temporal", "physical"):
++            raise ValueError("Unknown local repulsion mode")
++        if min(self.margin, self.negative_weight, self.repulsion_coefficient) < 0:
++            raise ValueError("Loss margins and weights must be nonnegative")
++        if not 0 < self.distance_floor <= self.repulsion_radius:
++            raise ValueError("Require 0 < distance floor <= repulsion radius")
++
++
++def episode_segments(valids, dones, recurrence):
++    """Return contiguous valid segments; done[t] separates t from t+1."""
++    valid = np.asarray(valids, dtype=bool).reshape(-1)
++    done = np.asarray(dones, dtype=bool).reshape(-1)
++    if len(valid) != len(done) or recurrence < 1 or len(valid) % recurrence:
++        raise ValueError("Aligned complete recurrence chunks are required")
++    segments = []
++    for base in range(0, len(valid), recurrence):
++        current = []
++        for t in range(base, base + recurrence):
++            if valid[t]:
++                current.append(t)
++            if not valid[t] or done[t] or t == base + recurrence - 1:
++                if current:
++                    segments.append(np.asarray(current, dtype=np.int64))
++                current = []
++    return segments
++
++
++def enclosure_masks(anchors, observations, cfg):
++    """Return [observations, anchors] positive/negative masks, ignoring yaw wrap."""
++    delta = observations[:, None, :2] - anchors[None, :, :2]
++    yaw = torch.deg2rad(anchors[:, 2])
++    along = delta[..., 0] * yaw.cos() + delta[..., 1] * yaw.sin()
++    across = -delta[..., 0] * yaw.sin() + delta[..., 1] * yaw.cos()
++    angle = ((observations[:, None, 2] - anchors[None, :, 2] + 180) % 360 - 180).abs()
++    inner = (along / cfg.positive_along).square() + (across / cfg.positive_across).square()
++    outer = (along / cfg.negative_along).square() + (across / cfg.negative_across).square()
++    return (inner <= 1) & (angle <= cfg.positive_angle), (outer > 1) | (angle >= cfg.negative_angle)
++
++
++def local_pairs(pose, segments, cfg, seed):
++    """Sample at most one partner per observation without a dense distance matrix."""
++    pairs, weights = [], []
++    rng = np.random.default_rng(seed)
++    if cfg.repulsion == "none":
++        return np.empty((0, 2), dtype=np.int64), np.empty(0, dtype=np.float32)
++    for segment in segments:
++        if cfg.repulsion == "temporal":
++            pairs.extend(zip(segment[:-1], segment[1:]))
++            weights.extend([1.0] * (len(segment) - 1))
++            continue
++        positions = pose[segment, :2]
++        tree = cKDTree(positions)
++        for t, point in enumerate(positions):
++            candidates = [u for u in tree.query_ball_point(point, cfg.repulsion_radius) if u != t]
++            if candidates:
++                u = int(rng.choice(candidates))
++                pairs.append((segment[t], segment[u]))
++                distance = np.linalg.norm(point - positions[u])
++                weights.append(cfg.repulsion_radius / max(float(distance), cfg.distance_floor))
++    return np.asarray(pairs, dtype=np.int64).reshape(-1, 2), np.asarray(weights, dtype=np.float32)
++
++
++def cross_unit_repulsion(activity, pairs, weights):
++    """Exact off-diagonal product sum in O(number of sampled pairs * DG width)."""
++    if len(pairs) == 0:
++        return activity.sum() * 0.0
++    indices = torch.as_tensor(pairs, device=activity.device, dtype=torch.long)
++    weights = torch.as_tensor(weights, device=activity.device, dtype=activity.dtype)
++    left, right = activity[indices[:, 0]], activity[indices[:, 1]]
++    return (weights * (left.sum(-1) * right.sum(-1) - (left * right).sum(-1))).mean()
++
++
++def neighborhood_losses(scores, pose, valids, dones, recurrence, cfg, seed=0):
++    """Return self loss, weighted repulsion, and detached diagnostics.
++
++    Each unit's segment means receive equal weight, then all units are averaged.
++    A segment without an active anchor is absent from that unit's segment mean;
++    a unit with no anchor contributes zero to the fixed population denominator.
++    """
++    if scores.ndim != 2 or pose.shape != (scores.shape[0], 3):
++        raise ValueError("Expected aligned [N,F] scores and raw [N,3] poses")
++    valid_cpu = valids.detach().cpu().numpy().astype(bool)
++    pose_cpu = pose.detach().cpu().numpy()
++    if not np.isfinite(pose_cpu[valid_cpu]).all():
++        raise ValueError("Nonfinite pose in a valid training observation")
++    segments = episode_segments(valid_cpu, dones.detach().cpu().numpy(), recurrence)
++    pose = pose.detach().to(device=scores.device, dtype=scores.dtype)
++    activity = scores.relu()
++    units = scores.shape[1]
++    total = scores.sum(0) * 0.0
++    counts = scores.new_zeros(units)
++    positive_count = scores.new_zeros(())
++    negative_count = scores.new_zeros(())
++    positive_hits = scores.new_zeros(())
++    negative_hits = scores.new_zeros(())
++    anchor_strength = scores.new_zeros(())
++    for segment in segments:
++        ix = torch.as_tensor(segment, device=scores.device)
++        values = scores[ix]
++        peaks, anchors = values.detach().max(0)
++        anchored = peaks > 0
++        positive, negative = enclosure_masks(pose[ix[anchors]], pose[ix], cfg)
++        not_self = torch.arange(len(segment), device=scores.device)[:, None] != anchors[None, :]
++        positive &= anchored[None, :] & not_self
++        negative &= anchored[None, :] & not_self
++        pcount, ncount = positive.sum(0), negative.sum(0)
++        unit_loss = (F.softplus(cfg.margin - values) * positive).sum(0) / pcount.clamp_min(1)
++        unit_loss += cfg.negative_weight * (F.softplus(cfg.margin + values) * negative).sum(0) / ncount.clamp_min(1)
++        total = total + unit_loss
++        counts += anchored
++        positive_count += pcount.sum()
++        negative_count += ncount.sum()
++        positive_hits += ((values.detach() > 0) & positive).sum()
++        negative_hits += ((values.detach() > 0) & negative).sum()
++        anchor_strength += peaks[anchored].sum()
++    self_loss = (total / counts.clamp_min(1)).mean()
++    pairs, weights = local_pairs(pose_cpu, segments, cfg, seed)
++    repulsion = cfg.repulsion_coefficient * cross_unit_repulsion(activity, pairs, weights)
++    diagnostics = {
++        "self_loss": self_loss.detach(), "repulsion_loss": repulsion.detach(),
++        "anchored_unit_fraction": (counts > 0).float().mean(), "anchor_count": counts.sum(),
++        "anchor_strength": anchor_strength / counts.sum().clamp_min(1),
++        "positive_count": positive_count, "negative_count": negative_count,
++        "positive_recall": positive_hits / positive_count.clamp_min(1),
++        "false_positive_rate": negative_hits / negative_count.clamp_min(1),
++        "pair_count": scores.new_tensor(len(pairs)),
++    }
++    return self_loss, repulsion, diagnostics
+diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -1,4 +1,5 @@
+ from __future__ import annotations
++from sf_working_directories.IntrMotiv.dmlab.dg_neighborhood import NeighborhoodConfig, neighborhood_losses
+ 
+ import math
+ import re
+@@ -1227,7 +1228,7 @@
+             torch.cat(
+                 (
+                     (sequence_core != 0).to(dtype=torch.int),
+-                    torch.ones(sequence_core.shape[:-1] + (1,), dtype=torch.int),
++                    torch.ones(sequence_core.shape[:-1] + (1,), dtype=torch.int, device=sequence_core.device),
+                 ),
+                 dim=-1,
+             ),
+@@ -2382,6 +2383,9 @@
+             if not self.actor_critic.training:
+                 self.actor_critic.train()
+ 
++            if getattr(self.cfg, "dg_objective", "existing") == "neighborhood":
++                # Capture raw world pose before SF removes privileged observation keys.
++                buff["dg_neighborhood_pose"] = buff["obs"]["telemetry_pose"][:, :-1].detach().clone()
+             buff["normalized_obs"] = self._prepare_and_normalize_obs(buff["obs"])
+             del buff["obs"]  # don't need non-normalized obs anymore
+ 
+@@ -3492,59 +3496,84 @@
+             additional_stats["encoder_credit_replay_match"] = (
+                 applied_credit_count.float() / scheduled_credit_count.clamp_min(1).float()
+             ).detach()
+-            # noinspection PyTypeChecker
+-            encoder_loss = self._encoder_loss(
+-                outputs.head_outputs,
+-                mb["rewards_encoder"],
+-                applied_credit_mask,
+-                valids,
+-                num_invalids,
+-            )
+-            encoder_credit_loss = encoder_loss
+-            l1_loss = self._l1_loss(outputs.head_outputs, valids, num_invalids)
+-
+-            if self.cfg.extra_encoder_losses:
+-                (
+-                    encoder_penalty_loss,
+-                    encoder_reward_loss,
+-                    encoder_batch_loss,
+-                    encoder_batch_unused_count,
+-                ) = self._extra_encoder_loss(
++            if getattr(self.cfg, "dg_objective", "existing") == "neighborhood":
++                if normalized_logits is None:
++                    raise RuntimeError("Neighborhood loss requires same-forward DG BN logits")
++                neighborhood_cfg = NeighborhoodConfig(
++                    repulsion=self.cfg.dg_local_repulsion,
++                    repulsion_coefficient=self.cfg.dg_local_repulsion_coefficient,
++                )
++                self_loss, local_loss, neighborhood_stats = neighborhood_losses(
++                    normalized_logits - float(projection.intercept),
++                    mb["dg_neighborhood_pose"], valids, mb.dones, recurrence,
++                    neighborhood_cfg, seed=int(self.cfg.seed) + int(self.train_step),
++                )
++                encoder_loss = self_loss + local_loss
++                for key, value in neighborhood_stats.items():
++                    additional_stats["dg_neighborhood_" + key] = value
++                zero = encoder_loss.detach().new_zeros(())
++                encoder_credit_loss = l1_loss = zero
++                encoder_penalty_loss = encoder_reward_loss = encoder_batch_loss = zero
++                encoder_batch_unused_count = population_loss = usage_loss = zero
++                density_loss = collision_loss = global_punishment_loss = zero
++                row_repulsion_loss = temporal_exclusion_loss = path_scatter_loss = zero
++                dg_regularizer_stats = torch.stack((normalized_logits.detach().mean(),
++                    (normalized_logits.detach() > float(projection.intercept)).float().mean(),
++                    zero, zero, zero, zero))
++            else:
++                # noinspection PyTypeChecker
++                encoder_loss = self._encoder_loss(
+                     outputs.head_outputs,
+-                    mb["rnn_states"].detach(),
+-                    mb["encoder_dominant_activation_mask"],
+-                    mb["encoder_non_dominant_activation_mask"],
+-                    outputs.minibatch_size,
++                    mb["rewards_encoder"],
++                    applied_credit_mask,
+                     valids,
+                     num_invalids,
+                 )
+-                encoder_loss += encoder_reward_loss + encoder_penalty_loss + encoder_batch_loss
+-            else:
+-                encoder_loss += l1_loss
+-                encoder_batch_unused_count = outputs.head_outputs.sum() * 0.0
+-            population_loss, usage_loss, density_loss, collision_loss = self._population_usage_loss(
+-                outputs.head_outputs
+-            )
+-            (
+-                global_punishment_loss,
+-                row_repulsion_loss,
+-                temporal_exclusion_loss,
+-                path_scatter_loss,
+-                dg_regularizer_stats,
+-            ) = self._anti_collapse_losses(
+-                outputs.head_outputs,
+-                mb["rnn_states"],
+-                mb["encoder_dominant_activation_mask"],
+-                valids,
+-                num_invalids,
+-            )
+-            encoder_loss += (
+-                population_loss
+-                + global_punishment_loss
+-                + row_repulsion_loss
+-                + temporal_exclusion_loss
+-                + path_scatter_loss
+-            )
++                encoder_credit_loss = encoder_loss
++                l1_loss = self._l1_loss(outputs.head_outputs, valids, num_invalids)
++
++                if self.cfg.extra_encoder_losses:
++                    (
++                        encoder_penalty_loss,
++                        encoder_reward_loss,
++                        encoder_batch_loss,
++                        encoder_batch_unused_count,
++                    ) = self._extra_encoder_loss(
++                        outputs.head_outputs,
++                        mb["rnn_states"].detach(),
++                        mb["encoder_dominant_activation_mask"],
++                        mb["encoder_non_dominant_activation_mask"],
++                        outputs.minibatch_size,
++                        valids,
++                        num_invalids,
++                    )
++                    encoder_loss += encoder_reward_loss + encoder_penalty_loss + encoder_batch_loss
++                else:
++                    encoder_loss += l1_loss
++                    encoder_batch_unused_count = outputs.head_outputs.sum() * 0.0
++                population_loss, usage_loss, density_loss, collision_loss = self._population_usage_loss(
++                    outputs.head_outputs
++                )
++                (
++                    global_punishment_loss,
++                    row_repulsion_loss,
++                    temporal_exclusion_loss,
++                    path_scatter_loss,
++                    dg_regularizer_stats,
++                ) = self._anti_collapse_losses(
++                    outputs.head_outputs,
++                    mb["rnn_states"],
++                    mb["encoder_dominant_activation_mask"],
++                    valids,
++                    num_invalids,
++                )
++                encoder_loss += (
++                    population_loss
++                    + global_punishment_loss
++                    + row_repulsion_loss
++                    + temporal_exclusion_loss
++                    + path_scatter_loss
++                )
+             transition_mode = getattr(self.cfg, "dg_transition_prediction", "none")
+             transition_loss = encoder_loss * 0.0
+             transition_stats = {
+@@ -4141,6 +4170,9 @@
+             if not self.actor_critic.training:
+                 self.actor_critic.train()
+ 
++            if getattr(self.cfg, "dg_objective", "existing") == "neighborhood":
++                # Capture raw world pose before SF removes privileged observation keys.
++                buff["dg_neighborhood_pose"] = buff["obs"]["telemetry_pose"][:, :-1].detach().clone()
+             buff["normalized_obs"] = self._prepare_and_normalize_obs(buff["obs"])
+             del buff["obs"]  # don't need non-normalized obs anymore
+ 
+@@ -4222,6 +4254,9 @@
+         var = train_loop_vars  # TODO: Think of a better way, why is this necessary? Just redirecting pointer?
+         stats = super()._record_summaries(train_loop_vars)
+         stats.encoder_loss = var.additional_stats["encoder_loss"].detach().float()
++        for key, value in var.additional_stats.items():
++            if key.startswith("dg_neighborhood_"):
++                stats[key] = value.detach().float()
+         stats.decoder_loss = var.decoder_loss.detach().float()
+         for name in (
+             "onset",
+diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_params.py b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -25,6 +25,9 @@
+ 
+ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+     p = parser
++    p.add_argument("--dg_objective", choices=["existing", "neighborhood"], default="existing")
++    p.add_argument("--dg_local_repulsion", choices=["none", "temporal", "physical"], default="none")
++    p.add_argument("--dg_local_repulsion_coefficient", type=float, default=0.1)
+     p.add_argument("--decoder_reward_gate", choices=["none", "ca3_absent"], default="none")
+     p.add_argument("--dg_ca3_reentry_inhibition", choices=["none", "trace_subtractive", "hard"], default="none")
+     p.add_argument("--intrinsic_goal_mode", choices=["none", "ca3_absent_target"], default="none")
+diff --git a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -96,6 +96,15 @@
+ 
+ 
+ def maybe_overwrite_rnn_size(cfg):
++    if getattr(cfg, "dg_objective", "existing") == "neighborhood":
++        if cfg.DG_name != "batchnorm_relu" or not cfg.online_spatial_telemetry:
++            raise ValueError("Neighborhood DG requires batchnorm_relu and privileged pose transport")
++        if cfg.ppo_dg_gradient != "stop" or cfg.iterative_update:
++            raise ValueError("Neighborhood trial requires STOP PPO gradients and simultaneous updates")
++        if cfg.dg_orthogonal_recruitment and cfg.dg_orthogonal_recruitment_max_per_rollout != 0:
++            raise ValueError("Neighborhood anchors require recruitment replacements disabled")
++        if getattr(cfg, "dg_transition_prediction", "none") != "none":
++            raise ValueError("Neighborhood objective excludes transition prediction")
+     if getattr(cfg, "extra_decoder_loss", False):
+         raise ValueError(
+             "extra_decoder_loss is disabled: its historical objective had the wrong sign and must be repaired "
+diff --git a/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py b/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_dg_neighborhood.py
+@@ -0,0 +1,87 @@
++import numpy as np
++import pytest
++import torch
++
++from sf_working_directories.IntrMotiv.dmlab.dg_neighborhood import (
++    NeighborhoodConfig, enclosure_masks, episode_segments, local_pairs,
++    cross_unit_repulsion, neighborhood_losses,
++)
++
++
++def test_heading_aligned_ellipse_and_wrap():
++    cfg = NeighborhoodConfig()
++    anchors = torch.tensor([[0., 0., 0.], [0., 0., 90.], [0., 0., 359.]])
++    obs = torch.tensor([[140., 0., 0.], [0., 140., 90.], [0., 0., 1.], [0., 0., 30.]])
++    positive, negative = enclosure_masks(anchors, obs, cfg)
++    assert positive[0, 0] and positive[1, 1] and positive[2, 2]
++    assert negative[3, 0] and not positive[0, 1]
++    p, n = enclosure_masks(anchors[:1], torch.tensor([[200., 0., 0.]]), cfg)
++    assert not p.item() and not n.item()
++
++
++def test_own_unit_gradients_reach_silent_neighbors_and_suppress_far_sample():
++    scores = torch.tensor([[2., -2.], [-1., -3.], [-1., -4.]], requires_grad=True)
++    pose = torch.tensor([[0., 0., 0.], [10., 0., 0.], [500., 0., 0.]])
++    loss, rep, stats = neighborhood_losses(scores, pose, torch.ones(3, dtype=torch.bool),
++        torch.zeros(3, dtype=torch.bool), 3, NeighborhoodConfig())
++    loss.backward()
++    assert scores.grad[1, 0] < 0 and scores.grad[2, 0] > 0
++    assert torch.equal(scores.grad[:, 1], torch.zeros(3))
++    assert scores.grad[0, 0] == 0  # anchor itself is excluded
++    assert stats["anchor_count"] == 1 and rep == 0
++
++
++def test_segments_do_not_cross_resets_or_invalid_observations():
++    segments = episode_segments([1, 1, 0, 1, 1, 1, 1, 1], [1, 0, 0, 0, 0, 0, 0, 0], 4)
++    assert [s.tolist() for s in segments] == [[0], [1], [3], [4, 5, 6, 7]]
++    pairs, _ = local_pairs(np.zeros((8, 3)), segments, NeighborhoodConfig(repulsion="temporal"), 99)
++    assert pairs.tolist() == [[4, 5], [5, 6], [6, 7]]
++
++
++def test_sampled_physical_pairs_are_bounded_distinct_and_reproducible():
++    pose = np.array([[0, 0, 0], [0, 0, 180], [90, 0, 0], [500, 0, 0]], float)
++    cfg = NeighborhoodConfig(repulsion="physical")
++    pairs, weights = local_pairs(pose, [np.arange(4)], cfg, 99)
++    assert np.array_equal(pairs, local_pairs(pose, [np.arange(4)], cfg, 99)[0])
++    assert len(pairs) == 3 and len(np.unique(pairs[:, 0])) == 3
++    assert np.all(pairs[:, 0] != pairs[:, 1]) and np.all(np.isfinite(weights))
++    assert np.all(np.linalg.norm(pose[pairs[:, 0], :2] - pose[pairs[:, 1], :2], axis=1) <= 100)
++    assert np.all(weights <= 10)
++
++
++def test_repulsion_matches_explicit_off_diagonal_and_gradients():
++    a = torch.tensor([[1., 2., 0.], [3., 0., 4.]], requires_grad=True)
++    actual = cross_unit_repulsion(a, [[0, 1]], [2.])
++    reference = 2 * sum(a[0, i] * a[1, j] for i in range(3) for j in range(3) if i != j)
++    assert torch.equal(actual, reference)
++    assert torch.equal(torch.autograd.grad(actual, a)[0], torch.autograd.grad(reference, a)[0])
++    assert cross_unit_repulsion(torch.tensor([[1., 0.], [2., 0.]]), [[0, 1]], [1.]) == 0
++
++
++def test_silent_population_and_singleton_are_finite_differentiable():
++    scores = torch.full((2, 3), -1., requires_grad=True)
++    loss, rep, stats = neighborhood_losses(scores, torch.zeros(2, 3), torch.ones(2, dtype=torch.bool),
++        torch.ones(2, dtype=torch.bool), 2, NeighborhoodConfig(repulsion="physical"))
++    (loss + rep).backward()
++    assert loss == 0 and rep == 0 and stats["anchor_count"] == 0
++    assert torch.equal(scores.grad, torch.zeros_like(scores))
++
++
++def test_strongest_anchor_tie_uses_first_and_ignores_other_anchor():
++    scores = torch.tensor([[2.], [2.], [-1.]], requires_grad=True)
++    pose = torch.tensor([[0., 0., 0.], [500., 0., 0.], [10., 0., 0.]])
++    loss, _, _ = neighborhood_losses(scores, pose, torch.ones(3, dtype=torch.bool),
++        torch.zeros(3, dtype=torch.bool), 3, NeighborhoodConfig())
++    loss.backward()
++    assert scores.grad[0] == 0 and scores.grad[1] > 0 and scores.grad[2] < 0
++
++
++@pytest.mark.parametrize("device", ["cpu", "cuda"])
++def test_progression_preserves_device(device):
++    if device == "cuda" and not torch.cuda.is_available():
++        pytest.skip("CUDA is required for the GPU portability gate")
++    from sf_working_directories.IntrMotiv.dmlab.custom_learner import BaseDistanceRecorder
++    sequence = torch.tensor([[[0, 1, 0], [0, 0, 0]]], device=device)
++    actual = BaseDistanceRecorder._calculate_progression(None, sequence)
++    assert actual.device.type == device
++    assert actual.tolist() == [1, 3]

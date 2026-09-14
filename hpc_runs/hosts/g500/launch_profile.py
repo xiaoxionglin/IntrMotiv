@@ -12,7 +12,8 @@ def main():
     p.add_argument("--workers", type=int, required=True)
     p.add_argument("--batch-size", type=int, default=2048)
     p.add_argument("--gpus", type=int, nargs="+", default=[0])
-    p.add_argument("--seconds", type=int, default=180)
+    p.add_argument("--seconds", type=int, default=900)
+    p.add_argument("--frames", type=int, default=131072)
     p.add_argument("--execute", action="store_true")
     a = p.parse_args()
     if not a.name.replace("_", "").isalnum():
@@ -22,7 +23,7 @@ def main():
     args = [root + "/envs/SF_git/bin/python", root + "/tools/g500/profile_training.py",
             root + "/tools/g500/profile_parent.study.json", "DGP_C15_HIT_STOP_FILM_S99",
             root + "/train_dir/resource_profile_20260914/" + a.name,
-            f"--workers={a.workers}", f"--batch-size={a.batch_size}", f"--seconds={a.seconds}",
+            f"--workers={a.workers}", f"--batch-size={a.batch_size}", f"--seconds={a.seconds}", f"--frames={a.frames}",
             "--gpus", *map(str, a.gpus)]
     if a.execute:
         args.append("--execute")

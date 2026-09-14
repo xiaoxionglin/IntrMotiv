@@ -61,7 +61,8 @@ def main():
     parser.add_argument("--workers", type=int, required=True)
     parser.add_argument("--batch-size", type=int, default=2048)
     parser.add_argument("--gpus", type=int, nargs="+", default=[0])
-    parser.add_argument("--seconds", type=int, default=180)
+    parser.add_argument("--seconds", type=int, default=900, help="External wall-clock safety limit")
+    parser.add_argument("--frames", type=int, default=131072, help="Normal SF frame-count termination")
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args()
     if args.workers < 1 or args.batch_size < 64 or args.batch_size % 64:
@@ -79,7 +80,7 @@ def main():
             "experiment": name, "train_dir": str(output / "training"), "device": "gpu",
             "num_workers": args.workers, "num_envs_per_worker": 2,
             "batch_size": args.batch_size, "train_for_seconds": args.seconds,
-            "train_for_env_steps": 1000000000, "decorrelate_experience_max_seconds": 0,
+            "train_for_env_steps": args.frames, "decorrelate_experience_max_seconds": 0,
             "decorrelate_envs_on_one_worker": False, "set_workers_cpu_affinity": False,
             "dmlab_level_cache_path": str(root / "cache/dmlab"),
             "wandb_dir": str(root / "logs/wandb"), "with_wandb": True,
@@ -98,7 +99,7 @@ def main():
         specs.append({"name": name, "gpu": gpu, "command": command, "overrides": overrides})
     manifest = {**study.provenance(), "source_run": run.as_dict(), "runs": specs,
                 "workers": args.workers, "batch_size": args.batch_size,
-                "concurrency": len(args.gpus), "seconds": args.seconds}
+                "concurrency": len(args.gpus), "seconds": args.seconds, "frames": args.frames}
     if not args.execute:
         print(json.dumps(manifest, indent=2))
         return
@@ -142,9 +143,13 @@ def main():
                                        "returncode": record["process"].poll()})
             sample_file.write(json.dumps(sample) + "\n")
             sample_file.flush()
-            if time.monotonic() - start > args.seconds + 180 and not deadline_signal_sent:
+            failed = any("Traceback (most recent call last)" in r["log"].read_text(errors="replace")
+                         for r in records)
+            if (failed or time.monotonic() - start > args.seconds) and not deadline_signal_sent:
                 for r in records:
                     if r["process"].poll() is None:
+                        # SF's parent requests a controlled stop at worker boundaries.
+                        # This runtime does not advance its train_for_seconds counter.
                         os.kill(r["process"].pid, signal.SIGINT)
                 deadline_signal_sent = True
             if time.monotonic() - start > args.seconds + 300:
@@ -161,7 +166,8 @@ def main():
                         "deadline_signal_sent": deadline_signal_sent})
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2), flush=True)
-    if any(r["returncode"] or r["has_traceback"] or not r["wandb_online"] or not r["fps_after_warmup"] for r in summary):
+    if any(r["returncode"] != 0 or r["deadline_signal_sent"] or r["frames"] < args.frames
+           or r["has_traceback"] or not r["wandb_online"] or not r["fps_after_warmup"] for r in summary):
         raise SystemExit(1)
 
 
