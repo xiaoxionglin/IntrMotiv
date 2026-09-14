@@ -1,5 +1,30 @@
 # Agent Notes
 
+## Code Readability, Modularity, and Reuse
+
+- Write readable code that future threads can inspect, understand, and use.
+  Use clear names, explicit interfaces, and enough comments and docstrings to
+  explain intent, assumptions, and non-obvious decisions.
+- Organize code into cohesive, reusable modules with clear responsibilities
+  and minimal coupling, so future threads can update one component without
+  interfering with unrelated components. Keep shared behavior in canonical
+  modules instead of copying it into each new script.
+- Before implementing a solution, check for existing project modules,
+  workflows, and suitable external packages. Consider whether reuse or a
+  small extension is more efficient than new code, accounting for integration,
+  runtime, dependencies, and maintenance costs. Avoid reinventing the wheel.
+- Always look for redundancy in code, documentation, and workflows, and
+  consolidate overlapping implementations or information into a clearer,
+  better-organized shared structure while preserving necessary distinctions.
+
+## User Readability and Organization
+
+- Organize files, reports, and outputs with a clear structure and descriptive
+  names so the user can find and understand them.
+- Provide enough annotations and explanation to make assumptions, methods,
+  results, and next steps understandable. Use visualizations when they help
+  communicate the information, following the figure-readability rules below.
+
 ## Desktop Python Environment
 
 - For local desktop Python work in this project, default to the `SF_git` conda
@@ -87,6 +112,12 @@
 
 ## Continuous Workflow Improvement
 
+- Check for infrastructure improvements during non-trivial work and record
+  concrete findings in the root `infra.md` tracker. Consult existing entries
+  first and update them rather than duplicating them. Include evidence, impact,
+  the proposed improvement, status, and acceptance criteria; link to canonical
+  workflow documentation rather than copying it. Respect read-only task scope
+  by reporting proposed entries without editing files.
 - At the end of every non-trivial task, summarize the reusable experience:
   what worked, what failed or was slow, which evidence and commands were
   authoritative, and how the same task should be approached more efficiently
