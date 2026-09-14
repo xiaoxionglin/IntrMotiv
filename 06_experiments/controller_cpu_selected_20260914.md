@@ -62,3 +62,37 @@ seed 99; 8061403 direct HER seed 8; 8061404 waypoint DDQN seed 99; 8061405
 waypoint HER seed 99. Initial queue check reports CPU partition pending,
 `ReqNodeNotAvail, Reserved for maintenance`. Submission is verified; training
 and W&B startup are not yet verified. Do not claim measured CPU throughput.
+
+## All seeds and 64-decision cadence extension
+
+User requested all three seeds and `controller_decisions_per_update=64` for
+comparison. Add missing seeds to the four existing configurations (8 jobs),
+and add cadence64 for all architectures/modes/seeds (12 jobs). The four queued
+original jobs are preserved; the complete comparison has 24 jobs.
+
+Batch budgets remain fixed: DDQN 2048 main; HER 1024 main plus up to 1024
+auxiliary. Consequently cadence64 is total replay ratio 32 (HER at most 32),
+not the old 256-example replay ratio4 arm. This interpretation was explicitly
+communicated before submission. Target refresh is 96 updates at cadence64
+versus 3 at cadence2048: both 6144 accepted decisions. Fresh SF batch and DG
+schedule are unchanged. This arm may be much slower; it is a requested
+replay-intensity comparison, not an efficiency promise.
+
+New canonical specs are `controller_cpu_selected_ddqn_seeds`,
+`controller_cpu_selected_her_seeds`, `controller_cpu_f64_ddqn_seeds`,
+`controller_cpu_f64_her_seeds`, and `controller_cpu_cadence64` under
+`hpc_runs/studies/`. Validation fingerprints (schema v1/workflow1.8.1) are in
+`data/intrmotiv_full_system_controller_20260912/stored_state/cpu_expansion_validation_20260914.json`.
+Group in W&B by `Hippo_n_feature`, `controller_her`, and
+`controller_decisions_per_update`, aggregating `seed`. All use project
+`SF_IntrMotiv_CPU2048`. Existing learner code and existing jobs are unchanged.
+
+Reusable lesson: changing decision cadence with a fixed minibatch changes replay
+ratio. Record both numbers and align target refresh in physical decisions so
+that a cadence comparison does not also change target age by a factor of 32.
+
+All 20 additional jobs submitted and passed `audit-submission --submitted`:
+8061409–8061416 fill missing seeds at cadence2048; 8061417–8061428 cover all
+12 cadence64 cells. Combined with original jobs8061402–8061405 there are 24
+CPU jobs. Each StudySpec retains its canonical workspace jobs.tsv and audit
+JSON under workspace analysis. No duplicate original-seed jobs were submitted.
