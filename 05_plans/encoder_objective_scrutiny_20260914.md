@@ -5,6 +5,109 @@ no new runtime, StudySpec, training matrix, or submission. This continues the
 [oracle discussion](oracle_dg_place_fields_20260914.md) and
 [control-representation principle](control_representation_principle.md).
 
+## Sparse-DG requirement and revised preferred architecture
+
+User clarification: DG must remain a sparse sensory event code. This is a
+design constraint, not an auxiliary preference to relax if a dense metric is
+easier to learn. The direct Euclidean-DG progress proposal below is retained
+as prior reasoning, but is **not the preferred implementation under this
+constraint**. No dense sensory embedding may bypass DG into the CA3/worker
+state path; existing depth/instruction bypasses remain explicit controls.
+
+The reason is structural. Distinct one-hot codes all have distance $\sqrt2$;
+widely separated silent observations all have code zero. Their Euclidean
+distance cannot express arbitrary travel distance. Maintaining graded nonzero
+activity everywhere to repair this would defeat sparse landmark coding.
+Sparse codes can index a graph or support a predictive metric without their
+raw activity distance being that metric.
+
+The preferred division of labor is:
+
+$$
+a_t=\operatorname{ReLU}(\operatorname{BN}(W x_t)-\theta),\qquad
+h_t=\operatorname{CA3}(h_{t-1},a_t),\qquad
+Q(h_t,b,g)\ \text{predicts goal-reaching return}.
+$$
+
+Here $b$ is a primitive action; $a$ denotes DG activity. DG supplies a small
+set of event identities, CA3 supplies recent context between those events,
+and a goal-conditioned readout supplies relations between states and goals.
+A dense value output is a calculation from sparse-memory input, not a second
+sensory representation. The graph/readout can represent nearby versus distant
+landmarks even when the active DG patterns have identical Euclidean distance.
+
+### Concrete candidate: outcome-anchored sparse joint learning
+
+Keep sparse forward DG and the CA3 pathway; replace interval-weighted ARR
+reinforcement by a goal-reaching objective whose outcome labels cannot move
+with the live encoder. First use a fixed reference vocabulary for one complete
+diagnostic run. It may come from previously observed landmark examples or a
+frozen reference detector; oracle regions are a separate positive control.
+Store the actual reference observation/detector and label rule—an integer
+learned-goal ID by itself is not a stable target. A bad frozen detector remains
+bad; fixing it prevents reward redefinition but does not create precision.
+
+Select goals internally and reward a first arrival to the selected reference
+event. Train the worker and live sparse DG jointly through the same goal-value
+and policy objectives. As an interpretable supervised qualification, predict
+$P_\pi(\tau_g\leq H\mid h_t,b_t,g)$ on command-consistent recorded segments.
+Observed hits are positives; completed no-hit windows are negatives. Incomplete
+windows are censored, not fabricated negatives. Physical terminal failure is
+defined by the finite-episode task. $H$ here is a prediction/evaluation horizon,
+not an instruction to impose an option timeout.
+
+For the qualification head, binary cross-entropy to these fixed labels gives
+the continuous path $\nabla_W L$ through the readout, CA3 and active DG values.
+In the actual controller, use the selected backend’s correctly defined
+goal-value Bellman/policy objective rather than adding another detached shadow
+predictor. A finite-horizon probability, discounted value, and shortest hitting
+time are different quantities and must not share a misleading metric label.
+
+If two observation histories have different consequences under the same action
+and goal, merging them into the same worker input prevents an accurate readout;
+the loss therefore supplies pressure to distinguish them. This is a pressure
+on the sufficient memory state, not a proof that every individual field becomes
+local or that a dead ReLU unit receives gradient. Sparse recruitment/maintenance
+must remain explicit: keep the existing pre-threshold unused-unit training
+signal initially, while the actual forward activations remain thresholded.
+Learner-only smooth losses are compatible with sparse forward coding; do not
+feed their dense surrogate into the worker or success detector. If capacity is
+insufficient or the visual features alias states, no such loss guarantees a
+solution.
+
+This promotes useful distinctions under a sparse coding budget, rather than
+maximal separation of all states. Population activity and each unit’s lifetime
+usage must both be measured. A one-unit cap alone permits one permanently active
+unit; a low mean density alone permits unused units. Retain the current sparse
+threshold configuration for the first comparison rather than silently adding
+top-k competition, new activity targets, or uniform-usage enforcement.
+
+This is not a new algorithmic claim: contrastive goal-value learning and
+successor-based representations are established alternatives for learning
+relations from sparse/discrete state codes. It is also close to this project’s
+fixed-reference JOINT and adaptive controller work. Reuse and audit those
+implementations/results before proposing another run. The existing standalone
+DDQN diagnostic caches frozen preactivations and cannot train DG from them;
+an adaptive version needs original frozen-trunk features and reconstructed
+memories. Merely adding another CPD-style predictor on moving DG labels would
+not implement this proposal.
+
+The immediate discriminating experiment remains ARR on/off with the same sparse
+JOINT controller, followed by fixed versus moving outcome labels if needed.
+Those factors should remain separate. Positive results would support better
+sparse control representations, not guarantee place fields or intrinsic
+exploration. A moving landmark discovery mechanism remains a later unsolved
+part; the reference diagnostic must not be presented as having solved it.
+
+References checked for this refinement:
+[Contrastive RL](https://arxiv.org/abs/2206.07568),
+[successor representations and temporal abstraction](https://arxiv.org/abs/2110.05740),
+and the local [recurrent controller contract](../hpc_runs/intrmotiv_offpolicy/README.md).
+Reusable lesson: enforce the sensory information path before choosing a metric.
+Sparse identity, memory state, and predicted travel cost are distinct objects;
+giving them different roles avoids forcing a place-event code to become a dense
+coordinate system. This refinement is a proposal; no new training was run.
+
 ## Diagnosis and evidence boundary
 
 Externally rewarded navigation working is evidence that the representation,
