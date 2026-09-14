@@ -1,24 +1,27 @@
 {
-  "checked_at_utc": "2026-09-14T22:40:58+00:00",
+  "checked_at_utc": "2026-09-14T23:10:00+00:00",
   "stage": "profiling",
-  "search_pid": 1270880,
-  "candidate": "w32_e8_ep1",
+  "search_pid": 1293198,
+  "candidate": "w32_e8_ep1_splits8",
   "running": 4,
   "frames_per_run": [
-    65536,
-    65536,
-    65536,
-    65536
+    229376,
+    196608,
+    196608,
+    196608
   ],
-  "available_ram_gib": 171.98,
+  "available_ram_gib": 172.0,
   "gpu_free_mib": [
-    79238,
-    78635
+    78922,
+    80219
   ],
   "gpu_utilization_percent": [
-    7,
-    7
+    11,
+    21
   ],
-  "cpu_percent": 3.2,
-  "action": "First aggressive candidate advancing; no resource limit breach. Original production remains cancelled."
+  "cpu_percent": 4.1,
+  "completed_candidates": {
+    "w32_e8_ep1": 1125.7855
+  },
+  "action": "Split8 trial progressing with resource headroom; six-run trial scheduled next."
 }
