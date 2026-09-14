@@ -1,28 +1,39 @@
 {
-  "checked_at_utc": "2026-09-14T19:52:02Z",
+  "checked_at_utc": "2026-09-14T19:57:43Z",
   "stage": "production_running",
   "running": 4,
   "pending": 8,
   "completed": 0,
   "tracebacks": false,
-  "available_ram_gib": 294.89,
+  "available_ram_gib": 296.27,
   "gpu_free_mib": [
-    78143,
-    78439
+    78167,
+    78459
   ],
   "gpu_utilization_percent": [
-    14,
+    11,
     14
   ],
-  "action": "No intervention; all active runs advancing normally with ample resource headroom. Previously validated 1M snapshots remain recorded.",
+  "action": "No intervention. SELF 2.5M snapshot validated at actual frame 2523136; all active runs advancing with ample headroom.",
   "frames_by_run": {
-    "DGN_BASE_S99": 2228224,
-    "DGN_BASE_S8": 2162688,
-    "DGN_BASE_S123": 2162688,
-    "DGN_SELF_S99": 2457600
+    "DGN_BASE_S99": 2359296,
+    "DGN_BASE_S8": 2260992,
+    "DGN_BASE_S123": 2260992,
+    "DGN_SELF_S99": 2621440
   },
-  "online_snapshot_count": 4,
+  "online_snapshot_count": 5,
   "validated_snapshot_targets": [
     1000000
-  ]
+  ],
+  "validated_snapshots_by_target": {
+    "1000000": [
+      "DGN_BASE_S99",
+      "DGN_BASE_S8",
+      "DGN_BASE_S123",
+      "DGN_SELF_S99"
+    ],
+    "2500000": [
+      "DGN_SELF_S99"
+    ]
+  }
 }
