@@ -1,27 +1,27 @@
 {
-  "checked_at_utc": "2026-09-14T21:29:26Z",
+  "checked_at_utc": "2026-09-14T21:38:29Z",
   "stage": "production_running",
   "running": 4,
   "pending": 8,
   "completed": 0,
   "tracebacks": false,
-  "available_ram_gib": 296.62,
+  "available_ram_gib": 296.61,
   "gpu_free_mib": [
-    78149,
-    78419
+    80477,
+    80747
   ],
   "gpu_utilization_percent": [
-    13,
+    14,
     14
   ],
-  "action": "No intervention; all active runs advancing normally with ample resource headroom.",
+  "action": "No intervention; all four active runs progressing normally with ample resource headroom.",
   "frames_by_run": {
-    "DGN_BASE_S99": 4128768,
-    "DGN_BASE_S8": 3833856,
-    "DGN_BASE_S123": 3866624,
-    "DGN_SELF_S99": 4882432
+    "DGN_BASE_S99": 4292608,
+    "DGN_BASE_S8": 3997696,
+    "DGN_BASE_S123": 4030464,
+    "DGN_SELF_S99": 5111808
   },
-  "online_snapshot_count": 8,
+  "online_snapshot_count": 9,
   "validated_snapshot_targets": [
     1000000,
     2500000
@@ -37,6 +37,9 @@
       "DGN_BASE_S99",
       "DGN_BASE_S8",
       "DGN_BASE_S123",
+      "DGN_SELF_S99"
+    ],
+    "5000000": [
       "DGN_SELF_S99"
     ]
   }
