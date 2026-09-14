@@ -1,11 +1,41 @@
 # DG neighborhood experiment and G500 resource qualification
 
-Status: **production started on G500 at 20:13 local time on September 14**.
-All four scientific preflights exited normally and passed the complete shared-
-panel/checkpoint gate. Twelve 10M-frame runs are queued; four run concurrently
-(two per GPU). Online W&B is verified for the first production wave. The
-five-minute heartbeat and direct supervisor remain active through production
-and declared checkpoint evaluation.
+Status: **original production stopped at the user's request on September 15;
+a controlled throughput search is running before a fresh production restart**.
+The original four parents exited cleanly after SIGINT; pending runs were cancelled,
+and all partial outputs remain available. Do not resume the old supervisor.
+
+## September 15 throughput search and restart
+
+The user explicitly requested stopping current runs, searching near 32 workers
+and 8 environments/worker, then launching production with the best configuration.
+The earlier 8-versus-32-worker probes used different batch sizes and cannot
+establish an optimal worker count. Current measured CPU use was only 5.34% of
+192 logical CPUs (96 physical cores), with about 297 GiB RAM available.
+
+- Candidates: **8×2 control, 32×4, 32×8, 24×8**, sequential candidate groups.
+- Each group: four concurrent runs (GPU slots 0,1,0,1), one per scientific arm,
+  seed99; 262,144-frame target per run; 1,800-second safety deadline.
+- Fixed batch2048, two minibatches, one epoch, rollout/recurrence64; online W&B.
+- Selection: greatest summed completed-frame FPS after warmup among normally
+  completed candidates with at least 64 GiB RAM and 16 GiB GPU headroom.
+- Winner receives a fresh 500k four-arm scientific qualification, then the same
+  12×10M production matrix starts from original paired seeds in a new output root.
+  Shared-panel checkpoint evaluation remains automatic after production.
+- Search process: **1267232**; script
+  `/scratch/lin/IntrMotiv/tools/g500/search_neighborhood_throughput.py`.
+- Search status/results/reviews:
+  `/scratch/lin/IntrMotiv/train_dir/analysis/dg_throughput_search_20260915/`.
+- Supervisor log: `/scratch/lin/IntrMotiv/logs/dg-throughput-search-20260915.log`.
+- Once selected, `selected_preflight.study.json`, `selected_production.study.json`,
+  and `decision.json` in that directory are authoritative; mirror selected studies
+  into local `hpc_runs/studies/` for the durable record.
+- Production transition will be `production_transition/status.json` under the
+  search directory. New production root is
+  `/scratch/lin/IntrMotiv/train_dir/intrmotiv_dg_neighborhood_production_20260915_tuned`.
+- Five focused profiler/selection/study-preservation tests pass locally.
+  The scientific runtime source fingerprint remains unchanged.
+
 This is the activation-anchored revision agreed in the task, not the earlier
 fixed physical-center oracle proposal.
 

@@ -59,13 +59,16 @@ def main():
     parser.add_argument("run")
     parser.add_argument("output", type=Path)
     parser.add_argument("--workers", type=int, required=True)
+    parser.add_argument("--epochs", type=int, choices=[1, 2], default=1)
+    parser.add_argument("--envs-per-worker", type=int, default=2)
+    parser.add_argument("--runs", nargs="+", help="One StudySpec run per GPU slot; defaults to repeated positional run")
     parser.add_argument("--batch-size", type=int, default=2048)
     parser.add_argument("--gpus", type=int, nargs="+", default=[0])
     parser.add_argument("--seconds", type=int, default=900, help="External wall-clock safety limit")
     parser.add_argument("--frames", type=int, default=131072, help="Normal SF frame-count termination")
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args()
-    if args.workers < 1 or args.batch_size < 64 or args.batch_size % 64:
+    if args.envs_per_worker < 2 or args.envs_per_worker % 2 or args.workers < 1 or args.batch_size < 64 or args.batch_size % 64:
         parser.error("workers must be positive and batch size a positive multiple of 64")
     root = Path(os.environ.get("INTRMOTIV_ROOT", "/scratch/lin/IntrMotiv")).resolve()
     output = args.output.resolve()
@@ -73,13 +76,17 @@ def main():
         parser.error("profiling output must be inside INTRMOTIV_ROOT")
     study = load_study(args.study)
     run = next(r for r in study.expand_runs() if r.name == args.run)
+    selected = args.runs or [args.run] * len(args.gpus)
+    if len(selected) != len(args.gpus):
+        parser.error("--runs must contain one run per GPU slot")
     specs = []
     for slot, gpu in enumerate(args.gpus):
-        name = f"PROFILE_W{args.workers}_B{args.batch_size}_P{len(args.gpus)}_{output.name}_{slot}"
+        run = next(r for r in study.expand_runs() if r.name == selected[slot])
+        name = f"PROFILE_W{args.workers}_E{args.envs_per_worker}_EP{args.epochs}_B{args.batch_size}_P{len(args.gpus)}_{output.name}_{slot}"
         overrides = {
             "experiment": name, "train_dir": str(output / "training"), "device": "gpu",
-            "num_workers": args.workers, "num_envs_per_worker": 2,
-            "batch_size": args.batch_size, "train_for_seconds": args.seconds,
+            "num_workers": args.workers, "num_envs_per_worker": args.envs_per_worker,
+            "batch_size": args.batch_size, "num_epochs": args.epochs, "train_for_seconds": args.seconds,
             "train_for_env_steps": args.frames, "decorrelate_experience_max_seconds": 0,
             "decorrelate_envs_on_one_worker": False, "set_workers_cpu_affinity": False,
             "dmlab_level_cache_path": str(root / "cache/dmlab"),
@@ -99,6 +106,7 @@ def main():
         specs.append({"name": name, "gpu": gpu, "command": command, "overrides": overrides})
     manifest = {**study.provenance(), "source_run": run.as_dict(), "runs": specs,
                 "workers": args.workers, "batch_size": args.batch_size,
+                "envs_per_worker": args.envs_per_worker, "epochs": args.epochs, "source_runs": selected,
                 "concurrency": len(args.gpus), "seconds": args.seconds, "frames": args.frames}
     if not args.execute:
         print(json.dumps(manifest, indent=2))
@@ -145,7 +153,8 @@ def main():
             sample_file.flush()
             failed = any("Traceback (most recent call last)" in r["log"].read_text(errors="replace")
                          for r in records)
-            if (failed or time.monotonic() - start > args.seconds) and not deadline_signal_sent:
+            exhausted = sample["available_ram_gib"] < 64 or any(g["free_mib"] < 16384 for g in sample["gpus"])
+            if (failed or exhausted or time.monotonic() - start > args.seconds) and not deadline_signal_sent:
                 for r in records:
                     if r["process"].poll() is None:
                         # SF's parent requests a controlled stop at worker boundaries.

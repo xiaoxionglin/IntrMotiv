@@ -30,6 +30,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   accurate child failure propagation; no duplicate starts or source mutation
   during active jobs; online W&B; matched four-arm preflights pass before the
   already-authorized production queue starts.
+- **September 15 revision:** User stopped the initial production to qualify larger
+  sampler geometry. Extend the existing profiler with environments/worker and
+  paired four-arm selection rather than a duplicate benchmark. Five focused
+  tests pass. The earlier worker comparison also changed batch size and was
+  confounded; the new search fixes all learning settings and measures concurrent
+  throughput plus resource peaks before a fresh scientific gate and production.
 - **Lesson:** Select by completed-update throughput and full process lifecycle,
   not GPU memory alone or short-window FPS. Reuse compact resource summaries
   instead of loading checkpoints repeatedly for monitoring. Validate complete
