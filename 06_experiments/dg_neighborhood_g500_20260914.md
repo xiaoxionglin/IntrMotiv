@@ -319,3 +319,9 @@ frames without tracebacks. All four 1M online snapshots passed canonical
 `load_spatial_snapshot` validation at actual frame 1,015,808, each containing
 100,000 observations and finite activity for 16 units. RAM remained about
 295 GiB available and both GPUs remained at 14% utilization.
+
+Production milestone verification (20:15 UTC): all four first-wave runs passed
+2.5M frames; their 2.5M online snapshots passed canonical validation at actual
+frame 2,523,136, each with 100,000 observations. SELF seed99 reached 3.05M;
+the three baseline runs reached 2.59–2.72M. No tracebacks; eight runs remain
+queued, RAM availability about297 GiB and GPU utilization14% each.
