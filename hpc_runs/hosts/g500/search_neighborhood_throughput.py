@@ -11,12 +11,13 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 from hpc_runs.intrmotiv_study.direct import atomic_json, make_manifest, run_queue
 from hpc_runs.intrmotiv_study.spec import load_study
 from profile_training import resources
 
-CANDIDATES = [(32, 8, 1), (48, 8, 1), (32, 16, 1), (32, 8, 2), (48, 8, 2)]
+CANDIDATES = [(32, 8, 1, 2), (32, 8, 1, 8), (48, 8, 1, 2), (32, 16, 1, 2), (32, 8, 2, 2), (48, 8, 2, 2)]
 SLOTS = [0, 1, 0, 1]
 
 
@@ -36,15 +37,15 @@ def score_candidate(directory):
                 minimum_ram_gib=ram, minimum_gpu_free_mib=gpu)
 
 
-def revised_study(template, destination, study_id, workers, envs, epochs=1):
+def revised_study(template, destination, study_id, workers, envs, epochs=1, splits=2):
     """Change only execution geometry and experiment/output identities."""
     document = json.loads(template.read_text())
     old_id = document['study_id']
     document = json.loads(json.dumps(document).replace(old_id, study_id))
-    document['metadata']['resource_configuration'] = f'{workers}_workers_{envs}_envs_{epochs}_epochs_batch2048_4_slots'
+    document['metadata']['resource_configuration'] = f'{workers}_workers_{envs}_envs_{epochs}_epochs_{splits}_splits_batch2048_4_slots'
     document['metadata']['resource_rationale'] = 'Selected by matched four-arm direct throughput search; see search decision artifact.'
     args = document['training']['common_args']
-    for key, value in [('num_workers', workers), ('num_envs_per_worker', envs), ('num_epochs', epochs)]:
+    for key, value in [('num_workers', workers), ('num_envs_per_worker', envs), ('num_epochs', epochs), ('worker_num_splits', splits)]:
         matches = [i for i, item in enumerate(args) if item.startswith('--' + key + '=')]
         if len(matches) != 1:
             raise ValueError(f'Expected one {key} setting')
@@ -60,30 +61,41 @@ def main():
     p.add_argument('--source', type=Path, required=True)
     p.add_argument('--panel', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--resume', action='store_true', help='Explicit continuation after the previous supervisor has been stopped')
     a = p.parse_args()
-    a.output.mkdir(parents=True, exist_ok=False)
+    a.output.mkdir(parents=True, exist_ok=a.resume)
     study = load_study(a.preflight_template)
     names = [r.name for r in study.expand_runs()]
     if len(names) != 4:
         raise ValueError('Expected four preflight arms')
     results = []
-    for workers, envs, epochs in CANDIDATES:
-        name = f'w{workers}_e{envs}_ep{epochs}'
+    for workers, envs, epochs, splits in CANDIDATES:
+        name = f'w{workers}_e{envs}_ep{epochs}' + (f'_splits{splits}' if splits != 2 else '')
         directory = a.output / name
         atomic_json(a.output / 'status.json', dict(stage='profiling', candidate=name, completed=results))
         command = [sys.executable, str(Path(__file__).with_name('profile_training.py')),
                    str(a.preflight_template), names[0], str(directory), '--workers', str(workers),
-                   '--envs-per-worker', str(envs), '--epochs', str(epochs), '--batch-size', '2048', '--frames', '262144',
+                   '--envs-per-worker', str(envs), '--epochs', str(epochs), '--worker-splits', str(splits), '--batch-size', '2048', '--frames', '262144',
                    '--seconds', '1800', '--gpus', *map(str, SLOTS), '--runs', *names]
         review = subprocess.run(command, check=True, capture_output=True, text=True)
         (a.output / (name + '_review.json')).write_text(review.stdout)
-        with (a.output / (name + '_profiler.log')).open('x') as log:
-            result = subprocess.run([*command, '--execute'], stdout=log, stderr=subprocess.STDOUT)
-        if result.returncode:
-            # Never advance into another candidate with unknown surviving children.
-            raise RuntimeError(f'Candidate {name} failed; inspect its processes and logs before recovery')
+        if directory.exists():
+            if not a.resume:
+                raise FileExistsError(directory)
+            # The interrupted supervisor's profiler may still be completing its
+            # owned runs. Reuse its result rather than launching duplicates.
+            deadline = time.monotonic() + 2100
+            while not (directory / 'summary.json').exists():
+                if time.monotonic() > deadline:
+                    raise RuntimeError(f'Existing candidate {name} did not finish')
+                time.sleep(10)
+        else:
+            with (a.output / (name + '_profiler.log')).open('x') as log:
+                result = subprocess.run([*command, '--execute'], stdout=log, stderr=subprocess.STDOUT)
+            if result.returncode:
+                raise RuntimeError(f'Candidate {name} failed; inspect its processes and logs before recovery')
         evidence = score_candidate(directory)
-        results.append(dict(workers=workers, envs=envs, epochs=epochs, nominal_optimizer_samples_per_second=evidence["aggregate_fps"] / 8 * epochs, **evidence))
+        results.append(dict(workers=workers, envs=envs, epochs=epochs, splits=splits, nominal_optimizer_samples_per_second=evidence["aggregate_fps"] / 8 * epochs, **evidence))
         atomic_json(a.output / 'results.json', results)
     eligible = [r for r in results if r['eligible']]
     if not eligible:
@@ -91,12 +103,12 @@ def main():
     winner = max(eligible, key=lambda r: r['aggregate_fps'])
     atomic_json(a.output / 'decision.json', dict(winner=winner, candidates=results,
                 selection='Maximum aggregate completed-frame throughput after warmup, four simultaneous arms'))
-    workers, envs, epochs = winner['workers'], winner['envs'], winner['epochs']
+    workers, envs, epochs, splits = winner['workers'], winner['envs'], winner['epochs'], winner['splits']
     preflight = revised_study(a.preflight_template, a.output/'selected_preflight.study.json',
-                'intrmotiv_dg_neighborhood_preflight_20260915_aggressive', workers, envs, epochs)
+                'intrmotiv_dg_neighborhood_preflight_20260915_aggressive', workers, envs, epochs, splits)
     production_path = a.output/'selected_production.study.json'
     revised_study(a.production_template, production_path,
-                'intrmotiv_dg_neighborhood_production_20260915_aggressive', workers, envs, epochs)
+                'intrmotiv_dg_neighborhood_production_20260915_aggressive', workers, envs, epochs, splits)
     manifest = make_manifest(preflight, a.source, SLOTS)
     atomic_json(a.output/'selected_preflight_review.json', manifest)
     print(json.dumps(manifest, indent=2), flush=True)

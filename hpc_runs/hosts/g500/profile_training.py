@@ -59,6 +59,7 @@ def main():
     parser.add_argument("run")
     parser.add_argument("output", type=Path)
     parser.add_argument("--workers", type=int, required=True)
+    parser.add_argument("--worker-splits", type=int, default=2)
     parser.add_argument("--epochs", type=int, choices=[1, 2], default=1)
     parser.add_argument("--envs-per-worker", type=int, default=2)
     parser.add_argument("--runs", nargs="+", help="One StudySpec run per GPU slot; defaults to repeated positional run")
@@ -68,7 +69,7 @@ def main():
     parser.add_argument("--frames", type=int, default=131072, help="Normal SF frame-count termination")
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args()
-    if args.envs_per_worker < 2 or args.envs_per_worker % 2 or args.workers < 1 or args.batch_size < 64 or args.batch_size % 64:
+    if args.worker_splits < 1 or args.envs_per_worker < 1 or args.envs_per_worker % args.worker_splits or args.workers < 1 or args.batch_size < 64 or args.batch_size % 64:
         parser.error("workers must be positive and batch size a positive multiple of 64")
     root = Path(os.environ.get("INTRMOTIV_ROOT", "/scratch/lin/IntrMotiv")).resolve()
     output = args.output.resolve()
@@ -85,7 +86,7 @@ def main():
         name = f"PROFILE_W{args.workers}_E{args.envs_per_worker}_EP{args.epochs}_B{args.batch_size}_P{len(args.gpus)}_{output.name}_{slot}"
         overrides = {
             "experiment": name, "train_dir": str(output / "training"), "device": "gpu",
-            "num_workers": args.workers, "num_envs_per_worker": args.envs_per_worker,
+            "num_workers": args.workers, "num_envs_per_worker": args.envs_per_worker, "worker_num_splits": args.worker_splits,
             "batch_size": args.batch_size, "num_epochs": args.epochs, "train_for_seconds": args.seconds,
             "train_for_env_steps": args.frames, "decorrelate_experience_max_seconds": 0,
             "decorrelate_envs_on_one_worker": False, "set_workers_cpu_affinity": False,
