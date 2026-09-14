@@ -61,7 +61,7 @@ raw pose preservation through learner preparation, and scalar diagnostics. It
 reuses the same DG forward's pre-threshold logits. No changes were made to the
 desktop runtime checkout's unrelated in-progress depth work.
 
-## Resource evidence and current probes
+## Resource evidence and completed probes
 
 Live inspection found 96 physical cores / 192 logical CPUs, 377 GiB RAM with
 329 GiB available, two RTX PRO 6000 Blackwell GPUs with about 87 GiB free each,
@@ -76,7 +76,7 @@ not show a clear benefit from 16 workers. These interrupted probes are diagnosti
 only, not qualified throughput measurements: their shutdown and frame reporting
 windows are incomplete.
 
-Current fixed-frame probes, started after both earlier process trees exited:
+Completed fixed-frame probes, started after both earlier process trees exited:
 
 | Directory | GPU | Workers | Envs/worker | Batch | Frame target |
 |---|---:|---:|---:|---:|---:|
@@ -142,11 +142,11 @@ All paths below are under `/scratch/lin/IntrMotiv`:
   `direct_execution/state.json` contains exact process identity, progress,
   real exit status and W&B links. `manifest.json` binds commands and hashes.
   Queue PID at launch: **1239255**.
-- Transition: `train_dir/analysis/dg_neighborhood_transition_20260914/`.
+- Transition: `train_dir/analysis/dg_neighborhood_transition_20260914_r4/`.
   `status.json` is the stage indicator; `evaluations/qualification.json`
   is the fail-closed gate; `resource_decision.json` records slot selection;
   `production_review.json` is the print-only manifest before launch.
-  Log: `logs/dg-production-transition.log`. Transition PID: **1244478**.
+  Log: `logs/dg-production-transition-r4.log`. Transition PID: **1246395**.
 - Production: `train_dir/intrmotiv_dg_neighborhood_production_20260914/`.
   Its own `direct_execution/` appears only after qualification.
 - Panel: `train_dir/analysis/dg_neighborhood_shared_panel_20260914/`.
@@ -175,7 +175,7 @@ values and circular heading boundaries; full frozen-panel replay also passed.
 
 At 500k, require normal exits, actual terminal frame counts, online W&B,
 finite model/optimizer tensors, unchanged frozen visual trunk, learned DG and
-controller weights, saved source/study/manifest provenance, valid milestone
+controller weights, saved source/study/manifest provenance, valid shared-panel milestone
 NPZs, exact model/optimizer reloads and shared held-out evaluation. Scientific
 metric quality is reported, not used to silently drop an experimental arm.
 
@@ -208,8 +208,9 @@ trajectory comparison.
 
 Production remains the authorized four arms × seeds 99/8/123 × 10M frames,
 with initial and 1M/2.5M/5M/10M milestones. It starts automatically after these
-gates, with no further confirmation. The same panel is reused at terminal
-production checkpoints.
+gates, with no further confirmation. The same panel is reused through the canonical evaluation manifest: declared
+1M/2.5M/5M/10M checkpoints for seed 99 and terminal checkpoints for seeds 8/123.
+Complete per-unit summaries are uploaded as W&B evaluation artifacts.
 
 ## Reusable findings
 
@@ -233,3 +234,23 @@ counters. Short FPS windows are misleading when updates arrive in large bursts.
 - Preflight StudySpec SHA: `04969ce9f0a4db548d57bde58ae38ec4a3ab245936426b0ff6b9479a1396f8d2`.
 - Production StudySpec SHA: `a0748f739149bade77db00c46e5dc2cbcab7dc6ba0d0ec2ebe2cb7306921cb5b`.
 - Running source SHA: `cfaaba2f7d3f116520837bb6965e8a1d5682629f1ddd5229fa8d4d716ed840cc`.
+
+The waiting transition was revised twice before qualification began, first to
+reuse canonical milestone manifests and publish production W&B artifacts, then
+to match the established telemetry `batch/run/policy` directory layout. These
+restarts did not interrupt the four training processes. Only r4 is active.
+
+### Online map warmup and preflight evaluation
+
+The retained online map window is 100,000 observations × 8 frames/observation,
+so it cannot fill during a 500k-frame preflight. Absence of full online map
+NPZs before 800k is expected. Scalar diagnostics use the smaller 10k window
+and are present. Transition r4 evaluates both the saved 262,144-frame milestone
+and terminal checkpoint on the identical shared panel and validates their map
+NPZs; it retains all model, loss, reload and provenance gates. Production must
+produce online snapshots once the configured window fills, before its first
+1M target. This corrects the gate's warmup assumption without changing training,
+shortening the map window, or discarding the required checkpoint evaluations.
+
+Four additional transition-helper tests verify throughput-based two/four-slot
+selection, low-RAM fallback, and nested optimizer-finiteness checks.

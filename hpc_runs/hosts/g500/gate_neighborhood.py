@@ -87,7 +87,20 @@ def qualify(output, panel, evaluation_root):
         for key,value in actor.state_dict().items():
             require(torch.equal(value,terminal['model'][key]), f'Exact model reload mismatch: {key}')
         spatial=list(Path(cfg['online_spatial_output_root']).glob(f"*/{spec['name']}/policy_*/*.npz"))
-        require(len(spatial)>=2,'Missing milestone spatial snapshots')
+        online_window_ready=terminal['env_steps']>=cfg['online_spatial_window_observations']*cfg['env_frameskip']
+        if online_window_ready:
+            require(len(spatial)>=2,'Missing warmed-up milestone spatial snapshots')
+        # Before the configured online window fills, shared-panel checkpoint
+        # replay supplies the required map NPZs without shortening retention.
+        milestone_targets=[int(x) for x in cfg['checkpoint_frame_targets'].split(',')]
+        for target in milestone_targets:
+            if target>=spec['target_frames']: continue
+            folder=evaluation_root/(spec['name']+'__target_'+str(target))
+            milestone=json.loads((folder/'summary.json').read_text())
+            require(milestone['panel_sha256']==panel_meta['panel_sha256'], 'Milestone replay used a different panel')
+            for split in ('calibration','heldout'):
+                with np.load(folder/(split+'.npz')) as data:
+                    require(np.isfinite(data['dg_activity']).all() and data['rate_maps'].shape[-1]==16, 'Invalid milestone replay maps')
         for path in spatial:
             snapshot=load_spatial_snapshot(path)
             require(str(np.asarray(snapshot['run_name']).item())==spec['name'], 'Telemetry run identity mismatch')
@@ -99,6 +112,7 @@ def qualify(output, panel, evaluation_root):
                 require(len(data['pose'])>0 and np.isfinite(data['pose']).all() and np.isfinite(data['dg_activity']).all(), 'Invalid held-out arrays')
         results.append(dict(name=spec['name'],checkpoint=str(terminal_path),env_steps=terminal['env_steps'],
                             train_step=terminal['train_step'],wandb_urls=state['wandb_urls'],
+                            online_window_ready=online_window_ready,online_snapshot_count=len(spatial),
                             heldout=evaluation['heldout']))
         del actor,optimizer,terminal,initial
     report=dict(passed=True,study_sha256=manifest['study_sha256'],source_sha256=manifest['source_sha256'],

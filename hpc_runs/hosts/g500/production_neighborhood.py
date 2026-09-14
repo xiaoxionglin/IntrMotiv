@@ -97,10 +97,22 @@ def main():
     if not (a.panel/'metadata.json').is_file(): raise RuntimeError('Shared feature panel is incomplete')
     atomic_json(a.output/'status.json',dict(stage='evaluating_preflights'))
     evaluation_root=a.output/'evaluations'
+    from hpc_runs.intrmotiv_study.telemetry import CheckpointRecord, build_place_field_manifests, write_manifest
+    from sf_working_directories.IntrMotiv.evaluation.build_place_field_sweep import select_checkpoints, checkpoint_frames
+    preflight_study=load_study(manifest['study_spec'])
+    if preflight_study.fingerprint!=manifest['study_sha256']: raise RuntimeError('Preflight StudySpec changed')
+    preflight_inventory=[]
     for spec in manifest['runs']:
         run=a.preflight/spec['name']
         checkpoint=max(run.glob('checkpoint_p0/checkpoint_*.pth'),key=lambda p:int(p.stem.split('_')[-1]))
         evaluate(run,checkpoint,a.panel,evaluation_root/spec['name'])
+        preflight_inventory.append(CheckpointRecord(spec['name'],spec['target_frames'],checkpoint_frames(checkpoint),checkpoint,run))
+        earlier=[t for t in preflight_study.telemetry['target_frames'] if t<spec['target_frames']]
+        for target,milestone in select_checkpoints(run,target_frames=earlier):
+            evaluate(run,milestone,a.panel,evaluation_root/(spec['name']+'__target_'+str(target)))
+            preflight_inventory.append(CheckpointRecord(spec['name'],target,checkpoint_frames(milestone),milestone,run))
+    preflight_rows,_=build_place_field_manifests(preflight_study,preflight_inventory)
+    write_manifest(a.output/'preflight_evaluation_manifest.tsv',preflight_rows)
     report=qualify(a.preflight,a.panel,evaluation_root)
     url=publish_evaluation(report,manifest,evaluation_root/'qualification.json')
     slots,evidence=concurrency_from_samples(audit/'resources.jsonl')
