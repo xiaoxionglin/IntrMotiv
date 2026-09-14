@@ -5,12 +5,11 @@ is running. Scientific preflights and production have **not** been launched.
 This is the activation-anchored revision agreed in the task, not the earlier
 fixed physical-center oracle proposal.
 
-Read-only five-minute heartbeat `monitor-g500-resource-probes` is active for
-the two current fixed-frame probes. Automatic approval review rejected a broader
-automation that would implement changes and launch future runs, citing broad
-future authority without renewed confirmation. The narrower monitoring action
-was approved. No unattended implementation or production-launch automation is
-enabled; do not reinterpret the read-only heartbeat as authorization to mutate.
+The user renewed unattended authority on September 14: “when you are done
+evaluating, start the production, decide without asking me questions.” The
+existing five-minute heartbeat `monitor-g500-resource-probes` has consequently
+been updated to **G500 DG production gate**, with implementation, qualification,
+and production launch authorized. Automatic review approved this update.
 
 ## Scientific contract
 

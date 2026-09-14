@@ -7,9 +7,10 @@
   "metadata": {
     "project": "SF_IntrMotiv_DGNeighborhood",
     "parent_study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
-    "resource_configuration": "provisional_pending_profile",
+    "resource_configuration": "8_workers_2_envs_batch2048_4_slots_2_per_gpu",
     "training_steps": 10000000,
-    "execution_backend": "processes"
+    "execution_backend": "processes",
+    "resource_rationale": "32 workers did not improve throughput; retain batch2048 pending paired scientific preflight aggregate throughput."
   },
   "training": {
     "mode": "sample_factory",
