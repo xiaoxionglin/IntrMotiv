@@ -434,6 +434,17 @@ core.
 
 ## Current boundaries
 
+### Direct GPU workstation profiling (2026-09-14)
+
+G500 uses ordinary processes, not Slurm. The resource profiler under
+`hpc_runs/hosts/g500/` consumes a validated StudySpec and exact RunSpec, records
+all profiling overrides separately, samples host resources, and requires real
+completed learner frames. Scientific studies remain canonical. Resource
+profiles are not scientific preflight substitutes. See the
+[G500 qualification record](../06_experiments/dg_neighborhood_g500_20260914.md)
+for current evidence and the pending compatible direct-process audit adapter.
+This adds no StudySpec schema or package-version change.
+
 ### Future graph-planning runtime prerequisite (2026-09-11)
 
 Before the next new batch using topological/waypoint planning, incorporate the

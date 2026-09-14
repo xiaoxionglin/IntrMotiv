@@ -105,6 +105,13 @@ Use the
 [standardized workflow](standardized_study_workflow.md) for subsequent studies;
 existing NEMO2 Slurm launch commands are not directly applicable here.
 
+Actual training qualification and resource profiling are tracked in the
+[DG neighborhood workstation record](../06_experiments/dg_neighborhood_g500_20260914.md).
+That work identified W&B SDK and GPU reward-tensor portability fixes in an
+isolated source snapshot. The original setup smoke did not exercise a complete
+GPU learner update. Use fixed-frame resource probes and verify real process
+completion before choosing worker counts, batch size, or concurrent runs.
+
 ## Reusable lessons
 
 Inspect the target first, use its writable scratch space, and install a fresh

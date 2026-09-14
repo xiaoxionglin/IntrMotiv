@@ -6,6 +6,31 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### G500 training qualification and resource-aware direct execution — in progress
+
+- **Evidence:** Actual GPU training rejected legacy W&B `start_method` settings,
+  then hit a CPU/CUDA sentinel mismatch in reward progression. The runtime's
+  wall-clock limit reads a counter that is never advanced, and the existing
+  process launcher returns success even when a child fails. See the
+  [G500 DG qualification record](06_experiments/dg_neighborhood_g500_20260914.md).
+- **Impact:** Environment smokes and apparent idle GPUs do not establish
+  training correctness, useful concurrency, or reliable termination.
+- **Improvement:** Isolated W&B/device fixes; StudySpec-derived fixed-frame
+  profiler with five-second resource samples, real frame counters, process
+  identities and failure detection. Reuse the
+  [canonical study workflow](04_implementation/standardized_study_workflow.md)
+  for the scientific matrix; finish compatible direct-process auditing.
+- **Status:** 38 desktop regression tests passed (one CUDA skip), 9 G500
+  CPU/CUDA tests passed, and 3 profiler-counter tests passed. Fixed-frame
+  worker/batch probes are running; scientific training has not been launched.
+- **Acceptance criteria:** Qualified worker/batch/concurrency measurements;
+  accurate child failure propagation; no duplicate starts or source mutation
+  during active jobs; online W&B; matched four-arm preflights pass before the
+  already-authorized production queue starts.
+- **Lesson:** Select by completed-update throughput and full process lifecycle,
+  not GPU memory alone or short-window FPS. Reuse compact resource summaries
+  instead of loading checkpoints repeatedly for monitoring.
+
 ### Portable runtime bootstrap — verified; patcher cleanup proposed
 
 - **Evidence:** G500 setup found a nonportable absolute DMLab wheel path in the
