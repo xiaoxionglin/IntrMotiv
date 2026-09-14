@@ -83,6 +83,7 @@ def main():
     p.add_argument('--production-study',type=Path,required=True)
     p.add_argument('--panel',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--resource-decision',type=Path,help='Qualified external throughput-search decision, overrides legacy concurrency heuristic')
     a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     audit=a.preflight/'direct_execution'
@@ -116,6 +117,13 @@ def main():
     report=qualify(a.preflight,a.panel,evaluation_root)
     url=publish_evaluation(report,manifest,evaluation_root/'qualification.json')
     slots,evidence=concurrency_from_samples(audit/'resources.jsonl')
+    if a.resource_decision:
+        decision=json.loads(a.resource_decision.read_text())
+        winner=decision['winner']
+        if not winner['eligible'] or winner['concurrency'] not in (4,6):
+            raise RuntimeError('Unqualified external concurrency decision')
+        slots=[i%2 for i in range(winner['concurrency'])]
+        evidence=dict(selection_source=str(a.resource_decision),**winner)
     study=load_study(a.production_study)
     if study.expected_runs!=12 or sorted(study.seeds)!=[8,99,123]: raise RuntimeError('Unexpected production matrix')
     reviewed=make_manifest(study,Path(manifest['source_root']),slots)

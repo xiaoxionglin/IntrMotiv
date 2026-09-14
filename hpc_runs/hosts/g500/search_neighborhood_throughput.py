@@ -17,15 +17,15 @@ from hpc_runs.intrmotiv_study.direct import atomic_json, make_manifest, run_queu
 from hpc_runs.intrmotiv_study.spec import load_study
 from profile_training import resources
 
-CANDIDATES = [(32, 8, 1, 2), (32, 8, 1, 8), (48, 8, 1, 2), (32, 16, 1, 2), (32, 8, 2, 2), (48, 8, 2, 2)]
+CANDIDATES = [(32, 8, 1, 2, 4), (32, 8, 1, 8, 4), (32, 8, 1, None, 6), (48, 8, 1, 2, 4), (32, 16, 1, 2, 4), (32, 8, 2, 2, 4), (48, 8, 2, 2, 4)]
 SLOTS = [0, 1, 0, 1]
 
 
-def score_candidate(directory):
+def score_candidate(directory, concurrency=4):
     """Require successful online runs and headroom; rank aggregate steady FPS."""
     summary = json.loads((directory / 'summary.json').read_text())
     samples = [json.loads(s) for s in (directory / 'resources.jsonl').read_text().splitlines()]
-    valid = len(summary) == 4 and all(
+    valid = len(summary) == concurrency and all(
         x['returncode'] == 0 and not x['has_traceback'] and not x['deadline_signal_sent']
         and x['wandb_online'] and x['frames'] >= 262144 and (x['fps_after_warmup'] or 0) > 0
         for x in summary)
@@ -37,12 +37,12 @@ def score_candidate(directory):
                 minimum_ram_gib=ram, minimum_gpu_free_mib=gpu)
 
 
-def revised_study(template, destination, study_id, workers, envs, epochs=1, splits=2):
+def revised_study(template, destination, study_id, workers, envs, epochs=1, splits=2, concurrency=4):
     """Change only execution geometry and experiment/output identities."""
     document = json.loads(template.read_text())
     old_id = document['study_id']
     document = json.loads(json.dumps(document).replace(old_id, study_id))
-    document['metadata']['resource_configuration'] = f'{workers}_workers_{envs}_envs_{epochs}_epochs_{splits}_splits_batch2048_4_slots'
+    document['metadata']['resource_configuration'] = f'{workers}_workers_{envs}_envs_{epochs}_epochs_{splits}_splits_batch2048_{concurrency}_slots'
     document['metadata']['resource_rationale'] = 'Selected by matched four-arm direct throughput search; see search decision artifact.'
     args = document['training']['common_args']
     for key, value in [('num_workers', workers), ('num_envs_per_worker', envs), ('num_epochs', epochs), ('worker_num_splits', splits)]:
@@ -69,14 +69,18 @@ def main():
     if len(names) != 4:
         raise ValueError('Expected four preflight arms')
     results = []
-    for workers, envs, epochs, splits in CANDIDATES:
-        name = f'w{workers}_e{envs}_ep{epochs}' + (f'_splits{splits}' if splits != 2 else '')
+    for workers, envs, epochs, splits, concurrency in CANDIDATES:
+        if splits is None:
+            splits = max((r for r in results if r["eligible"]), key=lambda r: r["aggregate_fps"])["splits"]
+        slots = [i % 2 for i in range(concurrency)]
+        selected_names = names + names[:concurrency - 4]
+        name = f'w{workers}_e{envs}_ep{epochs}' + (f'_splits{splits}' if splits != 2 else '') + (f'_p{concurrency}' if concurrency != 4 else '')
         directory = a.output / name
         atomic_json(a.output / 'status.json', dict(stage='profiling', candidate=name, completed=results))
         command = [sys.executable, str(Path(__file__).with_name('profile_training.py')),
                    str(a.preflight_template), names[0], str(directory), '--workers', str(workers),
                    '--envs-per-worker', str(envs), '--epochs', str(epochs), '--worker-splits', str(splits), '--batch-size', '2048', '--frames', '262144',
-                   '--seconds', '1800', '--gpus', *map(str, SLOTS), '--runs', *names]
+                   '--seconds', '1800', '--gpus', *map(str, slots), '--runs', *selected_names]
         review = subprocess.run(command, check=True, capture_output=True, text=True)
         (a.output / (name + '_review.json')).write_text(review.stdout)
         if directory.exists():
@@ -94,8 +98,8 @@ def main():
                 result = subprocess.run([*command, '--execute'], stdout=log, stderr=subprocess.STDOUT)
             if result.returncode:
                 raise RuntimeError(f'Candidate {name} failed; inspect its processes and logs before recovery')
-        evidence = score_candidate(directory)
-        results.append(dict(workers=workers, envs=envs, epochs=epochs, splits=splits, nominal_optimizer_samples_per_second=evidence["aggregate_fps"] / 8 * epochs, **evidence))
+        evidence = score_candidate(directory, concurrency)
+        results.append(dict(workers=workers, envs=envs, epochs=epochs, splits=splits, concurrency=concurrency, nominal_optimizer_samples_per_second=evidence["aggregate_fps"] / 8 * epochs, **evidence))
         atomic_json(a.output / 'results.json', results)
     eligible = [r for r in results if r['eligible']]
     if not eligible:
@@ -105,10 +109,10 @@ def main():
                 selection='Maximum aggregate completed-frame throughput after warmup, four simultaneous arms'))
     workers, envs, epochs, splits = winner['workers'], winner['envs'], winner['epochs'], winner['splits']
     preflight = revised_study(a.preflight_template, a.output/'selected_preflight.study.json',
-                'intrmotiv_dg_neighborhood_preflight_20260915_aggressive', workers, envs, epochs, splits)
+                'intrmotiv_dg_neighborhood_preflight_20260915_aggressive', workers, envs, epochs, splits, winner["concurrency"])
     production_path = a.output/'selected_production.study.json'
     revised_study(a.production_template, production_path,
-                'intrmotiv_dg_neighborhood_production_20260915_aggressive', workers, envs, epochs, splits)
+                'intrmotiv_dg_neighborhood_production_20260915_aggressive', workers, envs, epochs, splits, winner["concurrency"])
     manifest = make_manifest(preflight, a.source, SLOTS)
     atomic_json(a.output/'selected_preflight_review.json', manifest)
     print(json.dumps(manifest, indent=2), flush=True)
@@ -117,7 +121,8 @@ def main():
     atomic_json(a.output/'status.json', dict(stage='scientific_gate_and_production', winner=winner))
     command = [sys.executable, str(Path(__file__).with_name('production_neighborhood.py')),
                '--preflight', str(preflight.output_root), '--production-study', str(production_path),
-               '--panel', str(a.panel), '--output', str(a.output/'production_transition')]
+               '--panel', str(a.panel), '--output', str(a.output/'production_transition'),
+               '--resource-decision', str(a.output/'decision.json')]
     subprocess.run(command, check=True)
     atomic_json(a.output/'status.json', dict(stage='production_and_evaluation_completed', winner=winner))
 

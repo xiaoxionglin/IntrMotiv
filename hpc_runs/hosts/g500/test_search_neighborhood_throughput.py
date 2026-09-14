@@ -30,3 +30,12 @@ def test_score_rejects_resource_pressure_and_incomplete_runs(tmp_path):
     (tmp_path/'summary.json').write_text(json.dumps(rows))
     (tmp_path/'resources.jsonl').write_text(json.dumps(dict(available_ram_gib=63,gpus=[dict(free_mib=20000)]))+'\n')
     assert not score_candidate(tmp_path)['eligible']
+
+
+def test_six_run_score_requires_six_complete_runs(tmp_path):
+    rows=[dict(returncode=0,has_traceback=False,deadline_signal_sent=False,wandb_online=True,frames=262144,fps_after_warmup=300) for _ in range(6)]
+    (tmp_path/'summary.json').write_text(json.dumps(rows))
+    (tmp_path/'resources.jsonl').write_text(json.dumps(dict(available_ram_gib=100,gpus=[dict(free_mib=20000)]))+'\n')
+    assert score_candidate(tmp_path,6)['eligible']
+    assert score_candidate(tmp_path,6)['aggregate_fps']==1800
+    assert not score_candidate(tmp_path,4)['eligible']

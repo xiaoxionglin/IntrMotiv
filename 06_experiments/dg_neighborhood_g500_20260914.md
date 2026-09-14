@@ -17,6 +17,11 @@ establish an optimal worker count. Current measured CPU use was only 5.34% of
   scheduled immediately after the current splits=2 trial. Supervisor1282431
   explicitly continues the existing search; profiler1270891 and its training
   children were preserved. All other candidates retain splits=2.
+- User authorized **six concurrent runs**, prioritizing total throughput. After
+  the splits comparison, test32×8/one epoch with its better split setting at
+  six slots (three/GPU). Include all four arms plus BASE/SELF replicas; record
+  this composition when interpreting scaling. Select concurrency jointly with
+  sampler settings by aggregate FPS. Six focused tests now pass.
 - Candidates (user revised): **32×8×1 epoch, 48×8×1, 32×16×1,
   32×8×2, 48×8×2**, sequential candidate groups. The brief 8×2 control
   was stopped and superseded; all four of its training parents exited.
@@ -31,11 +36,11 @@ establish an optimal worker count. Current measured CPU use was only 5.34% of
 - Winner receives a fresh 500k four-arm scientific qualification, then the same
   12×10M production matrix starts from original paired seeds in a new output root.
   Shared-panel checkpoint evaluation remains automatic after production.
-- Search process: **1282431**; script
+- Search process: **1293198**; script
   `/scratch/lin/IntrMotiv/tools/g500/search_neighborhood_throughput.py`.
 - Search status/results/reviews:
   `/scratch/lin/IntrMotiv/train_dir/analysis/dg_throughput_search_20260915_aggressive/`.
-- Supervisor log: `/scratch/lin/IntrMotiv/logs/dg-throughput-search-20260915-aggressive-splits.log`.
+- Supervisor log: `/scratch/lin/IntrMotiv/logs/dg-throughput-search-20260915-aggressive-concurrency.log`.
 - Once selected, `selected_preflight.study.json`, `selected_production.study.json`,
   and `decision.json` in that directory are authoritative; mirror selected studies
   into local `hpc_runs/studies/` for the durable record.
