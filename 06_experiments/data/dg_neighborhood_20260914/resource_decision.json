@@ -1,0 +1,20 @@
+{
+  "gpu_slots": [
+    0,
+    1,
+    0,
+    1
+  ],
+  "per_run_fps": [
+    444.88493650920844,
+    440.82511210762334,
+    438.85714285714283,
+    444.81447963800906
+  ],
+  "aggregate_fps": 1769.3816711119837,
+  "two_run_reference_fps": 560.2364,
+  "required_scaling_efficiency": 0.7,
+  "minimum_available_ram_gib": 294.8591537475586,
+  "minimum_gpu_free_mib": 78589.0,
+  "limitation": "Mixed-objective preflights versus existing-objective resource baseline; practical admission decision, not a global optimum."
+}

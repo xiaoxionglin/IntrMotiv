@@ -1,10 +1,11 @@
 # DG neighborhood experiment and G500 resource qualification
 
-Status: the four corrected scientific preflights (revision r4) are running
-with online W&B. The shared held-out panel and replay smoke have passed.
-The unattended transition process is waiting for preflight completion and will
-launch production only after exact checkpoint/evaluation gates pass. Production
-has **not yet** started at this update.
+Status: **production started on G500 at 20:13 local time on September 14**.
+All four scientific preflights exited normally and passed the complete shared-
+panel/checkpoint gate. Twelve 10M-frame runs are queued; four run concurrently
+(two per GPU). Online W&B is verified for the first production wave. The
+five-minute heartbeat and direct supervisor remain active through production
+and declared checkpoint evaluation.
 This is the activation-anchored revision agreed in the task, not the earlier
 fixed physical-center oracle proposal.
 
@@ -148,7 +149,8 @@ All paths below are under `/scratch/lin/IntrMotiv`:
   `production_review.json` is the print-only manifest before launch.
   Log: `logs/dg-production-transition-r4.log`. Transition PID: **1246395**.
 - Production: `train_dir/intrmotiv_dg_neighborhood_production_20260914/`.
-  Its own `direct_execution/` appears only after qualification.
+  Its `direct_execution/` is active and records four running/eight pending runs
+  at launch; later waves follow canonical StudySpec order.
 - Panel: `train_dir/analysis/dg_neighborhood_shared_panel_20260914/`.
   **20,700 decisions / 23 whole episodes**; first 9,900 calibration,
   remaining 10,800 held out. Seed 314159, random action held for 8 decisions.
@@ -233,7 +235,7 @@ counters. Short FPS windows are misleading when updates arrive in large bursts.
 - Schema: `intrmotiv/study/v1`; workflow: `1.8.1`.
 - Preflight StudySpec SHA: `04969ce9f0a4db548d57bde58ae38ec4a3ab245936426b0ff6b9479a1396f8d2`.
 - Production StudySpec SHA: `a0748f739149bade77db00c46e5dc2cbcab7dc6ba0d0ec2ebe2cb7306921cb5b`.
-- Running source SHA: `cfaaba2f7d3f116520837bb6965e8a1d5682629f1ddd5229fa8d4d716ed840cc`.
+- Qualified and running source SHA: `cfaaba2f7d3f116520837bb6965e8a1d5682629f1ddd5229fa8d4d716ed840cc`.
 
 The waiting transition was revised twice before qualification began, first to
 reuse canonical milestone manifests and publish production W&B artifacts, then
@@ -254,3 +256,60 @@ shortening the map window, or discarding the required checkpoint evaluations.
 
 Four additional transition-helper tests verify throughput-based two/four-slot
 selection, low-RAM fallback, and nested optimizer-finiteness checks.
+
+## Passed preflight and production launch
+
+- [Qualification report](data/dg_neighborhood_20260914/qualification.json): all
+  four normal exits, exact paired initial states, frozen trunk, learned DG and
+  decoder, finite losses/model/Adam state, exact reload and provenance passed.
+- [Eight-checkpoint evaluation manifest](data/dg_neighborhood_20260914/preflight_evaluation_manifest.tsv)
+  and [all per-unit summaries](data/dg_neighborhood_20260914/preflight_evaluations.json).
+- [W&B qualification and held-out metrics](https://wandb.ai/xiaoxionglin-bernstein-center-freiburg/SF_IntrMotiv_DGNeighborhood/runs/sjuei3if).
+- [Resource decision](data/dg_neighborhood_20260914/resource_decision.json):
+  1,769.38 aggregate frames/s; individual completed-update rates 438.86–444.88
+  frames/s. Minimum available RAM 294.86 GiB; minimum free GPU memory 76.75 GiB.
+  Selected four slots `[0,1,0,1]`, eight workers, two environments/worker, batch2048.
+- [Production command manifest](data/dg_neighborhood_20260914/production_manifest.json);
+  manifest SHA `302dd0e205990af82bcd8f500cd04f9ac483c40e27316a4d2ed137c8c235f66e`.
+  The first wave is BASE seeds99/8/123 and SELF seed99; the remaining eight
+  rows stay queued. No scientific condition or seed was removed.
+
+### Early held-out representation results (seed 99 only)
+
+| Objective | Active population | Silent units | Recall | False positives | Spatial RMS radius | Fields at 50% peak (eligible units) |
+|---|---:|---:|---:|---:|---:|---:|
+| Existing | 1.07% | 0 | 6.7% | 1.05% | 677.1 | 4.33 (12/16) |
+| Neighborhood | 6.18% | 0 | 52.2% | 6.04% | 820.6 | 4.62 (16/16) |
+| + temporal repulsion | 6.15% | 1 | 54.2% | 6.42% | 823.2 | 5.20 (15/16) |
+| + physical repulsion | 4.86% | 0 | 54.9% | 4.77% | 817.4 | 5.07 (15/16) |
+
+Recall/FPR and compactness are macro means over defined unit values. Field
+counts average only canonical eligible units; support differs across arms.
+Diagnostic anchors are selected separately for each checkpoint on calibration
+episodes, so recall is local consistency around those anchors, not accuracy
+on an identical set of externally fixed centers. RMS radius uses world units
+and occupancy-corrected rates.
+
+The new losses increased recall and population activity but also increased
+false positives and spatial extent. Neither repulsion variant has yet shown
+better compactness or fewer disconnected fields at this short checkpoint.
+Physical repulsion reduced activity/FPR relative to neighborhood-only, while
+remaining well above baseline. These are early single-seed observations; the
+production comparison keeps every arm to test persistence and seed variability.
+
+### Reusable execution lessons
+
+The authoritative launch evidence is the saved manifest plus real child exit
+status and completed-frame counters; the scientific evidence is the shared
+feature-panel hash and per-unit checkpoint summaries. Checking full configs and
+telemetry warmup assumptions earlier would have avoided startup retries and
+gate revisions. Keep source immutable, separate host execution adapters from
+scientific mechanisms, retain missing-denominator/eligibility information, and
+reuse canonical checkpoint selection and map calculations. Four-run profiling
+was sufficient for this first production allocation; broader concurrency tuning
+can be a separate matched benchmark rather than changing an active study.
+
+Production startup verification: all four first-wave runs reached 32,768
+completed frames without tracebacks, with online W&B URLs. Available host RAM
+was 295.96 GiB and GPU utilization was 14% on each GPU. The heartbeat is now
+named **G500 DG production monitor** and follows the existing production queue.

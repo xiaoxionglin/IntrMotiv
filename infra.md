@@ -23,8 +23,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   failure, resource admission, duplicate-start exclusion and manifest provenance.
 - **Status:** 38 desktop regression tests passed (one CUDA skip), 9 G500
   CPU/CUDA tests passed, 4 direct-queue and 3 profiler tests passed, and 2
-  metric tests passed. Four scientific preflights are running; shared-panel
-  replay and exact model/optimizer reload passed. Automatic production gate active.
+  metric tests passed. All four scientific preflights passed shared-panel and exact model/optimizer
+  gates; 12 production runs launched with four GPU slots. Six remote evaluation/
+  transition tests pass. Monitoring and production checkpoint evaluation remain active.
 - **Acceptance criteria:** Qualified worker/batch/concurrency measurements;
   accurate child failure propagation; no duplicate starts or source mutation
   during active jobs; online W&B; matched four-arm preflights pass before the
@@ -33,7 +34,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   not GPU memory alone or short-window FPS. Reuse compact resource summaries
   instead of loading checkpoints repeatedly for monitoring. Validate complete
   scientific configs, including recruitment-dependent flags and telemetry
-  interval/max consistency, before launch. G500 lacks `rg`; use `grep` there.
+  interval/max consistency and full-window warmup, before launch. A 100k-
+  observation map window needs 800k frames at frameskip8; shorter preflights
+  should use shared-panel checkpoint maps. G500 lacks `rg`; use `grep` there.
 
 ### Portable runtime bootstrap — verified; patcher cleanup proposed
 
