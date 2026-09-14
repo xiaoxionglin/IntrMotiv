@@ -1,25 +1,25 @@
 {
-  "checked_at_utc": "2026-09-14T19:10:02Z",
+  "checked_at_utc": "2026-09-14T19:22:04Z",
   "stage": "production_running",
   "running": 4,
   "pending": 8,
   "completed": 0,
   "tracebacks": false,
-  "available_ram_gib": 294.99,
+  "available_ram_gib": 294.98,
   "gpu_free_mib": [
-    78151,
-    78435
+    80469,
+    78449
   ],
   "gpu_utilization_percent": [
-    14,
+    13,
     14
   ],
   "action": "No intervention; all active runs advancing normally with ample resource headroom. Previously validated 1M snapshots remain recorded.",
   "frames_by_run": {
-    "DGN_BASE_S99": 1376256,
-    "DGN_BASE_S8": 1343488,
-    "DGN_BASE_S123": 1343488,
-    "DGN_SELF_S99": 1409024
+    "DGN_BASE_S99": 1605632,
+    "DGN_BASE_S8": 1572864,
+    "DGN_BASE_S123": 1572864,
+    "DGN_SELF_S99": 1703936
   },
   "online_snapshot_count": 4,
   "validated_snapshot_targets": [
