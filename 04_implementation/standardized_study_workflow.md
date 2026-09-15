@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.8.1** (local; original shared NEMO2 checkout **1.7.1**); study schema:
+Current implementation: **1.8.1** (desktop and canonical NEMO2 checkout; synchronized September 15); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 

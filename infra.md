@@ -6,12 +6,12 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
-### NEMO source consolidation and checkout retirement — in progress
+### NEMO source consolidation — complete; live-release retirement pending
 
 - **Evidence:** September 15 inventory found the canonical `SF_hipposlam` plus
   36 alternatives, many with uncommitted changes or no Git metadata. Three
   alternatives support 44 running/queued jobs; the remaining 33 are retirement
-  candidates. There are 373 distinct differing source-file hashes.
+  candidates at inventory. There are 373 distinct differing source-file hashes.
 - **Impact:** Fixes and qualified controller modules were missing from the main
   checkout, while repeated copies made source selection and cleanup ambiguous.
 - **Improvement:** Integrate the latest qualified controller with newer shared
@@ -20,8 +20,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   and retain separate releases only while jobs require their source.
 - **Status:** All 37 original checkouts archived and checksum-verified under
   `/work/classic/fr_xl1014-train/IntrMotiv/source_retirement_20260915/`.
-  Consolidated branch `codex/nemo-consolidation-20260915` passes pinned hooks
-  and 583 desktop tests. NEMO verification, GitHub push and retirement are pending.
+  Published branch `codex/nemo-consolidation-20260915` passes pinned hooks,
+  583 desktop tests, and 573 NEMO tests (10 CUDA skips). All 33 inactive folders
+  retired after a fresh checksum comparison and job checks. The three live
+  release folders remain; their source hashes were verified unchanged. Shared
+  publication-worktree metadata is locked against pruning. Desktop depth work
+  is preserved on `codex/local-depth-preserved-20260915`; both canonical
+  checkouts use the consolidated branch.
+- **Published result:** [GitHub branch](https://github.com/xiaoxionglin/SF_hipposlam/tree/codex/nemo-consolidation-20260915),
+  final documentation revision `c002faff2c6832f9b0ce63bc6401f95e9cb4718d`.
+  The [canonical procedure](https://github.com/xiaoxionglin/SF_hipposlam/blob/codex/nemo-consolidation-20260915/docs/intrmotiv_source_consolidation.md)
+  records lineage selection, archive contents, verification, and retirement.
+- **Remaining work:** Retire `controller_cpu_selected_20260914`,
+  `controller_rr1_20260913`, and `controller_stored_production_release_20260912`
+  only after their running/queued jobs finish and a fresh dependency audit.
+  Their existence is currently required, rather than redundant.
 - **Acceptance criteria:** Matching published/canonical commit; focused tests
   pass on NEMO; inactive folders removed only after a fresh job/dependency check
   and checksum comparison; live source folders and all training data preserved.
@@ -29,7 +42,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   commits alone are insufficient. Compare ASTs to identify formatting-only
   differences, merge against the organized parent, and reuse the pinned hook
   environment at `/tmp/intrmotiv-precommit-env` on this desktop. Preserve shared
-  Git worktree metadata while any retained copies refer to it.
+  Git worktree metadata while any retained copies refer to it. Neither shell
+  had GitHub push credentials; the connected app published the tree, whose Git
+  tree SHA was verified identical to the tested source before updating refs.
 
 ### G500 training qualification and resource-aware direct execution — in progress
 
