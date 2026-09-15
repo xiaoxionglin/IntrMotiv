@@ -135,3 +135,19 @@ For each finding, record:
 - **Authoritative check:** Run
   `python -m pytest -q -p no:cacheprovider sf_working_directories/IntrMotiv/tests/test_depth_encoder.py`
   from the runtime checkout using the `SF_git` Python environment.
+# Direct queue replacement must stop child process groups
+
+- **Evidence:** Interrupting the DG throughput/search supervisor left four already
+  launched 10M production trainers orphaned under PID 1. They retained roughly the
+  full four-run memory footprint and held available RAM near 62 GiB, so the new
+  direct queue correctly refused admission at its 72 GiB threshold.
+- **Impact:** Replacing an active preflight-to-production workflow can appear complete
+  while its owned Sample Factory runs continue consuming workstation resources.
+- **Proposed improvement:** Persist every launched child PID and creation time at the
+  transition-supervisor level and install SIGINT/SIGTERM handlers that forward the
+  signal to each verified child process group before exiting.
+- **Status:** Open. The affected process groups were verified by batch output path and
+  stopped manually; the replacement queue then admitted four runs.
+- **Acceptance criteria:** Interrupting a transition supervisor leaves no matching
+  trainer, environment worker, or W&B child alive, while unrelated user processes
+  remain untouched; an integration test covers the signal path.

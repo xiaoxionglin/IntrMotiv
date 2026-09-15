@@ -429,3 +429,22 @@ Production milestone verification (20:15 UTC): all four first-wave runs passed
 frame 2,523,136, each with 100,000 observations. SELF seed99 reached 3.05M;
 the three baseline runs reached 2.59–2.72M. No tracebacks; eight runs remain
 queued, RAM availability about297 GiB and GPU utilization14% each.
+# Frameskip-4 100M production replacement (2026-09-15)
+
+The 10M frameskip-8 batch was superseded before completion. The replacement study is
+`hpc_runs/studies/dg_neighborhood_production_f4_100m.study.json` with fingerprint
+`7626259e3077be0c7738d75e20485a91a14fe9013510d0af1a06fc73c6b44132`.
+It uses 100M simulator frames, frameskip 4, and the explicit eight-action navigation
+set (`dmlab_navigation_action_set=True`, with both extended and reduced sets false).
+The queue order is PHYS, TEMP, SELF, BASE, with seeds 99, 8, and 123 inside each
+objective. The reviewed direct manifest is
+`bf6f7d874543efa625ca538317df36db0398d64ea14f34f3b3da07de1d262c3d` and the
+qualified source fingerprint remains
+`39519fc4b7ae63eecc56500a62bd08a503fef21f590ab55dc91f574a76329f15`.
+
+All bulk artifacts are outside the source checkout: training and checkpoints under
+`/scratch/lin/IntrMotiv/train_dir/intrmotiv_dg_neighborhood_f4_100m_20260915`,
+online spatial outputs under `/scratch/lin/IntrMotiv/train_dir/analysis/`, W&B staging
+under `/scratch/lin/IntrMotiv/logs/wandb`, and the DMLab cache under
+`/scratch/lin/IntrMotiv/cache/dmlab`. Runs log to the separate W&B project
+`SF_IntrMotiv_DGNeighborhood_100M_F4`.
