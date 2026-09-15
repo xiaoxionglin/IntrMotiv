@@ -104,7 +104,7 @@ def main():
         else:
             with (a.output / (name + '_profiler.log')).open('x') as log:
                 result = subprocess.run([*command, '--execute'], stdout=log, stderr=subprocess.STDOUT)
-            if result.returncode:
+            if result.returncode and not (directory / 'summary.json').exists():
                 raise RuntimeError(f'Candidate {name} failed; inspect its processes and logs before recovery')
         evidence = score_candidate(directory, concurrency)
         results.append(dict(workers=workers, envs=envs, epochs=epochs, splits=splits, concurrency=concurrency, nominal_optimizer_samples_per_second=evidence["aggregate_fps"] / 8 * epochs, **evidence))

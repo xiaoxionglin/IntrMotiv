@@ -39,3 +39,12 @@ def test_six_run_score_requires_six_complete_runs(tmp_path):
     assert score_candidate(tmp_path,6)['eligible']
     assert score_candidate(tmp_path,6)['aggregate_fps']==1800
     assert not score_candidate(tmp_path,4)['eligible']
+
+
+def test_resource_stopped_summary_is_recorded_as_ineligible(tmp_path):
+    rows=[dict(returncode=2,has_traceback=False,deadline_signal_sent=True,wandb_online=True,frames=0,fps_after_warmup=None) for _ in range(6)]
+    (tmp_path/'summary.json').write_text(json.dumps(rows))
+    (tmp_path/'resources.jsonl').write_text(json.dumps(dict(available_ram_gib=43,gpus=[dict(free_mib=80000)]))+'\n')
+    result=score_candidate(tmp_path,6)
+    assert not result['eligible']
+    assert result['aggregate_fps']==0
