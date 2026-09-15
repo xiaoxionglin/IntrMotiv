@@ -151,3 +151,20 @@ For each finding, record:
 - **Acceptance criteria:** Interrupting a transition supervisor leaves no matching
   trainer, environment worker, or W&B child alive, while unrelated user processes
   remain untouched; an integration test covers the signal path.
+
+# Direct queues should continue after isolated run failures
+
+- **Evidence:** One 100M DG run hit a transient 99.90%-invalid PPO batch at 1.02M
+  frames. The original queue left the other three runs healthy but marked all eight
+  pending cells `blocked_by_failure`, wasting an available slot.
+- **Impact:** A single seed-specific failure can stall an otherwise independent
+  workstation study for hours.
+- **Improvement:** The direct queue now records the failed cell, keeps healthy runs,
+  and continues admitting pending cells. It raises after the queue drains so the
+  failure remains visible. Admission reserves 55 GiB of host RAM per 32x16 run,
+  derived from the completed G500 sweep, rather than the old 8 GiB estimate.
+- **Status:** Implemented locally with focused queue tests; the recovery runtime is
+  isolated from the source used by active runs.
+- **Acceptance criteria:** A synthetic failed run is followed by a completed run;
+  the final queue still reports failure, and four-run admission retains at least
+  64 GiB of measured host headroom.

@@ -448,3 +448,15 @@ online spatial outputs under `/scratch/lin/IntrMotiv/train_dir/analysis/`, W&B s
 under `/scratch/lin/IntrMotiv/logs/wandb`, and the DMLab cache under
 `/scratch/lin/IntrMotiv/cache/dmlab`. Runs log to the separate W&B project
 `SF_IntrMotiv_DGNeighborhood_100M_F4`.
+
+At 1,015,808 frames, `DGN_PHYS_S123` encountered a transient batch with 99.90%
+invalid policy-lagged samples. The custom learner required two valid samples and
+raised, while upstream Sample Factory only skipped a batch when every sample was
+invalid. Commit `00802a22` aligns the boundary by skipping any batch with fewer
+than two valid samples. The three healthy runs were preserved. Recovery manifest
+`c5ccf204327481952fa82bd36db4c1a2903c7961ed4bbe01e98d2ad570ae63e3`
+retries only `DGN_PHYS_S123` with one epoch and retains two epochs for the eight
+previously unstarted runs. Its queue continues admitting later entries after an
+isolated failure and uses a measured 55 GiB host-memory reservation per admission.
+The retry reached 131,072 frames with policy lag 11 and no traceback during the
+post-launch check.
