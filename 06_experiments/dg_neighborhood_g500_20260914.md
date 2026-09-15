@@ -1,12 +1,69 @@
 # DG neighborhood experiment and G500 resource qualification
 
-Status: **stopped by the user for GPU core implementation work**.
-On September 15 the user requested stopping throughput tests before revising the
-core. Search supervisor1293198 was stopped, six active trial parents received
-SIGINT, and the heartbeat is PAUSED. Automatic production launch is disabled.
-All prior production and throughput artifacts are retained. Do not restart
-until the user requests it. The timing bottleneck is core forward (~730.5 of
-739.1 learner seconds in the completed SELF trial), not the visual encoder.
+Status: **GPU-core throughput sweep running on G500**.
+On September 15 the user authorized pushing the verified core fix and continuing
+the sweep. GitHub branch `codex/nemo-code-organization-20260914` now contains
+commit `48e6512f`. Sweep supervisor PID **1320302** uses the isolated source and
+fresh output root below. The recurring heartbeat remains paused as previously
+requested; the sweep's own supervisor performs the bounded sequence.
+
+## GPU-compatible core verification — September 15
+
+Fetched GitHub commit `2682750938c07274d1256024b158ef94738e63d8`
+(`Batch topological manager updates on the model device`) from
+`origin/codex/nemo-code-organization-20260914`. It batches the topological
+manager and removes per-sample host scalar reads from the no-probe path.
+
+Its CUDA synchronization regression initially failed: clearing two diagnostic
+state slices with scalar assignment lowered to `aten::fill_` plus
+`aten::item/_local_scalar_dense`. Commit `48e6512f` fixes this with in-place
+device `zero_()` calls. Unrelated local depth-encoder edits remain untouched.
+
+- Local reference tests: 10 passed, 10 CUDA-skipped.
+- G500 combined manager and DG-neighborhood suite: **29 passed** (20 manager,
+  9 DG); the forbidden scalar/dynamic-index profiler check passes on CUDA.
+- CUDA manager microbenchmark, batch 32: **547.50 ms/step old versus
+  6.30 ms/step new, 86.93× speedup**. The old batch-256 comparison exceeded
+  the bounded benchmark time, so no batch-256 ratio is claimed.
+- End-to-end four-arm test: 32 workers, 8 envs/worker, splits 8, batch 2,048,
+  two epochs, four concurrent runs. All four exited 0 and reached 294,912
+  logged frames. Exact counter slopes were **5,723, 4,425, 4,425, and
+  4,774 frames/s**; SF whole-run reports were 5,855, 4,386, 4,506, and
+  4,560 frames/s. Aggregate counter slope: **19,347 frames/s**.
+- Learner core BPTT fell from 730.51 s in the previous SELF profile to
+  **26.32 s** in the new two-epoch profile. GPU utilization peaked at 46%/56%;
+  minimum host RAM available was 170.71 GiB and GPU free memory remained at
+  least 77.35 GiB.
+- The original profiler emitted null steady FPS because this faster trial
+  ended before its fixed warmup left 20 seconds. The local profiler now falls
+  back to distinct completed-batch counters over a meaningful span; seven
+  focused profiler/search tests pass. This tooling fix was not applied to the
+  completed artifact retroactively.
+
+Isolated G500 source:
+`/scratch/lin/IntrMotiv/src/SF_hipposlam_dg_neighborhood_gpu_core_26827509`.
+Its patched `topological_frontier.py` SHA-256 is
+`86c2597ff61659d5a22c39dd93fcb891a31adc13c4eee16522a035f6f8a00f0c`.
+Throughput artifacts are under
+`/scratch/lin/IntrMotiv/train_dir/resource_profile_20260915/gpu_core_26827509_w32_e8_s8_ep2_p4/`.
+This was a throughput verification, not a production launch; scheduled work
+was paused after that test and then resumed explicitly by the user.
+
+### Resumed GPU-core sweep
+
+- Source digest: `39519fc4b7ae63eecc56500a62bd08a503fef21f590ab55dc91f574a76329f15`.
+- Output: `/scratch/lin/IntrMotiv/train_dir/analysis/dg_throughput_search_gpu_core_48e6512f_20260915/`.
+- Log: `/scratch/lin/IntrMotiv/logs/dg-throughput-search-gpu-core-48e6512f-20260915.log`.
+- Each cell targets 1,048,576 logged frames/run, batch 2,048, and preserves
+  rollout/recurrence 64. This longer target gives the fixed profiler a stable
+  window under the optimized core.
+- Grid: 32×8/splits8 at one and two epochs; two-epoch 32×8 at six runs;
+  two-epoch 48×8 at four and six runs; and two-epoch 32×16 at four runs.
+- Selection maximizes aggregate completed-frame throughput among cells retaining
+  at least 64 GiB host RAM and 16 GiB GPU memory. Eleven focused
+  profiler/search/transition tests pass before launch.
+- The selected setting proceeds through the already-defined fresh four-arm
+  scientific gate and then the paired 12-run production/evaluation workflow.
 
 ## September 15 throughput search and restart
 

@@ -48,9 +48,21 @@ def measured_fps(samples, warmup_seconds=40):
     if not advancing:
         return None
     steady = [s for s in advancing if s[0] >= advancing[0][0] + warmup_seconds]
-    if len(steady) < 3 or steady[-1][0] - steady[0][0] < 20:
+    if len(steady) >= 3 and steady[-1][0] - steady[0][0] >= 20:
+        return (steady[-1][1] - steady[0][1]) / (steady[-1][0] - steady[0][0])
+    if advancing[-1][1] == advancing[0][1] and advancing[-1][0] - advancing[0][0] >= 20:
+        return 0
+
+    # Fast trials can finish before a fixed warmup leaves a measurable window.
+    # Fall back to distinct completed-batch counters over a meaningful span;
+    # repeated zero-FPS report samples must not bias this slope.
+    progress = []
+    for timestamp, frames in advancing:
+        if not progress or frames > progress[-1][1]:
+            progress.append((timestamp, frames))
+    if len(progress) < 3 or progress[-1][0] - progress[0][0] < 20:
         return None
-    return (steady[-1][1] - steady[0][1]) / (steady[-1][0] - steady[0][0])
+    return (progress[-1][1] - progress[0][1]) / (progress[-1][0] - progress[0][0])
 
 
 def main():

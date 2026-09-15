@@ -43,6 +43,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   Core code iterates sequence steps and invokes HRL state updates. Profile
   that path before adding more samplers; these wall timers do not yet isolate
   individual CUDA kernels or synchronization. Source remains unchanged.
+- **GPU-core resolution (September 15):** GitHub core commit `26827509` reduced
+  G500 batch-32 manager latency from 547.50 to 6.30 ms/step. Its new CUDA
+  profiler test exposed two hidden scalar reads from diagnostic slice clearing;
+  local commit `48e6512f` replaces those assignments with `zero_()`. The combined
+  remote suite passes 29 tests. Four-arm end-to-end aggregate throughput rose
+  from 1,126 to about 19,347 frames/s under 32×8, splits 8 and two epochs.
+  Very fast probes can finish before a fixed warmup window; derive fallback
+  throughput only from distinct completed-batch counters over at least 20 s.
 - **Core device fix (September 15):** Local runtime now batches the non-probing
   topological manager and shared landmark bookkeeping on the state device,
   removing per-stream scalar reads from the active study's path. 106 focused

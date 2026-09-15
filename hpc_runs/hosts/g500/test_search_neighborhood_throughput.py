@@ -1,7 +1,7 @@
 """Selection rejects unhealthy runs and study revision preserves science."""
 import json
 from pathlib import Path
-from search_neighborhood_throughput import revised_study, score_candidate
+from search_neighborhood_throughput import PROFILE_FRAMES, revised_study, score_candidate
 
 
 def test_revised_study_preserves_non_resource_arguments(tmp_path):
@@ -18,7 +18,7 @@ def test_revised_study_preserves_non_resource_arguments(tmp_path):
 
 
 def test_score_rejects_resource_pressure_and_incomplete_runs(tmp_path):
-    rows=[dict(returncode=0,has_traceback=False,deadline_signal_sent=False,wandb_online=True,frames=262144,fps_after_warmup=500) for _ in range(4)]
+    rows=[dict(returncode=0,has_traceback=False,deadline_signal_sent=False,wandb_online=True,frames=PROFILE_FRAMES,fps_after_warmup=500) for _ in range(4)]
     (tmp_path/'summary.json').write_text(json.dumps(rows))
     (tmp_path/'resources.jsonl').write_text(json.dumps(dict(available_ram_gib=100,gpus=[dict(free_mib=20000)]))+'\n')
     assert score_candidate(tmp_path)['aggregate_fps']==2000
@@ -33,7 +33,7 @@ def test_score_rejects_resource_pressure_and_incomplete_runs(tmp_path):
 
 
 def test_six_run_score_requires_six_complete_runs(tmp_path):
-    rows=[dict(returncode=0,has_traceback=False,deadline_signal_sent=False,wandb_online=True,frames=262144,fps_after_warmup=300) for _ in range(6)]
+    rows=[dict(returncode=0,has_traceback=False,deadline_signal_sent=False,wandb_online=True,frames=PROFILE_FRAMES,fps_after_warmup=300) for _ in range(6)]
     (tmp_path/'summary.json').write_text(json.dumps(rows))
     (tmp_path/'resources.jsonl').write_text(json.dumps(dict(available_ram_gib=100,gpus=[dict(free_mib=20000)]))+'\n')
     assert score_candidate(tmp_path,6)['eligible']

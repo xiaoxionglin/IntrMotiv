@@ -17,7 +17,15 @@ from hpc_runs.intrmotiv_study.direct import atomic_json, make_manifest, run_queu
 from hpc_runs.intrmotiv_study.spec import load_study
 from profile_training import resources
 
-CANDIDATES = [(32, 8, 1, 2, 4), (32, 8, 1, 8, 4), (32, 8, 1, None, 6), (48, 8, 1, 2, 4), (32, 16, 1, 2, 4), (32, 8, 2, 2, 4), (48, 8, 2, 2, 4)]
+CANDIDATES = [
+    (32, 8, 1, 8, 4),
+    (32, 8, 2, 8, 4),
+    (32, 8, 2, 8, 6),
+    (48, 8, 2, 8, 4),
+    (48, 8, 2, 8, 6),
+    (32, 16, 2, 8, 4),
+]
+PROFILE_FRAMES = 1_048_576
 SLOTS = [0, 1, 0, 1]
 
 
@@ -27,7 +35,7 @@ def score_candidate(directory, concurrency=4):
     samples = [json.loads(s) for s in (directory / 'resources.jsonl').read_text().splitlines()]
     valid = len(summary) == concurrency and all(
         x['returncode'] == 0 and not x['has_traceback'] and not x['deadline_signal_sent']
-        and x['wandb_online'] and x['frames'] >= 262144 and (x['fps_after_warmup'] or 0) > 0
+        and x['wandb_online'] and x['frames'] >= PROFILE_FRAMES and (x['fps_after_warmup'] or 0) > 0
         for x in summary)
     ram = min(x['available_ram_gib'] for x in samples)
     gpu = min(g['free_mib'] for x in samples for g in x['gpus'])
@@ -79,7 +87,7 @@ def main():
         atomic_json(a.output / 'status.json', dict(stage='profiling', candidate=name, completed=results))
         command = [sys.executable, str(Path(__file__).with_name('profile_training.py')),
                    str(a.preflight_template), names[0], str(directory), '--workers', str(workers),
-                   '--envs-per-worker', str(envs), '--epochs', str(epochs), '--worker-splits', str(splits), '--batch-size', '2048', '--frames', '262144',
+                   '--envs-per-worker', str(envs), '--epochs', str(epochs), '--worker-splits', str(splits), '--batch-size', '2048', '--frames', str(PROFILE_FRAMES),
                    '--seconds', '1800', '--gpus', *map(str, slots), '--runs', *selected_names]
         review = subprocess.run(command, check=True, capture_output=True, text=True)
         (a.output / (name + '_review.json')).write_text(review.stdout)
@@ -106,13 +114,13 @@ def main():
         raise RuntimeError('No candidate passed throughput/resource checks')
     winner = max(eligible, key=lambda r: r['aggregate_fps'])
     atomic_json(a.output / 'decision.json', dict(winner=winner, candidates=results,
-                selection='Maximum aggregate completed-frame throughput after warmup, four simultaneous arms'))
+                selection='Maximum aggregate completed-frame throughput after warmup, comparing four and six simultaneous runs'))
     workers, envs, epochs, splits = winner['workers'], winner['envs'], winner['epochs'], winner['splits']
     preflight = revised_study(a.preflight_template, a.output/'selected_preflight.study.json',
-                'intrmotiv_dg_neighborhood_preflight_20260915_aggressive', workers, envs, epochs, splits, winner["concurrency"])
+                'intrmotiv_dg_neighborhood_preflight_gpu_core_20260915', workers, envs, epochs, splits, winner["concurrency"])
     production_path = a.output/'selected_production.study.json'
     revised_study(a.production_template, production_path,
-                'intrmotiv_dg_neighborhood_production_20260915_aggressive', workers, envs, epochs, splits, winner["concurrency"])
+                'intrmotiv_dg_neighborhood_production_gpu_core_20260915', workers, envs, epochs, splits, winner["concurrency"])
     manifest = make_manifest(preflight, a.source, SLOTS)
     atomic_json(a.output/'selected_preflight_review.json', manifest)
     print(json.dumps(manifest, indent=2), flush=True)
