@@ -460,3 +460,12 @@ previously unstarted runs. Its queue continues admitting later entries after an
 isolated failure and uses a measured 55 GiB host-memory reservation per admission.
 The retry reached 131,072 frames with policy lag 11 and no traceback during the
 post-launch check.
+
+The original 100M manifest reduced online spatial scalar and snapshot reporting
+from every 1M to every 5M frames. This cadence is not expected to explain the
+observed throughput gap, so the canonical study and the five runs still pending
+were restored to 1M-frame reporting. Seven completed or active cells retain their
+launch-time 5M cadence because changing it in process is unsupported and restarting
+would discard substantial training. Declared full evaluation/checkpoint targets
+remain 10M, 25M, 50M, and 100M. Pending recovery manifest:
+`d3ad416dfe4fd945ec48317a31515a59d8cecdf9f58e1f9b8393301254776c34`.

@@ -158,11 +158,11 @@
       "--online_spatial_workspace_root=/scratch/lin/IntrMotiv",
       "--online_spatial_output_root=/scratch/lin/IntrMotiv/train_dir/analysis/intrmotiv_dg_neighborhood_f4_100m_20260915",
       "--online_spatial_snapshot_targets=10000000,25000000,50000000,100000000",
-      "--online_spatial_scalar_interval_frames=5000000",
+      "--online_spatial_scalar_interval_frames=1000000",
       "--online_spatial_snapshot_max_frames=100000000",
       "--save_initial_checkpoint=True",
       "--checkpoint_frame_targets=10000000,25000000,50000000,100000000",
-      "--online_spatial_snapshot_interval_frames=5000000"
+      "--online_spatial_snapshot_interval_frames=1000000"
     ]
   },
   "bases": [
