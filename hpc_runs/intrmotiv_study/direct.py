@@ -102,14 +102,13 @@ def run_queue(manifest, resource_probe, *, poll_seconds=10):
                     state.update(status='completed' if ok else 'failed', finished_at=time.time())
                     failed |= not ok
                     del active[index]
-            if failed:
-                for state in states:
-                    if state['status'] == 'pending':
-                        state['status'] = 'blocked_by_failure'
-            else:
-                free_slots = [i for i in range(len(manifest['gpu_slots'])) if i not in {o['slot'] for o in active.values()}]
-                # Leave at least 64 GiB host and 16 GiB GPU headroom. Admission
-                # reserves another 8 GiB host / 16 GiB GPU for each new run.
+            free_slots = [i for i in range(len(manifest['gpu_slots'])) if i not in {o['slot'] for o in active.values()}]
+            if free_slots:
+                # Leave at least 64 GiB host and 16 GiB GPU headroom. The G500
+                # DG sweep measured about 55 GiB of incremental host memory for
+                # the fourth 32x16 run near full load, so reserve that amount
+                # for every admission instead of the old optimistic 8 GiB.
+                host_run_reserve_gib = 55
                 ram = resource['available_ram_gib']
                 gpu_free = {int(g['index']): g['free_mib'] for g in resource['gpus']}
                 gpu_util = {int(g['index']): g['utilization'] for g in resource['gpus']}
@@ -118,7 +117,7 @@ def run_queue(manifest, resource_probe, *, poll_seconds=10):
                     if index is None:
                         break
                     gpu = manifest['gpu_slots'][slot]
-                    if ram < 72 or gpu_free.get(gpu, 0) < 32768 or gpu_util.get(gpu, 100) > 80:
+                    if ram < 64 + host_run_reserve_gib or gpu_free.get(gpu, 0) < 32768 or gpu_util.get(gpu, 100) > 80:
                         continue
                     if source_digest(manifest['source_root']) != manifest['source_sha256']:
                         raise RuntimeError('Source changed after manifest review; refusing launch')
@@ -138,7 +137,7 @@ def run_queue(manifest, resource_probe, *, poll_seconds=10):
                     state.update(status='running', pid=process.pid, create_time=psutil.Process(process.pid).create_time(),
                                  gpu=gpu, log=str(log), started_at=time.time())
                     active[index] = dict(process=process, handle=handle, slot=slot)
-                    ram -= 8
+                    ram -= host_run_reserve_gib
                     gpu_free[gpu] -= 16384
             atomic_json(audit / 'state.json', states)
             if active or any(s['status'] == 'pending' for s in states):
