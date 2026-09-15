@@ -6,6 +6,31 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### NEMO source consolidation and checkout retirement — in progress
+
+- **Evidence:** September 15 inventory found the canonical `SF_hipposlam` plus
+  36 alternatives, many with uncommitted changes or no Git metadata. Three
+  alternatives support 44 running/queued jobs; the remaining 33 are retirement
+  candidates. There are 373 distinct differing source-file hashes.
+- **Impact:** Fixes and qualified controller modules were missing from the main
+  checkout, while repeated copies made source selection and cleanup ambiguous.
+- **Improvement:** Integrate the latest qualified controller with newer shared
+  Git history, canonical workflow and baseline modules; preserve superseded
+  prototypes in a complete workspace archive. Use one main development checkout
+  and retain separate releases only while jobs require their source.
+- **Status:** All 37 original checkouts archived and checksum-verified under
+  `/work/classic/fr_xl1014-train/IntrMotiv/source_retirement_20260915/`.
+  Consolidated branch `codex/nemo-consolidation-20260915` passes pinned hooks
+  and 583 desktop tests. NEMO verification, GitHub push and retirement are pending.
+- **Acceptance criteria:** Matching published/canonical commit; focused tests
+  pass on NEMO; inactive folders removed only after a fresh job/dependency check
+  and checksum comparison; live source folders and all training data preserved.
+- **Reusable lesson:** File hashes are authoritative for dirty snapshots;
+  commits alone are insufficient. Compare ASTs to identify formatting-only
+  differences, merge against the organized parent, and reuse the pinned hook
+  environment at `/tmp/intrmotiv-precommit-env` on this desktop. Preserve shared
+  Git worktree metadata while any retained copies refer to it.
+
 ### G500 training qualification and resource-aware direct execution — in progress
 
 - **Evidence:** Actual GPU training rejected legacy W&B `start_method` settings,
