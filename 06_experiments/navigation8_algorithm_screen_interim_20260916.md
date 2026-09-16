@@ -1,84 +1,125 @@
-# Navigation8 algorithm screen: interim analysis (5M–75M)
+# Navigation8 algorithm screen: 5M–75M interim analysis
 
-## Scope and status
+## 1. Decision status
 
-This is an interim analysis of `navigation8_algorithm_screen_20260909` (StudySpec SHA-256 `c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094`). It covers every one of the six configurations and seeds 8, 99, and 123: 18 runs and 54 validated cached online-spatial snapshots at 5M, 25M, and 75M environment frames. All snapshots use the same navigation8 interface, frame repeat 4, 100,000 retained behavior decisions, and 19×19 spatial grid.
+The six-configuration Navigation8 screen does **not** yet identify a working
+intrinsic landmark controller. At 75M, SAT has the lowest active-map overlap,
+DGP has the strongest connected graph, and neither pattern establishes
+command-conditioned control. This is an interim result, not a terminal ranking.
 
-The runs did not reach the planned 150M or 300M milestones. Consequently, this report is **not** a terminal comparison, does not include the planned 10k-decision offline checkpoint rollouts, and does not include the planned persistent-goal matched-command intervention for the W-ref pair. Its evidence is the completed online snapshot contract: occupancy-corrected thresholded DG maps, cached graph payloads where present, and segmented policy trajectories.
+## 2. Scope and design
 
-The canonical collector and the raw snapshots remain in the NEMO2 workspace:
+| Item | Value |
+| --- | --- |
+| Study | `navigation8_algorithm_screen_20260909` |
+| StudySpec SHA-256 | `c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094` |
+| Matrix | Six configurations × seeds 8, 99, 123 = 18 runs |
+| Completed common artifacts | 5M, 25M, 75M snapshots = 54 validated artifacts |
+| Snapshot protocol | Navigation8, repeat 4, 19×19 grid, 100,000 retained decisions |
 
-`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/navigation8_algorithm_screen_interim_20260916/online_spatial`
+The 150M and 300M milestones were not reached. This report therefore excludes
+terminal checkpoints, 10k-decision offline rollouts, pre-threshold offline
+maps, fixed-observation stability, and the planned matched-command intervention.
 
-The lightweight standardized tables copied into the vault are under [data/navigation8_algorithm_screen_interim_20260916](data/navigation8_algorithm_screen_interim_20260916/online_spatial/). The report adapter [analyze_navigation8_algorithm_screen_interim_20260916.py](analyze_navigation8_algorithm_screen_interim_20260916.py) only renders figures from these canonical tables; it does not rediscover runs or redefine metrics.
+| Label | Configuration | Cached graph payload |
+| --- | --- | --- |
+| SCR | Arrival-direction recruitment; silent endpoint gate | Yes |
+| SAT | Arrival-direction recruitment; open endpoint gate; target-ID FiLM | Yes |
+| DGP | Legacy hit-triggered, joint-gradient configuration | Yes |
+| CPD | CA3-gated BPTT configuration | Yes |
+| W-ref stop | Frozen shared reference; stop-gradient routing | No |
+| W-ref joint | Frozen shared reference; joint-gradient routing | No |
 
-## Configuration key
+## 3. Evidence and interpretation boundaries
 
-| Label       | Configuration                                                            | Controller payload |
-| ----------- | ------------------------------------------------------------------------ | ------------------ |
-| SCR         | Arrival-direction recruitment with a silent endpoint gate                | Graph              |
-| SAT         | Arrival-direction recruitment with open endpoint gate and target-ID FiLM | Graph              |
-| DGP         | Legacy hit-triggered, joint-gradient configuration                       | Graph              |
-| CPD         | CA3-gated BPTT configuration                                             | Graph              |
-| W-ref stop  | Frozen shared reference, stop-gradient routing                           | No graph payload   |
-| W-ref joint | Frozen shared reference, joint-gradient routing                          | No graph payload   |
+The canonical `collect-spatial --require-complete --include-details` collector
+validated every snapshot and computed occupancy-corrected thresholded DG maps,
+activity/silence, spatial scores, active-only cosine, field components,
+segmented trajectories, and available graph diagnostics. It is the source of
+the [per-snapshot table](data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv),
+[per-unit table](data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_unit.csv),
+and [snapshot inventory](data/navigation8_algorithm_screen_interim_20260916/online_spatial/snapshot_inventory.csv).
 
-## Place fields and behavior
+These are policy-driven behavior windows. They show representation and movement
+under each policy but do not test fields on a common observation sequence.
+Active-only cosine excludes silent units; silence is reported separately. The
+spatial-information score is amplitude-weighted, not normalized bits per
+activation. All condition summaries retain the individual seeds; no statistical
+significance claims are made from $n=3$.
 
-The canonical map output below is a representative seed-99 75M contact sheet
-for SAT, the lowest-overlap configuration on the three-seed summary. Each panel
-is an occupancy-corrected thresholded DG map; gray cells were not visited.
-Individual unit maps show why an aggregate overlap score is not sufficient to
-declare distinct landmarks.
+## 4. Results
 
-![SAT seed-99 75M canonical place-field contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/N8_SAT_ARR_DIRO_FILM_S99_75M_place_fields.png)
+### 4.1 Place fields at 75M
 
 ![Three-seed 75M representation comparison](data/navigation8_algorithm_screen_interim_20260916/figures/representation_at_75m.png)
 
-At 75M, no configuration has silent DG units in the retained window. SAT has the lowest mean active-only map cosine (0.209), followed by W-ref joint (0.213) and SCR (0.245); lower cosine denotes less overlap among active thresholded maps. The seed variation remains material, especially for SCR, so this is a descriptive ranking rather than a winner declaration. SAT's mean mono-field fraction is 6.2%; SCR's is 18.8%; W-ref stop's is 14.6%. These values describe thresholded, policy-driven maps, not a fixed-trajectory representation test.
+Every configuration has zero silent DG units at 75M. SAT has the lowest mean
+active-only map cosine (0.209), followed by W-ref joint (0.213) and SCR (0.245);
+lower cosine means less overlap among active thresholded maps. Seed variation is
+material, particularly for SCR. SAT's mean mono-field fraction is 6.2%, SCR's
+is 18.8%, W-ref stop's is 14.6%, and W-ref joint's is 10.4%. None of those
+descriptive values proves that a configuration provides usable landmark goals.
 
-![Seed-99 spatial and trajectory diagnostics](data/navigation8_algorithm_screen_interim_20260916/figures/seed99_spatial_trajectory.png)
+### 4.2 Longitudinal trajectory seed and all-seed endpoints
 
-The seed-99 trajectory panel makes the time course visible without pooling unequal policy histories. SAT remains low-overlap at all three completed milestones. CPD becomes less stationary by 25M but has more map overlap. W-ref joint shows much higher seed-99 stationarity at 25M and 75M than W-ref stop; that behavioral difference must be separated from any representation claim.
+![Seed-99 spatial and behavioral trajectory](data/navigation8_algorithm_screen_interim_20260916/figures/seed99_spatial_trajectory.png)
 
-### Canonical visual panels
+Seed 99 is the StudySpec's prespecified **trajectory** seed, so it provides a
+single coherent 5M → 25M → 75M sequence. It was never intended to be the only
+replicate: seeds 8, 99, and 123 all receive a matched 75M endpoint panel.
+SAT stays low-overlap across the seed-99 milestones. W-ref joint is highly
+stationary at 25M and 75M in seed 99; this is a behavior observation, not a
+claim that the run stalled.
 
-All six seed-99 configurations now have matched canonical contact sheets and
-segmented spatial trajectories at 5M, 25M, and 75M. The table links each
-configuration's common 75M endpoint; the same directories contain the earlier
-milestones. A trajectory panel plots the actual retained behavior path and its
-occupancy, rather than only a scalar stationarity/path-efficiency summary.
-
-| Configuration | 75M place fields | 75M trajectory and occupancy |
-| --- | --- | --- |
-| SCR | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_trajectory.png) |
-| SAT | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_trajectory.png) |
-| DGP | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_trajectory.png) |
-| CPD | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_trajectory.png) |
-| W-ref stop | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_trajectory.png) |
-| W-ref joint | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_trajectory.png) |
-
-The offline evaluator remains the appropriate next step for pre-threshold maps
-and comparable 10k-decision rollouts.
-
-## Graph diagnostics
+### 4.3 Graph diagnostics
 
 ![Graph development across completed milestones](data/navigation8_algorithm_screen_interim_20260916/figures/graph_trajectory.png)
 
-The graph payload supports a structural comparison for SCR, SAT, DGP, and CPD only. DGP has the highest reliable global efficiency by 25M and remains near 0.87 at 75M, with all seeds reporting full reachable-pair coverage. SAT and SCR have high reachability but lower efficiency. CPD has low efficiency despite a relatively high prospective success fraction. Importantly, grounded controllability is zero for DGP and CPD at all completed milestones; SCR reaches only 0.048 ± 0.082 at 75M, and SAT is zero. A connected or successful observational graph therefore does not establish intentional, command-conditioned landmark control.
+DGP has the highest reliable global efficiency by 25M and remains near 0.87 at
+75M, with full reachable-pair coverage in all three seeds. SAT and SCR have
+lower efficiency despite high reachability; CPD has relatively high
+previously-known-edge success but low global efficiency. Grounded
+controllability is zero for DGP and CPD at all completed milestones, 0.048 ±
+0.082 for SCR at 75M, and zero for SAT. Thus graph structure does not establish
+intentional, command-conditioned arrival. W-ref configurations are absent from
+this comparison because their snapshots contain no graph payload.
 
-The W-ref configurations are omitted from this graph figure because their saved snapshots have no graph payload. That absence is a configuration property, not a measured zero.
+## 5. Visual atlas
 
-## Interpretation and next evidence
+The canonical renderer is generating a matched place-field contact sheet and
+segmented trajectory/occupancy panel for all 18 configuration–seed pairs at
+75M. Completed panels are being synchronized under:
 
-The completed evidence supports an exploratory distinction: SAT is the most consistently low-overlap field configuration in these cached windows, while DGP has the most globally connected graph. Neither pattern establishes a working intrinsic controller: low map cosine alone does not imply distinct usable landmarks, and graph connectivity without grounded controllability does not show that commands control outcomes.
+`06_experiments/data/navigation8_algorithm_screen_interim_20260916/canonical_panels/all_seed_75m/figures/`
 
-The next decisive evaluation is a common 75M checkpoint protocol: 10k-decision manifest-driven place-field rollouts (including pre-threshold maps) plus matched-command interventions for the goal-conditioned W-ref pair. Those runs should be submitted as ordinary NEMO2 jobs only after the canonical print-only manifest review. A final claim also requires the missing 150M/300M evidence or a clearly documented decision to treat this batch as a 75M-stopped interim study.
+Each configuration/seed directory has:
 
-## Provenance and limitations
+```text
+N8_<CONFIGURATION>_S<8|99|123>/
+  target_000075000000_policy_00_place_fields_page01.png
+  target_000075000000_policy_00_trajectory.png
+```
 
-- The spatial collector completed with `--require-complete --include-details`; [analysis manifest](data/navigation8_algorithm_screen_interim_20260916/online_spatial/analysis_manifest.json), [per-snapshot table](data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv), [per-unit table](data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_unit.csv), and [snapshot inventory](data/navigation8_algorithm_screen_interim_20260916/online_spatial/snapshot_inventory.csv) preserve the source mapping.
-- Active-only map cosine excludes silent units. Silence is reported separately and was zero here.
-- The spatial-information score is amplitude-weighted under the established contract; it is not normalized bits per activation.
-- The cached trajectories are each policy's own behavior; common frames and retained-window length do not make them a fixed-trajectory field-stability test.
-- Means are unweighted over three seeds. Figures show the individual seeds; no hypothesis tests or significance claims are made.
+The original seed-99 atlas also contains the 5M and 25M panels, under
+`canonical_panels/figures/`. The place-field contact sheets show all 16 DG
+units, with gray cells indicating unvisited locations. The trajectory images
+show the retained actual behavior paths and occupancy; they are not scalar-only
+trajectory summaries.
+
+## 6. Conclusion and required next evidence
+
+The present data separate field overlap from graph connectivity: SAT is the
+best low-overlap candidate in these online windows, while DGP is the best graph
+connectivity candidate. Neither is a demonstrated controller. The next
+decisive test is a matched 75M checkpoint protocol: 10k-decision offline
+place-field rollouts with pre-threshold maps, then frozen matched-command
+interventions for W-ref stop versus joint. Any final comparison must also either
+recover the 150M/300M milestones or explicitly retain this 75M-stopped scope.
+
+## 7. Reproducibility
+
+- Figure adapter: [analyze_navigation8_algorithm_screen_interim_20260916.py](analyze_navigation8_algorithm_screen_interim_20260916.py)
+- Figure metadata: [figure_metadata.json](data/navigation8_algorithm_screen_interim_20260916/figure_metadata.json)
+- Workspace analysis root: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/navigation8_algorithm_screen_interim_20260916/`
+- The TensorBoard `collect-online --latest-common` output is not used here: its
+  collector has not emitted completed tables.

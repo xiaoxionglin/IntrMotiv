@@ -21,6 +21,7 @@
 
 - Organize files, reports, and outputs with a clear structure and descriptive
   names so the user can find and understand them.
+- when revising a report, keep the integrity of the structure of the 
 - Provide enough annotations and explanation to make assumptions, methods,
   results, and next steps understandable. Use visualizations when they help
   communicate the information, following the figure-readability rules below.
