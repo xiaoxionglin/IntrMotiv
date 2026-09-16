@@ -130,6 +130,28 @@ keep implementation guidance in the canonical workflow documents linked below.
   worked. `ldd` isolated the only missing native dependency. Reuse the recorded
   activation helper, resolved package manifest and smoke script next time.
 
+### Bounded progress and recovery for canonical online collection — open
+
+- **Evidence:** On September 16, the Navigation8 screen's canonical
+  `collect-spatial --require-complete --include-details` completed for all 54
+  cached snapshots promptly. In contrast, its separate `collect-online
+  --latest-common` process remained active without output after the initial
+  connection returned; its destination directory remained empty. This repeats
+  the long single-CPU collection behavior recorded in the standardized workflow
+  after the September 11 DG-capacity scan.
+- **Impact:** A complete spatial interim analysis can be delivered, but aligned
+  TensorBoard metrics cannot be safely treated as available or repeatedly
+  retried. Future batch reports waste remote I/O and leave ambiguous background
+  collectors.
+- **Proposed improvement:** Add bounded progress records and a resumable
+  per-run cache with event-file provenance to the canonical collector, retaining
+  exact latest-common semantics. Reuse the documented process backend only after
+  its NEMO2 benchmark validates the progress/recovery contract.
+- **Acceptance criteria:** A 18-run latest-common scan writes an observable
+  per-run progress record, terminates or emits a recoverable partial state under
+  a declared time bound, and a resumed collection does not reread already
+  validated event histories.
+
 For each finding, record:
 
 - **Title and status:** proposed, in progress, blocked, or completed.

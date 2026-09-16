@@ -1,0 +1,15 @@
+{
+  "input": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv",
+  "study_id": "navigation8_algorithm_screen_20260909",
+  "study_sha256": "c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094",
+  "milestones": [
+    5000000,
+    25000000,
+    75000000
+  ],
+  "replication": "seeds 8, 99, 123",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "representation_summary": "75M unweighted seed mean with all seed points",
+  "graph_summary": "three-seed mean and sample SD; graph-enabled configurations only",
+  "trajectory": "seed 99 cached online-spatial windows; policy-driven, not a fixed-trajectory stability test"
+}

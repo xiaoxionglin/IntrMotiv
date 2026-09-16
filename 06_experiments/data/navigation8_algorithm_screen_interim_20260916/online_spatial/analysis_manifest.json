@@ -1,0 +1,36 @@
+{
+  "batch_name": "intrmotiv_navigation8_algorithm_screen_20260909",
+  "complete": true,
+  "condition_summary_rows": 3,
+  "expected_runs": 18,
+  "expected_snapshots": 54,
+  "expected_targets": [
+    5000000,
+    25000000,
+    75000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 8640,
+  "group_by": [],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 54,
+  "per_field_rows": 15360,
+  "per_snapshot_rows": 54,
+  "per_unit_rows": 864,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 9,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/intrmotiv_navigation8_algorithm_screen_20260909",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "navigation8_algorithm_screen_20260909",
+  "study_sha256": "c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094",
+  "study_spec": "hpc_runs/studies/navigation8_algorithm_screen.study.json",
+  "study_workflow_version": "1.5.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.8.1"
+}
