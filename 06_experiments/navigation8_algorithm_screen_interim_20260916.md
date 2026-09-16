@@ -86,9 +86,8 @@ this comparison because their snapshots contain no graph payload.
 
 ## 5. Visual atlas
 
-The canonical renderer is generating a matched place-field contact sheet and
-segmented trajectory/occupancy panel for all 18 configuration–seed pairs at
-75M. Completed panels are being synchronized under:
+The atlas contains a matched place-field contact sheet and segmented
+trajectory/occupancy panel for all 18 configuration–seed pairs at 75M:
 
 `06_experiments/data/navigation8_algorithm_screen_interim_20260916/canonical_panels/all_seed_75m/figures/`
 
@@ -105,6 +104,8 @@ The original seed-99 atlas also contains the 5M and 25M panels, under
 units, with gray cells indicating unvisited locations. The trajectory images
 show the retained actual behavior paths and occupancy; they are not scalar-only
 trajectory summaries.
+
+Open the clickable [75M visual atlas](data/navigation8_algorithm_screen_interim_20260916/visual_atlas_75m.md) to compare all configurations and seeds directly.
 
 ## 6. Conclusion and required next evidence
 

@@ -1,0 +1,25 @@
+# Navigation8 75M visual atlas
+
+Each row uses the same retained 100,000-decision cached window. Gray map cells
+were not visited. Trajectories are segmented at rollout/terminal boundaries.
+
+| Configuration | Seed | Place-field contact sheet | Trajectory and occupancy |
+| --- | ---: | --- | --- |
+| SCR | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S8/target_000075000000_policy_00_trajectory.png) |
+| SCR | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_trajectory.png) |
+| SCR | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SCR_ARR_DIRS_S123/target_000075000000_policy_00_trajectory.png) |
+| SAT | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S8/target_000075000000_policy_00_trajectory.png) |
+| SAT | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_trajectory.png) |
+| SAT | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_SAT_ARR_DIRO_FILM_S123/target_000075000000_policy_00_trajectory.png) |
+| DGP | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S8/target_000075000000_policy_00_trajectory.png) |
+| DGP | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_trajectory.png) |
+| DGP | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_DGP_HIT_JOINT_LEG_S123/target_000075000000_policy_00_trajectory.png) |
+| CPD | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S8/target_000075000000_policy_00_trajectory.png) |
+| CPD | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_trajectory.png) |
+| CPD | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_CPD_GATE_CA3_BPTT_S123/target_000075000000_policy_00_trajectory.png) |
+| W-ref stop | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S8/target_000075000000_policy_00_trajectory.png) |
+| W-ref stop | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_trajectory.png) |
+| W-ref stop | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_STOP_S123/target_000075000000_policy_00_trajectory.png) |
+| W-ref joint | 8 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S8/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S8/target_000075000000_policy_00_trajectory.png) |
+| W-ref joint | 99 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_trajectory.png) |
+| W-ref joint | 123 | [fields](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S123/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](canonical_panels/all_seed_75m/figures/N8_W_REF_JOINT_S123/target_000075000000_policy_00_trajectory.png) |
