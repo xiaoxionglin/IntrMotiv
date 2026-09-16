@@ -25,6 +25,14 @@ The lightweight standardized tables copied into the vault are under [data/naviga
 
 ## Place fields and behavior
 
+The canonical map output below is a representative seed-99 75M contact sheet
+for SAT, the lowest-overlap configuration on the three-seed summary. Each panel
+is an occupancy-corrected thresholded DG map; gray cells were not visited.
+Individual unit maps show why an aggregate overlap score is not sufficient to
+declare distinct landmarks.
+
+![SAT seed-99 75M canonical place-field contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/N8_SAT_ARR_DIRO_FILM_S99_75M_place_fields.png)
+
 ![Three-seed 75M representation comparison](data/navigation8_algorithm_screen_interim_20260916/figures/representation_at_75m.png)
 
 At 75M, no configuration has silent DG units in the retained window. SAT has the lowest mean active-only map cosine (0.209), followed by W-ref joint (0.213) and SCR (0.245); lower cosine denotes less overlap among active thresholded maps. The seed variation remains material, especially for SCR, so this is a descriptive ranking rather than a winner declaration. SAT's mean mono-field fraction is 6.2%; SCR's is 18.8%; W-ref stop's is 14.6%. These values describe thresholded, policy-driven maps, not a fixed-trajectory representation test.
