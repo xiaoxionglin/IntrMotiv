@@ -60,6 +60,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 ## Experiments
 
+- [[../06_experiments/cpu2048_analysis_20260917|CPU2048: All-Seed Place Fields, Trajectories, and Control Graphs]]
+
 - [[../06_experiments/dg_capacity_health_20260913|DG-capacity Run Health: Late Control Failure and Movement]]
 
 - [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG Capacity and Goal Conditioning: Interim Checkpoint Analysis]]

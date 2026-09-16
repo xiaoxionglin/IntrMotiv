@@ -1,0 +1,108 @@
+{
+  "studies": [
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_cadence64_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_cadence64.study.json",
+      "study_sha256": "3f2c3c4c229e0ee44bcde8e7315c1db1789a11237c68daffe58c2239221a020b",
+      "batch_name": "controller_cpu_cadence64_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 12
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_f64_ddqn_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_ddqn.study.json",
+      "study_sha256": "ae3b21126799528c5b8476e4c37891c32efbc78b1690e883f6f17bfeb6f3da0e",
+      "batch_name": "controller_cpu_f64_ddqn_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 1
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_f64_ddqn_seeds_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_ddqn_seeds.study.json",
+      "study_sha256": "99f674c4348e235b06876114c7521fe504e38288ec29b55939cd6ab2bd8e36bd",
+      "batch_name": "controller_cpu_f64_ddqn_seeds_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 2
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_f64_her_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_her.study.json",
+      "study_sha256": "3ea18be8bace7b5eadd0a3cd388a5a9e8b4f697a5afc4dcc2a756a7bc8ba1b4a",
+      "batch_name": "controller_cpu_f64_her_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 1
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_f64_her_seeds_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_her_seeds.study.json",
+      "study_sha256": "ea79bc6222b3be17384db096a467470448285fab8b0d38a2729e37c5bd9c6772",
+      "batch_name": "controller_cpu_f64_her_seeds_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 2
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_selected_ddqn_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_ddqn.study.json",
+      "study_sha256": "892b70083a745187bc13ec017b449babdffdabf0234e3c1ac87755c000fd4142",
+      "batch_name": "controller_cpu_selected_ddqn_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 1
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_selected_ddqn_seeds_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_ddqn_seeds.study.json",
+      "study_sha256": "593d646144bfc8f5a13510def9ebea9f36d5ec2709fb562612fb374e919249f2",
+      "batch_name": "controller_cpu_selected_ddqn_seeds_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 2
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_selected_her_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_her.study.json",
+      "study_sha256": "607d6de7c44f0673fa51fa1ef737a02b6d804aa36d9e7b97c2841583b76acdd9",
+      "batch_name": "controller_cpu_selected_her_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 1
+    },
+    {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.8.2",
+      "study_workflow_version": "1.8.1",
+      "study_id": "controller_cpu_selected_her_seeds_20260914",
+      "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_her_seeds.study.json",
+      "study_sha256": "06acab9f828f758a31b033a21ae24a844bbe3bd3fd3f2d385ee87e377b13fb9b",
+      "batch_name": "controller_cpu_selected_her_seeds_20260914",
+      "training_mode": "sample_factory",
+      "expected_runs": 2
+    }
+  ],
+  "target": 25000000,
+  "font": "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "n_runs": 24,
+  "map_scaling": "per-unit peak normalization",
+  "summary": "all seed points; orange tick=unweighted mean; no significance tests"
+}
