@@ -14,14 +14,14 @@ The lightweight standardized tables copied into the vault are under [data/naviga
 
 ## Configuration key
 
-| Label | Configuration | Controller payload |
-| --- | --- | --- |
-| SCR | Arrival-direction recruitment with a silent endpoint gate | Graph |
-| SAT | Arrival-direction recruitment with open endpoint gate and target-ID FiLM | Graph |
-| DGP | Legacy hit-triggered, joint-gradient configuration | Graph |
-| CPD | CA3-gated BPTT configuration | Graph |
-| W-ref stop | Frozen shared reference, stop-gradient routing | No graph payload |
-| W-ref joint | Frozen shared reference, joint-gradient routing | No graph payload |
+| Label       | Configuration                                                            | Controller payload |
+| ----------- | ------------------------------------------------------------------------ | ------------------ |
+| SCR         | Arrival-direction recruitment with a silent endpoint gate                | Graph              |
+| SAT         | Arrival-direction recruitment with open endpoint gate and target-ID FiLM | Graph              |
+| DGP         | Legacy hit-triggered, joint-gradient configuration                       | Graph              |
+| CPD         | CA3-gated BPTT configuration                                             | Graph              |
+| W-ref stop  | Frozen shared reference, stop-gradient routing                           | No graph payload   |
+| W-ref joint | Frozen shared reference, joint-gradient routing                          | No graph payload   |
 
 ## Place fields and behavior
 
@@ -41,7 +41,25 @@ At 75M, no configuration has silent DG units in the retained window. SAT has the
 
 The seed-99 trajectory panel makes the time course visible without pooling unequal policy histories. SAT remains low-overlap at all three completed milestones. CPD becomes less stationary by 25M but has more map overlap. W-ref joint shows much higher seed-99 stationarity at 25M and 75M than W-ref stop; that behavioral difference must be separated from any representation claim.
 
-Canonical seed-99 contact sheets and segmented occupancy/trajectory panels are being rendered in the workspace analysis directory for every configuration at 5M, 25M, and 75M. They retain map-level context behind the aggregate figures. The offline evaluator remains the appropriate next step for pre-threshold maps and comparable 10k-decision rollouts.
+### Canonical visual panels
+
+All six seed-99 configurations now have matched canonical contact sheets and
+segmented spatial trajectories at 5M, 25M, and 75M. The table links each
+configuration's common 75M endpoint; the same directories contain the earlier
+milestones. A trajectory panel plots the actual retained behavior path and its
+occupancy, rather than only a scalar stationarity/path-efficiency summary.
+
+| Configuration | 75M place fields | 75M trajectory and occupancy |
+| --- | --- | --- |
+| SCR | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SCR_ARR_DIRS_S99/target_000075000000_policy_00_trajectory.png) |
+| SAT | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_SAT_ARR_DIRO_FILM_S99/target_000075000000_policy_00_trajectory.png) |
+| DGP | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_DGP_HIT_JOINT_LEG_S99/target_000075000000_policy_00_trajectory.png) |
+| CPD | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_CPD_GATE_CA3_BPTT_S99/target_000075000000_policy_00_trajectory.png) |
+| W-ref stop | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_STOP_S99/target_000075000000_policy_00_trajectory.png) |
+| W-ref joint | [contact sheet](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_place_fields_page01.png) | [trajectory](data/navigation8_algorithm_screen_interim_20260916/canonical_panels/figures/N8_W_REF_JOINT_S99/target_000075000000_policy_00_trajectory.png) |
+
+The offline evaluator remains the appropriate next step for pre-threshold maps
+and comparable 10k-decision rollouts.
 
 ## Graph diagnostics
 
