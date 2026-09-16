@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.8.1` (desktop and canonical NEMO2 checkout)
+- Implementation: `1.8.2` (desktop; isolated CPU2048 analysis copy on NEMO2)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
@@ -8,6 +8,12 @@
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 ## September 15 canonical source consolidation
+
+September 17 patch: spatial collection now honors all declared telemetry targets,
+including 150M/300M. Previously it intersected them with historical 5M–100M
+defaults, rejecting actual late snapshots and undercounting expected artifacts.
+Regression: `hpc_runs.test_spatial_target_declarations`. The shared training
+checkout is unchanged; use the isolated CPU2048 analysis copy pending deployment.
 
 Workflow 1.8.1 is now in the canonical NEMO2 `SF_hipposlam` checkout on
 `codex/nemo-consolidation-20260915`. Integrated NEMO runtime/workflow/world-model

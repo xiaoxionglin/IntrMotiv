@@ -6,6 +6,22 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Spatial collector rejected declared late milestones — fixed in isolated analysis
+
+- **Evidence:** CPU2048 collection on September 17 rejected a saved 150M NPZ;
+  `expected_spatial_targets` filtered declared targets through a historical
+  5M–100M list. This also made completeness checks ignore later expected targets.
+- **Impact:** Valid long-running studies failed collection; a successful early
+  snapshot collection did not establish completeness at the declared horizon.
+- **Improvement/status:** Workflow 1.8.2 respects declared positive unique targets.
+  33 desktop tests and three NEMO2 regressions pass. Deployed only in the
+  CPU2048 workspace analysis copy; shared runtime deployment remains pending.
+- **Acceptance:** 150M/300M declarations survive discovery; invalid/duplicate
+  targets fail; original default behavior stays available when no targets exist.
+- **Lesson:** Check target declarations and collector validation before inferring
+  a stopped run from available analysis artifacts. See the
+  [canonical guide](04_implementation/standardized_study_workflow.md).
+
 ### NEMO source consolidation — complete; live-release retirement pending
 
 - **Evidence:** September 15 inventory found the canonical `SF_hipposlam` plus

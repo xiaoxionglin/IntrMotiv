@@ -1,0 +1,170 @@
+[
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_S8",
+    "latest_checkpoint_frames": 57819136,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_S99",
+    "latest_checkpoint_frames": 57032704,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_S8",
+    "latest_checkpoint_frames": 75317248,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_HER_S99",
+    "latest_checkpoint_frames": 56000512,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_HER_S123",
+    "latest_checkpoint_frames": 54640640,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_S123",
+    "latest_checkpoint_frames": 57769984,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_HER_S123",
+    "latest_checkpoint_frames": 51986432,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_HER_S8",
+    "latest_checkpoint_frames": 50511872,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_S99",
+    "latest_checkpoint_frames": 75137024,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048D64_DIRECT_F16_DDQN_S123",
+    "latest_checkpoint_frames": 75694080,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+    "latest_checkpoint_frames": 52412416,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048D64_WAYPOINT_DECODER_F64_DDQN_HER_S8",
+    "latest_checkpoint_frames": 52068352,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 64,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_S99",
+    "latest_checkpoint_frames": 136790016,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_S123",
+    "latest_checkpoint_frames": 138952704,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_S8",
+    "latest_checkpoint_frames": 136855552,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_HER_S99",
+    "latest_checkpoint_frames": 137068544,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_HER_S8",
+    "latest_checkpoint_frames": 126435328,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048_WAYPOINT_DECODER_F64_DDQN_HER_S123",
+    "latest_checkpoint_frames": 136445952,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_S99",
+    "latest_checkpoint_frames": 151650304,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 99
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_S123",
+    "latest_checkpoint_frames": 150011904,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_S8",
+    "latest_checkpoint_frames": 150011904,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_HER_S8",
+    "latest_checkpoint_frames": 135692288,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 8
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_HER_S123",
+    "latest_checkpoint_frames": 150011904,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 123
+  },
+  {
+    "run_name": "CPU2048_DIRECT_F16_DDQN_HER_S99",
+    "latest_checkpoint_frames": 150011904,
+    "config_project": "SF_IntrMotiv_CPU2048",
+    "cadence": 2048,
+    "seed": 99
+  }
+]

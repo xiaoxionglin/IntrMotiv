@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.8.1** (desktop and canonical NEMO2 checkout; synchronized September 15); study schema:
+Current implementation: **1.8.2** (desktop and isolated CPU2048 analysis copy; canonical NEMO2 checkout remains 1.8.1); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -17,6 +17,13 @@ This is the default workflow for new training batches, repeated online
 analysis, and place-field telemetry. It preserves the existing Sample Factory
 launcher and the established NEMO2 telemetry evaluator as execution backends.
 The study specification is the shared source of truth above both backends.
+
+Version 1.8.2 fixes spatial discovery at late milestones: declared telemetry
+targets are no longer intersected with historical 5M–100M defaults. A collector
+failure at 150M is a validation defect, not evidence that training stopped.
+Use the explicit `online_spatial_target_frames` override when online and offline
+targets intentionally differ. Preserve the StudySpec fingerprint and verify
+the imported module path when running an isolated analysis copy.
 
 ## Why this exists
 

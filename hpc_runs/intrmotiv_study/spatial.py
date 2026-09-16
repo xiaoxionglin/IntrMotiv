@@ -86,16 +86,13 @@ def _scalar(payload: Mapping[str, Any], key: str) -> Any:
 def expected_spatial_targets(study: StudySpec) -> tuple[int, ...]:
     explicit = study.telemetry.get("online_spatial_target_frames")
     if explicit is None:
-        standard = study.telemetry.get("target_frames", DEFAULT_TARGETS)
-        explicit = [value for value in standard if int(value) in DEFAULT_TARGETS]
+        explicit = study.telemetry.get("target_frames", DEFAULT_TARGETS)
     try:
         targets = tuple(int(value) for value in explicit)
     except (TypeError, ValueError) as error:
         raise SpecError("telemetry online spatial targets must be integers") from error
     if not targets or len(set(targets)) != len(targets) or any(value <= 0 for value in targets):
         raise SpecError("telemetry online spatial targets must be unique positive integers")
-    if any(value not in DEFAULT_TARGETS for value in targets):
-        raise SpecError(f"online spatial targets must be selected from {DEFAULT_TARGETS}")
     return targets
 
 
