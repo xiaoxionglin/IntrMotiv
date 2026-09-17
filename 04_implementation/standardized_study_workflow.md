@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.8.2** (desktop and isolated CPU2048 analysis copy; canonical NEMO2 checkout remains 1.8.1); study schema:
+Current implementation: **1.9.0** (desktop only; isolated CPU2048 analysis copy remains 1.8.2; canonical NEMO2 checkout remains 1.8.1); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -347,6 +347,41 @@ Add `--include-details` to write `per_unit.csv`, `per_field.csv`, and
 and graph-buffer recomputation before those tables are accepted; no DMLab
 rollout is run. Older v1 snapshots without optional cached details remain
 loadable and their spatial details are recomputed from the retained raw arrays.
+
+### Standard atlas figures (`segmented-atlas/v1`, workflow 1.9.0)
+
+Use the shared functions in `hpc_runs/intrmotiv_study/spatial.py` for online
+snapshot atlases. Batch adapters should only select declared runs/checkpoints,
+provide human-readable condition/seed/frame titles, and assemble links. Do not
+copy the plotting code into a new batch script. Existing historical exports
+are not silently reinterpreted; record the figure-style version on regeneration.
+
+| Figure | Standard encoding |
+|---|---|
+| Place fields | All allocated units, including silence; 16 per page; activity divided by each unit's own peak; fixed 0–1 color scale; gray unvisited; silence labeled explicitly. |
+| Occupancy + trajectories | Original Navigation8-style colored independent segments, start circles, end crosses, and sparse heading arrows. Colors distinguish fragments in storage order, not speed, elapsed time, or a common episode. Occupancy uses observation counts with its own labeled scale. |
+| Individual segments | Up to four non-singleton fragments selected at evenly spaced indices; no behavior-based selection; full common arena bounds; green start circle and orange end cross. |
+| Directed graph outcomes | Source rows, target columns; prospective hits/attempts on fixed 0–1 scale; unattempted masked gray; include all attempted edges, not just reliable ones. Missing graph evidence is not a zero graph. |
+
+Entry points: `render_place_field_contact_sheets`, `render_occupancy_trajectory`,
+`render_trajectory_segments`, and `render_graph_outcomes`. Common scalable fonts,
+PNG/PDF exports, coordinate units, and explicit colorbar meanings are mandatory.
+Trajectory fragments are split at segment-ID changes and terminal flags; never
+join repeated IDs across separate storage spans. Batched line/scatter artists
+preserve the preferred colored style without thousands of plotting calls.
+
+Normalize field shape explicitly: the old canonical contact-sheet implementation
+independently autoscaled panels while showing only the final panel's colorbar.
+The new shared 0–1 scale fixes that ambiguity; it is not an amplitude comparison.
+Offline pre-threshold maps retain their own signed/absolute interpretation and
+must not be passed through thresholded peak-normalization without disclosure.
+
+Tests: `python -m unittest hpc_runs.test_atlas_figures
+hpc_runs.test_spatial_target_declarations hpc_runs.test_intrmotiv_study`.
+Run them locally and in the isolated NEMO2 analysis copy before regeneration.
+CPU2048's thin adapter is `06_experiments/render_cpu2048_analysis.py`; reuse
+the original collected tables/spec copies so a style-only rerender does not
+silently change the comparison checkpoint or included seeds.
 
 ### 4. Generate place-field telemetry manifests
 

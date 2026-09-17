@@ -1,11 +1,23 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.8.2` (desktop; isolated CPU2048 analysis copy on NEMO2)
+- Implementation: `1.9.0` (desktop only; isolated CPU2048 analysis copy remains 1.8.2)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+## 1.9.0 standardized atlas figures — desktop, remote regeneration pending
+
+All online atlas figure recipes now live in `spatial.py`: all-unit normalized
+field pages, colored independent-segment occupancy/trajectory overviews,
+four deterministic segment examples, and directed prospective-outcome matrices.
+The CPU2048 adapter calls these recipes instead of duplicating plotting logic.
+Style identifier: `segmented-atlas/v1`. See the canonical guide for encodings.
+38 desktop tests pass (atlas, target declarations, and canonical workflow).
+NEMO2 staging was blocked by SSH authentication on September 17; the user must
+complete manual OTP login before retrying. Existing delivered figures have NOT
+yet been regenerated. Do not infer deployment from the desktop version.
 
 ## September 15 canonical source consolidation
 

@@ -6,6 +6,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Atlas figure recipes diverged between batches — standardized locally
+
+- **Evidence:** CPU2048's private renderer replaced Navigation8's colored
+  trajectory segments, markers, and headings with a low-opacity blue overlay.
+  The user requested the previous style and a common atlas standard.
+- **Impact:** Batch comparisons differed in readability and encoding; duplicated
+  plotting code let field scaling and silent-unit display diverge too.
+- **Improvement/status:** Shared workflow 1.9.0 recipes with style identifier
+  `segmented-atlas/v1`; CPU2048 adapter delegates all four atlas figure types.
+  38 desktop tests pass. Remote staging/regeneration is pending manual NEMO2
+  OTP login after one authentication failure; no retry was attempted.
+- **Acceptance:** Remote tests pass; all 24 CPU2048 entries regenerated with
+  unchanged run/checkpoint selection; representative F16/F64 renders visually
+  checked; all atlas links resolve; provenance records the new figure style.
+- **Lesson:** Reuse the renderer, not just the metric calculation. Keep the
+  [figure contract in the canonical guide](04_implementation/standardized_study_workflow.md)
+  authoritative, and use batched artists to retain clear segmented trajectories.
+
 ### Spatial collector rejected declared late milestones — fixed in isolated analysis
 
 - **Evidence:** CPU2048 collection on September 17 rejected a saved 150M NPZ;
