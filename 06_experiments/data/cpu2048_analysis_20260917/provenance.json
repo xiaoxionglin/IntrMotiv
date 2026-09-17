@@ -2,7 +2,7 @@
   "studies": [
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_cadence64_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_cadence64.study.json",
@@ -13,7 +13,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_f64_ddqn_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_ddqn.study.json",
@@ -24,7 +24,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_f64_ddqn_seeds_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_ddqn_seeds.study.json",
@@ -35,7 +35,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_f64_her_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_her.study.json",
@@ -46,7 +46,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_f64_her_seeds_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_f64_her_seeds.study.json",
@@ -57,7 +57,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_selected_ddqn_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_ddqn.study.json",
@@ -68,7 +68,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_selected_ddqn_seeds_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_ddqn_seeds.study.json",
@@ -79,7 +79,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_selected_her_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_her.study.json",
@@ -90,7 +90,7 @@
     },
     {
       "schema": "intrmotiv/study/v1",
-      "workflow_version": "1.8.2",
+      "workflow_version": "1.9.0",
       "study_workflow_version": "1.8.1",
       "study_id": "controller_cpu_selected_her_seeds_20260914",
       "study_spec": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/cpu2048_analysis_20260917/specs/controller_cpu_selected_her_seeds.study.json",
@@ -104,5 +104,10 @@
   "font": "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
   "n_runs": 24,
   "map_scaling": "per-unit peak normalization",
+  "figure_style": "segmented-atlas/v1",
+  "figure_workflow_version": "1.9.0",
+  "collection_workflow_versions": [
+    "1.8.2"
+  ],
   "summary": "all seed points; orange tick=unweighted mean; no significance tests"
 }

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.9.0** (desktop only; isolated CPU2048 analysis copy remains 1.8.2; canonical NEMO2 checkout remains 1.8.1); study schema:
+Current implementation: **1.9.0** (desktop and isolated CPU2048 analysis copy; canonical NEMO2 checkout remains 1.8.1); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -379,6 +379,9 @@ must not be passed through thresholded peak-normalization without disclosure.
 Tests: `python -m unittest hpc_runs.test_atlas_figures
 hpc_runs.test_spatial_target_declarations hpc_runs.test_intrmotiv_study`.
 Run them locally and in the isolated NEMO2 analysis copy before regeneration.
+Include both reference fixtures (`graph_stabilized_recruitment.study.json` and
+`ca3_memory_novelty_goal.study.json`) and `graph_stabilized_recruitment_manifest.py`
+when staging that suite. All 38 tests passed locally and remotely for CPU2048.
 CPU2048's thin adapter is `06_experiments/render_cpu2048_analysis.py`; reuse
 the original collected tables/spec copies so a style-only rerender does not
 silently change the comparison checkpoint or included seeds.

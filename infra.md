@@ -6,7 +6,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
-### Atlas figure recipes diverged between batches — standardized locally
+### Atlas figure recipes diverged between batches — standardized and verified
 
 - **Evidence:** CPU2048's private renderer replaced Navigation8's colored
   trajectory segments, markers, and headings with a low-opacity blue overlay.
@@ -15,14 +15,18 @@ keep implementation guidance in the canonical workflow documents linked below.
   plotting code let field scaling and silent-unit display diverge too.
 - **Improvement/status:** Shared workflow 1.9.0 recipes with style identifier
   `segmented-atlas/v1`; CPU2048 adapter delegates all four atlas figure types.
-  38 desktop tests pass. Remote staging/regeneration is pending manual NEMO2
-  OTP login after one authentication failure; no retry was attempted.
+  38 tests pass locally and in the isolated NEMO2 analysis copy. All 24 entries
+  were regenerated after the user renewed OTP authentication. The shared
+  training checkout remains unchanged.
 - **Acceptance:** Remote tests pass; all 24 CPU2048 entries regenerated with
   unchanged run/checkpoint selection; representative F16/F64 renders visually
-  checked; all atlas links resolve; provenance records the new figure style.
+  checked; provenance records the new figure style. Numerical CSV hashes are
+  unchanged; the existing figure URLs are preserved.
 - **Lesson:** Reuse the renderer, not just the metric calculation. Keep the
   [figure contract in the canonical guide](04_implementation/standardized_study_workflow.md)
   authoritative, and use batched artists to retain clear segmented trajectories.
+  Stage both canonical test StudySpecs, not only the main reference; a missing
+  secondary fixture caused one avoidable failed verification run.
 
 ### Spatial collector rejected declared late milestones — fixed in isolated analysis
 

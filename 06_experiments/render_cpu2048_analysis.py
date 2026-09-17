@@ -11,7 +11,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt, font_manager
-from hpc_runs.intrmotiv_study import load_study
+from hpc_runs.intrmotiv_study import WORKFLOW_VERSION, load_study
 from hpc_runs.intrmotiv_study.spatial import (
     ATLAS_FIGURE_STYLE, render_place_field_contact_sheets,
     render_occupancy_trajectory, render_trajectory_segments, render_graph_outcomes,
@@ -29,6 +29,11 @@ def main():
     ap.add_argument('root', type=Path)
     ap.add_argument('--spec-root', type=Path, default=Path('hpc_runs/studies'))
     a = ap.parse_args()
+    prior_path = a.root/'provenance.json'
+    prior = json.loads(prior_path.read_text()) if prior_path.exists() else {}
+    collection_versions = prior.get('collection_workflow_versions', sorted({
+        item['workflow_version'] for item in prior.get('studies', [])
+    }))
     font = Path(font_manager.findfont('DejaVu Sans', fallback_to_default=False))
     assert font.suffix.lower() in ('.ttf', '.otf')
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':16,
@@ -91,9 +96,11 @@ def main():
         with np.load(row.snapshot_path,allow_pickle=False) as data:
             atlas += [f'## {row.label} — seed {row.seed}', '']
             pages = render_place_field_contact_sheets(data, folder/'fields', title=title)
-            for path in pages:
-                if path.suffix == '.png':
-                    atlas += [f'![Place fields]({path.relative_to(a.root).as_posix()})', '']
+            # Keep existing report URLs stable while delegating page rendering.
+            for page, path in enumerate((p for p in pages if p.suffix == '.png'), start=1):
+                for suffix in ('.png', '.pdf'):
+                    path.with_suffix(suffix).replace(folder/f'fields_{page}{suffix}')
+                atlas += [f'![Place fields](figures/{run}/fields_{page}.png)', '']
             render_occupancy_trajectory(data, folder/'trajectory', title=title)
             atlas += [f'![Occupancy and trajectory](figures/{run}/trajectory.png)', '']
             render_trajectory_segments(data, folder/'segments', title=title)
@@ -106,6 +113,8 @@ def main():
     (a.root/'provenance.json').write_text(json.dumps({'studies':provenance,'target':int(target),
         'font':str(font),'n_runs':24,'map_scaling':'per-unit peak normalization',
         'figure_style':ATLAS_FIGURE_STYLE,
+        'figure_workflow_version':WORKFLOW_VERSION,
+        'collection_workflow_versions':collection_versions,
         'summary':'all seed points; orange tick=unweighted mean; no significance tests'},indent=2))
 
 

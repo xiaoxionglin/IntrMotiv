@@ -1,23 +1,30 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.9.0` (desktop only; isolated CPU2048 analysis copy remains 1.8.2)
+- Implementation: `1.9.0` (desktop and isolated CPU2048 analysis copy on NEMO2)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
-## 1.9.0 standardized atlas figures — desktop, remote regeneration pending
+## 1.9.0 standardized atlas figures — verified CPU2048 regeneration
 
 All online atlas figure recipes now live in `spatial.py`: all-unit normalized
 field pages, colored independent-segment occupancy/trajectory overviews,
 four deterministic segment examples, and directed prospective-outcome matrices.
 The CPU2048 adapter calls these recipes instead of duplicating plotting logic.
 Style identifier: `segmented-atlas/v1`. See the canonical guide for encodings.
-38 desktop tests pass (atlas, target declarations, and canonical workflow).
-NEMO2 staging was blocked by SSH authentication on September 17; the user must
-complete manual OTP login before retrying. Existing delivered figures have NOT
-yet been regenerated. Do not infer deployment from the desktop version.
+38 tests pass both locally and in the isolated NEMO2 copy (atlas, target
+declarations, and canonical workflow). All 24 CPU2048 entries were regenerated
+at the original 25M comparison, with F16/F64 visual checks and stable figure
+URLs. The scientific tables are unchanged. Shared training code remains
+untouched; do not infer shared-checkout deployment from the analysis version.
+
+For isolated test staging, include both `graph_stabilized_recruitment.study.json`
+and `ca3_memory_novelty_goal.study.json` plus the legacy manifest adapter. An
+initial remote test run failed only because the second fixture was absent;
+the unchanged 38-test suite passed after copying it. The authentication pause
+was resolved by the user's manual OTP login before automated access resumed.
 
 ## September 15 canonical source consolidation
 
