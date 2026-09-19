@@ -614,3 +614,11 @@ model/graph freezing, exact repeated prefixes, command outputs, privileged-input
 exclusion, and complete policy/random episodes. This qualifies runtime behavior;
 it does not establish command-control performance or sufficient scientific trials.
 The canonical matched-landmark summaries retain ambiguity and censoring counts.
+Bound native qualification by source count as well as decisions: repeated fresh
+engine construction can dominate wall time even with an 8k-decision cap. A
+one-source panel with four targets and five repeats exercises the same evaluator;
+record that qualification override explicitly and preserve the production panel.
+Do not silently shrink scientific evaluation when a qualification panel is slow.
+For the 100-episode production coverage jobs, request an explicit longer wall
+limit (for example `--time-limit 24:00:00`), rather than the one-hour field-only
+default. Keep per-job TMPDIR short and beneath the allocated workspace root.

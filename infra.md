@@ -39,7 +39,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   summaries alone cannot expose engine limits or reset-history dependence.
   Bind reload proof to immutable checkpoint hashes; archive shortened spatial
   schedules before production reuses run identities. Apply short TMPDIRs to
-  evaluation workers as well as training.
+  evaluation workers as well as training. Matched-command qualification also
+  needs an explicit source-count bound: fresh-engine construction can dominate
+  despite an 8k-decision limit. Use a declared one-source/five-repeat qualification
+  panel; leave production intervention budgets unchanged.
 
 
 ### Atlas figure recipes diverged between batches — standardized and verified

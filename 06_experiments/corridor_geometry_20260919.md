@@ -4,8 +4,8 @@
 
 The 27-run study and nine-run qualification are implemented in an isolated
 NEMO2 source checkout. **All nine 2M training runs and exact checkpoint reloads
-passed; final runtime audit 8109186 passed. Production is awaiting the final
-manifest-driven evaluation smoke jobs.** Each qualification run finished at
+passed; final runtime audit 8109186 and all three standard place-field jobs passed.
+Production is awaiting the bounded matched-command probes.** Each qualification run finished at
 2,031,616 environment frames. All three frozen evaluator gates passed exact
 prefix replay, unchanged policy/graph state, privileged-input exclusion and
 matched complete policy/random episodes. All 18 online 1M/2M snapshots passed
@@ -29,7 +29,12 @@ The authoritative nine-job qualification manifest combines PPO jobs
 8109154–8109159 and DDQN jobs 8109125–8109127. Final reload jobs are
 8109174/75/77/78/79/81/82/83/85; frozen evaluation jobs are
 8109176/8109180/8109184. Standard 10k-decision field jobs are
-8109305–8109307; bounded matched-command probes are 8109308–8109310.
+8109305–8109307 and completed successfully. The first matched-command probes
+8109308–8109310 were stopped because fresh-engine construction dominated their
+wall time despite the decision cap. Renewed qualification jobs 8109336–8109338
+use the same canonical evaluator with one source, four targets and five repeats;
+this qualification-only bound is recorded explicitly. Production retains up to
+16 sources. Slurm did not permit extending the running probes' wall limit.
 Lightweight certificates and audits are retained in
 [qualification evidence](results/corridor_geometry_20260919/qualification/).
 
