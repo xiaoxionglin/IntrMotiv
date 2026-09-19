@@ -22,8 +22,9 @@ Early Waypoint evaluation passed. PPO probes exposed one missing terminal pose
 per episode: telemetry used the legacy reader even though the certified binding
 retains terminal observations. The shared terminal-pose reader now uses that
 binding; this changes telemetry only. PPO checkpoints were saved and stopped
-intentionally at about 600k frames, then prepared for `preflight_r3` continuation.
-Failed early evaluation artifacts are retained; renewed probes are 8109152/8109153.
+intentionally at about 600k frames, then resumed as **8109154–8109159** under `preflight_r3`.
+Failed early evaluation artifacts are retained; renewed probes **8109152/8109153 passed**, completing all three early frozen
+evaluation gates with no invalid poses.
 Production remains gated on complete 2M training and final checkpoint evidence.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.

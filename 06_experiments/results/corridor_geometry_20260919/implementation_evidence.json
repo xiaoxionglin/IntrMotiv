@@ -101,12 +101,31 @@
   "execution": {
     "submitted_jobs": [],
     "blocker": null,
-    "qualification_status": "pending",
+    "qualification_status": "training_in_progress",
     "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
     "workspace_expires": "2026-12-28",
     "capacity": "4.6T available",
     "write_probe": "1 MiB write and fsync succeeded",
     "previous_allocation": "train: ENOSPC; no existing data removed",
-    "runfiles_status": "prepared; native binding and pretrained Torch cache copied into new allocation"
+    "runfiles_status": "prepared; native binding and pretrained Torch cache copied into new allocation",
+    "native_gate_job": 8109095,
+    "native_gate_passed": true,
+    "active_training_jobs": [
+      8109154,
+      8109155,
+      8109156,
+      8109157,
+      8109158,
+      8109159,
+      8109125,
+      8109126,
+      8109127
+    ],
+    "early_frozen_evaluation_passed_jobs": [
+      8109152,
+      8109153,
+      8109141
+    ],
+    "production_submitted": false
   }
 }
