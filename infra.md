@@ -18,7 +18,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   coverage, explicit axis adapters, short native map names with full hash checks,
   isolated runfiles, and fresh-engine prefix replay. See the
   [canonical workflow](04_implementation/standardized_study_workflow.md).
-- **Status:** Implemented locally; native nine-map qualification passes. Remote
+- **Status:** Implemented locally; native nine-map qualification passes. Source
+  staged remotely; training blocked by `/work` at 100% (zero bytes available,
+  inode usage 1%). No jobs submitted or old outputs deleted. Remote
   training/evaluation gates are tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
