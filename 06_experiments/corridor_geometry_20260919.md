@@ -3,7 +3,7 @@
 ## Status
 
 The 27-run study and nine-run 2M qualification are implemented and source-staged
-on NEMO2. **No training or evaluation jobs have been submitted.** At the user's
+on NEMO2. **Qualification is in progress; production is not yet submitted.** At the user's
 request, a dedicated workspace was allocated on September 19:
 `/work/classic/fr_xl1014-corridor-geometry`, expiring December 28, 2026.
 It reports 4.6T available; a 1 MiB write and fsync succeeded. The earlier
@@ -12,7 +12,11 @@ NEMO2 storage. Both StudySpecs and the Slurm template now target the new
 allocation, including online telemetry's explicit workspace root. Existing jobs
 and historical outputs were not modified. Native binding, pretrained Torch cache,
 and release runfiles are staged in the new allocation. Both revised studies validate
-and all 37 focused workflow tests pass on NEMO2. Runtime qualification remains pending.
+and all 37 focused workflow tests pass on NEMO2. Native gate 8109095 passed all seven tests. The first nine training attempts
+(8109100–8109108) hit a shared-memory socket error before learning; they were
+stopped and preserved under `train_dir/analysis/failed_preflights/`. The corrected
+Slurm template uses short workspace TMPDIRs and a fail-fast shared-memory check.
+A clean retry uses `preflight_r2`; production remains gated on its results.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 

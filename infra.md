@@ -22,7 +22,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   staged remotely. The old `train` allocation reported zero free bytes; a new
   `corridor-geometry` allocation reports 4.6T available and passed write/fsync.
   Capacity readings must be checked on the target workspace, not interpreted
-  as filesystem-wide exhaustion. No jobs submitted or old outputs deleted. Remote
+  as filesystem-wide exhaustion. Native qualification passed (8109095). First training attempts exposed the
+  previously documented long-TMPDIR shared-memory failure; stopped outputs are
+  archived, and the template now uses short paths plus a fail-fast socket probe.
+  The Python evaluators now honor the worker's workspace-root override. Remote
   training/evaluation gates are tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
