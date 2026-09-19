@@ -1,11 +1,22 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.9.0` (desktop and isolated CPU2048 analysis copy on NEMO2)
+- Implementation: `1.10.0` (corridor geometry release; see deployment record below)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+
+## 1.10.0 corridor geometry
+
+Adds verified geometry archives, accessible-area episode coverage helpers,
+traversability-aware field components, isolated DMLab runfiles, and wall overlays.
+Existing study/NPZ schemas remain v1; geometry fields are optional additions.
+The 27-run screen and nine-run qualification are `corridor_geometry.study.json`
+and `corridor_geometry_preflight.study.json`. Deployment and qualification
+status: `06_experiments/corridor_geometry_20260919.md`. Do not infer production
+qualification from a rendered plan or a successful unit test.
 
 ## 1.9.0 standardized atlas figures — verified CPU2048 regeneration
 

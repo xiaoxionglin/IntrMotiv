@@ -301,6 +301,9 @@ def collect_spatial_detail_records(
             unit_rows.append({
                 **identity,
                 "unit_id": unit,
+                **({"geometry_sha256": str(_scalar(payload, "geometry_sha256")),
+                    "geometry_field_components_half_peak": int(payload["geometry_field_components_half_peak"][unit])}
+                   if "geometry_field_components_half_peak" in payload else {}),
                 "active_fraction": float(details["active_fraction"][unit]),
                 "spatial_information": float(details["spatial_information"][unit]),
                 "active_observation_count": int(details["field_active_observation_count"][unit]),

@@ -161,3 +161,27 @@ def traversable_field_components(rate_maps, occupancy, mask):
                         queue.append(p)
         counts.append(count)
     return {'geometry_field_components_half_peak': np.asarray(counts, dtype=np.int32)}
+
+
+def validate_geometry_payload(payload):
+    """Validate optional geometry fields without changing legacy NPZ contracts."""
+    keys = [key for key in payload if key.startswith('geometry_')]
+    if not keys:
+        return
+    required = ('geometry_schema', 'geometry_sha256', 'geometry_entity_layer',
+                'geometry_map_seed', 'geometry_wall_removal_probability',
+                'geometry_accessible_mask', 'geometry_bounds', 'geometry_cell_size',
+                'geometry_coordinate_contract')
+    if any(key not in payload for key in required):
+        raise ValueError('Incomplete optional geometry payload')
+    record = entity_record(str(np.asarray(payload['geometry_entity_layer']).item()),
+                           map_seed=int(np.asarray(payload['geometry_map_seed']).item()),
+                           wall_removal_probability=float(np.asarray(payload['geometry_wall_removal_probability']).item()))
+    expected = geometry_payload(record)
+    for key, value in expected.items():
+        if not np.array_equal(payload[key], value):
+            raise ValueError(f'Geometry payload disagrees with entity map: {key}')
+    if 'bounds' in payload and not np.array_equal(payload['bounds'], expected['geometry_bounds']):
+        raise ValueError('Spatial bounds differ from geometry bounds')
+    if 'grain' in payload and int(np.asarray(payload['grain'])) != 19:
+        raise ValueError('Geometry requires a cell-aligned 19x19 spatial grid')

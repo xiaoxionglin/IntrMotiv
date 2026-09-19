@@ -6,6 +6,28 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Fixed geometry lacked accessible-area telemetry and release-scoped assets
+
+- **Evidence:** Historical coverage divides by decisions but not accessible floor
+  area. Online and offline maps use different axis conventions. Native corridor
+  qualification also exposed Q3Map buffer overflow with full-hash filenames and
+  non-identical RGB after same-instance resets despite identical spawn poses.
+- **Impact:** Wall-density comparisons could reward reduced floor area, transpose
+  wall masks, collide in native assets, or invalidate causal reset comparisons.
+- **Improvement:** Shared geometry archive/verification and normalized episode
+  coverage, explicit axis adapters, short native map names with full hash checks,
+  isolated runfiles, and fresh-engine prefix replay. See the
+  [canonical workflow](04_implementation/standardized_study_workflow.md).
+- **Status:** Implemented locally; native nine-map qualification passes. Remote
+  training/evaluation gates are tracked in the
+  [corridor record](06_experiments/corridor_geometry_20260919.md).
+- **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
+  zero reward and 120-second timeout, no geometry/pose model input, compatible
+  telemetry tests, nine 2M preflights and checkpoint-bound reload/evaluator gates.
+- **Lesson:** Compile actual Lua maps before scheduling training; cached map
+  summaries alone cannot expose engine limits or reset-history dependence.
+
+
 ### Atlas figure recipes diverged between batches — standardized and verified
 
 - **Evidence:** CPU2048's private renderer replaced Navigation8's colored

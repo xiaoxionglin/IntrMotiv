@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.9.0** (desktop and isolated CPU2048 analysis copy; canonical NEMO2 checkout remains 1.8.1); study schema:
+Current implementation: **1.10.0** (corridor release; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -709,3 +709,34 @@ currently uses the G500 profiler's Linux/NVIDIA probe; generalizing host admissi
 is deferred until a second direct-execution host needs it. See the
 [active DG launch record](../06_experiments/dg_neighborhood_g500_20260914.md)
 for the scientific gate, current paths, and recovery rules.
+
+
+## Fixed-geometry studies (1.10)
+
+Keep map seed separate from learner and episode seeds. A verified archive owns
+entity layers, SHA-256, accessible masks, bounds, spawn cells, and geometry
+statistics; `geometry.py` derives these from the actual Lua-generated map.
+Runtime reset checks the full map hash and strips the geometry observation.
+`runfiles.py` stages release-specific scripts without modifying installed assets.
+Use short native map names: full SHA filenames can overflow Q3Map's legacy
+buffers. Keep the full hash in cache namespaces and artifact metadata.
+
+Raw coverage metrics retain their historical meaning. Additional episode metrics
+normalize unique accessible cells and decision-weighted coverage AUC by the
+verified accessible area. Missing terminal poses hold the last coverage value;
+invalid-pose counts are reported. The optional geometry mask is `[y,x]` even in
+offline artifacts, whose historical rate maps are `[x,y,unit]`; explicitly
+transpose before combining them. Online detail maps use `[y,x,unit]`.
+`geometry_field_components_half_peak` uses unsmoothed occupied floor and
+four-neighbor connectivity, separately from historical smoothed metrics.
+
+Real-engine gates must recreate the Lab for exact observation/prefix comparisons,
+matching the existing causal evaluator. Same-instance episode resets can retain
+renderer animation history despite matching spawn poses. Check geometry across
+ordinary resets separately. Never relax the exact-start causal gate.
+
+The place-field submission tool supports `--coverage-episodes 100` and optional
+`--random-coverage`; its existing ordinary-job worker passes these through.
+Select terminal SAT rows for the nine random controls and terminal non-SAT rows
+for policy-only episodes, using StudySpec identity, never run-name parsing.
+Qualify a complete episode and frozen model/graph state before production.

@@ -580,3 +580,21 @@ The active training snapshot is immutable, so the small G500 panel adapter
 writes the same NPZ arrays under its explicit scratch root without modifying
 the legacy NEMO-only save guard during a run. See the
 [experiment record](../06_experiments/dg_neighborhood_g500_20260914.md).
+
+
+## Geometry-aware extension (2026-09-19)
+
+Corridor environments verify their entity map against the archived SHA on reset.
+Artifacts add `geometry_*` identity, `[y,x]` accessible mask, bounds, cell size,
+and an explicit coordinate contract. Keep offline `[x,y,unit]` and online
+`[y,x,unit]` rate-map conventions unchanged. New unsmoothed four-neighbor
+half-peak components never bridge walls or unvisited cells. Standardized atlas
+figures render walls black and unvisited floor gray.
+
+`submit_place_field_sweep.py --coverage-episodes 100` adds complete-episode
+policy coverage to selected terminal rows; `--random-coverage` also evaluates
+uniform navigation8 actions. Use nine selected SAT rows for random controls.
+Reset seeds start at 51000 and action RNG seeds at 61000. Every episode uses a
+fresh engine and zero worker memory; learned weights and graph state must remain
+unchanged. The existing manifest and ordinary-job submission contract is retained.
+See the corridor experiment record for qualification status and exact manifests.
