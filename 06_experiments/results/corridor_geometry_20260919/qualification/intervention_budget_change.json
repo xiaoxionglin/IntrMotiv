@@ -1,0 +1,26 @@
+{
+  "stopped_jobs": [
+    8109308,
+    8109309,
+    8109310
+  ],
+  "reason": "Fresh-engine startup overhead is not bounded by decision cap; use one-source qualification panel with unchanged four targets/five repeats. Production protocol unchanged.",
+  "scheduler_extension": "Slurm denied increasing running job time limit",
+  "new_jobs": [
+    {
+      "row": 1,
+      "job_id": "8109336",
+      "script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/intervention_bounded_1.sh"
+    },
+    {
+      "row": 4,
+      "job_id": "8109337",
+      "script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/intervention_bounded_4.sh"
+    },
+    {
+      "row": 7,
+      "job_id": "8109338",
+      "script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/intervention_bounded_7.sh"
+    }
+  ]
+}

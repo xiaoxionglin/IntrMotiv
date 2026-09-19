@@ -2,14 +2,26 @@
 
 ## Status
 
-The 27-run study and nine-run qualification are implemented in an isolated
-NEMO2 source checkout. **All nine 2M training runs and exact checkpoint reloads
-passed; final runtime audit 8109186 and all three standard place-field jobs passed.
-Production is awaiting the bounded matched-command probes.** Each qualification run finished at
-2,031,616 environment frames. All three frozen evaluator gates passed exact
-prefix replay, unchanged policy/graph state, privileged-input exclusion and
-matched complete policy/random episodes. All 18 online 1M/2M snapshots passed
-canonical collection and geometry checks.
+**All 27 production runs were submitted on September 19, 2026 at 20:58 CEST,
+and all 27 were RUNNING at the startup check.** Nine runs resume their qualified
+2,031,616-frame checkpoints; the other 18 start fresh. Every saved production
+configuration targets 100M frames and checkpoints/spatial telemetry at
+5M, 25M, 50M, 75M and 100M. Each job requests 40 CPUs, 128G and 72 hours.
+
+The canonical [submission audit](results/corridor_geometry_20260919/production_submitted_audit.json)
+confirms all 27 commands and workspace paths against the unchanged StudySpec.
+The [job manifest](results/corridor_geometry_20260919/production_jobs.tsv) records
+IDs **8109346–8109367 and 8109369–8109373**. The
+[startup snapshot](results/corridor_geometry_20260919/production_startup_snapshot.json)
+records scheduler state and resolved milestone configuration. Training and
+production scientific evaluation are not yet complete.
+
+All nine 2M runtime audits, nine exact learner reloads, three frozen evaluator
+checks, three standard 10k-decision place-field jobs and three bounded canonical
+matched-command probes passed. All 18 online qualification snapshots passed
+collection/geometry checks. Qualification snapshots were moved with recorded
+hashes to `analysis/corridor_qualification/final_gates/preflight_online_spatial`
+so production can reuse the batch identity with its own target schedule.
 
 The dedicated workspace `/work/classic/fr_xl1014-corridor-geometry` was allocated
 September 19 and expires December 28, 2026. Its initial 4.6T availability and
@@ -32,11 +44,18 @@ The authoritative nine-job qualification manifest combines PPO jobs
 8109305–8109307 and completed successfully. The first matched-command probes
 8109308–8109310 were stopped because fresh-engine construction dominated their
 wall time despite the decision cap. Renewed qualification jobs 8109336–8109338
-use the same canonical evaluator with one source, four targets and five repeats;
+completed successfully using the same canonical evaluator with one source,
+up to four targets and five requested repeats;
 this qualification-only bound is recorded explicitly. Production retains up to
 16 sources. Slurm did not permit extending the running probes' wall limit.
 Lightweight certificates and audits are retained in
 [qualification evidence](results/corridor_geometry_20260919/qualification/).
+
+The bounded probes yielded 16 SAT, 20 DGP and eight Waypoint paired comparisons
+with exact starts and frozen state. SAT found four of five requested starts;
+Waypoint found two. Missing starts, ambiguity and censoring are preserved in the
+[backend artifact check](results/corridor_geometry_20260919/qualification/backend_artifact_check.json).
+These small qualification panels do not establish successful control.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 
@@ -47,7 +66,8 @@ Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 
 Reviewed argument expansions: [27 production runs](results/corridor_geometry_20260919/production_runs.json)
 and [nine qualification runs](results/corridor_geometry_20260919/preflight_runs.json).
-These are rendered plans, not scheduler submission evidence.
+These rendered plans are accompanied by the submitted scheduler manifest and
+canonical audit linked above.
 
 ## Scientific design and provenance
 
@@ -148,8 +168,9 @@ on `c002faff`; no changes were applied to the shared runtime checkout:
 - NEMO2: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_corridor_20260919`
 
 The vault remains authoritative for `hpc_runs/intrmotiv_study/` and StudySpecs.
-Runtime adapters and Lua changes live in those worktrees. Source staging does
-not establish NEMO2 runtime qualification or successful training.
+Runtime adapters and Lua changes live in those worktrees. The separate runtime/reload/evaluation certificates establish qualification;
+source staging alone would not. Qualification results do not establish the
+scientific hypothesis.
 
 ## Qualification and execution
 

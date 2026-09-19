@@ -1,0 +1,39 @@
+{
+  "protocol": "landmark-matched-commands-v1",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_SAT_Q035_M1001_S99_/00_COR_SAT_Q035_M1001_S99/checkpoint_p0/milestones/checkpoint_000000246_2015232.pth",
+  "decisions": 6926,
+  "supported_sources": 16,
+  "source_panel_coverage": 0.0625,
+  "mean_initial_action_total_variation": 0.0030326577058682838,
+  "sources_evaluated": 1,
+  "starts_evaluated": 4,
+  "max_sources": 1,
+  "targets_per_source": 4,
+  "repeats_requested": 5,
+  "missing": [
+    {
+      "reason": "insufficient_repeated_starts",
+      "source": 15,
+      "requested": 5,
+      "found": 4
+    }
+  ],
+  "exact_start_verified": true,
+  "policy_frozen": true,
+  "graph_frozen": true,
+  "paired_arrival_lift": -0.020833333333333332,
+  "paired_comparisons": 16,
+  "trial_status": "paired_trials_available",
+  "ambiguous_discovery_observations": 62,
+  "ambiguous_trial_observations": 50,
+  "censored_rows": 0,
+  "rows": 64,
+  "condition": "COR_SAT_Q035_M1001",
+  "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/manifests/intervention_manifest.tsv",
+  "manifest_row": 1,
+  "qualification_only": true,
+  "qualification_overrides": {
+    "max_sources": 1
+  },
+  "production_max_sources": 16
+}

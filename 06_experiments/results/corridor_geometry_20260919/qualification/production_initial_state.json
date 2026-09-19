@@ -1,0 +1,263 @@
+[
+  {
+    "run": "COR_SAT_Q000_M1001_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_SAT_Q000_M1001_S99_/00_COR_SAT_Q000_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "67e06f51bfb1d99f94d41d5adb86c03cfacb0bb5010b4e35e4f8df66b3b063c0",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_SAT_Q000_M1002_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_SAT_Q000_M1003_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_SAT_Q035_M1001_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_SAT_Q035_M1001_S99_/00_COR_SAT_Q035_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "515a194b8ee4fa553c462023c9e9b562c4c8f6d5ad23e69acf1d27b6776fa1c4",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_SAT_Q035_M1002_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_SAT_Q035_M1003_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_SAT_Q075_M1001_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_SAT_Q075_M1001_S99_/00_COR_SAT_Q075_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "f8846e990dbc561b047691fc75f0e71027632f1c6664d878f2aac8ba7f343873",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_SAT_Q075_M1002_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_SAT_Q075_M1003_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q000_M1001_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_DGP_Q000_M1001_S99_/00_COR_DGP_Q000_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "06b570cfe95b67298e215da0abd9cc7a6d74e97b24e7c56ad0b2f2ee56f278a2",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_DGP_Q000_M1002_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q000_M1003_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q035_M1001_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_DGP_Q035_M1001_S99_/00_COR_DGP_Q035_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "195b87ec0e3ad7b3eec640d093907a7c00e3cfec035830d1132b4eb4d767ef74",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_DGP_Q035_M1002_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q035_M1003_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q075_M1001_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_DGP_Q075_M1001_S99_/00_COR_DGP_Q075_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "3e56215addd32665f951d96603793caa2ce2960b5919ef5eda340a7edad3edf4",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_DGP_Q075_M1002_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_DGP_Q075_M1003_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q000_M1001_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_WAYPOINT_HER_Q000_M1001_S99_/00_COR_WAYPOINT_HER_Q000_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "56cf4d83b69ea011a014402e848b96a22a0ceb4dc3bae7c160751424e1f3813d",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q000_M1002_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q000_M1003_S99",
+    "factors": {
+      "openness": 0.0,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q035_M1001_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_WAYPOINT_HER_Q035_M1001_S99_/00_COR_WAYPOINT_HER_Q035_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "31ec9fe5e282f4600f3d8f2cc6e35df9ab9d1883f8720295d9c569ffec9110ff",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q035_M1002_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q035_M1003_S99",
+    "factors": {
+      "openness": 0.35,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q075_M1001_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1001
+    },
+    "mode": "resume",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_WAYPOINT_HER_Q075_M1001_S99_/00_COR_WAYPOINT_HER_Q075_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+    "checkpoint_sha256": "4100f0809573111b331bb1b6448cc1335b04337c003d5e52de5f131fc0aa25fa",
+    "frames": 2031616
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q075_M1002_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1002
+    },
+    "mode": "fresh",
+    "frames": 0
+  },
+  {
+    "run": "COR_WAYPOINT_HER_Q075_M1003_S99",
+    "factors": {
+      "openness": 0.75,
+      "map_seed": 1003
+    },
+    "mode": "fresh",
+    "frames": 0
+  }
+]

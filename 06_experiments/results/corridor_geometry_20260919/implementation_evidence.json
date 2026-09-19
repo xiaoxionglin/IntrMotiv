@@ -109,9 +109,37 @@
     }
   },
   "execution": {
-    "submitted_jobs": [],
+    "submitted_jobs": [
+      "8109346",
+      "8109347",
+      "8109348",
+      "8109349",
+      "8109350",
+      "8109351",
+      "8109352",
+      "8109353",
+      "8109354",
+      "8109355",
+      "8109356",
+      "8109357",
+      "8109358",
+      "8109359",
+      "8109360",
+      "8109361",
+      "8109362",
+      "8109363",
+      "8109364",
+      "8109365",
+      "8109366",
+      "8109367",
+      "8109369",
+      "8109370",
+      "8109371",
+      "8109372",
+      "8109373"
+    ],
     "blocker": null,
-    "qualification_status": "runtime_reload_and_frozen_evaluation_passed",
+    "qualification_status": "passed",
     "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
     "workspace_expires": "2026-12-28",
     "capacity": "4.6T available",
@@ -126,7 +154,7 @@
       8109153,
       8109141
     ],
-    "production_submitted": false,
+    "production_submitted": true,
     "qualification_training_jobs": [
       8109154,
       8109155,
@@ -164,6 +192,28 @@
       8109308,
       8109309,
       8109310
-    ]
+    ],
+    "production_state_at_startup": "27 RUNNING",
+    "production_submission_time": "2026-09-19T20:58:53+02:00",
+    "production_audit": "production_submitted_audit.json",
+    "production_jobs": "production_jobs.tsv",
+    "bounded_intervention_jobs": [
+      8109336,
+      8109337,
+      8109338
+    ],
+    "stopped_intervention_jobs": [
+      8109308,
+      8109309,
+      8109310
+    ],
+    "qualification_intervention_override": {
+      "max_sources": 1,
+      "targets_per_source": 4,
+      "repeats": 5
+    },
+    "source_files_verified": 49,
+    "startup_snapshot": "production_startup_snapshot.json",
+    "all_production_configs_verified": true
   }
 }
