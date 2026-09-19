@@ -1,0 +1,14 @@
+{
+  "run": "00_COR_DGP_Q075_M1001_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/reload/COR_DGP_Q075_M1001_S99/checkpoint_000000248_2031616.pth",
+  "checkpoint_sha256": "3e56215addd32665f951d96603793caa2ce2960b5919ef5eda340a7edad3edf4",
+  "frames": 2031616,
+  "train_step": 248,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8109181"
+}

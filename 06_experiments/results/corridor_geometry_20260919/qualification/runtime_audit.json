@@ -1,0 +1,415 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.10.0",
+  "study_workflow_version": "1.10.0",
+  "study_id": "corridor_geometry_20260919_preflight",
+  "study_sha256": "6d65e28c24d2e837f7dfc2fc9eea9da0da86807a26585a740e5c59915b956ecc",
+  "passed": true,
+  "runs": [
+    {
+      "run": "COR_SAT_Q000_M1001_S99",
+      "job_id": "8109154",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.02099609375
+      },
+      "geometry_sha256": "ae5e33088daf21506deb54943c21474a69992c613903c23ff02df89f4d458dd3",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.050033725798130035
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.06341708451509476
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_SAT_Q035_M1001_S99",
+      "job_id": "8109155",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.015625,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.021484375
+      },
+      "geometry_sha256": "79ef863b37a7b58f1882b9aecdc0f87e51f92112a8c87bacc7ea46034cc48dbe",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.10388783365488052
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.17296577990055084
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_SAT_Q075_M1001_S99",
+      "job_id": "8109156",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.01611328125,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.021484375
+      },
+      "geometry_sha256": "5a1579f7715fddbc77bdf2ec144a60ab2ef4b3d3450bc0ce9ccf2825e4cc66f6",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.13591526448726654
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.23084111511707306
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_DGP_Q000_M1001_S99",
+      "job_id": "8109157",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0
+      },
+      "geometry_sha256": "ae5e33088daf21506deb54943c21474a69992c613903c23ff02df89f4d458dd3",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.03213704749941826
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.03477386757731438
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_DGP_Q035_M1001_S99",
+      "job_id": "8109158",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0
+      },
+      "geometry_sha256": "79ef863b37a7b58f1882b9aecdc0f87e51f92112a8c87bacc7ea46034cc48dbe",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.1063661202788353
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.18239544332027435
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_DGP_Q075_M1001_S99",
+      "job_id": "8109159",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.0,
+        "waypoint_navigation_fraction": 0.0,
+        "waypoint_step_hit": 0.0,
+        "route_available": 0.0
+      },
+      "geometry_sha256": "5a1579f7715fddbc77bdf2ec144a60ab2ef4b3d3450bc0ce9ccf2825e4cc66f6",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.13438871502876282
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.24246105551719666
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_WAYPOINT_HER_Q000_M1001_S99",
+      "job_id": "8109125",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.00927734375,
+        "waypoint_navigation_fraction": 0.01708984375,
+        "waypoint_step_hit": 0.5,
+        "route_available": 0.0341796875
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 2048,
+          "target_interval": 3,
+          "completed": 239,
+          "main_positions": 244736,
+          "auxiliary_positions": 139267,
+          "target_at": 237
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.5656557083129883,
+          "auxiliary_loss": 0.19245019555091858,
+          "main_td_positions": 244736.0,
+          "auxiliary_td_positions": 139267.0,
+          "physical_interactions": 507904.0,
+          "accepted_replay_decisions": 507840.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 2.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.5186150074005127,
+          "fresh_dg_steps": 248.0,
+          "fresh_graph_batches": 124.0
+        }
+      },
+      "geometry_sha256": "ae5e33088daf21506deb54943c21474a69992c613903c23ff02df89f4d458dd3",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.07012730091810226
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.10417085140943527
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_WAYPOINT_HER_Q035_M1001_S99",
+      "job_id": "8109126",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.009765625,
+        "waypoint_navigation_fraction": 0.01220703125,
+        "waypoint_step_hit": 1.0,
+        "route_available": 0.0361328125
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 2048,
+          "target_interval": 3,
+          "completed": 239,
+          "main_positions": 244736,
+          "auxiliary_positions": 141518,
+          "target_at": 237
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.6136274933815002,
+          "auxiliary_loss": 0.12922166287899017,
+          "main_td_positions": 244736.0,
+          "auxiliary_td_positions": 141518.0,
+          "physical_interactions": 507904.0,
+          "accepted_replay_decisions": 507840.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 2.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.6271502375602722,
+          "fresh_dg_steps": 248.0,
+          "fresh_graph_batches": 124.0
+        }
+      },
+      "geometry_sha256": "79ef863b37a7b58f1882b9aecdc0f87e51f92112a8c87bacc7ea46034cc48dbe",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.13544054329395294
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.22787071764469147
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    },
+    {
+      "run": "COR_WAYPOINT_HER_Q075_M1001_S99",
+      "job_id": "8109127",
+      "frames": 2031616,
+      "passed": true,
+      "errors": [],
+      "signals": {
+        "validation_success": 0.00927734375,
+        "waypoint_navigation_fraction": 0.01953125,
+        "waypoint_step_hit": 1.0,
+        "route_available": 0.04248046875
+      },
+      "controller": {
+        "clock": {
+          "learning_starts": 16384,
+          "cadence": 2048,
+          "target_interval": 3,
+          "completed": 239,
+          "main_positions": 244736,
+          "auxiliary_positions": 138377,
+          "target_at": 237
+        },
+        "update_debt": 0,
+        "metrics": {
+          "main_loss": 0.515476644039154,
+          "auxiliary_loss": 0.09274041652679443,
+          "main_td_positions": 244736.0,
+          "auxiliary_td_positions": 138377.0,
+          "physical_interactions": 507904.0,
+          "accepted_replay_decisions": 507840.0,
+          "actor_memory_rebuilds": 0.0,
+          "actor_memory_version_failures": 0.0,
+          "target_age": 2.0,
+          "update_debt": 0.0,
+          "her_compute_seconds": 0.5843803286552429,
+          "fresh_dg_steps": 248.0,
+          "fresh_graph_batches": 124.0
+        }
+      },
+      "geometry_sha256": "5a1579f7715fddbc77bdf2ec144a60ab2ef4b3d3450bc0ce9ccf2825e4cc66f6",
+      "episode_measurements": {
+        "dmlab_raw_score": {
+          "step": 2015232,
+          "value": 0.0
+        },
+        "len": {
+          "step": 2015232,
+          "value": 7200.0
+        },
+        "accessible_coverage_auc": {
+          "step": 2015232,
+          "value": 0.1643258035182953
+        },
+        "accessible_coverage_fraction": {
+          "step": 2015232,
+          "value": 0.2863551378250122
+        },
+        "geometry_invalid_pose_steps": {
+          "step": 2015232,
+          "value": 0.0
+        }
+      }
+    }
+  ]
+}

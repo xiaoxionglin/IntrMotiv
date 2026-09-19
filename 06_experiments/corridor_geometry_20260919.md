@@ -2,30 +2,36 @@
 
 ## Status
 
-The 27-run study and nine-run 2M qualification are implemented and source-staged
-on NEMO2. **Qualification is in progress; production is not yet submitted.** At the user's
-request, a dedicated workspace was allocated on September 19:
-`/work/classic/fr_xl1014-corridor-geometry`, expiring December 28, 2026.
-It reports 4.6T available; a 1 MiB write and fsync succeeded. The earlier
-ENOSPC and zero-capacity reading applied to the old `train` allocation, not all
-NEMO2 storage. Both StudySpecs and the Slurm template now target the new
-allocation, including online telemetry's explicit workspace root. Existing jobs
-and historical outputs were not modified. Native binding, pretrained Torch cache,
-and release runfiles are staged in the new allocation. Both revised studies validate
-and all 37 focused workflow tests pass on NEMO2. Native gate 8109095 passed all seven tests. The first nine training attempts
-(8109100–8109108) hit a shared-memory socket error before learning; they were
-stopped and preserved under `train_dir/analysis/failed_preflights/`. The corrected
-Slurm template uses short workspace TMPDIRs and a fail-fast shared-memory check.
-The clean retry uses `preflight_r2`, jobs **8109119–8109127**. Early frozen
-evaluation probes are **8109139–8109141**, one per architecture at Q=0.35.
-Early Waypoint evaluation passed. PPO probes exposed one missing terminal pose
-per episode: telemetry used the legacy reader even though the certified binding
-retains terminal observations. The shared terminal-pose reader now uses that
-binding; this changes telemetry only. PPO checkpoints were saved and stopped
-intentionally at about 600k frames, then resumed as **8109154–8109159** under `preflight_r3`.
-Failed early evaluation artifacts are retained; renewed probes **8109152/8109153 passed**, completing all three early frozen
-evaluation gates with no invalid poses.
-Production remains gated on complete 2M training and final checkpoint evidence.
+The 27-run study and nine-run qualification are implemented in an isolated
+NEMO2 source checkout. **All nine 2M training runs and exact checkpoint reloads
+passed; final runtime audit 8109186 passed. Production is awaiting the final
+manifest-driven evaluation smoke jobs.** Each qualification run finished at
+2,031,616 environment frames. All three frozen evaluator gates passed exact
+prefix replay, unchanged policy/graph state, privileged-input exclusion and
+matched complete policy/random episodes. All 18 online 1M/2M snapshots passed
+canonical collection and geometry checks.
+
+The dedicated workspace `/work/classic/fr_xl1014-corridor-geometry` was allocated
+September 19 and expires December 28, 2026. Its initial 4.6T availability and
+successful write/fsync resolved the old `train` allocation's ENOSPC. Source,
+native binding, pretrained cache and runfiles are isolated from existing jobs.
+
+Qualification exposed two correctness issues, both fixed and requalified:
+long TMPDIRs exceeded multiprocessing socket limits, and PPO telemetry missed
+the terminal pose retained by the certified native binding. Short workspace
+TMPDIRs and the shared terminal reader fix those issues without changing learning
+objectives. The initial failed jobs/artifacts remain archived. Six PPO runs were
+saved around 600k frames and resumed after the telemetry fix; the three DDQN
+runs continued because their terminal path was already correct. Evaluation
+also bypasses training cache seed selection to preserve declared reset seeds.
+
+The authoritative nine-job qualification manifest combines PPO jobs
+8109154–8109159 and DDQN jobs 8109125–8109127. Final reload jobs are
+8109174/75/77/78/79/81/82/83/85; frozen evaluation jobs are
+8109176/8109180/8109184. Standard 10k-decision field jobs are
+8109305–8109307; bounded matched-command probes are 8109308–8109310.
+Lightweight certificates and audits are retained in
+[qualification evidence](results/corridor_geometry_20260919/qualification/).
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 
@@ -112,8 +118,9 @@ checkpoints for every run) and **54 matched-command rows** (25M and 100M).
 At 100M, request 100 complete episodes for all 27 policies. Select the nine SAT
 terminal rows for `--random-coverage`; select the other 18 for policy-only
 coverage. Selection comes from manifest family/target fields, not run-name
-parsing. Runtime qualification must verify this new episode path on real models;
-mock tests alone do not establish native evaluator qualification.
+parsing. Real-model qualification verified this episode path for all three families,
+using two policy and two matched random episodes each. The production budget
+remains 100 complete episodes per policy and per geometry-matched random control.
 
 ## Verification and source locations
 
@@ -121,9 +128,9 @@ mock tests alone do not establish native evaluator qualification.
 - Separate native DMLab test: **3 passed**, including nine maps, common spawn
   poses, full hashes, fresh-engine prefix equality, zero reward and timeout.
 - Final focused runtime/evaluation tests after telemetry/worker changes:
-  **10 passed, 1 native test skipped**; native behavior was tested separately.
-- Final desktop canonical workflow/geometry suite: **37 passed**.
-- NEMO2's final synchronized canonical suite: **37 passed**; final qualification
+  **23 passed, 1 native test skipped**; native behavior was tested separately.
+- Final desktop canonical workflow/geometry suite: **38 passed**.
+- NEMO2's final synchronized canonical suite: **38 passed**; final qualification
   StudySpec validation also passed with the fingerprint recorded above.
 - All nine qualification configurations parsed successfully with their expected
   controller, CPU device and DG capacity. New Python modules pass Ruff checks.
@@ -196,6 +203,9 @@ checks could not: short map names plus full-hash runtime verification resolved
 it. Reusing the causal evaluator's fresh-engine construction resolved reset RGB
 history differences without weakening exact matching. Shared geometry helpers,
 explicit axis conversion, parent StudySpec hashes, and canonical manifests kept
-this study from becoming a separate launch/analysis workflow. The next session
-should start with storage availability and this record, not repeat historical
-batch inventory or map-generation discovery.
+this study from becoming a separate launch/analysis workflow. Use the real learner reload certificates and canonical submission audits as
+authoritative evidence. Disable training seed-cache selection during evaluation;
+use the certified terminal reader even when policy observations omit pose. Keep
+TMPDIR short for both training and evaluation, and archive shortened spatial
+schedules before production reuses their run identities. Start future work with
+this record and the generated manifests rather than historical batch inventory.

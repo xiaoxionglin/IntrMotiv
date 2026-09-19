@@ -1,0 +1,14 @@
+{
+  "run": "00_COR_WAYPOINT_HER_Q035_M1001_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_qualification/final_gates/reload/COR_WAYPOINT_HER_Q035_M1001_S99/checkpoint_000000248_2031616.pth",
+  "checkpoint_sha256": "31ec9fe5e282f4600f3d8f2cc6e35df9ab9d1883f8720295d9c569ffec9110ff",
+  "frames": 2031616,
+  "train_step": 248,
+  "controller": "ddqn",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8109183"
+}

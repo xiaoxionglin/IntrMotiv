@@ -1,0 +1,38 @@
+{
+  "batch_name": "corridor_geometry_20260919",
+  "complete": true,
+  "condition_summary_rows": 18,
+  "expected_runs": 9,
+  "expected_snapshots": 18,
+  "expected_targets": [
+    1000000,
+    2000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "base",
+    "openness"
+  ],
+  "include_details": false,
+  "missing": [],
+  "observed_snapshots": 18,
+  "per_field_rows": 0,
+  "per_snapshot_rows": 18,
+  "per_unit_rows": 0,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 18,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/corridor_geometry_20260919",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "corridor_geometry_20260919_preflight",
+  "study_sha256": "6d65e28c24d2e837f7dfc2fc9eea9da0da86807a26585a740e5c59915b956ecc",
+  "study_spec": "hpc_runs/studies/corridor_geometry_preflight.study.json",
+  "study_workflow_version": "1.10.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.10.0"
+}

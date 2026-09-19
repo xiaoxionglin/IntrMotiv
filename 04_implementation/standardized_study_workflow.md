@@ -77,6 +77,25 @@ old allocation as full while a new allocation has space. Update the StudySpec's
 together; also update Slurm temporary/cache variables, preserve parent provenance,
 then validate and regenerate print-only plans. Allocation does not migrate data.
 
+For shortened qualification runs that retain production identities, use
+`python -m hpc_runs.intrmotiv_study.checkpoint_reload` to certify an immutable
+copy of each final checkpoint through the real learner initialization path.
+The certificate binds exact model/buffer, optimizer and counter restoration to
+its checkpoint SHA; DDQN also checks target, replay and publication state.
+Use `evaluation_preflight` on Slurm for each controller family to check fresh-engine
+prefix equality, frozen state, privileged-input exclusion, and complete matched
+policy/random episodes. Evaluation must disable the training level cache's
+unused-seed selection so declared reset seeds remain authoritative and evaluation
+does not consume training seeds. Preserve terminal pose via the certified binding.
+
+After collecting a complete shortened spatial schedule, archive its NPZ tree
+with a recorded path mapping before production reuses the batch identity; otherwise
+the production collector correctly rejects unexpected preflight targets. Keep
+checkpoints and all qualification evidence. Require an ordinary manifest-driven
+place-field smoke job before release. Both Python submitters and workers must
+honor `INTRMOTIV_WORKSPACE_ROOT`; use short workspace-root `tmp/<job>` paths
+for multiprocessing sockets, including evaluation workers.
+
 ## Source-of-truth hierarchy
 
 1. The study JSON defines bases, factors, seeds, run names, arguments, metrics,

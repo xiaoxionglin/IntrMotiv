@@ -1,0 +1,15 @@
+{
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/corridor_geometry_20260919/COR_SAT_Q035_M1001_S99_/00_COR_SAT_Q035_M1001_S99/checkpoint_p0/checkpoint_000000248_2031616.pth",
+  "checkpoint_sha256": "515a194b8ee4fa553c462023c9e9b562c4c8f6d5ad23e69acf1d27b6776fa1c4",
+  "geometry_sha256": "79ef863b37a7b58f1882b9aecdc0f87e51f92112a8c87bacc7ea46034cc48dbe",
+  "exact_prefix_verified": true,
+  "policy_and_graph_frozen": true,
+  "privileged_inputs_absent": true,
+  "matched_reset_seeds": [
+    51000,
+    51001
+  ],
+  "complete_policy_episodes": 2,
+  "complete_random_episodes": 2,
+  "passed": true
+}
