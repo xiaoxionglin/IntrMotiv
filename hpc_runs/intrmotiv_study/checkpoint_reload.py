@@ -84,6 +84,8 @@ def certify(run_dir, checkpoint, output):
         assert_exact((numpy_rng[0], numpy_rng[1].numpy().astype(np.uint32), *numpy_rng[2:]), np.random.get_state())
         assert learner.replay.session == controller["replay"]["session"] + 1
         assert learner.publication == controller["publication"]
+        assert learner.controller_version == controller["version"]
+        assert learner.target_snapshot.version == controller["target_version"]
         assert learner.fresh_dg_steps == controller["fresh_dg_steps"]
         assert learner.fresh_graph_batches == controller["fresh_graph_batches"]
         assert learner.replay.ingress.pending == 0
@@ -91,7 +93,10 @@ def certify(run_dir, checkpoint, output):
             controller["replay"]["rejected"].get("restart_pending_tail", 0) + controller["replay"]["pending"]
         )
         assert learner.frame_milestones == set(controller.get("frame_milestones", ()))
-        assert_exact(controller["replay"]["rows"], learner.replay.state_dict()["rows"])
+        restored_replay = learner.replay.state_dict()
+        for key in ("rows", "capacity", "received", "accepted", "physical_frames"):
+            assert_exact(controller["replay"][key], restored_replay[key])
+        assert_exact(saved["model"], learner.published.state_dict())
     digest = hashlib.sha256()
     with immutable.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):

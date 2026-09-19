@@ -598,3 +598,19 @@ Reset seeds start at 51000 and action RNG seeds at 61000. Every episode uses a
 fresh engine and zero worker memory; learned weights and graph state must remain
 unchanged. The existing manifest and ordinary-job submission contract is retained.
 See the corridor experiment record for qualification status and exact manifests.
+
+### Corridor qualification and alternate allocations
+
+The Python submitter and command-intervention entry point honor
+`INTRMOTIV_WORKSPACE_ROOT`, matching the existing worker shell guard. The
+submitter exports the resolved root explicitly. Corridor evaluation disables
+training-cache reset-seed selection before constructing its environment; matched
+episode probes do likewise. This prevents cache history from changing reset
+seeds or evaluation from consuming training reset seeds.
+
+Run `python -m hpc_runs.intrmotiv_study.evaluation_preflight` on a compute node
+with `--run-dir`, `--checkpoint`, and a workspace `--output-dir` to check real
+model/graph freezing, exact repeated prefixes, command outputs, privileged-input
+exclusion, and complete policy/random episodes. This qualifies runtime behavior;
+it does not establish command-control performance or sufficient scientific trials.
+The canonical matched-landmark summaries retain ambiguity and censoring counts.

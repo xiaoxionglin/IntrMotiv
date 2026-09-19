@@ -16,7 +16,9 @@ and all 37 focused workflow tests pass on NEMO2. Native gate 8109095 passed all 
 (8109100–8109108) hit a shared-memory socket error before learning; they were
 stopped and preserved under `train_dir/analysis/failed_preflights/`. The corrected
 Slurm template uses short workspace TMPDIRs and a fail-fast shared-memory check.
-A clean retry uses `preflight_r2`; production remains gated on its results.
+The clean retry uses `preflight_r2`, jobs **8109119–8109127**. Early frozen
+evaluation probes are **8109139–8109141**, one per architecture at Q=0.35.
+Production remains gated on complete 2M training and final checkpoint evidence.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 
