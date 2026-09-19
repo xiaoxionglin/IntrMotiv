@@ -51,6 +51,8 @@ def certify(run_dir, checkpoint, output):
     cfg.train_dir = str(output / "learner")
     cfg.cli_args = {}
     cfg.with_wandb = False
+    # The temporary qualification environment must not consume training seeds.
+    cfg.dmlab_use_level_cache = False
     target = Path(cfg.train_dir) / cfg.experiment / "checkpoint_p0"
     target.mkdir(parents=True)
     os.link(immutable, target / checkpoint.name)
