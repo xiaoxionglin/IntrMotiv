@@ -449,6 +449,18 @@ def _save_figure(fig, stem: Path, plt) -> list[Path]:
 ATLAS_FIGURE_STYLE = "segmented-atlas/v1"
 
 
+def overlay_geometry_walls(ax, payload, bounds):
+    """Black walls, gray unvisited floor, and colored observed activity."""
+    if "geometry_accessible_mask" not in payload:
+        return
+    from matplotlib.colors import ListedColormap
+    mask = np.asarray(payload["geometry_accessible_mask"], dtype=bool)
+    ax.imshow(np.ma.array(np.ones(mask.shape), mask=mask), origin="lower",
+              extent=(bounds.x_min, bounds.x_max, bounds.y_min, bounds.y_max),
+              cmap=ListedColormap(["#202020"]), interpolation="nearest", zorder=2)
+
+
+
 def render_place_field_contact_sheets(
     payload: Mapping[str, Any], output_stem: Path, *, title: str | None = None,
 ) -> list[Path]:
@@ -485,6 +497,7 @@ def render_place_field_contact_sheets(
                 interpolation="nearest",
                 aspect="equal",
             )
+            overlay_geometry_walls(ax, payload, bounds)
             ax.set_title(f"DG unit {int(unit)}" + (" · silent" if not active[unit] else ""))
             ax.set_xticks((bounds.x_min, bounds.x_max))
             ax.set_yticks((bounds.y_min, bounds.y_max))
@@ -539,7 +552,9 @@ def render_occupancy_trajectory(
         aspect="equal",
     )
     fig.colorbar(image, ax=occupancy_ax, shrink=0.78, label="Observations per visited bin")
-    occupancy_ax.set_title("Occupancy (unvisited masked)")
+    overlay_geometry_walls(occupancy_ax, payload, bounds)
+    overlay_geometry_walls(trajectory_ax, payload, bounds)
+    occupancy_ax.set_title("Occupancy (gray: unvisited; black: walls)" if "geometry_accessible_mask" in payload else "Occupancy (unvisited masked)")
     occupancy_ax.set_xlabel("x (DMLab units)")
     occupancy_ax.set_ylabel("y (DMLab units)")
 
@@ -584,6 +599,7 @@ def render_trajectory_segments(
     indices = np.unique(np.linspace(0, len(slices) - 1, min(4, len(slices)), dtype=int))
     fig, axes = plt.subplots(2, 2, figsize=(12, 12), constrained_layout=True)
     for ax, index in zip(axes.flat, indices):
+        overlay_geometry_walls(ax, payload, bounds)
         line = pose[slices[index], :2]
         ax.plot(line[:, 0], line[:, 1], color="#0072B2")
         ax.scatter(*line[0], color="#009E73", marker="o")
