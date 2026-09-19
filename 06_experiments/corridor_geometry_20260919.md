@@ -3,18 +3,23 @@
 ## Status
 
 The 27-run study and nine-run 2M qualification are implemented and source-staged
-on NEMO2. **No training or evaluation jobs have been submitted.** NEMO2's `/work`
-filesystem reported 4.6T used, zero available bytes, 100% capacity, and 1% inode
-usage. Creating the isolated workspace runfiles directory failed with ENOSPC.
-The user has been asked to free/extend storage or identify approved deletions.
-Existing jobs and historical outputs were not modified.
+on NEMO2. **No training or evaluation jobs have been submitted.** At the user's
+request, a dedicated workspace was allocated on September 19:
+`/work/classic/fr_xl1014-corridor-geometry`, expiring December 28, 2026.
+It reports 4.6T available; a 1 MiB write and fsync succeeded. The earlier
+ENOSPC and zero-capacity reading applied to the old `train` allocation, not all
+NEMO2 storage. Both StudySpecs and the Slurm template now target the new
+allocation, including online telemetry's explicit workspace root. Existing jobs
+and historical outputs were not modified. Native binding, pretrained Torch cache,
+and release runfiles are staged in the new allocation. Both revised studies validate
+and all 37 focused workflow tests pass on NEMO2. Runtime qualification remains pending.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.
 
 | Specification | SHA-256 |
 |---|---|
-| [Production](../hpc_runs/studies/corridor_geometry.study.json) | `5163a56240a32472a7a010d4d3b664d65506df3707bdfdc13a3ef3e5d9d05757` |
-| [Qualification](../hpc_runs/studies/corridor_geometry_preflight.study.json) | `d9e2418b8ae2e6dac7def63a31ed1fc74a92ba57fb10c56456df184f250f7b78` |
+| [Production](../hpc_runs/studies/corridor_geometry.study.json) | `dac5ace2475d2ea60d25530ef6acf3f70f7d45d00951933124486f282137e5aa` |
+| [Qualification](../hpc_runs/studies/corridor_geometry_preflight.study.json) | `6d65e28c24d2e837f7dfc2fc9eea9da0da86807a26585a740e5c59915b956ecc` |
 
 Reviewed argument expansions: [27 production runs](results/corridor_geometry_20260919/production_runs.json)
 and [nine qualification runs](results/corridor_geometry_20260919/preflight_runs.json).
@@ -121,7 +126,7 @@ The vault remains authoritative for `hpc_runs/intrmotiv_study/` and StudySpecs.
 Runtime adapters and Lua changes live in those worktrees. Source staging does
 not establish NEMO2 runtime qualification or successful training.
 
-## Resume after workspace storage is restored
+## Qualification and execution
 
 1. Check free space and quotas before creating caches or submitting jobs. No
    existing output is authorized for deletion by this implementation request.
@@ -131,7 +136,7 @@ not establish NEMO2 runtime qualification or successful training.
    ```bash
    python -m hpc_runs.intrmotiv_study.runfiles \
      --source /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_corridor_20260919 \
-     --output /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/runtime/corridor_20260919/runfiles
+     --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/corridor_20260919/runfiles
    ```
 
 3. Use an ordinary CPU Slurm preflight to run `test_corridor_runtime.py` with
@@ -143,9 +148,9 @@ not establish NEMO2 runtime qualification or successful training.
    ```bash
    python -m sample_factory.launcher.run \
      --run=hpc_runs.corridor_geometry_preflight --backend=slurm \
-     --train_dir=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir \
-     --slurm_workdir=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/corridor_geometry_20260919/preflight \
-     --slurm_log_dir=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/_slurm/corridor_geometry_20260919/preflight/logs \
+     --train_dir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir \
+     --slurm_workdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/corridor_geometry_20260919/preflight \
+     --slurm_log_dir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/corridor_geometry_20260919/preflight/logs \
      --slurm_sbatch_template=hpc_runs/corridor_geometry_nemo.sh \
      --slurm_partition=cpu --slurm_gpus_per_job=0 \
      --slurm_cpus_per_job=40 --slurm_memory=128G \

@@ -70,6 +70,13 @@ learner preservation, and environment preflight in qualification records. The
 current worked example and remaining gates are recorded in
 `06_experiments/intrmotiv_full_system_controller_20260912.md`.
 
+When allocating a new NEMO2 workspace, check `df` on that exact workspace and
+verify a small write/fsync. Workspace-specific capacity reporting can show the
+old allocation as full while a new allocation has space. Update the StudySpec's
+`workspace_root`, every output/cache path, and `online_spatial_workspace_root`
+together; also update Slurm temporary/cache variables, preserve parent provenance,
+then validate and regenerate print-only plans. Allocation does not migrate data.
+
 ## Source-of-truth hierarchy
 
 1. The study JSON defines bases, factors, seeds, run names, arguments, metrics,

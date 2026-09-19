@@ -6,7 +6,7 @@
     "deepmindlab_patch/game_scripts/common/connected_maze.lua": "fc4f2aacc7a6e3894cf78177be611518f69080535fcc1afa658e623f3948ef61",
     "deepmindlab_patch/game_scripts/levels/corridor_geometry_noreward.lua": "a875a6aed412bdf5d4ebd90a8777c5c7a8466d2a2bed0b89945a137da481f2a5",
     "hpc_runs/corridor_geometry.py": "f55d94d7daa3169869972133b57fc307d042a99a4cac0d697a7505fca6765b07",
-    "hpc_runs/corridor_geometry_nemo.sh": "359c7216f327f1feb91360392ae1bfafbc6addc30c44b68d1afd938c4c50f11f",
+    "hpc_runs/corridor_geometry_nemo.sh": "4c2c6aff94ea7329377cacb7d2fe6afdb1f7bbdc99ee73b8d298fd14ff1540a5",
     "hpc_runs/corridor_geometry_preflight.py": "340bc9df3695b4310dc91a9be88de08b9e92ceb7c41643d9c1b532e5609eac3d",
     "hpc_runs/intrmotiv_study/LATEST.md": "c7a74fc6bb21ed7a6a8915a0f98e68eb833d87781614ff1b1161bf023cdc4a99",
     "hpc_runs/intrmotiv_study/__init__.py": "29c81b17a5af96726f8bfc18847f05c6cd43ce14ff27cbc04eab6925e009342a",
@@ -29,8 +29,8 @@
     "hpc_runs/intrmotiv_study/test_direct.py": "0ce7cab7fc4e3b034bc66cf7f271d2c38427641eb47555ef4b0112ec692cd0e6",
     "hpc_runs/intrmotiv_study/version.py": "5fcb5434867b3d77d38c8d824e720c3a10e94badbb9f78c8eb6edf1f072da023",
     "hpc_runs/studies/assets/corridor_geometry/maps.json": "a9e3f405afccd628218a9de14e52a87470d3c1efff36d2edf7a746163e5f6b93",
-    "hpc_runs/studies/corridor_geometry.study.json": "65c6fb7ea8a318aeb1630ca973a165ea88109abf76cf7e35b58ad8e0241b2e68",
-    "hpc_runs/studies/corridor_geometry_preflight.study.json": "14dc034c682abae42143a5b65e2bc0bbda7aab586fdb79bd4a9cdb67218bbec7",
+    "hpc_runs/studies/corridor_geometry.study.json": "72bb7762865ec2ab945572427761c0ee3a8a886bc537396bed1498bc439eb784",
+    "hpc_runs/studies/corridor_geometry_preflight.study.json": "f72274035e54944b7fe59cb895dea7b53cadb493c43f5d44e0bf2edf19c6d27a",
     "hpc_runs/test_corridor_geometry.py": "0ae17c77ea7c34e629af07b6f84ffceb5150a3af12a26fc88781a2190970f0ce",
     "hpc_runs/test_intrmotiv_study.py": "d7da7c553f08d0e7e4c70abdccf1b3d4f1309f8a65c7eacd2c0c71a2ff91745e",
     "sf_working_directories/IntrMotiv/dmlab/dmlab_env.py": "0dace436fb1105e402d9a08561dff749ff2b44f09a40696ef31e5c7d674e3918",
@@ -54,7 +54,7 @@
       "study_workflow_version": "1.10.0",
       "study_id": "corridor_geometry_20260919",
       "study_spec": "hpc_runs/studies/corridor_geometry.study.json",
-      "study_sha256": "5163a56240a32472a7a010d4d3b664d65506df3707bdfdc13a3ef3e5d9d05757",
+      "study_sha256": "dac5ace2475d2ea60d25530ef6acf3f70f7d45d00951933124486f282137e5aa",
       "batch_name": "corridor_geometry_20260919",
       "training_mode": "sample_factory",
       "expected_runs": 27
@@ -65,7 +65,7 @@
       "study_workflow_version": "1.10.0",
       "study_id": "corridor_geometry_20260919_preflight",
       "study_spec": "hpc_runs/studies/corridor_geometry_preflight.study.json",
-      "study_sha256": "d9e2418b8ae2e6dac7def63a31ed1fc74a92ba57fb10c56456df184f250f7b78",
+      "study_sha256": "6d65e28c24d2e837f7dfc2fc9eea9da0da86807a26585a740e5c59915b956ecc",
       "batch_name": "corridor_geometry_20260919",
       "training_mode": "sample_factory",
       "expected_runs": 9
@@ -93,11 +93,20 @@
     },
     "nemo_canonical_final": {
       "passed": 37
+    },
+    "nemo_new_workspace": {
+      "passed": 37
     }
   },
   "execution": {
     "submitted_jobs": [],
-    "blocker": "NEMO2 /work reports 100% usage and zero free bytes; isolated runfiles creation failed with ENOSPC",
-    "capacity": "4.6T used / 4.6T total; inode usage 1%"
+    "blocker": null,
+    "qualification_status": "pending",
+    "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
+    "workspace_expires": "2026-12-28",
+    "capacity": "4.6T available",
+    "write_probe": "1 MiB write and fsync succeeded",
+    "previous_allocation": "train: ENOSPC; no existing data removed",
+    "runfiles_status": "prepared; native binding and pretrained Torch cache copied into new allocation"
   }
 }

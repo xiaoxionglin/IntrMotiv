@@ -19,8 +19,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   isolated runfiles, and fresh-engine prefix replay. See the
   [canonical workflow](04_implementation/standardized_study_workflow.md).
 - **Status:** Implemented locally; native nine-map qualification passes. Source
-  staged remotely; training blocked by `/work` at 100% (zero bytes available,
-  inode usage 1%). No jobs submitted or old outputs deleted. Remote
+  staged remotely. The old `train` allocation reported zero free bytes; a new
+  `corridor-geometry` allocation reports 4.6T available and passed write/fsync.
+  Capacity readings must be checked on the target workspace, not interpreted
+  as filesystem-wide exhaustion. No jobs submitted or old outputs deleted. Remote
   training/evaluation gates are tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
