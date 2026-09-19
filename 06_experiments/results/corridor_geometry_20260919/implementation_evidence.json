@@ -5,16 +5,21 @@
   "changed_files": {
     "deepmindlab_patch/game_scripts/common/connected_maze.lua": "fc4f2aacc7a6e3894cf78177be611518f69080535fcc1afa658e623f3948ef61",
     "deepmindlab_patch/game_scripts/levels/corridor_geometry_noreward.lua": "a875a6aed412bdf5d4ebd90a8777c5c7a8466d2a2bed0b89945a137da481f2a5",
+    "hpc_runs/audit_corridor_preflight.py": "a0c0ceb5dbfdd42a47711c127345bc7154bf12bdb528b1f83f24f73ffb1108e5",
+    "hpc_runs/audit_dg_capacity_preflight.py": "01c105036daf7bdd7e7cc8352564e305ce23c25a2f54c4610c54f83667c252a4",
     "hpc_runs/corridor_geometry.py": "f55d94d7daa3169869972133b57fc307d042a99a4cac0d697a7505fca6765b07",
-    "hpc_runs/corridor_geometry_nemo.sh": "4c2c6aff94ea7329377cacb7d2fe6afdb1f7bbdc99ee73b8d298fd14ff1540a5",
+    "hpc_runs/corridor_geometry_nemo.sh": "a030315e7884bd5dfcbeebd34ac7f1f81537e15a881b388808bf629c230911f2",
+    "hpc_runs/corridor_geometry_ppo_resume.py": "c0b7520922766cd1014ef962034805fc9425fff91ed22ed8b7395bac066dd47e",
     "hpc_runs/corridor_geometry_preflight.py": "340bc9df3695b4310dc91a9be88de08b9e92ceb7c41643d9c1b532e5609eac3d",
     "hpc_runs/intrmotiv_study/LATEST.md": "c7a74fc6bb21ed7a6a8915a0f98e68eb833d87781614ff1b1161bf023cdc4a99",
     "hpc_runs/intrmotiv_study/__init__.py": "29c81b17a5af96726f8bfc18847f05c6cd43ce14ff27cbc04eab6925e009342a",
     "hpc_runs/intrmotiv_study/__main__.py": "d7815f9da17bcd8e79d1d47170e5795e29cc5837f97d1049664813068a9e563f",
     "hpc_runs/intrmotiv_study/analysis.py": "612b1152a9968445bf6a48d396420f7c53b81a81fbc59674ac39c882e2052782",
+    "hpc_runs/intrmotiv_study/checkpoint_reload.py": "691de9b9a24a8b19c75227d0f03b6579730e5d3274cf357334458823ca69e00d",
     "hpc_runs/intrmotiv_study/cli.py": "26e7e61f0fb600f18cf8985fd18574d1fa814b66f50c40285d4940e45879783b",
     "hpc_runs/intrmotiv_study/direct.py": "19f26b45e118aa0e1a5d06099014948cf5ae8c4fc0f7cb92b161d6a16c752da1",
     "hpc_runs/intrmotiv_study/discovery.py": "146ffb652b529ea693495ecbe29d326d30e19e8f3d1f42c0c884587ee6b80eda",
+    "hpc_runs/intrmotiv_study/evaluation_preflight.py": "cc664a8a4c49b664a293f74f3acae7b7fd4469948505dc9bac833a603ecb2306",
     "hpc_runs/intrmotiv_study/export_geometry.py": "9ddc6e02f3800c74032335ebf6874cf16e297a64b38f2005051c58000b2fe5cb",
     "hpc_runs/intrmotiv_study/geometry.py": "4f116cfe5b222eb81edc7cc4b258e198f3ba6fe69065b2277b288c140fc27db4",
     "hpc_runs/intrmotiv_study/render_geometry.py": "4bc28dd45109a21eff22e4fef50fc0958216cc951c5e1b4fb3e9c67a2ca8b5cb",
@@ -31,21 +36,22 @@
     "hpc_runs/studies/assets/corridor_geometry/maps.json": "a9e3f405afccd628218a9de14e52a87470d3c1efff36d2edf7a746163e5f6b93",
     "hpc_runs/studies/corridor_geometry.study.json": "72bb7762865ec2ab945572427761c0ee3a8a886bc537396bed1498bc439eb784",
     "hpc_runs/studies/corridor_geometry_preflight.study.json": "f72274035e54944b7fe59cb895dea7b53cadb493c43f5d44e0bf2edf19c6d27a",
+    "hpc_runs/test_checkpoint_reload.py": "b39d23f14d8dd5c935c45a0c848adcb56ff50df4bbce892d14a1898d8d90ba5c",
     "hpc_runs/test_corridor_geometry.py": "0ae17c77ea7c34e629af07b6f84ffceb5150a3af12a26fc88781a2190970f0ce",
     "hpc_runs/test_intrmotiv_study.py": "d7da7c553f08d0e7e4c70abdccf1b3d4f1309f8a65c7eacd2c0c71a2ff91745e",
     "sf_working_directories/IntrMotiv/dmlab/dmlab_env.py": "0dace436fb1105e402d9a08561dff749ff2b44f09a40696ef31e5c7d674e3918",
-    "sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py": "3e428ce6dcb5b22c90361fb395e2dc38a729dc28ca4650f8ab36b75b41180b28",
+    "sf_working_directories/IntrMotiv/dmlab/dmlab_gym.py": "6d56a3152a0a5d252825184f051ffe9a139be7408821890177b99d003bce3850",
     "sf_working_directories/IntrMotiv/dmlab/dmlab_params.py": "e39629c28e4f1dce5b371b5c35acfa309b9c6af04725c45c465972b2909d8e5c",
     "sf_working_directories/IntrMotiv/dmlab/online_spatial_telemetry.py": "2a018c234b716adb8e9c22acb87fbd904c08c1f6e0943b68ad416cda9b3409f4",
     "sf_working_directories/IntrMotiv/dmlab/wrappers/reward_shaping.py": "ae195c02891ad4c524de90e2ac668467ecc0a0b4d72e403b6a4b82d1908bf431",
-    "sf_working_directories/IntrMotiv/evaluation/episode_coverage.py": "26c7059489ec8cf896e07ccab245508266aa6f81aec0c4f1a2e6e27a29e2831c",
-    "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "84bf19013283d73a22b3a832d900e277201b86fc7fee87ff034b30c91818ef20",
-    "sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_single.sh": "27b6365e3b792a461ce25d8accbf20df1e711e73b02b12698714f72db3e2c6b2",
-    "sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py": "7069925ccf3c4d6b1507d317c63d22761b6a820b470bb342b693dedc3a5d1235",
-    "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": "3de89fc54d4efcad8bd4eef881263aef5d2c70e8d6ebe521317cd1279a852e9e",
-    "sf_working_directories/IntrMotiv/tests/test_corridor_runtime.py": "64154615ffb7da90d7c7be7de002f8f72aec407b7c9036644004077e8ecb82be",
-    "sf_working_directories/IntrMotiv/tests/test_episode_coverage.py": "89515b08264ef60902e248ddaf7fa0c11fd0738b46f355ab2a259abcaa7cae50",
-    "sf_working_directories/IntrMotiv/tests/test_place_field_submission.py": "cb70ba6e79351768a56b004c68151bfcadfad704858c667ca5972735e6edf291"
+    "sf_working_directories/IntrMotiv/evaluation/episode_coverage.py": "c57a0b039dc4e523a6c688e7f7a0bf5b62099c49cd7596931c864ebc65a3b684",
+    "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "bcce2128c8b7b412f5d25a2c724d9f3fc3c5e875b287861c04481c429cc72ec7",
+    "sf_working_directories/IntrMotiv/evaluation/run_place_field_sweep_single.sh": "3a49a62b1a68affe9d3577f8bb787440dd7eb811fb3ec8e16719e5fe18289030",
+    "sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py": "c5dbef873df6966f91c37b025c461bb9a74fae1cff3b15ed1cb98d6b2b4e1b75",
+    "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": "940cc9cba7a384c9f6d59f8d6cfb5f489e10f2211e3c0744a020a2ddf0edfae9",
+    "sf_working_directories/IntrMotiv/tests/test_corridor_runtime.py": "0ef2fa0ca21239725bd0d442b222029c0c0951c851c4b61fe93e81cdd15d4aba",
+    "sf_working_directories/IntrMotiv/tests/test_episode_coverage.py": "80333b9f972a0f5b6bd0047f0a34adcca0026d30f195bdfa8a8575f311f63474",
+    "sf_working_directories/IntrMotiv/tests/test_place_field_submission.py": "8f1b9b5515c9292bffb359f625c83ab8ff390512b2bbf7fbd9b8dacc33ed744b"
   },
   "studies": {
     "corridor_geometry": {
@@ -86,7 +92,7 @@
       "skipped": 1
     },
     "desktop_canonical": {
-      "passed": 37
+      "passed": 38
     },
     "nemo_canonical_initial": {
       "passed": 36
@@ -96,12 +102,16 @@
     },
     "nemo_new_workspace": {
       "passed": 37
+    },
+    "nemo_final_focused": {
+      "passed": 23,
+      "skipped": 1
     }
   },
   "execution": {
     "submitted_jobs": [],
     "blocker": null,
-    "qualification_status": "training_in_progress",
+    "qualification_status": "runtime_reload_and_frozen_evaluation_passed",
     "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
     "workspace_expires": "2026-12-28",
     "capacity": "4.6T available",
@@ -110,7 +120,14 @@
     "runfiles_status": "prepared; native binding and pretrained Torch cache copied into new allocation",
     "native_gate_job": 8109095,
     "native_gate_passed": true,
-    "active_training_jobs": [
+    "active_training_jobs": [],
+    "early_frozen_evaluation_passed_jobs": [
+      8109152,
+      8109153,
+      8109141
+    ],
+    "production_submitted": false,
+    "qualification_training_jobs": [
       8109154,
       8109155,
       8109156,
@@ -121,11 +138,32 @@
       8109126,
       8109127
     ],
-    "early_frozen_evaluation_passed_jobs": [
-      8109152,
-      8109153,
-      8109141
+    "runtime_audit_job": 8109186,
+    "reload_jobs": [
+      8109174,
+      8109175,
+      8109177,
+      8109178,
+      8109179,
+      8109181,
+      8109182,
+      8109183,
+      8109185
     ],
-    "production_submitted": false
+    "final_frozen_evaluation_jobs": [
+      8109176,
+      8109180,
+      8109184
+    ],
+    "place_field_preflight_jobs": [
+      8109305,
+      8109306,
+      8109307
+    ],
+    "intervention_preflight_jobs": [
+      8109308,
+      8109309,
+      8109310
+    ]
   }
 }

@@ -130,7 +130,7 @@ remains 100 complete episodes per policy and per geometry-matched random control
 - Final focused runtime/evaluation tests after telemetry/worker changes:
   **23 passed, 1 native test skipped**; native behavior was tested separately.
 - Final desktop canonical workflow/geometry suite: **38 passed**.
-- NEMO2's final synchronized canonical suite: **38 passed**; final qualification
+- NEMO2's synchronized canonical suite: **37 passed**; final qualification
   StudySpec validation also passed with the fingerprint recorded above.
 - All nine qualification configurations parsed successfully with their expected
   controller, CPU device and DG capacity. New Python modules pass Ruff checks.

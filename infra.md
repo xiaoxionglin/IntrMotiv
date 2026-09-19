@@ -28,14 +28,18 @@ keep implementation guidance in the canonical workflow documents linked below.
   The Python evaluators now honor the worker's workspace-root override. Early
   real-model gates also exposed unused-seed cache interference and missing PPO
   terminal pose telemetry; evaluation bypasses training seed selection and the
-  shared pose reader uses the certified terminal binding. Remote
-  training/evaluation gates are tracked in the
+  shared pose reader uses the certified terminal binding. All nine 2M runs,
+  nine real learner reloads, three frozen evaluator gates and all 18 spatial
+  snapshots passed. Standard manifest-backend smoke jobs are tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
   zero reward and 120-second timeout, no geometry/pose model input, compatible
   telemetry tests, nine 2M preflights and checkpoint-bound reload/evaluator gates.
 - **Lesson:** Compile actual Lua maps before scheduling training; cached map
   summaries alone cannot expose engine limits or reset-history dependence.
+  Bind reload proof to immutable checkpoint hashes; archive shortened spatial
+  schedules before production reuses run identities. Apply short TMPDIRs to
+  evaluation workers as well as training.
 
 
 ### Atlas figure recipes diverged between batches — standardized and verified
