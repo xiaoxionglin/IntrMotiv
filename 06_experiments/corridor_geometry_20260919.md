@@ -18,6 +18,12 @@ stopped and preserved under `train_dir/analysis/failed_preflights/`. The correct
 Slurm template uses short workspace TMPDIRs and a fail-fast shared-memory check.
 The clean retry uses `preflight_r2`, jobs **8109119–8109127**. Early frozen
 evaluation probes are **8109139–8109141**, one per architecture at Q=0.35.
+Early Waypoint evaluation passed. PPO probes exposed one missing terminal pose
+per episode: telemetry used the legacy reader even though the certified binding
+retains terminal observations. The shared terminal-pose reader now uses that
+binding; this changes telemetry only. PPO checkpoints were saved and stopped
+intentionally at about 600k frames, then prepared for `preflight_r3` continuation.
+Failed early evaluation artifacts are retained; renewed probes are 8109152/8109153.
 Production remains gated on complete 2M training and final checkpoint evidence.
 
 Schema: `intrmotiv/study/v1`; workflow: `1.10.0`.

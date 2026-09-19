@@ -25,7 +25,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   as filesystem-wide exhaustion. Native qualification passed (8109095). First training attempts exposed the
   previously documented long-TMPDIR shared-memory failure; stopped outputs are
   archived, and the template now uses short paths plus a fail-fast socket probe.
-  The Python evaluators now honor the worker's workspace-root override. Remote
+  The Python evaluators now honor the worker's workspace-root override. Early
+  real-model gates also exposed unused-seed cache interference and missing PPO
+  terminal pose telemetry; evaluation bypasses training seed selection and the
+  shared pose reader uses the certified terminal binding. Remote
   training/evaluation gates are tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
