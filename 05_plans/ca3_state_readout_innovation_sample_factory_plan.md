@@ -33,11 +33,33 @@ $$
 
 Do **not** train another recurrent model to relearn J. Learn only
 
-$$
+$
 \boxed{z_t=Ws_t,\qquad z_t\in\mathbb R^{d_z}}
-$$
+$
 
-and train W so that z, together with the executed action sequence, predicts the future DG innovations.
+with **raw CA3 activity as the direct input to the readout**.
+
+Do not difference adjacent CA3 slots and do not reconstruct the exact historical DG input sequence before applying W. The repetition factor R already spreads each sparse DG event across R adjacent CA3 positions, giving the CA3 state a fixed temporal smoothing/recency basis. Near the finite-memory boundary, the support of an old event naturally tapers as copies shift out of the register.
+
+This is a useful prior rather than a distortion that must be inverted. The learned readout can:
+
+- sum neighboring CA3 positions when temporal smoothing is useful;
+- apply different weights across positions to compensate for the boundary taper;
+- use signed differences across positions if sharper event timing is predictive.
+
+Thus the intended computation is directly
+
+$
+\boxed{S_t\rightarrow W\rightarrow z_t}
+$
+
+rather than
+
+$
+S_t\rightarrow\text{recovered DG history}\rightarrow W\rightarrow z_t.
+$
+
+Train W so that z, together with the executed action sequence, predicts the future DG innovations.
 
 For horizon H,
 
@@ -150,9 +172,11 @@ class CA3InnovationPredictor(nn.Module):
 
 Use a strong bottleneck: start with d_z=16; later compare 8/16/32.
 
-## 5. Use J explicitly; do not materialize a dense matrix
+## 5. Read raw CA3 directly; use J only on the target/consistency side
 
-In the active CA3 implementation, J is a zero-filled shift along the register axis.
+The readout input is the raw amplitude-valued CA3 state S itself. No deconvolution or explicit recovery of past DG inputs is part of the representation path.
+
+In the active CA3 implementation, J is a zero-filled shift along the register axis. J is used only to factor known intrinsic CA3 evolution out of future targets or to check innovation consistency.
 
 Represent CA3 as S[..., F, E]:
 
@@ -166,15 +190,15 @@ def ca3_shift_power(S, h):
     return out
 ~~~
 
-The current DG injection is recoverable from slot zero:
+For target construction only, the current DG injection is available from slot zero:
 
-$$
+$
 \boxed{u_t=S_t[...,0]}
-$$
+$
 
 because the shifted previous state contributes zero there.
 
-Therefore the auxiliary should require no extra visual/DG forward.
+This slot-zero identity is **not** used to reconstruct the past before the readout. It is only a convenient way to obtain future DG supervision from replayed CA3 states without another visual/DG forward.
 
 For diagnostics:
 
@@ -860,12 +884,16 @@ sparse DG event u_t
     ↓
 fixed CA3 sequence memory S_t
     ↓
-linear bottleneck z_t = W S_t
+R-wide temporal smoothing / finite-memory recency basis
+    ↓
+direct linear bottleneck z_t = W S_t
     ↓
 predict action-conditioned future DG innovations
 ~~~
 
-J is not relearned; it is explicitly factored out.
+The CA3 basis is consumed directly. There is no explicit inversion back to the exact input history. R supplies a useful prior toward temporal smoothness and recency, while W is free to preserve that smoothing, compensate for tapering near the horizon, or recover sharper timing through signed position-dependent weights when useful.
+
+J is not relearned; it is used only to factor known intrinsic CA3 evolution out of the future-side prediction/consistency target.
 
 This is the self-supervised analogue of a ground-truth-supervised CA3→state association:
 
