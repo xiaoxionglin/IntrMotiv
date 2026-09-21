@@ -11,51 +11,51 @@ Learn a compact state/goal representation from the existing DG→CA3 memory with
 
 Let the flattened CA3 state be
 
-\[
+$
 s_t\in\mathbb R^N,\qquad N=F(R+L-1).
-\]
+$
 
 The fixed CA3 update is
 
-\[
+$
 s_{t+1}=Js_t+Bu_{t+1},
-\]
+$
 
 where J is the fixed CA3 shift operator, B injects the new DG activity into the first R slots, and u is the sparse DG input.
 
 The key decomposition is
 
-\[
+$
 \underbrace{Js_t}_{\text{known intrinsic memory dynamics}}
 +
 \underbrace{Bu_{t+1}}_{\text{new environmental information}}.
-\]
+$
 
 Do **not** train another recurrent model to relearn J. Learn only
 
-\[
+$
 \boxed{z_t=Ws_t,\qquad z_t\in\mathbb R^{d_z}}
-\]
+$
 
 and train W so that z, together with the executed action sequence, predicts the future DG innovations.
 
 For horizon H,
 
-\[
+$
 s_{t+H}=J^Hs_t+\sum_{h=1}^{H}J^{H-h}Bu_{t+h}.
-\]
+$
 
 Define
 
-\[
+$
 \boxed{\eta_{t,H}=s_{t+H}-J^Hs_t}.
-\]
+$
 
 V1 should predict the smaller equivalent target
 
-\[
+$
 \boxed{U_{t,H}=[u_{t+1},\ldots,u_{t+H}]}
-\]
+$
 
 and use J only to reconstruct/check the implied CA3 innovation.
 
@@ -168,9 +168,9 @@ def ca3_shift_power(S, h):
 
 The current DG injection is recoverable from slot zero:
 
-\[
+$
 \boxed{u_t=S_t[...,0]}
-\]
+$
 
 because the shifted previous state contributes zero there.
 
@@ -237,9 +237,9 @@ future:   S_(t+H)
 
 The indexing invariant is
 
-\[
+$
 S_t\xrightarrow{a_t}u_{t+1},S_{t+1}.
-\]
+$
 
 Write a synthetic one-step test for this exact alignment.
 
@@ -327,21 +327,21 @@ Prediction alone can let the predictor ignore z and use average action-condition
 
 For centered z, C = z^T z / (B-1):
 
-\[
+$
 \mathcal L_{var}
 =
 \frac1{d_z}\sum_i
 [\max(0,1-\sqrt{C_{ii}+\epsilon})]^2
-\]
+$
 
 and
 
-\[
+$
 \mathcal L_{cov}
 =
 \frac{1}{d_z(d_z-1)}
 \sum_{i\neq j} C_{ij}^2.
-\]
+$
 
 ~~~python
 def variance_covariance_loss(z, eps=1e-4):
@@ -400,15 +400,15 @@ Only after the algebra is verified consider a small eta coefficient such as 0.1.
 
 Later, optionally test a small latent operator A such that
 
-\[
+$
 \boxed{WJ\approx AW}.
-\]
+$
 
 Use
 
-\[
+$
 \mathcal L_J=\frac1{d_zN}\|WJ-AW\|_F^2.
-\]
+$
 
 Do not explicitly construct J; implement WJ via shifts in the CA3 [F,E] layout.
 
@@ -420,7 +420,7 @@ This is an ablation, not part of the core v1 objective. A strong exact intertwin
 
 V1:
 
-\[
+$
 \boxed{
 \mathcal L_{state}
 =
@@ -429,18 +429,18 @@ V1:
 +\lambda_{cov}\mathcal L_{cov}
 +\lambda_\eta\mathcal L_\eta.
 }
-\]
+$
 
 Add
 
-\[
+$
 \boxed{
 \mathcal L_{total}
 =
 \mathcal L_{existing}
 +\lambda_{state}\mathcal L_{state}.
 }
-\]
+$
 
 Initial lambda_state=0.1 and lambda_eta=0.
 
@@ -531,11 +531,11 @@ where delta = shuffled loss - normal loss.
 
 Desired:
 
-\[
+$
 \boxed{
 \Delta_{state}>0,\qquad \Delta_{action}>0.
 }
-\]
+$
 
 If state shuffle does nothing, the predictor is not using the learned state.
 If action shuffle does nothing, the action-conditioning is not contributing.
@@ -555,13 +555,13 @@ Measure:
 
 Central desired relation:
 
-\[
+$
 \boxed{
 d_z(\text{same place, different route})
 <
 d_z(\text{different field of same DG unit}).
 }
-\]
+$
 
 Compare this against raw contextual CA3 and current DG identity.
 
@@ -569,29 +569,29 @@ Compare this against raw contextual CA3 and current DG identity.
 
 Only after the shadow representation works, define an achieved goal at event time t_g as
 
-\[
+$
 \boxed{g=z_{t_g}=Ws_{t_g}}.
-\]
+$
 
 Current state is also
 
-\[
+$
 z_t=Ws_t.
-\]
+$
 
 Thus state and goal share
 
-\[
+$
 \boxed{\mathcal G=\mathbb R^{d_z}}.
-\]
+$
 
 Do **not** replace the controller's full current CA3 input with z. Use
 
-\[
+$
 \boxed{
 \pi(a_t\mid s_t,\text{depth}_t,g).
 }
-\]
+$
 
 The goal is abstract; current CA3 remains the rich control state.
 
@@ -633,9 +633,9 @@ Reuse the current empirical same-episode future-goal machinery.
 
 For future achieved event e:
 
-\[
+$
 g^H=z_e=Ws_e.
-\]
+$
 
 Keep this vector fixed over the relabeled source segment, re-evaluate the decoder with g^H, and keep the existing empirical terminal pseudo-return structure initially.
 
@@ -869,20 +869,20 @@ J is not relearned; it is explicitly factored out.
 
 This is the self-supervised analogue of a ground-truth-supervised CA3→state association:
 
-\[
+$
 S_t\xrightarrow{W} s_t^{true}
-\]
+$
 
 becomes
 
-\[
+$
 \boxed{
 S_t\xrightarrow{W}z_t
 \quad\text{such that}\quad
 (z_t,a_{t:t+H-1})
 \text{ predicts future environmental innovations}.
 }
-\]
+$
 
 Desired behavior:
 
@@ -899,9 +899,9 @@ action-relevant latent state
 
 If this works, the same z is the natural candidate goal space:
 
-\[
+$
 \boxed{g=z_{t_g}}.
-\]
+$
 
 ## 27. Execution order
 
@@ -924,15 +924,15 @@ If this works, the same z is the natural candidate goal space:
 
 If the action-conditioned readout does **not** outperform raw contextual CA3 on
 
-\[
+$
 \text{cross-route same-place consistency}
-\]
+$
 
 and
 
-\[
+$
 \text{separation of different fields of the same DG unit},
-\]
+$
 
 stop. Do not add successor features, anchor banks, learned goal merging, or a larger world model.
 
