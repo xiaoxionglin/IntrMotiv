@@ -5,6 +5,8 @@
 **Primary runtime target:** sf_working_directories/IntrMotiv/ on NEMO2  
 **Primary learner path:** ControllerLearner / DistanceLearnerReward
 
+> **Implementation note for downstream agents:** all code in this document is conceptual pseudocode. Do not copy it mechanically or introduce parallel infrastructure just to match the snippets. First inspect the current IntrMotiv/Sample Factory data flow, tensor layouts, replay interfaces, optimizer structure, and naming conventions, then implement the same mathematical mechanism in the smallest way that fits the existing codebase.
+
 ## 1. Goal
 
 Learn a compact state/goal representation from the existing DG→CA3 memory without ground-truth coordinates, without adding a second recurrent dynamics model, and without changing DG or CA3 in the first version.
@@ -83,14 +85,18 @@ and use J only to reconstruct/check the implied CA3 innovation.
 
 ## 2. V1 scope
 
+The first control use-case is **HER**, not a persistent online goal registry.
+
 Implement:
 
 1. linear CA3 readout W;
 2. small feed-forward action-conditioned innovation predictor;
 3. learner-side self-supervised auxiliary loss from ordinary Sample Factory replay;
-4. no auxiliary gradient into DG, visual encoder, CA3, policy decoder, reward, or manager;
-5. shadow-mode diagnostics first;
-6. only after validation, freeze W and use z as a continuous goal embedding.
+4. continual online learning of W from the prediction objective;
+5. no auxiliary gradient into DG, visual encoder, or CA3 in v1;
+6. no PPO/HER policy gradient into W in v1;
+7. HER relabeling that selects a future achieved event by index, retrieves that event's existing replayed CA3 state, and embeds it with the current W;
+8. shadow/diagnostic checks before changing the behavior policy.
 
 Do not implement yet:
 
@@ -101,6 +107,7 @@ Do not implement yet:
 - contrastive same-place labels;
 - reachability-anchor banks;
 - Laplacian/SFA as the primary loss;
+- a new persistent goal-memory subsystem;
 - automatic goal merging;
 - intrinsic reward based on z-distance.
 
@@ -476,7 +483,66 @@ In the current iterative schedule:
 
 Keep this as a separately named loss, not hidden inside an existing DG objective.
 
-## 14. Likely IntrMotiv integration points
+## 14. Gradient ownership and simultaneous learning
+
+Use three conceptually separate objectives:
+
+$$
+\boxed{
+\begin{aligned}
+\theta_{DG} &\leftarrow \mathcal L_{DG}^{existing},\\
+(W,\phi) &\leftarrow \mathcal L_{pred},\\
+(\theta_\pi,\theta_V) &\leftarrow \mathcal L_{RL/HER}.
+\end{aligned}
+}
+$$
+
+Here $\phi$ denotes the innovation predictor.
+
+In v1:
+
+$$
+\boxed{
+\frac{\partial \mathcal L_{pred}}{\partial \theta_{DG}}=0
+}
+$$
+
+and
+
+$$
+\boxed{
+\frac{\partial \mathcal L_{RL/HER}}{\partial W}=0.
+}
+$$
+
+Thus W keeps changing online, but only because it is learning a predictive state representation. The controller continuously adapts to the current goal embedding, but its RL gradient does not deform the goal space yet.
+
+Conceptually:
+
+~~~text
+existing DG loss  ----------> DG
+
+prediction loss   ----------> W
+                  \---------> innovation predictor
+
+PPO/HER loss      ----------> actor / critic
+
+prediction loss   -X-------> DG
+PPO/HER loss      -X-------> W
+~~~
+
+Train these objectives **simultaneously on the same learner updates** when practical. There is no need to alternate "train W / freeze W / train controller" phases in the first design. Detach operations or parameter-specific loss routing are sufficient to keep the gradients separate even if the scalar losses are summed before the backward pass.
+
+Only add alternating optimization if simultaneous updates are empirically unstable.
+
+Later ablations may independently enable:
+
+1. PPO/HER gradient into W, asking whether control should shape the state/goal representation;
+2. prediction gradient into DG, asking whether DG should learn events that improve predictive state inference.
+
+Do not enable both couplings in the first experiment.
+
+## 16. Likely IntrMotiv integration points
 
 Keep changes local to IntrMotiv.
 
@@ -502,7 +568,7 @@ sf_working_directories/IntrMotiv/dmlab/ca3_state_readout.py
 
 Do not refactor BypassSS merely to implement this experiment.
 
-## 15. Shadow-mode requirement
+## 16. Shadow-mode requirement
 
 First implementation is observational.
 
@@ -520,7 +586,7 @@ With readout enabled but goal conditioning disabled, the following must be uncha
 
 Only W, the predictor, and telemetry should change.
 
-## 16. Logging
+## 17. Logging
 
 At minimum:
 
@@ -564,7 +630,7 @@ $$
 If state shuffle does nothing, the predictor is not using the learned state.
 If action shuffle does nothing, the action-conditioning is not contributing.
 
-## 17. Offline representation evaluation
+## 18. Offline representation evaluation
 
 Coordinates may be used only for evaluation, not training.
 
@@ -589,90 +655,96 @@ $$
 
 Compare this against raw contextual CA3 and current DG identity.
 
-## 18. Goal use after representation validation
+## 19. HER-first goal representation
 
-Only after the shadow representation works, define an achieved goal at event time t_g as
+For the first controller experiment, do **not** build a persistent continuous-goal database.
 
-$$
-\boxed{g=z_{t_g}=Ws_{t_g}}.
-$$
+A HER goal is already identified by a future achieved event inside the replayed trajectory. Let $e$ be the selected future event index. The replay already contains the corresponding CA3 state $S_e$.
 
-Current state is also
-
-$$
-z_t=Ws_t.
-$$
-
-Thus state and goal share
-
-$$
-\boxed{\mathcal G=\mathbb R^{d_z}}.
-$$
-
-Do **not** replace the controller's full current CA3 input with z. Use
+Use the index only as a temporary pointer:
 
 $$
 \boxed{
-\pi(a_t\mid s_t,\text{depth}_t,g).
+e \longrightarrow S_e \longrightarrow g_e=W S_e.
 }
 $$
 
-The goal is abstract; current CA3 remains the rich control state.
+For the current state:
 
-### FiLM mode
+$$
+z_t=W S_t.
+$$
 
-Add a continuous-goal mode, e.g.
+Therefore current state and goal are always embedded by the **same current W**:
 
-~~~text
---hrl_goal_conditioning=state_readout_film
-~~~
+$$
+\boxed{
+z_t,g_e\in\mathcal G=\mathbb R^{d_z}.
+}
+$$
 
-with
+This requires no new learned memory component and no stored numerical goal embedding.
+
+### Why not store only a time index permanently?
+
+A time/event index is elegant while the referenced state remains available in the current rollout/replay or CA3 history. It is not a persistent goal representation: once the referenced trajectory/state is no longer accessible, the index has no content. In an online implementation tied directly to the finite CA3 register, such a pointer would also expire with the memory horizon; an H-step prediction target further shortens the usable future window.
+
+For **HER first**, this is not a problem: select $e$ within the existing same-episode replay and immediately retrieve $S_e$.
+
+For a later online controller that must pursue a goal after the original CA3 state has shifted out or after the trajectory has left replay, store a detached **raw CA3 snapshot** $\tilde g=S_{t_g}$ rather than a frozen learned vector $g$. Then re-embed it whenever it is used:
+
+$$
+\boxed{
+g=W\tilde g.
+}
+$$
+
+This is still only a snapshot of the existing CA3 buffer, not a new recurrent memory mechanism.
+
+## 20. Goal conditioning of the controller
+
+Keep the full current CA3 state available to the controller:
+
+$$
+\boxed{
+\pi(a_t\mid S_t,\text{depth}_t,\operatorname{sg}(W S_e)).
+}
+$$
+
+The stop-gradient is with respect to the PPO/HER loss only. W is still updated concurrently by $\mathcal L_{pred}$.
+
+The first continuous-goal FiLM implementation can map the current goal embedding through the existing modulation interface, e.g. conceptually:
 
 ~~~python
-delta_gamma_beta = goal_z @ M_z
+goal_z = state_readout(goal_ca3)
+goal_z_for_policy = goal_z.detach()
+delta_gamma_beta = goal_adapter(goal_z_for_policy)
 ~~~
 
-where M_z has shape [d_z, 2*hidden_dim].
+This snippet is illustrative only. Reuse the existing goal replay / FiLM pathway and its tensor conventions rather than creating a parallel controller path.
 
-Initialize M_z to zero, matching the current target-ID FiLM identity initialization.
+Do **not** replace the controller's current full CA3 input by $z_t$ in v1. The full CA3 state may contain orientation, recent-event timing, and other control-relevant information that the abstract goal space intentionally discards.
 
-## 19. Freeze W before goal training
+## 21. HER training with a moving W
 
-A changing W changes the meaning of every stored continuous goal.
+Reuse the existing empirical same-episode future-goal machinery.
 
-Minimal clean protocol:
+For each HER source segment:
 
-1. train W + predictor in shadow mode;
-2. evaluate the representation;
-3. choose a checkpoint;
-4. freeze W;
-5. only then train the goal-conditioned controller with g=Ws_goal.
+1. select a future achieved qualified event index $e$ using the existing replay alignment;
+2. retrieve its replayed raw CA3 state $S_e$;
+3. compute the goal with the **current** readout, $g_e=W S_e$;
+4. stop the PPO/HER gradient at $g_e$;
+5. keep that goal condition fixed across the relabeled source segment for that learner evaluation;
+6. keep the existing empirical terminal pseudo-return / achieved-event semantics initially.
 
-Do not add EMA goal migration or a versioned continuous goal database in v1.
+There is no requirement to freeze W between learner updates. If W changes from one update to the next, both current states and future-goal states are re-embedded by the same current mapping.
 
-## 20. HER after freezing W
+Do not store $W_{old}S_e$ as the canonical goal. Store/recover $S_e$ and compute $W S_e$ on demand.
 
-Reuse the current empirical same-episode future-goal machinery.
+For this first HER experiment, the selected achieved event $e$ itself defines success. Do **not** yet introduce a threshold such as $\|W S_t-W S_e\|<\epsilon$ as the reward criterion. That would make changing W also change reward semantics and would confound the representation experiment.
 
-For future achieved event e:
-
-$$
-g^H=z_e=Ws_e.
-$$
-
-Keep this vector fixed over the relabeled source segment, re-evaluate the decoder with g^H, and keep the existing empirical terminal pseudo-return structure initially.
-
-Requirements:
-
-- relabel only with achieved same-episode events;
-- W is frozen;
-- behavior goals are replayed exactly;
-- do not use a changing W to reinterpret old behavior goals.
-
-For the first continuous-goal HER experiment, the achieved future event itself supplies the terminal label. Do not yet require a learned distance-threshold hit rule.
-
-## 21. Minimal ablations
+## 22. Minimal ablations
 
 ### Representation preflight
 
@@ -690,14 +762,14 @@ Questions:
 - does prediction use both state and action?
 - does S1 produce better place disambiguation and route invariance than raw CA3?
 
-### Goal representation comparison
+### HER goal representation comparison
 
-After freezing W:
+After the readout has passed basic prediction/alignment checks, compare:
 
 ~~~text
-A: current DG one-hot goal
-B: raw contextual CA3 goal X[:,1:R] through a linear adapter
-C: learned goal z = W s
+A: current DG one-hot HER goal
+B: raw contextual CA3 HER goal through the existing goal adapter
+C: learned HER goal g = W S_e, recomputed from the selected future replay state
 ~~~
 
 Keep DG, CA3, worker architecture, optimizer budget, HER settings, reward scale, and seeds matched.
@@ -712,7 +784,7 @@ vs.
 learned predictive state abstraction
 ~~~
 
-## 22. Required regression tests
+## 23. Required regression tests
 
 ### CA3 algebra
 
@@ -744,16 +816,18 @@ learned predictive state abstraction
 16. shadow mode preserves manager targets;
 17. checkpoint round-trip reproduces W and predictor outputs.
 
-### Goal mode
+### HER goal mode
 
 18. continuous FiLM zero initialization is exact identity;
-19. stored continuous behavior goal is replayed exactly;
-20. frozen W reproduces the same goal after checkpoint round-trip;
-21. HER relabel uses a future achieved event from the same episode.
+19. HER stores/selects the future event index and retrieves the correct replayed CA3 state;
+20. the same current W is used for both current-state and future-goal embedding;
+21. PPO/HER loss gives zero gradient to W while prediction loss gives nonzero gradient to W;
+22. HER relabel uses a future achieved event from the same episode and keeps its goal condition fixed across the relabeled segment;
+23. no persistent continuous-goal database is required for the HER-first path.
 
 Run focused tests first, then the authoritative full IntrMotiv suite on NEMO2.
 
-## 23. Suggested code organization
+## 24. Suggested code organization
 
 ~~~text
 dmlab/
@@ -768,7 +842,7 @@ dmlab/
         test_ca3_state_goal_replay.py
 ~~~
 
-## 24. Learner-side pseudocode
+## 25. Learner-side pseudocode
 
 ~~~python
 def ca3_state_readout_loss(actor_critic, ca3_seq, actions, valids,
@@ -857,7 +931,7 @@ def ca3_state_readout_loss(actor_critic, ca3_seq, actions, valids,
 
 Vectorize only after the indexing/algebra tests pass.
 
-## 25. Success gate before using z as a goal
+## 26. Success gate before using z as a goal
 
 Do not proceed merely because training loss decreases.
 
@@ -873,7 +947,7 @@ Require:
 
 If these fail, stop rather than adding more structure.
 
-## 26. Interpretation
+## 27. Interpretation
 
 The intended mechanism is
 
@@ -931,24 +1005,24 @@ $$
 \boxed{g=z_{t_g}}.
 $$
 
-## 27. Execution order
+## 28. Execution order
 
 1. implement CA3 shift/injection algebra helpers and tests;
 2. add W and the feed-forward innovation predictor;
 3. expose action-aligned padded replay CA3;
 4. implement H-step windows and boundary masks;
 5. implement prediction + variance/covariance loss;
-6. verify gradient isolation;
+6. verify that prediction updates W but not DG, and PPO/HER updates the controller but not W;
 7. run one-seed shadow preflight;
 8. add state/action shuffle diagnostics;
-9. run offline coordinate-based representation diagnostics;
-10. compare action-conditioned versus action-ablated learning;
-11. freeze successful W;
-12. add state_readout_film;
-13. test same-episode HER with future achieved z goals;
-14. only then consider online continuous-goal sampling or goal merging.
+9. integrate **same-episode HER first**: select future event index e, retrieve S_e, compute g=W S_e, detach g for the policy loss;
+10. verify exact replay alignment and fixed goal conditioning across each relabeled segment;
+11. run offline coordinate-based representation diagnostics;
+12. compare action-conditioned versus action-ablated prediction;
+13. compare DG-one-hot, raw-CA3, and learned-W HER goal representations;
+14. only after the HER result is understood consider persistent online goals, storing raw CA3 snapshots if necessary.
 
-## 28. Main decision rule
+## 29. Main decision rule
 
 If the action-conditioned readout does **not** outperform raw contextual CA3 on
 
@@ -964,4 +1038,4 @@ $$
 
 stop. Do not add successor features, anchor banks, learned goal merging, or a larger world model.
 
-If it does, use (z=Ws) as the default candidate state/goal representation for the next IntrMotiv controller experiment.
+If it does, use $z=Ws$ as the default candidate state/goal representation for the HER-first IntrMotiv controller experiment. Persistent online goal storage is a later question.
