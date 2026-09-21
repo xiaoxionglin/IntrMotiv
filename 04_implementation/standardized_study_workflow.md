@@ -254,6 +254,18 @@ Standard outputs are:
 `analyze-csv` applies the same validation and statistics to an existing
 standardized `per_run.csv`. It requires exactly one row for every declared run.
 
+### Reusable scalar histories (1.10.1)
+
+Add `--export-histories --loader-backend process` when learning curves or multiple
+windows are needed. The collector writes one `histories/<run>.csv` with every
+selected event (`tag`, `step`, `wall_time`, `value`) plus input event-file paths,
+sizes and modification times. Export disables scalar reservoir sampling. Keep
+repeated steps and choose any subsequent aggregation explicitly. The collection
+manifest records the executor override and export path; the original StudySpec
+and training fingerprint remain unchanged. This avoids rereading TensorBoard for
+plots, but is not yet an automatic resumable input cache or a tamper-proof digest
+of the source event files.
+
 ### Latest shared-step comparisons (1.7.0)
 
 Optional `analysis.loader_backend: "process"` in locally staged 1.8.0 uses

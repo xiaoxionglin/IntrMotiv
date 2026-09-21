@@ -1,0 +1,23 @@
+{
+  "study_sha256": "dac5ace2475d2ea60d25530ef6acf3f70f7d45d00951933124486f282137e5aa",
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.10.1",
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "replicate_unit": "map seed",
+  "training_seed": 99,
+  "n_layouts": 3,
+  "terminal_window": [
+    95000000,
+    100000000
+  ],
+  "curve_bin_width": 2000000,
+  "curves": "event means per run/bin; equal-layout condition mean",
+  "uncertainty": "individual layouts shown; no inferential intervals",
+  "spatial_protocol": "training-trajectory online snapshots, not frozen evaluations",
+  "plot_script_sha256": "90583e24d1c457a8c0ea51651d92320cd212168307bbdedf4f742711af81fc1f",
+  "input_hashes": {
+    "online/per_run.csv": "f7e6f9091444631e3a24425bc7d6dd53d412552d4bc932affe804a5235b5fd21",
+    "spatial/per_snapshot.csv": "21546927b347997c572396721a9eec7c5358f0b02d4080521bb8785aa2fe0c8e",
+    "spatial_details/per_unit.csv": "d078827841f044445949af3bb7c5cd4b2ed9f15d16de135103c537acef7d4680"
+  }
+}

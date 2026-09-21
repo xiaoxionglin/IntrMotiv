@@ -1,0 +1,44 @@
+{
+  "batch_name": "corridor_geometry_20260919",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corridor_analysis_20260921/online/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        95000000,
+        100000000
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [
+    "corridor_minus_open",
+    "intermediate_minus_open"
+  ],
+  "expected_runs": 27,
+  "group_by": [
+    "base",
+    "openness"
+  ],
+  "input_rows": 27,
+  "metrics": [
+    "accessible_coverage_auc",
+    "coverage_auc",
+    "accessible_coverage_fraction"
+  ],
+  "replicate_by": [
+    "map_seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "corridor_geometry_20260919",
+  "study_sha256": "dac5ace2475d2ea60d25530ef6acf3f70f7d45d00951933124486f282137e5aa",
+  "study_spec": "hpc_runs/studies/corridor_geometry.study.json",
+  "study_workflow_version": "1.10.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.10.1"
+}

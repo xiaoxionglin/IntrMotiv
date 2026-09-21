@@ -225,6 +225,15 @@ keep implementation guidance in the canonical workflow documents linked below.
   per-run cache with event-file provenance to the canonical collector, retaining
   exact latest-common semantics. Reuse the documented process backend only after
   its NEMO2 benchmark validates the progress/recovery contract.
+- **Partial implementation (September 21):** Workflow 1.10.1 exports all selected
+  scalar histories and source file metadata during the existing scan, and accepts
+  an execution-only process-backend override. The corridor batch has 6.8 GB of
+  events; per-run progress and exports appear during its 27-run collection.
+  Desktop and NEMO2 focused suites each pass 38 tests, including exact export
+  contents and unchanged StudySpec settings. Plotting reuses CSVs instead of
+  rescanning events. Automatic cache validation/reuse after interruption remains
+  open; these exports are not yet a resumable loader cache. See the
+  [canonical guide](04_implementation/standardized_study_workflow.md).
 - **Acceptance criteria:** A 18-run latest-common scan writes an observable
   per-run progress record, terminates or emits a recoverable partial state under
   a declared time bound, and a resumed collection does not reread already

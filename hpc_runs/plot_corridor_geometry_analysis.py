@@ -71,6 +71,16 @@ def main():
     pd.DataFrame(paired).to_csv(args.data / 'paired_layout_effects.csv', index=False)
     summary = merged.groupby(['base', 'openness'])[measures].agg(['mean', 'min', 'max'])
     summary.to_csv(args.data / 'descriptive_summary.csv')
+    units = pd.read_csv(args.data / 'spatial_details/per_unit.csv')
+    units = units.merge(spatial[['run_name', 'target_env_steps', 'base', 'map_seed', 'openness']],
+                        on=['run_name', 'target_env_steps'], validate='many_to_one')
+    active = units[(units.target_env_steps == 100_000_000) & (units.active_fraction > 0)].copy()
+    active['single_component'] = active.geometry_field_components_half_peak == 1
+    components = active.groupby(['run_name', 'base', 'map_seed', 'openness']).agg(
+        mean_traversable_components=('geometry_field_components_half_peak', 'mean'),
+        single_traversable_component_fraction=('single_component', 'mean'),
+        active_units=('unit_id', 'count')).reset_index()
+    components.to_csv(args.data / 'traversable_field_summary.csv', index=False)
 
     def save(fig, name):
         fig.savefig(out / f'{name}.png', dpi=180, bbox_inches='tight')
@@ -86,7 +96,7 @@ def main():
                     marker=marker, color=color, linewidth=1.7, markersize=7, label=str(seed))
         ax.set_title(labels[base])
         ax.set_xticks(range(3), ['Corridor\n0.00', 'Intermediate\n0.35', 'Open\n0.75'])
-        ax.set_ylim(bottom=0)
+        ax.set_ylim(0, float(merged.accessible_coverage_auc.max()) * 110)
         ax.grid(axis='y', alpha=.2)
     axes[0].set_ylabel('Episode coverage AUC\n(% of accessible area)')
     axes[-1].legend(title='Map seed', loc='best')
@@ -117,7 +127,7 @@ def main():
             group = group[group['count'] == len(seeds)]
             ax.plot(group.index, group['mean'] * 100, color=color, linewidth=2.4, label=f'q={q:.2f}')
         ax.set_title(labels[base]); ax.set_xlabel('Environment frames (millions)')
-        ax.set_xlim(0, 100); ax.set_ylim(bottom=0); ax.grid(alpha=.2)
+        ax.set_xlim(0, 100); ax.set_ylim(0, float(curves['mean'].max()) * 110); ax.grid(alpha=.2)
     axes[0].set_ylabel('Episode coverage AUC\n(% of accessible area)')
     axes[-1].legend(loc='best')
     fig.suptitle('Training curves: 2M-frame bins; thin lines show individual layouts', y=1.02)
@@ -144,8 +154,9 @@ def main():
                 'curve_bin_width': 2000000, 'curves': 'event means per run/bin; equal-layout condition mean',
                 'uncertainty': 'individual layouts shown; no inferential intervals',
                 'spatial_protocol': 'training-trajectory online snapshots, not frozen evaluations',
+                'plot_script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                 'input_hashes': {str(p.relative_to(args.data)): hashlib.sha256(p.read_bytes()).hexdigest()
-                                 for p in [args.data/'online/per_run.csv', args.data/'spatial/per_snapshot.csv']}}
+                                 for p in [args.data/'online/per_run.csv', args.data/'spatial/per_snapshot.csv', args.data/'spatial_details/per_unit.csv']}}
     (out / 'figure_metadata.json').write_text(json.dumps(metadata, indent=2) + '\n')
 
 
