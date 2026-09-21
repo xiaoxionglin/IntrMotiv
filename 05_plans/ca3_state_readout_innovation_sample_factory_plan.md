@@ -207,6 +207,71 @@ because the shifted previous state contributes zero there.
 
 This slot-zero identity is **not** used to reconstruct the past before the readout. It is only a convenient way to obtain future DG supervision from replayed CA3 states without another visual/DG forward.
 
+### What is actually learned
+
+The known CA3 recurrence already predicts the memory-only part of the next state:
+
+$$
+J S_t.
+$$
+
+The learned model should predict only the new environmental injection:
+
+$$
+\boxed{
+\hat u_{t+1}=P_\phi(W S_t,a_t).
+}
+$$
+
+The complete one-step CA3 prediction is then assembled using the known dynamics:
+
+$$
+\boxed{
+\hat S_{t+1}=J S_t+B\hat u_{t+1}.
+}
+$$
+
+For the v1 multi-step representation loss, avoid forcing the predictor to recursively relearn CA3 dynamics. Directly predict the sequence of future injections conditioned on the current readout and executed action sequence:
+
+$$
+\boxed{
+P_\phi(W S_t,a_{t:t+H-1})
+=
+[\hat u_{t+1},\ldots,\hat u_{t+H}].
+}
+$$
+
+Train against the actual future DG injections:
+
+$$
+\boxed{
+\mathcal L_{pred}
+=
+\sum_{h=1}^{H}
+\alpha_h\,
+\ell(
+\hat u_{t+h},
+\operatorname{sg}(u_{t+h})
+).
+}
+$$
+
+The corresponding full CA3 innovation is implied, not separately learned:
+
+$$
+\hat\eta_{t,H}
+=
+\sum_{h=1}^{H}
+J^{H-h}B\hat u_{t+h}.
+$$
+
+Thus the division of labor is explicit:
+
+~~~text
+J                    = known intrinsic CA3 memory evolution
+P_phi(W S, actions)   = learned prediction of new incoming DG events
+~~~
+
 For diagnostics:
 
 ~~~python
@@ -542,7 +607,7 @@ Later ablations may independently enable:
 
 Do not enable both couplings in the first experiment.
 
-## 16. Likely IntrMotiv integration points
+## 15. Likely IntrMotiv integration points
 
 Keep changes local to IntrMotiv.
 
