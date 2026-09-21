@@ -519,13 +519,20 @@ maps are separate arrays. The real DMLab smoke verified exact panel replay and
 canonical detector invariance while worker activity changed.
 
 The compatible `landmark-matched-commands-v1` intervention evaluator reconstructs
-physical starts with seeded engines and identical action prefixes. It rejects
+physical starts with seeded resets of one engine and identical action prefixes. It rejects
 any observation or recurrent-state mismatch and checks that model/graph tensors
 remain frozen. It executes all selected alternate commands, measures canonical
 arrival, and records paired arrival lift, initial action total variation,
 physical endpoints, censoring, and panel coverage. Exposed sources/targets are
 an observed subset, not proof of control over all allocated DG units. DG-write
 models reject the legacy decoder-only intervention path.
+
+Keep one DMLab engine alive for the complete manifest row. Reconstructing the
+native engine for every replay caused reproducible process aborts after roughly
+two to three hours in the corridor study (`*** buffer overflow detected ***`,
+exit 134). A seeded reset avoids accumulating native engine instances, while
+the exact observation and recurrent-state comparison remains the acceptance
+test for a matched start.
 
 Use this through the standard StudySpec intervention metadata and manifest
 backend. Workflow 1.6.0 supports more than one intervention checkpoint; the

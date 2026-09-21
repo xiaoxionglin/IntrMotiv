@@ -16,7 +16,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   wall masks, collide in native assets, or invalidate causal reset comparisons.
 - **Improvement:** Shared geometry archive/verification and normalized episode
   coverage, explicit axis adapters, short native map names with full hash checks,
-  isolated runfiles, and fresh-engine prefix replay. See the
+  isolated runfiles, and seeded-reset prefix replay with exact state checks. See the
   [canonical workflow](04_implementation/standardized_study_workflow.md).
 - **Status:** Implemented locally; native nine-map qualification passes. Source
   staged remotely. The old `train` allocation reported zero free bytes; a new
@@ -33,7 +33,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   snapshots passed. All three standard field jobs and bounded matched-command probes also passed;
   the 27-run production batch completed 100M frames per run. Full production
   evaluation is launched. The command worker was corrected to honor the isolated
-  source, terminal binding and short workspace TMPDIR before that launch.
+  source, terminal binding and short workspace TMPDIR before that launch. Full
+  intervention production then exposed a native lifecycle failure: 36 rows
+  aborted with buffer-overflow exit 134 after repeatedly reconstructing DMLab.
+  The evaluator now keeps one engine per row, applies deterministic seeds before
+  resets, and retains exact observation/recurrent-state replay verification.
+  Thirty-six audited replacement jobs were submitted as 8127269--8127304; the
+  bounded qualification is 8127266.
   Evidence is tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
@@ -46,7 +52,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   evaluation workers as well as training. Matched-command qualification also
   needs an explicit source-count bound: fresh-engine construction can dominate
   despite an 8k-decision limit. Use a declared one-source/five-repeat qualification
-  panel; leave production intervention budgets unchanged.
+  panel; leave production intervention budgets unchanged. Reuse one native
+  engine within a row and make the exact replay comparison authoritative;
+  repeated native construction is not a safe isolation mechanism.
 
 
 ### Atlas figure recipes diverged between batches — standardized and verified
