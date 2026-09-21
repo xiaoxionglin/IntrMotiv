@@ -36,8 +36,48 @@
 
 ## Markdown Math Formatting
 
-- In Markdown reports and notes, use `$...$` for inline math and `$$...$$`
-  for display equations so formulas render correctly in Obsidian.
+- For any `.md` file written or edited in this GitHub/Obsidian repository, use
+  `$...# Agent Notes
+
+## Code Readability, Modularity, and Reuse
+
+- Write readable code that future threads can inspect, understand, and use.
+  Use clear names, explicit interfaces, and enough comments and docstrings to
+  explain intent, assumptions, and non-obvious decisions.
+- Organize code into cohesive, reusable modules with clear responsibilities
+  and minimal coupling, so future threads can update one component without
+  interfering with unrelated components. Keep shared behavior in canonical
+  modules instead of copying it into each new script.
+- Before implementing a solution, check for existing project modules,
+  workflows, and suitable external packages. Consider whether reuse or a
+  small extension is more efficient than new code, accounting for integration,
+  runtime, dependencies, and maintenance costs. Avoid reinventing the wheel.
+- Always look for redundancy in code, documentation, and workflows, and
+  consolidate overlapping implementations or information into a clearer,
+  better-organized shared structure while preserving necessary distinctions.
+
+## User Readability and Organization
+
+- Organize files, reports, and outputs with a clear structure and descriptive
+  names so the user can find and understand them.
+- when updating a report, keep the integrity of the structure of the whole file and not just appending new sections.
+- Provide enough annotations and explanation to make assumptions, methods,
+  results, and next steps understandable. Use visualizations when they help
+  communicate the information, following the figure-readability rules below.
+
+## Desktop Python Environment
+
+- For local desktop Python work in this project, default to the `SF_git` conda
+  environment instead of the base environment. Prefer invoking tools directly
+  from `/home/xiaoxiong/miniforge3/envs/SF_git/bin/` (for example,
+  `/home/xiaoxiong/miniforge3/envs/SF_git/bin/python`) so plotting and analysis
+  dependencies such as Matplotlib are available in non-interactive shells.
+
+## Markdown Math Formatting
+
+ for inline math and `$...$` for display equations. Do not use
+  `\\[...\\]` display delimiters in repository Markdown, so formulas render
+  correctly in Obsidian.
 -  In chat, use `\(...\)` or `\[...\]` as math delimiters.
 
 ## Figure Readability
