@@ -3,6 +3,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 import unittest
+import csv
+import json
 from unittest.mock import patch
 
 from tensorboard.compat.proto.event_pb2 import Event
@@ -58,6 +60,21 @@ class LatestCommonTests(unittest.TestCase):
         self.write('transfer', [10, 20], [])
         with self.assertRaisesRegex(SpecError, 'required histories'):
             collect_online_records(self.study, self.root, latest_common=True)
+
+    def test_export_preserves_all_events_without_changing_study(self):
+        for name in ('control', 'transfer'):
+            self.write(name, [10, 20, 30], [(10, 1), (20, 2), (30, 3)])
+        output = self.root / 'export'
+        rows = collect_online_records(self.study, self.root, fixed_window=(10, 30),
+                                      history_output_dir=output, loader_backend='process')
+        self.assertEqual([r['score'] for r in rows], [2, 2])
+        self.assertNotIn('loader_backend', self.study.analysis)
+        with (output / 'control.csv').open() as stream:
+            events = list(csv.DictReader(stream))
+        self.assertEqual([float(e['value']) for e in events if e['tag'] == 'score'], [1, 2, 3])
+        metadata = json.loads((output / 'control.json').read_text())
+        self.assertTrue(metadata['all_selected_events'])
+        self.assertEqual(len(metadata['sources']), 1)
 
     def test_process_matches_thread_and_reports_progress(self):
         self.write('control', [10, 20, 30], [(10, 1), (20, 3), (30, 99)])

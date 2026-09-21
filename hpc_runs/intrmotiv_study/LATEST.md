@@ -1,12 +1,20 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.10.0` (corridor geometry release; see deployment record below)
+- Implementation: `1.10.1` (corridor geometry release; see deployment record below)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
+
+## 1.10.1 scalar-history export
+
+`collect-online --export-histories` saves every selected scalar event and input
+file provenance during the existing scan. `--loader-backend process` permits an
+execution-only override recorded in analysis metadata without changing the
+training StudySpec. Use these for learning curves and additional windows without
+repeated multi-gigabyte TensorBoard reads. Study definitions remain unchanged.
 
 ## 1.10.0 corridor geometry
 

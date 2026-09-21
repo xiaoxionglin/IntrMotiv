@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
 import multiprocessing
+import csv
+import json
 import math
 from pathlib import Path
 from statistics import fmean
@@ -54,6 +56,8 @@ def collect_online_records(
     fixed_window: tuple[int, int] | None = None,
     latest_common: bool = False,
     progress=None,
+    history_output_dir: Path | None = None,
+    loader_backend: str | None = None,
 ) -> list[dict[str, Any]]:
     """Collect standardized per-run rows from TensorBoard event directories."""
 
@@ -89,7 +93,7 @@ def collect_online_records(
 
     runs = study.expand_runs()
     required = {step_tag, *window_metrics.values(), *cumulative_metrics.values()}
-    backend = analysis.get("loader_backend", "thread")
+    backend = loader_backend or analysis.get("loader_backend", "thread")
     if backend not in ("thread", "process"):
         raise SpecError("analysis.loader_backend must be thread or process")
     executor_type = ProcessPoolExecutor if backend == "process" else ThreadPoolExecutor
@@ -98,15 +102,32 @@ def collect_online_records(
         # Spawn avoids inheriting TensorBoard/PyTorch background threads.
         options["mp_context"] = multiprocessing.get_context("spawn")
     loaded = [None] * len(runs)
+    if history_output_dir is not None:
+        history_output_dir.mkdir(parents=True, exist_ok=True)
     with executor_type(**options) as executor:
         futures = {
             executor.submit(_load_run_histories, run.name, run_directories[run.name], step_tag,
-                            required, scalar_size_guidance, latest_common): index
+                            required, scalar_size_guidance, latest_common or history_output_dir is not None): index
             for index, run in enumerate(runs)
         }
         for completed, future in enumerate(as_completed(futures), start=1):
             index = futures[future]
             loaded[index] = future.result()
+            if history_output_dir is not None:
+                run_dir, histories = loaded[index]
+                # Retain every selected event, including repeated steps. Consumers
+                # choose aggregation explicitly rather than inheriting a reservoir.
+                name = runs[index].name
+                with (history_output_dir / f"{name}.csv").open("w", newline="") as stream:
+                    writer = csv.writer(stream)
+                    writer.writerow(["tag", "step", "wall_time", "value"])
+                    for tag in sorted(histories):
+                        writer.writerows((tag, e.step, e.wall_time, e.value) for e in histories[tag])
+                sources = [{"path": str(p), "bytes": p.stat().st_size,
+                            "mtime_ns": p.stat().st_mtime_ns}
+                           for p in sorted((run_dir / ".summary" / "0").glob("events*"))]
+                (history_output_dir / f"{name}.json").write_text(json.dumps(
+                    {"run_name": name, "sources": sources, "all_selected_events": True}, indent=2) + "\n")
             if progress is not None:
                 progress(completed, len(runs), runs[index].name)
     if latest_common:
