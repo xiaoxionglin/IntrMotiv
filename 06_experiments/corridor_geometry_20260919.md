@@ -2,6 +2,12 @@
 
 ## Status
 
+**September 21 update:** All 27 training runs completed at 100M frames.
+[The completed-training analysis](corridor_geometry_analysis_20260921.md) reports
+lower normalized corridor coverage in all nine paired layout comparisons. All
+135 spatial snapshots are present; the full 189-job frozen evaluation batch has
+been launched, and random-baseline/control conclusions remain pending.
+
 **All 27 production runs were submitted on September 19, 2026 at 20:58 CEST,
 and all 27 were RUNNING at the startup check.** Nine runs resume their qualified
 2,031,616-frame checkpoints; the other 18 start fresh. Every saved production
@@ -13,8 +19,8 @@ confirms all 27 commands and workspace paths against the unchanged StudySpec.
 The [job manifest](results/corridor_geometry_20260919/production_jobs.tsv) records
 IDs **8109346–8109367 and 8109369–8109373**. The
 [startup snapshot](results/corridor_geometry_20260919/production_startup_snapshot.json)
-records scheduler state and resolved milestone configuration. Training and
-production scientific evaluation are not yet complete.
+records scheduler state and resolved milestone configuration at submission.
+Training is now complete; production scientific evaluation is running.
 
 All nine 2M runtime audits, nine exact learner reloads, three frozen evaluator
 checks, three standard 10k-decision place-field jobs and three bounded canonical

@@ -60,7 +60,7 @@ DGP's stronger open-layout seed 1002; no runs are excluded. See the
 | Waypoint F64 HER | 1003 | 7.54% | 13.00% | 15.72% | -8.19 pp |
 
 All corridor–open differences are negative. Intermediate layouts also underperform
-open layouts in seven of nine pairs; DGP seeds 1001 and 1003 are the exceptions.
+open layouts in eight of nine pairs; DGP seed 1003 is the exception.
 DGP's large variability in the open condition means its three-layout mean should
 not be treated as a consistent outcome across maps. No significance tests or
 training-seed robustness claims are made from these three layouts.

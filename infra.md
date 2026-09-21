@@ -31,7 +31,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   shared pose reader uses the certified terminal binding. All nine 2M runs,
   nine real learner reloads, three frozen evaluator gates and all 18 spatial
   snapshots passed. All three standard field jobs and bounded matched-command probes also passed;
-  the 27-run production batch is submitted. Evidence is tracked in the
+  the 27-run production batch completed 100M frames per run. Full production
+  evaluation is launched. The command worker was corrected to honor the isolated
+  source, terminal binding and short workspace TMPDIR before that launch.
+  Evidence is tracked in the
   [corridor record](06_experiments/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
   zero reward and 120-second timeout, no geometry/pose model input, compatible
@@ -228,7 +231,8 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Partial implementation (September 21):** Workflow 1.10.1 exports all selected
   scalar histories and source file metadata during the existing scan, and accepts
   an execution-only process-backend override. The corridor batch has 6.8 GB of
-  events; per-run progress and exports appear during its 27-run collection.
+  events; the 27-run process collection completed in 10m22s with per-run
+  progress and exports.
   Desktop and NEMO2 focused suites each pass 38 tests, including exact export
   contents and unchanged StudySpec settings. Plotting reuses CSVs instead of
   rescanning events. Automatic cache validation/reuse after interruption remains

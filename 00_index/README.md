@@ -62,6 +62,7 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 
 - [[../06_experiments/cpu2048_analysis_20260917|CPU2048: All-Seed Place Fields, Trajectories, and Control Graphs]]
 - [[../06_experiments/corridor_geometry_20260919|Corridor Geometry: 27-Run Study, Maps and Qualification Status]]
+- [[../06_experiments/corridor_geometry_analysis_20260921|Corridor Geometry: 100M Training Analysis and Full Evaluation Launch]]
 
 - [[../06_experiments/dg_capacity_health_20260913|DG-capacity Run Health: Late Control Failure and Movement]]
 
