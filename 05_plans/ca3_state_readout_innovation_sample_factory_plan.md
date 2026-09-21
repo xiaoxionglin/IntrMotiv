@@ -33,9 +33,9 @@ $$
 
 Do **not** train another recurrent model to relearn J. Learn only
 
-$
+$$
 \boxed{z_t=Ws_t,\qquad z_t\in\mathbb R^{d_z}}
-$
+$$
 
 with **raw CA3 activity as the direct input to the readout**.
 
@@ -49,15 +49,15 @@ This is a useful prior rather than a distortion that must be inverted. The learn
 
 Thus the intended computation is directly
 
-$
+$$
 \boxed{S_t\rightarrow W\rightarrow z_t}
-$
+$$
 
 rather than
 
-$
+$$
 S_t\rightarrow\text{recovered DG history}\rightarrow W\rightarrow z_t.
-$
+$$
 
 Train W so that z, together with the executed action sequence, predicts the future DG innovations.
 
@@ -192,9 +192,9 @@ def ca3_shift_power(S, h):
 
 For target construction only, the current DG injection is available from slot zero:
 
-$
+$$
 \boxed{u_t=S_t[...,0]}
-$
+$$
 
 because the shifted previous state contributes zero there.
 
