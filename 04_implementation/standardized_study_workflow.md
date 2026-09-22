@@ -154,10 +154,13 @@ in the saved configuration and W&B config:
 - `study_condition`: the rendered, seed-independent condition name;
 - `study_base`: the declared base configuration.
 
-Use `study_condition` for one-level dashboard grouping and `seed` for paired
-replicates. This avoids reconstructing a condition from several scientific
-parameters or creating nested dashboard groups. The fields do not alter model,
-environment, optimizer, or controller behavior.
+It also emits exactly one `wandb_tags` value equal to `study_condition`.
+Sample Factory stores that list both as the W&B run tags and as
+`config.wandb_tags`. Therefore, either `study_condition` or
+`config.wandb_tags` provides one flat group per cell, identical across seeds;
+use `seed` for paired replicates. Do not add unrelated tags to this generated
+field, because W&B groups the complete list rather than its individual items.
+These fields do not alter model, environment, optimizer, or controller behavior.
 
 Studies declaring an earlier workflow version retain their commands exactly.
 An explicit `training.emit_tracking_identity` boolean can override the

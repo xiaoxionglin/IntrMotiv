@@ -18,8 +18,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   define one architecture.
 - **Improvement/status:** Workflow 1.11.0 emits metadata-only `study_id`,
   `study_condition`, and `study_base` configuration fields. New dashboards can
-  group once by `study_condition` and pair by `seed`. The behavior is default
-  for studies declaring 1.11 or later and configurable with
+  group once by `study_condition` and pair by `seed`. It also emits exactly one
+  `wandb_tags` value equal to the condition; Sample Factory duplicates this as
+  `config.wandb_tags`, providing the requested flat-list grouping shortcut.
+  The behavior is default for studies declaring 1.11 or later and configurable with
   `training.emit_tracking_identity`. Existing submitted specs remain unchanged
   to preserve their hashes and audited commands.
 - **Acceptance:** Schema and expansion tests prove the versioned default and
