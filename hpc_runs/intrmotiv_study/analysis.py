@@ -123,4 +123,3 @@ def linear_contrasts(
             "n": len(values),
         })
     return detailed, summary
-

@@ -106,4 +106,3 @@ def audit_submission(
         "commands_match_study": True,
         "workspace_paths_valid": True,
     }
-
