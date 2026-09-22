@@ -8,6 +8,9 @@ September 2026 and passed the submitted-manifest audit. Production is
 strictly blocked until the separate seven-arm, seed-99, 2M-frame qualification
 passes the runtime, exact-reload, scalar, calibration-path, and offline telemetry
 audit. Qualification performance does not select or remove production cells.
+The task heartbeat `CA3 release gate and production launch` monitors this gate
+every 30 minutes and is authorized to submit the fresh 21-run production matrix
+only after every declared qualification check passes.
 
 The deployed implementation is commit `e2de2a8e` on
 `codex/ca3-predictive-active-goals-20260922`. Local release checks passed:
