@@ -144,8 +144,9 @@ Before submission, verify that `train_dir`, checkpoints, W&B local data, Slurm
 logs, caches, and temporary environment data all resolve into an allocated
 workspace. Do not run training against paths under the home filesystem.
 The IntrMotiv launcher defaults to
-`/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir`; override it
-only when necessary with `INTRMOTIV_TRAIN_ROOT`.
+`/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir`.
+Move the whole allocation with `INTRMOTIV_WORKSPACE_ROOT`, or use
+`INTRMOTIV_TRAIN_ROOT` only for a narrower training-root override.
 
 Use the following naming levels consistently:
 

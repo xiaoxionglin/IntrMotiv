@@ -155,7 +155,9 @@
 ## NEMO2 Storage Policy
 
 - Store all training data in an allocated NEMO2 workspace, never under the home filesystem.
-- Use `/work/classic/fr_xl1014-train` as the workspace root for this project.
+- Use `/work/classic/fr_xl1014-corridor-geometry` as the active workspace root
+  for this project. The former `fr_xl1014-train` allocation is full and must be
+  treated as read-only historical storage.
 - This includes `train_dir`, model checkpoints, milestone and best checkpoints, TensorBoard events, W&B run data, Slurm stdout/stderr, environment caches, rollout data, and generated datasets.
 - Keep the home folder strictly limited to source code and lightweight analysis scripts, reports, and plots.
 - Before submitting a run, verify that every training-output, logging, cache, and temporary-data path resolves into the intended workspace.
@@ -182,7 +184,7 @@
   seed 99 plus terminal checkpoints for seeds 8 and 123. Use a Slurm preflight;
   do not run DMLab telemetry on the login node.
 - Keep raw NPZs, full plot sets, Slurm logs, caches, and temporary files in
-  `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/`.
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/`.
   Copy only lightweight summaries and selected figures into this vault.
 - Report active-only map cosine and peak diversity together with silent units,
   spatial information, and pre-threshold maps. Never infer place-field

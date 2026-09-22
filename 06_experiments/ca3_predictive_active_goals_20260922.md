@@ -2,12 +2,14 @@
 
 ## Status
 
-Implementation and local release preparation are complete. Production is
+Implementation, deployment, and release preparation are complete. The seven
+2M-frame qualification jobs (`8131848`--`8131854`) were submitted on 22
+September 2026 and passed the submitted-manifest audit. Production is
 strictly blocked until the separate seven-arm, seed-99, 2M-frame qualification
 passes the runtime, exact-reload, scalar, calibration-path, and offline telemetry
 audit. Qualification performance does not select or remove production cells.
 
-The tested implementation is commit `be781d99` on
+The deployed implementation is commit `e2de2a8e` on
 `codex/ca3-predictive-active-goals-20260922`. Local release checks passed:
 repository-wide pre-commit, 425 IntrMotiv tests (10 skipped), 41 workflow/batch
 tests, parsing of all 28 generated run configurations, and launcher print-only
@@ -58,11 +60,14 @@ reconstruction of historical confirmation correctness.
 - Qualification: `hpc_runs/studies/ca3_predictive_active_goals_preflight.study.json`
 - Production: `hpc_runs/studies/ca3_predictive_active_goals_production.study.json`
 - Runtime audit: `hpc_runs/audit_ca3_predictive_active_goals_preflight.py`
-- Bulk outputs: `/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/`
+- Active workspace: `/work/classic/fr_xl1014-corridor-geometry`
+- Bulk outputs: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/`
+- Submitted qualification manifest:
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_preflight/e2de2a8e_submitted/jobs.tsv`
 - Qualification StudySpec SHA-256:
-  `933cb2ff050c7ed10ec12fd92d82e35bc5648a9ee38aeacea56b7f85f4475968`
+  `f0845f9b00505716c42fca7e96828a9af561d977697b8be11b251d8a62ac42f9`
 - Production StudySpec SHA-256:
-  `68e20aad1130d1b3b4844d0b57b71cd9ebfed4f9aa47bcd872200e9e2c436506`
+  `606ddb34d037228bd1d0896e42c66f1c791c467ff8a29e1966b76a0ef73ab7b7`
 
 Record the final StudySpec hashes, deployed Git commit, print-only manifest,
 submitted `jobs.tsv`, submission audit, exact-reload certificates, telemetry
