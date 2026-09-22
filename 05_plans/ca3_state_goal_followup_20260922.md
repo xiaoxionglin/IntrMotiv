@@ -1,13 +1,13 @@
 # CA3-state goal follow-up — 22 September 2026
 
-Status: follow-up fixes and deferred refinements for the deployed predictive active-goal design.
+Status: batch release implemented at runtime commit `2e8085316e703b158e5f63de613928fe5f2cdd81`; NEMO2 qualification launch awaits authenticated synchronization.
 
 ## Immediate fixes
 
-1. **Contextual HER success semantics.** DG ID is only the landmark slot/address. A HER goal selected from future raw CA3 state $S_g$ must be achieved with the same contextual recognition semantics as online goals. Keep the slot as a cheap candidate lookup, but do not let slot equality alone define success:
+1. **Contextual HER success semantics.** DG ID is only the landmark slot/address. A HER goal selected from future raw CA3 state $S_g$ must be achieved with the same contextual recognition semantics as online goals. Keep the slot only for replay bookkeeping and decoder construction; it is not an equality constraint on contextual success:
 
 $$
-\operatorname{hit}(S_t,S_g)=[j_t=j_g]\,[\operatorname{sim}(\sigma(S_t),\sigma(S_g))\ge\tau].
+\operatorname{hit}(S_t,S_g)=[\operatorname{DGEvent}(S_t)]\,[\operatorname{sim}(\sigma(S_t),\sigma(S_g))\ge\tau].
 $$
 
 2. **Restore CA3-readout anti-collapse regularization.** The implementation currently has the prediction loss but omitted the planned variance/covariance terms. Restore

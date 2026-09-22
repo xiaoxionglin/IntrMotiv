@@ -185,6 +185,19 @@ keep implementation guidance in the canonical workflow documents linked below.
   execution, and manifest-driven alias telemetry before any 21-run production
   submission. Acceptance is an audited artifact bound to the deployed commit
   and StudySpec hashes; relative qualification performance never prunes cells.
+- **September 22 CA3 follow-up release finding:** An archived graph-planning
+  optimization patch no longer applied cleanly to runtime parent `a28ffee4`.
+  The safe recovery was a semantic port of validated-path and all-edge gain
+  caching, with active masks, generations, evidence, and thresholds retained in
+  cache invalidation. The follow-up release is commit `2e808531`; 441 selected
+  runtime/workflow tests pass with 10 environment skips, and diff-scoped Black,
+  isort, and flake8 checks pass. Repository-wide pre-commit additionally finds
+  a pre-existing `E402` baseline in `intrmotiv_study/render_geometry.py`; do not
+  absorb unrelated formatter churn into a scientific release. Acceptance
+  remains remote tests, print-only and submitted audits, exact reload evidence,
+  and manifest-driven telemetry bound to StudySpec SHAs `2a6bb9f6...` and
+  `68a0911f...`. See the
+  [follow-up record](06_experiments/ca3_state_goal_followup_20260922.md).
 - **Acceptance criteria:** Matching published/canonical commit; focused tests
   pass on NEMO; inactive folders removed only after a fresh job/dependency check
   and checksum comparison; live source folders and all training data preserved.
