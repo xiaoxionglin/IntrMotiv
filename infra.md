@@ -6,6 +6,28 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Study factors were not available as a flat W&B grouping key
+
+- **Evidence:** The CA3 predictive active-goal StudySpec declared one
+  seven-level `architecture` factor, but Sample Factory received only the
+  factor's scientific arguments. W&B therefore required nested grouping over
+  six configuration fields, while the canonical seed-independent condition
+  existed only in the StudySpec and run name.
+- **Impact:** Dashboard grouping was cumbersome and could obscure the intended
+  seven-arm comparison, especially when several scientific parameters jointly
+  define one architecture.
+- **Improvement/status:** Workflow 1.11.0 adds opt-in
+  `training.emit_tracking_identity`, emitting metadata-only `study_id`,
+  `study_condition`, and `study_base` configuration fields. New dashboards can
+  group once by `study_condition` and pair by `seed`. Existing submitted specs
+  remain unchanged to preserve their hashes and audited commands.
+- **Acceptance:** Schema and expansion tests prove opt-in emission, identical
+  condition identity across seeds, rejection of non-boolean configuration,
+  and no command changes for existing studies. The runtime parser accepts the
+  three fields, and local plus synchronized NEMO2 focused tests pass.
+- **Lesson:** Analysis identity should travel with the launched run rather than
+  be reconstructed from scientific parameters or parsed back out of names.
+
 ### Fixed geometry lacked accessible-area telemetry and release-scoped assets
 
 - **Evidence:** Historical coverage divides by decisions but not accessible floor

@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.10.0** (corridor release; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.11.0** (flat tracking identity; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -143,6 +143,26 @@ factor.
   refuses to submit it as a complete study.
 
 New studies should use `sample_factory`.
+
+### Flat tracking identity (1.11.0)
+
+Set `training.emit_tracking_identity` to `true` for new Sample Factory studies.
+The expanded command then records three non-scientific identity fields in the
+saved configuration and W&B config:
+
+- `study_id`: the owning StudySpec;
+- `study_condition`: the rendered, seed-independent condition name;
+- `study_base`: the declared base configuration.
+
+Use `study_condition` for one-level dashboard grouping and `seed` for paired
+replicates. This avoids reconstructing a condition from several scientific
+parameters or creating nested dashboard groups. The fields do not alter model,
+environment, optimizer, or controller behavior.
+
+The option is deliberately opt-in. Enabling it changes rendered commands and
+therefore requires a new StudySpec fingerprint and a fresh print-only review.
+Do not edit an already submitted StudySpec merely to add tracking identity;
+keep its recorded hash and commands immutable.
 
 If a reusable Python base factory cannot be represented as a complete argument
 bundle, `build_run_description(STUDY, experiment_builder=...)` is the supported

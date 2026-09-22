@@ -158,6 +158,36 @@ class StudySpecTests(unittest.TestCase):
             with self.assertRaisesRegex(SpecError, "duplicate flags"):
                 load_study(path)
 
+    def test_tracking_identity_is_opt_in_and_flat_across_seeds(self):
+        raw = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
+        raw["training"]["mode"] = "sample_factory"
+        raw["training"]["emit_tracking_identity"] = True
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "tracking.json"
+            path.write_text(json.dumps(raw), encoding="utf-8")
+            study = load_study(path)
+        runs = study.expand_runs()
+        first_condition = runs[0].condition
+        same_condition = [run for run in runs if run.condition == first_condition]
+        self.assertEqual(len(same_condition), len(study.seeds))
+        for run in same_condition:
+            self.assertIn(f"--study_id={study.study_id}", run.args)
+            self.assertIn(f"--study_condition={first_condition}", run.args)
+            self.assertIn(f"--study_base={run.base}", run.args)
+
+    def test_tracking_identity_does_not_change_existing_studies(self):
+        for run in self.study.expand_runs():
+            self.assertFalse(any(arg.startswith("--study_") for arg in run.args))
+
+    def test_tracking_identity_flag_must_be_boolean(self):
+        raw = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
+        raw["training"]["emit_tracking_identity"] = "yes"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "bad-tracking.json"
+            path.write_text(json.dumps(raw), encoding="utf-8")
+            with self.assertRaisesRegex(SpecError, "emit_tracking_identity must be a boolean"):
+                load_study(path)
+
     def test_supplemental_study_cannot_be_submitted_as_complete(self):
         with self.assertRaisesRegex(RuntimeError, "not a complete Sample Factory"):
             build_run_description(self.study)

@@ -1,11 +1,23 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.10.1` (corridor geometry release; see deployment record below)
+- Implementation: `1.11.0` (flat tracking identity; see deployment record below)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+## 1.11.0 flat tracking identity
+
+New Sample Factory studies can opt into `training.emit_tracking_identity`.
+The workflow then emits `study_id`, `study_condition`, and `study_base` as
+ordinary saved/W&B configuration fields. `study_condition` is the canonical
+flat, seed-independent dashboard grouping key. Existing studies remain
+byte-for-byte command compatible unless they explicitly enable the option.
+
+The IntrMotiv runtime registers these fields as metadata-only arguments; they
+do not participate in model or environment behavior. A changed StudySpec must
+still be revalidated and reviewed before submission.
 
 
 ## 1.10.1 scalar-history export
