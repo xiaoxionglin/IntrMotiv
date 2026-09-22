@@ -36,17 +36,35 @@ Report positive/background similarity distributions, overlap or ROC-style diagno
 
 Separate same-identity refinement from semantic reset. Confirmed same-landmark observations may refine the anchor while preserving graph edges and generation. Clear incident graph evidence only when there is evidence that the slot identity itself changed.
 
-Compare two minimal representations:
-- small raw-CA3 exemplar set, with recognition by any exemplar or a medoid;
-- one slowly updated prototype, preferably in predictive-signature or latent space rather than an unconstrained average raw CA3 history.
+Use a clean two-condition comparison:
+
+1. **FIXED_ANCHOR.** Keep the first qualified raw CA3 anchor A_j unchanged after activation. This is the stability control.
+2. **EMA_SIGNATURE_ANCHOR.** Keep A_j as one actually observed raw CA3 state, but maintain an exponential-moving-average predictive-signature prototype
+
+   mu_j <- (1 - alpha) mu_j + alpha sigma(S_t)
+
+   over confirmed same-landmark occurrences. Do not average raw CA3 states. A confirmed candidate S_t may replace A_j only when its predictive signature is closer to mu_j than the incumbent's by a small margin or sustained criterion. Such refinement preserves graph edges and anchor generation because semantic identity has not changed.
+
+This gives gradual prototype refinement without ever commanding a synthetic/nonexistent CA3 state. A true semantic reset remains a separate rare operation that increments generation and clears incident graph evidence.
 
 The intended semantics remain one landmark per DG slot; this is not a contextual-clone proposal.
 
 ## Future refinement: simultaneous DG activations
 
-Compare:
-1. strongest/dominant DG activation;
-2. unique contextual match: evaluate every active selectable slot and accept only if exactly one passes threshold;
-3. only if needed, best contextual score plus a margin.
+Preferred rule if it remains a small local change:
+
+1. collect all currently active and selectable DG slots;
+2. evaluate contextual recognition for each active slot;
+3. accept the landmark if exactly one active slot passes its contextual threshold;
+4. if zero or multiple slots pass, mark the event ambiguous and do not update landmark/graph evidence.
+
+This is less restrictive than raw exclusivity: several DG units may be active, but one unambiguous contextual landmark can still be recognized.
+
+Implementation priority:
+- **preferred:** unique contextual match, because the existing action-probe signature and recognition threshold can be reused and the current contextual_activity path already computes the needed score;
+- **fallback if the patch ceases to be local/simple:** strongest/dominant DG activation, matching the historical visit_direct convention;
+- **later only if abstention is excessive:** best contextual score with an explicit margin over the runner-up.
+
+Keep this choice configurable so strongest-DG and unique-contextual-match can be compared directly.
 
 Historical context: legacy visit_direct used dominant/argmax recognition. Later frontier_direct/frontier_waypoint and the frozen DDQN/HER parent used exclusive-positive landmark recognition. Treat this as a precision-versus-coverage ablation rather than assuming either rule is universally best.
