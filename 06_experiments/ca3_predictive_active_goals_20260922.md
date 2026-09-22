@@ -2,21 +2,29 @@
 
 ## Status
 
-Implementation, deployment, and release preparation are complete. The seven
-2M-frame qualification jobs (`8131848`--`8131854`) were submitted on 22
-September 2026 and passed the submitted-manifest audit. Production is
-strictly blocked until the separate seven-arm, seed-99, 2M-frame qualification
-passes the runtime, exact-reload, scalar, calibration-path, and offline telemetry
-audit. Qualification performance does not select or remove production cells.
-The task heartbeat `CA3 release gate and production launch` monitors this gate
-every 30 minutes and is authorized to submit the fresh 21-run production matrix
-only after every declared qualification check passes.
+Implementation, deployment, and release preparation are complete. The first
+qualification wave (`8131848`--`8131854`) was invalidated and cancelled after
+the 2M snapshot exposed an implicit online-spatial default that still targeted
+the full, historical workspace. No checkpoint or result from that wave is
+eligible for qualification or production continuation.
 
-The deployed implementation is commit `e2de2a8e` on
+Commit `977ca1e0` makes both spatial roots explicit, extends the canonical
+submission audit to require and validate them whenever online spatial telemetry
+is enabled, and gives the fresh qualification a distinct `preflight_r2`
+namespace. The corrected seven-job wave (`8131982`--`8131988`) was submitted on
+22 September 2026 and passed the canonical submitted-manifest audit. Exact
+checkpoint-reload jobs (`8131991`--`8131997`) are dependency-bound one-to-one to
+those runs. Production remains blocked until runtime, exact-reload, scalar,
+calibration-path, and offline telemetry gates all pass. Qualification
+performance does not select or remove production cells. The superseded task
+heartbeat is paused while this release is actively supervised.
+
+The deployed implementation is commit `977ca1e0` on
 `codex/ca3-predictive-active-goals-20260922`. Local release checks passed:
-repository-wide pre-commit, 425 IntrMotiv tests (10 skipped), 41 workflow/batch
-tests, parsing of all 28 generated run configurations, and launcher print-only
-review for both matrices.
+repository-wide pre-commit, the focused IntrMotiv and online-spatial tests, 38
+workflow/batch/direct tests, parsing of all 28 generated run configurations,
+and launcher print-only review for both matrices. The same workflow tests and
+both submitted-manifest audits pass in the authoritative NEMO2 checkout.
 
 ## Scientific matrix
 
@@ -66,11 +74,11 @@ reconstruction of historical confirmation correctness.
 - Active workspace: `/work/classic/fr_xl1014-corridor-geometry`
 - Bulk outputs: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/`
 - Submitted qualification manifest:
-  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_preflight/e2de2a8e_submitted/jobs.tsv`
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_preflight_r2/977ca1e0_submitted/jobs.tsv`
 - Qualification StudySpec SHA-256:
-  `f0845f9b00505716c42fca7e96828a9af561d977697b8be11b251d8a62ac42f9`
+  `2f27ab21075d753efb16aefdc75256b8f6e9915987e69bb7d8819ea537a85b7b`
 - Production StudySpec SHA-256:
-  `606ddb34d037228bd1d0896e42c66f1c791c467ff8a29e1966b76a0ef73ab7b7`
+  `74346c29bb7e065082e1cf6682943f0b0f366924c17fb11d5d55ac16da2467f5`
 
 Record the final StudySpec hashes, deployed Git commit, print-only manifest,
 submitted `jobs.tsv`, submission audit, exact-reload certificates, telemetry

@@ -25,6 +25,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   as filesystem-wide exhaustion. The IntrMotiv launcher and project policy now
   use this allocation by default; the CA3 predictive active-goal release copied
   its required Python runtime there and passed zero-leakage print-only audits.
+  A first CA3 qualification wave nevertheless reached its terminal snapshot
+  with an omitted online-spatial override and inherited the old full workspace.
+  The canonical submission audit now requires explicit spatial output and
+  workspace roots whenever online spatial telemetry is enabled, validates both
+  against the StudySpec workspace, and has a regression test for this leak.
   Native qualification passed (8109095). First training attempts exposed the
   previously documented long-TMPDIR shared-memory failure; stopped outputs are
   archived, and the template now uses short paths plus a fail-fast socket probe.
