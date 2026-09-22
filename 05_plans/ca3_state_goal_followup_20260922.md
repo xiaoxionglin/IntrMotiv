@@ -68,3 +68,326 @@ Implementation priority:
 Keep this choice configurable so strongest-DG and unique-contextual-match can be compared directly.
 
 Historical context: legacy visit_direct used dominant/argmax recognition. Later frontier_direct/frontier_waypoint and the frozen DDQN/HER parent used exclusive-positive landmark recognition. Treat this as a precision-versus-coverage ablation rather than assuming either rule is universally best.
+
+## Downstream-agent implementation handoff
+
+Implement this on top of the deployed CA3 predictive active-goal branch. Keep the current production matrix intact; do not mutate running jobs. The corrected follow-up should be a fresh namespace/checkpoint lineage.
+
+### A. Urgent correctness fixes — required in every follow-up arm
+
+#### A1. Make HER goal identity contextual, not DG-ID-only
+
+Current bug: stored HER passes the raw CA3 endpoint to the worker as `virtual_goal_state`, but `controller_stored_replay.evaluate_pairs()` still defines HER start/hit from the DG slot only. This defeats the purpose of the CA3-state goal.
+
+Canonical semantics for `ca3_worker_goal_mode=state_readout` + contextual goals:
+
+- `virtual_goal_state` (raw CA3 snapshot) is the semantic HER goal.
+- `virtual_goal` remains only a slot/address/bookkeeping field needed by existing replay/Q interfaces. It must not define success.
+- A contextual HER goal is achieved by comparing the current/successor CA3 state directly with the stored goal CA3 state under the same predictive-signature metric and calibrated recognition threshold used online.
+- Do not silently fall back to DG-ID success when calibration is unavailable.
+
+Factor the similarity calculation so online graph recognition and HER call the same helper. Prefer a helper in `ca3_state_readout.py`, conceptually:
+
+    contextual_similarity(readout, predictor, left_ca3, right_ca3)
+
+which computes cosine similarity between normalized `action_probe_signature(...)` vectors.
+
+For stored HER:
+
+    start_hit = has_DG_event(S_t) and sim(S_t, S_g) >= tau
+    next_hit  = has_DG_event(S_{t+1}) and sim(S_{t+1}, S_g) >= tau
+
+where `S_g = virtual_goal_state` and `tau = policy_graph.recognition_threshold`. Do NOT additionally require `j_t == virtual_goal` in the state-readout contextual mode. Preserve the old ID-only logic exactly for `target_id` modes.
+
+`hindsight_examples()` should continue to choose a real future replay state and store its raw CA3 snapshot. For the contextual mode, a future endpoint only needs a real worker state and at least one DG event. If multiple DG units are active at that endpoint, use the strongest active DG only as the temporary slot/address; the endpoint CA3 state remains the actual goal identity.
+
+Terminal contract: do not fabricate contextual CA3 from the zero-filled terminal successor used by stored replay. A terminal state may be a contextual HER target only if a certified real successor CA3 is available. Otherwise exclude/reject that contextual HER transition/endpoint with an explicit reason. The current state-readout path already does not add `terminal_dg` as a HER goal; keep that conservative behavior.
+
+Also fix the `her_start_already_achieved` check: in contextual mode it must use the contextual goal comparison, not `canonical(core,row)[virtual_goal] > 0`.
+
+Required regression tests:
+
+1. Two physically/contextually different CA3 states share the same active DG slot: goal=A, successor=B. ID matches but contextual similarity is below threshold -> HER hit must be false.
+2. Goal=A, successor=A-like contextual state -> HER hit true.
+3. Current state has same DG slot as goal but wrong context -> must NOT reject as `her_start_already_achieved`.
+4. `target_id` mode preserves the historical ID-only behavior.
+5. Missing/unqualified contextual calibration never falls back to ID-only success.
+
+#### A2. Restore the planned variance/covariance anti-collapse loss
+
+Add two config coefficients in `custom_params.py`:
+
+    --ca3_state_readout_var_coeff=0.1
+    --ca3_state_readout_cov_coeff=0.01
+
+Implement the already-planned VICReg-like terms in `ca3_state_readout.py`. For valid latent states `z`:
+
+    zc = z - mean(z, dim=0)
+    C  = zc.T @ zc / max(B-1, 1)
+    L_var = mean_i relu(1 - sqrt(C_ii + eps))^2
+    L_cov = sum_{i!=j} C_ij^2 / (d_z (d_z-1))
+
+and train with
+
+    L_state = L_pred + lambda_var L_var + lambda_cov L_cov.
+
+Compute var/cov over valid current CA3 states, not the horizon-expanded prediction-window rows if practical, so early states are not overweighted merely because they generate more horizons. CA3 input remains detached: this loss owns W/readout only, not DG/CA3.
+
+Extend `ReadoutPrediction` and learner telemetry with at least:
+
+- `ca3_readout_var_loss`
+- `ca3_readout_cov_loss`
+- per-dimension latent standard-deviation summary, at least mean/min
+
+Keep the existing state/action shuffle diagnostics. Var/cov prevents collapse; state-shuffle delta tests whether the predictor actually uses z. These are different checks.
+
+Required tests:
+
+1. Constant z gives positive variance penalty.
+2. Unit-variance decorrelated synthetic z gives near-zero var/cov penalties.
+3. Loss backpropagates into W but not detached CA3/DG.
+4. Zero/one-sample valid batches are finite and do not NaN.
+
+### B. Useful follow-up changes — keep small and configurable
+
+#### B1. Fixed anchor versus EMA-signature-refined anchor
+
+Keep legacy `champion` for checkpoint/config compatibility, but do not use it in the new primary follow-up matrix. Add an `ema` anchor mode alongside existing `fixed`.
+
+Both modes always command a REAL observed raw CA3 anchor `A_j`; never command an averaged CA3 history.
+
+FIXED:
+
+- first qualified/confirmed `A_j` remains unchanged;
+- graph identity/generation and edges remain stable.
+
+EMA:
+
+- store one real raw CA3 anchor `A_j` exactly as today;
+- maintain a normalized EMA predictive-signature prototype `mu_j` from confirmed same-landmark observations;
+- default starting values for the first batch: `alpha=0.05`, minimum 8 confirmed observations before refinement, cosine-improvement margin `0.01`; keep all three configurable.
+
+Conceptually:
+
+    s = normalize(signature(S_candidate))
+    mu_j <- normalize((1-alpha) mu_j + alpha s)
+
+After the minimum confirmation count, compare current-model signatures:
+
+    q_candidate = cos(signature(S_candidate), mu_j)
+    q_anchor    = cos(signature(A_j),        mu_j)
+
+and if
+
+    q_candidate > q_anchor + margin
+
+replace only the stored raw anchor:
+
+    A_j <- S_candidate.
+
+This is SAME-IDENTITY REFINEMENT. It must NOT:
+
+- clear graph edges;
+- increment anchor generation;
+- deactivate the goal;
+- reset visit/control evidence.
+
+Reserve the existing destructive reset/invalidation path for true semantic reassignment of a DG slot, not ordinary prototype refinement.
+
+Representation-drift caution: W and predictor continue learning, so a signature EMA contains samples from slightly different representation snapshots. Keep the EMA local/recent. When `recalibrate()` changes the recognition model/threshold epoch, it is acceptable for V1 to reinitialize each valid `mu_j` from the CURRENT signature of its real anchor and then resume EMA updates. Do not store a long-lived stale prototype across large readout drift without a test.
+
+Checkpoint all new EMA buffers/counters and cover exact reload.
+
+Useful telemetry:
+
+- anchor refinements (non-destructive)
+- mean anchor age
+- mean candidate-vs-anchor centrality gain
+- per-node confirmation count
+- destructive semantic resets separately from refinements
+
+#### B2. Multi-activation recognition: unique contextual match, with dominant fallback
+
+Add a config such as:
+
+    --ca3_context_candidate_mode={exclusive,dominant,unique_contextual}
+
+Preserve `exclusive` for legacy reproduction.
+
+`dominant`: choose the strongest positive DG activation, then require that slot's contextual anchor similarity to pass tau. If it fails, emit no landmark.
+
+`unique_contextual` (preferred if the patch remains local):
+
+1. collect every active DG slot that is currently selectable;
+2. compute contextual similarity to that slot's anchor;
+3. retain candidates with similarity >= tau;
+4. if exactly one candidate passes, recognize it;
+5. if zero or >1 pass, emit no landmark/graph event.
+
+This permits multiple raw DG activations while still demanding one unambiguous semantic landmark. It reuses the existing anchor/signature/threshold machinery and should stay inside `PolicyControllableGraph.contextual_activity()`.
+
+Do not add a runner-up margin in this batch. Only add best-score-plus-margin later if the unique rule abstains too often.
+
+Required tests:
+
+1. two raw DG units active, only one contextual match -> recognize that one;
+2. two active and both pass -> abstain;
+3. strongest raw activation fails but weaker activation is the sole contextual match -> `unique_contextual` recognizes the weaker one, while `dominant` abstains;
+4. no active selectable slot -> no hit;
+5. legacy `exclusive` behavior unchanged.
+
+Telemetry needed to interpret this factor:
+
+- raw multi-activation fraction;
+- fraction of multi-active observations rescued by a unique contextual match;
+- contextual zero-match fraction;
+- contextual multi-match/ambiguous fraction;
+- accepted contextual-event fraction.
+
+#### B3. Recognition threshold calibration diagnostics — diagnostic only
+
+Do NOT add negative training in this follow-up. Keep positive-only threshold calibration unchanged for the learning mechanism.
+
+Add diagnostics named clearly under recognition-threshold calibration. At minimum record/compute:
+
+- positive similarity q10/q50/q90;
+- cross-anchor/background similarity q50/q90/q99;
+- fraction of background comparisons above the current tau;
+- pairwise active-anchor collision fraction;
+- offline coordinate-verified false-accept rate where pose is available only to the evaluator.
+
+Background samples may include cross-anchor pairs, temporally separated same-DG occurrences, and different-DG occurrences. Treat these as diagnostics, not automatically valid negatives.
+
+#### B4. Improve shuffle diagnostic if trivial
+
+Current `latent.roll(1,0)` can pair temporally adjacent/related windows. If easy, replace it with a permutation that breaks stream/temporal locality while preserving horizon/action bookkeeping. This is useful telemetry, not a blocker for the corrected batch.
+
+### C. Follow-up batch: small 2 x 2 factorial
+
+Use H32 for the follow-up because the current production batch already contains the H16/H32 comparison and H32 is the intended long-context condition. Do not duplicate the seven-arm architecture sweep.
+
+All four arms MUST share:
+
+- contextual HER fix A1;
+- var/cov fix A2;
+- `ca3_state_readout_mode=worker`;
+- `ca3_state_readout_horizon=32`;
+- action conditioning ON;
+- `ca3_worker_goal_mode=state_readout`;
+- `ca3_graph_contextual_hits=True`;
+- F64, navigation-eight, stored DDQN+HER, and the same production controller/replay budgets;
+- same positive calibration settings unless calibration itself is the explicit later experiment.
+
+Factor 1 — anchor update:
+
+- `FIXED`: `ca3_graph_anchor_mode=fixed`;
+- `EMA`: new `ca3_graph_anchor_mode=ema` with alpha/min-confirmations/margin defaults above.
+
+Factor 2 — simultaneous-DG candidate rule:
+
+- `DOM`: strongest-positive DG candidate + contextual threshold;
+- `UNIQUE`: unique contextual match among all active selectable slots.
+
+Primary four cells:
+
+1. `CTX_FIXED_DOM_H32`
+2. `CTX_FIXED_UNIQUE_H32`
+3. `CTX_EMA_DOM_H32`
+4. `CTX_EMA_UNIQUE_H32`
+
+Use seeds 8, 99, 123 -> 12 production runs. This directly estimates:
+
+- EMA refinement effect averaged over recognition rule;
+- unique-context recognition effect averaged over anchor rule;
+- whether their interaction matters.
+
+Do not add `champion` as a fifth primary cell unless resources are abundant; the running September-22 production already documents that legacy mechanism, and the corrected fixed anchor is the cleaner stability control.
+
+Mechanical release gate: one short qualification run per cell (seed 99 is sufficient) must verify finite loss/telemetry, contextual HER actually exercises true/false contextual hits, calibration becomes ready, EMA buffers checkpoint/reload when applicable, and multi-active recognition paths are exercised. This gate is for correctness only, not condition selection. Prepare all 12 production configs in parallel; release them after the four-cell mechanical gate passes.
+
+### D. Required interpretation metrics for the follow-up
+
+Keep the existing coverage/grounded-controllability/controller outcomes, and add the following because they directly test the new fixes:
+
+Representation:
+
+- prediction loss, active/zero loss;
+- var loss, cov loss;
+- latent std min/mean;
+- state-shuffle delta, action-shuffle delta.
+
+HER semantics:
+
+- contextual HER candidate count;
+- contextual HER positive-hit count/rate;
+- contextual HER rejected-same-DG-wrong-context count;
+- `her_start_already_achieved` contextual count;
+- missing-calibration/missing-successor rejection counts.
+
+Recognition:
+
+- accepted contextual-event rate;
+- raw multi-activation rate;
+- unique-match rescue rate;
+- zero-match and multi-match ambiguity rates;
+- recognition tau and positive/background calibration diagnostics.
+
+Anchor stability:
+
+- registrations;
+- confirmations;
+- non-destructive refinements;
+- destructive resets/replacements;
+- active-goal count;
+- graph evidence lost due to destructive reset (should be zero for ordinary EMA refinement).
+
+### E. Task-general transfer mode — implement in parallel, do not block the no-reward follow-up
+
+The existing `transfer_scope={none,dg,policy}` predates this architecture. Add a `task_general`/`world_model` transfer mode for the downstream physical-reward experiment.
+
+Design principle: load the whole compatible task-general navigation system and explicitly reset task-specific state, rather than maintaining another fragile allow-list that silently omits new modules.
+
+For a matched navigation-eight downstream task, retain at least:
+
+- DG projection + BN state;
+- fixed CA3 configuration;
+- state readout W;
+- innovation predictor;
+- contextual anchors, recognition calibration, active masks and graph fast weights;
+- worker decoder/FiLM;
+- goal-conditioned controller Q/navigation policy.
+
+Reset/do not inherit:
+
+- optimizer state and training progress;
+- replay buffer and episode/RNN transient state;
+- exploration/annealing counters unless explicitly part of the test;
+- downstream external-reward binding/head/value state that is task-specific.
+
+Initialize any target-Q copy from the transferred online-Q state rather than importing an arbitrary stale lag unless the transfer experiment explicitly studies optimizer/target-state continuation.
+
+Keep the action interface identical to pretraining for the first transfer experiment. The historical five-action fixed-reward pilot is not a clean test of this new task-general world model.
+
+Add an inventory test: a newly added task-general module must fail loudly if omitted from `task_general` transfer, instead of being silently left fresh.
+
+### F. Explicit non-goals for this patch
+
+- Do not redesign the H16/H32 predictor or probe bank now.
+- Do not add negative contrastive training for recognition.
+- Do not add contextual clones/multiple semantic landmarks per DG slot.
+- Do not re-enable DG orthogonal recruitment for this batch.
+- Do not let controller/HER gradients enter W; preserve the current separated objective.
+- Do not change graph planning, frontier scoring, or reward scale while testing these fixes.
+
+### G. Completion criteria before launch
+
+The downstream agent should consider the patch ready only when:
+
+1. contextual HER no longer uses DG-ID equality for state-readout goal success/start-achieved logic;
+2. var/cov losses are finite, logged, and update W only;
+3. fixed and EMA anchor modes checkpoint/reload exactly;
+4. EMA refinement preserves graph evidence/generation;
+5. dominant and unique-context candidate modes pass the multi-activation unit tests;
+6. legacy target-ID/exclusive configurations remain reproducible;
+7. all four follow-up StudySpec cells parse and pass the short runtime/reload audit;
+8. no running September-22 production namespace/checkpoint is modified.
