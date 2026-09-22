@@ -51,7 +51,8 @@
     "selection_window": "User-added F64 preflight; terminal summary at approximately 2M frames, not sustained ranking",
     "architecture_contract": "F64 is capacity; online selectors use confirmed active_goal_mask; exact HER endpoints remain unrestricted",
     "readout": "bias-free 4544->16; predictor H16/H32, hidden 128, Softplus; Smooth-L1 active/zero 1.0/0.1",
-    "calibration": "current-W within-occurrence positive cosine q10; <=512 pairs; >=256; every 32768 accepted decisions",
+    "calibration": "current-model within-occurrence predictive positives: action-probe signature q10 plus realized-future absolute/excess q90; <=512 pairs; >=256; every 32768 accepted decisions",
+    "context_recognition": "No privileged coordinates: realized action-conditioned futures qualify anchors; fixed all-action probes at horizons 1,H/2,H provide causal online signatures",
     "source_parent": "controller_cpu_f64_her.study.json",
     "source_parent_workflow_version": "1.8.1"
   },

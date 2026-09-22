@@ -7,6 +7,38 @@
 
 > **Implementation note for downstream agents:** all code in this document is conceptual pseudocode. Do not copy it mechanically or introduce parallel infrastructure just to match the snippets. First inspect the current IntrMotiv/Sample Factory data flow, tensor layouts, replay interfaces, optimizer structure, and naming conventions, then implement the same mathematical mechanism in the smallest way that fits the existing codebase.
 
+### September 22 implementation decision: predictive context without privileged position
+
+Qualified contextual goals do not use coordinates, spatial distance, or raw-readout
+cosine as their identity criterion. Context is established in two stages because a
+realized future is unavailable at the instant an online controller must recognize a
+landmark:
+
+1. **Registration, confirmation, and replacement use realized futures.** For an
+   occurrence with a complete same-stream, same-episode prediction window, evaluate
+   both the stored anchor and the candidate on the candidate's identical executed
+   action prefix and future DG injections. Confirmation requires both the anchor's
+   absolute prediction loss and its anchor-minus-candidate excess loss to fall below
+   current-model thresholds calibrated from known-positive within-occurrence pairs.
+2. **Online recognition uses a causal predicted-future signature.** Evaluate the
+   anchor and current CA3 state under the same fixed action-probe bank: every discrete
+   action repeated to horizons $1$, $H/2$, and $H$. Concatenate the predicted future
+   DG vectors and compare those signatures using the lower-tail threshold from the
+   same positive calibration set. This uses only the learned action-conditioned
+   future model and is available before choosing the next physical action.
+
+The calibrator retains at most 512 raw positive records, requires 256, and recomputes
+the signature, absolute-loss, and excess-loss thresholds under the current $W$ and
+predictor every 32,768 accepted decisions. Coordinates are neither stored nor read by
+this mechanism. If calibration, a complete qualification window, or a causal online
+signature is unavailable, the occurrence cannot activate or hit a contextual goal;
+the manager follows the shared no-goal exploration path.
+
+This split avoids the noncausal alternative of delaying every target hit by $H$
+steps, which would change reward timing, DDQN transition boundaries, and route
+control. The fixed probe bank is intentionally domain-neutral and introduces no
+spatial assumptions.
+
 ## 1. Goal
 
 Learn a compact state/goal representation from the existing DG→CA3 memory without ground-truth coordinates, without adding a second recurrent dynamics model, and without changing DG or CA3 in the first version.
