@@ -197,13 +197,18 @@ Set the common locations on NEMO2:
 ```bash
 REPO=/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam
 PY=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
+WORKSPACE_ROOT=/work/classic/fr_xl1014-train
 ROOT=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/<analysis_name>
 ```
 
 The submitter is print-only by default. It validates the manifest, selected
 rows, checkpoints, run directories, unique labels, and workspace paths, then
 prints one independent `sbatch` command per row. Review this plan before adding
-`--submit`.
+`--submit`. Its historical default workspace remains
+`/work/classic/fr_xl1014-train`; when a study uses another allocation, pass
+`--workspace-root "$WORKSPACE_ROOT"`. The submitter propagates that exact root
+to the compute-node worker so checkpoint, output, cache, and temporary-path
+guards agree.
 
 Run one representative checkpoint as a cheap preflight. The established
 telemetry resource profile is 4 CPUs and 16 GB:
@@ -213,6 +218,7 @@ cd "$REPO"
 
 PYTHONPATH=. "$PY" \
   sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --workspace-root "$WORKSPACE_ROOT" \
   --manifest "$ROOT/analysis_manifest.tsv" \
   --output-dir "$ROOT/preflight" \
   --row <representative_row> \
@@ -222,6 +228,7 @@ PYTHONPATH=. "$PY" \
 # After reviewing the single printed sbatch command:
 PYTHONPATH=. "$PY" \
   sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --workspace-root "$WORKSPACE_ROOT" \
   --manifest "$ROOT/analysis_manifest.tsv" \
   --output-dir "$ROOT/preflight" \
   --row <representative_row> \
@@ -237,6 +244,7 @@ ordinary-job plan:
 ```bash
 PYTHONPATH=. "$PY" \
   sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --workspace-root "$WORKSPACE_ROOT" \
   --manifest "$ROOT/analysis_manifest.tsv" \
   --output-dir "$ROOT" \
   --row 0-<last_row> \
@@ -246,6 +254,7 @@ PYTHONPATH=. "$PY" \
 # Submit only after the printed plan is correct:
 PYTHONPATH=. "$PY" \
   sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --workspace-root "$WORKSPACE_ROOT" \
   --manifest "$ROOT/analysis_manifest.tsv" \
   --output-dir "$ROOT" \
   --row 0-<last_row> \

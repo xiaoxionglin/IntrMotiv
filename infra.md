@@ -29,7 +29,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   with an omitted online-spatial override and inherited the old full workspace.
   The canonical submission audit now requires explicit spatial output and
   workspace roots whenever online spatial telemetry is enabled, validates both
-  against the StudySpec workspace, and has a regression test for this leak.
+  against the StudySpec workspace, and has a regression test for this leak. The
+  subsequent offline gate found the ordinary-job telemetry submitter still had
+  a fixed old-workspace guard; it now accepts and propagates an explicit
+  workspace root to the worker. A bounded contextual row also caught worker-only
+  spatial diagnostics being scoped under contextual output; the evaluator now
+  computes them only when worker activity exists. Run checkpoint-heavy release
+  audits as compute jobs rather than loading multi-gigabyte checkpoints on the
+  login node.
   Native qualification passed (8109095). First training attempts exposed the
   previously documented long-TMPDIR shared-memory failure; stopped outputs are
   archived, and the template now uses short paths plus a fail-fast socket probe.

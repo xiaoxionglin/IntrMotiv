@@ -12,19 +12,27 @@ Commit `977ca1e0` makes both spatial roots explicit, extends the canonical
 submission audit to require and validate them whenever online spatial telemetry
 is enabled, and gives the fresh qualification a distinct `preflight_r2`
 namespace. The corrected seven-job wave (`8131982`--`8131988`) was submitted on
-22 September 2026 and passed the canonical submitted-manifest audit. Exact
-checkpoint-reload jobs (`8131991`--`8131997`) are dependency-bound one-to-one to
-those runs. Production remains blocked until runtime, exact-reload, scalar,
-calibration-path, and offline telemetry gates all pass. Qualification
-performance does not select or remove production cells. The superseded task
-heartbeat is paused while this release is actively supervised.
+22 September 2026 and passed the canonical submitted-manifest audit. All seven
+exact checkpoint-reload jobs (`8131991`--`8131997`) passed. The full 10k-decision
+offline telemetry jobs (`8132138`--`8132144`) also passed and emitted seven
+place-field artifacts plus the three required contextual-alias diagnostics.
+The compute-node release audit (`8132245`) passed every arm without errors.
 
-The deployed implementation is commit `977ca1e0` on
+The fresh 21-run production matrix is online under jobs `8132293`--`8132301`
+and `8132306`--`8132317`; all 21 were running with clean startup logs when this
+record was updated. Qualification performance did not select or remove cells,
+and no qualification checkpoint was continued into production. The superseded
+task heartbeat remains paused.
+
+The deployed implementation is commit `cdf9ffe9` on
 `codex/ca3-predictive-active-goals-20260922`. Local release checks passed:
 repository-wide pre-commit, the focused IntrMotiv and online-spatial tests, 38
 workflow/batch/direct tests, parsing of all 28 generated run configurations,
 and launcher print-only review for both matrices. The same workflow tests and
-both submitted-manifest audits pass in the authoritative NEMO2 checkout.
+both submitted-manifest audits pass in the authoritative NEMO2 checkout. The
+post-training evaluator fixes make its workspace guard explicit (`04845bff`)
+and keep worker spatial diagnostics conditional on worker data (`cdf9ffe9`);
+17 focused evaluator tests pass locally and on NEMO2.
 
 ## Scientific matrix
 
@@ -75,14 +83,18 @@ reconstruction of historical confirmation correctness.
 - Bulk outputs: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/`
 - Submitted qualification manifest:
   `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_preflight_r2/977ca1e0_submitted/jobs.tsv`
+- Exact-reload certificates:
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/ca3_predictive_active_goals_20260922_preflight_r2/reload_certificates_977ca1e0/`
+- Offline telemetry and submission record:
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/ca3_predictive_active_goals_20260922_preflight_r2/offline_telemetry_977ca1e0/`
+- Passing qualification audit:
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_preflight_r2/977ca1e0_submitted/qualification_audit.json`
+- Submitted production manifest and audit:
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/ca3_predictive_active_goals_20260922_production/cdf9ffe9_submitted/`
 - Qualification StudySpec SHA-256:
   `2f27ab21075d753efb16aefdc75256b8f6e9915987e69bb7d8819ea537a85b7b`
 - Production StudySpec SHA-256:
   `74346c29bb7e065082e1cf6682943f0b0f366924c17fb11d5d55ac16da2467f5`
-
-Record the final StudySpec hashes, deployed Git commit, print-only manifest,
-submitted `jobs.tsv`, submission audit, exact-reload certificates, telemetry
-manifest, and qualification audit here after each corresponding gate completes.
 
 ## Reusable execution lesson
 
@@ -91,3 +103,8 @@ preflight declared unreachable production checkpoints, pooled architectures in
 analysis, reused an old W&B group, and omitted the new scalar namespace. For a
 new architectural batch, validate the runtime telemetry contract and generated
 analysis cells before treating a syntactically valid StudySpec as releasable.
+The release also showed that every launcher in the evaluation chain needs the
+same explicit workspace contract: training-path validation alone cannot catch a
+legacy evaluator submitter guard. Run one bounded contextual telemetry row before
+the full sweep, and run checkpoint-heavy release audits on a compute node rather
+than the login host.
