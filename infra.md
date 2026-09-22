@@ -16,15 +16,18 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** Dashboard grouping was cumbersome and could obscure the intended
   seven-arm comparison, especially when several scientific parameters jointly
   define one architecture.
-- **Improvement/status:** Workflow 1.11.0 adds opt-in
-  `training.emit_tracking_identity`, emitting metadata-only `study_id`,
+- **Improvement/status:** Workflow 1.11.0 emits metadata-only `study_id`,
   `study_condition`, and `study_base` configuration fields. New dashboards can
-  group once by `study_condition` and pair by `seed`. Existing submitted specs
-  remain unchanged to preserve their hashes and audited commands.
-- **Acceptance:** Schema and expansion tests prove opt-in emission, identical
-  condition identity across seeds, rejection of non-boolean configuration,
-  and no command changes for existing studies. The runtime parser accepts the
-  three fields, and local plus synchronized NEMO2 focused tests pass.
+  group once by `study_condition` and pair by `seed`. The behavior is default
+  for studies declaring 1.11 or later and configurable with
+  `training.emit_tracking_identity`. Existing submitted specs remain unchanged
+  to preserve their hashes and audited commands.
+- **Acceptance:** Schema and expansion tests prove the versioned default and
+  explicit override, identical condition identity across seeds, rejection of
+  non-boolean configuration, and no command changes for existing studies. The
+  runtime parser accepts the three fields. Local focused tests pass; synchronize
+  and rerun them in an isolated NEMO2 checkout before using workflow 1.11 for a
+  cluster launch.
 - **Lesson:** Analysis identity should travel with the launched run rather than
   be reconstructed from scientific parameters or parsed back out of names.
 

@@ -195,7 +195,9 @@ class StudySpec:
 
         common_args = _strings(training.get("common_args", []), "training.common_args")
         seed_arg = training.get("seed_arg", "--seed={seed}")
-        emit_tracking_identity = training.get("emit_tracking_identity", False)
+        emit_tracking_identity = training.get(
+            "emit_tracking_identity", declared_semver >= (1, 11, 0)
+        )
         if not isinstance(emit_tracking_identity, bool):
             raise SpecError("training.emit_tracking_identity must be a boolean")
         run_name_template = training.get("run_name_template")
