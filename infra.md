@@ -312,6 +312,22 @@ keep implementation guidance in the canonical workflow documents linked below.
   a declared time bound, and a resumed collection does not reread already
   validated event histories.
 
+### Slurm GPU resources must be visible in print-only artifacts — completed locally, 2026-09-22
+
+- **Evidence:** The CA3 follow-up L40S print-only scripts omitted a GPU directive even
+  though the launcher added `--gres=gpu:1` only when it later invoked `sbatch`.
+- **Impact:** The saved script and ordinary print-only review could not prove that a
+  GPU was requested; a submission audit checked commands and workspace paths but not
+  this scheduler-side resource.
+- **Improvement:** The shared launcher now exposes a conditional `GPU_DIRECTIVE`, the
+  canonical NEMO2 template renders it, and CPU submission no longer emits
+  `--gres=gpu:0`. A focused launcher test covers the rendered directive.
+- **Status and outcome:** Nineteen focused launcher, StudySpec, and CA3 runtime tests
+  pass remotely. The regenerated L40S scripts contain `#SBATCH --gres=gpu:1`, and
+  jobs `8145197`–`8145200` were submitted with the same explicit CLI request.
+- **Acceptance criteria:** Print-only and submitted artifacts agree on GPU count;
+  CPU scripts omit GPU resources; the StudySpec submission audit passes.
+
 For each finding, record:
 
 - **Title and status:** proposed, in progress, blocked, or completed.
