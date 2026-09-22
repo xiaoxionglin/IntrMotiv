@@ -2,45 +2,45 @@
 
 ## Release state
 
-The corrected four-cell CA3 state-goal factorial is in fresh release qualification on both CPU and NVIDIA L40S nodes. Production remains mechanically gated: qualification performance does not select cells, but correctness, exact reload, required telemetry, and usable throughput must pass before either twelve-run production copy is submitted.
+The corrected four-cell CA3 state-goal factorial is in a fresh post-HER-batching release qualification on both CPU and NVIDIA L40S nodes. Production remains mechanically gated: qualification performance does not select cells, but correctness, exact reload, required telemetry, and usable sustained throughput must pass before either twelve-run production copy is submitted.
 
 The scientific cells are fixed/EMA anchors crossed with dominant/unique-context candidate recognition. Each StudySpec supplies one flat, seed-independent `config.wandb_tags` value per cell.
 
 ## Source snapshots
 
-- Optimized CPU qualification: `36451e7a2ae6f5a382c1f904990719d5b40ac87e`.
-- GPU qualification and production definitions: `774942699e3f62ab63d2d17ecab6507d3caddfc6`.
+- CPU and GPU release qualification: `70534498e1e0ed582989e8af77b3ec8fd2b4281e`.
 - Published runtime branch: `codex/ca3-state-goal-followup-20260922` in `xiaoxionglin/SF_hipposlam`.
-- CPU checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ca3_state_goal_followup_optimized_20260922`.
-- GPU checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ca3_state_goal_followup_gpu_20260922`.
+- CPU checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ca3_state_goal_followup_release_70534498_cpu_20260922`.
+- GPU checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ca3_state_goal_followup_release_70534498_gpu_20260922`.
 
-The earlier jobs `8144552`–`8144555` remain diagnostic evidence only. They used the unoptimized serial contextual-recognition path and cannot authorize production.
+The earlier jobs `8144552`–`8144555`, `8145179`–`8145182`, and `8145197`–`8145200` remain diagnostic evidence only. The latter two waves predate batched contextual HER comparison and cannot authorize production.
 
 ## CPU qualification
 
-- StudySpec: [optimized CPU preflight](../hpc_runs/studies/ca3_state_goal_followup_20260922_preflight_v2.study.json).
-- Study SHA-256: `3bb4b95e5b0b58070fe541c480b5a8e09fd863711d3a6376792d7bcabc63e3de`.
-- Jobs: `8145179`–`8145182`.
+- StudySpec: `hpc_runs/studies/ca3_state_goal_followup_20260922_preflight_v3.study.json` in the pinned runtime branch.
+- Study SHA-256: `9f10d6f26b4d4aba2ecb0e6f58c7bb35264d5e1ffc6b14d82f5ec1aed14cc323`.
+- Jobs: `8147624`–`8147627`.
 - Allocation: 40 CPUs, 128 GiB, CPU partition, 30 hours.
-- Initial sustained result: all four cells reached roughly 676–769 five-minute FPS around 150k–180k frames. Unique-context recognition now matches dominant recognition instead of the earlier 110–170 FPS collapse.
+- Submission state: all four jobs entered `RUNNING`; the sustained post-HER result is pending.
 
-The runtime fix batches current-state signatures, selectable-anchor signatures, and similarity evaluation while preserving exact zero/one/multiple-match semantics and telemetry counters.
+The release batches both online contextual recognition and every contextual HER start/goal action-probe comparison while preserving exact zero/one/multiple-match semantics, candidate/rejection counters, RNG selection, and exact-goal behavior.
 
 ## GPU qualification
 
-- StudySpec: [L40S preflight](../hpc_runs/studies/ca3_state_goal_followup_20260922_gpu_preflight.study.json).
-- Study SHA-256: `f9c5605ca98af63539144738db3566ec8b11503fbfbe08be82a66fac6248f22d`.
-- Jobs: `8145197`–`8145200`.
+- StudySpec: `hpc_runs/studies/ca3_state_goal_followup_20260922_gpu_preflight_v2.study.json` in the pinned runtime branch.
+- Study SHA-256: `a75a47607a87b2653ea2f641d9ab88b358d10c5d8632e13e47b5f4acb76d5f5f`.
+- Jobs: `8147628`–`8147631`.
 - Allocation: one L40S GPU, 40 CPUs, 128 GiB, 30 hours.
-- State at launch: queued for scheduler priority.
+- Sample Factory geometry: 32 workers, 8 environments per worker, 8 worker splits, one epoch, batch size 2,048, two minibatches, rollout/recurrence 64.
+- State at launch: all four jobs are queued for scheduler priority.
 
-Print-only review exposed an auditability gap: GPU resources were added only to the eventual `sbatch` command, not rendered into the saved script. The shared launcher/template now renders `#SBATCH --gres=gpu:1`, keeps the actual submission request, omits `gpu:0` for CPU submissions, and has a focused regression test. This did not change the scientific configuration.
+The 32-by-8 geometry comes from historical high-throughput NEMO GPU runs and is requalified here on the exact current model. The approximately 19,347 aggregate FPS measurement came from a separate four-run G500 workstation test after the GPU-core synchronization fix, not from NEMO L40S. Its two-epoch setting is not copied because that changes optimizer exposure. The release branch contains the same GPU-core fixes, but production depends on the fresh L40S measurement.
 
 ## Production definitions
 
 - [CPU production](../hpc_runs/studies/ca3_state_goal_followup_20260922_production.study.json): twelve fresh 300M-frame runs, 40 CPUs, 128 GiB, CPU partition, 96-hour waves.
 - [GPU production](../hpc_runs/studies/ca3_state_goal_followup_20260922_gpu_production.study.json): twelve fresh 300M-frame runs, one L40S GPU, 40 CPUs, 128 GiB, 48-hour waves.
-- GPU production Study SHA-256: `92312b7153c5e09e955a204d91b66cacd417ee99053be6c5313774d8d97d4cc5`.
+- GPU production Study SHA-256: `b371dff60f4a1722a9eb506d2cc6798a89243cbda43f93eabdb373155ba5f766`.
 
 CPU and GPU copies use separate study IDs, run prefixes, output roots, W&B groups, Slurm manifests, and pinned source checkouts. Qualification checkpoints are never continued into production.
 
@@ -50,4 +50,4 @@ For each device, all four jobs must reach 2M frames, restore exact model/optimiz
 
 ## Reusable lesson
 
-The authoritative throughput comparison is an identical fresh StudySpec wave after warm-up. The serial unique-context path looked like an environmental slowdown but was isolated by comparing cells on the same CPU profile. GPU resource intent must also be visible in saved print-only artifacts; relying on an unrecorded launcher-time option weakens pre-submission review even when Slurm ultimately receives the request.
+The authoritative throughput comparison is an identical fresh StudySpec wave after warm-up. Short W&B FPS windows and results from another GPU host are insufficient. Reuse sampler geometry independently from scientific optimizer settings: environments per worker and worker splits are execution geometry, whereas epochs alter learning exposure. The canonical launcher also defaults to print-only unless `--submit` is passed explicitly; audits must require nonempty job IDs and `submitted_complete=true`, not merely valid generated scripts.

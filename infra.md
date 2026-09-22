@@ -328,6 +328,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance criteria:** Print-only and submitted artifacts agree on GPU count;
   CPU scripts omit GPU resources; the StudySpec submission audit passes.
 
+### Canonical launcher submission mode must be explicit — documented, 2026-09-22
+
+- **Evidence:** Calling `launch_nemo2.sh` without a mode generated valid scripts but
+  submitted no jobs because the wrapper intentionally defaults to `--print-only`.
+  The resulting audit had empty job IDs, `generated` status, and
+  `submitted_complete=false`.
+- **Impact:** A release operator can mistake a successful render/audit for a live
+  submission, especially when the output directory is named `submitted`.
+- **Improvement:** Always call the wrapper with `--submit` for the real launch and
+  preserve print-only and submitted artifacts in distinct directories. Treat
+  nonempty job IDs, `submitted` row status, and `submitted_complete=true` as the
+  launch gate.
+- **Status and outcome:** The CA3 follow-up release retained the mistaken generated
+  directory as evidence, then submitted into `submitted_real`; CPU jobs
+  `8147624`–`8147627` and GPU jobs `8147628`–`8147631` passed submission audit.
+- **Acceptance criteria:** Future release checklists and automation prompts name the
+  explicit mode and verify all three submission indicators.
+
 For each finding, record:
 
 - **Title and status:** proposed, in progress, blocked, or completed.
