@@ -45,7 +45,9 @@ Every cell uses H32 action conditioning, state-readout goals, contextual graph h
 
 ## Launch state
 
-The release commit is preserved locally and staged for an isolated pinned NEMO2 worktree. Non-interactive NEMO2 authentication was rejected, so remote synchronization and submission are pending a user-completed interactive login. After authentication, the release procedure is: remote focused tests, StudySpec validation, print-only launch and audit, four fresh 2M qualification submissions, exact reload and offline telemetry gates, then immediate fresh submission of all twelve 300M production jobs if the mechanical gate passes.
+The complete Git bundle SHA-256 is `3f38f875ad222e36f354264178570ee7f0ec4bd1d4e3f1ffd3d49b319d3286de`. It was verified on NEMO2 and cloned into the independent pinned source `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_ca3_state_goal_followup_20260922`. Remote verification reproduced 441 passing tests with 10 environment-dependent skips and both StudySpec hashes.
+
+Print-only submission audits pass for the four qualification rows and twelve production rows. The production render additionally verifies 40 CPUs, 128 GiB, and 96-hour limits for every row. The fresh 2M qualification wave is running as jobs `8144552`–`8144555`; its submitted audit records all four rows, the qualification StudySpec hash, and active-workspace paths. Initial health checks show all cells advancing beyond 32k frames without exceptions or real training NaNs. A thread heartbeat monitors the wave through exact reload, offline telemetry, the mechanical audit, and immediate fresh production submission if the gate passes.
 
 Production is not selected by qualification performance. Zero activations or refinements is scientific output; missing calibration, contextual HER, candidate-mode, EMA-comparison, reload, scalar, or offline-diagnostic paths blocks release.
 
