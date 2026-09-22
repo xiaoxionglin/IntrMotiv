@@ -126,6 +126,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   `controller_rr1_20260913`, and `controller_stored_production_release_20260912`
   only after their running/queued jobs finish and a fresh dependency audit.
   Their existence is currently required, rather than redundant.
+- **September 22 workflow-skew finding:** The consolidated training checkout
+  still carries workflow 1.8.1 while the vault's canonical analysis package is
+  1.10.1. New CA3 readout StudySpecs therefore live with the canonical package,
+  explicitly declare 1.10.1, and validate there; copying a study into the
+  training checkout is not a safe substitute for synchronizing the whole
+  versioned package. Before NEMO2 submission, synchronize
+  `hpc_runs/intrmotiv_study/`, rerun its focused tests, validate both study
+  hashes, and perform the ordinary print-only/audit review.
 - **Acceptance criteria:** Matching published/canonical commit; focused tests
   pass on NEMO; inactive folders removed only after a fresh job/dependency check
   and checksum comparison; live source folders and all training data preserved.
