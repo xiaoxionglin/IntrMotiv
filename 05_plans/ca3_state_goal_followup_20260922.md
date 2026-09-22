@@ -6,13 +6,17 @@ Status: follow-up fixes and deferred refinements for the deployed predictive act
 
 1. **Contextual HER success semantics.** DG ID is only the landmark slot/address. A HER goal selected from future raw CA3 state $S_g$ must be achieved with the same contextual recognition semantics as online goals. Keep the slot as a cheap candidate lookup, but do not let slot equality alone define success:
 
-$\n\\operatorname{hit}(S_t,S_g)=[j_t=j_g]\\,[\\operatorname{sim}(\\sigma(S_t),\\sigma(S_g))\\ge\\tau].\n$
+$$
+\operatorname{hit}(S_t,S_g)=[j_t=j_g]\,[\operatorname{sim}(\sigma(S_t),\sigma(S_g))\ge\tau].
+$$
 
 2. **Restore CA3-readout anti-collapse regularization.** The implementation currently has the prediction loss but omitted the planned variance/covariance terms. Restore
 
-$\n\\mathcal L_{\\mathrm{state}}=\\mathcal L_{\\mathrm{pred}}+\\lambda_{\\mathrm{var}}\\mathcal L_{\\mathrm{var}}+\\lambda_{\\mathrm{cov}}\\mathcal L_{\\mathrm{cov}}.\n$
+$$
+\mathcal L_{\mathrm{state}}=\mathcal L_{\mathrm{pred}}+\lambda_{\mathrm{var}}\mathcal L_{\mathrm{var}}+\lambda_{\mathrm{cov}}\mathcal L_{\mathrm{cov}}.
+$$
 
-   initially $\\lambda_{\\mathrm{var}}=0.1$ and $\\lambda_{\\mathrm{cov}}=0.01$. Keep state/action shuffle deltas as diagnostics of whether the predictor actually uses $z$ and actions.
+   initially $\lambda_{\mathrm{var}}=0.1$ and $\lambda_{\mathrm{cov}}=0.01$. Keep state/action shuffle deltas as diagnostics of whether the predictor actually uses $z$ and actions.
 
 3. **Task-general transfer mode.** Preserve the historical DG/policy transfer scopes, but add a mode that transfers the task-general learned system: DG representation, $W$, innovation predictor, contextual anchors/graph, universal worker/controller and their normalization/state. Leave task-specific external-reward bindings/heads fresh. Keep the action interface matched unless action remapping is the explicit experiment.
 
@@ -41,9 +45,11 @@ Use a clean two-condition comparison:
 1. **FIXED_ANCHOR.** Keep the first qualified raw CA3 anchor $A_j$ unchanged after activation. This is the stability control.
 2. **EMA_SIGNATURE_ANCHOR.** Keep $A_j$ as one actually observed raw CA3 state, but maintain an exponential-moving-average predictive-signature prototype
 
-$\n\\mu_j\\leftarrow(1-\\alpha)\\mu_j+\\alpha\\sigma(S_t).\n$
+$$
+\mu_j\leftarrow(1-\alpha)\mu_j+\alpha\sigma(S_t).
+$$
 
-   over confirmed same-landmark occurrences. Do not average raw CA3 states. A confirmed candidate $S_t$ may replace $A_j$ only when its predictive signature is closer to $\\mu_j$ than the incumbent's by a small margin or sustained criterion. Such refinement preserves graph edges and anchor generation because semantic identity has not changed.
+   over confirmed same-landmark occurrences. Do not average raw CA3 states. A confirmed candidate $S_t$ may replace $A_j$ only when its predictive signature is closer to $\mu_j$ than the incumbent's by a small margin or sustained criterion. Such refinement preserves graph edges and anchor generation because semantic identity has not changed.
 
 This gives gradual prototype refinement without ever commanding a synthetic/nonexistent CA3 state. A true semantic reset remains a separate rare operation that increments generation and clears incident graph evidence.
 
@@ -97,7 +103,7 @@ For stored HER:
     start_hit = has_DG_event(S_t) and sim(S_t, S_g) >= tau
     next_hit  = has_DG_event(S_{t+1}) and sim(S_{t+1}, S_g) >= tau
 
-where $S_g$ is `virtual_goal_state` and $\\tau$ is `policy_graph.recognition_threshold`. Do NOT additionally require `j_t == virtual_goal` in the state-readout contextual mode. Preserve the old ID-only logic exactly for `target_id` modes.
+where $S_g$ is `virtual_goal_state` and $\tau$ is `policy_graph.recognition_threshold`. Do NOT additionally require `j_t == virtual_goal` in the state-readout contextual mode. Preserve the old ID-only logic exactly for `target_id` modes.
 
 `hindsight_examples()` should continue to choose a real future replay state and store its raw CA3 snapshot. For the contextual mode, a future endpoint only needs a real worker state and at least one DG event. If multiple DG units are active at that endpoint, use the strongest active DG only as the temporary slot/address; the endpoint CA3 state remains the actual goal identity.
 
@@ -129,7 +135,9 @@ Implement the already-planned VICReg-like terms in `ca3_state_readout.py`. For v
 
 and train with
 
-$\n\\mathcal L_{\\mathrm{state}}=\\mathcal L_{\\mathrm{pred}}+\\lambda_{\\mathrm{var}}\\mathcal L_{\\mathrm{var}}+\\lambda_{\\mathrm{cov}}\\mathcal L_{\\mathrm{cov}}.\n$
+$$
+\mathcal L_{\mathrm{state}}=\mathcal L_{\mathrm{pred}}+\lambda_{\mathrm{var}}\mathcal L_{\mathrm{var}}+\lambda_{\mathrm{cov}}\mathcal L_{\mathrm{cov}}.
+$$
 
 Compute var/cov over valid current CA3 states, not the horizon-expanded prediction-window rows if practical, so early states are not overweighted merely because they generate more horizons. CA3 input remains detached: this loss owns $W$/readout only, not DG/CA3.
 
@@ -164,8 +172,8 @@ FIXED:
 EMA:
 
 - store one real raw CA3 anchor $A_j$ exactly as today;
-- maintain a normalized EMA predictive-signature prototype $\\mu_j$ from confirmed same-landmark observations;
-- default starting values for the first batch: $\\alpha=0.05$, minimum 8 confirmed observations before refinement, cosine-improvement margin $0.01$; keep all three configurable.
+- maintain a normalized EMA predictive-signature prototype $\mu_j$ from confirmed same-landmark observations;
+- default starting values for the first batch: $\alpha=0.05$, minimum 8 confirmed observations before refinement, cosine-improvement margin $0.01$; keep all three configurable.
 
 Conceptually:
 
@@ -179,11 +187,15 @@ After the minimum confirmation count, compare current-model signatures:
 
 and if
 
-$\nq_{\\mathrm{candidate}}>q_{\\mathrm{anchor}}+\\delta_{\\mathrm{anchor}}.\n$
+$$
+q_{\mathrm{candidate}}>q_{\mathrm{anchor}}+\delta_{\mathrm{anchor}}.
+$$
 
 replace only the stored raw anchor:
 
-$\nA_j\\leftarrow S_{\\mathrm{candidate}}.\n$
+$$
+A_j\leftarrow S_{\mathrm{candidate}}.
+$$
 
 This is SAME-IDENTITY REFINEMENT. It must NOT:
 
@@ -194,7 +206,7 @@ This is SAME-IDENTITY REFINEMENT. It must NOT:
 
 Reserve the existing destructive reset/invalidation path for true semantic reassignment of a DG slot, not ordinary prototype refinement.
 
-Representation-drift caution: $W$ and predictor continue learning, so a signature EMA contains samples from slightly different representation snapshots. Keep the EMA local/recent. When `recalibrate()` changes the recognition model/threshold epoch, it is acceptable for V1 to reinitialize each valid $\\mu_j$ from the CURRENT signature of its real anchor and then resume EMA updates. Do not store a long-lived stale prototype across large readout drift without a test.
+Representation-drift caution: $W$ and predictor continue learning, so a signature EMA contains samples from slightly different representation snapshots. Keep the EMA local/recent. When `recalibrate()` changes the recognition model/threshold epoch, it is acceptable for V1 to reinitialize each valid $\mu_j$ from the CURRENT signature of its real anchor and then resume EMA updates. Do not store a long-lived stale prototype across large readout drift without a test.
 
 Checkpoint all new EMA buffers/counters and cover exact reload.
 
@@ -214,13 +226,13 @@ Add a config such as:
 
 Preserve `exclusive` for legacy reproduction.
 
-`dominant`: choose the strongest positive DG activation, then require that slot's contextual anchor similarity to pass $\\tau$. If it fails, emit no landmark.
+`dominant`: choose the strongest positive DG activation, then require that slot's contextual anchor similarity to pass $\tau$. If it fails, emit no landmark.
 
 `unique_contextual` (preferred if the patch remains local):
 
 1. collect every active DG slot that is currently selectable;
 2. compute contextual similarity to that slot's anchor;
-3. retain candidates with similarity $\\ge\\tau$;
+3. retain candidates with similarity $\ge\tau$;
 4. if exactly one candidate passes, recognize it;
 5. if zero or >1 pass, emit no landmark/graph event.
 
@@ -252,7 +264,7 @@ Add diagnostics named clearly under recognition-threshold calibration. At minimu
 
 - positive similarity $q_{10}/q_{50}/q_{90}$;
 - cross-anchor/background similarity $q_{50}/q_{90}/q_{99}$;
-- fraction of background comparisons above the current $\\tau$;
+- fraction of background comparisons above the current $\tau$;
 - pairwise active-anchor collision fraction;
 - offline coordinate-verified false-accept rate where pose is available only to the evaluator.
 
@@ -262,7 +274,7 @@ Background samples may include cross-anchor pairs, temporally separated same-DG 
 
 Current `latent.roll(1,0)` can pair temporally adjacent/related windows. If easy, replace it with a permutation that breaks stream/temporal locality while preserving horizon/action bookkeeping. This is useful telemetry, not a blocker for the corrected batch.
 
-### C. Follow-up batch: small $2\\times2$ factorial
+### C. Follow-up batch: small $2\times2$ factorial
 
 Use H32 for the follow-up because the current production batch already contains the H16/H32 comparison and H32 is the intended long-context condition. Do not duplicate the seven-arm architecture sweep.
 
@@ -281,7 +293,7 @@ All four arms MUST share:
 Factor 1 — anchor update:
 
 - `FIXED`: `ca3_graph_anchor_mode=fixed`;
-- `EMA`: new `ca3_graph_anchor_mode=ema` with the $\\alpha$/minimum-confirmations/margin defaults above.
+- `EMA`: new `ca3_graph_anchor_mode=ema` with the $\alpha$/minimum-confirmations/margin defaults above.
 
 Factor 2 — simultaneous-DG candidate rule:
 
@@ -330,7 +342,7 @@ Recognition:
 - raw multi-activation rate;
 - unique-match rescue rate;
 - zero-match and multi-match ambiguity rates;
-- recognition $\\tau$ and positive/background calibration diagnostics.
+- recognition $\tau$ and positive/background calibration diagnostics.
 
 Anchor stability:
 
