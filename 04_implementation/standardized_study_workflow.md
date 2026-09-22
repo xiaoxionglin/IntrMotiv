@@ -146,21 +146,26 @@ New studies should use `sample_factory`.
 
 ### Flat tracking identity (1.11.0)
 
-Set `training.emit_tracking_identity` to `true` for new Sample Factory studies.
-The expanded command then records three non-scientific identity fields in the
-saved configuration and W&B config:
+New Sample Factory studies declaring workflow 1.11 or later emit tracking
+identity by default. The expanded command records three non-scientific fields
+in the saved configuration and W&B config:
 
 - `study_id`: the owning StudySpec;
 - `study_condition`: the rendered, seed-independent condition name;
 - `study_base`: the declared base configuration.
 
-Use `study_condition` for one-level dashboard grouping and `seed` for paired
-replicates. This avoids reconstructing a condition from several scientific
-parameters or creating nested dashboard groups. The fields do not alter model,
-environment, optimizer, or controller behavior.
+It also emits exactly one `wandb_tags` value equal to `study_condition`.
+Sample Factory stores that list both as the W&B run tags and as
+`config.wandb_tags`. Therefore, either `study_condition` or
+`config.wandb_tags` provides one flat group per cell, identical across seeds;
+use `seed` for paired replicates. Do not add unrelated tags to this generated
+field, because W&B groups the complete list rather than its individual items.
+These fields do not alter model, environment, optimizer, or controller behavior.
 
-The option is deliberately opt-in. Enabling it changes rendered commands and
-therefore requires a new StudySpec fingerprint and a fresh print-only review.
+Studies declaring an earlier workflow version retain their commands exactly.
+An explicit `training.emit_tracking_identity` boolean can override the
+versioned default. Enabling it changes rendered commands and therefore requires
+a new StudySpec fingerprint and a fresh print-only review.
 Do not edit an already submitted StudySpec merely to add tracking identity;
 keep its recorded hash and commands immutable.
 

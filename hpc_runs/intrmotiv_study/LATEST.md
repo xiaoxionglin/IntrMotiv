@@ -9,11 +9,17 @@
 
 ## 1.11.0 flat tracking identity
 
-New Sample Factory studies can opt into `training.emit_tracking_identity`.
-The workflow then emits `study_id`, `study_condition`, and `study_base` as
+New Sample Factory studies declaring workflow 1.11 or later emit `study_id`,
+`study_condition`, and `study_base` by default as
 ordinary saved/W&B configuration fields. `study_condition` is the canonical
 flat, seed-independent dashboard grouping key. Existing studies remain
-byte-for-byte command compatible unless they explicitly enable the option.
+byte-for-byte command compatible because earlier declared workflow versions
+default the option off.
+
+The workflow also emits one `wandb_tags` entry equal to `study_condition`.
+Sample Factory duplicates this into `config.wandb_tags`, giving each condition
+one flat list value shared by all seeds. Keep it to that single generated value;
+additional tags would make the complete config list a different group.
 
 The IntrMotiv runtime registers these fields as metadata-only arguments; they
 do not participate in model or environment behavior. A changed StudySpec must
