@@ -134,6 +134,15 @@ keep implementation guidance in the canonical workflow documents linked below.
   versioned package. Before NEMO2 submission, synchronize
   `hpc_runs/intrmotiv_study/`, rerun its focused tests, validate both study
   hashes, and perform the ordinary print-only/audit review.
+- **September 22 CA3 batch release finding:** The first valid CA3 StudySpecs
+  still inherited unreachable preflight telemetry targets, an old W&B group,
+  and analysis grouping that pooled all seven architecture cells. The runtime
+  also computed readout losses without routing them to canonical scalar tags.
+  The release now requires generated-config parsing plus a seven-arm 2M runtime
+  audit covering exact reload, scalar presence/finite values, calibration-path
+  execution, and manifest-driven alias telemetry before any 21-run production
+  submission. Acceptance is an audited artifact bound to the deployed commit
+  and StudySpec hashes; relative qualification performance never prunes cells.
 - **Acceptance criteria:** Matching published/canonical commit; focused tests
   pass on NEMO; inactive folders removed only after a fresh job/dependency check
   and checksum comparison; live source folders and all training data preserved.
