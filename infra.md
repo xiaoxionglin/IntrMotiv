@@ -251,8 +251,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   of a 5.20 s main update at 1.25M frames. A transaction-level snapshot of the
   two 64-element authority vectors reduced example construction to 0.03--0.06
   s and main replay to 0.30--0.43 s without changing eligibility semantics.
-  The matched four-cell gate then sustained about 17.48k aggregate frames/s at
-  mature replay, above the prior 16.16k reference. The reusable rule is to run
+  The matched four-cell gate reached 17.75k aggregate FPS in a fully aligned
+  mature 60-second window, 9.8% above the prior 16.16k reference; the sum of
+  mature per-run medians was 16.11k, within 0.3% of the reference. The reusable rule is to run
   throughput gates beyond activation and replay maturity, emit subphase timing,
   and treat every Python boolean or integer conversion from a CUDA tensor in a
   per-event or per-row loop as a synchronization defect. Preserve authority by
