@@ -19,6 +19,7 @@ from hpc_runs.intrmotiv_study.geometry import (
     load_landmark_geometry,
     validate_geometry_payload,
 )
+from hpc_runs.intrmotiv_study.geometry import _minimum_cost_assignment
 
 
 ROOT = Path(__file__).parent
@@ -27,6 +28,15 @@ LANDMARK_ARCHIVE = ROOT / "studies/assets/easy_landmark_maze/maps.json"
 
 
 class EasyLandmarkGeometryTests(unittest.TestCase):
+    def test_rectangular_assignment_is_exact_and_transpose_safe(self):
+        cost = np.asarray([[4, 1, 3], [2, 0, 5]], dtype=float)
+        rows, columns = _minimum_cost_assignment(cost)
+        self.assertEqual(list(zip(rows, columns)), [(0, 1), (1, 0)])
+        transposed_rows, transposed_columns = _minimum_cost_assignment(cost.T)
+        self.assertEqual(
+            list(zip(transposed_rows, transposed_columns)), [(0, 1), (1, 0)]
+        )
+
     def test_fixed_layout_has_twenty_disjoint_deterministic_sites(self):
         source = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "rich")
         first = cue_sites(source["entity_layer"], cue_layout_seed=20260923)

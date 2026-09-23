@@ -444,11 +444,82 @@ def _grid_distances(mask, starts):
     return result
 
 
+def _minimum_cost_assignment(cost):
+    """Return an exact rectangular assignment without an optional SciPy dependency.
+
+    This is the shortest-augmenting-path Hungarian algorithm.  The smaller
+    dimension is fully matched, matching ``linear_sum_assignment`` semantics.
+    Stable column scanning makes ties deterministic across hosts.
+    """
+    matrix = np.asarray(cost, dtype=np.float64)
+    if matrix.ndim != 2:
+        raise ValueError("Assignment cost must be a matrix")
+    original_rows, original_cols = matrix.shape
+    if not original_rows or not original_cols:
+        return np.empty(0, dtype=int), np.empty(0, dtype=int)
+    if not np.isfinite(matrix).all():
+        raise ValueError("Assignment cost must be finite")
+    transposed = original_rows > original_cols
+    if transposed:
+        matrix = matrix.T
+    rows, cols = matrix.shape
+    row_potential = np.zeros(rows + 1, dtype=np.float64)
+    col_potential = np.zeros(cols + 1, dtype=np.float64)
+    matched_row = np.zeros(cols + 1, dtype=np.int64)
+    predecessor = np.zeros(cols + 1, dtype=np.int64)
+    for row in range(1, rows + 1):
+        matched_row[0] = row
+        minimum = np.full(cols + 1, np.inf, dtype=np.float64)
+        used = np.zeros(cols + 1, dtype=bool)
+        column = 0
+        while True:
+            used[column] = True
+            current_row = matched_row[column]
+            delta = np.inf
+            next_column = 0
+            for candidate in range(1, cols + 1):
+                if used[candidate]:
+                    continue
+                reduced = (
+                    matrix[current_row - 1, candidate - 1]
+                    - row_potential[current_row]
+                    - col_potential[candidate]
+                )
+                if reduced < minimum[candidate]:
+                    minimum[candidate] = reduced
+                    predecessor[candidate] = column
+                if minimum[candidate] < delta:
+                    delta = minimum[candidate]
+                    next_column = candidate
+            if not np.isfinite(delta):
+                raise ValueError("Assignment has no finite completion")
+            for candidate in range(cols + 1):
+                if used[candidate]:
+                    row_potential[matched_row[candidate]] += delta
+                    col_potential[candidate] -= delta
+                else:
+                    minimum[candidate] -= delta
+            column = next_column
+            if matched_row[column] == 0:
+                break
+        while True:
+            previous = predecessor[column]
+            matched_row[column] = matched_row[previous]
+            column = previous
+            if column == 0:
+                break
+    pairs = [(int(matched_row[column] - 1), column - 1)
+             for column in range(1, cols + 1) if matched_row[column]]
+    if transposed:
+        pairs = [(column, row) for row, column in pairs]
+    pairs.sort()
+    return tuple(np.asarray(values, dtype=int) for values in zip(*pairs))
+
+
 def cue_spatial_metrics(rate_maps, occupancy, record):
     """Capacity-aware cue/field alignment for one spatial snapshot."""
     if record.get("schema") != GEOMETRY_SCHEMA_V2:
         return {}, []
-    from scipy.optimize import linear_sum_assignment
 
     maps = np.asarray(rate_maps, dtype=np.float32)
     occupancy = np.asarray(occupancy)
@@ -470,7 +541,7 @@ def cue_spatial_metrics(rate_maps, occupancy, record):
     matched_within_one = 0
     assigned_cues, assigned_units = set(), set()
     if cost.size:
-        cue_indices, unit_indices = linear_sum_assignment(cost)
+        cue_indices, unit_indices = _minimum_cost_assignment(cost)
         for cue_index, active_index in zip(cue_indices.tolist(), unit_indices.tolist()):
             unit = int(active_units[active_index])
             distance = float(cost[cue_index, active_index])
