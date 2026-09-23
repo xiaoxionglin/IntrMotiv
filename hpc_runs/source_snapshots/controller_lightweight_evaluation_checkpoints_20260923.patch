@@ -1,8 +1,15 @@
 diff --git a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
 --- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
-@@ -91,16 +91,30 @@ class ControllerLearner(DistanceLearnerReward):
+@@ -91,16 +91,37 @@ class ControllerLearner(DistanceLearnerReward):
          return super()._save_impl(*args, **kwargs)
++
++    def save(self):
++        # One atomic full restart checkpoint is sufficient. Evaluation history
++        # is carried by lightweight milestones rather than replay duplication.
++        if getattr(self.cfg, "controller_learning", "ppo") == "ddqn":
++            return self._save_impl("checkpoint", "", 1)
++        return super().save()
  
      def save_milestone(self):
 -        # Keep complete restart state, including replay. Bound periodic archives
@@ -35,7 +42,7 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py b/sf_w
  
      def _save_completed_frame_targets(self, previous_frames):
          targets = [int(x) for x in self.cfg.checkpoint_frame_targets.split(",") if x.strip()]
-@@ -118,6 +132,8 @@ class ControllerLearner(DistanceLearnerReward):
+@@ -118,6 +139,8 @@ class ControllerLearner(DistanceLearnerReward):
              if "controller" not in checkpoint_dict:
                  raise RuntimeError("Controller resume requires complete replay/target state")
              self._restore_controller = checkpoint_dict["controller"]
@@ -44,7 +51,7 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py b/sf_w
              if self._restore_controller.get("replay_state", "reconstruct") != getattr(
                  self.cfg, "controller_replay_state", "reconstruct"
              ):
-@@ -136,10 +152,11 @@ class ControllerLearner(DistanceLearnerReward):
+@@ -136,10 +159,11 @@ class ControllerLearner(DistanceLearnerReward):
      def _get_checkpoint_dict(self):
          checkpoint = super()._get_checkpoint_dict()
          if hasattr(self, "target_snapshot"):
@@ -58,7 +65,7 @@ diff --git a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py b/sf_w
                  clock=self.clock.state_dict(),
                  frame_milestones=sorted(self.frame_milestones),
                  her_rng=copy.deepcopy(self.her_rng.bit_generator.state),
-@@ -158,6 +175,9 @@ class ControllerLearner(DistanceLearnerReward):
+@@ -158,6 +182,9 @@ class ControllerLearner(DistanceLearnerReward):
                  ),
                  python_rng=random.getstate(),
              )
@@ -80,7 +87,7 @@ diff --git a/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_r
  from sf_working_directories.IntrMotiv.dmlab.controller_learner import ControllerLearner
  from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
  
-@@ -37,3 +39,43 @@ def test_canonical_frame_is_pinned_before_parent_save_and_retained_in_state():
+@@ -37,3 +39,51 @@ def test_canonical_frame_is_pinned_before_parent_save_and_retained_in_state():
      learner.env_steps = 128
      learner._save_completed_frame_targets(112)
      assert len(seen) == 1
@@ -124,3 +131,11 @@ diff --git a/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_r
 +    with patch.object(DistanceLearnerReward, "_load_state"):
 +        with pytest.raises(RuntimeError, match="omits controller replay"):
 +            learner._load_state(checkpoint, load_progress=True)
++
++
++def test_ddqn_keeps_one_full_restart_checkpoint():
++    learner = object.__new__(ControllerLearner)
++    learner.cfg = SimpleNamespace(controller_learning="ddqn")
++    with patch.object(learner, "_save_impl", return_value=True) as save:
++        assert learner.save() is True
++    save.assert_called_once_with("checkpoint", "", 1)

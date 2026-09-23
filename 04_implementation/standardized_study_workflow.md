@@ -609,6 +609,14 @@ The runtime supports `save_initial_checkpoint` and `checkpoint_frame_targets`.
 Save each target at the first learner batch crossing it, preserving actual frame
 counts in standard milestone filenames. Resume does not backfill earlier targets.
 
+For stored-replay controllers, distinguish restart state from evaluation state.
+Only one atomic rolling restart checkpoint should contain the physical replay.
+Milestones and best checkpoints are evaluation artifacts and must omit replay,
+declare `replay_included=False`, and reject training resume. This avoids copying
+several GiB of replay into every scientific target while preserving exact resume
+from the rolling checkpoint. Submission review must budget that full restart
+checkpoint separately from lightweight evaluation checkpoints.
+
 Check telemetry aliases before interpreting an absent audit signal: validation
 success is `intrmotiv/hrl/validation/success_rate`, while waypoint routing remains
 a raw `train/hrl_planning_waypoint_navigation_fraction` tag. Use initial/terminal

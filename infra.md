@@ -6,6 +6,32 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Stored controller replay was duplicated into evaluation checkpoints
+
+- **Evidence:** The September 23 NEMO2 audit found 4.514 TiB of checkpoint files
+  in the corridor workspace. Mature stored-state controller checkpoints were
+  3.9--4.0 GiB because each serialized the 200,000-transition replay. Milestone
+  and best artifacts contained the same replay even though model evaluation does
+  not consume it; disk exhaustion caused PyTorch writer failures in active jobs.
+- **Impact:** A 30-minute milestone cadence multiplied replay storage across
+  conditions and seeds, exhausted a 4.6 TB workspace, corrupted in-progress
+  checkpoint writes, and left some failed learners appearing `RUNNING` in Slurm.
+- **Improvement/status:** Future controller releases now distinguish full
+  `restart` checkpoints from lightweight `evaluation` checkpoints. One atomic
+  rolling restart checkpoint retains replay for exact continuation. Milestone and best
+  checkpoints omit replay, declare `replay_included=False`, and fail clearly if
+  passed to the training-resume path. The canonical qualified desktop source and
+  isolated easy-landmark source contain the change; the isolated NEMO2 source is
+  synchronized. Active release checkouts were intentionally not mutated.
+- **Acceptance:** Five focused checkpoint tests pass in both desktop source
+  trees and in the isolated NEMO2 checkout. Before production release, verify a
+  real mature-replay save: the rolling checkpoint must reload exactly, the
+  milestone must support the manifest evaluator, its size must remain near the
+  model-only baseline, and resume from it must be rejected.
+- **Lesson:** Checkpoint roles are part of the storage contract. Scientific
+  evaluation artifacts should not inherit mutable optimizer or replay state
+  merely because they share a serializer with restart checkpoints.
+
 ### Study factors were not available as a flat W&B grouping key
 
 - **Evidence:** The CA3 predictive active-goal StudySpec declared one

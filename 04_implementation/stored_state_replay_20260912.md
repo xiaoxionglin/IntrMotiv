@@ -232,9 +232,15 @@ arms with finite losses and zero update debt. Five-minute throughput was about
 550–1,150 FPS across the four arms; short-trial throughput overestimated sustained
 performance. Full-key-list shuffling remains a measured scaling concern, not a
 reason to silently change the algorithm in this release. Stored worker-state
-checkpoints can reach about 4 GB for F64. Existing `ControllerLearner.save_milestone`
-already bounds periodic archives using `keep_checkpoints` while pinning canonical
-frame targets. Production must retain this behavior and workspace-only paths.
+restart checkpoints can reach about 4 GB for F64. The September 23 storage
+audit showed that copying the complete replay into evaluation milestones and
+best checkpoints is unnecessary and rapidly exhausts multi-terabyte workspaces.
+Future controller releases therefore use two checkpoint roles: one atomic rolling
+`restart` checkpoint retains replay for exact continuation, while `evaluation`
+milestones and best checkpoints omit replay. Evaluation checkpoints record
+`replay_included=False` and fail clearly if used to resume training. Periodic
+milestone retention remains bounded while canonical frame targets stay pinned.
+Production must retain this role distinction and workspace-only paths.
 
 Both online and qualification source files match every SHA in
 `hpc_runs/source_snapshots/controller_stored_replay_trial_20260912.json`.

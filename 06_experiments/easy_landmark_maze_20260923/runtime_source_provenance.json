@@ -1,29 +1,29 @@
 {
   "schema": "intrmotiv/runtime-source-provenance/v1",
-  "captured_at": "2026-09-23T22:46:00+02:00",
+  "captured_at": "2026-09-23T23:11:19+02:00",
   "qualified_source": {
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_corridor_20260919",
     "branch": "codex/corridor-geometry",
     "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
-    "working_tree_content_sha256": "2566ef508669d11396f2f654566538a0f0b0425deae1ce8f199dc90bbc70ddb2",
-    "porcelain_status_sha256": "c8a64d3ee3333ced315340c91ccedc1dcefb3d6de2a796c773ee02ca0238ded0"
+    "working_tree_content_sha256": "57dd677eafd76096579b38b642d91340d87f7627c6adc3faa3832fca71dd32a9",
+    "porcelain_status_sha256": "318dc839e4abbc32217086ee69979bad6007ffc3057e42b3f3bbc4b120603e25"
   },
   "isolated_landmark_runtime": {
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923",
     "branch": "codex/easy-landmark-maze-20260923",
     "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
-    "working_tree_content_sha256": "d636924b4f7c00324bd524ef1f22d1e05403b183e74eb0bd9d075a55d1227f98",
-    "porcelain_status_sha256": "7ad56daa670b7d617f8baff4bdd45b1261da7ebc33f6748ff931e2022b74cf97",
-    "tracked_binary_diff_sha256": "3221036ef2c0e6120d1ca2d1fbacc773dc90a81c106af6a38ce212864f07b331",
+    "working_tree_content_sha256": "b62e53280c5377adf6d6f828c4f8a94b718e5efa9f0926c6cbb7329a01ac22fa",
+    "porcelain_status_sha256": "728ef2d6f1e874973707201974b435322e49e99a77b7faf1048ceef788ff80c0",
+    "tracked_binary_diff_sha256": "c517d37f1d9a3693f6a36772b22ee30a12e689966753241f6fbf8ae75e6deb80",
     "untracked_file_content_sha256": "83d88386fc712a877392557cb29ecba2fa58157657704642a499da3d8b4a86a0"
   },
   "nemo2_isolated_landmark_runtime": {
     "path": "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_easy_landmark_20260923",
     "branch": "codex/easy-landmark-maze-20260923",
     "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
-    "working_tree_content_sha256": "96897b8083817a517ab0e7bc898443806655fcc98608952740b55340bfcb8250",
-    "porcelain_status_sha256": "7ad56daa670b7d617f8baff4bdd45b1261da7ebc33f6748ff931e2022b74cf97",
-    "tracked_binary_diff_sha256": "54fd6496a2715e427bb1845775eabae286e68b93941ffd3df68b511f4fcf821e",
+    "working_tree_content_sha256": "191bf34614a7a4d360c331cae4eb673edfe769b6df36672990051e59664256b4",
+    "porcelain_status_sha256": "728ef2d6f1e874973707201974b435322e49e99a77b7faf1048ceef788ff80c0",
+    "tracked_binary_diff_sha256": "5aca3ae36f857e9ae37f8461dd94d53fa47adc8889f9f54af6b18951856f50ce",
     "untracked_file_content_sha256": "83d88386fc712a877392557cb29ecba2fa58157657704642a499da3d8b4a86a0"
   },
   "hash_method": "working_tree_content_sha256 hashes the binary tracked diff followed by sorted sha256sum records for untracked files; the component hashes preserve those two inputs separately.",
