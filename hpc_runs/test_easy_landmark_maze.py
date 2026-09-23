@@ -1,6 +1,7 @@
 """Easy landmark-maze geometry, cue metrics, and study contracts."""
 
 from pathlib import Path
+import json
 import unittest
 
 import numpy as np
@@ -26,7 +27,7 @@ LANDMARK_ARCHIVE = ROOT / "studies/assets/easy_landmark_maze/maps.json"
 
 class EasyLandmarkGeometryTests(unittest.TestCase):
     def test_fixed_layout_has_twenty_disjoint_deterministic_sites(self):
-        source = load_geometry(str(CORRIDOR_ARCHIVE), 1001, 0)
+        source = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
         first = cue_sites(source["entity_layer"], cue_layout_seed=20260923)
         second = cue_sites(source["entity_layer"], cue_layout_seed=20260923)
         self.assertEqual(first, second)
@@ -103,6 +104,7 @@ class EasyLandmarkStudyTests(unittest.TestCase):
                 args = dict(arg[2:].split("=", 1) for arg in run.args if arg.startswith("--"))
                 self.assertEqual(args["env"], "easy_landmark_maze_noreward")
                 self.assertEqual(args["dmlab_map_seed"], "1001")
+                self.assertEqual(args["dmlab_wall_removal_probability"], "0.85")
                 self.assertEqual(args["dmlab_cue_layout_seed"], "20260923")
                 self.assertEqual(args["env_frameskip"], "4")
                 self.assertEqual(args["dmlab_navigation_action_set"], "True")
@@ -116,6 +118,12 @@ class EasyLandmarkStudyTests(unittest.TestCase):
                     self.assertEqual(args["controller_her_positions"], "1024")
                 else:
                     self.assertEqual(args["Hippo_n_feature"], "16")
+                overrides = json.loads(run.metadata["overrides_json"])
+                self.assertEqual(overrides["dmlab_map_seed"]["study"], "1001")
+                self.assertEqual(overrides["dmlab_wall_removal_probability"]["study"], "0.85")
+                self.assertEqual(overrides["dmlab_cue_layout_seed"]["study"], "20260923")
+                expected_cues = "<factor:cue_mode>" if study is self.preflight else args["dmlab_landmark_cues"]
+                self.assertEqual(overrides["dmlab_landmark_cues"]["study"], expected_cues)
 
     def test_parent_fingerprints_resolve(self):
         for run in self.rich.expand_runs():

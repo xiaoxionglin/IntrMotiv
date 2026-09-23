@@ -15,13 +15,13 @@ backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
 
 | Artifact | Count | SHA-256 |
 |---|---:|---|
-| Rich production StudySpec | 9 runs | `5621d394bea2267c1c4d46a50a8308ec030add4dd7c5a36269784addf3bf054e` |
-| No-cue control StudySpec | 3 runs | `d742ba9c37f8fba7760b6ddf11d7700a48bdfed0b3d74cde60767b21dfab4fcb` |
-| Qualification StudySpec | 6 runs | `d93d070720f5145bbc42021041d75a093c0c38c6e3288d6970628d0ca8ef12c5` |
-| Geometry archive file | 2 modes | `e3694de2d09108dcbf9863b9d9c26b6bfcd992c551c5e2a823bf9eea9f59df4b` |
-| Entity layer | rich and none | `ae5e33088daf21506deb54943c21474a69992c613903c23ff02df89f4d458dd3` |
-| Rich cue layout | 20 rendered sites | `7c4e04d74bead0c1dd3374cebb66398d84d37d8e9f486a2324a8ca253109fc21` |
-| Control cue layout | same 20 unrendered sites | `be4f37fe6d25373225eb89be03692fcb3e28f9c9f50e066677a454bc86700ee2` |
+| Rich production StudySpec | 9 runs | `0c27a8a65a8f7a927e8607f3ad844ab09e7ee747b3a49482f23b01d5bf83af00` |
+| No-cue control StudySpec | 3 runs | `cc94375ea0bd3c046470c5b868c1d9e497677b08b8971d38026a100988837862` |
+| Qualification StudySpec | 6 runs | `32e35541ca2808a3264b57da08dd78f7abbbb88c9f68ecb1c2aef38548029411` |
+| Geometry archive file | 2 modes | `54c2c464f48d55e9c1485c31e74076a3c643dd01d06334108dcc593d623df671` |
+| Entity layer | rich and none | `1c70fc2595912dc1077601e9b1cae808555216ad3f74e9b86090736e89da3db9` |
+| Rich cue layout | 20 rendered sites | `69bc976ebd4c108d541184716233484d259ead4a3fa455490ceefe45db171191` |
+| Control cue layout | same 20 unrendered sites | `14111dca4cded7489bac13e5bc2d68cbc54a5aba135e2162cc65e0c60b49dc7a` |
 
 The runtime is isolated at
 `/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923` on
@@ -32,9 +32,11 @@ The qualified corridor checkout was copied, not edited.
 
 ## Implemented contracts
 
-- `easy_landmark_maze_noreward` fixes geometry seed 1001, removal probability
-  zero, layout seed 20260923, 120-second episodes, zero external reward,
+- `easy_landmark_maze_noreward` fixes geometry seed 1001, wall-removal
+  probability 0.85, layout seed 20260923, 120-second episodes, zero external reward,
   frameskip 4, and navigation8 actions.
+- The resulting 21-by-21 entity layer has 337 accessible cells: an open field
+  with sparse retained obstacles rather than a perfect maze.
 - A portable LCG/Fisher-Yates selector shared by Python and Lua samples 20
   distinct wall faces without replacement and also requires 20 distinct
   adjacent accessible cells. D01–D10 use fixed existing decals; C01–C10 use a

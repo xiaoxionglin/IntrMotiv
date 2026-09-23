@@ -16,9 +16,10 @@ traversable-geodesic peak distance, one-to-one cue/peak assignments, raw and
 capacity-normalized cue coverage, and decal/color subsets. Standard field rows
 remain separate from matched-command intervention rows.
 
-The reference implementation is the easy-landmark screen: a fixed 10-by-10
-logical maze with 10 decals and 10 colored wall faces, plus a same-sites neutral
-control. Its three StudySpecs, exact fingerprints, local native evidence, and
+The reference implementation is the easy-landmark screen: the fixed 21-by-21
+entity map at 85% wall removal (337 accessible cells), with 10 decals and 10
+colored wall faces plus a same-sites neutral control. Its three StudySpecs,
+exact fingerprints, local native evidence, and
 remaining NEMO2 gates are recorded in
 `06_experiments/easy_landmark_maze_implementation_20260923.md`. Version 1.12.0
 is local only until that record contains a successful NEMO2 focused-test run,
