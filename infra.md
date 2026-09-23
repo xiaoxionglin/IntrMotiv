@@ -268,7 +268,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   otherwise executing `evaluation/place_fields.py` by path can import an older
   installed IntrMotiv package and reconstruct the wrong model. Evaluator workers
   need existing, isolated `TMPDIR` directories because DMLab does not create the
-  configured parent itself.
+  configured parent itself. Release audits must also declare whether certified
+  terminal-successor transport is part of the study contract: the state-goal
+  follow-up intentionally rejects contextual terminal HER without raw successor
+  CA3, while older controller studies retain the strict transport requirement.
 - **Core device fix (September 15):** Local runtime now batches the non-probing
   topological manager and shared landmark bookkeeping on the state device,
   removing per-stream scalar reads from the active study's path. 106 focused
