@@ -1,11 +1,28 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.11.0` (flat tracking identity; see deployment record below)
+- Implementation: `1.12.0` (landmark geometry and cue-aware spatial telemetry)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 runtime copy: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+## 1.12.0 landmark geometry and cue-aware telemetry
+
+Map geometry v2 adds an optional, privileged cue-site contract while retaining
+the v1 reader for corridor artifacts. Online and offline NPZ files remain schema
+v1 with optional cue arrays. Spatial collection now reports cue visitation,
+traversable-geodesic peak distance, one-to-one cue/peak assignments, raw and
+capacity-normalized cue coverage, and decal/color subsets. Standard field rows
+remain separate from matched-command intervention rows.
+
+The reference implementation is the easy-landmark screen: a fixed 10-by-10
+logical maze with 10 decals and 10 colored wall faces, plus a same-sites neutral
+control. Its three StudySpecs, exact fingerprints, local native evidence, and
+remaining NEMO2 gates are recorded in
+`06_experiments/easy_landmark_maze_implementation_20260923.md`. Version 1.12.0
+is local only until that record contains a successful NEMO2 focused-test run,
+six passing 2M qualification audits, and a print-only submission audit.
 
 ## 1.11.0 flat tracking identity
 

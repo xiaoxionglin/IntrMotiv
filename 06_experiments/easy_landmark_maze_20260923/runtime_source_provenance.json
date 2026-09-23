@@ -1,0 +1,21 @@
+{
+  "schema": "intrmotiv/runtime-source-provenance/v1",
+  "captured_at": "2026-09-23T18:49:00+02:00",
+  "qualified_source": {
+    "path": "/home/xiaoxiong/SFgit/SF_hipposlam_corridor_20260919",
+    "branch": "codex/corridor-geometry",
+    "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
+    "working_tree_content_sha256": "2566ef508669d11396f2f654566538a0f0b0425deae1ce8f199dc90bbc70ddb2",
+    "porcelain_status_sha256": "c8a64d3ee3333ced315340c91ccedc1dcefb3d6de2a796c773ee02ca0238ded0"
+  },
+  "isolated_landmark_runtime": {
+    "path": "/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923",
+    "branch": "codex/easy-landmark-maze-20260923",
+    "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
+    "working_tree_content_sha256": "b12a25b384ce2ed07c4ef5a2a7a183f5fdd1bdcd33af3c7d44053548049d2a22",
+    "porcelain_status_sha256": "2f8ae9cff52d61e25573fee7e2349446ad653279d80853511d666c94bc56a37e",
+    "tracked_binary_diff_sha256": "7e3db9f76fe6ded301ad9a88b97cc08dfa8702dc020271608268632a17d9d90f",
+    "untracked_file_content_sha256": "2a0cc088dbfaeb2a67981b1d4905ed74d4dd24f8b6fe65c1ca9a93b1169d57f6"
+  },
+  "note": "The isolated tree contains the exact qualified corridor working tree plus landmark changes. The shared qualified checkout was not modified. Recompute hashes after any runtime edit before NEMO2 synchronization."
+}

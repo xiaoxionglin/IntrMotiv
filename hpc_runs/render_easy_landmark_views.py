@@ -15,7 +15,7 @@ from hpc_runs.intrmotiv_study.geometry import load_landmark_geometry
 def render(runfiles: Path, output: Path) -> None:
     output.mkdir(parents=True, exist_ok=True)
     archive = Path(__file__).with_name("studies") / "assets/easy_landmark_maze/maps.json"
-    record = load_landmark_geometry(str(archive), 1001, 20260923, "rich")
+    record = load_landmark_geometry(str(archive), 1001, 0.85, 20260923, "rich")
     deepmind_lab.set_runfiles_path(str(runfiles))
 
     images = []

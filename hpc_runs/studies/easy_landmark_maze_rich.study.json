@@ -21,7 +21,7 @@
       "--dmlab_runfiles_path=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/easy_landmark_maze_20260923/runfiles",
       "--env=easy_landmark_maze_noreward",
       "--dmlab_map_seed=1001",
-      "--dmlab_wall_removal_probability=0.0",
+      "--dmlab_wall_removal_probability=0.85",
       "--dmlab_cue_layout_seed=20260923",
       "--dmlab_landmark_cues=rich",
       "--train_for_env_steps=100000000",

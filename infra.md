@@ -397,6 +397,29 @@ For each finding, record:
 
 ## Completed Improvements
 
+### Native landmark manifest and review renderer — completed locally, 2026-09-23
+
+- **Evidence:** Python-only geometry tests did not detect that the environment
+  factory passed a corridor-only wall-removal setting to the landmark Lua level,
+  or that the shared observation wrapper accessed an absent cue hash for v1
+  maps. The real DMLab constructor and the six-command training-parser pass
+  exposed both immediately.
+- **Impact:** Without native and parser gates, a valid StudySpec could fail before
+  its first episode, and a backward-compatible reader could still break the
+  established corridor runtime.
+- **Improvement:** Workflow 1.12 adds a native cue-manifest verifier, v1/v2
+  wrapper tests, an opt-in rich/none DMLab test, exact parser coverage for every
+  qualification row, and a review-only renderer for all cue approaches.
+- **Acceptance criteria and outcome:** Local tests verify identical geometry and
+  starts, zero reward, exact timeout, privileged-field stripping, deterministic
+  20-site manifests, and all six parsed commands. Twenty native views were
+  rendered and inspected. NEMO2 synchronization and qualification remain open
+  release gates; see the [implementation record](06_experiments/easy_landmark_maze_implementation_20260923.md).
+- **Reusable lesson:** For new native environments, instantiate the engine and
+  parse the rendered StudySpec commands before treating declarative validation
+  as sufficient. Keep visual-review spawning in a separate level so production
+  geometry and reset behavior cannot be changed by review tooling.
+
 ### Explicit depth preprocessing contract — completed locally, 2026-09-14
 
 - **Evidence:** `sample_factory/utils/normalize.py` applies fixed observation

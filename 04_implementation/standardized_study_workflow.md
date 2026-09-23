@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.11.0** (flat tracking identity; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.12.0** (landmark geometry and cue-aware telemetry; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -17,6 +17,17 @@ This is the default workflow for new training batches, repeated online
 analysis, and place-field telemetry. It preserves the existing Sample Factory
 launcher and the established NEMO2 telemetry evaluator as execution backends.
 The study specification is the shared source of truth above both backends.
+
+Version 1.12.0 keeps StudySpec and online/offline NPZ schemas at v1 while adding
+optional map-geometry v2 cue fields. A v2 artifact must bind its entity layer,
+reserved wall faces, orientations, adjacent accessible cells, cue identities,
+render mode, palette/assets, and layout seed. Native Lua output is verified
+against that archive on reset and removed before observation normalization.
+Use separate complete-Cartesian StudySpecs when production and a smaller paired
+control have different seed sets; do not encode a sparse matrix in condition
+names. Cue-aware analyses must retain unmatched cues and units and report both
+raw site coverage and the capacity-normalized denominator declared by the
+geometry module.
 
 Version 1.8.2 fixes spatial discovery at late milestones: declared telemetry
 targets are no longer intersected with historical 5M–100M defaults. A collector

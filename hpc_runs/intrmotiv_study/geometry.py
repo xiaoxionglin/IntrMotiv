@@ -147,13 +147,18 @@ def landmark_entity_record(
     entity: str,
     *,
     map_seed: int,
+    wall_removal_probability: float,
     cue_layout_seed: int,
     cue_mode: str,
 ) -> dict:
     """Create a verified v2 record for the landmark-rich/control maze."""
     if cue_mode not in {"rich", "none"}:
         raise ValueError("cue_mode must be 'rich' or 'none'")
-    base = entity_record(entity, map_seed=map_seed, wall_removal_probability=0.0)
+    base = entity_record(
+        entity,
+        map_seed=map_seed,
+        wall_removal_probability=wall_removal_probability,
+    )
     sites = cue_sites(entity, cue_layout_seed=cue_layout_seed)
     identity = {
         "entity_sha256": base["sha256"],
@@ -188,11 +193,18 @@ def load_geometry(manifest: str, seed: int, opening: float) -> dict:
 
 
 @lru_cache(maxsize=8)
-def load_landmark_geometry(manifest: str, seed: int, cue_layout_seed: int, cue_mode: str) -> dict:
+def load_landmark_geometry(
+    manifest: str,
+    seed: int,
+    opening: float,
+    cue_layout_seed: int,
+    cue_mode: str,
+) -> dict:
     records = json.loads(Path(manifest).read_text())["maps"]
     matches = [
         record for record in records
         if record["map_seed"] == seed
+        and record["wall_removal_probability"] == opening
         and record.get("cue_layout_seed") == cue_layout_seed
         and record.get("cue_mode") == cue_mode
     ]
@@ -200,7 +212,9 @@ def load_landmark_geometry(manifest: str, seed: int, cue_layout_seed: int, cue_m
         raise ValueError("Landmark geometry manifest must contain exactly one matching map")
     record = matches[0]
     verified = landmark_entity_record(
-        record["entity_layer"], map_seed=seed, cue_layout_seed=cue_layout_seed, cue_mode=cue_mode
+        record["entity_layer"], map_seed=seed,
+        wall_removal_probability=opening,
+        cue_layout_seed=cue_layout_seed, cue_mode=cue_mode
     )
     if verified != record:
         raise ValueError("Landmark geometry manifest differs from its verified source")
@@ -222,6 +236,7 @@ def geometry_from_config(cfg):
     return load_landmark_geometry(
         manifest,
         int(cfg.dmlab_map_seed),
+        float(cfg.dmlab_wall_removal_probability),
         int(cfg.dmlab_cue_layout_seed),
         str(cfg.dmlab_landmark_cues),
     )
@@ -316,6 +331,9 @@ def geometry_record_from_payload(payload):
     return landmark_entity_record(
         entity,
         map_seed=map_seed,
+        wall_removal_probability=float(
+            np.asarray(payload["geometry_wall_removal_probability"]).item()
+        ),
         cue_layout_seed=int(np.asarray(payload["geometry_cue_layout_seed"]).item()),
         cue_mode=str(np.asarray(payload["geometry_cue_mode"]).item()),
     )
@@ -524,6 +542,9 @@ def validate_geometry_payload(payload):
         record = landmark_entity_record(
             str(np.asarray(payload["geometry_entity_layer"]).item()),
             map_seed=int(np.asarray(payload["geometry_map_seed"]).item()),
+            wall_removal_probability=float(
+                np.asarray(payload["geometry_wall_removal_probability"]).item()
+            ),
             cue_layout_seed=int(np.asarray(payload["geometry_cue_layout_seed"]).item()),
             cue_mode=str(np.asarray(payload["geometry_cue_mode"]).item()),
         )

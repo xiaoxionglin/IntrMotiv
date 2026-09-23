@@ -38,8 +38,8 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
         self.assertEqual(first[-1]["cue_id"], "C10")
 
     def test_archive_modes_share_sites_and_v2_payload_round_trips(self):
-        rich = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 20260923, "rich")
-        control = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 20260923, "none")
+        rich = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
+        control = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "none")
         self.assertEqual(rich["schema"], GEOMETRY_SCHEMA_V2)
         self.assertEqual(rich["cue_sites"], control["cue_sites"])
         self.assertNotEqual(rich["cue_layout_sha256"], control["cue_layout_sha256"])
@@ -58,7 +58,7 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
         self.assertNotIn("geometry_cue_ids", payload)
 
     def test_capacity_normalized_assignment_preserves_f16_limit(self):
-        record = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 20260923, "rich")
+        record = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
         mask = np.asarray(record["accessible_mask"], dtype=bool)
         occupancy = mask.astype(np.int64)
         maps = np.zeros((16, *mask.shape), dtype=np.float32)
@@ -75,7 +75,7 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
         source = load_geometry(str(CORRIDOR_ARCHIVE), 1001, 0)
         with self.assertRaises(ValueError):
             landmark_entity_record(
-                source["entity_layer"], map_seed=1001,
+                source["entity_layer"], map_seed=1001, wall_removal_probability=0.0,
                 cue_layout_seed=20260923, cue_mode="random",
             )
 

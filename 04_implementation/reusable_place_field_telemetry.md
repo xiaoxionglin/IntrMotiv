@@ -17,6 +17,31 @@ units form active, spatially distributed, and reasonably stable receptive
 fields. Use it across flat, HRL, manager, loss, threshold, and update-schedule
 variants instead of writing batch-specific `enjoy` scripts.
 
+## Landmark-aware optional contract (workflow 1.12.0)
+
+Geometry v2 snapshots may add cue IDs/types, wall cells and orientations,
+adjacent accessible cells, rendered flags, cue-layout seed/hash, and fixed
+asset identifiers. These are privileged evaluation fields: the environment
+wrapper verifies native Lua geometry and cue manifests, captures pose for
+telemetry, and removes all three before policy normalization. Geometry v1
+snapshots and evaluators remain valid.
+
+For cue-aware maps, `collect-spatial --include-details` writes a
+`cue_assignment.csv` that uses a one-to-one minimum traversable-geodesic
+assignment. It preserves unmatched cues and active DG units. Summaries include
+visited cue-adjacent fraction, active-unit nearest-cue distance, raw coverage
+of all reserved sites, capacity-normalized coverage using
+$\min(20,\text{active DG units},\text{visited cues})$, and separate decal and
+colored-wall results. A neutral control retains the same reserved sites but
+marks every cue unrendered, allowing physical-site comparisons without
+claiming replicated cue causality from a single learner seed.
+
+Occupancy, trajectory, and field figures overlay cue identity and type on top
+of the existing wall layer. Do not infer cue coding from proximity alone:
+report silence, spatial information, map similarity, distinct peaks, visitation,
+distance, and assignment together. In particular, a 20-site maze intentionally
+exceeds an F16 DG, so one-unit-per-cue is not an acceptance condition.
+
 The workflow separates four questions:
 
 1. **Activity:** do DG units cross threshold during a sufficiently long probe?
