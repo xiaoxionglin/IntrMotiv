@@ -23,6 +23,7 @@ from .telemetry import (
     build_intervention_manifest,
     build_place_field_manifests,
     discover_nemo_checkpoints,
+    select_standard_place_field_rows,
     write_manifest,
 )
 from .tensorboard import collect_online_records
@@ -265,8 +266,9 @@ def command_collect_spatial(args: argparse.Namespace) -> None:
 def command_render_telemetry(args: argparse.Namespace) -> None:
     study = load_study(args.study)
     inventory = discover_nemo_checkpoints(study, args.batch_root)
-    rows, trajectory = build_place_field_manifests(study, inventory)
-    intervention = build_intervention_manifest(study, rows)
+    all_rows, trajectory = build_place_field_manifests(study, inventory)
+    rows = select_standard_place_field_rows(study, all_rows)
+    intervention = build_intervention_manifest(study, all_rows)
     write_manifest(args.output_root / "analysis_manifest.tsv", rows)
     write_manifest(args.output_root / "trajectory_manifest.tsv", trajectory)
     if intervention:

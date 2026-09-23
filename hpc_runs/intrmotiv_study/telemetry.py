@@ -148,6 +148,29 @@ def build_place_field_manifests(
     return rows, trajectory_rows
 
 
+def select_standard_place_field_rows(
+    study: StudySpec, rows: Iterable[Mapping[str, str]]
+) -> list[dict[str, str]]:
+    """Exclude checkpoints present only to support intervention evaluation.
+
+    The checkpoint inventory is the shared source for both evaluators. This
+    selector preserves the standard five-target trajectory seed plus terminal
+    checkpoints for declared terminal seeds, without scheduling an additional
+    field rollout merely because an intervention needs an earlier checkpoint.
+    """
+    telemetry = study.telemetry
+    target_frames = telemetry["target_frames"]
+    trajectory_seed = int(telemetry.get("trajectory_seed", 99))
+    terminal_seeds = set(telemetry.get("terminal_seeds", [8, 123]))
+    selected = []
+    for row in rows:
+        seed = int(row["seed"])
+        target = int(row["target_frames"])
+        if seed == trajectory_seed or (seed in terminal_seeds and target == target_frames[-1]):
+            selected.append(dict(row))
+    return selected
+
+
 def selected_intervention_runs(study: StudySpec) -> list[RunSpec]:
     intervention = study.telemetry.get("intervention")
     if intervention is None:
