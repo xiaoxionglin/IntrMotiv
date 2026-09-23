@@ -33,8 +33,12 @@ _COLORS = (
 
 def entity_record(entity: str, *, map_seed: int, wall_removal_probability: float) -> dict:
     rows = entity.splitlines()
-    if len(rows) != 21 or any(len(row) != 21 for row in rows):
-        raise ValueError("Expected a 21x21 entity map")
+    height = len(rows)
+    width = len(rows[0]) if rows else 0
+    if height < 5 or width < 5 or height % 2 == 0 or width % 2 == 0:
+        raise ValueError("Expected odd entity dimensions of at least 5x5")
+    if any(len(row) != width for row in rows):
+        raise ValueError("Entity map must be rectangular")
     grid = np.array([list(row) for row in rows])
     if not np.isin(grid, ["*", " ", "P"]).all():
         raise ValueError("Only wall, floor and spawn entities are allowed")
@@ -72,7 +76,7 @@ def entity_record(entity: str, *, map_seed: int, wall_removal_probability: float
         sha256=sha256(entity.encode()).hexdigest(),
         accessible_mask=np.flipud(floor[1:-1, 1:-1]).astype(int).tolist(),
         spawn_cells_rc=np.argwhere(grid == "P").tolist(),
-        bounds=[100.0, 2000.0, 100.0, 2000.0],
+        bounds=[100.0, float((width - 1) * 100), 100.0, float((height - 1) * 100)],
         cell_size=100.0,
         coordinate_contract="mask[y_bin,x_bin]; x=floor(x_world/100)-1; y=floor(y_world/100)-1",
         accessible_cells=len(cells),
@@ -104,13 +108,17 @@ def cue_sites(entity: str, *, cue_layout_seed: int) -> list[dict]:
     rows = entity.splitlines()
     grid = np.array([list(row) for row in rows])
     candidates = []
-    for wall_row in range(1, len(rows) - 1):
-        for wall_col in range(1, len(rows[0]) - 1):
+    for wall_row in range(len(rows)):
+        for wall_col in range(len(rows[0])):
             if grid[wall_row, wall_col] != "*":
                 continue
             for direction, floor_dr, floor_dc in _DIRECTIONS:
                 floor_row, floor_col = wall_row - floor_dr, wall_col - floor_dc
-                if grid[floor_row, floor_col] != "*":
+                if (
+                    0 <= floor_row < len(rows)
+                    and 0 <= floor_col < len(rows[0])
+                    and grid[floor_row, floor_col] != "*"
+                ):
                     candidates.append((wall_row, wall_col, floor_row, floor_col, direction))
     chosen = []
     used_walls, used_floors = set(), set()
@@ -137,7 +145,7 @@ def cue_sites(entity: str, *, cue_layout_seed: int) -> list[dict]:
             "asset": _DECALS[type_index] if cue_type == "decal" else _COLORS[type_index],
             "wall_rc": [wall_row, wall_col],
             "floor_rc": [floor_row, floor_col],
-            "floor_yx": [19 - floor_row, floor_col - 1],
+            "floor_yx": [len(rows) - 2 - floor_row, floor_col - 1],
             "orientation": direction,
         })
     return sites
@@ -169,6 +177,7 @@ def landmark_entity_record(
     return {
         **base,
         "schema": GEOMETRY_SCHEMA_V2,
+        "entity_shape": [len(entity.splitlines()), len(entity.splitlines()[0])],
         "cue_layout_seed": int(cue_layout_seed),
         "cue_mode": cue_mode,
         "cue_sites": sites,
@@ -197,6 +206,8 @@ def load_landmark_geometry(
     manifest: str,
     seed: int,
     opening: float,
+    rows: int,
+    cols: int,
     cue_layout_seed: int,
     cue_mode: str,
 ) -> dict:
@@ -205,6 +216,7 @@ def load_landmark_geometry(
         record for record in records
         if record["map_seed"] == seed
         and record["wall_removal_probability"] == opening
+        and record.get("entity_shape") == [rows, cols]
         and record.get("cue_layout_seed") == cue_layout_seed
         and record.get("cue_mode") == cue_mode
     ]
@@ -237,6 +249,8 @@ def geometry_from_config(cfg):
         manifest,
         int(cfg.dmlab_map_seed),
         float(cfg.dmlab_wall_removal_probability),
+        int(cfg.dmlab_map_rows),
+        int(cfg.dmlab_map_cols),
         int(cfg.dmlab_cue_layout_seed),
         str(cfg.dmlab_landmark_cues),
     )
@@ -256,15 +270,18 @@ def verify_cue_manifest(manifest, record):
     if not isinstance(manifest, str):
         raise ValueError("DMLab cue manifest must be a string")
     lines = manifest.splitlines()
-    if len(lines) != 24 or lines[:4] != [
-        "schema\teasy-landmark-maze/v1",
+    shape = record["entity_shape"]
+    if len(lines) != 25 or lines[:5] != [
+        "schema\teasy-landmark-maze/v2",
+        f"shape\t{shape[0]}\t{shape[1]}",
         f"mode\t{record['cue_mode']}",
         f"seed\t{record['cue_layout_seed']}",
         "cue_id\ttype\tasset\twall_row\twall_col\tfloor_row\tfloor_col\torientation",
     ]:
         raise ValueError("DMLab cue manifest header differs from the archived contract")
     observed = []
-    for line in lines[4:]:
+    entity_height = len(record["entity_layer"].splitlines())
+    for line in lines[5:]:
         fields = line.split("\t")
         if len(fields) != 8:
             raise ValueError("Malformed DMLab cue manifest row")
@@ -274,7 +291,7 @@ def verify_cue_manifest(manifest, record):
             "asset": fields[2],
             "wall_rc": [int(fields[3]), int(fields[4])],
             "floor_rc": [int(fields[5]), int(fields[6])],
-            "floor_yx": [19 - int(fields[5]), int(fields[6]) - 1],
+            "floor_yx": [entity_height - 2 - int(fields[5]), int(fields[6]) - 1],
             "orientation": fields[7],
         })
     if observed != record["cue_sites"]:
@@ -298,6 +315,7 @@ def geometry_payload(record):
     if record.get("schema") == GEOMETRY_SCHEMA_V2:
         sites = record["cue_sites"]
         payload.update({
+            "geometry_entity_shape": np.asarray(record["entity_shape"], dtype=np.int16),
             "geometry_cue_layout_seed": np.asarray(record["cue_layout_seed"]),
             "geometry_cue_mode": np.asarray(record["cue_mode"]),
             "geometry_cue_layout_sha256": np.asarray(record["cue_layout_sha256"]),
@@ -532,6 +550,7 @@ def validate_geometry_payload(payload):
         )
     elif schema == GEOMETRY_SCHEMA_V2:
         cue_required = (
+            "geometry_entity_shape",
             "geometry_cue_layout_seed", "geometry_cue_mode", "geometry_cue_layout_sha256",
             "geometry_cue_ids", "geometry_cue_types", "geometry_cue_assets",
             "geometry_cue_wall_rc", "geometry_cue_floor_yx", "geometry_cue_orientations",
