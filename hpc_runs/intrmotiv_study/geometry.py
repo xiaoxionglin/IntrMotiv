@@ -234,6 +234,38 @@ def verify_entity(entity, record):
         raise ValueError("Loaded DMLab geometry does not match the archived map SHA-256")
 
 
+def verify_cue_manifest(manifest, record):
+    """Verify the native Lua cue manifest without exposing it to the policy."""
+    if isinstance(manifest, bytes):
+        manifest = manifest.decode()
+    if not isinstance(manifest, str):
+        raise ValueError("DMLab cue manifest must be a string")
+    lines = manifest.splitlines()
+    if len(lines) != 24 or lines[:4] != [
+        "schema\teasy-landmark-maze/v1",
+        f"mode\t{record['cue_mode']}",
+        f"seed\t{record['cue_layout_seed']}",
+        "cue_id\ttype\tasset\twall_row\twall_col\tfloor_row\tfloor_col\torientation",
+    ]:
+        raise ValueError("DMLab cue manifest header differs from the archived contract")
+    observed = []
+    for line in lines[4:]:
+        fields = line.split("\t")
+        if len(fields) != 8:
+            raise ValueError("Malformed DMLab cue manifest row")
+        observed.append({
+            "cue_id": fields[0],
+            "cue_type": fields[1],
+            "asset": fields[2],
+            "wall_rc": [int(fields[3]), int(fields[4])],
+            "floor_rc": [int(fields[5]), int(fields[6])],
+            "floor_yx": [19 - int(fields[5]), int(fields[6]) - 1],
+            "orientation": fields[7],
+        })
+    if observed != record["cue_sites"]:
+        raise ValueError("Loaded DMLab cue layout differs from the archived contract")
+
+
 def geometry_payload(record):
     if record is None:
         return {}
