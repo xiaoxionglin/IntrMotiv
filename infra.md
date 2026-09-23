@@ -22,7 +22,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   checkpoints omit replay, declare `replay_included=False`, and fail clearly if
   passed to the training-resume path. The canonical qualified desktop source and
   isolated easy-landmark source contain the change; the isolated NEMO2 source is
-  synchronized. Active release checkouts were intentionally not mutated.
+  synchronized. Active release checkouts were intentionally not mutated. Existing
+  artifacts were pruned on September 23 to at most eight milestones per run:
+  63.962 GiB reclaimed on G500, 498.023 GiB from the old NEMO2 train allocation,
+  and 364.802 GiB from the corridor allocation. Post-cleanup scans found zero
+  violating milestone directories on G500 or the three NEMO2 allocations.
 - **Acceptance:** Five focused checkpoint tests pass in both desktop source
   trees and in the isolated NEMO2 checkout. Before production release, verify a
   real mature-replay save: the rolling checkpoint must reload exactly, the
