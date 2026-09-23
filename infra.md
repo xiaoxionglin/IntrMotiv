@@ -22,11 +22,22 @@ keep implementation guidance in the canonical workflow documents linked below.
   checkpoints omit replay, declare `replay_included=False`, and fail clearly if
   passed to the training-resume path. The canonical qualified desktop source and
   isolated easy-landmark source contain the change; the isolated NEMO2 source is
-  synchronized. Active release checkouts were intentionally not mutated. Existing
-  artifacts were pruned on September 23 to at most eight milestones per run:
+  synchronized. Existing artifacts were pruned on September 23 to at most eight
+  milestones per run:
   63.962 GiB reclaimed on G500, 498.023 GiB from the old NEMO2 train allocation,
   and 364.802 GiB from the corridor allocation. Post-cleanup scans found zero
   violating milestone directories on G500 or the three NEMO2 allocations.
+- **Recovery outcome (September 24):** Thirteen learners wedged by ENOSPC were
+  cancelled and restored from their latest full rolling checkpoints. Every
+  selected checkpoint passed memory-mapped `torch.load` with controller replay,
+  optimizer, target-network, publication and RNG state present. The historical
+  release trees lacked the storage fix, so the first exact-source recovery was
+  stopped after proving all learners advanced. Two isolated recovery worktrees
+  at the original commits received only the qualified checkpoint patch; the five
+  focused tests pass in each. Recovery jobs `8176438`--`8176851` all published
+  new weights, retained exactly one full rolling checkpoint per run, logged no
+  storage or fatal errors, and raised corridor free space from 399 GB to 752 GB
+  by pruning obsolete replay-bearing rolling copies.
 - **Acceptance:** Five focused checkpoint tests pass in both desktop source
   trees and in the isolated NEMO2 checkout. Before production release, verify a
   real mature-replay save: the rolling checkpoint must reload exactly, the
