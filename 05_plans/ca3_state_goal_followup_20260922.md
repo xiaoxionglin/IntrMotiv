@@ -2,12 +2,101 @@
 
 Status: follow-up fixes and deferred refinements for the deployed predictive active-goal design.
 
-## Immediate fixes
 
-1. **Contextual HER success semantics.** DG ID is only the landmark slot/address. A HER goal selected from future raw CA3 state $S_g$ must be achieved with the same contextual recognition semantics as online goals. Keep the slot as a cheap candidate lookup, but do not let slot equality alone define success:
+## 23 September diagnosis: simplify goal recognition back to z-space
+
+Current production diagnostics change the priority:
+
+- `state_shuffle_delta` grows, so the readout state carries useful predictive information;
+- `action_shuffle_delta` oscillates around zero, so the innovation predictor is currently using little or no extra information from the executed action sequence;
+- raw prediction loss can increase even while state-shuffle separation grows, consistent with a harder or moving target distribution rather than latent collapse;
+- `positive_similarity_q10` rapidly saturates at approximately 1 and stays there, making the current action-probe-signature recognition unnecessarily brittle.
+
+The worker already uses the same readout for current state and goal:
 
 $$
-\operatorname{hit}(S_t,S_g)=[j_t=j_g]\,[\operatorname{sim}(\sigma(S_t),\sigma(S_g))\ge\tau].
+z_t=W S_t,
+\qquad
+z_g=W S_g.
+$$
+
+Make this also the canonical goal-recognition space. Replace action-probe-signature success semantics with direct normalized latent similarity:
+
+$$
+\boxed{
+\operatorname{hit}(S_t,S_g)
+=
+[\operatorname{has\_DG\_event}(S_t)]
+[
+\cos(\widehat z_t,\widehat z_g)\ge\tau_z
+].
+}
+$$
+
+where
+
+$$
+\widehat z=\frac{z}{\max(\lVert z\rVert,\epsilon)}.
+$$
+
+Use the same helper for online graph recognition and contextual HER. DG ID remains only a graph slot/address/bookkeeping field; it does not define semantic success in state-readout mode.
+
+Recalibrate the recognition threshold directly from z-space within-occurrence positive pairs. Keep background/cross-occurrence z-similarity distributions as diagnostics. If positive/background overlap is too large, first add a small trusted-positive z-consistency objective rather than reintroducing a second semantic space.
+
+The previous action-probe signature was introduced because prediction loss alone does not guarantee a meaningful latent metric: an invertible change of coordinates in z can be compensated by the predictor. The current variance/covariance regularization approximately fixes scale/correlation, leaving mostly orthogonal freedom, under which cosine similarity is invariant. Given the observed action-shuffle result and signature saturation, the extra predictor-derived signature no longer justifies its complexity as the success criterion.
+
+Keep action-probe signatures only as optional diagnostics of predicted-future equivalence, not as the online/HER hit definition.
+
+### Worker goal-conditioning initialization
+
+The continuous-goal FiLM adapter is currently zero initialized, so fresh runs begin exactly goal independent. For the next run, compare at least one nonzero structured initialization.
+
+Preferred minimal options:
+
+1. **Small orthogonal FiLM initialization:** keep the existing FiLM architecture but initialize the continuous goal adapter with a small orthogonal gain instead of exact zero. Prefer a very small gain so the parent state pathway is not disrupted.
+2. **Relation decoder:** because current state and goal already share z-space, feed explicit relation features such as $[z_t,z_g,z_g-z_t]$ to a small shared decoder, optionally retaining depth/context bypasses. This is more natural for continuous same-space goals than target-ID FiLM.
+
+If shared projections are used, apply the **same** projection to $z_t$ and $z_g$. Do not initialize independent state/goal orthogonal maps, because that would destroy their coordinate correspondence.
+
+### Action-conditioning diagnosis
+
+A near-zero action-shuffle delta means the current predictor behaves approximately like
+
+$$
+P_\phi(u_{t+h}\mid z_t,a_{t:t+h-1})
+\approx
+P_\phi(u_{t+h}\mid z_t).
+$$
+
+This can happen because the behavior policy is highly state-determined, so the executed actions add little conditional information beyond $z_t$. It does not imply that z is useless.
+
+Log normalized predictive gains in addition to raw losses:
+
+$$
+G_z=
+\frac{L_{\mathrm{state\ shuffle}}-L_{\mathrm{normal}}}
+{\max(L_{\mathrm{state\ shuffle}},\epsilon)},
+$$
+
+$$
+G_a=
+\frac{L_{\mathrm{action\ shuffle}}-L_{\mathrm{normal}}}
+{\max(L_{\mathrm{action\ shuffle}},\epsilon)}.
+$$
+
+If $G_z$ grows while raw loss grows, interpret the representation relative to the changing prediction problem rather than from raw loss alone.
+
+Do not force action dependence merely to make `action_shuffle_delta` positive. If action-conditioned predictive state remains scientifically important, first improve action coverage/balancing in the auxiliary replay rather than adding an arbitrary action-sensitivity penalty.
+
+## Immediate fixes
+
+1. **Contextual HER success semantics.** DG ID is only the landmark slot/address. A HER goal selected from future raw CA3 state $S_g$ must be achieved with the same contextual recognition semantics as online goals. Keep the slot as bookkeeping, but do not let slot equality define success. Following the 23 September diagnosis, the canonical semantics use direct normalized z-space similarity:
+
+$$
+\operatorname{hit}(S_t,S_g)
+=
+[\operatorname{has\_DG\_event}(S_t)]
+[\cos(\widehat z_t,\widehat z_g)\ge\tau_z].
 $$
 
 2. **Restore CA3-readout anti-collapse regularization.** The implementation currently has the prediction loss but omitted the planned variance/covariance terms. Restore
@@ -94,16 +183,16 @@ Canonical semantics for `ca3_worker_goal_mode=state_readout` + contextual goals:
 
 Factor the similarity calculation so online graph recognition and HER call the same helper. Prefer a helper in `ca3_state_readout.py`, conceptually:
 
-    contextual_similarity(readout, predictor, left_ca3, right_ca3)
+    latent_contextual_similarity(readout, left_ca3, right_ca3)
 
-which computes cosine similarity between normalized `action_probe_signature(...)` vectors.
+which computes cosine similarity between normalized current readout vectors `W S`. Keep the predictor-derived action-probe signature available only for diagnostics.
 
 For stored HER:
 
-    start_hit = has_DG_event(S_t) and sim(S_t, S_g) >= tau
-    next_hit  = has_DG_event(S_{t+1}) and sim(S_{t+1}, S_g) >= tau
+    start_hit = has_DG_event(S_t) and cos(norm(W S_t), norm(W S_g)) >= tau_z
+    next_hit  = has_DG_event(S_{t+1}) and cos(norm(W S_{t+1}), norm(W S_g)) >= tau_z
 
-where $S_g$ is `virtual_goal_state` and $\tau$ is `policy_graph.recognition_threshold`. Do NOT additionally require `j_t == virtual_goal` in the state-readout contextual mode. Preserve the old ID-only logic exactly for `target_id` modes.
+where $S_g$ is `virtual_goal_state` and $\tau_z$ is the z-space recognition threshold. Do NOT additionally require `j_t == virtual_goal` in the state-readout contextual mode. Preserve the old ID-only logic exactly for `target_id` modes.
 
 `hindsight_examples()` should continue to choose a real future replay state and store its raw CA3 snapshot. For the contextual mode, a future endpoint only needs a real worker state and at least one DG event. If multiple DG units are active at that endpoint, use the strongest active DG only as the temporary slot/address; the endpoint CA3 state remains the actual goal identity.
 
