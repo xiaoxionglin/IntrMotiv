@@ -24,8 +24,10 @@ exact fingerprints, local native evidence, and
 remaining NEMO2 gates are recorded in
 `06_experiments/easy_landmark_maze_implementation_20260923.md`. Version 1.12.0
 is synchronized to an isolated NEMO2 worktree. The 53-test canonical suite,
-six-test native DMLab suite, and workspace-resident print-only submission audit
-pass. The six 2M qualification runs remain blocked on active workspace capacity
+six-test native DMLab suite, and workspace-resident submission audit pass. A
+dedicated 4.6 TB workspace at `/work/classic/fr_xl1014-easy-landmark-maze`
+contains all future landmark artifacts. Six 2M qualification jobs are active
+under StudySpec `546c8aa71462861681537efb5d9a597ebf6ecd3ecc2e8c8700ab038bc5199bc0`
 and must pass before production release.
 
 ## 1.11.0 flat tracking identity

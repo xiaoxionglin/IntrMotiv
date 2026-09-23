@@ -415,8 +415,9 @@ For each finding, record:
   starts, zero reward, exact timeout, privileged-field stripping, deterministic
   20-site manifests, dynamic 9-by-9 snapshots, and all six parsed commands.
   Twenty native views from the literal 11-by-11 map were rendered and inspected.
-  NEMO2 synchronization and qualification remain open
-  release gates; see the [implementation record](06_experiments/easy_landmark_maze_implementation_20260923.md).
+  NEMO2 suites and the submitted six-row audit pass; qualification jobs
+  `8175373`–`8175378` are active in the dedicated easy-landmark workspace. See
+  the [implementation record](06_experiments/easy_landmark_maze_implementation_20260923.md).
 - **Reusable lesson:** For new native environments, instantiate the engine and
   parse the rendered StudySpec commands before treating declarative validation
   as sufficient. Search validators and plotting code for inherited grid sizes;

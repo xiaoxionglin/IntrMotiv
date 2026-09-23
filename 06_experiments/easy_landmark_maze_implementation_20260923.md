@@ -3,11 +3,10 @@
 ## Status
 
 Local implementation, NEMO2 synchronization, native qualification tooling, and
-the workspace-resident print-only audit are complete. Production is **not
-released or submitted**. The six 2M qualification runs, frozen evaluation,
-checkpoint reload certificates, and their post-run audit remain hard gates.
-Qualification submission is currently blocked by workspace capacity rather than
-code or authentication.
+the workspace-resident submission audit are complete. Production is **not
+released or submitted**. The six 2M qualification runs are active; frozen
+evaluation, checkpoint reload certificates, cue-aware metrics, and their
+post-run audit remain hard gates.
 
 Workflow: `1.12.0`; study schema: `intrmotiv/study/v1`; map geometry schemas:
 backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
@@ -17,18 +16,18 @@ backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
 
 | Artifact | Count | SHA-256 |
 |---|---:|---|
-| Rich production StudySpec | 9 runs | `d368514edefe1b1ab319d5614792db4e5e6756f485df1e22528ba04635d931cb` |
-| No-cue control StudySpec | 3 runs | `6fd0b056103103d3f29c9c1880a74d93c4d23cf44b1c2b1e227730ba8d275153` |
-| Qualification StudySpec | 6 runs | `b31f0041e93f3d7350cd0cda91fbd42d4ddfd7f3c8db25fc426e20e616e37497` |
+| Rich production StudySpec | 9 runs | `e7e04dcbefbf8c28a28ccfc1fae0ddde5b4a46dd7987cfe7434ec5c61af0ced0` |
+| No-cue control StudySpec | 3 runs | `50274cebfb701d5e52c9c9682ea322c74afb13fa0add7e6a7e635aac8b0c835f` |
+| Qualification StudySpec | 6 runs | `546c8aa71462861681537efb5d9a597ebf6ecd3ecc2e8c8700ab038bc5199bc0` |
 | Geometry archive file | 2 modes | `54b10f1600f1409eea5ffb7f30c9fb6150b229b4b9dcc90fbe3046e7907f1441` |
 | Entity layer | rich and none | `f940d8ddeb0a754120aed4a7563aae752ecc02d11b18776a2f71e09e88a89a4e` |
 | Rich cue layout | 20 rendered sites | `fe7c9bf29514685417ba9cd45ef5e5cb01fe19dd41e497931d7ea736dcf7e1f7` |
 | Control cue layout | same 20 unrendered sites | `da0dca8099ea403f55cbeddc51908c1ae3954860ae9cb44d0562e8a3c1b88d1d` |
-| Rendered qualification plan | 6 rows | `23efe5c5d336c197f7452065ed921c136023b28226c2e10b4838d0c89df2cd01` |
-| Rendered rich-production plan | 9 rows | `9d300f43fa7af9a71b00684a3726514b88f30a981a94e341b0245eaa3fdc9f46` |
-| Rendered control-production plan | 3 rows | `b2c2b945710a4fb493b115d007abb87f163301d07acb318c8b255c3aa26b988e` |
-| NEMO2 print-only `jobs.tsv` | 6 rows | `1503bf4c7f9212faca4abde9cf2d148e4fab53eddf2eace3da1c83af60c415e6` |
-| NEMO2 canonical print-only audit | passed | `cba316ceb9ec3d3d1204d2f8bcbcf20e07e0e9627ed9a513d30b363619d4a01e` |
+| Rendered qualification plan | 6 rows | `074371c5a6fe75ad70b6028210f15c43e1e152a83ae1b60c6de30420cd7a0d8a` |
+| Rendered rich-production plan | 9 rows | `3e41da84cec885ca162268ab6a3a9000a9599b49429a8a79475505fd78b10e5e` |
+| Rendered control-production plan | 3 rows | `e5702ebc6f078e8e3915ac897900a586740c3e3edcba37db987d28653338d18e` |
+| NEMO2 submitted `jobs.tsv` | 6 rows | `533ec31d490589799247e5bbaba7a08f0e90611b9c8877d36289b527da86e772` |
+| NEMO2 canonical submitted audit | passed | `d50f9bbd02ab476bef29dbc3a49f17f8e68debd11064354f17fce372f3d4ad30` |
 
 The runtime is isolated at
 `/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923` on
@@ -108,7 +107,15 @@ The qualified corridor checkout was copied, not edited.
 - The NEMO2 workspace-resident print-only launcher generated six rows and the
   canonical audit reports `commands_match_study=true` and
   `workspace_paths_valid=true` for StudySpec
-  `b31f0041e93f3d7350cd0cda91fbd42d4ddfd7f3c8db25fc426e20e616e37497`.
+  `546c8aa71462861681537efb5d9a597ebf6ecd3ecc2e8c8700ab038bc5199bc0`.
+- A dedicated 100-day workspace was allocated at
+  `/work/classic/fr_xl1014-easy-landmark-maze`. It had 4.6 TB free after
+  staging the isolated runfiles, controller binding, and caches. All landmark
+  StudySpec, launcher, log, temporary, W&B, checkpoint, and analysis paths now
+  resolve beneath this allocation.
+- Qualification jobs `8175373`–`8175378` were submitted and all six reached
+  `RUNNING`. The submitted canonical audit reports a complete six-row matrix,
+  numeric job IDs, matching commands, and valid workspace paths.
 - Native rendering compiled all 20 review approaches. Visual inspection found
   10 unique, centered, unclipped decals; 10 visibly distinct colored wall
   faces; neutral-gray non-cue walls; consistent lighting; and no cue-face
@@ -120,17 +127,12 @@ The qualified corridor checkout was copied, not edited.
 
 ## Release gates
 
-1. Restore sufficient free capacity in
-   `/work/classic/fr_xl1014-corridor-geometry` without disrupting active jobs.
-   At the submission gate the filesystem had only 35 GB free while many CA3
-   jobs were still running; comparable preflight batches occupy 170–300 GB.
-2. Regenerate the print-only manifest if any StudySpec or source changes, then
-   run the six 2M qualification rows. Require finite learning, correct
+1. Let the six active 2M qualification rows finish. Require finite learning, correct
    DG/controller ownership, snapshots at 1M and 2M, exact reload certificates,
    frozen-state evaluation, and finite cue-aware metrics.
-3. Run the canonical qualification audit. Archive the StudySpec hashes,
+2. Run the canonical qualification audit. Archive the StudySpec hashes,
    rendered plan, runtime/source hashes, jobs manifest, and audit output.
-4. Only after all rows pass, use the print-only production launcher and
+3. Only after all rows pass, use the print-only production launcher and
    canonical submission audit. Do not submit either production StudySpec on a
    partial qualification.
 
