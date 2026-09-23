@@ -15,13 +15,16 @@ backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
 
 | Artifact | Count | SHA-256 |
 |---|---:|---|
-| Rich production StudySpec | 9 runs | `0c27a8a65a8f7a927e8607f3ad844ab09e7ee747b3a49482f23b01d5bf83af00` |
-| No-cue control StudySpec | 3 runs | `cc94375ea0bd3c046470c5b868c1d9e497677b08b8971d38026a100988837862` |
-| Qualification StudySpec | 6 runs | `32e35541ca2808a3264b57da08dd78f7abbbb88c9f68ecb1c2aef38548029411` |
-| Geometry archive file | 2 modes | `54c2c464f48d55e9c1485c31e74076a3c643dd01d06334108dcc593d623df671` |
-| Entity layer | rich and none | `1c70fc2595912dc1077601e9b1cae808555216ad3f74e9b86090736e89da3db9` |
-| Rich cue layout | 20 rendered sites | `69bc976ebd4c108d541184716233484d259ead4a3fa455490ceefe45db171191` |
-| Control cue layout | same 20 unrendered sites | `14111dca4cded7489bac13e5bc2d68cbc54a5aba135e2162cc65e0c60b49dc7a` |
+| Rich production StudySpec | 9 runs | `d368514edefe1b1ab319d5614792db4e5e6756f485df1e22528ba04635d931cb` |
+| No-cue control StudySpec | 3 runs | `6fd0b056103103d3f29c9c1880a74d93c4d23cf44b1c2b1e227730ba8d275153` |
+| Qualification StudySpec | 6 runs | `b31f0041e93f3d7350cd0cda91fbd42d4ddfd7f3c8db25fc426e20e616e37497` |
+| Geometry archive file | 2 modes | `54b10f1600f1409eea5ffb7f30c9fb6150b229b4b9dcc90fbe3046e7907f1441` |
+| Entity layer | rich and none | `f940d8ddeb0a754120aed4a7563aae752ecc02d11b18776a2f71e09e88a89a4e` |
+| Rich cue layout | 20 rendered sites | `fe7c9bf29514685417ba9cd45ef5e5cb01fe19dd41e497931d7ea736dcf7e1f7` |
+| Control cue layout | same 20 unrendered sites | `da0dca8099ea403f55cbeddc51908c1ae3954860ae9cb44d0562e8a3c1b88d1d` |
+| Rendered qualification plan | 6 rows | `23efe5c5d336c197f7452065ed921c136023b28226c2e10b4838d0c89df2cd01` |
+| Rendered rich-production plan | 9 rows | `9d300f43fa7af9a71b00684a3726514b88f30a981a94e341b0245eaa3fdc9f46` |
+| Rendered control-production plan | 3 rows | `b2c2b945710a4fb493b115d007abb87f163301d07acb318c8b255c3aa26b988e` |
 
 The runtime is isolated at
 `/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923` on
@@ -33,14 +36,21 @@ The qualified corridor checkout was copied, not edited.
 ## Implemented contracts
 
 - `easy_landmark_maze_noreward` fixes geometry seed 1001, wall-removal
-  probability 0.85, layout seed 20260923, 120-second episodes, zero external reward,
-  frameskip 4, and navigation8 actions.
-- The resulting 21-by-21 entity layer has 337 accessible cells: an open field
-  with sparse retained obstacles rather than a perfect maze.
+  probability 0.85, layout seed 20260923, 120-second episodes, zero external
+  reward, frameskip 4, and navigation8 actions.
+- The geometry module preserves the random-number call order, depth-first
+  carving, removal loop, anchor selection, and flood-fill spawn rule from
+  DMLab's original `levels/demos/random_maze.lua`. It emits a literal 11-row by
+  11-column entity layer, not a logical maze expanded to 21 by 21.
+- The resulting 9-by-9 interior has 74 accessible cells and 31 spawn cells at
+  flood distance greater than 5 from the seeded anchor. The final layer has no
+  goal or apple entities. Its world bounds are `[100, 1000)` on both axes.
 - A portable LCG/Fisher-Yates selector shared by Python and Lua samples 20
-  distinct wall faces without replacement and also requires 20 distinct
-  adjacent accessible cells. D01–D10 use fixed existing decals; C01–C10 use a
-  fixed saturated palette. Other walls use one neutral gray texture.
+  distinct physical wall cells without replacement and also requires 20
+  distinct adjacent accessible cells. Perimeter walls and interior obstacles
+  are both eligible, with one selected orientation per wall. D01–D10 use fixed
+  existing decals; C01–C10 use a fixed saturated palette. Other walls use one
+  neutral gray texture.
 - Rich and none modes share entity geometry, spawn behavior, timing, and site
   order. None keeps every reserved site in privileged telemetry but renders it
   neutral.
@@ -63,12 +73,25 @@ The qualified corridor checkout was copied, not edited.
 
 ## Local verification
 
-- 51 canonical geometry/workflow tests passed before runtime staging.
-- Runtime tests pass policy-privacy stripping, exact rich/control reserved-site
-  identity, native manifest verification, repeated-reset equality, zero reward,
-  and the 1800-decision timeout at frameskip 4.
+- 52 canonical geometry/workflow tests pass after replacing the remaining
+  fixed-19 grid validator with the entity-derived 9-by-9 spatial contract.
+- Six isolated runtime tests pass with the real DMLab check enabled. They cover
+  the native entity/cue manifests, dynamic online snapshot shapes, policy-input
+  stripping, all six parser rows, rich/control reset equality, zero reward,
+  frameskip-4 stepping, and the 1800-decision timeout.
+- Native Lua assertions require exactly 10 decal placements and exactly 10
+  colored faces in rich mode; none mode uses the same reservations but exposes
+  no rendered cue variations.
+- The DMLab software renderer changes pixels on its first reset while warming
+  texture state. Two subsequent same-seed resets are byte-identical, and the
+  stabilized rich and none frames differ. The native test deliberately excludes
+  that one-time renderer initialization from the level-determinism assertion.
 - All six qualification commands parse through `parse_dmlab_args`; the Waypoint
   rows resolve to stored DDQN+HER with cadence 2048 and the 1024/1024 split.
+- The local Sample Factory launcher rendered all six Slurm scripts in print-only
+  mode. Their commands and workspace output paths are correct. The canonical
+  submission audit intentionally rejects the local `/tmp` script/log paths;
+  regenerate the manifest under the active NEMO2 workspace before auditing.
 - Native rendering compiled all 20 review approaches. Visual inspection found
   10 unique, centered, unclipped decals; 10 visibly distinct colored wall
   faces; neutral-gray non-cue walls; consistent lighting; and no cue-face
@@ -107,9 +130,11 @@ one DG unit. No composite score is defined.
 ## Reusable experience
 
 The authoritative checks were the native Lua manifest, the actual DMLab reset,
-and the authoritative training parser. They exposed two issues invisible to
-pure Python tests: corridor-only settings passed to the new level, and a shared
-wrapper that assumed every archived map had cue metadata. The efficient future
-path is to extend the canonical geometry artifact first, test both schema
-versions, parse every rendered qualification row, then compile one rich and one
-neutral native map before rendering the full visual review set.
+and the authoritative training parser. They exposed three issues invisible to
+pure Python tests: corridor-only settings passed to the new level, a shared
+wrapper that assumed every archived map had cue metadata, and a validator that
+still required a 19-by-19 spatial grid. The efficient future path is to extend
+the canonical geometry artifact first, derive grid dimensions and bounds from
+that artifact, test both schema versions, parse every rendered qualification
+row, then compile one rich and one neutral native map before rendering the full
+visual review set.

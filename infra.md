@@ -409,16 +409,22 @@ For each finding, record:
   established corridor runtime.
 - **Improvement:** Workflow 1.12 adds a native cue-manifest verifier, v1/v2
   wrapper tests, an opt-in rich/none DMLab test, exact parser coverage for every
-  qualification row, and a review-only renderer for all cue approaches.
+  qualification row, entity-derived spatial dimensions and bounds, and a
+  review-only renderer for all cue approaches.
 - **Acceptance criteria and outcome:** Local tests verify identical geometry and
   starts, zero reward, exact timeout, privileged-field stripping, deterministic
-  20-site manifests, and all six parsed commands. Twenty native views were
-  rendered and inspected. NEMO2 synchronization and qualification remain open
+  20-site manifests, dynamic 9-by-9 snapshots, and all six parsed commands.
+  Twenty native views from the literal 11-by-11 map were rendered and inspected.
+  NEMO2 synchronization and qualification remain open
   release gates; see the [implementation record](06_experiments/easy_landmark_maze_implementation_20260923.md).
 - **Reusable lesson:** For new native environments, instantiate the engine and
   parse the rendered StudySpec commands before treating declarative validation
-  as sufficient. Keep visual-review spawning in a separate level so production
-  geometry and reset behavior cannot be changed by review tooling.
+  as sufficient. Search validators and plotting code for inherited grid sizes;
+  archive-derived bounds are part of the runtime contract, not merely plotting
+  metadata. A software-renderer cold reset can also differ while textures warm;
+  compare two stabilized resets when testing level determinism. Keep
+  visual-review spawning in a separate level so production geometry and reset
+  behavior cannot be changed by review tooling.
 
 ### Explicit depth preprocessing contract — completed locally, 2026-09-14
 

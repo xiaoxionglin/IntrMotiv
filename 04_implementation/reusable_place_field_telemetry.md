@@ -386,7 +386,7 @@ Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
 
 | Array | Meaning |
 | --- | --- |
-| `occupancy` | Decision count in each 19 x 19 position cell. |
+| `occupancy` | Decision count in each position cell; shape follows the archived geometry (19 x 19 for corridor v1, 9 x 9 for the native landmark v2 map). |
 | `rate_maps` | Occupancy-corrected post-threshold DG activity per cell and unit. |
 | `spatial_information` | Occupancy-corrected information in bits per DG unit. |
 | `active_fraction` | Post-threshold duty cycle per DG unit. |
@@ -398,7 +398,7 @@ Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
 | `recruitment_row_counts` | Optional per-DG-row assignment counts. |
 
 Online v1 artifacts additionally use optional cached `rate_maps` in the same
-`[19,19,F]` convention, 3x3 binomial occupancy-normalized smoothed maps,
+`[y,x,F]` grid shape as `occupancy`, 3x3 binomial occupancy-normalized smoothed maps,
 8-connected component labels at 30%, 50%, and 70% of peak, eligibility and
 mono-field arrays, peak coordinates/distances, full policy/passive graph
 buffers, prospective edge accumulators, and cached graph diagnostics. These
@@ -639,6 +639,13 @@ Reset seeds start at 51000 and action RNG seeds at 61000. Every episode uses a
 fresh engine and zero worker memory; learned weights and graph state must remain
 unchanged. The existing manifest and ordinary-job submission contract is retained.
 See the corridor experiment record for qualification status and exact manifests.
+
+Map geometry v2 generalizes this contract to entity-derived dimensions. The
+native 11-by-11 easy-landmark map uses a 9-by-9 accessible mask and bounds
+`[100, 1000)` on each axis. Cue wall coordinates remain entity-layer row/column
+indices; cue floor coordinates are converted to spatial `[y,x]` bins using the
+archived entity height. Snapshot validation requires `grain` to match the
+accessible-mask shape and continues to accept v1 corridor artifacts unchanged.
 
 ### Corridor qualification and alternate allocations
 

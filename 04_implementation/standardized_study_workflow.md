@@ -29,6 +29,13 @@ names. Cue-aware analyses must retain unmatched cues and units and report both
 raw site coverage and the capacity-normalized denominator declared by the
 geometry module.
 
+Geometry v2 readers infer entity height and width. For the native 11-by-11
+easy-landmark map, the accessible mask and spatial grain are 9 by 9, bounds are
+`[100, 1000)` on both axes, and cue floor bins use the entity-derived row-to-world
+orientation. Do not reuse corridor defaults of grain 19 or maximum coordinate
+2000 when a v2 archive declares other dimensions. Geometry v1 corridor
+artifacts retain their established 19-by-19 interpretation.
+
 Version 1.8.2 fixes spatial discovery at late milestones: declared telemetry
 targets are no longer intersected with historical 5M–100M defaults. A collector
 failure at 150M is a validation defect, not evidence that training stopped.

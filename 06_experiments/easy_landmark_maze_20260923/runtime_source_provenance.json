@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/runtime-source-provenance/v1",
-  "captured_at": "2026-09-23T19:01:00+02:00",
+  "captured_at": "2026-09-23T22:10:00+02:00",
   "qualified_source": {
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_corridor_20260919",
     "branch": "codex/corridor-geometry",
@@ -12,10 +12,11 @@
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923",
     "branch": "codex/easy-landmark-maze-20260923",
     "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
-    "working_tree_content_sha256": "8fe7e74e5f21ec0b8875d6bf5a1a7a27cb0e3f029ced2ac0878b688a8d532a30",
-    "porcelain_status_sha256": "d7942f903cbf087b037cf7cf54b711c664819836ba43055de5a7d5cc16ee2de0",
-    "tracked_binary_diff_sha256": "080026fdb62478a7abeb13e852c35a008b776724b44afa2e79bedfcdabb9ffa4",
-    "untracked_file_content_sha256": "9b9765a77c0d71ab36e89dbd0619855ee496d80519ade77811e4fee3db383416"
+    "working_tree_content_sha256": "b719d4f8116c3a0346a4b840de36fe601ec618f044ef6976292a74df45013668",
+    "porcelain_status_sha256": "7ad56daa670b7d617f8baff4bdd45b1261da7ebc33f6748ff931e2022b74cf97",
+    "tracked_binary_diff_sha256": "8abb4c2871d60e807fd42fa481d2a9e9a9be973e27c73056a05c69b5f8429b7c",
+    "untracked_file_content_sha256": "451d3b9fd383da129f47afbed68548b56fafa5c6f45b236ff7112e3d46ffc01d"
   },
+  "hash_method": "working_tree_content_sha256 hashes the binary tracked diff followed by sorted sha256sum records for untracked files; the component hashes preserve those two inputs separately.",
   "note": "The isolated tree contains the exact qualified corridor working tree plus landmark changes. The shared qualified checkout was not modified. Recompute hashes after any runtime edit before NEMO2 synchronization."
 }
