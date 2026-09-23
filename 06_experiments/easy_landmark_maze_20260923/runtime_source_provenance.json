@@ -27,5 +27,5 @@
     "untracked_file_content_sha256": "83d88386fc712a877392557cb29ecba2fa58157657704642a499da3d8b4a86a0"
   },
   "hash_method": "working_tree_content_sha256 hashes the binary tracked diff followed by sorted sha256sum records for untracked files; the component hashes preserve those two inputs separately.",
-  "note": "The isolated tree contains the exact qualified corridor working tree plus landmark changes. The shared qualified checkout was not modified. Recompute hashes after any runtime edit before NEMO2 synchronization."
+  "note": "The isolated tree contains the qualified corridor working tree plus landmark changes. Both desktop trees include the lightweight evaluation-checkpoint contract; only the isolated landmark tree was synchronized to NEMO2, leaving active release checkouts untouched. Recompute hashes after any runtime edit before NEMO2 synchronization."
 }
