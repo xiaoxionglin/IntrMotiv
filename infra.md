@@ -241,6 +241,23 @@ keep implementation guidance in the canonical workflow documents linked below.
   from 1,126 to about 19,347 frames/s under 32×8, splits 8 and two epochs.
   Very fast probes can finish before a fixed warmup window; derive fallback
   throughput only from distinct completed-batch counters over at least 20 s.
+- **Mature-replay resolution (September 23):** The CA3 state-goal batch exposed
+  two additional event-density-dependent synchronization paths that short
+  probes missed. First, matched encoder credit read CUDA scalars once per DG
+  event; vectorized interval validation and reward scatter reduced that phase
+  from 4--7 s to roughly 0.02--0.04 s. Second, stored main replay checked the
+  contextual selectable mask and anchor generation separately for every
+  commanded row. Subphase telemetry isolated example construction at 4.86 s
+  of a 5.20 s main update at 1.25M frames. A transaction-level snapshot of the
+  two 64-element authority vectors reduced example construction to 0.03--0.06
+  s and main replay to 0.30--0.43 s without changing eligibility semantics.
+  The matched four-cell gate then sustained about 17.48k aggregate frames/s at
+  mature replay, above the prior 16.16k reference. The reusable rule is to run
+  throughput gates beyond activation and replay maturity, emit subphase timing,
+  and treat every Python boolean or integer conversion from a CUDA tensor in a
+  per-event or per-row loop as a synchronization defect. Preserve authority by
+  snapshotting small immutable vectors once per transaction; do not weaken the
+  active-mask or generation checks.
 - **Core device fix (September 15):** Local runtime now batches the non-probing
   topological manager and shared landmark bookkeeping on the state device,
   removing per-stream scalar reads from the active study's path. 106 focused
