@@ -258,6 +258,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   per-event or per-row loop as a synchronization defect. Preserve authority by
   snapshotting small immutable vectors once per transaction; do not weaken the
   active-mask or generation checks.
+- **Release-gate lesson (September 23):** Exact restore of a 4 GB checkpoint
+  with 200k replay rows stored as many Python objects remained CPU-bound for
+  about 24 minutes even though training throughput was healthy. Run independent
+  reload certificates concurrently and start them as soon as each qualification
+  cell finishes. A future checkpoint-format revision should store replay in
+  columnar tensor blocks while preserving the exact-restore contract. Direct
+  evaluator invocations must also pin the qualified source root in `PYTHONPATH`;
+  otherwise executing `evaluation/place_fields.py` by path can import an older
+  installed IntrMotiv package and reconstruct the wrong model. Evaluator workers
+  need existing, isolated `TMPDIR` directories because DMLab does not create the
+  configured parent itself.
 - **Core device fix (September 15):** Local runtime now batches the non-probing
   topological manager and shared landmark bookkeeping on the state device,
   removing per-stream scalar reads from the active study's path. 106 focused
