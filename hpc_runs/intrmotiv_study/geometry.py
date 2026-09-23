@@ -14,7 +14,21 @@ from pathlib import Path
 
 import numpy as np
 
-GEOMETRY_SCHEMA = "intrmotiv/map-geometry/v1"
+GEOMETRY_SCHEMA_V1 = "intrmotiv/map-geometry/v1"
+GEOMETRY_SCHEMA_V2 = "intrmotiv/map-geometry/v2"
+GEOMETRY_SCHEMA = GEOMETRY_SCHEMA_V1
+
+_DIRECTIONS = (
+    ("north", -1, 0),
+    ("east", 0, 1),
+    ("south", 1, 0),
+    ("west", 0, -1),
+)
+_DECALS = tuple(f"decal/lab_games/dec_img_style01_{index:03d}" for index in range(1, 11))
+_COLORS = (
+    "#E6194B", "#3CB44B", "#4363D8", "#F58231", "#911EB4",
+    "#42D4F4", "#F032E6", "#BFEF45", "#FABED4", "#469990",
+)
 
 
 def entity_record(entity: str, *, map_seed: int, wall_removal_probability: float) -> dict:
@@ -70,6 +84,96 @@ def entity_record(entity: str, *, map_seed: int, wall_removal_probability: float
     )
 
 
+def _portable_shuffle(values, seed):
+    """Fisher-Yates shuffle shared with the Lua level (32-bit LCG)."""
+    result = list(values)
+    state = int(seed) & 0xFFFFFFFF
+    for index in range(len(result) - 1, 0, -1):
+        state = (1664525 * state + 1013904223) & 0xFFFFFFFF
+        selected = state % (index + 1)
+        result[index], result[selected] = result[selected], result[index]
+    return result
+
+
+def cue_sites(entity: str, *, cue_layout_seed: int) -> list[dict]:
+    """Choose 20 fixed, non-overlapping visible wall sites.
+
+    Orientations name the direction from the adjacent floor cell toward the
+    wall. Distinct floor and wall cells avoid ambiguous co-located cues.
+    """
+    rows = entity.splitlines()
+    grid = np.array([list(row) for row in rows])
+    candidates = []
+    for wall_row in range(1, len(rows) - 1):
+        for wall_col in range(1, len(rows[0]) - 1):
+            if grid[wall_row, wall_col] != "*":
+                continue
+            for direction, floor_dr, floor_dc in _DIRECTIONS:
+                floor_row, floor_col = wall_row - floor_dr, wall_col - floor_dc
+                if grid[floor_row, floor_col] != "*":
+                    candidates.append((wall_row, wall_col, floor_row, floor_col, direction))
+    chosen = []
+    used_walls, used_floors = set(), set()
+    for candidate in _portable_shuffle(candidates, cue_layout_seed):
+        wall = candidate[:2]
+        floor = candidate[2:4]
+        if wall in used_walls or floor in used_floors:
+            continue
+        chosen.append(candidate)
+        used_walls.add(wall)
+        used_floors.add(floor)
+        if len(chosen) == 20:
+            break
+    if len(chosen) != 20:
+        raise ValueError("Map does not contain 20 distinct visible cue sites")
+
+    sites = []
+    for index, (wall_row, wall_col, floor_row, floor_col, direction) in enumerate(chosen):
+        cue_type = "decal" if index < 10 else "color"
+        type_index = index if index < 10 else index - 10
+        sites.append({
+            "cue_id": f"{'D' if cue_type == 'decal' else 'C'}{type_index + 1:02d}",
+            "cue_type": cue_type,
+            "asset": _DECALS[type_index] if cue_type == "decal" else _COLORS[type_index],
+            "wall_rc": [wall_row, wall_col],
+            "floor_rc": [floor_row, floor_col],
+            "floor_yx": [19 - floor_row, floor_col - 1],
+            "orientation": direction,
+        })
+    return sites
+
+
+def landmark_entity_record(
+    entity: str,
+    *,
+    map_seed: int,
+    cue_layout_seed: int,
+    cue_mode: str,
+) -> dict:
+    """Create a verified v2 record for the landmark-rich/control maze."""
+    if cue_mode not in {"rich", "none"}:
+        raise ValueError("cue_mode must be 'rich' or 'none'")
+    base = entity_record(entity, map_seed=map_seed, wall_removal_probability=0.0)
+    sites = cue_sites(entity, cue_layout_seed=cue_layout_seed)
+    identity = {
+        "entity_sha256": base["sha256"],
+        "cue_layout_seed": int(cue_layout_seed),
+        "cue_mode": cue_mode,
+        "cue_sites": sites,
+    }
+    return {
+        **base,
+        "schema": GEOMETRY_SCHEMA_V2,
+        "cue_layout_seed": int(cue_layout_seed),
+        "cue_mode": cue_mode,
+        "cue_sites": sites,
+        "cue_layout_sha256": sha256(
+            json.dumps(identity, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest(),
+        "neutral_wall_rgb": [112, 112, 112],
+    }
+
+
 @lru_cache(maxsize=16)
 def load_geometry(manifest: str, seed: int, opening: float) -> dict:
     records = json.loads(Path(manifest).read_text())["maps"]
@@ -83,13 +187,44 @@ def load_geometry(manifest: str, seed: int, opening: float) -> dict:
     return record
 
 
-def geometry_from_config(cfg):
-    if getattr(cfg, "env", None) != "corridor_geometry_noreward":
-        return None
-    manifest = getattr(cfg, "dmlab_geometry_manifest", "") or str(
-        Path(__file__).resolve().parents[1] / "studies/assets/corridor_geometry/maps.json"
+@lru_cache(maxsize=8)
+def load_landmark_geometry(manifest: str, seed: int, cue_layout_seed: int, cue_mode: str) -> dict:
+    records = json.loads(Path(manifest).read_text())["maps"]
+    matches = [
+        record for record in records
+        if record["map_seed"] == seed
+        and record.get("cue_layout_seed") == cue_layout_seed
+        and record.get("cue_mode") == cue_mode
+    ]
+    if len(matches) != 1:
+        raise ValueError("Landmark geometry manifest must contain exactly one matching map")
+    record = matches[0]
+    verified = landmark_entity_record(
+        record["entity_layer"], map_seed=seed, cue_layout_seed=cue_layout_seed, cue_mode=cue_mode
     )
-    return load_geometry(manifest, int(cfg.dmlab_map_seed), float(cfg.dmlab_wall_removal_probability))
+    if verified != record:
+        raise ValueError("Landmark geometry manifest differs from its verified source")
+    return record
+
+
+def geometry_from_config(cfg):
+    environment = getattr(cfg, "env", None)
+    if environment not in {"corridor_geometry_noreward", "easy_landmark_maze_noreward"}:
+        return None
+    if environment == "corridor_geometry_noreward":
+        manifest = getattr(cfg, "dmlab_geometry_manifest", "") or str(
+            Path(__file__).resolve().parents[1] / "studies/assets/corridor_geometry/maps.json"
+        )
+        return load_geometry(manifest, int(cfg.dmlab_map_seed), float(cfg.dmlab_wall_removal_probability))
+    manifest = getattr(cfg, "dmlab_geometry_manifest", "") or str(
+        Path(__file__).resolve().parents[1] / "studies/assets/easy_landmark_maze/maps.json"
+    )
+    return load_landmark_geometry(
+        manifest,
+        int(cfg.dmlab_map_seed),
+        int(cfg.dmlab_cue_layout_seed),
+        str(cfg.dmlab_landmark_cues),
+    )
 
 
 def verify_entity(entity, record):
@@ -102,8 +237,8 @@ def verify_entity(entity, record):
 def geometry_payload(record):
     if record is None:
         return {}
-    return {
-        "geometry_schema": np.asarray(GEOMETRY_SCHEMA),
+    payload = {
+        "geometry_schema": np.asarray(record.get("schema", GEOMETRY_SCHEMA_V1)),
         "geometry_sha256": np.asarray(record["sha256"]),
         "geometry_entity_layer": np.asarray(record["entity_layer"]),
         "geometry_map_seed": np.asarray(record["map_seed"]),
@@ -113,6 +248,45 @@ def geometry_payload(record):
         "geometry_cell_size": np.asarray(record["cell_size"]),
         "geometry_coordinate_contract": np.asarray(record["coordinate_contract"]),
     }
+    if record.get("schema") == GEOMETRY_SCHEMA_V2:
+        sites = record["cue_sites"]
+        payload.update({
+            "geometry_cue_layout_seed": np.asarray(record["cue_layout_seed"]),
+            "geometry_cue_mode": np.asarray(record["cue_mode"]),
+            "geometry_cue_layout_sha256": np.asarray(record["cue_layout_sha256"]),
+            "geometry_cue_ids": np.asarray([site["cue_id"] for site in sites]),
+            "geometry_cue_types": np.asarray([site["cue_type"] for site in sites]),
+            "geometry_cue_assets": np.asarray([site["asset"] for site in sites]),
+            "geometry_cue_wall_rc": np.asarray([site["wall_rc"] for site in sites], dtype=np.int16),
+            "geometry_cue_floor_yx": np.asarray([site["floor_yx"] for site in sites], dtype=np.int16),
+            "geometry_cue_orientations": np.asarray([site["orientation"] for site in sites]),
+            "geometry_cue_rendered": np.full(len(sites), record["cue_mode"] == "rich", dtype=bool),
+        })
+    return payload
+
+
+def geometry_record_from_payload(payload):
+    """Reconstruct and validate a geometry record embedded in an NPZ payload."""
+    if "geometry_schema" not in payload:
+        return None
+    validate_geometry_payload(payload)
+    schema = str(np.asarray(payload["geometry_schema"]).item())
+    entity = str(np.asarray(payload["geometry_entity_layer"]).item())
+    map_seed = int(np.asarray(payload["geometry_map_seed"]).item())
+    if schema == GEOMETRY_SCHEMA_V1:
+        return entity_record(
+            entity,
+            map_seed=map_seed,
+            wall_removal_probability=float(
+                np.asarray(payload["geometry_wall_removal_probability"]).item()
+            ),
+        )
+    return landmark_entity_record(
+        entity,
+        map_seed=map_seed,
+        cue_layout_seed=int(np.asarray(payload["geometry_cue_layout_seed"]).item()),
+        cue_mode=str(np.asarray(payload["geometry_cue_mode"]).item()),
+    )
 
 
 def accessible_cell(position, record):
@@ -183,6 +357,104 @@ def traversable_field_components(rate_maps, occupancy, mask):
     return {"geometry_field_components_half_peak": np.asarray(counts, dtype=np.int32)}
 
 
+def _grid_distances(mask, starts):
+    mask = np.asarray(mask, dtype=bool)
+    result = np.full((len(starts), *mask.shape), np.inf, dtype=np.float32)
+    for index, start in enumerate(starts):
+        start = tuple(int(value) for value in start)
+        if not mask[start]:
+            raise ValueError("Cue site is not on accessible floor")
+        result[index][start] = 0
+        queue = deque([start])
+        while queue:
+            y, x = queue.popleft()
+            for nxt in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
+                if (0 <= nxt[0] < mask.shape[0] and 0 <= nxt[1] < mask.shape[1]
+                        and mask[nxt] and not np.isfinite(result[index][nxt])):
+                    result[index][nxt] = result[index][y, x] + 1
+                    queue.append(nxt)
+    return result
+
+
+def cue_spatial_metrics(rate_maps, occupancy, record):
+    """Capacity-aware cue/field alignment for one spatial snapshot."""
+    if record.get("schema") != GEOMETRY_SCHEMA_V2:
+        return {}, []
+    from scipy.optimize import linear_sum_assignment
+
+    maps = np.asarray(rate_maps, dtype=np.float32)
+    occupancy = np.asarray(occupancy)
+    mask = np.asarray(record["accessible_mask"], dtype=bool)
+    if maps.ndim != 3 or maps.shape[1:] != mask.shape or occupancy.shape != mask.shape:
+        raise ValueError("Cue metrics require unit-first cell-aligned rate maps")
+    cue_yx = np.asarray([site["floor_yx"] for site in record["cue_sites"]], dtype=int)
+    visited = occupancy[cue_yx[:, 0], cue_yx[:, 1]] > 0
+    valid_bins = mask & (occupancy > 0)
+    active_units = np.flatnonzero(np.max(np.where(valid_bins[None], maps, 0), axis=(1, 2)) > 0)
+    peaks = []
+    for unit in active_units:
+        peak_flat = int(np.argmax(np.where(valid_bins, maps[unit], -np.inf)))
+        peaks.append(np.unravel_index(peak_flat, mask.shape))
+    cue_distances = _grid_distances(mask, cue_yx)
+    cost = np.asarray([[cue_distances[cue][peak] for unit, peak in enumerate(peaks)]
+                       for cue in range(len(cue_yx))], dtype=np.float32)
+    assignments = []
+    matched_within_one = 0
+    assigned_cues, assigned_units = set(), set()
+    if cost.size:
+        cue_indices, unit_indices = linear_sum_assignment(cost)
+        for cue_index, active_index in zip(cue_indices.tolist(), unit_indices.tolist()):
+            unit = int(active_units[active_index])
+            distance = float(cost[cue_index, active_index])
+            assigned_cues.add(cue_index)
+            assigned_units.add(unit)
+            matched_within_one += int(distance <= 1 and visited[cue_index])
+            site = record["cue_sites"][cue_index]
+            assignments.append({
+                "cue_id": site["cue_id"],
+                "cue_type": site["cue_type"],
+                "cue_visited": int(visited[cue_index]),
+                "unit_id": unit,
+                "peak_distance_cells": distance,
+                "within_one_cell": int(distance <= 1),
+                "cue_activation": float(maps[unit, cue_yx[cue_index, 0], cue_yx[cue_index, 1]]),
+            })
+    for cue_index, site in enumerate(record["cue_sites"]):
+        if cue_index not in assigned_cues:
+            assignments.append({
+                "cue_id": site["cue_id"], "cue_type": site["cue_type"],
+                "cue_visited": int(visited[cue_index]), "unit_id": -1,
+                "peak_distance_cells": float("nan"), "within_one_cell": 0,
+                "cue_activation": float("nan"),
+            })
+    for unit in active_units:
+        if int(unit) not in assigned_units:
+            assignments.append({
+                "cue_id": "", "cue_type": "unmatched_unit", "cue_visited": 0,
+                "unit_id": int(unit), "peak_distance_cells": float("nan"),
+                "within_one_cell": 0, "cue_activation": float("nan"),
+            })
+    nearest = [float(np.min(cue_distances[:, peak[0], peak[1]])) for peak in peaks]
+    denominator = min(len(cue_yx), len(active_units), int(visited.sum()))
+    summary = {
+        "cue_site_visit_fraction": float(visited.mean()),
+        "cue_active_unit_count": int(len(active_units)),
+        "cue_peak_nearest_distance_mean": float(np.mean(nearest)) if nearest else float("nan"),
+        "cue_peak_match_count": int(matched_within_one),
+        "cue_peak_coverage_fraction": matched_within_one / len(cue_yx),
+        "cue_peak_capacity_normalized_coverage": matched_within_one / denominator if denominator else float("nan"),
+    }
+    for cue_type in ("decal", "color"):
+        selected = np.asarray([site["cue_type"] == cue_type for site in record["cue_sites"]])
+        summary[f"cue_{cue_type}_site_visit_fraction"] = float(visited[selected].mean())
+        summary[f"cue_{cue_type}_peak_match_count"] = int(sum(
+            row["within_one_cell"] and row["cue_visited"] and row["cue_type"] == cue_type
+            for row in assignments
+        ))
+    assignments.sort(key=lambda row: (row["cue_id"] == "", row["cue_id"], row["unit_id"]))
+    return summary, assignments
+
+
 def validate_geometry_payload(payload):
     """Validate optional geometry fields without changing legacy NPZ contracts."""
     keys = [key for key in payload if key.startswith("geometry_")]
@@ -201,11 +473,30 @@ def validate_geometry_payload(payload):
     )
     if any(key not in payload for key in required):
         raise ValueError("Incomplete optional geometry payload")
-    record = entity_record(
-        str(np.asarray(payload["geometry_entity_layer"]).item()),
-        map_seed=int(np.asarray(payload["geometry_map_seed"]).item()),
-        wall_removal_probability=float(np.asarray(payload["geometry_wall_removal_probability"]).item()),
-    )
+    schema = str(np.asarray(payload["geometry_schema"]).item())
+    if schema == GEOMETRY_SCHEMA_V1:
+        record = entity_record(
+            str(np.asarray(payload["geometry_entity_layer"]).item()),
+            map_seed=int(np.asarray(payload["geometry_map_seed"]).item()),
+            wall_removal_probability=float(np.asarray(payload["geometry_wall_removal_probability"]).item()),
+        )
+    elif schema == GEOMETRY_SCHEMA_V2:
+        cue_required = (
+            "geometry_cue_layout_seed", "geometry_cue_mode", "geometry_cue_layout_sha256",
+            "geometry_cue_ids", "geometry_cue_types", "geometry_cue_assets",
+            "geometry_cue_wall_rc", "geometry_cue_floor_yx", "geometry_cue_orientations",
+            "geometry_cue_rendered",
+        )
+        if any(key not in payload for key in cue_required):
+            raise ValueError("Incomplete optional cue geometry payload")
+        record = landmark_entity_record(
+            str(np.asarray(payload["geometry_entity_layer"]).item()),
+            map_seed=int(np.asarray(payload["geometry_map_seed"]).item()),
+            cue_layout_seed=int(np.asarray(payload["geometry_cue_layout_seed"]).item()),
+            cue_mode=str(np.asarray(payload["geometry_cue_mode"]).item()),
+        )
+    else:
+        raise ValueError(f"Unsupported geometry schema: {schema}")
     expected = geometry_payload(record)
     for key, value in expected.items():
         if not np.array_equal(payload[key], value):

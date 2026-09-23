@@ -41,6 +41,16 @@ SPATIAL_METRICS = (
     "median_dominant_peak_nearest_neighbor_distance",
     "graph_reliable_global_efficiency",
     "graph_grounded_controllability",
+    "cue_site_visit_fraction",
+    "cue_active_unit_count",
+    "cue_peak_nearest_distance_mean",
+    "cue_peak_match_count",
+    "cue_peak_coverage_fraction",
+    "cue_peak_capacity_normalized_coverage",
+    "cue_decal_site_visit_fraction",
+    "cue_decal_peak_match_count",
+    "cue_color_site_visit_fraction",
+    "cue_color_peak_match_count",
 )
 DEFAULT_TARGETS = (5_000_000, 25_000_000, 50_000_000, 75_000_000, 100_000_000)
 GRAPH_SCALAR_KEYS = (
@@ -216,6 +226,15 @@ def collect_spatial_records(
             int(_scalar(payload, "grain")),
             float(np.asarray(payload.get("stationary_distance", 1.0)).item()),
         )
+        cue_metrics = {}
+        if "geometry_cue_ids" in payload:
+            from .geometry import cue_spatial_metrics, geometry_record_from_payload
+            rate_maps, occupancy, _ = spatial_rate_maps(
+                payload["pose"], payload["dg_activity"], bounds, int(_scalar(payload, "grain"))
+            )
+            cue_metrics, _ = cue_spatial_metrics(
+                rate_maps, occupancy, geometry_record_from_payload(payload)
+            )
         records.append({
             "run_name": run_name,
             "condition": run.condition,
@@ -234,6 +253,7 @@ def collect_spatial_records(
             "frameskip": int(_scalar(payload, "frameskip")),
             "snapshot_path": str(path.resolve()),
             **metrics,
+            **cue_metrics,
             "graph_available": int("control_tctrl" in payload),
             **{
                 key: float(np.asarray(graph_diagnostics[key]).item())
@@ -389,6 +409,41 @@ def collect_spatial_detail_records(
     return unit_rows, field_rows, edge_rows
 
 
+def collect_cue_assignment_records(
+    study: StudySpec,
+    snapshot_root: Path,
+    *,
+    require_workspace: bool = True,
+) -> list[dict[str, Any]]:
+    """Export capacity-aware cue-to-unit assignments from cached snapshots."""
+    from .geometry import cue_spatial_metrics, geometry_record_from_payload
+
+    rows: list[dict[str, Any]] = []
+    for path, payload in discover_spatial_snapshots(
+        study, snapshot_root, require_workspace=require_workspace
+    ):
+        if "geometry_cue_ids" not in payload:
+            continue
+        bounds = SpatialBounds(*np.asarray(payload["bounds"], dtype=float).tolist())
+        rate_maps, occupancy, _ = spatial_rate_maps(
+            payload["pose"], payload["dg_activity"], bounds, int(_scalar(payload, "grain"))
+        )
+        _, assignments = cue_spatial_metrics(
+            rate_maps, occupancy, geometry_record_from_payload(payload)
+        )
+        identity = {
+            "run_name": str(_scalar(payload, "run_name")),
+            "policy_id": int(_scalar(payload, "policy_id")),
+            "target_env_steps": int(_scalar(payload, "target_env_steps")),
+            "actual_env_steps": int(_scalar(payload, "actual_env_steps")),
+            "snapshot_path": str(path.resolve()),
+            "cue_mode": str(_scalar(payload, "geometry_cue_mode")),
+            "cue_layout_sha256": str(_scalar(payload, "geometry_cue_layout_sha256")),
+        }
+        rows.extend({**identity, **assignment} for assignment in assignments)
+    return rows
+
+
 def summarize_spatial_records(
     records: Sequence[Mapping[str, Any]], group_by: Sequence[str]
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -402,7 +457,11 @@ def summarize_spatial_records(
             members = groups[key]
             row = dict(zip(fields, key))
             for metric in SPATIAL_METRICS:
-                values = [float(member[metric]) for member in members if math.isfinite(float(member[metric]))]
+                values = [
+                    float(member[metric])
+                    for member in members
+                    if metric in member and math.isfinite(float(member[metric]))
+                ]
                 row[f"{metric}__mean"] = fmean(values) if values else math.nan
                 row[f"{metric}__sd"] = stdev(values) if len(values) > 1 else math.nan
                 row[f"{metric}__n"] = len(values)
@@ -463,6 +522,27 @@ def overlay_geometry_walls(ax, payload, bounds):
               cmap=ListedColormap(["#202020"]), interpolation="nearest", zorder=2)
 
 
+def overlay_geometry_cues(ax, payload, bounds):
+    """Overlay fixed cue-adjacent cells without obscuring activity maps."""
+    if "geometry_cue_floor_yx" not in payload:
+        return
+    locations = np.asarray(payload["geometry_cue_floor_yx"], dtype=float)
+    types = np.asarray(payload["geometry_cue_types"]).astype(str)
+    ids = np.asarray(payload["geometry_cue_ids"]).astype(str)
+    mask = np.asarray(payload["geometry_accessible_mask"], dtype=bool)
+    cell_width = (bounds.x_max - bounds.x_min) / mask.shape[1]
+    cell_height = (bounds.y_max - bounds.y_min) / mask.shape[0]
+    x = bounds.x_min + (locations[:, 1] + 0.5) * cell_width
+    y = bounds.y_min + (locations[:, 0] + 0.5) * cell_height
+    for cue_type, marker, color in (("decal", "s", "#FFFFFF"), ("color", "D", "#FFD700")):
+        selected = types == cue_type
+        ax.scatter(x[selected], y[selected], marker=marker, s=32, facecolors="none",
+                   edgecolors=color, linewidths=1.2, zorder=4)
+        for cue_x, cue_y, cue_id in zip(x[selected], y[selected], ids[selected]):
+            ax.annotate(cue_id, (cue_x, cue_y), xytext=(2, 2), textcoords="offset points",
+                        fontsize=8, color=color, zorder=5)
+
+
 
 def render_place_field_contact_sheets(
     payload: Mapping[str, Any], output_stem: Path, *, title: str | None = None,
@@ -501,6 +581,7 @@ def render_place_field_contact_sheets(
                 aspect="equal",
             )
             overlay_geometry_walls(ax, payload, bounds)
+            overlay_geometry_cues(ax, payload, bounds)
             ax.set_title(f"DG unit {int(unit)}" + (" · silent" if not active[unit] else ""))
             ax.set_xticks((bounds.x_min, bounds.x_max))
             ax.set_yticks((bounds.y_min, bounds.y_max))
@@ -557,6 +638,8 @@ def render_occupancy_trajectory(
     fig.colorbar(image, ax=occupancy_ax, shrink=0.78, label="Observations per visited bin")
     overlay_geometry_walls(occupancy_ax, payload, bounds)
     overlay_geometry_walls(trajectory_ax, payload, bounds)
+    overlay_geometry_cues(occupancy_ax, payload, bounds)
+    overlay_geometry_cues(trajectory_ax, payload, bounds)
     occupancy_ax.set_title("Occupancy (gray: unvisited; black: walls)" if "geometry_accessible_mask" in payload else "Occupancy (unvisited masked)")
     occupancy_ax.set_xlabel("x (DMLab units)")
     occupancy_ax.set_ylabel("y (DMLab units)")
@@ -603,6 +686,7 @@ def render_trajectory_segments(
     fig, axes = plt.subplots(2, 2, figsize=(12, 12), constrained_layout=True)
     for ax, index in zip(axes.flat, indices):
         overlay_geometry_walls(ax, payload, bounds)
+        overlay_geometry_cues(ax, payload, bounds)
         line = pose[slices[index], :2]
         ax.plot(line[:, 0], line[:, 1], color="#0072B2")
         ax.scatter(*line[0], color="#009E73", marker="o")

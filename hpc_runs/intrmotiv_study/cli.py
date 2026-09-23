@@ -11,6 +11,7 @@ from typing import Any, Iterable, Mapping
 from .analysis import linear_contrasts, summarize_records
 from .spec import SpecError, StudySpec, load_study
 from .spatial import (
+    collect_cue_assignment_records,
     collect_spatial_detail_records,
     collect_spatial_records,
     discover_spatial_snapshots,
@@ -218,18 +219,27 @@ def command_collect_spatial(args: argparse.Namespace) -> None:
     _write_csv(args.output_dir / "condition_summary.csv", condition_summary)
     _write_csv(args.output_dir / "seed_summary.csv", seed_summary)
 
-    detail_counts = {"per_unit_rows": 0, "per_field_rows": 0, "graph_edge_rows": 0}
+    detail_counts = {
+        "per_unit_rows": 0,
+        "per_field_rows": 0,
+        "graph_edge_rows": 0,
+        "cue_assignment_rows": 0,
+    }
     if args.include_details:
         unit_rows, field_rows, edge_rows = collect_spatial_detail_records(study, args.snapshot_root)
+        cue_rows = collect_cue_assignment_records(study, args.snapshot_root)
         _write_csv(args.output_dir / "per_unit.csv", unit_rows)
         if field_rows:
             _write_csv(args.output_dir / "per_field.csv", field_rows)
         if edge_rows:
             _write_csv(args.output_dir / "graph_edge.csv", edge_rows)
+        if cue_rows:
+            _write_csv(args.output_dir / "cue_assignment.csv", cue_rows)
         detail_counts = {
             "per_unit_rows": len(unit_rows),
             "per_field_rows": len(field_rows),
             "graph_edge_rows": len(edge_rows),
+            "cue_assignment_rows": len(cue_rows),
         }
 
     figures: list[Path] = []
