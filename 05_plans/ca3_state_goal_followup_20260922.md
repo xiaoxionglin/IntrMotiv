@@ -492,3 +492,138 @@ The downstream agent should consider the patch ready only when:
 6. legacy target-ID/exclusive configurations remain reproducible;
 7. all four follow-up StudySpec cells parse and pass the short runtime/reload audit;
 8. no running September-22 production namespace/checkpoint is modified.
+
+
+## 23 September next CPU/GPU launch
+
+The next release isolates the two suspected bottlenecks while holding H32, EMA anchors, dominant DG candidate selection, DDQN+HER, F64 capacity, and the existing frontier-waypoint manager fixed.
+
+### Scientific matrix
+
+Run the 2x2 factorial concurrently:
+
+| Recognition | Worker decoder | Meaning |
+|---|---|---|
+| `PROBE` | `FILM` | source-matched legacy control |
+| `Z` | `FILM` | direct-z success semantics only |
+| `PROBE` | `REL` | relation decoder only |
+| `Z` | `REL` | full proposed fix |
+
+`Z` means contextual online/HER success is cosine similarity between normalized current and goal readouts $W S_t$ and $W S_g$.
+
+`REL` means the worker receives an ordinary MLP relation interface built from $[z_t,z_g,z_g-z_t]$ plus the existing non-CA3 bypass/context features. It removes the exact zero-goal symmetry of the continuous-goal FiLM path.
+
+Do not add another anchor/candidate factorial in this batch.
+
+### Source
+
+Source branch:
+
+`xiaoxionglin/SF_hipposlam:codex/ca3-state-goal-followup-20260922`
+
+Code/reference commit for the fix:
+
+`d9d8ce6653a95be718814bf226c44e852df931ea`
+
+The implementation preserves legacy modes through:
+
+- `--ca3_context_similarity_space={probe,z}`;
+- `--ca3_worker_decoder={film,relation}`.
+
+Action-probe signatures remain available for diagnostics and EMA-anchor refinement; they no longer need to define semantic success in `Z` arms.
+
+### StudySpecs
+
+CPU:
+
+`hpc_runs/studies/ca3_zrelation_followup_20260923_cpu.study.json`
+
+- 4 cells;
+- seed 99;
+- 50M frames;
+- early checkpoints at 2M and 5M;
+- later checkpoints at 25M and 50M.
+
+GPU/G500:
+
+`hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json`
+
+- 4 cells x seeds 8, 99, 123 = 12 runs;
+- 150M frames;
+- checkpoints at 2M, 5M, 25M, 75M, and 150M.
+
+Do not wait for a separate scientific preflight. The 2M checkpoint is the early stop point for implementation failures.
+
+### CPU validation and submission
+
+From the synchronized source checkout:
+
+~~~bash
+python -m hpc_runs.intrmotiv_study validate \
+  hpc_runs/studies/ca3_zrelation_followup_20260923_cpu.study.json
+
+python -m hpc_runs.intrmotiv_study render-runs \
+  hpc_runs/studies/ca3_zrelation_followup_20260923_cpu.study.json \
+  --output /tmp/ca3_zrelation_cpu_runs.json
+
+sf_working_directories/IntrMotiv/launcher/launch_nemo2.sh \
+  sf_working_directories.IntrMotiv.dmlab.experiments.ca3_zrelation_followup_cpu \
+  --print-only
+
+sf_working_directories/IntrMotiv/launcher/launch_nemo2.sh \
+  sf_working_directories.IntrMotiv.dmlab.experiments.ca3_zrelation_followup_cpu \
+  --submit
+~~~
+
+Audit the resulting `jobs.tsv` with the exact StudySpec fingerprint.
+
+### G500 validation and direct launch
+
+Synchronize the same reviewed source commit into a fresh G500 source directory, for example:
+
+`/scratch/lin/IntrMotiv/src/SF_hipposlam_ca3_zrelation_20260923_d9d8ce6`
+
+Then review:
+
+~~~bash
+python -m hpc_runs.intrmotiv_study validate \
+  hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json
+
+python hpc_runs/hosts/g500/launch_study.py \
+  hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json \
+  --source /scratch/lin/IntrMotiv/src/SF_hipposlam_ca3_zrelation_20260923_d9d8ce6 \
+  --gpus 0 1 0 1
+~~~
+
+After reviewing the emitted direct-manifest SHA, execute the exact reviewed manifest:
+
+~~~bash
+python hpc_runs/hosts/g500/launch_study.py \
+  hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json \
+  --source /scratch/lin/IntrMotiv/src/SF_hipposlam_ca3_zrelation_20260923_d9d8ce6 \
+  --gpus 0 1 0 1 \
+  --execute <REVIEWED_MANIFEST_SHA>
+~~~
+
+### Early 2M stop checks
+
+Do not require scientific success at 2M. Only stop for correctness/mechanism failures:
+
+1. z-space online and HER hit paths disagree;
+2. relation decoder is goal-insensitive at initialization or runtime;
+3. raw CA3 leaks into the learned-state worker path;
+4. RL/HER sends gradient into $W$ or prediction sends gradient into DG;
+5. replay/checkpoint reload fails;
+6. any traceback, NaN, stale-generation contract failure, or missing W&B telemetry.
+
+At 5M and beyond compare:
+
+- `option_success_fraction`;
+- correct-goal versus shuffled-goal hit lift;
+- goal/action sensitivity;
+- contextual HER positive rate;
+- recognition threshold and z-space positive/background similarity quantiles;
+- state-shuffle and action-shuffle deltas;
+- coverage AUC and frontier reach/discovery yield.
+
+The central test is whether `Z_REL` raises option success and target-specific behavior substantially earlier than the current probe+zero-FiLM system.
