@@ -15,7 +15,7 @@ from hpc_runs.intrmotiv_study.geometry import load_landmark_geometry
 def render(runfiles: Path, output: Path) -> None:
     output.mkdir(parents=True, exist_ok=True)
     archive = Path(__file__).with_name("studies") / "assets/easy_landmark_maze/maps.json"
-    record = load_landmark_geometry(str(archive), 1001, 0.85, 20260923, "rich")
+    record = load_landmark_geometry(str(archive), 1001, 0.85, 11, 11, 20260923, "rich")
     deepmind_lab.set_runfiles_path(str(runfiles))
 
     images = []
@@ -53,8 +53,9 @@ def render(runfiles: Path, output: Path) -> None:
         axis.scatter(column, row, s=180, c=color, edgecolors="white", linewidths=1.5)
         axis.text(column, row, cue["cue_id"], ha="center", va="center", fontsize=8,
                   color="white" if cue["cue_type"] == "decal" else "black", weight="bold")
-    axis.set_title("Easy landmark maze: fixed 21×21 entity layer and 20 reserved wall faces")
-    axis.set_xticks(range(21)); axis.set_yticks(range(21))
+    height, width = record["entity_shape"]
+    axis.set_title("Easy landmark maze: native 11×11 entity layer and 20 reserved wall faces")
+    axis.set_xticks(range(width)); axis.set_yticks(range(height))
     axis.set_xlabel("Entity column"); axis.set_ylabel("Entity row")
     axis.grid(color="#BBBBBB", linewidth=0.4)
     figure.savefig(output / "map_preview.png", dpi=180)

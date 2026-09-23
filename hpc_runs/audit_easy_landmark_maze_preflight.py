@@ -26,6 +26,24 @@ def audit(spec, jobs, train_root):
         directory = root / job["train_root"] / job["experiment"]
         cfg = json.loads((directory / "config.json").read_text())
         geometry = geometry_from_config(SimpleNamespace(**cfg))
+        entity_rows = geometry["entity_layer"].splitlines()
+        if geometry.get("entity_shape") != [11, 11] or any(len(line) != 11 for line in entity_rows):
+            row["errors"].append("geometry is not an exact native 11x11 entity layer")
+        if np.asarray(geometry["accessible_mask"]).shape != (9, 9):
+            row["errors"].append("geometry does not expose a 9x9 accessible mask")
+        if any(marker in geometry["entity_layer"] for marker in ("G", "A")):
+            row["errors"].append("geometry contains a goal or pickup entity")
+        if cfg.get("dmlab_map_rows") != 11 or cfg.get("dmlab_map_cols") != 11:
+            row["errors"].append("runtime map dimensions are not 11x11")
+        if cfg.get("online_spatial_grid_grain") != 9:
+            row["errors"].append("online spatial grid is not 9x9")
+        expected_bounds = [100.0, 1000.0, 100.0, 1000.0]
+        configured_bounds = [
+            cfg.get("online_spatial_x_min"), cfg.get("online_spatial_x_max"),
+            cfg.get("online_spatial_y_min"), cfg.get("online_spatial_y_max"),
+        ]
+        if configured_bounds != expected_bounds:
+            row["errors"].append("online spatial bounds differ from native geometry")
         if cfg["with_pos_obs"] or cfg.get("hrl_landmark_geometry", "none") != "none":
             row["errors"].append("privileged policy input enabled")
         if len(geometry["cue_sites"]) != 20:

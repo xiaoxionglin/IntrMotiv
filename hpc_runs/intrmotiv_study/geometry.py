@@ -575,5 +575,13 @@ def validate_geometry_payload(payload):
             raise ValueError(f"Geometry payload disagrees with entity map: {key}")
     if "bounds" in payload and not np.array_equal(payload["bounds"], expected["geometry_bounds"]):
         raise ValueError("Spatial bounds differ from geometry bounds")
-    if "grain" in payload and int(np.asarray(payload["grain"])) != 19:
-        raise ValueError("Geometry requires a cell-aligned 19x19 spatial grid")
+    accessible_shape = np.asarray(record["accessible_mask"]).shape
+    if len(accessible_shape) != 2 or accessible_shape[0] != accessible_shape[1]:
+        raise ValueError(
+            "The scalar spatial grain contract requires a square accessible mask"
+        )
+    if "grain" in payload and int(np.asarray(payload["grain"])) != accessible_shape[0]:
+        raise ValueError(
+            "Geometry requires a cell-aligned "
+            f"{accessible_shape[0]}x{accessible_shape[1]} spatial grid"
+        )

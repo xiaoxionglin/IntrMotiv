@@ -3,6 +3,7 @@
 from pathlib import Path
 import json
 import unittest
+from collections import deque
 
 import numpy as np
 
@@ -27,7 +28,7 @@ LANDMARK_ARCHIVE = ROOT / "studies/assets/easy_landmark_maze/maps.json"
 
 class EasyLandmarkGeometryTests(unittest.TestCase):
     def test_fixed_layout_has_twenty_disjoint_deterministic_sites(self):
-        source = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
+        source = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "rich")
         first = cue_sites(source["entity_layer"], cue_layout_seed=20260923)
         second = cue_sites(source["entity_layer"], cue_layout_seed=20260923)
         self.assertEqual(first, second)
@@ -37,10 +38,14 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
         self.assertEqual(len({tuple(site["floor_rc"]) for site in first}), 20)
         self.assertEqual(first[0]["cue_id"], "D01")
         self.assertEqual(first[-1]["cue_id"], "C10")
+        self.assertEqual(source["entity_shape"], [11, 11])
+        self.assertEqual(np.asarray(source["accessible_mask"]).shape, (9, 9))
+        self.assertEqual(source["bounds"], [100.0, 1000.0, 100.0, 1000.0])
+        self.assertTrue(any(0 in site["wall_rc"] or 10 in site["wall_rc"] for site in first))
 
     def test_archive_modes_share_sites_and_v2_payload_round_trips(self):
-        rich = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
-        control = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "none")
+        rich = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "rich")
+        control = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "none")
         self.assertEqual(rich["schema"], GEOMETRY_SCHEMA_V2)
         self.assertEqual(rich["cue_sites"], control["cue_sites"])
         self.assertNotEqual(rich["cue_layout_sha256"], control["cue_layout_sha256"])
@@ -59,7 +64,7 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
         self.assertNotIn("geometry_cue_ids", payload)
 
     def test_capacity_normalized_assignment_preserves_f16_limit(self):
-        record = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 20260923, "rich")
+        record = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "rich")
         mask = np.asarray(record["accessible_mask"], dtype=bool)
         occupancy = mask.astype(np.int64)
         maps = np.zeros((16, *mask.shape), dtype=np.float32)
@@ -79,6 +84,28 @@ class EasyLandmarkGeometryTests(unittest.TestCase):
                 source["entity_layer"], map_seed=1001, wall_removal_probability=0.0,
                 cue_layout_seed=20260923, cue_mode="random",
             )
+
+    def test_original_flood_distance_spawn_rule(self):
+        record = load_landmark_geometry(str(LANDMARK_ARCHIVE), 1001, 0.85, 11, 11, 20260923, "rich")
+        grid = np.asarray([list(row) for row in record["entity_layer"].splitlines()])
+        floor = grid != "*"
+        observed_spawns = {tuple(cell) for cell in np.argwhere(grid == "P")}
+        matching_anchors = []
+        for anchor in map(tuple, np.argwhere(floor)):
+            distance = {anchor: 0}
+            queue = deque([anchor])
+            while queue:
+                row, column = queue.popleft()
+                for cell in ((row - 1, column), (row + 1, column), (row, column - 1), (row, column + 1)):
+                    if floor[cell] and cell not in distance:
+                        distance[cell] = distance[(row, column)] + 1
+                        queue.append(cell)
+            expected = {cell for cell, steps in distance.items() if steps > 5}
+            if expected == observed_spawns:
+                matching_anchors.append(anchor)
+        self.assertTrue(matching_anchors)
+        self.assertNotIn("G", record["entity_layer"])
+        self.assertNotIn("A", record["entity_layer"])
 
 
 class EasyLandmarkStudyTests(unittest.TestCase):
@@ -105,6 +132,8 @@ class EasyLandmarkStudyTests(unittest.TestCase):
                 self.assertEqual(args["env"], "easy_landmark_maze_noreward")
                 self.assertEqual(args["dmlab_map_seed"], "1001")
                 self.assertEqual(args["dmlab_wall_removal_probability"], "0.85")
+                self.assertEqual(args["dmlab_map_rows"], "11")
+                self.assertEqual(args["dmlab_map_cols"], "11")
                 self.assertEqual(args["dmlab_cue_layout_seed"], "20260923")
                 self.assertEqual(args["env_frameskip"], "4")
                 self.assertEqual(args["dmlab_navigation_action_set"], "True")
@@ -121,6 +150,8 @@ class EasyLandmarkStudyTests(unittest.TestCase):
                 overrides = json.loads(run.metadata["overrides_json"])
                 self.assertEqual(overrides["dmlab_map_seed"]["study"], "1001")
                 self.assertEqual(overrides["dmlab_wall_removal_probability"]["study"], "0.85")
+                self.assertEqual(overrides["dmlab_map_rows"]["study"], "11")
+                self.assertEqual(overrides["dmlab_map_cols"]["study"], "11")
                 self.assertEqual(overrides["dmlab_cue_layout_seed"]["study"], "20260923")
                 expected_cues = "<factor:cue_mode>" if study is self.preflight else args["dmlab_landmark_cues"]
                 self.assertEqual(overrides["dmlab_landmark_cues"]["study"], expected_cues)
