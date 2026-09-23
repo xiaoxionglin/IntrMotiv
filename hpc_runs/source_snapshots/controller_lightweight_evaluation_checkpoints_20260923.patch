@@ -1,0 +1,126 @@
+diff --git a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+--- a/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/controller_learner.py
+@@ -91,16 +91,30 @@ class ControllerLearner(DistanceLearnerReward):
+         return super()._save_impl(*args, **kwargs)
+ 
+     def save_milestone(self):
+-        # Keep complete restart state, including replay. Bound periodic archives
+-        # by SF's existing retention setting, while pinning canonical targets.
+-        super().save_milestone()
++        # Milestones are evaluation artifacts, not restart points. Keeping the
++        # full physical replay in every milestone multiplies a mature stored-
++        # state checkpoint by several GiB without helping evaluation.
++        self._evaluation_checkpoint = True
++        try:
++            super().save_milestone()
++        finally:
++            self._evaluation_checkpoint = False
+         directory = Path(self.checkpoint_dir(self.cfg, self.policy_id)) / "milestones"
+         files = [Path(path) for path in self.get_checkpoints(str(directory)) if Path(path).suffix == ".pth"]
+         keep = max(1, int(self.cfg.keep_checkpoints))
+         retained = {path.name for path in files[-keep:]} | self.frame_milestones
+         for path in files:
+             if path.name not in retained:
+                 path.unlink()
++
++    def save_best(self, policy_id, metric, metric_value):
++        # Best checkpoints serve model selection and evaluation. Exact training
++        # continuation always uses the recent rolling restart checkpoint.
++        self._evaluation_checkpoint = True
++        try:
++            return super().save_best(policy_id, metric, metric_value)
++        finally:
++            self._evaluation_checkpoint = False
+ 
+     def _save_completed_frame_targets(self, previous_frames):
+         targets = [int(x) for x in self.cfg.checkpoint_frame_targets.split(",") if x.strip()]
+@@ -118,6 +132,8 @@ class ControllerLearner(DistanceLearnerReward):
+             if "controller" not in checkpoint_dict:
+                 raise RuntimeError("Controller resume requires complete replay/target state")
+             self._restore_controller = checkpoint_dict["controller"]
++            if not self._restore_controller.get("replay_included", "replay" in self._restore_controller):
++                raise RuntimeError("Evaluation checkpoint omits controller replay and cannot resume training")
+             if self._restore_controller.get("replay_state", "reconstruct") != getattr(
+                 self.cfg, "controller_replay_state", "reconstruct"
+             ):
+@@ -136,10 +152,11 @@ class ControllerLearner(DistanceLearnerReward):
+     def _get_checkpoint_dict(self):
+         checkpoint = super()._get_checkpoint_dict()
+         if hasattr(self, "target_snapshot"):
+-            checkpoint["controller"] = dict(
++            controller = dict(
++                checkpoint_role="evaluation" if getattr(self, "_evaluation_checkpoint", False) else "restart",
++                replay_included=not getattr(self, "_evaluation_checkpoint", False),
+                 replay_state=getattr(self.cfg, "controller_replay_state", "reconstruct"),
+                 optimizer_step_counts=self._optimizer_step_counts(),
+-                replay=self.replay.state_dict(),
+                 clock=self.clock.state_dict(),
+                 frame_milestones=sorted(self.frame_milestones),
+                 her_rng=copy.deepcopy(self.her_rng.bit_generator.state),
+@@ -158,6 +175,9 @@ class ControllerLearner(DistanceLearnerReward):
+                 ),
+                 python_rng=random.getstate(),
+             )
++            if controller["replay_included"]:
++                controller["replay"] = self.replay.state_dict()
++            checkpoint["controller"] = controller
+         return checkpoint
+ 
+     def _prepare_batch(self, batch):
+diff --git a/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py b/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py
+--- a/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py
++++ b/sf_working_directories/IntrMotiv/tests/test_controller_checkpoint_retention.py
+@@ -2,6 +2,8 @@ from pathlib import Path
+ from types import SimpleNamespace
+ from unittest.mock import patch
+ 
++import pytest
++
+ from sf_working_directories.IntrMotiv.dmlab.controller_learner import ControllerLearner
+ from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
+ 
+@@ -37,3 +39,43 @@ def test_canonical_frame_is_pinned_before_parent_save_and_retained_in_state():
+     learner.env_steps = 128
+     learner._save_completed_frame_targets(112)
+     assert len(seen) == 1
++
++
++def _checkpoint_learner():
++    learner = object.__new__(ControllerLearner)
++    learner.target_snapshot = SimpleNamespace(model=SimpleNamespace(state_dict=lambda: {}), version=3)
++    learner.cfg = SimpleNamespace(controller_replay_state="stored")
++    learner.replay = SimpleNamespace(state_dict=lambda: {"rows": ["large replay"]})
++    learner.clock = SimpleNamespace(state_dict=lambda: {"completed": 7})
++    learner.frame_milestones = set()
++    learner.her_rng = SimpleNamespace(bit_generator=SimpleNamespace(state={"state": 1}))
++    learner.controller_version = 2
++    learner.publication = 3
++    learner.fresh_dg_steps = 4
++    learner.fresh_graph_batches = 5
++    learner.optimizer = SimpleNamespace(state={})
++    learner._optimizer_step_counts = lambda: {}
++    return learner
++
++
++def test_milestone_omits_replay_but_rolling_checkpoint_keeps_it():
++    learner = _checkpoint_learner()
++    with patch.object(DistanceLearnerReward, "_get_checkpoint_dict", side_effect=lambda: {"model": {}}):
++        rolling = learner._get_checkpoint_dict()
++        learner._evaluation_checkpoint = True
++        milestone = learner._get_checkpoint_dict()
++    assert rolling["controller"]["checkpoint_role"] == "restart"
++    assert rolling["controller"]["replay_included"] is True
++    assert "replay" in rolling["controller"]
++    assert milestone["controller"]["checkpoint_role"] == "evaluation"
++    assert milestone["controller"]["replay_included"] is False
++    assert "replay" not in milestone["controller"]
++
++
++def test_evaluation_checkpoint_cannot_resume_training():
++    learner = object.__new__(ControllerLearner)
++    learner.cfg = SimpleNamespace(controller_replay_state="stored")
++    checkpoint = {"controller": {"checkpoint_role": "evaluation", "replay_included": False}}
++    with patch.object(DistanceLearnerReward, "_load_state"):
++        with pytest.raises(RuntimeError, match="omits controller replay"):
++            learner._load_state(checkpoint, load_progress=True)
