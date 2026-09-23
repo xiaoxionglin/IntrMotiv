@@ -23,8 +23,10 @@ wall removal. Its 9-by-9 interior has 74 accessible cells, with 10 decals and
 exact fingerprints, local native evidence, and
 remaining NEMO2 gates are recorded in
 `06_experiments/easy_landmark_maze_implementation_20260923.md`. Version 1.12.0
-is local only until that record contains a successful NEMO2 focused-test run,
-six passing 2M qualification audits, and a print-only submission audit.
+is synchronized to an isolated NEMO2 worktree. The 53-test canonical suite,
+six-test native DMLab suite, and workspace-resident print-only submission audit
+pass. The six 2M qualification runs remain blocked on active workspace capacity
+and must pass before production release.
 
 ## 1.11.0 flat tracking identity
 

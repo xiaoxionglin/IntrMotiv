@@ -426,6 +426,23 @@ For each finding, record:
   visual-review spawning in a separate level so production geometry and reset
   behavior cannot be changed by review tooling.
 
+### Optional scientific dependency leaked into deployment — completed, 2026-09-23
+
+- **Evidence:** The NEMO2 SFgit environment passed map construction but failed
+  cue-aware analysis because `scipy.optimize.linear_sum_assignment` was not
+  installed. Cue sites themselves were already fixed and archive-bound; only
+  the post-training cue-to-DG-peak assignment depended on SciPy.
+- **Impact:** Qualification could train successfully and then fail while
+  producing required cue metrics.
+- **Improvement:** Geometry v2 now contains a deterministic rectangular
+  Hungarian assignment implementation with no optional runtime dependency.
+- **Acceptance criteria and outcome:** Its total cost matches SciPy across 700
+  randomized matrices spanning both rectangular orientations. All 53 canonical
+  tests pass locally and on NEMO2, whose environment does not provide SciPy.
+- **Reusable lesson:** Required artifact metrics must be exercised in the exact
+  deployment environment; keep small foundational algorithms dependency-free
+  when the training environment intentionally has a narrow package set.
+
 ### Explicit depth preprocessing contract — completed locally, 2026-09-14
 
 - **Evidence:** `sample_factory/utils/normalize.py` applies fixed observation

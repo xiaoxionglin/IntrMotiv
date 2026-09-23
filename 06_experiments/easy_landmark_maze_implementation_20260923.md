@@ -2,10 +2,12 @@
 
 ## Status
 
-Local implementation and native qualification tooling are complete. Production
-is **not released or submitted**. NEMO2 synchronization, focused tests, the six
-2M qualification runs, frozen evaluation, checkpoint reload certificates, and
-the canonical submission audit remain hard gates.
+Local implementation, NEMO2 synchronization, native qualification tooling, and
+the workspace-resident print-only audit are complete. Production is **not
+released or submitted**. The six 2M qualification runs, frozen evaluation,
+checkpoint reload certificates, and their post-run audit remain hard gates.
+Qualification submission is currently blocked by workspace capacity rather than
+code or authentication.
 
 Workflow: `1.12.0`; study schema: `intrmotiv/study/v1`; map geometry schemas:
 backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
@@ -25,6 +27,8 @@ backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
 | Rendered qualification plan | 6 rows | `23efe5c5d336c197f7452065ed921c136023b28226c2e10b4838d0c89df2cd01` |
 | Rendered rich-production plan | 9 rows | `9d300f43fa7af9a71b00684a3726514b88f30a981a94e341b0245eaa3fdc9f46` |
 | Rendered control-production plan | 3 rows | `b2c2b945710a4fb493b115d007abb87f163301d07acb318c8b255c3aa26b988e` |
+| NEMO2 print-only `jobs.tsv` | 6 rows | `1503bf4c7f9212faca4abde9cf2d148e4fab53eddf2eace3da1c83af60c415e6` |
+| NEMO2 canonical print-only audit | passed | `cba316ceb9ec3d3d1204d2f8bcbcf20e07e0e9627ed9a513d30b363619d4a01e` |
 
 The runtime is isolated at
 `/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923` on
@@ -73,12 +77,18 @@ The qualified corridor checkout was copied, not edited.
 
 ## Local verification
 
-- 52 canonical geometry/workflow tests pass after replacing the remaining
-  fixed-19 grid validator with the entity-derived 9-by-9 spatial contract.
+- 53 canonical geometry/workflow tests pass after replacing the remaining
+  fixed-19 grid validator with the entity-derived 9-by-9 spatial contract and
+  adding the dependency-free assignment regression.
 - Six isolated runtime tests pass with the real DMLab check enabled. They cover
   the native entity/cue manifests, dynamic online snapshot shapes, policy-input
   stripping, all six parser rows, rich/control reset equality, zero reward,
   frameskip-4 stepping, and the 1800-decision timeout.
+- NEMO2 initially exposed an undeclared SciPy dependency in the cue-to-DG-peak
+  analysis. It was replaced with a deterministic rectangular Hungarian
+  assignment implementation. Its optimum matches SciPy on 700 randomized
+  matrices, and the expanded 53-test canonical suite passes both locally and
+  on NEMO2 without SciPy.
 - Native Lua assertions require exactly 10 decal placements and exactly 10
   colored faces in rich mode; none mode uses the same reservations but exposes
   no rendered cue variations.
@@ -92,6 +102,13 @@ The qualified corridor checkout was copied, not edited.
   mode. Their commands and workspace output paths are correct. The canonical
   submission audit intentionally rejects the local `/tmp` script/log paths;
   regenerate the manifest under the active NEMO2 workspace before auditing.
+- The real NEMO2 DMLab acceptance suite passes all 6 tests. Isolated runfiles
+  are staged under the active workspace and bind to the dedicated source
+  worktree at base commit `c002faff2c6832f9b0ce63bc6401f95e9cb4718d`.
+- The NEMO2 workspace-resident print-only launcher generated six rows and the
+  canonical audit reports `commands_match_study=true` and
+  `workspace_paths_valid=true` for StudySpec
+  `b31f0041e93f3d7350cd0cda91fbd42d4ddfd7f3c8db25fc426e20e616e37497`.
 - Native rendering compiled all 20 review approaches. Visual inspection found
   10 unique, centered, unclipped decals; 10 visibly distinct colored wall
   faces; neutral-gray non-cue walls; consistent lighting; and no cue-face
@@ -103,18 +120,17 @@ The qualified corridor checkout was copied, not edited.
 
 ## Release gates
 
-1. Recompute runtime provenance hashes, synchronize workflow, StudySpecs,
-   runtime source, DMLab patch, and isolated runfiles to the active
-   `/work/classic/fr_xl1014-corridor-geometry` allocation.
-2. Run the focused workflow and runtime tests on NEMO2, then render and inspect
-   all three plans. Keep all cache, W&B, checkpoint, log, temporary, and
-   analysis paths under the active allocation.
-3. Run the six 2M qualification rows. Require finite learning, correct
+1. Restore sufficient free capacity in
+   `/work/classic/fr_xl1014-corridor-geometry` without disrupting active jobs.
+   At the submission gate the filesystem had only 35 GB free while many CA3
+   jobs were still running; comparable preflight batches occupy 170–300 GB.
+2. Regenerate the print-only manifest if any StudySpec or source changes, then
+   run the six 2M qualification rows. Require finite learning, correct
    DG/controller ownership, snapshots at 1M and 2M, exact reload certificates,
    frozen-state evaluation, and finite cue-aware metrics.
-4. Run the canonical qualification audit. Archive the StudySpec hashes,
+3. Run the canonical qualification audit. Archive the StudySpec hashes,
    rendered plan, runtime/source hashes, jobs manifest, and audit output.
-5. Only after all rows pass, use the print-only production launcher and
+4. Only after all rows pass, use the print-only production launcher and
    canonical submission audit. Do not submit either production StudySpec on a
    partial qualification.
 

@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/runtime-source-provenance/v1",
-  "captured_at": "2026-09-23T22:10:00+02:00",
+  "captured_at": "2026-09-23T22:32:00+02:00",
   "qualified_source": {
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_corridor_20260919",
     "branch": "codex/corridor-geometry",
@@ -12,10 +12,19 @@
     "path": "/home/xiaoxiong/SFgit/SF_hipposlam_easy_landmark_20260923",
     "branch": "codex/easy-landmark-maze-20260923",
     "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
-    "working_tree_content_sha256": "7e7da5b404b6a6e5bba48111061f99025368d5506975bd2e23dd3b0def73d525",
+    "working_tree_content_sha256": "b18a81756d7503b5493c9eacf6ed8a3f52eabb9b839eeeb57e1221c0109a5b9a",
     "porcelain_status_sha256": "7ad56daa670b7d617f8baff4bdd45b1261da7ebc33f6748ff931e2022b74cf97",
     "tracked_binary_diff_sha256": "3221036ef2c0e6120d1ca2d1fbacc773dc90a81c106af6a38ce212864f07b331",
-    "untracked_file_content_sha256": "8a2408b0187287ab6630a48dc90eaa34b762bed89a638d35866116b1ccefee4e"
+    "untracked_file_content_sha256": "23a7b5380a1e9dc26ce80aa619396b40cbcbbf17a51ca29ea46105bf626e51d7"
+  },
+  "nemo2_isolated_landmark_runtime": {
+    "path": "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_easy_landmark_20260923",
+    "branch": "codex/easy-landmark-maze-20260923",
+    "head": "c002faff2c6832f9b0ce63bc6401f95e9cb4718d",
+    "working_tree_content_sha256": "1ce6b150c9e3b53db51b3f3315fb944d05916e6e09416638870b2850fffa93c4",
+    "porcelain_status_sha256": "7ad56daa670b7d617f8baff4bdd45b1261da7ebc33f6748ff931e2022b74cf97",
+    "tracked_binary_diff_sha256": "54fd6496a2715e427bb1845775eabae286e68b93941ffd3df68b511f4fcf821e",
+    "untracked_file_content_sha256": "23a7b5380a1e9dc26ce80aa619396b40cbcbbf17a51ca29ea46105bf626e51d7"
   },
   "hash_method": "working_tree_content_sha256 hashes the binary tracked diff followed by sorted sha256sum records for untracked files; the component hashes preserve those two inputs separately.",
   "note": "The isolated tree contains the exact qualified corridor working tree plus landmark changes. The shared qualified checkout was not modified. Recompute hashes after any runtime edit before NEMO2 synchronization."
