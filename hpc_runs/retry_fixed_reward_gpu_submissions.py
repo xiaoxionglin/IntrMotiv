@@ -8,6 +8,7 @@ import argparse
 import csv
 import json
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -78,6 +79,15 @@ def main():
         data["jobs"] = [dict(job_id=row["job_id"], status=row["status"],
                              experiment=row["experiment"]) for row in rows]
         submission.write_text(json.dumps(data, indent=2) + "\n")
+    root = args.workdir.parent
+    subprocess.run(
+        [sys.executable, "-m", "hpc_runs.combine_fixed_reward_manifests",
+         "hpc_runs/studies/fixed_reward_dg_peak_transfer_20260924.study.json",
+         str(root / "combined_submitted" / "jobs.tsv"),
+         str(root / "cpu_submitted" / "jobs.tsv"),
+         str(args.workdir / "jobs.tsv"), "--submitted"],
+        check=True,
+    )
     print("GPU shard fully submitted", flush=True)
 
 

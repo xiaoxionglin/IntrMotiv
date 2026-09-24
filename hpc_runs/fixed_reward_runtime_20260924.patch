@@ -1,3 +1,563 @@
+diff --git a/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg50.lua b/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg50.lua
+new file mode 100644
+index 00000000..c15f7be8
+--- /dev/null
++++ b/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg50.lua
+@@ -0,0 +1,274 @@
++--[[ Copyright (C) 2018 Google Inc.
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License along
++with this program; if not, write to the Free Software Foundation, Inc.,
++51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++]]
++
++-- Demonstration of creating a fixed level described using text.
++
++-- local maze_generation = require 'dmlab.system.maze_generation'
++-- local tensor = require 'dmlab.system.tensor'
++-- local log = require 'common.log'
++-- local random = require 'common.random'
++
++local game = require 'dmlab.system.game'
++local make_map = require 'common.make_map'
++local pickups = require 'common.pickups'
++local texture_sets = require 'themes.texture_sets'
++local custom_observations = require 'decorators.custom_observations'
++local setting_overrides = require 'decorators.setting_overrides'
++local random = require 'common.random'
++
++local api = {}
++
++--[[ Text map contents:
++
++'P' - Player spawn point. Player is spawned with random orientation.
++'A' - Apple pickup. 1 reward point when picked up.
++'G' - Goal object. 10 reward points and the level restarts.
++'I' - Door. Open and closes West-East corridors.
++'H' - Door. Open and closes North-South corridors.
++'*' - Walls.
++
++Lights are placed randomly through out and decals are randomly placed on the
++walls according to the theme.
++]]
++
++local TEXT_MAP = {
++
++[[
++*********************
++*G     PPPPPPPPPPPPP*
++*     *PPPPPPP*PPP*P*
++*    PPPPPPPPPPP*PPP*
++*   *PPPPPPPPPP*PPPP*
++* *PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PPP*PPP*P*
++*P*PPPPPPPPP*PPPPPPP*
++*PP**PPP*P**PPP**PPP*
++*PPPPPPPPPPPPPPPPPPP*
++**PPPPPPPPPP*PPPP*PP*
++*PPPPPPPPPPPPPPPPPPP*
++*P*PPPPPPPP*PPP*P*PP*
++*PPPPPPP*PPPPPPPPPPP*
++*********************
++]]
++,
++[[
++*********************
++*PPPPPPPPPPPPPPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPPPPPPPPPPPPPP*PPP*
++*PPP*PPPPPPPPPP*PPPP*
++*P*PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PPP*PPP*P*
++*P*PPPPPPPPP*PPPPPPP*
++* P**PPP*P**PPP**PPP*
++*  PPPPPPPPPPPPPPPPP*
++**  PPPPPPPP*PPPP*PP*
++*    PPPPPPPPPPPPPPP*
++* *   PPPPP*PPP*P*PP*
++*G     P*PPPPPPPPPPP*
++*********************
++]]
++,
++[[
++*********************
++*PPGPPPPPPPPPPPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPPPPPPPPPPPPPP*PPP*
++*PPP*PPPPPPPPPP*PPPP*
++*P*PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PP * P *P*
++*P*PPPPPPPPP*      P*
++*PP**PPP*P**   **   *
++*PPPPPPPPP          *
++**PPPPPPPPP *    *  *
++*PPPPPPPPPPP       P*
++*P*PPPPPPPP*P  * *PP*
++*PPPPPPP*PPPPP P PPP*
++*********************
++]]
++}
++
++
++local GOAL = {
++  name = 'Goal',
++  classname = 'goal',
++  model = 'models/goal_transparent.md3', -- use large model
++  quantity = 10,
++  type = pickups.type.GOAL
++}
++
++-- local TEXT_MAP = [[
++-- *********************
++-- *GPPPPPPPPPPPPPPPPPP*
++-- *PPPPP*PPPPPPP*PPP*P*
++-- *PPPPPPPPPPPPPPP*PPP*
++-- *PPP*PPPPPPPPPP*PPPP*
++-- *P*PPPPPPPPPPPPPPPPP*
++-- *PPPPPPPPPPP**PPPPP**
++-- *PPPPP*P*PPP*PPPPPPP*
++-- *PPPPP*PPPPPPP*PPP*P*
++-- *PPP*PPPPP*PPPPPPPPP*
++-- *PP*PPPPPPPPP*PPPP*P*
++-- *PPPPPPPPP*PPPPPPPPP*
++-- *PPP*PPPPP*PP * P *P*
++-- *P*PPPPPPPPP*      P*
++-- *PP**PPP*P**   **   *
++-- *PPPPPPPPP     G    *
++-- **PPPPPPPPP *    *  *
++-- *PPPPPPPPPPP       P*
++-- *P*PPPPPPPP*P  * *PP*
++-- *PPPPPPP*PPPPP P PPP*
++-- *********************
++-- ]]
++
++-- Called only once at start up. Settings not recognised by DM Lab internal
++-- are forwarded through the params dictionary.
++-- function api:init(params)
++--   -- Seed the map so only one map is created with lights and decals placed in
++--   -- the same place each run.
++  
++--   api._has_goal = false
++
++
++-- end
++function api:init(params)
++  -- Seed the map so only one map is created with lights and decals placed in
++  -- the same place each run.
++  make_map.random():seed(1)
++
++
++  api._map = {
++  make_map.makeMap{
++      mapName = "openfield_map1",
++      mapEntityLayer = TEXT_MAP[1],
++      useSkybox = true,
++      textureSet = texture_sets.TETRIS
++  },
++  make_map.makeMap{
++    mapName = "openfield_map2",
++    mapEntityLayer = TEXT_MAP[2],
++    useSkybox = true,
++    textureSet = texture_sets.TETRIS
++  },
++  make_map.makeMap{
++    mapName = "openfield_map3",
++    mapEntityLayer = TEXT_MAP[3],
++    useSkybox = true,
++    textureSet = texture_sets.TETRIS
++  }
++  }
++end
++
++function api:createPickup(classname)
++  if classname=='goal' then
++    return  GOAL
++  end
++  return pickups.defaults[classname]
++end
++
++
++function api:start(episode, seed, params)
++  -- print("Start",episode, seed, params)
++  -- random:seed(seed)
++  -- randomMap:seed(random:mapGenerationSeed())
++
++
++  api._has_goal = false
++  api._count = 0
++  api._finish_count = 0
++end
++
++function api:pickup(spawn_id)
++  print('api:pickup:    ',spawn_id,'; Time: ',game:episodeTimeSeconds())
++  api._count = api._count + 1
++  if not api._has_goal and api._count == api._finish_count then
++    game:finishMap()
++    print('should not be')
++  end
++end
++function api:hasEpisodeFinished(timeSeconds)
++  return api._count>0
++end
++function api:updateSpawnVars(spawnVars)
++  local classname = spawnVars.classname
++  -- print('updateSpawnVars ',classname)
++  -- if spawnVars.random_items then
++  --   local possibleClassNames = helpers.split(spawnVars.random_items, ',')
++  --   if #possibleClassNames > 0 then
++  --     classname = possibleClassNames[
++  --       random:uniformInt(1, #possibleClassNames)]
++  --   end
++  -- end
++  local pickup = pickups.defaults[spawnVars.classname]
++  if pickup then
++    -- print('updateSpawnVars: pickup!')
++    -- if pickup.type == pickups.type.REWARD and pickup.quantity > 0 then
++    --   api._finish_count = api._finish_count + 1
++    --   spawnVars.id = tostring(api._finish_count)
++    -- end
++    if pickup.type == pickups.type.GOAL then
++      spawnVars.id = tostring(10)
++      api._has_goal = true
++    end
++  end
++  if classname == 'goal' then
++
++    -- print('updateSpawnVars ',classname)
++    -- api._has_goal = true
++  end
++  return spawnVars
++end
++
++
++-- On first call we return the name of the map. On subsequent calls we return
++-- an empty string. This informs the engine to only perform a quik map restart
++-- instead.
++function api:nextMap()
++  rand_num=3 -- random:uniformInt(1, 3)
++  print("Map number:", rand_num)
++  -- print(TEXT_MAP[rand_num])
++  api.setInstruction(tostring(rand_num))
++  local mapName = api._map[rand_num]
++  -- api._map[rand_num] = ''
++  return mapName
++end
++
++custom_observations.decorate(api)
++setting_overrides.decorate{
++    api = api,
++    apiParams = {episodeLengthSeconds = 2 * 60, camera = {1050, 1050, 1000}},
++    decorateWithTimeout = true
++}
++return api
+diff --git a/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg51.lua b/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg51.lua
+new file mode 100644
+index 00000000..400f3cb8
+--- /dev/null
++++ b/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_reward_dg51.lua
+@@ -0,0 +1,274 @@
++--[[ Copyright (C) 2018 Google Inc.
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License along
++with this program; if not, write to the Free Software Foundation, Inc.,
++51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++]]
++
++-- Demonstration of creating a fixed level described using text.
++
++-- local maze_generation = require 'dmlab.system.maze_generation'
++-- local tensor = require 'dmlab.system.tensor'
++-- local log = require 'common.log'
++-- local random = require 'common.random'
++
++local game = require 'dmlab.system.game'
++local make_map = require 'common.make_map'
++local pickups = require 'common.pickups'
++local texture_sets = require 'themes.texture_sets'
++local custom_observations = require 'decorators.custom_observations'
++local setting_overrides = require 'decorators.setting_overrides'
++local random = require 'common.random'
++
++local api = {}
++
++--[[ Text map contents:
++
++'P' - Player spawn point. Player is spawned with random orientation.
++'A' - Apple pickup. 1 reward point when picked up.
++'G' - Goal object. 10 reward points and the level restarts.
++'I' - Door. Open and closes West-East corridors.
++'H' - Door. Open and closes North-South corridors.
++'*' - Walls.
++
++Lights are placed randomly through out and decals are randomly placed on the
++walls according to the theme.
++]]
++
++local TEXT_MAP = {
++
++[[
++*********************
++*G     PPPPPPPPPPPPP*
++*     *PPPPPPP*PPP*P*
++*    PPPPPPPPPPP*PPP*
++*   *PPPPPPPPPP*PPPP*
++* *PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PPP*PPP*P*
++*P*PPPPPPPPP*PPPPPPP*
++*PP**PPP*P**PPP**PPP*
++*PPPPPPPPPPPPPPPPPPP*
++**PPPPPPPPPP*PPPP*PP*
++*PPPPPPPPPPPPPPPPPPP*
++*P*PPPPPPPP*PPP*P*PP*
++*PPPPPPP*PPPPPPPPPPP*
++*********************
++]]
++,
++[[
++*********************
++*PPPPPPPPPPPPPPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPPPPPPPPPPPPPP*PPP*
++*PPP*PPPPPPPPPP*PPPP*
++*P*PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PPP*PPP*P*
++*P*PPPPPPPPP*PPPPPPP*
++* P**PPP*P**PPP**PPP*
++*  PPPPPPPPPPPPPPPPP*
++**  PPPPPPPP*PPPP*PP*
++*    PPPPPPPPPPPPPPP*
++* *   PPPPP*PPP*P*PP*
++*G     P*PPPPPPPPPPP*
++*********************
++]]
++,
++[[
++*********************
++*PGPPPPPPPPPPPPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPPPPPPPPPPPPPP*PPP*
++*PPP*PPPPPPPPPP*PPPP*
++*P*PPPPPPPPPPPPPPPPP*
++*PPPPPPPPPPP**PPPPP**
++*PPPPP*P*PPP*PPPPPPP*
++*PPPPP*PPPPPPP*PPP*P*
++*PPP*PPPPP*PPPPPPPPP*
++*PP*PPPPPPPPP*PPPP*P*
++*PPPPPPPPP*PPPPPPPPP*
++*PPP*PPPPP*PP * P *P*
++*P*PPPPPPPPP*      P*
++*PP**PPP*P**   **   *
++*PPPPPPPPP          *
++**PPPPPPPPP *    *  *
++*PPPPPPPPPPP       P*
++*P*PPPPPPPP*P  * *PP*
++*PPPPPPP*PPPPP P PPP*
++*********************
++]]
++}
++
++
++local GOAL = {
++  name = 'Goal',
++  classname = 'goal',
++  model = 'models/goal_transparent.md3', -- use large model
++  quantity = 10,
++  type = pickups.type.GOAL
++}
++
++-- local TEXT_MAP = [[
++-- *********************
++-- *GPPPPPPPPPPPPPPPPPP*
++-- *PPPPP*PPPPPPP*PPP*P*
++-- *PPPPPPPPPPPPPPP*PPP*
++-- *PPP*PPPPPPPPPP*PPPP*
++-- *P*PPPPPPPPPPPPPPPPP*
++-- *PPPPPPPPPPP**PPPPP**
++-- *PPPPP*P*PPP*PPPPPPP*
++-- *PPPPP*PPPPPPP*PPP*P*
++-- *PPP*PPPPP*PPPPPPPPP*
++-- *PP*PPPPPPPPP*PPPP*P*
++-- *PPPPPPPPP*PPPPPPPPP*
++-- *PPP*PPPPP*PP * P *P*
++-- *P*PPPPPPPPP*      P*
++-- *PP**PPP*P**   **   *
++-- *PPPPPPPPP     G    *
++-- **PPPPPPPPP *    *  *
++-- *PPPPPPPPPPP       P*
++-- *P*PPPPPPPP*P  * *PP*
++-- *PPPPPPP*PPPPP P PPP*
++-- *********************
++-- ]]
++
++-- Called only once at start up. Settings not recognised by DM Lab internal
++-- are forwarded through the params dictionary.
++-- function api:init(params)
++--   -- Seed the map so only one map is created with lights and decals placed in
++--   -- the same place each run.
++  
++--   api._has_goal = false
++
++
++-- end
++function api:init(params)
++  -- Seed the map so only one map is created with lights and decals placed in
++  -- the same place each run.
++  make_map.random():seed(1)
++
++
++  api._map = {
++  make_map.makeMap{
++      mapName = "openfield_map1",
++      mapEntityLayer = TEXT_MAP[1],
++      useSkybox = true,
++      textureSet = texture_sets.TETRIS
++  },
++  make_map.makeMap{
++    mapName = "openfield_map2",
++    mapEntityLayer = TEXT_MAP[2],
++    useSkybox = true,
++    textureSet = texture_sets.TETRIS
++  },
++  make_map.makeMap{
++    mapName = "openfield_map3",
++    mapEntityLayer = TEXT_MAP[3],
++    useSkybox = true,
++    textureSet = texture_sets.TETRIS
++  }
++  }
++end
++
++function api:createPickup(classname)
++  if classname=='goal' then
++    return  GOAL
++  end
++  return pickups.defaults[classname]
++end
++
++
++function api:start(episode, seed, params)
++  -- print("Start",episode, seed, params)
++  -- random:seed(seed)
++  -- randomMap:seed(random:mapGenerationSeed())
++
++
++  api._has_goal = false
++  api._count = 0
++  api._finish_count = 0
++end
++
++function api:pickup(spawn_id)
++  print('api:pickup:    ',spawn_id,'; Time: ',game:episodeTimeSeconds())
++  api._count = api._count + 1
++  if not api._has_goal and api._count == api._finish_count then
++    game:finishMap()
++    print('should not be')
++  end
++end
++function api:hasEpisodeFinished(timeSeconds)
++  return api._count>0
++end
++function api:updateSpawnVars(spawnVars)
++  local classname = spawnVars.classname
++  -- print('updateSpawnVars ',classname)
++  -- if spawnVars.random_items then
++  --   local possibleClassNames = helpers.split(spawnVars.random_items, ',')
++  --   if #possibleClassNames > 0 then
++  --     classname = possibleClassNames[
++  --       random:uniformInt(1, #possibleClassNames)]
++  --   end
++  -- end
++  local pickup = pickups.defaults[spawnVars.classname]
++  if pickup then
++    -- print('updateSpawnVars: pickup!')
++    -- if pickup.type == pickups.type.REWARD and pickup.quantity > 0 then
++    --   api._finish_count = api._finish_count + 1
++    --   spawnVars.id = tostring(api._finish_count)
++    -- end
++    if pickup.type == pickups.type.GOAL then
++      spawnVars.id = tostring(10)
++      api._has_goal = true
++    end
++  end
++  if classname == 'goal' then
++
++    -- print('updateSpawnVars ',classname)
++    -- api._has_goal = true
++  end
++  return spawnVars
++end
++
++
++-- On first call we return the name of the map. On subsequent calls we return
++-- an empty string. This informs the engine to only perform a quik map restart
++-- instead.
++function api:nextMap()
++  rand_num=3 -- random:uniformInt(1, 3)
++  print("Map number:", rand_num)
++  -- print(TEXT_MAP[rand_num])
++  api.setInstruction(tostring(rand_num))
++  local mapName = api._map[rand_num]
++  -- api._map[rand_num] = ''
++  return mapName
++end
++
++custom_observations.decorate(api)
++setting_overrides.decorate{
++    api = api,
++    apiParams = {episodeLengthSeconds = 2 * 60, camera = {1050, 1050, 1000}},
++    decorateWithTimeout = true
++}
++return api
 diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_core.py b/sf_working_directories/IntrMotiv/dmlab/custom_core.py
 index 708ef2c9..eb31aa48 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_core.py
@@ -63,7 +623,7 @@ index 708ef2c9..eb31aa48 100644
                  if self.graph_recruitment:
                      state_parts.append(recruitment_history)
 diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
-index 7aae8d35..ba979a02 100644
+index 7aae8d35..7f65349d 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 @@ -1166,6 +1166,8 @@ class BaseDistanceRecorder(BaseLearner):
@@ -102,30 +662,45 @@ index 7aae8d35..ba979a02 100644
  
      def load_from_checkpoint(self, policy_id: PolicyID, load_progress: bool = True) -> None:
          """
-@@ -2499,6 +2507,14 @@ class DoubleDistanceLearnerReward(BaseDistanceRecorder):
-                 else:
-                     log.error("Both use_internal and use_external are set to FALSE")
-                     raise NotImplementedError
+@@ -4316,6 +4324,28 @@ class DistanceLearnerReward(BaseDistanceRecorder):
+                 )
+                 # here returns are not normalized yet, so we should use denormalized values
+                 buff["returns"] = buff["advantages"] + buff["valids"][:, :-1] * denormalized_values[:, :-1]
 +                if getattr(self.cfg, "hrl_direct_target_selection", "frontier") == "reward_value":
 +                    states = buff["rnn_states"][:, :-1]
++                    option_states = self._hrl_state_from_rnn(states)
++                    topological_states = self._topological_state_from_rnn(states)
++                    if getattr(self, "_reward_manager_diagnostic_count", 0) < 3:
++                        from .hrl_controllable_graph import HRLStateLayout
++                        from .topological_frontier import TopologicalStateLayout
++
++                        option_layout = HRLStateLayout(self.cfg.Hippo_n_feature)
++                        topo_layout = TopologicalStateLayout(self.cfg.Hippo_n_feature)
++                        log.info(
++                            "Reward manager batch: age0=%d source=%d goal=%d reset=%d valid=%d",
++                            int((option_states[..., option_layout.age] == 0).sum()),
++                            int((option_states[..., option_layout.source] > 0).sum()),
++                            int((topological_states[..., topo_layout.final_goal] > 0).sum()),
++                            int((option_states[..., option_layout.option_reset] > 0).sum()),
++                            int(buff["valids"][:, :-1].sum()),
++                        )
++                        self._reward_manager_diagnostic_count = getattr(self, "_reward_manager_diagnostic_count", 0) + 1
 +                    self._last_reward_manager_updates = self._policy_graph().update_reward_goal_values(
-+                        self._hrl_state_from_rnn(states),
-+                        self._topological_state_from_rnn(states),
-+                        buff["returns_external"],
-+                        buff["valids"][:, :-1],
++                        option_states, topological_states, buff["returns"], buff["valids"][:, :-1]
 +                    )
+ 
              # remove next step obs, rnn_states, and values from the batch, we don't need them anymore
-             for key in ["normalized_obs", "rnn_states", "values_external", "values_internal", "valids"]:
-                 buff[key] = buff[key][:, :-1]
+             for key in ["normalized_obs", "rnn_states", "values", "valids"]:
 diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_params.py b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
-index 847f3d7c..2c28558f 100644
+index 847f3d7c..4db07fea 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
-@@ -80,12 +80,15 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+@@ -80,12 +80,16 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
          help="weights initialized from transfer_model_path without restoring optimizer or progress",
      )
      p.add_argument("--transfer_freeze_dg", default=False, type=str2bool)
 +    p.add_argument("--transfer_freeze_worker", default=False, type=str2bool)
++    p.add_argument("--dmlab_runfiles_path", default=None, type=str)
      p.add_argument(
          "--fixed_task_conditioning",
          default=False,
@@ -137,7 +712,7 @@ index 847f3d7c..2c28558f 100644
  
      p.add_argument("--DG_lr", default=None, type=float, help="Dentate Gyrus Pattern separation learning rate")
      p.add_argument("--DG_temperature", default=None, type=float, help="Dentate Gyrus output temperature")
-@@ -346,10 +349,11 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+@@ -346,10 +350,11 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
      p.add_argument(
          "--hrl_direct_target_selection",
          default="frontier",
@@ -152,10 +727,18 @@ index 847f3d7c..2c28558f 100644
      )
      p.add_argument(
 diff --git a/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py b/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
-index 861d4174..7b611720 100644
+index 861d4174..2b40e1ea 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
-@@ -43,6 +43,8 @@ DMLAB_ENVS = [
+@@ -3,6 +3,7 @@ from collections import deque
+ from typing import Dict, Optional
+ 
+ import numpy as np
++import deepmind_lab
+ from tensorboardX import SummaryWriter
+ 
+ from sample_factory.algo.runners.runner import Runner
+@@ -43,6 +44,8 @@ DMLAB_ENVS = [
      DmLabSpec("openfield_map2_fixed_loc2", "hippodunk/openfield_map2_fixed_loc2"),
      DmLabSpec("openfield_map2_fixed_loc3", "openfield_map2_fixed_loc3"),
      DmLabSpec("openfield_map2_fixed_loc3_noreward", "openfield_map2_fixed_loc3_noreward"),
@@ -164,6 +747,16 @@ index 861d4174..7b611720 100644
      DmLabSpec(
          "openfield_map2_fixed_loc3_fixedlength_noreward",
          "openfield_map2_fixed_loc3_fixedlength_noreward",
+@@ -128,6 +131,9 @@ def make_dmlab_env_impl(
+     dmlab_level_caches_per_policy: Dict[PolicyID, DmlabLevelCache] = None,
+     **_kwargs,
+ ):
++    runfiles_path = getattr(cfg, "dmlab_runfiles_path", None)
++    if runfiles_path:
++        deepmind_lab.set_runfiles_path(os.path.abspath(runfiles_path))
+     skip_frames = cfg.env_frameskip
+ 
+     gpu_idx = 0
 diff --git a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
 index c9ce0981..b921c0df 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
@@ -345,6 +938,286 @@ index 599b7d80..e4a71e2c 100644
                  )
              rnn_size += hippo_n_feature * (R + L - 1)
          cfg.cli_args["rnn_size"] = rnn_size
+diff --git a/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py
+new file mode 100644
+index 00000000..3a0ceea0
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py
+@@ -0,0 +1,131 @@
++"""Evaluate physical reward success from matched, held-out map resets.
++
++This uses the saved policy's own manager or flat controller. Position is read
++only for evaluation output; it is never passed as a task cue to the policy.
++"""
++
++import argparse
++import csv
++import json
++from pathlib import Path
++
++import deepmind_lab
++import numpy as np
++import torch
++
++from sample_factory.algo.sampling.batched_sampling import preprocess_actions
++from sample_factory.algo.utils.action_distributions import argmax_actions
++from sample_factory.algo.utils.env_info import extract_env_info
++from sample_factory.algo.utils.make_env import make_env_func_batched
++from sample_factory.algo.utils.rl_utils import make_dones, prepare_and_normalize_obs
++from sample_factory.model.model_utils import get_rnn_size
++from sample_factory.utils.attr_dict import AttrDict
++from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
++
++
++def start_region(x, y):
++    """Coarse, prespecified map quadrant for stratified success reporting."""
++    return ("west" if x < 1000 else "east") + "_" + ("south" if y < 1000 else "north")
++
++
++def evaluate_episode(actor, cfg, env, env_info, seed, target, reward_x, horizon):
++    env.unwrapped.seed(seed)
++    obs, _ = env.reset()
++    start = np.asarray(obs["pos"][0], dtype=float).copy()
++    assert not (reward_x <= start[0] < reward_x + 100 and 1900 <= start[1] < 2000)
++    engine_seed = int(env.unwrapped.last_reset_seed)
++    state = torch.zeros(1, get_rnn_size(cfg), dtype=torch.float32)
++    dg_hits = 0
++    total_reward = 0.0
++    terminal = False
++    end = start.copy()
++    with torch.no_grad():
++        for decision in range(1, horizon + 1):
++            normalized = prepare_and_normalize_obs(actor, obs)
++            output = actor(normalized, state)
++            activity = getattr(actor.core, "last_dg_activity", None)
++            if activity is not None:
++                dg_hits += int(bool(activity[0, target] > 0))
++            action = output["actions"]
++            if cfg.eval_deterministic:
++                action = argmax_actions(actor.action_distribution())
++            if action.ndim == 1:
++                action = action.unsqueeze(-1)
++            state = output["new_rnn_states"]
++            obs, reward, terminated, truncated, _ = env.step(preprocess_actions(env_info, action))
++            total_reward += float(torch.as_tensor(reward).reshape(-1)[0])
++            end = np.asarray(obs["pos"][0], dtype=float).copy()
++            terminal = bool(make_dones(terminated, truncated)[0])
++            if terminal:
++                break
++    return {
++        "requested_seed": seed, "engine_seed": engine_seed,
++        "start_x": float(start[0]), "start_y": float(start[1]),
++        "start_region": start_region(*start[:2]),
++        "terminal_x": float(end[0]), "terminal_y": float(end[1]),
++        "physical_success": total_reward > 0, "external_reward": total_reward,
++        "decisions_to_termination": decision, "time_to_reward_seconds": decision * 4 / 60 if total_reward > 0 else "",
++        "target_dg_active_decisions": dg_hits, "terminal": terminal,
++    }
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run-dir", type=Path, required=True)
++    parser.add_argument("--checkpoint", type=Path, required=True)
++    parser.add_argument("--runfiles", type=Path, required=True)
++    parser.add_argument("--site", choices=("dg50", "dg51"), required=True)
++    parser.add_argument("--out", type=Path, required=True)
++    parser.add_argument("--trials", type=int, default=20)
++    parser.add_argument("--horizon", type=int, default=1800)
++    parser.add_argument("--seed-base", type=int, default=61000)
++    parser.add_argument("--deterministic", action="store_true")
++    args = parser.parse_args()
++    args.out.parent.mkdir(parents=True, exist_ok=True)
++    deepmind_lab.set_runfiles_path(str(args.runfiles.resolve(strict=True)))
++    cfg, bootstrap_env, _, actor, checkpoint, _ = load_policy_env(
++        args.run_dir, args.horizon, args.deterministic, 0, args.checkpoint
++    )
++    bootstrap_env.close()
++    cfg.env = "openfield_map2_fixed_reward_" + args.site
++    cfg.dmlab_runfiles_path = str(args.runfiles.resolve(strict=True))
++    cfg.dmlab_use_level_cache = False
++    cfg.with_pos_obs = True
++    env = make_env_func_batched(
++        cfg, env_config=AttrDict(worker_index=0, vector_index=0, env_id=0), render_mode=None
++    )
++    env_info = extract_env_info(env, cfg)
++    if hasattr(env.unwrapped, "reset_on_init"):
++        env.unwrapped.reset_on_init = False
++    target = 50 if args.site == "dg50" else 51
++    reward_x = 300 if args.site == "dg50" else 200
++    rows = []
++    try:
++        for index in range(args.trials):
++            row = evaluate_episode(
++                actor, cfg, env, env_info, args.seed_base + index,
++                target, reward_x, args.horizon,
++            )
++            row.update(site=args.site, checkpoint=str(checkpoint))
++            rows.append(row)
++            print(args.site, index + 1, row["physical_success"], flush=True)
++    finally:
++        env.close()
++    with args.out.open("w", newline="") as stream:
++        writer = csv.DictWriter(stream, fieldnames=rows[0].keys())
++        writer.writeheader()
++        writer.writerows(rows)
++    summary = {
++        "site": args.site, "checkpoint": str(checkpoint), "trials": len(rows),
++        "successes": sum(row["physical_success"] for row in rows),
++        "by_start_region": {
++            region: {"trials": sum(row["start_region"] == region for row in rows),
++                     "successes": sum(row["start_region"] == region and row["physical_success"] for row in rows)}
++            for region in sorted({row["start_region"] for row in rows})
++        },
++    }
++    args.out.with_suffix(".summary.json").write_text(json.dumps(summary, indent=2) + "\n")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py
+new file mode 100644
+index 00000000..0bf3bde6
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py
+@@ -0,0 +1,137 @@
++"""Frozen source-worker contact probe on a fixed invisible reward site.
++
++Each command uses the same engine reset seed and policy sampling seed. Physical
++reward contact, target-DG activation, and terminal pose are separate outcomes.
++Debug pose is evaluation-only and is not supplied to the policy network.
++"""
++
++import argparse
++import csv
++import json
++from pathlib import Path
++
++import deepmind_lab
++import numpy as np
++import torch
++
++from sample_factory.algo.sampling.batched_sampling import preprocess_actions
++from sample_factory.algo.utils.env_info import extract_env_info
++from sample_factory.algo.utils.rl_utils import make_dones, prepare_and_normalize_obs
++from sample_factory.algo.utils.make_env import make_env_func_batched
++from sample_factory.model.model_utils import get_rnn_size
++from sample_factory.utils.attr_dict import AttrDict
++from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
++from sf_working_directories.IntrMotiv.evaluation.target_control_interventions import condition_for_target
++
++
++def command_for_condition(condition, target, seed, capacity):
++    if condition == "nominated":
++        return target
++    if condition == "wrong":
++        return (target + 1) % capacity
++    alternatives = [goal for goal in range(capacity) if goal != target]
++    return alternatives[np.random.default_rng(seed + 901).integers(len(alternatives))]
++
++
++def episode(actor, cfg, env, env_info, *, seed, command, target, cell_x, cell_y, horizon):
++    base = env.unwrapped
++    base.seed(seed)
++    obs, _ = env.reset()
++    start = np.asarray(obs["pos"][0], dtype=float)
++    assert not (cell_x <= start[0] < cell_x + 100 and cell_y <= start[1] < cell_y + 100)
++    actual_seed = int(base.last_reset_seed)
++    state = torch.zeros(1, get_rnn_size(cfg), dtype=torch.float32)
++    rng = torch.Generator().manual_seed(seed + 17011)
++    dg_hits = 0
++    reward = 0.0
++    final = start.copy()
++    elapsed = 0
++    terminal = False
++    with torch.no_grad():
++        for elapsed in range(1, horizon + 1):
++            head = actor.forward_head(prepare_and_normalize_obs(actor, obs))
++            dg_hits += int(bool(head[0, target] > 0))
++            if getattr(cfg, "dg_goal_input", "none") == "write":
++                goal = head.new_zeros((1, int(cfg.Hippo_n_feature)))
++                goal[:, command] = 1
++                head = torch.cat((head, goal), dim=-1)
++            core, state = actor.forward_core(head, state)
++            conditioned = condition_for_target(actor, core, -1, command)
++            logits = actor.forward_tail(conditioned, values_only=False, sample_actions=False)["action_logits"]
++            action = torch.multinomial(logits.softmax(-1), 1, generator=rng)
++            obs, step_reward, terminated, truncated, _ = env.step(preprocess_actions(env_info, action))
++            reward += float(torch.as_tensor(step_reward).reshape(-1)[0])
++            final = np.asarray(obs["pos"][0], dtype=float).copy()
++            if bool(make_dones(terminated, truncated)[0]):
++                terminal = True
++                break
++    return dict(
++        requested_seed=seed, engine_seed=actual_seed, command=command,
++        reward_contact=reward > 0, external_reward=reward,
++        target_dg_active_decisions=dg_hits, elapsed_decisions=elapsed,
++        terminal=terminal, start_x=float(start[0]), start_y=float(start[1]),
++        terminal_x=float(final[0]), terminal_y=float(final[1]),
++    )
++
++
++def main():
++    p = argparse.ArgumentParser(description=__doc__)
++    p.add_argument("--run-dir", type=Path, required=True)
++    p.add_argument("--checkpoint", type=Path, required=True)
++    p.add_argument("--runfiles", type=Path, required=True)
++    p.add_argument("--site", choices=["dg50", "dg51"], required=True)
++    p.add_argument("--out-dir", type=Path, required=True)
++    p.add_argument("--trials", type=int, default=20)
++    p.add_argument("--horizon", type=int, default=64, help="Source option timeout in decisions")
++    args = p.parse_args()
++    args.out_dir.mkdir(parents=True, exist_ok=True)
++    deepmind_lab.set_runfiles_path(str(args.runfiles.resolve(strict=True)))
++    cfg, original_env, _, actor, checkpoint, _ = load_policy_env(
++        args.run_dir, args.horizon, False, 0, args.checkpoint
++    )
++    original_env.close()
++    cfg.env = "openfield_map2_fixed_reward_" + args.site
++    cfg.dmlab_runfiles_path = str(args.runfiles.resolve(strict=True))
++    cfg.dmlab_use_level_cache = False
++    cfg.with_pos_obs = True
++    env = make_env_func_batched(
++        cfg, env_config=AttrDict(worker_index=0, vector_index=0, env_id=0), render_mode=None
++    )
++    env_info = extract_env_info(env, cfg)
++    if hasattr(env.unwrapped, "reset_on_init"):
++        env.unwrapped.reset_on_init = False
++    target = 50 if args.site == "dg50" else 51
++    x = 300 if args.site == "dg50" else 200
++    rows = []
++    try:
++        for trial in range(args.trials):
++            seed = 51000 + trial
++            for condition in ("nominated", "wrong", "shuffled"):
++                command = command_for_condition(condition, target, seed, int(cfg.Hippo_n_feature))
++                row = episode(
++                    actor, cfg, env, env_info, seed=seed, command=command,
++                    target=target, cell_x=x, cell_y=1900, horizon=args.horizon,
++                )
++                row.update(site=args.site, condition=condition, target_id=target, checkpoint=str(checkpoint))
++                rows.append(row)
++            assert len({row["engine_seed"] for row in rows[-3:]}) == 1
++            print(args.site, trial + 1, "matched trials", flush=True)
++    finally:
++        env.close()
++    output = args.out_dir / f"{args.site}_zero_shot.csv"
++    with output.open("w", newline="") as handle:
++        writer = csv.DictWriter(handle, fieldnames=rows[0].keys())
++        writer.writeheader()
++        writer.writerows(rows)
++    summary = {
++        "checkpoint": str(checkpoint), "site": args.site, "trials_per_condition": args.trials,
++        "option_horizon_decisions": args.horizon,
++        "successes": {name: sum(row["reward_contact"] for row in rows if row["condition"] == name)
++                      for name in ("nominated", "wrong", "shuffled")},
++    }
++    (args.out_dir / f"{args.site}_zero_shot_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
++    print(summary, flush=True)
++
++
++if __name__ == "__main__":
++    main()
 diff --git a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py b/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
 index 95c67ac9..af20b360 100644
 --- a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py

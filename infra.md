@@ -6,6 +6,14 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Fixed-reward batch submission can hit the Slurm per-user job cap — 2026-09-24
+
+- **Evidence:** The 42-run fixed-reward transfer print-only audit passed, but after Slurm accepted 21 CPU and 8 GPU jobs, the next GPU `sbatch` returned `QOSMaxSubmitJobPerUserLimit`. Seven CPU jobs also entered `NODE_FAIL` during prolog and were requeued. The new 100-day workspace had ample storage; this was scheduler capacity rather than a path or disk failure.
+- **Impact:** An all-at-once launcher cannot guarantee that every StudySpec run is queued when unrelated long jobs occupy the account limit. A partial manifest must not be mistaken for a complete scientific batch.
+- **Improvement/status:** A quota-aware helper now retries only missing GPU rows, persists each accepted job ID, and runs the combined StudySpec audit when all 42 are submitted. Its process and log are in the new workspace. This is a recovery for the current study, not a general scheduler implementation.
+- **Acceptance:** The combined submitted audit reports 42 unique accepted jobs and the original study SHA-256. All seven node-failed CPU jobs reach running state after requeue or are resubmitted with recorded replacement IDs. Fold quota-aware, idempotent submission into the canonical launcher only if this failure recurs.
+
+
 ### Reward-site screening lacks physical outcomes for prospective edges — 2026-09-24
 
 - **Evidence:** The [four-run reward-site audit](06_experiments/fixed_reward_site_candidate_audit_20260924.md) found many well-tested DG-event edges in the 75M–300M online snapshots, but no saved per-edge physical arrival positions. The 100k pose/activity samples can show where a DG target activates, while cumulative prospective success counts cannot identify where each commanded success ended. W&B hit advantages were recorded between, rather than exactly at, several saved spatial milestones.
