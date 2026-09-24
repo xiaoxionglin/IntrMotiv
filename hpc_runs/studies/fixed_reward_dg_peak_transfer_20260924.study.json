@@ -399,9 +399,97 @@
       "seed"
     ],
     "window_metrics": {
-      "episode_return": "reward/reward"
+      "environment_reward_mean": "intrmotiv/reward/environment_mean",
+      "environment_reward_nonzero_fraction": "intrmotiv/reward/environment_nonzero_fraction",
+      "ppo_dg_gradient_norm": "intrmotiv/dg/gradient/ppo_norm"
     },
     "cumulative_metrics": {},
-    "contrasts": []
+    "contrasts": [
+      {
+        "name": "W_FIXED_minus_W_SCRATCH",
+        "terms": [
+          {
+            "weight": 1,
+            "where": {
+              "arm": "W_FIXED"
+            }
+          },
+          {
+            "weight": -1,
+            "where": {
+              "arm": "W_SCRATCH"
+            }
+          }
+        ]
+      },
+      {
+        "name": "W_WORKER_minus_W_SCRATCH",
+        "terms": [
+          {
+            "weight": 1,
+            "where": {
+              "arm": "W_WORKER"
+            }
+          },
+          {
+            "weight": -1,
+            "where": {
+              "arm": "W_SCRATCH"
+            }
+          }
+        ]
+      },
+      {
+        "name": "W_FULL_minus_W_SCRATCH",
+        "terms": [
+          {
+            "weight": 1,
+            "where": {
+              "arm": "W_FULL"
+            }
+          },
+          {
+            "weight": -1,
+            "where": {
+              "arm": "W_SCRATCH"
+            }
+          }
+        ]
+      },
+      {
+        "name": "F_DG_minus_F_SCRATCH",
+        "terms": [
+          {
+            "weight": 1,
+            "where": {
+              "arm": "F_DG"
+            }
+          },
+          {
+            "weight": -1,
+            "where": {
+              "arm": "F_SCRATCH"
+            }
+          }
+        ]
+      },
+      {
+        "name": "F_FULL_minus_F_SCRATCH",
+        "terms": [
+          {
+            "weight": 1,
+            "where": {
+              "arm": "F_FULL"
+            }
+          },
+          {
+            "weight": -1,
+            "where": {
+              "arm": "F_SCRATCH"
+            }
+          }
+        ]
+      }
+    ]
   }
 }
