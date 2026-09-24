@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Reward-site screening lacks physical outcomes for prospective edges — 2026-09-24
+
+- **Evidence:** The [four-run reward-site audit](06_experiments/fixed_reward_site_candidate_audit_20260924.md) found many well-tested DG-event edges in the 75M–300M online snapshots, but no saved per-edge physical arrival positions. The 100k pose/activity samples can show where a DG target activates, while cumulative prospective success counts cannot identify where each commanded success ended. W&B hit advantages were recorded between, rather than exactly at, several saved spatial milestones.
+- **Impact:** A high graph success rate or one diagnostic field peak cannot safely determine a fixed physical reward region. Repeated target IDs can refer to broad boundary responses, and joining unequal checkpoint ages can misrank candidates.
+- **Proposed improvement/status:** Keep the existing graph and snapshot contracts; make the canonical matched-command evaluator emit a compact per-trial physical arrival region/pose with checkpoint identity, target ID, matched-start ID, and failure/timeout status. Add a thin analysis view that joins these trials to same-checkpoint field maps and reports command-versus-shuffle arrival by candidate region. No evaluator change has been made for this audit.
+- **Acceptance:** For an immutable checkpoint, the standard intervention output supports a source-by-target physical arrival table with all trials and failures retained, exact checkpoint provenance, and a test showing that shuffled commands use identical starts. The corresponding reward-site report can identify at least one region with observed commanded-versus-shuffled arrival probability or explicitly report that none qualifies. Reuse the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+
 ### Offline place-field evaluator still assumes corridor grid — 2026-09-24
 
 - **Evidence:** The six-cell easy-landmark `render-telemetry` manifest was valid, but frozen 500-decision preflight job `8185734` failed after checkpoint loading: `traversable_field_components` received a 19-by-19 field grid and a 9-by-9 geometry mask. `place_fields.py` defaults to grain 19 and retains corridor coordinate bounds, while the landmark level declares a 9-by-9 grid over `[100, 1000)` on both axes.
