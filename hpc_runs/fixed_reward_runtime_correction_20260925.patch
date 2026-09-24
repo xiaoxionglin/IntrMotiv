@@ -1930,7 +1930,7 @@ index 7a97d2f0..7af802d2 100644
      return pd.DataFrame(rows), summary
  
 diff --git a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py b/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
-index af20b360..e66e9338 100644
+index af20b360..c389971a 100644
 --- a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
 +++ b/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
 @@ -4,6 +4,7 @@ import torch
@@ -1941,14 +1941,15 @@ index af20b360..e66e9338 100644
  from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
  from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
  from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
-@@ -60,6 +61,55 @@ def test_flat_goal_mixture_is_normalized_trainable_and_source_aligned():
+@@ -60,10 +61,60 @@ def test_flat_goal_mixture_is_normalized_trainable_and_source_aligned():
      assert core.fixed_task_target.grad.abs().sum() > 0
  
  
+-def test_goal_write_flat_worker_allows_reward_gradient_into_dg():
 +def test_uniform_flat_goal_mixture_has_no_nominated_address():
-+    cfg = _core_config()
-+    cfg.fixed_task_goal_mixture = True
-+    cfg.fixed_task_target_id = 1
+     cfg = _core_config()
+     cfg.fixed_task_goal_mixture = True
+     cfg.fixed_task_target_id = 1
 +    cfg.fixed_task_goal_init = "uniform"
 +    core = SimpleSequenceWithBypassCore(cfg, 5)
 +    mixture = core.fixed_task_condition()
@@ -1994,10 +1995,27 @@ index af20b360..e66e9338 100644
 +    assert torch.count_nonzero(TargetFiLMDecoder(source_core).target_modulation) == 0
 +
 +
- def test_goal_write_flat_worker_allows_reward_gradient_into_dg():
-     cfg = _core_config()
-     cfg.fixed_task_goal_mixture = True
-@@ -94,6 +144,12 @@ class _Actor(nn.Module):
++def test_goal_write_flat_worker_allows_reward_gradient_into_dg():
++    cfg = _core_config()
++    cfg.seed = 42
++    cfg.fixed_task_goal_mixture = True
++    cfg.fixed_task_goal_init = "uniform_jitter"
+     cfg.hrl_graph_memory = "policy_buffer"
+     cfg.hrl_target_timing = "immediate"
+     cfg.ppo_dg_gradient = "joint"
+@@ -72,8 +123,10 @@ def test_goal_write_flat_worker_allows_reward_gradient_into_dg():
+     pre = torch.full((1, 3), 2.0, requires_grad=True)
+     head = torch.cat((torch.ones(1, 3), torch.zeros(1, 2), pre), -1)
+     out, _ = core(head, torch.zeros(1, core.total_state_size))
+-    core.worker_view(out).sum().backward()
++    TargetFiLMDecoder(core)(core.worker_view(out)).square().sum().backward()
+     assert pre.grad is not None and pre.grad.abs().sum() > 0
++    assert core.fixed_task_target.grad is not None
++    assert core.fixed_task_target.grad.abs().sum() > 0
+ 
+ 
+ class _Projection(nn.Module):
+@@ -94,6 +147,12 @@ class _Actor(nn.Module):
          self.decoder = nn.Linear(3, 3)
          self.action_parameterization = nn.Linear(3, 2)
          self.critic_linear = nn.Linear(3, 1)
@@ -2010,7 +2028,7 @@ index af20b360..e66e9338 100644
  
  
  def _learner(scope):
-@@ -132,6 +188,17 @@ def test_policy_transfer_keeps_critic_fresh_and_freeze_disables_dg_gradients():
+@@ -132,6 +191,17 @@ def test_policy_transfer_keeps_critic_fresh_and_freeze_disables_dg_gradients():
      assert not any(p.requires_grad for p in learner.actor_critic.encoder.DG_projection.parameters())
  
  
@@ -2028,7 +2046,7 @@ index af20b360..e66e9338 100644
  def test_frozen_legacy_batchnorm_uses_checkpoint_statistics_without_drift():
      projection = DGProjection_batchnorm_relu(4, 3, intercept=0.0, batchnorm_semantics="legacy_batch")
      projection.train()
-@@ -143,3 +210,16 @@ def test_frozen_legacy_batchnorm_uses_checkpoint_statistics_without_drift():
+@@ -143,3 +213,16 @@ def test_frozen_legacy_batchnorm_uses_checkpoint_statistics_without_drift():
      assert torch.equal(projection.batchnorm1d.running_mean, before_mean)
      assert torch.equal(projection.batchnorm1d.running_var, before_var)
      assert not projection.last_running_stats_updated
