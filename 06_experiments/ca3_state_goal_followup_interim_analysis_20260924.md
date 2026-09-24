@@ -40,7 +40,7 @@ The candidate-rule graph gap grows across the first two complete checkpoints. Un
 
 ## Seed-99 place-field and trajectory atlas at 25M
 
-These canonical `segmented-atlas/v1` panels show the same retained *online training windows* as the matched table, not frozen-policy rollouts. Each of the 64 DG units is normalized to its own peak (common 0–1 color scale), and gray cells were not visited. The selected seed-99 windows have 64/64 active units, but most do not meet the stricter mono-field criterion. The shared visitation pattern permits visual comparison of maps within a seed; it does not prove that either anchor rule improved control.
+These canonical `segmented-atlas/v1` panels show the retained *online training windows* for fields and trajectories at the matched 25M target; directed matrices show graph counters stored at that checkpoint, not counts limited to the window. They are not frozen-policy rollouts. Each of the 64 DG units is normalized to its own peak (common 0–1 color scale), and gray cells were not visited. The selected seed-99 windows have 64/64 active units, but most do not meet the stricter mono-field criterion. The shared visitation pattern permits visual comparison of maps within a seed; it does not prove that either anchor rule improved control.
 
 ### Fixed anchor: dominant versus unique candidate
 
@@ -51,6 +51,14 @@ These canonical `segmented-atlas/v1` panels show the same retained *online train
 ![Fixed anchor and dominant candidate: occupancy and segmented trajectories](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png)
 
 ![Fixed anchor and unique candidate: occupancy and segmented trajectories](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png)
+
+![Fixed anchor and dominant candidate: prospective outcome matrix](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_graph.png)
+
+![Fixed anchor and unique candidate: prospective outcome matrix](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_graph.png)
+
+Matrix rows are source DG units, columns target units, and color is prospective hits / attempts; gray means unattempted. This matrix includes attempts that did *not* become reliable graph edges. Fixed-anchor [dominant segment examples](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_segments.png) · [unique segment examples](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_segments.png).
+
+The accumulated graph buffers corroborate sparse prospective evidence, not just a strict reliable-edge threshold: across seeds, fixed/dominant records 2,758–4,404 attempts versus 17–82 for fixed/unique; EMA/dominant records 4,136–9,911 versus 543–710 for EMA/unique. These counts are not per-decision attempt rates, and they do not by themselves identify which recognition gate suppressed opportunities.
 
 ### EMA anchor: dominant versus unique candidate
 
@@ -66,6 +74,8 @@ Full 64-unit sheets and occupancy/segmented trajectories:
 | Fixed / unique | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
 | EMA / dominant | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
 | EMA / unique | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
+
+EMA extras: dominant [segment examples](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_segments.png) and [graph matrix](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_graph.png); unique [segments](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_segments.png) and [graph](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_graph.png).
 
 Trajectory colors mark independent retained segments, not time or speed; starts are circles, ends crosses. These seed-99 pictures complement, but cannot replace, the paired three-seed graph and mono-field comparisons above.
 

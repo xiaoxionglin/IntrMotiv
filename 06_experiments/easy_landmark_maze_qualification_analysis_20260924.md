@@ -45,7 +45,7 @@ All six maps have zero silent-unit fraction in the 2M snapshot. Rich rendering r
 
 ## Place-field and trajectory atlas at 2M
 
-These are canonical `segmented-atlas/v1` views of the *same 100,000-sample online windows* used in the table, not new frozen-policy rollouts. Each DG panel is divided by that unit's own peak (fixed 0–1 scale); gray denotes unvisited cells. Rich maps mark ten decals and ten colored wall faces. A bright peak near a cue is proximity, not proof of cue causation. Trajectory colors distinguish stored fragments, not elapsed time; circles mark starts and crosses mark ends.
+These are canonical `segmented-atlas/v1` views, not new frozen-policy rollouts. Fields and trajectories use the same retained 100,000-sample online windows as the table; directed outcome matrices use the graph counters stored at the checkpoint and are not restricted to that window. Each DG field panel is divided by that unit's own peak (fixed 0–1 scale); gray denotes unvisited cells. Rich maps mark ten decals and ten colored wall faces. A bright peak near a cue is proximity, not proof of cue causation. Trajectory colors distinguish stored fragments, not elapsed time; circles mark starts and crosses mark ends.
 
 ### SCR: arrival credit and direction-sensitive recruitment
 
@@ -57,6 +57,8 @@ These are canonical `segmented-atlas/v1` views of the *same 100,000-sample onlin
 
 [Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_NONE_S99/target_000002000000_policy_00_trajectory.png).
 
+SCR extras: neutral [four segment examples](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_NONE_S99/target_000002000000_policy_00_segments.png) and [directed outcome matrix](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_NONE_S99/target_000002000000_policy_00_graph.png); rich [segments](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_RICH_S99/target_000002000000_policy_00_segments.png) and [graph](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_RICH_S99/target_000002000000_policy_00_graph.png).
+
 ### DGP: target-hit credit with joint DG/worker learning
 
 ![DGP neutral DG fields](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_place_fields_page01.png)
@@ -66,6 +68,12 @@ These are canonical `segmented-atlas/v1` views of the *same 100,000-sample onlin
 ![DGP rich occupancy and segmented trajectories](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_RICH_S99/target_000002000000_policy_00_trajectory.png)
 
 [Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_trajectory.png). Rich DGP has less map overlap but only three reliable graph edges; the field image does not establish connected destinations.
+
+![DGP neutral prospective outcome matrix](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_graph.png)
+
+![DGP rich prospective outcome matrix](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_RICH_S99/target_000002000000_policy_00_graph.png)
+
+These matrices show prospective hits divided by attempts for source-row/target-column pairs; gray means unattempted. They are *not* the thresholded reliable graph used for `Reachable`, which explains why non-gray cells can coexist with only three reliable rich edges. DGP [neutral segment examples](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_segments.png) · [rich segment examples](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_RICH_S99/target_000002000000_policy_00_segments.png).
 
 ### Waypoint: F64 decoder and stored DDQN+HER worker
 
@@ -78,6 +86,8 @@ The remaining units are essential to the F64 comparison: neutral [16–31](resul
 ![Waypoint rich occupancy and segmented trajectories](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_trajectory.png)
 
 [Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_trajectory.png).
+
+Waypoint extras: neutral [four segment examples](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_segments.png) and [directed outcome matrix](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_graph.png); rich [segments](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_segments.png) and [graph](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_graph.png).
 
 The offline 10k-decision frozen-checkpoint evaluator is not represented by these images. Its one-row 500-decision preflight, Slurm job `8185734`, loaded the checkpoint but failed before writing an NPZ because the evaluator's default 19-by-19 corridor grid disagreed with the landmark geometry's 9-by-9 mask. A full sweep was not submitted; changing only `--grain` would still leave corridor coordinate bounds wrong. This is an evaluator correctness gate, not a negative place-field result.
 
