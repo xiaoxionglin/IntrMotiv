@@ -28,7 +28,7 @@ def run_site(site):
     target = np.asarray(SITES[site])
     lab = deepmind_lab.Lab(
         "openfield_map2_fixed_reward_" + site,
-        ["DEBUG.POS.TRANS", "GEOMETRY.ENTITY_LAYER"],
+        ["DEBUG.POS.TRANS"],
         config={"width": "96", "height": "72"},
         renderer="software",
     )
