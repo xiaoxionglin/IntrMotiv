@@ -1,9 +1,9 @@
 {
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.12.0",
-  "study_id": "fixed_reward_dg_peak_transfer_qualification_20260924",
-  "description": "Four short qualification jobs for both source architectures and both fixed reward levels.",
-  "expected_runs": 4,
+  "study_id": "fixed_reward_dg51_gpu_qualification_20260924",
+  "description": "L40S GPU qualification of PPO-source waypoint and flat transfer.",
+  "expected_runs": 2,
   "metadata": {
     "project": "SF_IntrMotiv_FixedRewardDGPeakTransfer",
     "training_steps": 131072,
@@ -13,11 +13,11 @@
   },
   "training": {
     "mode": "sample_factory",
-    "batch_name": "fixed_reward_dg_peak_transfer_qualification_20260924",
+    "batch_name": "fixed_reward_dg51_gpu_qualification_20260924",
     "workspace_root": "/work/classic/fr_xl1014-fixed-reward-transfer",
     "output_root": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/fixed_reward_dg_peak_transfer_qualification_20260924",
-    "run_name_template": "QFR3_{base_label}_{arm_label}_S{seed}",
-    "condition_name_template": "QFR3_{base_label}_{arm_label}",
+    "run_name_template": "QFGPU_{base_label}_{arm_label}_S{seed}",
+    "condition_name_template": "QFGPU_{base_label}_{arm_label}",
     "seed_arg": "--seed={seed}",
     "common_args": [
       "--DG_BN_intercept=2.43",
@@ -144,7 +144,7 @@
       "--use_rnn=True",
       "--value_loss_coeff=0.3",
       "--wandb_dir=/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/fixed_reward_dg_peak_transfer_qualification_20260924/wandb",
-      "--wandb_group=fixed_reward_dg_peak_transfer_qualification_20260924",
+      "--wandb_group=fixed_reward_dg51_gpu_qualification_20260924",
       "--wandb_project=SF_IntrMotiv_FixedRewardDGPeakTransfer",
       "--wandb_user=xiaoxionglin-bernstein-center-freiburg",
       "--with_number_instruction=True",
@@ -156,24 +156,6 @@
     ]
   },
   "bases": [
-    {
-      "name": "dg50",
-      "label": "D50",
-      "args": [
-        "--device=cpu",
-        "--dg_goal_input=write",
-        "--env=openfield_map2_fixed_reward_dg50",
-        "--save_best_metric=z_00_openfield_map2_fixed_reward_dg50_lenweighted_score"
-      ],
-      "metadata": {
-        "site": "dg50",
-        "source": "00_DGC_WAYPOINT_DG_F64_S123",
-        "source_checkpoint": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/fixed_reward_transfer_20260924/source_checkpoints/dg50/00_DGC_WAYPOINT_DG_F64_S123/checkpoint_p0/checkpoint_000015950_130662400.pth",
-        "source_sha256": "6951c12faecda21848bd73a3422ffe1928dd2dc07a515ef1b8b9720efc2cc3c0",
-        "target_id": 50,
-        "reward_cell": "(300,400)x(1900,2000)"
-      }
-    },
     {
       "name": "dg51",
       "label": "D51",
@@ -193,7 +175,7 @@
         "--controller_target_updates=100",
         "--controller_td_positions=256",
         "--decorrelate_envs_on_one_worker=False",
-        "--device=cpu",
+        "--device=gpu",
         "--dg_goal_input=none",
         "--env=openfield_map2_fixed_reward_dg51",
         "--heartbeat_interval=40",
