@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Offline place-field evaluator still assumes corridor grid — 2026-09-24
+
+- **Evidence:** The six-cell easy-landmark `render-telemetry` manifest was valid, but frozen 500-decision preflight job `8185734` failed after checkpoint loading: `traversable_field_components` received a 19-by-19 field grid and a 9-by-9 geometry mask. `place_fields.py` defaults to grain 19 and retains corridor coordinate bounds, while the landmark level declares a 9-by-9 grid over `[100, 1000)` on both axes.
+- **Impact:** No offline landmark NPZ or 10k frozen place-field sweep can be trusted yet. Online geometry-v2 snapshots and their canonical atlases are unaffected; overriding only the grain would leave the coordinate bins incorrect.
+- **Proposed improvement/status:** Derive evaluator grain and x/y bounds from the loaded geometry, apply them consistently to thresholded, raw, worker, and pre-threshold maps, then propagate through manifest postprocessing. Keep corridor v1 defaults unchanged. No full sweep submitted pending a repaired one-row preflight.
+- **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/easy_landmark_maze_qualification_analysis_20260924.md).
+
 ### Stored controller replay was duplicated into evaluation checkpoints
 
 - **Evidence:** The September 23 NEMO2 audit found 4.514 TiB of checkpoint files

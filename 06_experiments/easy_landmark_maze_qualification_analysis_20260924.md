@@ -43,6 +43,44 @@ The online snapshot table below uses 100,000 retained behavior samples per run. 
 
 All six maps have zero silent-unit fraction in the 2M snapshot. Rich rendering reduces average map overlap in every architecture, yet the mono-field result is mixed. DGP's rich graph has only three reliable edges versus 56 in neutral, so its cleaner map overlap does not translate into a better connected graph here. Waypoint has more distinct peak bins because it has 64 DG units rather than 16; this is not an equal-capacity localization comparison. The online grounded-controllability values are at most 0.016 across these six snapshots and do not establish reliable command-caused arrival.
 
+## Place-field and trajectory atlas at 2M
+
+These are canonical `segmented-atlas/v1` views of the *same 100,000-sample online windows* used in the table, not new frozen-policy rollouts. Each DG panel is divided by that unit's own peak (fixed 0–1 scale); gray denotes unvisited cells. Rich maps mark ten decals and ten colored wall faces. A bright peak near a cue is proximity, not proof of cue causation. Trajectory colors distinguish stored fragments, not elapsed time; circles mark starts and crosses mark ends.
+
+### SCR: arrival credit and direction-sensitive recruitment
+
+![SCR neutral DG fields](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_NONE_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+![SCR rich DG fields](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_RICH_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+![SCR rich occupancy and segmented trajectories](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_RICH_S99/target_000002000000_policy_00_trajectory.png)
+
+[Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_SCR_ARR_DIRS_NONE_S99/target_000002000000_policy_00_trajectory.png).
+
+### DGP: target-hit credit with joint DG/worker learning
+
+![DGP neutral DG fields](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+![DGP rich DG fields](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_RICH_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+![DGP rich occupancy and segmented trajectories](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_RICH_S99/target_000002000000_policy_00_trajectory.png)
+
+[Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_DGP_HIT_JOINT_LEG_NONE_S99/target_000002000000_policy_00_trajectory.png). Rich DGP has less map overlap but only three reliable graph edges; the field image does not establish connected destinations.
+
+### Waypoint: F64 decoder and stored DDQN+HER worker
+
+![Waypoint neutral DG fields, units 0–15](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+![Waypoint rich DG fields, units 0–15](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_place_fields_page01.png)
+
+The remaining units are essential to the F64 comparison: neutral [16–31](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_place_fields_page02.png), [32–47](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_place_fields_page03.png), [48–63](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_place_fields_page04.png); rich [16–31](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_place_fields_page02.png), [32–47](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_place_fields_page03.png), [48–63](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_place_fields_page04.png).
+
+![Waypoint rich occupancy and segmented trajectories](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_RICH_S99/target_000002000000_policy_00_trajectory.png)
+
+[Neutral trajectory](results/recent_architecture_batches_20260924/landmark/ELMPF_WAYPOINT_F64_DDQN_HER_NONE_S99/target_000002000000_policy_00_trajectory.png).
+
+The offline 10k-decision frozen-checkpoint evaluator is not represented by these images. Its one-row 500-decision preflight, Slurm job `8185734`, loaded the checkpoint but failed before writing an NPZ because the evaluator's default 19-by-19 corridor grid disagreed with the landmark geometry's 9-by-9 mask. A full sweep was not submitted; changing only `--grain` would still leave corridor coordinate bounds wrong. This is an evaluator correctness gate, not a negative place-field result.
+
 ## Interpretation and next checkpoint
 
 The qualification demonstrates that the level, cue contract, learning loop, frozen evaluation, and cue-aware analysis work. Its scientific result is an early architecture-by-cue interaction: the same visible landmarks change representation, graph structure, and frozen exploration differently across designs. A mechanism claim requires the rich production seeds and seed-99 neutral controls at matched training ages; a control claim additionally requires the declared matched-command intervention panel.
@@ -51,6 +89,6 @@ The qualification demonstrates that the level, cue contract, learning loop, froz
 
 - Study schema `intrmotiv/study/v1`, workflow 1.12.0, qualification StudySpec SHA-256 `546c8aa71462861681537efb5d9a597ebf6ecd3ecc2e8c8700ab038bc5199bc0`.
 - Canonical local definition: [easy_landmark_maze_preflight.study.json](../hpc_runs/studies/easy_landmark_maze_preflight.study.json). Architecture and geometry contract: [implementation record](easy_landmark_maze_implementation_20260923.md).
-- Authoritative workspace artifacts: `/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/analysis/easy_landmark_maze_preflight_20260923/` (`qualification_audit.json`, `spatial/per_snapshot.csv`, `online/per_run.csv`, and `evaluation_preflight_r3/*`).
+- Authoritative workspace artifacts: `/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/analysis/easy_landmark_maze_preflight_20260923/` (`qualification_audit.json`, `spatial/per_snapshot.csv`, `online/per_run.csv`, `evaluation_preflight_r3/*`, `atlas_20260924/figures/`, and the failed `frozen_place_fields_20260924/preflight/` log). The report copies only PNGs; the workspace retains scalable PDFs.
 
 The audit and collector outputs were sufficient for this report; parsing raw Slurm logs would have repeated their validated work. The original implementation record is a release record written before qualification completed, so its older “active” status should be read with this dated result.

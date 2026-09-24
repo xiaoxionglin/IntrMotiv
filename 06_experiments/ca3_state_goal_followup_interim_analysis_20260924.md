@@ -38,6 +38,37 @@ Fixed anchors have lower mean map overlap than EMA in both candidate-rule strata
 
 The candidate-rule graph gap grows across the first two complete checkpoints. Under fixed anchors, dominant/unique mean reliable edges are 1.3/0 at 5M and 23.0/0.3 at 25M. Under EMA, they are 16.0/4.3 at 5M and 28.0/1.0 at 25M. Thus the unique rule is already graph-sparse early, and the dominant arms add edges while unique arms do not. The 75M panel remains incomplete and is excluded from this paired trajectory.
 
+## Seed-99 place-field and trajectory atlas at 25M
+
+These canonical `segmented-atlas/v1` panels show the same retained *online training windows* as the matched table, not frozen-policy rollouts. Each of the 64 DG units is normalized to its own peak (common 0–1 color scale), and gray cells were not visited. The selected seed-99 windows have 64/64 active units, but most do not meet the stricter mono-field criterion. The shared visitation pattern permits visual comparison of maps within a seed; it does not prove that either anchor rule improved control.
+
+### Fixed anchor: dominant versus unique candidate
+
+![Fixed anchor and dominant candidate, DG units 0–15](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page01.png)
+
+![Fixed anchor and unique contextual candidate, DG units 0–15](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page01.png)
+
+![Fixed anchor and dominant candidate: occupancy and segmented trajectories](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png)
+
+![Fixed anchor and unique candidate: occupancy and segmented trajectories](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png)
+
+### EMA anchor: dominant versus unique candidate
+
+![EMA anchor and dominant candidate, DG units 0–15](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page01.png)
+
+![EMA anchor and unique contextual candidate, DG units 0–15](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page01.png)
+
+Full 64-unit sheets and occupancy/segmented trajectories:
+
+| Anchor / candidate | DG units 16–31 | 32–47 | 48–63 | Occupancy and trajectory |
+|---|---|---|---|---|
+| Fixed / dominant | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
+| Fixed / unique | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
+| EMA / dominant | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
+| EMA / unique | [page 2](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page02.png) | [page 3](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page03.png) | [page 4](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_place_fields_page04.png) | [trajectory](results/recent_architecture_batches_20260924/followup/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/target_000025000000_policy_00_trajectory.png) |
+
+Trajectory colors mark independent retained segments, not time or speed; starts are circles, ends crosses. These seed-99 pictures complement, but cannot replace, the paired three-seed graph and mono-field comparisons above.
+
 ## Interpretation and next test
 
 The unique-context rule may be too selective for graph-building at this early training age. It is also plausible that its accepted events are fewer but cleaner; the current online graph output cannot decide between those explanations. Compare `context_zero_match`, `context_multi_match`, `context_unique_rescues`, accepted events, anchor refinements, calibration thresholds, and contextual HER positive/wrong-context rates at the same matched age. Then use frozen place fields and matched-command evaluation to test whether the accepted graph edges correspond to reproducible destinations.
@@ -48,6 +79,6 @@ At 75M, ten snapshots are available, but both fixed/seed-8 rows are absent. The 
 
 - Study schema `intrmotiv/study/v1`; declared workflow 1.11.0; StudySpec SHA-256 `68a0911fbc4719cc20eca4cf4145ffe0405b570d2ac7bf5a49a84643ab9f8437`.
 - Canonical definition: [ca3_state_goal_followup_20260922_production.study.json](../hpc_runs/studies/ca3_state_goal_followup_20260922_production.study.json). The scientific rationale and semantics are in [the follow-up plan](../05_plans/ca3_state_goal_followup_20260922.md).
-- Authoritative interim output: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/ca3_state_goal_followup_20260924_interim_spatial/` (`per_snapshot.csv`, `snapshot_inventory.csv`, `analysis_manifest.json`). The already verified workflow 1.12.0 checkout read this 1.11.0 study.
+- Authoritative interim output: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/ca3_state_goal_followup_20260924_interim_spatial/` (`per_snapshot.csv`, `snapshot_inventory.csv`, `analysis_manifest.json`); atlas source: adjacent `ca3_state_goal_followup_20260924_interim_atlas/figures/`. The already verified workflow 1.12.0 checkout read this 1.11.0 study. The report copies only PNGs; the workspace retains scalable PDFs.
 
 The main NEMO2 checkout was only workflow 1.10.1 and could not load this study; the verified 1.12.0 checkout avoided a redundant collector implementation. A lightweight copy of the exact StudySpec was staged under the allocated corridor workspace for analysis. Future repeated collection should use that checked version pairing and the canonical CSV outputs.

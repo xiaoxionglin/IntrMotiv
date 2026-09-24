@@ -10,6 +10,8 @@ The first report is a qualification result; the other two are synchronized inter
 
 The landmark training audit and frozen evaluator passed, but separate exact learner-reload certificates were not found in the qualification analysis tree. The CA3 online scalar histories are incomplete in the collector's discovered event-file path after recovery, so their matched findings here come from validated spatial snapshots. These gaps are called out in the individual reports.
 
+Each report now includes a seed-99 DG place-field and segmented-trajectory atlas at its balanced comparison checkpoint: 2M for the landmark qualification, 75M for predictive CA3, and 25M for the state-goal follow-up. The F64 atlases link all four 16-unit sheets per condition. These are online behavior-window figures, not frozen-checkpoint place-field tests. The landmark frozen-rollout preflight encountered an evaluator grid/bounds mismatch and no full frozen sweep was launched; see the landmark report for the exact gate.
+
 ## How the components fit together
 
 The common visual trunk is fixed ImageNet ResNet-18 through layer 2. A learned DG projection with evolving BatchNorm statistics supplies sparse landmark activity; CA3 retains recent landmark history. The controller receives a selected target and learns action values with stored-state DDQN and hindsight experience replay (HER) in the waypoint/CA3 line. The landmark screen also includes two earlier PPO-based graph/goal designs. Pose and cue identity are privileged telemetry only, not policy inputs.
@@ -28,7 +30,7 @@ The main scientific tension is now visible: extra state-goal machinery can alter
 
 ## Shared next analysis point
 
-Update these reports at the next complete synchronized checkpoint. For the predictive batch, use the canonical 75M, then 150M and 300M schedules only when every paired cell is present. For the follow-up, use 25M now and 75M once both lagging fixed/seed-8 runs arrive. For the landmark production, analyze the rich three-seed cells and the paired seed-99 neutral controls at their declared shared milestones. Add manifest-driven frozen place fields and matched-command interventions before making a control claim.
+Update these reports at the next complete synchronized checkpoint. For the predictive batch, use the canonical 75M, then 150M and 300M schedules only when every paired cell is present. For the follow-up, use 25M now and 75M once both lagging fixed/seed-8 runs arrive. For the landmark production, analyze the rich three-seed cells and the paired seed-99 neutral controls at their declared shared milestones. Repair and preflight the landmark offline evaluator's geometry-derived grid and bounds before its frozen sweep; add frozen place fields and matched-command interventions before making a control claim.
 
 ## Reusable workflow lesson
 
