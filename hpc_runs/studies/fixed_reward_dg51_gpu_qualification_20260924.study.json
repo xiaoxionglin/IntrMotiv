@@ -16,8 +16,8 @@
     "batch_name": "fixed_reward_dg51_gpu_qualification_20260924",
     "workspace_root": "/work/classic/fr_xl1014-fixed-reward-transfer",
     "output_root": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/fixed_reward_dg_peak_transfer_qualification_20260924",
-    "run_name_template": "QFGPU2_{base_label}_{arm_label}_S{seed}",
-    "condition_name_template": "QFGPU2_{base_label}_{arm_label}",
+    "run_name_template": "QFGPU3_{base_label}_{arm_label}_S{seed}",
+    "condition_name_template": "QFGPU3_{base_label}_{arm_label}",
     "seed_arg": "--seed={seed}",
     "common_args": [
       "--DG_BN_intercept=2.43",
