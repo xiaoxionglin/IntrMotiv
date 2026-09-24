@@ -8,6 +8,8 @@
 
 The first report is a qualification result; the other two are synchronized interim comparisons. Their environments differ: the landmark batch uses a fixed 74-cell maze with visible/neutral cue conditions, whereas both CA3 batches use the established reward-free open field. The three tables must not be pooled into an architecture ranking.
 
+The landmark training audit and frozen evaluator passed, but separate exact learner-reload certificates were not found in the qualification analysis tree. The CA3 online scalar histories are incomplete in the collector's discovered event-file path after recovery, so their matched findings here come from validated spatial snapshots. These gaps are called out in the individual reports.
+
 ## How the components fit together
 
 The common visual trunk is fixed ImageNet ResNet-18 through layer 2. A learned DG projection with evolving BatchNorm statistics supplies sparse landmark activity; CA3 retains recent landmark history. The controller receives a selected target and learns action values with stored-state DDQN and hindsight experience replay (HER) in the waypoint/CA3 line. The landmark screen also includes two earlier PPO-based graph/goal designs. Pose and cue identity are privileged telemetry only, not policy inputs.

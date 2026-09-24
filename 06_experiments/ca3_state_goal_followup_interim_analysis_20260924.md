@@ -32,13 +32,17 @@ Values are three-seed means at the declared 25M snapshot. `Mono` is the fraction
 
 Within fixed anchors, unique contextual admission raises mono-field fraction in all three paired seeds but removes 36, 17, and 15 reliable edges relative to dominant admission. Within EMA anchors, it removes 32, 21, and 28 edges; mono-field fraction improves in two seeds and is effectively unchanged in one. This is a strong early graph-density association with the candidate rule. Because the graph construction depends on accepted events, the result is consistent with frequent `UNIQUE` abstention, but the table alone does not measure abstention.
 
+At the per-run level, unique arms have only 0–2 reliable edges, whereas dominant arms have 15–36. The graph gap is consistent across both anchor modes and all three paired seeds; the mono-field advantage is less consistent.
+
 Fixed anchors have lower mean map overlap than EMA in both candidate-rule strata, but the fixed-minus-EMA difference is not consistent in all three seeds for the dominant rule. The EMA mechanism needs its actual refinement counts and recognition-calibration diagnostics before it can be credited with any representation effect. All four cells have zero mean grounded controllability at 25M.
+
+The candidate-rule graph gap grows across the first two complete checkpoints. Under fixed anchors, dominant/unique mean reliable edges are 1.3/0 at 5M and 23.0/0.3 at 25M. Under EMA, they are 16.0/4.3 at 5M and 28.0/1.0 at 25M. Thus the unique rule is already graph-sparse early, and the dominant arms add edges while unique arms do not. The 75M panel remains incomplete and is excluded from this paired trajectory.
 
 ## Interpretation and next test
 
 The unique-context rule may be too selective for graph-building at this early training age. It is also plausible that its accepted events are fewer but cleaner; the current online graph output cannot decide between those explanations. Compare `context_zero_match`, `context_multi_match`, `context_unique_rescues`, accepted events, anchor refinements, calibration thresholds, and contextual HER positive/wrong-context rates at the same matched age. Then use frozen place fields and matched-command evaluation to test whether the accepted graph edges correspond to reproducible destinations.
 
-At 75M, ten snapshots are available, but both fixed/seed-8 rows are absent. The 75M table is therefore an inventory, not a balanced factorial outcome. A canonical 25M–30M TensorBoard scalar scan failed because the discovered step history for fixed/dominant seed 99 does not cover that interval, even though its later spatial snapshots exist. An earlier 5M–10M scalar window is being checked separately; no late scalar contrast is inferred from this report. Production remains active toward 300M.
+At 75M, ten snapshots are available, but both fixed/seed-8 rows are absent. The 75M table is therefore an inventory, not a balanced factorial outcome. Canonical 25M–30M and 5M–10M TensorBoard scalar scans both failed because the discovered step history for fixed/dominant seed 99 ends at 5,865,472 while its later spatial snapshots exist. No matched online-scalar contrast is inferred from this report. Production remains active toward 300M.
 
 ## Provenance and reusable lesson
 

@@ -384,7 +384,8 @@ keep implementation guidance in the canonical workflow documents linked below.
   25M online spatial snapshots and ten 75M snapshots, but canonical
   `collect-online --window-low 25000000 --window-high 30000000` rejected
   `CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99` because its discovered TensorBoard
-  `train/env_steps` history ends before 30M. Its only event file under the
+  `train/env_steps` history ends at 5,865,472. Even a 5M--10M window fails.
+  Its only event file under the
   expected `.summary/0` path was last modified on September 23, while training
   continued after checkpoint recovery. Some predictive-batch runs also have
   stale event files alongside later spatial snapshots. A checkpoint or NPZ

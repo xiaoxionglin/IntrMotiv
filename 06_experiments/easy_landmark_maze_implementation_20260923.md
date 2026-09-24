@@ -2,11 +2,18 @@
 
 ## Status
 
-Local implementation, NEMO2 synchronization, native qualification tooling, and
-the workspace-resident submission audit are complete. Production is **not
-released or submitted**. The six 2M qualification runs are active; frozen
-evaluation, checkpoint reload certificates, cue-aware metrics, and their
-post-run audit remain hard gates.
+**24 September update:** All six 2M qualification trainings, the canonical
+training audit, and the corrected six frozen evaluations completed. Twelve
+rich/control production jobs are running. See the dated
+[qualification analysis](easy_landmark_maze_qualification_analysis_20260924.md)
+for measured results and the remaining exact learner-reload certificate check.
+The release-state narrative below records the earlier implementation checkpoint.
+
+At the September 23 implementation checkpoint, local implementation, NEMO2
+synchronization, native qualification tooling, and the workspace-resident
+submission audit were complete. Production had not yet been submitted. The six
+2M qualification runs were active; frozen evaluation, checkpoint reload
+certificates, cue-aware metrics, and their post-run audit were listed as gates.
 
 Workflow: `1.12.0`; study schema: `intrmotiv/study/v1`; map geometry schemas:
 backward-compatible `intrmotiv/map-geometry/v1` and cue-aware
@@ -125,7 +132,7 @@ The qualified corridor checkout was copied, not edited.
 
 ![Entity map and reserved cue faces](easy_landmark_maze_20260923/figures/map_preview.png)
 
-## Release gates
+## Original release gates (September 23)
 
 1. Let the six active 2M qualification rows finish. Require finite learning, correct
    DG/controller ownership, snapshots at 1M and 2M, exact reload certificates,

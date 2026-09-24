@@ -38,6 +38,10 @@ Each table entry is the mean of seeds 8, 99, and 123 at its declared 75M online 
 
 The primary contextual-minus-fixed comparison is unfavorable for the internal graph at this age: `CTX_FULL_H16` has fewer reliable edges in all three paired seeds (46, 37, and 41 fewer), and fewer mono-field units in all three. Map overlap moves in different directions by seed. The H32 contextual variant lowers map overlap in all three seeds relative to H16, yet still has almost no reliable edges. Removing action conditioning also lowers map overlap in all three seeds, but that observation alone says nothing about the predictor's actual action sensitivity or useful control.
 
+The individual edge counts are 0, 2, and 4 for contextual H16 versus 39, 41, and 50 for fixed readout goals. Thus the mean gap does not depend on one outlier seed. Mono-field fractions vary more widely, especially in the fixed arm; the per-seed direction is more informative than a precision estimate from only three seeds.
+
+The graph gap is present throughout the matched schedule. Mean reliable edges for `ZGOAL_FIXED_H16` rise from 18.3 at 5M to 24.7 at 25M and 43.3 at 75M. `CTX_FULL_H16` remains at 0.3, 1.3, and 2.0 at those same checkpoints. Its mono-field fraction also falls from 0.146 at 5M to zero at 25M and 0.017 at 75M. These are changing-policy online snapshots; they do not establish fixed-trajectory representation drift, but they show that the 75M graph difference is not a one-checkpoint anomaly.
+
 ## Scientific reading
 
 The early result does not support a claim that contextual goals have improved navigation. It points to a narrower failure location: adding contextual registration/hit recognition to continuous readout goals coincides with a much sparser reliable graph, despite a similar number of distinct DG peak bins. The internal graph may be starved by strict recognition, poor calibration, weak repeatability, or another interaction. These are hypotheses; the online map table alone cannot identify which mechanism causes the loss.
