@@ -10,8 +10,15 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 - **Evidence:** The 42-run fixed-reward transfer print-only audit passed, but after Slurm accepted 21 CPU and 8 GPU jobs, the next GPU `sbatch` returned `QOSMaxSubmitJobPerUserLimit`. Seven CPU jobs also entered `NODE_FAIL` during prolog and were requeued. The new 100-day workspace had ample storage; this was scheduler capacity rather than a path or disk failure.
 - **Impact:** An all-at-once launcher cannot guarantee that every StudySpec run is queued when unrelated long jobs occupy the account limit. A partial manifest must not be mistaken for a complete scientific batch.
-- **Improvement/status:** A quota-aware helper now retries only missing GPU rows, persists each accepted job ID, and runs the combined StudySpec audit when all 42 are submitted. Its process and log are in the new workspace. This is a recovery for the current study, not a general scheduler implementation.
-- **Acceptance:** The combined submitted audit reports 42 unique accepted jobs and the original study SHA-256. All seven node-failed CPU jobs reach running state after requeue or are resubmitted with recorded replacement IDs. Fold quota-aware, idempotent submission into the canonical launcher only if this failure recurs.
+- **Improvement/status:** A quota-aware helper was added for the original batch, but the user stopped that batch after discovering a reward-path error. The helper is stopped and all 33 accepted jobs were cancelled. Its manifest remains an audit artifact, not an active queue. Reuse the idempotent submission approach only after the corrected study passes qualification.
+- **Acceptance:** A future qualified study reaches a combined submitted audit with all intended unique jobs and its own study SHA-256. Cluster node failures are distinguished from training failures. Fold quota-aware submission into the canonical launcher only if this failure recurs.
+
+### Single-value reward-source setting did not control PPO reward — 2026-09-25
+
+- **Evidence:** In the active `DistanceLearnerReward` path, `rewards_external` preserved the environment signal but `buff["rewards"]` was overwritten with worker reward before GAE. The option reward manager sampled returns from the same internal stream. The September 24 fixed-reward batch set `advantage_reward_source=external`, but that setting was honored only in other learner paths.
+- **Impact:** External reward could terminate episodes and appear in telemetry without directly reinforcing any of the seven intended learning arms. The partial 33-job batch was cancelled and must not be interpreted as a transfer result.
+- **Improvement/status:** The corrected isolated source selects the explicit external stream before GAE in the single-value learner, with a focused reward-selection test. Eight short CPU/GPU qualifications are checking that PPO and the manager consume that stream on real rollout batches.
+- **Acceptance:** At least one qualification with nonzero external rewards shows matching environment and PPO-reward telemetry, manager values derived from external returns, and unchanged behavior for explicit internal and legacy modes. A full production study requires source-control arrival evidence and held-out evaluator qualification first.
 
 
 ### Reward-site screening lacks physical outcomes for prospective edges — 2026-09-24
