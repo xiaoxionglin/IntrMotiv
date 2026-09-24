@@ -380,6 +380,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   rescanning events. Automatic cache validation/reuse after interruption remains
   open; these exports are not yet a resumable loader cache. See the
   [canonical guide](04_implementation/standardized_study_workflow.md).
+- **New evidence (September 24):** The CA3 state-goal follow-up has all twelve
+  25M online spatial snapshots and ten 75M snapshots, but canonical
+  `collect-online --window-low 25000000 --window-high 30000000` rejected
+  `CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99` because its discovered TensorBoard
+  `train/env_steps` history ends before 30M. Its only event file under the
+  expected `.summary/0` path was last modified on September 23, while training
+  continued after checkpoint recovery. Some predictive-batch runs also have
+  stale event files alongside later spatial snapshots. A checkpoint or NPZ
+  horizon therefore does not certify scalar-history coverage. Before expensive
+  repeated scans, inventory event-file recency and report per-run maximum
+  `train/env_steps` from the same exact discovery path as the collector.
+- **Additional acceptance criterion:** A preflight inventory reports each run's
+  latest scalar step, file provenance, and gaps relative to requested windows;
+  collection fails early with all affected run names and does not confuse
+  post-recovery logging gaps with missing spatial or training checkpoints.
 - **Acceptance criteria:** A 18-run latest-common scan writes an observable
   per-run progress record, terminates or emits a recoverable partial state under
   a declared time bound, and a resumed collection does not reread already
