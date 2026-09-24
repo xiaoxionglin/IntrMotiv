@@ -2,7 +2,7 @@
 
 ## Decision
 
-Do not fix a physical reward coordinate from the four shortlisted source runs yet. A DG target need **not** have one isolated field to be useful: a reward region can coincide with one of several response areas if commands reliably bring the agent into that region. A relaxed region screen identifies a promising **west-boundary area in the PPO run** and a weaker **upper-left boundary area in the DG-capacity run**. The existing graph counters establish DG-event arrival, but do not record the physical location of each successful commanded arrival. The strongest hit-count arms also route many DG targets to a small number of diagnostic peak bins. A peak coordinate alone is therefore not evidence that commanding a target reaches that site.
+Do not fix a physical reward coordinate from the four shortlisted source runs yet. A DG target need **not** have one isolated field to be useful: a reward region can coincide with one of several response areas if commands reliably bring the agent into that region. Ranking **individual targets by spatial information plus at least one tested incoming edge** puts DG-capacity unit 50 and full-system PPO unit 51 at the front. Both have a prominent upper-left response, but their compact regions do not yet define one verified shared reward point. The existing graph counters establish DG-event arrival, but do not record the physical location of each successful commanded arrival. A peak coordinate alone is therefore not evidence that commanding a target reaches that site.
 
 This audit addresses a deliberately source-aligned reward site: a physical location near a DG field with strong incoming arrival statistics. It does not assess transfer to an arbitrary reward location.
 
@@ -62,11 +62,30 @@ As a less strict region screen, scan each visited 3-by-3 spatial-bin neighborhoo
 
 The PPO neighborhood is clipped by the western boundary and covers fewer than nine full bins; its actual traversable footprint and legal reward placement need verification. Its strong activation enrichment is useful for prioritization, but the nearly identical responses of several target IDs may represent a common sink rather than target-specific navigation. The cadence-64 DDQN run has no edge passing the prospective-success screen at its latest 75M spatial checkpoint, so it has no comparable region candidate from this rule.
 
+## Target-first shortlist: spatial information with incoming edges
+
+The first screen above emphasized high-success edges and exposed common sinks. The intended reward-site question instead starts with a spatially informative DG unit and asks whether **at least one** incoming edge has useful support. The table below uses the saved 100k-sample spatial-information metric, which is amplitude-weighted; compare its rank within a run and inspect the maps rather than treating differences between architectures as normalized information gains. Incoming-edge success is the cumulative prospective DG-event ratio, not physical reward-region arrival.
+
+| Run / checkpoint / target | Spatial information | Best tested incoming reliable edge | Target activity in its best 3-by-3-bin neighborhood | Overall occupancy there | Reading |
+| --- | ---: | --- | ---: | ---: | --- |
+| DG-capacity 75M, unit **50** | 0.159 | **25→50: 18,821/21,070 (89.3%)**, posterior 0.899 | 64.8% near (350, 1850) | 30.2% | Best balance of incoming event success and a concentrated response. |
+| PPO 150M, unit **51** | 0.282 | **55→51: 1,692/2,886 (58.6%)**, posterior 0.618 | 69.2% near (150, 1850) | 16.5% | More selective region; weaker incoming success. |
+| PPO 150M, unit **42** | 0.336 | **22→42: 123,164/126,144 (97.6%)**, posterior 0.953 | 58.4% near (150, 550) | 25.9% | Strong edge, but many PPO targets share the western response. |
+| DG-capacity 75M, unit **9** | 0.218 | **21→9: 376/603 (62.4%)**, posterior 0.565 | 70.3% near (350, 1850) | 30.2% | More informative than unit 50; incoming edge is much weaker. |
+| Cadence-2048 DDQN 300M, unit **56** | 0.139 | **58→56: 82,978/110,757 (74.9%)**, posterior 0.629 | 14.4% near (350, 450) | 4.3% | Retains the high-TV source; response is distributed across multiple areas. |
+| Cadence-64 DDQN 75M, unit **37** | 0.131 | **31→37: 12,304/23,143 (53.2%)**, posterior 0.632 | 15.4% near (1850, 250) | 3.8% | High within-run information, but weak incoming success. |
+
+Selected maps, each normalized **within its own unit** and with unvisited cells gray: [DG-capacity units 50 and 9](assets/fixed_reward_site_candidate_audit_20260924/dgc_s123_75m_selected_fields.png), [PPO units 51 and 42](assets/fixed_reward_site_candidate_audit_20260924/ppo_s123_150m_selected_fields.png), [cadence-2048 DDQN units 56 and 58](assets/fixed_reward_site_candidate_audit_20260924/ddqn_s99_300m_selected_fields.png), and [cadence-64 DDQN units 37 and 31](assets/fixed_reward_site_candidate_audit_20260924/ddqn_d64_s99_75m_selected_fields.png). Visual inspection confirms multiple responses in every displayed unit. PPO 51 is concentrated in the upper-left with weaker secondary patches; DG-capacity 50 has strong upper-left and lower-left patches. DDQN 56/58 have broader distributed fields. No figure shows a physical command intervention.
+
+Units 50 and 51 are late-emerging at the available milestones: unit 50 has no tested reliable incoming edge at 5M or 25M and reaches its quoted information/edge values at 75M; unit 51 has no tested reliable incoming edge through 75M and reaches its quoted values at 150M. Thus the corresponding checkpoint must be frozen for transfer. A later W&B hit advantage does not prove that the same target-region relationship persisted.
+
+The two upper-left 3-by-3-bin neighborhoods overlap only coarsely. When evaluated as a **150-unit-radius disk**, the region centered at (250, 1850) captures 38.1% of DG-capacity unit-50 activations and 69.2% of PPO unit-51 activations, but it has not been checked for traversable reward placement or command-conditioned arrival. The nominal best centers (350, 1850) and (150, 1850) should not be averaged into a final reward coordinate.
+
 ## What would qualify a reward site
 
 Before fixing the reward coordinate, use the [manifest-driven place-field evaluator](../04_implementation/reusable_place_field_telemetry.md) at an immutable source checkpoint near the chosen W&B interval. Inspect pre-threshold and thresholded maps, occupancy, and the physical traversability of candidate **regions**. Then run the established frozen-policy target-control intervention from multiple exclusive source events, comparing commanded and shuffled targets on the **same start states**. Record physical arrival positions, and choose a reward region only if commanding a target reaches it more often than shuffled commands from held-out starts. A target may have other fields; what matters is sufficient, repeatable arrival probability at the chosen region. A small number of successful edges suffices; all-pairs graph coverage is irrelevant to this decision.
 
-The current snapshots cannot satisfy that site-selection gate because they do not tie each successful command to a physical arrival region. Reward placement at a diagnostic peak such as (850, 250) or (950, 1950) would be especially premature given the low fraction of observed target activations near those points. The **PPO west-boundary neighborhood around (150, 450)** is the first provisional region to test, followed by DG-capacity target 50 around (350, 1850). Neither is a selected reward coordinate yet.
+The current snapshots cannot satisfy that site-selection gate because they do not tie each successful command to a physical arrival region. Reward placement at a diagnostic peak such as (850, 250) or (950, 1950) would be especially premature given the low fraction of observed target activations near those points. **First test DG-capacity unit 50 and PPO unit 51 near their upper-left response areas**, keeping the exact physical regions separate until geometry and matched-command outcomes justify a shared site. Neither is a selected reward coordinate yet.
 
 ## Provenance and reusable lesson
 
