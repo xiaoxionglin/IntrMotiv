@@ -1591,10 +1591,10 @@ index e4a71e2c..2080e426 100644
      if getattr(cfg, "hrl_direct_target_selection", "frontier") == "reward_value":
 diff --git a/sf_working_directories/IntrMotiv/evaluation/fixed_reward_edge_arrival.py b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_edge_arrival.py
 new file mode 100644
-index 00000000..d132be2d
+index 00000000..17e800d7
 --- /dev/null
 +++ b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_edge_arrival.py
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,70 @@
 +"""Measure physical reward-site arrival from matched source-DG observations.
 +
 +This is a frozen-policy Slurm probe. A source observation and action prefix are
@@ -1627,6 +1627,7 @@ index 00000000..d132be2d
 +    parser.add_argument("--checkpoint", type=Path, required=True)
 +    parser.add_argument("--runfiles", type=Path, required=True)
 +    parser.add_argument("--site", choices=sorted(SITES), required=True)
++    parser.add_argument("--sources", type=int, nargs="+", help="Subset of the site's incoming source IDs")
 +    parser.add_argument("--out-dir", type=Path, required=True)
 +    parser.add_argument("--repeats", type=int, default=5)
 +    parser.add_argument("--decision-cap", type=int, default=100000)
@@ -1637,6 +1638,9 @@ index 00000000..d132be2d
 +        raise RuntimeError("DMLab edge arrival evaluation requires a Slurm job")
 +    torch.set_num_threads(1)
 +    site = SITES[args.site]
++    sources = site["sources"] if args.sources is None else args.sources
++    if not sources or any(source not in site["sources"] for source in sources):
++        parser.error("--sources must select one or more listed incoming source IDs")
 +    deepmind_lab.set_runfiles_path(str(args.runfiles.resolve(strict=True)))
 +    cfg, env, info, actor, checkpoint, device = load_policy_env(
 +        args.run_dir, args.decision_cap, False, 0, args.checkpoint
@@ -1645,16 +1649,17 @@ index 00000000..d132be2d
 +    cfg.dmlab_runfiles_path = str(args.runfiles.resolve(strict=True))
 +    rows, summary = run_landmark_matched_interventions(
 +        cfg, env, info, actor, checkpoint, device, args.decision_cap,
-+        max_sources=len(site["sources"]), targets_per_source=3,
++        max_sources=len(sources), targets_per_source=3,
 +        repeats=args.repeats, prefix_cap=args.prefix_cap,
-+        focus_sources=site["sources"], focus_target=site["target"],
++        focus_sources=sources, focus_target=site["target"],
 +        reward_center=site["center"], reward_cell=site["cell"],
 +        physical_horizon=args.physical_horizon, discovery_multiplier=20,
 +    )
 +    args.out_dir.mkdir(parents=True, exist_ok=True)
-+    rows.to_csv(args.out_dir / f"{args.site}_edge_arrivals.csv", index=False)
-+    summary.update(site=args.site, source_ids=site["sources"], reward_cell=site["cell"])
-+    (args.out_dir / f"{args.site}_edge_arrivals.json").write_text(json.dumps(summary, indent=2) + "\n")
++    stem = args.site if args.sources is None else f"{args.site}_source{'_'.join(map(str, sources))}"
++    rows.to_csv(args.out_dir / f"{stem}_edge_arrivals.csv", index=False)
++    summary.update(site=args.site, source_ids=sources, reward_cell=site["cell"])
++    (args.out_dir / f"{stem}_edge_arrivals.json").write_text(json.dumps(summary, indent=2) + "\n")
 +    print(json.dumps(summary, indent=2), flush=True)
 +
 +
