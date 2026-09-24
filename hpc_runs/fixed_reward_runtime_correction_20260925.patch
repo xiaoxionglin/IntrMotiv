@@ -1090,7 +1090,7 @@ index eb31aa48..3effa925 100644
              nn.Parameter(initial_target)
              if self.fixed_task_conditioning
 diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
-index 7f65349d..019c0ec3 100644
+index 7f65349d..66294798 100644
 --- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 +++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
 @@ -1181,6 +1181,23 @@ class BaseDistanceRecorder(BaseLearner):
@@ -1117,7 +1117,24 @@ index 7f65349d..019c0ec3 100644
          destination.update(selected)
          self.actor_critic.load_state_dict(destination, strict=True)
          log.info("Initialized %d %s transfer tensors from %s", len(selected), scope, path)
-@@ -4196,6 +4213,16 @@ class DistanceLearnerReward(BaseDistanceRecorder):
+@@ -3491,7 +3508,7 @@ class DistanceLearnerReward(BaseDistanceRecorder):
+             else:
+                 additional_stats["encoder_arrival_credit_loss"] = encoder_credit_loss.detach()
+                 additional_stats["encoder_source_credit_loss"] = zero_credit
+-            additional_stats["intrinsic_rewards"] = mb["rewards"]
++            additional_stats["intrinsic_rewards"] = mb.get("rewards_worker", mb["rewards"])
+             additional_stats["encoder_penalty_loss"] = encoder_penalty_loss
+             additional_stats["encoder_reward_loss"] = encoder_reward_loss
+             additional_stats["batch_reward_loss"] = encoder_batch_loss
+@@ -4156,6 +4173,7 @@ class DistanceLearnerReward(BaseDistanceRecorder):
+             buff["hrl_control_outcome_id"] = outcome_labels["outcome"]
+             if command_set_size is not None:
+                 buff["hrl_control_command_set_size"] = command_set_size
++        buff["rewards_worker"] = decoder_reward.clone()
+         buff["rewards"] = decoder_reward
+         return (
+             baseline,
+@@ -4196,6 +4214,16 @@ class DistanceLearnerReward(BaseDistanceRecorder):
          buff["encoder_dominant_activation_mask"] = dominant_rollout
          buff["encoder_non_dominant_activation_mask"] = non_dominant_activations[:, 1:-1]
  
@@ -1134,7 +1151,7 @@ index 7f65349d..019c0ec3 100644
      def _prepare_batch(self, batch: TensorDict) -> Tuple[TensorDict, int, int]:
          with torch.no_grad():
              # create a shallow copy so we can modify the dictionary
-@@ -4288,6 +4315,7 @@ class DistanceLearnerReward(BaseDistanceRecorder):
+@@ -4288,6 +4316,7 @@ class DistanceLearnerReward(BaseDistanceRecorder):
              buff["values"][:, -1] = next_values
  
              self._calculate_internal_reward(buff, additional_step)
@@ -1216,7 +1233,7 @@ index 3a0ceea0..744185d0 100644
      bootstrap_env.close()
      cfg.env = "openfield_map2_fixed_reward_" + args.site
 diff --git a/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py
-index 0bf3bde6..7433ab7f 100644
+index 0bf3bde6..2f95efd4 100644
 --- a/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py
 +++ b/sf_working_directories/IntrMotiv/evaluation/fixed_reward_zero_shot.py
 @@ -39,6 +39,9 @@ def episode(actor, cfg, env, env_info, *, seed, command, target, cell_x, cell_y,
@@ -1248,7 +1265,28 @@ index 0bf3bde6..7433ab7f 100644
      )
  
  
-@@ -128,6 +136,17 @@ def main():
+@@ -82,6 +90,7 @@ def main():
+     p.add_argument("--site", choices=["dg50", "dg51"], required=True)
+     p.add_argument("--out-dir", type=Path, required=True)
+     p.add_argument("--trials", type=int, default=20)
++    p.add_argument("--seed-base", type=int, default=51000)
+     p.add_argument("--horizon", type=int, default=64, help="Source option timeout in decisions")
+     args = p.parse_args()
+     args.out_dir.mkdir(parents=True, exist_ok=True)
+@@ -105,7 +114,7 @@ def main():
+     rows = []
+     try:
+         for trial in range(args.trials):
+-            seed = 51000 + trial
++            seed = args.seed_base + trial
+             for condition in ("nominated", "wrong", "shuffled"):
+                 command = command_for_condition(condition, target, seed, int(cfg.Hippo_n_feature))
+                 row = episode(
+@@ -125,9 +134,21 @@ def main():
+         writer.writerows(rows)
+     summary = {
+         "checkpoint": str(checkpoint), "site": args.site, "trials_per_condition": args.trials,
++        "seed_base": args.seed_base,
          "option_horizon_decisions": args.horizon,
          "successes": {name: sum(row["reward_contact"] for row in rows if row["condition"] == name)
                        for name in ("nominated", "wrong", "shuffled")},

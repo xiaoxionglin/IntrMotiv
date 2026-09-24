@@ -19,6 +19,14 @@ The checkpoint copies, level runfiles, training outputs, Slurm logs, W&B files, 
 - A manager diagnostic found a placement error in the initial reward-statistics update. After moving the update to the active `DistanceLearnerReward` batch path, job 8193839 completed with 960 goal-update counts and nonzero goal values in its 131k-frame checkpoint. Forty focused NEMO2 tests passed after the correction.
 - Twenty matched resets per source were probed for 64 worker decisions with nominated, wrong, and shuffled goal IDs. Neither site had a physical reward contact in that short horizon. These zero-shot results are option-horizon diagnostics, not an episode-level success estimate or a training gate. CSVs record DG activity, start and terminal positions, and reward contact separately.
 
+## Corrected qualification and site checks
+
+The corrected candidate uses external reward for single-value PPO and manager returns, uniform flat goal mixtures, and a separate `W_GRAPH` arm that copies the source graph while resetting reward-goal values. It preserves the original `W_FIXED` arm as DG and worker transfer with an empty graph. The corrected eight-run qualification StudySpec has SHA-256 `901db9af4e7903b6dde1bd5eae42a6a8f777aa042616795c9fe33fb5984a49cd`.
+
+Jobs 8195485–8195492 completed successfully across both source architectures. In every arm, the logged PPO reward mean exactly matched the separately saved environment reward mean at every common TensorBoard step; each arm had at least five batches with positive external reward. Initial checkpoints showed zero reward-goal counts in both waypoint arms, source graph edge-confidence sums of 4040.88 and 3667.80 only in the new graph arm, and exactly uniform flat mixture logits in both scratch and transfer arms. The deterministic held-out evaluator completed a two-reset Slurm smoke test (8195505). A telemetry-only code correction now keeps worker reward separately so the `intrinsic` diagnostic no longer repeats the selected PPO reward.
+
+Twelve matched reset seeds with a 512-decision sustained command reached the exact reward cell 5/12 versus 3/12 for nominated versus shuffled DG 50, and 2/12 versus 1/12 for DG 51. Entry within radius 200 was 6/12 versus 3/12 for DG 50 and 2/12 versus 1/12 for DG 51. These small differences are insufficient to qualify either site as reliably commanded, especially DG 51. Additional matched seeds are running before any production decision.
+
 ## Production submission status
 
 The final print-only CPU and GPU shard manifests were combined and audited against all 42 StudySpec runs. The DG-capacity shard uses CPU, 40 cores, 80 GB, and 96 hours. The PPO shard uses one RTX or L40S GPU, 40 cores, 80 GB, and 48 hours. Early production logs show both CPU and GPU runs advancing frames and receiving external reward.
