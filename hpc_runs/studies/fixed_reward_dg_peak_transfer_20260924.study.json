@@ -76,7 +76,6 @@
       "--hrl_bootstrap_horizon=64",
       "--hrl_distance_bonus_coeff=0.1",
       "--hrl_edge_confidence_threshold=0.5",
-      "--hrl_edge_exploration=True",
       "--hrl_edge_reliability_threshold=0.5",
       "--hrl_empirical_her=False",
       "--hrl_empirical_her_coeff=0.0",
@@ -90,7 +89,6 @@
       "--hrl_graph_memory=policy_buffer",
       "--hrl_landmark_geometry=none",
       "--hrl_manager_exploration_probability=0.0",
-      "--hrl_manager_mode=frontier_waypoint",
       "--hrl_min_target_visits=1",
       "--hrl_motion_policy_input=False",
       "--hrl_passive_edge_confidence_threshold=2",
@@ -229,7 +227,9 @@
             "--fixed_task_target_id={base_target_id}",
             "--hrl_controllable_graph=true",
             "--hrl_direct_target_selection=reward_value",
-            "--ppo_dg_gradient=joint"
+            "--ppo_dg_gradient=joint",
+            "--hrl_manager_mode=frontier_waypoint",
+            "--hrl_edge_exploration=True"
           ],
           "metadata": {
             "architecture": "waypoint",
@@ -250,7 +250,9 @@
             "--hrl_controllable_graph=true",
             "--hrl_direct_target_selection=reward_value",
             "--ppo_dg_gradient=stop",
-            "--transfer_model_path={base_source_checkpoint}"
+            "--transfer_model_path={base_source_checkpoint}",
+            "--hrl_manager_mode=frontier_waypoint",
+            "--hrl_edge_exploration=True"
           ],
           "metadata": {
             "architecture": "waypoint",
@@ -271,7 +273,9 @@
             "--hrl_controllable_graph=true",
             "--hrl_direct_target_selection=reward_value",
             "--ppo_dg_gradient=stop",
-            "--transfer_model_path={base_source_checkpoint}"
+            "--transfer_model_path={base_source_checkpoint}",
+            "--hrl_manager_mode=frontier_waypoint",
+            "--hrl_edge_exploration=True"
           ],
           "metadata": {
             "architecture": "waypoint",
@@ -292,7 +296,9 @@
             "--hrl_controllable_graph=true",
             "--hrl_direct_target_selection=reward_value",
             "--ppo_dg_gradient=joint",
-            "--transfer_model_path={base_source_checkpoint}"
+            "--transfer_model_path={base_source_checkpoint}",
+            "--hrl_manager_mode=frontier_waypoint",
+            "--hrl_edge_exploration=True"
           ],
           "metadata": {
             "architecture": "waypoint",
@@ -312,7 +318,9 @@
             "--fixed_task_target_id={base_target_id}",
             "--hrl_controllable_graph=false",
             "--hrl_direct_target_selection=frontier",
-            "--ppo_dg_gradient=joint"
+            "--ppo_dg_gradient=joint",
+            "--hrl_manager_mode=visit_direct",
+            "--hrl_edge_exploration=False"
           ],
           "metadata": {
             "architecture": "flat",
@@ -333,7 +341,9 @@
             "--hrl_controllable_graph=false",
             "--hrl_direct_target_selection=frontier",
             "--ppo_dg_gradient=joint",
-            "--transfer_model_path={base_source_checkpoint}"
+            "--transfer_model_path={base_source_checkpoint}",
+            "--hrl_manager_mode=visit_direct",
+            "--hrl_edge_exploration=False"
           ],
           "metadata": {
             "architecture": "flat",
@@ -354,7 +364,9 @@
             "--hrl_controllable_graph=false",
             "--hrl_direct_target_selection=frontier",
             "--ppo_dg_gradient=joint",
-            "--transfer_model_path={base_source_checkpoint}"
+            "--transfer_model_path={base_source_checkpoint}",
+            "--hrl_manager_mode=visit_direct",
+            "--hrl_edge_exploration=False"
           ],
           "metadata": {
             "architecture": "flat",

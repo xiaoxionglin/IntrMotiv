@@ -1,0 +1,441 @@
+diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_core.py b/sf_working_directories/IntrMotiv/dmlab/custom_core.py
+index 708ef2c9..eb31aa48 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_core.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_core.py
+@@ -491,8 +491,18 @@ class SimpleSequenceWithBypassCore(ModelCore):
+         self.fixed_task_conditioning = bool(getattr(cfg, "fixed_task_conditioning", False))
+         if self.fixed_task_conditioning and self.hrl_enabled:
+             raise ValueError("fixed task conditioning bypasses HRL and requires hrl_controllable_graph=False")
++        self.fixed_task_goal_mixture = bool(getattr(cfg, "fixed_task_goal_mixture", False))
++        if self.fixed_task_goal_mixture and not self.fixed_task_conditioning:
++            raise ValueError("fixed task goal mixture requires fixed task conditioning")
++        initial_target = torch.full((self.Hippo_n_feature,), 1.0 / float(self.Hippo_n_feature))
++        if self.fixed_task_goal_mixture:
++            target_id = int(getattr(cfg, "fixed_task_target_id", 0))
++            if not 0 <= target_id < self.Hippo_n_feature:
++                raise ValueError("fixed_task_target_id is outside the DG capacity")
++            initial_target = torch.zeros(self.Hippo_n_feature)
++            initial_target[target_id] = 9.0  # approximately 99.2% on the nominated ID at F64
+         self.fixed_task_target = (
+-            nn.Parameter(torch.full((self.Hippo_n_feature,), 1.0 / float(self.Hippo_n_feature)))
++            nn.Parameter(initial_target)
+             if self.fixed_task_conditioning
+             else None
+         )
+@@ -517,7 +527,7 @@ class SimpleSequenceWithBypassCore(ModelCore):
+         self.hrl_direct_target_selection = getattr(cfg, "hrl_direct_target_selection", "frontier")
+         if self.hrl_control_outcome not in ("target_hit", "first_distinct"):
+             raise ValueError(f"Unknown hrl_control_outcome={self.hrl_control_outcome}")
+-        if self.hrl_direct_target_selection not in ("frontier", "least_tested", "local_successor"):
++        if self.hrl_direct_target_selection not in ("frontier", "least_tested", "local_successor", "reward_value"):
+             raise ValueError(f"Unknown hrl_direct_target_selection={self.hrl_direct_target_selection}")
+         self.topological_enabled = self.hrl_manager_mode != "visit_direct"
+         self.action_path_integration = bool(getattr(cfg, "hrl_action_path_integration", False))
+@@ -759,6 +769,12 @@ class SimpleSequenceWithBypassCore(ModelCore):
+             goal = online_goal if self.worker_goal_mode == "raw_ca3" else self.state_readout(online_goal).detach()
+         return torch.cat((state, bypass.detach(), goal.detach(), suffix.detach()), dim=-1)
+ 
++    def fixed_task_condition(self) -> Tensor:
++        """Return an episode-constant, differentiable mixture of source goals."""
++        if self.fixed_task_target is None:
++            raise RuntimeError("No fixed task condition is configured")
++        return self.fixed_task_target.softmax(-1) if self.fixed_task_goal_mixture else self.fixed_task_target
++
+     @property
+     def worker_target_condition_start(self) -> int:
+         if self.readout_mode != "worker":
+@@ -1069,7 +1085,7 @@ class SimpleSequenceWithBypassCore(ModelCore):
+             if self.hrl_enabled:
+                 out_total = torch.cat([out_total, hrl_seq], dim=2)
+             elif self.fixed_task_conditioning:
+-                fixed_target = self.fixed_task_target.view(1, 1, -1).expand(T, B, -1)
++                fixed_target = self.fixed_task_condition().view(1, 1, -1).expand(T, B, -1)
+                 out_total = torch.cat([out_total, fixed_target], dim=2)
+ 
+             # Repack the output using the original lengths.
+@@ -1139,7 +1155,7 @@ class SimpleSequenceWithBypassCore(ModelCore):
+                 hidden_action_features = self.action_feature_size + self.context_action_count
+                 out = base_out[:, :-hidden_action_features] if hidden_action_features else base_out
+                 if self.fixed_task_conditioning:
+-                    out = torch.cat([out, self.fixed_task_target.unsqueeze(0).expand(B, -1)], dim=1)
++                    out = torch.cat([out, self.fixed_task_condition().unsqueeze(0).expand(B, -1)], dim=1)
+                 state_parts = [base_out]
+                 if self.graph_recruitment:
+                     state_parts.append(recruitment_history)
+diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+index 7aae8d35..ba979a02 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -1166,6 +1166,8 @@ class BaseDistanceRecorder(BaseLearner):
+         prefixes = dg_prefixes
+         if scope == "policy":
+             prefixes += ("decoder.", "action_parameterization.")
++            if getattr(getattr(self.actor_critic, "core", None), "dg_goal_modulation", None) is not None:
++                prefixes += ("core.dg_goal_modulation",)
+         selected = {k: v for k, v in source.items() if k.startswith(prefixes)}
+         expected = {k for k in destination if k.startswith(prefixes)}
+         if set(selected) != expected:
+@@ -1184,13 +1186,19 @@ class BaseDistanceRecorder(BaseLearner):
+         log.info("Initialized %d %s transfer tensors from %s", len(selected), scope, path)
+ 
+     def _apply_transfer_freeze(self) -> None:
+-        if not bool(getattr(self.cfg, "transfer_freeze_dg", False)):
+-            return
+-        projection = self.actor_critic.encoder.DG_projection
+-        projection.freeze_running_stats = True
+-        for parameter in projection.parameters():
+-            parameter.requires_grad = False
+-        log.info("Froze DG weights and normalization statistics for transfer")
++        if bool(getattr(self.cfg, "transfer_freeze_dg", False)):
++            projection = self.actor_critic.encoder.DG_projection
++            projection.freeze_running_stats = True
++            for parameter in projection.parameters():
++                parameter.requires_grad = False
++            log.info("Froze DG weights and normalization statistics for transfer")
++        if bool(getattr(self.cfg, "transfer_freeze_worker", False)):
++            for module in (self.actor_critic.decoder, self.actor_critic.action_parameterization):
++                module.requires_grad_(False)
++            modulation = getattr(getattr(self.actor_critic, "core", None), "dg_goal_modulation", None)
++            if modulation is not None:
++                modulation.requires_grad_(False)
++            log.info("Froze goal-conditioned worker and action head for transfer")
+ 
+     def load_from_checkpoint(self, policy_id: PolicyID, load_progress: bool = True) -> None:
+         """
+@@ -2499,6 +2507,14 @@ class DoubleDistanceLearnerReward(BaseDistanceRecorder):
+                 else:
+                     log.error("Both use_internal and use_external are set to FALSE")
+                     raise NotImplementedError
++                if getattr(self.cfg, "hrl_direct_target_selection", "frontier") == "reward_value":
++                    states = buff["rnn_states"][:, :-1]
++                    self._last_reward_manager_updates = self._policy_graph().update_reward_goal_values(
++                        self._hrl_state_from_rnn(states),
++                        self._topological_state_from_rnn(states),
++                        buff["returns_external"],
++                        buff["valids"][:, :-1],
++                    )
+             # remove next step obs, rnn_states, and values from the batch, we don't need them anymore
+             for key in ["normalized_obs", "rnn_states", "values_external", "values_internal", "valids"]:
+                 buff[key] = buff[key][:, :-1]
+diff --git a/sf_working_directories/IntrMotiv/dmlab/custom_params.py b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+index 847f3d7c..2c28558f 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -80,12 +80,15 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+         help="weights initialized from transfer_model_path without restoring optimizer or progress",
+     )
+     p.add_argument("--transfer_freeze_dg", default=False, type=str2bool)
++    p.add_argument("--transfer_freeze_worker", default=False, type=str2bool)
+     p.add_argument(
+         "--fixed_task_conditioning",
+         default=False,
+         type=str2bool,
+         help="bypass waypoint selection and expose one learned constant target vector to the policy",
+     )
++    p.add_argument("--fixed_task_goal_mixture", default=False, type=str2bool)
++    p.add_argument("--fixed_task_target_id", default=0, type=int)
+ 
+     p.add_argument("--DG_lr", default=None, type=float, help="Dentate Gyrus Pattern separation learning rate")
+     p.add_argument("--DG_temperature", default=None, type=float, help="Dentate Gyrus output temperature")
+@@ -346,10 +349,11 @@ def add_hipposlam_env_args(parser: argparse.ArgumentParser) -> None:
+     p.add_argument(
+         "--hrl_direct_target_selection",
+         default="frontier",
+-        choices=["frontier", "least_tested", "local_successor"],
++        choices=["frontier", "least_tested", "local_successor", "reward_value"],
+         help=(
+             "Choose direct targets by frontier score, among all observed nodes by lowest pair-attempt "
+-            "mass, or among directed passive first successors by lowest pair-attempt mass."
++            "mass, among directed passive first successors by lowest pair-attempt mass, or by "
++            "external-return estimates for fixed-reward transfer."
+         ),
+     )
+     p.add_argument(
+diff --git a/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py b/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
+index 861d4174..7b611720 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
++++ b/sf_working_directories/IntrMotiv/dmlab/dmlab_env.py
+@@ -43,6 +43,8 @@ DMLAB_ENVS = [
+     DmLabSpec("openfield_map2_fixed_loc2", "hippodunk/openfield_map2_fixed_loc2"),
+     DmLabSpec("openfield_map2_fixed_loc3", "openfield_map2_fixed_loc3"),
+     DmLabSpec("openfield_map2_fixed_loc3_noreward", "openfield_map2_fixed_loc3_noreward"),
++    DmLabSpec("openfield_map2_fixed_reward_dg50", "openfield_map2_fixed_reward_dg50"),
++    DmLabSpec("openfield_map2_fixed_reward_dg51", "openfield_map2_fixed_reward_dg51"),
+     DmLabSpec(
+         "openfield_map2_fixed_loc3_fixedlength_noreward",
+         "openfield_map2_fixed_loc3_fixedlength_noreward",
+diff --git a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
+index c9ce0981..b921c0df 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
++++ b/sf_working_directories/IntrMotiv/dmlab/goal_conditioned_dg.py
+@@ -16,8 +16,10 @@ class GoalConditionedDGCore(SimpleSequenceWithBypassCore):
+     def __init__(self, cfg, input_size):
+         n = int(cfg.Hippo_n_feature)
+         super().__init__(cfg, input_size - n)
+-        if not self.hrl_enabled or self.hrl_graph_memory != "policy_buffer" or self.hrl_target_timing != "immediate":
+-            raise ValueError("Goal-conditioned DG requires immediate policy-buffer HRL")
++        if not self.fixed_task_conditioning and (
++            not self.hrl_enabled or self.hrl_graph_memory != "policy_buffer" or self.hrl_target_timing != "immediate"
++        ):
++            raise ValueError("Goal-conditioned DG requires immediate policy-buffer HRL or a fixed task")
+         if self.context_feedback is not None or self.graph_recruitment:
+             raise ValueError("Goal-conditioned DG currently excludes contextual feedback and recruitment")
+         self.canonical_input_size = input_size - n
+@@ -25,6 +27,7 @@ class GoalConditionedDGCore(SimpleSequenceWithBypassCore):
+         self.total_state_size += self.core_output_size
+         self.dg_goal_modulation = nn.Parameter(torch.zeros(n, 2 * n))
+         self.dg_intercept = float(getattr(cfg, "DG_BN_intercept", 2.43))
++        self.reward_dg_gradient = getattr(cfg, "ppo_dg_gradient", "stop") == "joint"
+         self.last_worker_dg_activity = None
+         self.last_worker_memory = None
+ 
+@@ -44,7 +47,8 @@ class GoalConditionedDGCore(SimpleSequenceWithBypassCore):
+ 
+     def write_activity(self, preactivation, goal):
+         scale, bias = (goal @ self.dg_goal_modulation).chunk(2, -1)
+-        return torch.relu((1 + scale) * preactivation.detach() + bias - self.dg_intercept)
++        evidence = preactivation if self.reward_dg_gradient else preactivation.detach()
++        return torch.relu((1 + scale) * evidence + bias - self.dg_intercept)
+ 
+     def advance_worker(self, state, activity):
+         shifted = state.roll(1, -1)
+diff --git a/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py b/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py
+index 3e96d4a1..f6e84ecb 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py
++++ b/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py
+@@ -449,6 +449,10 @@ class PolicyControllableGraph(nn.Module):
+         self.register_buffer("tctrl", torch.zeros(self.n_nodes, self.n_nodes))
+         self.register_buffer("edge_confidence", torch.zeros(self.n_nodes, self.n_nodes))
+         self.register_buffer("control_attempts", torch.zeros(self.n_nodes, self.n_nodes))
++        # A downstream reward-trained manager can use these without changing
++        # the source graph or actor observation interface.
++        self.register_buffer("reward_goal_value", torch.zeros(self.n_nodes, self.n_nodes))
++        self.register_buffer("reward_goal_count", torch.zeros(self.n_nodes, self.n_nodes))
+         self.register_buffer("passive_confidence", torch.zeros(self.n_nodes, self.n_nodes))
+         self.register_buffer("passive_time", torch.zeros(self.n_nodes, self.n_nodes))
+         self.register_buffer("passive_path_length", torch.zeros(self.n_nodes, self.n_nodes))
+@@ -526,6 +530,8 @@ class PolicyControllableGraph(nn.Module):
+     ):
+         for name in (
+             "control_attempts",
++            "reward_goal_value",
++            "reward_goal_count",
+             "passive_confidence",
+             "passive_time",
+             "passive_path_length",
+@@ -593,6 +599,36 @@ class PolicyControllableGraph(nn.Module):
+             return torch.ones(self.n_nodes, dtype=torch.bool, device=self.node_visits.device)
+         return self.active_goal_mask & self.anchor_valid & (self.active_generation == self.anchor_generation)
+ 
++    @torch.no_grad()
++    def update_reward_goal_values(
++        self, option_states: Tensor, topological_states: Tensor, returns: Tensor, valid: Tensor
++    ) -> int:
++        """Update source-to-final-goal values once per selected option.
++
++        External reward-to-go is sampled at option age zero. The final goal is
++        used instead of an intermediate route hop, so next-hop planning does
++        not misattribute reward to a temporary waypoint.
++        """
++        from .topological_frontier import TopologicalStateLayout
++
++        layout = HRLStateLayout(self.n_nodes)
++        topo = TopologicalStateLayout(self.n_nodes)
++        source = option_states[..., layout.source].round().long() - 1
++        target = topological_states[..., topo.final_goal].round().long() - 1
++        first = option_states[..., layout.age].eq(0)
++        mask = valid.bool() & first & (source >= 0) & (source < self.n_nodes)
++        mask &= (target >= 0) & (target < self.n_nodes) & (source != target)
++        if not mask.any():
++            return 0
++        source, target = source[mask], target[mask]
++        value = returns[mask].float().clamp(0.0, 10.0)
++        for s, t, sample in zip(source.tolist(), target.tolist(), value.tolist()):
++            count = self.reward_goal_count[s, t]
++            rate = min(0.05, 1.0 / float(count.item() + 1.0)) if count > 0 else 1.0
++            self.reward_goal_value[s, t].lerp_(self.reward_goal_value.new_tensor(sample), rate)
++            count.add_(1.0)
++        return int(mask.sum().item())
++
+     @torch.no_grad()
+     def register_anchor(self, node: int, ca3: Tensor, decision: int) -> None:
+         node = int(node)
+diff --git a/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py b/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
+index 03c300e6..513dccbd 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
++++ b/sf_working_directories/IntrMotiv/dmlab/topological_frontier.py
+@@ -745,7 +745,7 @@ def advance_topological_manager(
+     """Advance topological state while preserving the sampled behavior condition."""
+     if control_outcome not in ("target_hit", "first_distinct"):
+         raise ValueError(f"Unknown control_outcome={control_outcome}")
+-    if direct_target_selection not in ("frontier", "least_tested", "local_successor"):
++    if direct_target_selection not in ("frontier", "least_tested", "local_successor", "reward_value"):
+         raise ValueError(f"Unknown direct_target_selection={direct_target_selection}")
+     n_nodes = dg_activity.size(-1)
+     option_layout = HRLStateLayout(n_nodes)
+@@ -894,6 +894,28 @@ def advance_topological_manager(
+             option[row, option_layout.target] = 0.0
+             topo[row, topo_layout.mode] = float(MODE_NONE)
+             return
++        if direct_target_selection == "reward_value":
++            eligible = graph.selectable_mask().clone()
++            eligible[source] = False
++            if not eligible.any():
++                start_exploration(row, source, 0.0)
++                return
++            # Optimism gives never-tested goals a chance without a novelty
++            # reward. The learned quantity is external return from this source.
++            value = graph.reward_goal_value[source]
++            count = graph.reward_goal_count[source]
++            score = value + 2.0 * torch.rsqrt(count + 1.0)
++            score = score.masked_fill(~eligible, -torch.inf)
++            probabilities = torch.softmax(score / 2.0, dim=0)
++            destination = int(torch.multinomial(probabilities, 1).item())
++            hop = int(next_hop[source, destination].item()) if waypoint_planning else -1
++            if hop >= 0 and hop != source:
++                topo[row, topo_layout.route_available] = 1.0
++                topo[row, topo_layout.plan_hops] = hop_count[source, destination]
++                start_target(row, source, hop, MODE_NAVIGATE, destination, float(dist[source, hop].item()))
++            else:
++                start_target(row, source, destination, MODE_NAVIGATE, destination, math.inf)
++            return
+         if direct_target_selection in ("least_tested", "local_successor"):
+             if direct_target_selection == "local_successor":
+                 destination, candidate_count = select_least_tested_successor(graph, source)
+diff --git a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+index 599b7d80..e4a71e2c 100644
+--- a/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
++++ b/sf_working_directories/IntrMotiv/dmlab/train_hipposlam.py
+@@ -268,6 +268,20 @@ def maybe_overwrite_rnn_size(cfg):
+         raise ValueError("transfer_model_path and a non-none transfer_scope must be supplied together")
+     if getattr(cfg, "transfer_freeze_dg", False) and transfer_scope not in ("dg", "policy"):
+         raise ValueError("transfer_freeze_dg requires transferred DG weights")
++    if getattr(cfg, "transfer_freeze_worker", False) and transfer_scope != "policy":
++        raise ValueError("transfer_freeze_worker requires transferred policy weights")
++    if getattr(cfg, "fixed_task_goal_mixture", False) and not fixed_task_conditioning:
++        raise ValueError("fixed_task_goal_mixture requires fixed_task_conditioning")
++    if getattr(cfg, "hrl_direct_target_selection", "frontier") == "reward_value":
++        if (
++            not getattr(cfg, "hrl_controllable_graph", False)
++            or getattr(cfg, "hrl_graph_memory", "episode") != "policy_buffer"
++            or manager_mode != "frontier_waypoint"
++            or not getattr(cfg, "hrl_edge_exploration", False)
++            or getattr(cfg, "advantage_reward_source", None) != "external"
++            or getattr(cfg, "with_vtrace", False)
++        ):
++            raise ValueError("Reward goal selection requires external-return waypoint PPO with a policy graph")
+     if fixed_task_conditioning and (getattr(cfg, "hrl_controllable_graph", False) or intrinsic_goal):
+         raise ValueError("Fixed task conditioning requires graph-free, non-intrinsic training")
+     if fixed_task_conditioning and goal_conditioning != "target_id_film":
+@@ -344,14 +358,14 @@ def maybe_overwrite_rnn_size(cfg):
+         if getattr(cfg, "dg_goal_input", "none") == "write":
+             if (
+                 cfg.core_name != "BypassSS"
+-                or not getattr(cfg, "hrl_controllable_graph", False)
++                or not (getattr(cfg, "hrl_controllable_graph", False) or fixed_task_conditioning)
+                 or getattr(cfg, "hrl_target_timing", "delayed") != "immediate"
+                 or getattr(cfg, "hrl_graph_memory", "episode") != "policy_buffer"
+                 or getattr(cfg, "dg_context_feedback", "none") != "none"
+-                or getattr(cfg, "ppo_dg_gradient", "stop") != "stop"
++                or getattr(cfg, "ppo_dg_gradient", "stop") not in ("stop", "joint")
+             ):
+                 raise ValueError(
+-                    "DG goal writes require immediate policy-buffer BypassSS, no context feedback, and PPO STOP"
++                    "DG goal writes require immediate policy-buffer BypassSS, no context feedback, and task conditioning"
+                 )
+             rnn_size += hippo_n_feature * (R + L - 1)
+         cfg.cli_args["rnn_size"] = rnn_size
+diff --git a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py b/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
+index 95c67ac9..af20b360 100644
+--- a/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
++++ b/sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py
+@@ -6,6 +6,7 @@ from torch import nn
+ from sf_working_directories.IntrMotiv.dmlab.custom_core import SimpleSequenceWithBypassCore
+ from sf_working_directories.IntrMotiv.dmlab.custom_encoder import DGProjection_batchnorm_relu
+ from sf_working_directories.IntrMotiv.dmlab.custom_learner import DistanceLearnerReward
++from sf_working_directories.IntrMotiv.dmlab.goal_conditioned_dg import GoalConditionedDGCore
+ 
+ 
+ def _core_config():
+@@ -45,6 +46,36 @@ def test_fixed_task_condition_is_trainable_graph_free_and_packed_consistent():
+     assert torch.allclose(core.fixed_task_target.grad, torch.full((3,), 8.0))
+ 
+ 
++def test_flat_goal_mixture_is_normalized_trainable_and_source_aligned():
++    cfg = _core_config()
++    cfg.fixed_task_goal_mixture = True
++    cfg.fixed_task_target_id = 1
++    core = SimpleSequenceWithBypassCore(cfg, 5)
++    mixture = core.fixed_task_condition()
++    assert torch.isclose(mixture.sum(), torch.tensor(1.0))
++    assert mixture[1] > 0.99
++    out, _ = core(torch.ones(1, 5), torch.zeros(1, core.total_state_size))
++    assert torch.allclose(out[0, -3:], mixture)
++    out[0, -3].backward()
++    assert core.fixed_task_target.grad.abs().sum() > 0
++
++
++def test_goal_write_flat_worker_allows_reward_gradient_into_dg():
++    cfg = _core_config()
++    cfg.fixed_task_goal_mixture = True
++    cfg.fixed_task_target_id = 1
++    cfg.hrl_graph_memory = "policy_buffer"
++    cfg.hrl_target_timing = "immediate"
++    cfg.ppo_dg_gradient = "joint"
++    cfg.DG_BN_intercept = 1.0
++    core = GoalConditionedDGCore(cfg, 8)
++    pre = torch.full((1, 3), 2.0, requires_grad=True)
++    head = torch.cat((torch.ones(1, 3), torch.zeros(1, 2), pre), -1)
++    out, _ = core(head, torch.zeros(1, core.total_state_size))
++    core.worker_view(out).sum().backward()
++    assert pre.grad is not None and pre.grad.abs().sum() > 0
++
++
+ class _Projection(nn.Module):
+     def __init__(self):
+         super().__init__()
+diff --git a/sf_working_directories/IntrMotiv/tests/test_topological_frontier.py b/sf_working_directories/IntrMotiv/tests/test_topological_frontier.py
+index 14828882..0c8819ea 100644
+--- a/sf_working_directories/IntrMotiv/tests/test_topological_frontier.py
++++ b/sf_working_directories/IntrMotiv/tests/test_topological_frontier.py
+@@ -87,6 +87,40 @@ def test_least_tested_target_requires_observation_excludes_source_and_breaks_tie
+     assert select_least_tested_target(graph, 2, 1.0) == 0
+ 
+ 
++def test_reward_manager_updates_final_goal_and_selects_it():
++    graph = PolicyControllableGraph(3)
++    layout = HRLStateLayout(3)
++    topo_layout = TopologicalStateLayout(3)
++    option = torch.zeros(1, 2, hrl_option_state_size(3))
++    topology = torch.zeros(1, 2, topological_state_size(3))
++    option[0, 0, layout.source] = 1
++    option[0, 0, layout.target] = 2  # a temporary next hop
++    topology[0, 0, topo_layout.final_goal] = 3
++    option[0, 1, layout.source] = 1
++    option[0, 1, layout.age] = 1
++    topology[0, 1, topo_layout.final_goal] = 3
++    count = graph.update_reward_goal_values(
++        option, topology, torch.tensor([[10.0, 0.0]]), torch.ones(1, 2, dtype=torch.bool)
++    )
++    assert count == 1
++    assert graph.reward_goal_value[0, 2] == 10
++    assert graph.reward_goal_count[0, 2] == 1
++    assert graph.reward_goal_count[0, 1] == 0
++
++    torch.manual_seed(4)
++    result, next_topology, _ = _manager_step(
++        torch.zeros(1, hrl_option_state_size(3)),
++        torch.zeros(1, topological_state_size(3)),
++        torch.tensor([[1.0, 0.0, 0.0]]),
++        graph,
++        direct_target_selection="reward_value",
++        edge_exploration=True,
++        target_timing="immediate",
++    )
++    assert int(result[0, layout.target].item()) == 3
++    assert int(next_topology[0, topo_layout.final_goal].item()) == 3
++
++
+ def test_first_distinct_wrong_outcome_terminates_without_changing_state_shape():
+     n_nodes = 3
+     graph = PolicyControllableGraph(n_nodes)

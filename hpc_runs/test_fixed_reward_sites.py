@@ -8,7 +8,12 @@ from hpc_runs.fixed_reward_sites import SITE_COLUMNS, render_site
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = Path("/home/xiaoxiong/SFgit/SF_hipposlam/deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_loc3_noreward.lua")
+SOURCE = ROOT / "deepmindlab_patch/game_scripts/levels/openfield_map2_fixed_loc3_noreward.lua"
+if not SOURCE.exists():
+    SOURCE = Path(
+        "/home/xiaoxiong/SFgit/SF_hipposlam/deepmindlab_patch/game_scripts/levels/"
+        "openfield_map2_fixed_loc3_noreward.lua"
+    )
 
 
 def _maps(text: str) -> list[list[str]]:
