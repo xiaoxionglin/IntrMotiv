@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Frozen random DG needs normalization calibration — 2026-09-25
+
+- **Evidence:** Both uncalibrated random-DG qualification paths froze fresh BatchNorm moments at zero mean and unit variance. The GPU run had DG density 0, silent-unit fraction 1, and no DG-active transitions despite completing normally. Source-DG controls retained active fields.
+- **Impact:** A nominal random-representation control could become a silent-DG ablation, making any pretrained-DG advantage uninterpretable.
+- **Improvement/status:** The isolated five-cue add-on now calibrates random DG moments from exactly one unlabeled learner minibatch before PPO updates, then freezes them. Focused tests pass; the GPU requalification reports density 0.0111, active-transition fraction 0.489, one moment update, and unchanged DG weights. CPU requalification and the 12-run production gate remain active. See the [campaign record](06_experiments/cued_reward5_transfer_20260925.md).
+- **Acceptance:** Both architectures show nonzero DG activity, exactly one random-DG normalization update, no source-DG normalization update, unchanged DG projection weights, and external PPO reward parity before the paired production controls launch.
+
 ### Fixed-reward batch submission can hit the Slurm per-user job cap — 2026-09-24
 
 - **Evidence:** The 42-run fixed-reward transfer print-only audit passed, but after Slurm accepted 21 CPU and 8 GPU jobs, the next GPU `sbatch` returned `QOSMaxSubmitJobPerUserLimit`. Seven CPU jobs also entered `NODE_FAIL` during prolog and were requeued. The new 100-day workspace had ample storage; this was scheduler capacity rather than a path or disk failure.
