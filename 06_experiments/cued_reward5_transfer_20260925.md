@@ -4,13 +4,13 @@
 
 The source `openfield_map2` geometry and visual assets are retained. Each episode uniformly selects one of five invisible $+10$ reward cells, ends on first entry, and presents its stable number instruction to the high-level waypoint manager or the flat arm's goal mixture. All five cells are excluded from spawning. The worker and DG source-map identity remains the original map-3 input.
 
-| Instruction | Reward center $(x,y)$ | Origin |
-| --- | --- | --- |
-| 1 | $(350,1950)$ | DG-capacity target-50 site |
-| 2 | $(250,1950)$ | Full-system PPO target-51 site |
-| 3 | $(1550,1250)$ | Additional reachable cell |
-| 4 | $(650,1450)$ | Additional reachable cell |
-| 5 | $(850,250)$ | Additional reachable cell |
+| Instruction | Reward center $(x,y)$ | Origin                         |
+| ----------- | --------------------- | ------------------------------ |
+| 1           | $(350,1950)$          | DG-capacity target-50 site     |
+| 2           | $(250,1950)$          | Full-system PPO target-51 site |
+| 3           | $(1550,1250)$         | Additional reachable cell      |
+| 4           | $(650,1450)$          | Additional reachable cell      |
+| 5           | $(850,250)$           | Additional reachable cell      |
 
 The validated StudySpec is `hpc_runs/studies/cued_reward5_transfer_20260925.study.json` in the isolated source checkout. Its schema is `intrmotiv/study/v1`, workflow version `1.12.0`, and SHA-256 is `9922ce6fed52d11a6d7cff0d860a03860b219444417279976d6792602a721d59`. It declares both surviving source checkpoints, eight arms, seeds 42/1234/9999, and 75M frames per run: 48 runs total. W&B project: `SF_IntrMotiv_CuedReward5Transfer`.
 

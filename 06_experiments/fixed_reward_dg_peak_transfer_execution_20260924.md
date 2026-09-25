@@ -4,10 +4,10 @@
 
 The validated [42-run StudySpec](../hpc_runs/studies/fixed_reward_dg_peak_transfer_20260924.study.json) has schema `intrmotiv/study/v1`, workflow version `1.12.0`, and SHA-256 `82c499f5b9c93b3df18ea686f327c3b614f97bebf61993cd712c89f998260dae`. It crosses two sites, seven learning arms, and seeds 42, 1234, and 9999. All arms target 100M environment frames. Source checkpoints were changed from the pruned 75M/150M artifacts to the earliest surviving artifacts, as authorized by the user:
 
-| Site | Source checkpoint | Source frames | SHA-256 | Reward center |
-| --- | --- | ---: | --- | --- |
-| DG-capacity, goal 50 | `checkpoint_000015950_130662400.pth` | 130,662,400 | `6951c12faecda21848bd73a3422ffe1928dd2dc07a515ef1b8b9720efc2cc3c0` | (350, 1950) |
-| Full-system PPO, goal 51 | `checkpoint_000021868_179142656.pth` | 179,142,656 | `2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694` | (250, 1950) |
+| Site                     | Source checkpoint                    | Source frames | SHA-256                                                            | Reward center |
+| ------------------------ | ------------------------------------ | ------------: | ------------------------------------------------------------------ | ------------- |
+| DG-capacity, goal 50     | `checkpoint_000015950_130662400.pth` |   130,662,400 | `6951c12faecda21848bd73a3422ffe1928dd2dc07a515ef1b8b9720efc2cc3c0` | (350, 1950)   |
+| Full-system PPO, goal 51 | `checkpoint_000021868_179142656.pth` |   179,142,656 | `2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694` | (250, 1950)   |
 
 The checkpoint copies, level runfiles, training outputs, Slurm logs, W&B files, caches, and raw source revalidation data are under `/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/`. The source checkout contains code only.
 
