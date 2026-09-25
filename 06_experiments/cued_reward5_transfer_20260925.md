@@ -38,7 +38,13 @@ The combined print-only audit found all 48 commands matched the StudySpec and al
 
 The native engine preflight confirmed cue changes, map resets, and physical reward contact for instruction 3. It was stopped once production training and the four qualifications showed reward pickups, to free the Slurm slot; it did not certify physical contact for every instruction individually. The structural map test checked all five reward markers and spawn exclusion.
 
-The prior fixed-location production jobs were cancelled before this launch. On September 25, Slurm accepted the new production jobs beginning at ID `8196560`; CPU and GPU jobs entered `RUNNING`, and W&B run files appeared in the new campaign. The per-user `QOSMaxSubmitJobPerUserLimit` was reached after the first 21 accepted jobs. The quota-aware submitter continues to retry remaining StudySpec rows every 60 seconds and records each accepted ID in `jobs.tsv`. Check that manifest for the current count rather than treating 48 as already queued.
+The prior fixed-location production jobs were cancelled before this launch. On September 25, Slurm accepted the new production jobs beginning at ID `8196560`; CPU and GPU jobs entered `RUNNING`, and W&B run files appeared in the new campaign. The per-user `QOSMaxSubmitJobPerUserLimit` was reached after the first 21 accepted jobs. The quota-aware submitter retried as slots opened and ultimately recorded all 48 job IDs in `jobs.tsv`; check that manifest for exact identities and live Slurm for current states.
+
+## Matched frozen-DG controls
+
+The follow-up StudySpec `hpc_runs/studies/cued_reward5_frozen_dg_controls_20260925.study.json` has schema `intrmotiv/study/v1`, workflow `1.12.0`, SHA-256 `e0c38acfbdc23e90524e29d41dfe353dba69d6d66282ac94cda0216810ae7ec7`, and 12 runs: two source architectures, seeds 42/1234/9999, and two waypoint arms. Both arms use a fresh worker, fresh reward manager, empty graph, identical five-cue task, and 75M frames. `W_RAND_DG` freezes a freshly initialized random DG projection and its initial BatchNorm statistics. `W_SOURCE_DG` loads only source DG projection and BatchNorm tensors, then freezes both. Their paired difference isolates DG initialization; the original `W_FIXED` arm also transfers a worker and therefore is not its direct control.
+
+The add-on source is isolated from running production at NEMO2 checkout `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_cued_reward5_frozen_dg_20260925`, commit `74d9abd7`. The 12-run print-only audit confirms all commands and workspace paths. Four 262,144-frame qualification jobs were accepted as `8205796`, `8205798`, `8205799`, and `8205800`; their StudySpec SHA-256 is `b560691ad609d3f7f96a096efd393247a088d05be6ba3a98e4aa233a8e0de7f6`. Production release depends on successful runtime completion and usable random-DG activity. Both print-only audits and Slurm manifests reside under the matching study names in the workspace `_slurm` directory.
 
 ## Reusable lesson
 
