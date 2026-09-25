@@ -56,10 +56,10 @@ The results are most coherent when separated into four questions:
 
 1. **Representation:** are DG events spatially differentiated?
 2. **Goal identity:** does a goal denote a distinct destination rather than an aliased feature?
-3. **Control:** does changing the command change where the agent goes?
+3. **Controllability:** does changing the goal change the policy and reliably select the intended internal node?
 4. **Utility:** does the learned system help when a new external reward is introduced?
 
-The project has positive evidence on the first axis, strong evidence that axes 1–3 can dissociate, and only preliminary evidence on the fourth.
+The project has positive evidence on the first axis, strong evidence that axes 1–3 can dissociate, and only preliminary evidence on the fourth. Physical localization is an external grounding test; for the controllability pillar itself, success means that a goal changes actions and preferentially produces the intended learned node.
 
 ### 2.1 Spatial representation can become substantially differentiated
 
@@ -81,7 +81,19 @@ Do not equate “single field” with mathematically unimodal tuning. Also disti
 
 **Poster wording:** “Intrinsic training can produce sparse, differentiated, and in selected cases localized DG event codes.”
 
-### 2.2 A good graph or high hit rate can still be goal-insensitive
+### 2.2 The three pillars can separate—and the combination can be transient
+
+The DG-capacity study now has a complete newer 75M panel for all 18 **direct** runs. This strengthens the dissociation story but also warns against treating one attractive checkpoint as a stable architecture property.
+
+The clearest local-control candidate remains **DIRECT_WORKER F16 seed 99 at 25M**: 66.7% mono-field among eligible units, 100% reachable ordered pairs, 61.3% prospective edge success, and several heavily sampled edges above 80% observed success. Its useful target peaks are nevertheless geographically clustered. By 75M, the same run has only 6.25% mono-field units, 81.25% reachable pairs, 56.0% prospective success, and zero grounded-controllability proxy.
+
+Across the three-seed DIRECT_WORKER F16 arm, the same pattern is visible more weakly: mean map cosine improves from 0.190 to 0.159 from 25M to 75M, but mono-field fraction falls from 24.3% to 6.3% and the grounded proxy from 0.106 to 0.005. In contrast, DIRECT_DG F16 improves mono-field fraction from 2.1% to 12.5% while retaining about 90% graph reachability at 75M.
+
+**Poster interpretation:** we can find checkpoints that temporarily combine two desirable properties, but the joint state is not yet stable. This is more informative than assigning a permanent “good/bad” label to an architecture.
+
+Source: [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG-capacity analysis, including the newer 75M direct-only follow-up]].
+
+### 2.3 A good graph or high hit rate can still be goal-insensitive
 
 This is the strongest negative/diagnostic result.
 
@@ -103,7 +115,7 @@ The same dissociation appears elsewhere:
 
 Sources: [[../06_experiments/06_high_option_success_goal_sets_and_controls_20260914|high-hit analysis]], [[../06_experiments/cpu2048_analysis_20260917|CPU2048]], [[../06_experiments/navigation8_algorithm_screen_interim_20260916|Navigation8]], and [[../06_experiments/corridor_geometry_analysis_20260921|corridor geometry]].
 
-**Poster message:** “Spatial selectivity and graph connectivity are not sufficient for deliberate navigation.”
+**Poster message:** “Spatial selectivity and graph connectivity are not sufficient for controllability: the goal must change actions and preferentially select the intended internal node.”
 
 This is a scientifically useful result rather than merely a failed controller: it separates the emergence of a state/event code from the emergence of a behaviorally meaningful goal.
 
@@ -360,7 +372,7 @@ That tension is itself relevant to biological navigation, where representations 
 
 ### Highest priority
 
-1. **Matched command intervention.** From identical physical/memory starts, change only the goal and measure physical destination outcomes. Report the full source × command × outcome matrix.
+1. **Matched node-control intervention.** From identical physical/memory starts, change only the goal, measure immediate action-distribution change, and record the first learned node reached. Report the full source × command × reached-node matrix. Physical destination is a stronger grounding analysis, not required for the basic controllability criterion.
 2. **CA3 readout health.** Show prediction loss by active/zero targets, state- and action-shuffle deltas, latent variance/effective rank, recognition positive/background distributions, and contextual HER support.
 3. **Common-history representation evaluation.** Compare DG fields on the same observation/history panel rather than only policy-dependent online occupancy.
 4. **Five-cue transfer results.** Compare scratch and transfer across all five instructions and downstream seeds, emphasizing early sample efficiency and per-goal generalization.
@@ -393,7 +405,8 @@ Keep these quantities distinct:
 - physical coverage;
 - graph connectivity;
 - target-conditioned action sensitivity;
-- command-caused physical arrival;
+- command-caused learned-node arrival;
+- physical arrival/location as a separate grounding check;
 - downstream reward learning.
 
 For transfer, always show all downstream seeds and full learning curves. Report pretraining cost separately from downstream sample efficiency.

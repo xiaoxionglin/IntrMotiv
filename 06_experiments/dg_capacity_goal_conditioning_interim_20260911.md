@@ -122,6 +122,29 @@ seeds; at F32 and F64 it has higher overlap in two of three seeds. Some aggregat
 means improve because of a single seed. Do not interpret a pooled mean as
 replicated improvement from DG conditioning.
 
+## Newer 75M direct-only follow-up
+
+The original all-cell comparison remains at 25M because the waypoint cells do not all have 75M snapshots in the committed inventory. However, all **18 direct runs** (DIRECT_DG and DIRECT_WORKER, F16/F32/F64, three seeds each) do have 75M snapshots. The direct-family conclusions should therefore be updated with this newer matched subset rather than inferred only from 25M.
+
+| Direct arm | DG | Map cosine, 25M → 75M | Mono-field, 25M → 75M | Reachable pairs, 25M → 75M | Prospective success, 25M → 75M | Grounded proxy, 25M → 75M | Stationary at 75M |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| DIRECT_DG | 16 | 0.286 → 0.248 | 2.1% → 12.5% | 100.0% → 90.1% | 47.3% → 50.1% | 0 → 0.016 | 5.3% |
+| DIRECT_DG | 32 | 0.211 → 0.218 | 3.1% → 2.1% | 73.1% → 91.7% | 38.4% → 40.6% | 0 → 0 | 7.7% |
+| DIRECT_DG | 64 | 0.145 → 0.171 | 19.9% → 10.9% | 0 → 0.05% | 4.6% → 6.3% | 0 → 0 | 30.1% |
+| DIRECT_WORKER | 16 | 0.190 → 0.159 | 24.3% → 6.3% | 95.8% → 85.8% | 51.1% → 49.9% | 0.106 → 0.005 | 2.2% |
+| DIRECT_WORKER | 32 | 0.233 → 0.239 | 4.2% → 0 | 83.4% → 94.8% | 37.9% → 39.4% | 0.001 → 0 | 3.7% |
+| DIRECT_WORKER | 64 | 0.123 → 0.161 | 12.0% → 8.9% | 0 → 0.01% | 6.5% → 6.1% | 0 → 0 | 5.5% |
+
+These are three-seed means from changing-policy online windows. They are a **newer matched direct-family comparison**, not fixed-trajectory representation drift.
+
+The 75M subset changes the interpretation in two useful ways:
+
+- The broad F16/F32 graph connectivity is persistent, so it is not merely a 25M artifact. However, broad reachability still does not imply well-separated node identities or command-specific control.
+- The especially attractive **DIRECT_WORKER F16 seed 99 at 25M is transient**. For that exact run, map cosine changes 0.150 → 0.190, mono-field fraction 66.7% → 6.25%, reachable pairs 100% → 81.25%, prospective success 61.3% → 56.0%, and the grounded proxy 0.318 → 0 by 75M. Preserve the 25M checkpoint as a targeted intervention candidate, but do not describe the architecture as stably satisfying representation and control.
+- F64 direct variants remain the clearest representation–graph dissociation. They retain relatively low map overlap while reliable reachability remains essentially absent; DIRECT_DG F64 additionally becomes highly stationary at 75M.
+
+The appropriate next test is therefore **checkpoint-specific node-control intervention**: evaluate the saved 25M F16 seed-99 checkpoint because that is where the local skill candidate exists, while using the 75M direct panel to describe the later population-level state.
+
 ### DG16 worker-only: promising local-control checkpoint, not a whole-run success
 
 DIRECT_WORKER F16 seed 99 at 25M looks strong numerically: 61.3% known-edge

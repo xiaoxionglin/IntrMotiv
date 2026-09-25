@@ -136,7 +136,7 @@ Use the dated implementation/launch reports only when you need exact StudySpecs,
 
 Every result report should use this order:
 
-1. **Status and evidence boundary** — completed/interim/qualification; exact common checkpoint/window.
+1. **Status and evidence boundary** — completed/interim/qualification; exact common checkpoint/window. The primary comparison uses the newest checkpoint complete for the declared contrast. If a newer checkpoint is complete only for a scientifically valid subset, add it as a restricted follow-up rather than comparing each run at its individual latest age.
 2. **Architecture factorization** — the table of environment, DG, CA3/state, goal, controller, graph/manager, replay, reward; explicitly state what differs and what is held fixed.
 3. **Declared contrasts** — which comparisons are causal/matched and which are descriptive family comparisons.
 4. **Results by scientific question** — representation, goal identity/control, external behavior, optimization/health.
@@ -145,6 +145,8 @@ Every result report should use this order:
 7. **Reusable lesson / next discriminating test**.
 
 Chronological launch notes can remain inside the provenance section, but new architecture revisions should update the factor table rather than prepend another “latest update” paragraph.
+
+**Checkpoint-refresh rule:** before reusing a report for the poster or a synthesis, re-audit the snapshot inventory. Preserve an older checkpoint only when it is the newest fully matched comparison or when it captures a scientifically unique transient state; label the latter explicitly. Do not silently substitute each run's latest checkpoint for a matched milestone.
 
 ## 7. Resource map
 
