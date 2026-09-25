@@ -57,4 +57,22 @@ The DG 50 failure revealed that recurrent PPO replay supplied the goal-write wor
 
 The real-GPU learner preflight has StudySpec SHA-256 `17a69ad42a6e7a967b6a68d314eac294b68aa35ca87b2410b1f48436ee82eeae`. Job 8195908 completed on `--device=gpu`, with DG-only transfer goal-mixture movement 0.00301, DG weight movement 0.00499, and four positive external-reward TensorBoard batches; PPO and environment reward means matched. Its run config confirms `device=gpu`.
 
+### Early scratch-control behavior (training episodes, seed 42)
+
+The two scratch controls transfer no source DG, worker, or graph state. `W_SCRATCH` trains a new DG, goal-conditioned worker, and reward-driven waypoint manager with an empty graph. `F_SCRATCH` trains a new DG, flat actor, and near-uniform goal mixture without waypoint decisions. Both retain the same fixed ImageNet visual trunk and receive the same external $+10$ reward on physical cell entry. Initial-checkpoint checks found the DG 50 and DG 51 `W_SCRATCH` DG weights differed from their source checkpoints (L1 differences 4397 and 4401), and both initial graph edge-confidence sums were zero.
+
+The `dmlab_raw_score` is the mean unscaled episode return over up to the latest 100 completed training episodes; because a reward-cell entry gives $+10$ and timeout gives $0$, divide this score by 10 for the recent training-episode success fraction. These are online training episodes, not the prespecified held-out evaluation.
+
+| Site | Arm | Raw score near 2M frames | Raw score near 4M frames | Length-weighted score near 2M |
+| --- | --- | ---: | ---: | ---: |
+| DG 50 | `W_SCRATCH` | 7.6 | 10.0 | 5.46 |
+| DG 50 | `W_FIXED` | 4.3 | 5.6 | 3.57 |
+| DG 50 | `W_FULL` | 1.0 | 1.6 | 0.92 |
+| DG 50 | `F_SCRATCH` | 9.2 | 9.9 | 6.77 |
+| DG 50 | `F_DG` | 9.1 | 9.9 | 7.02 |
+| DG 51 | `W_SCRATCH` | 7.8 | 10.0 | 5.36 |
+| DG 51 | `W_FIXED` | 2.5 | 2.6 | 2.01 |
+
+The first available raw-score summaries already showed frequent contact: 5.2/10 for DG 50 `W_SCRATCH` at 0.64M frames, 4.4/10 for DG 50 `F_SCRATCH` at 0.74M, and 5.3/10 for DG 51 `W_SCRATCH` at 0.69M. Thus the selected fixed cells yield substantial reward under early policies. The 120-second episode and 64 parallel environments give many reward examples quickly; the fixed ImageNet trunk supplies visual features even in scratch arms. `F_DG` improved as fast as `F_SCRATCH`, so rapid early learning is not exclusive to scratch. The lagging transferred waypoint arms are consistent with source option behavior or graph priors being poorly aligned to this fixed reward, but this one-seed training comparison cannot identify the cause. Held-out success, time to reward, start-region balance, and all three downstream seeds remain the required transfer evidence.
+
 The corrected source is pushed as [`codex/fixed-reward-transfer-corrected-20260925`](https://github.com/xiaoxionglin/SF_hipposlam/tree/codex/fixed-reward-transfer-corrected-20260925) at commit `e389a7ab`. The full correction patch from the original implementation is [stored here](../hpc_runs/fixed_reward_runtime_correction_20260925.patch). The isolated NEMO2 checkout is `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam_fixed_reward_transfer_20260924`; all bulk artifacts remain in `/work/classic/fr_xl1014-fixed-reward-transfer`.
