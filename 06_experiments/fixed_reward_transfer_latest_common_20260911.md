@@ -1,5 +1,19 @@
 # Fixed-reward transfer: latest shared-step comparison, 2026-09-11
 
+## Architecture factorization
+
+| Factor | Levels / setting | Interpretation |
+| --- | --- | --- |
+| Downstream task | Fixed external reward destination | Narrow single-task transfer; scratch can specialize strongly |
+| Source family | SCR versus SAT source checkpoints | Source representations and graph/controller histories differ |
+| Transfer mode | Scratch; DG frozen; DG tuned; policy transfer/tuning | Separates reuse of representation from reuse of policy parameters |
+| Goal representation | Downstream reward site rather than the intrinsic DG-goal objective | This is reward-transfer performance, not intrinsic option success |
+| Controller | Rewarded downstream learner on the historical repeat-8 line | Compare only at aligned environment frames |
+| Primary question | Does reusing intrinsic-training structure accelerate downstream learning? | Latest-common windows avoid unequal-progress bias |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 All 21 repeat-8 production runs are compared over global environment frames **50,784,640–60,784,640**. The endpoint is the latest covered by every declared run and metric at collection time. Available per-run maxima span 60,784,640–97,615,872; individual latest endpoints would be an unequal-progress comparison.
 
 Each score is the event-sample mean within this inclusive 10M-frame window, then averaged equally across seeds 42, 1234, and 9999. Higher length-weighted score is better.

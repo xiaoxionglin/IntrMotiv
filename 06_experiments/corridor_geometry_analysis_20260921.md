@@ -1,5 +1,19 @@
 # Corridor geometry: completed-training analysis, September 21, 2026
 
+## Architecture factorization
+
+| Factor | Levels | Interpretation |
+| --- | --- | --- |
+| Environment geometry | Open versus corridor layouts | The intended manipulation; coverage is normalized to accessible area |
+| Architecture family | SAT, DGP, Waypoint HER | Family bundles differ in representation, goal interface, and learner |
+| Goal/controller | Historical PPO goal architectures versus Waypoint stored DDQN+HER | Cross-family performance is descriptive |
+| Representation | Family-specific DG architecture; geometry changes sensory/transition statistics | Geometry can alter learned fields without changing code |
+| Evaluation | Training windows and online spatial snapshots; frozen evaluations launched separately | Training coverage is not frozen-policy superiority |
+| Primary question | Does lower-dimensional/topological corridor structure make exploration/control easier? | Separate from perceptual cue uniqueness |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 ## Finding and evaluation status
 
 **Corridor geometry did not improve training-time exploration in this screen.**

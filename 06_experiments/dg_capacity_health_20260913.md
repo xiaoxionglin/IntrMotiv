@@ -1,5 +1,19 @@
 # DG-capacity run health — 13 September 2026
 
+## Architecture factorization
+
+| Factor | Levels in the monitored study | Interpretation |
+| --- | --- | --- |
+| DG capacity | F16/F32/F64 depending study cell | Capacity also changes CA3 and decoder width |
+| Goal-conditioning path | Direct worker-only versus DG + worker conditioning; waypoint cells | Distinguishes where target information enters the system |
+| Controller | Historical direct/waypoint study line, not the newer CPU/DDQN matrix | Do not pool with later controller studies |
+| Environment | Reward-free open field | External reward should remain zero |
+| Evidence type | Runtime health, W&B summaries, sampled histories, spatial snapshots | Health/collapse diagnosis, not transfer or causal control |
+| Main warning | Movement collapse in several DG64 direct seeds | Separate locomotor failure from goal-control failure |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 Scope: the original 27-run DG-capacity/goal-conditioning study, checked around
 13:55 CEST. The newer controller studies are separate. No training was changed
 or stopped.

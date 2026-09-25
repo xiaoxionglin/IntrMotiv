@@ -1,5 +1,19 @@
 # Selected CPU comparison — 14 September 2026
 
+## Architecture factorization
+
+| Factor | Levels | What is held fixed / confounded |
+| --- | --- | --- |
+| Architecture family | Direct F16; Waypoint decoder F64 | Capacity, manager, and goal interface differ together |
+| Controller | DDQN; DDQN+HER | Same stored-state controller contract within a family |
+| Update cadence | 64 versus 2048 accepted decisions | Fixed minibatch means cadence also changes replay ratio |
+| Target refresh | Matched at 6144 accepted decisions | 96 updates at cadence 64 versus 3 at cadence 2048 |
+| Device | CPU | This report is not a CPU-versus-GPU algorithm comparison |
+| Seeds | 8, 99, 123 in the completed expansion | Initial selected-seed runs are provenance, not the final factorial design |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 Selection uses the current production W&B group only, ranking mean action
 probability TV over each run's latest 5M frames. Unequal horizons and selection
 on observed performance mean this is exploratory, not an unbiased algorithm

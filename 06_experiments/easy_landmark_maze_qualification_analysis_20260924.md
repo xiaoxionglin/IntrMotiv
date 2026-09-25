@@ -1,5 +1,19 @@
 # Easy landmark maze: completed 2M qualification analysis
 
+## Architecture factorization
+
+| Factor | Levels | Interpretation |
+| --- | --- | --- |
+| Environment geometry | Same fixed 11×11 entity maze | Held fixed across cue conditions |
+| Perceptual cue factor | Rich: 10 decals + 10 colored walls; Neutral: same reserved sites rendered neutral | Intended within-architecture manipulation |
+| Architecture family | SCR, DGP, Waypoint F64 DDQN+HER | Cross-family differences are descriptive bundles |
+| Representation | Fixed visual trunk + learned DG in all families | Learning rules/capacity differ by family |
+| Goal/controller | Family-specific PPO graph goal versus waypoint DDQN+HER | Cue effect should be interpreted within architecture first |
+| Evaluation | Seed-99 2M qualification + matched frozen behavior; production is separate | Qualification is not the final three-seed result |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 **Analysis date:** 24 September 2026. **Status:** Six seed-99 qualification runs completed and passed the canonical audit. Six corrected frozen evaluations passed. Rich three-seed and seed-99 neutral production, twelve jobs total, is running; this report analyzes the completed qualification only.
 
 ## Question and architecture

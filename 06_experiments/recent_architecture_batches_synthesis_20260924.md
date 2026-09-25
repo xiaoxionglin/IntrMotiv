@@ -1,5 +1,18 @@
 # Three recent architecture batches: synthesis (24 September 2026)
 
+## Architecture factorization
+
+This synthesis should be read by factors rather than as “three successive architectures”:
+
+| Batch | Environment factor | Representation / goal factor | Controller factor | Clean comparison inside batch |
+| --- | --- | --- | --- | --- |
+| Easy landmark maze | Rich versus neutral cues, same maze | Historical SCR/DGP versus Waypoint F64 families | Family-specific PPO or DDQN+HER | Rich-neutral within each architecture |
+| CA3 predictive active goals | Established open field | DG ID → predictive z-state → continuous z-goal → contextual anchors; action input and horizon variants | Stored DDQN+HER fixed | Declared component contrasts, especially CTX_FULL_H16 - ZGOAL_FIXED_H16 |
+| CA3 state-goal follow-up | Established open field | Continuous z-goal/context architecture fixed | Stored DDQN+HER fixed | FIXED/EMA × DOM/UNIQUE factorial |
+
+The common question is whether better observation identity, temporal goal identity, or contextual admission can improve useful landmarks and intentional control. The batches should not be pooled into a single architecture ranking. Canonical cross-report synthesis: [[README|factorized experiment synthesis]].
+
+
 ## Reading order and evidence boundary
 
 1. [Easy landmark maze: completed 2M qualification](easy_landmark_maze_qualification_analysis_20260924.md) asks whether visible, fixed cues change localization, exploration, and control across three existing architectures. Its 12 production runs have since started and remain in progress.

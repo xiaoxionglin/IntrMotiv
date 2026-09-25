@@ -1,5 +1,19 @@
 # DG capacity × goal conditioning: interim analysis, 11 September 2026
 
+## Architecture factorization
+
+| Factor | Levels | Interpretation |
+| --- | --- | --- |
+| DG capacity | F16/F32/F64 | Also changes memory/controller input dimensionality |
+| Goal conditioning | Worker-only versus DG + worker goal conditioning; direct versus waypoint families where declared | Tests whether target context reaches the right subsystem |
+| Controller family | Direct historical controller versus waypoint architecture | Family comparison is not a pure capacity ablation |
+| Goal representation | DG-ID goal / target conditioning | Predates continuous CA3-state goals |
+| Environment | Reward-free open field | No downstream external reward |
+| Evidence | Interim aligned telemetry | Use matched checkpoints/windows; do not extrapolate terminal outcomes |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 For the objective of reliably reaching **a small set of distinct landmarks**,
 the most promising existing local-control checkpoint is **DIRECT_WORKER F16
 seed 99 at 25M**. **WAYPOINT_DG F64 seeds 8 and 99** remain representation

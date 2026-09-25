@@ -1,5 +1,19 @@
 # Navigation8 algorithm screen: 5M–75M interim analysis
 
+## Architecture factorization
+
+| Factor | Levels | Interpretation |
+| --- | --- | --- |
+| Environment/action regime | Navigation8, repeat 4 | Shared across all six screen families; differs from older five-action/repeat-8 evidence |
+| Architecture family | SCR, SAT, DGP, CPD, W-ref stop, W-ref joint | These are bundled architectures, not one-factor levels |
+| Representation | Family-specific DG credit/recruitment/routing | F16 for the screened historical families |
+| Goal / controller | Family-specific DG-ID/reference goal with PPO | No stored DDQN/HER in this screen |
+| Graph | Present for SCR/SAT/DGP/CPD; absent for W-ref snapshots | Graph metrics are therefore not comparable for every family |
+| Evidence | Matched 5M/25M/75M online spatial snapshots | No terminal 300M or matched frozen intervention yet |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 ## 1. Decision status
 
 The six-configuration Navigation8 screen does **not** yet identify a working

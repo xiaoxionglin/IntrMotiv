@@ -1,5 +1,19 @@
 # Five-cue reward transfer batch — 2026-09-25
 
+## Architecture factorization
+
+| Factor | Levels / setting | Interpretation |
+| --- | --- | --- |
+| Downstream task | Five invisible reward locations, uniformly selected per episode and cued by stable number instruction | Broader multi-goal transfer than the earlier single fixed reward |
+| Geometry / sensory map | Original openfield_map2 retained | Reward location changes without changing the base visual geometry |
+| Source representation | Two surviving source checkpoints plus scratch/transfer variants in the eight declared arms | Source identity must be tracked separately from transfer operation |
+| Goal signal | Number instruction specifies the external reward location | Instruction is downstream task context, not privileged coordinate input |
+| Controller / transfer | Waypoint manager or flat goal mixture depending arm; external reward drives learning | Different arms reuse different amounts of source structure |
+| Evaluation | 48-run, 8-arm × 3-seed production design, 75M frames | This is designed to test reusable multi-goal structure rather than one-site specialization |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 ## Task and study
 
 The source `openfield_map2` geometry and visual assets are retained. Each episode uniformly selects one of five invisible $+10$ reward cells, ends on first entry, and presents its stable number instruction to the high-level waypoint manager or the flat arm's goal mixture. All five cells are excluded from spawning. The worker and DG source-map identity remains the original map-3 input.

@@ -1,5 +1,20 @@
 # CA3 predictive active goals: matched 75M interim analysis
 
+## Architecture factorization
+
+| Factor | Levels in the seven-cell matrix | What the factor asks |
+| --- | --- | --- |
+| DG / CA3 foundation | F64 DG + fixed CA3 shift register in every cell | Held fixed |
+| Learned state readout | Off in BASE_ID; shadow in PRED_SHADOW; used as worker state in ZSTATE/ZGOAL/CTX | Does predictive CA3 compression provide useful state? |
+| Goal representation | DG target ID versus continuous readout-state goal | Does temporal context define a better destination identity? |
+| Context recognition | None/fixed comparator versus confirmed contextual anchors and hits | Does contextual recognition resolve DG aliasing? |
+| Predictor action input | Full action-conditioned versus NOACTION | Does action history add predictive state information? |
+| Prediction horizon | H16 versus H32 | How much temporal context is useful? |
+| Controller / replay | Stored DDQN+HER + waypoint manager in all cells | Held fixed across the seven-way architecture matrix |
+
+The primary clean contrast is CTX_FULL_H16 minus ZGOAL_FIXED_H16; the other rows diagnose components. Cross-report context: [[README|factorized experiment synthesis]].
+
+
 **Analysis date:** 24 September 2026. **Status:** All 21 production runs are active and have online spatial snapshots at 5M, 25M, and 75M. Nine also have 150M snapshots; those nine do not form a complete seven-architecture, three-seed comparison. The declared horizon is 300M. This report uses the balanced 75M panel.
 
 ## The architecture in plain terms

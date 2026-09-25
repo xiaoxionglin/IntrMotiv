@@ -1,5 +1,20 @@
 # CA3 state-goal follow-up: matched 25M interim analysis
 
+## Architecture factorization
+
+| Factor | Levels | Held fixed |
+| --- | --- | --- |
+| State / goal representation | Predictive CA3 readout z; continuous z-goal; H32 | Fixed across all four cells |
+| Controller / replay | Stored DDQN+HER, waypoint/context graph | Fixed |
+| Anchor maintenance | FIXED first confirmed anchor versus EMA prototype-guided representative refinement | First factorial factor |
+| Candidate admission | DOM strongest raw DG event versus UNIQUE exactly-one contextual anchor match | Second factorial factor |
+| Context hit rule | Contextual recognition enabled | Fixed |
+| DG capacity / environment | F64, established reward-free open field | Fixed |
+| Declared contrasts | EMA main effect, UNIQUE main effect, interaction, UNIQUE-DOM within anchor mode | These are the appropriate causal comparisons |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 **Analysis date:** 24 September 2026. **Scope:** NEMO2 CPU production StudySpec `ca3_state_goal_followup_20260922_production`, twelve 300M-frame runs. All twelve have 5M and 25M online spatial snapshots; ten have 75M. The two missing 75M rows are the fixed-anchor seed-8 conditions, so the 25M checkpoint is the balanced comparison. The separate G500 production release is documented in [its release record](ca3_state_goal_followup_20260922.md) and is not pooled here.
 
 ## What changed from the predictive batch

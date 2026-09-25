@@ -1,5 +1,21 @@
 # Full-system IntrMotiv controller integration — 12 September 2026
 
+## Architecture factorization
+
+The historical launch/recovery paragraphs below are provenance. The current conceptual design is easier to read as a factor table:
+
+| Factor | Current active comparison | Superseded / confounded alternatives |
+| --- | --- | --- |
+| Representation family | Direct F16 versus Waypoint decoder F64 | F changes landmark count, CA3 width, and downstream input width |
+| Worker memory / goal interface | Goal-independent memory; waypoint target enters decoder only | Earlier goal-write waypoint proposal is superseded |
+| Controller learner | PPO, stored-state DDQN, stored-state DDQN+HER | Reconstruction-based DDQN/HER is superseded for the active line |
+| Replay | Stored action-time worker state; decoder-only HER where applicable | Old replay cannot be reused across the contract change |
+| Manager | Direct target for F16; waypoint manager for F64 | Manager and capacity change together across families |
+| Evaluation target | Goal sensitivity, spatial representation, graph/control, throughput | Family comparisons are not pure learner or capacity ablations |
+
+For the maintained cross-report architecture matrix, see [[README|factorized experiment synthesis]]. Read the sections below as a chronology of qualification and deployment, not as separate current architectures.
+
+
 ## Current production launch
 
 All qualification gates passed. The canonical 18-run stored-state production
