@@ -28,6 +28,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** At meaningful training milestones, report mixture entropy, total variation from initialization, goal-effect row diversity, and held-out reward success for each flat arm. If the mixture stays static, identify the actual gradient bottleneck before claiming learned address selection.
 
 
+### Source graph transfer was restricted to frozen DG — 2026-09-25
+
+- **Evidence:** The corrected fixed-reward study copied source graph evidence only in its frozen-DG `W_GRAPH` arm. Runtime validation rejected `transfer_graph=true` when DG was trainable, despite the existing graph updating and decaying edge evidence from online DG events.
+- **Impact:** The worker-refinement and full-refinement arms could not test reuse of the source world model as intended.
+- **Improvement/status:** The restriction was removed; the revised 48-run StudySpec copies source graph evidence in `W_GRAPH`, `W_WORKER`, and `W_FULL`, resets reward-goal values, and retains `W_FIXED` as an empty-graph ablation. Local transfer tests and both sites’ full-refinement configuration parses pass. The revised 48-run print-only audit passes under the new StudySpec SHA-256; two short cluster qualifications are running, and production remains paused for proofread.
+- **Acceptance:** Qualify a trainable-DG graph-transfer run on NEMO2, repeat the 48-run print-only audit under StudySpec SHA-256 `e135a84810f34dfbd00066f4c8985b000cf1d17ffaeba986b1c056773acc21b0`, and verify graph evidence evolves while reward-goal buffers begin empty.
+
 ### Reward-site screening lacks physical outcomes for prospective edges — 2026-09-24
 
 - **Evidence:** The [four-run reward-site audit](06_experiments/fixed_reward_site_candidate_audit_20260924.md) found many well-tested DG-event edges in the 75M–300M online snapshots, but no saved per-edge physical arrival positions. The 100k pose/activity samples can show where a DG target activates, while cumulative prospective success counts cannot identify where each commanded success ended. W&B hit advantages were recorded between, rather than exactly at, several saved spatial milestones.
