@@ -53,12 +53,12 @@ At 150M, approximately 61% of active observations for PPO targets 4, 53, 61, and
 
 As a less strict region screen, scan each visited 3-by-3 spatial-bin neighborhood (at most 300 by 300 world units) and record the neighborhood capturing the most thresholded activations for a target. This is an *optimistic in-sample maximum*, not a reward-placement result:
 
-| Run and target group | Best neighborhood center | Target-activation share | Overall occupancy share | Reading |
-| --- | --- | ---: | ---: | --- |
-| PPO 150M, targets 4, 53, 61, 32 | (150, 450) | 58.2–58.7% | 20.8% | A shared west-boundary region is a plausible first intervention target. |
-| DG-capacity 75M, targets 7, 30, 13, 49 | (250, 1850) | 68.2–73.0% | 51.8% | Strong raw concentration, but the behavior policy itself spends over half the window there. |
-| DG-capacity 75M, target 50 | (350, 1850) | 64.8% | 30.2% | Better enrichment than the four-target cluster; warrants a separate command probe. |
-| Cadence-2048 DDQN 300M, target 19 | (850, 250) | 8.2% | 6.3% | Weak compact-region support despite the 49→19 DG-event edge. |
+| Run and target group                   | Best neighborhood center | Target-activation share | Overall occupancy share | Reading                                                                                     |
+| -------------------------------------- | ------------------------ | ----------------------: | ----------------------: | ------------------------------------------------------------------------------------------- |
+| PPO 150M, targets 4, 53, 61, 32        | (150, 450)               |              58.2–58.7% |                   20.8% | A shared west-boundary region is a plausible first intervention target.                     |
+| DG-capacity 75M, targets 7, 30, 13, 49 | (250, 1850)              |              68.2–73.0% |                   51.8% | Strong raw concentration, but the behavior policy itself spends over half the window there. |
+| DG-capacity 75M, target 50             | (350, 1850)              |                   64.8% |                   30.2% | Better enrichment than the four-target cluster; warrants a separate command probe.          |
+| Cadence-2048 DDQN 300M, target 19      | (850, 250)               |                    8.2% |                    6.3% | Weak compact-region support despite the 49→19 DG-event edge.                                |
 
 The PPO neighborhood is clipped by the western boundary and covers fewer than nine full bins; its actual traversable footprint and legal reward placement need verification. Its strong activation enrichment is useful for prioritization, but the nearly identical responses of several target IDs may represent a common sink rather than target-specific navigation. The cadence-64 DDQN run has no edge passing the prospective-success screen at its latest 75M spatial checkpoint, so it has no comparable region candidate from this rule.
 
