@@ -35,3 +35,28 @@ Next evidence: per-source/target attempt and success matrices with deadlines, fi
 Sources: [DGP joined terminal results](results/late_outliers_20260908/dgp_terminal_rankings.csv), [candidate audit](dgp_interim_failure_audit_20260907.md), [Saturday results](results/recent_batches_audit_20260906/saturday_terminal_per_run.csv). DGP StudySpec schema intrmotiv/study/v1, workflow1.4.1, SHA2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5.
 
 Workflow lesson: distinguish eligible goals, attempted goals, successful identities, and physical destinations. Inspect candidate counts and shuffled controls before interpreting aggregate success; reuse canonical saved results before collecting histories. No training or configuration was changed.
+
+## Poster-exemplar evidence update, 25 September 2026
+
+For `DGP_C15_HIT_JOINT_FILM_S99`, the canonical saved 75M snapshot is at
+75,005,952 frames (100,000 retained behavior samples). Its detailed row is in
+[`late_outliers_20260908/dgp_snapshots/per_snapshot.csv`](results/late_outliers_20260908/dgp_snapshots/per_snapshot.csv),
+with the per-unit map export at
+[`DGP_C15_HIT_JOINT_FILM_S99_spatial.csv.gz`](results/late_outliers_20260908/DGP_C15_HIT_JOINT_FILM_S99_spatial.csv.gz).
+The map has 88.1% grid coverage, 16/16 active units, active-only cosine 0.147,
+14 unique peak bins, 2/16 mono-field units (12.5%), stationary fraction 1.8%, and path
+efficiency 0.097. The median nearest-neighbor distance among dominant peaks is
+0, indicating coincident peaks despite the count of distinct bins.
+
+The graph has 168 reliable directed edges (70.0% edge density), 93.75% ordered
+pair reachability, and 56,856/107,982 prospective successes (52.7%). The
+existing 65–75M option-success summary is 56.25%. Those aggregate HIT values
+do not show whether success depends on the commanded node: available saved
+artifacts contain no matched-start alternative-goal intervention, action
+probability TV, or first-reached internal-node command-by-node matrix. Therefore
+command specificity remains **unavailable**; the aggregate activation lift
+(0.9958 in the existing report) also supplies no positive specificity evidence.
+
+The snapshot bundle provides occupancy and path scalars but no separately
+rendered exact-run trajectory/segment panel or coverage AUC. No new DMLab
+rollout or intervention was performed for this update.

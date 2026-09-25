@@ -302,3 +302,33 @@ row order, progress, and missing-metric errors. This version has not been
 synchronized to NEMO2 or benchmarked on the full batch. Before a future scan,
 synchronize it and run the focused tests there; do not assume a speedup from
 fixture correctness alone.
+
+## Poster-exemplar evidence update, 25 September 2026
+
+This update consolidates existing canonical 25M/75M spatial snapshots and edge
+ tables for the requested checkpoints; it adds no new rollout. Snapshot and
+per-unit/field details are in [`data/dgc_interim_20260911/spatial/`](data/dgc_interim_20260911/spatial/),
+selected edge counts in [`top_tested_edges.csv`](data/dgc_interim_20260911/subsets/top_tested_edges.csv),
+and field atlas panels in [`data/dgc_interim_20260911/figures/`](data/dgc_interim_20260911/figures/).
+
+| Checkpoint | Occupancy / movement (100k samples) | Representation | Graph snapshot |
+|---|---|---|---|
+| DIRECT_WORKER F16 S99, 25M (25,001,984) | 87.0% grid visited; stationary 3.2%; path efficiency 0.278 | 16/16 active; cosine 0.150; 9 peak bins; mono-field 66.7%; median dominant-peak nearest-neighbor distance 0 | 77 reliable edges; 100% ordered-pair reachability; 15,178/24,770 prospective successes (61.3%); grounded proxy 0.318 |
+| DIRECT_WORKER F16 S99, 75M (75,005,952) | 86.7% visited; stationary 3.3%; efficiency 0.253 | 16/16 active; cosine 0.190; 11 peak bins; mono-field 6.25%; median nearest-neighbor distance 0 | 74 reliable edges; 81.25% reachability; 37,677/67,302 (56.0%); grounded proxy 0 |
+| WAYPOINT_DG F64 S8, 25M (25,001,984) | 85.6% visited; stationary 1.8%; efficiency 0.176 | 64/64 active; cosine 0.083; 32 peak bins; mono-field 45.3%; median nearest-neighbor distance 0 | 21 reliable edges; 0.62% reachability; 30,901/67,517 (45.8%); grounded proxy 0.065 |
+| WAYPOINT_DG F64 S99, 25M (25,001,984) | 86.4% visited; stationary 2.9%; efficiency 0.204 | 58/64 active; cosine 0.094; 32 peak bins; mono-field 28.8%; median nearest-neighbor distance 0 | 35 reliable edges; 2.18% reachability; 36,764/77,832 (47.2%); grounded proxy 0.027 |
+
+At 25M, F16 S99 edge 0→1 is 225/241 (93.4%), 2→4 is 252/292 (86.3%),
+and 6→11 is 36/43 (83.7%). Both endpoints are mono-field-qualified for
+these three edges; their peak separations are 100, 400, and 200 units. At 75M,
+none of these exact edges passes the existing ≥20-attempt/≥80% screen: 2→4 is
+414/565 (73.3%), while 0→1 and 6→11 are absent from the selected edge table.
+These policy-collected prospective outcomes are not interventions.
+
+**Unavailable:** no exact-start alternative-command intervention artifacts
+were found for these runs. Action-probability TV, first-reached internal-node
+command-by-node matrices, and causal command dependence therefore cannot be
+reported. Passive reliable-edge/prospective-success summaries are not
+controllability evidence. The saved bundle has no separate trajectory/segment
+plot for these exact checkpoints; snapshot occupancy, stationarity and path
+efficiency scalars are available. Coverage AUC is absent.
