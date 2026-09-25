@@ -14,7 +14,7 @@ select figures, rank architectures, or update the poster synthesis.
 | Selected historical DGP/SCR/SAT terminal analyses | Declared 65–75M TensorBoard window for the selected DGP comparisons | Separate 75M, 100k-sample spatial snapshots; these are not the same measurement as the TensorBoard window | Retain each protocol as its own result; do not combine option success, snapshot graph values, or terminal records. [High-option report](06_high_option_success_goal_sets_and_controls_20260914.md), [late-outlier report](late_training_outliers_20260908.md) |
 | CPU2048 architecture/cadence study | 25M; 24/24 runs (eight conditions × three seeds) | 75M: 12/12 cadence-2048 runs; cadence-64 only 3/12. 150M: 5/24 | Full 25M comparison; 75M only a complete cadence-2048 subset, not a cadence factorial. [Report and atlas](cpu2048_analysis_20260917.md), [run/snapshot inventory](data/cpu2048_analysis_20260917/run_status.json) |
 | CA3 predictive active goals | 75M; 21/21 runs (seven cells × three seeds) | 150M: 9/21 | Full matched 75M matrix; 150M excluded from the complete architecture comparison. [Report](ca3_predictive_active_goals_interim_analysis_20260924.md), [75M canonical atlas](results/recent_architecture_batches_20260924/predictive/) |
-| CA3 state-goal follow-up | 25M; 12/12 runs (four cells × three seeds) | 75M: 10/12; both missing rows are fixed-anchor seed 8 | Full matched 25M factorial; later data do not complete the full factorial. [Report](ca3_state_goal_followup_interim_analysis_20260924.md), [25M atlas](results/recent_architecture_batches_20260924/followup/) |
+| CA3 state-goal follow-up | 25M; 12/12 runs (four cells × three seeds) | 75M: 10/12; all four factorial cells are present for seeds 99 and 123 (8 matched rows), plus both EMA seed-8 rows | Full matched 25M factorial; restricted matched 75M factorial: UNIQUE raised mono-field 7.9 pp but reduced reliable edges by 21/run and per-run prospective success by 16.2 pp (two paired seeds); every cell had zero grounded control. A separate three-seed EMA subset is also reported. [Report](ca3_state_goal_followup_interim_analysis_20260924.md), [25M atlas](results/recent_architecture_batches_20260924/followup/) |
 | Easy-landmark maze qualification | 2M; six matched rows (three architectures × rich/neutral, seed 99) | Production: 12 runs launched, but no mature production checkpoint is represented in the analyzed bundle | Qualification only, not replicated production. Frozen coverage used two matched reset seeds and two policy episodes per row. [Qualification analysis](easy_landmark_maze_qualification_analysis_20260924.md), [production status](easy_landmark_maze_implementation_20260923.md) |
 | Five-cue reward transfer | No mature matched comparison in this bundle | 48-run, three-seed production planned to 75M; qualification evidence is 262,144 frames | Do not treat launch or short qualification as a transfer result. [Campaign record](cued_reward5_transfer_20260925.md) |
 
@@ -102,8 +102,10 @@ start command intervention is present.
   comparison. The CA3 reports document incomplete/stale TensorBoard history
   discovery; qualification and offline alias diagnostics exist separately but
   are not a substitute for the production matched-age metrics.
-- The state-goal factorial specifically lacks 75M fixed-anchor seed-8 rows, so
-  no full-factorial 75M main effect is reported.
+- The state-goal 75M restricted factorial is now computed from seeds 99 and 123;
+  its ten-row canonical source and derived two-seed tables are linked in the
+  report. Both fixed-anchor seed-8 rows remain missing, so no full three-seed
+  75M factorial is presented.
 
 ## Transfer and missing analyses
 
@@ -115,7 +117,7 @@ conclusion is made.
 
 Further missing or inconclusive evidence is: same-start goal interventions for
 the selected exemplars; checkpoint-to-checkpoint map and edge persistence;
-complete matched 150M/300M panels where current inventories are partial;
+complete matched 150M/300M panels where current inventories are partial (and retrieval of the two-seed CA3 state-goal 75M table);
 validated full production CA3 predictive/context scalar comparisons; mature
 easy-landmark production; and five-cue transfer outcomes. Historical 65–75M
 TensorBoard outcomes remain distinct from the 75M spatial snapshots.

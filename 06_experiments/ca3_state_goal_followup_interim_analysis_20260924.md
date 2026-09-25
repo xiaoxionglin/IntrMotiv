@@ -17,6 +17,8 @@ Cross-report context: [[README|factorized experiment synthesis]].
 
 **Analysis date:** 24 September 2026. **Scope:** NEMO2 CPU production StudySpec `ca3_state_goal_followup_20260922_production`, twelve 300M-frame runs. All twelve have 5M and 25M online spatial snapshots; ten have 75M. The two missing 75M rows are the fixed-anchor seed-8 conditions, so the 25M checkpoint is the balanced comparison. The separate G500 production release is documented in [its release record](ca3_state_goal_followup_20260922.md) and is not pooled here.
 
+**Later restricted comparison:** the ten 75M rows contain both seeds 99 and 123 in all four factorial cells, so they support a complete two-seed 2×2 comparison. The two additional rows are EMA seed 8 and can support a separate EMA-only comparison. The fixed-anchor seed-8 rows are missing, so no full three-seed factorial is available at 75M. The canonical 75M table has now been copied into the screening artifact bundle and the two-seed matched factorial is summarized below. Do not fold the two extra EMA seed-8 rows into this factorial.
+
 ## What changed from the predictive batch
 
 This follow-up holds the readout-goal architecture fixed: the worker receives a 16-dimensional state readout of raw CA3 memory; the prediction horizon is 32 decisions; the predictor receives actions; goals are continuous readout states; active graph slots and contextual hit checks are enabled. The learned readout receives prediction loss and variance/covariance anti-collapse terms. Stored DDQN+HER remains the worker learner. The change under test is how an accepted contextual identity is maintained and which candidate event is allowed to update the graph.
@@ -51,7 +53,7 @@ At the per-run level, unique arms have only 0–2 reliable edges, whereas domina
 
 Fixed anchors have lower mean map overlap than EMA in both candidate-rule strata, but the fixed-minus-EMA difference is not consistent in all three seeds for the dominant rule. The EMA mechanism needs its actual refinement counts and recognition-calibration diagnostics before it can be credited with any representation effect. All four cells have zero mean grounded controllability at 25M.
 
-The candidate-rule graph gap grows across the first two complete checkpoints. Under fixed anchors, dominant/unique mean reliable edges are 1.3/0 at 5M and 23.0/0.3 at 25M. Under EMA, they are 16.0/4.3 at 5M and 28.0/1.0 at 25M. Thus the unique rule is already graph-sparse early, and the dominant arms add edges while unique arms do not. The 75M panel remains incomplete and is excluded from this paired trajectory.
+The candidate-rule graph gap grows across the first two complete checkpoints. Under fixed anchors, dominant/unique mean reliable edges are 1.3/0 at 5M and 23.0/0.3 at 25M. Under EMA, they are 16.0/4.3 at 5M and 28.0/1.0 at 25M. Thus the unique rule is already graph-sparse early, and the dominant arms add edges while unique arms do not. The 75M full three-seed factorial remains incomplete. A two-seed 75M factorial is a valid restricted follow-up, but its numeric rows are not included in the checked-in bundle and are therefore not summarized here.
 
 ## Seed-99 place-field and trajectory atlas at 25M
 
@@ -94,11 +96,44 @@ EMA extras: dominant [segment examples](results/recent_architecture_batches_2026
 
 Trajectory colors mark independent retained segments, not time or speed; starts are circles, ends crosses. These seed-99 pictures complement, but cannot replace, the paired three-seed graph and mono-field comparisons above.
 
+## Restricted matched 75M factorial (seeds 99 and 123)
+
+The canonical 75M snapshot table contains a complete 2×2 factorial for seeds 99
+and 123. Cell summaries below use only those matched two seeds; each cell has
+100,000 retained behavior samples per run. The prospective counts are pooled
+over the two seed runs, while map, movement, graph-size, and reachability
+columns are means of per-run summaries. These are descriptive two-seed results,
+not confirmatory estimates.
+
+| Anchor / candidate | N | Map cosine | Mono-field | Distinct peak bins | Visited grid | Stationary | Path efficiency | Reliable edges | Reachable pairs | Prospective hits / attempts | Grounded control |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Fixed / dominant | 2 | 0.187 | 6.8% | 47.5 | 88.1% | 13.7% | 0.512 | 19.0 | 0.632% | 7,727 / 36,475 (21.2%) | 0 |
+| Fixed / unique | 2 | 0.217 | 7.0% | 50.0 | 88.1% | 10.6% | 0.388 | 1.0 | 0.025% | 25 / 291 (8.6%) | 0 |
+| EMA / dominant | 2 | 0.361 | 2.3% | 38.0 | 88.1% | 18.1% | 0.476 | 25.5 | 0.744% | 45,146 / 138,355 (32.6%) | 0 |
+| EMA / unique | 2 | 0.276 | 18.0% | 39.0 | 88.1% | 23.4% | 0.493 | 1.5 | 0.037% | 225 / 2,134 (10.5%) | 0 |
+
+Averaged over the two anchor rules within each seed, UNIQUE minus DOM has a
+mean mono-field increase of 7.9 percentage points and a mean cosine reduction
+of 0.028, alongside 21 fewer reliable edges per run, 0.66 percentage points
+less reachable-pair fraction, and a 16.2-point reduction in the mean per-run
+prospective success fraction. The raw attempt count also contracts sharply
+under UNIQUE. These paired descriptive contrasts are consistent across seeds
+for edge count and reachable-pair fraction; the sample contains only two seeds.
+All four cells remain at zero grounded controllability. High visited-grid
+coverage (88.1% in every row) does not distinguish command control.
+
+The two additional EMA seed-8 observations allow a separate three-seed EMA
+subset: EMA/DOM averages 24.7 reliable edges and 34.9% prospective success,
+whereas EMA/UNIQUE averages 1.7 edges and 10.5% success. Do not combine these
+three-seed EMA means with the two-seed full-factorial contrasts.
+
+[Canonical ten-row 75M snapshot subset](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/per_snapshot.csv) · [two-seed cell summaries](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/restricted_factorial_cell_summary.csv) · [seed-paired contrasts](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/paired_seed_contrasts.csv).
+
 ## Interpretation and next test
 
 The unique-context rule may be too selective for graph-building at this early training age. It is also plausible that its accepted events are fewer but cleaner; the current online graph output cannot decide between those explanations. Compare `context_zero_match`, `context_multi_match`, `context_unique_rescues`, accepted events, anchor refinements, calibration thresholds, and contextual HER positive/wrong-context rates at the same matched age. Then use frozen place fields and matched-command evaluation to test whether the accepted graph edges correspond to reproducible destinations.
 
-At 75M, ten snapshots are available, but both fixed/seed-8 rows are absent. The 75M table is therefore an inventory, not a balanced factorial outcome. Canonical 25M–30M and 5M–10M TensorBoard scalar scans both failed because the discovered step history for fixed/dominant seed 99 ends at 5,865,472 while its later spatial snapshots exist. No matched online-scalar contrast is inferred from this report. Production remains active toward 300M.
+At 75M, ten snapshots are available. Seeds 99 and 123 form the complete restricted 2×2 factorial reported above; the two additional EMA seed-8 rows support a separate EMA-only three-seed comparison. Both fixed-anchor seed-8 rows are absent, so the full 3-seed factorial is unavailable. Canonical 25M–30M and 5M–10M TensorBoard scalar scans both failed because the discovered step history for fixed/dominant seed 99 ends at 5,865,472 while its later spatial snapshots exist. No matched online-scalar contrast is inferred from this report. Production remains active toward 300M.
 
 ## Provenance and reusable lesson
 
