@@ -8,36 +8,36 @@ For code-level architecture definitions, use [[../04_implementation/architecture
 
 Every experiment should be described along the same axes.
 
-| Factor | Questions to record |
-| --- | --- |
-| Environment / task | Open field, corridor, easy-landmark maze, rewarded transfer; action set; frameskip/repeat; cue manipulation |
-| Visual input | Frozen ImageNet trunk; any cue/instruction/depth channels; whether privileged pose is telemetry-only |
-| DG representation | F; threshold/normalization; gradient owner; encoder objective; recruitment/retirement; contextual modulation |
-| CA3 / memory state | Fixed shift register parameters; raw CA3 versus learned readout; history horizon |
-| Goal representation | DG ID, FiLM target ID, continuous CA3/readout state, contextual anchor, external reward instruction |
-| Worker / controller | PPO, direct DDQN, stored-state DDQN, HER; flat versus target-conditioned decoder |
-| Manager / graph | None, direct target, frontier/waypoint, passive/controllable graph, contextual graph; validation rules |
-| Reward / supervision | Dense temporal-distance, hit, first-outcome, external reward, encoder credit, predictive auxiliary loss |
-| Replay / update contract | On-policy, empirical HER, stored replay, cadence, target-network refresh, representation-generation barrier |
-| Evaluation | Online spatial telemetry, frozen matched rollouts, command intervention, transfer performance, coverage |
+| Factor                   | Questions to record                                                                                          |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Environment / task       | Open field, corridor, easy-landmark maze, rewarded transfer; action set; frameskip/repeat; cue manipulation  |
+| Visual input             | Frozen ImageNet trunk; any cue/instruction/depth channels; whether privileged pose is telemetry-only         |
+| DG representation        | F; threshold/normalization; gradient owner; encoder objective; recruitment/retirement; contextual modulation |
+| CA3 / memory state       | Fixed shift register parameters; raw CA3 versus learned readout; history horizon                             |
+| Goal representation      | DG ID, FiLM target ID, continuous CA3/readout state, contextual anchor, external reward instruction          |
+| Worker / controller      | PPO, direct DDQN, stored-state DDQN, HER; flat versus target-conditioned decoder                             |
+| Manager / graph          | None, direct target, frontier/waypoint, passive/controllable graph, contextual graph; validation rules       |
+| Reward / supervision     | Dense temporal-distance, hit, first-outcome, external reward, encoder credit, predictive auxiliary loss      |
+| Replay / update contract | On-policy, empirical HER, stored replay, cadence, target-network refresh, representation-generation barrier  |
+| Evaluation               | Online spatial telemetry, frozen matched rollouts, command intervention, transfer performance, coverage      |
 
 A comparison is clean only when its row changes the intended factor while the other important axes are held fixed. Historical family names often change several factors simultaneously.
 
 ## 2. Architecture-family dictionary
 
-| Family / shorthand | DG and memory | Goal representation | Controller / manager | Main architectural distinction |
-| --- | --- | --- | --- | --- |
-| Flat intrinsic | Sparse DG + fixed CA3 | None | PPO, no target graph | Dense temporal-distance worker reward; no explicit destination |
-| SCR | F16 DG; arrival credit; direction-sensitive recruitment | DG target ID | PPO + graph/direct-target HRL | Representation protection/recruitment is the main intervention |
-| SAT | SCR-like representation with open endpoint retirement; FiLM in key cells | DG target ID via FiLM | PPO + graph HRL | Adds a more permissive retirement gate and compact goal interface |
-| DGP | F16 DG with PPO-to-DG JOINT in historical cells | DG target ID, LEG or FiLM | PPO; HIT/FIRST outcome variants | Couples worker objective directly to DG and can build dense graphs without causal control |
-| CPD | F16 DG with CA3-history-dependent feedback | DG target ID / FiLM depending cell | PPO | Tests CA3 feedback-history routing such as DIRECT versus BPTT |
-| W_REF | Frozen/shared reference detector variants | Reference-defined target | PPO; no comparable learned graph payload | Tests reference-state routing rather than self-organized graph learning |
-| Direct F16 DDQN | F16 DG + fixed CA3 | DG target ID | Stored-state DDQN, optional HER | Replaces PPO control with off-policy Q learning while keeping direct landmark goals |
-| Waypoint decoder F64 | F64 DG + goal-independent memory | DG target ID at decoder | Waypoint manager + stored-state DDQN, optional HER | Larger landmark vocabulary and decoder-only goal conditioning |
-| CA3 predictive/readout | F64 DG + learned z = W S from CA3 | DG ID or continuous readout state | Stored DDQN+HER + waypoint/context graph | Separates current state representation, goal representation, and contextual recognition |
-| CA3 state-goal follow-up | Same predictive readout, H32 | Continuous readout goal + contextual anchor | Stored DDQN+HER | Factorial anchor maintenance FIXED/EMA × candidate admission DOM/UNIQUE |
-| Reward transfer | Source DG/policy/graph may be frozen, tuned, or discarded | Fixed or cued external reward site | External-reward PPO or transferred waypoint/controller path | Tests reuse after reward specification rather than intrinsic-training quality itself |
+| Family / shorthand       | DG and memory                                                            | Goal representation                         | Controller / manager                                        | Main architectural distinction                                                            |
+| ------------------------ | ------------------------------------------------------------------------ | ------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Flat intrinsic           | Sparse DG + fixed CA3                                                    | None                                        | PPO, no target graph                                        | Dense temporal-distance worker reward; no explicit destination                            |
+| SCR                      | F16 DG; arrival credit; direction-sensitive recruitment                  | DG target ID                                | PPO + graph/direct-target HRL                               | Representation protection/recruitment is the main intervention                            |
+| SAT                      | SCR-like representation with open endpoint retirement; FiLM in key cells | DG target ID via FiLM                       | PPO + graph HRL                                             | Adds a more permissive retirement gate and compact goal interface                         |
+| DGP                      | F16 DG with PPO-to-DG JOINT in historical cells                          | DG target ID, LEG or FiLM                   | PPO; HIT/FIRST outcome variants                             | Couples worker objective directly to DG and can build dense graphs without causal control |
+| CPD                      | F16 DG with CA3-history-dependent feedback                               | DG target ID / FiLM depending cell          | PPO                                                         | Tests CA3 feedback-history routing such as DIRECT versus BPTT                             |
+| W_REF                    | Frozen/shared reference detector variants                                | Reference-defined target                    | PPO; no comparable learned graph payload                    | Tests reference-state routing rather than self-organized graph learning                   |
+| Direct F16 DDQN          | F16 DG + fixed CA3                                                       | DG target ID                                | Stored-state DDQN, optional HER                             | Replaces PPO control with off-policy Q learning while keeping direct landmark goals       |
+| Waypoint decoder F64     | F64 DG + goal-independent memory                                         | DG target ID at decoder                     | Waypoint manager + stored-state DDQN, optional HER          | Larger landmark vocabulary and decoder-only goal conditioning                             |
+| CA3 predictive/readout   | F64 DG + learned z = W S from CA3                                        | DG ID or continuous readout state           | Stored DDQN+HER + waypoint/context graph                    | Separates current state representation, goal representation, and contextual recognition   |
+| CA3 state-goal follow-up | Same predictive readout, H32                                             | Continuous readout goal + contextual anchor | Stored DDQN+HER                                             | Factorial anchor maintenance FIXED/EMA × candidate admission DOM/UNIQUE                   |
+| Reward transfer          | Source DG/policy/graph may be frozen, tuned, or discarded                | Fixed or cued external reward site          | External-reward PPO or transferred waypoint/controller path | Tests reuse after reward specification rather than intrinsic-training quality itself      |
 
 ## 3. What the chronological development actually changed
 
