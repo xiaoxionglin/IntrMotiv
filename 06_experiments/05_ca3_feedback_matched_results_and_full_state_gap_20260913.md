@@ -1,5 +1,19 @@
 # 05 — CA3 feedback comparison: matched results and missing full-state test
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | Held fixed |
+| --- | --- | --- |
+| Representation | CPD C15, F16 DG | Threshold/normalization, ARR credit, and broader CPD family |
+| CA3 feedback routing | DIRECT versus BPTT history-gradient routing | This is the intended matched factor |
+| Goal interface | FiLM | Same target interface in the primary rows |
+| Controller / DG ownership | PPO worker; JOINT PPO-to-DG path | Same across primary rows |
+| Predictor | No auxiliary predictor | Therefore this is not the later CA3 predictive-readout architecture |
+| Evaluation | 75M online spatial snapshots plus 65–75M control/coverage windows | Policy-driven, not fixed-observation fields |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 Prepared 13 September 2026 from saved September 8 artifacts; no fresh runtime audit. Historical CPD StudySpec schema intrmotiv/study/v1, declared workflow 1.4.1. No numerical interpolation: use matched cells and leave untested conditions missing.
 
 All primary rows: CPD C15 ARR/FIRST/JOINT/FiLM, legacy BN, 16 DG units, no auxiliary predictor, no discrete recruitment, same 75M budget and seeds 8/99/123. DIRECT/BPTT refers to feedback-history gradient routing; PPO-to-DG remains JOINT. Spatial measurements use 100k behavior samples at 75M; coverage and FIRST lift use 65–75M. These are policy-driven snapshots, not fixed-observation comparisons. All 16 units are active in all 27 selected snapshots.

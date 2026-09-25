@@ -1,5 +1,19 @@
 # 07 — Learned FiLM parameters crossed with CA3 and depth input weights
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | Interpretation |
+| --- | --- | --- |
+| Checkpoints | One SCR, one SAT, one DGP selected checkpoint | Selected exemplars, not replicated conditions |
+| Goal interface | Target-ID FiLM table at the decoder | The analysis asks whether parameters vary across goals |
+| State input | 1136 CA3 + 10 depth + 3 instruction dimensions in the inspected decoder | Weight magnitude is not realized contribution |
+| Controller | Historical PPO | No new training or behavioral intervention |
+| Representation | Existing learned DG/CA3 checkpoints | Field quality differs across selected families |
+| Primary question | Are FiLM parameters nontrivial and how do they relate to CA3/depth weights? | Nonzero parameter variation is not proof of goal-specific behavior |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 14 September 2026. Read-only checkpoint extraction on NEMO2, local parameter analysis. Three selected historical candidates, not random seeds or replicated conditions: SCR ARR DIRS S123 and SAT ARR DIRO FiLM S8 for spatial fields; DGP HIT JOINT FiLM S99 for highest saved terminal DGP option success. All checkpoints are 75,038,720 frames. Exact paths and SHA-256 hashes are in summary.json. No rollout or activation replay was run.
 
 ## Verified architecture

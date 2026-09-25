@@ -2,8 +2,9 @@
 
 This vault organizes the IntrMotiv research notes around the transition-distance intrinsic reward idea for DG-CA3 landmark exploration.
 
-## Current results synthesis — 22 September 2026
+## Current results synthesis
 
+- [[../06_experiments/README|Factorized experiment synthesis and report map — canonical entry point]]
 - [[../05_plans/poster_results_synthesis_20260922|Poster and paper synthesis: claims, evidence, candidate runs, and missing tests]]
 
 ## Project Context

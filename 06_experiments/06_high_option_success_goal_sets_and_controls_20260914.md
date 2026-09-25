@@ -1,5 +1,19 @@
 # 06 — High option success: candidate goals, accidental hits, and matched controls
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | Interpretation |
+| --- | --- | --- |
+| Family | Selected DGP HIT runs plus matched FIRST/STOP controls; one Saturday frontier-manager case | Not a balanced architecture ranking |
+| Goal representation | DG target ID, LEG or FiLM depending selected run | Candidate vocabulary can be broad while physical destinations remain ambiguous |
+| Outcome rule | HIT allows intervening wrong landmarks; FIRST terminates on first distinct outcome | This difference is central to why eventual success can look high |
+| Controller | PPO; JOINT or STOP DG routing in selected DGP rows | Controller and DG-learning path differ in some selected cases |
+| Graph | Passive/controllability eligibility and reliability statistics | Edge density/coverage are proxy evidence, not verified skills |
+| Primary question | Does high option success imply command-specific navigation? | The report answers this with matched controls and says no |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 14 September 2026. Analysis of saved September 6–8 artifacts; not a fresh runtime collection. Select the highest terminal DGP HIT run, the strongest spatial HIT candidate, and a STOP control. Add the highest Saturday terminal option-success run as a different-manager comparison. This is targeted descriptive analysis, not a statistical selection-independent ranking.
 
 DGP uses passive_confidence[source,target] > 0 eligibility, balanced by decayed attempt evidence. The set saturated to all 15 alternatives per source / 240 directed pairs, so these terminal HIT scores were not confined to a small eligible-goal subset. Eligibility does not mean every goal is successfully controlled. HIT permits intervening wrong identities; FIRST ends on the first distinct exclusive outcome. A 1/15 baseline pertains to a uniform command and a single command-independent outcome, not to eventual HIT over multiple opportunities.

@@ -57,3 +57,10 @@ architectural switches.
   The distinction matters for causal interpretation.
 - Record batch-specific parameter sets in `06_experiments/`; keep this folder
   batch-independent.
+
+
+## Report Factorization
+
+Experiment reports use the factor vocabulary in [[../../06_experiments/README|the factorized experiment synthesis]]. A historical family label such as SCR, SAT, DGP, CPD, W_REF, Direct F16, or Waypoint F64 is shorthand for a bundle of choices; it must not substitute for stating the actual factors changed in a comparison.
+
+Every new result report should explicitly state environment/task, DG representation, CA3/state representation, goal representation, controller/learner, manager/graph, reward/supervision, replay/update contract, and evaluation protocol. Put chronological launch/recovery details under provenance rather than adding another top-level architecture description.

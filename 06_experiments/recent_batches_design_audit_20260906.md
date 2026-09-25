@@ -1,5 +1,19 @@
 # Recent IntrMotiv batches: design audit
 
+## Architecture factorization
+
+| Factor | Levels crossed in the audited batches | Why it matters |
+| --- | --- | --- |
+| Encoder credit | ARR versus SRC | Changes where temporal credit is assigned in DG learning |
+| Goal interface | LEG versus FiLM | Changes target conditioning without changing the graph itself |
+| Retirement | MON versus DIR/PRED and silent/open endpoint rules | Must verify that replacement actually occurred before attributing outcomes to retirement |
+| DG regularization | C05/C13/C15/X1 and related temporal-exclusion settings | Strongly affects sparsity, overlap, and recruitment pressure |
+| Control objective | HIT/eventual success versus first-outcome variants | Eventual activation can produce false-positive control |
+| Manager / graph | Direct/frontier/passive/controllability variants | Dense reachability can coexist with command-insensitive behavior |
+
+The chronological batches are interpreted here as a factorial mechanism audit. For the maintained cross-report matrix, see [[README|factorized experiment synthesis]].
+
+
 **Date:** 2026-09-06  
 **Scope:** graph-stabilized recruitment through the completed Saturday batch  
 **Purpose:** distinguish useful mechanisms from graph/telemetry false positives

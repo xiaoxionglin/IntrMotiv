@@ -1,5 +1,18 @@
 # 03 — Mean, punishment, and silent units: comparison with Jannek
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | What is isolated |
+| --- | --- | --- |
+| Environment / controller | Historical open-field PPO line; no new training | Held outside the main question |
+| DG objective | Encourage versus mean/punish; batch recruitment present/absent; global punishment/row repulsion discussed | Representation-learning pressure is the primary factor |
+| Normalization | Historical BatchNorm/update variants are potential interacting factors | Not cleanly isolated in the old collapse slice |
+| Goal / graph | Secondary to this report | Do not infer control quality from the representation diagnosis |
+| Evidence type | Source/report audit plus retained matched normalization evidence | Mechanistic diagnosis, not a new factorial experiment |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 10 September 2026. Read-only investigation of saved reports and local source; no new training or runtime comparison. The evidence supports several concrete contributors, but not a uniquely identified cause of the Jannek-to-IntrMotiv difference.
 
 **Most direct documented configuration difference:** the August 24 anti-collapse field-analysis slice explicitly disabled `encoder_batch_loss`, used mean/punish, and ran to 80M. Its previous healthy reference used encourage plus batch loss and 100M. Jannek's section 4.2 identifies batch loss as the strongest auxiliary effect under punishment. Therefore the collapsed slice did not preserve the earlier push–pull balance. It cannot isolate the effect of global punishment or row repulsion. This explanation applies to that slice, not every later run.

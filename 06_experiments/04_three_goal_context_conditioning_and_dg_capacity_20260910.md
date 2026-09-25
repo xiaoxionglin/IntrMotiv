@@ -1,5 +1,19 @@
 # 04 — Three-goal HippoSLAM: context conditioning and DG capacity
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | What changes with it |
+| --- | --- | --- |
+| Task context | Three numerical instructions; historical randomization not fully re-authenticated from retained source | Context reaches both DG and decoder bypass in the retained architecture |
+| DG capacity | F = 8, 16, 32 | Also changes CA3 width and decoder input width; not a pure neuron-count ablation |
+| Instruction amplitude | Scale 1 versus 9 | Changes context input magnitude, not semantic task structure |
+| Goal representation | Task instruction is distinct from the later DG/CA3 subgoal representation | Do not conflate map/task context with landmark goal identity |
+| Controller | Historical PPO | No DDQN/HER comparison here |
+| Evidence | Terminal historical summaries | Unequal frame counts; descriptive capacity/context evidence |
+
+Cross-report context: [[README|factorized experiment synthesis]].
+
+
 Follow-up: [agreed DG-capacity and goal-conditioning batch plan](dg_capacity_goal_conditioning_plan_20260910.md)
 (27 intrinsic-training runs; downstream transfer deferred until joint review).
 

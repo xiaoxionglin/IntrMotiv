@@ -1,5 +1,17 @@
 # 02 — Architectures and losses: place fields, trajectories, and graphs
 
+## Architecture factorization
+
+| Factor | Levels / setting in this report | Interpretation |
+| --- | --- | --- |
+| Environment | Historical open-field lineages, mostly five-action/repeat-8; Navigation8 is discussed only as a later screen | Do not treat newer action timing as a replication of the historical runs |
+| Representation | Frozen ResNet trunk; trainable F16 DG; fixed CA3; SCR/SAT/DGP/CPD/W_REF families vary encoder credit, recruitment, gradient routing, and reference paths | This report compares architecture bundles, not one-factor ablations |
+| Goal representation | Mostly DG target ID; LEG versus FiLM in relevant HRL cells; W_REF uses reference-defined goals | Goal interface is a separate factor from DG field quality |
+| Controller | Historical PPO worker/value path | Later DDQN/HER results belong to a different controller family |
+| Graph / manager | Family-specific direct/graph/retirement logic | Graph connectivity is not equivalent to command-conditioned control |
+| Primary use | Architectural dictionary for the older families | For current cross-report organization, use [[README|factorized experiment synthesis]] |
+
+
 Prepared 10 September 2026 for a technical discussion. Evidence is from retained reports, CSV/JSON summaries, and gallery artifacts through September 9, plus the September 10 transfer launch record. No fresh training audit or new rollout was performed. Architectural equations were checked against the sealed September 8 hotfix source and the relevant StudySpecs. New designs proposed on September 9 are not experimental results.
 
 **Assessment.** The useful candidates fall into three groups: selected historical checkpoints with localized activity (SCR/SAT), controlled architectural contrasts that may explain representation learning (DGP/CPD and W_REF), and newer exploration/localization candidates (F_GATE/G_SHARED/C15 continuation). None demonstrates the joint target of stable distributed landmarks, command-caused destination arrival, and broad persistent exploration.
