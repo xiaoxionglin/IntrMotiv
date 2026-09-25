@@ -1,0 +1,86 @@
+{
+  "dg50": {
+    "source_checkpoint": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/fixed_reward_transfer_20260924/source_checkpoints/dg50/00_DGC_WAYPOINT_DG_F64_S123/checkpoint_p0/checkpoint_000015950_130662400.pth",
+    "source_graph_buffers": 25,
+    "initial_graph_exact_source": true,
+    "initial_dg_exact_source": true,
+    "graph": {
+      "edge_confidence": {
+        "initial_sum": 4040.87744140625,
+        "final_sum": 3650.431640625,
+        "l1_delta": 1118.0548095703125
+      },
+      "tctrl": {
+        "initial_sum": 15155.0869140625,
+        "final_sum": 18671.791015625,
+        "l1_delta": 3596.0859375
+      },
+      "reward_goal_value": {
+        "initial_sum": 0.0,
+        "final_sum": 616.1340942382812,
+        "l1_delta": 616.1340942382812
+      },
+      "reward_goal_count": {
+        "initial_sum": 0.0,
+        "final_sum": 2802.0,
+        "l1_delta": 2802.0
+      }
+    },
+    "dg_weight_l1_delta": 280.912109375,
+    "dg_row_cosine": {
+      "mean": 0.9954675436019897,
+      "median": 0.9956842064857483,
+      "p10": 0.993109506368637,
+      "min": 0.9722397923469543,
+      "rows_below_0_9": 0,
+      "row_count": 64
+    },
+    "reward": {
+      "paired_steps": 18,
+      "positive_external_steps": 7,
+      "max_abs_ppo_environment_mean_diff": 0.0
+    }
+  },
+  "dg51": {
+    "source_checkpoint": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/fixed_reward_transfer_20260924/source_checkpoints/dg51/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123/checkpoint_p0/checkpoint_000021868_179142656.pth",
+    "source_graph_buffers": 25,
+    "initial_graph_exact_source": true,
+    "initial_dg_exact_source": true,
+    "graph": {
+      "edge_confidence": {
+        "initial_sum": 3667.8017578125,
+        "final_sum": 3254.196044921875,
+        "l1_delta": 955.3592529296875
+      },
+      "tctrl": {
+        "initial_sum": 13202.306640625,
+        "final_sum": 16660.646484375,
+        "l1_delta": 3534.962158203125
+      },
+      "reward_goal_value": {
+        "initial_sum": 0.0,
+        "final_sum": 6.351537704467773,
+        "l1_delta": 6.351537704467773
+      },
+      "reward_goal_count": {
+        "initial_sum": 0.0,
+        "final_sum": 2133.0,
+        "l1_delta": 2133.0
+      }
+    },
+    "dg_weight_l1_delta": 261.83184814453125,
+    "dg_row_cosine": {
+      "mean": 0.9965790510177612,
+      "median": 0.9969666004180908,
+      "p10": 0.9941047430038452,
+      "min": 0.9899041652679443,
+      "rows_below_0_9": 0,
+      "row_count": 64
+    },
+    "reward": {
+      "paired_steps": 15,
+      "positive_external_steps": 6,
+      "max_abs_ppo_environment_mean_diff": 0.0
+    }
+  }
+}
