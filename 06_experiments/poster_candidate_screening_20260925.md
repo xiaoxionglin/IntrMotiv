@@ -34,7 +34,7 @@ availability supports only a subset, it is labeled as such above.
 | DGP HIT–JOINT–LEG S123, 75M | Five of 16 eligible units classified mono-field; cosine 0.107; the five fields cluster in one corner | Option success 55.5% in the 65–75M window; target/shuffle hit lift 0.9973 | Specialized local fields and high eventual HIT completion do not show command-specific destinations. This is an individual seed observation within a three-seed terminal screen. |
 | CA3 ZGOAL_FIXED_H16, 75M | Three-seed mean cosine 0.227, mono-field 12.0%, 46.7 distinct peak bins | 43.3 reliable edges; 3.1% reachable pairs; grounded control 0 | Better populated graph than the matched contextual H16 cell, but no grounded command control. |
 | CA3 CTX_FULL_H16, 75M | Three-seed mean cosine 0.259, mono-field 1.7%, 46 distinct peak bins | 2.0 reliable edges; 0.1% reachable pairs; grounded control 0 | Similar peak-bin count does not prevent a collapse in reliable graph evidence; the selected matched scalar scan was incomplete. |
-| CA3 state-goal FIXED/UNIQUE, 25M | Mono-field rises from 4.7% to 10.2% in three-seed means | Reliable edges fall from 23.0 to 0.3; reachable pairs are 0.7% versus 0 | This is a consistent representation/graph trade-off association for the declared candidate rule, not a control benefit. |
+| CA3 state-goal FIXED/UNIQUE, 25M and restricted 75M | At 25M, mono-field rises from 4.7% to 10.2%; in the matched 75M two-seed comparison, UNIQUE raises mono-field by 7.9 pp on average | At 75M, UNIQUE reduces reliable edges by 21/run and prospective success by 16.2 pp; grounded control remains zero | The representation/graph trade-off recurs in the restricted later subset; this does not establish control. |
 | Easy landmark rich Waypoint, 2M qualification | Cosine 0.270; mono-field 26.6%; 31 peak bins | 30 reliable edges; 0.8% reachable pairs | One-seed early qualification evidence only; no command-control result. |
 
 The preceding table combines different tasks only to summarize observations;
@@ -103,9 +103,12 @@ start command intervention is present.
   discovery; qualification and offline alias diagnostics exist separately but
   are not a substitute for the production matched-age metrics.
 - The state-goal 75M restricted factorial is now computed from seeds 99 and 123;
-  its ten-row canonical source and derived two-seed tables are linked in the
-  report. Both fixed-anchor seed-8 rows remain missing, so no full three-seed
-  75M factorial is presented.
+  its ten-row canonical source, source manifest, and derived two-seed tables are
+  linked in the report. UNIQUE is associated with more mono-field units but far
+  fewer reliable edges and prospective attempts; grounded control remains zero.
+  Both fixed-anchor seed-8 rows are missing, so no full three-seed 75M factorial
+  is presented. The copied 75M output has aggregate rows only, without field or
+  graph-edge detail tables or an atlas.
 
 ## Transfer and missing analyses
 
