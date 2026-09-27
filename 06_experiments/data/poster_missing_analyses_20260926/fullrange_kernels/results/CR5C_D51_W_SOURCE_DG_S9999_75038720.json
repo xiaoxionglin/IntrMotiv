@@ -1,0 +1,180 @@
+{
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/inputs/CR5C_D51_W_SOURCE_DG_S9999_75038720/00_CR5C_D51_W_SOURCE_DG_S9999/checkpoint_p0/checkpoint_000009160_75038720.pth",
+  "panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/panels/eight_cue_row23.npz",
+  "decoder_1_module": "decoder.state_layer.1",
+  "observations": 10001,
+  "grid_bins_per_axis": 19,
+  "bin_width_dmlab_units": 100,
+  "max_offset_bins_per_axis": 18,
+  "reference_far_offset_bins": 6,
+  "decoder_calls_per_step": [
+    1
+  ],
+  "decoder_multi_call_max_difference": 0.0,
+  "feature_counts": {
+    "dg": 64,
+    "ca3": 4544,
+    "decoder_1": 128
+  },
+  "per_cue": {
+    "1": {
+      "observations": 1639,
+      "dg": {
+        "visited_cells": 111,
+        "near_pairs": 278,
+        "far_pairs": 106,
+        "near_corr": 0.6572849750518799,
+        "far_corr": 0.546137809753418,
+        "near_minus_far": 0.11114716529846191
+      },
+      "ca3": {
+        "visited_cells": 111,
+        "near_pairs": 278,
+        "far_pairs": 106,
+        "near_corr": 0.7458779811859131,
+        "far_corr": 0.5822716951370239,
+        "near_minus_far": 0.16360628604888916
+      },
+      "decoder_1": {
+        "visited_cells": 111,
+        "near_pairs": 278,
+        "far_pairs": 106,
+        "near_corr": 0.9009490609169006,
+        "far_corr": 0.8062056303024292,
+        "near_minus_far": 0.09474343061447144
+      }
+    },
+    "2": {
+      "observations": 971,
+      "dg": {
+        "visited_cells": 78,
+        "near_pairs": 152,
+        "far_pairs": 78,
+        "near_corr": 0.8022459745407104,
+        "far_corr": 0.7474817037582397,
+        "near_minus_far": 0.0547642707824707
+      },
+      "ca3": {
+        "visited_cells": 78,
+        "near_pairs": 164,
+        "far_pairs": 84,
+        "near_corr": 0.7998924851417542,
+        "far_corr": 0.6951244473457336,
+        "near_minus_far": 0.10476803779602051
+      },
+      "decoder_1": {
+        "visited_cells": 78,
+        "near_pairs": 164,
+        "far_pairs": 84,
+        "near_corr": 0.9161825180053711,
+        "far_corr": 0.8624318242073059,
+        "near_minus_far": 0.053750693798065186
+      }
+    },
+    "3": {
+      "observations": 3146,
+      "dg": {
+        "visited_cells": 155,
+        "near_pairs": 372,
+        "far_pairs": 188,
+        "near_corr": 0.6917025446891785,
+        "far_corr": 0.6537788510322571,
+        "near_minus_far": 0.03792369365692139
+      },
+      "ca3": {
+        "visited_cells": 155,
+        "near_pairs": 388,
+        "far_pairs": 192,
+        "near_corr": 0.756618857383728,
+        "far_corr": 0.6396766901016235,
+        "near_minus_far": 0.11694216728210449
+      },
+      "decoder_1": {
+        "visited_cells": 155,
+        "near_pairs": 388,
+        "far_pairs": 192,
+        "near_corr": 0.8873255252838135,
+        "far_corr": 0.7984615564346313,
+        "near_minus_far": 0.08886396884918213
+      }
+    },
+    "4": {
+      "observations": 2443,
+      "dg": {
+        "visited_cells": 136,
+        "near_pairs": 328,
+        "far_pairs": 126,
+        "near_corr": 0.6928128004074097,
+        "far_corr": 0.6719294190406799,
+        "near_minus_far": 0.020883381366729736
+      },
+      "ca3": {
+        "visited_cells": 136,
+        "near_pairs": 346,
+        "far_pairs": 128,
+        "near_corr": 0.7335941791534424,
+        "far_corr": 0.5711529850959778,
+        "near_minus_far": 0.1624411940574646
+      },
+      "decoder_1": {
+        "visited_cells": 136,
+        "near_pairs": 346,
+        "far_pairs": 128,
+        "near_corr": 0.8802160024642944,
+        "far_corr": 0.7894863486289978,
+        "near_minus_far": 0.09072965383529663
+      }
+    },
+    "5": {
+      "observations": 1802,
+      "dg": {
+        "visited_cells": 145,
+        "near_pairs": 352,
+        "far_pairs": 162,
+        "near_corr": 0.6388335824012756,
+        "far_corr": 0.5640932321548462,
+        "near_minus_far": 0.07474035024642944
+      },
+      "ca3": {
+        "visited_cells": 145,
+        "near_pairs": 356,
+        "far_pairs": 164,
+        "near_corr": 0.7146881222724915,
+        "far_corr": 0.6001923084259033,
+        "near_minus_far": 0.11449581384658813
+      },
+      "decoder_1": {
+        "visited_cells": 145,
+        "near_pairs": 356,
+        "far_pairs": 164,
+        "near_corr": 0.8680838346481323,
+        "far_corr": 0.7503398656845093,
+        "near_minus_far": 0.11774396896362305
+      }
+    }
+  },
+  "dg_length_scale_bins": 23.0,
+  "dg_heading_length_scale_bins": 22.0,
+  "dg_near_corr": 0.7615926265716553,
+  "dg_far_corr": 0.688826322555542,
+  "dg_near_minus_far": 0.07276630401611328,
+  "dg_heading_near_corr": 0.6880163550376892,
+  "dg_heading_far_corr": 0.6811313629150391,
+  "dg_heading_near_minus_far": 0.0068849921226501465,
+  "ca3_length_scale_bins": 24.0,
+  "ca3_heading_length_scale_bins": 21.0,
+  "ca3_near_corr": 0.8063018321990967,
+  "ca3_far_corr": 0.7358494400978088,
+  "ca3_near_minus_far": 0.07045239210128784,
+  "ca3_heading_near_corr": 0.7264554500579834,
+  "ca3_heading_far_corr": 0.6291462779045105,
+  "ca3_heading_near_minus_far": 0.0973091721534729,
+  "decoder_1_length_scale_bins": null,
+  "decoder_1_heading_length_scale_bins": null,
+  "decoder_1_near_corr": 0.9096795320510864,
+  "decoder_1_far_corr": 0.848751962184906,
+  "decoder_1_near_minus_far": 0.06092756986618042,
+  "decoder_1_heading_near_corr": 0.8718572854995728,
+  "decoder_1_heading_far_corr": 0.8010715246200562,
+  "decoder_1_heading_near_minus_far": 0.0707857608795166
+}

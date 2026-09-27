@@ -1,0 +1,7 @@
+panel	observations	cue_1	cue_2	cue_3	cue_4	cue_5	use
+reduced_sat.npz	10001	na	na	na	na	na	Saturday ARR/SRC and DGP HIT/FIRST
+eight_cpu.npz	10001	na	na	na	na	na	CPU2048 Direct/Waypoint and DGC candidates
+eight_cue.npz	10001	384	0	7199	2416	2	original transfer replay; retained as sampling sensitivity only
+eight_cue_row23.npz	10001	1639	971	3146	2443	1802	primary five-cue complete-history replay for both D50/D51 at 75M
+eight_cue_row27.npz	10001	1538	1529	5400	1050	484	candidate inspected; stronger cue imbalance
+eight_cue_row28.npz	10001	4939	1097	543	1869	1553	candidate inspected; stronger cue imbalance

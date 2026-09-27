@@ -1,0 +1,23 @@
+--- /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/observation_panel.py	2026-09-10 19:10:35.545018552 +0200
++++ /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_poster_20260926/shared/sf_working_directories/IntrMotiv/evaluation/observation_panel.py	2026-09-26 17:53:09.125104268 +0200
+@@ -1,5 +1,6 @@
+ """Common observation trajectories for policy-independent representation tests."""
+ 
++import os
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -27,8 +28,11 @@
+ 
+ def save_panel(path, records):
+     path = Path(path).resolve()
+-    if not str(path).startswith("/work/classic/fr_xl1014-train/"):
+-        raise ValueError("Observation panels must live in the allocated workspace")
++    workspace_root = Path(os.environ.get("INTRMOTIV_WORKSPACE_ROOT", "/work/classic/fr_xl1014-train")).resolve()
++    try:
++        path.relative_to(workspace_root)
++    except ValueError as error:
++        raise ValueError(f"Observation panel must live under {workspace_root}") from error
+     if path.exists():
+         raise FileExistsError(path)
+     path.parent.mkdir(parents=True, exist_ok=True)

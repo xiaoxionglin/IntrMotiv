@@ -1,0 +1,43 @@
+{
+  "batch_name": "cued_reward5_frozen_dg_controls_20260925",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/reward_online_75m/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        65000000,
+        75000000
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "site"
+  ],
+  "contrasts": [
+    "W_SOURCE_DG_minus_W_RAND_DG"
+  ],
+  "expected_runs": 12,
+  "group_by": [
+    "site",
+    "arm"
+  ],
+  "input_rows": 12,
+  "metrics": [
+    "environment_reward_mean",
+    "environment_reward_nonzero_fraction",
+    "ppo_dg_gradient_norm"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cued_reward5_frozen_dg_controls_20260925",
+  "study_sha256": "774dd8275e0b5da821611078bf2802d834462f40dc55a7fea8ef351196932858",
+  "study_spec": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/cued_reward5_frozen_dg_controls_20260925/interim_spatial_20260926/analysis_only_study.json",
+  "study_workflow_version": "1.12.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0"
+}
