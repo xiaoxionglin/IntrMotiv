@@ -1,0 +1,103 @@
+family,condition,seed,checkpoint_frames,mono_fraction_eligible,mono_units,all_dg_units,active_fraction,distinct_all_peak_bins,visited_cell_fraction,source_protocol,source_csv
+CPD C15,CPD_C15_ADD_ACT_BPTT,123,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_GOAL,123,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT,99,75005952,0.0,,16,1.0,15.0,0.8448753462603878,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR,123,75005952,0.0625,,16,1.0,11.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_PASS,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_PASS,123,75005952,0.0,,16,1.0,12.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_BASE,99,75005952,0.0625,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_GOAL,123,75005952,0.0,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_PASS,99,75005952,0.0,,16,1.0,12.0,0.8670360110803325,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_PASS,99,75005952,0.0625,,16,1.0,14.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_PASS,99,75005952,0.0,,16,1.0,12.0,0.8642659279778393,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_PASS,8,75005952,0.0,,16,1.0,14.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR,123,75005952,0.0,,16,1.0,12.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_GOAL,8,75005952,0.0625,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_GOAL,99,75005952,0.0,,16,1.0,11.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR,99,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_GOAL,123,75005952,0.0,,16,1.0,12.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_GOAL,99,75005952,0.0625,,16,1.0,10.0,0.8559556786703602,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR,8,75005952,0.3125,,16,1.0,10.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_GOAL,99,75005952,0.0,,16,0.9375,11.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_PASS,123,75005952,0.0,,16,1.0,15.0,0.8698060941828255,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_GOAL,123,75005952,0.0,,16,1.0,14.0,0.8587257617728532,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_GOAL,8,75005952,0.0,,16,1.0,10.0,0.8670360110803325,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_BASE,123,75005952,0.0625,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_GOAL,8,75005952,0.0,,16,1.0,11.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR,8,75005952,0.0,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_PASS,123,75005952,0.0,,16,1.0,15.0,0.8614958448753463,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_PASS,123,75005952,0.1875,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT_PASS,8,75005952,0.0,,16,1.0,13.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_BASE,8,75005952,0.25,,16,1.0,12.0,0.8698060941828255,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR,99,75005952,0.0,,16,1.0,11.0,0.8421052631578947,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT,8,75005952,0.0,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_PASS,123,75005952,0.0,,16,1.0,13.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_GOAL,8,75005952,0.0,,16,0.9375,12.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_GOAL,99,75005952,0.0,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT,99,75005952,0.0,,16,1.0,13.0,0.8448753462603878,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_GOAL,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_PASS,123,75005952,0.0,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_PASS,99,75005952,0.0,,16,1.0,11.0,0.8725761772853186,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_GOAL,123,75005952,0.0,,16,1.0,12.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_GOAL,123,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR,123,75005952,0.0625,,16,1.0,15.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR,99,75005952,0.375,,16,1.0,7.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_PASS,8,75005952,0.0625,,16,1.0,14.0,0.8614958448753463,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_DIR_PASS,8,75005952,0.125,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_GOAL,8,75005952,0.4375,,16,1.0,8.0,0.853185595567867,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR,8,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR,123,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_GOAL,99,75005952,0.125,,16,1.0,14.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR,99,75005952,0.0,,16,1.0,16.0,0.8559556786703602,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_PASS,99,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_GOAL,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_DIR_PASS,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_GOAL,99,75005952,0.125,,16,1.0,13.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT,8,75005952,0.0,,16,1.0,15.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_PASS,123,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_PASS,8,75005952,0.0625,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_GOAL,8,75005952,0.0,,16,1.0,14.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_GOAL,99,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_BPTT,99,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT,8,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_GOAL,123,75005952,0.0,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_GOAL,123,75005952,0.0,,16,1.0,14.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_GOAL,123,75005952,0.0,,16,1.0,13.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT,99,75005952,0.1875,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_PASS,123,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT,123,75005952,0.0,,16,1.0,11.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT,8,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_PASS,8,75005952,0.0,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_GOAL,8,75005952,0.0625,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT,123,75005952,0.0,,16,1.0,15.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT_PASS,99,75005952,0.0,,16,1.0,14.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_GOAL,99,75005952,0.0,,16,1.0,13.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_PASS,99,75005952,0.0,,16,1.0,13.0,0.8781163434903048,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_CA3_BPTT_PASS,99,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_BPTT_PASS,8,75005952,0.0,,16,1.0,14.0,0.8670360110803325,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_ACT_BPTT,123,75005952,0.0,,16,1.0,15.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_ADD_ACT_DIR_PASS,123,75005952,0.0,,16,1.0,15.0,0.8476454293628809,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_GATE_CA3_DIR_GOAL,99,75005952,0.0,,16,1.0,14.0,0.8753462603878116,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+CPD C15,CPD_C15_P_PASS,99,75005952,0.0625,,16,1.0,12.0,0.8808864265927978,online 100k training-window spatial snapshot,results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv
+Navigation8,N8_W_REF_STOP,8,75005952,0.25,,16,1.0,15.0,0.8725761772853186,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_W_REF_JOINT,99,75005952,0.125,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_W_REF_JOINT,8,75005952,0.125,,16,1.0,15.0,0.8753462603878116,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_W_REF_STOP,123,75005952,0.125,,16,1.0,16.0,0.8808864265927978,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SAT_ARR_DIRO_FILM,99,75005952,0.125,,16,1.0,14.0,0.8227146814404432,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SCR_ARR_DIRS,99,75005952,0.0,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SCR_ARR_DIRS,8,75005952,0.5,,16,1.0,8.0,0.8587257617728532,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SCR_ARR_DIRS,123,75005952,0.0625,,16,1.0,15.0,0.8310249307479224,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SAT_ARR_DIRO_FILM,8,75005952,0.0625,,16,1.0,13.0,0.8753462603878116,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_SAT_ARR_DIRO_FILM,123,75005952,0.0,,16,1.0,16.0,0.8781163434903048,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_DGP_HIT_JOINT_LEG,99,75005952,0.0,,16,1.0,14.0,0.850415512465374,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_DGP_HIT_JOINT_LEG,8,75005952,0.0,,16,1.0,13.0,0.7839335180055401,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_DGP_HIT_JOINT_LEG,123,75005952,0.0625,,16,1.0,13.0,0.853185595567867,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_CPD_GATE_CA3_BPTT,99,75005952,0.0625,,16,1.0,16.0,0.8698060941828255,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_CPD_GATE_CA3_BPTT,8,75005952,0.0,,16,1.0,13.0,0.8337950138504155,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_CPD_GATE_CA3_BPTT,123,75005952,0.0,,16,1.0,14.0,0.8670360110803325,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_W_REF_JOINT,123,75005952,0.0625,,16,1.0,16.0,0.8725761772853186,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Navigation8,N8_W_REF_STOP,99,75005952,0.0625,,16,1.0,13.0,0.8808864265927978,online 100k training-window spatial snapshot,data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv
+Corrected core,CCR_C15_TOPOLOGY_UCB_DIRECT_O1,8,100040704,0.0625,1,16,1.0,16.0,0.6897506925207756,frozen-policy 10k-decision historical evaluator,assets/corrected_core_c15_place_fields_20260908/c15_metrics.csv
+Corrected core,CCR_C15_TOPOLOGY_UCB_DIRECT_O1,99,100040704,0.0,0,16,1.0,16.0,0.8587257617728532,frozen-policy 10k-decision historical evaluator,assets/corrected_core_c15_place_fields_20260908/c15_metrics.csv
+Corrected core,CCR_C15_TOPOLOGY_UCB_DIRECT_O1,123,100040704,0.0,0,16,1.0,16.0,0.7534626038781164,frozen-policy 10k-decision historical evaluator,assets/corrected_core_c15_place_fields_20260908/c15_metrics.csv

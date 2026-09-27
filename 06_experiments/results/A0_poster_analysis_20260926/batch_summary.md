@@ -70,6 +70,8 @@ The [complete 39-run exemplar gallery](exemplar_gallery/selection_summary.md) ad
 
 The gallery also contains a [mono-field-only peak analysis](exemplar_gallery/selection_summary.md#mono-field-peak-analysis-for-every-run) for **all 39 runs**: one occupancy-plus-peak panel per run, six seed-by-arm family sheets, a [three-seed architecture overview](exemplar_gallery/mono_field_overview.svg), and an exact [mono-field count table](exemplar_gallery/mono_field_peak_counts.csv). Each run reports qualifying mono-field units over **all** DG units (16 or 64) and distinct peak bins; zero-qualifier runs remain visible. These plots use the saved canonical unit flags and peak coordinates from the same frozen-policy archives, with no additional rollout.
 
+An [earlier-run extension screen](exemplar_gallery/historical_extension_screen.md) ranks 102 locally saved terminal rows across corrected-core C15, CPD C15, and Navigation8 families. It identifies three-seed STOP, JOINT, and CPD BASE candidates plus high but seed-specific SCR and CPD variants. Corrected-core C05/C15 share a recorded 100,040,704-frame terminal evaluator checkpoint, but the C05 mono-field unit flags and full frozen archives require the historical NEMO2 workspace. These older protocols are kept separate from the 39-run frozen-policy aggregate plots pending exact file verification and completion of the full per-run analysis set.
+
 | Figure | Claim supported and provenance |
 | --- | --- |
 | [Three paired comparisons](poster_candidates/frozen_seed_pairs.svg) | Saturday map overlap, CPU2048 peak diversity, DGP stored graph confidence; three seeds and exact matched ages in the checkpoint table. |
