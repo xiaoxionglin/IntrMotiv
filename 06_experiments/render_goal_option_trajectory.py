@@ -14,30 +14,35 @@ import pandas as pd
 
 
 def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
-           bounds: tuple[float, float, float, float]) -> None:
+           bounds: tuple[float, float, float, float], sampling_label: str = "replay") -> None:
     if scope == "first_episode":
         pose = pose.loc[pose.num_traj == pose.num_traj.iloc[0]].copy()
         scope_title = f"First episode ({len(pose):,} decisions)"
     else:
-        scope_title = f"Full replay ({len(pose):,} decisions)"
+        scope_title = f"Full {sampling_label} ({len(pose):,} decisions)"
 
     fig, ax = plt.subplots(figsize=(8.5, 8.0), layout="constrained")
     for _, episode in pose.groupby(["agent", "num_traj"], sort=False):
         ax.plot(episode.x, episode.y, color="#606973", lw=1.1, alpha=0.46, zorder=1)
 
-    starts = pose.loc[pose.option_start]
-    hits = pose.loc[pose.goal_hit]
+    event_columns = {"option_start", "goal_hit"}
+    if event_columns & set(pose.columns) and not event_columns <= set(pose.columns):
+        raise ValueError("Option-start and goal-hit columns must be supplied together")
+    has_events = event_columns <= set(pose.columns)
+    starts = pose.loc[pose.option_start] if has_events else pose.iloc[:0]
+    hits = pose.loc[pose.goal_hit] if has_events else pose.iloc[:0]
     start_size = 24 if scope == "full" else 56
     start_alpha = 0.65 if scope == "full" else 1.0
-    ax.scatter(starts.x, starts.y, s=start_size, marker="o", facecolor="none",
-               edgecolor="#0b69a3", linewidth=1.4, alpha=start_alpha, zorder=3,
-               label=f"Option start ({len(starts)})")
-    ax.scatter(hits.x, hits.y, s=118, marker="*", facecolor="#d38a00",
-               edgecolor="#754b00", linewidth=0.55, zorder=4,
-               label=f"Goal hit ({len(hits)})")
+    if has_events:
+        ax.scatter(starts.x, starts.y, s=start_size, marker="o", facecolor="none",
+                   edgecolor="#0b69a3", linewidth=1.4, alpha=start_alpha, zorder=3,
+                   label=f"Option start ({len(starts)})")
+        ax.scatter(hits.x, hits.y, s=118, marker="*", facecolor="#d38a00",
+                   edgecolor="#754b00", linewidth=0.55, zorder=4,
+                   label=f"Goal hit ({len(hits)})")
     ax.scatter(pose.iloc[0].x, pose.iloc[0].y, s=72, marker="s",
                facecolor="#303941", edgecolor="white", linewidth=0.9,
-               zorder=5, label="Replay start")
+               zorder=5, label=f"{sampling_label.capitalize()} start")
     ax.set(xlabel="Arena x (DMLab units)", ylabel="Arena y (DMLab units)",
            xlim=bounds[:2], ylim=bounds[2:])
     ax.set_title(f"{title}\n{scope_title}", pad=13)

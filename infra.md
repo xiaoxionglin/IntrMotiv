@@ -90,6 +90,11 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** A focused synthetic trajectory test excludes reset jumps,
   distinguishes a stationary path from a closed moving loop, and records counts
   at multiple declared lags; a real saved probe reproduces the poster CSV.
+- **Reuse lesson:** The complete C01/C05/C15 nine-run poster comparison reused
+  archived poses and maps locally, with the existing flow and kernel functions.
+  Adding a configurable exemplar seed list and paired-seed difference table
+  avoided a new rollout or a separate analysis workflow. C01 has no goal options:
+  use explicit not-applicable entries rather than zero goal-hit counts.
 
 ### Frozen random DG needs normalization calibration — 2026-09-25
 

@@ -20,13 +20,14 @@ import pandas as pd
 
 from collect_poster_population_kernels import correlation_kernel
 from render_poster_frozen import flow_cells, render_flow
+from render_goal_option_trajectory import render as render_trajectory
 
 
 DATA = Path("06_experiments/data/flat_goal_comparison_20260927")
 DEFAULT_OUTPUT = Path("06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison")
 REMOTE_ANALYSIS = Path("/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/"
                        "train_dir/analysis")
-CONDITIONS = {"C01": "Flat", "C02": "Goal: delayed", "C03": "Goal: immediate",
+CONDITIONS = {"C01": "Non-goal-conditioned", "C02": "Goal: delayed", "C03": "Goal: immediate",
               "C05": "Goal + DG regularization", "C15": "Goal + UCB frontier"}
 COLORS = {"C01": "#5E5E5E", "C02": "#0072B2", "C03": "#56B4E9",
           "C05": "#009E73", "C15": "#D55E00"}
@@ -112,28 +113,49 @@ def build_table(input_root: Path, output: Path) -> pd.DataFrame:
     return result
 
 
-def summary_figure(data: pd.DataFrame, output: Path) -> None:
+def summary_figure(data: pd.DataFrame, output: Path, conditions=None) -> None:
+    conditions = list(CONDITIONS) if conditions is None else list(conditions)
     fig, axes = plt.subplots(2, 2, figsize=(14, 10), constrained_layout=True)
     metrics = [("coverage_auc_terminal", "Coverage AUC / episode", None),
                ("unique_cells_terminal", "Unique cells / episode", None),
                ("return_20_mobile", "20-decision short-return fraction", (0, 1)),
                ("return_40_mobile", "40-decision short-return fraction", (0, 1))]
     for ax, (metric, ylabel, ylim) in zip(axes.flat, metrics):
-        for condition in CONDITIONS:
+        for condition in conditions:
             group = data[data.condition == condition].sort_values("seed")
-            xs = np.full(len(group), list(CONDITIONS).index(condition), dtype=float)
+            xs = np.full(len(group), conditions.index(condition), dtype=float)
             ax.scatter(xs + np.array([-0.09, 0, 0.09]), group[metric],
                        c=COLORS[condition], s=54, zorder=3)
             ax.plot([xs[0] - .15, xs[0] + .15], [group[metric].mean()] * 2,
                     color="black", lw=2, zorder=4)
-        ax.set(xlim=(-.5, 4.5), ylabel=ylabel, ylim=ylim)
-        ax.set_xticks(range(5), ["Flat", "Delayed", "Immediate", "DG reg.", "UCB"],
-                      rotation=15, ha="right")
+        ax.set(xlim=(-.5, len(conditions)-.5), ylabel=ylabel, ylim=ylim)
+        labels = {"C01": "C01\nNon-goal-\nconditioned", "C02": "C02\nDelayed",
+                  "C03": "C03\nImmediate", "C05": "C05\nGoal + DG reg.",
+                  "C15": "C15\nGoal + UCB"}
+        ax.set_xticks(range(len(conditions)), [labels[c] for c in conditions],
+                      fontsize=16, ha="center")
+        ax.tick_params(axis="y", labelsize=16)
+        ax.yaxis.label.set_size(16)
         ax.grid(axis="y", alpha=.2)
-    fig.suptitle("Corrected core · flat versus goal-conditioned packages · 100.04M frames\n"
-                 "Dots: seeds 8, 99, 123; black line: three-seed mean")
+    fig.suptitle("Corrected core · non-goal-conditioned versus goal-conditioned · 100.04M frames\n"
+                 "Dots left to right: seeds 8, 99, 123; black line: three-seed mean", fontsize=18)
     fig.savefig(output, bbox_inches="tight")
     plt.close(fig)
+
+
+def paired_changes(data: pd.DataFrame, output: Path) -> None:
+    """Compare each goal-conditioned seed with its C01 training-seed baseline."""
+    baseline = data[data.condition == "C01"].set_index("seed")
+    rows = []
+    for record in data[data.condition.isin(["C05", "C15"])].itertuples():
+        base = baseline.loc[record.seed]
+        rows.append({"condition": record.condition, "baseline": "C01", "seed": record.seed,
+                     "coverage_auc_change": record.coverage_auc_terminal - base.coverage_auc_terminal,
+                     "unique_cells_change": record.unique_cells_terminal - base.unique_cells_terminal,
+                     "return20_change_pp": 100 * (record.return_20_mobile - base.return_20_mobile),
+                     "return40_change_pp": 100 * (record.return_40_mobile - base.return_40_mobile),
+                     "probe_visited_bins_change": record.visited_bins_probe - base.visited_bins_probe})
+    pd.DataFrame(rows).to_csv(output, index=False)
 
 
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
@@ -148,6 +170,10 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
         information = values["spatial_information"]
     destination = output / f"{condition.lower()}_seed{seed}"
     destination.mkdir(parents=True, exist_ok=True)
+    for scope in ("full", "first_episode"):
+        render_trajectory(pose, destination / f"trajectory_{scope}.svg",
+                          f"{condition} · {CONDITIONS[condition]} · seed {seed}",
+                          scope, (100, 2000, 100, 2000), sampling_label="archived probe")
 
     # Reuse the established flow computation and renderer, preserving its cell contract.
     flow_cells(pose).to_csv(destination / "flow_cells.csv", index=False)
@@ -178,7 +204,7 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
         field_image = ax.imshow(np.ma.masked_where(occupancy.T == 0, maps[:, :, unit].T),
                                 origin="lower", vmin=0, vmax=vmax, cmap="viridis",
                                 interpolation="nearest")
-        ax.set(title=f"DG {unit} · SI {information[unit]:.2f} bit", xlabel="x bin", ylabel="y bin")
+        ax.set(title=f"DG {unit} · score {information[unit]:.2f}", xlabel="x bin", ylabel="y bin")
     fig.colorbar(field_image, ax=axes, label="Mean DG activation", shrink=.75)
     fig.suptitle(f"{CONDITIONS[condition]} · seed {seed} · top four DG maps; shared scale")
     fig.savefig(destination / "place_fields.svg", bbox_inches="tight")
@@ -198,11 +224,15 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
     plt.close(fig)
 
 
-def graph_figure(input_root: Path, output: Path) -> None:
+def graph_figure(input_root: Path, output: Path, seed: int = 99,
+                 graph_path: Path | None = None) -> None:
     """Show the checkpoint-stored edge evidence for the two goal exemplars."""
-    with (input_root / "stored_graph_seed99.json").open() as stream:
+    with (graph_path or input_root / "stored_graph_seed99.json").open() as stream:
         records = json.load(stream)
     fig, axes = plt.subplots(1, 2, figsize=(12, 5.5), constrained_layout=True)
+    records = [r for r in records if r["seed"] == seed]
+    if len(records) != 2:
+        raise ValueError(f"Expected C05/C15 graph records for seed {seed}")
     for ax, record in zip(axes, records):
         attempts = np.asarray(record["control_attempts"], dtype=float)
         confidence = np.asarray(record["edge_confidence"], dtype=float)
@@ -211,7 +241,7 @@ def graph_figure(input_root: Path, output: Path) -> None:
         ratio[attempts == 0] = np.nan
         image = ax.imshow(np.ma.masked_invalid(ratio), cmap="viridis", vmin=0, vmax=1,
                           interpolation="nearest")
-        ax.set(xlabel="Target DG", ylabel="Source DG", title=f"{CONDITIONS[record['condition']]} · seed 99")
+        ax.set(xlabel="Target DG", ylabel="Source DG", title=f"{CONDITIONS[record['condition']]} · seed {seed}")
         ax.set_xticks(range(0, 16, 3))
         ax.set_yticks(range(0, 16, 3))
     fig.colorbar(image, ax=axes, label="Stored confidence / attempts", shrink=.78)
@@ -242,13 +272,19 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=DATA)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--exemplar-seeds", nargs="+", type=int, default=[99])
+    parser.add_argument("--graphs", type=Path, help="Compact checkpoint graph JSON")
     args = parser.parse_args()
     setup_style()
     data = build_table(args.input, args.output)
+    paired_changes(data, args.output / "c01_paired_changes.csv")
     summary_figure(data, args.output / "architecture_summary.svg")
+    summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))
     for condition in ("C01", "C05", "C15"):
-        exemplar(data, args.input, args.output, condition)
-    graph_figure(args.input, args.output / "stored_graphs_seed99.svg")
+        for seed in args.exemplar_seeds:
+            exemplar(data, args.input, args.output, condition, seed)
+    for seed in args.exemplar_seeds:
+        graph_figure(args.input, args.output / f"stored_graphs_seed{seed}.svg", seed, args.graphs)
     older_batch_check(args.input, args.output / "older_batch_seed99_check.csv")
     print(data.groupby("condition")[["coverage_auc_terminal", "return_20_mobile",
                                      "return_40_mobile"]].mean().round(3).to_string())
