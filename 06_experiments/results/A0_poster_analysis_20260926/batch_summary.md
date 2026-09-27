@@ -68,6 +68,8 @@ The D50 source-versus-random ordering reverses at decoder-1, while D51 retains i
 
 The [complete 39-run exemplar gallery](exemplar_gallery/selection_summary.md) adds a run-by-run visual index, pooled peak-position maps, architecture bar and scatter plots, control diagnostics, and all-seed long-range layer profiles. It covers every current candidate and the three mature single-run examples; its [numeric inventory](exemplar_gallery/exemplar_inventory.csv) keeps exact checkpoints and statistics together for poster selection.
 
+The gallery also contains a [mono-field-only peak analysis](exemplar_gallery/selection_summary.md#mono-field-peak-analysis-for-every-run) for **all 39 runs**: one occupancy-plus-peak panel per run, six seed-by-arm family sheets, a [three-seed architecture overview](exemplar_gallery/mono_field_overview.svg), and an exact [mono-field count table](exemplar_gallery/mono_field_peak_counts.csv). Each run reports qualifying mono-field units over **all** DG units (16 or 64) and distinct peak bins; zero-qualifier runs remain visible. These plots use the saved canonical unit flags and peak coordinates from the same frozen-policy archives, with no additional rollout.
+
 | Figure | Claim supported and provenance |
 | --- | --- |
 | [Three paired comparisons](poster_candidates/frozen_seed_pairs.svg) | Saturday map overlap, CPU2048 peak diversity, DGP stored graph confidence; three seeds and exact matched ages in the checkpoint table. |

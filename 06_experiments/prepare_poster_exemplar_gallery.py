@@ -121,8 +121,8 @@ def inventory(data: Path, output: Path) -> pd.DataFrame:
         direct_row[f"{layer}_long_correlation"] = item.mean_correlation
         direct_row[f"{layer}_long_supported_offsets"] = item.offsets_supported
     result = pd.concat([result, pd.DataFrame([direct_row])], ignore_index=True)
-    peaks = pd.read_csv(data / "frozen_peak_positions_with_mature_direct.csv")
-    peaks = peaks[peaks.active_fraction > 0].copy()
+    all_units = pd.read_csv(data / "frozen_peak_positions_with_mature_direct.csv")
+    peaks = all_units[all_units.active_fraction > 0].copy()
     peaks["defined_peak"] = (peaks.field_eligible &
                              peaks.peak_x_bin.between(0, 18) &
                              peaks.peak_y_bin.between(0, 18))
@@ -130,8 +130,107 @@ def inventory(data: Path, output: Path) -> pd.DataFrame:
         active_peak_units=("unit", "size"), defined_peak_units=("defined_peak", "sum"))
     counts["defined_peak_fraction"] = counts.defined_peak_units / counts.active_peak_units
     result = result.merge(counts, on="label_suffix", validate="1:1")
+    unit_counts = all_units.groupby("label_suffix", as_index=False).agg(
+        dg_units_total=("unit", "size"), eligible_units=("field_eligible", "sum"))
+    mono = all_units[all_units.mono_field & all_units.field_eligible &
+                     (all_units.active_fraction > 0) &
+                     all_units.peak_x_bin.between(0, 18) &
+                     all_units.peak_y_bin.between(0, 18)].copy()
+    mono_counts = mono.groupby("label_suffix", as_index=False).agg(
+        mono_field_units=("unit", "size"))
+    mono_bins = mono.groupby("label_suffix").apply(
+        lambda group: group[["peak_x_bin", "peak_y_bin"]].drop_duplicates().shape[0],
+        include_groups=False).rename("mono_field_peak_bins").reset_index()
+    unit_counts = unit_counts.merge(mono_counts, on="label_suffix", how="left")
+    unit_counts = unit_counts.merge(mono_bins, on="label_suffix", how="left").fillna(0)
+    result = result.merge(unit_counts, on="label_suffix", validate="1:1")
+    for column in ("dg_units_total", "eligible_units", "mono_field_units", "mono_field_peak_bins"):
+        result[column] = result[column].astype(int)
+    result["mono_field_fraction_all_dg"] = result.mono_field_units / result.dg_units_total
+    if not np.allclose(result.mono_field_units / result.eligible_units,
+                       result.mono_field_fraction, atol=1e-12):
+        raise ValueError("Saved canonical mono-field fraction disagrees with unit flags")
     result.to_csv(output / "exemplar_inventory.csv", index=False)
+    result[["condition", "seed", "checkpoint_frames", "label_suffix", "analysis_role",
+            "dg_units_total", "active_units", "eligible_units", "mono_field_units",
+            "mono_field_fraction_all_dg", "mono_field_fraction", "mono_field_peak_bins"]].to_csv(
+                output / "mono_field_peak_counts.csv", index=False)
     return result
+
+
+def mono_peak_panel(ax: plt.Axes, units: pd.DataFrame, occupancy: np.ndarray,
+                    title: str) -> None:
+    """Show canonical mono-field peaks over the visited arena, including zeros."""
+    if occupancy.shape != (19, 19):
+        raise ValueError(f"Unexpected occupancy grid for {title}: {occupancy.shape}")
+    background = np.where(occupancy > 0, 1.0, np.nan)
+    palette = matplotlib.colors.ListedColormap(["#eef3f7"])
+    palette.set_bad("#c9ced3")
+    ax.imshow(background.T, origin="lower", cmap=palette, vmin=0, vmax=1,
+              extent=(0, 19, 0, 19), interpolation="nearest")
+    selected = units[units.mono_field & units.field_eligible &
+                     (units.active_fraction > 0) &
+                     units.peak_x_bin.between(0, 18) &
+                     units.peak_y_bin.between(0, 18)]
+    positions = selected.groupby(["peak_x_bin", "peak_y_bin"], as_index=False).size()
+    for position in positions.itertuples():
+        x, y, count = position.peak_x_bin, position.peak_y_bin, position.size
+        ax.scatter(x + .5, y + .5, s=28 + 13 * (count - 1),
+                   color=BLUE, edgecolor="white", linewidth=.8, zorder=3)
+    if selected.empty:
+        ax.text(.5, .5, "No mono-field units", transform=ax.transAxes,
+                ha="center", va="center", fontsize=12,
+                bbox={"facecolor": "white", "edgecolor": "none", "alpha": .9})
+    ax.set(xlim=(0, 19), ylim=(0, 19), xticks=[0, 9, 18], yticks=[0, 9, 18],
+           xlabel="x bin", ylabel="y bin", title=title)
+    ax.set_aspect("equal")
+
+
+def mono_peak_panels(data: Path, inventory: pd.DataFrame, output: Path) -> None:
+    """C15-style per-run peak maps and complete six-run family contact sheets."""
+    units = pd.read_csv(data / "frozen_peak_positions_with_mature_direct.csv")
+    for run in inventory.itertuples():
+        selected = units[units.label_suffix == run.label_suffix]
+        if len(selected) != run.dg_units_total:
+            raise ValueError(f"Missing DG unit rows: {run.label_suffix}")
+        with np.load(data / "top_four_frozen_fields" / f"{run.label_suffix}.npz",
+                     allow_pickle=False) as archive:
+            occupancy = archive["occupancy"]
+        fig, axes = plt.subplots(1, 2, figsize=(6.8, 3.6), constrained_layout=True)
+        occupancy_palette = plt.get_cmap("viridis").copy()
+        occupancy_palette.set_bad("#c9ced3")
+        image = axes[0].imshow(np.ma.masked_where(occupancy.T <= 0, occupancy.T),
+                               origin="lower", cmap=occupancy_palette,
+                               norm=matplotlib.colors.LogNorm(vmin=1, vmax=max(2, occupancy.max())),
+                               extent=(0, 19, 0, 19), interpolation="nearest")
+        axes[0].set(xlim=(0, 19), ylim=(0, 19), xticks=[0, 9, 18], yticks=[0, 9, 18],
+                    xlabel="x bin", ylabel="y bin", title="Frozen-policy occupancy")
+        axes[0].set_aspect("equal")
+        fig.colorbar(image, ax=axes[0], shrink=.7, label="Observations (log)")
+        mono_peak_panel(axes[1], selected, occupancy,
+                        f"Mono-field peaks: {run.mono_field_units}/{run.dg_units_total} DG · "
+                        f"{run.mono_field_peak_bins} bins")
+        fig.suptitle(f"{SHORT[run.condition]} · seed {run.seed} · "
+                     f"{run.checkpoint_frames:,} frames\n"
+                     "Dot area increases with the number of peaks in a bin", fontsize=13)
+        save(fig, output / "per_run" / run.label_suffix / "mono_field_peaks.svg")
+
+    for family, first, second, label_a, label_b in COMPARISONS:
+        fig, axes = plt.subplots(2, 3, figsize=(9.0, 6.4), constrained_layout=True)
+        for row_index, (condition, arm) in enumerate(((first, label_a), (second, label_b))):
+            for col_index, run in enumerate(
+                    inventory[inventory.condition == condition].sort_values("seed").itertuples()):
+                selected = units[units.label_suffix == run.label_suffix]
+                with np.load(data / "top_four_frozen_fields" / f"{run.label_suffix}.npz",
+                             allow_pickle=False) as archive:
+                    occupancy = archive["occupancy"]
+                mono_peak_panel(axes[row_index, col_index], selected, occupancy,
+                                f"{arm} · S{run.seed} · {run.mono_field_units}/{run.dg_units_total}"
+                                f" · {run.mono_field_peak_bins} bins")
+        fig.suptitle(f"{family} · frozen-policy mono-field DG peaks" +
+                     (" · ages differ" if family == "DGC candidates" else "") +
+                     "\nDot area increases with coincident peaks", fontsize=13)
+        save(fig, output / f"mono_peak_{family.lower().replace(' ', '_')}.svg")
 
 
 def peak_maps(peaks: pd.DataFrame, inventory: pd.DataFrame, output: Path) -> None:
@@ -215,6 +314,29 @@ def bars(inventory: pd.DataFrame, output: Path) -> None:
         ax.set_xlabel("Bits" if metric.endswith("bits") else "Fraction of active DG units")
     fig.suptitle("Frozen-policy DG field quality · three seeds per arm", fontsize=13)
     save(fig, output / "field_quality_overview.svg")
+
+    fig, axes = plt.subplots(1, 2, figsize=(8.4, 5.4), constrained_layout=True)
+    for ax, metric, title in zip(axes,
+        ("mono_field_fraction_all_dg", "mono_field_peak_bins"),
+        ("Canonical mono-field units / all DG", "Distinct mono-field peak bins")):
+        for index, condition in enumerate(order):
+            values = inventory.loc[inventory.condition == condition, metric].to_numpy()
+            if len(values) != 3:
+                raise ValueError(f"Missing three mono-field seeds for {condition}")
+            color = BLUE if index % 2 == 0 else ORANGE
+            ax.barh(index, values.mean(), height=.68, color=color, alpha=.55)
+            ax.scatter(values, np.full(3, index)+[-.14, 0, .14],
+                       s=25, color=color, edgecolor="black", linewidth=.45, zorder=3)
+        ax.set_yticks(range(len(order)), [SHORT[name] for name in order])
+        ax.invert_yaxis(); ax.set_title(title, loc="left")
+        ax.grid(axis="x", alpha=.2, linewidth=.7)
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(axis="y", length=0)
+        ax.set_xlabel("Fraction" if metric.endswith("all_dg") else "Peak bins")
+    fig.suptitle("Frozen-policy mono-field DG peaks · three seeds per arm\n"
+                 "Canonical 30/50/70%-of-peak rule; all DG units in the denominator",
+                 fontsize=13)
+    save(fig, output / "mono_field_overview.svg")
 
 
 def kernel_bands(inventory: pd.DataFrame, output: Path) -> None:
@@ -339,11 +461,12 @@ def run_index(inventory: pd.DataFrame, output: Path) -> None:
              "Each row is one frozen-policy checkpoint. DG and graph metrics use",
              "the saved frozen evaluation; the three kernel values are common-history",
              "mean correlations at 13–18 spatial bins. `Active/defined` gives active",
-             "DG units and those with an eligible, localized peak. The mature Direct",
+             "DG units and those with an eligible, localized peak; `Mono/all` counts",
+             "strict canonical mono-field units over all DG units. The mature Direct",
              "example is historical; its graph-reachability field is unavailable in",
              "the harmonized table. DGC Waypoint ages vary across seeds.", "",
-             "| Run | Exact frames | DG active / defined | SI (bits) | Map cosine | Peak bins | Visit / flow | Graph reach | Long DG / CA3 / Dec-1 | Panels |",
-             "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |"]
+             "| Run | Exact frames | DG active / defined | Mono / all DG | SI (bits) | Map cosine | Peak bins | Visit / flow | Graph reach | Long DG / CA3 / Dec-1 | Panels |",
+             "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |"]
     order = [name for _, a, b, _, _ in COMPARISONS for name in (a, b)]
     extra = ["CPU2048_DIRECT_F16_DDQN", "CPU2048_WAYPOINT_DECODER_F64_DDQN",
              "FSCS_WAYPOINT_DECODER_F64_PPO"]
@@ -352,7 +475,8 @@ def run_index(inventory: pd.DataFrame, output: Path) -> None:
             label = row.label_suffix
             prefix = f"per_run/{label}"
             links = " ".join(f"[{name}]({prefix}/{file})" for name, file in (
-                ("fields", "top_four_fields.svg"), ("trajectory", "occupancy_trajectory.png"),
+                ("fields", "top_four_fields.svg"), ("mono peaks", "mono_field_peaks.svg"),
+                ("trajectory", "occupancy_trajectory.png"),
                 ("flow", "occupancy_flow.png"), ("graph", "stored_graph.png"),
                 ("kernel", "layerwise_kernels.svg"), ("radial", "layerwise_radial.svg")))
             short = SHORT[condition]
@@ -361,6 +485,7 @@ def run_index(inventory: pd.DataFrame, output: Path) -> None:
             lines.append(
                 f"| {short} · seed {row.seed} | {row.checkpoint_frames:,} | "
                 f"{row.active_units:.0f} / {row.defined_peak_units:.0f} | "
+                f"{row.mono_field_units:.0f} / {row.dg_units_total:.0f} | "
                 f"{row.active_unit_mean_si_bits:.3f} | {row.active_map_cosine_mean:.3f} | "
                 f"{row.active_unique_peak_bins:.0f} | {row.visited_cell_fraction:.2f} / {flow} | "
                 f"{reach} | {row.dg_long_correlation:.2f} / {row.ca3_long_correlation:.2f} / "
@@ -384,6 +509,7 @@ def main() -> None:
     control_panels(args.data, info, args.output)
     representation_graph_scatter(info, args.output)
     field_panels(args.data, info, args.output)
+    mono_peak_panels(args.data, info, args.output)
     run_index(info, args.output)
     print(f"Built selection data for {len(info)} endpoint/candidate/exemplar runs")
 
