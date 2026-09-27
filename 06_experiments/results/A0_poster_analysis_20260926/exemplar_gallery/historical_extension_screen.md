@@ -1,5 +1,7 @@
 # Historical mono-field candidate screen
 
+This initial screen has been followed by the [30-run historical analysis and exact checkpoint audit](historical_extension/report.md). Use that report for current poster selection and protocol labels; the screen below documents how candidates were found.
+
 This is the first selection pass for extending the 39-run poster gallery. The [ranked condition table](../../../data/poster_missing_analyses_20260926/historical_extension/historical_candidate_ranking.csv) and [102 latest locally saved run rows](../../../data/poster_missing_analyses_20260926/historical_extension/historical_candidate_runs.csv) were read from canonical historical spatial summaries. The [screening adapter](../../../screen_poster_historical_candidates.py) keeps only each condition–seed's latest locally recorded snapshot. Exact checkpoint-file availability must be refreshed before new matched comparisons or kernel replay.
 
 The screen uses the historical evaluator's **mono-field fraction among eligible units**. It does not silently convert that fraction to mono-field units divided by all DG units. The existing [39-run frozen-policy gallery](mono_field_peak_counts.csv) reports the latter from raw unit flags. Online 100k training-window snapshots and frozen-policy 10k-decision probes also differ in visitation. Compare condition patterns within a protocol first; avoid treating all percentages below as one pooled ranking.

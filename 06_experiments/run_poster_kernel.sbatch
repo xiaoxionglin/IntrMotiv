@@ -13,6 +13,7 @@ source_kind=${5:?shared or cue}
 per_cue=${6:-false}
 
 workspace_root=/work/classic/fr_xl1014-corridor-geometry
+legacy_input_root=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir
 case "$source_kind" in shared|cue) ;; *) echo "Invalid source kind" >&2; exit 2 ;; esac
 source_root=$workspace_root/IntrMotiv/source_poster_20260926/$source_kind
 python=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
@@ -41,10 +42,16 @@ PY
 run_dir=${fields[0]}
 checkpoint=${fields[1]}
 label=${fields[2]}
-for path in "$run_dir" "$checkpoint" "$panel" "$output_root"; do
+for path in "$run_dir" "$checkpoint"; do
+    case "$path" in
+        "$workspace_root"/*|"$legacy_input_root"/*) ;;
+        *) echo "Training input outside recognized workspaces: $path" >&2; exit 2 ;;
+    esac
+done
+for path in "$panel" "$output_root"; do
     case "$path" in
         "$workspace_root"/*) ;;
-        *) echo "Input or output outside the active workspace: $path" >&2; exit 2 ;;
+        *) echo "Panel or output outside the active workspace: $path" >&2; exit 2 ;;
     esac
 done
 cd "$source_root"

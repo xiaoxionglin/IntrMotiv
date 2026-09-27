@@ -1,0 +1,43 @@
+{
+  "checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_ca3_feedback_predictive_dg_20260907/CPD_C15_GATE_ACT_DIR_GOAL_S8_/00_CPD_C15_GATE_ACT_DIR_GOAL_S8/checkpoint_p0/checkpoint_000004580_75038720.pth",
+  "panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/panels/reduced_sat.npz",
+  "decoder_1_module": "decoder.state_layer.1",
+  "observations": 10001,
+  "grid_bins_per_axis": 19,
+  "bin_width_dmlab_units": 100,
+  "max_offset_bins_per_axis": 18,
+  "reference_far_offset_bins": 6,
+  "decoder_calls_per_step": [
+    1
+  ],
+  "decoder_multi_call_max_difference": 0.0,
+  "feature_counts": {
+    "dg": 16,
+    "ca3": 1136,
+    "decoder_1": 128
+  },
+  "dg_length_scale_bins": null,
+  "dg_heading_length_scale_bins": 25.0,
+  "dg_near_corr": 0.8264381885528564,
+  "dg_far_corr": 0.703116238117218,
+  "dg_near_minus_far": 0.12332195043563843,
+  "dg_heading_near_corr": 0.7280367612838745,
+  "dg_heading_far_corr": 0.6236467361450195,
+  "dg_heading_near_minus_far": 0.10439002513885498,
+  "ca3_length_scale_bins": null,
+  "ca3_heading_length_scale_bins": null,
+  "ca3_near_corr": 0.8969359397888184,
+  "ca3_far_corr": 0.8131288290023804,
+  "ca3_near_minus_far": 0.08380711078643799,
+  "ca3_heading_near_corr": 0.8414586782455444,
+  "ca3_heading_far_corr": 0.6914383172988892,
+  "ca3_heading_near_minus_far": 0.15002036094665527,
+  "decoder_1_length_scale_bins": null,
+  "decoder_1_heading_length_scale_bins": null,
+  "decoder_1_near_corr": 0.969967246055603,
+  "decoder_1_far_corr": 0.939836323261261,
+  "decoder_1_near_minus_far": 0.03013092279434204,
+  "decoder_1_heading_near_corr": 0.9540195465087891,
+  "decoder_1_heading_far_corr": 0.8980598449707031,
+  "decoder_1_heading_near_minus_far": 0.05595970153808594
+}

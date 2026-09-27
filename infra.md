@@ -6,6 +6,29 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Historical poster telemetry should retain replayable layer statistics — 2026-09-28
+
+- **Evidence:** The saved CPD and Navigation8 online snapshots contained pose,
+  actions, DG activity, maps, and graph buffers, enough to render fields, peaks,
+  trajectories, flow, and command diagnostics without another environment run.
+  They lacked aligned CA3 and decoder-1 activity and RGB observations. Full
+  three-layer spatial kernels therefore required 21 exact-checkpoint forward
+  replays on an existing common history. Twelve CPD frozen-policy probes also
+  had to stage small checkpoints from the read-only legacy allocation because
+  the evaluator validates every input under the active output allocation.
+- **Impact:** A plot-range and layer-comparison request caused another compute
+  batch, while users could reasonably expect saved activity to support replotting.
+- **Proposed improvement/status:** Preserve full-range layer sufficient
+  statistics or aligned DG/CA3/decoder-1 activity in the reusable telemetry
+  contract. Accept validated read-only checkpoint roots while keeping every
+  output, cache, and temporary file in the active workspace. The historical
+  poster batch reuses existing arrays where possible and keeps the remote
+  workarounds isolated; shared evaluator integration remains open. See the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** Replot a 37-by-37 three-layer kernel from a saved artifact
+  without model replay, and execute a print-only plus one-row frozen preflight
+  from a legacy checkpoint with all writes confined to the active workspace.
+
 ### Frozen random DG needs normalization calibration — 2026-09-25
 
 - **Evidence:** Both uncalibrated random-DG qualification paths froze fresh BatchNorm moments at zero mean and unit variance. The GPU run had DG density 0, silent-unit fraction 1, and no DG-active transitions despite completing normally. Source-DG controls retained active fields.

@@ -93,6 +93,18 @@ replace the 10k manifest-driven checkpoint protocol: they are policy-driven
 training windows and cannot establish fixed-trajectory map stability or
 pre-threshold selectivity.
 
+For historical poster extensions, read the retained online NPZ before
+requesting new telemetry: `pose`, `dg_activity`, `actions`, `segment_id`,
+`occupancy`, `rate_maps`, and `field_mono` support DG fields, trajectories,
+occupancy flow, and mono-field peaks directly. When present, the separate
+`control_*` stored and prospective arrays support explicitly labeled directed
+edge and source-command analyses. The snapshot does not contain RGB history or
+aligned CA3/decoder-1 traces. Reuse an existing common observation/action
+panel for downstream-layer replay, and audit direct plus milestone checkpoint
+files first. If no exact frame is shared across every required condition and
+seed, label a common-age snapshot as developmental rather than presenting it
+as a latest-checkpoint architecture contrast.
+
 ## Authoritative Locations
 
 NEMO2 source checkout:

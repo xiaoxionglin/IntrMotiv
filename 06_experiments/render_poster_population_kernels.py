@@ -98,8 +98,8 @@ def main() -> None:
     fig.colorbar(image, ax=axes, label="Mean population-vector correlation",
                  shrink=.62, pad=.025)
     suffix = " · heading matched" if args.heading_matched else ""
-    fig.suptitle(f"{args.title}{suffix}\nFull ±{radius}-bin range · common history · mean of 3 seeds · gray: fewer than 2 seeds with ≥10 pairs, or self",
-                 fontsize=17)
+    fig.suptitle(f"{args.title}{suffix}\nFull ±{radius} bins · 3-seed mean · gray: <2 seeds, <10 cell pairs, or self",
+                 fontsize=16)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.output)
     fig.savefig(args.output.with_suffix(".png"), dpi=220)
