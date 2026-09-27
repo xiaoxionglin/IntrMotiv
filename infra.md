@@ -6,6 +6,26 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
+
+- **Evidence:** The corrected-core seed-99 C05 and C15 place-field archives
+  retain observation-time pose and goal-behavior aggregates, but `pose.csv`
+  omits the core's `option_reset` and `target_hit` flags. Exact option-start
+  and hit markers therefore required another frozen rollout from the terminal
+  checkpoint. The [poster comparison](06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md)
+  links the event-capture adapter and resulting marked trajectories.
+- **Impact:** Saved trajectory figures cannot be annotated with actual option
+  events, and a fresh stochastic replay must be plotted as a distinct path.
+- **Proposed improvement/status:** Add optional observation-aligned option
+  reset, target-hit, and timeout columns to the canonical pose artifact for
+  HRL runs. Keep flat and older archives readable. The poster adapter is an
+  isolated read-only hook; canonical integration remains open. See the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** A short HRL compute-node probe writes equal-length pose and
+  event columns, records option starts and completions at the same observation,
+  and a plotter marks them without inferring events from path shape. Existing
+  flat probes and historical CSV readers continue to work.
+
 ### Historical poster telemetry should retain replayable layer statistics — 2026-09-28
 
 - **Evidence:** The saved CPD and Navigation8 online snapshots contained pose,

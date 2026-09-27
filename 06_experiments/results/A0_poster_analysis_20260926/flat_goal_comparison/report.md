@@ -34,6 +34,52 @@ The A0 plan limits the final poster to two detailed examples. **C01 seed 99 vers
 | DG spatial kernel | [SVG](c01_seed99/dg_kernel.svg) | [SVG](c15_seed99/dg_kernel.svg) | [SVG](c05_seed99/dg_kernel.svg) |
 | Stored graph | Flat policy has no target graph | [C15 and C05 graph matrices](stored_graphs_seed99.svg) | [C15 and C05 graph matrices](stored_graphs_seed99.svg) |
 
+### Option events on goal-conditioned trajectories
+
+The earlier trajectory and occupancy panels contain only position records; their
+source probes did not save option resets or target-hit flags. To mark the actual
+events, we ran fresh stochastic frozen-policy replays from the **same terminal
+checkpoints** for the two goal-conditioned exemplars. The event figures show
+blue hollow circles at `option_reset` and gold stars at `target_hit`, read from
+the policy core at the **same observation** as each plotted position. A target
+hit can coincide with the start of the next option. These replays are separate
+sampled trajectories, so their event markers must not be transferred to the
+older paths above.
+
+| Goal-conditioned exemplar | Full-replay starts / hits | Complete marked trajectory | First episode, with less overplotting | Event records |
+| --- | ---: | --- | --- | --- |
+| C05 seed 99, goal + DG regularization | 1,505 / 483 | [Editable SVG](c05_seed99/trajectory_option_events_full.svg) | [Editable SVG](c05_seed99/trajectory_option_events_first_episode.svg) | [CSV](c05_seed99/option_events.csv) and [summary](c05_seed99/event_summary.json) |
+| C15 seed 99, goal + UCB frontier | 123 / 5 | [Editable SVG](c15_seed99/trajectory_option_events_full.svg) | [Editable SVG](c15_seed99/trajectory_option_events_first_episode.svg) | [CSV](c15_seed99/option_events.csv) and [summary](c15_seed99/event_summary.json) |
+
+Each replay contains 10,001 observation-time decisions (the canonical evaluator
+includes decision zero), split into 12 reset segments. The first 900-decision
+episode has 134 starts and 40 hits for C05, and 11 starts and **zero** hits for
+C15. All recorded hits coincide with option starts. C05's hits visibly cluster
+along the lower and right boundaries, whereas C15 records very few hits despite
+its broad trajectory. For the poster, the full C15 panel makes the gap between
+arena exploration and target-hit control clear; the first C05 episode makes
+the repeated boundary events easier to inspect. These markers do not strengthen
+the claim that C15 learned a better target-conditioned decoder.
+
+The complete pose-plus-event streams remain in the active NEMO2 analysis
+workspace at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928/output/raw/`.
+The [two-row replay manifest](goal_option_manifest.tsv) identifies the staged
+checkpoint inputs; [runtime provenance](goal_option_provenance.json) records
+the evaluator commit, source hashes, Python/PyTorch versions, and job IDs.
+The original checkpoint paths are in the
+[per-run table](matched_terminal_per_run.csv); their SHA-256 values and exact
+event counts are in the linked summaries. We reused the established
+[place-field evaluator](../../../capture_goal_option_trajectory.py) for the
+rollouts, adding only a read-only event capture; the
+[SVG renderer](../../../render_goal_option_trajectory.py) and
+[compute-node runner](../../../run_goal_option_sweep_single.sh) reproduce these
+panels. As with the rest of this comparison, a star records the model's own
+DG-target criterion, not independently verified spatial arrival.
+In the event CSV, `new_goal_id` is the goal selected after the core update;
+on a hit row it can therefore identify the next option rather than the completed
+target. The full streams also preserve timeout flags, although the plots mark
+only starts and hits.
+
 The [graph plot](stored_graphs_seed99.svg) shows checkpoint-stored edge confidence divided by attempts for each directed DG pair; white means no attempt or the diagonal. C15's nearly full matrix must be paired with its below-reference target-hit lift. The spatial kernels use the existing [population-vector Pearson kernel implementation](../../../collect_poster_population_kernels.py) on each policy's **own** frozen DG rate map, with at least five observations per cell and ten eligible cell pairs per offset. They are descriptive kernels, **not** a common-history causal representation comparison, and they do not include CA3 or decoder-1. The complete [C01](c01_seed99/dg_kernel.npz), [C05](c05_seed99/dg_kernel.npz), and [C15](c15_seed99/dg_kernel.npz) kernel arrays retain eligible pair counts. The local flow panels reuse the [existing flow implementation](../../../render_poster_frozen.py), and each exemplar has its [flow cells](c01_seed99/flow_cells.csv), [C05 cells](c05_seed99/flow_cells.csv), or [C15 cells](c15_seed99/flow_cells.csv).
 
 ## Original files and interpretation limits
