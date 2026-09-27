@@ -103,6 +103,7 @@ Transfer is a separate scientific question: whether intrinsically learned struct
 - [[fixed_reward_transfer_latest_common_20260911|Fixed-reward latest-common comparison]] compares scratch, frozen DG, tuned DG, and policy transfer at a shared training window.
 - [[fixed_reward_dg_peak_transfer_execution_20260924|DG-peak transfer execution]] and [[fixed_reward_transfer_implementation_20260910|transfer implementation]] document later transfer variants.
 - [[cued_reward5_transfer_20260925|Five-cue reward transfer]] replaces the single fixed destination with five instructed reward locations and tests broader reuse.
+- [[cued_reward5_frozen_dg_interim_analysis_20260926|Frozen-DG transfer controls]] compares source versus calibrated random DG place fields, graphs, option hits, reward learning, and CA3/depth input use at matched checkpoints.
 
 **Current lesson:** scratch can optimize a narrow downstream task rapidly, so transfer should increasingly test many instructed destinations or reward changes where reusable representation/control structure has a plausible advantage.
 

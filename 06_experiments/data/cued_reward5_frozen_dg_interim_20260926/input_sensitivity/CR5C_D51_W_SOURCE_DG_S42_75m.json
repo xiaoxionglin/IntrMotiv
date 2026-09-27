@@ -1,0 +1,20 @@
+{
+  "run_dir": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/cued_reward5_frozen_dg_controls_20260925_gpu/CR5C_D51_W_SOURCE_DG_S42_/00_CR5C_D51_W_SOURCE_DG_S42",
+  "checkpoint": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/cued_reward5_frozen_dg_controls_20260925_gpu/CR5C_D51_W_SOURCE_DG_S42_/00_CR5C_D51_W_SOURCE_DG_S42/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+  "decisions": 512,
+  "shuffles": 5,
+  "ca3_width": 4544,
+  "depth_width": 10,
+  "action_replay_max_probability_error": 3.5762786865234375e-07,
+  "method": "real-rollout core states, within-run marginal shuffles, frozen one-step action head",
+  "sensitivity": {
+    "ca3": {
+      "mean_total_variation": 0.30305503606796264,
+      "argmax_change_fraction": 0.258984375
+    },
+    "depth": {
+      "mean_total_variation": 0.0005608977866359055,
+      "argmax_change_fraction": 0.0
+    }
+  }
+}

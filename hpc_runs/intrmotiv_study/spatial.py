@@ -10,6 +10,7 @@ from typing import Any, Iterable, Mapping, Sequence
 import numpy as np
 
 from .spatial_contract import (
+    DEFAULT_SNAPSHOT_TARGETS,
     SPATIAL_DETAIL_ARRAYS,
     SNAPSHOT_SCHEMA,
     SpatialBounds,
@@ -52,7 +53,7 @@ SPATIAL_METRICS = (
     "cue_color_site_visit_fraction",
     "cue_color_peak_match_count",
 )
-DEFAULT_TARGETS = (5_000_000, 25_000_000, 50_000_000, 75_000_000, 100_000_000)
+DEFAULT_TARGETS = DEFAULT_SNAPSHOT_TARGETS
 GRAPH_SCALAR_KEYS = (
     "graph_reliable_edge_count",
     "graph_reliable_edge_density",
@@ -702,8 +703,13 @@ def render_trajectory_segments(
 
 def render_graph_outcomes(
     attempts: np.ndarray, successes: np.ndarray, output_stem: Path, *, title: str,
+    ratio_label: str = "Prospective hits / attempts",
 ) -> list[Path]:
-    """All attempted directed edges, not just reliable edges; fixed 0–1 scale."""
+    """All attempted directed edges, not just reliable edges; fixed 0–1 scale.
+
+    The caller supplies the label when plotting stored graph evidence rather
+    than prospective rollout outcomes.
+    """
     plt = _figure_runtime()
     attempts, successes = np.asarray(attempts), np.asarray(successes)
     if attempts.ndim != 2 or attempts.shape[0] != attempts.shape[1] or successes.shape != attempts.shape:
@@ -718,7 +724,7 @@ def render_graph_outcomes(
     fig, ax = plt.subplots(figsize=(10, 10), constrained_layout=True)
     image = ax.imshow(np.ma.masked_invalid(ratio), vmin=0, vmax=1, cmap=cmap, interpolation="nearest")
     ax.set(xlabel="Target DG unit", ylabel="Source DG unit", title=title)
-    fig.colorbar(image, ax=ax, shrink=.7, label="Prospective hits / attempts")
+    fig.colorbar(image, ax=ax, shrink=.7, label=ratio_label)
     return _save_figure(fig, output_stem, plt)
 
 

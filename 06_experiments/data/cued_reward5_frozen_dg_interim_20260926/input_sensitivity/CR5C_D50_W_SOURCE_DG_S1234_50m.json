@@ -1,0 +1,21 @@
+{
+  "run_dir": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/cued_reward5_frozen_dg_controls_20260925_cpu/CR5C_D50_W_SOURCE_DG_S1234_/00_CR5C_D50_W_SOURCE_DG_S1234",
+  "checkpoint": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/cued_reward5_frozen_dg_controls_20260925_cpu/CR5C_D50_W_SOURCE_DG_S1234_/00_CR5C_D50_W_SOURCE_DG_S1234/checkpoint_p0/milestones/checkpoint_000006104_50003968.pth",
+  "decisions": 512,
+  "shuffles": 5,
+  "ca3_width": 4544,
+  "ca3_path": "goal_written_worker_trace",
+  "depth_width": 10,
+  "action_replay_max_probability_error": 5.960464477539062e-07,
+  "method": "real-rollout core states, within-run marginal shuffles, frozen one-step action head",
+  "sensitivity": {
+    "ca3": {
+      "mean_total_variation": 0.4091143012046814,
+      "argmax_change_fraction": 0.446484375
+    },
+    "depth": {
+      "mean_total_variation": 3.011351182067301e-05,
+      "argmax_change_fraction": 0.0
+    }
+  }
+}

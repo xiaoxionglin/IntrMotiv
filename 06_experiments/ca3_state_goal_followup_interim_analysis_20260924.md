@@ -103,7 +103,11 @@ and 123. Cell summaries below use only those matched two seeds; each cell has
 100,000 retained behavior samples per run. The prospective counts are pooled
 over the two seed runs, while map, movement, graph-size, and reachability
 columns are means of per-run summaries. These are descriptive two-seed results,
-not confirmatory estimates.
+not confirmatory estimates. The source collector manifest records 34 of 60
+expected snapshots overall and `include_details: false`; the 75M numeric table
+is therefore reusable, while the 75M per-unit/per-field/edge details and atlas
+were not produced in this bundle. The existing visual atlas remains the
+complete matched 25M atlas.
 
 | Anchor / candidate | N | Map cosine | Mono-field | Distinct peak bins | Visited grid | Stationary | Path efficiency | Reliable edges | Reachable pairs | Prospective hits / attempts | Grounded control |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -127,7 +131,7 @@ subset: EMA/DOM averages 24.7 reliable edges and 34.9% prospective success,
 whereas EMA/UNIQUE averages 1.7 edges and 10.5% success. Do not combine these
 three-seed EMA means with the two-seed full-factorial contrasts.
 
-[Canonical ten-row 75M snapshot subset](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/per_snapshot.csv) · [two-seed cell summaries](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/restricted_factorial_cell_summary.csv) · [seed-paired contrasts](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/paired_seed_contrasts.csv).
+[Canonical ten-row 75M snapshot subset](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/per_snapshot.csv) · [two-seed cell summaries](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/restricted_factorial_cell_summary.csv) · [seed-paired contrasts](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/paired_seed_contrasts.csv) · [source canonical analysis manifest](data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/source_analysis_manifest.json).
 
 ## Interpretation and next test
 

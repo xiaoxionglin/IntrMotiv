@@ -3,13 +3,14 @@
 import argparse
 import json
 from pathlib import Path
-import numpy as np
-import matplotlib
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
 from matplotlib import font_manager
 from matplotlib.colors import ListedColormap
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402 - select the headless backend before pyplot
 
 
 def render(archive, output):

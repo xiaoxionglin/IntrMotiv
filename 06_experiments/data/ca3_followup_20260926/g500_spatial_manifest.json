@@ -1,0 +1,69 @@
+{
+  "batch_name": "ca3_state_goal_followup_20260923_g500_production_v2",
+  "complete": false,
+  "condition_summary_rows": 19,
+  "expected_runs": 12,
+  "expected_snapshots": 60,
+  "expected_targets": [
+    5000000,
+    25000000,
+    75000000,
+    150000000,
+    300000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "base",
+    "anchor_update",
+    "candidate_rule",
+    "controller"
+  ],
+  "include_details": false,
+  "missing": [
+    {
+      "policy_id": 0,
+      "run_name": "CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123",
+      "target_env_steps": 150000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    }
+  ],
+  "observed_snapshots": 55,
+  "per_field_rows": 0,
+  "per_snapshot_rows": 55,
+  "per_unit_rows": 0,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 55,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/scratch/lin/IntrMotiv/train_dir/analysis/online_spatial/ca3_state_goal_followup_20260923_g500_production_v2",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "ca3_state_goal_followup_20260923_g500_production_v2",
+  "study_sha256": "3eae7061195617daadf54669526923656f9e34cf3bdfa77a1a970f5558062a34",
+  "study_spec": "hpc_runs/studies/ca3_state_goal_followup_20260923_g500_production_v2.study.json",
+  "study_workflow_version": "1.11.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.11.0"
+}

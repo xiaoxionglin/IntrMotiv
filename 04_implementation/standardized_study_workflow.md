@@ -2,21 +2,42 @@
 
 ## Status
 
-Current implementation: **1.12.0** (landmark geometry and cue-aware telemetry; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.14.0** (planned-frame milestones and spatial contract validation; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
-The tested NEMO2 runtime copy is under
-`/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/hpc_runs/intrmotiv_study/`, with
-study files in the adjacent `hpc_runs/studies/` directory. The vault copy is
-the versioned source of truth; synchronize the runtime copy and run its focused
-tests whenever the implementation changes. Consult `LATEST.md` for the current
-deployment status before cluster use.
+The tested NEMO2 1.14.0 source is under
+`/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_merge_20260926/global_defaults_v114/hpc_runs/intrmotiv_study/`.
+The live checkout at `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/` remains on
+workflow 1.10.1 while running jobs use it. The vault copy is the versioned
+source of truth; synchronize a release checkout and run focused tests before
+using a new workflow component. Consult `LATEST.md` for deployment status.
 
 This is the default workflow for new training batches, repeated online
 analysis, and place-field telemetry. It preserves the existing Sample Factory
 launcher and the established NEMO2 telemetry evaluator as execution backends.
 The study specification is the shared source of truth above both backends.
+
+Version 1.13 makes inverse depth the default for fresh runs with depth enabled.
+For a study declaring 1.12 or earlier, the workflow renders
+`--depth_sensor_inverse=False` when depth is enabled and no depth-mode switch
+was declared. This keeps historical study meanings and fingerprints intact.
+A study declaring 1.13 uses inverse depth by default and may explicitly pass
+`--depth_sensor_inverse=False` for a pass-through control. Saved training
+configs retain their prior depth response on resume.
+
+Version 1.14 defaults fresh IntrMotiv runs to eight roughly evenly spaced
+evaluation milestones across the planned `train_for_env_steps`, including the
+final target. An explicit positive `save_milestones_sec` without explicit frame
+targets retains the older wall-clock cadence. Use an empty
+`checkpoint_frame_targets` to disable frame milestones or provide a custom
+comma-separated schedule. Pre-1.14 StudySpecs that omitted frame targets render
+an explicit empty setting, and saved configurations retain their original
+schedule. New StudySpecs enabling online spatial telemetry must declare
+`telemetry.online_spatial_target_frames` matching the runtime snapshot targets.
+The shared automatic cadence is defined in `spatial_contract.py`. New DMLab
+level caches resolve under `train_dir/runtime/dmlab_cache`; on NEMO2 the
+training directory must be inside the allocated workspace.
 
 Version 1.12.0 keeps StudySpec and online/offline NPZ schemas at v1 while adding
 optional map-geometry v2 cue fields. A v2 artifact must bind its entity layer,
@@ -286,6 +307,13 @@ TensorBoard histories are loaded with a bounded thread pool; set
 `analysis.max_workers` in the study when the default of four is inappropriate
 for the filesystem or event volume.
 
+When one StudySpec is launched into separate CPU and GPU batch roots, make a
+workspace-resident analysis directory with one symlink per declared run name,
+pointing directly to the nested `00_RUN` directory that contains `.summary/0`.
+Point `collect-online` at that directory. A symlink to the outer `RUN_`
+container does not expose the expected summary path to the collector. Record
+the actual batch roots and symlink mapping in the analysis report.
+
 Standard outputs are:
 
 - `per_run.csv`;
@@ -397,6 +425,13 @@ behavior data, new v1 snapshots cache evaluator-compatible maps, multilevel
 field components, complete available graph buffers, prospective edge outcomes,
 and deterministic graph diagnostics. Analyze them without rendering the full
 batch:
+
+Before submitting a study, match `telemetry.online_spatial_target_frames` to
+the training argument `--online_spatial_snapshot_targets` when it overrides the
+standard target list. The collector validates snapshot identities against the
+StudySpec and rejects a correctly written but undeclared target. Preserve the
+submitted StudySpec unchanged; if a historical study omitted the declaration,
+use a separately fingerprinted analysis-only copy and record both hashes.
 
 ```bash
 python -m hpc_runs.intrmotiv_study collect-spatial \
@@ -603,9 +638,10 @@ policy. Keep canonical detection separate, and verify alternate commands from
 identical observations and recurrent starts. Reuse the observation-panel and
 matched-command evaluators; the real DMLab smoke passed on an ordinary Slurm job.
 
-Explicit frame-zero checkpoints and permanent frame milestones must be requested;
-rolling and wall-clock saves do not guarantee the planned evaluation inventory.
-The runtime supports `save_initial_checkpoint` and `checkpoint_frame_targets`.
+Explicit frame-zero checkpoints must be requested. Fresh IntrMotiv runs now
+default to the eight-point frame milestone schedule; rolling and wall-clock
+saves do not guarantee that inventory. The runtime supports
+`save_initial_checkpoint` and `checkpoint_frame_targets`.
 Save each target at the first learner batch crossing it, preserving actual frame
 counts in standard milestone filenames. Resume does not backfill earlier targets.
 

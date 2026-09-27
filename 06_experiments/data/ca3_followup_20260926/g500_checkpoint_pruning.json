@@ -1,0 +1,1946 @@
+{
+  "created_at": 1790433177.377513,
+  "root": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2",
+  "strategy": "Eight nearest available frame-grid checkpoints, including initial and latest valid rolling restart; ZIP structure checked, not full tensor reload.",
+  "runs": [
+    {
+      "run": "CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/best_000003548_29065216_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_70.850.pth",
+          "frame": 29065216,
+          "size": 4193185464,
+          "mtime_ns": 1790141939213236887,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth",
+          "frame": 300056576,
+          "size": 4207848614,
+          "mtime_ns": 1790218649607049201,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790133193196899792,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000031584_258736128.pth",
+          "frame": 258736128,
+          "size": 4218981657,
+          "mtime_ns": 1790207040505548934,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000032378_265240576.pth",
+          "frame": 265240576,
+          "size": 4218967385,
+          "mtime_ns": 1790208838683814514,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000033156_271613952.pth",
+          "frame": 271613952,
+          "size": 4218978201,
+          "mtime_ns": 1790210641395751630,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000033934_277987328.pth",
+          "frame": 277987328,
+          "size": 4218973081,
+          "mtime_ns": 1790212440081762018,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000034722_284442624.pth",
+          "frame": 284442624,
+          "size": 4218973273,
+          "mtime_ns": 1790214242249003211,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000035900_294092800.pth",
+          "frame": 294092800,
+          "size": 4207828966,
+          "mtime_ns": 1790216912558513415,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036032_295174144.pth",
+          "frame": 295174144,
+          "size": 4207841958,
+          "mtime_ns": 1790217214957090620,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036164_296255488.pth",
+          "frame": 296255488,
+          "size": 4207846822,
+          "mtime_ns": 1790217513773652089,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036300_297369600.pth",
+          "frame": 297369600,
+          "size": 4207857254,
+          "mtime_ns": 1790217815352267600,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036422_298369024.pth",
+          "frame": 298369024,
+          "size": 4207835622,
+          "mtime_ns": 1790218115834838710,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036556_299466752.pth",
+          "frame": 299466752,
+          "size": 4207847974,
+          "mtime_ns": 1790218416152754688,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207849382,
+          "mtime_ns": 1790218616953142763,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000035514_290930688.pth",
+          "frame": 290930688,
+          "size": 4218981081,
+          "mtime_ns": 1790216037378393988,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036300_297369600.pth",
+          "frame": 297369600,
+          "size": 4218991961,
+          "mtime_ns": 1790217841251125110,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4218982745,
+          "mtime_ns": 1790218579508251886,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42865225.14285714,
+        85730450.28571428,
+        128595675.42857143,
+        171460900.57142857,
+        214326125.7142857,
+        257191350.85714287,
+        300056576.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/best_000004746_38879232_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_87.828.pth",
+          "frame": 38879232,
+          "size": 4193197048,
+          "mtime_ns": 1790144338444051335,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207862502,
+          "mtime_ns": 1790217338515911144,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612434,
+          "mtime_ns": 1790133193180899843,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000031294_256360448.pth",
+          "frame": 256360448,
+          "size": 4219009433,
+          "mtime_ns": 1790205242519909307,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000032086_262848512.pth",
+          "frame": 262848512,
+          "size": 4218973977,
+          "mtime_ns": 1790207040268549377,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000032890_269434880.pth",
+          "frame": 269434880,
+          "size": 4218982297,
+          "mtime_ns": 1790208840841809522,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000033690_275988480.pth",
+          "frame": 275988480,
+          "size": 4218978585,
+          "mtime_ns": 1790210641353751709,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000034484_282492928.pth",
+          "frame": 282492928,
+          "size": 4219001689,
+          "mtime_ns": 1790212437756767197,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000035816_293404672.pth",
+          "frame": 293404672,
+          "size": 4207874790,
+          "mtime_ns": 1790215416754577770,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000035952_294518784.pth",
+          "frame": 294518784,
+          "size": 4207858342,
+          "mtime_ns": 1790215716202381645,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036088_295632896.pth",
+          "frame": 295632896,
+          "size": 4207858854,
+          "mtime_ns": 1790216017023401856,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036210_296632320.pth",
+          "frame": 296632320,
+          "size": 4207866342,
+          "mtime_ns": 1790216313659208915,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036348_297762816.pth",
+          "frame": 297762816,
+          "size": 4207847782,
+          "mtime_ns": 1790216618230888592,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036478_298827776.pth",
+          "frame": 298827776,
+          "size": 4207873382,
+          "mtime_ns": 1790216919197504460,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036608_299892736.pth",
+          "frame": 299892736,
+          "size": 4207863718,
+          "mtime_ns": 1790217217399087104,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000035284_289046528.pth",
+          "frame": 289046528,
+          "size": 4218984473,
+          "mtime_ns": 1790214240943005868,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036088_295632896.pth",
+          "frame": 295632896,
+          "size": 4218993561,
+          "mtime_ns": 1790216041415392316,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4219000153,
+          "mtime_ns": 1790217271091009460,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42862884.571428575,
+        85725769.14285715,
+        128588653.71428572,
+        171451538.2857143,
+        214314422.85714287,
+        257177307.42857143,
+        300040192.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036626_300040192.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/best_000006482_53100544_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_82.926.pth",
+          "frame": 53100544,
+          "size": 4193201784,
+          "mtime_ns": 1790148837401581764,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207885990,
+          "mtime_ns": 1790217901194811272,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790133193343899321,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000031872_261095424.pth",
+          "frame": 261095424,
+          "size": 4218977625,
+          "mtime_ns": 1790207038175553280,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000032658_267534336.pth",
+          "frame": 267534336,
+          "size": 4219001369,
+          "mtime_ns": 1790208836999818410,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000033462_274120704.pth",
+          "frame": 274120704,
+          "size": 4218991961,
+          "mtime_ns": 1790210642193750139,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000034258_280641536.pth",
+          "frame": 280641536,
+          "size": 4219002457,
+          "mtime_ns": 1790212440212761726,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000035044_287080448.pth",
+          "frame": 287080448,
+          "size": 4219031001,
+          "mtime_ns": 1790214239975007838,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000035840_293601280.pth",
+          "frame": 293601280,
+          "size": 4207850982,
+          "mtime_ns": 1790216015474402416,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000035960_294584320.pth",
+          "frame": 294584320,
+          "size": 4207879974,
+          "mtime_ns": 1790216315273207481,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036098_295714816.pth",
+          "frame": 295714816,
+          "size": 4207870118,
+          "mtime_ns": 1790216618530888236,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036232_296812544.pth",
+          "frame": 296812544,
+          "size": 4207874150,
+          "mtime_ns": 1790216915571509353,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036366_297910272.pth",
+          "frame": 297910272,
+          "size": 4207874150,
+          "mtime_ns": 1790217216820087938,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036504_299040768.pth",
+          "frame": 299040768,
+          "size": 4207870246,
+          "mtime_ns": 1790217515823649034,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036624_300023808.pth",
+          "frame": 300023808,
+          "size": 4207887526,
+          "mtime_ns": 1790217815893264579,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000035840_293601280.pth",
+          "frame": 293601280,
+          "size": 4218985753,
+          "mtime_ns": 1790216039333393183,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4219022745,
+          "mtime_ns": 1790217783920446563,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000036624_300023808.pth",
+          "frame": 300023808,
+          "size": 4219022233,
+          "mtime_ns": 1790217841502123750,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42862884.571428575,
+        85725769.14285715,
+        128588653.71428572,
+        171451538.2857143,
+        214314422.85714287,
+        257177307.42857143,
+        300040192.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036626_300040192.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/best_000034406_281853952_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_74.132.pth",
+          "frame": 281853952,
+          "size": 4193579704,
+          "mtime_ns": 1790213654766172733,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth",
+          "frame": 300056576,
+          "size": 4207855014,
+          "mtime_ns": 1790218956178228183,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790133205347860875,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000031610_258949120.pth",
+          "frame": 258949120,
+          "size": 4218957529,
+          "mtime_ns": 1790207051251528892,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000032370_265175040.pth",
+          "frame": 265175040,
+          "size": 4219016409,
+          "mtime_ns": 1790208847747793554,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000033134_271433728.pth",
+          "frame": 271433728,
+          "size": 4218972505,
+          "mtime_ns": 1790210652634730606,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000033896_277676032.pth",
+          "frame": 277676032,
+          "size": 4218958681,
+          "mtime_ns": 1790212449181741758,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000034650_283852800.pth",
+          "frame": 283852800,
+          "size": 4218994073,
+          "mtime_ns": 1790214247454992618,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000035920_294256640.pth",
+          "frame": 294256640,
+          "size": 4207862054,
+          "mtime_ns": 1790217223178078776,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036052_295337984.pth",
+          "frame": 295337984,
+          "size": 4207815206,
+          "mtime_ns": 1790217525584634477,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036182_296402944.pth",
+          "frame": 296402944,
+          "size": 4207827750,
+          "mtime_ns": 1790217827528200067,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036300_297369600.pth",
+          "frame": 297369600,
+          "size": 4207840742,
+          "mtime_ns": 1790218127314792212,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036428_298418176.pth",
+          "frame": 298418176,
+          "size": 4207834022,
+          "mtime_ns": 1790218427306718792,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036560_299499520.pth",
+          "frame": 299499520,
+          "size": 4207825638,
+          "mtime_ns": 1790218728742828062,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207855206,
+          "mtime_ns": 1790218923014312905,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000035416_290127872.pth",
+          "frame": 290127872,
+          "size": 4218964057,
+          "mtime_ns": 1790216049963388658,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036182_296402944.pth",
+          "frame": 296402944,
+          "size": 4218962457,
+          "mtime_ns": 1790217854230055315,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4218991769,
+          "mtime_ns": 1790218884879411371,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42865225.14285714,
+        85730450.28571428,
+        128595675.42857143,
+        171460900.57142857,
+        214326125.7142857,
+        257191350.85714287,
+        300056576.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/best_000024668_202080256_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_73.514.pth",
+          "frame": 202080256,
+          "size": 4193543608,
+          "mtime_ns": 1790276219591466916,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036628_300056576.pth",
+          "frame": 300056576,
+          "size": 4207887590,
+          "mtime_ns": 1790305074068150005,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790217365749871200,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4217951548,
+          "mtime_ns": 1790224112070987335,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218338236,
+          "mtime_ns": 1790238742203014316,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4218942361,
+          "mtime_ns": 1790260854288655822,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000031636_259162112.pth",
+          "frame": 259162112,
+          "size": 4218966041,
+          "mtime_ns": 1790293018551038707,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000032382_265273344.pth",
+          "frame": 265273344,
+          "size": 4218974617,
+          "mtime_ns": 1790294819253889717,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036000_294912000.pth",
+          "frame": 294912000,
+          "size": 4207858278,
+          "mtime_ns": 1790303488315307112,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036126_295944192.pth",
+          "frame": 295944192,
+          "size": 4207847142,
+          "mtime_ns": 1790303784613707017,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036242_296894464.pth",
+          "frame": 296894464,
+          "size": 4207863462,
+          "mtime_ns": 1790304091148078556,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036368_297926656.pth",
+          "frame": 297926656,
+          "size": 4207925862,
+          "mtime_ns": 1790304386046491076,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036500_299008000.pth",
+          "frame": 299008000,
+          "size": 4207856294,
+          "mtime_ns": 1790304691789891808,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036624_300023808.pth",
+          "frame": 300023808,
+          "size": 4207891238,
+          "mtime_ns": 1790305010774272453,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207889318,
+          "mtime_ns": 1790305042009212011,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217811359,
+          "mtime_ns": 1790218688351939985,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000033130_271400960.pth",
+          "frame": 271400960,
+          "size": 4218944665,
+          "mtime_ns": 1790296616372168716,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000033882_277561344.pth",
+          "frame": 277561344,
+          "size": 4218970649,
+          "mtime_ns": 1790298417402561628,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000034628_283672576.pth",
+          "frame": 283672576,
+          "size": 4219025561,
+          "mtime_ns": 1790300217498553140,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000035376_289800192.pth",
+          "frame": 289800192,
+          "size": 4218986009,
+          "mtime_ns": 1790302017500627778,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036126_295944192.pth",
+          "frame": 295944192,
+          "size": 4218981849,
+          "mtime_ns": 1790303812859648025,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4219027545,
+          "mtime_ns": 1790304979275333435,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42865225.14285714,
+        85730450.28571428,
+        128595675.42857143,
+        171460900.57142857,
+        214326125.7142857,
+        257191350.85714287,
+        300056576.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036628_300056576.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036628_300056576.pth",
+          "frame": 300056576,
+          "size": 4207868326,
+          "mtime_ns": 1790305366411585673,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790217923572699437,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217419167,
+          "mtime_ns": 1790219384153190656,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4218007612,
+          "mtime_ns": 1790224909861683080,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218387068,
+          "mtime_ns": 1790239439544983937,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4218950745,
+          "mtime_ns": 1790261402389582365,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000031722_259866624.pth",
+          "frame": 259866624,
+          "size": 4218949593,
+          "mtime_ns": 1790293574128824011,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000032474_266027008.pth",
+          "frame": 266027008,
+          "size": 4218998361,
+          "mtime_ns": 1790295374435797678,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/best_000035110_287621120_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_74.688.pth",
+          "frame": 287621120,
+          "size": 4193536568,
+          "mtime_ns": 1790301675573817572,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000035984_294780928.pth",
+          "frame": 294780928,
+          "size": 4207820070,
+          "mtime_ns": 1790303749448780838,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036110_295813120.pth",
+          "frame": 295813120,
+          "size": 4207857702,
+          "mtime_ns": 1790304045214171315,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036238_296861696.pth",
+          "frame": 296861696,
+          "size": 4207815782,
+          "mtime_ns": 1790304347213567785,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036354_297811968.pth",
+          "frame": 297811968,
+          "size": 4207868390,
+          "mtime_ns": 1790304645233982618,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036482_298860544.pth",
+          "frame": 298860544,
+          "size": 4207805990,
+          "mtime_ns": 1790304948449393147,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036612_299925504.pth",
+          "frame": 299925504,
+          "size": 4207876710,
+          "mtime_ns": 1790305247924814188,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207869478,
+          "mtime_ns": 1790305333210649681,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000033224_272171008.pth",
+          "frame": 272171008,
+          "size": 4218972889,
+          "mtime_ns": 1790297174394061480,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000033978_278347776.pth",
+          "frame": 278347776,
+          "size": 4218968025,
+          "mtime_ns": 1790298973740995368,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000034736_284557312.pth",
+          "frame": 284557312,
+          "size": 4219023385,
+          "mtime_ns": 1790300774462507398,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000035482_290668544.pth",
+          "frame": 290668544,
+          "size": 4218971289,
+          "mtime_ns": 1790302576460191060,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000036238_296861696.pth",
+          "frame": 296861696,
+          "size": 4218950489,
+          "mtime_ns": 1790304373832515186,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4219007641,
+          "mtime_ns": 1790305297411718717,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42865225.14285714,
+        85730450.28571428,
+        128595675.42857143,
+        171460900.57142857,
+        214326125.7142857,
+        257191350.85714287,
+        300056576.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000036628_300056576.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/best_000009806_80330752_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_75.055.pth",
+          "frame": 80330752,
+          "size": 4193579064,
+          "mtime_ns": 1790242121752582934,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth",
+          "frame": 300056576,
+          "size": 4207842534,
+          "mtime_ns": 1790303483981315583,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790218671525987184,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4218007100,
+          "mtime_ns": 1790226155824426096,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218393084,
+          "mtime_ns": 1790240637163114041,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4218983705,
+          "mtime_ns": 1790261670611091479,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000031808_260571136.pth",
+          "frame": 260571136,
+          "size": 4218987033,
+          "mtime_ns": 1790292521281879259,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000032614_267173888.pth",
+          "frame": 267173888,
+          "size": 4218982745,
+          "mtime_ns": 1790294323074922583,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000035918_294240256.pth",
+          "frame": 294240256,
+          "size": 4207836710,
+          "mtime_ns": 1790301795354358450,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036056_295370752.pth",
+          "frame": 295370752,
+          "size": 4207844838,
+          "mtime_ns": 1790302096728396005,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036186_296435712.pth",
+          "frame": 296435712,
+          "size": 4207831398,
+          "mtime_ns": 1790302392724621310,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036324_297566208.pth",
+          "frame": 297566208,
+          "size": 4207845862,
+          "mtime_ns": 1790302696207924611,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036454_298631168.pth",
+          "frame": 298631168,
+          "size": 4207850662,
+          "mtime_ns": 1790302993126296308,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036590_299745280.pth",
+          "frame": 299745280,
+          "size": 4207838182,
+          "mtime_ns": 1790303295989685581,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207841894,
+          "mtime_ns": 1790303453082376049,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217385823,
+          "mtime_ns": 1790220157683012438,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000033410_273694720.pth",
+          "frame": 273694720,
+          "size": 4218988697,
+          "mtime_ns": 1790296120862176045,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000034210_280248320.pth",
+          "frame": 280248320,
+          "size": 4218988441,
+          "mtime_ns": 1790297924268775734,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000035004_286752768.pth",
+          "frame": 286752768,
+          "size": 4218987097,
+          "mtime_ns": 1790299722916745071,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000035794_293224448.pth",
+          "frame": 293224448,
+          "size": 4218985881,
+          "mtime_ns": 1790301520896265494,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036590_299745280.pth",
+          "frame": 299745280,
+          "size": 4218972953,
+          "mtime_ns": 1790303324450629210,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4218976089,
+          "mtime_ns": 1790303417426445979,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42865225.14285714,
+        85730450.28571428,
+        128595675.42857143,
+        171460900.57142857,
+        214326125.7142857,
+        257191350.85714287,
+        300056576.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000036628_300056576.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/best_000011772_96436224_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_72.572.pth",
+          "frame": 96436224,
+          "size": 4193573688,
+          "mtime_ns": 1790246634235991089,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036626_300040192.pth",
+          "frame": 300040192,
+          "size": 4207854182,
+          "mtime_ns": 1790303114682048462,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790218984206157198,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4218019388,
+          "mtime_ns": 1790226290985187953,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218419068,
+          "mtime_ns": 1790240551064374154,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4218977369,
+          "mtime_ns": 1790261539064330510,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000031318_256557056.pth",
+          "frame": 256557056,
+          "size": 4218984601,
+          "mtime_ns": 1790291036363373345,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000032106_263012352.pth",
+          "frame": 263012352,
+          "size": 4218977881,
+          "mtime_ns": 1790292837584344698,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000035828_293502976.pth",
+          "frame": 293502976,
+          "size": 4207860070,
+          "mtime_ns": 1790301204879780520,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000035960_294584320.pth",
+          "frame": 294584320,
+          "size": 4207856678,
+          "mtime_ns": 1790301505402290524,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036092_295665664.pth",
+          "frame": 295665664,
+          "size": 4207853158,
+          "mtime_ns": 1790301806201319440,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036214_296665088.pth",
+          "frame": 296665088,
+          "size": 4207855654,
+          "mtime_ns": 1790302108451362753,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036344_297730048.pth",
+          "frame": 297730048,
+          "size": 4207841830,
+          "mtime_ns": 1790302404197593529,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036480_298844160.pth",
+          "frame": 298844160,
+          "size": 4207856038,
+          "mtime_ns": 1790302706886901283,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036614_299941888.pth",
+          "frame": 299941888,
+          "size": 4207851686,
+          "mtime_ns": 1790303005097271705,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217395039,
+          "mtime_ns": 1790220412892614319,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000032904_269549568.pth",
+          "frame": 269549568,
+          "size": 4218985113,
+          "mtime_ns": 1790294637080259498,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000033704_276103168.pth",
+          "frame": 276103168,
+          "size": 4218973849,
+          "mtime_ns": 1790296432717538056,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000034510_282705920.pth",
+          "frame": 282705920,
+          "size": 4218986265,
+          "mtime_ns": 1790298234593688797,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000035304_289210368.pth",
+          "frame": 289210368,
+          "size": 4218990809,
+          "mtime_ns": 1790300035083949079,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036092_295665664.pth",
+          "frame": 295665664,
+          "size": 4218987865,
+          "mtime_ns": 1790301833834221795,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+          "frame": 300007424,
+          "size": 4218988697,
+          "mtime_ns": 1790303048472182931,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        42862884.571428575,
+        85725769.14285715,
+        128588653.71428572,
+        171451538.2857143,
+        214314422.85714287,
+        257177307.42857143,
+        300040192.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000036626_300040192.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/best_000005548_45449216_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_71.949.pth",
+          "frame": 45449216,
+          "size": 4193233464,
+          "mtime_ns": 1790316689924623044,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015882_130105344.pth",
+          "frame": 130105344,
+          "size": 4207855078,
+          "mtime_ns": 1790340960791078747,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790303136096005219,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217395231,
+          "mtime_ns": 1790304602621065857,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4218007420,
+          "mtime_ns": 1790310633347520204,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218404348,
+          "mtime_ns": 1790325209124899982,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000011246_92127232.pth",
+          "frame": 92127232,
+          "size": 4218392892,
+          "mtime_ns": 1790330189421877714,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000013572_111181824.pth",
+          "frame": 111181824,
+          "size": 4218999065,
+          "mtime_ns": 1790335586497454581,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014978_122699776.pth",
+          "frame": 122699776,
+          "size": 4207852902,
+          "mtime_ns": 1790338858478968143,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015106_123748352.pth",
+          "frame": 123748352,
+          "size": 4207850662,
+          "mtime_ns": 1790339159358073972,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015228_124747776.pth",
+          "frame": 124747776,
+          "size": 4207852326,
+          "mtime_ns": 1790339462592294784,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015358_125812736.pth",
+          "frame": 125812736,
+          "size": 4207861542,
+          "mtime_ns": 1790339756793603946,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015490_126894080.pth",
+          "frame": 126894080,
+          "size": 4207858598,
+          "mtime_ns": 1790340058382932817,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015624_127991808.pth",
+          "frame": 127991808,
+          "size": 4207857830,
+          "mtime_ns": 1790340363285275542,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015752_129040384.pth",
+          "frame": 129040384,
+          "size": 4207851558,
+          "mtime_ns": 1790340660650078087,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000010496_85983232.pth",
+          "frame": 85983232,
+          "size": 4218405052,
+          "mtime_ns": 1790328391027828369,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000012012_98402304.pth",
+          "frame": 98402304,
+          "size": 4218381500,
+          "mtime_ns": 1790331989371791667,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000012792_104792064.pth",
+          "frame": 104792064,
+          "size": 4219009049,
+          "mtime_ns": 1790333789462104554,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000014340_117473280.pth",
+          "frame": 117473280,
+          "size": 4219006553,
+          "mtime_ns": 1790337388824919200,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000015106_123748352.pth",
+          "frame": 123748352,
+          "size": 4218985433,
+          "mtime_ns": 1790339188125995895,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000015882_130105344.pth",
+          "frame": 130105344,
+          "size": 4218989785,
+          "mtime_ns": 1790340990145064561,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        18586477.714285713,
+        37172955.428571425,
+        55759433.14285714,
+        74345910.85714285,
+        92932388.57142857,
+        111518866.28571428,
+        130105344.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000015882_130105344.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000015440_126484480.pth",
+          "frame": 126484480,
+          "size": 4207828902,
+          "mtime_ns": 1790341032379040690,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790303511926261000,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217377951,
+          "mtime_ns": 1790304973389344835,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4218010300,
+          "mtime_ns": 1790311002827806341,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218372732,
+          "mtime_ns": 1790325831347725525,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009618_78790656.pth",
+          "frame": 78790656,
+          "size": 4218364412,
+          "mtime_ns": 1790326962652540439,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000011096_90898432.pth",
+          "frame": 90898432,
+          "size": 4218368188,
+          "mtime_ns": 1790330565992554763,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000013346_109330432.pth",
+          "frame": 109330432,
+          "size": 4218973657,
+          "mtime_ns": 1790335965016669612,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/best_000013586_111296512_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_74.329.pth",
+          "frame": 111296512,
+          "size": 4193559800,
+          "mtime_ns": 1790336564190995215,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000014572_119373824.pth",
+          "frame": 119373824,
+          "size": 4207826982,
+          "mtime_ns": 1790338934094727755,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000014700_120422400.pth",
+          "frame": 120422400,
+          "size": 4207825574,
+          "mtime_ns": 1790339234151873063,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000014828_121470976.pth",
+          "frame": 121470976,
+          "size": 4207823270,
+          "mtime_ns": 1790339535085119992,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000014940_122388480.pth",
+          "frame": 122388480,
+          "size": 4207827366,
+          "mtime_ns": 1790339832934431785,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000015066_123420672.pth",
+          "frame": 123420672,
+          "size": 4207813798,
+          "mtime_ns": 1790340137497760704,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000015190_124436480.pth",
+          "frame": 124436480,
+          "size": 4207831142,
+          "mtime_ns": 1790340435929120934,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000015314_125452288.pth",
+          "frame": 125452288,
+          "size": 4207823526,
+          "mtime_ns": 1790340733696107043,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000010354_84819968.pth",
+          "frame": 84819968,
+          "size": 4218351932,
+          "mtime_ns": 1790328766370782651,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000011848_97058816.pth",
+          "frame": 97058816,
+          "size": 4218364092,
+          "mtime_ns": 1790332363777974268,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000012600_103219200.pth",
+          "frame": 103219200,
+          "size": 4218945945,
+          "mtime_ns": 1790334164919312985,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000014078_115326976.pth",
+          "frame": 115326976,
+          "size": 4218952601,
+          "mtime_ns": 1790337763114483520,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000014828_121470976.pth",
+          "frame": 121470976,
+          "size": 4218957977,
+          "mtime_ns": 1790339564414050230,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 2854481920,
+          "mtime_ns": 1790347282178109903,
+          "valid_container": false
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        18069211.42857143,
+        36138422.85714286,
+        54207634.28571428,
+        72276845.71428572,
+        90346057.14285715,
+        108415268.57142857,
+        126484480.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000015440_126484480.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/best_000007534_61718528_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_73.683.pth",
+          "frame": 61718528,
+          "size": 4193138168,
+          "mtime_ns": 1790323447769453175,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014800_121241600.pth",
+          "frame": 121241600,
+          "size": 4207829542,
+          "mtime_ns": 1790341121804978001,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790305099685100478,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217376543,
+          "mtime_ns": 1790306537099255025,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4217960700,
+          "mtime_ns": 1790312393537106548,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218372604,
+          "mtime_ns": 1790327416251447377,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000010362_84885504.pth",
+          "frame": 84885504,
+          "size": 4218363580,
+          "mtime_ns": 1790330349857403848,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000012594_103170048.pth",
+          "frame": 103170048,
+          "size": 4218986329,
+          "mtime_ns": 1790335753059109750,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000013936_114163712.pth",
+          "frame": 114163712,
+          "size": 4207831718,
+          "mtime_ns": 1790339022384461550,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014060_115179520.pth",
+          "frame": 115179520,
+          "size": 4207818022,
+          "mtime_ns": 1790339320412649086,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014174_116113408.pth",
+          "frame": 116113408,
+          "size": 4207831654,
+          "mtime_ns": 1790339620793917520,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014300_117145600.pth",
+          "frame": 117145600,
+          "size": 4207824230,
+          "mtime_ns": 1790339923477229661,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014424_118161408.pth",
+          "frame": 118161408,
+          "size": 4207829478,
+          "mtime_ns": 1790340222261577629,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014550_119193600.pth",
+          "frame": 119193600,
+          "size": 4207808422,
+          "mtime_ns": 1790340520688953932,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014674_120209408.pth",
+          "frame": 120209408,
+          "size": 4207818022,
+          "mtime_ns": 1790340819905115240,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009622_78823424.pth",
+          "frame": 78823424,
+          "size": 4218385788,
+          "mtime_ns": 1790328548290862549,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000011106_90980352.pth",
+          "frame": 90980352,
+          "size": 4218349180,
+          "mtime_ns": 1790332149666432344,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000011846_97042432.pth",
+          "frame": 97042432,
+          "size": 4218362556,
+          "mtime_ns": 1790333948883768930,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000013330_109199360.pth",
+          "frame": 109199360,
+          "size": 4218956505,
+          "mtime_ns": 1790337551253744564,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000014060_115179520.pth",
+          "frame": 115179520,
+          "size": 4218952729,
+          "mtime_ns": 1790339349380575511,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000014800_121241600.pth",
+          "frame": 121241600,
+          "size": 4218964249,
+          "mtime_ns": 1790341150866954430,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 130023936,
+          "mtime_ns": 1790348508338341762,
+          "valid_container": false
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        17320228.57142857,
+        34640457.14285714,
+        51960685.71428572,
+        69280914.28571428,
+        86601142.85714285,
+        103921371.42857143,
+        121241600.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000014800_121241600.pth"
+    },
+    {
+      "run": "CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014670_120176640.pth",
+          "frame": 120176640,
+          "size": 4207830310,
+          "mtime_ns": 1790341111239986201,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95612370,
+          "mtime_ns": 1790305391099538089,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4217364959,
+          "mtime_ns": 1790306852481634647,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4217952700,
+          "mtime_ns": 1790312895846131204,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4218364412,
+          "mtime_ns": 1790327708350793906,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009614_78757888.pth",
+          "frame": 78757888,
+          "size": 4218375740,
+          "mtime_ns": 1790328844367727444,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000010352_84803584.pth",
+          "frame": 84803584,
+          "size": 4218380028,
+          "mtime_ns": 1790330642440288601,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000012588_103120896.pth",
+          "frame": 103120896,
+          "size": 4218943961,
+          "mtime_ns": 1790336044584504104,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/best_000012954_106119168_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_76.099.pth",
+          "frame": 106119168,
+          "size": 4193558840,
+          "mtime_ns": 1790336943256200201,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000013810_113131520.pth",
+          "frame": 113131520,
+          "size": 4207822374,
+          "mtime_ns": 1790339014578484520,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000013936_114163712.pth",
+          "frame": 114163712,
+          "size": 4207875046,
+          "mtime_ns": 1790339315100662662,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014058_115163136.pth",
+          "frame": 115163136,
+          "size": 4207812134,
+          "mtime_ns": 1790339614752931657,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014172_116097024.pth",
+          "frame": 116097024,
+          "size": 4207818854,
+          "mtime_ns": 1790339918251241258,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014296_117112832.pth",
+          "frame": 117112832,
+          "size": 4207862886,
+          "mtime_ns": 1790340214052595305,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014422_118145024.pth",
+          "frame": 118145024,
+          "size": 4207820518,
+          "mtime_ns": 1790340512879957774,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014546_119160832.pth",
+          "frame": 119160832,
+          "size": 4207837542,
+          "mtime_ns": 1790340814959115457,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000011100_90931200.pth",
+          "frame": 90931200,
+          "size": 4218365116,
+          "mtime_ns": 1790332439991835559,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000011846_97042432.pth",
+          "frame": 97042432,
+          "size": 4218384956,
+          "mtime_ns": 1790334242908148151,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000013320_109117440.pth",
+          "frame": 109117440,
+          "size": 4218974617,
+          "mtime_ns": 1790337840865380713,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000014058_115163136.pth",
+          "frame": 115163136,
+          "size": 4218946905,
+          "mtime_ns": 1790339643950863507,
+          "valid_container": true
+        },
+        {
+          "path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 117440640,
+          "mtime_ns": 1790348936994269069,
+          "valid_container": false
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        17168091.42857143,
+        34336182.85714286,
+        51504274.28571428,
+        68672365.71428572,
+        85840457.14285715,
+        103008548.57142857,
+        120176640.0
+      ],
+      "restart_path": "/scratch/lin/IntrMotiv/train_dir/ca3_state_goal_followup_20260923_g500_production_v2/CA3G500P2_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000014670_120176640.pth"
+    }
+  ],
+  "completed_at": 1790433187.0438764
+}

@@ -6,6 +6,131 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Layerwise kernel artifacts should retain full spatial range — 2026-09-27
+
+- **Evidence:** The poster replay saved only 13×13 DG/CA3/decoder-1 kernels
+  from a 19×19 map. DG occupancy and rate maps were already saved and exactly
+  reproduced a checked DG kernel value and pair count. Aligned CA3 and
+  decoder-1 activity was not retained, requiring 54 checkpoint forward passes
+  to obtain the missing offsets across the poster set.
+- **Impact:** A plotting-range change became a roughly 20–30 minute-per-run
+  compute batch, delayed the poster analysis, and made its provenance harder
+  to explain. Cue-specific outer offsets also proved sparse or unsupported.
+- **Proposed improvement:** In the canonical common-history layer analysis,
+  calculate all valid map offsets by default and save pair-support counts;
+  optionally retain compact aligned layer statistics when flexible downstream
+  reanalysis is needed. Use saved DG maps directly for DG-only changes.
+- **Status:** Full-range poster kernels and support tables completed; general
+  artifact contract improvement remains open. See
+  [reusable place-field telemetry](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** A 19×19 input saves 37×37 kernels for every measured layer,
+  each offset has an eligible-pair count, unsupported pixels remain masked,
+  and a new figure range can be rendered without a checkpoint forward pass.
+
+### Latest-common inventory must scan direct and milestone checkpoints — 2026-09-26
+
+- **Evidence:** The D50 five-cue matrix had a 75,005,952-frame milestone in all
+  six runs and a newer 75,022,336-frame direct checkpoint in all six. A
+  milestone-only manifest would have submitted the older complete matrix; its
+  first evaluation jobs were canceled when the newer exact common file was
+  found. The corrected manifest uses 75,022,336 for all six conditions × seeds.
+  The same omission recurred in DGC Direct: all three seeds had a
+  300,007,424-frame milestone and a newer 300,023,808-frame direct checkpoint.
+  Its old candidate probes were canceled and the exact three-seed analysis was
+  rerun at 300,023,808.
+- **Impact:** Manual checkpoint selection can violate the poster's latest
+  common rule despite apparent milestone completeness and waste Slurm time.
+- **Improvement/status:** The corrected manifest and staged-input mapping are
+  saved in the [poster data](06_experiments/data/poster_missing_analyses_20260926/).
+  Extend the canonical inventory to union saved direct and retained milestone
+  checkpoints, then compute the maximum common frame count across required
+  StudySpec rows immediately before submission.
+- **Acceptance:** An inventory fixture with a newer common direct checkpoint
+  selects it over the older milestone; missing one condition at that frame
+  falls back to the next fully shared checkpoint and emits exact source paths.
+
+### Frozen graph buffers need an explicit estimand label — 2026-09-26
+
+- **Evidence:** The poster frozen evaluator exports `control_edge_confidence` and
+  `control_attempts`, but not `control_prospective_successes` or
+  `control_prospective_attempts`. Passing those stored buffers to the generic
+  graph-outcome renderer gave the colorbar the false label “Prospective hits /
+  attempts.” The poster adapter now calls the ratio “Stored edge confidence /
+  attempts” and keeps command interventions separate. The later 39-run gallery
+  could not regenerate a historical graph panel with the local renderer because
+  that checkout's function does not yet accept `ratio_label`; it reused the
+  saved panel with its historical provenance instead.
+- **Impact:** A graph buffer ratio could be mistaken for fresh rollout success
+  or causal goal control; this changes the scientific interpretation.
+- **Improvement/status:** The graph renderer accepts an explicit ratio label in
+  the isolated analysis sources. Add named graph-evidence types to the
+  canonical evaluator and export both stored and prospective counters when
+  available. Refer to the [poster batch](06_experiments/results/A0_poster_analysis_20260926/batch_summary.md)
+  for the corrected comparison.
+- **Acceptance:** A frozen archive with only stored buffers produces a stored
+  evidence panel and no prospective-success field; an archive with prospective
+  counters produces a separately labeled prospective panel; a focused test
+  rejects mixing the two numerators and denominators. The checked-in renderer
+  also accepts the label argument used by the gallery, so a saved graph can be
+  regenerated without selecting a different evaluator revision.
+
+### Observation-panel recording assumed the retired NEMO2 workspace — 2026-09-26
+
+- **Evidence:** The canonical manifest submitter and worker accepted the active
+  `fr_xl1014-corridor-geometry` workspace, but `observation_panel.save_panel`
+  still required the historical `fr_xl1014-train` prefix. Three 10k-decision
+  common-panel jobs had to be stopped before their final save. The poster
+  analysis also needed 33 selected checkpoints and configs staged into the
+  active allocation because the worker validates inputs and outputs against
+  one workspace root. The command-intervention Python and shell entry points
+  independently retained the same old root and a fixed home-source `cd`;
+  their first preflight failed before loading a policy, while the isolated
+  environment-aware copy completed 201 trials in 5,000 decisions.
+- **Impact:** Repeated representation comparisons waste rollout time or require
+  roughly 16.4 GB of duplicate checkpoint inputs when source checkpoints are
+  read-only in another allocation.
+- **Improvement/status:** Two isolated evaluator source copies now resolve the
+  panel path against `INTRMOTIV_WORKSPACE_ROOT`; a real save/remove smoke passed
+  in both. The shared isolated copy also uses the declared runtime source and
+  workspace for interventions. The shared training checkouts are unchanged.
+  The selected-input mapping and panel patch are saved with the poster batch.
+  Generalize these contracts in the canonical evaluator and permit validated
+  read-only checkpoint roots while keeping all output, cache, and temporary
+  paths in the active workspace.
+- **Acceptance:** A panel save under a declared active workspace succeeds and
+  a path outside it fails; a print-only manifest can read an immutable
+  checkpoint in an older allocation while every writable path remains in the
+  active allocation; focused evaluator tests, one Slurm panel preflight, and
+  one command-intervention preflight pass.
+  See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+
+### DMLab cache default and workspace path audit
+
+- **Evidence:** The IntrMotiv `dmlab_params.py` parser enables the level cache
+  by default but derives `dmlab_level_cache_path` from the process working
+  directory. On NEMO2 the source checkout is under the home filesystem, while
+  bulk caches belong in the allocated workspace. Qualified StudySpecs provide
+  explicit workspace cache paths, but an unconfigured new run does not.
+- **Impact:** Starting outside the standard StudySpec launcher can write
+  generated level data to home, contrary to the NEMO2 storage policy.
+- **Improvement/status:** Workflow 1.14 derives the fresh-run cache from
+  `train_dir/runtime/dmlab_cache`, preserving saved and explicit paths. The
+  parser and NEMO2 focused tests pass. A single pre-submission check covering
+  all bulk output paths, including temporary files, remains open.
+- **Acceptance:** A fresh parsed NEMO configuration places training output,
+  level cache, spatial telemetry, and temporary files under the same allocated
+  workspace; a legacy saved configuration loads unchanged. See the
+  [cross-run default audit](04_implementation/global_defaults_audit_20260926.md).
+
+### Online snapshot targets were absent from a submitted StudySpec — 2026-09-26
+
+- **Evidence:** The frozen-DG control StudySpec requested 5M/20M/50M/75M snapshots through training arguments but omitted `telemetry.online_spatial_target_frames`. The canonical `collect-spatial` command rejected the existing 20M NPZs as unexpected. An analysis-only copy adding the four declarations collected 42 valid snapshots without changing training.
+- **Impact:** Telemetry can be recorded correctly yet rejected by the study workflow, delaying paired analysis and giving the original StudySpec an incomplete analysis contract.
+- **Improvement/status:** Workflow 1.14 now rejects missing or mismatched online
+  spatial target declarations for new StudySpecs, including automatic runtime
+  schedules; focused desktop and NEMO2 tests pass. The [interim analysis](06_experiments/cued_reward5_frozen_dg_interim_analysis_20260926.md) retains the original and analysis-only fingerprints because published old studies are immutable. The split CPU/GPU batch also required workspace symlinks directly to each nested `00_RUN` summary directory for canonical online collection.
+- **Acceptance:** A focused validator test rejects mismatched or missing target declarations when online spatial telemetry is enabled, and a corrected future StudySpec collects every requested snapshot without an analysis-only copy. See the [standard workflow](04_implementation/standardized_study_workflow.md).
+
 ### Frozen random DG needs normalization calibration — 2026-09-25
 
 - **Evidence:** Both uncalibrated random-DG qualification paths froze fresh BatchNorm moments at zero mean and unit variance. The GPU run had DG density 0, silent-unit fraction 1, and no DG-active transitions despite completing normally. Source-DG controls retained active fields.
@@ -53,7 +178,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 - **Evidence:** The six-cell easy-landmark `render-telemetry` manifest was valid, but frozen 500-decision preflight job `8185734` failed after checkpoint loading: `traversable_field_components` received a 19-by-19 field grid and a 9-by-9 geometry mask. `place_fields.py` defaults to grain 19 and retains corridor coordinate bounds, while the landmark level declares a 9-by-9 grid over `[100, 1000)` on both axes.
 - **Impact:** No offline landmark NPZ or 10k frozen place-field sweep can be trusted yet. Online geometry-v2 snapshots and their canonical atlases are unaffected; overriding only the grain would leave the coordinate bins incorrect.
-- **Proposed improvement/status:** Derive evaluator grain and x/y bounds from the loaded geometry, apply them consistently to thresholded, raw, worker, and pre-threshold maps, then propagate through manifest postprocessing. Keep corridor v1 defaults unchanged. No full sweep submitted pending a repaired one-row preflight.
+- **Improvement/status:** Workflow 1.14 derives evaluator grain and x/y bounds
+  from verified geometry and applies them consistently to thresholded, raw,
+  worker, and pre-threshold maps. Synthetic corridor and landmark tests pass
+  locally and on isolated NEMO2 source. One-row native preflight job `8218673`
+  completed with exit code zero, a 9-by-9 NPZ, verified `[100, 1000]` bounds,
+  pre-threshold arrays, and a valid summary. The 12-row 10k plan passed
+  print-only validation; no full sweep has been submitted.
 - **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/easy_landmark_maze_qualification_analysis_20260924.md).
 
 ### Stored controller replay was duplicated into evaluation checkpoints
@@ -93,9 +224,34 @@ keep implementation guidance in the canonical workflow documents linked below.
   real mature-replay save: the rolling checkpoint must reload exactly, the
   milestone must support the manifest evaluator, its size must remain near the
   model-only baseline, and resume from it must be rejected.
+- **September 26 recurrence:** The pinned CA3 G500 release still produced roughly
+  4.2 GB checkpoints. Its production root held 246 files (about 919 GiB), scratch
+  reached ENOSPC, and the queue status stopped updating on September 25. Authorized
+  pruning retained eight files per run in each follow-up production root, including
+  each latest archive-complete rolling restart: 579.53 GiB removed on G500 and
+  393.26 GiB on CPU. G500 free space then measured 575 GiB. This cleanup did not
+  deploy a serializer fix or restart stalled jobs. Exact deletion manifests and
+  frame-spacing limitations are linked from the
+  [matched analysis](06_experiments/ca3_followup_analysis_20260926.md).
+- [ ] **Deferred revival: four G500 CA3 follow-up runs.** User requested stopping
+  them on September 26 and postponing revival. EMA/DOM seed 123 and EMA/UNIQUE
+  seeds 8, 99, and 123 were stopped as verified process groups; all 144 processes
+  exited on SIGTERM. Preserve their checkpoints. Before revival, use an isolated
+  source with the qualified lightweight-evaluation checkpoint fix, fully reload
+  each retained restart checkpoint, verify optimizer/replay/RNG/progress, audit
+  non-overlapping continuation commands, and budget disk headroom. Do not restart
+  automatically. The source is `SF_hipposlam_ca3_state_goal_followup_g500_9fbdcdc3`;
+  the batch is `ca3_state_goal_followup_20260923_g500_production_v2`. The exact stop
+  inventory is `manual_stop_20260926.json` in the batch root.
 - **Lesson:** Checkpoint roles are part of the storage contract. Scientific
   evaluation artifacts should not inherit mutable optimizer or replay state
   merely because they share a serializer with restart checkpoints.
+- **September 26 default audit:** [Master revision `24280570`](https://github.com/xiaoxionglin/SF_hipposlam/commit/24280570880a4e33143b2d1c6901e625d2f262c3) counts pinned frame targets
+  inside the milestone retention cap while preserving one recent unpinned
+  artifact. This closes the remaining `keep_checkpoints=8` plus five pinned
+  targets accumulation. Historical StudySpecs that explicitly request an
+  1,800-second cadence still do so; their fingerprints are unchanged. See the
+  [cross-run audit](04_implementation/global_defaults_audit_20260926.md).
 
 ### Study factors were not available as a flat W&B grouping key
 
@@ -259,6 +415,26 @@ keep implementation guidance in the canonical workflow documents linked below.
   `controller_rr1_20260913`, and `controller_stored_production_release_20260912`
   only after their running/queued jobs finish and a fresh dependency audit.
   Their existence is currently required, rather than redundant.
+- **September 26 default-branch integration:** Published
+  [master merge `7d533391`](https://github.com/xiaoxionglin/SF_hipposlam/commit/7d5333911e7adc88f576208c71ed4edf0132fa6b),
+  combining the latest CA3, transfer, frozen-DG, geometry, landmark, and replay
+  work with canonical workflow 1.12.0. The tested and published tree hashes
+  match. Pinned hooks pass; desktop tests: 702 passed, 2 skipped; NEMO CPU:
+  689 passed, 15 skipped. Source snapshots, job inventory, and local merge
+  history are preserved under the active workspace's
+  `IntrMotiv/source_merge_20260926/`. Live NEMO checkout files remain unchanged.
+  Acceptance is met for publication; switching live releases still requires
+  their jobs to finish. See the updated
+  [canonical procedure](https://github.com/xiaoxionglin/SF_hipposlam/blob/master/docs/intrmotiv_source_consolidation.md).
+- **Reusable integration lesson:** Branch tips alone missed uncommitted runtime
+  fixes. Inventory dirty files by content hash and compare against prior
+  snapshots, then reconcile new lineages in an isolated checkout. Normalize
+  formatting before three-way comparisons. Preserve the current batched
+  planner when integrating older scalar implementations; mixed-cue tests caught
+  this compatibility boundary. Use the exact published tree hash as the final
+  authority. Black's process pool stalled inside the restricted environment;
+  pinned hooks completed with normal process access. The connected GitHub app
+  publishes verified trees when shell push credentials are unavailable.
 - **September 22 workflow-skew finding:** The consolidated training checkout
   still carries workflow 1.8.1 while the vault's canonical analysis package is
   1.10.1. New CA3 readout StudySpecs therefore live with the canonical package,
@@ -566,7 +742,13 @@ For each finding, record:
   configs, exact legacy sampling, unchanged checkpoint state, CLI toggles,
   fixed preprocessing, saved mode/gain compatibility, explicit-switch precedence,
   invalid saved gains, normalization rejection, and norms.
-  Implemented only in `/home/xiaoxiong/SFgit/SF_hipposlam`.
+  The original opt-in implementation was merged to GitHub `master` on
+  September 26; the later default change is described below.
+- **September 26 default audit:** [Master revision `24280570`](https://github.com/xiaoxionglin/SF_hipposlam/commit/24280570880a4e33143b2d1c6901e625d2f262c3) makes the new-run IntrMotiv parser select
+  inverse depth when depth is enabled. Saved configurations retain their old
+  response, including those without the inverse switch, and explicit CLI
+  overrides remain available. The conditional depth sensor itself still
+  defaults off. See the [cross-run audit](04_implementation/global_defaults_audit_20260926.md).
 - **Reusable lesson:** Trace the full preprocessing path before changing an
   observation transform; test with the real normalizer. Reference-distance
   scaling is a heuristic until actual feature norms are measured. Search source

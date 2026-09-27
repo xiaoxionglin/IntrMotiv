@@ -1,0 +1,18 @@
+[
+  {
+    "label": "CPU2048_WAYPOINT_DECODER_F64_DDQN_S99_300007424",
+    "source_checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/controller_cpu_f64_ddqn_20260914/CPU2048_WAYPOINT_DECODER_F64_DDQN_S99_/00_CPU2048_WAYPOINT_DECODER_F64_DDQN_S99/checkpoint_p0/milestones/checkpoint_000036622_300007424.pth",
+    "staged_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/inputs/CPU2048_WAYPOINT_DECODER_F64_DDQN_S99_300007424/00_CPU2048_WAYPOINT_DECODER_F64_DDQN_S99/checkpoint_p0/checkpoint_000036622_300007424.pth",
+    "checkpoint_bytes": 4137251929,
+    "source_run_dir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/controller_cpu_f64_ddqn_20260914/CPU2048_WAYPOINT_DECODER_F64_DDQN_S99_/00_CPU2048_WAYPOINT_DECODER_F64_DDQN_S99",
+    "staged_run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/inputs/CPU2048_WAYPOINT_DECODER_F64_DDQN_S99_300007424/00_CPU2048_WAYPOINT_DECODER_F64_DDQN_S99"
+  },
+  {
+    "label": "FSCS_WAYPOINT_DECODER_F64_PPO_S123_192266240",
+    "source_checkpoint": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_stored_production_20260912/FSCS_WAYPOINT_DECODER_F64_PPO_S123_/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123/checkpoint_p0/milestones/checkpoint_000023470_192266240.pth",
+    "staged_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/inputs/FSCS_WAYPOINT_DECODER_F64_PPO_S123_192266240/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123/checkpoint_p0/checkpoint_000023470_192266240.pth",
+    "checkpoint_bytes": 13467972,
+    "source_run_dir": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_full_system_controller_stored_production_20260912/FSCS_WAYPOINT_DECODER_F64_PPO_S123_/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123",
+    "staged_run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/inputs/FSCS_WAYPOINT_DECODER_F64_PPO_S123_192266240/00_FSCS_WAYPOINT_DECODER_F64_PPO_S123"
+  }
+]

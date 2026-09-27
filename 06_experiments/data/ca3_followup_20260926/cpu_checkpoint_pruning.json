@@ -1,0 +1,1687 @@
+{
+  "created_at": 1790433277.2305493,
+  "root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production",
+  "strategy": "Eight nearest available frame-grid checkpoints, including initial and latest valid rolling restart; ZIP structure checked, not full tensor reload.",
+  "runs": [
+    {
+      "run": "00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000638_5226496.pth",
+          "frame": 5226496,
+          "size": 4205725981,
+          "mtime_ns": 1790123682395831356,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000662_5423104.pth",
+          "frame": 5423104,
+          "size": 4205722537,
+          "mtime_ns": 1790123970126377455,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000690_5652480.pth",
+          "frame": 5652480,
+          "size": 4205720797,
+          "mtime_ns": 1790124279098731740,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000712_5832704.pth",
+          "frame": 5832704,
+          "size": 4205714207,
+          "mtime_ns": 1790124579885160803,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115233912891699,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216711523,
+          "mtime_ns": 1790147647804993022,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216691571,
+          "mtime_ns": 1790210729092721941,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217483681,
+          "mtime_ns": 1790296070280497227,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/best_000000410_3358720_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_69.142.pth",
+          "frame": 3358720,
+          "size": 4191233205,
+          "mtime_ns": 1790120717871291683,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000546_4472832.pth",
+          "frame": 4472832,
+          "size": 4205597024,
+          "mtime_ns": 1790122481514249411,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000566_4636672.pth",
+          "frame": 4636672,
+          "size": 4205623887,
+          "mtime_ns": 1790122776029700829,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000590_4833280.pth",
+          "frame": 4833280,
+          "size": 4205686631,
+          "mtime_ns": 1790123075177120651,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000614_5029888.pth",
+          "frame": 5029888,
+          "size": 4205710754,
+          "mtime_ns": 1790123395144312564,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000282_2310144.pth",
+          "frame": 2310144,
+          "size": 4215429617,
+          "mtime_ns": 1790118935352613059,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000410_3358720.pth",
+          "frame": 3358720,
+          "size": 4215443593,
+          "mtime_ns": 1790120754839976283,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000546_4472832.pth",
+          "frame": 4472832,
+          "size": 4215531515,
+          "mtime_ns": 1790122518886929275,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215647221,
+          "mtime_ns": 1790123334950832293,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000690_5652480.pth",
+          "frame": 5652480,
+          "size": 4215656137,
+          "mtime_ns": 1790124316666409055,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000712_5832704.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000638_5226496.pth",
+          "frame": 5226496,
+          "size": 4205723165,
+          "mtime_ns": 1790123677486530803,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000660_5406720.pth",
+          "frame": 5406720,
+          "size": 4205722034,
+          "mtime_ns": 1790123963737757234,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000684_5603328.pth",
+          "frame": 5603328,
+          "size": 4205722810,
+          "mtime_ns": 1790124272313684157,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000704_5767168.pth",
+          "frame": 5767168,
+          "size": 4205727317,
+          "mtime_ns": 1790124570751676760,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115233932193024,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216689815,
+          "mtime_ns": 1790149284944041596,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216677429,
+          "mtime_ns": 1790211182455734467,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217467585,
+          "mtime_ns": 1790299650332644663,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/best_000000404_3309568_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_65.246.pth",
+          "frame": 3309568,
+          "size": 4191229871,
+          "mtime_ns": 1790120402683317795,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000548_4489216.pth",
+          "frame": 4489216,
+          "size": 4205566103,
+          "mtime_ns": 1790122470788792325,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000570_4669440.pth",
+          "frame": 4669440,
+          "size": 4205607035,
+          "mtime_ns": 1790122785471608533,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000594_4866048.pth",
+          "frame": 4866048,
+          "size": 4205660675,
+          "mtime_ns": 1790123080206577298,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000614_5029888.pth",
+          "frame": 5029888,
+          "size": 4205695111,
+          "mtime_ns": 1790123367538690147,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000302_2473984.pth",
+          "frame": 2473984,
+          "size": 4215439561,
+          "mtime_ns": 1790118920006110648,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000424_3473408.pth",
+          "frame": 3473408,
+          "size": 4215441793,
+          "mtime_ns": 1790120726596989954,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000548_4489216.pth",
+          "frame": 4489216,
+          "size": 4215500581,
+          "mtime_ns": 1790122508049300940,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215628083,
+          "mtime_ns": 1790123310001466458,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000684_5603328.pth",
+          "frame": 5603328,
+          "size": 4215658135,
+          "mtime_ns": 1790124310131178851,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000704_5767168.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000678_5554176.pth",
+          "frame": 5554176,
+          "size": 4205730127,
+          "mtime_ns": 1790123671336613481,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000704_5767168.pth",
+          "frame": 5767168,
+          "size": 4205731733,
+          "mtime_ns": 1790123980565531925,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000728_5963776.pth",
+          "frame": 5963776,
+          "size": 4205715061,
+          "mtime_ns": 1790124266245764488,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000750_6144000.pth",
+          "frame": 6144000,
+          "size": 4205727197,
+          "mtime_ns": 1790124574452626392,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234046191487,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216702551,
+          "mtime_ns": 1790147046554003763,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216707985,
+          "mtime_ns": 1790204970152646718,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217480065,
+          "mtime_ns": 1790291133547086454,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/best_000000418_3424256_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_72.384.pth",
+          "frame": 3424256,
+          "size": 4191246246,
+          "mtime_ns": 1790120404263296803,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000588_4816896.pth",
+          "frame": 4816896,
+          "size": 4205671481,
+          "mtime_ns": 1790122475398731513,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000608_4980736.pth",
+          "frame": 4980736,
+          "size": 4205711237,
+          "mtime_ns": 1790122764254895898,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000630_5160960.pth",
+          "frame": 5160960,
+          "size": 4205739019,
+          "mtime_ns": 1790123079155591444,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000654_5357568.pth",
+          "frame": 5357568,
+          "size": 4205735729,
+          "mtime_ns": 1790123361640769740,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000302_2473984.pth",
+          "frame": 2473984,
+          "size": 4215467357,
+          "mtime_ns": 1790118907245279642,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000440_3604480.pth",
+          "frame": 3604480,
+          "size": 4215447265,
+          "mtime_ns": 1790120712144183645,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000588_4816896.pth",
+          "frame": 4816896,
+          "size": 4215606449,
+          "mtime_ns": 1790122510494268697,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215652041,
+          "mtime_ns": 1790122847826772943,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000728_5963776.pth",
+          "frame": 5963776,
+          "size": 4215650073,
+          "mtime_ns": 1790124300822303217,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000750_6144000.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/best_000000670_5488640_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_68.645.pth",
+          "frame": 5488640,
+          "size": 4191410447,
+          "mtime_ns": 1790123999211772156,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000650_5324800.pth",
+          "frame": 5324800,
+          "size": 4205697539,
+          "mtime_ns": 1790123682731375562,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000692_5668864.pth",
+          "frame": 5668864,
+          "size": 4205710301,
+          "mtime_ns": 1790124283824630925,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000712_5832704.pth",
+          "frame": 5832704,
+          "size": 4205702861,
+          "mtime_ns": 1790124578504306640,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234356609364,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216618567,
+          "mtime_ns": 1790148782890421050,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216641679,
+          "mtime_ns": 1790205768390284235,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217414593,
+          "mtime_ns": 1790294481402571688,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000572_4685824.pth",
+          "frame": 4685824,
+          "size": 4205620593,
+          "mtime_ns": 1790122480526870985,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000588_4816896.pth",
+          "frame": 4816896,
+          "size": 4205658297,
+          "mtime_ns": 1790122775444610089,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000608_4980736.pth",
+          "frame": 4980736,
+          "size": 4205687877,
+          "mtime_ns": 1790123069264357031,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000628_5144576.pth",
+          "frame": 5144576,
+          "size": 4205703281,
+          "mtime_ns": 1790123370271937386,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000670_5488640.pth",
+          "frame": 5488640,
+          "size": 4205685355,
+          "mtime_ns": 1790123963164296681,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000298_2441216.pth",
+          "frame": 2441216,
+          "size": 4215434953,
+          "mtime_ns": 1790118898972727975,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000438_3588096.pth",
+          "frame": 3588096,
+          "size": 4215427385,
+          "mtime_ns": 1790120718019345638,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000572_4685824.pth",
+          "frame": 4685824,
+          "size": 4215555905,
+          "mtime_ns": 1790122550902854208,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215628149,
+          "mtime_ns": 1790123151587163469,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000692_5668864.pth",
+          "frame": 5668864,
+          "size": 4215645577,
+          "mtime_ns": 1790124320798092926,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000712_5832704.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000642_5259264.pth",
+          "frame": 5259264,
+          "size": 4205733021,
+          "mtime_ns": 1790123393968322717,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000666_5455872.pth",
+          "frame": 5455872,
+          "size": 4205703603,
+          "mtime_ns": 1790123681387839908,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000688_5636096.pth",
+          "frame": 5636096,
+          "size": 4205704285,
+          "mtime_ns": 1790123984799253418,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000708_5799936.pth",
+          "frame": 5799936,
+          "size": 4205703857,
+          "mtime_ns": 1790124285610675789,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000726_5947392.pth",
+          "frame": 5947392,
+          "size": 4205682567,
+          "mtime_ns": 1790124567429267782,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234324887751,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216649125,
+          "mtime_ns": 1790147583462577553,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216617945,
+          "mtime_ns": 1790209983156054329,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/best_000000726_5947392_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_59.494.pth",
+          "frame": 5947392,
+          "size": 4191407875,
+          "mtime_ns": 1790124604482949740,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000584_4784128.pth",
+          "frame": 4784128,
+          "size": 4205680605,
+          "mtime_ns": 1790122487819195403,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000600_4915200.pth",
+          "frame": 4915200,
+          "size": 4205703291,
+          "mtime_ns": 1790122789459586039,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000618_5062656.pth",
+          "frame": 5062656,
+          "size": 4205716853,
+          "mtime_ns": 1790123075265119888,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000162_1327104.pth",
+          "frame": 1327104,
+          "size": 4215508253,
+          "mtime_ns": 1790117100721487463,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000300_2457600.pth",
+          "frame": 2457600,
+          "size": 4215435849,
+          "mtime_ns": 1790118916259776735,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000442_3620864.pth",
+          "frame": 3620864,
+          "size": 4215439901,
+          "mtime_ns": 1790120706068392363,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000584_4784128.pth",
+          "frame": 4784128,
+          "size": 4215615753,
+          "mtime_ns": 1790122563411548122,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215652445,
+          "mtime_ns": 1790122965378073686,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000708_5799936.pth",
+          "frame": 5799936,
+          "size": 4215638465,
+          "mtime_ns": 1790124323550350150,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        10715136.0,
+        21430272.0,
+        32145408.0,
+        42860544.0,
+        53575680.0,
+        64290816.0,
+        75005952.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000000726_5947392.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000644_5275648.pth",
+          "frame": 5275648,
+          "size": 4205714937,
+          "mtime_ns": 1790123680752274102,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000668_5472256.pth",
+          "frame": 5472256,
+          "size": 4205682429,
+          "mtime_ns": 1790123978445811666,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000692_5668864.pth",
+          "frame": 5668864,
+          "size": 4205698653,
+          "mtime_ns": 1790124264581488880,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000714_5849088.pth",
+          "frame": 5849088,
+          "size": 4205690683,
+          "mtime_ns": 1790124579967881058,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115235304964749,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216610577,
+          "mtime_ns": 1790147951684764385,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216615953,
+          "mtime_ns": 1790210908898436543,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217418289,
+          "mtime_ns": 1790307266384012749,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/best_000000184_1507328_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_72.652.pth",
+          "frame": 1507328,
+          "size": 4191252661,
+          "mtime_ns": 1790117724639691636,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000556_4554752.pth",
+          "frame": 4554752,
+          "size": 4205567285,
+          "mtime_ns": 1790122484367228057,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000576_4718592.pth",
+          "frame": 4718592,
+          "size": 4205633629,
+          "mtime_ns": 1790122782391772438,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000598_4898816.pth",
+          "frame": 4898816,
+          "size": 4205672991,
+          "mtime_ns": 1790123066982447164,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000620_5079040.pth",
+          "frame": 5079040,
+          "size": 4205695211,
+          "mtime_ns": 1790123374911838232,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000286_2342912.pth",
+          "frame": 2342912,
+          "size": 4215420857,
+          "mtime_ns": 1790118908681583714,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000422_3457024.pth",
+          "frame": 3457024,
+          "size": 4215443993,
+          "mtime_ns": 1790120705789558508,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000556_4554752.pth",
+          "frame": 4554752,
+          "size": 4215502105,
+          "mtime_ns": 1790122520083824689,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215625417,
+          "mtime_ns": 1790123251854274843,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000692_5668864.pth",
+          "frame": 5668864,
+          "size": 4215633993,
+          "mtime_ns": 1790124298859090949,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000714_5849088.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000592_4849664.pth",
+          "frame": 4849664,
+          "size": 4206071573,
+          "mtime_ns": 1790123682370054085,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4206116093,
+          "mtime_ns": 1790124007101908281,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000630_5160960.pth",
+          "frame": 5160960,
+          "size": 4206141771,
+          "mtime_ns": 1790124273086513683,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000648_5308416.pth",
+          "frame": 5308416,
+          "size": 4206120213,
+          "mtime_ns": 1790124571602724093,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234858683543,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216686988,
+          "mtime_ns": 1790150171834734125,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216672401,
+          "mtime_ns": 1790207306756864255,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217446833,
+          "mtime_ns": 1790293218473418153,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/best_000000374_3063808_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_62.845.pth",
+          "frame": 3063808,
+          "size": 4191540753,
+          "mtime_ns": 1790120413107670816,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000514_4210688.pth",
+          "frame": 4210688,
+          "size": 4205908219,
+          "mtime_ns": 1790122485783293513,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000532_4358144.pth",
+          "frame": 4358144,
+          "size": 4205933735,
+          "mtime_ns": 1790122783915514691,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000552_4521984.pth",
+          "frame": 4521984,
+          "size": 4205965647,
+          "mtime_ns": 1790123086541671350,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000572_4685824.pth",
+          "frame": 4685824,
+          "size": 4206040003,
+          "mtime_ns": 1790123375880982221,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000280_2293760.pth",
+          "frame": 2293760,
+          "size": 4215499609,
+          "mtime_ns": 1790118944597546037,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000392_3211264.pth",
+          "frame": 3211264,
+          "size": 4215795993,
+          "mtime_ns": 1790120718921841553,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000514_4210688.pth",
+          "frame": 4210688,
+          "size": 4215843453,
+          "mtime_ns": 1790122523317818759,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4216050889,
+          "mtime_ns": 1790123971372364366,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000630_5160960.pth",
+          "frame": 5160960,
+          "size": 4216077149,
+          "mtime_ns": 1790124311336025599,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000648_5308416.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/best_000007740_63406080_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_84.583.pth",
+          "frame": 63406080,
+          "size": 98754635,
+          "mtime_ns": 1790285519627979859,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000020256_165937152.pth",
+          "frame": 165937152,
+          "size": 4206365071,
+          "mtime_ns": 1790433133980981453,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607055,
+          "mtime_ns": 1790115214122351829,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215942665,
+          "mtime_ns": 1790123020824144427,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 98762939,
+          "mtime_ns": 1790230220737633735,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 98763003,
+          "mtime_ns": 1790301587891694590,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 98763415,
+          "mtime_ns": 1790409846622701646,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019086_156352512.pth",
+          "frame": 156352512,
+          "size": 98763415,
+          "mtime_ns": 1790419036225773355,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019234_157564928.pth",
+          "frame": 157564928,
+          "size": 98763415,
+          "mtime_ns": 1790420829447339279,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019384_158793728.pth",
+          "frame": 158793728,
+          "size": 98763415,
+          "mtime_ns": 1790422624031916672,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019534_160022528.pth",
+          "frame": 160022528,
+          "size": 98763415,
+          "mtime_ns": 1790424418221461097,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019686_161267712.pth",
+          "frame": 161267712,
+          "size": 98763415,
+          "mtime_ns": 1790426229908990244,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019832_162463744.pth",
+          "frame": 162463744,
+          "size": 98763415,
+          "mtime_ns": 1790428027808591043,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000019984_163708928.pth",
+          "frame": 163708928,
+          "size": 98763415,
+          "mtime_ns": 1790429827686155627,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000020132_164921344.pth",
+          "frame": 164921344,
+          "size": 98763415,
+          "mtime_ns": 1790431618451764051,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        23705307.42857143,
+        47410614.85714286,
+        71115922.28571428,
+        94821229.71428572,
+        118526537.14285715,
+        142231844.57142857,
+        165937152.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000020256_165937152.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000636_5210112.pth",
+          "frame": 5210112,
+          "size": 4206156829,
+          "mtime_ns": 1790123672579314503,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000658_5390336.pth",
+          "frame": 5390336,
+          "size": 4206154765,
+          "mtime_ns": 1790123972159098493,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000680_5570560.pth",
+          "frame": 5570560,
+          "size": 4206162885,
+          "mtime_ns": 1790124274148857531,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000698_5718016.pth",
+          "frame": 5718016,
+          "size": 4206150429,
+          "mtime_ns": 1790124572862669359,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115235793827533,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216653128,
+          "mtime_ns": 1790149429974162145,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216668346,
+          "mtime_ns": 1790211383097299113,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217455809,
+          "mtime_ns": 1790298048995386980,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/best_000000188_1540096_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_76.529.pth",
+          "frame": 1540096,
+          "size": 4191301109,
+          "mtime_ns": 1790117711658408313,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000556_4554752.pth",
+          "frame": 4554752,
+          "size": 4206000675,
+          "mtime_ns": 1790122480364049592,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000574_4702208.pth",
+          "frame": 4702208,
+          "size": 4206049693,
+          "mtime_ns": 1790122767761054816,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000598_4898816.pth",
+          "frame": 4898816,
+          "size": 4206088415,
+          "mtime_ns": 1790123083024652948,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000616_5046272.pth",
+          "frame": 5046272,
+          "size": 4206134737,
+          "mtime_ns": 1790123379516492197,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000292_2392064.pth",
+          "frame": 2392064,
+          "size": 4215649801,
+          "mtime_ns": 1790118908226891010,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000426_3489792.pth",
+          "frame": 3489792,
+          "size": 4215813505,
+          "mtime_ns": 1790120719772679347,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000556_4554752.pth",
+          "frame": 4554752,
+          "size": 4215935533,
+          "mtime_ns": 1790122516923542979,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4216064327,
+          "mtime_ns": 1790123291433733644,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000680_5570560.pth",
+          "frame": 5570560,
+          "size": 4216098105,
+          "mtime_ns": 1790124310823343532,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000698_5718016.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/best_000000710_5816320_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_59.286.pth",
+          "frame": 5816320,
+          "size": 4191902859,
+          "mtime_ns": 1790124011606883234,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000664_5439488.pth",
+          "frame": 5439488,
+          "size": 4206128517,
+          "mtime_ns": 1790123367648989176,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000686_5619712.pth",
+          "frame": 5619712,
+          "size": 4206168587,
+          "mtime_ns": 1790123660268668985,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000732_5996544.pth",
+          "frame": 5996544,
+          "size": 4206174571,
+          "mtime_ns": 1790124279017762807,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000752_6160384.pth",
+          "frame": 6160384,
+          "size": 4206183389,
+          "mtime_ns": 1790124563668505657,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234563350883,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216633937,
+          "mtime_ns": 1790147918150440283,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216614251,
+          "mtime_ns": 1790208872743655389,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000592_4849664.pth",
+          "frame": 4849664,
+          "size": 4205995879,
+          "mtime_ns": 1790122471724104433,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000614_5029888.pth",
+          "frame": 5029888,
+          "size": 4206056921,
+          "mtime_ns": 1790122806067444232,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000638_5226496.pth",
+          "frame": 5226496,
+          "size": 4206094301,
+          "mtime_ns": 1790123076421298328,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000710_5816320.pth",
+          "frame": 5816320,
+          "size": 4206178463,
+          "mtime_ns": 1790123974630176423,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000154_1261568.pth",
+          "frame": 1261568,
+          "size": 4215754215,
+          "mtime_ns": 1790117106042552366,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000300_2457600.pth",
+          "frame": 2457600,
+          "size": 4215556297,
+          "mtime_ns": 1790118902152419803,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000438_3588096.pth",
+          "frame": 3588096,
+          "size": 4215662221,
+          "mtime_ns": 1790120697050223818,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000592_4849664.pth",
+          "frame": 4849664,
+          "size": 4215930757,
+          "mtime_ns": 1790122507239822410,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215990409,
+          "mtime_ns": 1790122748815899879,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/milestones/checkpoint_000000732_5996544.pth",
+          "frame": 5996544,
+          "size": 4216109661,
+          "mtime_ns": 1790124315895470367,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        10715136.0,
+        21430272.0,
+        32145408.0,
+        42860544.0,
+        53575680.0,
+        64290816.0,
+        75005952.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123/checkpoint_p0/checkpoint_000000752_6160384.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/best_000002740_22446080_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_78.314.pth",
+          "frame": 22446080,
+          "size": 98754571,
+          "mtime_ns": 1790229127041082055,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000018198_149078016.pth",
+          "frame": 149078016,
+          "size": 4206060477,
+          "mtime_ns": 1790433064174450781,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607055,
+          "mtime_ns": 1790115238864798784,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215640287,
+          "mtime_ns": 1790122739661677362,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 98762939,
+          "mtime_ns": 1790232999989717810,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 98763003,
+          "mtime_ns": 1790316691724546448,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017130_140328960.pth",
+          "frame": 140328960,
+          "size": 98763415,
+          "mtime_ns": 1790419257670597330,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017270_141475840.pth",
+          "frame": 141475840,
+          "size": 98763415,
+          "mtime_ns": 1790421078105901793,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017414_142655488.pth",
+          "frame": 142655488,
+          "size": 98763415,
+          "mtime_ns": 1790422881130402270,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017550_143769600.pth",
+          "frame": 143769600,
+          "size": 98763415,
+          "mtime_ns": 1790424672602029798,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017692_144932864.pth",
+          "frame": 144932864,
+          "size": 98763415,
+          "mtime_ns": 1790426472839572344,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017828_146046976.pth",
+          "frame": 146046976,
+          "size": 98763415,
+          "mtime_ns": 1790428261533241220,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000017964_147161088.pth",
+          "frame": 147161088,
+          "size": 98763415,
+          "mtime_ns": 1790430072034751872,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/milestones/checkpoint_000018106_148324352.pth",
+          "frame": 148324352,
+          "size": 98763415,
+          "mtime_ns": 1790431870381337354,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21296859.42857143,
+        42593718.85714286,
+        63890578.28571428,
+        85187437.71428572,
+        106484297.14285715,
+        127781156.57142857,
+        149078016.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8/checkpoint_p0/checkpoint_000018198_149078016.pth"
+    },
+    {
+      "run": "00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99",
+      "retained": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000666_5455872.pth",
+          "frame": 5455872,
+          "size": 4206062049,
+          "mtime_ns": 1790123672305573561,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000692_5668864.pth",
+          "frame": 5668864,
+          "size": 4206109469,
+          "mtime_ns": 1790123977401154435,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000718_5881856.pth",
+          "frame": 5881856,
+          "size": 4206133207,
+          "mtime_ns": 1790124270085833616,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000740_6062080.pth",
+          "frame": 6062080,
+          "size": 4206153283,
+          "mtime_ns": 1790124567732473432,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/initial_000000000_0.pth",
+          "frame": 0,
+          "size": 95607119,
+          "mtime_ns": 1790115234464351840,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000003052_25001984.pth",
+          "frame": 25001984,
+          "size": 4216630885,
+          "mtime_ns": 1790146654458363891,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000009156_75005952.pth",
+          "frame": 75005952,
+          "size": 4216624381,
+          "mtime_ns": 1790207691973850112,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000018312_150011904.pth",
+          "frame": 150011904,
+          "size": 4217408865,
+          "mtime_ns": 1790298710236874981,
+          "valid_container": true
+        }
+      ],
+      "removed": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/best_000000176_1441792_z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc_75.181.pth",
+          "frame": 1441792,
+          "size": 4191258111,
+          "mtime_ns": 1790117716627739316,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000568_4653056.pth",
+          "frame": 4653056,
+          "size": 4205936005,
+          "mtime_ns": 1790122474260084319,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000590_4833280.pth",
+          "frame": 4833280,
+          "size": 4205980647,
+          "mtime_ns": 1790122766059762645,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000614_5029888.pth",
+          "frame": 5029888,
+          "size": 4206020121,
+          "mtime_ns": 1790123080828263402,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000638_5226496.pth",
+          "frame": 5226496,
+          "size": 4206040157,
+          "mtime_ns": 1790123360934042436,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000264_2162688.pth",
+          "frame": 2162688,
+          "size": 4215462269,
+          "mtime_ns": 1790118907137380523,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000410_3358720.pth",
+          "frame": 3358720,
+          "size": 4215643785,
+          "mtime_ns": 1790120707355142515,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000568_4653056.pth",
+          "frame": 4653056,
+          "size": 4215871225,
+          "mtime_ns": 1790122510244798512,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000612_5013504.pth",
+          "frame": 5013504,
+          "size": 4215955209,
+          "mtime_ns": 1790123023992714035,
+          "valid_container": true
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/milestones/checkpoint_000000718_5881856.pth",
+          "frame": 5881856,
+          "size": 4216067749,
+          "mtime_ns": 1790124305645551644,
+          "valid_container": true
+        }
+      ],
+      "ideal_frames": [
+        0.0,
+        21430272.0,
+        42860544.0,
+        64290816.0,
+        85721088.0,
+        107151360.0,
+        128581632.0,
+        150011904.0
+      ],
+      "restart_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/ca3_state_goal_followup_20260922_production/CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99_/00_CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99/checkpoint_p0/checkpoint_000000740_6062080.pth"
+    }
+  ],
+  "completed_at": 1790433277.5467174
+}

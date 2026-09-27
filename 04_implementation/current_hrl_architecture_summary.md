@@ -136,16 +136,17 @@ For the current level the instruction vector is therefore normally
 
 #### Optional inverse-depth response (local runtime, 2026-09-14)
 
-The local checkout `/home/xiaoxiong/SFgit/SF_hipposlam` supports
-`--depth_sensor_inverse=True|False`. The default for historical configurations
-and new runs is legacy behavior: sampled input
-passes through exactly as before. Tensor dimensions and checkpoint parameter
-keys are unchanged. This update has not been synchronized to remote runtimes.
+The IntrMotiv runtime supports `--depth_sensor_inverse=True|False`.
+Fresh runs with `depth_sensor=True` default to inverse depth. Saved historical
+configurations retain their recorded response, including when this switch was
+absent; `--depth_sensor_inverse=False` explicitly selects legacy pass-through.
+The depth sensor itself remains off by default. Tensor dimensions and
+checkpoint parameter keys are unchanged.
 
 For a new inverse-depth run, use:
 
 ```text
---depth_sensor=True --depth_sensor_inverse=True --normalize_input=False
+--depth_sensor=True --normalize_input=False
 ```
 
 Inverse mode returns $g / \max(d, 1)$, where $d$ is the raw RGBD depth code and

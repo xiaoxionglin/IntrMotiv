@@ -1,0 +1,5 @@
+site,arm,environment_reward_mean__mean,environment_reward_mean__sd,environment_reward_mean__n,environment_reward_nonzero_fraction__mean,environment_reward_nonzero_fraction__sd,environment_reward_nonzero_fraction__n,ppo_dg_gradient_norm__mean,ppo_dg_gradient_norm__sd,ppo_dg_gradient_norm__n
+dg50,W_RAND_DG,0.00025477857048886626,2.9521498339965492e-05,3,0.0005285711236338798,6.124617007085329e-05,3,0.0,0.0,3
+dg50,W_SOURCE_DG,0.00016835191788226926,2.5166071919940526e-05,3,0.00034926784494535517,5.221027370497775e-05,3,0.0,0.0,3
+dg51,W_RAND_DG,0.0002822166042314712,2.3681787174296614e-05,3,0.000585494876358668,4.9130933618780734e-05,3,0.0,0.0,3
+dg51,W_SOURCE_DG,0.00028752427124339677,8.691414204567332e-05,3,0.0005965063183727017,0.00018031463786028095,3,0.0,0.0,3

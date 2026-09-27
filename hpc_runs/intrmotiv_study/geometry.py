@@ -384,6 +384,10 @@ class AccessibleCoverage:
             self.invalid_pose_steps += 1
         else:
             self.visited.add(cell)
+        self.hold()
+
+    def hold(self):
+        """Count a decision with unavailable terminal pose without a geometry error."""
         self.steps += 1
         self.area_sum += len(self.visited)
 

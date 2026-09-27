@@ -1,0 +1,30 @@
+--- a/run_target_control_intervention_single.sh
++++ b/run_target_control_intervention_single.sh
+@@ -75,7 +75,7 @@
+ require_workspace_path "$WANDB_DIR" "W&B directory"
+ mkdir -p "$output_dir/raw" "$output_dir/slurm" "$TMPDIR" "$DMLAB_CACHE_DIR" "$XDG_CACHE_HOME" "$WANDB_DIR"
+ 
+-cd /home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam
++cd "${INTRMOTIV_RUNTIME_SOURCE:-/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam}"
+ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+--- a/target_control_interventions.py
++++ b/target_control_interventions.py
+@@ -7,6 +7,7 @@
+ import csv
+ import json
+ import math
++import os
+ import pathlib
+ from dataclasses import dataclass, field
+ 
+@@ -28,7 +29,7 @@
+ )
+ from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
+ 
+-WORKSPACE_ROOT = pathlib.Path("/work/classic/fr_xl1014-train")
++WORKSPACE_ROOT = pathlib.Path(os.environ.get("INTRMOTIV_WORKSPACE_ROOT", "/work/classic/fr_xl1014-train")).resolve()
+ MANIFEST_COLUMNS = (
+     "condition",
+     "family",

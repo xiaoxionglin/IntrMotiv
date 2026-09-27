@@ -1,0 +1,120 @@
+{
+  "batch_name": "ca3_state_goal_followup_20260922_production",
+  "complete": false,
+  "condition_summary_rows": 16,
+  "cue_assignment_rows": 0,
+  "expected_runs": 12,
+  "expected_snapshots": 60,
+  "expected_targets": [
+    5000000,
+    25000000,
+    75000000,
+    150000000,
+    300000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "base",
+    "anchor_update",
+    "candidate_rule",
+    "controller"
+  ],
+  "include_details": false,
+  "missing": [
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S8",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S99",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_DOM_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8",
+      "target_env_steps": 150000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S8",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S99",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123",
+      "target_env_steps": 150000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_FIXED_UNIQUE_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S8",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S99",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_DOM_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8",
+      "target_env_steps": 150000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S8",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S99",
+      "target_env_steps": 300000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CA3FU_CTX_EMA_UNIQUE_H32_DDQN_HER_S123",
+      "target_env_steps": 300000000
+    }
+  ],
+  "observed_snapshots": 45,
+  "per_field_rows": 0,
+  "per_snapshot_rows": 45,
+  "per_unit_rows": 0,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 45,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/ca3_state_goal_followup_20260922_production",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "ca3_state_goal_followup_20260922_production",
+  "study_sha256": "68a0911fbc4719cc20eca4cf4145ffe0405b570d2ac7bf5a49a84643ab9f8437",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/ca3_state_goal_followup_20260922_production.study.json",
+  "study_workflow_version": "1.11.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0"
+}

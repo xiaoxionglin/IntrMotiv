@@ -1,0 +1,72 @@
+{
+  "batch_name": "cued_reward5_frozen_dg_controls_20260925",
+  "complete": false,
+  "condition_summary_rows": 14,
+  "cue_assignment_rows": 0,
+  "expected_runs": 12,
+  "expected_snapshots": 48,
+  "expected_targets": [
+    5000000,
+    20000000,
+    50000000,
+    75000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 169344,
+  "group_by": [
+    "site",
+    "arm"
+  ],
+  "include_details": true,
+  "missing": [
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_RAND_DG_S42",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_RAND_DG_S1234",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_RAND_DG_S9999",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_SOURCE_DG_S42",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_SOURCE_DG_S1234",
+      "target_env_steps": 75000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "CR5C_D50_W_SOURCE_DG_S9999",
+      "target_env_steps": 75000000
+    }
+  ],
+  "observed_snapshots": 42,
+  "per_field_rows": 30504,
+  "per_snapshot_rows": 42,
+  "per_unit_rows": 2688,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 42,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/cued_reward5_frozen_dg_controls_20260925/online_spatial",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "cued_reward5_frozen_dg_controls_20260925",
+  "study_sha256": "774dd8275e0b5da821611078bf2802d834462f40dc55a7fea8ef351196932858",
+  "study_spec": "/work/classic/fr_xl1014-fixed-reward-transfer/IntrMotiv/SF_hipposlam/train_dir/analysis/cued_reward5_frozen_dg_controls_20260925/interim_spatial_20260926/analysis_only_study.json",
+  "study_workflow_version": "1.12.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0"
+}
