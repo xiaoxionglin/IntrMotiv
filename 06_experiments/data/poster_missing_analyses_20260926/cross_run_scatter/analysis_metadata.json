@@ -1,0 +1,346 @@
+{
+  "analysis_schema": "intrmotiv/cross-run-scatter/v1",
+  "workflow_version": "1.14.0",
+  "sample_unit": "one run/policy at its latest saved observation window or archived frozen probe",
+  "selection": "latest available age per run and protocol; common replay must join exact probe age",
+  "input_sources": [
+    {
+      "source": "hpc_runs/studies/ca3_zrelation_followup_20260923_cpu.study.json",
+      "status": "invalid_study",
+      "detail": "run 'CA3ZR_CPU_PROBE_FILM_H32_S99' defines duplicate flags ['--ca3_context_similarity_space', '--ca3_worker_decoder']"
+    },
+    {
+      "source": "hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json",
+      "status": "invalid_study",
+      "detail": "run 'CA3ZR_GPU_PROBE_FILM_H32_S8' defines duplicate flags ['--ca3_context_similarity_space', '--ca3_worker_decoder']"
+    },
+    {
+      "source": "06_experiments/data/ca3_followup_20260926/cpu_per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 45,
+      "sha256": "7fbc951480d70705001ab81fd4b5afdb17e885353f63a53f1acabb5deba2eae9"
+    },
+    {
+      "source": "06_experiments/data/ca3_followup_20260926/g500_per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 55,
+      "sha256": "fb2d37574993d41395777b761c3a07470edbce0120e24283f2d0343615b39001"
+    },
+    {
+      "source": "06_experiments/data/cpu2048_analysis_20260917/all_snapshots.csv",
+      "status": "canonical_online",
+      "rows": 68,
+      "sha256": "1258105346a5dae5b6e716a3cdcb4fcc51a4f0aa8343808396b00d44233d9de5"
+    },
+    {
+      "source": "06_experiments/data/cpu2048_analysis_20260917/matched_per_run.csv",
+      "status": "canonical_online",
+      "rows": 24,
+      "sha256": "f1a4599d15fa234227b8fcf6ca4bb276ae8d759dc0f52b2b0dfd53e2cc143fd6"
+    },
+    {
+      "source": "06_experiments/data/cued_reward5_frozen_dg_interim_20260926/spatial/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 42,
+      "sha256": "6cc54035c7dbcd36084905f91e989a52b0f8283abca87a95df85ef7e8d358bd9"
+    },
+    {
+      "source": "06_experiments/data/dgc_health_20260913/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 105,
+      "sha256": "b823b3a81f8791f279995891d725e2249d41c58b738aedcd73a86486f075ecc6"
+    },
+    {
+      "source": "06_experiments/data/dgc_interim_20260911/spatial/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 73,
+      "sha256": "5a1f30a8944a48cbe62baa31d463ef4b2d3a40884d769fb7ac799f311150ee90"
+    },
+    {
+      "source": "06_experiments/data/navigation8_algorithm_screen_interim_20260916/canonical_panels/all_seed_75m/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 54,
+      "sha256": "09e6e16d89ddb3bc3376f0d7a0283e2d67d66af1f5d6f237f02f2afd9b7d7d76"
+    },
+    {
+      "source": "06_experiments/data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 54,
+      "sha256": "09e6e16d89ddb3bc3376f0d7a0283e2d67d66af1f5d6f237f02f2afd9b7d7d76"
+    },
+    {
+      "source": "06_experiments/data/recent_architecture_batches_20260924/ca3_state_goal_75m_restricted/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 10,
+      "sha256": "b5440e562edab0a06f49ed8fb2941d02732fddc7b2142780abc1994226afa624"
+    },
+    {
+      "source": "06_experiments/results/corridor_geometry_20260919/analysis_20260921/spatial/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 135,
+      "sha256": "21546927b347997c572396721a9eec7c5358f0b02d4080521bb8785aa2fe0c8e"
+    },
+    {
+      "source": "06_experiments/results/late_outliers_20260908/cpd_snapshots/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 324,
+      "sha256": "72167754ed1e1d4078de6e5636cfbae7f8b37da0efd50b9b94248fb196108122"
+    },
+    {
+      "source": "06_experiments/results/late_outliers_20260908/dgp_snapshots/per_snapshot.csv",
+      "status": "canonical_online",
+      "rows": 96,
+      "sha256": "671d2e518b6aebae91b85fab8e036677a6db0403a7b418eff8f15672d43fcb30"
+    },
+    {
+      "source": "06_experiments/results/persistent_intrinsic_control_submission_20260908/learning_audit_100m_spatial.csv",
+      "status": "canonical_online",
+      "rows": 16,
+      "sha256": "3561cfd70a8be0cc1226c84a9529d93c994d864314b7a9a48721e2b6f60edb5d"
+    },
+    {
+      "source": "06_experiments/results/recent_batches_audit_20260906/source_credit_terminal_spatial_per_run.csv",
+      "status": "canonical_online",
+      "rows": 30,
+      "sha256": "2a3fe5620d59c11a1dd4b48a7cd17e1d196ed73f316fc1845a5985dd46e9acde"
+    },
+    {
+      "source": "06_experiments/results/A0_poster_analysis_20260926/exemplar_gallery/exemplar_inventory.csv",
+      "status": "frozen_probe_summary",
+      "rows": 39,
+      "sha256": "6470ea6a80a9e9ff7299f1db8466bd81f2edba0c085f94317e5198c83eadf7c1"
+    },
+    {
+      "source": "06_experiments/results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension/historical_exemplar_inventory.csv",
+      "status": "frozen_probe_summary",
+      "rows": 42,
+      "sha256": "3b27197a4649ba310cbac40061a0a88082b631c2ab72d0a37b727c0be8dd300f"
+    },
+    {
+      "source": "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/summary/derived_place_field_metrics.csv",
+      "status": "frozen_probe_summary",
+      "rows": 77,
+      "sha256": "449859244c18383e069870bf16f840d3d9985e6916b0e142c720bae198b748e0"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/replay_reduced_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 12,
+      "sha256": "54913e56f7413c5c4eae5d4ca2b94394a21331b286e0a083fd4d9d676fe4d64d"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/replay_cpu_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 9,
+      "sha256": "b6784d31c2d5fd29fd585be75faaea8400b075beb6c04c22eeacbe2d5fbd2970"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/dgc_direct_latest_replay_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 3,
+      "sha256": "fdaf34f8473fc73805aa301b51cbb3efca0424ecd258473d7d9a28fba1307d42"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/dgc_waypoint_replay_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 3,
+      "sha256": "1b094b0a9a4909f46bdf3c0b679ea60f249195dabe13b76a387fcc525b6860fa"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/d50_75m_latest_allcue_replay_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 6,
+      "sha256": "f59e3cba60219ffa0c5eac1b42d37118fa904e39d82782bae1138fd366726653"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/d51_75m_allcue_replay_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 6,
+      "sha256": "becd49430adf2b7d49f3eef0cd154607cde0ed20f938a60193f91302ed0912d2"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/mature_replay_derived.csv",
+      "status": "common_replay_summary",
+      "rows": 2,
+      "sha256": "57bff86c4f7a96536de668b36bac485a2e41865cc5d71633a3a7323eae54f20a"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/fullrange_plan/kernel_fullrange_manifest.tsv",
+      "status": "representation_panel_manifest",
+      "rows": 53,
+      "sha256": "a8d9b140ba2683a29745db5c45f8166fc340a3b41dae844202c55ec3ef060d07"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/fullrange_plan/kernel_fullrange_d50_endpoint_manifest.tsv",
+      "status": "representation_panel_manifest",
+      "rows": 6,
+      "sha256": "52ac20f0c7f20ca385a65ee91147340f94611b3a30eb08df33a7005dcacb7799"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/fullrange_plan/kernel_fullrange_d51_endpoint_manifest.tsv",
+      "status": "representation_panel_manifest",
+      "rows": 6,
+      "sha256": "48bc428578f021c0ba0f1166d500e69eccdd1c1c725eb62677d603f8336a497e"
+    },
+    {
+      "source": "06_experiments/data/poster_missing_analyses_20260926/control_interventions_per_run.csv",
+      "status": "matched_command_intervention",
+      "rows": 21,
+      "sha256": "39ab3f23e4b0f8634f658cbd744346ec4f34534e945962cf9e55012899f56965"
+    }
+  ],
+  "rows_by_protocol": {
+    "common_replay_with_frozen_outcomes": 38,
+    "frozen_latest_archived_probe": 84,
+    "online_latest_saved_window": 283
+  },
+  "unique_run_names": 323,
+  "online_unique_snapshots": 970,
+  "font": "Times New Roman, verified scalable font through shared poster style",
+  "matplotlib_version": "3.10.8",
+  "pandas_version": "2.3.3",
+  "numpy_version": "1.26.4",
+  "resolved_studies": [
+    {
+      "dg_units": 16,
+      "study_sha256": "06acab9f828f758a31b033a21ae24a844bbe3bd3fd3f2d385ee87e377b13fb9b",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_selected_her_seeds.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "607d6de7c44f0673fa51fa1ef737a02b6d804aa36d9e7b97c2841583b76acdd9",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_selected_her.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "ea79bc6222b3be17384db096a467470448285fab8b0d38a2729e37c5bd9c6772",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_f64_her_seeds.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "3ea18be8bace7b5eadd0a3cd388a5a9e8b4f697a5afc4dcc2a756a7bc8ba1b4a",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_f64_her.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "ae3b21126799528c5b8476e4c37891c32efbc78b1690e883f6f17bfeb6f3da0e",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_f64_ddqn.study.json"
+    },
+    {
+      "dg_units": 32,
+      "study_sha256": "d09a11d735806584c3bc68f91b24d19e9cf5349d3d900bf4a981cda2cd06c780",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.6.0",
+      "study_source": "hpc_runs/studies/dg_capacity_goal_conditioning.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.4.1",
+      "study_source": "hpc_runs/studies/dg_policy_gradient_first_outcome.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "4ba8a352faaa2f101c571f625eddb87626d98e90b75dd9ed5354aa7880075997",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/full_system_controller_stored_production.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "dcbce502053cfd14ec5ce12c88d2fa06c42f4a97367896954eccd0fe0f8831cb",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.4.1",
+      "study_source": "hpc_runs/studies/saturday_batch.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "c11ca69dfbd8e0fdf662e3e01b918aa070e02b03e7aba6f4de198628fc1ee3b9",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.4.1",
+      "study_source": "hpc_runs/studies/ca3_feedback_predictive_dg.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "892b70083a745187bc13ec017b449babdffdabf0234e3c1ac87755c000fd4142",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_selected_ddqn.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "68a0911fbc4719cc20eca4cf4145ffe0405b570d2ac7bf5a49a84643ab9f8437",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.11.0",
+      "study_source": "hpc_runs/studies/ca3_state_goal_followup_20260922_production.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "3f2c3c4c229e0ee44bcde8e7315c1db1789a11237c68daffe58c2239221a020b",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_cadence64.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "593d646144bfc8f5a13510def9ebea9f36d5ec2709fb562612fb374e919249f2",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_selected_ddqn_seeds.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "99f674c4348e235b06876114c7521fe504e38288ec29b55939cd6ab2bd8e36bd",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.8.1",
+      "study_source": "hpc_runs/studies/controller_cpu_f64_ddqn_seeds.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "dac5ace2475d2ea60d25530ef6acf3f70f7d45d00951933124486f282137e5aa",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.10.0",
+      "study_source": "hpc_runs/studies/corridor_geometry.study.json"
+    },
+    {
+      "dg_units": 64,
+      "study_sha256": "6d65e28c24d2e837f7dfc2fc9eea9da0da86807a26585a740e5c59915b956ecc",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.10.0",
+      "study_source": "hpc_runs/studies/corridor_geometry_preflight.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "c435ddac609945336d1e42ca16ed0bcc8fd2d46be13eef167a0085b39b682094",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.5.0",
+      "study_source": "hpc_runs/studies/navigation8_algorithm_screen.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "b03aeba21b2eaa6478c9a67f653b10cfab3cc4d0eaa615137f30e827480bb396",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.5.0",
+      "study_source": "hpc_runs/studies/persistent_intrinsic_control.study.json"
+    },
+    {
+      "dg_units": 16,
+      "study_sha256": "aa34bb2ef868df37dbafc38e7c4b8dc5c9cc684e5f8dba5e05a586d068ad8a0d",
+      "study_schema": "intrmotiv/study/v1",
+      "study_workflow_version": "1.4.1",
+      "study_source": "hpc_runs/studies/source_credit_retirement.study.json"
+    }
+  ],
+  "pinned_input_bundle": "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/input_sources"
+}

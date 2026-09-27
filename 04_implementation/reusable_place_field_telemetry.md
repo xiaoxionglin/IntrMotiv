@@ -105,6 +105,20 @@ files first. If no exact frame is shared across every required condition and
 seed, label a common-age snapshot as developmental rather than presenting it
 as a latest-checkpoint architecture contrast.
 
+For a cross-run spatial/control survey, reuse saved canonical per-snapshot
+CSVs and archived probe summaries through
+`06_experiments/render_all_run_spatial_scatter.py`. Select the latest available
+saved age per run and protocol, check duplicate exports for metric agreement,
+and preserve source hashes and a pinned input bundle. Keep online windows,
+frozen-policy probes, and common-history representation measurements in
+separate point rows. Report absolute active peak-bin count with its DG-capacity
+denominator, and preserve the distinction between mono-fields divided by
+eligible units and mono-fields divided by all units. Inspect family and
+capacity strata before interpreting pooled associations. The adapter can
+replot from its `--source-bundle` without reading a checkpoint or launching an
+environment; the [cross-run poster survey](../06_experiments/results/A0_poster_analysis_20260926/cross_run_scatter/report.md)
+records the metric mapping and scope.
+
 ## Authoritative Locations
 
 NEMO2 source checkout:

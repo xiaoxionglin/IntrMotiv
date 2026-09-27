@@ -6,6 +6,30 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Spatial summary exports need protocol and capacity provenance — 2026-09-28
+
+- **Evidence:** The cross-run poster survey deduplicated 15 canonical CSV
+  exports into 970 distinct online snapshots and 283 latest run windows.
+  Twelve transfer rows omitted DG capacity, which was recovered from the same
+  run's frozen summary; other capacities came from validated StudySpecs.
+  Existing online mono-field fractions divide by eligible units, whereas the
+  poster's mono-field fraction divides by all DG units. Pooling the unadjusted
+  peak counts also reversed the sign of the graph association relative to
+  capacity-normalized counts.
+- **Impact:** A merged table can silently duplicate runs, mix sample protocols,
+  or use incompatible denominators. Neighboring unpublished inputs can also
+  make a figure impossible to regenerate from a clean checkout.
+- **Improvement/status:** The reusable survey adapter now selects the latest
+  saved age per run/protocol, verifies duplicate metric agreement, resolves
+  capacity through source metadata, and saves pinned input tables plus hashes.
+  Canonical summary-contract integration remains open; see the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** Canonical exports declare capacity, observation budget,
+  representation protocol, graph-counter scope, and mono-field denominator.
+  A pinned-bundle replay reproduces every plotted point without cluster access,
+  and repeated summary exports never increase the point count.
+
+
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
 
 - **Evidence:** The corrected-core seed-99 C05 and C15 place-field archives

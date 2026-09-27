@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 from hpc_runs.intrmotiv_study.spatial import render_graph_outcomes, render_occupancy_trajectory
-from analyze_place_field_manifest import multilevel_field_structure, pairwise_map_cosine
+from analyze_place_field_manifest import multilevel_field_structure, pairwise_map_cosine, peak_statistics
 from prepare_poster_exemplar_gallery import mono_peak_panel, save, style
 from render_poster_frozen import render_flow
 
@@ -260,6 +260,8 @@ def process_online(path: Path, output: Path) -> dict[str, object]:
             "mono_fraction_all_dg": float(mono.sum() / len(mono)),
             "mono_peak_bins": bins, "visited_fraction": float((occupancy > 0).sum() / occupancy.size),
             "active_mean_si_bits": float(info[active > 0].mean()),
+            "active_unique_peak_bins": peak_statistics(maps, np.flatnonzero(active > 0),
+                                                        require_positive=True)[0],
             "active_map_cosine": pairwise_map_cosine(maps, occupancy, np.flatnonzero(active > 0)),
             "flow_cells_at_least_5": int((cells.transitions >= 5).sum()),
             "mean_flow_coherence": float(np.average(cells.coherence, weights=cells.transitions)),
@@ -324,6 +326,8 @@ def process_frozen(path: Path, output: Path) -> dict[str, object]:
             "mono_fraction_all_dg": float(mono.sum() / len(mono)),
             "mono_peak_bins": bins, "visited_fraction": float((occupancy > 0).sum() / occupancy.size),
             "active_mean_si_bits": float(info[active > 0].mean()),
+            "active_unique_peak_bins": peak_statistics(maps, np.flatnonzero(active > 0),
+                                                        require_positive=True)[0],
             "active_map_cosine": pairwise_map_cosine(maps, occupancy, np.flatnonzero(active > 0)),
             "flow_cells_at_least_5": int((cells.transitions >= 5).sum()),
             "mean_flow_coherence": float(np.average(cells.coherence, weights=cells.transitions)),
