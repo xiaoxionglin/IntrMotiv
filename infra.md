@@ -28,6 +28,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** Replot a 37-by-37 three-layer kernel from a saved artifact
   without model replay, and execute a print-only plus one-row frozen preflight
   from a legacy checkpoint with all writes confined to the active workspace.
+### Frozen spatial probes need a standard loop metric — 2026-09-28
+
+- **Evidence:** The matched corrected-core C01/C02/C03/C05/C15 probes saved
+  complete 10,000-decision poses, but the canonical summaries reported coverage
+  and path efficiency without an episode-aware return measure. The poster
+  comparison had to derive a mobile-window short-return fraction from each
+  `pose.csv`. Its C05-versus-flat ordering reversed between 20- and
+  40-decision windows, so a single visually selected path or lag would mislead.
+- **Impact:** Claims that the flat decoder learns loops are difficult to check
+  across runs, and low motion can masquerade as fewer loops.
+- **Proposed improvement/status:** Add a small, documented family of
+  reset-bounded return measures at declared decision lags to the canonical
+  place-field summary, reporting mobile-window denominators and stationary
+  fraction alongside coverage. The current one-off values and source files are
+  in the [poster comparison](06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md); shared evaluator integration remains open.
+- **Acceptance:** A focused synthetic trajectory test excludes reset jumps,
+  distinguishes a stationary path from a closed moving loop, and records counts
+  at multiple declared lags; a real saved probe reproduces the poster CSV.
 
 ### Frozen random DG needs normalization calibration — 2026-09-25
 
