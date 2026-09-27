@@ -1,0 +1,27 @@
+{
+  "schema": "intrmotiv/poster-analysis/v1",
+  "workflow_version": "1.14.0",
+  "study_id": "A0_poster_missing_analyses_20260926",
+  "source_manifest_sha256": {
+    "staged_manifest.tsv": "91b4d93ff0dece352b8e7b7ecab7453f284e5634822c44b827e124f81570ae5a",
+    "dgc_waypoint_staged_manifest.tsv": "53b9f401235c4fbebf1bfb31b154276ee37eed57cd97cea8f1f28adeb74e749c",
+    "d50_75m_latest_staged_manifest.tsv": "6a94e24f5aacafb934830c6ec2c2594adbe719a62a137ee746708f8a9097546f",
+    "d51_75m_staged_manifest.tsv": "afd1174cc81fba1243b00146ec75ddc69dd17148917d4fd8308ac0eef4497042",
+    "dgc_direct_latest_staged_manifest.tsv": "5a6f2ccef66d7380bd5a99bbd041cb5e08ee4d5de5daa03a0dc76a47a350171b",
+    "mature_exemplar_staged_manifest.tsv": "3cfd16238fa42cd4f3a14d115c2b2a2152749a9b1a12b8738117322d19ed5b50"
+  },
+  "intervention": {
+    "target_frames": [
+      50000000,
+      75000000,
+      135004160,
+      158203904,
+      197509120,
+      300000000
+    ]
+  },
+  "representation_panel": {
+    "transfer_latest": "panels/eight_cue_row23.npz",
+    "transfer_panel_sha256": "40f05f1856b1cf46ef3a31873c4ae5caafd6b40ca326410114791762c0cd2100"
+  }
+}
