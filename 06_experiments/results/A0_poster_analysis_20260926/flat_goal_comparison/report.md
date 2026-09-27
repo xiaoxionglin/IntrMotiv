@@ -110,11 +110,26 @@ The earlier trajectory and occupancy panels contain only position records; their
 source probes did not save option resets or target-hit flags. To mark the actual
 events, we ran fresh stochastic frozen-policy replays from the **same terminal
 checkpoints** for the two goal-conditioned exemplars. The event figures show
-blue hollow circles at `option_reset` and gold stars at `target_hit`, read from
+blue hollow circles at `option_reset` and gold stars for **option target hits**
+at `target_hit`, read from
 the policy core at the **same observation** as each plotted position. A target
 hit can coincide with the start of the next option. These replays are separate
 sampled trajectories, so their event markers must not be transferred to the
 older paths above.
+
+**C15 target semantics:** Its saved configuration is
+`hrl_manager_mode=frontier_direct`, so explicit multi-hop waypoint planning is
+disabled. C16 is the corresponding `frontier_waypoint` condition. The gold
+stars record hits on **any current option target**, including return and
+validation targets as well as navigation targets. They are not a final-goal-only
+filter. The manager's separate `final_reached` diagnostic is not what these
+stars plot. Thus intermediate option-target hits are already included where
+they occur; C15 has no planned waypoint subgoals to add. The saved event stream
+does not record the pre-update manager mode, so it cannot split the five stars
+into navigation, return, and validation categories. This distinction follows
+the [original C15/C16 experiment definitions](../../../corrected_core_reevaluation_20260901.md)
+and the saved configuration/runtime check recorded in
+[replay provenance](goal_option_provenance.json).
 
 | Goal-conditioned exemplar | Full-replay starts / hits | Complete marked trajectory | First episode, with less overplotting | Event records |
 | --- | ---: | --- | --- | --- |

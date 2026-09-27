@@ -45,6 +45,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   HRL runs. Keep flat and older archives readable. The poster adapter is an
   isolated read-only hook; canonical integration remains open. See the
   [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Semantic check:** `target_hit` records any current option-target hit,
+  whereas the topological manager has a separate `final_reached` flag. C15's
+  `frontier_direct` configuration disables waypoint planning. Preserve the
+  pre-update manager mode and final-completion flag in future event telemetry
+  so return/validation targets can be distinguished from navigation goals.
 - **Acceptance:** A short HRL compute-node probe writes equal-length pose and
   event columns, records option starts and completions at the same observation,
   and a plotter marks them without inferring events from path shape. Existing

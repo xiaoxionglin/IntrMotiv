@@ -39,7 +39,7 @@ def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
                    label=f"Option start ({len(starts)})")
         ax.scatter(hits.x, hits.y, s=118, marker="*", facecolor="#d38a00",
                    edgecolor="#754b00", linewidth=0.55, zorder=4,
-                   label=f"Goal hit ({len(hits)})")
+                   label=f"Option target hit ({len(hits)})")
     ax.scatter(pose.iloc[0].x, pose.iloc[0].y, s=72, marker="s",
                facecolor="#303941", edgecolor="white", linewidth=0.9,
                zorder=5, label=f"{sampling_label.capitalize()} start")

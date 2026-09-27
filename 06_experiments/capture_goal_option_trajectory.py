@@ -97,7 +97,7 @@ def capture(run_dir: Path, checkpoint: Path, output_dir: Path, decisions: int) -
         "alignment": "Flags and x/y are from the same observation-time core call; a hit can also start the next option",
         "event_semantics": {
             "option_start": "HRLStateLayout.option_reset in the core output state",
-            "goal_hit": "HRLStateLayout.target_hit in the core output state",
+            "goal_hit": "HRLStateLayout.target_hit in the core output state; any current option target, not a final_reached filter",
             "option_timeout": "HRLStateLayout.option_expired in the core output state",
         },
     }

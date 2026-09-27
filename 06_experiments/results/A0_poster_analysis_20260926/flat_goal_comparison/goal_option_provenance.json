@@ -4,7 +4,9 @@
   "runtime_has_tracked_changes": false,
   "source_sha256": {
     "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "dbe0a7c068c0a5f9f2149a06382c07dabc6486b91deaf4114a46bb6fc16df1ac",
-    "sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe"
+    "sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+    "sf_working_directories/IntrMotiv/dmlab/topological_frontier.py": "0ce8b4516fc338416e7a34e2fefebdffc5803290d68fc98591485233ec6fc16e",
+    "sf_working_directories/IntrMotiv/dmlab/custom_core.py": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8"
   },
   "python": "3.10.12",
   "torch": "2.9.1",
@@ -15,5 +17,13 @@
   },
   "schema": "intrmotiv/goal-option-replay-provenance/v1",
   "protocol": "Fresh stochastic observation-aligned frozen-policy probe using canonical rollout_dg, 10000 requested decisions per checkpoint",
-  "analysis_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928"
+  "analysis_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928",
+  "C15_target_semantics": {
+    "saved_hrl_manager_mode": "frontier_direct",
+    "waypoint_planning": false,
+    "plotted_flag": "HRLStateLayout.target_hit",
+    "scope": "Any current option target including navigation, return, and validation; not filtered by TopologicalStateLayout.final_reached",
+    "separate_final_completion_flag": "TopologicalStateLayout.final_reached",
+    "limitation": "No pre-update manager mode was saved; plotted hits cannot be subdivided by manager role"
+  }
 }
