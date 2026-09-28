@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
+import os
 from pathlib import Path
 
 import matplotlib
@@ -21,6 +23,11 @@ import pandas as pd
 from collect_poster_population_kernels import correlation_kernel
 from render_poster_frozen import flow_cells, render_flow
 from render_goal_option_trajectory import render as render_trajectory
+from analyze_place_field_manifest import (
+    multilevel_field_structure, FIELD_MIN_ACTIVE_OBSERVATIONS, FIELD_MIN_ACTIVE_BINS,
+    FIELD_THRESHOLD_FRACTIONS, FIELD_MONO_MASS_FRACTION,
+)
+from prepare_poster_exemplar_gallery import mono_peak_panel
 
 
 DATA = Path("06_experiments/data/flat_goal_comparison_20260927")
@@ -158,6 +165,92 @@ def paired_changes(data: pd.DataFrame, output: Path) -> None:
     pd.DataFrame(rows).to_csv(output, index=False)
 
 
+def mono_field_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> None:
+    """Reuse historical mono-field maps and fill missing baseline maps identically."""
+    gallery = output.parent / "exemplar_gallery/historical_extension"
+    inventory = pd.read_csv(gallery / "historical_exemplar_inventory.csv")
+    raw = input_root / "corrected_core_candidates_20260902_place_fields/raw"
+    unit_tables, counts = [], []
+    for record in data[data.condition.isin(["C01", "C05", "C15"])].itertuples():
+        path = raw / Path(record.field_file).parent.name / "place_fields.npz"
+        with np.load(path, allow_pickle=False) as values:
+            maps, occupancy = values["rate_maps"], values["occupancy"]
+            active = values["active_fraction"]
+            if str(values["checkpoint"]) != record.checkpoint:
+                raise ValueError(f"Checkpoint mismatch in {path}")
+            eligible, _, _, score, mono = multilevel_field_structure(maps, occupancy, active)
+            peaks = np.asarray([
+                np.unravel_index(np.nanargmax(maps[:, :, u]), occupancy.shape)
+                if np.nanmax(maps[:, :, u]) > 0 else (-1, -1)
+                for u in range(len(active))
+            ])
+        units = pd.DataFrame({"condition": record.condition, "seed": record.seed,
+                              "checkpoint_frames": record.checkpoint_frames,
+                              "unit": np.arange(len(active)), "field_eligible": eligible,
+                              "mono_field": mono, "mono_score": score,
+                              "active_fraction": active, "peak_x_bin": peaks[:, 0],
+                              "peak_y_bin": peaks[:, 1]})
+        units["peak_x_position"] = np.where(peaks[:, 0] >= 0, 150 + 100 * peaks[:, 0], np.nan)
+        units["peak_y_position"] = np.where(peaks[:, 1] >= 0, 150 + 100 * peaks[:, 1], np.nan)
+        units["original_field_file"] = record.field_file
+        selected = units[units.field_eligible & units.mono_field & (units.active_fraction > 0)]
+        bins = len(selected[["peak_x_bin", "peak_y_bin"]].drop_duplicates())
+        existing = inventory[(inventory.checkpoint == record.checkpoint) &
+                             (inventory.seed == record.seed) &
+                             (inventory.protocol == "frozen_10k_policy_probe")]
+        if len(existing) == 1:
+            saved = existing.iloc[0]
+            if (int(saved.mono_units), int(saved.eligible_units), int(saved.mono_peak_bins)) != (
+                    len(selected), int(eligible.sum()), bins):
+                raise ValueError(f"Existing mono-field metrics differ for {record.condition}/{record.seed}")
+            figure = Path(saved.figure_dir) / "mono_field_peaks.svg"
+            if not figure.is_file():
+                raise FileNotFoundError(figure)
+            reused = True
+        else:
+            if len(existing) > 1:
+                raise ValueError("Ambiguous historical mono-field figure")
+            figure = output / f"{record.condition.lower()}_seed{record.seed}/mono_field_peaks.svg"
+            figure.parent.mkdir(parents=True, exist_ok=True)
+            fig, ax = plt.subplots(figsize=(7, 7.3), layout="constrained")
+            mono_peak_panel(ax, units, occupancy,
+                            f"{record.condition} · {CONDITIONS[record.condition]} · seed {record.seed}\n"
+                            f"Mono-field units: {len(selected)}/{len(active)} · distinct peaks: {bins}")
+            fig.savefig(figure, bbox_inches="tight")
+            plt.close(fig)
+            reused = False
+        counts.append({"condition": record.condition, "seed": record.seed,
+                       "checkpoint_frames": record.checkpoint_frames, "dg_units": len(active),
+                       "eligible_units": int(eligible.sum()), "mono_units": len(selected),
+                       "mono_fraction_all_dg": len(selected) / len(active),
+                       "mono_peak_bins": bins, "figure": os.path.relpath(figure, output),
+                       "reused_existing_figure": reused, "original_field_file": record.field_file,
+                       "field_sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+        unit_tables.append(units)
+    all_units = pd.concat(unit_tables, ignore_index=True)
+    all_units.to_csv(output / "mono_field_units.csv", index=False)
+    all_units[all_units.field_eligible & all_units.mono_field & (all_units.active_fraction > 0)].to_csv(
+        output / "mono_field_peak_locations.csv", index=False)
+    pd.DataFrame(counts).to_csv(output / "mono_field_peak_counts.csv", index=False)
+    method = {
+        "schema": "intrmotiv/mono-field-peak-comparison/v1",
+        "checkpoint_frames": 100040704,
+        "protocol": "Archived stochastic 10000-decision frozen probes; no new rollouts",
+        "classification": "Existing multilevel_field_structure: occupancy-corrected binomial smoothing, 8-connected components",
+        "eligible_min_active_observations": FIELD_MIN_ACTIVE_OBSERVATIONS,
+        "eligible_min_active_bins": FIELD_MIN_ACTIVE_BINS,
+        "threshold_peak_fractions": list(FIELD_THRESHOLD_FRACTIONS),
+        "min_dominant_component_mass_at_each_threshold": FIELD_MONO_MASS_FRACTION,
+        "peak_location": "Maximum of the original unsmoothed occupancy-corrected rate map; ties use first NumPy argmax bin",
+        "grid": {"grain": 19, "bounds": [100, 2000, 100, 2000],
+                 "bin_center_position": "150 + 100 * bin_index"},
+        "fraction_denominator": "All 16 DG units; eligible-unit counts exported separately",
+        "plotting_helper": "prepare_poster_exemplar_gallery.mono_peak_panel",
+        "classifier": "analyze_place_field_manifest.multilevel_field_structure",
+    }
+    (output / "mono_field_method.json").write_text(json.dumps(method, indent=2) + "\n")
+
+
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
              seed: int = 99) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
@@ -274,9 +367,16 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--exemplar-seeds", nargs="+", type=int, default=[99])
     parser.add_argument("--graphs", type=Path, help="Compact checkpoint graph JSON")
+    parser.add_argument("--mono-only", action="store_true",
+                        help="Reuse saved comparison rows and add/link mono-field peak maps")
     args = parser.parse_args()
     setup_style()
+    if args.mono_only:
+        mono_field_outputs(pd.read_csv(args.output / "matched_terminal_per_run.csv"),
+                           args.input, args.output)
+        return
     data = build_table(args.input, args.output)
+    mono_field_outputs(data, args.input, args.output)
     paired_changes(data, args.output / "c01_paired_changes.csv")
     summary_figure(data, args.output / "architecture_summary.svg")
     summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))

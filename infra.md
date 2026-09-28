@@ -31,6 +31,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   representation protocol, graph-counter scope, and mono-field denominator.
   A pinned-bundle replay reproduces every plotted point without cluster access,
   and repeated summary exports never increase the point count.
+- **Reuse evidence:** The C01/C05/C15 comparison linked six existing mono-field
+  peak SVGs after verifying all per-unit flags and peak bins against saved
+  records, and generated only the three missing C01 maps. Its unit, count,
+  and peak-location tables retain zero-mono runs, all-DG denominators,
+  eligible-unit counts, NPZ hashes, and the original field-file paths.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
