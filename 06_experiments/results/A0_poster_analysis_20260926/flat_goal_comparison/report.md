@@ -28,7 +28,9 @@ The mechanism claim is weaker than the behavior claim. The non-goal-conditioned 
 
 The non-goal-conditioned **C01 baseline now has the same detailed diagnostic
 set as C05 and C15 for all three seeds**, rather than only a seed-99 illustration.
-Use the [three-architecture comparison SVG](c01_c05_c15_summary.svg) for the
+The [three-architecture comparison SVG](c01_c05_c15_summary.svg) uses about 60%
+of its previous width while retaining its four panels and font/marker sizes.
+Use this figure for the
 poster and the [paired changes CSV](c01_paired_changes.csv) to inspect each
 architecture-minus-C01 difference. Checkpoints and original raw files for all
 nine runs are linked by path in the [source table](matched_terminal_per_run.csv).
@@ -237,9 +239,7 @@ The A0 plan limits the final poster to two detailed examples. After checking all
 The earlier trajectory and occupancy panels contain only position records; their
 source probes did not save option resets or target-hit flags. To mark the actual
 events, we ran fresh stochastic frozen-policy replays from the **same terminal
-checkpoints** for the two goal-conditioned exemplars. The C15 full-replay figure uses a narrower layout (about 60% of its previous
-width), with unchanged font and marker sizes and a single-column legend.
-The event figures show
+checkpoints** for the two goal-conditioned exemplars. The event figures show
 blue hollow circles at `option_reset` and gold stars for **option target hits**
 at `target_hit`, read from
 the policy core at the **same observation** as each plotted position. A target

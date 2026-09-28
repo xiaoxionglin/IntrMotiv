@@ -128,9 +128,10 @@ def build_table(input_root: Path, output: Path) -> pd.DataFrame:
     return result
 
 
-def summary_figure(data: pd.DataFrame, output: Path, conditions=None) -> None:
+def summary_figure(data: pd.DataFrame, output: Path, conditions=None, *,
+                   width_scale: float = 1.0) -> None:
     conditions = list(CONDITIONS) if conditions is None else list(conditions)
-    fig, axes = plt.subplots(2, 2, figsize=(14 * FIGURE_SCALE, 10 * FIGURE_SCALE), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(14 * FIGURE_SCALE * width_scale, 10 * FIGURE_SCALE), constrained_layout=True)
     metrics = [("coverage_auc_terminal", "Coverage AUC", None),
                ("unique_cells_terminal", "Unique cells", None),
                ("return_20_mobile", "20-step return", (0, 1)),
@@ -152,7 +153,10 @@ def summary_figure(data: pd.DataFrame, output: Path, conditions=None) -> None:
         ax.tick_params(axis="y", labelsize=16)
         ax.yaxis.label.set_size(16)
         ax.grid(axis="y", alpha=.2)
-    fig.suptitle("Corrected core · 100.04M frames\nSeeds 8 / 99 / 123 · black line: seed mean", fontsize=18)
+    title = "Corrected core · 100.04M frames\nSeeds 8 / 99 / 123 · black line: seed mean"
+    if width_scale < .8:
+        title = "Corrected core · 100.04M frames\nSeeds 8 / 99 / 123\nBlack line: seed mean"
+    fig.suptitle(title, fontsize=18)
     fig.savefig(output, bbox_inches="tight")
     plt.close(fig)
 
@@ -614,8 +618,7 @@ def render_goal_trajectory_streams(streams: dict[str, pd.DataFrame], output: Pat
         for scope in ("full", "first_episode"):
             render_trajectory(pose, destination / f"trajectory_option_events_{scope}.svg",
                               f"{condition} · S99", scope, (100, 2000, 100, 2000),
-                              figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99",
-                              width_scale=.6 if condition == "C15" and scope == "full" else 1.0)
+                              figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99")
         first = next(trajectory_segments(pose))
         records.append({"condition": condition, "seed": 99, "observations": len(pose),
                         "first_episode_observations": len(first),
@@ -705,7 +708,7 @@ def main() -> None:
         mono_field_outputs(data, args.input, args.output)
         peak_sensitivity_outputs(data, args.input, args.output)
         summary_figure(data, args.output / "architecture_summary.svg")
-        summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))
+        summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"), width_scale=.6)
         for condition in ("C01", "C05", "C15"):
             for seed in (8, 99, 123):
                 exemplar(data, args.input, args.output, condition, seed, reuse_saved_kernel=True)
@@ -724,7 +727,7 @@ def main() -> None:
     peak_sensitivity_outputs(data, args.input, args.output)
     paired_changes(data, args.output / "c01_paired_changes.csv")
     summary_figure(data, args.output / "architecture_summary.svg")
-    summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))
+    summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"), width_scale=.6)
     for condition in ("C01", "C05", "C15"):
         for seed in args.exemplar_seeds:
             exemplar(data, args.input, args.output, condition, seed)

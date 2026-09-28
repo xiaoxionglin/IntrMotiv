@@ -46,6 +46,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   and flow renderers; flow arrow widths are retained in physical units.
   Peak labels use collision-aware placement in physical points, and the
   four-field grids share axes to eliminate repeated labels without shrinking text.
+  The summary renderer accepts a width multiplier and reflows its title;
+  the C01/C05/C15 summary uses 60% width with the same four panels.
+  Verify the exported width and fixed font/marker sizes before local delivery.
   Use the comparison renderer’s `--compact-only` path for layout revisions,
   avoiding environment imports, new rollouts, and kernel recomputation.
   The top-four field renderer now accepts independent 0-to-unit-max color
@@ -74,9 +77,6 @@ keep implementation guidance in the canonical workflow documents linked below.
   now prevalidates complete streams against summaries and marker tables;
   missing full inputs fail before any figure is replaced. Shared segmentation
   breaks paths at resets or missing frames, and export preserves every vertex.
-  The shared renderer also supports narrower canvases by reflowing the
-  legend and reducing tick density while preserving equal arena geometry.
-  Verify vertex counts and physical font sizes against the preceding SVG.
   Four focused regression checks cover sparse-input rejection, repeated
   episode IDs, agent separation, and reset boundaries. Reuse the
   [stream contract](04_implementation/reusable_place_field_telemetry.md#trajectory-and-option-event-streams)
