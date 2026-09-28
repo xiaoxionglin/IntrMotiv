@@ -100,6 +100,67 @@ To regenerate the missing maps and tables, use the
 [existing comparison renderer](../../../render_flat_goal_comparison.py) with
 `--mono-only` and the staged original input root. No environment replay is needed.
 
+### Relaxed field criteria and all-active DG peaks
+
+The strict result above is preserved. This sensitivity analysis changes only
+how much above-threshold map mass must belong to the largest connected
+component, retaining the 20-observation / three-active-bin eligibility rule,
+occupancy-corrected smoothing, and the same three peak thresholds. Counts
+below are pooled across three runs (**48 DG units per architecture**); seeds
+are the independent runs. At low dominance cutoffs these units may have
+several substantial fields, so these counts should not be called monofield.
+
+| Required dominance at every level | C01 | C05 | C15 |
+| --- | ---: | ---: | ---: |
+| 20% | 43/48 | 42/48 | 43/48 |
+| 30% | 28/48 | 38/48 | 24/48 |
+| 40% | 14/48 | 27/48 | 14/48 |
+| 50% | 7/48 | 16/48 | 7/48 |
+| 60% | 4/48 | 9/48 | 6/48 |
+| 70% | 2/48 | 3/48 | 4/48 |
+| 80% | 1/48 | 2/48 | 1/48 |
+| 90% | 1/48 | 2/48 | 1/48 |
+
+[Editable sensitivity plot](mono_field_sensitivity.svg) ·
+[per-seed cutoff counts](mono_field_sensitivity.csv).
+Thin lines show individual seeds; thick lines show the three-seed mean.
+The sweep is exploratory, not a new validated classification. C05 has higher
+counts at the intermediate cutoffs; C15 does not consistently exceed C01.
+At 20% the counts converge, making that cutoff poorly discriminating.
+
+**Two peak-map views:** each table cell links the 30% dominance subset and
+all active units. The latter places each unit at its strongest **mean
+occupancy-corrected activation bin**, regardless of field shape or eligibility.
+This is not the largest single observed activation. All 16 units in each run
+have positive peaks. Labels are zero-based DG unit IDs; shared locations list
+all coincident IDs. Light cells were sampled; grey cells were unvisited.
+
+| Architecture | Seed 8 | Seed 99 | Seed 123 |
+| --- | --- | --- | --- |
+| C01 | [9/16 at 30%](c01_seed8/relaxed_30_dg_peaks.svg) · [all 16: 14 bins](c01_seed8/all_active_dg_peaks.svg) | [9/16 at 30%](c01_seed99/relaxed_30_dg_peaks.svg) · [all 16: 16 bins](c01_seed99/all_active_dg_peaks.svg) | [10/16 at 30%](c01_seed123/relaxed_30_dg_peaks.svg) · [all 16: 15 bins](c01_seed123/all_active_dg_peaks.svg) |
+| C05 | [15/16 at 30%](c05_seed8/relaxed_30_dg_peaks.svg) · [all 16: 15 bins](c05_seed8/all_active_dg_peaks.svg) | [13/16 at 30%](c05_seed99/relaxed_30_dg_peaks.svg) · [all 16: 14 bins](c05_seed99/all_active_dg_peaks.svg) | [10/16 at 30%](c05_seed123/relaxed_30_dg_peaks.svg) · [all 16: 14 bins](c05_seed123/all_active_dg_peaks.svg) |
+| C15 | [12/16 at 30%](c15_seed8/relaxed_30_dg_peaks.svg) · [all 16: 16 bins](c15_seed8/all_active_dg_peaks.svg) | [6/16 at 30%](c15_seed99/relaxed_30_dg_peaks.svg) · [all 16: 16 bins](c15_seed99/all_active_dg_peaks.svg) | [6/16 at 30%](c15_seed123/relaxed_30_dg_peaks.svg) · [all 16: 16 bins](c15_seed123/all_active_dg_peaks.svg) |
+
+[All-active peak coordinates and amplitudes](all_active_dg_peak_locations.csv)
+include unit IDs, field scores, original NPZ paths, and the observation count
+in each peak bin. [Run counts and figure links](all_active_dg_peak_counts.csv)
+are also exported, with the [peak-view method record](peak_view_method.json).
+Maxima can be sensitive to sparsely sampled bins and to
+multi-field or diffuse maps; a distinct argmax alone is not evidence of a
+localized place field. These archived probes also visit different trajectories.
+
+**Poster choice:** the all-active peak maps are useful as a descriptive
+landmark-location panel, paired with the actual rate maps and active-map cosine.
+C15 has 16 distinct peak bins in every seed, versus 14/16/15 for C01 and
+15/14/14 for C05. This shows greater peak-bin diversity than C05 in all three
+seeds, and than C01 in two seeds, with a tie in seed 99. Use the full sensitivity
+curve as supporting evidence if discussing field shape; choosing a looser
+cutoff alone does not establish a C15 monofield improvement.
+
+Both views regenerate with the same renderer's `--mono-only` command.
+Peak positions remain the original unsmoothed map argmax, with first-index tie
+breaking; no raw input or existing strict criterion was changed.
+
 ### Full diagnostic index
 
 Every run below has editable SVGs for place fields, occupancy, full and

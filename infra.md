@@ -36,6 +36,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   records, and generated only the three missing C01 maps. Its unit, count,
   and peak-location tables retain zero-mono runs, all-DG denominators,
   eligible-unit counts, NPZ hashes, and the original field-file paths.
+  The same adapter now exports fixed-eligibility dominance sweeps and
+  all-active peak maps, with unit IDs and peak-bin observation counts; these
+  distinct summaries prevent relaxed classifications from being mistaken
+  for validated monofields.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28

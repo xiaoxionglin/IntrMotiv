@@ -251,6 +251,110 @@ def mono_field_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> No
     (output / "mono_field_method.json").write_text(json.dumps(method, indent=2) + "\n")
 
 
+def render_dg_peak_map(selected: pd.DataFrame, occupancy: np.ndarray, record,
+                       total_units: int, figure: Path, view_title: str) -> None:
+    """Draw sampled peak bins with unit IDs and explicit collisions."""
+    positions = selected.groupby(["peak_x_bin", "peak_y_bin"], as_index=False).agg(
+        unit_ids=("unit", lambda v: ",".join(map(str, v))))
+    fig, ax = plt.subplots(figsize=(7, 7.3), layout="constrained")
+    palette = matplotlib.colors.ListedColormap(["#eef3f7"])
+    palette.set_bad("#c9ced3")
+    ax.imshow(np.where(occupancy > 0, 1., np.nan).T, origin="lower", cmap=palette,
+              vmin=0, vmax=1, extent=(0, 19, 0, 19), interpolation="nearest")
+    for row in positions.itertuples():
+        ax.scatter(row.peak_x_bin + .5, row.peak_y_bin + .5, s=95,
+                   color=COLORS[record.condition], edgecolor="white", linewidth=.8)
+        # Left-edge peaks have labels inside the arena; others extend left.
+        left = row.peak_x_bin < 3
+        top = row.peak_y_bin >= 17
+        ax.annotate(row.unit_ids, (row.peak_x_bin + .5, row.peak_y_bin + .5),
+                    xytext=(7 if left else -7, -7 if top else 6), textcoords="offset points",
+                    ha="left" if left else "right", va="top" if top else "bottom", fontsize=12,
+                    bbox={"facecolor": "white", "edgecolor": "none", "alpha": .8, "pad": .4})
+    ax.set(xlim=(0, 19), ylim=(0, 19), xticks=[0, 9, 18], yticks=[0, 9, 18],
+           xlabel="x bin", ylabel="y bin",
+           title=f"{record.condition} · seed {record.seed} · {view_title}\n"
+                 f"{len(selected)}/{total_units} units · {len(positions)} distinct bins")
+    ax.set_aspect("equal")
+    fig.savefig(figure, bbox_inches="tight")
+    plt.close(fig)
+
+
+def peak_sensitivity_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> None:
+    """Compare fixed dominance cutoffs and export peaks without field filtering.
+
+    A peak is the maximum sampled mean activation, not proof of a single field.
+    Keep eligibility fixed when changing dominance; include weakly sampled units
+    in the separate all-active view and export their eligibility for inspection.
+    """
+    units = pd.read_csv(output / "mono_field_units.csv")
+    raw = input_root / "corrected_core_candidates_20260902_place_fields/raw"
+    sensitivity, counts, peak_tables = [], [], []
+    cutoffs = (.20, .30, .40, .50, .60, .70, .80, .90)
+    for record in data[data.condition.isin(["C01", "C05", "C15"])].itertuples():
+        group = units[(units.condition == record.condition) & (units.seed == record.seed)].copy()
+        path = raw / Path(record.field_file).parent.name / "place_fields.npz"
+        with np.load(path, allow_pickle=False) as values:
+            occupancy, maps = values["occupancy"], values["rate_maps"]
+            group["peak_mean_activation"] = [
+                float(maps[int(row.peak_x_bin), int(row.peak_y_bin), int(row.unit)])
+                if row.peak_x_bin >= 0 else np.nan for row in group.itertuples()]
+            group["peak_bin_observations"] = [
+                int(occupancy[int(row.peak_x_bin), int(row.peak_y_bin)])
+                if row.peak_x_bin >= 0 else 0 for row in group.itertuples()]
+        selected = group[(group.active_fraction > 0) & (group.peak_x_bin >= 0) &
+                         (group.peak_mean_activation > 0)]
+        peak_tables.append(selected)
+        for cutoff in cutoffs:
+            qualifying = group.field_eligible & (group.mono_score >= cutoff)
+            sensitivity.append({"condition": record.condition, "seed": record.seed,
+                                "dominant_mass_cutoff": cutoff, "qualifying_units": int(qualifying.sum()),
+                                "dg_units": len(group), "eligible_units": int(group.field_eligible.sum())})
+        figure = output / f"{record.condition.lower()}_seed{record.seed}/all_active_dg_peaks.svg"
+        render_dg_peak_map(selected, occupancy, record, len(group), figure, "all active DG peaks")
+        relaxed = selected[selected.field_eligible & (selected.mono_score >= .30)]
+        relaxed_figure = output / f"{record.condition.lower()}_seed{record.seed}/relaxed_30_dg_peaks.svg"
+        render_dg_peak_map(relaxed, occupancy, record, len(group), relaxed_figure,
+                           "DG peaks · 30% dominance")
+        counts.append({"condition": record.condition, "seed": record.seed,
+                       "active_units_with_peak": len(selected), "distinct_peak_bins": len(selected[["peak_x_bin", "peak_y_bin"]].drop_duplicates()),
+                       "eligible_units": int(group.field_eligible.sum()), "dg_units": len(group),
+                       "figure": str(figure.relative_to(output)),
+                       "relaxed_30_units": len(relaxed),
+                       "relaxed_30_figure": str(relaxed_figure.relative_to(output)),
+                       "original_field_file": record.field_file})
+    pd.concat(peak_tables, ignore_index=True).to_csv(output / "all_active_dg_peak_locations.csv", index=False)
+    pd.DataFrame(counts).to_csv(output / "all_active_dg_peak_counts.csv", index=False)
+    sweep = pd.DataFrame(sensitivity)
+    sweep.to_csv(output / "mono_field_sensitivity.csv", index=False)
+    (output / "peak_view_method.json").write_text(json.dumps({
+        "schema": "intrmotiv/dg-peak-sensitivity/v1",
+        "dominant_mass_cutoffs": list(cutoffs), "relaxed_map_cutoff": .30,
+        "classification_source": "mono_field_method.json",
+        "source_hashes": "mono_field_peak_counts.csv",
+        "eligibility": "Unchanged across the dominance sweep; not required for all-active maps",
+        "all_active_selection": "active_fraction > 0 and a positive original rate-map maximum",
+        "peak_statistic": "Original unsmoothed occupancy-corrected mean activation; first NumPy argmax on ties",
+        "peak_bin_observations": "Saved occupancy count in the selected bin",
+        "interpretation": "Relaxed dominance and all-active argmax are descriptive, not validated monofield classifications"
+    }, indent=2) + "\n")
+    fig, ax = plt.subplots(figsize=(9, 5.5), layout="constrained")
+    for condition in ("C01", "C05", "C15"):
+        subset = sweep[sweep.condition == condition]
+        for seed, group in subset.groupby("seed"):
+            ax.plot(100 * group.dominant_mass_cutoff, group.qualifying_units,
+                    color=COLORS[condition], alpha=.35, linewidth=1, marker=".")
+        mean = subset.groupby("dominant_mass_cutoff").qualifying_units.mean()
+        ax.plot(100 * mean.index, mean.values, color=COLORS[condition], marker="o",
+                linewidth=2, label=condition)
+    ax.set(xlabel="Required dominant-component mass at all three levels (%)",
+           ylabel="Qualifying DG units (out of 16)", xticks=[20, 30, 40, 50, 60, 70, 80, 90],
+           title="Field-definition sensitivity · three seeds per architecture")
+    ax.legend(title="Thin lines: individual seeds\nThick lines: seed mean")
+    fig.savefig(output / "mono_field_sensitivity.svg", bbox_inches="tight")
+    plt.close(fig)
+
+
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
              seed: int = 99) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
@@ -374,9 +478,12 @@ def main() -> None:
     if args.mono_only:
         mono_field_outputs(pd.read_csv(args.output / "matched_terminal_per_run.csv"),
                            args.input, args.output)
+        peak_sensitivity_outputs(pd.read_csv(args.output / "matched_terminal_per_run.csv"),
+                                 args.input, args.output)
         return
     data = build_table(args.input, args.output)
     mono_field_outputs(data, args.input, args.output)
+    peak_sensitivity_outputs(data, args.input, args.output)
     paired_changes(data, args.output / "c01_paired_changes.csv")
     summary_figure(data, args.output / "architecture_summary.svg")
     summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))
