@@ -345,7 +345,7 @@ def render_dg_peak_map(selected: pd.DataFrame, occupancy: np.ndarray, record,
     ax.set(xlim=(0, 19), ylim=(0, 19), xticks=[0, 9, 18], yticks=[0, 9, 18],
            xlabel="x bin", ylabel="y bin",
            title=f"{record.condition} · S{record.seed} · "
-                 f"{'DG peaks' if view_title == 'all active DG peaks' else '30% dominance'}\n"
+                 f"{'DG peaks' if view_title == 'all active DG peaks' else '30% dominance' if view_title == 'DG peaks · 30% dominance' else view_title}\n"
                  f"{len(selected)}/{total_units} units · {len(positions)} bins")
     ax.set_aspect("equal")
     pack_peak_labels(ax, labels)
@@ -492,6 +492,30 @@ def place_field_figure(maps: np.ndarray, occupancy: np.ndarray, information: np.
     return limits
 
 
+def dg_kernel_figure(maps: np.ndarray, occupancy: np.ndarray, destination: Path,
+                     condition: str, seed: int, *, reuse_saved_kernel: bool = False) -> None:
+    """Render the established DG displacement kernel on the probe's sampled maps."""
+    saved_kernel = destination / "dg_kernel.npz"
+    if reuse_saved_kernel and saved_kernel.exists():
+        with np.load(saved_kernel) as values:
+            kernel, pairs = values["correlation"], values["pairs"]
+    else:
+        from collect_poster_population_kernels import correlation_kernel
+        kernel, pairs = correlation_kernel(maps, occupancy, radius=8, min_visits=5)
+        kernel[pairs < 10] = np.nan
+        kernel[8, 8] = np.nan
+        np.savez_compressed(saved_kernel, correlation=kernel, pairs=pairs)
+    fig, ax = plt.subplots(figsize=(8 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
+    image = ax.imshow(np.ma.masked_invalid(kernel.T), origin="lower", extent=(-8.5, 8.5, -8.5, 8.5),
+                      cmap="coolwarm", vmin=-1, vmax=1, interpolation="nearest")
+    fig.colorbar(image, ax=ax, label="DG population-vector r")
+    ax.set(xlabel="x offset (bins)", ylabel="y offset (bins)",
+           title=f"{condition} seed {seed} · DG spatial kernel")
+    fig.savefig(destination / "dg_kernel.svg", bbox_inches="tight")
+    plt.close(fig)
+
+
+
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
              seed: int = 99, *, reuse_saved_kernel: bool = False) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
@@ -520,24 +544,8 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
     place_field_figure(maps, occupancy, information, destination, condition, seed, individual_scale=False)
     place_field_figure(maps, occupancy, information, destination, condition, seed, individual_scale=True)
 
-    saved_kernel = destination / "dg_kernel.npz"
-    if reuse_saved_kernel and saved_kernel.exists():
-        with np.load(saved_kernel) as values:
-            kernel, pairs = values["correlation"], values["pairs"]
-    else:
-        from collect_poster_population_kernels import correlation_kernel
-        kernel, pairs = correlation_kernel(maps, occupancy, radius=8, min_visits=5)
-        kernel[pairs < 10] = np.nan
-        kernel[8, 8] = np.nan
-        np.savez_compressed(saved_kernel, correlation=kernel, pairs=pairs)
-    fig, ax = plt.subplots(figsize=(8 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
-    image = ax.imshow(np.ma.masked_invalid(kernel.T), origin="lower", extent=(-8.5, 8.5, -8.5, 8.5),
-                      cmap="coolwarm", vmin=-1, vmax=1, interpolation="nearest")
-    fig.colorbar(image, ax=ax, label="DG population-vector r")
-    ax.set(xlabel="x offset (bins)", ylabel="y offset (bins)",
-           title=f"{condition} seed {seed} · DG spatial kernel")
-    fig.savefig(destination / "dg_kernel.svg", bbox_inches="tight")
-    plt.close(fig)
+    dg_kernel_figure(maps, occupancy, destination, condition, seed,
+                     reuse_saved_kernel=reuse_saved_kernel)
 
 
 def graph_figure(input_root: Path, output: Path, seed: int = 99,

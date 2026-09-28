@@ -100,6 +100,17 @@ The [cross-run scatter report](cross_run_scatter/report.md) combines **323 disti
 
 Two distinctions matter for poster interpretation. The pooled online spatial-score/prospective-success correlation is $\rho=0.769$ across 234 legacy-layout runs, but within CPD it is $0.094$ and within DGP $-0.001$. Absolute peak-bin count versus graph reachability is negatively associated online ($\rho=-0.422$); dividing by all DG units changes the association to positive ($\rho=0.510$). Common-history spatial score versus frozen exploration coverage is essentially uncorrelated ($\rho=-0.0003$, 38 rows). These descriptive patterns call for displaying family and capacity alongside any pooled scatter.
 
+## C15 variant control and behavior survey
+
+The [C15 lineage report](c15_variants/report.md) inventories 67 C15-related
+conditions, with existing scalar/control records for 66 and editable diagnostic
+stacks for 33 locally available run/protocol rows. It shows grounded score,
+prospective success, reachability, declared paired contrasts, bounded command
+trials, and CPD looping. DGP FIRST improves prospective event success over HIT
+while reducing graph reachability; the largest grounded scores are driven by
+one seed. Missing raw archives and required NEMO2 authentication are listed
+explicitly; the survey does not imply that every variant has a local trajectory.
+
 ## Reproducibility and workflow lesson
 
 The full lightweight table and figure package is in [poster data](../../data/poster_missing_analyses_20260926/) and this report folder. The [analysis metadata](../../data/poster_missing_analyses_20260926/study_manifest.json), [full-range kernel metadata](../../data/poster_missing_analyses_20260926/fullrange_plan/kernel_fullrange_manifest.json), and [reward collector manifest](../../data/poster_missing_analyses_20260926/reward_online_75m_manifest.json) retain schema, workflow version, and source fingerprints. Lightweight [full-range kernel arrays](../../data/poster_missing_analyses_20260926/fullrange_kernels/results/) are copied locally. Bulk trial rows, evaluator caches, and Slurm logs remain under `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/`. The evaluator was run with ordinary manifest rows after print-only review. The canonical `summarize_place_fields.py` and `analyze_place_field_manifest.py` supplied DG metrics; small adapters here added common-history layers, cue equal-weight summaries, flow, and honest graph labels.

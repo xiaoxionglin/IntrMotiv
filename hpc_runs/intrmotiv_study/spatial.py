@@ -499,11 +499,11 @@ def _figure_runtime():
     return plt
 
 
-def _save_figure(fig, stem: Path, plt) -> list[Path]:
+def _save_figure(fig, stem: Path, plt, formats: Sequence[str] = ("png", "pdf")) -> list[Path]:
     stem.parent.mkdir(parents=True, exist_ok=True)
-    outputs = [stem.with_suffix(".png"), stem.with_suffix(".pdf")]
-    fig.savefig(outputs[0], dpi=100, bbox_inches="tight", facecolor="white")
-    fig.savefig(outputs[1], bbox_inches="tight", facecolor="white")
+    outputs = [stem.with_suffix("." + format_name) for format_name in formats]
+    for destination in outputs:
+        fig.savefig(destination, dpi=100, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     return outputs
 
@@ -702,8 +702,10 @@ def render_trajectory_segments(
 
 def render_graph_outcomes(
     attempts: np.ndarray, successes: np.ndarray, output_stem: Path, *, title: str,
+    ratio_label: str = "Prospective hits / attempts",
+    figure_scale: float = 1.0, formats: Sequence[str] = ("png", "pdf"),
 ) -> list[Path]:
-    """All attempted directed edges, not just reliable edges; fixed 0–1 scale."""
+    """Render directed evidence with an explicit estimand and optional SVG export."""
     plt = _figure_runtime()
     attempts, successes = np.asarray(attempts), np.asarray(successes)
     if attempts.ndim != 2 or attempts.shape[0] != attempts.shape[1] or successes.shape != attempts.shape:
@@ -715,11 +717,13 @@ def render_graph_outcomes(
     ratio = np.divide(successes, attempts, out=np.full(attempts.shape, np.nan), where=attempts > 0)
     cmap = plt.get_cmap("viridis").copy()
     cmap.set_bad("#d9d9d9")
-    fig, ax = plt.subplots(figsize=(10, 10), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(10 * figure_scale, 10 * figure_scale), constrained_layout=True)
     image = ax.imshow(np.ma.masked_invalid(ratio), vmin=0, vmax=1, cmap=cmap, interpolation="nearest")
     ax.set(xlabel="Target DG unit", ylabel="Source DG unit", title=title)
-    fig.colorbar(image, ax=ax, shrink=.7, label="Prospective hits / attempts")
-    return _save_figure(fig, output_stem, plt)
+    fig.colorbar(image, ax=ax, shrink=.7, label=ratio_label)
+    if tuple(formats) == ("png", "pdf"):
+        return _save_figure(fig, output_stem, plt)
+    return _save_figure(fig, output_stem, plt, formats=formats)
 
 
 def render_selected_snapshots(

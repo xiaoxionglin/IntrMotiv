@@ -98,7 +98,16 @@ requesting new telemetry: `pose`, `dg_activity`, `actions`, `segment_id`,
 `occupancy`, `rate_maps`, and `field_mono` support DG fields, trajectories,
 occupancy flow, and mono-field peaks directly. When present, the separate
 `control_*` stored and prospective arrays support explicitly labeled directed
-edge and source-command analyses. The snapshot does not contain RGB history or
+edge and source-command analyses. For a C15 lineage survey, reuse
+`06_experiments/render_c15_variants.py`: it expands the original validated
+StudySpecs, uses their declared contrasts through the shared pairing engine,
+and keeps retained windows, terminal scalars, frozen probes, and bounded
+command trials separate. The report records missing raw inputs explicitly.
+`render_graph_outcomes` accepts `ratio_label`, `figure_scale`, and
+`formats=("svg",)`; stored confidence is never renamed prospective success.
+The pure DG kernel calculation uses lazy environment imports, so saved-map
+rendering does not require a compatible training runtime.
+The snapshot does not contain RGB history or
 aligned CA3/decoder-1 traces. Reuse an existing common observation/action
 panel for downstream-layer replay, and audit direct plus milestone checkpoint
 files first. If no exact frame is shared across every required condition and

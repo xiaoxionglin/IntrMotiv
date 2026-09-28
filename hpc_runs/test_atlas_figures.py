@@ -50,6 +50,22 @@ class AtlasFiguresTest(unittest.TestCase):
             spatial.render_graph_outcomes(np.array([[0, 2], [2, 0]]),
                                           np.array([[0, 0], [1, 0]]), Path('/tmp/test_graph'), title='Test')
 
+    def test_svg_graph_preserves_explicit_stored_evidence_label(self):
+        import matplotlib.pyplot as plt
+        import xml.etree.ElementTree as ET
+
+        with tempfile.TemporaryDirectory() as folder, plt.rc_context({'svg.fonttype': 'none'}):
+            outputs = spatial.render_graph_outcomes(
+                np.array([[0, 2], [2, 0]]), np.array([[0, 1], [2, 0]]),
+                Path(folder) / 'stored', title='Stored graph',
+                ratio_label='Stored confidence / attempts', figure_scale=.58,
+                formats=('svg',))
+            self.assertEqual([p.suffix for p in outputs], ['.svg'])
+            text = outputs[0].read_text()
+            ET.fromstring(text)
+            self.assertIn('Stored confidence / attempts', text)
+            self.assertNotIn('Prospective hits / attempts', text)
+
     def test_trajectory_exports(self):
         with tempfile.TemporaryDirectory() as folder:
             for renderer in (spatial.render_occupancy_trajectory, spatial.render_trajectory_segments):

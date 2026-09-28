@@ -1,0 +1,39 @@
+{
+  "schema": "intrmotiv/c15-lineage-analysis/v1",
+  "study_contracts": "variant_registry.csv preserves each validated schema, workflow_version, and StudySpec SHA-256",
+  "protocols": [
+    "online retained 100k-observation window",
+    "terminal scalar window",
+    "frozen 10k-policy probe",
+    "DPR unmatched-age single-seed probe",
+    "bounded frozen command trials"
+  ],
+  "pairing": "Canonical linear_contrasts with original StudySpec selectors; each term must select exactly one row per replicate",
+  "loops": {
+    "lags_decisions": [
+      20,
+      40
+    ],
+    "max_displacement_units": 100,
+    "min_traveled_units": 500,
+    "denominator": "mobile windows in one contiguous agent/episode segment",
+    "also_saved": "all-window rate, mobile fraction, eligible counts"
+  },
+  "field_display": "Same top four amplitude-weighted spatial-score units; independent zero-to-unit-max colormaps, occupancy-normalized raw mean activation",
+  "peak_display": "Each active unit argmax on original unsmoothed map; strict mono subset separate",
+  "dg_kernel": {
+    "offset_radius_bins": 8,
+    "min_cell_visits": 5,
+    "min_pairs_per_offset": 10,
+    "central_identity_masked": true,
+    "representation_protocol": "same policy-driven probe maps, not a fixed-history intervention"
+  },
+  "graph_metrics": "Original canonical exports; prospective and stored evidence remain separate; missing counters are unavailable",
+  "data_availability": "run_availability.csv; NEMO2 authentication pending, no new evaluator or training jobs",
+  "plotting_source_sha256": {
+    "06_experiments/render_c15_variants.py": "c74ee23f97ecd89ff823743a6c90c1560afe22d86d2c17a35a166a2d8011d8af",
+    "06_experiments/render_flat_goal_comparison.py": "a3c95161a4458c5040d2767ef3b8d65318f1ea9e32cc7e677aed26bb155acc9a",
+    "06_experiments/collect_poster_population_kernels.py": "aebd1fc98c020f4bb3528c231845b6ef055d254326bf5c3b5b55af9544791ad0",
+    "hpc_runs/intrmotiv_study/spatial.py": "90d970beb7b52dde0ab9193bb1711d8fc0536be0134eec5ae09f65f0cde5a82a"
+  }
+}

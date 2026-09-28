@@ -60,6 +60,15 @@ keep implementation guidance in the canonical workflow documents linked below.
   copying results back to the user workspace. Verify hashes at the actual
   user-facing paths after synchronizing selected outputs; a successful push
   alone does not confirm local delivery.
+  The C15 lineage adapter now binds 67 conditions to validated studies and
+  runs their original paired contrasts through the canonical engine. Saved
+  graph diagnostics cover 66 conditions; 33 locally staged run/protocol rows
+  support full SVG stacks. Missing raw inputs remain an explicit availability
+  table, with no automated SSH retry after authentication rejection.
+  Array-only kernels initially imported the environment/learner and failed on
+  mismatched runtime versions; lazy replay imports remove that dependency.
+  The canonical graph renderer now accepts explicit stored/prospective labels,
+  compact canvases, and SVG export. Six focused atlas checks pass.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
