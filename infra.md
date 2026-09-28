@@ -49,9 +49,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   Use the comparison renderer’s `--compact-only` path for layout revisions,
   avoiding environment imports, new rollouts, and kernel recomputation.
   The top-four field renderer now accepts independent 0-to-unit-max color
-  limits as an additional view, reusing the same selection and raw maps.
-  `--individual-fields-only` adds these figures and exports exact panel
-  limits/source hashes without touching existing shared-scale outputs.
+  limits as the default view, reusing the same selection and raw maps.
+  `--individual-fields-only` updates the default and explicit individual-scale
+  figures and exports exact panel limits/source hashes. Shared-scale views
+  have an explicit `place_fields_shared_scale.svg` filename.
+  A delivery check found that a clean temporary clone had been pushed without
+  copying results back to the user workspace. Verify hashes at the actual
+  user-facing paths after synchronizing selected outputs; a successful push
+  alone does not confirm local delivery.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28

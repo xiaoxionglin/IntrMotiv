@@ -104,7 +104,7 @@
       ]
     },
     {
-      "figure": "c01_seed123/place_fields.svg",
+      "figure": "c01_seed123/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.307557,
         642.524927
@@ -259,7 +259,7 @@
       ]
     },
     {
-      "figure": "c01_seed8/place_fields.svg",
+      "figure": "c01_seed8/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.171603,
         643.812911
@@ -414,7 +414,7 @@
       ]
     },
     {
-      "figure": "c01_seed99/place_fields.svg",
+      "figure": "c01_seed99/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.307557,
         642.524927
@@ -568,7 +568,7 @@
       ]
     },
     {
-      "figure": "c05_seed123/place_fields.svg",
+      "figure": "c05_seed123/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.262269,
         642.953974
@@ -722,7 +722,7 @@
       ]
     },
     {
-      "figure": "c05_seed8/place_fields.svg",
+      "figure": "c05_seed8/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.262269,
         642.953974
@@ -876,7 +876,7 @@
       ]
     },
     {
-      "figure": "c05_seed99/place_fields.svg",
+      "figure": "c05_seed99/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.262269,
         642.953974
@@ -1064,7 +1064,7 @@
       ]
     },
     {
-      "figure": "c15_seed123/place_fields.svg",
+      "figure": "c15_seed123/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.171603,
         643.812911
@@ -1218,7 +1218,7 @@
       ]
     },
     {
-      "figure": "c15_seed8/place_fields.svg",
+      "figure": "c15_seed8/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.262269,
         642.953974
@@ -1372,7 +1372,7 @@
       ]
     },
     {
-      "figure": "c15_seed99/place_fields.svg",
+      "figure": "c15_seed99/place_fields_shared_scale.svg",
       "original_size_pt": [
         654.171603,
         643.812911
@@ -1573,7 +1573,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c01_seed8/place_fields.svg"
     },
     {
       "figure": "c01_seed99/place_fields_individual_scale.svg",
@@ -1583,7 +1584,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c01_seed99/place_fields.svg"
     },
     {
       "figure": "c01_seed123/place_fields_individual_scale.svg",
@@ -1593,7 +1595,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c01_seed123/place_fields.svg"
     },
     {
       "figure": "c05_seed8/place_fields_individual_scale.svg",
@@ -1603,7 +1606,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c05_seed8/place_fields.svg"
     },
     {
       "figure": "c05_seed99/place_fields_individual_scale.svg",
@@ -1613,7 +1617,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c05_seed99/place_fields.svg"
     },
     {
       "figure": "c05_seed123/place_fields_individual_scale.svg",
@@ -1623,7 +1628,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c05_seed123/place_fields.svg"
     },
     {
       "figure": "c15_seed8/place_fields_individual_scale.svg",
@@ -1633,7 +1639,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c15_seed8/place_fields.svg"
     },
     {
       "figure": "c15_seed99/place_fields_individual_scale.svg",
@@ -1643,7 +1650,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c15_seed99/place_fields.svg"
     },
     {
       "figure": "c15_seed123/place_fields_individual_scale.svg",
@@ -1653,7 +1661,8 @@
       ],
       "panels": 4,
       "colorbars": 4,
-      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation"
+      "color_limits": "0 to each unit maximum; raw occupancy-corrected mean activation",
+      "primary_figure": "c15_seed123/place_fields.svg"
     }
   ]
 }

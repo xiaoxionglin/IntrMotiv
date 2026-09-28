@@ -166,8 +166,9 @@ breaking; no raw input or existing strict criterion was changed.
 
 ### Top-four place fields with individual color scales
 
-These additional figures contain the **same four DG units, ranked by the same
-spatial score and in the same order** as the existing shared-scale figures.
+The default `place_fields.svg` figures now use independent panel scales.
+They contain the **same four DG units, ranked by the same
+spatial score and in the same order** as the preserved `place_fields_shared_scale.svg` figures.
 Each panel has its own colorbar spanning **0 to that unit's maximum**
 occupancy-normalized mean activation. Rate-map values and unvisited-cell masks
 are unchanged; only the color mapping differs. The compact four-panel layout
@@ -181,10 +182,10 @@ and font sizes are retained.
 
 These views emphasize spatial structure relative to each unit's peak; matching
 colors across panels do not imply matching absolute activation. Use each
-colorbar's upper limit, or the existing shared-scale figures below, to compare
+colorbar's upper limit, or the preserved shared-scale figures below, to compare
 amplitudes. The [panel limits and unit/source table](place_field_individual_scales.csv)
 records all 36 unit IDs, selection ranks, scores, and exact color limits.
-Regenerate just these additional figures with the comparison renderer's
+Regenerate the default and explicitly named individual-scale figures with the comparison renderer's
 `--individual-fields-only` option and the staged original input root.
 
 ### Full diagnostic index
@@ -224,7 +225,7 @@ The A0 plan limits the final poster to two detailed examples. After checking all
 | Diagnostic | Non-goal-conditioned C01 seed 99 | Goal + frontier C15 seed 99 | Goal + DG regularization C05 seed 99 (alternate) |
 | --- | --- | --- | --- |
 | Mono-field peak locations | [SVG](c01_seed99/mono_field_peaks.svg) | [SVG](c15_seed99/mono_field_peaks.svg) | [SVG](c05_seed99/mono_field_peaks.svg) |
-| Top-four DG place fields · shared scale | [SVG](c01_seed99/place_fields.svg) | [SVG](c15_seed99/place_fields.svg) | [SVG](c05_seed99/place_fields.svg) |
+| Top-four DG place fields · shared scale | [SVG](c01_seed99/place_fields_shared_scale.svg) | [SVG](c15_seed99/place_fields_shared_scale.svg) | [SVG](c05_seed99/place_fields_shared_scale.svg) |
 | Top-four DG place fields · individual scales | [SVG](c01_seed99/place_fields_individual_scale.svg) | [SVG](c15_seed99/place_fields_individual_scale.svg) | [SVG](c05_seed99/place_fields_individual_scale.svg) |
 | Full trajectory and occupancy | [SVG](c01_seed99/trajectory_occupancy.svg) | [SVG](c15_seed99/trajectory_occupancy.svg) | [SVG](c05_seed99/trajectory_occupancy.svg) |
 | Local occupancy flow | [SVG](c01_seed99/flow.svg) | [SVG](c15_seed99/flow.svg) | [SVG](c05_seed99/flow.svg) |

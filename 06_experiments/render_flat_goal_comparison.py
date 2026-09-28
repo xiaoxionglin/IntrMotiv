@@ -449,7 +449,7 @@ def trajectory_occupancy_figure(pose: pd.DataFrame, occupancy: np.ndarray, desti
 
 def place_field_figure(maps: np.ndarray, occupancy: np.ndarray, information: np.ndarray,
                        destination: Path, condition: str, seed: int, *,
-                       individual_scale: bool = False) -> list[dict]:
+                       individual_scale: bool = True) -> list[dict]:
     """Render the same top-four units with shared or independent raw activation limits."""
     valid = np.flatnonzero(np.isfinite(information) & (np.nanmax(maps, axis=(0, 1)) > 0))
     selected = valid[np.argsort(information[valid])[-4:][::-1]]
@@ -477,8 +477,12 @@ def place_field_figure(maps: np.ndarray, occupancy: np.ndarray, information: np.
         fig.suptitle(f"{condition} · S{seed} · top four DG maps\nMean activation · each scale: 0 to unit max")
     else:
         fig.suptitle(f"{condition} · S{seed} · top four DG maps · shared scale")
-    filename = "place_fields_individual_scale.svg" if individual_scale else "place_fields.svg"
+    filename = "place_fields.svg" if individual_scale else "place_fields_shared_scale.svg"
     fig.savefig(destination / filename, bbox_inches="tight")
+    if individual_scale:
+        # Keep the explicit report links compatible with the primary figure.
+        (destination / "place_fields_individual_scale.svg").write_bytes(
+            (destination / filename).read_bytes())
     plt.close(fig)
 
     return limits
@@ -509,7 +513,7 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
 
     trajectory_occupancy_figure(pose, occupancy, destination, condition, seed)
 
-    place_field_figure(maps, occupancy, information, destination, condition, seed)
+    place_field_figure(maps, occupancy, information, destination, condition, seed, individual_scale=False)
     place_field_figure(maps, occupancy, information, destination, condition, seed, individual_scale=True)
 
     saved_kernel = destination / "dg_kernel.npz"
@@ -638,7 +642,7 @@ def main() -> None:
     parser.add_argument("--figure-scale", type=float, default=FIGURE_SCALE,
                         help="Canvas width/height multiplier; text and strokes remain unchanged")
     parser.add_argument("--individual-fields-only", action="store_true",
-                        help="Add per-unit 0-to-max top-four fields without changing shared-scale figures")
+                        help="Update default top-four fields with separate per-unit 0-to-max scales")
     parser.add_argument("--goal-events-input", type=Path,
                         help="Staged full event replay streams: c05_seed99/pose_events.csv and c15_seed99/pose_events.csv")
     parser.add_argument("--trajectories-only", action="store_true",
