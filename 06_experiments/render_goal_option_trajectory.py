@@ -14,14 +14,15 @@ import pandas as pd
 
 
 def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
-           bounds: tuple[float, float, float, float], sampling_label: str = "replay") -> None:
+           bounds: tuple[float, float, float, float], sampling_label: str = "replay",
+           figure_scale: float = 1.0, compact_title: str | None = None) -> None:
     if scope == "first_episode":
         pose = pose.loc[pose.num_traj == pose.num_traj.iloc[0]].copy()
         scope_title = f"First episode ({len(pose):,} decisions)"
     else:
         scope_title = f"Full {sampling_label} ({len(pose):,} decisions)"
 
-    fig, ax = plt.subplots(figsize=(8.5, 8.0), layout="constrained")
+    fig, ax = plt.subplots(figsize=(8.5 * figure_scale, 8.0 * figure_scale), layout="constrained")
     for _, episode in pose.groupby(["agent", "num_traj"], sort=False):
         ax.plot(episode.x, episode.y, color="#606973", lw=1.1, alpha=0.46, zorder=1)
 
@@ -45,7 +46,7 @@ def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
                zorder=5, label=f"{sampling_label.capitalize()} start")
     ax.set(xlabel="Arena x (DMLab units)", ylabel="Arena y (DMLab units)",
            xlim=bounds[:2], ylim=bounds[2:])
-    ax.set_title(f"{title}\n{scope_title}", pad=13)
+    ax.set_title(f"{compact_title or title}\n{scope_title}", pad=13)
     ax.set_aspect("equal", adjustable="box")
     ax.grid(color="#d6dade", linewidth=0.6, alpha=0.7)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.15), ncol=2,

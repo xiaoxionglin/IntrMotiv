@@ -40,6 +40,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   all-active peak maps, with unit IDs and peak-bin observation counts; these
   distinct summaries prevent relaxed classifications from being mistaken
   for validated monofields.
+  Compact rendering now reruns saved probe/graph outputs with fixed physical
+  text, stroke, and marker sizes, preserving panel groupings. It reuses cached
+  kernel arrays and exposes optional canvas scaling in the shared trajectory
+  and flow renderers; flow arrow widths are retained in physical units.
+  Peak labels use collision-aware placement in physical points, and the
+  four-field grids share axes to eliminate repeated labels without shrinking text.
+  Use the comparison renderer’s `--compact-only` path for layout revisions,
+  avoiding environment imports, new rollouts, and kernel recomputation.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28

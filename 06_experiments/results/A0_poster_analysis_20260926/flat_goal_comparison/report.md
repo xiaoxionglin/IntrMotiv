@@ -2,6 +2,8 @@
 
 **Analysis date:** 28 September 2026. This comparison extends the [A0 analysis plan](../../../../05_plans/A0_poster_analysis_plan_20260926.md) with a matched corrected-core non-goal-conditioned baseline. The [editable all-seed SVG](architecture_summary.svg) and [per-run table](matched_terminal_per_run.csv) are the entry points. The [monofield peak-location summary](#mono-field-peak-locations) links all nine peak maps. All five cells used the same fixed 900-decision no-reward open field, F16 DG, seeds 8/99/123, and the exact **100,040,704-frame** terminal checkpoint. The training curves are terminal-window means over the last 10M frames; spatial and looping measures come from separate 10,000-decision stochastic frozen-policy probes.
 
+**Figure layout:** All comparison SVGs use compact canvases with the original font sizes, line widths, and marker sizes. Panel groupings are retained. The starting canvas is one-third of the original area (width and height multiplied by $1/\sqrt{3}$); exported bounds allow room for labels. Condition codes replace long architecture names in plots; their meanings are in the comparison tables. Peak-map labels are unit IDs, packed around markers to avoid overlap; the four-field grids share axes and use `DG unit: spatial score` as panel titles. White place-field/graph cells retain their original missing-data meaning, and offsets in the DG kernels remain 100-unit bins. The [layout manifest](compact_layout_manifest.json) records each original and compact canvas size.
+
 ## What the matched comparison shows
 
 | Cell | Architecture | Coverage AUC / episode | Unique cells / episode | 20-decision short returns among mobile windows | 40-decision short returns among mobile windows | Target-hit lift |
@@ -64,8 +66,9 @@ Thus the strongest replicated contrast is **C01 versus the C15 package at the
 
 ### Mono-field peak locations
 
-Existing peak maps were reused for all C05 and C15 seeds; the missing C01
-maps were produced with the same classifier and plotting helper. Links below
+C05 and C15 peak classifications were verified against the existing maps;
+C01 was analyzed with the same classifier and plotting helper. All nine maps
+are rendered locally in the compact comparison layout. Links below
 show the number of qualifying mono-field units out of **all 16 DG units**.
 Each dot marks a mono-field unit's peak bin; coincident peaks share a larger
 dot. Light cells were visited and grey cells were unvisited. Empty maps explicitly
@@ -75,8 +78,8 @@ the all-active-unit peak counts discussed above.
 | Architecture | Seed 8 | Seed 99 | Seed 123 |
 | --- | --- | --- | --- |
 | C01: non-goal-conditioned | [0/16 · SVG](c01_seed8/mono_field_peaks.svg) | [0/16 · SVG](c01_seed99/mono_field_peaks.svg) | [1/16 · SVG](c01_seed123/mono_field_peaks.svg) |
-| C05: goal + DG regularization | [1/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S8_100040704/mono_field_peaks.svg) | [0/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99_100040704/mono_field_peaks.svg) | [1/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S123_100040704/mono_field_peaks.svg) |
-| C15: goal + UCB frontier | [1/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8_100040704/mono_field_peaks.svg) | [0/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99_100040704/mono_field_peaks.svg) | [0/16 · SVG](../exemplar_gallery/historical_extension/per_run/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123_100040704/mono_field_peaks.svg) |
+| C05: goal + DG regularization | [1/16 · SVG](c05_seed8/mono_field_peaks.svg) | [0/16 · SVG](c05_seed99/mono_field_peaks.svg) | [1/16 · SVG](c05_seed123/mono_field_peaks.svg) |
+| C15: goal + UCB frontier | [1/16 · SVG](c15_seed8/mono_field_peaks.svg) | [0/16 · SVG](c15_seed99/mono_field_peaks.svg) | [0/16 · SVG](c15_seed123/mono_field_peaks.svg) |
 
 Only four units qualify across the nine runs: one in C01, two in C05, and
 one in C15. Every qualifying unit has a distinct peak bin within its own run.
@@ -88,7 +91,7 @@ zero-based peak bins, and bin-center x/y positions in DMLab units for all four
 qualifying units. The [all-unit table](mono_field_units.csv) preserves all 144
 units, including eligibility and mono-field scores; the
 [count/source table](mono_field_peak_counts.csv) includes eligible-unit counts,
-original NPZ paths, hashes, and reused figure links. The
+original NPZ paths, hashes, compact figure links, and verified source-figure links. The
 [method record](mono_field_method.json) specifies the shared criterion: at least
 20 active observations and three active bins, with at least 80% of above-threshold
 map mass in one 8-connected component at each of 30%, 50%, and 70% of peak after
@@ -197,7 +200,7 @@ The A0 plan limits the final poster to two detailed examples. After checking all
 
 | Diagnostic | Non-goal-conditioned C01 seed 99 | Goal + frontier C15 seed 99 | Goal + DG regularization C05 seed 99 (alternate) |
 | --- | --- | --- | --- |
-| Mono-field peak locations | [SVG](c01_seed99/mono_field_peaks.svg) | [SVG](../exemplar_gallery/historical_extension/per_run/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99_100040704/mono_field_peaks.svg) | [SVG](../exemplar_gallery/historical_extension/per_run/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99_100040704/mono_field_peaks.svg) |
+| Mono-field peak locations | [SVG](c01_seed99/mono_field_peaks.svg) | [SVG](c15_seed99/mono_field_peaks.svg) | [SVG](c05_seed99/mono_field_peaks.svg) |
 | Top-four DG place fields | [SVG](c01_seed99/place_fields.svg) | [SVG](c15_seed99/place_fields.svg) | [SVG](c05_seed99/place_fields.svg) |
 | Full trajectory and occupancy | [SVG](c01_seed99/trajectory_occupancy.svg) | [SVG](c15_seed99/trajectory_occupancy.svg) | [SVG](c05_seed99/trajectory_occupancy.svg) |
 | Local occupancy flow | [SVG](c01_seed99/flow.svg) | [SVG](c15_seed99/flow.svg) | [SVG](c05_seed99/flow.svg) |

@@ -20,7 +20,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from collect_poster_population_kernels import correlation_kernel
 from render_poster_frozen import flow_cells, render_flow
 from render_goal_option_trajectory import render as render_trajectory
 from analyze_place_field_manifest import (
@@ -39,8 +38,15 @@ CONDITIONS = {"C01": "Non-goal-conditioned", "C02": "Goal: delayed", "C03": "Goa
 COLORS = {"C01": "#5E5E5E", "C02": "#0072B2", "C03": "#56B4E9",
           "C05": "#009E73", "C15": "#D55E00"}
 
+# Compact canvases preserve all physical font, stroke, and marker sizes.
+FIGURE_SCALE = 1 / np.sqrt(3)
+
 
 def setup_style() -> None:
+    from matplotlib.font_manager import findfont
+    font_path = Path(findfont("DejaVu Sans", fallback_to_default=False))
+    if font_path.suffix.lower() not in {".ttf", ".otf"}:
+        raise ValueError(f"Expected a scalable font, found {font_path}")
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 13,
                          "axes.titlesize": 15, "axes.labelsize": 13,
                          "xtick.labelsize": 12, "ytick.labelsize": 12,
@@ -122,11 +128,11 @@ def build_table(input_root: Path, output: Path) -> pd.DataFrame:
 
 def summary_figure(data: pd.DataFrame, output: Path, conditions=None) -> None:
     conditions = list(CONDITIONS) if conditions is None else list(conditions)
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10), constrained_layout=True)
-    metrics = [("coverage_auc_terminal", "Coverage AUC / episode", None),
-               ("unique_cells_terminal", "Unique cells / episode", None),
-               ("return_20_mobile", "20-decision short-return fraction", (0, 1)),
-               ("return_40_mobile", "40-decision short-return fraction", (0, 1))]
+    fig, axes = plt.subplots(2, 2, figsize=(14 * FIGURE_SCALE, 10 * FIGURE_SCALE), constrained_layout=True)
+    metrics = [("coverage_auc_terminal", "Coverage AUC", None),
+               ("unique_cells_terminal", "Unique cells", None),
+               ("return_20_mobile", "20-step return", (0, 1)),
+               ("return_40_mobile", "40-step return", (0, 1))]
     for ax, (metric, ylabel, ylim) in zip(axes.flat, metrics):
         for condition in conditions:
             group = data[data.condition == condition].sort_values("seed")
@@ -139,13 +145,12 @@ def summary_figure(data: pd.DataFrame, output: Path, conditions=None) -> None:
         labels = {"C01": "C01\nNon-goal-\nconditioned", "C02": "C02\nDelayed",
                   "C03": "C03\nImmediate", "C05": "C05\nGoal + DG reg.",
                   "C15": "C15\nGoal + UCB"}
-        ax.set_xticks(range(len(conditions)), [labels[c] for c in conditions],
+        ax.set_xticks(range(len(conditions)), conditions if FIGURE_SCALE < 1 else [labels[c] for c in conditions],
                       fontsize=16, ha="center")
         ax.tick_params(axis="y", labelsize=16)
         ax.yaxis.label.set_size(16)
         ax.grid(axis="y", alpha=.2)
-    fig.suptitle("Corrected core · non-goal-conditioned versus goal-conditioned · 100.04M frames\n"
-                 "Dots left to right: seeds 8, 99, 123; black line: three-seed mean", fontsize=18)
+    fig.suptitle("Corrected core · 100.04M frames\nSeeds 8 / 99 / 123 · black line: seed mean", fontsize=18)
     fig.savefig(output, bbox_inches="tight")
     plt.close(fig)
 
@@ -166,7 +171,7 @@ def paired_changes(data: pd.DataFrame, output: Path) -> None:
 
 
 def mono_field_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> None:
-    """Reuse historical mono-field maps and fill missing baseline maps identically."""
+    """Verify historical classifications and render all comparison maps locally."""
     gallery = output.parent / "exemplar_gallery/historical_extension"
     inventory = pd.read_csv(gallery / "historical_exemplar_inventory.csv")
     raw = input_root / "corrected_core_candidates_20260902_place_fields/raw"
@@ -206,25 +211,39 @@ def mono_field_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> No
             figure = Path(saved.figure_dir) / "mono_field_peaks.svg"
             if not figure.is_file():
                 raise FileNotFoundError(figure)
-            reused = True
+            source_figure = os.path.relpath(figure, output)
         else:
             if len(existing) > 1:
                 raise ValueError("Ambiguous historical mono-field figure")
-            figure = output / f"{record.condition.lower()}_seed{record.seed}/mono_field_peaks.svg"
-            figure.parent.mkdir(parents=True, exist_ok=True)
-            fig, ax = plt.subplots(figsize=(7, 7.3), layout="constrained")
+            source_figure = None
+        figure = output / f"{record.condition.lower()}_seed{record.seed}/mono_field_peaks.svg"
+        figure.parent.mkdir(parents=True, exist_ok=True)
+        # Historical maps use Times New Roman; keep that styling local.
+        historical_style = {"font.family": "Times New Roman", "font.size": 12,
+                            "axes.titlesize": 13, "axes.labelsize": 12,
+                            "xtick.labelsize": 12, "ytick.labelsize": 12}
+        if source_figure is not None:
+            from matplotlib.font_manager import findfont
+            findfont("Times New Roman", fallback_to_default=False)
+        with plt.rc_context(historical_style if source_figure is not None else {}):
+            canvas = (4.1, 4.5) if source_figure is not None else (7, 7.3)
+            fig, ax = plt.subplots(figsize=tuple(side * FIGURE_SCALE for side in canvas),
+                                   layout="constrained")
             mono_peak_panel(ax, units, occupancy,
-                            f"{record.condition} · {CONDITIONS[record.condition]} · seed {record.seed}\n"
-                            f"Mono-field units: {len(selected)}/{len(active)} · distinct peaks: {bins}")
+                            f"{record.condition} · S{record.seed}\n{len(selected)}/16 mono · {bins} bins")
+            if source_figure is not None:
+                for text in ax.texts:
+                    if text.get_text() == "No mono-field units":
+                        text.set_text("No mono-field\nunits")
             fig.savefig(figure, bbox_inches="tight")
             plt.close(fig)
-            reused = False
         counts.append({"condition": record.condition, "seed": record.seed,
                        "checkpoint_frames": record.checkpoint_frames, "dg_units": len(active),
                        "eligible_units": int(eligible.sum()), "mono_units": len(selected),
                        "mono_fraction_all_dg": len(selected) / len(active),
                        "mono_peak_bins": bins, "figure": os.path.relpath(figure, output),
-                       "reused_existing_figure": reused, "original_field_file": record.field_file,
+                       "reused_existing_figure": False, "verified_source_figure": source_figure,
+                       "original_field_file": record.field_file,
                        "field_sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
         unit_tables.append(units)
     all_units = pd.concat(unit_tables, ignore_index=True)
@@ -251,31 +270,79 @@ def mono_field_outputs(data: pd.DataFrame, input_root: Path, output: Path) -> No
     (output / "mono_field_method.json").write_text(json.dumps(method, indent=2) + "\n")
 
 
+def pack_peak_labels(ax: plt.Axes, labels: list) -> None:
+    """Place unit labels near their peaks without covering labels or markers.
+
+    Try a fixed set of nearby positions in physical points. The score penalizes
+    overlapping labels, covering peak markers, and leaving the plotting area;
+    neither data coordinates nor text sizes change.
+    """
+    from matplotlib.transforms import Bbox
+
+    ax.figure.canvas.draw()
+    renderer = ax.figure.canvas.get_renderer()
+    point_to_pixel = ax.figure.dpi / 72
+    radius = np.sqrt(95) / 2 * point_to_pixel
+    marker_boxes = []
+    for label in labels:
+        x, y = ax.transData.transform(label.xy)
+        marker_boxes.append(Bbox.from_extents(x-radius, y-radius, x+radius, y+radius))
+    offsets = [(x, y) for distance in (7, 14, 22) for x, y in
+               [(-distance, distance), (distance, distance), (-distance, -distance),
+                (distance, -distance), (0, distance), (0, -distance),
+                (-distance, 0), (distance, 0)]]
+    def overlap(first, second):
+        return max(0., min(first.x1, second.x1)-max(first.x0, second.x0)) * max(
+            0., min(first.y1, second.y1)-max(first.y0, second.y0))
+    placed = []
+    # Long labels (coincident units) have fewer viable positions, so place them first.
+    for label in sorted(labels, key=lambda item: -len(item.get_text())):
+        best = None
+        for dx, dy in [label.get_position(), *offsets]:
+            label.set_position((dx, dy))
+            label.set_ha("left" if dx > 0 else "right" if dx < 0 else "center")
+            label.set_va("bottom" if dy > 0 else "top" if dy < 0 else "center")
+            box = label.get_window_extent(renderer).padded(point_to_pixel)
+            outside = box.width*box.height - overlap(box, ax.bbox)
+            collisions = sum(overlap(box, previous) for previous in placed)
+            covered = sum(overlap(box, marker) for marker in marker_boxes)
+            cost = 100*outside + 100*collisions + 10*covered + .01*(dx*dx+dy*dy)
+            candidate = (cost, dx, dy, label.get_ha(), label.get_va(), box)
+            if best is None or cost < best[0]:
+                best = candidate
+        _, dx, dy, ha, va, box = best
+        label.set_position((dx, dy)); label.set_ha(ha); label.set_va(va)
+        placed.append(box)
+
+
 def render_dg_peak_map(selected: pd.DataFrame, occupancy: np.ndarray, record,
                        total_units: int, figure: Path, view_title: str) -> None:
     """Draw sampled peak bins with unit IDs and explicit collisions."""
     positions = selected.groupby(["peak_x_bin", "peak_y_bin"], as_index=False).agg(
         unit_ids=("unit", lambda v: ",".join(map(str, v))))
-    fig, ax = plt.subplots(figsize=(7, 7.3), layout="constrained")
+    fig, ax = plt.subplots(figsize=(7 * FIGURE_SCALE, 7.3 * FIGURE_SCALE), layout="constrained")
     palette = matplotlib.colors.ListedColormap(["#eef3f7"])
     palette.set_bad("#c9ced3")
     ax.imshow(np.where(occupancy > 0, 1., np.nan).T, origin="lower", cmap=palette,
               vmin=0, vmax=1, extent=(0, 19, 0, 19), interpolation="nearest")
+    labels = []
     for row in positions.itertuples():
         ax.scatter(row.peak_x_bin + .5, row.peak_y_bin + .5, s=95,
                    color=COLORS[record.condition], edgecolor="white", linewidth=.8)
         # Left-edge peaks have labels inside the arena; others extend left.
         left = row.peak_x_bin < 3
         top = row.peak_y_bin >= 17
-        ax.annotate(row.unit_ids, (row.peak_x_bin + .5, row.peak_y_bin + .5),
+        labels.append(ax.annotate(row.unit_ids, (row.peak_x_bin + .5, row.peak_y_bin + .5),
                     xytext=(7 if left else -7, -7 if top else 6), textcoords="offset points",
                     ha="left" if left else "right", va="top" if top else "bottom", fontsize=12,
-                    bbox={"facecolor": "white", "edgecolor": "none", "alpha": .8, "pad": .4})
+                    bbox={"facecolor": "white", "edgecolor": "none", "alpha": .8, "pad": .4}))
     ax.set(xlim=(0, 19), ylim=(0, 19), xticks=[0, 9, 18], yticks=[0, 9, 18],
            xlabel="x bin", ylabel="y bin",
-           title=f"{record.condition} · seed {record.seed} · {view_title}\n"
-                 f"{len(selected)}/{total_units} units · {len(positions)} distinct bins")
+           title=f"{record.condition} · S{record.seed} · "
+                 f"{'DG peaks' if view_title == 'all active DG peaks' else '30% dominance'}\n"
+                 f"{len(selected)}/{total_units} units · {len(positions)} bins")
     ax.set_aspect("equal")
+    pack_peak_labels(ax, labels)
     fig.savefig(figure, bbox_inches="tight")
     plt.close(fig)
 
@@ -338,7 +405,7 @@ def peak_sensitivity_outputs(data: pd.DataFrame, input_root: Path, output: Path)
         "peak_bin_observations": "Saved occupancy count in the selected bin",
         "interpretation": "Relaxed dominance and all-active argmax are descriptive, not validated monofield classifications"
     }, indent=2) + "\n")
-    fig, ax = plt.subplots(figsize=(9, 5.5), layout="constrained")
+    fig, ax = plt.subplots(figsize=(9 * FIGURE_SCALE, 5.5 * FIGURE_SCALE), layout="constrained")
     for condition in ("C01", "C05", "C15"):
         subset = sweep[sweep.condition == condition]
         for seed, group in subset.groupby("seed"):
@@ -347,16 +414,16 @@ def peak_sensitivity_outputs(data: pd.DataFrame, input_root: Path, output: Path)
         mean = subset.groupby("dominant_mass_cutoff").qualifying_units.mean()
         ax.plot(100 * mean.index, mean.values, color=COLORS[condition], marker="o",
                 linewidth=2, label=condition)
-    ax.set(xlabel="Required dominant-component mass at all three levels (%)",
-           ylabel="Qualifying DG units (out of 16)", xticks=[20, 30, 40, 50, 60, 70, 80, 90],
-           title="Field-definition sensitivity · three seeds per architecture")
-    ax.legend(title="Thin lines: individual seeds\nThick lines: seed mean")
+    ax.set(xlabel="Required dominant mass (%)",
+           ylabel="DG units (out of 16)", xticks=[20, 40, 60, 80],
+           title="Field sensitivity · three seeds")
+    ax.legend(title="Lines: seeds / mean", loc="upper right")
     fig.savefig(output / "mono_field_sensitivity.svg", bbox_inches="tight")
     plt.close(fig)
 
 
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
-             seed: int = 99) -> None:
+             seed: int = 99, *, reuse_saved_kernel: bool = False) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
     local_raw = input_root / "corrected_core_candidates_20260902_place_fields/raw"
     local_run = local_raw / Path(record.pose_file).parent.name
@@ -370,52 +437,63 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
     for scope in ("full", "first_episode"):
         render_trajectory(pose, destination / f"trajectory_{scope}.svg",
                           f"{condition} · {CONDITIONS[condition]} · seed {seed}",
-                          scope, (100, 2000, 100, 2000), sampling_label="archived probe")
+                          scope, (100, 2000, 100, 2000), sampling_label="archived probe",
+                          figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S{seed}")
 
     # Reuse the established flow computation and renderer, preserving its cell contract.
     flow_cells(pose).to_csv(destination / "flow_cells.csv", index=False)
-    render_flow(pose, destination / "flow.svg", f"{CONDITIONS[condition]} · seed {seed} · local flow")
+    render_flow(pose, destination / "flow.svg", f"{condition} · S{seed} · local flow",
+                figure_scale=FIGURE_SCALE)
 
-    fig, axes = plt.subplots(1, 2, figsize=(13, 6), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(13 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
     occupancy_image = axes[0].imshow(np.ma.masked_equal(occupancy.T, 0), origin="lower",
                                      cmap="cividis", extent=(100, 2000, 100, 2000),
                                      interpolation="nearest")
-    fig.colorbar(occupancy_image, ax=axes[0], label="Recorded observations", shrink=.8)
+    fig.colorbar(occupancy_image, ax=axes[0], label="Observations", shrink=.8)
     for _, segment in pose.groupby("num_traj", sort=False):
         axes[1].plot(segment.x, segment.y, lw=.55, alpha=.65, color=COLORS[condition])
     for ax in axes:
         ax.set(xlim=(100, 2000), ylim=(100, 2000), aspect="equal",
                xlabel="x (DMLab units)", ylabel="y (DMLab units)")
-    axes[0].set_title("Occupancy · white means unvisited")
-    axes[1].set_title(f"Trajectory · {pose.num_traj.nunique()} reset segments")
-    fig.suptitle(f"{CONDITIONS[condition]} · seed {seed} · 10,000-decision frozen probe")
+    axes[0].set_title("Occupancy")
+    axes[1].set_title(f"Trajectory · {pose.num_traj.nunique()} segments")
+    fig.suptitle(f"{condition} · S{seed} · 10,000-decision frozen probe")
     fig.savefig(destination / "trajectory_occupancy.svg", bbox_inches="tight")
     plt.close(fig)
 
 
     valid = np.flatnonzero(np.isfinite(information) & (np.nanmax(maps, axis=(0, 1)) > 0))
     selected = valid[np.argsort(information[valid])[-4:][::-1]]
-    fig, axes = plt.subplots(2, 2, figsize=(9, 9), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(9 * FIGURE_SCALE, 9 * FIGURE_SCALE),
+                             sharex=True, sharey=True, constrained_layout=True)
     vmax = float(np.nanmax(maps[:, :, selected]))
-    for ax, unit in zip(axes.flat, selected):
+    for index, (ax, unit) in enumerate(zip(axes.flat, selected)):
         field_image = ax.imshow(np.ma.masked_where(occupancy.T == 0, maps[:, :, unit].T),
                                 origin="lower", vmin=0, vmax=vmax, cmap="viridis",
                                 interpolation="nearest")
-        ax.set(title=f"DG {unit} · score {information[unit]:.2f}", xlabel="x bin", ylabel="y bin")
+        ax.set(title=f"DG {unit}: {information[unit]:.2f}",
+               xlabel="x bin" if index >= 2 else None,
+               ylabel="y bin" if index % 2 == 0 else None)
     fig.colorbar(field_image, ax=axes, label="Mean DG activation", shrink=.75)
-    fig.suptitle(f"{CONDITIONS[condition]} · seed {seed} · top four DG maps; shared scale")
+    fig.suptitle(f"{condition} · S{seed} · top four DG maps · shared scale")
     fig.savefig(destination / "place_fields.svg", bbox_inches="tight")
     plt.close(fig)
 
-    kernel, pairs = correlation_kernel(maps, occupancy, radius=8, min_visits=5)
-    kernel[pairs < 10] = np.nan
-    kernel[8, 8] = np.nan
-    np.savez_compressed(destination / "dg_kernel.npz", correlation=kernel, pairs=pairs)
-    fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+    saved_kernel = destination / "dg_kernel.npz"
+    if reuse_saved_kernel and saved_kernel.exists():
+        with np.load(saved_kernel) as values:
+            kernel, pairs = values["correlation"], values["pairs"]
+    else:
+        from collect_poster_population_kernels import correlation_kernel
+        kernel, pairs = correlation_kernel(maps, occupancy, radius=8, min_visits=5)
+        kernel[pairs < 10] = np.nan
+        kernel[8, 8] = np.nan
+        np.savez_compressed(saved_kernel, correlation=kernel, pairs=pairs)
+    fig, ax = plt.subplots(figsize=(8 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
     image = ax.imshow(np.ma.masked_invalid(kernel.T), origin="lower", extent=(-8.5, 8.5, -8.5, 8.5),
                       cmap="coolwarm", vmin=-1, vmax=1, interpolation="nearest")
-    fig.colorbar(image, ax=ax, label="DG population-vector Pearson correlation")
-    ax.set(xlabel="x offset (100-unit bins)", ylabel="y offset (100-unit bins)",
+    fig.colorbar(image, ax=ax, label="DG population-vector r")
+    ax.set(xlabel="x offset (bins)", ylabel="y offset (bins)",
            title=f"{condition} seed {seed} · DG spatial kernel")
     fig.savefig(destination / "dg_kernel.svg", bbox_inches="tight")
     plt.close(fig)
@@ -426,7 +504,7 @@ def graph_figure(input_root: Path, output: Path, seed: int = 99,
     """Show the checkpoint-stored edge evidence for the two goal exemplars."""
     with (graph_path or input_root / "stored_graph_seed99.json").open() as stream:
         records = json.load(stream)
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5.5), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(12 * FIGURE_SCALE, 5.5 * FIGURE_SCALE), constrained_layout=True)
     records = [r for r in records if r["seed"] == seed]
     if len(records) != 2:
         raise ValueError(f"Expected C05/C15 graph records for seed {seed}")
@@ -438,11 +516,11 @@ def graph_figure(input_root: Path, output: Path, seed: int = 99,
         ratio[attempts == 0] = np.nan
         image = ax.imshow(np.ma.masked_invalid(ratio), cmap="viridis", vmin=0, vmax=1,
                           interpolation="nearest")
-        ax.set(xlabel="Target DG", ylabel="Source DG", title=f"{CONDITIONS[record['condition']]} · seed {seed}")
+        ax.set(xlabel="Target DG", ylabel="Source DG", title=f"{record['condition']} · S{seed}")
         ax.set_xticks(range(0, 16, 3))
         ax.set_yticks(range(0, 16, 3))
-    fig.colorbar(image, ax=axes, label="Stored confidence / attempts", shrink=.78)
-    fig.suptitle("Checkpoint graph evidence · white: no attempted directed edge")
+    fig.colorbar(image, ax=axes, label="Confidence / attempts", shrink=.78)
+    fig.suptitle("Stored graphs · white: no attempt")
     fig.savefig(output, bbox_inches="tight")
     plt.close(fig)
 
@@ -466,15 +544,43 @@ def older_batch_check(input_root: Path, output: Path) -> None:
 
 
 def main() -> None:
+    global FIGURE_SCALE
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=DATA)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--exemplar-seeds", nargs="+", type=int, default=[99])
     parser.add_argument("--graphs", type=Path, help="Compact checkpoint graph JSON")
+    parser.add_argument("--figure-scale", type=float, default=FIGURE_SCALE,
+                        help="Canvas width/height multiplier; text and strokes remain unchanged")
+    parser.add_argument("--compact-only", action="store_true",
+                        help="Re-render saved comparison plots with compact canvases")
     parser.add_argument("--mono-only", action="store_true",
                         help="Reuse saved comparison rows and add/link mono-field peak maps")
     args = parser.parse_args()
+    if not np.isfinite(args.figure_scale) or args.figure_scale <= 0:
+        parser.error("--figure-scale must be finite and positive")
+    FIGURE_SCALE = args.figure_scale
     setup_style()
+    if args.compact_only:
+        data = pd.read_csv(args.output / "matched_terminal_per_run.csv")
+        mono_field_outputs(data, args.input, args.output)
+        peak_sensitivity_outputs(data, args.input, args.output)
+        summary_figure(data, args.output / "architecture_summary.svg")
+        summary_figure(data, args.output / "c01_c05_c15_summary.svg", ("C01", "C05", "C15"))
+        for condition in ("C01", "C05", "C15"):
+            for seed in (8, 99, 123):
+                exemplar(data, args.input, args.output, condition, seed, reuse_saved_kernel=True)
+        for seed in (8, 99, 123):
+            graph_figure(args.input, args.output / f"stored_graphs_seed{seed}.svg", seed, args.graphs)
+        for condition in ("C05", "C15"):
+            destination = args.output / f"{condition.lower()}_seed99"
+            events = pd.read_csv(destination / "option_events.csv")
+            plt.rcParams.update({"font.size": 12, "axes.titlesize": 14, "axes.labelsize": 13})
+            for scope in ("full", "first_episode"):
+                render_trajectory(events, destination / f"trajectory_option_events_{scope}.svg",
+                                  f"{condition} · S99", scope, (100, 2000, 100, 2000),
+                                  figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99")
+        return
     if args.mono_only:
         mono_field_outputs(pd.read_csv(args.output / "matched_terminal_per_run.csv"),
                            args.input, args.output)
