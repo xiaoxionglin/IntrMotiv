@@ -237,7 +237,9 @@ The A0 plan limits the final poster to two detailed examples. After checking all
 The earlier trajectory and occupancy panels contain only position records; their
 source probes did not save option resets or target-hit flags. To mark the actual
 events, we ran fresh stochastic frozen-policy replays from the **same terminal
-checkpoints** for the two goal-conditioned exemplars. The event figures show
+checkpoints** for the two goal-conditioned exemplars. The C15 full-replay figure uses a narrower layout (about 60% of its previous
+width), with unchanged font and marker sizes and a single-column legend.
+The event figures show
 blue hollow circles at `option_reset` and gold stars for **option target hits**
 at `target_hit`, read from
 the policy core at the **same observation** as each plotted position. A target

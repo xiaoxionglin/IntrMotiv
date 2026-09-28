@@ -74,6 +74,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   now prevalidates complete streams against summaries and marker tables;
   missing full inputs fail before any figure is replaced. Shared segmentation
   breaks paths at resets or missing frames, and export preserves every vertex.
+  The shared renderer also supports narrower canvases by reflowing the
+  legend and reducing tick density while preserving equal arena geometry.
+  Verify vertex counts and physical font sizes against the preceding SVG.
   Four focused regression checks cover sparse-input rejection, repeated
   episode IDs, agent separation, and reset boundaries. Reuse the
   [stream contract](04_implementation/reusable_place_field_telemetry.md#trajectory-and-option-event-streams)

@@ -614,7 +614,8 @@ def render_goal_trajectory_streams(streams: dict[str, pd.DataFrame], output: Pat
         for scope in ("full", "first_episode"):
             render_trajectory(pose, destination / f"trajectory_option_events_{scope}.svg",
                               f"{condition} · S99", scope, (100, 2000, 100, 2000),
-                              figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99")
+                              figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99",
+                              width_scale=.6 if condition == "C15" and scope == "full" else 1.0)
         first = next(trajectory_segments(pose))
         records.append({"condition": condition, "seed": 99, "observations": len(pose),
                         "first_episode_observations": len(first),

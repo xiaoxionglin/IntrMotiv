@@ -48,7 +48,8 @@ def validate_complete_event_stream(pose: pd.DataFrame, expected_observations: in
 
 def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
            bounds: tuple[float, float, float, float], sampling_label: str = "replay",
-           figure_scale: float = 1.0, compact_title: str | None = None) -> None:
+           figure_scale: float = 1.0, compact_title: str | None = None,
+           width_scale: float = 1.0) -> None:
     if pose.empty:
         raise ValueError("Empty trajectory")
     event_columns = {"option_start", "goal_hit"}
@@ -65,7 +66,12 @@ def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
     else:
         scope_title = f"Full {sampling_label} ({len(pose):,} decisions)"
 
-    fig, ax = plt.subplots(figsize=(8.5 * figure_scale, 8.0 * figure_scale), layout="constrained")
+    # A narrower canvas keeps arena geometry equal and reflows the legend.
+    narrow = width_scale < .8
+    height = 8.0 * figure_scale * width_scale + (.8 if narrow else 0)
+    fig, ax = plt.subplots(figsize=(8.5 * figure_scale * width_scale, height), layout="constrained")
+    if narrow:
+        scope_title = scope_title.replace(" (", "\n(")
     for episode in trajectory_segments(pose):
         line, = ax.plot(episode.x, episode.y, color="#606973", lw=1.1, alpha=0.46, zorder=1)
         line.get_path().should_simplify = False  # Keep every sampled turn in compact SVGs.
@@ -89,8 +95,13 @@ def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
     ax.set_title(f"{compact_title or title}\n{scope_title}", pad=13)
     ax.set_aspect("equal", adjustable="box")
     ax.grid(color="#d6dade", linewidth=0.6, alpha=0.7)
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.15), ncol=2,
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -.4 if narrow else -.15), ncol=1 if narrow else 2,
               frameon=False, fontsize=12, columnspacing=0.9, handletextpad=0.5)
+    if narrow:
+        # Fewer tick labels prevent collisions while retaining the full arena.
+        from matplotlib.ticker import MaxNLocator
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=2, prune="both"))
+        ax.yaxis.set_major_locator(MaxNLocator(nbins=3, prune="both"))
     ax.tick_params(labelsize=12)
     destination.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destination, format="svg", bbox_inches="tight")
