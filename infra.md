@@ -25,6 +25,9 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Improvement/status:** The reusable survey adapter now selects the latest
   saved age per run/protocol, verifies duplicate metric agreement, resolves
   capacity through source metadata, and saves pinned input tables plus hashes.
+  The prospective-control sheet now uses an explicit DG 16 subset and
+  data-fitted axes; its panel exports share that selection and scale. Targeted
+  replotting from the saved point table avoids rebuilding unrelated surveys.
   Canonical summary-contract integration remains open; see the
   [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
 - **Acceptance:** Canonical exports declare capacity, observation budget,

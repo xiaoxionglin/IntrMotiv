@@ -344,7 +344,7 @@ def capacity_legend(data: pd.DataFrame) -> dict[str, Line2D]:
 
 def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
           title: str, columns: int = 2, zoom_coverage: bool = False,
-          encoding: dict | None = None) -> None:
+          encoding: dict | None = None, zoom_to_data: bool = False) -> None:
     style()
     rows = int(np.ceil(len(pairs) / columns))
     fig, axes = plt.subplots(rows, columns, figsize=(4.3 * columns, 3.9 * rows),
@@ -352,6 +352,8 @@ def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
     legend_handles = {}
     for ax, (x, y, label) in zip(axes.flat, pairs):
         draw_scatter(ax, data, x, y, label, **(encoding or {}))
+        if zoom_to_data:
+            rescale_scatter(ax)
         if zoom_coverage and y == "exploration_coverage":
             limits = data.dropna(subset=[x, y])[y]
             ax.set_ylim(max(0, limits.min() - .015), min(1, limits.max() + .015))
@@ -376,6 +378,8 @@ def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
     for x, y, label in pairs:
         fig, ax = plt.subplots(figsize=(4.4, 4.2), constrained_layout=True)
         draw_scatter(ax, data, x, y, label, **(encoding or {}))
+        if zoom_to_data:
+            rescale_scatter(ax)
         if zoom_coverage and y == "exploration_coverage":
             limits = data.dropna(subset=[x, y])[y]
             ax.set_ylim(max(0, limits.min() - .015), min(1, limits.max() + .015))
@@ -385,6 +389,27 @@ def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
     ax.legend(legend_handles.values(), legend_handles.keys(), loc="center", ncol=2,
               frameon=False, title=title.split("\n")[0])
     save(fig, output.with_name(output.stem + "_legend.svg"))
+
+
+def rescale_scatter(ax) -> None:
+    """Fit both axes to plotted observations with five-percent padding."""
+    ax.set_autoscalex_on(True)
+    ax.set_autoscaley_on(True)
+    ax.margins(x=.05, y=.05)
+    ax.autoscale_view()
+
+
+def online_prospective_sheet(data: pd.DataFrame, output: Path) -> None:
+    """Render the DG 16 online survey without mixing capacity strata."""
+    selected = data[(data.protocol == "online_latest_saved_window")
+                    & (data.geometry_group == "legacy_19x19")
+                    & (data.dg_units == 16)]
+    pairs = [(x, y, label) for x in ("spatial_information", "unique_peak_bins")
+             for y, label in (("prospective_success", "Measured prospective control"),
+                              ("grounded_controllability", "Spatially grounded control"))]
+    sheet(selected, pairs, output,
+          "Online saved windows · DG 16 · measured prospective control",
+          zoom_to_data=True)
 
 
 def within_family_control(data: pd.DataFrame, output: Path) -> None:
@@ -588,11 +613,7 @@ def main() -> None:
         title = protocol.replace("_", " ").capitalize()
         sheet(group, pairs, args.output / f"{protocol}.svg", title)
         if protocol == "online_latest_saved_window":
-            extra = [(x, y, label) for x in ("spatial_information", "unique_peak_bins")
-                     for y, label in (("prospective_success", "Measured prospective control"),
-                                      ("grounded_controllability", "Spatially grounded control"))]
-            sheet(group, extra, args.output / "online_prospective_control.svg",
-                  "Online saved windows · measured prospective control")
+            online_prospective_sheet(group, args.output / "online_prospective_control.svg")
             sheet(group, [pair for pair in pairs if pair[1] == "exploration_coverage"],
                   args.output / "online_exploration_detail.svg",
                   "Online exploration detail · all points included · expanded coverage scale",

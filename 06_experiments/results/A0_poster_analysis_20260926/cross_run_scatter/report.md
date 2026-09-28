@@ -23,7 +23,7 @@ Colors identify experiment families. Circles, triangles, and squares identify DG
 | [Online representation / graph / exploration](online_latest_saved_window.svg) | How do spatial score and absolute peak-bin diversity relate to graph reachability and visited area across the 256 legacy-layout online runs? |
 | [Frozen representation / graph / exploration](frozen_latest_archived_probe.svg) | Does the association also appear in archived fixed-policy evaluations? Graph data exist for 50 of 84 rows. |
 | [Common-history representation with frozen outcomes](common_replay_with_frozen_outcomes.svg) | What changes when representation is measured on a common replay panel rather than each policy's own visitation? |
-| [Online prospective and grounded control](online_prospective_control.svg) | How do representation metrics relate to measured command-event counters and spatial grounding? |
+| [Online prospective and grounded control](online_prospective_control.svg) | How do representation metrics relate to measured command-event counters and spatial grounding within DG 16 runs? Axes fit the retained points. |
 | [Within-family prospective control](online_within_family_control.svg) | Are pooled trends also present within CPD, DGP, CPU, DG-capacity, and other families? |
 | [Raw versus capacity-normalized peak diversity](peak_capacity_contrast.svg) | How much does DG capacity change the apparent peak-diversity/graph relationship? |
 | [Frozen normalized diversity and mono-field fraction](frozen_latest_archived_probe_normalized.svg) | How do capacity-normalized peak counts and strict mono-fields relate to reachability and exploration? |
