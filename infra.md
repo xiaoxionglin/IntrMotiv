@@ -16,6 +16,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   poster's mono-field fraction divides by all DG units. Pooling the unadjusted
   peak counts also reversed the sign of the graph association relative to
   capacity-normalized counts.
+  The original corridor scatter also used one family color for all 27 runs,
+  hiding wall-removal probability; the revised plots expose probability,
+  architecture, and individual layout seeds at the shared saved age.
 - **Impact:** A merged table can silently duplicate runs, mix sample protocols,
   or use incompatible denominators. Neighboring unpublished inputs can also
   make a figure impossible to regenerate from a clean checkout.

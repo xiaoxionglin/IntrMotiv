@@ -5,16 +5,6 @@
   "selection": "latest available age per run and protocol; common replay must join exact probe age",
   "input_sources": [
     {
-      "source": "hpc_runs/studies/ca3_zrelation_followup_20260923_cpu.study.json",
-      "status": "invalid_study",
-      "detail": "run 'CA3ZR_CPU_PROBE_FILM_H32_S99' defines duplicate flags ['--ca3_context_similarity_space', '--ca3_worker_decoder']"
-    },
-    {
-      "source": "hpc_runs/studies/ca3_zrelation_followup_20260923_gpu.study.json",
-      "status": "invalid_study",
-      "detail": "run 'CA3ZR_GPU_PROBE_FILM_H32_S8' defines duplicate flags ['--ca3_context_similarity_space', '--ca3_worker_decoder']"
-    },
-    {
       "source": "06_experiments/data/ca3_followup_20260926/cpu_per_snapshot.csv",
       "status": "canonical_online",
       "rows": 45,

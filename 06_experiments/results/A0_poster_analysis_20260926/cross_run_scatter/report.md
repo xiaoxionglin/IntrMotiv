@@ -30,7 +30,8 @@ Colors identify experiment families. Circles, triangles, and squares identify DG
 | [Online exploration detail](online_exploration_detail.svg) | Inspect the near-ceiling online coverage values with an expanded vertical scale; every point is retained. |
 | [Online control / exploration](online_latest_saved_window_control_exploration.svg), [frozen control / exploration](frozen_latest_archived_probe_control_exploration.svg) | Do graph/control measures accompany broader visitation within each protocol? |
 | [Common-history representation / matched command benefit](common_replay_command_control.svg) | For the 21 available exact-age command interventions, does representation relate to executed-minus-shuffled success? |
-| [Corridor-layout supplement](corridor_layouts.svg) | Inspect the 27 map/openness variants separately, because accessible geometry changes the coverage ceiling. |
+| [Corridor-layout scatter](corridor_layouts.svg) | Color distinguishes wall-removal probabilities 0%, 35%, and 75%; shape distinguishes SAT arrival F16, DGP hit F16, and Waypoint HER F64. |
+| [Wall removal / representation](corridor_probability_representation.svg), [wall removal / control and exploration](corridor_probability_control_exploration.svg) | Compare probabilities within each architecture, retaining all three layout seeds and showing their mean. |
 
 ## Metric definitions
 
@@ -53,6 +54,24 @@ The [association table](../../../data/poster_missing_analyses_20260926/cross_run
 4. **The heldout command test does not show a simple monotonic spatial-score benefit.** Common-history spatial score versus executed-minus-shuffled success has $\rho=-0.186$ across 21 available run rows. The sample combines intervention families, so the plot is a screening view rather than a universal law.
 
 For poster selection, the strongest broad figure candidates are **raw versus normalized peak diversity**, **pooled versus within-family prospective control**, and **common-history representation versus frozen exploration**. Together they show which associations survive a change in measurement and grouping.
+
+## Corridor layouts: wall-removal probability
+
+All **27 runs** share the latest saved age **100,007,936 frames**, with 100k-observation spatial windows. There are three wall-removal probabilities (0%, 35%, 75%), three architectures, and three layout seeds (1001–1003), all with training seed 99. Architecture and probability are verified against the validated corridor StudySpec; they are not inferred from run names. The point table retains `openness` and the corridor-specific [run table](../../../data/poster_missing_analyses_20260926/cross_run_scatter/corridor_probability_per_run.csv) also names it explicitly as `wall_removal_probability`.
+
+The scatter uses probability color and architecture shape. The probability-comparison figures show faint traces for equal layout seeds across probabilities and bold architecture means. The small horizontal offsets only separate overlapping architectures. These traces do not assert nested wall sets, and three layout seeds are not three independent training seeds. The [summary table](../../../data/poster_missing_analyses_20260926/cross_run_scatter/corridor_probability_summary.csv) retains means, sample standard deviations across layouts, minima, maxima, and counts; [75%-minus-0% differences](../../../data/poster_missing_analyses_20260926/cross_run_scatter/corridor_probability_paired_differences.csv) retain each architecture/layout seed pair. No inferential error bars or significance tests are used.
+
+Mean visited-grid fraction across the three layout seeds:
+
+| Architecture | 0% wall removal | 35% wall removal | 75% wall removal |
+| --- | ---: | ---: | ---: |
+| SAT arrival F16 | 43.0% | 68.9% | 89.6% |
+| DGP hit F16 | 41.7% | 69.3% | 75.2% |
+| Waypoint HER F64 | 55.1% | 73.1% | 89.6% |
+
+Coverage is divided by **all coarse-grid cells**, including inaccessible geometry. Its rise therefore combines changes in accessible area and visitation; it cannot alone establish improved exploration of the available floor. Meanwhile, prospective target-event success decreases from 0% to 75% wall removal: SAT 56.6% to 48.0%, DGP 60.4% to 54.1%, and Waypoint 47.0% to 39.4%. Stored graph reachability stays at 100% for DGP, rises from 95.8% to 100% for SAT, and remains low for Waypoint (1.05% to 0.50%). Grounded controllability is zero in 26 runs; only SAT, probability 75%, layout seed 1001 is nonzero (0.0703). These are distinct measures and should appear together when assessing geometry sensitivity.
+
+The reusable lesson is to expose the manipulated geometry factor directly in the figures and preserve architecture/layout strata. A single family color hid the probability contrast in the original corridor scatter.
 
 ## Reuse and reproducibility
 

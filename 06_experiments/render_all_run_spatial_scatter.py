@@ -45,6 +45,7 @@ ALIASES = {
 LABELS = {
     "spatial_information": "Mean active DG spatial score",
     "unique_peak_bins": "Distinct active DG peak bins",
+    "map_cosine": "Active DG map cosine",
     "peak_bins_per_dg": "Distinct peak bins / all DG units",
     "mono_fraction_all": "Mono-field units / all DG units",
     "graph_reachability": "Stored-graph reachable pairs (fraction)",
@@ -84,6 +85,8 @@ def canonical_registry(root: Path) -> tuple[dict, list[dict]]:
                         "study_schema": study.raw["schema"],
                         "study_workflow_version": study.declared_workflow_version,
                         "study_source": str(path.relative_to(root)),
+                        "architecture": run.context.get("base_family"),
+                        "wall_removal_probability": run.context.get("openness"),
                     })
         except (SpecError, ValueError, KeyError) as error:
             audit.append({"source": str(path.relative_to(root)), "status": "invalid_study",
@@ -150,6 +153,13 @@ def online_tables(root: Path, registry: dict, audit: list[dict]) -> tuple[pd.Dat
                         raise ValueError(f"Conflicting capacity for {row.run_name}")
                     frame.loc[index, "dg_units"] = value
                 frame.loc[index, "study_sha256"] = "|".join(sorted({r["study_sha256"] for r in records}))
+                if row.family == "Corridor layouts":
+                    architectures = {r["architecture"] for r in records if r.get("architecture")}
+                    probabilities = {r["wall_removal_probability"] for r in records
+                                     if r.get("wall_removal_probability") is not None}
+                    if len(architectures) != 1 or probabilities != {row.openness}:
+                        raise ValueError(f"Corridor factors disagree with StudySpec: {row.run_name}")
+                    frame.loc[index, "architecture"] = architectures.pop()
             pieces.append(frame)
             audit.append({"source": str(path.relative_to(root)), "status": "canonical_online",
                           "rows": len(raw), "sha256": fingerprint(path)})
@@ -294,13 +304,17 @@ def common_replay_rows(root: Path, frozen: pd.DataFrame, audit: list[dict]) -> p
     return rows
 
 
-def draw_scatter(ax, data: pd.DataFrame, x: str, y: str, title: str) -> int:
+def draw_scatter(ax, data: pd.DataFrame, x: str, y: str, title: str,
+                 color_column: str = "family", colors: dict | None = None,
+                 marker_column: str = "dg_units", markers: dict | None = None) -> int:
     usable = data.dropna(subset=[x, y])
-    for family, group in usable.groupby("family"):
-        for index, (capacity, subset) in enumerate(group.groupby("dg_units", dropna=False)):
-            marker = {16: "o", 32: "^", 64: "s"}.get(capacity, "D")
+    colors = FAMILY_COLORS if colors is None else colors
+    markers = {16: "o", 32: "^", 64: "s"} if markers is None else markers
+    for family, group in usable.groupby(color_column):
+        for index, (capacity, subset) in enumerate(group.groupby(marker_column, dropna=False)):
+            marker = markers.get(capacity, "D")
             ax.scatter(subset[x], subset[y], s=40, marker=marker,
-                       color=FAMILY_COLORS.get(family, "#888888"), alpha=.72,
+                       color=colors.get(family, "#888888"), alpha=.72,
                        edgecolor="white", linewidth=.5,
                        label=family if index == 0 else "_nolegend_", rasterized=False)
     ax.set(xlabel=LABELS[x], ylabel=LABELS[y], title=f"{title} · n={len(usable)}")
@@ -329,14 +343,15 @@ def capacity_legend(data: pd.DataFrame) -> dict[str, Line2D]:
 
 
 def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
-          title: str, columns: int = 2, zoom_coverage: bool = False) -> None:
+          title: str, columns: int = 2, zoom_coverage: bool = False,
+          encoding: dict | None = None) -> None:
     style()
     rows = int(np.ceil(len(pairs) / columns))
     fig, axes = plt.subplots(rows, columns, figsize=(4.3 * columns, 3.9 * rows),
                              squeeze=False, constrained_layout=True)
     legend_handles = {}
     for ax, (x, y, label) in zip(axes.flat, pairs):
-        draw_scatter(ax, data, x, y, label)
+        draw_scatter(ax, data, x, y, label, **(encoding or {}))
         if zoom_coverage and y == "exploration_coverage":
             limits = data.dropna(subset=[x, y])[y]
             ax.set_ylim(max(0, limits.min() - .015), min(1, limits.max() + .015))
@@ -344,7 +359,14 @@ def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
         legend_handles.update(zip(labels, handles))
     for ax in list(axes.flat)[len(pairs):]:
         ax.set_visible(False)
-    legend_handles.update(capacity_legend(data))
+    if encoding:
+        legend_handles = {name: Line2D([], [], color=color, linewidth=3)
+                          for name, color in encoding["colors"].items()}
+        legend_handles.update({name: Line2D([], [], color="#777777", marker=marker,
+                                            linestyle="none", markersize=6)
+                               for name, marker in encoding["markers"].items()})
+    else:
+        legend_handles.update(capacity_legend(data))
     fig.suptitle(title, fontsize=14)
     fig.legend(legend_handles.values(), legend_handles.keys(), loc="upper center",
                bbox_to_anchor=(.5, -.005), ncol=3, frameon=False, fontsize=12)
@@ -353,7 +375,7 @@ def sheet(data: pd.DataFrame, pairs: list[tuple[str, str, str]], output: Path,
     # panel independently for poster selection. No downscaled dense legend.
     for x, y, label in pairs:
         fig, ax = plt.subplots(figsize=(4.4, 4.2), constrained_layout=True)
-        draw_scatter(ax, data, x, y, label)
+        draw_scatter(ax, data, x, y, label, **(encoding or {}))
         if zoom_coverage and y == "exploration_coverage":
             limits = data.dropna(subset=[x, y])[y]
             ax.set_ylim(max(0, limits.min() - .015), min(1, limits.max() + .015))
@@ -414,6 +436,90 @@ def peak_capacity_contrast(data: pd.DataFrame, output: Path) -> None:
     fig.suptitle("Raw peak count and capacity-normalized diversity · descriptive run survey",
                  fontsize=14)
     save(fig, output)
+
+
+def corridor_comparisons(data: pd.DataFrame, output: Path, data_output: Path,
+                         pairs: list[tuple[str, str, str]]) -> None:
+    """Expose wall-removal probability and retain architecture/layout replication.
+
+    Layout seeds are geometric replicates, all with training seed 99. The
+    connected traces identify equal layout seeds across probabilities; they
+    are descriptive and do not imply nested wall sets or independent training
+    replications. Means are shown without inferential error bars.
+    """
+    data = data.copy()
+    if data.frames.nunique() != 1:
+        raise ValueError("Corridor contrast requires one shared saved age")
+    if data.duplicated(["architecture", "openness", "map_seed", "seed"]).any():
+        raise ValueError("Duplicated corridor run factors")
+    architecture_labels = {"SAT": "SAT arrival F16", "DGP": "DGP hit F16",
+                           "WAYPOINT_HER": "Waypoint HER F64"}
+    data["architecture_label"] = data.architecture.map(architecture_labels)
+    data["wall_removal_probability"] = data.openness
+    data["wall_removal_label"] = data.openness.map(lambda p: f"Wall removal {p:.0%}")
+    probabilities = sorted(data.openness.unique())
+    colors = dict(zip([f"Wall removal {p:.0%}" for p in probabilities],
+                      ["#440154", "#21918C", "#E69F00"]))
+    markers = dict(zip(architecture_labels.values(), ["o", "^", "s"]))
+    sheet(data, pairs, output / "corridor_layouts.svg",
+          "Corridor layouts · color: wall-removal probability · shape: architecture",
+          encoding={"color_column": "wall_removal_label", "colors": colors,
+                    "marker_column": "architecture_label", "markers": markers})
+    metric_groups = {
+        "representation": ["spatial_information", "unique_peak_bins", "peak_bins_per_dg", "map_cosine"],
+        "control_exploration": ["graph_reachability", "prospective_success",
+                                "grounded_controllability", "exploration_coverage"],
+    }
+    metrics = sum(metric_groups.values(), [])
+    data.to_csv(data_output / "corridor_probability_per_run.csv", index=False)
+    long = data.melt(id_vars=["architecture", "openness", "map_seed", "seed", "frames"],
+                     value_vars=metrics, var_name="metric", value_name="value")
+    summary = long.groupby(["architecture", "openness", "metric"]).value.agg(
+        n="count", mean="mean", std_across_layouts="std", minimum="min", maximum="max").reset_index()
+    summary.to_csv(data_output / "corridor_probability_summary.csv", index=False)
+    paired = data.pivot(index=["architecture", "map_seed", "seed"], columns="openness", values=metrics)
+    differences = pd.DataFrame({metric: paired[(metric, probabilities[-1])] - paired[(metric, probabilities[0])]
+                                for metric in metrics}).reset_index()
+    differences["probability_from"] = probabilities[0]
+    differences["probability_to"] = probabilities[-1]
+    differences.to_csv(data_output / "corridor_probability_paired_differences.csv", index=False)
+    architecture_colors = dict(zip(architecture_labels.values(), ["#0072B2", "#D55E00", "#009E73"]))
+
+    def draw_probability(ax, metric):
+        for offset, architecture in zip([-.025, 0, .025], architecture_labels.values()):
+            subset = data[data.architecture_label == architecture]
+            color = architecture_colors[architecture]
+            for _, group in subset.groupby("map_seed"):
+                group = group.sort_values("openness")
+                ax.plot(group.openness + offset, group[metric], color=color, alpha=.25,
+                        linewidth=1, marker=markers[architecture], markersize=5)
+            average = subset.groupby("openness")[metric].mean()
+            ax.plot(average.index + offset, average.values, color=color, linewidth=1.5,
+                    marker=markers[architecture], markersize=7, label=architecture)
+        ax.set(xlabel="Wall-removal probability", ylabel=LABELS[metric],
+               title="3 layout seeds per architecture × probability", xlim=(-.10, .85))
+        ax.set_xticks(probabilities, [f"{p:.0%}" for p in probabilities])
+        if metric in ("graph_reachability", "prospective_success", "grounded_controllability",
+                      "exploration_coverage", "peak_bins_per_dg", "map_cosine"):
+            ax.set_ylim(-.025, 1.025)
+        else:
+            ax.set_ylim(bottom=0)
+        ax.grid(alpha=.18, linewidth=.7)
+        ax.spines[["top", "right"]].set_visible(False)
+
+    for kind, selected in metric_groups.items():
+        style()
+        fig, axes = plt.subplots(2, 2, figsize=(8.6, 7.8), constrained_layout=True)
+        for ax, metric in zip(axes.flat, selected):
+            draw_probability(ax, metric)
+            panel, single = plt.subplots(figsize=(4.4, 4.2), constrained_layout=True)
+            draw_probability(single, metric)
+            save(panel, output / "panels" / f"corridor_probability__{metric}.svg")
+        handles, labels = axes.flat[0].get_legend_handles_labels()
+        fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(.5, -.005),
+                   ncol=3, frameon=False, fontsize=12)
+        fig.suptitle("Wall removal · faint: layout seeds · bold: mean · training seed 99", fontsize=14)
+        save(fig, output / f"corridor_probability_{kind}.svg")
 
 
 def associations(data: pd.DataFrame) -> pd.DataFrame:
@@ -505,8 +611,7 @@ def main() -> None:
         sheet(group, normal, args.output / f"{protocol}_normalized.svg", title + " · capacity and mono fields")
     geometry = data[data.geometry_group == "multiple_corridor_layouts"]
     if len(geometry):
-        sheet(geometry, pairs, args.output / "corridor_layouts.svg",
-              "Corridor-layout experiment · latest saved window per run")
+        corridor_comparisons(geometry, args.output, args.data, pairs)
     peak_capacity_contrast(data, args.output / "peak_capacity_contrast.svg")
     for protocol in ("online_latest_saved_window", "frozen_latest_archived_probe"):
         subset = data[(data.geometry_group == "legacy_19x19") & (data.protocol == protocol)]
@@ -524,7 +629,9 @@ def main() -> None:
                 "font": "Times New Roman, verified scalable font through shared poster style",
                 "matplotlib_version": matplotlib.__version__, "pandas_version": pd.__version__,
                 "numpy_version": np.__version__}
-    relevant_studies = {entry["study_sha256"]: entry for name in data.run_name.unique()
+    relevant_studies = {entry["study_sha256"]: {key: value for key, value in entry.items()
+                                              if key not in ("architecture", "wall_removal_probability")}
+                        for name in data.run_name.unique()
                         for entry in registry.get(name, [])}
     metadata["resolved_studies"] = list(relevant_studies.values())
     if not args.source_bundle:

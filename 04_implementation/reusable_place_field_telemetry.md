@@ -115,6 +115,9 @@ separate point rows. Report absolute active peak-bin count with its DG-capacity
 denominator, and preserve the distinction between mono-fields divided by
 eligible units and mono-fields divided by all units. Inspect family and
 capacity strata before interpreting pooled associations. The adapter can
+expose wall-removal probability directly in corridor figures, with architecture
+and layout-seed strata verified from the StudySpec; geometry contrasts require
+a shared saved age and preserve the total-grid coverage denominator. It can
 replot from its `--source-bundle` without reading a checkpoint or launching an
 environment; the [cross-run poster survey](../06_experiments/results/A0_poster_analysis_20260926/cross_run_scatter/report.md)
 records the metric mapping and scope.
