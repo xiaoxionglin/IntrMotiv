@@ -447,6 +447,43 @@ def trajectory_occupancy_figure(pose: pd.DataFrame, occupancy: np.ndarray, desti
 
 
 
+def place_field_figure(maps: np.ndarray, occupancy: np.ndarray, information: np.ndarray,
+                       destination: Path, condition: str, seed: int, *,
+                       individual_scale: bool = False) -> list[dict]:
+    """Render the same top-four units with shared or independent raw activation limits."""
+    valid = np.flatnonzero(np.isfinite(information) & (np.nanmax(maps, axis=(0, 1)) > 0))
+    selected = valid[np.argsort(information[valid])[-4:][::-1]]
+    fig, axes = plt.subplots(2, 2, figsize=(9 * FIGURE_SCALE, 9 * FIGURE_SCALE),
+                             sharex=True, sharey=True, constrained_layout=True)
+    shared_max = float(np.nanmax(maps[:, :, selected]))
+    limits = []
+    for index, (ax, unit) in enumerate(zip(axes.flat, selected)):
+        vmax = float(np.nanmax(maps[:, :, unit])) if individual_scale else shared_max
+        limits.append({"condition": condition, "seed": seed, "rank": index + 1,
+                       "unit": int(unit), "spatial_score": float(information[unit]),
+                       "color_min": 0., "color_max": vmax})
+        field_image = ax.imshow(np.ma.masked_where(occupancy.T == 0, maps[:, :, unit].T),
+                                origin="lower", vmin=0, vmax=vmax, cmap="viridis",
+                                interpolation="nearest")
+        ax.set(title=f"DG {unit}: {information[unit]:.2f}",
+               xlabel="x bin" if index >= 2 else None,
+               ylabel="y bin" if index % 2 == 0 else None)
+        if individual_scale:
+            fig.colorbar(field_image, ax=ax, ticks=[0, vmax], format="%.2g",
+                         shrink=.75, fraction=.07, pad=.035)
+    if not individual_scale:
+        fig.colorbar(field_image, ax=axes, label="Mean DG activation", shrink=.75)
+    if individual_scale:
+        fig.suptitle(f"{condition} · S{seed} · top four DG maps\nMean activation · each scale: 0 to unit max")
+    else:
+        fig.suptitle(f"{condition} · S{seed} · top four DG maps · shared scale")
+    filename = "place_fields_individual_scale.svg" if individual_scale else "place_fields.svg"
+    fig.savefig(destination / filename, bbox_inches="tight")
+    plt.close(fig)
+
+    return limits
+
+
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
              seed: int = 99, *, reuse_saved_kernel: bool = False) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
@@ -472,22 +509,8 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
 
     trajectory_occupancy_figure(pose, occupancy, destination, condition, seed)
 
-    valid = np.flatnonzero(np.isfinite(information) & (np.nanmax(maps, axis=(0, 1)) > 0))
-    selected = valid[np.argsort(information[valid])[-4:][::-1]]
-    fig, axes = plt.subplots(2, 2, figsize=(9 * FIGURE_SCALE, 9 * FIGURE_SCALE),
-                             sharex=True, sharey=True, constrained_layout=True)
-    vmax = float(np.nanmax(maps[:, :, selected]))
-    for index, (ax, unit) in enumerate(zip(axes.flat, selected)):
-        field_image = ax.imshow(np.ma.masked_where(occupancy.T == 0, maps[:, :, unit].T),
-                                origin="lower", vmin=0, vmax=vmax, cmap="viridis",
-                                interpolation="nearest")
-        ax.set(title=f"DG {unit}: {information[unit]:.2f}",
-               xlabel="x bin" if index >= 2 else None,
-               ylabel="y bin" if index % 2 == 0 else None)
-    fig.colorbar(field_image, ax=axes, label="Mean DG activation", shrink=.75)
-    fig.suptitle(f"{condition} · S{seed} · top four DG maps · shared scale")
-    fig.savefig(destination / "place_fields.svg", bbox_inches="tight")
-    plt.close(fig)
+    place_field_figure(maps, occupancy, information, destination, condition, seed)
+    place_field_figure(maps, occupancy, information, destination, condition, seed, individual_scale=True)
 
     saved_kernel = destination / "dg_kernel.npz"
     if reuse_saved_kernel and saved_kernel.exists():
@@ -614,6 +637,8 @@ def main() -> None:
     parser.add_argument("--graphs", type=Path, help="Compact checkpoint graph JSON")
     parser.add_argument("--figure-scale", type=float, default=FIGURE_SCALE,
                         help="Canvas width/height multiplier; text and strokes remain unchanged")
+    parser.add_argument("--individual-fields-only", action="store_true",
+                        help="Add per-unit 0-to-max top-four fields without changing shared-scale figures")
     parser.add_argument("--goal-events-input", type=Path,
                         help="Staged full event replay streams: c05_seed99/pose_events.csv and c15_seed99/pose_events.csv")
     parser.add_argument("--trajectories-only", action="store_true",
@@ -627,6 +652,24 @@ def main() -> None:
         parser.error("--figure-scale must be finite and positive")
     FIGURE_SCALE = args.figure_scale
     setup_style()
+    if args.individual_fields_only:
+        data = pd.read_csv(args.output / "matched_terminal_per_run.csv")
+        plt.rcParams.update({"font.size": 14, "axes.titlesize": 16, "axes.labelsize": 14})
+        limits = []
+        for row in data[data.condition.isin(["C01", "C05", "C15"])].itertuples():
+            raw = args.input / "corrected_core_candidates_20260902_place_fields/raw" / Path(row.field_file).parent.name
+            with np.load(raw / "place_fields.npz", allow_pickle=False) as values:
+                rows = place_field_figure(values["rate_maps"], values["occupancy"], values["spatial_information"],
+                                          args.output / f"{row.condition.lower()}_seed{row.seed}",
+                                          row.condition, row.seed, individual_scale=True)
+            source_hash = hashlib.sha256((raw / "place_fields.npz").read_bytes()).hexdigest()
+            for entry in rows:
+                entry["field_sha256"] = source_hash
+                entry["original_field_file"] = row.field_file
+                entry["figure"] = f"{row.condition.lower()}_seed{row.seed}/place_fields_individual_scale.svg"
+            limits.extend(rows)
+        pd.DataFrame(limits).to_csv(args.output / "place_field_individual_scales.csv", index=False)
+        return
     if args.compact_only or args.trajectories_only:
         # Validate before replacing any SVGs, so missing streams cannot leave a partial rerender.
         streams = load_goal_trajectory_streams(args.goal_events_input or args.input / "goal_option_events", args.output)

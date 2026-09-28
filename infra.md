@@ -48,6 +48,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   four-field grids share axes to eliminate repeated labels without shrinking text.
   Use the comparison renderer’s `--compact-only` path for layout revisions,
   avoiding environment imports, new rollouts, and kernel recomputation.
+  The top-four field renderer now accepts independent 0-to-unit-max color
+  limits as an additional view, reusing the same selection and raw maps.
+  `--individual-fields-only` adds these figures and exports exact panel
+  limits/source hashes without touching existing shared-scale outputs.
 
 
 ### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
