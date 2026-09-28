@@ -58,6 +58,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   and hit markers therefore required another frozen rollout from the terminal
   checkpoint. The [poster comparison](06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md)
   links the event-capture adapter and resulting marked trajectories.
+- **Renderer regression/fix:** The compact-layout pass mistakenly read the
+  sparse `option_events.csv` (1,505 C05 rows and 123 C15 rows) for path lines,
+  creating straight chords between events. Full `pose_events.csv` streams
+  contain 10,001 observations and twelve episodes. The comparison renderer
+  now prevalidates complete streams against summaries and marker tables;
+  missing full inputs fail before any figure is replaced. Shared segmentation
+  breaks paths at resets or missing frames, and export preserves every vertex.
+  Four focused regression checks cover sparse-input rejection, repeated
+  episode IDs, agent separation, and reset boundaries. Reuse the
+  [stream contract](04_implementation/reusable_place_field_telemetry.md#trajectory-and-option-event-streams)
+  for future figure revisions; do not substitute marker tables for paths.
 - **Impact:** Saved trajectory figures cannot be annotated with actual option
   events, and a fresh stochastic replay must be plotted as a distinct path.
 - **Proposed improvement/status:** Add optional observation-aligned option

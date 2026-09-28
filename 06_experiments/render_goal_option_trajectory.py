@@ -13,23 +13,63 @@ from matplotlib import font_manager
 import pandas as pd
 
 
+def trajectory_segments(pose: pd.DataFrame):
+    """Yield contiguous paths per agent, breaking at resets and missing frames.
+
+    Grouping by an episode label alone can reconnect repeated labels or sparse
+    observations. Preserve recorded order and require consecutive decision
+    frames for a line segment whenever frame indices are available.
+    """
+    required = {"agent", "num_traj", "x", "y"}
+    if missing := required - set(pose.columns):
+        raise ValueError(f"Missing trajectory columns: {sorted(missing)}")
+    for _, agent in pose.groupby("agent", sort=False):
+        boundary = agent.num_traj.ne(agent.num_traj.shift())
+        if "frame" in agent:
+            boundary |= agent.frame.diff().ne(1)
+        for _, segment in agent.groupby(boundary.cumsum(), sort=False):
+            yield segment
+
+
+def validate_complete_event_stream(pose: pd.DataFrame, expected_observations: int | None = None) -> None:
+    """Reject sparse event tables as trajectory inputs before creating a figure."""
+    required = {"frame", "agent", "num_traj", "x", "y", "option_start", "goal_hit"}
+    if missing := required - set(pose.columns):
+        raise ValueError(f"Missing full pose/event columns: {sorted(missing)}")
+    if pose.empty:
+        raise ValueError("Empty pose/event stream")
+    if expected_observations is not None and len(pose) != expected_observations:
+        raise ValueError(f"Expected {expected_observations} full observations, found {len(pose)}")
+    for _, agent in pose.groupby("agent", sort=False):
+        if agent.frame.diff().dropna().ne(1).any():
+            raise ValueError("Event-marked trajectories require consecutive observations from pose_events.csv; "
+                             "option_events.csv is a sparse marker table, not a trajectory")
+
+
 def render(pose: pd.DataFrame, destination: Path, title: str, scope: str,
            bounds: tuple[float, float, float, float], sampling_label: str = "replay",
            figure_scale: float = 1.0, compact_title: str | None = None) -> None:
+    if pose.empty:
+        raise ValueError("Empty trajectory")
+    event_columns = {"option_start", "goal_hit"}
+    if event_columns & set(pose.columns) and not event_columns <= set(pose.columns):
+        raise ValueError("Option-start and goal-hit columns must be supplied together")
+    has_events = event_columns <= set(pose.columns)
+    if has_events:
+        validate_complete_event_stream(pose)
     if scope == "first_episode":
-        pose = pose.loc[pose.num_traj == pose.num_traj.iloc[0]].copy()
+        pose = pose.loc[pose.agent == pose.agent.iloc[0]].copy()
+        episode_run = pose.num_traj.ne(pose.num_traj.shift()).cumsum()
+        pose = pose.loc[episode_run == episode_run.iloc[0]].copy()
         scope_title = f"First episode ({len(pose):,} decisions)"
     else:
         scope_title = f"Full {sampling_label} ({len(pose):,} decisions)"
 
     fig, ax = plt.subplots(figsize=(8.5 * figure_scale, 8.0 * figure_scale), layout="constrained")
-    for _, episode in pose.groupby(["agent", "num_traj"], sort=False):
-        ax.plot(episode.x, episode.y, color="#606973", lw=1.1, alpha=0.46, zorder=1)
+    for episode in trajectory_segments(pose):
+        line, = ax.plot(episode.x, episode.y, color="#606973", lw=1.1, alpha=0.46, zorder=1)
+        line.get_path().should_simplify = False  # Keep every sampled turn in compact SVGs.
 
-    event_columns = {"option_start", "goal_hit"}
-    if event_columns & set(pose.columns) and not event_columns <= set(pose.columns):
-        raise ValueError("Option-start and goal-hit columns must be supplied together")
-    has_events = event_columns <= set(pose.columns)
     starts = pose.loc[pose.option_start] if has_events else pose.iloc[:0]
     hits = pose.loc[pose.goal_hit] if has_events else pose.iloc[:0]
     start_size = 24 if scope == "full" else 56

@@ -249,6 +249,21 @@ arena exploration and target-hit control clear; the first C05 episode makes
 the repeated boundary events easier to inspect. These markers do not strengthen
 the claim that C15 learned a better target-conditioned decoder.
 
+The trajectory lines use **all 10,001 observation-time poses**, rather than
+connecting the sparse rows in `option_events.csv`. Each first-episode panel
+contains 900 observations. Agents and contiguous episode runs are drawn as
+separate paths; episode boundaries and missing frames break the line. SVG path
+simplification is disabled so compact rendering retains every sampled turn.
+The [trajectory-rendering record](goal_option_trajectory_rendering.json) stores
+full-stream hashes, source paths, observation counts, and event counts.
+
+For layout-only rerenders, stage each complete `pose_events.csv` beneath
+`c05_seed99/` and `c15_seed99/`, and pass that root through
+`--goal-events-input` to the comparison renderer with `--trajectories-only`
+or `--compact-only`. The renderer checks full-stream length and all marked
+rows against the published summaries **before** replacing any figures;
+`option_events.csv` alone cannot reconstruct the intervening trajectory.
+
 The complete pose-plus-event streams remain in the active NEMO2 analysis
 workspace at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928/output/raw/`.
 The [two-row replay manifest](goal_option_manifest.tsv) identifies the staged

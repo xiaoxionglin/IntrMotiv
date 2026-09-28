@@ -21,7 +21,9 @@ import numpy as np
 import pandas as pd
 
 from render_poster_frozen import flow_cells, render_flow
-from render_goal_option_trajectory import render as render_trajectory
+from render_goal_option_trajectory import (
+    render as render_trajectory, trajectory_segments, validate_complete_event_stream,
+)
 from analyze_place_field_manifest import (
     multilevel_field_structure, FIELD_MIN_ACTIVE_OBSERVATIONS, FIELD_MIN_ACTIVE_BINS,
     FIELD_THRESHOLD_FRACTIONS, FIELD_MONO_MASS_FRACTION,
@@ -422,6 +424,29 @@ def peak_sensitivity_outputs(data: pd.DataFrame, input_root: Path, output: Path)
     plt.close(fig)
 
 
+def trajectory_occupancy_figure(pose: pd.DataFrame, occupancy: np.ndarray, destination: Path,
+                                condition: str, seed: int) -> None:
+    """Render occupancy beside continuous within-episode paths, preserving every pose."""
+    fig, axes = plt.subplots(1, 2, figsize=(13 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
+    occupancy_image = axes[0].imshow(np.ma.masked_equal(occupancy.T, 0), origin="lower",
+                                     cmap="cividis", extent=(100, 2000, 100, 2000),
+                                     interpolation="nearest")
+    fig.colorbar(occupancy_image, ax=axes[0], label="Observations", shrink=.8)
+    for segment in trajectory_segments(pose):
+        line, = axes[1].plot(segment.x, segment.y, lw=.55, alpha=.65, color=COLORS[condition])
+        line.get_path().should_simplify = False
+    for ax in axes:
+        ax.set(xlim=(100, 2000), ylim=(100, 2000), aspect="equal",
+               xlabel="x (DMLab units)", ylabel="y (DMLab units)")
+    axes[0].set_title("Occupancy")
+    axes[1].set_title(f"Trajectory · {pose.num_traj.nunique()} segments")
+    fig.suptitle(f"{condition} · S{seed} · 10,000-decision frozen probe")
+    fig.savefig(destination / "trajectory_occupancy.svg", bbox_inches="tight")
+    plt.close(fig)
+
+
+
+
 def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
              seed: int = 99, *, reuse_saved_kernel: bool = False) -> None:
     record = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
@@ -445,22 +470,7 @@ def exemplar(data: pd.DataFrame, input_root: Path, output: Path, condition: str,
     render_flow(pose, destination / "flow.svg", f"{condition} · S{seed} · local flow",
                 figure_scale=FIGURE_SCALE)
 
-    fig, axes = plt.subplots(1, 2, figsize=(13 * FIGURE_SCALE, 6 * FIGURE_SCALE), constrained_layout=True)
-    occupancy_image = axes[0].imshow(np.ma.masked_equal(occupancy.T, 0), origin="lower",
-                                     cmap="cividis", extent=(100, 2000, 100, 2000),
-                                     interpolation="nearest")
-    fig.colorbar(occupancy_image, ax=axes[0], label="Observations", shrink=.8)
-    for _, segment in pose.groupby("num_traj", sort=False):
-        axes[1].plot(segment.x, segment.y, lw=.55, alpha=.65, color=COLORS[condition])
-    for ax in axes:
-        ax.set(xlim=(100, 2000), ylim=(100, 2000), aspect="equal",
-               xlabel="x (DMLab units)", ylabel="y (DMLab units)")
-    axes[0].set_title("Occupancy")
-    axes[1].set_title(f"Trajectory · {pose.num_traj.nunique()} segments")
-    fig.suptitle(f"{condition} · S{seed} · 10,000-decision frozen probe")
-    fig.savefig(destination / "trajectory_occupancy.svg", bbox_inches="tight")
-    plt.close(fig)
-
+    trajectory_occupancy_figure(pose, occupancy, destination, condition, seed)
 
     valid = np.flatnonzero(np.isfinite(information) & (np.nanmax(maps, axis=(0, 1)) > 0))
     selected = valid[np.argsort(information[valid])[-4:][::-1]]
@@ -543,6 +553,58 @@ def older_batch_check(input_root: Path, output: Path) -> None:
     pd.DataFrame(rows).to_csv(output, index=False)
 
 
+def load_goal_trajectory_streams(input_root: Path, output: Path) -> dict[str, pd.DataFrame]:
+    """Validate full replay streams against published summaries and event tables."""
+    streams = {}
+    for condition in ("C05", "C15"):
+        folder = f"{condition.lower()}_seed99"
+        source = input_root / folder / "pose_events.csv"
+        if not source.exists():
+            raise FileNotFoundError(f"Stage the full {source}; set --goal-events-input. "
+                                    "Do not substitute the sparse option_events.csv.")
+        pose = pd.read_csv(source)
+        summary = json.loads((output / folder / "event_summary.json").read_text())
+        validate_complete_event_stream(pose, summary["recorded_observations"])
+        if int(pose.option_start.sum()) != summary["option_starts"] or int(pose.goal_hit.sum()) != summary["goal_hits"]:
+            raise ValueError(f"Event counts differ from the published summary for {condition}")
+        if pose.num_traj.nunique() != summary["reset_segments"]:
+            raise ValueError(f"Episode counts differ for {condition}")
+        expected_events = pd.read_csv(output / folder / "option_events.csv")
+        actual_events = pose.loc[pose.option_start | pose.goal_hit, expected_events.columns].reset_index(drop=True)
+        pd.testing.assert_frame_equal(actual_events, expected_events, check_dtype=False)
+        pose.attrs["source_sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+        streams[condition] = pose
+    return streams
+
+
+def render_goal_trajectory_streams(streams: dict[str, pd.DataFrame], output: Path) -> None:
+    """Render complete replay paths and save their source/segmentation record."""
+    provenance = json.loads((output / "goal_option_provenance.json").read_text())
+    records = []
+    for condition, pose in streams.items():
+        destination = output / f"{condition.lower()}_seed99"
+        plt.rcParams.update({"font.size": 12, "axes.titlesize": 14, "axes.labelsize": 13})
+        for scope in ("full", "first_episode"):
+            render_trajectory(pose, destination / f"trajectory_option_events_{scope}.svg",
+                              f"{condition} · S99", scope, (100, 2000, 100, 2000),
+                              figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99")
+        first = next(trajectory_segments(pose))
+        records.append({"condition": condition, "seed": 99, "observations": len(pose),
+                        "first_episode_observations": len(first),
+                        "contiguous_paths": sum(1 for _ in trajectory_segments(pose)),
+                        "source_sha256": pose.attrs["source_sha256"],
+                        "option_starts": int(pose.option_start.sum()), "goal_hits": int(pose.goal_hit.sum()),
+                        "original_pose_events_file": str(Path(provenance["analysis_root"]) /
+                                                          "output/raw" / destination.name / "pose_events.csv")})
+    (output / "goal_option_trajectory_rendering.json").write_text(json.dumps({
+        "schema": "intrmotiv/goal-option-trajectory-render/v1",
+        "line_source": "Complete observation-time pose_events.csv, not event-only rows",
+        "segmentation": "Separate agents and contiguous episode runs; never connect across reset labels or skipped frames",
+        "validation": "Observation count, reset count, and event rows match published summary and marker CSV",
+        "runs": records,
+    }, indent=2) + "\n")
+
+
 def main() -> None:
     global FIGURE_SCALE
     parser = argparse.ArgumentParser()
@@ -552,6 +614,10 @@ def main() -> None:
     parser.add_argument("--graphs", type=Path, help="Compact checkpoint graph JSON")
     parser.add_argument("--figure-scale", type=float, default=FIGURE_SCALE,
                         help="Canvas width/height multiplier; text and strokes remain unchanged")
+    parser.add_argument("--goal-events-input", type=Path,
+                        help="Staged full event replay streams: c05_seed99/pose_events.csv and c15_seed99/pose_events.csv")
+    parser.add_argument("--trajectories-only", action="store_true",
+                        help="Re-render archived trajectories and full goal-event replays only")
     parser.add_argument("--compact-only", action="store_true",
                         help="Re-render saved comparison plots with compact canvases")
     parser.add_argument("--mono-only", action="store_true",
@@ -561,6 +627,31 @@ def main() -> None:
         parser.error("--figure-scale must be finite and positive")
     FIGURE_SCALE = args.figure_scale
     setup_style()
+    if args.compact_only or args.trajectories_only:
+        # Validate before replacing any SVGs, so missing streams cannot leave a partial rerender.
+        streams = load_goal_trajectory_streams(args.goal_events_input or args.input / "goal_option_events", args.output)
+    if args.trajectories_only:
+        data = pd.read_csv(args.output / "matched_terminal_per_run.csv")
+        for condition in ("C01", "C05", "C15"):
+            for seed in (8, 99, 123):
+                row = data[(data.condition == condition) & (data.seed == seed)].iloc[0]
+                raw = args.input / "corrected_core_candidates_20260902_place_fields/raw" / Path(row.pose_file).parent.name
+                pose = pd.read_csv(raw / "pose.csv")
+                if condition != "C01" or seed != 8:
+                    # These published archived plots inherit the flow renderer's style.
+                    plt.rcParams.update({"font.size": 14, "axes.titlesize": 16, "axes.labelsize": 14})
+                for scope in ("full", "first_episode"):
+                    render_trajectory(pose, args.output / f"{condition.lower()}_seed{seed}/trajectory_{scope}.svg",
+                                      f"{condition} · S{seed}", scope, (100, 2000, 100, 2000),
+                                      sampling_label="archived probe", figure_scale=FIGURE_SCALE,
+                                      compact_title=f"{condition} · S{seed}")
+                with np.load(raw / "place_fields.npz", allow_pickle=False) as values:
+                    occupancy = values["occupancy"]
+                plt.rcParams.update({"font.size": 14, "axes.titlesize": 16, "axes.labelsize": 14})
+                trajectory_occupancy_figure(pose, occupancy, args.output / f"{condition.lower()}_seed{seed}",
+                                            condition, seed)
+        render_goal_trajectory_streams(streams, args.output)
+        return
     if args.compact_only:
         data = pd.read_csv(args.output / "matched_terminal_per_run.csv")
         mono_field_outputs(data, args.input, args.output)
@@ -572,14 +663,7 @@ def main() -> None:
                 exemplar(data, args.input, args.output, condition, seed, reuse_saved_kernel=True)
         for seed in (8, 99, 123):
             graph_figure(args.input, args.output / f"stored_graphs_seed{seed}.svg", seed, args.graphs)
-        for condition in ("C05", "C15"):
-            destination = args.output / f"{condition.lower()}_seed99"
-            events = pd.read_csv(destination / "option_events.csv")
-            plt.rcParams.update({"font.size": 12, "axes.titlesize": 14, "axes.labelsize": 13})
-            for scope in ("full", "first_episode"):
-                render_trajectory(events, destination / f"trajectory_option_events_{scope}.svg",
-                                  f"{condition} · S99", scope, (100, 2000, 100, 2000),
-                                  figure_scale=FIGURE_SCALE, compact_title=f"{condition} · S99")
+        render_goal_trajectory_streams(streams, args.output)
         return
     if args.mono_only:
         mono_field_outputs(pd.read_csv(args.output / "matched_terminal_per_run.csv"),
