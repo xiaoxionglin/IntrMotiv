@@ -25,6 +25,11 @@
 - Provide enough annotations and explanation to make assumptions, methods,
   results, and next steps understandable. Use visualizations when they help
   communicate the information, following the figure-readability rules below.
+- After creating or revising project files, check the completed work, commit
+  the task's changes, and push the current branch to the remote before final
+  delivery. The user has authorized automatic pushes so new outputs are
+  available through Obsidian sync; do not ask for confirmation each time.
+  Verify the push succeeded and report any sync failure explicitly.
 
 ## Desktop Python Environment
 
