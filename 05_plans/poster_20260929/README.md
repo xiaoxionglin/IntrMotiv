@@ -1,11 +1,19 @@
-# A0 poster with large type and DG-16 survey — 29 September 2026
+# A0 poster review choices — 29 September 2026
 
-[Current selected poster B](layout_versions/README.md) combines system transfer,
-the training-only DG predictor, continuous field dominance versus exploration
-and control, and separately labelled TV/command-lift diagnostics. Its header,
-introduction and left-panel data are preserved. Figure fonts declare Helvetica;
-the installed Nimbus Sans substitute is recorded. Trajectory events have a
-shared key and references are boxed. The former third version is dropped.
+[Three current variations of the attached B](layout_versions/README.md) apply
+the supplied critique except the rejected condition-label change. All include
+strict-field counts and mobility, three-arm DG/package transfer, the training-only
+predictor, pooled versus within-family associations and command lift. The
+choices differ in dominance, 12-model spatial concentration, or concentration
+in the main nine C01/C05/C15 models. The last is recommended for review.
+The attached header, introduction and left-panel data are preserved; an
+incorrect activity-maximum key is corrected. Figure fonts declare Helvetica
+with a verified Nimbus Sans substitute; references remain boxed. These new
+review choices continue from B and do not revive the formerly dropped version.
+
+[Assessment, sources and limits](layout_versions/critique_variations/README.md)
+explain why transfer supports a package comparison and field-shape results
+support dissociation rather than a causal claim that concentration harms behaviour.
 
 The earlier filled poster and candidate sources remain below for reference.
 
@@ -15,7 +23,7 @@ The earlier filled poster and candidate sources remain below for reference.
 
 The title/author/logo strip and left column are preserved from the supplied poster. Equal-size Inkscape renders show **zero changed pixels** in those regions. Only the right-column plots, headings, captions, conclusion, and references were replaced. The adapter accepts either the original supplied SVG or the current filled poster. Updating the current poster replaces only its generated right-column layer, retaining edits elsewhere. The manifest records the input hash before replacement.
 
-## Content and evidence
+## Earlier filled poster: content and evidence
 
 - **Exploration and returns:** four compact plots aligned horizontally. Dots show seeds 8, 99, and 123; black segments show equal-weight seed means. Coverage AUC is the time-averaged cumulative visited-cell count. The shared caption separates final-10M training summaries from frozen-policy mobile-window returns and states the mobility fractions.
 - **Goal specificity:** C05/C15 target-hit-lift and raw-logit-sensitivity plots together occupy 191.5 mm, half the right column. Explanations occupy the other half. Target events do not establish physical arrival; the designs also differ in regularization and manager structure.
@@ -29,7 +37,7 @@ Each new panel is a named native SVG group inside the Inkscape layer **Right col
 
 The main survey uses latest saved DG-16 online ages spanning 25–150M frames, with historical target counters and recent spatial windows. A/B repeat the same cohort. Holding capacity fixed does not match age, family, or outcome rules. DG 32/64 and replay/probe protocols are screened separately in [dg_capacity_audit.csv](dg_capacity_audit.csv). The old mixed-capacity replay-score/coverage null disappears under the DG-16 filter ($\rho=0.321$, 18 runs), so that wording and panel are retired. [Discussion points](discussion_points.md) explain the revised story and additional visitor topics.
 
-## Rebuild
+## Earlier filled poster: rebuild
 
 From the repository root, use the current poster or provide the original supplied SVG:
 
@@ -43,11 +51,11 @@ inkscape 05_plans/poster_20260929/Bernstein2026_IntrMotiv_filled.svg \
   --export-filename=05_plans/poster_20260929/Bernstein2026_IntrMotiv_filled.png
 ```
 
-## Editorial review
+## Earlier filled poster: editorial review
 
 The latest revision prioritizes the user's 30/40 pt typography and fixed-capacity comparison. Two informative scatter metrics replace the previous four-panel mixed-capacity block. The take-home asks which goal representation can reliably select a physical place. See [critique.md](critique.md) for interpretation limits and [discussion_points.md](discussion_points.md) for measured visitor discussion candidates.
 
-## Checks and reusable lessons
+## Earlier filled poster: checks and reusable lessons
 
 The build verifies the selected nine runs and common checkpoint, unique SVG IDs, unchanged retained source subtrees, and one observation per run within each scatter panel. The full page and right-column crop were inspected for clipping and overlap; family shapes reinforce colors in grayscale. New plot text is 30 pt; explanatory text is 40 pt at final A0 size. Existing left-column figures retain their original appearance. Recorded checks are in [quality_checks.json](quality_checks.json).
 

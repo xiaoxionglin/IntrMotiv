@@ -10,7 +10,7 @@
 
 All versions start from [the attached edited SVG](input_poster.svg), preserving its author/affiliation edits, introduction, map images, peak locations and trajectory geometry. **Suggestion 1 is not implemented:** all C01/C05/C15 headings remain exactly as attached. The single left annotation correction is the map key: displayed values are activity maxima, not spatial-information scores. Source values and scores are in [the individual-scale table](../../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv). No map values are changed.
 
-The versions retain Helvetica declarations, verified Nimbus Sans rendering, 30 pt plot labels, 40 pt result captions and boxed references. The schematic in V3 illustrates mathematical concentration endpoints and contains no fabricated observations. The core concentration x axis explicitly spans 0.65–1; all observations fit. Other scatter axes retain full 0–1 measures and 0–100% outcomes.
+The versions retain Helvetica declarations, verified Nimbus Sans rendering, 30 pt plot labels, 40 pt result captions and boxed references. The opening right-column key defines a landmark as an internal DG event, with spatial tuning evaluated post hoc. The schematic in V3 illustrates mathematical concentration endpoints and contains no fabricated observations. The core concentration x axis explicitly spans 0.65–1; all observations fit. Other scatter axes retain full 0–1 measures and 0–100% outcomes.
 
 ## Evaluation of the critique
 

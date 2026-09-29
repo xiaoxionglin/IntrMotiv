@@ -209,6 +209,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   fix `svg.hashsalt` and omit export dates; extending deterministic export to
   older gallery renderers remains a follow-up. Acceptance: two renders from
   unchanged inputs have identical SVG bytes and do not create sync conflicts.
+  The [critique-review variations](05_plans/poster_20260929/layout_versions/critique_variations/README.md)
+  now start from the latest author-edited B attachment. Matplotlib IDs normally
+  identify groups rather than editable text, so the adapter assigns each text
+  its own ID before querying Inkscape glyph bounds. This exposed collisions
+  between zero ticks at scatter origins; additional horizontal-tick padding
+  resolves them without reducing 30 pt type. Protected-region checks exempt
+  only the measured old/new glyph bounds of one factual map-key correction:
+  displayed numbers match `color_max`, not `spatial_score`. Three-arm transfer
+  reuses the canonical reward integrator and validated StudySpec expansion;
+  the correct provenance property is `declared_workflow_version`. Overlapping
+  random controls cross-check TensorBoard against W&B within 0.12%, and
+  `W_FULL` remains distinct from the plotted frozen-DG `W_WORKER` package.
+  Acceptance: audit actual text glyphs, retain exact condition-heading XML and
+  left-data fingerprints, record matched cohorts and study hashes, and verify
+  all three alternatives without new telemetry or cluster discovery.
 - **Acceptance:** Completed for this artifact: all new objects fit the first
   A0 page, SVG IDs are unique, imports use no external images, and equal-size
   Inkscape renders show zero pixel differences in the header and left column.

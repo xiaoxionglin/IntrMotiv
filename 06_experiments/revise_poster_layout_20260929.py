@@ -1031,7 +1031,7 @@ REVIEW_VARIANTS = {
         'field_note':'12 runs · DG 16 · 75M · architecture associations', 'keep_tv':True},
     'V2_concentration':{'title':'Concentration + command success', 'field_plot':'review_concentration',
         'field_heading':'3b  Spatial concentration in four CA3-feedback variants',
-        'field_caption':'Concentration weakly orders target-event success.',
+        'field_caption':'Higher C: less coverage; target association weak.',
         'field_note':'12 runs · DG 16 · 75M · coverage near ceiling', 'keep_tv':False},
     'V3_core_concentration':{'title':'Core designs + command success', 'field_plot':'review_core_shape',
         'field_heading':'3b  Core designs: exploration and map shape',
@@ -1051,8 +1051,8 @@ def review_exploration(g: Gallery):
         raise ValueError('Strict-field count claim changed')
     fig,axes=scalar_axes(4)
     specs=[('coverage_auc_terminal','A  AUC\n(cells)',1),
-           ('return_20_mobile','B  Returns\n20 steps (%)',100),
-           ('mobile_20_fraction','C  Mobile\nwindows (%)',100),
+           ('return_20_mobile','B  Mobile returns\n20 steps (%)',100),
+           ('mobile_20_fraction','C  Mobile windows\n20 steps (%)',100),
            ('mono_units','D  Strict fields\n/ 48 DG units',1)]
     for ax,(metric,title,factor) in zip(axes,specs):
         if metric=='mono_units':
@@ -1179,6 +1179,7 @@ def review_survey(g: Gallery):
         title={'ALL':'Pooled spatial score','CPD':'CA3 feedback','DGP':'DG policy'}[family]
         ax.set(title=f'{title}\nn={len(group)} · ρ={displayed:.2f}',xlim=(0,.56),xticks=[0,.2,.4],
                ylim=(0,100),yticks=[0,50,100]);ax.grid(color='#eeeeee')
+        ax.tick_params(axis='x',pad=14)
         statistics.append({'family':family,'n':len(group),'spearman_rho':rho,
                            'minimum_frames':int(group.frames.min()),'maximum_frames':int(group.frames.max())})
         g.record('review_survey',family,'spatial_information',group,'spatial_information',x_axis=True,dg_units=16)
@@ -1188,7 +1189,7 @@ def review_survey(g: Gallery):
     # the narrow gap between ticks and legend obscured the family key.
     handles=[Line2D([],[],marker=FAMILY_MARKERS[f],color=FAMILY_COLORS[f],ls='none',markersize=8,
                     label=FAMILY_NAMES[f]) for f in sorted(data.family.unique())]
-    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.5,0),ncol=3,frameon=False,
+    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.5,-.04),ncol=3,frameon=False,
                handletextpad=.35,columnspacing=.8)
     g.finish(fig,Candidate('review_survey','Pooled versus within-family associations',(383,100),'All review versions','','','',''))
     (g.out/'review_survey_statistics.json').write_text(json.dumps(statistics,indent=2)+'\n')
@@ -1210,6 +1211,7 @@ def review_fields(g: Gallery,core: pd.DataFrame):
             ax.set(title=f'{title} · ρ={rho:.2f}',xlabel=label,
                    ylabel='Visited\n(%)' if outcome=='exploration_coverage' else 'Success\n(%)',
                    xlim=(0,1),xticks=[0,.5,1],ylim=(0,100),yticks=[0,50,100]);ax.grid(color='#eeeeee')
+            ax.tick_params(axis='x',pad=14)
             statistics.append({'metric':metric,'outcome':outcome,'n':12,'variants':4,'spearman_rho':rho})
             g.record(key,title,metric,cpd,metric,x_axis=True,dg_units=16,protocol='online_latest_saved_window')
             g.record(key,title,outcome,cpd,outcome,100,y_axis=True,dg_units=16,protocol='online_latest_saved_window')
@@ -1274,7 +1276,7 @@ def compose_review(root,g: Gallery,key,reference):
     x=442.4;item=REVIEW_VARIANTS[key]
     section(layer,2,'Explore, transfer and predict',x,220)
     text(layer,'subsection-2a',x,244,['2a  Exploration, mobility and strict fields'],36,bold=True,color='#253B57')
-    text(layer,'design-key',x,263,['C01 no goals · C05 uniform goals · C15 frontier goals'],30)
+    text(layer,'landmark-key',x,263,['Landmark = internal DG event; spatial tuning tested later.'],30)
     embed(layer,g.out/'review_exploration.svg','review-exploration',x,272,383)
     text(layer,'coverage-gain',x,363,['C01/C15: 1/48 strict fields; C15: 2.1× AUC.'],40,bold=True)
     text(layer,'exploration-protocol',x,377,['A: training mean · B–D: frozen 10k probes · 3 seeds'],30)
@@ -1285,7 +1287,8 @@ def compose_review(root,g: Gallery,key,reference):
     text(layer,'subsection-2c',x,526,['2c  DG-only versus control-package transfer'],36,bold=True,color='#253B57')
     embed(layer,g.out/'review_transfer.svg','transfer-result',x,537,191.5)
     review_package_diagram(layer,645.4,537)
-    text(layer,'transfer-caption',x,631,['Package: +6% / +16%; no early head start.'],40)
+    text(layer,'transfer-protocol',x,622,['DG 64 · 75M · Pkg: 2/3 pairs each'],30)
+    text(layer,'transfer-caption',x,635,['Package: +6% / +16% mean; no early head start.'],40)
     text(layer,'subsection-2d',x,654,['2d  Adding a goal-conditioned next-event predictor'],36,bold=True,color='#253B57')
     embed(layer,g.out/'predictor.svg','predictor-result',x,665,191.5)
     predictor_diagram(layer,645.4,665)
@@ -1305,7 +1308,7 @@ def compose_review(root,g: Gallery,key,reference):
     embed(layer,g.out/'command_lift.svg','command-lift',x,1085,191.5)
     if item['keep_tv']:
         embed(layer,g.out/'action_tv.svg','action-tv',633.9,1085,191.5)
-        text(layer,'command-message',x,1172,['12 positive command lifts; TV uses 6 credit models.'],40)
+        text(layer,'command-message',x,1172,['12 positive lifts · internal DG events; TV: 6 models.'],40)
     else:
         text(layer,'command-positive',645.4,1098,['Positive lift in all','12 evaluated models'],40,step=17,bold=True)
         text(layer,'command-definition',645.4,1134,['Executed − matched shuffled','success, in percentage points'],30,step=12)
@@ -1405,6 +1408,10 @@ def review_critique(source: Path,critique: Path,out: Path):
                 css=e.get('style','')
                 if 'stroke-dasharray' in css and 'stroke: #777777' in css:
                     e.set('style',css.replace('stroke-width: 1.5','stroke-width: 2.5').replace('#777777','#253B57'))
+        elif path.stem=='predictor':
+            for e in figure.iter(f'{{{SVG}}}text'):
+                if e.text=='Return (%)':e.text='Mobile returns'
+                elif e.text=='20 decisions':e.text='20 steps (%)'
         export_svg(figure,path)
     root=ET.parse(pinned).getroot()
     key=next(e for e in root.iter(f'{{{SVG}}}text') if ''.join(e.itertext()).strip()=='DG id : spatial information')
@@ -1445,7 +1452,7 @@ def write_review_notes(out: Path):
 
 All versions start from [the attached edited SVG](input_poster.svg), preserving its author/affiliation edits, introduction, map images, peak locations and trajectory geometry. **Suggestion 1 is not implemented:** all C01/C05/C15 headings remain exactly as attached. The single left annotation correction is the map key: displayed values are activity maxima, not spatial-information scores. Source values and scores are in [the individual-scale table](../../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv). No map values are changed.
 
-The versions retain Helvetica declarations, verified Nimbus Sans rendering, 30 pt plot labels, 40 pt result captions and boxed references. The schematic in V3 illustrates mathematical concentration endpoints and contains no fabricated observations. The core concentration x axis explicitly spans 0.65–1; all observations fit. Other scatter axes retain full 0–1 measures and 0–100% outcomes.
+The versions retain Helvetica declarations, verified Nimbus Sans rendering, 30 pt plot labels, 40 pt result captions and boxed references. The opening right-column key defines a landmark as an internal DG event, with spatial tuning evaluated post hoc. The schematic in V3 illustrates mathematical concentration endpoints and contains no fabricated observations. The core concentration x axis explicitly spans 0.65–1; all observations fit. Other scatter axes retain full 0–1 measures and 0–100% outcomes.
 
 ## Evaluation of the critique
 
