@@ -18,7 +18,7 @@ Keep the submitted title. An optional subtitle or result banner is:
 
 The poster's positive result is the three-stage **exploration** comparison: C01 → C05 → C15. Its scientific qualification is that exploration, spatial coding, and commanded-target control do not improve together. This gives the progression a clear endpoint and an open computational question.
 
-The current `Bernstein2026_IntrMotiv.svg` was reviewed on 29 September. Retain its introduction and three condition rows as the core. The latest revision preserves the supplied header and left column, uses 30 pt plot text and 40 pt explanations, and restricts the supporting architectural survey to DG 16. The weak displacement-dependent similarity profiles are removed. Other capacities and a major transfer section remain supplementary.
+The latest supplied `Bernstein2026_IntrMotiv_layout.svg` is the authoritative layout. Retain its header, introduction, and three condition rows as the core. The new [three layout alternatives](poster_20260929/layout_versions/README.md) use 30 pt plot text and 40 pt explanations, improve the bottom-left plot typography under the user's new instruction, and restrict the architectural survey to DG 16. Weak displacement-dependent similarity profiles remain removed. A compact joint-system transfer result is now one main-poster option; it uses DG 64 in a separate matched comparison rather than pooling capacity into the survey.
 
 ---
 
@@ -166,27 +166,37 @@ The removed displacement profiles mainly show an overall similarity difference a
 
 ## 4. Layout based on the current poster
 
-Keep the two-column structure and the aligned C01/C05/C15 visual rows. The existing header and left side are protected under the user's instruction. The condensed scalar summaries support those rows; the broader survey fills the reclaimed right-column space with more observations.
+Keep the two-column structure and the aligned C01/C05/C15 visual rows. The header and introduction remain protected. The latest instruction authorizes improving section/subsection markings and bottom-left plot fonts; the actual map images, peak markers, and trajectory vertices remain unchanged. The condensed scalar summaries support those rows, and a compact optional result fills the new space above an expanded DG-16 survey.
 
 | Region | Content | Current placement below the header |
 | --- | --- | --- |
-| Left column | Existing introduction, architecture, and three design rows | Preserved exactly |
-| Upper right | Four exploration/return plots in one row; 40 pt caption underneath | Approximately 220–455 mm vertically |
-| Middle right | Two goal-specificity plots in the left half; 40 pt explanation in the right half | Approximately 480–665 mm |
-| Lower right | Two DG-16 architectural scatters; family color/shape legend and 40 pt interpretation | Approximately 696–975 mm |
-| Bottom right | Take-home and visitor question; references | Approximately 988–1189 mm |
+| Left column | Unchanged introduction/architecture; readable design headings and plot labels | Design rows at approximately 741–1189 mm |
+| Upper right | Section 2a: four exploration/return plots and concise caption | Approximately 220–397 mm |
+| Middle right | Section 2b: goal specificity; section 2c: one optional result | Approximately 421–695 mm |
+| Lower right | Section 3a: original DG-16 survey; section 3b: two additional cross-run panels | Approximately 725–1090 mm |
+| Bottom right | Version-specific take-home and retained references | Approximately 1100–1189 mm |
 
 The right column begins at 443 mm and is 383 mm wide. Render plot sources at their final physical widths so compact panels keep readable fonts.
 
 ### Concrete changes to the current SVG when editing it
 
-1. Preserve the supplied header and left-column objects. The alternative row headings in Section 2 remain proposed future edits, not changes applied to this SVG.
+1. Preserve the supplied header and introduction. Apply the requested bottom-left typography changes only to identified plots and headings, retaining their data and the chosen seed-99 examples.
 2. Align the four exploration/return plots horizontally and place their shared definitions and mobility qualification below.
 3. Place the two goal-specificity plots together in half the right-column width; use the other half for their interpretation.
-4. Use two smaller DG-16 scatters with 30 pt labels, legends, annotations, and ticks. A/B show different coding metrics for the same run cohort.
+4. Retain the two DG-16 scatters with 30 pt labels, legends, annotations, and ticks. Add a second row illustrating within-family grouping, graph grouping, or three-seed variant means. Repeated views of the same cohort are not independent evidence.
 5. State that these design packages differ in more than goal choice; fixing capacity leaves family, age, and outcome-rule differences in the broader survey.
-6. Keep the take-home focused on broad exploration and unresolved goal control; ask how a goal reliably identifies a physical destination. The concrete next test remains a matched-start command intervention.
-7. Check SVG IDs, physical text sizes, clipping, and protected-region pixel equality after an Inkscape export. The preserved left-row labels remain small and their scientific wording remains a critique for later discussion.
+6. Keep broad exploration as the main positive result. Adapt the take-home to the chosen extension without claiming reliable physical goal control. The next control test remains a matched-start command intervention.
+7. Check SVG IDs, physical text sizes, clipping, and protected-region pixel equality after an Inkscape export. The new versions retain the maps and paths while replacing small/redundant labels with 30 pt text.
+
+### Three concrete alternatives for selection
+
+| Alternative | Newly filled section 2c | Added section 3b | Scientific emphasis |
+| --- | --- | --- | --- |
+| A — recommended | WORKER versus RAND_DG, 0–75M training reward | Spatial score/hits within CA3-feedback and DG-policy families | Joint-system reuse with seed-dependent gains |
+| B | Goal-predictor ablation: more returns and less coverage | Pooled versus within-CA3 connectivity/hits | Prediction, graph structure, and behavior can disagree |
+| C | Strict compact-field counts | Three-seed means of 55 variants | Representation criteria and the sample unit matter |
+
+A transfers learned DG, a trainable pretrained worker, and a source graph together. Full-run mean reward gains are +6.1% in D50 and +15.8% in D51, with two of three paired seed wins in each; WORKER heldout success remains unavailable. This is a different question from SOURCE_DG versus RAND_DG with fresh workers. B retains the matched predictor result in all three seeds but treats the graph grouping as descriptive. C excludes one controller from its mean view because its seeds have different checkpoint ages; all 168 runs remain in the original survey. The [selection notes](poster_20260929/layout_versions/README.md) give captions, critiques, visitor questions, and complete editable versions.
 
 Use the same seed-99 row illustrations already chosen. Label them **illustrative single-seed frozen probes**, while the quantitative claim uses all three seeds. C01's path is archived; C05/C15 option-marked paths are fresh replays from the same checkpoints. Their start/history/action sequences are not matched, and event markers must stay on their original replay paths.
 
@@ -240,7 +250,7 @@ Recent CA3 context is one candidate for disambiguating repeated DG events. Keep 
 
 ## 7. Supplementary material and reusable workflow
 
-Keep the full transfer comparison, Direct/Waypoint contrasts, detailed DGP diagnostics, other C15 variants, graph matrices, field-criterion sensitivity curves, other capacities, and displacement kernels in supplementary material. The two DG-16 online survey views now belong in the main poster; the complete scatter gallery and replay/probe views remain supplementary. The [visitor discussion notes](poster_20260929/discussion_points.md) offer additional measured observations without adding plots to the main layout.
+Keep full transfer learning curves and heldout controls, Direct/Waypoint contrasts, detailed DGP diagnostics, graph matrices, field-criterion sensitivity curves, other capacities, and displacement kernels in supplementary material. The two DG-16 online survey views and an additional cross-run row belong in all three new layouts. A compact transfer, predictor, or field-count extension occupies section 2c depending on the selected version. The [visitor discussion notes](poster_20260929/discussion_points.md) remain useful conversation material.
 
 Use the [matched C01/C05/C15 report](../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md) as the entry point, the [latest poster batch summary](../06_experiments/results/A0_poster_analysis_20260926/batch_summary.md) for supplementary outcomes, and the [telemetry contract](../04_implementation/reusable_place_field_telemetry.md) for metric meanings. Avoid relying on older narrative summaries when exact matched tables and current captions exist.
 

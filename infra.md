@@ -133,6 +133,22 @@ keep implementation guidance in the canonical workflow documents linked below.
   as an evaluation of the transferred DG–worker–graph package. Follow the
   [standardized study workflow](04_implementation/standardized_study_workflow.md)
   for subsequent evaluations and preserve the declared experiment identity.
+  The [three revised layout versions](05_plans/poster_20260929/layout_versions/README.md)
+  start from the user's edited attachment rather than regenerating a stale
+  poster. Their [adapter](06_experiments/revise_poster_layout_20260929.py) queries
+  Inkscape bounds, retains all nine left-panel map/peak/path data fingerprints,
+  and edits only their annotations plus named section objects. Repeated peak
+  coordinates receive a combined selected-unit label, avoiding overlap after
+  increasing labels to 30 pt. A compact family legend initially collided with
+  duplicate horizontal labels; titles already identify those measures, so the
+  duplicates were removed without shrinking type. Seed-averaged variants need
+  their own age check: `CPU2048_DIRECT_F16_DDQN_HER` mixes 75M and 150M seeds.
+  Its three runs remain in the full survey, but an explicit exclusion leaves
+  55 eligible variant means. Acceptance: editable A0 alternatives, unchanged
+  header/introduction pixels, all added text on page, distinct sample-unit
+  labels, and source/geometry fingerprints in the manifest. Use the latest
+  attachment and pinned survey for future edits; do not repeat cluster or
+  historical-export discovery to revise a layout.
   Repository sync exposed 113 add/add SVG conflicts across the unfinished
   merge and subsequent remote integration. Their figure content was identical
   after canonicalizing local IDs/references and export timestamps.

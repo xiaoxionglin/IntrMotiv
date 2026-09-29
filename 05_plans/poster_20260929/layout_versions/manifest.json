@@ -8,6 +8,10 @@
   "section_font_pt": 48,
   "subsection_font_pt": 36,
   "sources": {
+    "06_experiments/revise_poster_layout_20260929.py": "72ac3aa4d05ac9b1c072a1a90f1b2e9e372683ed002c973f55d01e54887fba0a",
+    "06_experiments/compose_a0_poster_20260929.py": "876a3acd696d6b8d0159da858debf941728bea99e3015dfb32ad3e34c542db25",
+    "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/analysis_metadata.json": "9ef236ca9d35a88616d59f3a981dbccd074f773c167bf35abd6518820f6677fc",
     "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
     "05_plans/poster_20260929/worker_random_transfer/reward_per_run.csv": "d18aecab0a1004d04d35e5281b8c41336ca18e86619f24b4b2624047b9edf8a1",
     "05_plans/poster_20260929/candidate_plots/05_predictor_loops_and_coverage.svg": "e997cbfc9a726a1ff101ff26c9bd078d71bd95280f1f2e60d291c8abcbad70d7",
@@ -17,6 +21,7 @@
     "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
     "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/all_active_dg_peak_locations.csv": "6e8d908f71bab787e28451430111f45dd27ba640a7a848ff7cf543042f62327a"
   },
+  "pinned_source": "input_layout.svg",
   "variants": {
     "A_system_transfer": {
       "title": "System transfer",
@@ -35,7 +40,7 @@
         "Mean reward: +6% D50; +16% D51.",
         "Two of three seed pairs win in each."
       ],
-      "insert_protocol": "75M downstream frames · DG 64 · one source per architecture",
+      "insert_protocol": "75M task frames · frozen DG 64 · one source per architecture",
       "survey_subtitle": "3b  Does the trend hold within a family?",
       "survey_caption": [
         "More peak bins do not imply more target hits.",

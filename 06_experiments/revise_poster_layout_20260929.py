@@ -9,9 +9,9 @@ and measurements remain authoritative; no telemetry or training is launched.
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import csv
-from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
@@ -49,7 +49,7 @@ VARIANTS = {
         'insert_title':'2c  Transfer to a rewarded task', 'extra':'within_families',
         'side':['WORKER: learned DG,','worker and graph.','RAND_DG: random DG,','fresh worker,','empty graph.'],
         'insert_caption':['Mean reward: +6% D50; +16% D51.','Two of three seed pairs win in each.'],
-        'insert_protocol':'75M downstream frames · DG 64 · one source per architecture',
+        'insert_protocol':'75M task frames · frozen DG 64 · one source per architecture',
         'survey_subtitle':'3b  Does the trend hold within a family?',
         'survey_caption':['More peak bins do not imply more target hits.','Score–hit trends weaken within both families.','Historical hit counters; recent spatial windows.'],
         'claim':'Joint DG–worker–graph transfer improves average adaptation reward, with seed-dependent outcomes.',
@@ -144,9 +144,33 @@ def preserved_data(group):
     return hashlib.sha256(repr(records).encode()).hexdigest()
 
 
-def marker_labels(layer, names, x, y, colors=None):
-    for i,name in enumerate(names):
-        text(layer,f'{x}-{y}-marker-{i}',x,y+i*18,[name],30,color=colors[i] if colors else '#111111')
+def peak_label_positions(labels, map_x, map_y, width, height):
+    """Place selected IDs near their peaks with readable physical separation.
+
+    Peak data do not move. Four labels fit in the map, and short leaders expose
+    any displaced association. The final Inkscape check uses actual glyph bounds.
+    """
+    placed=[]
+    for (bin_x,bin_y),shared in labels.groupby(['peak_x_bin','peak_y_bin']):
+        message=','.join(map(str,sorted(shared.unit.astype(int))))
+        px=map_x+(bin_x+.5)/19*width
+        py=map_y+height-(bin_y+.5)/19*height
+        label_width=len(message)*6.7+2
+        candidates=[]
+        for dx in (-20,-12,-5,2,10,18):
+            for dy in (-20,-12,-2,10,18,26):
+                x=min(max(px+dx,map_x+2),map_x+width-label_width-2)
+                y=min(max(py+dy,map_y+12),map_y+height-3)
+                box=np.array([x-1,y-10,label_width+2,12.])
+                if any((np.minimum(box[:2]+box[2:],prior['box'][:2]+prior['box'][2:])-
+                        np.maximum(box[:2],prior['box'][:2])>-.5).all() for prior in placed):
+                    continue
+                candidates.append(((x+label_width/2-px)**2+(y-4-py)**2,x,y,box))
+        if not candidates:raise ValueError('No collision-free placement for selected peak labels')
+        _,x,y,box=min(candidates,key=lambda r:r[0])
+        placed.append({'unit':int(shared.unit.min()),'message':message,'x':x,'y':y,
+                       'point_x':px,'point_y':py,'box':box,'width':label_width})
+    return placed
 
 
 def section(layer, number, title, x, baseline):
@@ -218,16 +242,13 @@ def left_typography(root, bounds, g: Gallery):
         text(layer,condition+'-peak-title',205,map_y-4,['DG peaks'],30)
         active = peaks[(peaks.condition==condition)&(peaks.seed==99)]
         labels = active[active.unit.isin(selected.unit)]
-        for (bin_x,bin_y),shared in labels.groupby(['peak_x_bin','peak_y_bin']):
-            point=shared.iloc[0]
-            xx = 190+(point.peak_x_bin+.5)/19*w
-            yy = map_y+h-(point.peak_y_bin+.5)/19*h
-            # Four selected IDs leave all sixteen marker positions visible.
-            message=','.join(map(str,sorted(shared.unit.astype(int))))
-            label_x=min(max(xx+2,194),190+w-(len(message)*6.7+2))
-            label_y=min(max(yy-2,map_y+10),map_y+h-4)
-            text(layer,f'{condition}-peak-id-{int(point.unit)}',label_x,label_y,[message],30)
-            el=find(layer,f'{condition}-peak-id-{int(point.unit)}')
+        for label in peak_label_positions(labels,190,map_y,w,h):
+            ET.SubElement(layer,f'{{{SVG}}}line',{'id':f'{condition}-peak-label-leader-{label["unit"]}',
+                'x1':str(label['point_x']),'y1':str(label['point_y']),
+                'x2':str(label['x']+label['width']/2),'y2':str(label['y']-4),
+                'stroke':'#505050','stroke-width':'.35'})
+            text(layer,f'{condition}-peak-id-{label["unit"]}',label['x'],label['y'],[label['message']],30)
+            el=find(layer,f'{condition}-peak-id-{label["unit"]}')
             el.set('style',el.get('style')+';paint-order:stroke;stroke:white;stroke-width:1.4px;stroke-linejoin:round')
         for value in (0,18):
             xx=190+(value+.5)/19*w
@@ -262,6 +283,10 @@ def left_typography(root, bounds, g: Gallery):
             text(layer,f'{condition}-path-x-{value}',xx-5,map_y+h+12,[label],30)
             text(layer,f'{condition}-path-y-{value}',295,yy+3,[label],30)
         text(layer,condition+'-path-x-unit',320,map_y+h+26,['x (×10³ units)'],30)
+        yy=map_y+h/2
+        el=text(layer,condition+'-path-y-unit',288,yy,['y (×10³)'],30)
+        el.set('text-anchor','middle')
+        el.set('transform',f'rotate(-90,288,{yy})')
         if preserved_data(path)!=prior:
             raise ValueError('Trajectory vertices changed while relabeling')
         audit.append({'condition':condition,'figure':'trajectory','data_sha256':prior,
@@ -410,7 +435,7 @@ def compose_right(root, source_right, g: Gallery, variant_key):
     place_original(layer,find(source_right,'right-control-plot'),x,431)
     text(layer,'goal-control-caption',645.4,442,
          ['C15 lift <1 in all seeds.','Goal changes barely','alter raw logits.','DG hits do not verify','physical arrival.'],40)
-    text(layer,'control-reference',x,525,['Shuffled target reference = 1.'],30)
+    text(layer,'control-reference',x,525,['100M models · 3 seeds · black marks: means · shuffle = 1'],30)
     text(layer,'subsection-2c',x,550,[item['insert_title']],36,bold=True,color='#253B57')
     embed(layer,g.out/f"{item['candidate']}.svg",'new-result-'+variant_key,x,560,191.5)
     text(layer,'new-result-components',645.4,570,item['side'],40)
@@ -450,6 +475,156 @@ def check_svg(path):
     return {'file':path.name,'unique_ids':True,'resolved_references':True}
 
 
+def overview(out: Path):
+    """A preview sheet; full-size editable A0 SVGs remain the deliverables."""
+    root=ET.Element(f'{{{SVG}}}svg',{'width':'2540','height':'1320','viewBox':'0 0 2540 1320'})
+    ET.SubElement(root,f'{{{SVG}}}rect',{'width':'2540','height':'1320','fill':'white'})
+    title=ET.SubElement(root,f'{{{SVG}}}text',{'x':'20','y':'50','style':'font-family:DejaVu Sans;font-size:38px;font-weight:bold'})
+    title.text='Three poster alternatives · use the full A0 SVGs for editing'
+    for i,(key,item) in enumerate(VARIANTS.items()):
+        x=20+i*840
+        label=ET.SubElement(root,f'{{{SVG}}}text',{'x':str(x),'y':'105','style':'font-family:DejaVu Sans;font-size:32px;font-weight:bold'})
+        label.text=key[0]+' · '+item['title']+(' (recommended)' if item['recommended'] else '')
+        png=out/f'Bernstein2026_{key}.png'
+        ET.SubElement(root,f'{{{SVG}}}image',{'x':str(x),'y':'125','width':'800','height':str(800*1189/841),
+            'href':'data:image/png;base64,'+base64.b64encode(png.read_bytes()).decode()})
+    target=out/'comparison_overview.svg';export_svg(root,target);render(target,2540)
+
+
+def visual_checks(out: Path, source: Path):
+    """Verify protected pixels and actual on-page type bounds after Inkscape."""
+    from PIL import Image
+    reference=Path('/tmp')/('intrmotiv-layout-source-'+sha(source)[:12]+'.png')
+    if not reference.exists():
+        subprocess.run(['inkscape',str(source),'--export-area-page','--export-width=1800',
+                        f'--export-filename={reference}'],capture_output=True,check=True)
+    original=np.asarray(Image.open(reference).convert('RGBA'))
+    results=[]
+    for key in VARIANTS:
+        path=out/f'Bernstein2026_{key}.svg'
+        actual=np.asarray(Image.open(path.with_suffix('.png')).convert('RGBA'))
+        regions={}
+        for name,box in [('header',(0,0,841,193)),('introduction',(0,193,431,720))]:
+            x0,y0,x1,y1=[round(v/841*1800) for v in box]
+            changed=int(np.any(original[y0:y1,x0:x1]!=actual[y0:y1,x0:x1],axis=2).sum())
+            if changed:raise ValueError(f'Protected {name} pixels changed in {key}: {changed}')
+            regions[name]=changed
+        root=ET.parse(path).getroot();bounds=query_bounds(path)
+        added=[find(root,'revised-left-typography'),find(root,'revised-right-'+key)]
+        clipped=[]
+        for layer in added:
+            for el in layer.iter(f'{{{SVG}}}text'):
+                box=bounds.get(el.get('id'))
+                if box is None:continue
+                x,y,w,h=box
+                if x<0 or y<0 or x+w>841 or y+h>1189:
+                    clipped.append({'id':el.get('id'),'box_mm':box.tolist()})
+        if clipped:raise ValueError(f'Added text extends beyond the A0 page: {clipped}')
+        # Selected peak labels and column titles must not collide.
+        collisions=[]
+        for condition in LEFT_FIGURES:
+            elements=[e for e in added[0].iter(f'{{{SVG}}}text')
+                      if e.get('id','').startswith(condition+'-peak-id-') or e.get('id')==condition+'-peak-title']
+            for i,left in enumerate(elements):
+                for right in elements[i+1:]:
+                    a,b=bounds[left.get('id')],bounds[right.get('id')]
+                    overlap=np.minimum(a[:2]+a[2:],b[:2]+b[2:])-np.maximum(a[:2],b[:2])
+                    if (overlap>.2).all():collisions.append([left.get('id'),right.get('id')])
+        if collisions:raise ValueError(f'Peak labels overlap: {collisions}')
+        results.append({'variant':key,'protected_pixel_changes':regions,'added_text_on_page':True,
+                        'peak_labels_do_not_overlap':True,'svg_sha256':sha(path)})
+    (out/'quality_checks.json').write_text(json.dumps(results,indent=2)+'\n')
+
+
+def write_notes(out: Path):
+    lines=['# Three revised A0 poster layouts','',
+        'The new attachment is the source for all three versions. Each version has numbered section '
+        'badges, lettered subsections, 48 pt section titles, 36 pt subsection titles, 40 pt explanations, '
+        'and 30 pt plot text. The header and introduction are unchanged.','',
+        '![Comparison overview](comparison_overview.png)','',
+        '| Version | New section 2c | Additional section 3b | Suggested use |',
+        '| --- | --- | --- | --- |',
+        '| [A: System transfer](Bernstein2026_A_system_transfer.svg) | WORKER vs RAND_DG, full 0–75M reward | Spatial score vs DG hits within CA3-feedback and DG-policy families | Recommended: positive extension with a clear seed qualification |',
+        '| [B: Predictor and graph](Bernstein2026_B_predictor_and_graph.svg) | Predictor ablation: more short returns, less coverage | Pooled vs within-CA3 graph connectivity / DG hits | Strongest discussion of mismatched internal diagnostics |',
+        '| [C: Fields and variant means](Bernstein2026_C_fields_and_variant_means.svg) | Strict compact-field counts | Three-seed means of 55 variants | Representation-focused discussion; more criterion-dependent |','',
+        'Each SVG is 841 × 1189 mm, suitable for Inkscape. Full-page PNGs are previews, and the overview '
+        'is deliberately reduced for choosing versions. It does not define the print font sizes. '
+        'The shared plot sources are in [plots](plots/). No new training or telemetry was run.','',
+        '## Common visual revisions','',
+        '- Sections 1–3 use the same badge/title system. Subsections 1a–1c identify the three designs; '
+        '2a–2c identify exploration, goal specificity, and the optional extension; 3a–3b distinguish '
+        'the original survey from the added comparison.',
+        '- The bottom-left maps, peaks, axes and path labels now use 30 pt text. Redundant ticks and '
+        'repeated captions were removed. All map images, color scales, peak markers, and complete '
+        'trajectory vertices are retained. Every peak remains drawn; only the four displayed DG units '
+        'are labeled. Shared peaks receive a combined label, such as `3,8`; short leaders '
+        'connect displaced labels to their unchanged peak positions.',
+        '- Map labels now give **DG unit : activation maximum**, replacing small spatial-score titles '
+        'and numeric colorbar ticks. The four units and their actual maps remain those already selected. '
+        'Each map/colorbar still runs from zero to its own maximum; equal colors are not equal amplitudes '
+        'across units. Field shape is relative to its individual scale.',
+        '- The original two cross-run panels retain all 168 runs and the same family colors/shapes. '
+        'DG hits are shown in percent instead of fractions. Plot titles name the horizontal measures, '
+        'avoiding duplicate axis labels and clearing space for the family key. Additional panels retain '
+        '30 pt labels and markers of 65 pt².','',
+        'The row illustrations are seed-99 frozen probes. C01 uses its archived path; C05/C15 use the '
+        'existing fresh option-event replays at the same 100M checkpoints. They are not matched starts '
+        'or histories. Stars indicate any current DG option-target event, not verified physical arrival. '
+        'The quantitative C01/C05/C15 summaries use all three training seeds; they are design-package '
+        'contrasts, not a clean isolation of the goal-selection algorithm.','']
+    for key,item in VARIANTS.items():
+        lines.extend([f'## {key[0]}. {item["title"]}','',
+            f'[Editable A0 SVG](Bernstein2026_{key}.svg) · [Full-page PNG](Bernstein2026_{key}.png)','',
+            f'**Supported claim:** {item["claim"]}','',f'**Limit:** {item["risk"]}','',
+            f'**Visitor question:** {item["question"]}',''])
+    lines.extend(['## Critiques and selection reasoning','',
+        '**A is the strongest general poster version.** It adds a new question—reuse for a rewarded '
+        'task—to the exploration story. WORKER transfers frozen learned DG, a pretrained trainable '
+        'worker, and a source graph; RAND_DG has calibrated frozen random DG, a fresh worker and an '
+        'empty graph. Full-run mean reward gains are +6.1% (D50) and +15.8% (D51), but only two of '
+        'three seed pairs win in each. Early mean reward favors RAND_DG. Do not claim an immediate '
+        'learning head start, a DG-only gain, reliable heldout performance, or transfer to new visual '
+        'geometry. One selected source checkpoint per architecture is reused. The within-family '
+        'scatter is a useful guard against interpreting the pooled relationship as a general law.','',
+        '**B has the strongest matched architectural contrast.** The predictor ablation has the '
+        'same directional result in all three seeds: 20-decision mobile-window returns rise from '
+        '62.4% to 83.2%, and visited-bin fraction falls from 69.3% to 55.3%. Prediction stabilizing '
+        'familiar cycles remains a hypothesis. The graph survey is a grouping illustration: pooled '
+        'connectivity/hit $\rho=-0.554$ changes to $0.666$ within CA3 feedback. No causal connectivity '
+        'effect or common success definition across all families is established.','',
+        '**C is coherent with the left-column spatial maps, but scientifically narrower.** Only '
+        '4/144 units pass the declared strict single-field test, requiring at least 80% dominant-component '
+        'mass at each of the 30/50/70% peak thresholds. These counts depend on sampling and the criterion. '
+        'The three-seed-mean scatters give score/hit $\rho=0.587$ and peak/hit $\rho=-0.573$ over 55 '
+        'variants. `CPU2048_DIRECT_F16_DDQN_HER` is omitted from this view because seed 8 is at 75M '
+        'and the other two at 150M. All three remain in the original 168-run panel. Seed averaging '
+        'repeats existing evidence and leaves family confounding; it should not be presented as a '
+        'new independent result.','',
+        'Across versions, **recorded DG target hits are not physical landmark success**. Historical '
+        'counters and recent spatial windows measure different time spans. The pooled survey mixes '
+        'ages (25–150M) and outcome rules; within-family subsets reduce, but do not eliminate, '
+        'interpretation limits. Displayed $\\rho$ values are descriptive Spearman correlations; '
+        'no significance tests or confidence intervals are claimed. The main positive evidence '
+        'remains the replicated C15 coverage gain.','',
+        '## Evidence and regeneration','',
+        '[manifest.json](manifest.json) records inputs, fonts, source SHA-256 values, and unchanged '
+        'left-panel data. [quality_checks.json](quality_checks.json) records protected pixel equality '
+        'and on-page text. [plots/plotted_points.csv](plots/plotted_points.csv), '
+        '[cross-run statistics](plots/cross_run_statistics.json), and '
+        '[variant exclusions](plots/variant_mean_exclusions.json) make all filters and sample units explicit. '
+        'Original study fingerprints are retained in the plotted survey records.','',
+        '```bash',
+        '/home/xiaoxiong/miniforge3/envs/SF_git/bin/python 06_experiments/revise_poster_layout_20260929.py --source 05_plans/poster_20260929/layout_versions/input_layout.svg',
+        '```','',
+        '**Reusable experience:** Start from the latest edited attachment and query actual Inkscape '
+        'object bounds. Preserve map rasters, path vertices, and event provenance while editing '
+        'annotations. Use the pinned survey instead of rediscovering historical exports. The first '
+        'compact render exposed legend collisions; duplicate axis labels were the removable information. '
+        'Check age within each seed-averaged variant, and compare header/introduction pixels after '
+        'rendering rather than relying on XML preservation alone.',''])
+    (out/'README.md').write_text('\n'.join(lines))
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,default=SOURCE)
@@ -457,7 +632,13 @@ def main():
     args=parser.parse_args();args.out.mkdir(parents=True,exist_ok=True)
     plots=args.out/'plots';plots.mkdir(exist_ok=True)
     font=style();g=Gallery(plots)
+    for path in (Path(__file__),Path(__file__).with_name('compose_a0_poster_20260929.py'),
+                 Path(__file__).with_name('render_poster_candidate_plots_20260929.py'),
+                 SCATTER.with_name('analysis_metadata.json')):
+        g.sources[str(path.relative_to(ROOT))]=sha(path)
     digest=sha(args.source)
+    pinned=args.out/'input_layout.svg'
+    if args.source.resolve()!=pinned.resolve():pinned.write_bytes(args.source.read_bytes())
     for _,namespace in ET.iterparse(args.source,events=['start-ns']):
         prefix,uri=namespace
         if prefix!='svg':ET.register_namespace(prefix,uri)
@@ -491,10 +672,13 @@ def main():
     pd.DataFrame(g.points).to_csv(plots/'plotted_points.csv',index=False)
     report={'schema':'intrmotiv/poster-layout-alternatives/v1','source':str(args.source),'source_sha256':digest,
             'font_path':font,'plot_font_pt':30,'body_font_pt':40,'section_font_pt':48,'subsection_font_pt':36,
-            'sources':g.sources,'variants':VARIANTS,'left_data_preservation':left_audit,'quality':results,
+            'sources':g.sources,'pinned_source':'input_layout.svg','variants':VARIANTS,'left_data_preservation':left_audit,'quality':results,
             'study_metadata':'Original study SHA-256 values retained in point tables; no study or telemetry changes.'}
     (args.out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     if sha(args.source)!=digest:raise ValueError('Supplied SVG changed')
+    visual_checks(args.out,args.source)
+    overview(args.out)
+    write_notes(args.out)
     print(f'Three A0 alternatives written to {args.out}')
 
 
