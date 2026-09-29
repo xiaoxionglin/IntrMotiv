@@ -61,6 +61,8 @@ def collect_maps(g: Gallery, survey: pd.DataFrame) -> tuple[pd.DataFrame, pd.Dat
                     protocol = 'online_latest_saved_window'
                     policy = int(data['policy_id'])
                 elif 'checkpoint' in data:
+                    if 'checkpoint_p0' not in Path(str(data['checkpoint'])).parts:
+                        raise ValueError(f'Frozen policy identity is not p0: {path}')
                     name, age = checkpoint_identity(str(data['checkpoint']), names)
                     protocol = ('common_replay_with_frozen_outcomes' if panel
                                 else 'frozen_latest_archived_probe')
@@ -95,7 +97,8 @@ def collect_maps(g: Gallery, survey: pd.DataFrame) -> tuple[pd.DataFrame, pd.Dat
                     availability.append({**audit, 'status': 'duplicate_same_maps'})
                     continue
                 seen[key] = (maps, occupancy)
-                g.sources[str(path.relative_to(ROOT))] = sha(path)
+                source_hash = sha(path)
+                g.sources[str(path.relative_to(ROOT))] = source_hash
                 if protocol.startswith('online'):
                     eligible = data['field_eligible'].astype(bool)
                     dominance = data['field_mono_score'].astype(float)
@@ -112,11 +115,11 @@ def collect_maps(g: Gallery, survey: pd.DataFrame) -> tuple[pd.DataFrame, pd.Dat
                         'supported_bins': int(shape['supported_bins']),
                         'supported_bins_min5': int(sensitivity['supported_bins']),
                         'unit_source': str(path.relative_to(ROOT)), 'source_kind': 'raw_maps',
-                        'source_sha256': sha(path), 'map_array': 'rate_maps',
+                        'source_sha256': source_hash, 'map_array': 'rate_maps',
                         'occupancy_array': 'occupancy'})
                 availability.append({**audit, 'status': 'included',
                     'eligible_units': int(eligible.sum()), 'supported_bins': int(shape['supported_bins']),
-                    'source_sha256': sha(path)})
+                    'source_sha256': source_hash})
     return pd.DataFrame(units), pd.DataFrame(availability)
 
 
@@ -198,7 +201,7 @@ def correlation_tables(runs: pd.DataFrame) -> pd.DataFrame:
 
 def axes_grid():
     fig, axes = plt.subplots(2, 2, figsize=tuple(v/25.4 for v in LARGE_MM))
-    fig.subplots_adjust(left=.105, right=.96, bottom=.16, top=.85, wspace=.50, hspace=.82)
+    fig.subplots_adjust(left=.115, right=.96, bottom=.17, top=.80, wspace=.50, hspace=1.15)
     return fig, axes.ravel()
 
 
@@ -212,13 +215,18 @@ def scatter(g: Gallery, key: str, ax, data: pd.DataFrame, x: str, y: str,
                    color=colors.get(condition, '#555555'), edgecolor='white', linewidth=.5, alpha=.85)
     ax.set(xlabel=xlabel, ylabel=ylabel)
     r = rho(valid, x, y)
-    suffix = f' · n={len(valid)}' + (f' · ρ={r:.2f}' if correlation and np.isfinite(r) else '')
-    ax.set_title(title+suffix, loc='left', pad=12)
+    suffix = f'n={len(valid)}' + (f' · ρ={r:.2f}' if correlation and np.isfinite(r) else '')
+    # One title line leaves room for the next row's labels at fixed poster size.
+    display_title = title.split(' ', 1)[0]+'  '+suffix if correlation else title
+    ax.set_title(display_title, loc='left', pad=12)
     ax.grid(color='#eeeeee', zorder=0)
-    g.record(key, title, x, valid, x, protocol=valid.protocol.iloc[0] if len(valid) else '',
+    provenance = {'protocol': valid.protocol.iloc[0] if len(valid) else '',
+                  'model_frames': int(valid.frames.iloc[0]) if len(valid) else '',
+                  'capacity': 16}
+    g.record(key, title, x, valid, x, **provenance,
              unit='mean across eligible DG units', x_axis=True)
-    g.record(key, title, y, valid, y, factor=factor, y_axis=True)
-    if y in ('exploration_coverage', 'prospective_success'):
+    g.record(key, title, y, valid, y, factor=factor, **provenance, y_axis=True)
+    if y in ('exploration_coverage', 'prospective_success', 'return_40_mobile'):
         ax.set_ylim(0, 1)
         ax.set_yticks([0, .5, 1])
     if x == 'dominance':
@@ -243,13 +251,15 @@ def core_candidates(g: Gallery, runs: pd.DataFrame, flat: pd.DataFrame):
     key = '01_continuous_fields_core'
     fig, axes = scalar_axes(2)
     for ax, measure, label in zip(axes, ['concentration', 'dominance'],
-                                  ['Spatial\nconcentration', 'Single-field\ndominance']):
+                                  ['Concentration', 'Dominance']):
         dots(ax, core, measure, tuple(COLORS))
-        ax.set(ylabel=label, ylim=(0, 1), yticks=[0, .5, 1])
+        for collection in ax.collections:
+            collection.set_sizes([78])
+        ax.set(title=label, ylim=(0, 1), yticks=[0, .5, 1])
         g.record(key, label.replace('\n', ' '), measure, core, measure,
                  protocol='frozen_10k', unit='mean of eligible DG units', capacity=16)
     g.finish(fig, Candidate(key, 'Continuous field structure', SMALL_MM, 'Compact replacement for strict counts',
-        'C15 explores more without sharper or more dominant fields. Three seeds per condition.',
+        'C15 explores more with broader DG activity. Three seeds per condition.',
         'Points are run means across eligible DG units; black ticks average three training seeds. '
         'C is gain-invariant spatial concentration; D is minimum dominant-component mass across '
         '30/50/70% peak thresholds. Frozen 10k probes, 100,040,704-frame models, DG 16.',
@@ -261,11 +271,11 @@ def core_candidates(g: Gallery, runs: pd.DataFrame, flat: pd.DataFrame):
     for ax, x, y, xl, yl, title, factor in zip(axes,
         ['concentration', 'dominance', 'concentration', 'dominance'],
         ['coverage_auc_terminal', 'coverage_auc_terminal', 'return_40_mobile', 'return_40_mobile'],
-        ['Spatial concentration', 'Single-field dominance']*2,
-        ['Training coverage\nAUC', 'Training coverage\nAUC', '40-step return\n(fraction)', '40-step return\n(fraction)'],
+        ['Concentration', 'Dominance']*2,
+        ['Coverage\nAUC', 'Coverage\nAUC', '40-step\nreturn', '40-step\nreturn'],
         ['a  Exploration', 'b  Exploration', 'c  Repeated paths', 'd  Repeated paths'], [1,1,1,1]):
         scatter(g, key, ax, core, x, y, xl, yl, title, COLORS, COLORS, factor)
-    legend(fig, COLORS, COLORS)
+    legend(fig, {c:c for c in COLORS}, COLORS)
     g.finish(fig, Candidate(key, 'Field structure versus behavior', LARGE_MM, 'Discussion candidate',
         'Broader exploration need not accompany sharper fields. Field shape and loops are measured in frozen probes.',
         'One point per training seed, three seeds each for C01/C05/C15. Shape and 40-step mobile returns '
@@ -287,8 +297,8 @@ def cpd_candidates(g: Gallery, runs: pd.DataFrame):
     for ax, x, y, xl, yl, title in zip(axes,
         ['concentration', 'concentration', 'dominance', 'dominance'],
         ['exploration_coverage', 'prospective_success']*2,
-        ['Spatial concentration']*2+['Single-field dominance']*2,
-        ['Visited arena bins\n(fraction)', 'Target-event hits\n/ attempts']*2,
+        ['Concentration']*2+['Dominance']*2,
+        ['Visited bins\n(fraction)', 'Target hits /\nattempts']*2,
         ['a  Exploration', 'b  Recorded control', 'c  Exploration', 'd  Recorded control']):
         scatter(g, key, ax, data, x, y, xl, yl, title, groups, colors)
     legend(fig, groups, colors)
@@ -307,19 +317,20 @@ def cpd_candidates(g: Gallery, runs: pd.DataFrame):
 def broad_dominance_candidate(g: Gallery, runs: pd.DataFrame):
     key = '04_dominance_across_variants'
     fig, axes = axes_grid()
+    fig.text(.53, .97, 'CA3 feedback: top · Algorithm screen: bottom', ha='center', va='top')
     panel = 0
     for family, prefix in [('CPD', 'CA3 feedback'), ('Navigation8', 'Algorithm screen')]:
         data = runs[(runs.family == family) & runs.protocol.eq('online_latest_saved_window')]
-        groups = dict((c, CPD_LABELS.get(c, c.removeprefix('N8_').replace('_', ' ')))
-                      for c in data.condition.unique())
+        groups = (CPD_LABELS if family == 'CPD' else
+                  dict((c, c.removeprefix('N8_').replace('_', ' ')) for c in data.condition.unique()))
         colors = {c: ('#0072B2' if family == 'CPD' else '#A6761D') for c in groups}
-        for outcome, label in [('exploration_coverage', 'Visited arena bins\n(fraction)'),
-                               ('prospective_success', 'Target-event hits\n/ attempts')]:
-            scatter(g, key, axes[panel], data, 'dominance', outcome, 'Single-field dominance',
+        for outcome, label in [('exploration_coverage', 'Visited bins\n(fraction)'),
+                               ('prospective_success', 'Target hits /\nattempts')]:
+            scatter(g, key, axes[panel], data, 'dominance', outcome, 'Dominance',
                     label, f'{"abcd"[panel]}  {prefix}', groups, colors)
             panel += 1
     g.finish(fig, Candidate(key, 'Dominance across architectural variants', LARGE_MM, 'Broader survey supplement',
-        'The wider comparison uses saved continuous dominance scores. Control associations depend on the family.',
+        'Dominance–exploration ordering changes by family. Target-hit associations remain weak.',
         'CA3-feedback: four variants, 12 seeds. Algorithm screen: six variants, 18 seeds for coverage; '
         'four goal variants, 12 seeds for target hits. All DG 16 at 75,005,952 frames. Means use '
         'eligible units; shape markers identify variants within each family. This plot includes '
@@ -332,21 +343,23 @@ def broad_dominance_candidate(g: Gallery, runs: pd.DataFrame):
 def command_candidate(g: Gallery, runs: pd.DataFrame):
     key = '05_concentration_command_comparisons'
     fig, axes = axes_grid()
+    fig.text(.53, .97, 'Two variants per family · one seed per variant', ha='center', va='top')
     colors = {'DGP_C15_FIRST_JOINT_LEG':'#0072B2', 'DGP_C15_HIT_JOINT_LEG':'#D55E00',
               'SAT_C15_SRC_MON_FILM':'#0072B2', 'SAT_C15_ARR_MON_FILM':'#D55E00'}
     for col, family in enumerate(['DGP', 'Saturday']):
         data = runs[(runs.family == family) & runs.protocol.eq('common_replay_with_frozen_outcomes')]
         if len(data) != 2 or data.seed.nunique() != 1 or data.frames.nunique() != 1:
             raise ValueError('Expected two fixed-seed same-age command examples per family')
-        groups = {c: c for c in data.condition}
-        for row, (measure, label) in enumerate([('concentration','Spatial concentration'),
-                                               ('dominance','Single-field dominance')]):
+        groups = {c: c for c in colors if c in set(data.condition)}
+        for row, (measure, label) in enumerate([('concentration','Concentration'),
+                                               ('dominance','Dominance')]):
             scatter(g, key, axes[2*row+col], data, measure, 'executed_minus_shuffled', label,
-                    'Command benefit\n(percentage points)',
+                    'Command\nlift (p.p.)',
                     f'{"abcd"[2*row+col]}  {"DG policy" if family == "DGP" else "Credit assignment"}',
                     groups, colors, factor=100, correlation=False)
             axes[2*row+col].axhline(0, color='#777777', lw=1.1, ls='--')
             axes[2*row+col].set_ylim(-5, 35)
+            axes[2*row+col].set_yticks([0, 15, 30])
     g.finish(fig, Candidate(key, 'Matched commands: exploratory examples', LARGE_MM, 'Optional, too few runs for a trend claim',
         'Higher concentration accompanies lower command benefit in both available pairs. One seed per variant.',
         'DG 16, seed 99, 75,038,720-frame models. Left: first-outcome (blue circle), '
@@ -390,6 +403,8 @@ def main():
     poster = ROOT/'05_plans/poster_20260929/layout_versions/Bernstein2026_A_system_transfer.svg'
     poster_hash = sha(poster)
     survey = g.read(SCATTER)
+    # The frozen summary omits policy_id; all selected checkpoint paths are p0.
+    survey['policy_id'] = survey.policy_id.fillna(0).astype(int)
     maps, availability = collect_maps(g, survey)
     units = collect_unit_tables(g, survey, maps)
     runs = aggregate_units(units, survey)

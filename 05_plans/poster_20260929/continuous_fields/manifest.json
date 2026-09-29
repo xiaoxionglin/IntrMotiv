@@ -1,0 +1,141 @@
+{
+  "schema": "intrmotiv/continuous-field-candidates/v1",
+  "workflow_version": "1.14.0",
+  "study_schema": "intrmotiv/study/v1",
+  "study_sha256_note": "Retained per-run in per_run.csv; no new study",
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot_font_pt": 30,
+  "caption_font_pt": 40,
+  "marker_area_pt2": 78,
+  "map_definition": "unsmoothed, occupancy-corrected rate_maps; equal spatial-bin weights",
+  "support": "occupancy >=1; same eligibility with >=5 support sensitivity",
+  "aggregation": "equal-weight mean of canonically eligible units within each run",
+  "concentration_formula": "p = r/sum(r); Aeff = 1/sum(p*p); C=(N-Aeff)/(N-1)",
+  "dominance_definition": "minimum largest-component share at 30/50/70% peak thresholds",
+  "sources": {
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
+    "06_experiments/data/c15_variants_20260928/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123_100040704_frozen/place_fields.npz": "b9967034d0febbcafeb09fead43a19690c8dae5d4e938797306dab39dfec8a08",
+    "06_experiments/data/c15_variants_20260928/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8_100040704_frozen/place_fields.npz": "2786f29e8e0612da2c4974e672660ae5a1d16adc04147be4286c15c5060c6512",
+    "06_experiments/data/c15_variants_20260928/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99_100040704_frozen/place_fields.npz": "370ba5a1f2e41d229ee3cc31ffdc1fda9296a9a9f7d9ae152faed11f4733c07c",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S123_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "374929d4f906769e986329f21feeb49a6e5d01b1d439f8199b9774ded345ec50",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S123_75038720_frozen/place_fields.npz": "a4adc355411f8025c4d70b4eb81182405157d2968843c125b4d2fc8f6f3623f7",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S8_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "5c8cfcf087d1a482eeb3d973c86849d71e2db1a248ebb28f4d2935a1c7856a99",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S8_75038720_frozen/place_fields.npz": "90094c4b65a6dee173503a1d8eae2a4079e8ce34fef400272334f74863ec6279",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S99_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "65de983df62acb5660e455f2cd97ed005b28b3f69bf506012f6f656ea0e420c2",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_ADD_CA3_DIR_S99_75038720_frozen/place_fields.npz": "252ca16678949c87e0b8ac426cdd34ddb5f6321afe03f21f641d22ac97de7006",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S123_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "fd7684c42854bd63559026d29c89e2a8f1f00d30613b809055bf996aedb4b91f",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S123_75038720_frozen/place_fields.npz": "640ca53de05ab3f871671fdc699f3be638f6e53d376476e13c91f09c043f0b91",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S8_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "99e19d5c06cd7d8134de83941a3e22297fe2567d6d10b1a2ebc5c64b0d5ddc34",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S8_75038720_frozen/place_fields.npz": "b9e6e4b11d115f60ef302729487739ff17343a0557bf348690d65314a1b7b72f",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S99_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "a1cb001a7345ba7f9acdaf7477226a5312aead09d6db523366af31458f76983b",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_BASE_S99_75038720_frozen/place_fields.npz": "473f07e9e54df71682351348260c618d16fba9e0fa0d817481ef02dc1eb20481",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S123_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "61aa6bc48fc45c3db140f6e39da3150e3011da05f164d02de2c6a189d5fd4785",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S123_75038720_frozen/place_fields.npz": "66a915525ea761f1c0d1cdf2794b8f369565636579aaaa09369a6c48eecc1ec6",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S8_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "5375d209b78dd4dc1d90540d85216a97d9c81858371d93e1840151107aa9caf7",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S8_75038720_frozen/place_fields.npz": "ed624d13f671fa91949c882d47498e317af69c6f86afadcc1bedf1d3391eeff2",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S99_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "af776f691c65bc8a0e701414547142e77fb6e81cbd91599532cd52f3e584a901",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_GOAL_S99_75038720_frozen/place_fields.npz": "0cc4710d7e694e54f0317e2d516134b361170286b74723515a509e4d1325d5f9",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S123_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "4e4abf3e50815ae463a924a5f1fba2f905e797f9d3262d6e20192cfa7c11a274",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S123_75038720_frozen/place_fields.npz": "89b7d11cd1728abd4ad17482654e1990349ca2a9351b4ea682197d3c7870a3ee",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S8_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "251941407f2b8314dbe9cfc67be49ae0d803be794976f37a69e32c56cae51d68",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S8_75038720_frozen/place_fields.npz": "683649354887872f0dff999dbda73e4ab575f8a62d08796addd8878e930ef6bb",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S99_75005952_online/snapshot_target_000075000000_actual_000075005952.npz": "f573da157a5af23ac1ff6499c5722475c05106c4e7e8580fc7a412503507cc3c",
+    "06_experiments/data/c15_variants_20260928/raw/CPD_C15_GATE_ACT_DIR_S99_75038720_frozen/place_fields.npz": "e9175f04f533cf78528bb22d0368f8d89a2c665e7ecb63108f43174a307dd933",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C01_FLAT_CTRL_S123__00_CCR_C01_FLAT_CTRL_S123__c01_flat_ctrl__s123__100m/place_fields.npz": "ebc25c705b9f1e4bdefe80f4b54662100af672eeba2324bc85c4b19c039febb8",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C01_FLAT_CTRL_S8__00_CCR_C01_FLAT_CTRL_S8__c01_flat_ctrl__s8__100m/place_fields.npz": "428135141013a8feee45828b66ae7e5ada8ad2d443e29384145afe67d2c6e021",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C01_FLAT_CTRL_S99__00_CCR_C01_FLAT_CTRL_S99__c01_flat_ctrl__s99__100m/place_fields.npz": "55181c4c76159bdaf1a8b7b2cce9cea47de13ffbca1f0f121fb4bf56a6862dc0",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C02_DIRECT_DELAYED_CTRL_S123__00_CCR_C02_DIRECT_DELAYED_CTRL_S123__c02_direct_delayed_ctrl__s123__100m/place_fields.npz": "883eac349563c97d44b1d1d1d2a30beb6cfd7b0c2d19e2d4cbe8815c80fc8c31",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C02_DIRECT_DELAYED_CTRL_S8__00_CCR_C02_DIRECT_DELAYED_CTRL_S8__c02_direct_delayed_ctrl__s8__100m/place_fields.npz": "42dd46d170bfc4cd370d8b7f769ae0496cdd35aea870429146ed19f54098f23a",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C02_DIRECT_DELAYED_CTRL_S99__00_CCR_C02_DIRECT_DELAYED_CTRL_S99__c02_direct_delayed_ctrl__s99__100m/place_fields.npz": "2d857e4607f78aecea179f795ccb05fddf8917238831db7a7598929ac9536c7e",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C03_DIRECT_IMMEDIATE_CTRL_S123__00_CCR_C03_DIRECT_IMMEDIATE_CTRL_S123__c03_direct_immediate_ctrl__s123__100m/place_fields.npz": "d0d5fcff0057b58c695ceb497b6a81ab03c7019482b46be96e3b6b43d9291c2a",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C03_DIRECT_IMMEDIATE_CTRL_S8__00_CCR_C03_DIRECT_IMMEDIATE_CTRL_S8__c03_direct_immediate_ctrl__s8__100m/place_fields.npz": "3dae71952dc1e46ceb27896c271aa2b51927c717c63bb37ae1aa2fc0255bd1bd",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C03_DIRECT_IMMEDIATE_CTRL_S99__00_CCR_C03_DIRECT_IMMEDIATE_CTRL_S99__c03_direct_immediate_ctrl__s99__100m/place_fields.npz": "997a122157df752a755671ae347acc8fe2679e72f4edbfdeb97ab5a8645b682e",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S123__00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S123__c05_direct_immediate_g001_r100__s123__100m/place_fields.npz": "142e7ed741d893312e59288f58f8262cf6d7e8d1795d95e9ec75e203f5857966",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S8__00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S8__c05_direct_immediate_g001_r100__s8__100m/place_fields.npz": "786ca5c43a3ed30ecbf9f11a4d38bc4afc1973790ca32c12cc0f6cb52c6271c7",
+    "06_experiments/data/flat_goal_comparison_20260927/corrected_core_candidates_20260902_place_fields/raw/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99__00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99__c05_direct_immediate_g001_r100__s99__100m/place_fields.npz": "ec9eb5803e26b3d3b7a740a5e12c03ce8bb333693d678e0b9931f675fa7dc035",
+    "06_experiments/data/poster_missing_analyses_20260926/common_fields/replay_cpu/raw/00_CPU2048_DIRECT_F16_DDQN_HER_S99__CPU2048_DIRECT_F16_DDQN_HER_S99_300007424/place_fields.npz": "11fbdc0c9eb38d359b660f698f63e484d379c105eaef68fbb97f8de09091ded9",
+    "06_experiments/data/poster_missing_analyses_20260926/common_fields/replay_reduced/raw/00_DGP_C15_FIRST_JOINT_LEG_S99__DGP_C15_FIRST_JOINT_LEG_S99_75038720/place_fields.npz": "89b47bc617c27b08ee68c53775ec06e72f45540043bcdb4868178e175cf244b5",
+    "06_experiments/data/poster_missing_analyses_20260926/common_fields/replay_reduced/raw/00_DGP_C15_HIT_JOINT_LEG_S99__DGP_C15_HIT_JOINT_LEG_S99_75038720/place_fields.npz": "50a560e6687d51acf07c1f6a88be67d965f0813f840784d2b61a885df7212428",
+    "06_experiments/data/poster_missing_analyses_20260926/common_fields/replay_reduced/raw/00_SAT_C15_ARR_MON_FILM_S99__SAT_C15_ARR_MON_FILM_S99_75038720/place_fields.npz": "275789fb6bf752e17a6070b034ff60663aa3bb08043f0e4acd6db7d9ed3c906f",
+    "06_experiments/data/poster_missing_analyses_20260926/common_fields/replay_reduced/raw/00_SAT_C15_SRC_MON_FILM_S99__SAT_C15_SRC_MON_FILM_S99_75038720/place_fields.npz": "9a19fb9cb3dd36974e6ea35a863d035ba5afc3bffb377d63e5809cdef9842e37",
+    "06_experiments/results/A0_poster_analysis_20260926/frozen_raw/CPU2048_DIRECT_F16_DDQN_S99__00_CPU2048_DIRECT_F16_DDQN_S99__CPU2048_DIRECT_F16_DDQN_S99_300007424/place_fields.npz": "4f14e81c99fecd678a706342eeeb5724343eea708c2860e64da8c1f911ed6cb9",
+    "06_experiments/data/navigation8_algorithm_screen_interim_20260916/online_spatial/per_unit.csv": "e884c53a9099605a4c0cf5e1558abe49553c86eeb0a9802b956adff9fffe0d3e",
+    "06_experiments/data/dgc_interim_20260911/spatial/per_unit.csv": "c439b1219116865c0e74cdebbc45a588e059552494af9f837036414bd196194a",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/render_field_concentration_20260929.py": "e2b0d1ddfe44cf1259f3c4fe4e684db14a94aa0b7a41c863b62481d55afb4fa3",
+    "hpc_runs/intrmotiv_study/field_concentration.py": "912fe84142e343225d6c38e3479f635bca6eb79f7754453d14e529f01c8f5812",
+    "06_experiments/analyze_place_field_manifest.py": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1"
+  },
+  "candidates": [
+    {
+      "key": "01_continuous_fields_core",
+      "title": "Continuous field structure",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Compact replacement for strict counts",
+      "short_caption": "C15 explores more with broader DG activity. Three seeds per condition.",
+      "caption": "Points are run means across eligible DG units; black ticks average three training seeds. C is gain-invariant spatial concentration; D is minimum dominant-component mass across 30/50/70% peak thresholds. Frozen 10k probes, 100,040,704-frame models, DG 16.",
+      "limitation": "One-condition contrasts are descriptive; maps came from each policy’s own trajectory. Concentration does not imply a single contiguous field.",
+      "question": "Does a usable internal goal require a compact field, or a predictable transition?"
+    },
+    {
+      "key": "02_core_concentration_and_behavior",
+      "title": "Field structure versus behavior",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Discussion candidate",
+      "short_caption": "Broader exploration need not accompany sharper fields. Field shape and loops are measured in frozen probes.",
+      "caption": "One point per training seed, three seeds each for C01/C05/C15. Shape and 40-step mobile returns use archived 10k frozen probes; coverage AUC is the final 10M training window for the same checkpoint. Returns require displacement <100 and path >500 within one contiguous segment. ρ is descriptive Spearman correlation.",
+      "limitation": "Nine seeds mix three designs. Training AUC and frozen paths have different observation protocols; unit concentration is conditioned on visited locations, and does not measure diversity across units.",
+      "question": "Can distributed landmark codes support exploration without conventional single place fields?"
+    },
+    {
+      "key": "03_concentration_exploration_control",
+      "title": "Concentration versus exploration and control",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Main continuous scatter candidate",
+      "short_caption": "Within four CA3-feedback variants, neither concentration score orders recorded target hits strongly.",
+      "caption": "DG 16, four variants × three training seeds, all 75,005,952 frames. Each point averages eligible DG units. Maps and visited coverage use a recent 100k training window; target-event hits/attempts are historical counters saved with that model. All y axes retain 0–1; C x axes show 0.65–1 for detail, D x axes 0–1. ρ is a descriptive seed-level rank association.",
+      "limitation": "Only four CPD variants have locally available maps; this is a availability-defined subset, not the full architectural survey. Target hits are internal DG events, not verified physical arrival. Coverage is nearly saturated and field sampling is policy-driven.",
+      "question": "Should field sharpness predict internal recognition, executable commands, or both?"
+    },
+    {
+      "key": "04_dominance_across_variants",
+      "title": "Dominance across architectural variants",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Broader survey supplement",
+      "short_caption": "Dominance–exploration ordering changes by family. Target-hit associations remain weak.",
+      "caption": "CA3-feedback: four variants, 12 seeds. Algorithm screen: six variants, 18 seeds for coverage; four goal variants, 12 seeds for target hits. All DG 16 at 75,005,952 frames. Means use eligible units; shape markers identify variants within each family. This plot includes canonical unit CSVs where raw maps were unavailable; it measures component dominance, not occupied area.",
+      "limitation": "Six worker-reference seeds have no target-event counters and are omitted only from that panel. Different control outcomes and recent-map/historical-counter scopes limit between-family comparisons.",
+      "question": "Does one field per unit matter after the controller and goal interface are held fixed?"
+    },
+    {
+      "key": "05_concentration_command_comparisons",
+      "title": "Matched commands: exploratory examples",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Optional, too few runs for a trend claim",
+      "short_caption": "Higher concentration accompanies lower command benefit in both available pairs. One seed per variant.",
+      "caption": "DG 16, seed 99, 75,038,720-frame models. Left: first-outcome (blue circle), target-hit (orange square). Right: source credit (blue circle), arrival credit (orange square). C and D are measured from shared observation/action replay within each pair; each pair has its own replay panel. Command benefit is executed success minus matched shuffled-command success at the same checkpoint, in percentage points.",
+      "limitation": "Only two variants × one seed per family; there is no rank coefficient or fitted trend. The pattern motivates discussion, not a conclusion that sharper fields impair control. Command success follows the saved intervention’s internal target-event rule.",
+      "question": "Is the useful representation property field sharpness, or controllable transitions between landmarks?"
+    }
+  ],
+  "poster_sha256_before": "21a62006e04c58765ea90852c9709426dffa8a0cccebed2aa08e69b23f4d7dbd",
+  "numpy_version": "1.26.4",
+  "pandas_version": "2.3.3",
+  "matplotlib_version": "3.10.8"
+}

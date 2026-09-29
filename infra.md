@@ -72,6 +72,20 @@ keep implementation guidance in the canonical workflow documents linked below.
   mismatched runtime versions; lazy replay imports remove that dependency.
   The canonical graph renderer now accepts explicit stored/prospective labels,
   compact canvases, and SVG export. Six focused atlas checks pass.
+  The [continuous-field candidates](05_plans/poster_20260929/continuous_fields/README.md)
+  now reuse saved `field_mono_score` before binary classification and a pure
+  canonical gain-invariant effective-area helper. Exact age/protocol joins give
+  63 DG-16 means, but raw maps support concentration for only 45; the remaining
+  18 support dominance alone. Frozen summaries omit policy IDs, so the adapter
+  verifies checkpoint policy 0 before joining. Five-observation support checks
+  preserve the online CPD ordering, while frozen and online coverage associations
+  differ. No NPZ or runtime collector contract changed; 43 focused/canonical
+  checks pass. Future exports should carry continuous shape means and source
+  support explicitly, retaining unknown bins and undefined silent-unit shapes.
+  The authoritative method is in the linked telemetry guide; reuse local unit
+  tables before requesting raw archives. Rotated long labels initially exceeded
+  compact 30-pt canvases, and two-line panel statistics overlapped adjacent rows;
+  short names and one-line statistics preserve final print size and readability.
 
 ### Poster assembly needs scoped SVG imports and preservation checks — 2026-09-29
 

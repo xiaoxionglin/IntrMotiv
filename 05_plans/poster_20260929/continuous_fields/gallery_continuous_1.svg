@@ -1,0 +1,2072 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://www.w3.org/1999/xlink" width="841mm" height="740mm" viewBox="0 0 841 740"><ns0:rect width="841" height="740" fill="white" /><ns0:text id="title-0" x="20" y="32" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="32.0">Continuous place-field candidates</ns0:tspan></ns0:text><ns0:text id="legend-0" x="20" y="53" style="font-family:DejaVu Sans;font-size:10.583333333333332px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="53.0">Original physical sizes • plot text 30 pt • captions 40 pt • DG 16</ns0:tspan></ns0:text><ns0:text id="01_continuous_fields_core-title" x="20" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="85">01. Continuous field structure</ns0:tspan></ns0:text><ns0:g id="01_continuous_fields_core" ns1:label="01_continuous_fields_core" transform="translate(115.75,97) scale(0.35277777756285655)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="01_continuous_fields_core-figure_1">
+  <ns0:g id="01_continuous_fields_core-patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="01_continuous_fields_core-axes_1">
+   <ns0:g id="01_continuous_fields_core-patch_2">
+    <ns0:path d="M 57.709615 176.965385  L 268.417083 176.965385  L 268.417083 32.034615  L 57.709615 32.034615  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-matplotlib.axis_1">
+    <ns0:g id="01_continuous_fields_core-xtick_1">
+     <ns0:g id="01_continuous_fields_core-line2d_1">
+      <ns0:defs>
+       <ns0:path id="01_continuous_fields_core-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="92.827526" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="92.827526" y="206.760698" transform="rotate(-0 92.827526 206.760698)">C01</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-xtick_2">
+     <ns0:g id="01_continuous_fields_core-line2d_2">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="163.063349" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="163.063349" y="206.760698" transform="rotate(-0 163.063349 206.760698)">C05</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-xtick_3">
+     <ns0:g id="01_continuous_fields_core-line2d_3">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="233.299172" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="233.299172" y="206.760698" transform="rotate(-0 233.299172 206.760698)">C15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-matplotlib.axis_2">
+    <ns0:g id="01_continuous_fields_core-ytick_1">
+     <ns0:g id="01_continuous_fields_core-line2d_4">
+      <ns0:path d="M 57.709615 176.965385  L 268.417083 176.965385  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_5">
+      <ns0:defs>
+       <ns0:path id="01_continuous_fields_core-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="57.709615" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="50.709615" y="188.363041" transform="rotate(-0 50.709615 188.363041)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-ytick_2">
+     <ns0:g id="01_continuous_fields_core-line2d_6">
+      <ns0:path d="M 57.709615 104.5  L 268.417083 104.5  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_7">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="57.709615" y="104.5" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="50.709615" y="115.897656" transform="rotate(-0 50.709615 115.897656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-ytick_3">
+     <ns0:g id="01_continuous_fields_core-line2d_8">
+      <ns0:path d="M 57.709615 32.034615  L 268.417083 32.034615  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_9">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="57.709615" y="32.034615" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="50.709615" y="43.432271" transform="rotate(-0 50.709615 43.432271)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-patch_3">
+    <ns0:path d="M 57.709615 176.965385  L 57.709615 32.034615  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-patch_4">
+    <ns0:path d="M 57.709615 176.965385  L 268.417083 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="01_continuous_fields_core-me2e5e46cf4" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #5e5e5e" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#01_continuous_fields_core-p6933231fdc)">
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="84.399228" y="45.673971" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="92.827526" y="41.858" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="101.255825" y="41.237826" style="fill: #5e5e5e; stroke: #5e5e5e" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="01_continuous_fields_core-md9fa9442e4" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #009e73" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#01_continuous_fields_core-p6933231fdc)">
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="154.63505" y="42.60072" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="163.063349" y="45.882288" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="171.491648" y="43.489644" style="fill: #009e73; stroke: #009e73" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="01_continuous_fields_core-m21c0d93fe7" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#01_continuous_fields_core-p6933231fdc)">
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="224.870873" y="48.441933" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="233.299172" y="54.275731" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="241.72747" y="46.707847" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-text_7">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="163.063349" y="25.795553" transform="rotate(-0 163.063349 25.795553)">Concentration</ns0:text>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_10">
+    <ns0:path d="M 79.48272 42.923266  L 106.172333 42.923266  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_11">
+    <ns0:path d="M 149.718543 43.990884  L 176.408155 43.990884  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_12">
+    <ns0:path d="M 219.954365 49.808504  L 246.643978 49.808504  " clip-path="url(#01_continuous_fields_core-p6933231fdc)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="01_continuous_fields_core-axes_2">
+   <ns0:g id="01_continuous_fields_core-patch_5">
+    <ns0:path d="M 329.126938 176.965385  L 539.834406 176.965385  L 539.834406 32.034615  L 329.126938 32.034615  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-matplotlib.axis_3">
+    <ns0:g id="01_continuous_fields_core-xtick_4">
+     <ns0:g id="01_continuous_fields_core-line2d_13">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="364.244849" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="364.244849" y="206.760698" transform="rotate(-0 364.244849 206.760698)">C01</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-xtick_5">
+     <ns0:g id="01_continuous_fields_core-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="434.480672" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_9">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="434.480672" y="206.760698" transform="rotate(-0 434.480672 206.760698)">C05</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-xtick_6">
+     <ns0:g id="01_continuous_fields_core-line2d_15">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m8fe1a3ac55" x="504.716494" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="504.716494" y="206.760698" transform="rotate(-0 504.716494 206.760698)">C15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-matplotlib.axis_4">
+    <ns0:g id="01_continuous_fields_core-ytick_4">
+     <ns0:g id="01_continuous_fields_core-line2d_16">
+      <ns0:path d="M 329.126938 176.965385  L 539.834406 176.965385  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="329.126938" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="322.126938" y="188.363041" transform="rotate(-0 322.126938 188.363041)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-ytick_5">
+     <ns0:g id="01_continuous_fields_core-line2d_18">
+      <ns0:path d="M 329.126938 104.5  L 539.834406 104.5  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_19">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="329.126938" y="104.5" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="322.126938" y="115.897656" transform="rotate(-0 322.126938 115.897656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="01_continuous_fields_core-ytick_6">
+     <ns0:g id="01_continuous_fields_core-line2d_20">
+      <ns0:path d="M 329.126938 32.034615  L 539.834406 32.034615  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-line2d_21">
+      <ns0:g>
+       <ns0:use ns2:href="#01_continuous_fields_core-m32d6fe0a88" x="329.126938" y="32.034615" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="01_continuous_fields_core-text_13">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="322.126938" y="43.432271" transform="rotate(-0 322.126938 43.432271)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-patch_6">
+    <ns0:path d="M 329.126938 176.965385  L 329.126938 32.034615  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-patch_7">
+    <ns0:path d="M 329.126938 176.965385  L 539.834406 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_4">
+    <ns0:g clip-path="url(#01_continuous_fields_core-p35be9be924)">
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="355.81655" y="125.369885" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="364.244849" y="126.813415" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#01_continuous_fields_core-me2e5e46cf4" x="372.673148" y="117.109633" style="fill: #5e5e5e; stroke: #5e5e5e" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_5">
+    <ns0:g clip-path="url(#01_continuous_fields_core-p35be9be924)">
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="426.052373" y="107.132025" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="434.480672" y="109.166857" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#01_continuous_fields_core-md9fa9442e4" x="442.90897" y="104.953403" style="fill: #009e73; stroke: #009e73" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-PathCollection_6">
+    <ns0:g clip-path="url(#01_continuous_fields_core-p35be9be924)">
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="496.288196" y="114.207504" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="504.716494" y="123.71439" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#01_continuous_fields_core-m21c0d93fe7" x="513.144793" y="130.615771" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-text_14">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="434.480672" y="25.795553" transform="rotate(-0 434.480672 25.795553)">Dominance</ns0:text>
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_22">
+    <ns0:path d="M 350.900043 123.097645  L 377.589655 123.097645  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_23">
+    <ns0:path d="M 421.135865 107.084095  L 447.825478 107.084095  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="01_continuous_fields_core-line2d_24">
+    <ns0:path d="M 491.371688 122.845888  L 518.061301 122.845888  " clip-path="url(#01_continuous_fields_core-p35be9be924)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="01_continuous_fields_core-p6933231fdc">
+   <ns0:rect x="57.709615" y="32.034615" width="210.707468" height="144.93077" />
+  </ns0:clipPath>
+  <ns0:clipPath id="01_continuous_fields_core-p35be9be924">
+   <ns0:rect x="329.126938" y="32.034615" width="210.707468" height="144.93077" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="01_continuous_fields_core-caption" x="20" y="192.19999995357702" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="192.19999995357702">C15 explores more with broader DG activity. Three</ns0:tspan><ns0:tspan x="20" y="210.19999995357702">seeds per condition.</ns0:tspan></ns0:text><ns0:text id="02_core_concentration_and_behavior-title" x="438" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="438" y="85">02. Field structure versus behavior</ns0:tspan></ns0:text><ns0:g id="02_core_concentration_and_behavior" ns1:label="02_core_concentration_and_behavior" transform="translate(438.0,97) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="02_core_concentration_and_behavior-figure_1">
+  <ns0:g id="02_core_concentration_and_behavior-patch_1">
+   <ns0:path d="M 0 468  L 1085.669291 468  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="02_core_concentration_and_behavior-axes_1">
+   <ns0:g id="02_core_concentration_and_behavior-patch_2">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  L 491.808189 93.6  L 124.851969 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-md7227f56bf" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="425.23107" y="173.25292" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="393.139477" y="182.945455" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="420.744658" y="167.888175" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-md7952a504b" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="408.941154" y="169.448177" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="415.371733" y="171.773586" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="391.632481" y="166.279465" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-mb33468908c" d="M 0 -4.41588  L -4.41588 4.41588  L 4.41588 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="385.660293" y="127.826718" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="373.115706" y="132.419155" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="330.913321" y="97.854545" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_1">
+    <ns0:g id="02_core_concentration_and_behavior-xtick_1">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_1">
+      <ns0:path d="M 177.274286 187.2  L 177.274286 93.6  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_2">
+      <ns0:defs>
+       <ns0:path id="02_core_concentration_and_behavior-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="177.274286" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="177.274286" y="216.995312" transform="rotate(-0 177.274286 216.995312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_2">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_3">
+      <ns0:path d="M 282.11892 187.2  L 282.11892 93.6  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="282.11892" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="282.11892" y="216.995312" transform="rotate(-0 282.11892 216.995312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_3">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_5">
+      <ns0:path d="M 386.963555 187.2  L 386.963555 93.6  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="386.963555" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="386.963555" y="216.995312" transform="rotate(-0 386.963555 216.995312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_4">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_7">
+      <ns0:path d="M 491.808189 187.2  L 491.808189 93.6  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_8">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="491.808189" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="216.995312" transform="rotate(-0 491.808189 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_5">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="250.029687" transform="rotate(-0 308.330079 250.029687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_2">
+    <ns0:g id="02_core_concentration_and_behavior-ytick_1">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_9">
+      <ns0:path d="M 124.851969 158.30535  L 491.808189 158.30535  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_10">
+      <ns0:defs>
+       <ns0:path id="02_core_concentration_and_behavior-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="124.851969" y="158.30535" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="169.703006" transform="rotate(-0 117.851969 169.703006)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_2">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_11">
+      <ns0:path d="M 124.851969 124.233921  L 491.808189 124.233921  " clip-path="url(#02_core_concentration_and_behavior-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="124.851969" y="124.233921" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="135.631578" transform="rotate(-0 117.851969 135.631578)">75</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_8">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(35.844469 212.271094) rotate(-90)">Coverage</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(69.437906 172.113281) rotate(-90)">AUC</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_3">
+    <ns0:path d="M 124.851969 187.2  L 124.851969 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_4">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_9">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="81.6" transform="rotate(-0 124.851969 81.6)">a  n=9 · ρ=-0.77</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="02_core_concentration_and_behavior-axes_2">
+   <ns0:g id="02_core_concentration_and_behavior-patch_5">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  L 1042.24252 93.6  L 675.286299 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_4">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="826.837557" y="173.25292" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="805.923082" y="182.945455" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="802.268149" y="167.888175" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_5">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="857.61642" y="169.448177" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="852.100277" y="171.773586" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="846.9482" y="166.279465" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_6">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="792.640807" y="127.826718" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="834.185578" y="132.419155" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="810.1147" y="97.854545" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_3">
+    <ns0:g id="02_core_concentration_and_behavior-xtick_5">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_13">
+      <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="675.286299" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="216.995312" transform="rotate(-0 675.286299 216.995312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_6">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_15">
+      <ns0:path d="M 858.764409 187.2  L 858.764409 93.6  " clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_16">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="858.764409" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="216.995312" transform="rotate(-0 858.764409 216.995312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_7">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_17">
+      <ns0:path d="M 1042.24252 187.2  L 1042.24252 93.6  " clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="1042.24252" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="216.995312" transform="rotate(-0 1042.24252 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_13">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="250.029687" transform="rotate(-0 858.764409 250.029687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_4">
+    <ns0:g id="02_core_concentration_and_behavior-ytick_3">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_19">
+      <ns0:path d="M 675.286299 158.30535  L 1042.24252 158.30535  " clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="675.286299" y="158.30535" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_14">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="169.703006" transform="rotate(-0 668.286299 169.703006)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_4">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_21">
+      <ns0:path d="M 675.286299 124.233921  L 1042.24252 124.233921  " clip-path="url(#02_core_concentration_and_behavior-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="675.286299" y="124.233921" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_15">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="135.631578" transform="rotate(-0 668.286299 135.631578)">75</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_16">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(586.278799 212.271094) rotate(-90)">Coverage</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(619.872237 172.113281) rotate(-90)">AUC</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_6">
+    <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_7">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_17">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="81.6" transform="rotate(-0 675.286299 81.6)">b  n=9 · ρ=-0.23</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="02_core_concentration_and_behavior-axes_3">
+   <ns0:g id="02_core_concentration_and_behavior-patch_8">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  L 491.808189 294.84  L 124.851969 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_7">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="425.23107" y="372.985825" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="393.139477" y="367.323227" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="420.744658" y="352.793156" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_8">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="408.941154" y="338.635763" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="415.371733" y="359.88779" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="391.632481" y="366.04" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_9">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="385.660293" y="366.576078" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="373.115706" y="371.484978" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="330.913321" y="386.135075" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_5">
+    <ns0:g id="02_core_concentration_and_behavior-xtick_8">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_23">
+      <ns0:path d="M 177.274286 388.44  L 177.274286 294.84  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="177.274286" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_18">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="177.274286" y="418.235312" transform="rotate(-0 177.274286 418.235312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_9">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_25">
+      <ns0:path d="M 282.11892 388.44  L 282.11892 294.84  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_26">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="282.11892" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_19">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="282.11892" y="418.235312" transform="rotate(-0 282.11892 418.235312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_10">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_27">
+      <ns0:path d="M 386.963555 388.44  L 386.963555 294.84  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_28">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="386.963555" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_20">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="386.963555" y="418.235312" transform="rotate(-0 386.963555 418.235312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_11">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_29">
+      <ns0:path d="M 491.808189 388.44  L 491.808189 294.84  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_30">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="491.808189" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_21">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="418.235312" transform="rotate(-0 491.808189 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_22">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="451.269687" transform="rotate(-0 308.330079 451.269687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_6">
+    <ns0:g id="02_core_concentration_and_behavior-ytick_5">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_31">
+      <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_32">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_23">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="399.837656" transform="rotate(-0 117.851969 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_6">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_33">
+      <ns0:path d="M 124.851969 341.64  L 491.808189 341.64  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_34">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="124.851969" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_24">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="353.037656" transform="rotate(-0 117.851969 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_7">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_35">
+      <ns0:path d="M 124.851969 294.84  L 491.808189 294.84  " clip-path="url(#02_core_concentration_and_behavior-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_36">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="124.851969" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_25">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="306.237656" transform="rotate(-0 117.851969 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_26">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(26.310094 398.586094) rotate(-90)">40-step</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.903531 387.495469) rotate(-90)">return</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_9">
+    <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_10">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_27">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="282.84" transform="rotate(-0 124.851969 282.84)">c  n=9 · ρ=0.43</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="02_core_concentration_and_behavior-axes_4">
+   <ns0:g id="02_core_concentration_and_behavior-patch_11">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  L 1042.24252 294.84  L 675.286299 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_10">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="826.837557" y="372.985825" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="805.923082" y="367.323227" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7227f56bf" x="802.268149" y="352.793156" style="fill: #5e5e5e; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_11">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="857.61642" y="338.635763" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="852.100277" y="359.88779" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-md7952a504b" x="846.9482" y="366.04" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-PathCollection_12">
+    <ns0:g clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)">
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="792.640807" y="366.576078" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="834.185578" y="371.484978" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mb33468908c" x="810.1147" y="386.135075" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_7">
+    <ns0:g id="02_core_concentration_and_behavior-xtick_12">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_37">
+      <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_38">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_28">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="418.235312" transform="rotate(-0 675.286299 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_13">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_39">
+      <ns0:path d="M 858.764409 388.44  L 858.764409 294.84  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_40">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="858.764409" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_29">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="418.235312" transform="rotate(-0 858.764409 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-xtick_14">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_41">
+      <ns0:path d="M 1042.24252 388.44  L 1042.24252 294.84  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_42">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m8fe1a3ac55" x="1042.24252" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_30">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="418.235312" transform="rotate(-0 1042.24252 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_31">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="451.269687" transform="rotate(-0 858.764409 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-matplotlib.axis_8">
+    <ns0:g id="02_core_concentration_and_behavior-ytick_8">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_43">
+      <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_44">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_32">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="399.837656" transform="rotate(-0 668.286299 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_9">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_45">
+      <ns0:path d="M 675.286299 341.64  L 1042.24252 341.64  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_46">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="675.286299" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_33">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="353.037656" transform="rotate(-0 668.286299 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-ytick_10">
+     <ns0:g id="02_core_concentration_and_behavior-line2d_47">
+      <ns0:path d="M 675.286299 294.84  L 1042.24252 294.84  " clip-path="url(#02_core_concentration_and_behavior-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-line2d_48">
+      <ns0:g>
+       <ns0:use ns2:href="#02_core_concentration_and_behavior-m32d6fe0a88" x="675.286299" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="02_core_concentration_and_behavior-text_34">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="306.237656" transform="rotate(-0 668.286299 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="02_core_concentration_and_behavior-text_35">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(576.744424 398.586094) rotate(-90)">40-step</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(610.337862 387.495469) rotate(-90)">return</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_12">
+    <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-patch_13">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_36">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="282.84" transform="rotate(-0 675.286299 282.84)">d  n=9 · ρ=0.32</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="02_core_concentration_and_behavior-legend_1">
+   <ns0:g id="02_core_concentration_and_behavior-line2d_49">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-m61ac7832aa" d="M 0 5  C 1.326016 5 2.597899 4.473168 3.535534 3.535534  C 4.473168 2.597899 5 1.326016 5 0  C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534  C 2.597899 -4.473168 1.326016 -5 0 -5  C -1.326016 -5 -2.597899 -4.473168 -3.535534 -3.535534  C -4.473168 -2.597899 -5 -1.326016 -5 0  C -5 1.326016 -4.473168 2.597899 -3.535534 3.535534  C -2.597899 4.473168 -1.326016 5 0 5  z " style="stroke: #5e5e5e" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-m61ac7832aa" x="397.469568" y="34.615313" style="fill: #5e5e5e; stroke: #5e5e5e" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_37">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="434.969568" y="45.115313" transform="rotate(-0 434.969568 45.115313)">C01</ns0:text>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-line2d_50">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-mf236f1eedc" d="M -5 5  L 5 5  L 5 -5  L -5 -5  z " style="stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mf236f1eedc" x="542.093006" y="34.615313" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_38">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="579.593006" y="45.115313" transform="rotate(-0 579.593006 45.115313)">C05</ns0:text>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-line2d_51">
+    <ns0:defs>
+     <ns0:path id="02_core_concentration_and_behavior-mf809d75acf" d="M 0 -5  L -5 5  L 5 5  z " style="stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#02_core_concentration_and_behavior-mf809d75acf" x="686.716443" y="34.615313" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="02_core_concentration_and_behavior-text_39">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="724.216443" y="45.115313" transform="rotate(-0 724.216443 45.115313)">C15</ns0:text>
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="02_core_concentration_and_behavior-p7e30f57c4d">
+   <ns0:rect x="124.851969" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="02_core_concentration_and_behavior-pbf33ecb9c8">
+   <ns0:rect x="675.286299" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="02_core_concentration_and_behavior-p5280ec5773">
+   <ns0:rect x="124.851969" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="02_core_concentration_and_behavior-p301a2914a1">
+   <ns0:rect x="675.286299" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="02_core_concentration_and_behavior-caption" x="438" y="281.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="438" y="281.100000051489">Broader exploration need not accompany sharper</ns0:tspan><ns0:tspan x="438" y="299.100000051489">fields. Field shape and loops are measured in frozen</ns0:tspan><ns0:tspan x="438" y="317.100000051489">probes.</ns0:tspan></ns0:text><ns0:text id="03_concentration_exploration_control-title" x="20" y="415" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="415">03. Concentration versus exploration</ns0:tspan><ns0:tspan x="20" y="434">and control</ns0:tspan></ns0:text><ns0:g id="03_concentration_exploration_control" ns1:label="03_concentration_exploration_control" transform="translate(20.0,446) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="03_concentration_exploration_control-figure_1">
+  <ns0:g id="03_concentration_exploration_control-patch_1">
+   <ns0:path d="M 0 468  L 1085.669291 468  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="03_concentration_exploration_control-axes_1">
+   <ns0:g id="03_concentration_exploration_control-patch_2">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  L 491.808189 93.6  L 124.851969 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-m2b15b71d11" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="277.158365" y="104.74903" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="396.435613" y="105.78615" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="316.925987" y="104.74903" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-m5c4509a4a4" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="278.124621" y="105.52687" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="340.124547" y="105.00831" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="242.32433" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-mb33468908c" d="M 0 -4.41588  L -4.41588 4.41588  L 4.41588 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="207.864897" y="104.74903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="237.429169" y="104.74903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="262.548524" y="104.74903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_4">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-m623751e2fb" d="M -0 6.244998  L 6.244998 0  L 0 -6.244998  L -6.244998 -0  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="222.023997" y="104.74903" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="346.154166" y="107.341828" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="286.33102" y="105.26759" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_1">
+    <ns0:g id="03_concentration_exploration_control-xtick_1">
+     <ns0:g id="03_concentration_exploration_control-line2d_1">
+      <ns0:path d="M 177.274286 187.2  L 177.274286 93.6  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_2">
+      <ns0:defs>
+       <ns0:path id="03_concentration_exploration_control-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="177.274286" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="177.274286" y="216.995312" transform="rotate(-0 177.274286 216.995312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_2">
+     <ns0:g id="03_concentration_exploration_control-line2d_3">
+      <ns0:path d="M 282.11892 187.2  L 282.11892 93.6  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="282.11892" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="282.11892" y="216.995312" transform="rotate(-0 282.11892 216.995312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_3">
+     <ns0:g id="03_concentration_exploration_control-line2d_5">
+      <ns0:path d="M 386.963555 187.2  L 386.963555 93.6  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="386.963555" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="386.963555" y="216.995312" transform="rotate(-0 386.963555 216.995312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_4">
+     <ns0:g id="03_concentration_exploration_control-line2d_7">
+      <ns0:path d="M 491.808189 187.2  L 491.808189 93.6  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_8">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="491.808189" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="216.995312" transform="rotate(-0 491.808189 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_5">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="250.029687" transform="rotate(-0 308.330079 250.029687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_2">
+    <ns0:g id="03_concentration_exploration_control-ytick_1">
+     <ns0:g id="03_concentration_exploration_control-line2d_9">
+      <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_10">
+      <ns0:defs>
+       <ns0:path id="03_concentration_exploration_control-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="198.597656" transform="rotate(-0 117.851969 198.597656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_2">
+     <ns0:g id="03_concentration_exploration_control-line2d_11">
+      <ns0:path d="M 124.851969 140.4  L 491.808189 140.4  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="151.797656" transform="rotate(-0 117.851969 151.797656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_3">
+     <ns0:g id="03_concentration_exploration_control-line2d_13">
+      <ns0:path d="M 124.851969 93.6  L 491.808189 93.6  " clip-path="url(#03_concentration_exploration_control-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="93.6" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="104.997656" transform="rotate(-0 117.851969 104.997656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_9">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(26.310094 226.882031) rotate(-90)">Visited bins</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.903531 209.723437) rotate(-90)">(fraction)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_3">
+    <ns0:path d="M 124.851969 187.2  L 124.851969 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_4">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_10">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="81.6" transform="rotate(-0 124.851969 81.6)">a  n=12 · ρ=-0.77</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="03_concentration_exploration_control-axes_2">
+   <ns0:g id="03_concentration_exploration_control-patch_5">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  L 1042.24252 93.6  L 675.286299 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_5">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="827.592696" y="132.018531" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="946.869944" y="124.147066" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="867.360318" y="140.158117" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_6">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="828.558951" y="124.234656" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="890.558878" y="126.194524" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="792.758661" y="123.812873" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_7">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="758.299228" y="119.417077" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="787.8635" y="125.62936" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="812.982854" y="126.249047" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_8">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="772.458327" y="121.843856" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="896.588497" y="119.961213" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="836.765351" y="124.629632" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_3">
+    <ns0:g id="03_concentration_exploration_control-xtick_5">
+     <ns0:g id="03_concentration_exploration_control-line2d_15">
+      <ns0:path d="M 727.708616 187.2  L 727.708616 93.6  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_16">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="727.708616" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="727.708616" y="216.995312" transform="rotate(-0 727.708616 216.995312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_6">
+     <ns0:g id="03_concentration_exploration_control-line2d_17">
+      <ns0:path d="M 832.553251 187.2  L 832.553251 93.6  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="832.553251" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="832.553251" y="216.995312" transform="rotate(-0 832.553251 216.995312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_7">
+     <ns0:g id="03_concentration_exploration_control-line2d_19">
+      <ns0:path d="M 937.397885 187.2  L 937.397885 93.6  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="937.397885" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_13">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="937.397885" y="216.995312" transform="rotate(-0 937.397885 216.995312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_8">
+     <ns0:g id="03_concentration_exploration_control-line2d_21">
+      <ns0:path d="M 1042.24252 187.2  L 1042.24252 93.6  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="1042.24252" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_14">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="216.995312" transform="rotate(-0 1042.24252 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_15">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="250.029687" transform="rotate(-0 858.764409 250.029687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_4">
+    <ns0:g id="03_concentration_exploration_control-ytick_4">
+     <ns0:g id="03_concentration_exploration_control-line2d_23">
+      <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_16">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="198.597656" transform="rotate(-0 668.286299 198.597656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_5">
+     <ns0:g id="03_concentration_exploration_control-line2d_25">
+      <ns0:path d="M 675.286299 140.4  L 1042.24252 140.4  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_26">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_17">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="151.797656" transform="rotate(-0 668.286299 151.797656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_6">
+     <ns0:g id="03_concentration_exploration_control-line2d_27">
+      <ns0:path d="M 675.286299 93.6  L 1042.24252 93.6  " clip-path="url(#03_concentration_exploration_control-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_28">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="93.6" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_18">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="104.997656" transform="rotate(-0 668.286299 104.997656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_19">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(576.744424 228.771094) rotate(-90)">Target hits /</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(610.337862 208.410937) rotate(-90)">attempts</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_6">
+    <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_7">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_20">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="81.6" transform="rotate(-0 675.286299 81.6)">b  n=12 · ρ=-0.24</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="03_concentration_exploration_control-axes_3">
+   <ns0:g id="03_concentration_exploration_control-patch_8">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  L 491.808189 294.84  L 124.851969 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_9">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p5280ec5773)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="247.664305" y="305.98903" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="330.222146" y="307.02615" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="231.674591" y="305.98903" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_10">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p5280ec5773)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="282.0411" y="306.76687" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="360.611834" y="306.24831" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="203.577913" y="305.98903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_11">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p5280ec5773)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="200.082074" y="305.98903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="203.177487" y="305.98903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="399.361331" y="305.98903" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_12">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p5280ec5773)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="198.782964" y="305.98903" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="384.225815" y="308.581828" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="276.291699" y="306.50759" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_5">
+    <ns0:g id="03_concentration_exploration_control-xtick_9">
+     <ns0:g id="03_concentration_exploration_control-line2d_29">
+      <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_30">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_21">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="124.851969" y="418.235312" transform="rotate(-0 124.851969 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_10">
+     <ns0:g id="03_concentration_exploration_control-line2d_31">
+      <ns0:path d="M 308.330079 388.44  L 308.330079 294.84  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_32">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="308.330079" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_22">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="418.235312" transform="rotate(-0 308.330079 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_11">
+     <ns0:g id="03_concentration_exploration_control-line2d_33">
+      <ns0:path d="M 491.808189 388.44  L 491.808189 294.84  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_34">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="491.808189" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_23">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="418.235312" transform="rotate(-0 491.808189 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_24">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="451.269687" transform="rotate(-0 308.330079 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_6">
+    <ns0:g id="03_concentration_exploration_control-ytick_7">
+     <ns0:g id="03_concentration_exploration_control-line2d_35">
+      <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_36">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_25">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="399.837656" transform="rotate(-0 117.851969 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_8">
+     <ns0:g id="03_concentration_exploration_control-line2d_37">
+      <ns0:path d="M 124.851969 341.64  L 491.808189 341.64  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_38">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_26">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="353.037656" transform="rotate(-0 117.851969 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_9">
+     <ns0:g id="03_concentration_exploration_control-line2d_39">
+      <ns0:path d="M 124.851969 294.84  L 491.808189 294.84  " clip-path="url(#03_concentration_exploration_control-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_40">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="124.851969" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_27">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="306.237656" transform="rotate(-0 117.851969 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_28">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(26.310094 428.122031) rotate(-90)">Visited bins</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.903531 410.963437) rotate(-90)">(fraction)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_9">
+    <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_10">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_29">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="282.84" transform="rotate(-0 124.851969 282.84)">c  n=12 · ρ=-0.62</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="03_concentration_exploration_control-axes_4">
+   <ns0:g id="03_concentration_exploration_control-patch_11">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  L 1042.24252 294.84  L 675.286299 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_13">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p301a2914a1)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="798.098636" y="333.258531" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="880.656476" y="325.387066" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m2b15b71d11" x="782.108922" y="341.398117" style="fill: #444444; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_14">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p301a2914a1)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="832.47543" y="325.474656" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="911.046165" y="327.434524" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m5c4509a4a4" x="754.012244" y="325.052873" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_15">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p301a2914a1)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="750.516404" y="320.657077" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="753.611818" y="326.86936" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-mb33468908c" x="949.795662" y="327.489047" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-PathCollection_16">
+    <ns0:g clip-path="url(#03_concentration_exploration_control-p301a2914a1)">
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="749.217295" y="323.083856" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="934.660146" y="321.201213" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#03_concentration_exploration_control-m623751e2fb" x="826.726029" y="325.869632" style="fill: #009e73; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_7">
+    <ns0:g id="03_concentration_exploration_control-xtick_12">
+     <ns0:g id="03_concentration_exploration_control-line2d_41">
+      <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_42">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_30">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="418.235312" transform="rotate(-0 675.286299 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_13">
+     <ns0:g id="03_concentration_exploration_control-line2d_43">
+      <ns0:path d="M 858.764409 388.44  L 858.764409 294.84  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_44">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="858.764409" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_31">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="418.235312" transform="rotate(-0 858.764409 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-xtick_14">
+     <ns0:g id="03_concentration_exploration_control-line2d_45">
+      <ns0:path d="M 1042.24252 388.44  L 1042.24252 294.84  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_46">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m8fe1a3ac55" x="1042.24252" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_32">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="418.235312" transform="rotate(-0 1042.24252 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_33">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="451.269687" transform="rotate(-0 858.764409 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-matplotlib.axis_8">
+    <ns0:g id="03_concentration_exploration_control-ytick_10">
+     <ns0:g id="03_concentration_exploration_control-line2d_47">
+      <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_48">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_34">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="399.837656" transform="rotate(-0 668.286299 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_11">
+     <ns0:g id="03_concentration_exploration_control-line2d_49">
+      <ns0:path d="M 675.286299 341.64  L 1042.24252 341.64  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_50">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_35">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="353.037656" transform="rotate(-0 668.286299 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-ytick_12">
+     <ns0:g id="03_concentration_exploration_control-line2d_51">
+      <ns0:path d="M 675.286299 294.84  L 1042.24252 294.84  " clip-path="url(#03_concentration_exploration_control-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-line2d_52">
+      <ns0:g>
+       <ns0:use ns2:href="#03_concentration_exploration_control-m32d6fe0a88" x="675.286299" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="03_concentration_exploration_control-text_36">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="306.237656" transform="rotate(-0 668.286299 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="03_concentration_exploration_control-text_37">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(576.744424 430.011094) rotate(-90)">Target hits /</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(610.337862 409.650937) rotate(-90)">attempts</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_12">
+    <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-patch_13">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_38">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="282.84" transform="rotate(-0 675.286299 282.84)">d  n=12 · ρ=-0.27</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="03_concentration_exploration_control-legend_1">
+   <ns0:g id="03_concentration_exploration_control-line2d_53">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-mced362c747" d="M 0 5  C 1.326016 5 2.597899 4.473168 3.535534 3.535534  C 4.473168 2.597899 5 1.326016 5 0  C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534  C 2.597899 -4.473168 1.326016 -5 0 -5  C -1.326016 -5 -2.597899 -4.473168 -3.535534 -3.535534  C -4.473168 -2.597899 -5 -1.326016 -5 0  C -5 1.326016 -4.473168 2.597899 -3.535534 3.535534  C -2.597899 4.473168 -1.326016 5 0 5  z " style="stroke: #444444" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#03_concentration_exploration_control-mced362c747" x="95.303943" y="34.615313" style="fill: #444444; stroke: #444444" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_39">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="132.803943" y="45.115313" transform="rotate(-0 132.803943 45.115313)">Baseline</ns0:text>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-line2d_54">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-m60e30148eb" d="M -5 5  L 5 5  L 5 -5  L -5 -5  z " style="stroke: #0072b2; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#03_concentration_exploration_control-m60e30148eb" x="307.999256" y="34.615313" style="fill: #0072b2; stroke: #0072b2; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_40">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="345.499256" y="45.115313" transform="rotate(-0 345.499256 45.115313)">CA3 feedback</ns0:text>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-line2d_55">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-mf809d75acf" d="M 0 -5  L -5 5  L 5 5  z " style="stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#03_concentration_exploration_control-mf809d75acf" x="601.413318" y="34.615313" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_41">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="638.913318" y="45.115313" transform="rotate(-0 638.913318 45.115313)">Goal context</ns0:text>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-line2d_56">
+    <ns0:defs>
+     <ns0:path id="03_concentration_exploration_control-m6e499922fd" d="M -0 7.071068  L 7.071068 0  L 0 -7.071068  L -7.071068 -0  z " style="stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#03_concentration_exploration_control-m6e499922fd" x="877.844568" y="34.615313" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="03_concentration_exploration_control-text_42">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="915.344568" y="45.115313" transform="rotate(-0 915.344568 45.115313)">+ predictor</ns0:text>
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="03_concentration_exploration_control-p7e30f57c4d">
+   <ns0:rect x="124.851969" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="03_concentration_exploration_control-pbf33ecb9c8">
+   <ns0:rect x="675.286299" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="03_concentration_exploration_control-p5280ec5773">
+   <ns0:rect x="124.851969" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="03_concentration_exploration_control-p301a2914a1">
+   <ns0:rect x="675.286299" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="03_concentration_exploration_control-caption" x="20" y="630.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="630.100000051489">Within four CA3-feedback variants, neither</ns0:tspan><ns0:tspan x="20" y="648.100000051489">concentration score orders recorded target hits</ns0:tspan><ns0:tspan x="20" y="666.100000051489">strongly.</ns0:tspan></ns0:text><ns0:text id="04_dominance_across_variants-title" x="438" y="415" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="438" y="415">04. Dominance across architectural</ns0:tspan><ns0:tspan x="438" y="434">variants</ns0:tspan></ns0:text><ns0:g id="04_dominance_across_variants" ns1:label="04_dominance_across_variants" transform="translate(438.0,446) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="04_dominance_across_variants-figure_1">
+  <ns0:g id="04_dominance_across_variants-patch_1">
+   <ns0:path d="M 0 468  L 1085.669291 468  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="04_dominance_across_variants-axes_1">
+   <ns0:g id="04_dominance_across_variants-patch_2">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  L 491.808189 93.6  L 124.851969 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-mceb88f037e" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p7e30f57c4d)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="247.664305" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="330.222146" y="105.78615" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="231.674591" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-m5c4509a4a4" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p7e30f57c4d)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="282.0411" y="105.52687" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="360.611834" y="105.00831" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="203.577913" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-m90b61d3326" d="M 0 -4.41588  L -4.41588 4.41588  L 4.41588 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p7e30f57c4d)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="200.082074" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="203.177487" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="399.361331" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_4">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-ma90c821181" d="M -0 6.244998  L 6.244998 0  L 0 -6.244998  L -6.244998 -0  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p7e30f57c4d)">
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="198.782964" y="104.74903" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="384.225815" y="107.341828" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="276.291699" y="105.26759" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_1">
+    <ns0:g id="04_dominance_across_variants-xtick_1">
+     <ns0:g id="04_dominance_across_variants-line2d_1">
+      <ns0:path d="M 124.851969 187.2  L 124.851969 93.6  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_2">
+      <ns0:defs>
+       <ns0:path id="04_dominance_across_variants-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="124.851969" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="124.851969" y="216.995312" transform="rotate(-0 124.851969 216.995312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_2">
+     <ns0:g id="04_dominance_across_variants-line2d_3">
+      <ns0:path d="M 308.330079 187.2  L 308.330079 93.6  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="308.330079" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="216.995312" transform="rotate(-0 308.330079 216.995312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_3">
+     <ns0:g id="04_dominance_across_variants-line2d_5">
+      <ns0:path d="M 491.808189 187.2  L 491.808189 93.6  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="491.808189" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="216.995312" transform="rotate(-0 491.808189 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_4">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="250.029687" transform="rotate(-0 308.330079 250.029687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_2">
+    <ns0:g id="04_dominance_across_variants-ytick_1">
+     <ns0:g id="04_dominance_across_variants-line2d_7">
+      <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_8">
+      <ns0:defs>
+       <ns0:path id="04_dominance_across_variants-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="198.597656" transform="rotate(-0 117.851969 198.597656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_2">
+     <ns0:g id="04_dominance_across_variants-line2d_9">
+      <ns0:path d="M 124.851969 140.4  L 491.808189 140.4  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_10">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="151.797656" transform="rotate(-0 117.851969 151.797656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_3">
+     <ns0:g id="04_dominance_across_variants-line2d_11">
+      <ns0:path d="M 124.851969 93.6  L 491.808189 93.6  " clip-path="url(#04_dominance_across_variants-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="93.6" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="104.997656" transform="rotate(-0 117.851969 104.997656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_8">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(26.310094 226.882031) rotate(-90)">Visited bins</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.903531 209.723437) rotate(-90)">(fraction)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_3">
+    <ns0:path d="M 124.851969 187.2  L 124.851969 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_4">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-text_9">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="81.6" transform="rotate(-0 124.851969 81.6)">a  n=12 · ρ=-0.62</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="04_dominance_across_variants-axes_2">
+   <ns0:g id="04_dominance_across_variants-patch_5">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  L 1042.24252 93.6  L 675.286299 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_5">
+    <ns0:g clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="798.098636" y="132.018531" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="880.656476" y="124.147066" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mceb88f037e" x="782.108922" y="140.158117" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_6">
+    <ns0:g clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="832.47543" y="124.234656" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="911.046165" y="126.194524" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m5c4509a4a4" x="754.012244" y="123.812873" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_7">
+    <ns0:g clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="750.516404" y="119.417077" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="753.611818" y="125.62936" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90b61d3326" x="949.795662" y="126.249047" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_8">
+    <ns0:g clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)">
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="749.217295" y="121.843856" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="934.660146" y="119.961213" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-ma90c821181" x="826.726029" y="124.629632" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_3">
+    <ns0:g id="04_dominance_across_variants-xtick_4">
+     <ns0:g id="04_dominance_across_variants-line2d_13">
+      <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="675.286299" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="216.995312" transform="rotate(-0 675.286299 216.995312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_5">
+     <ns0:g id="04_dominance_across_variants-line2d_15">
+      <ns0:path d="M 858.764409 187.2  L 858.764409 93.6  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_16">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="858.764409" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="216.995312" transform="rotate(-0 858.764409 216.995312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_6">
+     <ns0:g id="04_dominance_across_variants-line2d_17">
+      <ns0:path d="M 1042.24252 187.2  L 1042.24252 93.6  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="1042.24252" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="216.995312" transform="rotate(-0 1042.24252 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_13">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="250.029687" transform="rotate(-0 858.764409 250.029687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_4">
+    <ns0:g id="04_dominance_across_variants-ytick_4">
+     <ns0:g id="04_dominance_across_variants-line2d_19">
+      <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_14">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="198.597656" transform="rotate(-0 668.286299 198.597656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_5">
+     <ns0:g id="04_dominance_across_variants-line2d_21">
+      <ns0:path d="M 675.286299 140.4  L 1042.24252 140.4  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_15">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="151.797656" transform="rotate(-0 668.286299 151.797656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_6">
+     <ns0:g id="04_dominance_across_variants-line2d_23">
+      <ns0:path d="M 675.286299 93.6  L 1042.24252 93.6  " clip-path="url(#04_dominance_across_variants-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="93.6" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_16">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="104.997656" transform="rotate(-0 668.286299 104.997656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_17">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(576.744424 228.771094) rotate(-90)">Target hits /</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(610.337862 208.410937) rotate(-90)">attempts</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_6">
+    <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_7">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-text_18">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="81.6" transform="rotate(-0 675.286299 81.6)">b  n=12 · ρ=-0.27</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="04_dominance_across_variants-axes_3">
+   <ns0:g id="04_dominance_across_variants-patch_8">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  L 491.808189 294.84  L 124.851969 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_9">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-mbd26629ce4" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="236.722877" y="307.285429" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="231.624346" y="310.396787" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="252.90867" y="307.02615" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_10">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-mf0ba26e7a7" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="226.200303" y="308.581828" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="203.275277" y="315.063823" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="215.088961" y="308.841108" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_11">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-mfc1cf80548" d="M 0 -4.41588  L -4.41588 4.41588  L 4.41588 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="226.958204" y="306.24831" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="257.586676" y="306.50759" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="259.87481" y="311.433906" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_12">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-m1dca59eacb" d="M -0 6.244998  L 6.244998 0  L 0 -6.244998  L -6.244998 -0  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="279.320875" y="310.656066" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="391.723594" y="308.063269" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="227.323357" y="305.98903" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_13">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-m90ff9566f4" d="M -1.47196 4.41588  L 1.47196 4.41588  L 1.47196 1.47196  L 4.41588 1.47196  L 4.41588 -1.47196  L 1.47196 -1.47196  L 1.47196 -4.41588  L -1.47196 -4.41588  L -1.47196 -1.47196  L -4.41588 -1.47196  L -4.41588 1.47196  L -1.47196 1.47196  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m90ff9566f4" x="269.303747" y="306.76687" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90ff9566f4" x="297.889369" y="306.50759" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m90ff9566f4" x="263.478829" y="305.98903" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_14">
+    <ns0:defs>
+     <ns0:path id="04_dominance_across_variants-mdc664fe137" d="M -2.20794 4.41588  L 0 2.20794  L 2.20794 4.41588  L 4.41588 2.20794  L 2.20794 0  L 4.41588 -2.20794  L 2.20794 -4.41588  L 0 -2.20794  L -2.20794 -4.41588  L -4.41588 -2.20794  L -2.20794 0  L -4.41588 2.20794  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#04_dominance_across_variants-p5280ec5773)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mdc664fe137" x="263.54392" y="305.98903" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mdc664fe137" x="310.17453" y="306.76687" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mdc664fe137" x="276.424678" y="305.98903" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_5">
+    <ns0:g id="04_dominance_across_variants-xtick_7">
+     <ns0:g id="04_dominance_across_variants-line2d_25">
+      <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_26">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_19">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="124.851969" y="418.235312" transform="rotate(-0 124.851969 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_8">
+     <ns0:g id="04_dominance_across_variants-line2d_27">
+      <ns0:path d="M 308.330079 388.44  L 308.330079 294.84  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_28">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="308.330079" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_20">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="418.235312" transform="rotate(-0 308.330079 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_9">
+     <ns0:g id="04_dominance_across_variants-line2d_29">
+      <ns0:path d="M 491.808189 388.44  L 491.808189 294.84  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_30">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="491.808189" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_21">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="418.235312" transform="rotate(-0 491.808189 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_22">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="451.269687" transform="rotate(-0 308.330079 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_6">
+    <ns0:g id="04_dominance_across_variants-ytick_7">
+     <ns0:g id="04_dominance_across_variants-line2d_31">
+      <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_32">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_23">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="399.837656" transform="rotate(-0 117.851969 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_8">
+     <ns0:g id="04_dominance_across_variants-line2d_33">
+      <ns0:path d="M 124.851969 341.64  L 491.808189 341.64  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_34">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_24">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="353.037656" transform="rotate(-0 117.851969 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_9">
+     <ns0:g id="04_dominance_across_variants-line2d_35">
+      <ns0:path d="M 124.851969 294.84  L 491.808189 294.84  " clip-path="url(#04_dominance_across_variants-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_36">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="124.851969" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_25">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="306.237656" transform="rotate(-0 117.851969 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_26">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(26.310094 428.122031) rotate(-90)">Visited bins</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.903531 410.963437) rotate(-90)">(fraction)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_9">
+    <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_10">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-text_27">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="282.84" transform="rotate(-0 124.851969 282.84)">c  n=18 · ρ=0.26</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="04_dominance_across_variants-axes_4">
+   <ns0:g id="04_dominance_across_variants-patch_11">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  L 1042.24252 294.84  L 675.286299 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_15">
+    <ns0:g clip-path="url(#04_dominance_across_variants-p301a2914a1)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="787.157207" y="328.760043" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="782.058676" y="331.113357" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mbd26629ce4" x="803.343001" y="329.227797" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_16">
+    <ns0:g clip-path="url(#04_dominance_across_variants-p301a2914a1)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="776.634634" y="329.105248" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="753.709608" y="334.553226" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mf0ba26e7a7" x="765.523292" y="331.140449" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_17">
+    <ns0:g clip-path="url(#04_dominance_across_variants-p301a2914a1)">
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="777.392534" y="344.697975" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="808.021007" y="344.744744" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-mfc1cf80548" x="810.309141" y="344.238344" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_18">
+    <ns0:g clip-path="url(#04_dominance_across_variants-p301a2914a1)">
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="829.755205" y="344.284946" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="942.157924" y="339.516886" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#04_dominance_across_variants-m1dca59eacb" x="777.757688" y="340.059432" style="fill: #a6761d; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-PathCollection_19" />
+   <ns0:g id="04_dominance_across_variants-PathCollection_20" />
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_7">
+    <ns0:g id="04_dominance_across_variants-xtick_10">
+     <ns0:g id="04_dominance_across_variants-line2d_37">
+      <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_38">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_28">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="418.235312" transform="rotate(-0 675.286299 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_11">
+     <ns0:g id="04_dominance_across_variants-line2d_39">
+      <ns0:path d="M 858.764409 388.44  L 858.764409 294.84  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_40">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="858.764409" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_29">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="418.235312" transform="rotate(-0 858.764409 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-xtick_12">
+     <ns0:g id="04_dominance_across_variants-line2d_41">
+      <ns0:path d="M 1042.24252 388.44  L 1042.24252 294.84  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_42">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m8fe1a3ac55" x="1042.24252" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_30">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="418.235312" transform="rotate(-0 1042.24252 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_31">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="451.269687" transform="rotate(-0 858.764409 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-matplotlib.axis_8">
+    <ns0:g id="04_dominance_across_variants-ytick_10">
+     <ns0:g id="04_dominance_across_variants-line2d_43">
+      <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_44">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_32">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="399.837656" transform="rotate(-0 668.286299 399.837656)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_11">
+     <ns0:g id="04_dominance_across_variants-line2d_45">
+      <ns0:path d="M 675.286299 341.64  L 1042.24252 341.64  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_46">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_33">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="353.037656" transform="rotate(-0 668.286299 353.037656)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-ytick_12">
+     <ns0:g id="04_dominance_across_variants-line2d_47">
+      <ns0:path d="M 675.286299 294.84  L 1042.24252 294.84  " clip-path="url(#04_dominance_across_variants-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-line2d_48">
+      <ns0:g>
+       <ns0:use ns2:href="#04_dominance_across_variants-m32d6fe0a88" x="675.286299" y="294.84" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="04_dominance_across_variants-text_34">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="306.237656" transform="rotate(-0 668.286299 306.237656)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="04_dominance_across_variants-text_35">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(576.744424 430.011094) rotate(-90)">Target hits /</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(610.337862 409.650937) rotate(-90)">attempts</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_12">
+    <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-patch_13">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="04_dominance_across_variants-text_36">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="282.84" transform="rotate(-0 675.286299 282.84)">d  n=12 · ρ=-0.32</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="04_dominance_across_variants-text_37">
+   <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="575.404724" y="36.835313" transform="rotate(-0 575.404724 36.835313)">CA3 feedback: top · Algorithm screen: bottom</ns0:text>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="04_dominance_across_variants-p7e30f57c4d">
+   <ns0:rect x="124.851969" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="04_dominance_across_variants-pbf33ecb9c8">
+   <ns0:rect x="675.286299" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="04_dominance_across_variants-p5280ec5773">
+   <ns0:rect x="124.851969" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="04_dominance_across_variants-p301a2914a1">
+   <ns0:rect x="675.286299" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="04_dominance_across_variants-caption" x="438" y="630.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="438" y="630.100000051489">Dominance–exploration ordering changes by family.</ns0:tspan><ns0:tspan x="438" y="648.100000051489">Target-hit associations remain weak.</ns0:tspan></ns0:text></ns0:svg>

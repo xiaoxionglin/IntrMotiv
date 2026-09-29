@@ -505,6 +505,51 @@ confidence is present in the NPZ, it additionally correlates each unit's total
 incoming confidence with field spread (`1 - mono_score`) to test whether broad
 maps become graph sinks. This correlation is diagnostic rather than causal.
 
+### Continuous field concentration (saved-map analysis)
+
+For poster or cross-run comparisons, retain the continuous `field_mono_score`
+(canonical unit CSV: `mono_field_score`) instead of reducing every unit to the
+80% mono-field flag. This is the minimum dominant-component mass fraction
+over the three existing peak thresholds. It measures connected-field dominance;
+a broad connected response can score highly.
+
+Use `hpc_runs.intrmotiv_study.field_concentration.calculate_field_concentration`
+for a complementary, gain-invariant measure of spatial activity concentration.
+With occupancy-corrected, unsmoothed `rate_maps`, equal weights across the $N$
+visited bins, and $p_b=r_b/\sum_b r_b$, the effective area is
+
+$$
+A_{\mathrm{eff}}=\frac{1}{\sum_b p_b^2},\qquad
+C=\frac{N-A_{\mathrm{eff}}}{N-1}.
+$$
+
+$C=0$ for uniform activity and $C=1$ for one occupied-bin peak. Effective area
+is reported in bin equivalents and as a fraction of sampled bins. The helper
+also returns entropy concentration $1-H(p)/\log N$ and interpolated area
+containing 80% of rate mass. These are alternative descriptions, not independent
+replications. Permuting bin locations leaves these values unchanged: neither
+concentration nor effective area alone establishes a single contiguous field
+or a small geometric radius.
+
+Unknown bins are excluded, never counted as measured zeros. Silent units and
+normalized concentration with fewer than two supported bins are undefined.
+Aggregate equally across canonically eligible units and retain silent and
+eligible counts; do not choose units using the mono-field classification.
+Support restricted to bins with at least five observations is an explicit
+sensitivity analysis with the original unit eligibility retained. Support size,
+map thresholding, smoothing, and protocol must be disclosed. Policy-driven
+sampling can change field shape and sampled support, especially for short
+frozen probes; this is not a fixed-trajectory representation comparison.
+
+The [continuous poster candidates](../05_plans/poster_20260929/continuous_fields/README.md)
+reuse exact run/checkpoint-age/protocol joins and fixed DG 16 capacity. Their
+per-unit and per-run tables distinguish raw-map concentration from broader
+dominance-only CSV availability. Historical target-event counters, stored graph
+connectivity, and matched command success remain separate outcomes. Do not
+correlate field shape with a grounded-control composite containing the same
+mono-field criterion and interpret the resulting dependence as independent
+evidence. No NPZ schema or runtime collector was changed by this analysis.
+
 ## Outputs
 
 | Output | Use |

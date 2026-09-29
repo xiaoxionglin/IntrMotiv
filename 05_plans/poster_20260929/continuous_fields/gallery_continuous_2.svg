@@ -1,0 +1,529 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://www.w3.org/1999/xlink" width="841mm" height="740mm" viewBox="0 0 841 740"><ns0:rect width="841" height="740" fill="white" /><ns0:text id="title-1" x="20" y="32" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="32.0">Continuous place-field candidates</ns0:tspan></ns0:text><ns0:text id="legend-1" x="20" y="53" style="font-family:DejaVu Sans;font-size:10.583333333333332px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="53.0">Original physical sizes • plot text 30 pt • captions 40 pt • DG 16</ns0:tspan></ns0:text><ns0:text id="05_concentration_command_comparisons-title" x="20" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="85">05. Matched commands: exploratory</ns0:tspan><ns0:tspan x="20" y="104">examples</ns0:tspan></ns0:text><ns0:g id="05_concentration_command_comparisons" ns1:label="05_concentration_command_comparisons" transform="translate(20.0,116) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="05_concentration_command_comparisons-figure_1">
+  <ns0:g id="05_concentration_command_comparisons-patch_1">
+   <ns0:path d="M 0 468  L 1085.669291 468  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="05_concentration_command_comparisons-axes_1">
+   <ns0:g id="05_concentration_command_comparisons-patch_2">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  L 491.808189 93.6  L 124.851969 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="05_concentration_command_comparisons-mceb88f037e" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-mceb88f037e" x="358.857033" y="106.791536" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="05_concentration_command_comparisons-me4185c327d" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-me4185c327d" x="407.174487" y="130.891304" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_1">
+    <ns0:g id="05_concentration_command_comparisons-xtick_1">
+     <ns0:g id="05_concentration_command_comparisons-line2d_1">
+      <ns0:path d="M 177.274286 187.2  L 177.274286 93.6  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_2">
+      <ns0:defs>
+       <ns0:path id="05_concentration_command_comparisons-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="177.274286" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="177.274286" y="216.995312" transform="rotate(-0 177.274286 216.995312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_2">
+     <ns0:g id="05_concentration_command_comparisons-line2d_3">
+      <ns0:path d="M 282.11892 187.2  L 282.11892 93.6  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="282.11892" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="282.11892" y="216.995312" transform="rotate(-0 282.11892 216.995312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_3">
+     <ns0:g id="05_concentration_command_comparisons-line2d_5">
+      <ns0:path d="M 386.963555 187.2  L 386.963555 93.6  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="386.963555" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="386.963555" y="216.995312" transform="rotate(-0 386.963555 216.995312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_4">
+     <ns0:g id="05_concentration_command_comparisons-line2d_7">
+      <ns0:path d="M 491.808189 187.2  L 491.808189 93.6  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_8">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="491.808189" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="216.995312" transform="rotate(-0 491.808189 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_5">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="250.029687" transform="rotate(-0 308.330079 250.029687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_2">
+    <ns0:g id="05_concentration_command_comparisons-ytick_1">
+     <ns0:g id="05_concentration_command_comparisons-line2d_9">
+      <ns0:path d="M 124.851969 175.5  L 491.808189 175.5  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_10">
+      <ns0:defs>
+       <ns0:path id="05_concentration_command_comparisons-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="175.5" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="186.897656" transform="rotate(-0 117.851969 186.897656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_2">
+     <ns0:g id="05_concentration_command_comparisons-line2d_11">
+      <ns0:path d="M 124.851969 140.4  L 491.808189 140.4  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="151.797656" transform="rotate(-0 117.851969 151.797656)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_3">
+     <ns0:g id="05_concentration_command_comparisons-line2d_13">
+      <ns0:path d="M 124.851969 105.3  L 491.808189 105.3  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="105.3" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="116.697656" transform="rotate(-0 117.851969 116.697656)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_9">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(35.844469 217.495312) rotate(-90)">Command</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(69.437906 204.684375) rotate(-90)">lift (p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-line2d_15">
+    <ns0:path d="M 124.851969 175.5  L 491.808189 175.5  " clip-path="url(#05_concentration_command_comparisons-p7e30f57c4d)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_3">
+    <ns0:path d="M 124.851969 187.2  L 124.851969 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_4">
+    <ns0:path d="M 124.851969 187.2  L 491.808189 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-text_10">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="81.6" transform="rotate(-0 124.851969 81.6)">a  DG policy</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="05_concentration_command_comparisons-axes_2">
+   <ns0:g id="05_concentration_command_comparisons-patch_5">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  L 1042.24252 93.6  L 675.286299 93.6  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_3">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-mceb88f037e" x="944.67526" y="115.274799" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_4">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-me4185c327d" x="955.289972" y="125.923729" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_3">
+    <ns0:g id="05_concentration_command_comparisons-xtick_5">
+     <ns0:g id="05_concentration_command_comparisons-line2d_16">
+      <ns0:path d="M 727.708616 187.2  L 727.708616 93.6  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="727.708616" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="727.708616" y="216.995312" transform="rotate(-0 727.708616 216.995312)">0.7</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_6">
+     <ns0:g id="05_concentration_command_comparisons-line2d_18">
+      <ns0:path d="M 832.553251 187.2  L 832.553251 93.6  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_19">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="832.553251" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="832.553251" y="216.995312" transform="rotate(-0 832.553251 216.995312)">0.8</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_7">
+     <ns0:g id="05_concentration_command_comparisons-line2d_20">
+      <ns0:path d="M 937.397885 187.2  L 937.397885 93.6  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_21">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="937.397885" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_13">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="937.397885" y="216.995312" transform="rotate(-0 937.397885 216.995312)">0.9</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_8">
+     <ns0:g id="05_concentration_command_comparisons-line2d_22">
+      <ns0:path d="M 1042.24252 187.2  L 1042.24252 93.6  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_23">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="1042.24252" y="187.2" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_14">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="216.995312" transform="rotate(-0 1042.24252 216.995312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_15">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="250.029687" transform="rotate(-0 858.764409 250.029687)">Concentration</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_4">
+    <ns0:g id="05_concentration_command_comparisons-ytick_4">
+     <ns0:g id="05_concentration_command_comparisons-line2d_24">
+      <ns0:path d="M 675.286299 175.5  L 1042.24252 175.5  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_25">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="175.5" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_16">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="186.897656" transform="rotate(-0 668.286299 186.897656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_5">
+     <ns0:g id="05_concentration_command_comparisons-line2d_26">
+      <ns0:path d="M 675.286299 140.4  L 1042.24252 140.4  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_27">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="140.4" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_17">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="151.797656" transform="rotate(-0 668.286299 151.797656)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_6">
+     <ns0:g id="05_concentration_command_comparisons-line2d_28">
+      <ns0:path d="M 675.286299 105.3  L 1042.24252 105.3  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_29">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="105.3" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_18">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="116.697656" transform="rotate(-0 668.286299 116.697656)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_19">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(586.278799 217.495312) rotate(-90)">Command</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(619.872237 204.684375) rotate(-90)">lift (p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-line2d_30">
+    <ns0:path d="M 675.286299 175.5  L 1042.24252 175.5  " clip-path="url(#05_concentration_command_comparisons-pbf33ecb9c8)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_6">
+    <ns0:path d="M 675.286299 187.2  L 675.286299 93.6  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_7">
+    <ns0:path d="M 675.286299 187.2  L 1042.24252 187.2  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-text_20">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="81.6" transform="rotate(-0 675.286299 81.6)">b  Credit assignment</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="05_concentration_command_comparisons-axes_3">
+   <ns0:g id="05_concentration_command_comparisons-patch_8">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  L 491.808189 294.84  L 124.851969 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_5">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p5280ec5773)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-mceb88f037e" x="265.024002" y="308.031536" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_6">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p5280ec5773)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-me4185c327d" x="322.608701" y="332.131304" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_5">
+    <ns0:g id="05_concentration_command_comparisons-xtick_9">
+     <ns0:g id="05_concentration_command_comparisons-line2d_31">
+      <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_32">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="124.851969" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_21">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="124.851969" y="418.235312" transform="rotate(-0 124.851969 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_10">
+     <ns0:g id="05_concentration_command_comparisons-line2d_33">
+      <ns0:path d="M 308.330079 388.44  L 308.330079 294.84  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_34">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="308.330079" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_22">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="418.235312" transform="rotate(-0 308.330079 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_11">
+     <ns0:g id="05_concentration_command_comparisons-line2d_35">
+      <ns0:path d="M 491.808189 388.44  L 491.808189 294.84  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_36">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="491.808189" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_23">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="491.808189" y="418.235312" transform="rotate(-0 491.808189 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_24">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.330079" y="451.269687" transform="rotate(-0 308.330079 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_6">
+    <ns0:g id="05_concentration_command_comparisons-ytick_7">
+     <ns0:g id="05_concentration_command_comparisons-line2d_37">
+      <ns0:path d="M 124.851969 376.74  L 491.808189 376.74  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_38">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="376.74" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_25">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="388.137656" transform="rotate(-0 117.851969 388.137656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_8">
+     <ns0:g id="05_concentration_command_comparisons-line2d_39">
+      <ns0:path d="M 124.851969 341.64  L 491.808189 341.64  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_40">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_26">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="353.037656" transform="rotate(-0 117.851969 353.037656)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_9">
+     <ns0:g id="05_concentration_command_comparisons-line2d_41">
+      <ns0:path d="M 124.851969 306.54  L 491.808189 306.54  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_42">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="124.851969" y="306.54" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_27">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="117.851969" y="317.937656" transform="rotate(-0 117.851969 317.937656)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_28">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(35.844469 418.735312) rotate(-90)">Command</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(69.437906 405.924375) rotate(-90)">lift (p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-line2d_43">
+    <ns0:path d="M 124.851969 376.74  L 491.808189 376.74  " clip-path="url(#05_concentration_command_comparisons-p5280ec5773)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_9">
+    <ns0:path d="M 124.851969 388.44  L 124.851969 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_10">
+    <ns0:path d="M 124.851969 388.44  L 491.808189 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-text_29">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="124.851969" y="282.84" transform="rotate(-0 124.851969 282.84)">c  DG policy</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="05_concentration_command_comparisons-axes_4">
+   <ns0:g id="05_concentration_command_comparisons-patch_11">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  L 1042.24252 294.84  L 675.286299 294.84  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_7">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p301a2914a1)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-mceb88f037e" x="819.286437" y="316.514799" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-PathCollection_8">
+    <ns0:g clip-path="url(#05_concentration_command_comparisons-p301a2914a1)">
+     <ns0:use ns2:href="#05_concentration_command_comparisons-me4185c327d" x="834.916088" y="327.163729" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_7">
+    <ns0:g id="05_concentration_command_comparisons-xtick_12">
+     <ns0:g id="05_concentration_command_comparisons-line2d_44">
+      <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_45">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="675.286299" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_30">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="675.286299" y="418.235312" transform="rotate(-0 675.286299 418.235312)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_13">
+     <ns0:g id="05_concentration_command_comparisons-line2d_46">
+      <ns0:path d="M 858.764409 388.44  L 858.764409 294.84  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_47">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="858.764409" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_31">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="418.235312" transform="rotate(-0 858.764409 418.235312)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-xtick_14">
+     <ns0:g id="05_concentration_command_comparisons-line2d_48">
+      <ns0:path d="M 1042.24252 388.44  L 1042.24252 294.84  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_49">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m8fe1a3ac55" x="1042.24252" y="388.44" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_32">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="418.235312" transform="rotate(-0 1042.24252 418.235312)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_33">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="858.764409" y="451.269687" transform="rotate(-0 858.764409 451.269687)">Dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-matplotlib.axis_8">
+    <ns0:g id="05_concentration_command_comparisons-ytick_10">
+     <ns0:g id="05_concentration_command_comparisons-line2d_50">
+      <ns0:path d="M 675.286299 376.74  L 1042.24252 376.74  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_51">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="376.74" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_34">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="388.137656" transform="rotate(-0 668.286299 388.137656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_11">
+     <ns0:g id="05_concentration_command_comparisons-line2d_52">
+      <ns0:path d="M 675.286299 341.64  L 1042.24252 341.64  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_53">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="341.64" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_35">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="353.037656" transform="rotate(-0 668.286299 353.037656)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-ytick_12">
+     <ns0:g id="05_concentration_command_comparisons-line2d_54">
+      <ns0:path d="M 675.286299 306.54  L 1042.24252 306.54  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-line2d_55">
+      <ns0:g>
+       <ns0:use ns2:href="#05_concentration_command_comparisons-m32d6fe0a88" x="675.286299" y="306.54" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_concentration_command_comparisons-text_36">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="668.286299" y="317.937656" transform="rotate(-0 668.286299 317.937656)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_concentration_command_comparisons-text_37">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(586.278799 418.735312) rotate(-90)">Command</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(619.872237 405.924375) rotate(-90)">lift (p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-line2d_56">
+    <ns0:path d="M 675.286299 376.74  L 1042.24252 376.74  " clip-path="url(#05_concentration_command_comparisons-p301a2914a1)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_12">
+    <ns0:path d="M 675.286299 388.44  L 675.286299 294.84  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-patch_13">
+    <ns0:path d="M 675.286299 388.44  L 1042.24252 388.44  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_concentration_command_comparisons-text_38">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="675.286299" y="282.84" transform="rotate(-0 675.286299 282.84)">d  Credit assignment</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="05_concentration_command_comparisons-text_39">
+   <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="575.404724" y="36.835313" transform="rotate(-0 575.404724 36.835313)">Two variants per family · one seed per variant</ns0:text>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="05_concentration_command_comparisons-p7e30f57c4d">
+   <ns0:rect x="124.851969" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="05_concentration_command_comparisons-pbf33ecb9c8">
+   <ns0:rect x="675.286299" y="93.6" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="05_concentration_command_comparisons-p5280ec5773">
+   <ns0:rect x="124.851969" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+  <ns0:clipPath id="05_concentration_command_comparisons-p301a2914a1">
+   <ns0:rect x="675.286299" y="294.84" width="366.95622" height="93.6" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="05_concentration_command_comparisons-caption" x="20" y="300.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="300.100000051489">Higher concentration accompanies lower command</ns0:tspan><ns0:tspan x="20" y="318.100000051489">benefit in both available pairs. One seed per variant.</ns0:tspan></ns0:text></ns0:svg>
