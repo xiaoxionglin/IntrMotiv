@@ -1,0 +1,105 @@
+{
+  "source_svg": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/05_plans/poster_20260929/Bernstein2026_IntrMotiv_filled.svg",
+  "source_svg_sha256": "bd04918327d1e67f650e6a5cf2debbfb5d3edc2796002a51f8164e4a5e4251ca",
+  "source_svg_hash_scope": "Input before layer replacement; source and output may be the same path.",
+  "output_svg": "05_plans/poster_20260929/Bernstein2026_IntrMotiv_filled.svg",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot_source_script": "06_experiments/compose_a0_poster_20260929.py",
+  "software": {
+    "matplotlib": "3.10.8",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3"
+  },
+  "removed_right_objects": [
+    "poster-right-20260929"
+  ],
+  "retained_direct_subtree_count": 74,
+  "retained_subtree_checks": "pass",
+  "header_and_left_column": "unchanged",
+  "scalar_source": {
+    "path": "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv",
+    "sha256": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65"
+  },
+  "survey_source": {
+    "path": "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv",
+    "sha256": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c"
+  },
+  "survey_cohorts": [
+    {
+      "panel": "A",
+      "protocol": "online_latest_saved_window",
+      "dg_units": 16,
+      "x": "spatial_information",
+      "y": "prospective_success",
+      "n": 168,
+      "conditions": 56,
+      "spearman_rho": 0.582690915717171,
+      "minimum_frames": 25001984,
+      "maximum_frames": 150011904,
+      "families": {
+        "CPD": 81,
+        "CPU cadence": 12,
+        "DGC": 9,
+        "DGP": 24,
+        "Navigation8": 12,
+        "Source credit": 30
+      },
+      "within_family_rho": {
+        "CPD": 0.093676603432701,
+        "CPU cadence": -0.5384615384615385,
+        "DGC": -0.43333333333333335,
+        "DGP": -0.0008695652173913043,
+        "Navigation8": 0.2517482517482518,
+        "Source credit": 0.2947719688542826
+      }
+    },
+    {
+      "panel": "B",
+      "protocol": "online_latest_saved_window",
+      "dg_units": 16,
+      "x": "unique_peak_bins",
+      "y": "prospective_success",
+      "n": 168,
+      "conditions": 56,
+      "spearman_rho": -0.4238728919699062,
+      "minimum_frames": 25001984,
+      "maximum_frames": 150011904,
+      "families": {
+        "CPD": 81,
+        "CPU cadence": 12,
+        "DGC": 9,
+        "DGP": 24,
+        "Navigation8": 12,
+        "Source credit": 30
+      },
+      "within_family_rho": {
+        "CPD": -0.12977764107173426,
+        "CPU cadence": -0.5096620410811782,
+        "DGC": 0.09283444198266944,
+        "DGP": -0.2386331627542078,
+        "Navigation8": -0.06588237320488531,
+        "Source credit": -0.40378024684651753
+      }
+    }
+  ],
+  "aggregation": "Equal-weight seed means; all three seed observations displayed. No statistical-significance claims.",
+  "survey_scope": "DG 16 only; legacy 19x19 geometry; latest online windows with both spatial metrics and target-event counters. A/B show the same 168 runs (56 variants). Shape and color encode study family. DG 32/64 and other protocols screened separately in dg_capacity_audit.csv. No fitting or significance tests.",
+  "typography": {
+    "plot_labels_pt": 30,
+    "explanatory_text_pt": 40,
+    "section_headings_pt": 48
+  },
+  "selected_conditions": [
+    "C01",
+    "C05",
+    "C15"
+  ],
+  "seeds": [
+    8,
+    99,
+    123
+  ],
+  "checkpoint_frames": 100040704,
+  "revision": "Large-type revision: 30 pt plot text, 40 pt explanation, smaller data areas, larger markers. Capacity fixed to DG 16; two online metric/control scatters replace the mixed-capacity four-panel survey. Visitor discussion asks how an event code becomes a physical goal.",
+  "placeholders": []
+}

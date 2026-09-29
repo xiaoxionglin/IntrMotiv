@@ -1,0 +1,58 @@
+[
+  {
+    "panel": "A",
+    "protocol": "online_latest_saved_window",
+    "dg_units": 16,
+    "x": "spatial_information",
+    "y": "prospective_success",
+    "n": 168,
+    "conditions": 56,
+    "spearman_rho": 0.582690915717171,
+    "minimum_frames": 25001984,
+    "maximum_frames": 150011904,
+    "families": {
+      "CPD": 81,
+      "CPU cadence": 12,
+      "DGC": 9,
+      "DGP": 24,
+      "Navigation8": 12,
+      "Source credit": 30
+    },
+    "within_family_rho": {
+      "CPD": 0.093676603432701,
+      "CPU cadence": -0.5384615384615385,
+      "DGC": -0.43333333333333335,
+      "DGP": -0.0008695652173913043,
+      "Navigation8": 0.2517482517482518,
+      "Source credit": 0.2947719688542826
+    }
+  },
+  {
+    "panel": "B",
+    "protocol": "online_latest_saved_window",
+    "dg_units": 16,
+    "x": "unique_peak_bins",
+    "y": "prospective_success",
+    "n": 168,
+    "conditions": 56,
+    "spearman_rho": -0.4238728919699062,
+    "minimum_frames": 25001984,
+    "maximum_frames": 150011904,
+    "families": {
+      "CPD": 81,
+      "CPU cadence": 12,
+      "DGC": 9,
+      "DGP": 24,
+      "Navigation8": 12,
+      "Source credit": 30
+    },
+    "within_family_rho": {
+      "CPD": -0.12977764107173426,
+      "CPU cadence": -0.5096620410811782,
+      "DGC": 0.09283444198266944,
+      "DGP": -0.2386331627542078,
+      "Navigation8": -0.06588237320488531,
+      "Source credit": -0.40378024684651753
+    }
+  }
+]

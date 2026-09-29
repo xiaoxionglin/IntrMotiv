@@ -9,7 +9,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from sf_working_directories.IntrMotiv.evaluation.summarize_place_fields import summarize_artifact
 from hpc_runs.intrmotiv_study.spatial_contract import (
     FIELD_MIN_ACTIVE_BINS,
     FIELD_MIN_ACTIVE_OBSERVATIONS,
@@ -127,6 +126,8 @@ def finite_correlation(first, second):
 
 
 def derive_row(item: dict[str, str], artifact: Path) -> dict[str, object]:
+    from sf_working_directories.IntrMotiv.evaluation.summarize_place_fields import summarize_artifact
+
     data = np.load(artifact, allow_pickle=False)
     occupancy = data["occupancy"]
     rate_maps = data["rate_maps"]

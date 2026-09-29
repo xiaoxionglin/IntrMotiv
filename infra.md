@@ -6,13 +6,138 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Spatial summary exports need protocol and capacity provenance — 2026-09-28
+
+- **Evidence:** The cross-run poster survey deduplicated 15 canonical CSV
+  exports into 970 distinct online snapshots and 283 latest run windows.
+  Twelve transfer rows omitted DG capacity, which was recovered from the same
+  run's frozen summary; other capacities came from validated StudySpecs.
+  Existing online mono-field fractions divide by eligible units, whereas the
+  poster's mono-field fraction divides by all DG units. Pooling the unadjusted
+  peak counts also reversed the sign of the graph association relative to
+  capacity-normalized counts.
+  The original corridor scatter also used one family color for all 27 runs,
+  hiding wall-removal probability; the revised plots expose probability,
+  architecture, and individual layout seeds at the shared saved age.
+- **Impact:** A merged table can silently duplicate runs, mix sample protocols,
+  or use incompatible denominators. Neighboring unpublished inputs can also
+  make a figure impossible to regenerate from a clean checkout.
+- **Improvement/status:** The reusable survey adapter now selects the latest
+  saved age per run/protocol, verifies duplicate metric agreement, resolves
+  capacity through source metadata, and saves pinned input tables plus hashes.
+  The prospective-control sheet now uses an explicit DG 16 subset and
+  data-fitted axes; its panel exports share that selection and scale. Targeted
+  replotting from the saved point table avoids rebuilding unrelated surveys.
+  Canonical summary-contract integration remains open; see the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** Canonical exports declare capacity, observation budget,
+  representation protocol, graph-counter scope, and mono-field denominator.
+  A pinned-bundle replay reproduces every plotted point without cluster access,
+  and repeated summary exports never increase the point count.
+
+### Poster assembly needs scoped SVG imports and preservation checks — 2026-09-29
+
+- **Evidence:** The supplied Inkscape A0 poster already embedded many SVG
+  definitions and off-page draft objects. Its control scatter extended beyond
+  the right edge, and the original reference block was below the page. Generic
+  imports risk colliding with existing Matplotlib IDs and affecting unrelated
+  content through shared definitions.
+- **Impact:** Filling one column can clip plots or alter user-protected header
+  and left-column content even when the new data figures are correct.
+- **Improvement/status:** The [poster composition adapter](06_experiments/compose_a0_poster_20260929.py)
+  removes only explicitly identified right-column objects, prefixes imported
+  plot IDs and references, verifies retained SVG subtrees, and records source
+  hashes in the [build manifest](05_plans/poster_20260929/build_manifest.json).
+  Earlier kernel panels reused the canonical support-aware summary rather
+  than averaging unsupported offsets; those panels are now supplementary.
+  The saved right column contains native vector groups
+  and editable text. This is a thin artifact adapter, not a new study workflow;
+  numerical contracts remain in [reusable telemetry](04_implementation/reusable_place_field_telemetry.md).
+  Editorial review found that the plotted goal-action sensitivity is mean
+  absolute **raw-logit** change, not an action-probability difference. The
+  revised axis now follows the [metric reference](04_implementation/IntrMotiv_metric_reference.md).
+  Unequal displacement bands now use their physical centers. The adapter can
+  replace its named layer in the current SVG, preserving edits elsewhere.
+  Compact mean/seed plots are regenerated at their final physical widths
+  (383 mm for four panels; 191.5 mm for two). The user's typography review
+  superseded the earlier 13 pt design: all plot text is now 30 pt, explanation
+  is 40 pt, and measured glyph widths wrap the narrower text blocks. Short
+  labels and smaller data areas accommodate those sizes without growing the
+  low-information panels. The survey now fixes DG capacity at 16 (168 runs)
+  and uses family shapes/colors; DG 32/64 are audited separately. Filtering
+  changed the old replay-score/coverage null from approximately zero (38
+  mixed-capacity rows) to rho 0.321 (18 DG-16 rows), so its narrative was
+  removed. Point mappings and statistics are saved with the artifact.
+  The [optional candidate gallery](05_plans/poster_20260929/candidate_plots/README.md)
+  reuses that style and scoped SVG importer without editing the poster. Its
+  [renderer](06_experiments/render_poster_candidate_plots_20260929.py) pins
+  completed 75M transfer tables, recomputes heldout seed summaries from matched
+  reset trials, and fails on mismatched starts, ages, duplicate trials or text
+  extending beyond the export. Selection sheets keep imported panels at their
+  original physical sizes. The transfer source DG is one frozen checkpoint
+  reused across downstream seeds; plotting it once avoids implying three
+  independent pretraining replicates. Short labels and parenthesized cue
+  sample counts resolved crowding at 30 pt without reducing type size.
+  Repository sync exposed 55 add/add SVG conflicts whose figure content was
+  identical after canonicalizing local IDs/references and export timestamps.
+  A working-file/index backup and XML comparison allowed mechanical resolution
+  without changing plotted values or geometry. The poster adapters already
+  fix `svg.hashsalt` and omit export dates; extending deterministic export to
+  older gallery renderers remains a follow-up. Acceptance: two renders from
+  unchanged inputs have identical SVG bytes and do not create sync conflicts.
+- **Acceptance:** Completed for this artifact: all new objects fit the first
+  A0 page, SVG IDs are unique, imports use no external images, and equal-size
+  Inkscape renders show zero pixel differences in the header and left column.
+  Preserve this scoped-import and render-comparison approach in future edits.
+  Read the canonical definition of each diagnostic before choosing its public
+  label; plausible shorthand from old reports is not sufficient provenance.
+  For future density revisions, regenerate small figures at their final
+  widths instead of scaling their typography down, and use the pinned point
+  table to avoid rescanning historical exports. Check grouping and protocol
+  before promoting a pooled association to a scientific claim.
+  Specify physical font sizes first, not merely a technical minimum, and
+  re-evaluate the full narrative whenever a capacity/protocol filter changes.
+
+### Frozen spatial probes need a standard loop metric — 2026-09-28
+
+- **Evidence:** The matched corrected-core C01/C02/C03/C05/C15 probes saved
+  complete 10,000-decision poses, but the canonical summaries reported coverage
+  and path efficiency without an episode-aware return measure. The poster
+  comparison had to derive a mobile-window short-return fraction from each
+  `pose.csv`. Its C05-versus-flat ordering reversed between 20- and
+  40-decision windows, so a single visually selected path or lag would mislead.
+- **Impact:** Claims that the flat decoder learns loops are difficult to check
+  across runs, and low motion can masquerade as fewer loops.
+  During the 29 September poster review, the selected C05 illustration was
+  headed “Goal conditioning alleviates looping,” although only 19.8% of its
+  valid 20-decision windows were mobile and its mean 40-decision returns
+  exceeded C01's. The poster also retained predecessor-study conclusions.
+- **Proposed improvement/status:** Add a small, documented family of
+  reset-bounded return measures at declared decision lags to the canonical
+  place-field summary, reporting mobile-window denominators and stationary
+  fraction alongside coverage. The current one-off values and source files are
+  in the [poster comparison](06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md); shared evaluator integration remains open.
+  The [revised poster plan](05_plans/A0_poster_plan_20260926.md) now binds row
+  headings to the matched evidence, carries the mobility qualification beside
+  return plots, and replaces the inherited conclusion. Future revisions should
+  start from the rendered artifact and the selected comparison's pinned table.
+- **Acceptance:** A focused synthetic trajectory test excludes reset jumps,
+  distinguishes a stationary path from a closed moving loop, and records counts
+  at multiple declared lags; a real saved probe reproduces the poster CSV.
+  Poster return panels retain mobile denominators and both lags, and the final
+  conclusion refers to the displayed study rather than its predecessor.
+
 ### Layerwise kernel artifacts should retain full spatial range — 2026-09-27
 
 - **Evidence:** The poster replay saved only 13×13 DG/CA3/decoder-1 kernels
   from a 19×19 map. DG occupancy and rate maps were already saved and exactly
   reproduced a checked DG kernel value and pair count. Aligned CA3 and
   decoder-1 activity was not retained, requiring 54 checkpoint forward passes
-  to obtain the missing offsets across the poster set.
+  to obtain the missing offsets across the poster set. The historical CPD and
+  Navigation8 100k-sample spatial snapshots preserve pose, actions, DG activity,
+  and graph buffers but no RGB observations or aligned CA3/decoder-1 activity;
+  21 historical CPD/corrected-core checkpoint replays were again needed for
+  the requested three-layer kernels on a shared panel.
 - **Impact:** A plotting-range change became a roughly 20–30 minute-per-run
   compute batch, delayed the poster analysis, and made its provenance harder
   to explain. Cue-specific outer offsets also proved sparse or unsupported.
@@ -96,7 +221,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   The selected-input mapping and panel patch are saved with the poster batch.
   Generalize these contracts in the canonical evaluator and permit validated
   read-only checkpoint roots while keeping all output, cache, and temporary
-  paths in the active workspace.
+  paths in the active workspace. The later historical CPD frozen extension
+  staged 12 further small checkpoints solely because the evaluator validates
+  input and output under one allocation; the read-only kernel runner now
+  accepts the legacy checkpoint root while retaining active-workspace outputs.
 - **Acceptance:** A panel save under a declared active workspace succeeds and
   a path outside it fails; a print-only manifest can read an immutable
   checkpoint in an older allocation while every writable path remains in the

@@ -1,0 +1,1454 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://www.w3.org/1999/xlink" width="841mm" height="710mm" viewBox="0 0 841 710"><ns0:rect width="841" height="710" fill="white" /><ns0:text id="gallery_architecture-title" x="20" y="30" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="30.0">Candidate architecture claims</ns0:tspan></ns0:text><ns0:text id="gallery_architecture-subtitle" x="20" y="53" style="font-family:DejaVu Sans;font-size:10.583333333333332px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="53.0">Selection sheet • original panel sizes • plot text 30 pt • captions 40 pt</ns0:tspan></ns0:text><ns0:text id="05_predictor_loops_and_coverage-title" x="20" y="82" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="82">05. A goal predictor accompanies more</ns0:tspan><ns0:tspan x="20" y="101">loops</ns0:tspan></ns0:text><ns0:g id="05_predictor_loops_and_coverage" ns1:label="05_predictor_loops_and_coverage" transform="translate(115.75,111) scale(0.35277777756285655)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="05_predictor_loops_and_coverage-figure_1">
+  <ns0:g id="05_predictor_loops_and_coverage-patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="05_predictor_loops_and_coverage-axes_1">
+   <ns0:g id="05_predictor_loops_and_coverage-patch_2">
+    <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  L 268.417083 65.628052  L 67.26274 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_1">
+    <ns0:path d="M 105.482065 85.26704  L 206.059237 78.180511  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_2">
+    <ns0:path d="M 117.551326 125.911271  L 218.128497 99.369116  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_3">
+    <ns0:path d="M 129.620586 111.175143  L 230.197758 75.593254  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-matplotlib.axis_1">
+    <ns0:g id="05_predictor_loops_and_coverage-xtick_1">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_4">
+      <ns0:defs>
+       <ns0:path id="05_predictor_loops_and_coverage-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m8fe1a3ac55" x="117.551326" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="117.551326" y="206.760698" transform="rotate(-0 117.551326 206.760698)">None</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-xtick_2">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_5">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m8fe1a3ac55" x="218.128497" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="218.128497" y="206.760698" transform="rotate(-0 218.128497 206.760698)">Goal</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-matplotlib.axis_2">
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_1">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_6">
+      <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_7">
+      <ns0:defs>
+       <ns0:path id="05_predictor_loops_and_coverage-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="67.26274" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="188.363041" transform="rotate(-0 60.26274 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_2">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_8">
+      <ns0:path d="M 67.26274 121.296719  L 268.417083 121.296719  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_9">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="67.26274" y="121.296719" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="132.694375" transform="rotate(-0 60.26274 132.694375)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_3">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_10">
+      <ns0:path d="M 67.26274 65.628052  L 268.417083 65.628052  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_11">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="67.26274" y="65.628052" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="77.025709" transform="rotate(-0 60.26274 77.025709)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-patch_3">
+    <ns0:path d="M 67.26274 176.965385  L 67.26274 65.628052  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-patch_4">
+    <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="05_predictor_loops_and_coverage-mca9e6aa1f7" d="M 0 3.741657  C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751  C 3.347413 1.94409 3.741657 0.992299 3.741657 0  C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751  C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657  C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751  C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0  C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751  C -1.94409 3.347413 -0.992299 3.741657 0 3.741657  z " style="stroke: #0072b2" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)">
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="105.482065" y="85.26704" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="117.551326" y="125.911271" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="129.620586" y="111.175143" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="05_predictor_loops_and_coverage-m14e25c824e" d="M -3.741657 3.741657  L 3.741657 3.741657  L 3.741657 -3.741657  L -3.741657 -3.741657  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)">
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="206.059237" y="78.180511" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="218.128497" y="99.369116" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="230.197758" y="75.593254" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-text_6">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(67.546161 25.795553)">A  Return (%)</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(74.338349 59.38899)">20 decisions</ns0:text>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_12">
+    <ns0:path d="M 98.441663 107.451151  L 136.660988 107.451151  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_13">
+    <ns0:path d="M 199.018835 84.38096  L 237.23816 84.38096  " clip-path="url(#05_predictor_loops_and_coverage-p1a6652e254)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="05_predictor_loops_and_coverage-axes_2">
+   <ns0:g id="05_predictor_loops_and_coverage-patch_5">
+    <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  L 539.834406 65.628052  L 338.680063 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_14">
+    <ns0:path d="M 376.899388 112.198516  L 477.476559 123.918235  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_15">
+    <ns0:path d="M 388.968649 93.076869  L 489.54582 107.263897  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_16">
+    <ns0:path d="M 401.037909 94.310523  L 501.615081 114.974239  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-matplotlib.axis_3">
+    <ns0:g id="05_predictor_loops_and_coverage-xtick_3">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m8fe1a3ac55" x="388.968649" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="388.968649" y="206.760698" transform="rotate(-0 388.968649 206.760698)">None</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-xtick_4">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m8fe1a3ac55" x="489.54582" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="489.54582" y="206.760698" transform="rotate(-0 489.54582 206.760698)">Goal</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-matplotlib.axis_4">
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_4">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_19">
+      <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="338.680063" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_9">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="188.363041" transform="rotate(-0 331.680063 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_5">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_21">
+      <ns0:path d="M 338.680063 121.296719  L 539.834406 121.296719  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="338.680063" y="121.296719" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="132.694375" transform="rotate(-0 331.680063 132.694375)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="05_predictor_loops_and_coverage-ytick_6">
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_23">
+      <ns0:path d="M 338.680063 65.628052  L 539.834406 65.628052  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#05_predictor_loops_and_coverage-m32d6fe0a88" x="338.680063" y="65.628052" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="05_predictor_loops_and_coverage-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="77.025709" transform="rotate(-0 331.680063 77.025709)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-patch_6">
+    <ns0:path d="M 338.680063 176.965385  L 338.680063 65.628052  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-patch_7">
+    <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-PathCollection_3">
+    <ns0:g clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)">
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="376.899388" y="112.198516" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="388.968649" y="93.076869" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-mca9e6aa1f7" x="401.037909" y="94.310523" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-PathCollection_4">
+    <ns0:g clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)">
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="477.476559" y="123.918235" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="489.54582" y="107.263897" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#05_predictor_loops_and_coverage-m14e25c824e" x="501.615081" y="114.974239" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-text_12">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(368.726766 25.795553)">B  Visited</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(377.522859 59.38899)">bins (%)</ns0:text>
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_25">
+    <ns0:path d="M 369.858986 99.861969  L 408.078311 99.861969  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="05_predictor_loops_and_coverage-line2d_26">
+    <ns0:path d="M 470.436157 115.385457  L 508.655483 115.385457  " clip-path="url(#05_predictor_loops_and_coverage-p01c4a1b824)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="05_predictor_loops_and_coverage-p1a6652e254">
+   <ns0:rect x="67.26274" y="65.628052" width="201.154343" height="111.337333" />
+  </ns0:clipPath>
+  <ns0:clipPath id="05_predictor_loops_and_coverage-p01c4a1b824">
+   <ns0:rect x="338.680063" y="65.628052" width="201.154343" height="111.337333" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="05_predictor_loops_and_coverage-caption" x="20" y="206.19999995357702" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="206.19999995357702">Goal predictor: more returns and less coverage in</ns0:tspan><ns0:tspan x="20" y="224.19999995357702">every paired seed. DG 16; three seeds.</ns0:tspan></ns0:text><ns0:text id="06_graph_and_recorded_outcomes-title" x="438" y="82" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="438" y="82">06. Graph connectivity and recorded</ns0:tspan><ns0:tspan x="438" y="101">outcomes diverge</ns0:tspan></ns0:text><ns0:g id="06_graph_and_recorded_outcomes" ns1:label="06_graph_and_recorded_outcomes" transform="translate(533.75,111) scale(0.35277777756285655)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="06_graph_and_recorded_outcomes-figure_1">
+  <ns0:g id="06_graph_and_recorded_outcomes-patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="06_graph_and_recorded_outcomes-axes_1">
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_2">
+    <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  L 268.417083 65.628052  L 67.26274 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_1">
+    <ns0:path d="M 105.482065 112.661682  L 206.059237 125.122791  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_2">
+    <ns0:path d="M 117.551326 111.301098  L 218.128497 121.370977  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_3">
+    <ns0:path d="M 129.620586 119.459069  L 230.197758 122.661166  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-matplotlib.axis_1">
+    <ns0:g id="06_graph_and_recorded_outcomes-xtick_1">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_4">
+      <ns0:defs>
+       <ns0:path id="06_graph_and_recorded_outcomes-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m8fe1a3ac55" x="117.551326" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="117.551326" y="206.760698" transform="rotate(-0 117.551326 206.760698)">FIRST</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-xtick_2">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_5">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m8fe1a3ac55" x="218.128497" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="218.128497" y="206.760698" transform="rotate(-0 218.128497 206.760698)">HIT</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-matplotlib.axis_2">
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_1">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_6">
+      <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_7">
+      <ns0:defs>
+       <ns0:path id="06_graph_and_recorded_outcomes-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="67.26274" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="188.363041" transform="rotate(-0 60.26274 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_2">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_8">
+      <ns0:path d="M 67.26274 123.947608  L 268.417083 123.947608  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_9">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="67.26274" y="123.947608" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="135.345264" transform="rotate(-0 60.26274 135.345264)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_3">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_10">
+      <ns0:path d="M 67.26274 70.92983  L 268.417083 70.92983  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_11">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="67.26274" y="70.92983" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="82.327486" transform="rotate(-0 60.26274 82.327486)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_3">
+    <ns0:path d="M 67.26274 176.965385  L 67.26274 65.628052  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_4">
+    <ns0:path d="M 67.26274 176.965385  L 268.417083 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="06_graph_and_recorded_outcomes-mca9e6aa1f7" d="M 0 3.741657  C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751  C 3.347413 1.94409 3.741657 0.992299 3.741657 0  C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751  C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657  C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751  C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0  C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751  C -1.94409 3.347413 -0.992299 3.741657 0 3.741657  z " style="stroke: #0072b2" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)">
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="105.482065" y="112.661682" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="117.551326" y="111.301098" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="129.620586" y="119.459069" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="06_graph_and_recorded_outcomes-m14e25c824e" d="M -3.741657 3.741657  L 3.741657 3.741657  L 3.741657 -3.741657  L -3.741657 -3.741657  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)">
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="206.059237" y="125.122791" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="218.128497" y="121.370977" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="230.197758" y="122.661166" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-text_6">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(72.936786 25.795553)">A  Event hits</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(141.88288 59.38899)">(%)</ns0:text>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_12">
+    <ns0:path d="M 98.441663 114.47395  L 136.660988 114.47395  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_13">
+    <ns0:path d="M 199.018835 123.051645  L 237.23816 123.051645  " clip-path="url(#06_graph_and_recorded_outcomes-p1a6652e254)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="06_graph_and_recorded_outcomes-axes_2">
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_5">
+    <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  L 539.834406 65.628052  L 338.680063 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_14">
+    <ns0:path d="M 376.899388 174.314496  L 477.476559 70.92983  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_15">
+    <ns0:path d="M 388.968649 169.454533  L 489.54582 83.300646  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_16">
+    <ns0:path d="M 401.037909 172.105422  L 501.615081 70.92983  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-matplotlib.axis_3">
+    <ns0:g id="06_graph_and_recorded_outcomes-xtick_3">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m8fe1a3ac55" x="388.968649" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="388.968649" y="206.760698" transform="rotate(-0 388.968649 206.760698)">FIRST</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-xtick_4">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m8fe1a3ac55" x="489.54582" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="489.54582" y="206.760698" transform="rotate(-0 489.54582 206.760698)">HIT</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-matplotlib.axis_4">
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_4">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_19">
+      <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="338.680063" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_9">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="188.363041" transform="rotate(-0 331.680063 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_5">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_21">
+      <ns0:path d="M 338.680063 123.947608  L 539.834406 123.947608  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="338.680063" y="123.947608" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="135.345264" transform="rotate(-0 331.680063 135.345264)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_graph_and_recorded_outcomes-ytick_6">
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_23">
+      <ns0:path d="M 338.680063 70.92983  L 539.834406 70.92983  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m32d6fe0a88" x="338.680063" y="70.92983" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_graph_and_recorded_outcomes-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="331.680063" y="82.327486" transform="rotate(-0 331.680063 82.327486)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_6">
+    <ns0:path d="M 338.680063 176.965385  L 338.680063 65.628052  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-patch_7">
+    <ns0:path d="M 338.680063 176.965385  L 539.834406 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-PathCollection_3">
+    <ns0:g clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)">
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="376.899388" y="174.314496" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="388.968649" y="169.454533" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-mca9e6aa1f7" x="401.037909" y="172.105422" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-PathCollection_4">
+    <ns0:g clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)">
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="477.476559" y="70.92983" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="489.54582" y="83.300646" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#06_graph_and_recorded_outcomes-m14e25c824e" x="501.615081" y="70.92983" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-text_12">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(341.396297 25.795553)">B  Reachable</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(371.670516 59.38899)">pairs (%)</ns0:text>
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_25">
+    <ns0:path d="M 369.858986 171.95815  L 408.078311 171.95815  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_graph_and_recorded_outcomes-line2d_26">
+    <ns0:path d="M 470.436157 75.053435  L 508.655483 75.053435  " clip-path="url(#06_graph_and_recorded_outcomes-p01c4a1b824)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="06_graph_and_recorded_outcomes-p1a6652e254">
+   <ns0:rect x="67.26274" y="65.628052" width="201.154343" height="111.337333" />
+  </ns0:clipPath>
+  <ns0:clipPath id="06_graph_and_recorded_outcomes-p01c4a1b824">
+   <ns0:rect x="338.680063" y="65.628052" width="201.154343" height="111.337333" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="06_graph_and_recorded_outcomes-caption" x="438" y="206.19999995357702" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="438" y="206.19999995357702">DG 16; three paired seeds. FIRST/HIT also change the</ns0:tspan><ns0:tspan x="438" y="224.19999995357702">outcome rule, so event-hit definitions differ.</ns0:tspan></ns0:text><ns0:text id="07_exploration_and_compact_fields-title" x="20" y="392" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="392">07. Broader exploration need not mean</ns0:tspan><ns0:tspan x="20" y="411">compact fields</ns0:tspan></ns0:text><ns0:g id="07_exploration_and_compact_fields" ns1:label="07_exploration_and_compact_fields" transform="translate(115.75,421) scale(0.35277777756285655)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="07_exploration_and_compact_fields-figure_1">
+  <ns0:g id="07_exploration_and_compact_fields-patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="07_exploration_and_compact_fields-axes_1">
+   <ns0:g id="07_exploration_and_compact_fields-patch_2">
+    <ns0:path d="M 67.26274 176.965385  L 287.504583 176.965385  L 287.504583 65.628052  L 67.26274 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-matplotlib.axis_1">
+    <ns0:g id="07_exploration_and_compact_fields-xtick_1">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_1">
+      <ns0:defs>
+       <ns0:path id="07_exploration_and_compact_fields-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="103.969714" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="103.969714" y="206.760698" transform="rotate(-0 103.969714 206.760698)">C01</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-xtick_2">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_2">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="177.383661" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="177.383661" y="206.760698" transform="rotate(-0 177.383661 206.760698)">C05</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-xtick_3">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_3">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="250.797609" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="250.797609" y="206.760698" transform="rotate(-0 250.797609 206.760698)">C15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-matplotlib.axis_2">
+    <ns0:g id="07_exploration_and_compact_fields-ytick_1">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_4">
+      <ns0:path d="M 67.26274 176.965385  L 287.504583 176.965385  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_5">
+      <ns0:defs>
+       <ns0:path id="07_exploration_and_compact_fields-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="67.26274" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="188.363041" transform="rotate(-0 60.26274 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-ytick_2">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_6">
+      <ns0:path d="M 67.26274 121.296719  L 287.504583 121.296719  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_7">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="67.26274" y="121.296719" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="132.694375" transform="rotate(-0 60.26274 132.694375)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-ytick_3">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_8">
+      <ns0:path d="M 67.26274 65.628052  L 287.504583 65.628052  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_9">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="67.26274" y="65.628052" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="60.26274" y="77.025709" transform="rotate(-0 60.26274 77.025709)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-patch_3">
+    <ns0:path d="M 67.26274 176.965385  L 67.26274 65.628052  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-patch_4">
+    <ns0:path d="M 67.26274 176.965385  L 287.504583 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="07_exploration_and_compact_fields-m7fd14b194e" d="M 0 3.741657  C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751  C 3.347413 1.94409 3.741657 0.992299 3.741657 0  C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751  C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657  C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751  C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0  C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751  C -1.94409 3.347413 -0.992299 3.741657 0 3.741657  z " style="stroke: #5e5e5e" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pe210095913)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="95.16004" y="141.42622" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="103.969714" y="129.125317" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="112.779388" y="133.507996" style="fill: #5e5e5e; stroke: #5e5e5e" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="07_exploration_and_compact_fields-ma2833aa3d5" d="M 0 3.741657  C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751  C 3.347413 1.94409 3.741657 0.992299 3.741657 0  C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751  C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657  C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751  C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0  C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751  C -1.94409 3.347413 -0.992299 3.741657 0 3.741657  z " style="stroke: #009e73" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pe210095913)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="168.573988" y="132.299467" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="177.383661" y="127.811096" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="186.193335" y="130.399746" style="fill: #009e73; stroke: #009e73" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="07_exploration_and_compact_fields-mb5104188a3" d="M 0 3.741657  C 0.992299 3.741657 1.94409 3.347413 2.645751 2.645751  C 3.347413 1.94409 3.741657 0.992299 3.741657 0  C 3.741657 -0.992299 3.347413 -1.94409 2.645751 -2.645751  C 1.94409 -3.347413 0.992299 -3.741657 0 -3.741657  C -0.992299 -3.741657 -1.94409 -3.347413 -2.645751 -2.645751  C -3.347413 -1.94409 -3.741657 -0.992299 -3.741657 0  C -3.741657 0.992299 -3.347413 1.94409 -2.645751 2.645751  C -1.94409 3.347413 -0.992299 3.741657 0 3.741657  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pe210095913)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="241.987935" y="100.149236" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="250.797609" y="71.912003" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="259.607283" y="96.397487" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-text_7">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(49.236786 25.795553)">A  Coverage AUC</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(132.053193 59.38899)">(cells)</ns0:text>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_10">
+    <ns0:path d="M 90.021064 134.686511  L 117.918364 134.686511  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_11">
+    <ns0:path d="M 163.435011 130.170103  L 191.332311 130.170103  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_12">
+    <ns0:path d="M 236.848959 89.486242  L 264.746259 89.486242  " clip-path="url(#07_exploration_and_compact_fields-pe210095913)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="07_exploration_and_compact_fields-axes_2">
+   <ns0:g id="07_exploration_and_compact_fields-patch_5">
+    <ns0:path d="M 319.592563 176.965385  L 539.834406 176.965385  L 539.834406 65.628052  L 319.592563 65.628052  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-matplotlib.axis_3">
+    <ns0:g id="07_exploration_and_compact_fields-xtick_4">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_13">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="356.299537" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="356.299537" y="206.760698" transform="rotate(-0 356.299537 206.760698)">C01</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-xtick_5">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="429.713484" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_9">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="429.713484" y="206.760698" transform="rotate(-0 429.713484 206.760698)">C05</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-xtick_6">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_15">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m8fe1a3ac55" x="503.127432" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="503.127432" y="206.760698" transform="rotate(-0 503.127432 206.760698)">C15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-matplotlib.axis_4">
+    <ns0:g id="07_exploration_and_compact_fields-ytick_4">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_16">
+      <ns0:path d="M 319.592563 172.68318  L 539.834406 172.68318  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="319.592563" y="172.68318" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="312.592563" y="184.080836" transform="rotate(-0 312.592563 184.080836)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-ytick_5">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_18">
+      <ns0:path d="M 319.592563 119.155616  L 539.834406 119.155616  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_19">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="319.592563" y="119.155616" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="312.592563" y="130.553272" transform="rotate(-0 312.592563 130.553272)">1</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_exploration_and_compact_fields-ytick_6">
+     <ns0:g id="07_exploration_and_compact_fields-line2d_20">
+      <ns0:path d="M 319.592563 65.628053  L 539.834406 65.628053  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-line2d_21">
+      <ns0:g>
+       <ns0:use ns2:href="#07_exploration_and_compact_fields-m32d6fe0a88" x="319.592563" y="65.628053" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_exploration_and_compact_fields-text_13">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="312.592563" y="77.025709" transform="rotate(-0 312.592563 77.025709)">2</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-patch_6">
+    <ns0:path d="M 319.592563 176.965385  L 319.592563 65.628053  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-patch_7">
+    <ns0:path d="M 319.592563 176.965385  L 539.834406 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_4">
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pb331920889)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="347.489863" y="172.68318" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="356.299537" y="172.68318" style="fill: #5e5e5e; stroke: #5e5e5e" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-m7fd14b194e" x="365.10921" y="119.155616" style="fill: #5e5e5e; stroke: #5e5e5e" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_5">
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pb331920889)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="420.903811" y="119.155616" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="429.713484" y="172.68318" style="fill: #009e73; stroke: #009e73" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-ma2833aa3d5" x="438.523158" y="119.155616" style="fill: #009e73; stroke: #009e73" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-PathCollection_6">
+    <ns0:g clip-path="url(#07_exploration_and_compact_fields-pb331920889)">
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="494.317758" y="119.155616" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="503.127432" y="172.68318" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_exploration_and_compact_fields-mb5104188a3" x="511.937106" y="172.68318" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-text_14">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(325.993172 25.795553)">B  Single-field</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(363.931453 59.38899)">units /16</ns0:text>
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_22">
+    <ns0:path d="M 342.350887 154.840659  L 370.248187 154.840659  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_23">
+    <ns0:path d="M 415.764834 136.998137  L 443.662134 136.998137  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_exploration_and_compact_fields-line2d_24">
+    <ns0:path d="M 489.178782 154.840659  L 517.076082 154.840659  " clip-path="url(#07_exploration_and_compact_fields-pb331920889)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="07_exploration_and_compact_fields-pe210095913">
+   <ns0:rect x="67.26274" y="65.628052" width="220.241843" height="111.337333" />
+  </ns0:clipPath>
+  <ns0:clipPath id="07_exploration_and_compact_fields-pb331920889">
+   <ns0:rect x="319.592563" y="65.628052" width="220.241843" height="111.337333" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="07_exploration_and_compact_fields-caption" x="20" y="516.199999953577" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="516.199999953577">C15 explores more; strict single-field counts remain</ns0:tspan><ns0:tspan x="20" y="534.199999953577">low. Only 4 of 144 DG units qualify.</ns0:tspan></ns0:text><ns0:text id="08_architecture_conditioned_scatter-title" x="438" y="392" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="438" y="392">08. The pooled spatial association</ns0:tspan><ns0:tspan x="438" y="411">weakens within families</ns0:tspan></ns0:text><ns0:g id="08_architecture_conditioned_scatter" ns1:label="08_architecture_conditioned_scatter" transform="translate(438.0,421) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="08_architecture_conditioned_scatter-figure_1">
+  <ns0:g id="08_architecture_conditioned_scatter-patch_1">
+   <ns0:path d="M 0 468  L 1085.669291 468  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="08_architecture_conditioned_scatter-axes_1">
+   <ns0:g id="08_architecture_conditioned_scatter-patch_2">
+    <ns0:path d="M 103.138583 266.76  L 390.711699 266.76  L 390.711699 102.96  L 103.138583 102.96  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_1">
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_1">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_1">
+      <ns0:path d="M 103.138583 266.76  L 103.138583 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_2">
+      <ns0:defs>
+       <ns0:path id="08_architecture_conditioned_scatter-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="103.138583" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="103.138583" y="305.055313" transform="rotate(-0 103.138583 305.055313)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_2">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_3">
+      <ns0:path d="M 205.843267 266.76  L 205.843267 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="205.843267" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="205.843267" y="305.055313" transform="rotate(-0 205.843267 305.055313)">0.2</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_3">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_5">
+      <ns0:path d="M 308.547951 266.76  L 308.547951 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="308.547951" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.547951" y="305.055313" transform="rotate(-0 308.547951 305.055313)">0.4</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-text_4">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="246.925141" y="338.089687" transform="rotate(-0 246.925141 338.089687)">Spatial score</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_2">
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_1">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_7">
+      <ns0:path d="M 103.138583 266.76  L 390.711699 266.76  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_8">
+      <ns0:defs>
+       <ns0:path id="08_architecture_conditioned_scatter-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="103.138583" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="96.138583" y="278.157656" transform="rotate(-0 96.138583 278.157656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_2">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_9">
+      <ns0:path d="M 103.138583 184.86  L 390.711699 184.86  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_10">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="103.138583" y="184.86" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="96.138583" y="196.257656" transform="rotate(-0 96.138583 196.257656)">50</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_3">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_11">
+      <ns0:path d="M 103.138583 102.96  L 390.711699 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="103.138583" y="102.96" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="96.138583" y="114.357656" transform="rotate(-0 96.138583 114.357656)">100</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-text_8">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="28.63702" y="184.86" transform="rotate(-90 28.63702 184.86)">Recorded hits (%)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_3">
+    <ns0:path d="M 103.138583 266.76  L 103.138583 102.96  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_4">
+    <ns0:path d="M 103.138583 266.76  L 390.711699 266.76  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m8f81e75777" d="M 0 4.031129  C 1.069068 4.031129 2.094493 3.606384 2.850439 2.850439  C 3.606384 2.094493 4.031129 1.069068 4.031129 0  C 4.031129 -1.069068 3.606384 -2.094493 2.850439 -2.850439  C 2.094493 -3.606384 1.069068 -4.031129 0 -4.031129  C -1.069068 -4.031129 -2.094493 -3.606384 -2.850439 -2.850439  C -3.606384 -2.094493 -4.031129 -1.069068 -4.031129 0  C -4.031129 1.069068 -3.606384 2.094493 -2.850439 2.850439  C -2.094493 3.606384 -1.069068 4.031129 0 4.031129  z " style="stroke: #0072b2; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="178.929166" y="141.276668" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="169.167059" y="149.159997" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="176.024974" y="140.041179" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="179.382147" y="142.165348" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="182.420473" y="152.188184" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="186.713895" y="146.930317" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="181.111934" y="163.607055" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="173.300797" y="152.563688" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="165.766062" y="145.18424" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="189.524976" y="145.757469" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="181.643456" y="147.460803" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="182.112698" y="142.570483" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="182.042888" y="143.04483" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="176.937838" y="150.874579" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="182.93702" y="136.918875" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="188.74082" y="160.865371" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="175.40243" y="153.18378" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="180.625919" y="159.677087" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="175.8165" y="152.499133" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="187.425708" y="153.085045" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="198.510717" y="162.322759" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="158.948087" y="146.736322" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="185.607012" y="137.655619" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="177.638694" y="143.950508" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="180.62777" y="162.308661" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="181.914991" y="160.721998" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="174.105492" y="157.081227" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="171.798959" y="146.550195" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="179.635447" y="144.636981" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="185.669277" y="134.614721" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="178.24992" y="135.725856" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="183.943898" y="138.548594" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="166.135153" y="141.730552" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="184.375767" y="156.570649" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="201.051396" y="160.000416" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="173.141527" y="155.832528" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="165.549561" y="170.192429" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="189.12357" y="156.417366" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="172.924115" y="184.436705" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="229.53704" y="140.466856" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="265.825755" y="151.011078" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="241.166343" y="155.667031" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="267.801052" y="145.128492" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="266.51449" y="140.444059" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="247.61256" y="140.575687" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="238.849135" y="168.379132" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="236.954538" y="136.029786" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="269.954872" y="143.251411" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="277.010563" y="152.386748" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="313.445004" y="149.092123" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="302.396603" y="157.261857" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="268.390523" y="134.157401" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="274.080269" y="154.744698" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="261.516447" y="159.376077" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="264.801124" y="148.139885" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="278.044392" y="159.011381" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="265.408915" y="160.095833" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="250.521427" y="141.873115" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="294.26818" y="148.194198" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="193.272399" y="133.110049" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="258.20961" y="142.108555" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="252.990804" y="140.69312" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="250.889615" y="141.031972" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="252.74609" y="144.909141" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="237.873309" y="145.139768" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="380.922742" y="166.816281" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="274.757143" y="152.179982" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="282.620742" y="152.472186" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="252.657831" y="145.419124" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="286.409478" y="134.801736" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="258.206472" y="131.370054" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="275.987126" y="137.567545" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="273.58169" y="143.764215" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="259.770377" y="158.104903" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="266.22521" y="146.447007" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="152.170814" y="154.249545" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="160.935245" y="153.542208" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="162.966294" y="147.228731" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="168.243" y="160.421681" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="167.176703" y="145.185977" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="167.965481" y="142.017825" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m9598d0cdd0" d="M -0 5.700877  L 5.700877 0  L 0 -5.700877  L -5.700877 -0  z " style="stroke: #cc79a7; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="129.695749" y="195.048303" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="127.501852" y="196.116436" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="132.416555" y="195.969514" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="126.582259" y="195.500102" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="127.196613" y="197.870417" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="125.644286" y="193.783202" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="132.567596" y="199.593414" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="130.218495" y="200.64451" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="130.579482" y="199.390226" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="127.220006" y="199.994722" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="130.033501" y="199.762303" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m9598d0cdd0" x="134.148001" y="200.076846" style="fill: #cc79a7; fill-opacity: 0.8; stroke: #cc79a7; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_3">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-mcde803321c" d="M 0 -4.031129  L -4.031129 4.031129  L 4.031129 4.031129  z " style="stroke: #009e73; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="151.848447" y="182.08724" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="148.260146" y="180.829793" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="156.393883" y="186.030061" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="177.352038" y="192.430383" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="173.668067" y="184.371916" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="157.204672" y="178.683832" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="163.915426" y="158.673406" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="156.941241" y="167.581778" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcde803321c" x="121.787485" y="157.166714" style="fill: #009e73; fill-opacity: 0.8; stroke: #009e73; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_4">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m2bbd336f61" d="M -4.031129 4.031129  L 4.031129 4.031129  L 4.031129 -4.031129  L -4.031129 -4.031129  z " style="stroke: #d55e00; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="165.414915" y="178.831912" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="180.750801" y="172.911424" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="170.833624" y="157.372767" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="190.737397" y="177.926264" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="177.881219" y="167.425898" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="188.374537" y="165.324116" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="172.638218" y="179.771067" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="174.091626" y="165.675105" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="168.006404" y="169.029227" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="178.020548" y="160.505713" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="163.088766" y="154.923482" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="183.996445" y="170.105117" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="174.080622" y="185.057955" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="163.745802" y="183.971613" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="173.942678" y="180.51403" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="191.548412" y="182.872751" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="195.715728" y="186.675382" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="171.912202" y="180.879712" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="167.395936" y="185.97091" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="167.152224" y="187.254923" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="174.887857" y="186.626907" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="181.918924" y="186.477217" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="167.536107" y="186.26722" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="174.231652" y="185.255411" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_5">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m6a747ff33a" d="M -1.34371 4.031129  L 1.34371 4.031129  L 1.34371 1.34371  L 4.031129 1.34371  L 4.031129 -1.34371  L 1.34371 -1.34371  L 1.34371 -4.031129  L -1.34371 -4.031129  L -1.34371 -1.34371  L -4.031129 -1.34371  L -4.031129 1.34371  L -1.34371 1.34371  z " style="stroke: #a6761d; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="252.148247" y="162.320075" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="151.09157" y="166.438376" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="208.000647" y="163.138644" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="150.656174" y="162.924185" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="137.119051" y="172.458146" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="141.789446" y="166.485786" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="153.234031" y="190.211457" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="141.847235" y="190.293302" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="157.967238" y="189.407102" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="164.570204" y="189.488655" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="182.24061" y="181.14455" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m6a747ff33a" x="133.445456" y="182.094006" style="fill: #a6761d; fill-opacity: 0.8; stroke: #a6761d; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_6">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m4939a2b2d2" d="M -2.015564 4.031129  L 0 2.015564  L 2.015564 4.031129  L 4.031129 2.015564  L 2.015564 0  L 4.031129 -2.015564  L 2.015564 -4.031129  L 0 -2.015564  L -2.015564 -4.031129  L -4.031129 -2.015564  L -2.015564 0  L -4.031129 2.015564  z " style="stroke: #e69f00; stroke-opacity: 0.8" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p39af9db2f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="172.161798" y="191.349777" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="178.670349" y="194.626658" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="171.898176" y="195.80329" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="227.308934" y="185.240517" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="178.102763" y="192.384803" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="173.303843" y="196.94411" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="172.126484" y="195.160448" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="218.263813" y="184.943173" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="158.572668" y="192.802269" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="184.172121" y="193.47336" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="180.582753" y="192.608103" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="175.499688" y="196.580463" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="185.024833" y="195.263202" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="169.499359" y="193.958418" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="182.457601" y="196.115904" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="148.720102" y="195.069846" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="178.858407" y="190.683207" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="166.534413" y="195.166604" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="147.791237" y="193.662567" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="183.608154" y="192.946009" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="174.203262" y="195.532008" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="163.798295" y="193.837788" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="174.688229" y="190.901996" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="159.304216" y="194.240644" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="152.859801" y="194.434986" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="162.187499" y="193.904447" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="158.75315" y="195.544251" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="155.840992" y="196.276973" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="168.716733" y="196.690685" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m4939a2b2d2" x="153.059758" y="194.044598" style="fill: #e69f00; fill-opacity: 0.8; stroke: #e69f00; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_9">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(197.148578 63.1275)">Pooled</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(131.193109 96.720937)">n=168, ρ=0.58</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="08_architecture_conditioned_scatter-axes_2">
+   <ns0:g id="08_architecture_conditioned_scatter-patch_5">
+    <ns0:path d="M 442.474859 266.76  L 730.047975 266.76  L 730.047975 102.96  L 442.474859 102.96  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_3">
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_4">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_13">
+      <ns0:path d="M 442.474859 266.76  L 442.474859 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_14">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="442.474859" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="442.474859" y="305.055313" transform="rotate(-0 442.474859 305.055313)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_5">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_15">
+      <ns0:path d="M 545.179544 266.76  L 545.179544 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_16">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="545.179544" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="545.179544" y="305.055313" transform="rotate(-0 545.179544 305.055313)">0.2</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_6">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_17">
+      <ns0:path d="M 647.884228 266.76  L 647.884228 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="647.884228" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="647.884228" y="305.055313" transform="rotate(-0 647.884228 305.055313)">0.4</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-text_13">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="586.261417" y="338.089687" transform="rotate(-0 586.261417 338.089687)">Spatial score</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_4">
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_4">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_19">
+      <ns0:path d="M 442.474859 266.76  L 730.047975 266.76  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_20">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="442.474859" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_5">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_21">
+      <ns0:path d="M 442.474859 184.86  L 730.047975 184.86  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_22">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="442.474859" y="184.86" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_6">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_23">
+      <ns0:path d="M 442.474859 102.96  L 730.047975 102.96  " clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_24">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="442.474859" y="102.96" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_6">
+    <ns0:path d="M 442.474859 266.76  L 442.474859 102.96  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_7">
+    <ns0:path d="M 442.474859 266.76  L 730.047975 266.76  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_7">
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-p236a2bf8f7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="518.265443" y="141.276668" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="508.503336" y="149.159997" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="515.361251" y="140.041179" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="518.718424" y="142.165348" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="521.756749" y="152.188184" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="526.050172" y="146.930317" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="520.44821" y="163.607055" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="512.637074" y="152.563688" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="505.102339" y="145.18424" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="528.861253" y="145.757469" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="520.979733" y="147.460803" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="521.448974" y="142.570483" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="521.379164" y="143.04483" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="516.274115" y="150.874579" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="522.273296" y="136.918875" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="528.077097" y="160.865371" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="514.738707" y="153.18378" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="519.962195" y="159.677087" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="515.152777" y="152.499133" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="526.761985" y="153.085045" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="537.846994" y="162.322759" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="498.284364" y="146.736322" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="524.943288" y="137.655619" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="516.97497" y="143.950508" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="519.964047" y="162.308661" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="521.251267" y="160.721998" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="513.441768" y="157.081227" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="511.135236" y="146.550195" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="518.971723" y="144.636981" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="525.005554" y="134.614721" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="517.586197" y="135.725856" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="523.280174" y="138.548594" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="505.47143" y="141.730552" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="523.712043" y="156.570649" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="540.387673" y="160.000416" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="512.477803" y="155.832528" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="504.885838" y="170.192429" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="528.459847" y="156.417366" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="512.260392" y="184.436705" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="568.873317" y="140.466856" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="605.162032" y="151.011078" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="580.502619" y="155.667031" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="607.137329" y="145.128492" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="605.850767" y="140.444059" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="586.948836" y="140.575687" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="578.185412" y="168.379132" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="576.290814" y="136.029786" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="609.291149" y="143.251411" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="616.34684" y="152.386748" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="652.781281" y="149.092123" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="641.73288" y="157.261857" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="607.7268" y="134.157401" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="613.416546" y="154.744698" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="600.852724" y="159.376077" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="604.137401" y="148.139885" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="617.380668" y="159.011381" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="604.745192" y="160.095833" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="589.857704" y="141.873115" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="633.604457" y="148.194198" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="532.608675" y="133.110049" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="597.545886" y="142.108555" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="592.327081" y="140.69312" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="590.225892" y="141.031972" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="592.082367" y="144.909141" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="577.209586" y="145.139768" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="720.259018" y="166.816281" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="614.09342" y="152.179982" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="621.957019" y="152.472186" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="591.994108" y="145.419124" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="625.745755" y="134.801736" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="597.542749" y="131.370054" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="615.323402" y="137.567545" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="612.917966" y="143.764215" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="599.106654" y="158.104903" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="605.561487" y="146.447007" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="491.507091" y="154.249545" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="500.271521" y="153.542208" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="502.302571" y="147.228731" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="507.579276" y="160.421681" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="506.51298" y="145.185977" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8f81e75777" x="507.301758" y="142.017825" style="fill: #0072b2; fill-opacity: 0.8; stroke: #0072b2; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_14">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(482.304386 63.1275)">CA3 feedback</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(480.073136 96.720937)">n=81, ρ=0.09</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="08_architecture_conditioned_scatter-axes_3">
+   <ns0:g id="08_architecture_conditioned_scatter-patch_8">
+    <ns0:path d="M 781.811136 266.76  L 1069.384252 266.76  L 1069.384252 102.96  L 781.811136 102.96  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_5">
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_7">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_25">
+      <ns0:path d="M 781.811136 266.76  L 781.811136 102.96  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_26">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="781.811136" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_15">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="781.811136" y="305.055313" transform="rotate(-0 781.811136 305.055313)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_8">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_27">
+      <ns0:path d="M 884.51582 266.76  L 884.51582 102.96  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_28">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="884.51582" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_16">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="884.51582" y="305.055313" transform="rotate(-0 884.51582 305.055313)">0.2</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-xtick_9">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_29">
+      <ns0:path d="M 987.220505 266.76  L 987.220505 102.96  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_30">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m8fe1a3ac55" x="987.220505" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-text_17">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="987.220505" y="305.055313" transform="rotate(-0 987.220505 305.055313)">0.4</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-text_18">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="925.597694" y="338.089687" transform="rotate(-0 925.597694 338.089687)">Spatial score</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-matplotlib.axis_6">
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_7">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_31">
+      <ns0:path d="M 781.811136 266.76  L 1069.384252 266.76  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_32">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="781.811136" y="266.76" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_8">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_33">
+      <ns0:path d="M 781.811136 184.86  L 1069.384252 184.86  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_34">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="781.811136" y="184.86" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="08_architecture_conditioned_scatter-ytick_9">
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_35">
+      <ns0:path d="M 781.811136 102.96  L 1069.384252 102.96  " clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="08_architecture_conditioned_scatter-line2d_36">
+      <ns0:g>
+       <ns0:use ns2:href="#08_architecture_conditioned_scatter-m32d6fe0a88" x="781.811136" y="102.96" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_9">
+    <ns0:path d="M 781.811136 266.76  L 781.811136 102.96  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-patch_10">
+    <ns0:path d="M 781.811136 266.76  L 1069.384252 266.76  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-PathCollection_8">
+    <ns0:g clip-path="url(#08_architecture_conditioned_scatter-pc7823ca4d7)">
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="844.087469" y="178.831912" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="859.423354" y="172.911424" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="849.506177" y="157.372767" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="869.409951" y="177.926264" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="856.553773" y="167.425898" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="867.047091" y="165.324116" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="851.310771" y="179.771067" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="852.764179" y="165.675105" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="846.678958" y="169.029227" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="856.693102" y="160.505713" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="841.76132" y="154.923482" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="862.668998" y="170.105117" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="852.753176" y="185.057955" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="842.418355" y="183.971613" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="852.615231" y="180.51403" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="870.220966" y="182.872751" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="874.388281" y="186.675382" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="850.584756" y="180.879712" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="846.068489" y="185.97091" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="845.824777" y="187.254923" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="853.560411" y="186.626907" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="860.591477" y="186.477217" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="846.20866" y="186.26722" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m2bbd336f61" x="852.904205" y="185.255411" style="fill: #d55e00; fill-opacity: 0.8; stroke: #d55e00; stroke-opacity: 0.8" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_19">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(853.496913 63.1275)">DG policy</ns0:text>
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(819.409413 96.720937)">n=24, ρ=0.00</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="08_architecture_conditioned_scatter-legend_1">
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_37">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m0cbffcb45f" d="M 0 4  C 1.060812 4 2.078319 3.578535 2.828427 2.828427  C 3.578535 2.078319 4 1.060812 4 0  C 4 -1.060812 3.578535 -2.078319 2.828427 -2.828427  C 2.078319 -3.578535 1.060812 -4 0 -4  C -1.060812 -4 -2.078319 -3.578535 -2.828427 -2.828427  C -3.578535 -2.078319 -4 -1.060812 -4 0  C -4 1.060812 -3.578535 2.078319 -2.828427 2.828427  C -2.078319 3.578535 -1.060812 4 0 4  z " style="stroke: #0072b2" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m0cbffcb45f" x="92.152614" y="373.206563" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_20">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="134.152614" y="383.706563" transform="rotate(-0 134.152614 383.706563)">CA3 feedback</ns0:text>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_38">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m03b821b0b2" d="M -0 5.656854  L 5.656854 0  L 0 -5.656854  L -5.656854 -0  z " style="stroke: #cc79a7; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m03b821b0b2" x="92.152614" y="417.240937" style="fill: #cc79a7; stroke: #cc79a7; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_21">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="134.152614" y="427.740937" transform="rotate(-0 134.152614 427.740937)">Controllers</ns0:text>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_39">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-mcf59b10952" d="M 0 -4  L -4 4  L 4 4  z " style="stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcf59b10952" x="399.066677" y="373.206563" style="fill: #009e73; stroke: #009e73; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_22">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="441.066677" y="383.706563" transform="rotate(-0 441.066677 383.706563)">Goal interfaces</ns0:text>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_40">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-m36f71a53c8" d="M -4 4  L 4 4  L 4 -4  L -4 -4  z " style="stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-m36f71a53c8" x="399.066677" y="417.240937" style="fill: #d55e00; stroke: #d55e00; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_23">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="441.066677" y="427.740937" transform="rotate(-0 441.066677 427.740937)">DG policy</ns0:text>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_41">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-mcdfdb0f403" d="M -1.333333 4  L 1.333333 4  L 1.333333 1.333333  L 4 1.333333  L 4 -1.333333  L 1.333333 -1.333333  L 1.333333 -4  L -1.333333 -4  L -1.333333 -1.333333  L -4 -1.333333  L -4 1.333333  L -1.333333 1.333333  z " style="stroke: #a6761d; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcdfdb0f403" x="725.349489" y="373.206563" style="fill: #a6761d; stroke: #a6761d; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_24">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="767.349489" y="383.706563" transform="rotate(-0 767.349489 383.706563)">Algorithm screen</ns0:text>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-line2d_42">
+    <ns0:defs>
+     <ns0:path id="08_architecture_conditioned_scatter-mcdfc5b1c6d" d="M -2 4  L 0 2  L 2 4  L 4 2  L 2 0  L 4 -2  L 2 -4  L 0 -2  L -2 -4  L -4 -2  L -2 0  L -4 2  z " style="stroke: #e69f00; stroke-linejoin: miter" />
+    </ns0:defs>
+    <ns0:g>
+     <ns0:use ns2:href="#08_architecture_conditioned_scatter-mcdfc5b1c6d" x="725.349489" y="417.240937" style="fill: #e69f00; stroke: #e69f00; stroke-linejoin: miter" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="08_architecture_conditioned_scatter-text_25">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="767.349489" y="427.740937" transform="rotate(-0 767.349489 427.740937)">Source credit</ns0:text>
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="08_architecture_conditioned_scatter-p39af9db2f7">
+   <ns0:rect x="103.138583" y="102.96" width="287.573116" height="163.8" />
+  </ns0:clipPath>
+  <ns0:clipPath id="08_architecture_conditioned_scatter-p236a2bf8f7">
+   <ns0:rect x="442.474859" y="102.96" width="287.573116" height="163.8" />
+  </ns0:clipPath>
+  <ns0:clipPath id="08_architecture_conditioned_scatter-pc7823ca4d7">
+   <ns0:rect x="781.811136" y="102.96" width="287.573116" height="163.8" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="08_architecture_conditioned_scatter-caption" x="438" y="605.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="438" y="605.100000051489">Capacity fixed at DG 16. Strong pooled association;</ns0:tspan><ns0:tspan x="438" y="623.100000051489">little monotonic relation within CPD or DGP.</ns0:tspan></ns0:text></ns0:svg>

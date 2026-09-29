@@ -1,0 +1,154 @@
+{
+  "schema": "intrmotiv/poster-candidate-gallery/v1",
+  "sources": {
+    "06_experiments/cued_reward5_transfer_20260925.md": "ce9d1329b631c4cec481f062c71f34388e7e4a2f81040258ebf0f915d22a4f6e",
+    "06_experiments/results/A0_poster_analysis_20260926/batch_summary.md": "9a09a31b978ffe34638bb4ca421f057803ed96aa8c387ed764b3f6107051a7e0",
+    "06_experiments/data/poster_missing_analyses_20260926/d50_75m_latest_allcue_replay_derived.csv": "f59e3cba60219ffa0c5eac1b42d37118fa904e39d82782bae1138fd366726653",
+    "06_experiments/data/poster_missing_analyses_20260926/heldout_d50_75m_latest/analysis/heldout_paired_trials.csv": "e735a1f80e75c2d92344b8dd146e0898ef6b2ffc271c37f2aed2bcd027095d19",
+    "06_experiments/data/poster_missing_analyses_20260926/d51_75m_allcue_replay_derived.csv": "becd49430adf2b7d49f3eef0cd154607cde0ed20f938a60193f91302ed0912d2",
+    "06_experiments/data/poster_missing_analyses_20260926/heldout_d51_75m/analysis/heldout_paired_trials.csv": "b3397ecf42319f578869b33edb03818909a0ace307f7770e1406e4e3462e472c",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_auc_windows_paired.csv": "773986629eba99c4e1d7bf1c3bb3dc79c9af31964868e6964db365cdd758cbd4",
+    "06_experiments/data/poster_missing_analyses_20260926/heldout_50m/analysis/heldout_paired_trials.csv": "04edf7917f068a4c3f39224ef9f66e5a2a3a2efbc4e535eeecba4a442bfc2ee7",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/control_per_run.csv": "699a6f65aff4e4743ecdf6d7a8ba3a97c4ffc530a4efa7ea803b29c58a606148",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_peak_counts.csv": "32e6b76a011c3d19be1171357d411428b79654a81e49570485f20df682d58d39",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_method.json": "9f60e9f93dd8e3ee1f0b7a4b253583934236f9ba33efc823db5849f951de9b52",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_sensitivity.csv": "56cd75d138c322109979506d2602db4dfed6b77b23ee3dea274b723cbeef714c",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c"
+  },
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "matplotlib_version": "3.10.8",
+  "numpy_version": "1.26.4",
+  "pandas_version": "2.3.3",
+  "plot_font_pt": 30,
+  "caption_font_pt": 40,
+  "transfer_study": {
+    "schema": "intrmotiv/study/v1",
+    "workflow_version": "1.12.0",
+    "study_id": "cued_reward5_frozen_dg_controls_20260925",
+    "study_sha256": "e3d4f5a1d29240dcb415b9ee8a163f236b1b41c145f6c766f4f3056698a1a32a",
+    "source": "06_experiments/cued_reward5_transfer_20260925.md"
+  },
+  "poster_sha256_before": "eef886cc8826a93f7f82f163142d55b9b3e0d5b5fd3abf8da6c17bcc134a131e",
+  "candidates": [
+    {
+      "key": "01_transfer_spatial_score_and_success",
+      "title": "Higher spatial scores do not ensure transfer gains",
+      "size_mm": [
+        383.0,
+        76.2
+      ],
+      "rank": "First choice",
+      "short_caption": "DG 64; one source representation per architecture. Three downstream seeds; 40 matched resets each.",
+      "caption": "Frozen pretrained source DG versus calibrated random DG, with fresh downstream worker, reward manager, and empty graph in both arms. A/C: common five-cue replay spatial score, with one source point and three random representations. B/D: per-training-seed physical reward success over 40 exactly matched reset trials, 1800-decision horizon. Src/circles: pretrained source; Rnd/squares: calibrated random; black marks: means. Heldout success is 50.0% versus 58.3% in D50 and 47.5% versus 61.7% in D51.",
+      "limitation": "One pretrained source checkpoint per architecture is reused across downstream seeds. D50 success differences are -25.0, -7.5, +7.5 percentage points; D51 differences are -22.5, -10.0, -10.0. Spatial score also depends on activation amplitude. This is transfer within the same visual geometry, not generalization to a new visual environment or a causal mediation test.",
+      "question": "Which properties of a learned landmark code make it reusable for externally rewarded control?"
+    },
+    {
+      "key": "02_transfer_training_reward",
+      "title": "Pretrained DG accumulates less transfer reward",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Strong compact alternative",
+      "short_caption": "Source reward is lower in all six paired seeds over 0–75M frames. Lines connect downstream seeds.",
+      "caption": "Mean reward per step from the canonical reward AUC divided by the 75M-frame horizon, displayed ×1000. Three paired downstream training seeds per architecture; points are seeds, connecting lines preserve seed pairing, and black marks show means. Src/circles: source; Rnd/squares: random. Source-minus-random differences average -0.074 × 10⁻³ in D50 and -0.058 × 10⁻³ in D51. Both arms freeze DG 64.",
+      "limitation": "This measures reward collected during transfer training, not heldout trial success. Early reward differences are mixed; the claim concerns the full 0–75M history and the two selected fixed sources.",
+      "question": "Could an intrinsic code favor familiar transitions that are unhelpful for the reward task?"
+    },
+    {
+      "key": "03_transfer_by_reward_cue",
+      "title": "Transfer performance varies across reward cues",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Optional transfer detail",
+      "short_caption": "Paired success differences by cue. Cue 1 has only six trial pairs; negative values favor random DG.",
+      "caption": "At the 75M endpoints, dots show each downstream training seed’s source-minus-random physical-success difference for each reward cue, in percentage points (pp). Black marks show means. The same resets and reward sites are paired between arms. Per architecture there are 6/30/30/36/18 trial pairs for cues 1–5, distributed equally over the three training seeds.",
+      "limitation": "Cue sample sizes are unequal. Overall success in candidate 01 weights trials as recorded, not cues equally. Cue 1 is particularly uncertain; these cue differences do not identify a representation mechanism.",
+      "question": "Does a useful landmark code need uniform goal coverage, or can a few poorly represented sites dominate failure?"
+    },
+    {
+      "key": "04_transfer_development",
+      "title": "D51’s transfer deficit grows by 75M",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Optional learning dynamics",
+      "short_caption": "Horizontal axis: 50M and 75M training frames. Lines track paired success differences for each seed.",
+      "caption": "Source-minus-random heldout success in percentage points at 50,003,968 frames and the 75M endpoints. Gray lines track the three downstream training seeds; black marks show means. D50 changes from +0.8 to -8.3 pp, D51 from -0.8 to -14.2 pp. In D51 the paired difference declines in every seed. Evaluations use the same 40-reset protocol and 1800-decision horizon.",
+      "limitation": "Two checkpoints describe developmental change rather than a full learning curve. The 50M snapshot does not replace the completed 75M endpoint. D50 remains mixed across seeds.",
+      "question": "When should we evaluate transfer: early adaptation, accumulated reward, or final heldout control?"
+    },
+    {
+      "key": "05_predictor_loops_and_coverage",
+      "title": "A goal predictor accompanies more loops",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Good discussion candidate",
+      "short_caption": "Goal predictor: more returns and less coverage in every paired seed. DG 16; three seeds.",
+      "caption": "Matched CPD GATE ACT DIR designs without (None) and with (Goal) a goal predictor at 75,038,720 frames. Frozen 10k-decision probes; dots are seeds 8/99/123, lines join training-seed pairs, black marks show means. Mobile-window 20-decision returns increase from 62.4% to 83.2%; visited arena-bin fraction decreases from 69.3% to 55.3%. Both directions hold in all three seeds.",
+      "limitation": "Probes match training age, environment and length, but not stochastic trajectories or starts. This predictor ablation is inside an already goal-conditioned controller; it is not an ablation of goal conditioning itself. Stabilizing familiar cycles is a hypothesis.",
+      "question": "Can better prediction reinforce familiar cycles rather than discovery?"
+    },
+    {
+      "key": "06_graph_and_recorded_outcomes",
+      "title": "Graph connectivity and recorded outcomes diverge",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Use with explicit definitions",
+      "short_caption": "DG 16; three paired seeds. FIRST/HIT also change the outcome rule, so event-hit definitions differ.",
+      "caption": "DGP FIRST versus HIT JOINT LEG at the shared 75,005,952-frame online snapshot. Three training seeds, paired by seed; black marks show means. Recorded prospective successes/attempts are 58.9% versus 50.8%, while stored reachable ordered node pairs are 4.7% versus 96.1%. Every seed shows opposite orderings. FIRST/HIT are declared worker-outcome rules.",
+      "limitation": "FIRST/HIT change the success definition. This comparison illustrates different diagnostics, not improved physical control under one shared success rule. Graph counters are accumulated event summaries; connectivity alone does not establish executable edges.",
+      "question": "Which stored edges correspond to actions the agent can actually execute?"
+    },
+    {
+      "key": "07_exploration_and_compact_fields",
+      "title": "Broader exploration need not mean compact fields",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Connects directly to the main story",
+      "short_caption": "C15 explores more; strict single-field counts remain low. Only 4 of 144 DG units qualify.",
+      "caption": "Matched C01/C05/C15 seeds 8/99/123 at 100,040,704 frames. A: terminal online coverage AUC. B: strict mono-field count per 16 DG units from archived frozen policy probes. Dots: seeds; black marks: means. Across seeds the counts are 1/48, 2/48 and 1/48 units. The classifier requires ≥80% dominant-component mass at 30/50/70% peak thresholds, with occupancy-corrected smoothing and the saved activity eligibility checks.",
+      "limitation": "The two diagnostics use different observation protocols. Sparse strict counts depend on the field criterion and policy sampling; they do not establish an absence of spatial coding or equivalence across conditions. See candidate 07b for criterion sensitivity.",
+      "question": "Can broad or multifield landmark events still support navigation through sequence context?"
+    },
+    {
+      "key": "07b_field_criterion_sensitivity",
+      "title": "Field counts depend on the compactness criterion",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Supplement to 07; not a new main claim",
+      "short_caption": "Same DG-16 maps and seeds; only the dominant mass cutoff varies. Dashed line: strict 80% criterion.",
+      "caption": "The same C01/C05/C15 frozen maps are classified at dominant-component mass cutoffs 20–90%, retaining the same three peak thresholds and activity eligibility. Dots: individual seed fractions; colored lines: seed means; denominator: all 16 DG units. At 50% mass, totals are 7/48, 16/48 and 7/48; at 80%, 1/48, 2/48 and 1/48.",
+      "limitation": "These are repeated classifications of the same maps, not independent experiments. A relaxed cutoff does not imply a compact single field. The strict criterion remains the declared primary definition; this panel shows why that choice matters.",
+      "question": "What field compactness would actually be necessary for a useful internal goal?"
+    },
+    {
+      "key": "08_architecture_conditioned_scatter",
+      "title": "The pooled spatial association weakens within families",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Alternative framing for section 3",
+      "short_caption": "Capacity fixed at DG 16. Strong pooled association; little monotonic relation within CPD or DGP.",
+      "caption": "Same 168-run cohort as the current poster: latest saved online windows, legacy arena, DG 16. Left: all 56 variants; middle: CA3-feedback family (CPD, 81 runs); right: DG-policy family (DGP, 24 runs). Dots: runs, with the same family color/shape mapping as the current poster. Spearman correlations are 0.583, 0.094 and -0.001. The pooled panel supplies context rather than an additional independent dataset. No regression or trend line is fitted.",
+      "limitation": "Ages and success rules differ across families; target counters retain accumulated history while fields summarize recent policy observations. This is a descriptive survey, not independent replication of each architecture or evidence that spatial score has no within-family effect.",
+      "question": "Is the pooled correlation driven by the representation metric or by the surrounding controller design?"
+    }
+  ],
+  "study_metadata_note": "StudySpec fingerprints retained in canonical experiment reports; no new study or telemetry."
+}

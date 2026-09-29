@@ -1,0 +1,28 @@
+{
+  "schema": "intrmotiv/mono-field-peak-comparison/v1",
+  "checkpoint_frames": 100040704,
+  "protocol": "Archived stochastic 10000-decision frozen probes; no new rollouts",
+  "classification": "Existing multilevel_field_structure: occupancy-corrected binomial smoothing, 8-connected components",
+  "eligible_min_active_observations": 20,
+  "eligible_min_active_bins": 3,
+  "threshold_peak_fractions": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "min_dominant_component_mass_at_each_threshold": 0.8,
+  "peak_location": "Maximum of the original unsmoothed occupancy-corrected rate map; ties use first NumPy argmax bin",
+  "grid": {
+    "grain": 19,
+    "bounds": [
+      100,
+      2000,
+      100,
+      2000
+    ],
+    "bin_center_position": "150 + 100 * bin_index"
+  },
+  "fraction_denominator": "All 16 DG units; eligible-unit counts exported separately",
+  "plotting_helper": "prepare_poster_exemplar_gallery.mono_peak_panel",
+  "classifier": "analyze_place_field_manifest.multilevel_field_structure"
+}

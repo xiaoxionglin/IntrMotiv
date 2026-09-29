@@ -15,8 +15,6 @@ import numpy as np
 import torch
 from torch import nn
 
-from sf_working_directories.IntrMotiv.evaluation.observation_panel import replay_observations
-from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
 
 
 def decoder_one_module(actor: nn.Module) -> tuple[str, nn.Module]:
@@ -118,6 +116,9 @@ def main() -> None:
     parser.add_argument('--per-cue', action='store_true',
                         help='Also compute separate kernels for each instruction on this panel')
     args = parser.parse_args()
+    # Array-only kernel analysis does not require an environment or learner.
+    from sf_working_directories.IntrMotiv.evaluation.observation_panel import replay_observations
+    from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
     cfg, env, _env_info, actor, checkpoint, device = load_policy_env(
         args.run_dir, 10_000, False, 0, args.checkpoint
     )

@@ -93,6 +93,35 @@ replace the 10k manifest-driven checkpoint protocol: they are policy-driven
 training windows and cannot establish fixed-trajectory map stability or
 pre-threshold selectivity.
 
+For historical poster extensions, read the retained online NPZ before
+requesting new telemetry: `pose`, `dg_activity`, `actions`, `segment_id`,
+`occupancy`, `rate_maps`, and `field_mono` support DG fields, trajectories,
+occupancy flow, and mono-field peaks directly. When present, the separate
+`control_*` stored and prospective arrays support explicitly labeled directed
+edge and source-command analyses. The snapshot does not contain RGB history or
+aligned CA3/decoder-1 traces. Reuse an existing common observation/action
+panel for downstream-layer replay, and audit direct plus milestone checkpoint
+files first. If no exact frame is shared across every required condition and
+seed, label a common-age snapshot as developmental rather than presenting it
+as a latest-checkpoint architecture contrast.
+
+For a cross-run spatial/control survey, reuse saved canonical per-snapshot
+CSVs and archived probe summaries through
+`06_experiments/render_all_run_spatial_scatter.py`. Select the latest available
+saved age per run and protocol, check duplicate exports for metric agreement,
+and preserve source hashes and a pinned input bundle. Keep online windows,
+frozen-policy probes, and common-history representation measurements in
+separate point rows. Report absolute active peak-bin count with its DG-capacity
+denominator, and preserve the distinction between mono-fields divided by
+eligible units and mono-fields divided by all units. Inspect family and
+capacity strata before interpreting pooled associations. The adapter can
+expose wall-removal probability directly in corridor figures, with architecture
+and layout-seed strata verified from the StudySpec; geometry contrasts require
+a shared saved age and preserve the total-grid coverage denominator. It can
+replot from its `--source-bundle` without reading a checkpoint or launching an
+environment; the [cross-run poster survey](../06_experiments/results/A0_poster_analysis_20260926/cross_run_scatter/report.md)
+records the metric mapping and scope.
+
 ## Authoritative Locations
 
 NEMO2 source checkout:

@@ -1,0 +1,149 @@
+protocol,dg_units,family,x,y,n,conditions,spearman_rho,minimum_frames,maximum_frames
+common_replay_with_frozen_outcomes,16,ALL,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,ALL,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,ALL,spatial_information,exploration_coverage,18,6,0.32094943240454077,75038720.0,300023808.0
+common_replay_with_frozen_outcomes,16,ALL,spatial_information,executed_minus_shuffled,18,6,-0.2260061919504644,75038720.0,300023808.0
+common_replay_with_frozen_outcomes,16,CPU cadence,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,CPU cadence,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,CPU cadence,spatial_information,exploration_coverage,3,1,-0.5,300007424.0,300007424.0
+common_replay_with_frozen_outcomes,16,CPU cadence,spatial_information,executed_minus_shuffled,3,1,1.0,300007424.0,300007424.0
+common_replay_with_frozen_outcomes,16,DGC,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,DGC,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,DGC,spatial_information,exploration_coverage,3,1,1.0,300023808.0,300023808.0
+common_replay_with_frozen_outcomes,16,DGC,spatial_information,executed_minus_shuffled,3,1,-1.0,300023808.0,300023808.0
+common_replay_with_frozen_outcomes,16,DGP,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,DGP,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,DGP,spatial_information,exploration_coverage,6,2,-0.6571428571428573,75038720.0,75038720.0
+common_replay_with_frozen_outcomes,16,DGP,spatial_information,executed_minus_shuffled,6,2,-0.14285714285714288,75038720.0,75038720.0
+common_replay_with_frozen_outcomes,16,Saturday,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,Saturday,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,16,Saturday,spatial_information,exploration_coverage,6,2,-0.028571428571428574,75038720.0,75038720.0
+common_replay_with_frozen_outcomes,16,Saturday,spatial_information,executed_minus_shuffled,6,2,-0.8285714285714287,75038720.0,75038720.0
+common_replay_with_frozen_outcomes,64,ALL,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,ALL,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,ALL,spatial_information,exploration_coverage,20,8,-0.475472916842075,75022336.0,300007424.0
+common_replay_with_frozen_outcomes,64,ALL,spatial_information,executed_minus_shuffled,3,1,-1.0,300007424.0,300007424.0
+common_replay_with_frozen_outcomes,64,CPU cadence,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,CPU cadence,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,CPU cadence,spatial_information,exploration_coverage,4,2,-0.39999999999999997,300007424.0,300007424.0
+common_replay_with_frozen_outcomes,64,CPU cadence,spatial_information,executed_minus_shuffled,3,1,-1.0,300007424.0,300007424.0
+common_replay_with_frozen_outcomes,64,DGC,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,DGC,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,DGC,spatial_information,exploration_coverage,3,1,-1.0,135004160.0,197509120.0
+common_replay_with_frozen_outcomes,64,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+common_replay_with_frozen_outcomes,64,Five-cue transfer,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,Five-cue transfer,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,Five-cue transfer,spatial_information,exploration_coverage,12,4,-0.8298707220429701,75022336.0,75038720.0
+common_replay_with_frozen_outcomes,64,Five-cue transfer,spatial_information,executed_minus_shuffled,0,0,,,
+common_replay_with_frozen_outcomes,64,Mature reference,spatial_information,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,Mature reference,unique_peak_bins,prospective_success,0,0,,,
+common_replay_with_frozen_outcomes,64,Mature reference,spatial_information,exploration_coverage,1,1,,192266240.0,192266240.0
+common_replay_with_frozen_outcomes,64,Mature reference,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,ALL,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,ALL,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,ALL,spatial_information,exploration_coverage,64,22,-0.23876530487898423,75038720.0,300023808.0
+frozen_latest_archived_probe,16,ALL,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,CPD,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,CPD,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,CPD,spatial_information,exploration_coverage,12,4,-0.5884422334042109,75038720.0,75038720.0
+frozen_latest_archived_probe,16,CPD,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,CPU cadence,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,CPU cadence,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,CPU cadence,spatial_information,exploration_coverage,4,2,1.0,300007424.0,300007424.0
+frozen_latest_archived_probe,16,CPU cadence,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,Corrected core,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,Corrected core,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,Corrected core,spatial_information,exploration_coverage,33,11,-0.10850122154741064,99975168.0,100040704.0
+frozen_latest_archived_probe,16,Corrected core,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,DGC,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,DGC,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,DGC,spatial_information,exploration_coverage,3,1,-0.5,300023808.0,300023808.0
+frozen_latest_archived_probe,16,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,DGP,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,DGP,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,DGP,spatial_information,exploration_coverage,6,2,-0.7714285714285715,75038720.0,75038720.0
+frozen_latest_archived_probe,16,DGP,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,16,Saturday,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,Saturday,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,16,Saturday,spatial_information,exploration_coverage,6,2,-0.48571428571428577,75038720.0,75038720.0
+frozen_latest_archived_probe,16,Saturday,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,64,ALL,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,ALL,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,ALL,spatial_information,exploration_coverage,20,8,-0.5816404957309275,75022336.0,300007424.0
+frozen_latest_archived_probe,64,ALL,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,64,CPU cadence,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,CPU cadence,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,CPU cadence,spatial_information,exploration_coverage,4,2,-0.39999999999999997,300007424.0,300007424.0
+frozen_latest_archived_probe,64,CPU cadence,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,64,DGC,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,DGC,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,DGC,spatial_information,exploration_coverage,3,1,1.0,135004160.0,197509120.0
+frozen_latest_archived_probe,64,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,64,Five-cue transfer,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,Five-cue transfer,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,Five-cue transfer,spatial_information,exploration_coverage,12,4,-0.7202797202797203,75022336.0,75038720.0
+frozen_latest_archived_probe,64,Five-cue transfer,spatial_information,executed_minus_shuffled,0,0,,,
+frozen_latest_archived_probe,64,Mature reference,spatial_information,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,Mature reference,unique_peak_bins,prospective_success,0,0,,,
+frozen_latest_archived_probe,64,Mature reference,spatial_information,exploration_coverage,1,1,,192266240.0,192266240.0
+frozen_latest_archived_probe,64,Mature reference,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,ALL,spatial_information,prospective_success,168,56,0.582690915717171,25001984.0,150011904.0
+online_latest_saved_window,16,ALL,unique_peak_bins,prospective_success,168,56,-0.4238728919699062,25001984.0,150011904.0
+online_latest_saved_window,16,ALL,spatial_information,exploration_coverage,190,65,-0.20732825790722875,25001984.0,150011904.0
+online_latest_saved_window,16,ALL,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,CPD,spatial_information,prospective_success,81,27,0.093676603432701,75005952.0,75005952.0
+online_latest_saved_window,16,CPD,unique_peak_bins,prospective_success,81,27,-0.12977764107173426,75005952.0,75005952.0
+online_latest_saved_window,16,CPD,spatial_information,exploration_coverage,81,27,0.04948478231825442,75005952.0,75005952.0
+online_latest_saved_window,16,CPD,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,CPU cadence,spatial_information,prospective_success,12,4,-0.5384615384615385,25001984.0,150011904.0
+online_latest_saved_window,16,CPU cadence,unique_peak_bins,prospective_success,12,4,-0.5096620410811782,25001984.0,150011904.0
+online_latest_saved_window,16,CPU cadence,spatial_information,exploration_coverage,12,4,,25001984.0,150011904.0
+online_latest_saved_window,16,CPU cadence,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,DGC,spatial_information,prospective_success,9,3,-0.43333333333333335,150011904.0,150011904.0
+online_latest_saved_window,16,DGC,unique_peak_bins,prospective_success,9,3,0.09283444198266944,150011904.0,150011904.0
+online_latest_saved_window,16,DGC,spatial_information,exploration_coverage,9,3,-0.1880960312156116,150011904.0,150011904.0
+online_latest_saved_window,16,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,DGP,spatial_information,prospective_success,24,8,-0.0008695652173913043,75005952.0,75005952.0
+online_latest_saved_window,16,DGP,unique_peak_bins,prospective_success,24,8,-0.2386331627542078,75005952.0,75005952.0
+online_latest_saved_window,16,DGP,spatial_information,exploration_coverage,24,8,-0.4463884154354827,75005952.0,75005952.0
+online_latest_saved_window,16,DGP,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,Navigation8,spatial_information,prospective_success,12,4,0.2517482517482518,75005952.0,75005952.0
+online_latest_saved_window,16,Navigation8,unique_peak_bins,prospective_success,12,4,-0.06588237320488531,75005952.0,75005952.0
+online_latest_saved_window,16,Navigation8,spatial_information,exploration_coverage,18,6,-0.5192208776296173,75005952.0,75005952.0
+online_latest_saved_window,16,Navigation8,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,Persistent control,spatial_information,prospective_success,0,0,,,
+online_latest_saved_window,16,Persistent control,unique_peak_bins,prospective_success,0,0,,,
+online_latest_saved_window,16,Persistent control,spatial_information,exploration_coverage,16,7,,100007936.0,100007936.0
+online_latest_saved_window,16,Persistent control,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,16,Source credit,spatial_information,prospective_success,30,10,0.2947719688542826,75005952.0,75005952.0
+online_latest_saved_window,16,Source credit,unique_peak_bins,prospective_success,30,10,-0.40378024684651753,75005952.0,75005952.0
+online_latest_saved_window,16,Source credit,spatial_information,exploration_coverage,30,10,-0.2222748500367703,75005952.0,75005952.0
+online_latest_saved_window,16,Source credit,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,32,ALL,spatial_information,prospective_success,9,3,-0.15,150011904.0,150011904.0
+online_latest_saved_window,32,ALL,unique_peak_bins,prospective_success,9,3,-0.5714487486348921,150011904.0,150011904.0
+online_latest_saved_window,32,ALL,spatial_information,exploration_coverage,9,3,0.6810052246069989,150011904.0,150011904.0
+online_latest_saved_window,32,ALL,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,32,DGC,spatial_information,prospective_success,9,3,-0.15,150011904.0,150011904.0
+online_latest_saved_window,32,DGC,unique_peak_bins,prospective_success,9,3,-0.5714487486348921,150011904.0,150011904.0
+online_latest_saved_window,32,DGC,spatial_information,exploration_coverage,9,3,0.6810052246069989,150011904.0,150011904.0
+online_latest_saved_window,32,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,64,ALL,spatial_information,prospective_success,57,19,0.06987295825771327,25001984.0,300007424.0
+online_latest_saved_window,64,ALL,unique_peak_bins,prospective_success,57,19,-0.2457221901438826,25001984.0,300007424.0
+online_latest_saved_window,64,ALL,spatial_information,exploration_coverage,57,19,-0.33969931982534857,25001984.0,300007424.0
+online_latest_saved_window,64,ALL,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,64,CA3 state,spatial_information,prospective_success,24,8,0.11913043478260868,75005952.0,300007424.0
+online_latest_saved_window,64,CA3 state,unique_peak_bins,prospective_success,24,8,-0.06717593201064932,75005952.0,300007424.0
+online_latest_saved_window,64,CA3 state,spatial_information,exploration_coverage,24,8,-0.3162875387734471,75005952.0,300007424.0
+online_latest_saved_window,64,CA3 state,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,64,CPU cadence,spatial_information,prospective_success,12,4,0.5804195804195805,25001984.0,75005952.0
+online_latest_saved_window,64,CPU cadence,unique_peak_bins,prospective_success,12,4,-0.18980931658804073,25001984.0,75005952.0
+online_latest_saved_window,64,CPU cadence,spatial_information,exploration_coverage,12,4,,25001984.0,75005952.0
+online_latest_saved_window,64,CPU cadence,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,64,DGC,spatial_information,prospective_success,9,3,0.7,75005952.0,150011904.0
+online_latest_saved_window,64,DGC,unique_peak_bins,prospective_success,9,3,-0.14471361022898727,75005952.0,150011904.0
+online_latest_saved_window,64,DGC,spatial_information,exploration_coverage,9,3,-0.6950150912113306,75005952.0,150011904.0
+online_latest_saved_window,64,DGC,spatial_information,executed_minus_shuffled,0,0,,,
+online_latest_saved_window,64,Five-cue transfer,spatial_information,prospective_success,12,4,0.6783216783216784,50003968.0,75005952.0
+online_latest_saved_window,64,Five-cue transfer,unique_peak_bins,prospective_success,12,4,-0.35980234974388153,50003968.0,75005952.0
+online_latest_saved_window,64,Five-cue transfer,spatial_information,exploration_coverage,12,4,-0.26340279457695503,50003968.0,75005952.0
+online_latest_saved_window,64,Five-cue transfer,spatial_information,executed_minus_shuffled,0,0,,,

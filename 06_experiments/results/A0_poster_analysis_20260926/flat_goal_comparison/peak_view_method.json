@@ -1,0 +1,21 @@
+{
+  "schema": "intrmotiv/dg-peak-sensitivity/v1",
+  "dominant_mass_cutoffs": [
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "relaxed_map_cutoff": 0.3,
+  "classification_source": "mono_field_method.json",
+  "source_hashes": "mono_field_peak_counts.csv",
+  "eligibility": "Unchanged across the dominance sweep; not required for all-active maps",
+  "all_active_selection": "active_fraction > 0 and a positive original rate-map maximum",
+  "peak_statistic": "Original unsmoothed occupancy-corrected mean activation; first NumPy argmax on ties",
+  "peak_bin_observations": "Saved occupancy count in the selected bin",
+  "interpretation": "Relaxed dominance and all-active argmax are descriptive, not validated monofield classifications"
+}

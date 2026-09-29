@@ -1,0 +1,30 @@
+{
+  "schema": "intrmotiv/goal-option-trajectory-render/v1",
+  "line_source": "Complete observation-time pose_events.csv, not event-only rows",
+  "segmentation": "Separate agents and contiguous episode runs; never connect across reset labels or skipped frames",
+  "validation": "Observation count, reset count, and event rows match published summary and marker CSV",
+  "runs": [
+    {
+      "condition": "C05",
+      "seed": 99,
+      "observations": 10001,
+      "first_episode_observations": 900,
+      "contiguous_paths": 12,
+      "source_sha256": "3a50f9e55f9ff6044131f8cfc0357802aec44403c77487d90c05de44f6c116b7",
+      "option_starts": 1505,
+      "goal_hits": 483,
+      "original_pose_events_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928/output/raw/c05_seed99/pose_events.csv"
+    },
+    {
+      "condition": "C15",
+      "seed": 99,
+      "observations": 10001,
+      "first_episode_observations": 900,
+      "contiguous_paths": 12,
+      "source_sha256": "da1745c40a98721932546135315ddc0fa3f8ede353713e71a403153fd3eb8c22",
+      "option_starts": 123,
+      "goal_hits": 5,
+      "original_pose_events_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/flat_goal_option_events_20260928/output/raw/c15_seed99/pose_events.csv"
+    }
+  ]
+}

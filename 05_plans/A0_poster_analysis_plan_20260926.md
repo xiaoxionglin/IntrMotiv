@@ -1,6 +1,6 @@
 # A0 poster analysis plan — concise 26 September 2026
 
-This plan supports [[A0_poster_plan_20260926|the A0 poster plan]]. The poster has room for only a few detailed examples. Most runs should contribute to aggregate statistics, not receive a full analysis stack.
+This plan supports [[A0_poster_plan_20260926|the A0 poster plan]]. Its 29 September revision makes the existing corrected-core C01/C05/C15 comparison the main story: non-goal-conditioned RL, uniform-goal RL, and frontier-goal RL. Reuse the [matched report and saved figures](../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md) for the three visual rows, all-seed coverage/return summaries, and target-hit lift. The older aggregate comparisons and exemplar candidates below are supplementary evidence, not a checklist of additional poster panels. The revised poster plan governs space and claim priorities; no new sweep is needed for this revision.
 
 ## 1. Selection rule
 
@@ -11,7 +11,7 @@ Before new analysis, refresh the checkpoint/snapshot inventory.
 - Do not choose an earlier checkpoint because it looks better.
 - Earlier checkpoints are shown only for an explicit learning-dynamics/transience point.
 
-The final poster should contain **at most two detailed run exemplars**.
+The main poster uses the existing **three seed-99 condition illustrations**, supported by all three seeds in the quantitative comparisons. Additional detailed run galleries should remain supplementary.
 
 ---
 
@@ -159,9 +159,9 @@ Use the same observation/history panel across layers. Include a 2-D kernel and r
 
 ---
 
-## 5. Poster-output target
+## 5. Supplementary output menu
 
-The downstream analysis should aim to produce approximately:
+The earlier analysis campaign produced or targeted the following supporting outputs. Select them only when they serve the revised poster's main claim and fit its space budget:
 
 1. **one aggregate representation/exploration plot** — ARR vs SRC;
 2. **one aggregate representation/control plot** — Direct F16 vs Waypoint F64;

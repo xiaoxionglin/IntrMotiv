@@ -49,7 +49,7 @@ def flow_cells(pose: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
-def render_flow(pose: pd.DataFrame, output: Path, title: str) -> pd.DataFrame:
+def render_flow(pose: pd.DataFrame, output: Path, title: str, figure_scale: float = 1.0) -> pd.DataFrame:
     cells = flow_cells(pose)
     occupancy, _, _ = np.histogram2d(pose['x'], pose['y'], bins=GRAIN, range=[BOUNDS, BOUNDS])
     # Histograms are [x,y], so transpose for imshow's [row,col] convention.
@@ -70,7 +70,13 @@ def render_flow(pose: pd.DataFrame, output: Path, title: str) -> pd.DataFrame:
     fig.colorbar(arrows, ax=ax, shrink=.75, label='Flow coherence')
     ax.set(xlim=BOUNDS, ylim=BOUNDS, aspect='equal', xlabel='x (DMLab units)',
            ylabel='y (DMLab units)', title=title)
-    fig.savefig(output, dpi=180)
+    if figure_scale < 1:
+        fig.canvas.draw()
+        arrow_width_inches = .005 * ax.get_window_extent().width / fig.dpi
+        arrows.units = "inches"
+        arrows.width = arrow_width_inches
+        fig.set_size_inches(8 * figure_scale, 7 * figure_scale)
+    fig.savefig(output, dpi=180, bbox_inches="tight" if figure_scale < 1 else None)
     plt.close(fig)
     return cells
 

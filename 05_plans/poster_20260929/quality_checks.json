@@ -1,0 +1,38 @@
+{
+  "header_changed_pixels": 0,
+  "left_column_changed_pixels": 0,
+  "duplicate_svg_ids": 0,
+  "svg_external_images": 0,
+  "new_objects_outside_right_column": 0,
+  "out_of_bounds_objects": [],
+  "exploration_and_returns.svg_minimum_text_pt": 30.0,
+  "goal_specificity.svg_minimum_text_pt": 30.0,
+  "architecture_scatter.svg_minimum_text_pt": 30.0,
+  "native_explanatory_text_pt": {
+    "right-coverage-result": 40.0,
+    "right-exploration-caption": 40.0,
+    "right-control-explanation": 40.0,
+    "right-control-caption": 40.0,
+    "right-design-qualification": 40.0,
+    "right-survey-caption": 40.0,
+    "right-conclusion": 40.0,
+    "right-next-test": 40.0
+  },
+  "scatter_panel_counts": {
+    "A": 168,
+    "B": 168
+  },
+  "scatter_rows_match_pinned_source": 336,
+  "survey_capacity": 16,
+  "survey_unique_runs": 168,
+  "survey_variants": 56,
+  "scatter_statistics_match_pinned_source": true,
+  "sensitivity_label": "mean absolute raw-logit change",
+  "marker_area_pt2": {
+    "seed_dots": 56,
+    "survey_runs": 65
+  },
+  "displacement_profiles": "removed; source data and prior standalone assets retained",
+  "color_and_grayscale_visual_inspection": "pass; study families use distinct marker shapes with DG capacity fixed at 16",
+  "full_page_and_right_column_visual_inspection": "pass; 30 pt plot text and 40 pt explanations fit without clipping or overlap"
+}
