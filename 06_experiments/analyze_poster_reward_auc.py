@@ -33,26 +33,44 @@ def reward_series(path: Path) -> tuple[np.ndarray, np.ndarray]:
     return steps, rewards
 
 
-def mean_reward_auc(steps: np.ndarray, rewards: np.ndarray, end: int) -> float:
-    # Each logged reward mean describes its preceding learner interval.
+def reward_intervals(steps: np.ndarray, rewards: np.ndarray, end: float):
+    """Return one consistent frame-weighted approximation for scalar histories.
+
+    Attribute each logged mean to its preceding logging interval. Only samples
+    at or before ``end`` enter the integral; carry the final included value to
+    the boundary. This preserves the original AUC convention. Logged means are
+    telemetry summaries, so the integral approximates collected reward rather
+    than reconstructing exact episode returns.
+    """
+    steps, rewards = np.asarray(steps, float), np.asarray(rewards, float)
+    if (steps.ndim != 1 or rewards.shape != steps.shape or not len(steps)
+            or not np.isfinite(steps).all() or not np.isfinite(rewards).all()
+            or steps[0] < 0 or np.any(np.diff(steps) <= 0) or end <= 0):
+        raise ValueError('Reward history requires finite, strictly ordered frame samples and positive end')
     selected = steps <= end
     steps, rewards = steps[selected], rewards[selected]
     if not len(steps):
         raise ValueError('No reward samples in requested AUC window')
     left = np.r_[0.0, steps[:-1]]
-    right = np.minimum(steps, end)
-    weighted = np.sum((right - left) * rewards)
+    right = steps.copy()
     if steps[-1] < end:
-        weighted += (end - steps[-1]) * rewards[-1]
-    return float(weighted / end)
+        left = np.r_[left, steps[-1]]
+        right = np.r_[right, end]
+        rewards = np.r_[rewards, rewards[-1]]
+    return left, right, rewards
+
+
+def mean_reward_auc(steps: np.ndarray, rewards: np.ndarray, end: int) -> float:
+    left, right, value = reward_intervals(steps, rewards, end)
+    return float(np.sum((right - left) * value) / end)
 
 
 def binned_curve(steps: np.ndarray, rewards: np.ndarray, end: int, bin_edges: np.ndarray) -> np.ndarray:
-    selected = steps <= end
-    steps, rewards = steps[selected], rewards[selected]
-    left = np.r_[0.0, steps]
-    right = np.r_[steps, end]
-    value = np.r_[rewards, rewards[-1]]
+    left, right, value = reward_intervals(steps, rewards, end)
+    bin_edges = np.asarray(bin_edges, float)
+    if (bin_edges.ndim != 1 or len(bin_edges) < 2 or not np.isfinite(bin_edges).all()
+            or np.any(np.diff(bin_edges) <= 0) or bin_edges[0] < 0 or bin_edges[-1] > end):
+        raise ValueError('Bin edges must increase within the integration window')
     result = []
     for lo, hi in zip(bin_edges[:-1], bin_edges[1:]):
         overlap = np.maximum(0, np.minimum(right, hi) - np.maximum(left, lo))
@@ -61,11 +79,11 @@ def binned_curve(steps: np.ndarray, rewards: np.ndarray, end: int, bin_edges: np
 
 
 def mean_reward_window(steps: np.ndarray, rewards: np.ndarray, low: int, high: int) -> float:
+    if not 0 <= low < high:
+        raise ValueError('Reward window requires 0 <= low < high')
     if steps[-1] < .995 * high:
         raise ValueError('Run has not reached the requested terminal window')
-    left = np.r_[0.0, steps]
-    right = np.r_[steps, high]
-    value = np.r_[rewards, rewards[-1]]
+    left, right, value = reward_intervals(steps, rewards, high)
     overlap = np.maximum(0, np.minimum(right, high) - np.maximum(left, low))
     return float(np.sum(overlap * value) / (high - low))
 
