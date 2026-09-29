@@ -1,5 +1,10 @@
 # Optional poster plot gallery
 
+For the requested **WORKER versus RAND_DG** comparison, see the
+[joint-system transfer plots](../worker_random_transfer/README.md). That
+comparison transfers DG, worker, and graph together; the SOURCE_DG controls
+below transfer only DG and use a fresh worker and empty graph.
+
 The current poster was not edited. Import individual SVGs into Inkscape at **100% physical size**: small pairs 191.5 × 76.2 mm, four-panel rows 383 × 76.2 mm, larger blocks 383 × 165.1 mm. Every plot label is 30 pt DejaVu Sans; seed markers are 56 pt² and scatter markers 65 pt², matching the latest poster additions. Selection-sheet explanations are 40 pt. SVG text is editable.
 
 Start with **01**, or use **02** for a compact transfer result. **05** is the clearest additional architecture ablation. **07** connects to C01/C05/C15. **08** can replace the existing section-3 framing. **03/04** are optional transfer detail; **06** needs the definition caveat beside it.

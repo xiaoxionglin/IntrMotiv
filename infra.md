@@ -116,6 +116,23 @@ keep implementation guidance in the canonical workflow documents linked below.
   reused across downstream seeds; plotting it once avoids implying three
   independent pretraining replicates. Short labels and parenthesized cue
   sample counts resolved crowding at 30 pt without reducing type size.
+  The [WORKER versus RAND_DG comparison](05_plans/poster_20260929/worker_random_transfer/README.md)
+  binds twelve completed W&B runs to their validated original StudySpecs and
+  pins unsampled histories, configs, and normalized study fingerprints. Using
+  `train/env_steps` avoids treating the W&B `_step` logging index as training
+  progress. Fetching both arms from the same backend removes differences in
+  export precision; small endpoint carries and logging gaps remain explicit.
+  The shared reward adapter previously used opposite interval directions for
+  AUC and curves/windows. All three now share the original AUC convention;
+  five focused checks cover nonuniform bins, endpoint carries, future samples,
+  and incomplete histories. Existing pinned poster tables were not rewritten.
+  Every new curve integral agrees with its plotted AUC summary. Reuse these
+  pinned logs and final-size plot helpers rather than repeating SSH discovery:
+  SSH was unresponsive, while W&B contained the full training comparison.
+  WORKER heldout trials remain pending; existing SOURCE_DG trials cannot serve
+  as an evaluation of the transferred DG–worker–graph package. Follow the
+  [standardized study workflow](04_implementation/standardized_study_workflow.md)
+  for subsequent evaluations and preserve the declared experiment identity.
   Repository sync exposed 113 add/add SVG conflicts across the unfinished
   merge and subsequent remote integration. Their figure content was identical
   after canonicalizing local IDs/references and export timestamps.

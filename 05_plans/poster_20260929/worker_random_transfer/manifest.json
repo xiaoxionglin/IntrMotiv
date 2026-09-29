@@ -1,0 +1,144 @@
+{
+  "schema": "intrmotiv/worker-random-poster-comparison/v1",
+  "sources": {
+    "06_experiments/render_worker_random_transfer_20260929.py": "119a0b7377df759c01592028a630af2171a2bc388466bf47868f874c3fb45670",
+    "06_experiments/analyze_poster_reward_auc.py": "4191926942b81b479a761d35d14b2626b93add28de37899ae4ba83d68e85617f",
+    "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
+    "06_experiments/compose_a0_poster_20260929.py": "876a3acd696d6b8d0159da858debf941728bea99e3015dfb32ad3e34c542db25",
+    "06_experiments/collect_worker_random_transfer_20260929.py": "f92f1db4872b2081e2f170cd0c617763037be4f46184dc037b1e8af4d60d0f7c",
+    "06_experiments/data/worker_random_transfer_20260929/collection_manifest.json": "f3fc94687a59a5d14dd356f4214f8f50963444ec8b00eacb1fd64624b5f5e46f",
+    "06_experiments/data/worker_random_transfer_20260929/studies/cued_reward5_transfer_20260925.study.json": "5d6b08dc77a465076c55b2c2dd39369ac01b1502c93153275987872ffa6e35b8",
+    "06_experiments/data/worker_random_transfer_20260929/studies/cued_reward5_frozen_dg_controls_20260925.study.json": "0564d977af601792f36bad805f4960d6eb02beb1b5439041186d03a0c0c1615f",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D50_W_RAND_DG_S42.csv": "74d4a32c428db8c3579d83b6a17a2bb0f003ccc78cd9c5c5273b86a1b2eb2254",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D50_W_RAND_DG_S1234.csv": "2255bcd017accd251463481ebc18e594d4a9623e9f5497adef1c2bc24c3fd445",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D50_W_RAND_DG_S9999.csv": "db162f3f3169509f95371b7cb9dcfacd15368ae90854f91791de0afbedbdae74",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D50_W_WORKER_S42.csv": "c35ac2701c31989f1dbba56aa0aa2ba1005b4f36f76860390c1d61ac0b5b34e6",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D50_W_WORKER_S1234.csv": "ddd66c922eb8374249caeae5afdafc5ab8061e12bc62d66b99378a0198fb2203",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D50_W_WORKER_S9999.csv": "60b93143ffc226e00487efad8d3de8bd0ca9467597a81337954b647b64d2ee09",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D51_W_RAND_DG_S42.csv": "921537548d88bdacf8a5763ecefd7c44873e728ba27a35e1c62520f414a7a2f7",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D51_W_RAND_DG_S1234.csv": "de69dd2ba676f54e53886c4da3d6a720ae88d03b9b8718979c83965dae7a9d94",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5C_D51_W_RAND_DG_S9999.csv": "b5dc0e55ac0dc7e873b7113914e7ee547b71735872fe439af683895b2cc08f6f",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D51_W_WORKER_S42.csv": "84d76e791cf793bc625b0a1bc7d735f14c78b101b6bd3256bfda79a1f40f5b04",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D51_W_WORKER_S1234.csv": "ee7e1872b66bf92477e6621cb3d2f11ffca3e8fa35f357b0b450b3fb5a4f48d8",
+    "06_experiments/data/worker_random_transfer_20260929/histories/CR5_D51_W_WORKER_S9999.csv": "da283745c264278318c7f60048f460522c3a2aeebeedf0a84263365ccca73dba"
+  },
+  "studies": [
+    {
+      "study_id": "cued_reward5_transfer_20260925",
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.12.0",
+      "study_sha256": "9922ce6fed52d11a6d7cff0d860a03860b219444417279976d6792602a721d59",
+      "selected_arm": "W_WORKER",
+      "selected_runs": 6,
+      "pinned_study": "studies/cued_reward5_transfer_20260925.study.json"
+    },
+    {
+      "study_id": "cued_reward5_frozen_dg_controls_20260925",
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.12.0",
+      "study_sha256": "e3d4f5a1d29240dcb415b9ee8a163f236b1b41c145f6c766f4f3056698a1a32a",
+      "selected_arm": "W_RAND_DG",
+      "selected_runs": 6,
+      "pinned_study": "studies/cued_reward5_frozen_dg_controls_20260925.study.json"
+    }
+  ],
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot_font_pt": 30,
+  "caption_font_pt": 40,
+  "paired_marker_area_pt2": 56,
+  "mean_curve_marker_diameter_pt": 7.5,
+  "frame_bins": [
+    0,
+    2500000,
+    5000000,
+    7500000,
+    10000000,
+    12500000,
+    15000000,
+    17500000,
+    20000000,
+    22500000,
+    25000000,
+    27500000,
+    30000000,
+    32500000,
+    35000000,
+    37500000,
+    40000000,
+    42500000,
+    45000000,
+    47500000,
+    50000000,
+    52500000,
+    55000000,
+    57500000,
+    60000000,
+    62500000,
+    65000000,
+    67500000,
+    70000000,
+    72500000,
+    75000000
+  ],
+  "backend": "W&B scan_history (unsampled)",
+  "reward_tag": "intrmotiv/reward/environment_mean",
+  "poster_sha256_before": "eef886cc8826a93f7f82f163142d55b9b3e0d5b5fd3abf8da6c17bcc134a131e",
+  "candidates": [
+    {
+      "key": "01_paired_reward_summary",
+      "title": "Reward during transfer training",
+      "size_mm": [
+        383.0,
+        76.2
+      ],
+      "rank": "Compact main comparison",
+      "short_caption": "Mean reward / step × 10³. Wkr: WORKER; Rnd: RAND_DG. Lines join three downstream seeds; black marks show means.",
+      "caption": "WORKER transfers frozen learned DG, a trainable pretrained worker, and the source graph. RAND_DG uses calibrated frozen random DG, a fresh trainable worker, and an empty initial graph. Both receive 75M downstream frames. Panels show full-training (0–75M) and late-training (65–75M) mean logged environment reward per step, ×1000. Blue circles: WORKER; orange squares: RAND_DG. Points are seeds 42/1234/9999; gray lines join seeds; black marks are arm means.",
+      "limitation": "WORKER has higher arm means, but wins in only two of three seed pairs per architecture in both windows. This tests transfer of the joint system. It does not identify a DG-specific benefit or establish statistical significance with three seeds.",
+      "question": "Which interactions between landmark code, worker, and graph make transferred control useful?"
+    },
+    {
+      "key": "02_learning_curves",
+      "title": "Transfer gains depend on the downstream seed",
+      "size_mm": [
+        383.0,
+        165.1
+      ],
+      "rank": "Main temporal evidence",
+      "short_caption": "Thick curves: three-seed means; thin curves: individual seeds. Frame-weighted 2.5M bins, with no extra smoothing.",
+      "caption": "Logged environment reward per step, ×1000, averaged in 2.5M-frame bins. Each thin line is one downstream training seed; thick lines are means over the same three seeds. Blue solid circles: WORKER; orange dashed squares: RAND_DG. The curve integrals reproduce the paired 0–75M summary points. Shared axes preserve the architectural comparison.",
+      "limitation": "The thin-line spread shows observed seed variation, not a confidence band. WORKER has lower mean reward in the first 10M frames in both architectures, so an immediate reward head start is not supported. One selected source checkpoint per architecture was reused across seeds.",
+      "question": "What determines whether an exploration-trained controller adapts or remains tied to its source behavior?"
+    },
+    {
+      "key": "03_d50_paired_seed_curves",
+      "title": "D50: paired learning curves",
+      "size_mm": [
+        383.0,
+        76.2
+      ],
+      "rank": "Supporting seed detail",
+      "short_caption": "Blue solid: WORKER; orange dashed: RAND_DG. Seeds 42 and 1234 gain over the full run; seed 9999 loses.",
+      "caption": "D50, the same three downstream seed pairs separated into panels. Reward / step ×1000, frame-weighted 2.5M bins. Blue solid is WORKER, orange dashed is RAND_DG. Panels preserve identical axes and use all observations rather than selecting successful runs.",
+      "limitation": "These are the same data as the main curves, not an additional replication. Each architecture has one source checkpoint, so source-checkpoint robustness remains untested.",
+      "question": "Can the initial graph or worker state predict the low-transfer seed before long training?"
+    },
+    {
+      "key": "03_d51_paired_seed_curves",
+      "title": "D51: paired learning curves",
+      "size_mm": [
+        383.0,
+        76.2
+      ],
+      "rank": "Supporting seed detail",
+      "short_caption": "Blue solid: WORKER; orange dashed: RAND_DG. Seeds 42 and 1234 gain over the full run; seed 9999 loses.",
+      "caption": "D51, the same three downstream seed pairs separated into panels. Reward / step ×1000, frame-weighted 2.5M bins. Blue solid is WORKER, orange dashed is RAND_DG. Panels preserve identical axes and use all observations rather than selecting successful runs.",
+      "limitation": "These are the same data as the main curves, not an additional replication. Each architecture has one source checkpoint, so source-checkpoint robustness remains untested.",
+      "question": "Can the initial graph or worker state predict the low-transfer seed before long training?"
+    }
+  ],
+  "matplotlib_version": "3.10.8",
+  "numpy_version": "1.26.4",
+  "pandas_version": "2.3.3",
+  "heldout_worker_available": false
+}
