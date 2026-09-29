@@ -1,0 +1,42 @@
+[
+  {
+    "plot": "monofields_behavior",
+    "metric": "mono_fraction_eligible",
+    "outcome": "exploration_coverage",
+    "n": 81,
+    "variants": 27,
+    "seeds_per_variant": 3,
+    "checkpoint_frames": 75005952,
+    "spearman_rho": -0.06371558424888538
+  },
+  {
+    "plot": "monofields_behavior",
+    "metric": "mono_fraction_eligible",
+    "outcome": "prospective_success",
+    "n": 81,
+    "variants": 27,
+    "seeds_per_variant": 3,
+    "checkpoint_frames": 75005952,
+    "spearman_rho": -0.32407845500139093
+  },
+  {
+    "plot": "dominance_behavior",
+    "metric": "dominance",
+    "outcome": "exploration_coverage",
+    "n": 12,
+    "variants": 4,
+    "seeds_per_variant": 3,
+    "checkpoint_frames": 75005952,
+    "spearman_rho": -0.6160417591954839
+  },
+  {
+    "plot": "dominance_behavior",
+    "metric": "dominance",
+    "outcome": "prospective_success",
+    "n": 12,
+    "variants": 4,
+    "seeds_per_variant": 3,
+    "checkpoint_frames": 75005952,
+    "spearman_rho": -0.2657342657342658
+  }
+]

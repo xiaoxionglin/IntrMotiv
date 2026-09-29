@@ -1,0 +1,35 @@
+{
+  "condition": "CPD_C15_GATE_ACT_DIR_GOAL",
+  "setting": "dg_transition_prediction=goal",
+  "coefficient": 0.1,
+  "input": [
+    "source DG activity",
+    "requested goal ID"
+  ],
+  "target": "first distinct exclusive DG outcome, or timeout class",
+  "training_only": true,
+  "outputs_choose_actions_or_goals": false,
+  "trained_by_main_loss": [
+    "DG projection",
+    "context-feedback adapter",
+    "predictor main head"
+  ],
+  "trained_by_control_loss": [
+    "goal-only control head"
+  ],
+  "history_gradient": "DIRECT detaches history; adapter weights remain trainable",
+  "fixed_visual_trunk": true,
+  "other_DG_learning": "existing ARR encoder and JOINT PPO gradients remain enabled",
+  "pinned_module": "exports/intrmotiv_prediction_starter/intrmotiv_transfer/contextual_dg.py",
+  "pinned_module_sha256": "6f8ca9107c6302efee6ebddf00cc3c7f85c88023525bcc83904d756181fb5f44",
+  "study_file": "hpc_runs/studies/ca3_feedback_predictive_dg.study.json",
+  "study_file_sha256": "1a4231f77964231875dddb53cbad7ed3497350f7444f57709f1425b18541191f",
+  "verbatim_extraction_provenance": "exports/intrmotiv_prediction_starter/PROVENANCE.json",
+  "inspected_runtime_learner": {
+    "path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_learner.py",
+    "sha256": "94288bb4f8266d7d9ba3188bfe2d96e018bc40184fcd238bc0be1be7e9802d9f",
+    "first_line": 3534,
+    "last_line": 3571,
+    "encoder_loss_excerpt": "            transition_mode = getattr(self.cfg, \"dg_transition_prediction\", \"none\")\n            transition_loss = encoder_loss * 0.0\n            transition_stats = {\n                \"main_loss\": transition_loss.detach(),\n                \"control_loss\": transition_loss.detach(),\n                \"validation_main_ce\": transition_loss.detach(),\n                \"validation_control_ce\": transition_loss.detach(),\n                \"validation_state_gain\": transition_loss.detach(),\n                \"validation_accuracy\": transition_loss.detach(),\n                \"validation_count\": transition_loss.detach(),\n            }\n            scheduled_prediction = transition_loss.detach()\n            applied_prediction = transition_loss.detach()\n            boundary_prediction = transition_loss.detach()\n            predictor = getattr(self.actor_critic, \"dg_transition_predictor\", None)\n            if transition_mode != \"none\":\n                if predictor is None:\n                    raise RuntimeError(\"DG transition prediction is enabled without a predictor\")\n                prediction_batch = build_transition_prediction_batch(\n                    learner_dg,\n                    mb[\"hrl_control_completed\"],\n                    mb[\"hrl_control_target_timeout\"],\n                    mb[\"hrl_control_source\"],\n                    mb[\"hrl_control_command_target\"],\n                    mb[\"hrl_control_outcome_id\"],\n                    mb[\"hrl_control_elapsed\"],\n                    valids,\n                    recurrence,\n                    n_dg,\n                )\n                transition_loss, transition_stats = transition_prediction_losses(predictor, prediction_batch)\n                scheduled_prediction = prediction_batch.scheduled_count.detach().float()\n                applied_prediction = prediction_batch.applied_count.detach().float()\n                boundary_prediction = prediction_batch.boundary_drop_count.detach().float()\n                encoder_loss = (\n                    encoder_loss + float(getattr(self.cfg, \"dg_transition_prediction_coeff\", 0.1)) * transition_loss\n                )\n            encoder_loss *= self.cfg.encoder_grad_coeff"
+  }
+}

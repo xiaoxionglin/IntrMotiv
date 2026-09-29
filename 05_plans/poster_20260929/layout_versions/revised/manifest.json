@@ -1,0 +1,170 @@
+{
+  "schema": "intrmotiv/poster-layout-alternatives/v2",
+  "source": "05_plans/poster_20260929/layout_versions/input_layout.svg",
+  "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79",
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot_font_pt": 30,
+  "body_font_pt": 40,
+  "section_font_pt": 48,
+  "subsection_font_pt": 36,
+  "sources": {
+    "06_experiments/revise_poster_layout_20260929.py": "6751b25ca7f87e0123728851d104561cd9a070d0cf138208021cdce03df14ff4",
+    "06_experiments/compose_a0_poster_20260929.py": "876a3acd696d6b8d0159da858debf941728bea99e3015dfb32ad3e34c542db25",
+    "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/analysis_metadata.json": "9ef236ca9d35a88616d59f3a981dbccd074f773c167bf35abd6518820f6677fc",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
+    "05_plans/poster_20260929/worker_random_transfer/reward_per_run.csv": "d18aecab0a1004d04d35e5281b8c41336ca18e86619f24b4b2624047b9edf8a1",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_peak_counts.csv": "32e6b76a011c3d19be1171357d411428b79654a81e49570485f20df682d58d39",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_method.json": "9f60e9f93dd8e3ee1f0b7a4b253583934236f9ba33efc823db5849f951de9b52",
+    "05_plans/poster_20260929/continuous_fields/per_run.csv": "6df35a110c930a844849caee10cc349c09eed87b3f7e5fc12b63b0b6582ff8af",
+    "exports/intrmotiv_prediction_starter/intrmotiv_transfer/contextual_dg.py": "6f8ca9107c6302efee6ebddf00cc3c7f85c88023525bcc83904d756181fb5f44",
+    "exports/intrmotiv_prediction_starter/PROVENANCE.json": "c60eb40b7417c042d2a1df071264c811585d20b6134240ed85c453758c46dc81",
+    "hpc_runs/studies/ca3_feedback_predictive_dg.study.json": "1a4231f77964231875dddb53cbad7ed3497350f7444f57709f1425b18541191f",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/all_active_dg_peak_locations.csv": "6e8d908f71bab787e28451430111f45dd27ba640a7a848ff7cf543042f62327a"
+  },
+  "pinned_source": "input_layout.svg",
+  "variants": {
+    "A_transfer_predictor_monofields": {
+      "title": "Single-field fraction",
+      "recommended": true,
+      "field_plot": "monofields_behavior",
+      "field_caption": "Single fields do not reliably track better behaviour.",
+      "field_protocol": "CA3 feedback · 27 variants × 3 seeds · DG 16 · 75M",
+      "claim": "Single-field fraction has no positive exploration/control ordering in the 81-run CA3-feedback family.",
+      "risk": "Online coverage is near its ceiling. Maps use a recent behavior window; target hits are historical internal events. Architectural association does not establish that monofields have no causal benefit."
+    },
+    "B_transfer_predictor_dominance": {
+      "title": "Continuous field dominance",
+      "recommended": false,
+      "field_plot": "dominance_behavior",
+      "field_caption": "Field dominance does not imply better behaviour.",
+      "field_protocol": "CA3 feedback · 4 variants × 3 seeds · DG 16 · 75M",
+      "claim": "Continuous dominance is negatively associated with online coverage and weakly associated with target hits in the locally available CPD subset.",
+      "risk": "Only four CPD variants have local unit-level continuous scores. Minimum-threshold dominance is distinct from spatial concentration and from the binary field fraction. Protocol dependence limits generalization."
+    }
+  },
+  "left_data_preservation": [
+    {
+      "condition": "C01",
+      "figure": "fields",
+      "data_sha256": "b99180862ffaec0a0ba7252087ae65e7cc2909298ed3bf697473e6640c6ea238",
+      "selected_units": [
+        1,
+        2,
+        12,
+        13
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C01",
+      "figure": "peaks",
+      "data_sha256": "ff575575a0c929da29d10934992ec82a3550d2ab1fa32c5d24df0a30bd187af8",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        1,
+        2,
+        12,
+        13
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C01",
+      "figure": "trajectory",
+      "data_sha256": "fd8f18c42081ac6b0c826b3b654dab8c67c91015444bca777c0a24676517f035",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "fields",
+      "data_sha256": "88845384db2ec493c85a85c6c4e67e0b718f380df9da81cf415dda9d1377e5b9",
+      "selected_units": [
+        9,
+        13,
+        3,
+        8
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "peaks",
+      "data_sha256": "2a3122764bd6af0233b862d724cb7e92c48f92c78a8de9436c24e6af8675c527",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        9,
+        13,
+        3,
+        8
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "trajectory",
+      "data_sha256": "668c0747544d43b37d11741bec13c57c9b918e935cb1d1d09807d1fe9a02bd85",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "fields",
+      "data_sha256": "a288e45dbbb2151ca251bb4e1d9eb1c2e6dd545becca3b160bc52612c0c213a6",
+      "selected_units": [
+        7,
+        11,
+        1,
+        0
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "peaks",
+      "data_sha256": "240997a377efd73b57f36cfd2a00275750e0af94969be190ad14b84cd58ac949",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        7,
+        11,
+        1,
+        0
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "trajectory",
+      "data_sha256": "e12a0982b58278ecd2aec24bae1012e8d974371e0ef532b303492cd86f75aae6",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    }
+  ],
+  "quality": [
+    {
+      "file": "Bernstein2026_A_transfer_predictor_monofields.svg",
+      "unique_ids": true,
+      "resolved_references": true,
+      "variant": "A_transfer_predictor_monofields",
+      "protected_objects_unchanged": 49,
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79"
+    },
+    {
+      "file": "Bernstein2026_B_transfer_predictor_dominance.svg",
+      "unique_ids": true,
+      "resolved_references": true,
+      "variant": "B_transfer_predictor_dominance",
+      "protected_objects_unchanged": 49,
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79"
+    }
+  ],
+  "study_metadata": "Original study SHA-256 values retained in point tables; no study or telemetry changes."
+}
