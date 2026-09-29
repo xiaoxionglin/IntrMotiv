@@ -1,0 +1,142 @@
+{
+  "schema": "intrmotiv/poster-critique-review/v1",
+  "workflow_version": "1.14.0",
+  "study_schema": "intrmotiv/study/v1",
+  "source_attachment": "/home/xiaoxiong/.codex/attachments/851bd80a-7dcf-4195-bf32-37c1294a6285/Bernstein2026_B_evolved.svg",
+  "source_sha256": "52a647dc8fac239ab3a65d01869b7864a2f52d2016ee277f541b48a2fdb08f18",
+  "critique_sha256": "2bfa86ce597c5ac660b795aacc4ea50385ffa2fedc5438f1276b5dc4b5957798",
+  "rejected_suggestion": 1,
+  "font_requested": "Helvetica",
+  "font_rendered": "Nimbus Sans",
+  "font_path": "/usr/share/fonts/opentype/urw-base35/NimbusSans-Regular.otf",
+  "plot_font_pt": 30,
+  "caption_font_pt": 40,
+  "variants": {
+    "V1_dominance_TV": {
+      "title": "Dominance + TV",
+      "field_plot": "review_dominance",
+      "field_heading": "3b  Field dominance in four CA3-feedback variants",
+      "field_caption": "Dominance does not order better behaviour here.",
+      "field_note": "12 runs · DG 16 · 75M · architecture associations",
+      "keep_tv": true
+    },
+    "V2_concentration": {
+      "title": "Concentration + command success",
+      "field_plot": "review_concentration",
+      "field_heading": "3b  Spatial concentration in four CA3-feedback variants",
+      "field_caption": "Concentration weakly orders target-event success.",
+      "field_note": "12 runs · DG 16 · 75M · coverage near ceiling",
+      "keep_tv": false
+    },
+    "V3_core_concentration": {
+      "title": "Core designs + command success",
+      "field_plot": "review_core_shape",
+      "field_heading": "3b  Core designs: exploration and map shape",
+      "field_caption": "C15: more exploration, less concentrated DG maps.",
+      "field_note": "9 models · 100M · training AUC / frozen-map concentration",
+      "keep_tv": false
+    }
+  },
+  "sources": {
+    "05_plans/poster_20260929/layout_versions/critique_variations/input_poster.svg": "52a647dc8fac239ab3a65d01869b7864a2f52d2016ee277f541b48a2fdb08f18",
+    "06_experiments/revise_poster_layout_20260929.py": "ec6214923de28a2753d6c94b0d0afaf5c8970dd171afd01c88579cecf518f83b",
+    "06_experiments/compose_a0_poster_20260929.py": "7738479534a5d41ef9a6834329a2778f141a6b01f5d03d8662b917934efb3895",
+    "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
+    "06_experiments/analyze_poster_reward_auc.py": "4191926942b81b479a761d35d14b2626b93add28de37899ae4ba83d68e85617f",
+    "hpc_runs/intrmotiv_study/field_concentration.py": "912fe84142e343225d6c38e3479f635bca6eb79f7754453d14e529f01c8f5812",
+    "05_plans/poster_20260929/worker_random_transfer/reward_per_run.csv": "d18aecab0a1004d04d35e5281b8c41336ca18e86619f24b4b2624047b9edf8a1",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_peak_counts.csv": "32e6b76a011c3d19be1171357d411428b79654a81e49570485f20df682d58d39",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_method.json": "9f60e9f93dd8e3ee1f0b7a4b253583934236f9ba33efc823db5849f951de9b52",
+    "06_experiments/data/worker_random_transfer_20260929/studies/cued_reward5_frozen_dg_controls_20260925.study.json": "0564d977af601792f36bad805f4960d6eb02beb1b5439041186d03a0c0c1615f",
+    "06_experiments/data/worker_random_transfer_20260929/studies/cued_reward5_transfer_20260925.study.json": "5d6b08dc77a465076c55b2c2dd39369ac01b1502c93153275987872ffa6e35b8",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_SOURCE_DG_S42.csv": "30611cb730dd5298286bcdfdede343afba0a11f21acaa35c67d17aba7e548c37",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_RAND_DG_S42.csv": "5441dec9ad94bfd58cc6953a6e91da9a06f273193cde24a75659f06c4e686ad8",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_SOURCE_DG_S1234.csv": "407e6b875d64e56e57dbc0bebe7d86e9d2a5440b9fc2d32f088e7e04b93326ba",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_RAND_DG_S1234.csv": "e1f79a295d64217085f75ec964c8cc11d6382add66e5f741fabedf6cf989971b",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_SOURCE_DG_S9999.csv": "2ced0361a30cb448532b8e685f61e7f31dafbb70ec9cea2bd1b923be1c18409c",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D50_W_RAND_DG_S9999.csv": "96c7eafdb8b2b8755bfd3854a2f6b3d524741d63d8db900a720a8db777a9b0f1",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_SOURCE_DG_S42.csv": "9f4dd1b4fac201b46e271e7673b01fe8013901224283a30427f6e1dda4a74c0a",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_RAND_DG_S42.csv": "df79177f3ce1cb2ee443c9851a9b8d902556b4d843b3009660dbfbd93345a227",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_SOURCE_DG_S1234.csv": "07169deb43b1891ea4720791c77dc3aa6d7d5666f5f18d4ee66a32f6058c2832",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_RAND_DG_S1234.csv": "d4c0b6c81c24e56ad70af12b84b16d09f2a340f0d899740600d222004d1c6334",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_SOURCE_DG_S9999.csv": "91e4ee5c97db027661abb59f30e1e11645b5b4f54327f4178a3e1a836061b754",
+    "06_experiments/data/poster_missing_analyses_20260926/reward_histories/CR5C_D51_W_RAND_DG_S9999.csv": "10298867c772813489c51fa27c77bb3a65b1182860ba3fccaeb2f65be4186073",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
+    "05_plans/poster_20260929/continuous_fields/per_run.csv": "6df35a110c930a844849caee10cc349c09eed87b3f7e5fc12b63b0b6582ff8af",
+    "05_plans/poster_20260929/continuous_fields/command_dominance_per_run.csv": "30a3af9f4253f7c2676927c379c7cce39d14c79ad867b410c0668bbee80b6bd9",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/results/recent_batches_audit_20260906/saturday_terminal_per_run.csv": "9c59a088633e0a404500f528d717077ac238dff12626f39e4457e299724fff3f"
+  },
+  "transfer": {
+    "arms": [
+      {
+        "architecture": "D50",
+        "source_seed_pairs_won": 0,
+        "package_seed_pairs_won": 2,
+        "dg_only_relative_gain": -0.30515305018367567,
+        "package_relative_gain": 0.061265938668220166,
+        "package_early_relative_gain": -0.1801384445208346
+      },
+      {
+        "architecture": "D51",
+        "source_seed_pairs_won": 0,
+        "package_seed_pairs_won": 2,
+        "dg_only_relative_gain": -0.21828699898360449,
+        "package_relative_gain": 0.1583318915188534,
+        "package_early_relative_gain": -0.23397358272625113
+      }
+    ],
+    "backend_crosscheck": [
+      {
+        "architecture": "D50",
+        "seed": 42,
+        "tensorboard_random": 0.0002374476248989751,
+        "wandb_random": 0.0002373298180263,
+        "relative_backend_difference": 0.0004961383493526786
+      },
+      {
+        "architecture": "D50",
+        "seed": 1234,
+        "tensorboard_random": 0.0002172275481033325,
+        "wandb_random": 0.0002174799626056,
+        "relative_backend_difference": 0.0011619820067545505
+      },
+      {
+        "architecture": "D50",
+        "seed": 9999,
+        "tensorboard_random": 0.0002720170512307808,
+        "wandb_random": 0.0002719837481743,
+        "relative_backend_difference": 0.0001224300327133255
+      },
+      {
+        "architecture": "D51",
+        "seed": 42,
+        "tensorboard_random": 0.0002653331264922147,
+        "wandb_random": 0.0002653845084921,
+        "relative_backend_difference": 0.0001936509042976004
+      },
+      {
+        "architecture": "D51",
+        "seed": 1234,
+        "tensorboard_random": 0.0002641505861009285,
+        "wandb_random": 0.000264389350903,
+        "relative_backend_difference": 0.0009038965447545052
+      },
+      {
+        "architecture": "D51",
+        "seed": 9999,
+        "tensorboard_random": 0.0002688480114841461,
+        "wandb_random": 0.0002688473885734,
+        "relative_backend_difference": 2.31696244547875e-06
+      }
+    ],
+    "label": "Package = W_WORKER; W_FULL is a different, DG-trainable study arm",
+    "limitations": [
+      "One selected source checkpoint per architecture, reused across downstream seeds",
+      "Source pretraining is additional compute; worker and graph effects remain combined",
+      "Logged training reward; package heldout physical success unavailable"
+    ]
+  },
+  "map_key_correction": "C01-unit-1-0"
+}

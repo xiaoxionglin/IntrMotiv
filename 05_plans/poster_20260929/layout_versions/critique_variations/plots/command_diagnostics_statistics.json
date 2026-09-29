@@ -1,0 +1,54 @@
+{
+  "command_models": 12,
+  "tv_models": 6,
+  "all_command_lifts_positive": true,
+  "command_lift_pp_range": [
+    11.33400200601805,
+    29.36259143155695
+  ],
+  "action_tv_percent_range": [
+    0.029009656200000004,
+    0.408079497
+  ],
+  "field_associations": [
+    {
+      "plot": "dominance_command",
+      "family": "DGP",
+      "n": 6,
+      "variants": 2,
+      "spearman_rho": -0.3142857142857143,
+      "definition": "mean-threshold dominance on common replay"
+    },
+    {
+      "plot": "dominance_command",
+      "family": "Saturday",
+      "n": 6,
+      "variants": 2,
+      "spearman_rho": 0.7714285714285715,
+      "definition": "mean-threshold dominance on common replay"
+    },
+    {
+      "plot": "dominance_tv",
+      "family": "Saturday",
+      "n": 6,
+      "variants": 2,
+      "spearman_rho": -0.2571428571428572,
+      "definition": "mean-threshold dominance on common replay"
+    }
+  ],
+  "action_tv_definition": "0.5 * sum(abs(softmax(original_logits) - softmax(alternate_logits))); alternate goal is rolled over the same minibatch; mean over valid original goals",
+  "tv_window": "70M to 74,973,180 training frames; not the frozen command probe",
+  "command_definition": "executed internal DG success minus retrospectively matched shuffled-command success",
+  "limitations": [
+    "CPD TV is unavailable; no imputation",
+    "CPD minimum-threshold dominance and replay mean-threshold dominance stay separate",
+    "Shuffled trials do not guarantee identical physical starts; ordered-pair coverage is incomplete",
+    "DG hits do not verify physical arrival; these are architecture/seed associations"
+  ],
+  "tv_source_audit": {
+    "path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_learner.py",
+    "sha256": "94288bb4f8266d7d9ba3188bfe2d96e018bc40184fcd238bc0be1be7e9802d9f",
+    "first_line": 188,
+    "excerpt": "def categorical_action_total_variation(logits: Tensor, alternate_logits: Tensor) -> Tensor:\n    \"\"\"Per-sample total variation between two categorical action policies.\"\"\"\n    if logits.shape != alternate_logits.shape:\n        raise ValueError(\"Action-logit tensors must have identical shapes\")\n    probabilities = torch.softmax(logits, dim=-1)\n    alternate_probabilities = torch.softmax(alternate_logits, dim=-1)\n    return 0.5 * (probabilities - alternate_probabilities).abs().sum(dim=-1)\n"
+  }
+}

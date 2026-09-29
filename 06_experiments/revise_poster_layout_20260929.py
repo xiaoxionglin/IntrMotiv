@@ -1024,12 +1024,478 @@ Regenerate from the repository root:
 ''')
 
 
+REVIEW_VARIANTS = {
+    'V1_dominance_TV':{'title':'Dominance + TV', 'field_plot':'review_dominance',
+        'field_heading':'3b  Field dominance in four CA3-feedback variants',
+        'field_caption':'Dominance does not order better behaviour here.',
+        'field_note':'12 runs · DG 16 · 75M · architecture associations', 'keep_tv':True},
+    'V2_concentration':{'title':'Concentration + command success', 'field_plot':'review_concentration',
+        'field_heading':'3b  Spatial concentration in four CA3-feedback variants',
+        'field_caption':'Concentration weakly orders target-event success.',
+        'field_note':'12 runs · DG 16 · 75M · coverage near ceiling', 'keep_tv':False},
+    'V3_core_concentration':{'title':'Core designs + command success', 'field_plot':'review_core_shape',
+        'field_heading':'3b  Core designs: exploration and map shape',
+        'field_caption':'C15: more exploration, less concentrated DG maps.',
+        'field_note':'9 models · 100M · training AUC / frozen-map concentration', 'keep_tv':False},
+}
+
+
+def review_exploration(g: Gallery):
+    """Four compact panels expose mobility and the actual strict-field counts."""
+    data=g.read(TABLE);data=data[data.condition.isin(COLORS)].copy()
+    fields=g.read(FLAT/'mono_field_peak_counts.csv')
+    fields=fields[fields.condition.isin(COLORS)].copy()
+    data=data.merge(fields[['condition','seed','mono_units','dg_units']],on=['condition','seed'],validate='one_to_one')
+    if len(data)!=9 or not data.dg_units.eq(16).all():raise ValueError('Core field-count cohort changed')
+    if data.groupby('condition').mono_units.sum().to_dict()!={'C01':1,'C05':2,'C15':1}:
+        raise ValueError('Strict-field count claim changed')
+    fig,axes=scalar_axes(4)
+    specs=[('coverage_auc_terminal','A  AUC\n(cells)',1),
+           ('return_20_mobile','B  Returns\n20 steps (%)',100),
+           ('mobile_20_fraction','C  Mobile\nwindows (%)',100),
+           ('mono_units','D  Strict fields\n/ 48 DG units',1)]
+    for ax,(metric,title,factor) in zip(axes,specs):
+        if metric=='mono_units':
+            ax.set_title(title);ax.axis('off')
+            totals=data.groupby('condition',sort=True).mono_units.sum()
+            for x,(condition,count) in zip((.18,.5,.82),totals.items()):
+                ax.text(x,.70,f'{int(count)}/48',transform=ax.transAxes,ha='center',fontsize=30,color=COLORS[condition])
+                ax.text(x,.02,condition,transform=ax.transAxes,ha='center',fontsize=30)
+            aggregate=totals.rename('strict_field_count').reset_index().assign(seed=np.nan)
+            g.record('review_exploration',title,'strict_field_count',aggregate,'strict_field_count',
+                     protocol='frozen_10k_policy_probe',dg_units=16,checkpoint_frames=100_040_704,
+                     sample_unit='sum over three training seeds',denominator_units=48)
+            continue
+        dots(ax,data,metric,tuple(COLORS),factor)
+        for collection in ax.collections:
+            collection.set_sizes([78]);collection.set_clip_on(False)
+        ax.set(title=title,ylim=(0,100),yticks=[0,50,100])
+        g.record('review_exploration',title,metric,data,metric,factor,dg_units=16,
+                 checkpoint_frames=100_040_704,
+                 protocol='last_10m_training_mean' if metric=='coverage_auc_terminal' else 'frozen_10k_policy_probe')
+    g.finish(fig,Candidate('review_exploration','Exploration, mobility and strict fields',ROW_MM,'All review versions','','','',''))
+    data.to_csv(g.out/'review_core_per_run.csv',index=False)
+    return data
+
+
+def review_transfer(g: Gallery):
+    """Join the third arm without relabelling heldout results as package tests."""
+    from analyze_poster_reward_auc import reward_series,mean_reward_auc
+    from hpc_runs.intrmotiv_study import load_study
+    data=g.read(TRANSFER/'reward_per_run.csv').copy()
+    data['arm_display']=data.arm.map({'W_RAND_DG':'Rand','W_WORKER':'Package'})
+    folder=ROOT/'06_experiments/data/worker_random_transfer_20260929/studies'
+    declared={}
+    for path in sorted(folder.glob('*.study.json')):
+        g.sources[str(path.relative_to(ROOT))]=sha(path)
+        spec=load_study(path)
+        for run in spec.expand_runs():declared[run.name]=(run,spec)
+    source_rows=[];backend=[]
+    for architecture in ('D50','D51'):
+        for seed in (42,1234,9999):
+            run_name=f'CR5C_{architecture}_W_SOURCE_DG_S{seed}'
+            run,spec=declared[run_name]
+            if run.seed!=seed or run.factors['arm']!='W_SOURCE_DG':raise ValueError('Third arm study mismatch')
+            path=ROOT/'06_experiments/data/poster_missing_analyses_20260926/reward_histories'/f'{run_name}.csv'
+            g.sources[str(path.relative_to(ROOT))]=sha(path)
+            frames,rewards=reward_series(path)
+            if frames[-1]<.995*75_000_000:raise ValueError('Source-DG history incomplete')
+            source_rows.append({'run_name':run_name,'architecture':architecture,'arm':'W_SOURCE_DG',
+                'condition':'W_SOURCE_DG','arm_display':'DG only','seed':seed,
+                'full_0_75m':mean_reward_auc(frames,rewards,75_000_000),
+                'early_0_10m':mean_reward_auc(frames,rewards,10_000_000),
+                'study_schema':'intrmotiv/study/v1','workflow_version':spec.declared_workflow_version,'study_sha256':spec.fingerprint})
+            # Source-DG uses an existing TensorBoard export; the other two arms
+            # use pinned W&B logs. Check their overlapping random controls rather
+            # than silently treating the backends as byte-identical.
+            random_path=path.with_name(f'CR5C_{architecture}_W_RAND_DG_S{seed}.csv')
+            g.sources[str(random_path.relative_to(ROOT))]=sha(random_path)
+            frames,rewards=reward_series(random_path)
+            tb=mean_reward_auc(frames,rewards,75_000_000)
+            wb=float(data[(data.architecture==architecture)&(data.seed==seed)&(data.arm=='W_RAND_DG')].full_0_75m.iloc[0])
+            difference=abs(wb-tb)/tb
+            if difference>.005:raise ValueError('Logging backend difference exceeds 0.5%; re-audit three-arm plot')
+            backend.append({'architecture':architecture,'seed':seed,'tensorboard_random':tb,
+                            'wandb_random':wb,'relative_backend_difference':difference})
+    data=pd.concat([data,pd.DataFrame(source_rows)],ignore_index=True)
+    if len(data)!=18 or data.duplicated(['architecture','arm','seed']).any():raise ValueError('Three-arm cohort changed')
+    fig,axes=scalar_axes()
+    statistics=[]
+    arms=('W_RAND_DG','W_SOURCE_DG','W_WORKER');labels=('Rand','DG','Pkg')
+    palette=('#777777','#D55E00','#0072B2')
+    for ax,architecture in zip(axes,('D50','D51')):
+        group=data[data.architecture.eq(architecture)]
+        pivot=group.pivot(index='seed',columns='arm',values='full_0_75m').sort_index()
+        if pivot.isna().any().any() or len(pivot)!=3:raise ValueError('Incomplete transfer seed triple')
+        for offset,(_,row) in zip((-.13,0,.13),pivot.iterrows()):
+            ax.plot(np.arange(3)+offset,row[list(arms)].to_numpy()*1000,color='#aaaaaa',lw=1,zorder=1)
+        for index,arm in enumerate(arms):
+            values=pivot[arm].to_numpy()*1000
+            ax.scatter(index+np.array([-.13,0,.13]),values,s=78,color=palette[index],
+                       marker=('o','s','^')[index],zorder=3)
+            ax.plot([index-.2,index+.2],[values.mean()]*2,color='black',lw=2,zorder=4)
+        ax.set(title=f'{architecture} Reward\n/ step × 10³',xticks=[0,1,2],xticklabels=labels,
+               xlim=(-.5,2.5),ylim=(0,.6),yticks=[0,.3,.6]);ax.grid(axis='y',color='#eeeeee')
+        source_wins=int((pivot.W_SOURCE_DG>pivot.W_RAND_DG).sum())
+        package_wins=int((pivot.W_WORKER>pivot.W_RAND_DG).sum())
+        mean=pivot.mean()
+        early=group.groupby('arm').early_0_10m.mean()
+        if source_wins!=0 or package_wins!=2 or not early.W_WORKER<early.W_RAND_DG:
+            raise ValueError('Transfer-caption evidence changed')
+        statistics.append({'architecture':architecture,'source_seed_pairs_won':source_wins,
+            'package_seed_pairs_won':package_wins,'dg_only_relative_gain':float(mean.W_SOURCE_DG/mean.W_RAND_DG-1),
+            'package_relative_gain':float(mean.W_WORKER/mean.W_RAND_DG-1),
+            'package_early_relative_gain':float(early.W_WORKER/early.W_RAND_DG-1)})
+        g.record('review_transfer',architecture,'0–75M mean reward',group,'full_0_75m',1000,
+                 dg_units=64,protocol='frame-weighted logged reward during training',horizon_frames=75_000_000)
+    g.finish(fig,Candidate('review_transfer','DG-only and package transfer',(191.5,76.2),'All review versions','','','',''))
+    data.to_csv(g.out/'review_transfer_per_run.csv',index=False)
+    report={'arms':statistics,'backend_crosscheck':backend,
+        'label':'Package = W_WORKER; W_FULL is a different, DG-trainable study arm',
+        'limitations':['One selected source checkpoint per architecture, reused across downstream seeds',
+                       'Source pretraining is additional compute; worker and graph effects remain combined',
+                       'Logged training reward; package heldout physical success unavailable']}
+    (g.out/'review_transfer_statistics.json').write_text(json.dumps(report,indent=2)+'\n')
+    return report
+
+
+def review_survey(g: Gallery):
+    """The same 168 observations, separated by family without fitted lines."""
+    raw=g.read(SCATTER)
+    data=raw[(raw.geometry_group=='legacy_19x19')&(raw.dg_units==16)&
+             (raw.protocol=='online_latest_saved_window')].dropna(
+                subset=['spatial_information','unique_peak_bins','prospective_success']).copy()
+    if len(data)!=168 or data.run_name.duplicated().any():raise ValueError('Survey cohort changed')
+    fig,axes=plt.subplots(1,3,figsize=(383/25.4,100/25.4),sharey=True)
+    fig.subplots_adjust(left=.12,right=.98,top=.72,bottom=.48,wspace=.28)
+    statistics=[]
+    for ax,family in zip(axes,('ALL','CPD','DGP')):
+        group=data if family=='ALL' else data[data.family.eq(family)]
+        for name,rows in group.groupby('family'):
+            ax.scatter(rows.spatial_information,rows.prospective_success*100,s=78,alpha=.8,
+                       color=FAMILY_COLORS[name],marker=FAMILY_MARKERS[name],edgecolor='white',lw=.35)
+        rho=float(group.spatial_information.corr(group.prospective_success,method='spearman'))
+        displayed=0 if abs(rho)<.005 else rho
+        title={'ALL':'Pooled spatial score','CPD':'CA3 feedback','DGP':'DG policy'}[family]
+        ax.set(title=f'{title}\nn={len(group)} · ρ={displayed:.2f}',xlim=(0,.56),xticks=[0,.2,.4],
+               ylim=(0,100),yticks=[0,50,100]);ax.grid(color='#eeeeee')
+        statistics.append({'family':family,'n':len(group),'spearman_rho':rho,
+                           'minimum_frames':int(group.frames.min()),'maximum_frames':int(group.frames.max())})
+        g.record('review_survey',family,'spatial_information',group,'spatial_information',x_axis=True,dg_units=16)
+        g.record('review_survey',family,'recorded target-event success',group,'prospective_success',100,y_axis=True,dg_units=16)
+    axes[0].set_ylabel('Target-event\nsuccess (%)')
+    # The first title names the shared horizontal metric; a repeated label in
+    # the narrow gap between ticks and legend obscured the family key.
+    handles=[Line2D([],[],marker=FAMILY_MARKERS[f],color=FAMILY_COLORS[f],ls='none',markersize=8,
+                    label=FAMILY_NAMES[f]) for f in sorted(data.family.unique())]
+    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.5,0),ncol=3,frameon=False,
+               handletextpad=.35,columnspacing=.8)
+    g.finish(fig,Candidate('review_survey','Pooled versus within-family associations',(383,100),'All review versions','','','',''))
+    (g.out/'review_survey_statistics.json').write_text(json.dumps(statistics,indent=2)+'\n')
+    return data
+
+
+def review_fields(g: Gallery,core: pd.DataFrame):
+    data=g.read(CONTINUOUS/'per_run.csv')
+    cpd=data[data.family.eq('CPD')&data.protocol.eq('online_latest_saved_window')].copy()
+    if len(cpd)!=12 or not cpd.frames.eq(75_005_952).all():raise ValueError('Continuous CPD cohort changed')
+    statistics=[]
+    for metric,label in [('dominance','Field dominance'),('concentration','Concentration C')]:
+        key='review_'+metric
+        fig,axes=plt.subplots(1,2,figsize=tuple(v/25.4 for v in ROW_MM))
+        fig.subplots_adjust(left=.16,right=.98,bottom=.43,top=.77,wspace=.50)
+        for ax,outcome,title in zip(axes,('exploration_coverage','prospective_success'),('Exploration','Target events')):
+            ax.scatter(cpd[metric],cpd[outcome]*100,s=78,color='#0072B2',alpha=.78,edgecolor='white',lw=.5)
+            rho=float(cpd[metric].corr(cpd[outcome],method='spearman'))
+            ax.set(title=f'{title} · ρ={rho:.2f}',xlabel=label,
+                   ylabel='Visited\n(%)' if outcome=='exploration_coverage' else 'Success\n(%)',
+                   xlim=(0,1),xticks=[0,.5,1],ylim=(0,100),yticks=[0,50,100]);ax.grid(color='#eeeeee')
+            statistics.append({'metric':metric,'outcome':outcome,'n':12,'variants':4,'spearman_rho':rho})
+            g.record(key,title,metric,cpd,metric,x_axis=True,dg_units=16,protocol='online_latest_saved_window')
+            g.record(key,title,outcome,cpd,outcome,100,y_axis=True,dg_units=16,protocol='online_latest_saved_window')
+        g.finish(fig,Candidate(key,label+' and behaviour',ROW_MM,'Review variant','','','',''))
+    frozen=data[data.family.eq('Corrected core')&data.code.isin(COLORS)&
+                data.protocol.eq('frozen_latest_archived_probe')].copy()
+    if len(frozen)!=9 or not frozen.frames.eq(100_040_704).all():raise ValueError('Core concentration cohort changed')
+    frozen['condition']=frozen.code
+    joined=core[['condition','seed','coverage_auc_terminal']].merge(frozen,on=['condition','seed'],
+        validate='one_to_one',suffixes=('_training',''))
+    joined['coverage_auc_terminal']=joined.coverage_auc_terminal_training
+    fig,ax=plt.subplots(figsize=(191.5/25.4,76.2/25.4),layout='constrained')
+    for index,condition in enumerate(COLORS):
+        rows=joined[joined.condition.eq(condition)]
+        ax.scatter(rows.concentration,rows.coverage_auc_terminal,s=78,color=COLORS[condition],
+                   marker=('o','s','^')[index],label=condition)
+    ax.set(title='Same 9 core models',xlabel='Concentration C',ylabel='AUC\n(cells)',
+           xlim=(.65,1),xticks=[.7,.85,1],ylim=(0,100),yticks=[0,50,100])
+    ax.legend(frameon=False,loc='upper left',handlelength=.7,handletextpad=.35,borderpad=.2,labelspacing=.2)
+    ax.grid(color='#eeeeee')
+    for condition,rows in joined.groupby('condition'):
+        g.record('review_core_shape',condition,'concentration',rows,'concentration',x_axis=True,
+                 protocol='frozen_latest_archived_probe',dg_units=16,checkpoint_frames=100_040_704)
+        g.record('review_core_shape',condition,'coverage_auc_terminal',rows,'coverage_auc_terminal',y_axis=True,
+                 protocol='last_10m_training_mean',dg_units=16,checkpoint_frames=100_040_704)
+    g.finish(fig,Candidate('review_core_shape','Core exploration and map shape',(191.5,76.2),'Core-focused variation','','','',''))
+    joined.to_csv(g.out/'review_core_shape_per_run.csv',index=False)
+    statistics.append({'metric':'core_concentration','means':joined.groupby('condition').concentration.mean().to_dict(),
+                       'x_axis_detail_range':[.65,1],'different_observation_protocols':True})
+    (g.out/'review_field_statistics.json').write_text(json.dumps(statistics,indent=2)+'\n')
+
+
+def review_package_diagram(layer,x,y):
+    for index,(name,labels,color) in enumerate([
+        ('RAND',('Random','Fresh','Empty'),'#777777'),
+        ('DG ONLY',('DG 64','Fresh','Empty'),'#D55E00'),
+        ('PACKAGE',('DG 64','Worker','Graph'),'#0072B2')]):
+        yy=y+index*27
+        text(layer,'package-'+name+'-name',x,yy+8,[name],30,bold=True,color=color)
+        for i,(offset,width,label) in enumerate(zip((0,60,122),(50,52,56),labels)):
+            diagram_box(layer,f'package-{index}-{i}',x+offset,yy+11,width,label,color,height=15)
+
+
+def concentration_key(layer,x,y):
+    """Mathematical endpoints, visibly labelled schematic; no invented data."""
+    text(layer,'concentration-schematic',x,y+9,['Concentration C · schematic'],30,bold=True)
+    for index in range(2):
+        xx=x+12+index*85
+        for row in range(5):
+            for column in range(5):
+                color='#0072B2' if index==0 or (row,column)==(2,2) else '#eeeeee'
+                ET.SubElement(layer,f'{{{SVG}}}rect',{'id':f'concentration-key-{index}-{row}-{column}',
+                    'x':str(xx+column*7),'y':str(y+16+row*7),'width':'6.7','height':'6.7','fill':color})
+        text(layer,f'concentration-endpoint-{index}',xx-10,y+65,
+             ['Uniform: C=0' if index==0 else 'One bin: C=1'],30)
+
+
+def compose_review(root,g: Gallery,key,reference):
+    remove(root,find(root,'revised-right-B_transfer_predictor_dominance'))
+    layer=ET.SubElement(root,f'{{{SVG}}}g',{'id':'review-right-'+key,
+        f'{{{INK}}}groupmode':'layer',f'{{{INK}}}label':'Review · '+REVIEW_VARIANTS[key]['title']})
+    x=442.4;item=REVIEW_VARIANTS[key]
+    section(layer,2,'Explore, transfer and predict',x,220)
+    text(layer,'subsection-2a',x,244,['2a  Exploration, mobility and strict fields'],36,bold=True,color='#253B57')
+    text(layer,'design-key',x,263,['C01 no goals · C05 uniform goals · C15 frontier goals'],30)
+    embed(layer,g.out/'review_exploration.svg','review-exploration',x,272,383)
+    text(layer,'coverage-gain',x,363,['C01/C15: 1/48 strict fields; C15: 2.1× AUC.'],40,bold=True)
+    text(layer,'exploration-protocol',x,377,['A: training mean · B–D: frozen 10k probes · 3 seeds'],30)
+    text(layer,'subsection-2b',x,398,['2b  Does target identity change the policy?'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'goal_specificity.svg','goal-specificity',x,409,191.5)
+    control_diagram(layer,645.4,409)
+    text(layer,'goal-control-caption',x,503,['C15: weak signal; hit lift below 1 in all 3 seeds.'],40)
+    text(layer,'subsection-2c',x,526,['2c  DG-only versus control-package transfer'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'review_transfer.svg','transfer-result',x,537,191.5)
+    review_package_diagram(layer,645.4,537)
+    text(layer,'transfer-caption',x,631,['Package: +6% / +16%; no early head start.'],40)
+    text(layer,'subsection-2d',x,654,['2d  Adding a goal-conditioned next-event predictor'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'predictor.svg','predictor-result',x,665,191.5)
+    predictor_diagram(layer,645.4,665)
+    text(layer,'predictor-caption',x,759,['More revisits, less coverage in all 3 seed pairs.'],40)
+    section(layer,3,'Field shape and internal control',x,780)
+    text(layer,'survey-protocol',x,805,['3a  Pooled vs within-family · DG 16 · 25–150M'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'review_survey.svg','survey-main',x,815,383)
+    text(layer,'subsection-3b',x,934,[item['field_heading']],36,bold=True,color='#253B57')
+    embed(layer,g.out/(item['field_plot']+'.svg'),'field-behavior',x,945,
+          191.5 if key=='V3_core_concentration' else 383)
+    if key=='V3_core_concentration':concentration_key(layer,645.4,945)
+    text(layer,'field-message',x,1037,[item['field_caption']],40,bold=True)
+    text(layer,'field-protocol',x,1053,[item['field_note']],30)
+    text(layer,'subsection-3c',x,1074,
+         ['3c  Goal sensitivity and internal target specificity' if item['keep_tv'] else
+          '3c  Executed commands show internal target specificity'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'command_lift.svg','command-lift',x,1085,191.5)
+    if item['keep_tv']:
+        embed(layer,g.out/'action_tv.svg','action-tv',633.9,1085,191.5)
+        text(layer,'command-message',x,1172,['12 positive command lifts; TV uses 6 credit models.'],40)
+    else:
+        text(layer,'command-positive',645.4,1098,['Positive lift in all','12 evaluated models'],40,step=17,bold=True)
+        text(layer,'command-definition',645.4,1134,['Executed − matched shuffled','success, in percentage points'],30,step=12)
+        text(layer,'command-caveat',645.4,1160,['Internal DG events; arrival unverified'],30)
+    ET.SubElement(layer,f'{{{SVG}}}rect',{'id':'references-box','x':'441.4','y':'1176','width':'385',
+        'height':'12','rx':'1.5','fill':'#F4F6F8','stroke':'#253B57','stroke-width':'.6'})
+    text(layer,'references',445.4,1186,[reference],30)
+    helvetica_text(layer)
+    return layer
+
+
+def review_quality(out: Path,source: Path,source_png: Path,changed_key_id: str):
+    """Compare the attached author-edited source, with one explicit key correction."""
+    from PIL import Image
+    prior=ET.parse(source).getroot();prior_bounds=query_bounds(source)
+    original=np.asarray(Image.open(source_png).convert('RGBA'));checks=[]
+    for key in REVIEW_VARIANTS:
+        path=out/f'Bernstein2026_{key}.svg';root=ET.parse(path).getroot();bounds=query_bounds(path)
+        actual=np.asarray(Image.open(path.with_suffix('.png')).convert('RGBA'))
+        left_end=round(431/841*1800)
+        difference=np.any(original[:,:left_end]!=actual[:,:left_end],axis=2)
+        # Exempt only the union of old/new glyph bounds for the corrected map key.
+        for box in [prior_bounds[changed_key_id],bounds[changed_key_id]]:
+            x,y,w,h=box
+            x0,y0,x1,y1=[round(v/841*1800) for v in (x-1,y-1,x+w+1,y+h+1)]
+            difference[max(y0,0):y1,max(x0,0):min(x1,left_end)]=False
+        if difference.any():raise ValueError(f'Other attached left/header pixels changed: {key}')
+        header_end=round(193/841*1800)
+        if np.any(original[:header_end]!=actual[:header_end]):raise ValueError('Attached header changed')
+        for ids in LEFT_FIGURES.values():
+            for ident in ids:
+                if preserved_data(find(prior,ident))!=preserved_data(find(root,ident)):
+                    raise ValueError('Attached plotted left data changed')
+        for condition in COLORS:
+            ident=condition+'-subheading'
+            if ET.tostring(find(prior,ident))!=ET.tostring(find(root,ident)):
+                raise ValueError('Rejected suggestion 1 changed a condition label')
+        layer=find(root,'review-right-'+key)
+        labels=[e for e in layer.iter(f'{{{SVG}}}text') if e.get('id') in bounds]
+        clipped=[];collisions=[]
+        for i,e in enumerate(labels):
+            a=bounds[e.get('id')]
+            if a[0]<0 or a[1]<0 or a[0]+a[2]>841 or a[1]+a[3]>1189:clipped.append(e.get('id'))
+            for other in labels[i+1:]:
+                b=bounds[other.get('id')]
+                overlap=np.minimum(a[:2]+a[2:],b[:2]+b[2:])-np.maximum(a[:2],b[:2])
+                if (overlap>.3).all():collisions.append([e.get('id'),other.get('id')])
+        if clipped or collisions:raise ValueError(f'{key}: clipped={clipped}; overlaps={collisions}')
+        checks.append({**check_svg(path),'source_header_pixel_changes':0,'other_left_pixel_changes':0,
+            'condition_labels_unchanged':True,'left_plotted_data_unchanged':True,'right_text_on_page':True,
+            'right_text_collisions':[],'corrected_map_key':changed_key_id,'svg_sha256':sha(path)})
+    (out/'quality_checks.json').write_text(json.dumps(checks,indent=2)+'\n')
+
+
+def review_overview(out: Path):
+    root=ET.Element(f'{{{SVG}}}svg',{'width':'2540','height':'1320','viewBox':'0 0 2540 1320'})
+    ET.SubElement(root,f'{{{SVG}}}rect',{'width':'2540','height':'1320','fill':'white'})
+    for i,(key,item) in enumerate(REVIEW_VARIANTS.items()):
+        x=20+i*840
+        label=ET.SubElement(root,f'{{{SVG}}}text',{'x':str(x),'y':'50',
+            'style':'font-family:Helvetica,Nimbus Sans;font-size:30px;font-weight:bold'})
+        label.text=key[:2]+' · '+item['title']
+        png=out/f'Bernstein2026_{key}.png'
+        ET.SubElement(root,f'{{{SVG}}}image',{'x':str(x),'y':'90','width':'800','height':str(800*1189/841),
+            'href':'data:image/png;base64,'+base64.b64encode(png.read_bytes()).decode()})
+    target=out/'comparison_overview.svg';export_svg(root,target);render(target,2540)
+
+
+def review_critique(source: Path,critique: Path,out: Path):
+    """Review variations from the attached SVG, not a stale repository layout."""
+    out.mkdir(parents=True,exist_ok=True);plots=out/'plots';plots.mkdir(exist_ok=True)
+    pinned=out/'input_poster.svg';pinned.write_bytes(source.read_bytes())
+    (out/'input_critique.txt').write_bytes(critique.read_bytes())
+    source_digest=sha(source)
+    font=style('Helvetica',fallback_family='Nimbus Sans');g=Gallery(plots)
+    for path in (pinned,Path(__file__),Path(__file__).with_name('compose_a0_poster_20260929.py'),
+                 Path(__file__).with_name('render_poster_candidate_plots_20260929.py'),
+                 Path(__file__).with_name('analyze_poster_reward_auc.py'),
+                 ROOT/'hpc_runs/intrmotiv_study/field_concentration.py'):
+        g.sources[str(path.relative_to(ROOT))]=sha(path)
+    inserted_results(g);core=review_exploration(g);transfer=review_transfer(g)
+    review_survey(g);review_fields(g,core);command_diagnostics(g)
+    # The exact core models have no exported TV. Keep literal logits and an
+    # unmistakable no-advantage reference rather than fabricating TV from means.
+    for path in g.figures:
+        figure=ET.parse(path).getroot();helvetica_text(figure)
+        # Matplotlib normally puts IDs on enclosing groups, not editable text.
+        # Give each text its own ID so Inkscape can audit actual glyph bounds.
+        for index,label in enumerate(figure.iter(f'{{{SVG}}}text')):
+            if not label.get('id'):label.set('id',f'{path.stem}-glyph-{index}')
+        if path.stem=='goal_specificity':
+            for e in figure.iter(f'{{{SVG}}}text'):
+                if e.text=='Action-score':e.text='Mean |Δlogit|'
+                elif e.text=='change':e.text='goal swap'
+            # Matplotlib's baseline line is a named dashed line2d path.
+            for e in figure.iter(f'{{{SVG}}}path'):
+                css=e.get('style','')
+                if 'stroke-dasharray' in css and 'stroke: #777777' in css:
+                    e.set('style',css.replace('stroke-width: 1.5','stroke-width: 2.5').replace('#777777','#253B57'))
+        export_svg(figure,path)
+    root=ET.parse(pinned).getroot()
+    key=next(e for e in root.iter(f'{{{SVG}}}text') if ''.join(e.itertext()).strip()=='DG id : spatial information')
+    key_id=key.get('id')
+    for span in key.iter(f'{{{SVG}}}tspan'):span.text='DG id : activity maximum'
+    reference=''.join(find(root,'references').itertext()).strip()
+    for variant in REVIEW_VARIANTS:
+        actual=copy.deepcopy(root);compose_review(actual,g,variant,reference)
+        path=out/f'Bernstein2026_{variant}.svg';export_svg(actual,path);render(path)
+    source_png=out/'input_poster.png';render(pinned)
+    review_quality(out,pinned,source_png,key_id)
+    verify_and_render(g,pinned,source_digest)
+    pd.DataFrame(g.points).to_csv(plots/'plotted_points.csv',index=False)
+    review_overview(out)
+    (out/'manifest.json').write_text(json.dumps({'schema':'intrmotiv/poster-critique-review/v1',
+        'workflow_version':WORKFLOW_VERSION,'study_schema':'intrmotiv/study/v1',
+        'source_attachment':str(source),'source_sha256':source_digest,'critique_sha256':sha(critique),
+        'rejected_suggestion':1,'font_requested':'Helvetica','font_rendered':'Nimbus Sans','font_path':font,
+        'plot_font_pt':30,'caption_font_pt':40,'variants':REVIEW_VARIANTS,
+        'sources':g.sources,'transfer':transfer,'map_key_correction':key_id},indent=2,ensure_ascii=False)+'\n')
+    if sha(source)!=source_digest:raise ValueError('Source attachment changed')
+    write_review_notes(out)
+    print(f'Three critique-review versions written to {out}')
+
+
+def write_review_notes(out: Path):
+    # Kept separate from data/geometry code so the assessment can be reviewed
+    # without inspecting SVG generation mechanics.
+    (out/'README.md').write_text('''# Three critique-review versions from the attached B
+
+![Comparison](comparison_overview.png)
+
+| Version | Editable A0 poster | Main choice |
+| --- | --- | --- |
+| V1 | [Dominance + TV](Bernstein2026_V1_dominance_TV.svg) | Closest to B: literal dominance and the six-model TV diagnostic |
+| V2 | [Concentration + command success](Bernstein2026_V2_concentration.svg) | Actual spatial concentration in 12 CPD models; positive commands without TV |
+| V3 | [Core designs + command success](Bernstein2026_V3_core_concentration.svg) | Recommended: the main nine C01/C05/C15 models link exploration and concentration |
+
+All versions start from [the attached edited SVG](input_poster.svg), preserving its author/affiliation edits, introduction, map images, peak locations and trajectory geometry. **Suggestion 1 is not implemented:** all C01/C05/C15 headings remain exactly as attached. The single left annotation correction is the map key: displayed values are activity maxima, not spatial-information scores. Source values and scores are in [the individual-scale table](../../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv). No map values are changed.
+
+The versions retain Helvetica declarations, verified Nimbus Sans rendering, 30 pt plot labels, 40 pt result captions and boxed references. The schematic in V3 illustrates mathematical concentration endpoints and contains no fabricated observations. The core concentration x axis explicitly spans 0.65–1; all observations fit. Other scatter axes retain full 0–1 measures and 0–100% outcomes.
+
+## Evaluation of the critique
+
+| Suggestion | Assessment and implementation |
+| --- | --- |
+| 1: replace core labels | Rejected by the user; left untouched. Comparisons remain descriptive and captions do not attribute differences to a single factor. |
+| 2: show strict-field counts | Agree. Four panels now show coverage AUC, 20-decision conditional returns, mobility and strict fields. The counts 1/48, 2/48 and 1/48 are visible. Mobility exposes C05's roughly 20% mobile-window fraction. Training AUC and frozen-probe measurements are explicitly separated. |
+| 2b: distinguish policy diagnostics from reaching | Agree. Literal mean absolute logit change stays because TV is unavailable for these exact core models. The hit-lift reference is stronger and C15's below-one result is stated for all three seeds. |
+| 3: compare DG-only and package transfer | Agree for these selected sources. All three arms are shown using logged reward over the same 75M horizon. The caption reports a modest package mean advantage and the absence of an early head start. |
+| 4: rename prediction | Agree with neutral wording: adding a goal-conditioned next-event predictor. The observed result remains more revisits and less probe coverage in all three seed pairs. Familiar-cycle stabilization remains a hypothesis. |
+| 5: show within-family associations | Strongly agree. The same 168-run cohort appears as pooled, CA3-feedback and DG-policy panels. Rank correlations are approximately 0.58, 0.09 and 0.00. No fitted line or new replication is implied. Target-event success is explicitly internal. |
+| 6: dominance versus concentration | Agree. V1 correctly names dominance; V2 uses actual concentration; V3 ties actual concentration to the core designs. None manipulates field shape or establishes that fields cause worse control. |
+| 7: foreground positive command lift | Agree. The existing 12-model seed-paired result remains; V2/V3 replace TV with a plain definition and the internal-event caveat. V1 keeps TV as a distinct six-model diagnostic. |
+
+## Where the critique goes too far
+
+“DG representations alone do not transfer useful control” is too general. The supported statement is **DG-only transfer collects less training reward than random DG in these six seed pairs, while the learned DG–worker–graph package has a modest, seed-dependent mean advantage**. Worker and graph contributions remain combined. Package physical heldout success is unavailable, source pretraining adds compute, and one selected source checkpoint per architecture is reused across downstream seeds.
+
+`W_FULL` is already a distinct study arm with trainable DG. The plotted package is `W_WORKER`, whose DG remains frozen. Therefore its display name is **Package**, not a renamed `W_FULL`. Random and DG-only arms both have fresh workers and empty graphs; Package transfers worker and graph as well. All use DG 64 and a 75M downstream budget. The old TensorBoard DG-only export and newer W&B arms share the canonical interval integrator; the overlapping random controls agree within 0.12% in full-horizon reward. Exact backend differences are recorded, not discarded.
+
+“Concentrated fields do not help” is also too strong as a causal conclusion. The 12-model CPD concentration rank associations are approximately $\\rho=-0.77$ with coverage and $\\rho=-0.24$ with recorded target-event success, but coverage is near its ceiling and target counters accumulate history. Frozen CPD probes do not reproduce the online coverage ordering. The core concentration means are C01 0.925, C05 0.918 and C15 0.877, from frozen maps; their training AUC is a separate protocol. The models show dissociation, not equivalence or an intervention on field shape.
+
+The critique calls 2a/2d the strongest results; this is reasonable at poster scale, with the limits above. The predictor comparison matches age, environment and probe length, not identical stochastic trajectories or starts. No significance claim is added from three seeds.
+
+## Evidence and verification
+
+[Quality checks](quality_checks.json) compare renders against the supplied source, verify unchanged condition labels and all nine left-data fingerprints, and reject page clipping or text collisions. [Plot checks](plots/quality_checks.json), [plotted points](plots/plotted_points.csv), [three-arm transfer](plots/review_transfer_statistics.json), [within-family statistics](plots/review_survey_statistics.json), [field statistics](plots/review_field_statistics.json) and [manifest](manifest.json) retain exact definitions and source hashes. No training, SSH or new telemetry was used.
+
+Regenerate with the pinned attachment and critique:
+
+```bash
+/home/xiaoxiong/miniforge3/envs/SF_git/bin/python 06_experiments/revise_poster_layout_20260929.py --review-critique --source 05_plans/poster_20260929/layout_versions/critique_variations/input_poster.svg --critique 05_plans/poster_20260929/layout_versions/critique_variations/input_critique.txt
+```
+
+**Reusable experience:** always preserve the latest attached author edits; distinguish a user-rejected suggestion from unrelated factual corrections. Compare exact matched cohorts and integrate all transfer histories with the canonical reward convention. Check existing study arm names before choosing display labels. Keep concentration, connected-component dominance, instantaneous policy sensitivity and long-horizon command specificity separate, and inspect actual glyph bounds after every compact layout change.
+''')
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,default=SOURCE)
     parser.add_argument('--out',type=Path)
     parser.add_argument('--evolve-b',action='store_true',help='Evolve the user-selected B with command diagnostics and Helvetica')
+    parser.add_argument('--review-critique',action='store_true',help='Produce review variations from the explicitly supplied edited poster')
+    parser.add_argument('--critique',type=Path)
     args=parser.parse_args()
+    if args.review_critique:
+        if args.critique is None:parser.error('--review-critique requires --critique')
+        review_critique(args.source,args.critique,args.out or PREVIOUS/'critique_variations')
+        return
     if args.evolve_b:
         evolve_b(args.out or PREVIOUS/'evolved_B')
         return

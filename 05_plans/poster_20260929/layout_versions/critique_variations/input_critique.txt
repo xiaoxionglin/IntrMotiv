@@ -1,0 +1,327 @@
+I checked this evolved version against the current `poster_20260929` analyses. It is much more coherent than the earlier poster, but I think several claims still need tightening. The strongest empirical panels are now **2a and 2d**. The weakest/most potentially misleading are **3a and 3b**, and **2c is interesting but easy to overinterpret**.
+
+## The main conceptual issue
+
+Right now the poster can be read as:
+
+**C01 → C05 → C15 = progressively improved landmark system**
+
+but these are **not clean one-factor steps**. C05 and C15 change more than just “uniform” versus “frontier” goal choice. So I would avoid language implying a causal progression.
+
+I would change the left labels slightly:
+
+- **C01 · Non-goal-conditioned**
+- **C05 · Goal-conditioned + DG regularization**
+- **C15 · Goal-conditioned + frontier manager**
+
+You can keep “uniform goal choice” / “frontier goal choice” in smaller text. Otherwise a reviewer can reasonably say: *“How do you know the exploration improvement is due to frontier choice?”*
+
+Also, somewhere near the beginning I would explicitly define:
+
+> **Landmark = sparse internal DG event; spatial localization is evaluated post hoc.**
+
+That prevents people from equating your use of “landmark” with “classical single-field place cell.”
+
+---
+
+# 2a — Exploration and revisits
+
+### Current claim
+> **C15: 2.1× coverage; no more single fields.**
+
+The **2.1× coverage AUC** claim is good. It is replicated in direction across the three seeds and is one of the cleanest poster-level results.
+
+The second half is scientifically interesting but is not actually shown in this panel. The four plots show coverage/cells/revisits; none shows the single-field counts.
+
+Also, “no more single fields” comes from a very strict classifier on separate frozen-policy probes:
+
+- C01: **1/48**
+- C05: **2/48**
+- C15: **1/48**
+
+So I would write:
+
+> **C15 broadens exploration without increasing strict single-field counts.**
+
+That is much harder to attack.
+
+### Better plot
+
+I would seriously consider replacing either **cells/episode** or the **40-decision return** plot with a tiny strict-field panel:
+
+**C01 1/48 · C05 2/48 · C15 1/48**
+
+This directly supports the sentence underneath.
+
+Coverage AUC and cells/episode are somewhat redundant. Meanwhile the 40-decision return result is less clean: C15 is better on average, but the ordering is not consistent in every seed.
+
+A particularly informative three-panel set would be:
+
+**Coverage AUC | 20-step returns | mobile fraction**
+
+because the mobility plot exposes an important caveat in C05: its low 20-step return rate occurs while only about **20% of its windows are mobile**. That prevents the audience from interpreting C05 as simply “better exploration.”
+
+---
+
+# 2b — Does the requested goal change behaviour?
+
+This is a good question, but your measurements are weaker than the wording.
+
+You show:
+
+- target-hit lift relative to shuffled target;
+- mean absolute raw-logit change under a goal swap.
+
+These establish **goal specificity diagnostics**, but not reliably changed physical behavior.
+
+So I would change the question to:
+
+> **Does target identity measurably change the policy?**
+
+and the conclusion to:
+
+> **C15 shows little goal-specific signal in these diagnostics.**
+
+rather than:
+
+> “little goal-specific advantage”
+
+which sounds like you tested actual reaching behavior.
+
+The C15 hit-lift result is actually quite striking because it is below the shuffled reference in all seeds. I would make the horizontal `1.0` reference visually very obvious.
+
+### Better second metric
+
+If you can compute it for **these exact C05/C15 models**, action-probability total variation would be much easier to interpret than raw-logit change:
+
+> same state + different goal → how much does $\pi(a)$ change?
+
+But do **not** substitute the TV plot currently in 3c; that belongs to different models. If C05/C15 probability TV is unavailable, the current raw-logit diagnostic is acceptable—just label it literally as **mean |Δlogit|**.
+
+---
+
+# 2c — Transfer the learned system
+
+This result is interesting, but the claim needs especially careful wording.
+
+The current `WORKER` condition transfers:
+
+**pretrained DG + pretrained worker + source graph**
+
+while `RAND_DG` has:
+
+**random DG + fresh worker + empty graph**.
+
+So this absolutely does **not** show:
+
+> learned DG representations transfer better.
+
+It tests a **joint learned control package**.
+
+I would even rename `WORKER` on the figure to something like:
+
+> **FULL TRANSFER**
+
+or
+
+> **DG + worker + graph**
+
+because “WORKER” makes the reader think only the worker differs.
+
+### Current claim
+> Mean reward +6% / +16%; 2/3 seed pairs win.
+
+This is technically fair, but it hides an important feature: in the first 10M frames the transferred package is actually **worse on average** in both D50 and D51.
+
+So I would say:
+
+> **Full-system transfer gives a modest, seed-dependent advantage over 75M, but not an immediate head start.**
+
+### A much stronger plot you could make
+
+I think the most scientifically interesting transfer figure would be **three arms**:
+
+**RAND_DG → SOURCE_DG → FULL TRANSFER**
+
+where:
+
+- RAND_DG = random DG + fresh worker + empty graph
+- SOURCE_DG = pretrained DG + fresh worker + empty graph
+- FULL = pretrained DG + pretrained worker + source graph
+
+You already have the data.
+
+The striking result becomes:
+
+> **DG-only transfer does not help, whereas transferring the learned control package produces a modest, seed-dependent benefit.**
+
+That is a far more informative biological/architectural result than either transfer comparison alone.
+
+It does **not** tell you whether the benefit comes from the worker or graph, but it tells you that the spatial DG code by itself is insufficient.
+
+For me, this is probably the most valuable new plot you could add.
+
+---
+
+# 2d — Train DG on the next landmark controllability
+
+The result itself is strong. The title is the problem.
+
+The predictor does not directly “train controllability.” It predicts the next distinct DG outcome/timeout from source DG + requested goal, and its loss trains DG/context machinery.
+
+I would rename it:
+
+> **Goal-conditioned next-event prediction can impair exploration**
+
+or, more neutrally:
+
+> **Adding a goal-conditioned next-event predictor increases revisits**
+
+Your observed result is clean:
+
+- 20-step returns: **62.4% → 83.2%**
+- visited fraction: **69.3% → 55.3%**
+- same direction in all three seed pairs.
+
+This is one of the poster's better ablations.
+
+The hypothesis that it **stabilizes familiar cycles** is interesting, but keep that in discussion rather than stating it as the mechanism.
+
+---
+
+# 3a — DG16, 168 runs / 56 variants
+
+This is the panel I would be most cautious about.
+
+You show:
+
+- spatial score vs DG hits: $\rho=0.58$
+- peak diversity vs DG hits: $\rho=-0.42$
+
+Even after restricting to F16, this pools:
+
+- different architecture families;
+- 25–150M ages;
+- different historical outcome definitions;
+- recent spatial maps with accumulated target counters.
+
+And critically, the apparent positive spatial-score relationship almost vanishes within the two largest families:
+
+- CPD: $\rho=0.094$
+- DGP: $\rho\approx0$
+
+So the visual impression of a broad positive relationship is much stronger than the evidence supports.
+
+### I would replace this with candidate 08
+
+Show:
+
+**all architectures | CPD only | DGP only**
+
+for spatial score vs target-event success.
+
+That gives a very interesting message:
+
+> **The apparent representation–behavior relationship is architecture-dependent.**
+
+This is scientifically more sophisticated and avoids the obvious reviewer criticism that the pooled correlation is a family effect.
+
+If you keep the current plot, at minimum put **“pooled across architectures”** directly in the title and state:
+
+> **Within-family associations are weak.**
+
+Also change `DG hits` to something like:
+
+> **Target-event success (%)**
+
+because “DG hits” can be mistaken for verified navigation success.
+
+---
+
+# 3b — Single fields and behavioural performance
+
+I like the intention, but the current claim is too strong:
+
+> **concentrated place field ≠ better behaviour**
+
+There are two problems.
+
+First, Version B is plotting **field dominance**, not spatial concentration. A broad connected field can have high dominance. So “concentrated place field” does not accurately name the x-axis metric.
+
+Second, there are only **12 points from four CPD variants**, and these are architecture associations rather than a manipulation of field shape.
+
+A defensible caption would be:
+
+> **Higher field dominance does not accompany better exploration or target-event success in these CPD variants.**
+
+That says exactly what you measured.
+
+### Better metric if you want to say “concentration”
+
+You already computed the amplitude-invariant spatial concentration metric $C$. In those same four CPD variants:
+
+- concentration vs coverage: $\rho=-0.772$
+- concentration vs target hits: $\rho=-0.238$
+
+If the headline says **concentrated fields**, I would use that metric instead of dominance.
+
+Alternatively, I actually prefer your **C01/C05/C15 concentration result**:
+
+- C01: 0.925
+- C05: 0.918
+- C15: 0.877
+
+while C15 has much higher coverage.
+
+That gives a very clean sentence:
+
+> **C15 broadens exploration without sharpening DG fields.**
+
+This is directly tied to the main story and requires fewer heterogeneous architectures.
+
+---
+
+# 3c — Goal sensitivity and commanded success
+
+This section currently feels a little like three leftover diagnostics rather than one result.
+
+There is a cleaner positive result available: the seed-paired command-lift plot from the continuous-field analysis.
+
+Across all 12 evaluated models:
+
+- DGP First: **+24.5 pp**
+- DGP Hit: **+15.2 pp**
+- Source credit: **+22.1 pp**
+- Arrival credit: **+20.7 pp**
+
+and **all 12 models have positive executed-vs-shuffled lift**.
+
+That would support a clean message:
+
+> **Later controller variants show reproducible internal target specificity.**
+
+with the necessary caveat:
+
+> internal DG target events, not verified physical-location arrival.
+
+I think that is stronger and easier to explain than the current combination of lift + credit + TV plots.
+
+---
+
+# What I would actually change before printing
+
+If time is limited, my priorities would be:
+
+1. **Fix the C01/C05/C15 labels** so they do not imply clean single-factor ablations.
+2. Change 2a to **“2.1× coverage AUC without more strict single-field units”**, and actually show the field counts.
+3. Rename `WORKER` in 2c to **FULL / DG+worker+graph** and weaken the transfer wording.
+4. Rename 2d; the result itself is good.
+5. Replace 3a with the **pooled-vs-within-family plot**.
+6. Either make 3b specifically about **field dominance**, or use your actual concentration metric.
+7. If space permits, replace 3c with the **all-12 command-lift** plot.
+
+The strongest overall scientific story would then be:
+
+> **Intrinsic sequence-based learning strongly shapes exploration, but spatial field quality, exploration, and controllability dissociate. DG representations alone do not transfer useful control; reuse appears to depend on the broader learned control system.**
+
+That is more interesting—and better supported—than claiming that the project simply learned progressively better “landmarks.”

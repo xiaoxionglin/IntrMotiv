@@ -1,0 +1,43 @@
+[
+  {
+    "metric": "dominance",
+    "outcome": "exploration_coverage",
+    "n": 12,
+    "variants": 4,
+    "spearman_rho": -0.6160417591954839
+  },
+  {
+    "metric": "dominance",
+    "outcome": "prospective_success",
+    "n": 12,
+    "variants": 4,
+    "spearman_rho": -0.2657342657342658
+  },
+  {
+    "metric": "concentration",
+    "outcome": "exploration_coverage",
+    "n": 12,
+    "variants": 4,
+    "spearman_rho": -0.7720016982323152
+  },
+  {
+    "metric": "concentration",
+    "outcome": "prospective_success",
+    "n": 12,
+    "variants": 4,
+    "spearman_rho": -0.2377622377622378
+  },
+  {
+    "metric": "core_concentration",
+    "means": {
+      "C01": 0.924869986995357,
+      "C05": 0.9175035835085424,
+      "C15": 0.8773629034555581
+    },
+    "x_axis_detail_range": [
+      0.65,
+      1
+    ],
+    "different_observation_protocols": true
+  }
+]

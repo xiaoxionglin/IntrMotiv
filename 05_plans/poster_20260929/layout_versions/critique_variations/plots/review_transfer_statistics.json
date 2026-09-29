@@ -1,0 +1,70 @@
+{
+  "arms": [
+    {
+      "architecture": "D50",
+      "source_seed_pairs_won": 0,
+      "package_seed_pairs_won": 2,
+      "dg_only_relative_gain": -0.30515305018367567,
+      "package_relative_gain": 0.061265938668220166,
+      "package_early_relative_gain": -0.1801384445208346
+    },
+    {
+      "architecture": "D51",
+      "source_seed_pairs_won": 0,
+      "package_seed_pairs_won": 2,
+      "dg_only_relative_gain": -0.21828699898360449,
+      "package_relative_gain": 0.1583318915188534,
+      "package_early_relative_gain": -0.23397358272625113
+    }
+  ],
+  "backend_crosscheck": [
+    {
+      "architecture": "D50",
+      "seed": 42,
+      "tensorboard_random": 0.0002374476248989751,
+      "wandb_random": 0.0002373298180263,
+      "relative_backend_difference": 0.0004961383493526786
+    },
+    {
+      "architecture": "D50",
+      "seed": 1234,
+      "tensorboard_random": 0.0002172275481033325,
+      "wandb_random": 0.0002174799626056,
+      "relative_backend_difference": 0.0011619820067545505
+    },
+    {
+      "architecture": "D50",
+      "seed": 9999,
+      "tensorboard_random": 0.0002720170512307808,
+      "wandb_random": 0.0002719837481743,
+      "relative_backend_difference": 0.0001224300327133255
+    },
+    {
+      "architecture": "D51",
+      "seed": 42,
+      "tensorboard_random": 0.0002653331264922147,
+      "wandb_random": 0.0002653845084921,
+      "relative_backend_difference": 0.0001936509042976004
+    },
+    {
+      "architecture": "D51",
+      "seed": 1234,
+      "tensorboard_random": 0.0002641505861009285,
+      "wandb_random": 0.000264389350903,
+      "relative_backend_difference": 0.0009038965447545052
+    },
+    {
+      "architecture": "D51",
+      "seed": 9999,
+      "tensorboard_random": 0.0002688480114841461,
+      "wandb_random": 0.0002688473885734,
+      "relative_backend_difference": 2.31696244547875e-06
+    }
+  ],
+  "label": "Package = W_WORKER; W_FULL is a different, DG-trainable study arm",
+  "limitations": [
+    "One selected source checkpoint per architecture, reused across downstream seeds",
+    "Source pretraining is additional compute; worker and graph effects remain combined",
+    "Logged training reward; package heldout physical success unavailable"
+  ]
+}
