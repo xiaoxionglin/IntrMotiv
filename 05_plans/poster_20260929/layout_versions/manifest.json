@@ -1,0 +1,240 @@
+{
+  "schema": "intrmotiv/poster-layout-alternatives/v1",
+  "source": "/home/xiaoxiong/.codex/attachments/56e5e916-3ac9-456f-9554-2f91aaab911e/Bernstein2026_IntrMotiv_layout.svg",
+  "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79",
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot_font_pt": 30,
+  "body_font_pt": 40,
+  "section_font_pt": 48,
+  "subsection_font_pt": 36,
+  "sources": {
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
+    "05_plans/poster_20260929/worker_random_transfer/reward_per_run.csv": "d18aecab0a1004d04d35e5281b8c41336ca18e86619f24b4b2624047b9edf8a1",
+    "05_plans/poster_20260929/candidate_plots/05_predictor_loops_and_coverage.svg": "e997cbfc9a726a1ff101ff26c9bd078d71bd95280f1f2e60d291c8abcbad70d7",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_peak_counts.csv": "32e6b76a011c3d19be1171357d411428b79654a81e49570485f20df682d58d39",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_method.json": "9f60e9f93dd8e3ee1f0b7a4b253583934236f9ba33efc823db5849f951de9b52",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/all_active_dg_peak_locations.csv": "6e8d908f71bab787e28451430111f45dd27ba640a7a848ff7cf543042f62327a"
+  },
+  "variants": {
+    "A_system_transfer": {
+      "title": "System transfer",
+      "recommended": true,
+      "candidate": "transfer_compact",
+      "insert_title": "2c  Transfer to a rewarded task",
+      "extra": "within_families",
+      "side": [
+        "WORKER: learned DG,",
+        "worker and graph.",
+        "RAND_DG: random DG,",
+        "fresh worker,",
+        "empty graph."
+      ],
+      "insert_caption": [
+        "Mean reward: +6% D50; +16% D51.",
+        "Two of three seed pairs win in each."
+      ],
+      "insert_protocol": "75M downstream frames · DG 64 · one source per architecture",
+      "survey_subtitle": "3b  Does the trend hold within a family?",
+      "survey_caption": [
+        "More peak bins do not imply more target hits.",
+        "Score–hit trends weaken within both families.",
+        "Historical hit counters; recent spatial windows."
+      ],
+      "claim": "Joint DG–worker–graph transfer improves average adaptation reward, with seed-dependent outcomes.",
+      "takehome": "Broader exploration, with seed-dependent system transfer.",
+      "question": "Which interactions make a learned code reusable by its worker and graph?",
+      "risk": "Reward gains are modest and heterogeneous. Two of three paired seeds favor WORKER in each architecture; there is no matched WORKER heldout evaluation. This tests a transferred package, not a DG-specific effect or equal total pretraining compute."
+    },
+    "B_predictor_and_graph": {
+      "title": "Predictor and graph",
+      "recommended": false,
+      "candidate": "predictor",
+      "insert_title": "2c  A predictor can accompany more looping",
+      "extra": "graph_grouping",
+      "side": [
+        "Adding a goal",
+        "predictor increases",
+        "20-step returns",
+        "and reduces",
+        "visited coverage."
+      ],
+      "insert_caption": [
+        "Both directions hold in all three seed pairs.",
+        "Frozen 10k probes at the same 75M age."
+      ],
+      "insert_protocol": "DG 16 · already goal-conditioned · matched age, not identical paths",
+      "survey_subtitle": "3b  Connectivity depends on the grouping",
+      "survey_caption": [
+        "Connectivity–hit ordering changes by family.",
+        "Pooled ρ=−0.55; CA3 feedback ρ=0.67.",
+        "Stored connectivity does not verify executable edges."
+      ],
+      "claim": "Adding a goal predictor accompanies more short returns and less visited coverage in a matched three-seed contrast.",
+      "takehome": "Exploration and internal-model diagnostics can diverge.",
+      "question": "Can predicting familiar transitions stabilize cycles instead of discovery?",
+      "risk": "The predictor result comes from one architectural background and stochastic frozen probes. Graph correlations are descriptive, with heterogeneous outcome rules and ages across families; they do not identify a causal failure of graph connectivity."
+    },
+    "C_fields_and_variant_means": {
+      "title": "Fields and variant means",
+      "recommended": false,
+      "candidate": "compact_fields",
+      "insert_title": "2c  Compact fields remain uncommon",
+      "extra": "variant_means",
+      "side": [
+        "Strict field counts:",
+        "C01: 1/48",
+        "C05: 2/48",
+        "C15: 1/48.",
+        "4 of 144 DG units."
+      ],
+      "insert_caption": [
+        "Broad or multifield maps can still be spatial.",
+        "Counts use ≥80% dominant-component mass."
+      ],
+      "insert_protocol": "DG 16 · three seeds · archived frozen maps · criterion-dependent",
+      "survey_subtitle": "3b  Average the three seeds of each variant",
+      "survey_caption": [
+        "Three-seed averages retain the pooled pattern.",
+        "55 variants; one mixed-age variant is omitted.",
+        "Associations still mix architecture families."
+      ],
+      "claim": "The coverage advantage does not coincide with more units passing the strict single-field criterion.",
+      "takehome": "Broader exploration does not establish compact fields or goal control.",
+      "question": "What field compactness is necessary for a useful internal goal?",
+      "risk": "Very few units pass a stringent classification rule; the counts do not imply an absence of spatial coding or equivalence between designs. Averaging seeds repeats the same survey, rather than providing independent replication."
+    }
+  },
+  "left_data_preservation": [
+    {
+      "condition": "C01",
+      "figure": "fields",
+      "data_sha256": "b99180862ffaec0a0ba7252087ae65e7cc2909298ed3bf697473e6640c6ea238",
+      "selected_units": [
+        1,
+        2,
+        12,
+        13
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C01",
+      "figure": "peaks",
+      "data_sha256": "ff575575a0c929da29d10934992ec82a3550d2ab1fa32c5d24df0a30bd187af8",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        1,
+        2,
+        12,
+        13
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C01",
+      "figure": "trajectory",
+      "data_sha256": "fd8f18c42081ac6b0c826b3b654dab8c67c91015444bca777c0a24676517f035",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "fields",
+      "data_sha256": "88845384db2ec493c85a85c6c4e67e0b718f380df9da81cf415dda9d1377e5b9",
+      "selected_units": [
+        9,
+        13,
+        3,
+        8
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "peaks",
+      "data_sha256": "2a3122764bd6af0233b862d724cb7e92c48f92c78a8de9436c24e6af8675c527",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        9,
+        13,
+        3,
+        8
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C05",
+      "figure": "trajectory",
+      "data_sha256": "668c0747544d43b37d11741bec13c57c9b918e935cb1d1d09807d1fe9a02bd85",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "fields",
+      "data_sha256": "a288e45dbbb2151ca251bb4e1d9eb1c2e6dd545becca3b160bc52612c0c213a6",
+      "selected_units": [
+        7,
+        11,
+        1,
+        0
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "peaks",
+      "data_sha256": "240997a377efd73b57f36cfd2a00275750e0af94969be190ad14b84cd58ac949",
+      "visible_peak_markers": 16,
+      "labeled_units": [
+        7,
+        11,
+        1,
+        0
+      ],
+      "font_pt": 30
+    },
+    {
+      "condition": "C15",
+      "figure": "trajectory",
+      "data_sha256": "e12a0982b58278ecd2aec24bae1012e8d974371e0ef532b303492cd86f75aae6",
+      "all_vertices_retained": true,
+      "font_pt": 30
+    }
+  ],
+  "quality": [
+    {
+      "file": "Bernstein2026_A_system_transfer.svg",
+      "unique_ids": true,
+      "resolved_references": true,
+      "variant": "A_system_transfer",
+      "protected_objects_unchanged": 49,
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79"
+    },
+    {
+      "file": "Bernstein2026_B_predictor_and_graph.svg",
+      "unique_ids": true,
+      "resolved_references": true,
+      "variant": "B_predictor_and_graph",
+      "protected_objects_unchanged": 49,
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79"
+    },
+    {
+      "file": "Bernstein2026_C_fields_and_variant_means.svg",
+      "unique_ids": true,
+      "resolved_references": true,
+      "variant": "C_fields_and_variant_means",
+      "protected_objects_unchanged": 49,
+      "width_mm": 841,
+      "height_mm": 1189,
+      "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79"
+    }
+  ],
+  "study_metadata": "Original study SHA-256 values retained in point tables; no study or telemetry changes."
+}

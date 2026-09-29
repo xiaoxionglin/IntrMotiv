@@ -1,0 +1,20 @@
+[
+  {
+    "condition": "CPU2048_DIRECT_F16_DDQN_HER",
+    "reason": "checkpoint age differs across seeds",
+    "seed_ages": [
+      {
+        "seed": 123,
+        "frames": 150011904
+      },
+      {
+        "seed": 8,
+        "frames": 75005952
+      },
+      {
+        "seed": 99,
+        "frames": 150011904
+      }
+    ]
+  }
+]

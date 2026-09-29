@@ -1,0 +1,68 @@
+[
+  {
+    "panel": "main_spatial_information",
+    "sample_unit": "run",
+    "n": 168,
+    "rho": 0.582690915717171
+  },
+  {
+    "panel": "main_unique_peak_bins",
+    "sample_unit": "run",
+    "n": 168,
+    "rho": -0.4238728919699062
+  },
+  {
+    "panel": "within_families_CA3 feedback",
+    "x": "spatial_information",
+    "sample_unit": "run",
+    "n": 81,
+    "rho": 0.093676603432701,
+    "minimum_frames": 75005952,
+    "maximum_frames": 75005952
+  },
+  {
+    "panel": "within_families_DG policy",
+    "x": "spatial_information",
+    "sample_unit": "run",
+    "n": 24,
+    "rho": -0.0008695652173913043,
+    "minimum_frames": 75005952,
+    "maximum_frames": 75005952
+  },
+  {
+    "panel": "graph_grouping_Pooled",
+    "x": "graph_reachability",
+    "sample_unit": "run",
+    "n": 168,
+    "rho": -0.5537177536836848,
+    "minimum_frames": 25001984,
+    "maximum_frames": 150011904
+  },
+  {
+    "panel": "graph_grouping_CA3 feedback",
+    "x": "graph_reachability",
+    "sample_unit": "run",
+    "n": 81,
+    "rho": 0.6655259959586679,
+    "minimum_frames": 75005952,
+    "maximum_frames": 75005952
+  },
+  {
+    "panel": "variant_means_Spatial score",
+    "x": "spatial_information",
+    "sample_unit": "variant",
+    "n": 55,
+    "rho": 0.5865079365079368,
+    "minimum_frames": 25001984,
+    "maximum_frames": 150011904
+  },
+  {
+    "panel": "variant_means_Peak diversity",
+    "x": "unique_peak_bins",
+    "sample_unit": "variant",
+    "n": 55,
+    "rho": -0.5728331918769167,
+    "minimum_frames": 25001984,
+    "maximum_frames": 150011904
+  }
+]
