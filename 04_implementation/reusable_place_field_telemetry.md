@@ -513,6 +513,16 @@ For poster or cross-run comparisons, retain the continuous `field_mono_score`
 over the three existing peak thresholds. It measures connected-field dominance;
 a broad connected response can score highly.
 
+The derived replay summary `mean_dominant_component_mass` is a different
+continuous measure: it averages dominant-component mass over all three peak
+thresholds and eligible units. Minimum-threshold `field_mono_score` cannot be
+reconstructed from this average. If only derived summaries are available,
+label this score **mean-threshold dominance** and keep it separate from
+minimum-threshold dominance and spatial concentration. Replay-summary `frames`
+counts observations; use `checkpoint_frames` for model-age joins. Verify the
+recorded panel against the manifest and survey rather than inferring its
+identity from family labels. Shared panels can span multiple families.
+
 Use `hpc_runs.intrmotiv_study.field_concentration.calculate_field_concentration`
 for a complementary, gain-invariant measure of spatial activity concentration.
 With occupancy-corrected, unsmoothed `rate_maps`, equal weights across the $N$

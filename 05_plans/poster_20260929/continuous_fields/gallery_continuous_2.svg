@@ -1,5 +1,523 @@
 <?xml version='1.0' encoding='utf-8'?>
-<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://www.w3.org/1999/xlink" width="841mm" height="740mm" viewBox="0 0 841 740"><ns0:rect width="841" height="740" fill="white" /><ns0:text id="title-1" x="20" y="32" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="32.0">Continuous place-field candidates</ns0:tspan></ns0:text><ns0:text id="legend-1" x="20" y="53" style="font-family:DejaVu Sans;font-size:10.583333333333332px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="53.0">Original physical sizes • plot text 30 pt • captions 40 pt • DG 16</ns0:tspan></ns0:text><ns0:text id="05_concentration_command_comparisons-title" x="20" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="85">05. Matched commands: exploratory</ns0:tspan><ns0:tspan x="20" y="104">examples</ns0:tspan></ns0:text><ns0:g id="05_concentration_command_comparisons" ns1:label="05_concentration_command_comparisons" transform="translate(20.0,116) scale(0.35277777788779696)"><ns0:defs>
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns1="http://www.inkscape.org/namespaces/inkscape" xmlns:ns2="http://www.w3.org/1999/xlink" width="841mm" height="740mm" viewBox="0 0 841 740"><ns0:rect width="841" height="740" fill="white" /><ns0:text id="title-1" x="20" y="32" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="32.0">Continuous place-field candidates</ns0:tspan></ns0:text><ns0:text id="legend-1" x="20" y="53" style="font-family:DejaVu Sans;font-size:10.583333333333332px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="53.0">Original physical sizes • plot text 30 pt • captions 40 pt • DG 16</ns0:tspan></ns0:text><ns0:text id="07_command_lift_seed_pairs-title" x="20" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="85">07. Commands show target specificity</ns0:tspan></ns0:text><ns0:g id="07_command_lift_seed_pairs" ns1:label="07_command_lift_seed_pairs" transform="translate(115.75,97) scale(0.35277777756285655)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="07_command_lift_seed_pairs-figure_1">
+  <ns0:g id="07_command_lift_seed_pairs-patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="07_command_lift_seed_pairs-axes_1">
+   <ns0:g id="07_command_lift_seed_pairs-patch_2">
+    <ns0:path d="M 114.803052 176.965385  L 301.730989 176.965385  L 301.730989 32.034615  L 114.803052 32.034615  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_1">
+    <ns0:path d="M 150.31936 72.418436  L 243.783329 130.032652  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_2">
+    <ns0:path d="M 161.535037 55.378443  L 254.999005 98.025548  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_3">
+    <ns0:path d="M 172.750713 98.701346  L 266.214681 113.816978  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-matplotlib.axis_1">
+    <ns0:g id="07_command_lift_seed_pairs-xtick_1">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_4">
+      <ns0:defs>
+       <ns0:path id="07_command_lift_seed_pairs-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m8fe1a3ac55" x="161.535037" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="161.535037" y="206.760698" transform="rotate(-0 161.535037 206.760698)">First</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-xtick_2">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_5">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m8fe1a3ac55" x="254.999005" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="254.999005" y="206.760698" transform="rotate(-0 254.999005 206.760698)">Hit</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-matplotlib.axis_2">
+    <ns0:g id="07_command_lift_seed_pairs-ytick_1">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_6">
+      <ns0:path d="M 114.803052 176.965385  L 301.730989 176.965385  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_7">
+      <ns0:defs>
+       <ns0:path id="07_command_lift_seed_pairs-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="114.803052" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="107.803052" y="188.363041" transform="rotate(-0 107.803052 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-ytick_2">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_8">
+      <ns0:path d="M 114.803052 114.852198  L 301.730989 114.852198  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_9">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="114.803052" y="114.852198" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_4">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="107.803052" y="126.249854" transform="rotate(-0 107.803052 126.249854)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-ytick_3">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_10">
+      <ns0:path d="M 114.803052 52.739011  L 301.730989 52.739011  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_11">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="114.803052" y="52.739011" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="107.803052" y="64.136667" transform="rotate(-0 107.803052 64.136667)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-text_6">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(25.795552 127.923438) rotate(-90)">Lift</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(59.38899 144.784375) rotate(-90)">(p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_12">
+    <ns0:path d="M 114.803052 176.965385  L 301.730989 176.965385  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-patch_3">
+    <ns0:path d="M 114.803052 176.965385  L 114.803052 32.034615  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-patch_4">
+    <ns0:path d="M 114.803052 176.965385  L 301.730989 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="07_command_lift_seed_pairs-m6030c52dc9" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #0072b2" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)">
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="150.31936" y="72.418436" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="161.535037" y="55.378443" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="172.750713" y="98.701346" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="07_command_lift_seed_pairs-m638e629b05" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)">
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="243.783329" y="130.032652" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="254.999005" y="98.025548" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="266.214681" y="113.816978" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-text_7">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="208.267021" y="25.795553" transform="rotate(-0 208.267021 25.795553)">a  DG policy</ns0:text>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_13">
+    <ns0:path d="M 143.776883 75.499408  L 179.293191 75.499408  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_14">
+    <ns0:path d="M 237.240851 113.958393  L 272.757159 113.958393  " clip-path="url(#07_command_lift_seed_pairs-p47d25dd778)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="07_command_lift_seed_pairs-axes_2">
+   <ns0:g id="07_command_lift_seed_pairs-patch_5">
+    <ns0:path d="M 352.906469 176.965385  L 539.834406 176.965385  L 539.834406 32.034615  L 352.906469 32.034615  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_15">
+    <ns0:path d="M 388.422777 91.084536  L 481.886745 97.901896  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_16">
+    <ns0:path d="M 399.638453 70.390479  L 493.102422 89.234895  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_17">
+    <ns0:path d="M 410.854129 94.731025  L 504.318098 86.801081  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-matplotlib.axis_3">
+    <ns0:g id="07_command_lift_seed_pairs-xtick_3">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_18">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m8fe1a3ac55" x="399.638453" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_8">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="399.638453" y="206.760698" transform="rotate(-0 399.638453 206.760698)">Source</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-xtick_4">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_19">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m8fe1a3ac55" x="493.102422" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_9">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="493.102422" y="206.760698" transform="rotate(-0 493.102422 206.760698)">Arr.</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-matplotlib.axis_4">
+    <ns0:g id="07_command_lift_seed_pairs-ytick_4">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_20">
+      <ns0:path d="M 352.906469 176.965385  L 539.834406 176.965385  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_21">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="352.906469" y="176.965385" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="345.906469" y="188.363041" transform="rotate(-0 345.906469 188.363041)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-ytick_5">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_22">
+      <ns0:path d="M 352.906469 114.852198  L 539.834406 114.852198  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_23">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="352.906469" y="114.852198" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="345.906469" y="126.249854" transform="rotate(-0 345.906469 126.249854)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="07_command_lift_seed_pairs-ytick_6">
+     <ns0:g id="07_command_lift_seed_pairs-line2d_24">
+      <ns0:path d="M 352.906469 52.739011  L 539.834406 52.739011  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-line2d_25">
+      <ns0:g>
+       <ns0:use ns2:href="#07_command_lift_seed_pairs-m32d6fe0a88" x="352.906469" y="52.739011" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="07_command_lift_seed_pairs-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="345.906469" y="64.136667" transform="rotate(-0 345.906469 64.136667)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_26">
+    <ns0:path d="M 352.906469 176.965385  L 539.834406 176.965385  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-patch_6">
+    <ns0:path d="M 352.906469 176.965385  L 352.906469 32.034615  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-patch_7">
+    <ns0:path d="M 352.906469 176.965385  L 539.834406 176.965385  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-PathCollection_3">
+    <ns0:g clip-path="url(#07_command_lift_seed_pairs-p3200c51106)">
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="388.422777" y="91.084536" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="399.638453" y="70.390479" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m6030c52dc9" x="410.854129" y="94.731025" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-PathCollection_4">
+    <ns0:g clip-path="url(#07_command_lift_seed_pairs-p3200c51106)">
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="481.886745" y="97.901896" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="493.102422" y="89.234895" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns2:href="#07_command_lift_seed_pairs-m638e629b05" x="504.318098" y="86.801081" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-text_13">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="446.370437" y="25.795553" transform="rotate(-0 446.370437 25.795553)">b  Credit</ns0:text>
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_27">
+    <ns0:path d="M 381.880299 85.402013  L 417.396607 85.402013  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="07_command_lift_seed_pairs-line2d_28">
+    <ns0:path d="M 475.344268 91.312624  L 510.860575 91.312624  " clip-path="url(#07_command_lift_seed_pairs-p3200c51106)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="07_command_lift_seed_pairs-p47d25dd778">
+   <ns0:rect x="114.803052" y="32.034615" width="186.927937" height="144.93077" />
+  </ns0:clipPath>
+  <ns0:clipPath id="07_command_lift_seed_pairs-p3200c51106">
+   <ns0:rect x="352.906469" y="32.034615" width="186.927937" height="144.93077" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="07_command_lift_seed_pairs-caption" x="20" y="192.19999995357702" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="192.19999995357702">Executed commands beat matched shuffled targets</ns0:tspan><ns0:tspan x="20" y="210.19999995357702">in all 12 models. First-outcome lift exceeds target-hit</ns0:tspan><ns0:tspan x="20" y="228.19999995357702">lift in all three seed pairs.</ns0:tspan></ns0:text><ns0:text id="06_dominance_command_all_saved_seeds-title" x="438" y="85" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="438" y="85">06. Dominance and commands: all</ns0:tspan><ns0:tspan x="438" y="104">saved seeds</ns0:tspan></ns0:text><ns0:g id="06_dominance_command_all_saved_seeds" ns1:label="06_dominance_command_all_saved_seeds" transform="translate(438.0,116) scale(0.35277777788779696)"><ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="06_dominance_command_all_saved_seeds-figure_1">
+  <ns0:g id="06_dominance_command_all_saved_seeds-patch_1">
+   <ns0:path d="M 0 216  L 1085.669291 216  L 1085.669291 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="06_dominance_command_all_saved_seeds-axes_1">
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_2">
+    <ns0:path d="M 130.280315 123.12  L 495.065197 123.12  L 495.065197 45.36  L 130.280315 45.36  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="06_dominance_command_all_saved_seeds-mceb88f037e" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)">
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="368.936441" y="81.128837" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="336.804997" y="67.027214" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="309.813894" y="57.884711" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="06_dominance_command_all_saved_seeds-me4185c327d" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)">
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="329.073992" y="89.238857" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="347.945654" y="97.939086" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="369.850881" y="80.766249" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-matplotlib.axis_1">
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_1">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_1">
+      <ns0:path d="M 130.280315 123.12  L 130.280315 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_2">
+      <ns0:defs>
+       <ns0:path id="06_dominance_command_all_saved_seeds-m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="130.280315" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_1">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="130.280315" y="152.915313" transform="rotate(-0 130.280315 152.915313)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_2">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_3">
+      <ns0:path d="M 312.672756 123.12  L 312.672756 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_4">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="312.672756" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_2">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="312.672756" y="152.915313" transform="rotate(-0 312.672756 152.915313)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_3">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_5">
+      <ns0:path d="M 495.065197 123.12  L 495.065197 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_6">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="495.065197" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_3">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="495.065197" y="152.915313" transform="rotate(-0 495.065197 152.915313)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-text_4">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="312.672756" y="185.949688" transform="rotate(-0 312.672756 185.949688)">Mean dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-matplotlib.axis_2">
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_1">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_7">
+      <ns0:path d="M 130.280315 123.12  L 495.065197 123.12  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_8">
+      <ns0:defs>
+       <ns0:path id="06_dominance_command_all_saved_seeds-m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="130.280315" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_5">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="123.280315" y="134.517656" transform="rotate(-0 123.280315 134.517656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_2">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_9">
+      <ns0:path d="M 130.280315 89.794286  L 495.065197 89.794286  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_10">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="130.280315" y="89.794286" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_6">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="123.280315" y="101.191942" transform="rotate(-0 123.280315 101.191942)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_3">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_11">
+      <ns0:path d="M 130.280315 56.468571  L 495.065197 56.468571  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_12">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="130.280315" y="56.468571" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_7">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="123.280315" y="67.866228" transform="rotate(-0 123.280315 67.866228)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-text_8">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(41.272815 107.663438) rotate(-90)">Lift</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(74.866252 124.524375) rotate(-90)">(p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-line2d_13">
+    <ns0:path d="M 130.280315 123.12  L 495.065197 123.12  " clip-path="url(#06_dominance_command_all_saved_seeds-p3b0ad8b4ab)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_3">
+    <ns0:path d="M 130.280315 123.12  L 130.280315 45.36  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_4">
+    <ns0:path d="M 130.280315 123.12  L 495.065197 123.12  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-text_9">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="130.280315" y="33.36" transform="rotate(-0 130.280315 33.36)">a  DG policy</ns0:text>
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="06_dominance_command_all_saved_seeds-axes_2">
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_5">
+    <ns0:path d="M 677.457638 123.12  L 1042.24252 123.12  L 1042.24252 45.36  L 677.457638 45.36  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-PathCollection_3">
+    <ns0:g clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)">
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="833.567457" y="78.998632" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="863.454851" y="77.042174" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-mceb88f037e" x="867.08215" y="65.93915" style="fill: #0072b2; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-PathCollection_4">
+    <ns0:g clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)">
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="909.935635" y="74.743963" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="850.457973" y="80.699906" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+     <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-me4185c327d" x="892.258418" y="76.049782" style="fill: #d55e00; fill-opacity: 0.85; stroke: #ffffff; stroke-opacity: 0.85; stroke-width: 0.5" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-matplotlib.axis_3">
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_4">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_14">
+      <ns0:path d="M 677.457638 123.12  L 677.457638 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_15">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="677.457638" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_10">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="677.457638" y="152.915313" transform="rotate(-0 677.457638 152.915313)">0.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_5">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_16">
+      <ns0:path d="M 859.850079 123.12  L 859.850079 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_17">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="859.850079" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_11">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="859.850079" y="152.915313" transform="rotate(-0 859.850079 152.915313)">0.5</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-xtick_6">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_18">
+      <ns0:path d="M 1042.24252 123.12  L 1042.24252 45.36  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_19">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m8fe1a3ac55" x="1042.24252" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_12">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1042.24252" y="152.915313" transform="rotate(-0 1042.24252 152.915313)">1.0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-text_13">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: middle" x="859.850079" y="185.949688" transform="rotate(-0 859.850079 185.949688)">Mean dominance</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-matplotlib.axis_4">
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_4">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_20">
+      <ns0:path d="M 677.457638 123.12  L 1042.24252 123.12  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_21">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="677.457638" y="123.12" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_14">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="670.457638" y="134.517656" transform="rotate(-0 670.457638 134.517656)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_5">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_22">
+      <ns0:path d="M 677.457638 89.794286  L 1042.24252 89.794286  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_23">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="677.457638" y="89.794286" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_15">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="670.457638" y="101.191942" transform="rotate(-0 670.457638 101.191942)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-ytick_6">
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_24">
+      <ns0:path d="M 677.457638 56.468571  L 1042.24252 56.468571  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke: #eeeeee; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-line2d_25">
+      <ns0:g>
+       <ns0:use ns2:href="#06_dominance_command_all_saved_seeds-m32d6fe0a88" x="677.457638" y="56.468571" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="06_dominance_command_all_saved_seeds-text_16">
+      <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: end" x="670.457638" y="67.866228" transform="rotate(-0 670.457638 67.866228)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="06_dominance_command_all_saved_seeds-text_17">
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(588.450138 107.663438) rotate(-90)">Lift</ns0:text>
+     <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'" transform="translate(622.043575 124.524375) rotate(-90)">(p.p.)</ns0:text>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-line2d_26">
+    <ns0:path d="M 677.457638 123.12  L 1042.24252 123.12  " clip-path="url(#06_dominance_command_all_saved_seeds-p9f6c557cc8)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.1" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_6">
+    <ns0:path d="M 677.457638 123.12  L 677.457638 45.36  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-patch_7">
+    <ns0:path d="M 677.457638 123.12  L 1042.24252 123.12  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="06_dominance_command_all_saved_seeds-text_18">
+    <ns0:text style="font-size: 30px; font-family: 'DejaVu Sans'; text-anchor: start" x="677.457638" y="33.36" transform="rotate(-0 677.457638 33.36)">b  Credit assignment</ns0:text>
+   </ns0:g>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="06_dominance_command_all_saved_seeds-p3b0ad8b4ab">
+   <ns0:rect x="130.280315" y="45.36" width="364.784882" height="77.76" />
+  </ns0:clipPath>
+  <ns0:clipPath id="06_dominance_command_all_saved_seeds-p9f6c557cc8">
+   <ns0:rect x="677.457638" y="45.36" width="364.784882" height="77.76" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:g><ns0:text id="06_dominance_command_all_saved_seeds-caption" x="438" y="211.20000002376415" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="438" y="211.20000002376415">Three seeds per variant. Blue circles: First/Source;</ns0:tspan><ns0:tspan x="438" y="229.20000002376415">orange squares: Hit/Arrival. Mean-threshold</ns0:tspan><ns0:tspan x="438" y="247.20000002376415">dominance gives different control ordering across</ns0:tspan><ns0:tspan x="438" y="265.2000000237641">families.</ns0:tspan></ns0:text><ns0:text id="05_concentration_command_comparisons-title" x="20" y="415" style="font-family:DejaVu Sans;font-size:16.93333333333333px;font-weight:bold;fill:#111111"><ns0:tspan x="20" y="415">05. Matched commands: exploratory</ns0:tspan><ns0:tspan x="20" y="434">examples</ns0:tspan></ns0:text><ns0:g id="05_concentration_command_comparisons" ns1:label="05_concentration_command_comparisons" transform="translate(20.0,446) scale(0.35277777788779696)"><ns0:defs>
   <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
  </ns0:defs>
  <ns0:g id="05_concentration_command_comparisons-figure_1">
@@ -526,4 +1044,4 @@
    <ns0:rect x="675.286299" y="294.84" width="366.95622" height="93.6" />
   </ns0:clipPath>
  </ns0:defs>
-</ns0:g><ns0:text id="05_concentration_command_comparisons-caption" x="20" y="300.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="300.100000051489">Higher concentration accompanies lower command</ns0:tspan><ns0:tspan x="20" y="318.100000051489">benefit in both available pairs. One seed per variant.</ns0:tspan></ns0:text></ns0:svg>
+</ns0:g><ns0:text id="05_concentration_command_comparisons-caption" x="20" y="630.100000051489" style="font-family:DejaVu Sans;font-size:14.11111111111111px;font-weight:normal;fill:#111111"><ns0:tspan x="20" y="630.100000051489">Higher concentration accompanies lower command</ns0:tspan><ns0:tspan x="20" y="648.100000051489">benefit in both available pairs. One seed per variant.</ns0:tspan></ns0:text></ns0:svg>

@@ -12,6 +12,9 @@
   "aggregation": "equal-weight mean of canonically eligible units within each run",
   "concentration_formula": "p = r/sum(r); Aeff = 1/sum(p*p); C=(N-Aeff)/(N-1)",
   "dominance_definition": "minimum largest-component share at 30/50/70% peak thresholds",
+  "mean_threshold_dominance_definition": "mean largest-component share across thresholds and eligible units; separate from minimum D",
+  "command_summary_models": 12,
+  "command_shared_replay_panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/poster_missing_analyses_20260926/panels/reduced_sat.npz",
   "sources": {
     "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
     "06_experiments/data/c15_variants_20260928/raw/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123_100040704_frozen/place_fields.npz": "b9967034d0febbcafeb09fead43a19690c8dae5d4e938797306dab39dfec8a08",
@@ -63,7 +66,10 @@
     "06_experiments/data/dgc_interim_20260911/spatial/per_unit.csv": "c439b1219116865c0e74cdebbc45a588e059552494af9f837036414bd196194a",
     "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
     "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
-    "06_experiments/render_field_concentration_20260929.py": "e2b0d1ddfe44cf1259f3c4fe4e684db14a94aa0b7a41c863b62481d55afb4fa3",
+    "06_experiments/data/poster_missing_analyses_20260926/replay_reduced_derived.csv": "54913e56f7413c5c4eae5d4ca2b94394a21331b286e0a083fd4d9d676fe4d64d",
+    "06_experiments/data/poster_missing_analyses_20260926/control_interventions_per_run.csv": "39ab3f23e4b0f8634f658cbd744346ec4f34534e945962cf9e55012899f56965",
+    "06_experiments/data/poster_missing_analyses_20260926/fullrange_plan/kernel_fullrange_manifest.tsv": "a8d9b140ba2683a29745db5c45f8166fc340a3b41dae844202c55ec3ef060d07",
+    "06_experiments/render_field_concentration_20260929.py": "ad6264cea8448779ce056503cc58f03de9207b0870016000f708113e925e6552",
     "hpc_runs/intrmotiv_study/field_concentration.py": "912fe84142e343225d6c38e3479f635bca6eb79f7754453d14e529f01c8f5812",
     "06_experiments/analyze_place_field_manifest.py": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1"
   },
@@ -129,9 +135,35 @@
       ],
       "rank": "Optional, too few runs for a trend claim",
       "short_caption": "Higher concentration accompanies lower command benefit in both available pairs. One seed per variant.",
-      "caption": "DG 16, seed 99, 75,038,720-frame models. Left: first-outcome (blue circle), target-hit (orange square). Right: source credit (blue circle), arrival credit (orange square). C and D are measured from shared observation/action replay within each pair; each pair has its own replay panel. Command benefit is executed success minus matched shuffled-command success at the same checkpoint, in percentage points.",
+      "caption": "DG 16, seed 99, 75,038,720-frame models. Left: first-outcome (blue circle), target-hit (orange square). Right: source credit (blue circle), arrival credit (orange square). C and D are measured from the same 10,001-observation recorded replay panel across both families. Command benefit is executed success minus matched shuffled-command success at the same checkpoint, in percentage points.",
       "limitation": "Only two variants × one seed per family; there is no rank coefficient or fitted trend. The pattern motivates discussion, not a conclusion that sharper fields impair control. Command success follows the saved intervention’s internal target-event rule.",
       "question": "Is the useful representation property field sharpness, or controllable transitions between landmarks?"
+    },
+    {
+      "key": "06_dominance_command_all_saved_seeds",
+      "title": "Dominance and commands: all saved seeds",
+      "size_mm": [
+        383.0,
+        76.2
+      ],
+      "rank": "Replicated discussion supplement",
+      "short_caption": "Three seeds per variant. Blue circles: First/Source; orange squares: Hit/Arrival. Mean-threshold dominance gives different control ordering across families.",
+      "caption": "Each point is one DG-16 model at 75,038,720 frames: two variants × three seeds per family. All representations use the same 10,001-observation replay. Mean dominance averages largest-component mass across eligible units and 30/50/70% peak thresholds; it differs from minimum-threshold D in candidates 01–05. Lift is executed minus matched shuffled target-event success in percentage points. Blue circle: First or Source; orange square: Hit or Arrival.",
+      "limitation": "Two selected variants per family do not constitute a full architectural sweep. Descriptive rank associations are −0.31 (DG policy) and +0.77 (credit assignment), each n=6. Seed replication removes the common negative pattern seen in candidate 05; no causal field-shape claim follows.",
+      "question": "Which representation properties predict controllability after accounting for architecture and seed?"
+    },
+    {
+      "key": "07_command_lift_seed_pairs",
+      "title": "Commands show target specificity",
+      "size_mm": [
+        191.5,
+        76.2
+      ],
+      "rank": "Preferred command result",
+      "short_caption": "Executed commands beat matched shuffled targets in all 12 models. First-outcome lift exceeds target-hit lift in all three seed pairs.",
+      "caption": "DG 16 at 75,038,720 frames. Points are three training seeds per variant; gray lines connect matching seed IDs and black bars show means. Lift: executed target-event success minus matched shuffled-command success. DG-policy means: First 24.5 versus Hit 15.2 p.p.; credit means: Source 22.1 versus Arrival 20.7 p.p. Zero means no command advantage.",
+      "limitation": "The shuffled comparator is matched retrospectively from completed trials, not identical-start physical navigation. Trial eligibility and deadline rules follow the saved intervention; ordered-pair coverage is incomplete. Three seed pairs support a descriptive comparison, not a significance claim.",
+      "question": "Do learned commands identify specific internal targets, and how should this translate to physical navigation?"
     }
   ],
   "poster_sha256_before": "21a62006e04c58765ea90852c9709426dffa8a0cccebed2aa08e69b23f4d7dbd",

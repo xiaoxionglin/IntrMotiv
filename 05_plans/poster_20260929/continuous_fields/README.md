@@ -3,12 +3,15 @@
 Use **01** to replace the binary mono-field count panel, and **03** for the
 exploration/control scatter. **04** broadens the architectural comparison using
 saved continuous component-dominance scores. **02** supplies C01/C05/C15 behavior
-context. **05** is an exploratory command comparison with too few seeds for a
-general trend claim. The existing posters have not been edited.
+context. **07** is the preferred compact command result, using all 12 saved
+models; **06** shows their continuous field-dominance comparison. **05** remains
+a seed-99 illustration and should not carry a general trend claim. Everything
+here can be regenerated locally without NEMO. The existing posters have not been edited.
 
 Plots use editable SVG text at **30 pt**, scatter markers **78 pt²**, and the
-existing physical canvases: **191.5 × 76.2 mm** for the compact pair and
-**383 × 165.1 mm** for four scatter panels. Selection-sheet captions are **40 pt**.
+existing physical canvases: **191.5 × 76.2 mm** for the compact pair,
+**383 × 76.2 mm** for a row of two scatters, and **383 × 165.1 mm** for four
+scatter panels. Selection-sheet captions are **40 pt**.
 Import at 100% physical size; shrinking a panel also shrinks its text.
 
 ![Main candidates](gallery_continuous_1.png)
@@ -20,6 +23,8 @@ Import at 100% physical size; shrinking a panel also shrinks its text.
 | 03 Concentration, exploration, control | [SVG](03_concentration_exploration_control.svg) | Preferred continuous scatter |
 | 04 Dominance across variants | [SVG](04_dominance_across_variants.svg) | Wider available survey |
 | 05 Matched command examples | [SVG](05_concentration_command_comparisons.svg) | Exploratory supplement |
+| 06 All saved seeds: dominance and commands | [SVG](06_dominance_command_all_saved_seeds.svg) | Replicated discussion, two variants per family |
+| 07 Seed-paired command lift | [SVG](07_command_lift_seed_pairs.svg) | Preferred positive command result |
 
 ## What the measures mean
 
@@ -43,6 +48,14 @@ find connected components; take the largest component’s share of superlevel
 rate mass, then the minimum across the three thresholds. It distinguishes one
 dominant component from several competing ones. It still uses peak thresholds,
 but the output is continuous and needs no mono-field pass/fail cutoff.
+
+**Mean-threshold dominance, $\bar D$ (candidate 06):** the existing replay
+summary `mean_dominant_component_mass`. This averages the dominant-component
+share across all three thresholds and eligible units, instead of taking the
+minimum threshold share per unit. It is a continuous connected-field measure,
+but it is **not $D$ and not spatial concentration $C$**. The mean is available
+for 12 saved replay summaries; local raw maps support $C$ and minimum $D$ for
+only four of those models. Missing minimum scores cannot be recovered from the mean.
 
 Use the two together. A broad connected field can have high $D$; several small,
 distant peaks can have high $C$. $C$ is spatial activity concentration, not a
@@ -115,13 +128,66 @@ versus hit rank coefficient of −0.8, but only four points; dominance gives +0.
 The seed-level coefficients and three-seed architecture means both remain in
 [correlations.csv](correlations.csv). Grouping is part of the interpretation.
 
-## Matched-command supplement
+## Matched-command results available offline
 
 ![Optional command comparisons](gallery_continuous_2.png)
 
-Candidate 05 keeps two comparisons separate. Both use DG 16, seed 99 and
-75,038,720-frame checkpoints, with one common observation/action replay within
-each pair. The pairs use different panels and are not pooled.
+All four variants have saved command outcomes and mean-threshold dominance
+for seeds **8, 99 and 123**: **12 models**, all DG 16 at **75,038,720 frames**.
+All their representations used the **same recorded 10,001-observation panel**,
+`reduced_sat.npz`. The earlier statement that each family used a different
+panel was incorrect; the raw-map metadata, survey and replay manifest agree
+on a shared panel. Families remain separate because their controller designs
+and evaluation decision caps differ (30k DGP, 20k Saturday).
+
+### Preferred command claim: target specificity
+
+[Candidate 07](07_command_lift_seed_pairs.svg) shows every seed, with gray
+lines connecting matching seed IDs and black mean bars. No error bars or
+significance marks are implied.
+
+| Family | Variant | Mean command lift | Range across three seeds |
+| --- | --- | ---: | ---: |
+| DG policy | First outcome | +24.5 p.p. | +18.9 to +29.4 p.p. |
+| DG policy | Target hit | +15.2 p.p. | +11.3 to +19.1 p.p. |
+| Credit assignment | Source | +22.1 p.p. | +19.9 to +25.7 p.p. |
+| Credit assignment | Arrival | +20.7 p.p. | +19.1 to +21.8 p.p. |
+
+> **Executed commands show target specificity in all 12 evaluated models.**
+
+All 12 observed lifts are positive relative to matched shuffled-command
+success. First-outcome lift exceeds target-hit lift in all three seed pairs;
+the mean difference is **9.3 p.p.** Source credit exceeds arrival credit in
+two of three seeds, with a smaller **1.4 p.p.** mean difference. The latter is
+a discussion point rather than a strong ordering.
+
+Lift measures the saved intervention’s **internal DG target-event success**.
+The shuffled comparator is selected retrospectively from completed trials;
+it does not ensure identical physical starts. Ordered-pair coverage is
+incomplete, and evaluation opportunity depends on source recognition. These
+results describe command specificity, not verified physical arrival. Neither
+contrast by itself isolates the effect of DG learning.
+
+### Continuous field structure versus command lift
+
+[Candidate 06](06_dominance_command_all_saved_seeds.svg) uses all 12 saved
+mean-threshold dominance scores, six points per family. Descriptive Spearman
+associations are **−0.31 for DG policy** and **+0.77 for credit assignment**.
+Blue circles identify First or Source; orange squares identify Hit or Arrival.
+These opposite signs do not support the common negative association suggested
+by the seed-99 examples. With only two variants per family, the positive
+credit-assignment association also cannot establish a general field–control rule.
+
+The appropriate discussion question is **which representation properties
+predict controllable transitions after architecture and seed are accounted for?**
+For a poster with limited space, prefer 07 over 05; use 06 only if the field-shape
+discussion is central. Do not pool the two score definitions or mix these
+command outcomes with training-time target-hit counters.
+
+### Seed-99 raw-map illustration
+
+Candidate 05 uses only seed 99, where raw maps are locally available and both
+$C$ and minimum-threshold $D$ can be computed:
 
 | Pair | Variant | Concentration $C$ | Dominance $D$ | Executed minus shuffled success |
 | --- | --- | ---: | ---: | ---: |
@@ -132,9 +198,9 @@ each pair. The pairs use different panels and are not pooled.
 
 Within both available pairs, the more concentrated representation accompanies
 the smaller matched-command benefit. **One seed per variant is insufficient for
-a general trend claim.** No fitted line, rank coefficient, or significance claim
-is displayed. Success follows the saved intervention’s internal target-event
-rule; this is not an independent physical-goal arrival measurement. A DG-16
+a general trend claim.** The replicated mean-dominance comparison in 06 does
+not reproduce a common negative ordering across both families. No fitted line,
+rank coefficient, or significance claim is displayed in 05. A DG-16
 CPU model at 300M also has concentration and command data in the tables, but
 is omitted from these comparisons because its family and checkpoint age differ.
 
@@ -147,6 +213,15 @@ algorithm-screen means support continuous dominance only. Capacity is fixed at
 DG 16. This is not the entire 168-run poster survey. The
 [survey availability table](survey_availability.csv) also retains unavailable
 DG-16 run/protocol rows, including excluded corridor geometries.
+
+The additional [command summary table](command_dominance_per_run.csv) retains
+12 exact replay/command joins separately from these 63 raw-map/unit-CSV means.
+Its scores have a different threshold aggregation. Four seed-99 summary
+scores were checked against local raw maps; the eight other seeds rely on the
+saved derived CSV, without inventing unit scores or unavailable concentration.
+Expanding to all eight DGP variants requires command probes for six variants
+that have no saved matched-command outcomes. The broader CPD survey has
+training counters but no matched-command outcomes; it cannot fill that gap.
 
 Unknown bins are excluded. Rate maps already divide activity by visits; map
 mass gives equal weight to spatial bins rather than dwell time. Shapes of
@@ -167,8 +242,9 @@ versus frozen visited coverage is $\rho=0.151$; entropy concentration gives
 −0.354. Shorter, policy-specific probe paths and the choice of tail weighting
 matter. Do not combine frozen and online maps into one universal concentration
 trend. There is no fixed-trajectory causal control for the main exploration
-scatter. The common-replay command pairs provide better input comparability,
-but lack independent seed replication.
+scatter. The common-replay command comparisons provide better input comparability
+and now include three independently trained seeds per variant; they still
+cover only two selected variants per family.
 
 ## Sources, verification, and reuse
 
@@ -178,6 +254,10 @@ study fingerprints where available, eligibility counts, alternative measures,
 and mean/median summaries. [plotted_points.csv](plotted_points.csv) maps exact
 values to panels. [raw_map_availability.csv](raw_map_availability.csv) reports
 duplicates, unavailable exact matches and capacity exclusions.
+[command_dominance_per_run.csv](command_dominance_per_run.csv) retains the
+12 summary joins, replay counts, eligibility, command trial coverage, model
+identity and exact shared panel. [command_dominance_statistics.json](command_dominance_statistics.json)
+records the descriptive associations and every seed-paired lift difference.
 [manifest.json](manifest.json) fingerprints every selected source and records
 formula, physical size, font, and package versions.
 [quality_checks.json](quality_checks.json) verifies editable vectors, unique SVG
@@ -199,4 +279,9 @@ and explicit policy, deduplicate identical maps, keep capacity fixed, and audit
 measurement availability before making a cross-run claim. Frozen summary rows
 omit policy ID; selected checkpoint paths verify policy 0. Large rotated labels
 can exceed a compact physical canvas at 30 pt: use short axis names, captioned
-definitions and multiline panel statistics, then inspect the final SVG render.
+definitions and one-line panel statistics, then inspect the final SVG render.
+For offline command plots, first check existing derived summaries: missing
+raw maps need not mean missing run-level measures. In replay exports, `frames`
+counts observations; join model age through `checkpoint_frames`. Validate
+metric aggregation and replay-panel identity explicitly, then retain the
+average-threshold score under a distinct name from minimum-threshold dominance.

@@ -86,6 +86,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   tables before requesting raw archives. Rotated long labels initially exceeded
   compact 30-pt canvases, and two-line panel statistics overlapped adjacent rows;
   short names and one-line statistics preserve final print size and readability.
+  Offline command expansion recovered all 12 saved DGP/Saturday models through
+  `mean_dominant_component_mass`, despite raw-map availability for only four.
+  The adapter keeps this threshold average separate from minimum-threshold
+  dominance, joins model age through `checkpoint_frames` (replay `frames` is
+  observation count), and verifies all four available raw-map summaries.
+  Manifest and raw-map checks corrected a mistaken caption: both families
+  used the same `reduced_sat.npz` replay. Local seed-paired plots now expose
+  the replicated lift result and family-dependent shape association; missing
+  full-family command outcomes remain absent. Reuse pinned summaries and
+  verify panel identity before requesting cluster access.
 
 ### Poster assembly needs scoped SVG imports and preservation checks — 2026-09-29
 

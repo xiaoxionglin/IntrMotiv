@@ -1,0 +1,38 @@
+[
+  {
+    "family": "DGP",
+    "n": 6,
+    "variants": 2,
+    "seeds_per_variant": 3,
+    "spearman_rho": -0.3142857142857143,
+    "first_condition": "DGP_C15_FIRST_JOINT_LEG",
+    "second_condition": "DGP_C15_HIT_JOINT_LEG",
+    "first_mean_lift_pp": 24.50348660888129,
+    "second_mean_lift_pp": 15.215849052173239,
+    "paired_lift_difference_pp": {
+      "8": 13.913522746457192,
+      "99": 10.29904628105528,
+      "123": 3.650343642611678
+    },
+    "first_higher_seeds": 3,
+    "all_lifts_positive": true
+  },
+  {
+    "family": "Saturday",
+    "n": 6,
+    "variants": 2,
+    "seeds_per_variant": 3,
+    "spearman_rho": 0.7714285714285715,
+    "first_condition": "SAT_C15_SRC_MON_FILM",
+    "second_condition": "SAT_C15_ARR_MON_FILM",
+    "first_mean_lift_pp": 22.11206085480457,
+    "second_mean_lift_pp": 20.684680273253257,
+    "paired_lift_difference_pp": {
+      "8": 1.646355625880061,
+      "99": 4.5508247375835085,
+      "123": -1.9150386188096307
+    },
+    "first_higher_seeds": 2,
+    "all_lifts_positive": true
+  }
+]

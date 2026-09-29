@@ -17,7 +17,7 @@ from compose_a0_poster_20260929 import (
     plt, sha, style, text, wrap_lines,
 )
 from render_poster_candidate_plots_20260929 import (
-    Candidate, Gallery, LARGE_MM, SMALL_MM, scalar_axes, verify_and_render,
+    Candidate, Gallery, LARGE_MM, ROW_MM, SMALL_MM, paired, scalar_axes, verify_and_render,
 )
 from hpc_runs.intrmotiv_study.field_concentration import calculate_field_concentration
 from hpc_runs.intrmotiv_study.version import WORKFLOW_VERSION
@@ -32,6 +32,10 @@ CPD_COLORS = ['#444444', '#0072B2', '#D55E00', '#009E73']
 CPD_LABELS = {
     'CPD_C15_BASE': 'Baseline', 'CPD_C15_ADD_CA3_DIR': 'CA3 feedback',
     'CPD_C15_GATE_ACT_DIR': 'Goal context', 'CPD_C15_GATE_ACT_DIR_GOAL': '+ predictor',
+}
+COMMAND_GROUPS = {
+    'DGP': {'DGP_C15_FIRST_JOINT_LEG': 'First', 'DGP_C15_HIT_JOINT_LEG': 'Hit'},
+    'Saturday': {'SAT_C15_SRC_MON_FILM': 'Source', 'SAT_C15_ARR_MON_FILM': 'Arrival'},
 }
 
 
@@ -199,6 +203,96 @@ def correlation_tables(runs: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
+def command_summary_data(g: Gallery, survey: pd.DataFrame) -> pd.DataFrame:
+    """Recover all saved seeds without substituting a mean score for minimum D.
+
+    Replay-summary `frames` counts observations, whereas checkpoint_frames
+    identifies model age. Keep both, and audit against the pinned survey and
+    replay manifest before joining frozen command outcomes.
+    """
+    base = ROOT/'06_experiments/data/poster_missing_analyses_20260926'
+    replay_path = base/'replay_reduced_derived.csv'
+    command_path = base/'control_interventions_per_run.csv'
+    replay = g.read(replay_path).rename(columns={
+        'frames': 'replay_observations', 'checkpoint_frames': 'frames',
+        'mean_dominant_component_mass': 'mean_threshold_dominance'})
+    command = g.read(command_path).rename(columns={
+        'checkpoint_frames': 'frames', 'protocol': 'command_protocol',
+        'executed_minus_shuffled': 'command_lift'})
+    keys = ['condition', 'seed', 'frames']
+    metadata = survey[survey.protocol.eq('common_replay_with_frozen_outcomes')
+                      & survey.family.isin(COMMAND_GROUPS)].copy()
+    result = metadata.merge(replay[keys+['replay_observations', 'field_eligible_units',
+                                        'mean_threshold_dominance']],
+                            on=keys, validate='one_to_one')
+    result = result.merge(command, on=keys, validate='one_to_one', suffixes=('', '_command'))
+    if len(result) != 12 or not (result.frames == 75038720).all() or not (result.dg_units == 16).all():
+        raise ValueError('Expected 12 same-age DG-16 command/replay models')
+    for family, groups in COMMAND_GROUPS.items():
+        selected = result[result.family == family]
+        if set(selected.condition) != set(groups) or not all(
+            set(group.seed) == {8, 99, 123} for _, group in selected.groupby('condition')
+        ):
+            raise ValueError(f'Incomplete three-seed command comparison: {family}')
+    if not (result.field_eligible_units > 0).all() or not result.mean_threshold_dominance.between(0, 1).all():
+        raise ValueError('Undefined or out-of-range continuous dominance summary')
+    if not np.allclose(result.command_lift, result.executed_minus_shuffled) or not np.allclose(
+        result.command_lift, result.executed_success-result.matched_shuffled_success
+    ):
+        raise ValueError('Command lift disagrees with saved success rates or canonical survey')
+    for column in ['executed_success', 'matched_shuffled_success']:
+        if column+'_command' in result and not np.allclose(result[column], result[column+'_command']):
+            raise ValueError(f'Command summary disagrees with canonical survey: {column}')
+    panel_path = base/'fullrange_plan/kernel_fullrange_manifest.tsv'
+    g.sources[str(panel_path.relative_to(ROOT))] = sha(panel_path)
+    panels = pd.read_csv(panel_path, sep='\t').rename(columns={'checkpoint_frames': 'frames'})
+    panels = result[keys].merge(panels[keys+['panel']], on=keys, validate='one_to_one')
+    result = result.merge(panels, on=keys, validate='one_to_one')
+    if result.panel.nunique() != 1 or not (result.panel == result.representation_panel).all():
+        raise ValueError('Replay panel provenance disagrees; do not infer it from family names')
+    if not (result.replay_observations == result.representation_observations).all():
+        raise ValueError('Replay observation counts disagree')
+    # Verify the archived summary formula on every locally staged seed-99 map.
+    result['raw_summary_crosscheck'] = False
+    for path in sorted((base/'common_fields/replay_reduced/raw').rglob('place_fields.npz')):
+        with np.load(path, allow_pickle=False) as raw:
+            name, age = checkpoint_identity(str(raw['checkpoint']), set(result.run_name))
+            selected = result[(result.run_name == name) & (result.frames == age)]
+            if len(selected) != 1:
+                raise ValueError(f'No exact command-summary identity for {path}')
+            row = selected.iloc[0]
+            eligible, _, mass, _, _ = multilevel_field_structure(
+                raw['rate_maps'], raw['occupancy'], raw['active_fraction'])
+            if not np.isclose(mass[:, eligible].mean(), row.mean_threshold_dominance, atol=1e-7):
+                raise ValueError(f'Mean-threshold dominance disagrees: {path}')
+            if str(raw['observation_panel']) != row.panel or int(eligible.sum()) != row.field_eligible_units:
+                raise ValueError(f'Raw replay metadata disagrees: {path}')
+            result.loc[selected.index, 'raw_summary_crosscheck'] = True
+            g.sources[str(path.relative_to(ROOT))] = sha(path)
+    if result.raw_summary_crosscheck.sum() != 4:
+        raise ValueError('Expected four local seed-99 raw-summary crosschecks')
+    result['dominance_source'] = str(replay_path.relative_to(ROOT))
+    result['command_source'] = str(command_path.relative_to(ROOT))
+    result.to_csv(g.out/'command_dominance_per_run.csv', index=False)
+    stats = []
+    for family, groups in COMMAND_GROUPS.items():
+        selected = result[result.family == family]
+        first, second = groups
+        seed_pairs = selected.pivot(index='seed', columns='condition', values='command_lift')
+        differences = seed_pairs[first]-seed_pairs[second]
+        stats.append({'family': family, 'n': len(selected), 'variants': 2, 'seeds_per_variant': 3,
+            'spearman_rho': rho(selected, 'mean_threshold_dominance', 'command_lift'),
+            'first_condition': first, 'second_condition': second,
+            'first_mean_lift_pp': float(seed_pairs[first].mean()*100),
+            'second_mean_lift_pp': float(seed_pairs[second].mean()*100),
+            'paired_lift_difference_pp': {str(k): float(v*100) for k, v in differences.items()},
+            'first_higher_seeds': int((differences > 0).sum()),
+            'all_lifts_positive': bool((selected.command_lift > 0).all())})
+    (g.out/'command_dominance_statistics.json').write_text(
+        json.dumps(stats, indent=2, ensure_ascii=False)+'\n')
+    return result
+
+
 def axes_grid():
     fig, axes = plt.subplots(2, 2, figsize=tuple(v/25.4 for v in LARGE_MM))
     fig.subplots_adjust(left=.115, right=.96, bottom=.17, top=.80, wspace=.50, hspace=1.15)
@@ -364,8 +458,8 @@ def command_candidate(g: Gallery, runs: pd.DataFrame):
         'Higher concentration accompanies lower command benefit in both available pairs. One seed per variant.',
         'DG 16, seed 99, 75,038,720-frame models. Left: first-outcome (blue circle), '
         'target-hit (orange square). Right: source credit (blue circle), arrival credit (orange square). '
-        'C and D are measured from shared observation/action replay within each pair; each pair has '
-        'its own replay panel. Command benefit is executed success minus matched shuffled-command success '
+        'C and D are measured from the same 10,001-observation recorded replay panel across both families. '
+        'Command benefit is executed success minus matched shuffled-command success '
         'at the same checkpoint, in percentage points.',
         'Only two variants × one seed per family; there is no rank coefficient or fitted trend. '
         'The pattern motivates discussion, not a conclusion that sharper fields impair control. '
@@ -373,8 +467,65 @@ def command_candidate(g: Gallery, runs: pd.DataFrame):
         'Is the useful representation property field sharpness, or controllable transitions between landmarks?'))
 
 
+def replicated_command_candidates(g: Gallery, data: pd.DataFrame):
+    key = '06_dominance_command_all_saved_seeds'
+    fig, axes = plt.subplots(1, 2, figsize=tuple(v/25.4 for v in ROW_MM))
+    fig.subplots_adjust(left=.12, right=.96, bottom=.43, top=.79, wspace=.50)
+    for ax, (family, groups), letter in zip(axes, COMMAND_GROUPS.items(), 'ab'):
+        selected = data[data.family == family]
+        colors = dict(zip(groups, ['#0072B2', '#D55E00']))
+        scatter(g, key, ax, selected, 'mean_threshold_dominance', 'command_lift',
+                'Mean dominance', 'Lift\n(p.p.)', f'{letter}  {family}', groups, colors,
+                factor=100, correlation=False)
+        ax.set_title(f'{letter}  {"DG policy" if family == "DGP" else "Credit assignment"}',
+                     loc='left', pad=12)
+        ax.set(xlim=(0, 1), xticks=[0, .5, 1], ylim=(0, 35), yticks=[0, 15, 30])
+        ax.axhline(0, color='#777777', lw=1.1, ls='--')
+        # The caption names both marker identities; an in-panel legend at 30 pt
+        # would cover points on this compact physical canvas.
+    g.finish(fig, Candidate(key, 'Dominance and commands: all saved seeds', ROW_MM,
+        'Replicated discussion supplement',
+        'Three seeds per variant. Blue circles: First/Source; orange squares: Hit/Arrival. '
+        'Mean-threshold dominance gives different control ordering across families.',
+        'Each point is one DG-16 model at 75,038,720 frames: two variants × three seeds per family. '
+        'All representations use the same 10,001-observation replay. Mean dominance averages '
+        'largest-component mass across eligible units and 30/50/70% peak thresholds; it differs '
+        'from minimum-threshold D in candidates 01–05. Lift is executed minus matched shuffled target-event '
+        'success in percentage points. Blue circle: First or Source; orange square: Hit or Arrival.',
+        'Two selected variants per family do not constitute a full architectural sweep. '
+        'Descriptive rank associations are −0.31 (DG policy) and +0.77 (credit assignment), each n=6. '
+        'Seed replication removes the common negative pattern seen in candidate 05; no causal field-shape claim follows.',
+        'Which representation properties predict controllability after accounting for architecture and seed?'))
+    key = '07_command_lift_seed_pairs'
+    fig, axes = scalar_axes(2)
+    for ax, (family, groups), letter in zip(axes, COMMAND_GROUPS.items(), 'ab'):
+        selected = data[data.family == family]
+        labels = tuple('Arr.' if label == 'Arrival' else label for label in groups.values())
+        paired(ax, selected, 'command_lift', tuple(groups), labels, factor=100)
+        for collection in ax.collections:
+            collection.set_sizes([78])
+        ax.set(title=f'{letter}  {"DG policy" if family == "DGP" else "Credit"}',
+               ylabel='Lift\n(p.p.)' if letter == 'a' else '', ylim=(0, 35), yticks=[0, 15, 30])
+        ax.axhline(0, color='#777777', lw=1.1, ls='--')
+        g.record(key, family, 'command_lift', selected, 'command_lift', factor=100,
+                 protocol='frozen_matched_commands', model_frames=75038720, capacity=16,
+                 unit='percentage points', sample_unit='one training seed')
+    g.finish(fig, Candidate(key, 'Commands show target specificity', SMALL_MM,
+        'Preferred command result',
+        'Executed commands beat matched shuffled targets in all 12 models. First-outcome lift exceeds target-hit lift in all three seed pairs.',
+        'DG 16 at 75,038,720 frames. Points are three training seeds per variant; gray lines connect '
+        'matching seed IDs and black bars show means. Lift: executed target-event success minus '
+        'matched shuffled-command success. DG-policy means: First 24.5 versus Hit 15.2 p.p.; '
+        'credit means: Source 22.1 versus Arrival 20.7 p.p. Zero means no command advantage.',
+        'The shuffled comparator is matched retrospectively from completed trials, not identical-start '
+        'physical navigation. Trial eligibility and deadline rules follow the saved intervention; '
+        'ordered-pair coverage is incomplete. Three seed pairs support a descriptive comparison, not a significance claim.',
+        'Do learned commands identify specific internal targets, and how should this translate to physical navigation?'))
+
+
 def compose_gallery(g: Gallery):
-    for page, candidates in enumerate([g.candidates[:4], g.candidates[4:]]):
+    # Put the replicated command result before the optional seed-99 example.
+    for page, candidates in enumerate([g.candidates[:4], list(reversed(g.candidates[4:]))]):
         root = ET.Element(f'{{{SVG}}}svg', {'width':'841mm','height':'740mm','viewBox':'0 0 841 740'})
         ET.SubElement(root, f'{{{SVG}}}rect', {'width':'841','height':'740','fill':'white'})
         text(root, f'title-{page}', 20, 32, ['Continuous place-field candidates'], size=48, bold=True)
@@ -444,6 +595,8 @@ def main():
     cpd_candidates(g, runs)
     broad_dominance_candidate(g, runs)
     command_candidate(g, runs)
+    commands = command_summary_data(g, survey)
+    replicated_command_candidates(g, commands)
     compose_gallery(g)
     pd.DataFrame(g.points).to_csv(args.out/'plotted_points.csv', index=False)
     for path in [Path(__file__), ROOT/'hpc_runs/intrmotiv_study/field_concentration.py',
@@ -457,6 +610,9 @@ def main():
         'aggregation':'equal-weight mean of canonically eligible units within each run',
         'concentration_formula':'p = r/sum(r); Aeff = 1/sum(p*p); C=(N-Aeff)/(N-1)',
         'dominance_definition':'minimum largest-component share at 30/50/70% peak thresholds',
+        'mean_threshold_dominance_definition':'mean largest-component share across thresholds and eligible units; separate from minimum D',
+        'command_summary_models':len(commands),
+        'command_shared_replay_panel':str(commands.panel.iloc[0]),
         'sources':g.sources, 'candidates':[asdict(c) for c in g.candidates],
         'poster_sha256_before':poster_hash,
         'numpy_version':np.__version__, 'pandas_version':pd.__version__,
