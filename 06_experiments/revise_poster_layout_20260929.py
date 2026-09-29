@@ -23,7 +23,8 @@ from compose_a0_poster_20260929 import (
     COLORS, FAMILY_COLORS, FAMILY_MARKERS, INK, PT_MM, ROOT, SCATTER, SVG,
     TABLE, dots, embed, np, pd, plt, sha, style, text, wrap_lines,
 )
-from render_poster_candidate_plots_20260929 import Candidate, Gallery, ROW_MM, paired, scalar_axes
+from render_poster_candidate_plots_20260929 import Candidate, Gallery, ROW_MM, paired, scalar_axes, verify_and_render
+from hpc_runs.intrmotiv_study.version import WORKFLOW_VERSION
 from matplotlib.lines import Line2D
 
 SOURCE = Path('/home/xiaoxiong/.codex/attachments/56e5e916-3ac9-456f-9554-2f91aaab911e/Bernstein2026_IntrMotiv_layout.svg')
@@ -48,7 +49,7 @@ VARIANTS = {
     'A_transfer_predictor_monofields':{
         'title':'Single-field fraction', 'recommended':True,
         'field_plot':'monofields_behavior',
-        'field_caption':'Single fields do not reliably track better behaviour.',
+        'field_caption':'More single fields ≠ better behaviour.',
         'field_protocol':'CA3 feedback · 27 variants × 3 seeds · DG 16 · 75M',
         'claim':'Single-field fraction has no positive exploration/control ordering in the 81-run CA3-feedback family.',
         'risk':'Online coverage is near its ceiling. Maps use a recent behavior window; target hits are historical internal events. '
@@ -57,7 +58,7 @@ VARIANTS = {
     'B_transfer_predictor_dominance':{
         'title':'Continuous field dominance', 'recommended':False,
         'field_plot':'dominance_behavior',
-        'field_caption':'Field dominance does not imply better behaviour.',
+        'field_caption':'Field dominance ≠ better behaviour.',
         'field_protocol':'CA3 feedback · 4 variants × 3 seeds · DG 16 · 75M',
         'claim':'Continuous dominance is negatively associated with online coverage and weakly associated with target hits in the locally available CPD subset.',
         'risk':'Only four CPD variants have local unit-level continuous scores. Minimum-threshold dominance is distinct '
@@ -540,7 +541,7 @@ def compose_right(root, source_right, g: Gallery, variant_key):
     text(layer,'field-message',x,1127,[item['field_caption']],40,bold=True)
     text(layer,'field-protocol',x,1147,[item['field_protocol']],30)
     text(layer,'field-definition',x,1162,
-         ['Eligible units · recent maps / historical hits · associations, not causal effects'],30)
+         ['Eligible units · DG hits are internal · associations only'],30)
     text(layer,'references',x,1178,['Lin, Yiu & Leibold (2026) · Leibold (2020), Neural Networks.'],30)
 
 
@@ -624,9 +625,19 @@ def visual_checks(out: Path, source: Path):
                     overlap=np.minimum(a[:2]+a[2:],b[:2]+b[2:])-np.maximum(a[:2],b[:2])
                     if (overlap>.2).all():collisions.append([left.get('id'),right.get('id')])
         if collisions:raise ValueError(f'Peak labels overlap: {collisions}')
+        # Check actual glyph boxes across all newly composed right-column text,
+        # including imported plot labels and captions next to diagrams.
+        right_text=[e for e in added[1].iter(f'{{{SVG}}}text') if e.get('id') in bounds]
+        right_collisions=[]
+        for i,left in enumerate(right_text):
+            for right in right_text[i+1:]:
+                a,b=bounds[left.get('id')],bounds[right.get('id')]
+                overlap=np.minimum(a[:2]+a[2:],b[:2]+b[2:])-np.maximum(a[:2],b[:2])
+                if (overlap>.3).all():right_collisions.append([left.get('id'),right.get('id')])
+        if right_collisions:raise ValueError(f'Right-column text overlaps: {right_collisions}')
         results.append({'variant':key,'protected_pixel_changes':regions,
                         'previous_left_column_pixel_changes':left_changes,'added_text_on_page':True,
-                        'peak_labels_do_not_overlap':True,'svg_sha256':sha(path)})
+                        'peak_labels_do_not_overlap':True,'right_text_do_not_overlap':True,'svg_sha256':sha(path)})
     (out/'quality_checks.json').write_text(json.dumps(results,indent=2)+'\n')
 
 
@@ -764,13 +775,17 @@ def main():
     for path in g.figures:
         check_svg(path);render(path,round(float(ET.parse(path).getroot().get('width').removesuffix('mm'))/25.4*150))
     pd.DataFrame(g.points).to_csv(plots/'plotted_points.csv',index=False)
-    report={'schema':'intrmotiv/poster-layout-alternatives/v2','source':str(args.source),'source_sha256':digest,
+    report={'schema':'intrmotiv/poster-layout-alternatives/v2','workflow_version':WORKFLOW_VERSION,
+            'study_schema':'intrmotiv/study/v1','source':str(args.source),'source_sha256':digest,
+            'previous_left_reference_sha256':sha(PREVIOUS/'Bernstein2026_A_system_transfer.svg'),
             'font_path':font,'plot_font_pt':30,'body_font_pt':40,'section_font_pt':48,'subsection_font_pt':36,
             'sources':g.sources,'pinned_source':'input_layout.svg','variants':VARIANTS,'left_data_preservation':left_audit,'quality':results,
             'study_metadata':'Original study SHA-256 values retained in point tables; no study or telemetry changes.'}
     (args.out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     if sha(args.source)!=digest:raise ValueError('Supplied SVG changed')
     visual_checks(args.out,args.source)
+    baseline=PREVIOUS/'Bernstein2026_A_system_transfer.svg'
+    verify_and_render(g,baseline,sha(baseline))
     overview(args.out)
     write_notes(args.out)
     print(f'Two A0 alternatives written to {args.out}')

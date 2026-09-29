@@ -173,6 +173,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   labels, and source/geometry fingerprints in the manifest. Use the latest
   attachment and pinned survey for future edits; do not repeat cluster or
   historical-export discovery to revise a layout.
+  The current [two-version revision](05_plans/poster_20260929/layout_versions/revised/README.md)
+  combines transfer and prediction in both choices, with field fraction or
+  continuous dominance plotted against exploration and control. The exact
+  CPD predictor was audited against the pinned verbatim module and local
+  learner: its loss reaches DG, the context adapter and its own head, while
+  outputs remain outside action/manager selection. Two existing gradient
+  checks confirm source-DG learning and DIRECT history detachment. Goal-swap
+  and transfer-component diagrams replace the longer side paragraphs.
+  Compare the entire left column against the previous delivered poster;
+  checking only the attachment's introduction would miss later layout changes.
+  Short conclusions avoid the page overflow caught by Inkscape glyph bounds.
   Repository sync exposed 113 add/add SVG conflicts across the unfinished
   merge and subsequent remote integration. Their figure content was identical
   after canonicalizing local IDs/references and export timestamps.

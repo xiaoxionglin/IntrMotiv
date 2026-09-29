@@ -1,5 +1,12 @@
 # A0 poster with large type and DG-16 survey — 29 September 2026
 
+[Current two poster versions](layout_versions/README.md) combine system transfer,
+the training-only DG predictor, and single-field structure versus exploration
+and control. Their header and complete left column are preserved. The former
+third version is dropped from the current selection.
+
+The earlier filled poster and candidate sources remain below for reference.
+
 [Editable Inkscape poster](Bernstein2026_IntrMotiv_filled.svg) · [Full-page preview](Bernstein2026_IntrMotiv_filled.png)
 
 [Optional plot gallery](candidate_plots/README.md) contains nine separate editable candidates for transfer, predictor loops, graph diagnostics, compact fields, and within-family associations. They reuse the current physical panel sizes and 30 pt plot text, with 40 pt captions on the selection sheets. The gallery does not modify this poster; choose panels after rearranging its columns.

@@ -1,14 +1,17 @@
 {
   "schema": "intrmotiv/poster-layout-alternatives/v2",
+  "workflow_version": "1.14.0",
+  "study_schema": "intrmotiv/study/v1",
   "source": "05_plans/poster_20260929/layout_versions/input_layout.svg",
   "source_sha256": "293803579199ac1d924265261cad0038de8bd9d6ebbcef530c881a7fb037ae79",
+  "previous_left_reference_sha256": "21a62006e04c58765ea90852c9709426dffa8a0cccebed2aa08e69b23f4d7dbd",
   "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
   "plot_font_pt": 30,
   "body_font_pt": 40,
   "section_font_pt": 48,
   "subsection_font_pt": 36,
   "sources": {
-    "06_experiments/revise_poster_layout_20260929.py": "6751b25ca7f87e0123728851d104561cd9a070d0cf138208021cdce03df14ff4",
+    "06_experiments/revise_poster_layout_20260929.py": "56a785bd8ef5c2a61e3e50f89a71aa2877a3480fc5ad537c111a3c1002d2b371",
     "06_experiments/compose_a0_poster_20260929.py": "876a3acd696d6b8d0159da858debf941728bea99e3015dfb32ad3e34c542db25",
     "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
     "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/analysis_metadata.json": "9ef236ca9d35a88616d59f3a981dbccd074f773c167bf35abd6518820f6677fc",
@@ -31,7 +34,7 @@
       "title": "Single-field fraction",
       "recommended": true,
       "field_plot": "monofields_behavior",
-      "field_caption": "Single fields do not reliably track better behaviour.",
+      "field_caption": "More single fields ≠ better behaviour.",
       "field_protocol": "CA3 feedback · 27 variants × 3 seeds · DG 16 · 75M",
       "claim": "Single-field fraction has no positive exploration/control ordering in the 81-run CA3-feedback family.",
       "risk": "Online coverage is near its ceiling. Maps use a recent behavior window; target hits are historical internal events. Architectural association does not establish that monofields have no causal benefit."
@@ -40,7 +43,7 @@
       "title": "Continuous field dominance",
       "recommended": false,
       "field_plot": "dominance_behavior",
-      "field_caption": "Field dominance does not imply better behaviour.",
+      "field_caption": "Field dominance ≠ better behaviour.",
       "field_protocol": "CA3 feedback · 4 variants × 3 seeds · DG 16 · 75M",
       "claim": "Continuous dominance is negatively associated with online coverage and weakly associated with target hits in the locally available CPD subset.",
       "risk": "Only four CPD variants have local unit-level continuous scores. Minimum-threshold dominance is distinct from spatial concentration and from the binary field fraction. Protocol dependence limits generalization."
