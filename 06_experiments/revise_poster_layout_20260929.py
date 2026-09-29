@@ -413,7 +413,7 @@ def scatter_panel(ax, data, x, title, x_label, *, marker_size=78):
     return rho
 
 
-def survey(g: Gallery):
+def survey(g: Gallery, size_mm=(383,130)):
     raw=g.read(SCATTER)
     data=raw[(raw.geometry_group=='legacy_19x19')&(raw.protocol=='online_latest_saved_window')&
              (raw.dg_units==16)].dropna(subset=['spatial_information','unique_peak_bins','prospective_success']).copy()
@@ -422,7 +422,7 @@ def survey(g: Gallery):
     data['condition_original']=data.condition
     data['condition']=data.family
     statistics=[]
-    fig,axes=plt.subplots(1,2,figsize=(383/25.4,130/25.4),sharey=True)
+    fig,axes=plt.subplots(1,2,figsize=tuple(v/25.4 for v in size_mm),sharey=True)
     fig.subplots_adjust(left=.12,right=.975,top=.88,bottom=.43,wspace=.28)
     for ax,x,label in zip(axes,('spatial_information','unique_peak_bins'),('Spatial score','Distinct peak bins')):
         rho=scatter_panel(ax,data,x,label,label)
@@ -438,7 +438,7 @@ def survey(g: Gallery):
                     label=FAMILY_NAMES[f]) for f in sorted(data.family.unique())]
     fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.5,.015),ncol=3,frameon=False,
                handletextpad=.4,columnspacing=.9)
-    g.finish(fig,Candidate('survey_main','Current section 3, compact layout',(383,130),'All versions','','','',''))
+    g.finish(fig,Candidate('survey_main','Current section 3, compact layout',size_mm,'All versions','','','',''))
     (g.out/'cross_run_statistics.json').write_text(json.dumps(statistics,indent=2)+'\n')
     return data
 

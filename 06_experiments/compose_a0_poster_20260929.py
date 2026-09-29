@@ -47,6 +47,8 @@ PT_MM = 25.4 / 72
 PLOT_FONT_PT = 30
 BODY_FONT_PT = 40
 HEADING_FONT_PT = 48
+TEXT_FONT_FAMILY = 'DejaVu Sans'
+RENDER_FONT_FAMILY = 'DejaVu Sans'
 # Capacity is fixed in the main survey, so shape can reinforce study family.
 FAMILY_MARKERS = {'CPD': 'o', 'DGP': 's', 'DGC': '^', 'CPU cadence': 'D',
                   'Navigation8': 'P', 'Source credit': 'X'}
@@ -63,12 +65,28 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def style() -> str:
-    font = Path(findfont('DejaVu Sans', fallback_to_default=False))
+def style(font_family='DejaVu Sans', *, fallback_family=None) -> str:
+    """Select a scalable font, allowing only an explicitly named substitute.
+
+    Keep the requested family in editable SVG labels. Measure and render with
+    the verified installed family, so missing Helvetica never silently becomes
+    Matplotlib's default font. The caller records any substitution in its manifest.
+    """
+    global TEXT_FONT_FAMILY, RENDER_FONT_FAMILY
+    try:
+        font = Path(findfont(font_family, fallback_to_default=False))
+        rendered_family = font_family
+    except ValueError:
+        if fallback_family is None:
+            raise
+        font = Path(findfont(fallback_family, fallback_to_default=False))
+        rendered_family = fallback_family
     if not font.is_file() or font.suffix.lower() not in {'.ttf', '.otf'}:
         raise RuntimeError(f'No verified scalable font: {font}')
+    TEXT_FONT_FAMILY = font_family if rendered_family == font_family else f'{font_family},{rendered_family}'
+    RENDER_FONT_FAMILY = rendered_family
     plt.rcParams.update({
-        'font.family': 'DejaVu Sans', 'font.size': PLOT_FONT_PT, 'axes.labelsize': PLOT_FONT_PT,
+        'font.family': rendered_family, 'font.size': PLOT_FONT_PT, 'axes.labelsize': PLOT_FONT_PT,
         'axes.titlesize': PLOT_FONT_PT, 'xtick.labelsize': PLOT_FONT_PT, 'ytick.labelsize': PLOT_FONT_PT,
         'legend.fontsize': PLOT_FONT_PT, 'svg.fonttype': 'none', 'axes.spines.top': False,
         'axes.spines.right': False, 'axes.linewidth': 1.2, 'svg.hashsalt': 'intrmotiv-a0-20260929',
@@ -215,7 +233,7 @@ def text(parent, ident: str, x: float, y: float, lines: list[str], size=BODY_FON
     """Place native editable poster text; sizes are final physical points."""
     el = ET.SubElement(parent, f'{{{SVG}}}text', {
         'id': ident, 'x': str(x), 'y': str(y),
-        'style': f'font-family:DejaVu Sans;font-size:{size*PT_MM}px;font-weight:{"bold" if bold else "normal"};fill:{color}',
+        'style': f'font-family:{TEXT_FONT_FAMILY};font-size:{size*PT_MM}px;font-weight:{"bold" if bold else "normal"};fill:{color}',
     })
     for i, line in enumerate(lines):
         ET.SubElement(el, f'{{{SVG}}}tspan', {'x': str(x), 'y': str(y+i*step)}).text = line
@@ -224,7 +242,7 @@ def text(parent, ident: str, x: float, y: float, lines: list[str], size=BODY_FON
 
 def wrap_lines(message: str, width_mm: float, point_size=BODY_FONT_PT, bold=False) -> list[str]:
     """Wrap measured glyph widths instead of estimating a character count."""
-    properties = FontProperties(family='DejaVu Sans', size=point_size,
+    properties = FontProperties(family=RENDER_FONT_FAMILY, size=point_size,
                                 weight='bold' if bold else 'normal')
     measure = TextToPath()
     lines = []
