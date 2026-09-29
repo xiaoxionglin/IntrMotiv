@@ -1,16 +1,13 @@
-# Current poster versions
+# Current poster: evolved B
 
-The current selection has **two versions**, both combining transfer and predictor results. The former version 3 is dropped from this selection.
+The selected poster is **B**, now evolved with action-probability TV, executed-command lift, Helvetica figure labels, a trajectory-event key and boxed references. The former version 3 remains dropped.
 
-![Current two-version overview](revised/comparison_overview.png)
+![Current B preview](evolved_B/Bernstein2026_B_evolved.png)
 
-| Version | Editable poster | Field-structure evidence |
-| --- | --- | --- |
-| A (recommended) | [Transfer, predictor and monofields](revised/Bernstein2026_A_transfer_predictor_monofields.svg) | Single-field fraction versus exploration and control across 81 CA3-feedback runs |
-| B | [Transfer, predictor and continuous dominance](revised/Bernstein2026_B_transfer_predictor_dominance.svg) | Continuous field dominance versus both outcomes across 12 locally available runs |
+[Editable A0 poster](evolved_B/Bernstein2026_B_evolved.svg) · [Evidence and limits](evolved_B/README.md) · [Quality checks](evolved_B/quality_checks.json)
 
-Both preserve the full left column and header, shorten section 2 explanations, and add diagrams explaining goal swaps, system transfer, and the training-only predictor. Plot text is 30 pt and conclusion captions are 40 pt.
+The header and introduction are unchanged. Left-panel plotted data are unchanged; their labels use Helvetica and the shared circle/star key identifies option starts and internal DG goal hits. Generated plot labels are 30 pt, conclusions 40 pt. Helvetica is absent locally, so verified Nimbus Sans is used explicitly for rendering; SVG text declares `Helvetica,Nimbus Sans`.
 
-[Current evidence, limits and regeneration](revised/README.md) · [Quality checks](revised/quality_checks.json)
+The original B field-dominance comparison retains exploration and recorded target hits for 12 CA3-feedback models. The added command row shows all 12 available intervention models and TV for the six overlapping credit models. Different cohorts and score definitions stay separate. [Additional dominance-versus-command and TV scatters](evolved_B/README.md#field-dominance-versus-these-measures) are available as candidates.
 
-Earlier outputs are retained for recovery. Their [previous layout notes](previous_layout_notes.md) describe the superseded three-version selection; they are not the current recommendations.
+Earlier alternatives remain for recovery: [former A/B comparison](revised/comparison_overview.png), [their notes](revised/README.md), and [the superseded three-version notes](previous_layout_notes.md). The current work continues from B.

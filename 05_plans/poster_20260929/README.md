@@ -1,9 +1,11 @@
 # A0 poster with large type and DG-16 survey — 29 September 2026
 
-[Current two poster versions](layout_versions/README.md) combine system transfer,
-the training-only DG predictor, and single-field structure versus exploration
-and control. Their header and complete left column are preserved. The former
-third version is dropped from the current selection.
+[Current selected poster B](layout_versions/README.md) combines system transfer,
+the training-only DG predictor, continuous field dominance versus exploration
+and control, and separately labelled TV/command-lift diagnostics. Its header,
+introduction and left-panel data are preserved. Figure fonts declare Helvetica;
+the installed Nimbus Sans substitute is recorded. Trajectory events have a
+shared key and references are boxed. The former third version is dropped.
 
 The earlier filled poster and candidate sources remain below for reference.
 

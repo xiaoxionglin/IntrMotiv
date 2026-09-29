@@ -1,0 +1,134 @@
+{
+  "schema": "intrmotiv/poster-layout-evolution/v1",
+  "workflow_version": "1.14.0",
+  "study_schema": "intrmotiv/study/v1",
+  "selected_base": "05_plans/poster_20260929/layout_versions/revised/Bernstein2026_B_transfer_predictor_dominance.svg",
+  "base_sha256": "84bebb2819195f6947e510646c1103a952060019560606c5927287041a7b39f0",
+  "font_requested": "Helvetica",
+  "font_rendered": "Nimbus Sans",
+  "font_path": "/usr/share/fonts/opentype/urw-base35/NimbusSans-Regular.otf",
+  "font_substitution": "Helvetica absent locally; verified scalable Nimbus Sans used explicitly",
+  "plot_font_pt": 30,
+  "caption_font_pt": 40,
+  "section_font_pt": 48,
+  "sources": {
+    "05_plans/poster_20260929/layout_versions/revised/Bernstein2026_B_transfer_predictor_dominance.svg": "84bebb2819195f6947e510646c1103a952060019560606c5927287041a7b39f0",
+    "06_experiments/revise_poster_layout_20260929.py": "edb7b07fc7f5456c21596708cd71df4713709e863ae77291983479a376f8cbd8",
+    "06_experiments/compose_a0_poster_20260929.py": "7738479534a5d41ef9a6834329a2778f141a6b01f5d03d8662b917934efb3895",
+    "06_experiments/render_poster_candidate_plots_20260929.py": "b94dc97525bee3b17ce0c83e4e0092ed101fdf99390094b70f97355b12df0ae8",
+    "06_experiments/data/poster_missing_analyses_20260926/cross_run_scatter/all_run_metrics.csv": "0ab869287781d2338c260cdd633ce0b0c27095932a0375749a4f2a517244419c",
+    "05_plans/poster_20260929/worker_random_transfer/reward_per_run.csv": "d18aecab0a1004d04d35e5281b8c41336ca18e86619f24b4b2624047b9edf8a1",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/trajectory_per_run.csv": "0177dd9de56477cc8b1d4e9d02ca404ac3a039b83ab695a85601f38fa2d1dbda",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_peak_counts.csv": "32e6b76a011c3d19be1171357d411428b79654a81e49570485f20df682d58d39",
+    "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_method.json": "9f60e9f93dd8e3ee1f0b7a4b253583934236f9ba33efc823db5849f951de9b52",
+    "05_plans/poster_20260929/continuous_fields/per_run.csv": "6df35a110c930a844849caee10cc349c09eed87b3f7e5fc12b63b0b6582ff8af",
+    "exports/intrmotiv_prediction_starter/intrmotiv_transfer/contextual_dg.py": "6f8ca9107c6302efee6ebddf00cc3c7f85c88023525bcc83904d756181fb5f44",
+    "exports/intrmotiv_prediction_starter/PROVENANCE.json": "c60eb40b7417c042d2a1df071264c811585d20b6134240ed85c453758c46dc81",
+    "hpc_runs/studies/ca3_feedback_predictive_dg.study.json": "1a4231f77964231875dddb53cbad7ed3497350f7444f57709f1425b18541191f",
+    "05_plans/poster_20260929/continuous_fields/command_dominance_per_run.csv": "30a3af9f4253f7c2676927c379c7cce39d14c79ad867b410c0668bbee80b6bd9",
+    "06_experiments/results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/results/recent_batches_audit_20260906/saturday_terminal_per_run.csv": "9c59a088633e0a404500f528d717077ac238dff12626f39e4457e299724fff3f"
+  },
+  "left_data_preservation": [
+    {
+      "condition": "C01",
+      "figure": "figure_1-9",
+      "data_sha256": "b99180862ffaec0a0ba7252087ae65e7cc2909298ed3bf697473e6640c6ea238"
+    },
+    {
+      "condition": "C01",
+      "figure": "figure_1-2",
+      "data_sha256": "ff575575a0c929da29d10934992ec82a3550d2ab1fa32c5d24df0a30bd187af8"
+    },
+    {
+      "condition": "C01",
+      "figure": "figure_1-1",
+      "data_sha256": "fd8f18c42081ac6b0c826b3b654dab8c67c91015444bca777c0a24676517f035"
+    },
+    {
+      "condition": "C05",
+      "figure": "figure_1-99",
+      "data_sha256": "88845384db2ec493c85a85c6c4e67e0b718f380df9da81cf415dda9d1377e5b9"
+    },
+    {
+      "condition": "C05",
+      "figure": "figure_1-3",
+      "data_sha256": "2a3122764bd6af0233b862d724cb7e92c48f92c78a8de9436c24e6af8675c527"
+    },
+    {
+      "condition": "C05",
+      "figure": "figure_1-38",
+      "data_sha256": "668c0747544d43b37d11741bec13c57c9b918e935cb1d1d09807d1fe9a02bd85"
+    },
+    {
+      "condition": "C15",
+      "figure": "figure_1-26",
+      "data_sha256": "a288e45dbbb2151ca251bb4e1d9eb1c2e6dd545becca3b160bc52612c0c213a6"
+    },
+    {
+      "condition": "C15",
+      "figure": "figure_1-51",
+      "data_sha256": "240997a377efd73b57f36cfd2a00275750e0af94969be190ad14b84cd58ac949"
+    },
+    {
+      "condition": "C15",
+      "figure": "figure_1-95",
+      "data_sha256": "e12a0982b58278ecd2aec24bae1012e8d974371e0ef532b303492cd86f75aae6"
+    }
+  ],
+  "command_diagnostics": {
+    "command_models": 12,
+    "tv_models": 6,
+    "all_command_lifts_positive": true,
+    "command_lift_pp_range": [
+      11.33400200601805,
+      29.36259143155695
+    ],
+    "action_tv_percent_range": [
+      0.029009656200000004,
+      0.408079497
+    ],
+    "field_associations": [
+      {
+        "plot": "dominance_command",
+        "family": "DGP",
+        "n": 6,
+        "variants": 2,
+        "spearman_rho": -0.3142857142857143,
+        "definition": "mean-threshold dominance on common replay"
+      },
+      {
+        "plot": "dominance_command",
+        "family": "Saturday",
+        "n": 6,
+        "variants": 2,
+        "spearman_rho": 0.7714285714285715,
+        "definition": "mean-threshold dominance on common replay"
+      },
+      {
+        "plot": "dominance_tv",
+        "family": "Saturday",
+        "n": 6,
+        "variants": 2,
+        "spearman_rho": -0.2571428571428572,
+        "definition": "mean-threshold dominance on common replay"
+      }
+    ],
+    "action_tv_definition": "0.5 * sum(abs(softmax(original_logits) - softmax(alternate_logits))); alternate goal is rolled over the same minibatch; mean over valid original goals",
+    "tv_window": "70M to 74,973,180 training frames; not the frozen command probe",
+    "command_definition": "executed internal DG success minus retrospectively matched shuffled-command success",
+    "limitations": [
+      "CPD TV is unavailable; no imputation",
+      "CPD minimum-threshold dominance and replay mean-threshold dominance stay separate",
+      "Shuffled trials do not guarantee identical physical starts; ordered-pair coverage is incomplete",
+      "DG hits do not verify physical arrival; these are architecture/seed associations"
+    ],
+    "tv_source_audit": {
+      "path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_learner.py",
+      "sha256": "94288bb4f8266d7d9ba3188bfe2d96e018bc40184fcd238bc0be1be7e9802d9f",
+      "first_line": 188,
+      "excerpt": "def categorical_action_total_variation(logits: Tensor, alternate_logits: Tensor) -> Tensor:\n    \"\"\"Per-sample total variation between two categorical action policies.\"\"\"\n    if logits.shape != alternate_logits.shape:\n        raise ValueError(\"Action-logit tensors must have identical shapes\")\n    probabilities = torch.softmax(logits, dim=-1)\n    alternate_probabilities = torch.softmax(alternate_logits, dim=-1)\n    return 0.5 * (probabilities - alternate_probabilities).abs().sum(dim=-1)\n"
+    }
+  },
+  "poster_sha256": "96fffdec381c3218bae0974e42bd85b6ce2d6da20d33d69712e3b5104df36456"
+}

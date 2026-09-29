@@ -184,6 +184,23 @@ keep implementation guidance in the canonical workflow documents linked below.
   Compare the entire left column against the previous delivered poster;
   checking only the attachment's introduction would miss later layout changes.
   Short conclusions avoid the page overflow caught by Inkscape glyph bounds.
+  The user-selected [evolved B](05_plans/poster_20260929/layout_versions/evolved_B/README.md)
+  reuses all 12 offline command models and joins TV by exact model identity for
+  the six credit-assignment models with saved diagnostics. CPD's missing TV
+  cannot be reconstructed from mean absolute logits. TV is a training-window
+  diagnostic; frozen command lift is a retrospective matched-target difference,
+  and mean-threshold replay dominance stays separate from online minimum-threshold
+  dominance. Opposite within-family command associations prevent a universal
+  field-shape conclusion. Helvetica was absent, so the shared font selector
+  requires an explicit verified Nimbus Sans substitution and records it;
+  editable SVGs retain the Helvetica declaration. A horizontal legend obscured
+  six-point command scatters; a compact vertical key in unused left space fixed
+  it. Compact survey correlations now sit in titles, clear of observations.
+  Intentional font/event-key edits require data fingerprints plus unchanged
+  header/introduction pixels, rather than an impossible full-left pixel match.
+  Acceptance for this revision: all generated labels declare Helvetica, plot
+  labels remain 30 pt, references are boxed, actual glyph bounds pass, and
+  visual inspection confirms legends do not hide observations.
   Repository sync exposed 113 add/add SVG conflicts across the unfinished
   merge and subsequent remote integration. Their figure content was identical
   after canonicalizing local IDs/references and export timestamps.

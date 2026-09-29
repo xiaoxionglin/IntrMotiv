@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://www.w3.org/2000/svg" xmlns:ns2="http://creativecommons.org/ns#" xmlns:ns4="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="191.5mm" height="76.2mm" viewBox="0 0 542.834646 216" version="1.1">
+ <ns0:metadata>
+  <rdf:RDF>
+   <ns2:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <ns2:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </ns2:Agent>
+    </dc:creator>
+   </ns2:Work>
+  </rdf:RDF>
+ </ns0:metadata>
+ <ns0:defs>
+  <ns0:style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</ns0:style>
+ </ns0:defs>
+ <ns0:g id="figure_1">
+  <ns0:g id="patch_1">
+   <ns0:path d="M 0 216  L 542.834646 216  L 542.834646 0  L 0 0  z " style="fill: #ffffff" />
+  </ns0:g>
+  <ns0:g id="axes_1">
+   <ns0:g id="patch_2">
+    <ns0:path d="M 77.85697 177.588823  L 285.667323 177.588823  L 285.667323 31.767427  L 77.85697 31.767427  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="line2d_1">
+    <ns0:path d="M 117.340937 72.399415  L 221.246113 130.36768  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_2">
+    <ns0:path d="M 129.809558 55.254707  L 233.714735 98.163887  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_3">
+    <ns0:path d="M 142.278179 98.843837  L 246.183356 114.052358  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="matplotlib.axis_1">
+    <ns0:g id="xtick_1">
+     <ns0:g id="line2d_4">
+      <ns0:defs>
+       <ns0:path id="m8fe1a3ac55" d="M 0 0  L 0 3.5  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns4:href="#m8fe1a3ac55" x="129.809558" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_1">
+      <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="129.809558" y="206.460698" transform="rotate(-0 129.809558 206.460698)">First</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="xtick_2">
+     <ns0:g id="line2d_5">
+      <ns0:g>
+       <ns0:use ns4:href="#m8fe1a3ac55" x="233.714735" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_2">
+      <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="233.714735" y="206.460698" transform="rotate(-0 233.714735 206.460698)">Hit</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="matplotlib.axis_2">
+    <ns0:g id="ytick_1">
+     <ns0:g id="line2d_6">
+      <ns0:path d="M 77.85697 177.588823  L 285.667323 177.588823  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_7">
+      <ns0:defs>
+       <ns0:path id="m32d6fe0a88" d="M 0 0  L -3.5 0  " style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:defs>
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="77.85697" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_3">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="70.85697" y="188.52476" transform="rotate(-0 70.85697 188.52476)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="ytick_2">
+     <ns0:g id="line2d_8">
+      <ns0:path d="M 77.85697 115.093939  L 285.667323 115.093939  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_9">
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="77.85697" y="115.093939" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_4">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="70.85697" y="126.029876" transform="rotate(-0 70.85697 126.029876)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="ytick_3">
+     <ns0:g id="line2d_10">
+      <ns0:path d="M 77.85697 52.599055  L 285.667323 52.599055  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_11">
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="77.85697" y="52.599055" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_5">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="70.85697" y="63.534993" transform="rotate(-0 70.85697 63.534993)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="line2d_12">
+    <ns0:path d="M 77.85697 177.588823  L 285.667323 177.588823  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #777777" />
+   </ns0:g>
+   <ns0:g id="patch_3">
+    <ns0:path d="M 77.85697 177.588823  L 77.85697 31.767427  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="patch_4">
+    <ns0:path d="M 77.85697 177.588823  L 285.667323 177.588823  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="PathCollection_1">
+    <ns0:defs>
+     <ns0:path id="m6030c52dc9" d="M 0 4.41588  C 1.171105 4.41588 2.294403 3.950595 3.122499 3.122499  C 3.950595 2.294403 4.41588 1.171105 4.41588 0  C 4.41588 -1.171105 3.950595 -2.294403 3.122499 -3.122499  C 2.294403 -3.950595 1.171105 -4.41588 0 -4.41588  C -1.171105 -4.41588 -2.294403 -3.950595 -3.122499 -3.122499  C -3.950595 -2.294403 -4.41588 -1.171105 -4.41588 0  C -4.41588 1.171105 -3.950595 2.294403 -3.122499 3.122499  C -2.294403 3.950595 -1.171105 4.41588 0 4.41588  z " style="stroke: #0072b2" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#p8b2d10645b)">
+     <ns0:use ns4:href="#m6030c52dc9" x="117.340937" y="72.399415" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns4:href="#m6030c52dc9" x="129.809558" y="55.254707" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns4:href="#m6030c52dc9" x="142.278179" y="98.843837" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="PathCollection_2">
+    <ns0:defs>
+     <ns0:path id="m638e629b05" d="M -4.41588 4.41588  L 4.41588 4.41588  L 4.41588 -4.41588  L -4.41588 -4.41588  z " style="stroke: #d55e00" />
+    </ns0:defs>
+    <ns0:g clip-path="url(#p8b2d10645b)">
+     <ns0:use ns4:href="#m638e629b05" x="221.246113" y="130.36768" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns4:href="#m638e629b05" x="233.714735" y="98.163887" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns4:href="#m638e629b05" x="246.183356" y="114.052358" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="text_6">
+    <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="181.762146" y="25.228365" transform="rotate(-0 181.762146 25.228365)">DG policy</ns0:text>
+   </ns0:g>
+   <ns0:g id="line2d_13">
+    <ns0:path d="M 110.067575 75.49932  L 149.551542 75.49932  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_14">
+    <ns0:path d="M 213.972751 114.194642  L 253.456718 114.194642  " clip-path="url(#p8b2d10645b)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="axes_2">
+   <ns0:g id="patch_5">
+    <ns0:path d="M 332.024053 177.588823  L 539.834406 177.588823  L 539.834406 31.767427  L 332.024053 31.767427  z " style="fill: #ffffff" />
+   </ns0:g>
+   <ns0:g id="line2d_15">
+    <ns0:path d="M 371.50802 91.180221  L 475.413196 98.039474  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_16">
+    <ns0:path d="M 383.976641 70.358995  L 487.881817 89.319213  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_17">
+    <ns0:path d="M 396.445262 94.849117  L 500.350439 86.870443  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #aaaaaa; stroke-width: 1.1; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="matplotlib.axis_3">
+    <ns0:g id="xtick_3">
+     <ns0:g id="line2d_18">
+      <ns0:g>
+       <ns0:use ns4:href="#m8fe1a3ac55" x="383.976641" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_7">
+      <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="383.976641" y="206.460698" transform="rotate(-0 383.976641 206.460698)">Source</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="xtick_4">
+     <ns0:g id="line2d_19">
+      <ns0:g>
+       <ns0:use ns4:href="#m8fe1a3ac55" x="487.881817" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_8">
+      <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="487.881817" y="206.460698" transform="rotate(-0 487.881817 206.460698)">Arrival</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="matplotlib.axis_4">
+    <ns0:g id="ytick_4">
+     <ns0:g id="line2d_20">
+      <ns0:path d="M 332.024053 177.588823  L 539.834406 177.588823  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_21">
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="332.024053" y="177.588823" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_9">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="325.024053" y="188.52476" transform="rotate(-0 325.024053 188.52476)">0</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="ytick_5">
+     <ns0:g id="line2d_22">
+      <ns0:path d="M 332.024053 115.093939  L 539.834406 115.093939  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_23">
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="332.024053" y="115.093939" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_10">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="325.024053" y="126.029876" transform="rotate(-0 325.024053 126.029876)">15</ns0:text>
+     </ns0:g>
+    </ns0:g>
+    <ns0:g id="ytick_6">
+     <ns0:g id="line2d_24">
+      <ns0:path d="M 332.024053 52.599055  L 539.834406 52.599055  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #e5e5e5; stroke-width: 0.8; stroke-linecap: square" />
+     </ns0:g>
+     <ns0:g id="line2d_25">
+      <ns0:g>
+       <ns0:use ns4:href="#m32d6fe0a88" x="332.024053" y="52.599055" style="stroke: #000000; stroke-width: 0.8" />
+      </ns0:g>
+     </ns0:g>
+     <ns0:g id="text_11">
+      <ns0:text style="font-size: 30px;  text-anchor: end;font-family:Helvetica,Nimbus Sans" x="325.024053" y="63.534993" transform="rotate(-0 325.024053 63.534993)">30</ns0:text>
+     </ns0:g>
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="line2d_26">
+    <ns0:path d="M 332.024053 177.588823  L 539.834406 177.588823  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #777777" />
+   </ns0:g>
+   <ns0:g id="patch_6">
+    <ns0:path d="M 332.024053 177.588823  L 332.024053 31.767427  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="patch_7">
+    <ns0:path d="M 332.024053 177.588823  L 539.834406 177.588823  " style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="PathCollection_3">
+    <ns0:g clip-path="url(#p88eb2bcdc4)">
+     <ns0:use ns4:href="#m6030c52dc9" x="371.50802" y="91.180221" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns4:href="#m6030c52dc9" x="383.976641" y="70.358995" style="fill: #0072b2; stroke: #0072b2" />
+     <ns0:use ns4:href="#m6030c52dc9" x="396.445262" y="94.849117" style="fill: #0072b2; stroke: #0072b2" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="PathCollection_4">
+    <ns0:g clip-path="url(#p88eb2bcdc4)">
+     <ns0:use ns4:href="#m638e629b05" x="475.413196" y="98.039474" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns4:href="#m638e629b05" x="487.881817" y="89.319213" style="fill: #d55e00; stroke: #d55e00" />
+     <ns0:use ns4:href="#m638e629b05" x="500.350439" y="86.870443" style="fill: #d55e00; stroke: #d55e00" />
+    </ns0:g>
+   </ns0:g>
+   <ns0:g id="text_12">
+    <ns0:text style="font-size: 30px;  text-anchor: middle;font-family:Helvetica,Nimbus Sans" x="435.929229" y="25.228365" transform="rotate(-0 435.929229 25.228365)">Credit</ns0:text>
+   </ns0:g>
+   <ns0:g id="line2d_27">
+    <ns0:path d="M 364.234658 85.462778  L 403.718625 85.462778  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+   <ns0:g id="line2d_28">
+    <ns0:path d="M 468.139834 91.40971  L 507.623801 91.40971  " clip-path="url(#p88eb2bcdc4)" style="fill: none; stroke: #000000; stroke-width: 2.2; stroke-linecap: square" />
+   </ns0:g>
+  </ns0:g>
+  <ns0:g id="text_13">
+   <ns0:text style="font-size: 30px; ;font-family:Helvetica,Nimbus Sans" transform="translate(24.961177 167.184375) rotate(-90)">Lift (p.p.)</ns0:text>
+  </ns0:g>
+ </ns0:g>
+ <ns0:defs>
+  <ns0:clipPath id="p8b2d10645b">
+   <ns0:rect x="77.85697" y="31.767427" width="207.810353" height="145.821395" />
+  </ns0:clipPath>
+  <ns0:clipPath id="p88eb2bcdc4">
+   <ns0:rect x="332.024053" y="31.767427" width="207.810353" height="145.821395" />
+  </ns0:clipPath>
+ </ns0:defs>
+</ns0:svg>

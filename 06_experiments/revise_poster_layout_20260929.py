@@ -330,7 +330,7 @@ def inserted_results(g: Gallery):
     selected.to_csv(g.out/'core_single_field_counts.csv',index=False)
 
 
-def field_results(g: Gallery, survey_data: pd.DataFrame):
+def field_results(g: Gallery, survey_data: pd.DataFrame, *, selected_plots=None):
     """Compare both exploration and control without pooling incompatible measures."""
     binary=survey_data[survey_data.family.eq('CPD')].copy()
     if len(binary)!=81 or binary.condition_original.nunique()!=27 or not binary.frames.eq(75_005_952).all():
@@ -346,6 +346,8 @@ def field_results(g: Gallery, survey_data: pd.DataFrame):
         ('monofields_behavior',binary,'mono_fraction_eligible','Single-field units (%)',100),
         ('dominance_behavior',continuous,'dominance','Field dominance',1),
     ]:
+        if selected_plots is not None and key not in selected_plots:
+            continue
         fig,axes=plt.subplots(1,2,figsize=tuple(v/25.4 for v in ROW_MM))
         fig.subplots_adjust(left=.16,right=.96,bottom=.43,top=.79,wspace=.50)
         for ax,y,title in zip(axes,('exploration_coverage','prospective_success'),('Exploration','Control')):
@@ -423,13 +425,17 @@ def survey(g: Gallery, size_mm=(383,130)):
     data['condition']=data.family
     statistics=[]
     fig,axes=plt.subplots(1,2,figsize=tuple(v/25.4 for v in size_mm),sharey=True)
-    fig.subplots_adjust(left=.12,right=.975,top=.88,bottom=.43,wspace=.28)
+    fig.subplots_adjust(left=.12,right=.975,top=.86 if size_mm[1]<=100 else .88,
+                        bottom=.52 if size_mm[1]<=100 else .43,wspace=.28)
     for ax,x,label in zip(axes,('spatial_information','unique_peak_bins'),('Spatial score','Distinct peak bins')):
         rho=scatter_panel(ax,data,x,label,label)
         # Titles already name the horizontal measures. Removing the duplicate
         # labels leaves room for the six-family key at the original type size.
         ax.set_xlabel('')
-        ax.text(.04,.97,f'ρ={rho:.2f}',transform=ax.transAxes,va='top')
+        if size_mm[1]<=100:
+            ax.set_title(f'{label} · ρ={rho:.2f}')
+        else:
+            ax.text(.04,.97,f'ρ={rho:.2f}',transform=ax.transAxes,va='top')
         statistics.append({'panel':'main_'+x,'sample_unit':'run','n':len(data),'rho':rho})
         g.record('survey_main',x,'recorded DG target-hit fraction',data,'prospective_success',100,
                  dg_units=16,protocol='historical counters at latest saved online spatial window')
@@ -730,11 +736,305 @@ def write_notes(out: Path):
     (out/'README.md').write_text('\n'.join(lines))
 
 
+def helvetica_text(group):
+    """Change editable figure labels, retaining sizes, weights and data paths."""
+    for element in group.iter(f'{{{SVG}}}text'):
+        for node in element.iter():
+            css=node.get('style','')
+            css=re.sub(r'font-family\s*:[^;]+;?', '', css)
+            css=re.sub(r'-inkscape-font-specification\s*:[^;]+;?', '', css)
+            node.set('style',css.rstrip(';')+';font-family:Helvetica,Nimbus Sans')
+            if 'font-family' in node.attrib:
+                node.set('font-family','Helvetica,Nimbus Sans')
+
+
+def command_diagnostics(g: Gallery):
+    """Reuse exact saved commands and disclose the smaller TV overlap.
+
+    CPD has no exported TV diagnostic. TV here is a training-window goal-swap
+    statistic in the credit-assignment family. Command lift uses frozen
+    intervention trials; neither is interchangeable with historical DG hits.
+    """
+    commands=g.read(CONTINUOUS/'command_dominance_per_run.csv')
+    if len(commands)!=12 or commands.run_name.duplicated().any() or not commands.frames.eq(75_038_720).all():
+        raise ValueError('Expected twelve exact common-replay/command models')
+    if commands.panel.nunique()!=1 or not commands.dg_units.eq(16).all():
+        raise ValueError('Command cohort capacity or shared replay panel changed')
+    if not np.allclose(commands.command_lift,
+                       commands.executed_success_command-commands.matched_shuffled_success_command):
+        raise ValueError('Command lift must be an absolute success difference')
+    terminal=ROOT/'06_experiments/results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/results/recent_batches_audit_20260906/saturday_terminal_per_run.csv'
+    online=g.read(terminal);online['run_name']=online.run_name.str.strip()
+    joined=commands.merge(online[['run_name','action_probability_tv','window_start','max_env_steps']],
+                          on='run_name',how='left',validate='one_to_one')
+    tv=joined.dropna(subset=['action_probability_tv']).copy()
+    if (len(tv)!=6 or not tv.family.eq('Saturday').all() or not tv.window_start.eq(70_000_000).all()
+            or not tv.max_env_steps.eq(74_973_180).all()):
+        raise ValueError('Expected six overlapping credit models with saved TV')
+    commands.to_csv(g.out/'command_diagnostics_per_run.csv',index=False)
+    tv.to_csv(g.out/'action_tv_per_run.csv',index=False)
+
+    groups=(('DGP',('DGP_C15_FIRST_JOINT_LEG','DGP_C15_HIT_JOINT_LEG'),('First','Hit')),
+            ('Saturday',('SAT_C15_SRC_MON_FILM','SAT_C15_ARR_MON_FILM'),('Source','Arrival')))
+    fig,axes=scalar_axes()
+    for ax,(family,conditions,labels) in zip(axes,groups):
+        data=commands[commands.family.eq(family)]
+        paired(ax,data,'command_lift',conditions,labels,100)
+        for collection in ax.collections:collection.set_sizes([78])
+        ax.set(title='DG policy' if family=='DGP' else 'Credit',
+               ylim=(0,35),yticks=[0,15,30])
+        ax.axhline(0,color='#777777',ls='--',lw=1)
+        g.record('command_lift',family,'executed minus matched shuffled success',data,'command_lift',100,
+                 dg_units=16,checkpoint_frames=75_038_720,protocol='frozen_matched_commands',units='percentage points')
+    fig.supylabel('Lift (p.p.)',fontsize=30)
+    g.finish(fig,Candidate('command_lift','Commanded success',(191.5,76.2),'Evolved B','','','',''))
+
+    fig,ax=plt.subplots(figsize=(191.5/25.4,76.2/25.4),layout='constrained')
+    paired(ax,tv,'action_probability_tv',groups[1][1],groups[1][2],100)
+    for collection in ax.collections:collection.set_sizes([78])
+    ax.set(title='Action TV · 6 credit models',ylabel='TV (%)',ylim=(0,.5),yticks=[0,.25,.5])
+    g.record('action_tv','Credit','action_probability_tv',tv,'action_probability_tv',100,
+             dg_units=16,protocol='last_5m_training_scalars',training_window_start=70_000_000,
+             units='percent probability mass')
+    g.finish(fig,Candidate('action_tv','Goal-swap probability sensitivity',(191.5,76.2),'Evolved B','','','',''))
+
+    statistics=[]
+    for key,outcome,datasets in [
+        ('dominance_command','command_lift',[commands[commands.family.eq(f)] for f,_,_ in groups]),
+        ('dominance_tv','action_probability_tv',[tv]),
+    ]:
+        size_mm=(383 if len(datasets)==2 else 191.5,76.2)
+        fig,axes=plt.subplots(1,len(datasets),figsize=tuple(v/25.4 for v in size_mm),layout='constrained',squeeze=False)
+        for ax,data in zip(axes.flat,datasets):
+            family=data.family.iloc[0]
+            _,conditions,labels=next(row for row in groups if row[0]==family)
+            for index,(condition,label) in enumerate(zip(conditions,labels)):
+                rows=data[data.condition.eq(condition)]
+                ax.scatter(rows.mean_threshold_dominance,rows[outcome]*100,s=78,
+                    color=('#0072B2','#D55E00')[index],marker=('o','s')[index],label=label)
+            ax.set(title='DG policy' if family=='DGP' else 'Credit',
+                   xlabel='Mean field dominance',ylabel='Lift (p.p.)' if outcome=='command_lift' else 'TV (%)',
+                   xlim=(0,1),xticks=[0,.5,1],ylim=(0,35) if outcome=='command_lift' else (0,.5))
+            ax.set_yticks([0,15,30] if outcome=='command_lift' else [0,.25,.5])
+            ax.grid(color='#eeeeee')
+            # Scores occupy x > 0.42. A short vertical key at the left leaves
+            # all six observations visible; a horizontal key covered points.
+            ax.legend(frameon=False,ncol=1,loc='upper left',handlelength=.7,
+                      handletextpad=.35,borderpad=.2,labelspacing=.2)
+            rho=float(data.mean_threshold_dominance.corr(data[outcome],method='spearman'))
+            statistics.append({'plot':key,'family':family,'n':len(data),'variants':2,
+                               'spearman_rho':rho,'definition':'mean-threshold dominance on common replay'})
+            g.record(key,family,'mean_threshold_dominance',data,'mean_threshold_dominance',
+                     x_axis=True,protocol='common_replay',dg_units=16,checkpoint_frames=75_038_720)
+            g.record(key,family,outcome,data,outcome,100,y_axis=True,units='p.p.' if outcome=='command_lift' else '%')
+        g.finish(fig,Candidate(key,'Field dominance and controllability',size_mm,'Supplementary','','','',''))
+    stats={'command_models':12,'tv_models':6,'all_command_lifts_positive':bool(commands.command_lift.gt(0).all()),
+        'command_lift_pp_range':[float(commands.command_lift.min()*100),float(commands.command_lift.max()*100)],
+        'action_tv_percent_range':[float(tv.action_probability_tv.min()*100),float(tv.action_probability_tv.max()*100)],
+        'field_associations':statistics,
+        'action_tv_definition':'0.5 * sum(abs(softmax(original_logits) - softmax(alternate_logits))); '
+                               'alternate goal is rolled over the same minibatch; mean over valid original goals',
+        'tv_window':'70M to 74,973,180 training frames; not the frozen command probe',
+        'command_definition':'executed internal DG success minus retrospectively matched shuffled-command success',
+        'limitations':['CPD TV is unavailable; no imputation','CPD minimum-threshold dominance and replay mean-threshold dominance stay separate',
+                       'Shuffled trials do not guarantee identical physical starts; ordered-pair coverage is incomplete',
+                       'DG hits do not verify physical arrival; these are architecture/seed associations']}
+    runtime=Path('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_learner.py')
+    if runtime.exists():
+        lines=runtime.read_text().splitlines()
+        start=next(i for i,line in enumerate(lines) if line.startswith('def categorical_action_total_variation('))
+        stats['tv_source_audit']={'path':str(runtime),'sha256':sha(runtime),'first_line':start+1,
+                                'excerpt':'\n'.join(lines[start:start+8])}
+    (g.out/'command_diagnostics_statistics.json').write_text(json.dumps(stats,indent=2)+'\n')
+    return stats
+
+
+def evolved_right(root, source_right, g: Gallery):
+    """Retain B's message, make room for separately labelled command evidence."""
+    key='B_transfer_predictor_dominance'
+    compose_right(root,source_right,g,key)
+    layer=find(root,'revised-right-'+key)
+    positions={'subsection-2b':386,'goal-specificity':397,'goal-control-caption':486,
+        'subsection-2c':514,'transfer-result':525,'transfer-caption':614,
+        'subsection-2d':642,'predictor-result':653,'predictor-caption':742,
+        'section-3-badge':753,'section-3-number':770,'section-3-title':770,
+        'survey-protocol':794,'survey-main':803,'subsection-3b':922,'field-behavior':933,
+        'field-message':1025,'field-protocol':1043}
+    for ident,y in positions.items():
+        node=find(layer,ident)
+        if ident.endswith(('result','specificity','main','behavior')):
+            transform=node.get('transform','')
+            old_y=float(re.search(r'translate\([^,]+,\s*([\d.]+)',transform)[1])
+        else:old_y=float(node.get('y'))
+        # A wrapper shifts all descendants, including tspan baselines.
+        parent=next(p for p in layer.iter() if node in list(p));index=list(parent).index(node)
+        parent.remove(node)
+        wrapper=ET.Element(f'{{{SVG}}}g',{'id':ident+'-shift','transform':f'translate(0,{y-old_y})'})
+        wrapper.append(node);parent.insert(index,wrapper)
+    for prefix,dy in [('control-',-3),('transfer-WORKER',-20),('transfer-RAND_DG',-20),('predictor-',-38)]:
+        nodes=[node for node in list(layer) if node.get('id','').startswith(prefix)]
+        for node in nodes:
+            # Captions already moved through their own wrapper.
+            if node.get('id','').endswith('-shift'):continue
+            parent=layer;index=list(parent).index(node);parent.remove(node)
+            wrapper=ET.Element(f'{{{SVG}}}g',{'id':node.get('id')+'-shift','transform':f'translate(0,{dy})'})
+            wrapper.append(node);parent.insert(index,wrapper)
+    for ident in ('control-reference','transfer-protocol','predictor-protocol','field-definition','references'):
+        remove(layer,find(layer,ident))
+    for line in find(layer,'field-protocol').iter(f'{{{SVG}}}tspan'):
+        line.text='CA3 feedback · 4 × 3 seeds · DG 16 · 75M · associations only'
+    text(layer,'subsection-3c',442.4,1066,['3c  Goal sensitivity and commanded success'],36,bold=True,color='#253B57')
+    embed(layer,g.out/'command_lift.svg','command-lift',442.4,1077,191.5)
+    embed(layer,g.out/'action_tv.svg','action-tv',633.9,1077,191.5)
+    text(layer,'command-message',442.4,1168,['TV <0.5%; command lift +11–29 p.p. · 3 seeds'],40,bold=True)
+    ET.SubElement(layer,f'{{{SVG}}}rect',{'id':'references-box','x':'441.4','y':'1174',
+        'width':'385','height':'14','rx':'1.5','fill':'#F4F6F8','stroke':'#253B57','stroke-width':'.6'})
+    text(layer,'references',445.4,1185,['References: Lin, Yiu & Leibold (2026); Leibold (2020), Neural Networks.'],30)
+    return layer
+
+
+def trajectory_legend(root):
+    """Shared key above all three trajectory panels; actual events do not move."""
+    layer=find(root,'revised-left-typography')
+    label=find(layer,'left-common-protocol')
+    for child in list(label):label.remove(child)
+    ET.SubElement(label,f'{{{SVG}}}tspan',{'x':'29','y':'759'}).text='Seed 99 · map labels: unit : max'
+    ET.SubElement(layer,f'{{{SVG}}}circle',{'id':'trajectory-option-start-key','cx':'292','cy':'755.5',
+        'r':'2.5','fill':'none','stroke':'#0B69A3','stroke-width':'.7'})
+    text(layer,'trajectory-option-start-label',298,759,['Option start'],30)
+    # Same star encoding as the saved DG event markers.
+    angles=np.arange(10)*np.pi/5-np.pi/2
+    radii=np.array([3.5,1.45]*5)
+    vertices=np.column_stack((365+np.cos(angles)*radii,755.5+np.sin(angles)*radii))
+    ET.SubElement(layer,f'{{{SVG}}}polygon',{'id':'trajectory-goal-hit-key',
+        'points':' '.join(f'{x},{y}' for x,y in vertices),'fill':'#D38A00','stroke':'#754B00','stroke-width':'.35'})
+    text(layer,'trajectory-goal-hit-label',371,759,['Goal hit'],30)
+
+
+def evolve_b(out: Path):
+    """A scoped evolution of the selected B, preserving all existing data."""
+    base=DEFAULT_OUT/'Bernstein2026_B_transfer_predictor_dominance.svg'
+    digest=sha(base);out.mkdir(parents=True,exist_ok=True)
+    font=style('Helvetica',fallback_family='Nimbus Sans')
+    plots=out/'plots';plots.mkdir(exist_ok=True);g=Gallery(plots)
+    for path in (base,Path(__file__),Path(__file__).with_name('compose_a0_poster_20260929.py'),
+                 Path(__file__).with_name('render_poster_candidate_plots_20260929.py')):
+        g.sources[str(path.relative_to(ROOT))]=sha(path)
+    data=survey(g,size_mm=(383,100));inserted_results(g)
+    field_results(g,data,selected_plots={'dominance_behavior'});predictor_role(g,out)
+    diagnostics=command_diagnostics(g)
+    for path in g.figures:
+        figure=ET.parse(path).getroot();helvetica_text(figure);export_svg(figure,path)
+    # compose_right needs only the retained original exploration panel. The
+    # selected B already has the revised left column, so do not rebuild it.
+    root=ET.parse(base).getroot()
+    source_right=ET.Element(f'{{{SVG}}}g',{'id':'right-source'})
+    source_right.append(copy.deepcopy(find(root,'right-exploration-plot')))
+    previous_right=find(root,'revised-right-B_transfer_predictor_dominance')
+    previous_right.set('id','poster-right-20260929')
+    layer=evolved_right(root,source_right,g)
+    trajectory_legend(root)
+    helvetica_text(find(root,'revised-left-typography'));helvetica_text(layer)
+    target=out/'Bernstein2026_B_evolved.svg';export_svg(root,target);render(target)
+    verify_and_render(g,base,digest)
+    pd.DataFrame(g.points).to_csv(plots/'plotted_points.csv',index=False)
+    from PIL import Image
+    before=np.asarray(Image.open(base.with_suffix('.png')).convert('RGBA'))
+    after=np.asarray(Image.open(target.with_suffix('.png')).convert('RGBA'))
+    protected={}
+    for name,box in [('header',(0,0,841,193)),('introduction',(0,193,431,720))]:
+        x0,y0,x1,y1=[round(v/841*1800) for v in box]
+        changed=int(np.any(before[y0:y1,x0:x1]!=after[y0:y1,x0:x1],axis=2).sum())
+        if changed:raise ValueError(f'Protected {name} changed: {changed}')
+        protected[name]=changed
+    original=ET.parse(base).getroot();audit=[]
+    for condition,ids in LEFT_FIGURES.items():
+        for ident in ids:
+            prior=preserved_data(find(original,ident));current=preserved_data(find(root,ident))
+            if prior!=current:raise ValueError(f'Left plotted data changed: {ident}')
+            audit.append({'condition':condition,'figure':ident,'data_sha256':current})
+    bounds=query_bounds(target)
+    added=[find(root,'revised-left-typography'),layer]
+    clipped=[];collisions=[]
+    for group in added:
+        labels=[el for el in group.iter(f'{{{SVG}}}text') if el.get('id') in bounds]
+        for i,label in enumerate(labels):
+            a=bounds[label.get('id')]
+            if a[0]<0 or a[1]<0 or a[0]+a[2]>841 or a[1]+a[3]>1189:clipped.append(label.get('id'))
+            for other in labels[i+1:]:
+                b=bounds[other.get('id')]
+                overlap=np.minimum(a[:2]+a[2:],b[:2]+b[2:])-np.maximum(a[:2],b[:2])
+                if (overlap>.3).all():collisions.append([label.get('id'),other.get('id')])
+    if clipped or collisions:raise ValueError(f'Text quality: clipped={clipped}, overlaps={collisions}')
+    for group in added:
+        if any('font-family:Helvetica,Nimbus Sans' not in e.get('style','') for e in group.iter(f'{{{SVG}}}text')):
+            raise ValueError('Generated figure label lacks Helvetica declaration')
+    report={'schema':'intrmotiv/poster-layout-evolution/v1','workflow_version':WORKFLOW_VERSION,
+        'study_schema':'intrmotiv/study/v1','selected_base':str(base.relative_to(ROOT)),'base_sha256':digest,
+        'font_requested':'Helvetica','font_rendered':'Nimbus Sans','font_path':font,
+        'font_substitution':'Helvetica absent locally; verified scalable Nimbus Sans used explicitly',
+        'plot_font_pt':30,'caption_font_pt':40,'section_font_pt':48,'sources':g.sources,
+        'left_data_preservation':audit,'command_diagnostics':diagnostics,'poster_sha256':sha(target)}
+    (out/'manifest.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
+    (out/'quality_checks.json').write_text(json.dumps({**check_svg(target),
+        'protected_pixel_changes':protected,'left_data_unchanged':True,'all_generated_text_declares_helvetica':True,
+        'added_text_on_page':True,'text_collisions':[],'references_boxed':True},indent=2)+'\n')
+    write_evolved_notes(out)
+    print(f'Evolved B written to {target}')
+
+
+def write_evolved_notes(out: Path):
+    """Explain the different control tests without expanding the poster caption."""
+    (out/'README.md').write_text('''# Selected B: field shape, sensitivity and commanded success
+
+[Editable A0 poster](Bernstein2026_B_evolved.svg) · [Full-page preview](Bernstein2026_B_evolved.png)
+
+This evolves the selected B. Transfer, the training-only predictor, the 168-run DG-16 architectural survey, and minimum-threshold field dominance versus exploration and recorded target hits remain. Section 2 is tightened to fit a new command row. The header and introduction are unchanged; all nine left-panel map, peak and trajectory data fingerprints are unchanged. A shared blue-circle **Option start** / gold-star **Goal hit** key labels the bottom-left trajectory panels. Goal hits mean internal DG events. References are boxed.
+
+All generated plot and diagram labels now declare **Helvetica**, at 30 pt; conclusion captions remain 40 pt. Helvetica is not installed on this machine. Rendering and glyph measurement use the verified scalable **Nimbus Sans** substitute explicitly; the SVG keeps `Helvetica,Nimbus Sans` so Helvetica is used when available. This substitution and font path are recorded in [manifest.json](manifest.json). The original header/introduction fonts remain unchanged.
+
+## Two different aspects of controllability
+
+- **Action-probability TV** measures sensitivity to swapping the goal at the same policy state: $\\frac{1}{2}\\sum_a |p(a)-p'(a)|$. The saved training diagnostic rolls the goal across the minibatch and averages valid original-goal rows. It is invariant to a constant logit shift. It measures instantaneous probability change, not successful command execution.
+- **Command lift** is executed success minus matched shuffled-command success, in percentage points. It tests target-specific internal DG outcomes over command trials. The shuffled comparator is retrospective, physical starts are not guaranteed identical, and ordered-pair coverage is incomplete.
+
+The main command row shows all **12 models / four variants / three seeds**, DG 16 at 75,038,720 frames: First versus Hit DG policies, and Source versus Arrival credit. Every saved model has positive command lift, **+11.3 to +29.4 p.p.** Lines join matching training seeds; black bars are means. This is an absolute difference, distinct from section 2b's training hit-lift ratio.
+
+TV is locally available for the **six overlapping Source/Arrival credit models**, from the 70M–74,973,180 training window: **0.029–0.408%** probability mass. Their frozen command lifts are **19.1–25.7 p.p.** Low instantaneous goal sensitivity can coexist with measurable command specificity. These diagnostics use different time windows and interventions. No TV values are saved for the CPD cohort used in the field-dominance panel; missing values are not filled in.
+
+## Field dominance versus these measures
+
+[Command-lift scatter](plots/dominance_command.svg) · [TV scatter](plots/dominance_tv.svg)
+
+These are separate candidate figures, leaving the main poster readable. Replay mean-threshold dominance versus command lift has $\\rho=-0.31$ for DG policy and $\\rho=+0.77$ for credit assignment, with six points per family. Credit dominance versus TV gives $\\rho=-0.26$, also six points. Opposite command-lift associations do not support a general claim that dominant fields harm control. The poster's message remains **field dominance does not reliably order better behaviour**.
+
+The command representations all use the same saved 10,001-observation replay panel. This **mean-threshold dominance** differs from B's **minimum-threshold dominance** in recent online CPD maps; these scores and protocols remain separate. DG capacity stays at 16. No causal claim or significance mark is added. [Continuous-field evidence](../../continuous_fields/README.md) documents sampling and protocol limitations.
+
+## Verification and reuse
+
+[Quality checks](quality_checks.json) verify protected pixels, data fingerprints, page bounds, Helvetica declarations and text collisions. [Plot checks](plots/quality_checks.json) verify native vectors and a 30 pt minimum. [Exact plotted coordinates](plots/plotted_points.csv), [TV joins](plots/action_tv_per_run.csv) and [diagnostic definitions/statistics](plots/command_diagnostics_statistics.json) retain the evidence. No new telemetry or cluster access was needed.
+
+Regenerate from the repository root:
+
+```bash
+/home/xiaoxiong/miniforge3/envs/SF_git/bin/python 06_experiments/revise_poster_layout_20260929.py --evolve-b
+```
+
+**Reusable experience:** audit which control diagnostic is actually exported before choosing its cohort; raw-logit differences cannot supply missing probability TV. Exact model joins reuse the offline command evidence. Declare the requested font, verify the installed substitute, measure real glyph bounds and preserve data fingerprints when typography changes intentionally.
+''')
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,default=SOURCE)
-    parser.add_argument('--out',type=Path,default=DEFAULT_OUT)
-    args=parser.parse_args();args.out.mkdir(parents=True,exist_ok=True)
+    parser.add_argument('--out',type=Path)
+    parser.add_argument('--evolve-b',action='store_true',help='Evolve the user-selected B with command diagnostics and Helvetica')
+    args=parser.parse_args()
+    if args.evolve_b:
+        evolve_b(args.out or PREVIOUS/'evolved_B')
+        return
+    args.out=args.out or DEFAULT_OUT
+    args.out.mkdir(parents=True,exist_ok=True)
     plots=args.out/'plots';plots.mkdir(exist_ok=True)
     font=style();g=Gallery(plots)
     for path in (Path(__file__),Path(__file__).with_name('compose_a0_poster_20260929.py'),
