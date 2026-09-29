@@ -7,6 +7,7 @@ No checkpoint or training output is modified.
 from __future__ import annotations
 
 import json
+import argparse
 from pathlib import Path
 
 import torch
@@ -18,20 +19,24 @@ PREFIX = "core.policy_graph."
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--seeds", nargs="+", type=int, default=[99])
+    args = parser.parse_args()
     rows = []
     for condition in ("C05", "C15"):
-        matches = list(ROOT.glob(f"CCR_{condition}_*_S99_/00_CCR_{condition}_*_S99/"
-                                 "checkpoint_p0/checkpoint_*_100040704.pth"))
-        if len(matches) != 1:
-            raise ValueError(f"Expected one terminal checkpoint for {condition}: {matches}")
-        path = matches[0]
-        checkpoint = torch.load(path, map_location="cpu", weights_only=False)
-        model = checkpoint["model"]
-        row = {"condition": condition, "seed": 99, "checkpoint": str(path),
-               "frames": int(checkpoint["env_steps"])}
-        for name in ("tctrl", "edge_confidence", "control_attempts"):
-            row[name] = model[PREFIX + name].detach().cpu().numpy().tolist()
-        rows.append(row)
+        for seed in args.seeds:
+            matches = list(ROOT.glob(f"CCR_{condition}_*_S{seed}_/00_CCR_{condition}_*_S{seed}/"
+                                     "checkpoint_p0/checkpoint_*_100040704.pth"))
+            if len(matches) != 1:
+                raise ValueError(f"Expected one terminal checkpoint for {condition}: {matches}")
+            path = matches[0]
+            checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+            model = checkpoint["model"]
+            row = {"condition": condition, "seed": seed, "checkpoint": str(path),
+                   "frames": int(checkpoint["env_steps"])}
+            for name in ("tctrl", "edge_confidence", "control_attempts"):
+                row[name] = model[PREFIX + name].detach().cpu().numpy().tolist()
+            rows.append(row)
     print(json.dumps(rows))
 
 

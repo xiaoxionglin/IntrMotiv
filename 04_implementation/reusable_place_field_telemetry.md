@@ -98,7 +98,16 @@ requesting new telemetry: `pose`, `dg_activity`, `actions`, `segment_id`,
 `occupancy`, `rate_maps`, and `field_mono` support DG fields, trajectories,
 occupancy flow, and mono-field peaks directly. When present, the separate
 `control_*` stored and prospective arrays support explicitly labeled directed
-edge and source-command analyses. The snapshot does not contain RGB history or
+edge and source-command analyses. For a C15 lineage survey, reuse
+`06_experiments/render_c15_variants.py`: it expands the original validated
+StudySpecs, uses their declared contrasts through the shared pairing engine,
+and keeps retained windows, terminal scalars, frozen probes, and bounded
+command trials separate. The report records missing raw inputs explicitly.
+`render_graph_outcomes` accepts `ratio_label`, `figure_scale`, and
+`formats=("svg",)`; stored confidence is never renamed prospective success.
+The pure DG kernel calculation uses lazy environment imports, so saved-map
+rendering does not require a compatible training runtime.
+The snapshot does not contain RGB history or
 aligned CA3/decoder-1 traces. Reuse an existing common observation/action
 panel for downstream-layer replay, and audit direct plus milestone checkpoint
 files first. If no exact frame is shared across every required condition and
@@ -436,6 +445,24 @@ optional arrays do not change the interpretation of earlier v1 snapshots.
 Treat additions as backward-compatible optional arrays. Do not silently change
 the meaning or shape of existing arrays; update tests and this document when a
 schema change is necessary.
+
+### Trajectory and option-event streams
+
+For the [poster goal-event adapter](../06_experiments/capture_goal_option_trajectory.py),
+`pose_events.csv` is the complete observation-time trajectory with aligned
+option flags; `option_events.csv` is only the subset containing starts or hits.
+Use the full stream for path lines. Validate the observation count against
+`event_summary.json`, and derive marker rows from the same stream. Never
+connect event-only rows as if they were consecutive movement observations.
+
+The [shared SVG renderer](../06_experiments/render_goal_option_trajectory.py)
+breaks paths at agent changes, contiguous episode boundaries, and skipped
+frames. It retains every sampled vertex during compact export. Grouping all
+rows with the same episode ID is insufficient when IDs can recur. The
+[comparison renderer](../06_experiments/render_flat_goal_comparison.py) accepts
+`--goal-events-input` for staged full streams and validates them before a
+`--compact-only` or `--trajectories-only` rerender. Bulk streams remain in the
+analysis workspace; published reports link their original paths and hashes.
 
 ## Derived Metrics
 

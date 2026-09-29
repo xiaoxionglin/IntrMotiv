@@ -34,6 +34,44 @@ keep implementation guidance in the canonical workflow documents linked below.
   representation protocol, graph-counter scope, and mono-field denominator.
   A pinned-bundle replay reproduces every plotted point without cluster access,
   and repeated summary exports never increase the point count.
+- **Reuse evidence:** The C01/C05/C15 comparison linked six existing mono-field
+  peak SVGs after verifying all per-unit flags and peak bins against saved
+  records, and generated only the three missing C01 maps. Its unit, count,
+  and peak-location tables retain zero-mono runs, all-DG denominators,
+  eligible-unit counts, NPZ hashes, and the original field-file paths.
+  The same adapter now exports fixed-eligibility dominance sweeps and
+  all-active peak maps, with unit IDs and peak-bin observation counts; these
+  distinct summaries prevent relaxed classifications from being mistaken
+  for validated monofields.
+  Compact rendering now reruns saved probe/graph outputs with fixed physical
+  text, stroke, and marker sizes, preserving panel groupings. It reuses cached
+  kernel arrays and exposes optional canvas scaling in the shared trajectory
+  and flow renderers; flow arrow widths are retained in physical units.
+  Peak labels use collision-aware placement in physical points, and the
+  four-field grids share axes to eliminate repeated labels without shrinking text.
+  The summary renderer accepts a width multiplier and reflows its title;
+  the C01/C05/C15 summary uses 60% width with the same four panels.
+  Verify the exported width and fixed font/marker sizes before local delivery.
+  Use the comparison renderer’s `--compact-only` path for layout revisions,
+  avoiding environment imports, new rollouts, and kernel recomputation.
+  The top-four field renderer now accepts independent 0-to-unit-max color
+  limits as the default view, reusing the same selection and raw maps.
+  `--individual-fields-only` updates the default and explicit individual-scale
+  figures and exports exact panel limits/source hashes. Shared-scale views
+  have an explicit `place_fields_shared_scale.svg` filename.
+  A delivery check found that a clean temporary clone had been pushed without
+  copying results back to the user workspace. Verify hashes at the actual
+  user-facing paths after synchronizing selected outputs; a successful push
+  alone does not confirm local delivery.
+  The C15 lineage adapter now binds 67 conditions to validated studies and
+  runs their original paired contrasts through the canonical engine. Saved
+  graph diagnostics cover 66 conditions; 33 locally staged run/protocol rows
+  support full SVG stacks. Missing raw inputs remain an explicit availability
+  table, with no automated SSH retry after authentication rejection.
+  Array-only kernels initially imported the environment/learner and failed on
+  mismatched runtime versions; lazy replay imports remove that dependency.
+  The canonical graph renderer now accepts explicit stored/prospective labels,
+  compact canvases, and SVG export. Six focused atlas checks pass.
 
 ### Poster assembly needs scoped SVG imports and preservation checks — 2026-09-29
 
@@ -78,8 +116,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   reused across downstream seeds; plotting it once avoids implying three
   independent pretraining replicates. Short labels and parenthesized cue
   sample counts resolved crowding at 30 pt without reducing type size.
-  Repository sync exposed 55 add/add SVG conflicts whose figure content was
-  identical after canonicalizing local IDs/references and export timestamps.
+  Repository sync exposed 113 add/add SVG conflicts across the unfinished
+  merge and subsequent remote integration. Their figure content was identical
+  after canonicalizing local IDs/references and export timestamps.
   A working-file/index backup and XML comparison allowed mechanical resolution
   without changing plotted values or geometry. The poster adapters already
   fix `svg.hashsalt` and omit export dates; extending deterministic export to
@@ -97,6 +136,42 @@ keep implementation guidance in the canonical workflow documents linked below.
   before promoting a pooled association to a scientific claim.
   Specify physical font sizes first, not merely a technical minimum, and
   re-evaluate the full narrative whenever a capacity/protocol filter changes.
+
+### Frozen goal-conditioned probes omit aligned option events — 2026-09-28
+
+- **Evidence:** The corrected-core seed-99 C05 and C15 place-field archives
+  retain observation-time pose and goal-behavior aggregates, but `pose.csv`
+  omits the core's `option_reset` and `target_hit` flags. Exact option-start
+  and hit markers therefore required another frozen rollout from the terminal
+  checkpoint. The [poster comparison](06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/report.md)
+  links the event-capture adapter and resulting marked trajectories.
+- **Renderer regression/fix:** The compact-layout pass mistakenly read the
+  sparse `option_events.csv` (1,505 C05 rows and 123 C15 rows) for path lines,
+  creating straight chords between events. Full `pose_events.csv` streams
+  contain 10,001 observations and twelve episodes. The comparison renderer
+  now prevalidates complete streams against summaries and marker tables;
+  missing full inputs fail before any figure is replaced. Shared segmentation
+  breaks paths at resets or missing frames, and export preserves every vertex.
+  Four focused regression checks cover sparse-input rejection, repeated
+  episode IDs, agent separation, and reset boundaries. Reuse the
+  [stream contract](04_implementation/reusable_place_field_telemetry.md#trajectory-and-option-event-streams)
+  for future figure revisions; do not substitute marker tables for paths.
+- **Impact:** Saved trajectory figures cannot be annotated with actual option
+  events, and a fresh stochastic replay must be plotted as a distinct path.
+- **Proposed improvement/status:** Add optional observation-aligned option
+  reset, target-hit, and timeout columns to the canonical pose artifact for
+  HRL runs. Keep flat and older archives readable. The poster adapter is an
+  isolated read-only hook; canonical integration remains open. See the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Semantic check:** `target_hit` records any current option-target hit,
+  whereas the topological manager has a separate `final_reached` flag. C15's
+  `frontier_direct` configuration disables waypoint planning. Preserve the
+  pre-update manager mode and final-completion flag in future event telemetry
+  so return/validation targets can be distinguished from navigation goals.
+- **Acceptance:** A short HRL compute-node probe writes equal-length pose and
+  event columns, records option starts and completions at the same observation,
+  and a plotter marks them without inferring events from path shape. Existing
+  flat probes and historical CSV readers continue to work.
 
 ### Frozen spatial probes need a standard loop metric — 2026-09-28
 
@@ -126,6 +201,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   at multiple declared lags; a real saved probe reproduces the poster CSV.
   Poster return panels retain mobile denominators and both lags, and the final
   conclusion refers to the displayed study rather than its predecessor.
+- **Reuse lesson:** The complete C01/C05/C15 nine-run poster comparison reused
+  archived poses and maps locally, with the existing flow and kernel functions.
+  Adding a configurable exemplar seed list and paired-seed difference table
+  avoided a new rollout or a separate analysis workflow. C01 has no goal options:
+  use explicit not-applicable entries rather than zero goal-hit counts.
 
 ### Layerwise kernel artifacts should retain full spatial range — 2026-09-27
 
@@ -151,6 +231,14 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** A 19×19 input saves 37×37 kernels for every measured layer,
   each offset has an eligible-pair count, unsupported pixels remain masked,
   and a new figure range can be rendered without a checkpoint forward pass.
+- **Historical input-root finding:** Twelve CPD frozen-policy probes had to
+  stage small checkpoints from a read-only legacy allocation because the
+  evaluator validates inputs under the active output allocation. Accept
+  verified read-only checkpoint roots while keeping outputs, caches, and
+  temporary files in the active workspace. Shared integration remains open;
+  validate a print-only review and one-row frozen preflight from a legacy
+  checkpoint. This consolidates the historical replay finding with this
+  full-range artifact entry rather than tracking the same kernel gap twice.
 
 ### Latest-common inventory must scan direct and milestone checkpoints — 2026-09-26
 

@@ -706,7 +706,7 @@ def render_graph_outcomes(
     ratio_label: str = "Prospective hits / attempts",
     figure_scale: float = 1.0, formats: Sequence[str] = ("png", "pdf"),
 ) -> list[Path]:
-    """All attempted directed edges, not just reliable edges; fixed 0–1 scale.
+    """All attempted directed edges; fixed 0–1 scale, with optional SVG export.
 
     The caller supplies the label when plotting stored graph evidence rather
     than prospective rollout outcomes.
