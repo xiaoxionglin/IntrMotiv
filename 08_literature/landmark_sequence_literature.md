@@ -39,6 +39,76 @@ IntrMotiv:
     implicit reachability by propagation or replay
 ```
 
+### Bae, Park, and Lee 2024/2025: TLDR — Temporal Distance-Aware Representations
+
+- Project page: https://heatz123.github.io/tldr/
+- PMLR: https://proceedings.mlr.press/v270/bae25a.html
+- arXiv: https://arxiv.org/abs/2407.08464
+- Code: https://github.com/heatz123/tldr
+
+**What it contributes.** TLDR learns a representation in which Euclidean distance is intended to approximate temporal reachability: states that require more steps to connect should be farther apart. The representation is trained by expanding distances between replay-buffer states while constraining one-step transitions to remain locally close:
+
+$\max_\phi \; \mathbb{E}_{s,g}[\lVert \phi(s)-\phi(g)\rVert] \quad \text{s.t.} \quad \mathbb{E}_{(s,a,s')}[\lVert \phi(s)-\phi(s')\rVert] \le 1$
+
+TLDR then reuses this learned geometry for all three parts of the unsupervised learning loop:
+
+1. **Goal selection:** prefer visited states in sparse / temporally distant regions of representation space.
+2. **Goal-conditioned control:** reward progress that reduces temporal distance to the selected goal.
+3. **Exploration:** after reaching the selected goal, reward movement toward still lower-density / farther regions.
+
+For goal-conditioned control, the shaped reward is essentially temporal-distance progress:
+
+$r^G(s,s',g)=\lVert\phi(s)-\phi(g)\rVert-\lVert\phi(s')-\phi(g)\rVert$
+
+**Important distinction.** TLDR does **not** explicitly discover a small set of discrete landmark nodes or learn a landmark-transition graph. Replay-buffer states can act as exploratory goals, while reachability is stored implicitly in the geometry of $\phi$ and exploited by the goal-conditioned policy. This makes TLDR closer to a continuous reachability map than to L3P's explicit landmark graph.
+
+**Why it matters here.** TLDR is one of the closest engineering comparisons for IntrMotiv because it closes the same three-way loop that the current project has been struggling to close:
+
+```text
+representation of reachability
+        -> choose useful goals
+        -> learn to reach them
+        -> use successful control to expand exploration
+        -> improve the representation
+```
+
+The main lesson is therefore not "copy TLDR's encoder." It is that **representation, controllability, and exploration should be coupled by the same notion of reachability**. IntrMotiv has often optimized these pieces separately: DG field structure, goal-conditioned control, graph reliability, and frontier sampling can improve independently and even work against one another.
+
+**Learnable lessons for IntrMotiv.**
+
+1. **Replace raw elapsed time with a learned reachability signal.** TLDR explicitly avoids treating observed behavioral delay as geodesic distance. Its local one-step constraint anchors the representation to dynamics, while the global expansion objective prevents collapse. For IntrMotiv, this suggests learning reachability from local experienced transitions and using CA3/DG structure to generalize it, rather than assigning a global metric directly from $\Delta t$.
+
+2. **Use one signal for both goal choice and goal-reaching.** A major strength of TLDR is self-consistency: the states judged "far" by the representation are precisely the states the worker is trained to approach by reducing that distance. This is directly relevant to the current failure mode where DG selects nominal goals that the worker cannot distinguish or reliably control.
+
+3. **Frontier selection is better motivated than uniform goal selection.** TLDR's goal-selection rule favors low-density / temporally distant states rather than sampling goals uniformly. This gives a principled analogue of the C15 frontier direction: choose goals that expand reachable coverage, not merely unused DG IDs.
+
+4. **A discrete landmark system can sit on top of a continuous reachability geometry.** IntrMotiv does not need to abandon DG landmarks. A potentially cleaner division of labor is:
+   - learn a continuous contextual reachability representation $z_t$;
+   - let sparse DG events quantize or select useful states from that geometry;
+   - learn reliable directed transitions only between those selected events.
+   TLDR then supplies the metric used to decide which candidate landmarks are novel, far, or worth pursuing, while DG/CA3 supplies compression, sparse event identity, and sequence structure.
+
+5. **Context is likely essential in the IntrMotiv setting.** TLDR's benchmark states are comparatively well specified. In the visually aliased DMLab maze, a distance based only on instantaneous observation or DG ID can identify two distinct physical/contextual states as the same point. A TLDR-like objective is therefore more plausibly applied to the CA3 contextual state $z_t$ or another history-dependent representation than to bare DG identity.
+
+6. **Distance-progress reward may solve part of the sparse-hit problem.** Current goal learning can starve when reward is delivered only on an exact DG/contextual hit. TLDR provides dense shaping from progress toward the goal. A useful IntrMotiv test is to retain the strict contextual hit as the success criterion, but add a learned reachability-progress reward for the worker. That separates "did I actually reach this landmark?" from "am I moving in a direction predicted to make it more reachable?"
+
+7. **Do not confuse spatially pretty fields with useful reachability.** TLDR is optimized around controllable temporal geometry, not place-field quality. This is a useful warning for IntrMotiv: monofield fraction, spatial information, and peak separation are secondary unless they support better goal discrimination, transition reliability, or reachable coverage.
+
+**Most informative adaptation to test.** Rather than replacing the architecture with TLDR, add a small reachability readout on the existing contextual CA3 state and test whether it improves the existing loop:
+
+```text
+CA3 contextual state z_t
+        -> learned temporal/reachability distance d(z_t,z_g)
+        -> frontier goal selection
+        -> dense worker progress reward
+        -> strict contextual landmark hit for success
+        -> DG/CA3 graph stores reliable event transitions
+```
+
+The critical comparison would be the current frontier model versus the same model with the learned reachability signal used for both goal ranking and worker shaping. If this improves controllable coverage without requiring privileged coordinates, it would support the claim that IntrMotiv's missing ingredient is not simply "better place fields" but an internally learned notion of reachable distance.
+
+**Neuroscience opportunity.** TLDR's implementation relies on replay-buffer sampling and an explicitly optimized embedding. IntrMotiv can make a different mechanistic claim: sparse DG events and CA3 sequences may approximate the same computational requirement through local temporal constraints, contextual sequence state, replay, and activity-dependent landmark selection. The interesting contribution would therefore be a circuit-level route to the useful principle exposed by TLDR, not reproducing TLDR itself.
+
 ### Eysenbach, Salakhutdinov, and Levine 2019: Search on the Replay Buffer
 
 - arXiv: https://arxiv.org/abs/1906.05253
