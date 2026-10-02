@@ -6,7 +6,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
-### Comparable ResNet+LSTM baseline is not selectable by configuration — 2026-10-02
+### Layer-2 ResNet+LSTM baseline needs runtime qualification — 2026-10-02
 
 - **Evidence:** With `resnet_impala`, the current `Default` encoder uses Sample
   Factory's trainable IMPALA ResNet; it rejects `layer2_resnet18`. The IntrMotiv
@@ -17,24 +17,24 @@ keep implementation guidance in the canonical workflow documents linked below.
   core is selected. The `Default` encoder also uses token-instruction handling
   and a different depth path from the current numeric cue and inverse-depth
   IntrMotiv encoder. See the
-  [baseline feasibility audit](04_implementation/architecture/resnet_lstm_baseline_feasibility_20261002.md).
+  [baseline implementation and comparison contract](04_implementation/architecture/resnet_lstm_baseline_20261002.md).
 - **Impact:** A flag-only `Default` run changes the visual representation,
   trainability, observation processing, recurrence size, and PPO credit path
   together. Its outcome cannot isolate the effect of IntrMotiv's memory and
   controller architecture.
-- **Improvement/status:** Feasibility audited locally; a comparable baseline
-  and training qualification remain open. Reuse the fixed visual trunk and
-  canonical cue/depth preprocessing in a small no-DG encoder, retain Sample
-  Factory's LSTM and PPO learner, and make the gradient boundary apply only
-  when the core actually contains CA3. Preserve existing run/checkpoint
-  behavior for all other configurations.
-- **Acceptance:** An explicit baseline configuration keeps its requested LSTM
-  width, uses the same fixed trunk and observation transforms as its matched
-  IntrMotiv condition, has nonzero PPO gradients in the LSTM and decoder,
-  has no DG/CA3/graph or DG-labeled telemetry, and passes a short workspace-only
-  training/restart/evaluation smoke. A paired StudySpec varies the stated
-  architecture factors while holding the task, reward, actions, budget, seeds,
-  and evaluation protocol fixed; report parameter count and throughput.
+- **Improvement/status:** `SF_hipposlam` commits `dafb6ecc`–`e8506c9b` add opt-in
+  `--layer2_lstm_baseline=sparse|dense`. Both arms reuse the frozen layer-2
+  trunk, DG-width linear/BatchNorm projection, cue/depth transforms, direct
+  bypass, LSTM wrapper, and external-reward PPO. Dense removes the sparse
+  threshold; `off` preserves old runs. Local actor and regression checks pass
+  (50 tests), including PPO gradients and packed replay. No DMLab rollout,
+  optimizer run, restart, or NEMO2 release has been qualified yet.
+- **Acceptance:** Both modes pass a short workspace-only training/restart and
+  evaluation smoke with nonzero external reward; the canonical NEMO2 checkout
+  receives the tested source. A declarative paired StudySpec holds task,
+  reward, actions, budget, seeds, and evaluation fixed, states any CA3 DG-loss
+  difference, and reports parameter count and throughput. Do not label dense
+  projected features as raw ResNet or DG place-field telemetry.
 
 ### Result reports need a stable owner and freshness check — 2026-10-02
 
