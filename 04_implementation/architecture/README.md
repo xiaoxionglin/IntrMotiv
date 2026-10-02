@@ -22,6 +22,9 @@ architectural switches.
 6. [[../core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]: known
    implementation inconsistencies, affected historical conclusions, and the
    required fix order before the next clean comparison.
+7. [[resnet_lstm_baseline_feasibility_20261002|ResNet+LSTM Baseline Feasibility]]:
+   current switch behavior, blockers to a comparable no-DG baseline, and its
+   validation contract (2026-10-02).
 
 ## Scope And Source Of Truth
 

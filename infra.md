@@ -6,6 +6,36 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Comparable ResNet+LSTM baseline is not selectable by configuration — 2026-10-02
+
+- **Evidence:** With `resnet_impala`, the current `Default` encoder uses Sample
+  Factory's trainable IMPALA ResNet; it rejects `layer2_resnet18`. The IntrMotiv
+  encoder accepts the frozen ImageNet trunk but retains the DG projection. A
+  CPU probe requesting `core_name=Default`, `rnn_type=lstm`, and `rnn_size=256`
+  yielded `rnn_size=3533`. The shared actor-critic's default
+  `ppo_dg_gradient=stop` detaches the entire `ModelCoreRNN` output when that
+  core is selected. The `Default` encoder also uses token-instruction handling
+  and a different depth path from the current numeric cue and inverse-depth
+  IntrMotiv encoder. See the
+  [baseline feasibility audit](04_implementation/architecture/resnet_lstm_baseline_feasibility_20261002.md).
+- **Impact:** A flag-only `Default` run changes the visual representation,
+  trainability, observation processing, recurrence size, and PPO credit path
+  together. Its outcome cannot isolate the effect of IntrMotiv's memory and
+  controller architecture.
+- **Improvement/status:** Feasibility audited locally; a comparable baseline
+  and training qualification remain open. Reuse the fixed visual trunk and
+  canonical cue/depth preprocessing in a small no-DG encoder, retain Sample
+  Factory's LSTM and PPO learner, and make the gradient boundary apply only
+  when the core actually contains CA3. Preserve existing run/checkpoint
+  behavior for all other configurations.
+- **Acceptance:** An explicit baseline configuration keeps its requested LSTM
+  width, uses the same fixed trunk and observation transforms as its matched
+  IntrMotiv condition, has nonzero PPO gradients in the LSTM and decoder,
+  has no DG/CA3/graph or DG-labeled telemetry, and passes a short workspace-only
+  training/restart/evaluation smoke. A paired StudySpec varies the stated
+  architecture factors while holding the task, reward, actions, budget, seeds,
+  and evaluation protocol fixed; report parameter count and throughput.
+
 ### Result reports need a stable owner and freshness check — 2026-10-02
 
 - **Evidence:** The CA3 follow-up and five-cue frozen-DG controls each had a
