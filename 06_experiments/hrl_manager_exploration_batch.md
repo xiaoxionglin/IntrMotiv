@@ -143,4 +143,4 @@ dominates manager selection, graph coverage falls, and target success does not
 improve. The current manager is therefore a promising behavioral probe rather
 than a successful hierarchical controller. Its 10k-decision spatial telemetry
 does show a distributed DG representation; see
-[[dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].
+[[dg_structural_and_manager_exploration_results|Structural and manager place-field telemetry]].

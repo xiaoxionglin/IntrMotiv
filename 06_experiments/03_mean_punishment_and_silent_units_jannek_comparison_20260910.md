@@ -17,7 +17,7 @@ Cross-report context: [[README|factorized experiment synthesis]].
 
 **Most direct documented configuration difference:** the August 24 anti-collapse field-analysis slice explicitly disabled `encoder_batch_loss`, used mean/punish, and ran to 80M. Its previous healthy reference used encourage plus batch loss and 100M. Jannek's section 4.2 identifies batch loss as the strongest auxiliary effect under punishment. Therefore the collapsed slice did not preserve the earlier push–pull balance. It cannot isolate the effect of global punishment or row repulsion. This explanation applies to that slice, not every later run.
 
-Sources: [anti-collapse field report](dg_anti_collapse_place_fields.md), [original HRL audit](hrl_batch1_results_and_next_iteration.md), original PDF section 4.2, and [core logic audit](../04_implementation/core_logic_audit_20260901.md).
+Sources: [anti-collapse results and field follow-up](dg_anti_collapse_results.md), [original HRL audit](hrl_batch1_results_and_next_iteration.md), original PDF section 4.2, and [core logic audit](../04_implementation/core_logic_audit_20260901.md).
 
 **Direct sparsifying gradient:** with post-threshold activity $z=[v-b]_+$ and fixed event mask $M$, punishment contributes
 

@@ -352,3 +352,18 @@ while monitoring workspace capacity.
 - If DG activity remains nonzero but target hits stay near zero, prioritize
   feasibility/planning and option timing. If DG activity collapses, debug
   encoder rewards and gradient ownership before interpreting HRL behavior.
+
+## Questions retained from the second iteration
+
+These questions were recorded in an unstructured follow-up note as material
+for the research memoir. They remain open until a study or implementation
+record resolves them:
+
+- Why should `T_ctrl` be episode-local? Test whether this follows from the
+  current graph and replay contract rather than treating it as an axiom.
+- Group the custom logging statistics, remove duplicates, give them consistent
+  names, and document the metric definitions in the shared metric reference.
+- Use a new W&B project for the next iteration when its design is materially
+  different, while retaining the canonical StudySpec as the run identity.
+- Examine Jannek's observation that an A–B–C traversal can receive the same
+  reward whenever A–C is fixed, regardless of the A–B and B–C split.

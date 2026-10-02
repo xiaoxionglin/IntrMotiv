@@ -39,7 +39,7 @@ No feedback variant improves mean map cosine over the matched baseline. CA3 addi
 
 ## Separate evidence: fixed re-entry inhibition
 
-Persistent-control 55–75M mean coverage: F_GATE 73.6 versus F_INHIB 75.4; G_SHARED 90.9 versus G_INHIB 91.2. Later F_INHIB snapshots: S8/S99 zero mono-fields at 200M, S123 zero at 300M. These have different controllers, objectives and ages from CPD and must not be inserted as matched CPD rows. See [inhibition status](persistent_intrinsic_control_status_20260909.md) and [matched coverage audit](persistent_intrinsic_control_learning_audit_20260908.md).
+Persistent-control 55–75M mean coverage: F_GATE 73.6 versus F_INHIB 75.4; G_SHARED 90.9 versus G_INHIB 91.2. Later F_INHIB snapshots: S8/S99 zero mono-fields at 200M, S123 zero at 300M. These have different controllers, objectives and ages from CPD and must not be inserted as matched CPD rows. See the [9 September status and 8 September matched coverage audit](persistent_intrinsic_control_status_20260909.md).
 
 Full-state feedback is a missing experimental factor, not an intermediate condition whose performance can be interpolated. Reuse the no-feedback/recent-feedback controls when comparing it, and retain per-seed outcomes rather than selected checkpoints.
 

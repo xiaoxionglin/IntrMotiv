@@ -6,6 +6,8 @@ status map below, then read a study report for its matched comparison.
 Historical launch notes retain exact manifests and implementation details.
 The [open-analysis register](open_analyses.md) lists the specific evidence
 still needed to close major scientific claims.
+The [organization strategy](ORGANIZATION.md) explains the study-line grouping
+and the criteria used to merge overlapping notes.
 
 For a report, use the owner table below. Study inputs and collected tables are
 under `data/<study>/`; figures and analysis bundles are under
@@ -26,6 +28,86 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 | Directional/predictive recruitment | [[directional_predictive_recruitment_interim_20260904|Directional/predictive diagnosis]] | Early graph and representation diagnosis with causal comparison unresolved | Retained separately from its implementation record |
 
 For code-level architecture definitions, use [[../04_implementation/architecture/README|Architecture Reference]]. For metric meanings and denominators, use [[../04_implementation/IntrMotiv_metric_reference|Metric Reference]] and [[../04_implementation/IntrMotiv_metrics_guidebook|Metrics Guidebook]].
+
+## Complete Markdown index
+
+Read each row from left to right: the result or synthesis owner comes first,
+then its supporting plans, run records, and dated probes. `RESULT` reports an
+outcome; `PLAN` proposes work; `RUN` records implementation or submission;
+`TELEMETRY` is a scoped measurement; `AUDIT` checks a claim or contract;
+`SYNTHESIS` compares lines; `ARTIFACT` belongs to a pinned output bundle.
+Dates identify evidence age. The [owner table](#report-status-and-ownership)
+above determines which findings are current.
+
+### A. Cross-study syntheses and historical briefings
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Early batch statistics | [SYNTHESIS: batch statistics](recent_batch_statistics_report.md) |
+| September design review | [SYNTHESIS: recent batch design audit](recent_batches_design_audit_20260906.md) |
+| 10 September briefing | [SYNTHESIS: architectures and fields](02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md); [SYNTHESIS: mean and silent units](03_mean_punishment_and_silent_units_jannek_comparison_20260910.md); [SYNTHESIS: three-goal capacity](04_three_goal_context_conditioning_and_dg_capacity_20260910.md); [SYNTHESIS: CA3 feedback](05_ca3_feedback_matched_results_and_full_state_gap_20260913.md); [SYNTHESIS: goal-set controls](06_high_option_success_goal_sets_and_controls_20260914.md); [AUDIT: FiLM and input weights](07_film_goal_parameters_and_ca3_depth_weights_20260914.md) |
+| Late-training signals | [SYNTHESIS: outliers](late_training_outliers_20260908.md); [TELEMETRY: spatial gallery](late_outlier_spatial_gallery_20260908.md); [AUDIT: target-hit lift](late_target_hit_lift_audit_20260908.md) |
+| September architecture and poster selection | [SYNTHESIS: three architecture batches](recent_architecture_batches_synthesis_20260924.md); [AUDIT: poster candidates](poster_candidate_screening_20260925.md); [AUDIT: exemplar snapshot](poster_exemplar_analysis_20260925.md) |
+
+### B. Early HRL, graph, and recruitment studies
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| First HRL iteration | [RESULT: batch 1 and next iteration](hrl_batch1_results_and_next_iteration.md); [RUN: iteration 2 and retained questions](hrl_iteration2_implementation_and_batch.md); [PLAN: compatibility pointer](next_iteration_plan_before_iterative_update.md) |
+| Manager design | [RUN: frontier isolation](frontier_manager_isolation_20260831.md); [RUN: manager exploration](hrl_manager_exploration_batch.md); [PLAN: topological frontier](topological_frontier_planning_batch.md) |
+| Controllability and graph recruitment | [RUN: edge exploration](controllability_edge_exploration_20260903.md); [RESULT: graph-stabilized recruitment](graph_stabilized_recruitment_20260903.md); [TELEMETRY: aligned 75M fields](graph_stabilized_recruitment_place_field_telemetry_20260903.md) |
+| Directional and predictive recruitment | [RESULT: interim diagnosis](directional_predictive_recruitment_interim_20260904.md); [RUN: batch definition](directional_predictive_recruitment_20260904.md) |
+
+### C. DG representation and spatial health
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Anti-collapse and regularizers | [RESULT: online and place-field anti-collapse](dg_anti_collapse_results.md); [RESULT: encourage-regularizer interim and 50M telemetry](encourage_dg_regularizers_interim_analysis.md); [AUDIT: DGP trivial minimum](dgp_interim_failure_audit_20260907.md) |
+| Structural diversity and manager exploration | [RESULT: online and 10k-decision spatial results](dg_structural_and_manager_exploration_results.md); [RUN: structural-diversity batch](dg_structural_diversity_batch.md) |
+| Corrected core | [RESULT: historical re-evaluation](corrected_core_reevaluation_20260901.md); [TELEMETRY: selected candidates](corrected_core_candidate_place_field_telemetry_20260902.md) |
+| DG capacity and goal conditioning | [RESULT: interim factorial](dg_capacity_goal_conditioning_interim_20260911.md); [AUDIT: later run health](dg_capacity_health_20260913.md); [PLAN: matrix](dg_capacity_goal_conditioning_plan_20260910.md); [RUN: launch](dg_capacity_goal_conditioning_launch_20260910.md) |
+| DG neighborhood and update mechanics | [RUN: G500 qualification](dg_neighborhood_g500_20260914.md); [AUDIT: normalization gradients](landmark_normalization_gradient_audit.md); [AUDIT: encoder/decoder update contract](encoder_decoder_update_contract_batch_diagnosis.md) |
+| Minimal mechanism test | [RESULT: thresholded rotation toy](threshold_rotation_toy_report.md) |
+
+### D. Controller, replay, and goal-control studies
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Native DDQN/HER | [RUN: recurrent DDQN/HER](intrmotiv_ddqn_her_implementation_20260911.md); [RUN: Sample Factory integration](intrmotiv_ddqn_sample_factory_integration_20260911.md); [AUDIT: v2 repair](intrmotiv_ddqn_her_v2_repair_20260911.md); [AUDIT: throughput](intrmotiv_ddqn_throughput_20260911.md); [AUDIT: metric consistency](intrmotiv_ddqn_metric_consistency_20260912.md); [RUN: production](intrmotiv_ddqn_sf_production_20260912.md) |
+| Full-system and off-policy control | [RUN: full-system controller](intrmotiv_full_system_controller_20260912.md); [RUN: CRL+/L3P+ baselines](offpolicy_crl_l3p_implementation_20260911.md); [RUN: RR1 extension](controller_rr1_extension_20260913.md) |
+| CPU controller screen | [RESULT: CPU2048](cpu2048_analysis_20260917.md); [RUN: selected CPU comparison](controller_cpu_selected_20260914.md) |
+| Navigation8 screen | [RESULT: 75M interim](navigation8_algorithm_screen_interim_20260916.md); [RUN: implementation](navigation8_algorithm_screen_implementation_20260909.md) |
+| Target-control representation | [TELEMETRY: provisional HER place fields](target_control_her_provisional_place_field_telemetry_20260902.md) |
+| Persistent intrinsic control | [RESULT: 8–9 September status and learning audit](persistent_intrinsic_control_status_20260909.md); [RUN: implementation](persistent_intrinsic_control_implementation.md) |
+
+### E. CA3 memory and contextual goals
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Finite-memory novelty | [RUN: memory novelty and minimal control](ca3_memory_novelty_goal_implementation.md) |
+| Predictive active goals | [RESULT: matched 75M interim](ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_predictive_active_goals_20260922.md) |
+| State-goal follow-up | [RESULT: matched follow-up](ca3_followup_analysis_20260926.md); [RUN: state-goal release](ca3_state_goal_followup_20260922.md) |
+
+### F. Environment, reward, and transfer
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Corridor geometry | [RESULT: 100M analysis](corridor_geometry_analysis_20260921.md); [RUN: geometry and qualification](corridor_geometry_20260919.md) |
+| Easy landmark maze | [RESULT: 2M qualification](easy_landmark_maze_qualification_analysis_20260924.md); [RUN: cue screen](easy_landmark_maze_implementation_20260923.md) |
+| Initial fixed-reward transfer | [RESULT: latest common step](fixed_reward_transfer_latest_common_20260911.md); [RUN: implementation](fixed_reward_transfer_implementation_20260910.md); [RUN: repeat-8 replacement](fixed_reward_transfer_repeat8_launch_20260910.md); [PLAN: timing replan](fixed_reward_transfer_timing_replan_20260910.md) |
+| DG-peak and five-cue transfer | [RESULT: five-cue campaign and controls](cued_reward5_transfer_20260925.md); [RUN: DG-peak execution](fixed_reward_dg_peak_transfer_execution_20260924.md); [AUDIT: site candidates](fixed_reward_site_candidate_audit_20260924.md) |
+
+### G. Nested Markdown in pinned data and result bundles
+
+These files stay with their source tables and figures. They are indexed here
+for discovery, while the bundle manifests remain authoritative for replay.
+
+| Bundle | Files |
+| --- | --- |
+| Study data | [ARTIFACT: CPU2048 atlas](data/cpu2048_analysis_20260917/atlas.md); [ARTIFACT: full-system request](data/intrmotiv_full_system_controller_20260912/request.md); [ARTIFACT: Navigation8 atlas](data/navigation8_algorithm_screen_interim_20260916/visual_atlas_75m.md) |
+| A0 poster overview | [ARTIFACT: summary](results/A0_poster_analysis_20260926/summary.md); [ARTIFACT: batch results](results/A0_poster_analysis_20260926/batch_summary.md); [ARTIFACT: cross-run scatter](results/A0_poster_analysis_20260926/cross_run_scatter/report.md); [ARTIFACT: flat/goal comparison](results/A0_poster_analysis_20260926/flat_goal_comparison/report.md) |
+| C15 variants | [ARTIFACT: report](results/A0_poster_analysis_20260926/c15_variants/report.md); [ARTIFACT: run index](results/A0_poster_analysis_20260926/c15_variants/run_index.md); [ARTIFACT: source index](results/A0_poster_analysis_20260926/c15_variants/source_index.md); [ARTIFACT: variant catalogue](results/A0_poster_analysis_20260926/c15_variants/variant_catalogue.md); [ARTIFACT: pinned corrected-core source](results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/corrected_core_reevaluation_20260901.md) |
+| Exemplar gallery | [ARTIFACT: run index](results/A0_poster_analysis_20260926/exemplar_gallery/run_index.md); [ARTIFACT: selection](results/A0_poster_analysis_20260926/exemplar_gallery/selection_summary.md); [ARTIFACT: historical screen](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension_screen.md); [ARTIFACT: extension report](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension/report.md); [ARTIFACT: extension run index](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension/run_index.md) |
 
 ## 1. Canonical factorization
 
@@ -69,7 +151,7 @@ A comparison is clean only when its row changes the intended factor while the ot
 The earliest question was whether elapsed-time feedback could distribute sparse DG events. The central representation factors became: encoder feedback sign/centering, batch recruitment, population/collision regularization, normalization, temporal exclusion, and retirement. The cleanest representation-focused resources are:
 
 - [[03_mean_punishment_and_silent_units_jannek_comparison_20260910|Mean, punishment, and silent units]] — why suppression plus weak recruitment can create silence.
-- [[dg_anti_collapse_results|DG anti-collapse results]] and [[dg_anti_collapse_place_fields|place-field analysis]].
+- [[dg_anti_collapse_results|DG anti-collapse online and place-field results]].
 - [[dg_structural_and_manager_exploration_results|DG structural and manager exploration results]].
 - [[landmark_normalization_gradient_audit|Normalization/gradient audit]].
 - [[recent_batches_design_audit_20260906|Recent batch design audit]] — ARR/SRC, FiLM, retirement, graph false positives.

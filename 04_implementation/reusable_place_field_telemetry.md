@@ -616,7 +616,7 @@ the raw artifact contract when needed, and preserve old manifests and NPZs.
 
 The 2026-08-27 run evaluated 28 tasks with no failures under Slurm job
 `7881719`. Its report, figures, limitations, and artifact root are recorded in
-[[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]].
+[[../06_experiments/dg_structural_and_manager_exploration_results|Structural and manager place-field telemetry]].
 ## CA3 memory additions (2026-09-07)
 
 The same `place_fields.py` entry point supports mutually exclusive

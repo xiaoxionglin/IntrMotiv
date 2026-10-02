@@ -23,11 +23,22 @@ keep implementation guidance in the canonical workflow documents linked below.
   root files were moved; empty placeholders and `.DS_Store` files were
   removed. The [organization note](00_index/repository_organization_20261002.md)
   records the decision to retain provenance copies and historical paths.
+- **Experiment Markdown follow-up:** The experiment folder contained 79
+  top-level Markdown notes and 17 nested bundle notes. The
+  [experiment README](06_experiments/README.md#complete-markdown-index) now
+  assigns every study note one ordered, role-labeled catalogue entry. Four
+  same-study report pairs and one loose second-iteration question note were
+  consolidated; the [merge strategy](06_experiments/ORGANIZATION.md) records
+  the boundary. A content-preservation check confirmed that the four source
+  reports survived in their result owners, and a changed-file link/math check
+  found no broken local links or delimiter violations. Keeping pinned nested
+  Markdown in place avoided invalidating source manifests.
 - **Acceptance:** Every newly moved file has a working index path, all local
   links in changed Markdown resolve, and the tracked tree contains no
   `.DS_Store` or empty placeholder files. Future study updates link their
   report, StudySpec, pinned data, and figures through the existing result
-  owner before considering a broader move.
+  owner before considering a broader move. Recheck that the README catalogue
+  covers every top-level and nested Markdown note after future merges.
 
 ### Layer-2 ResNet+LSTM baseline functional qualification — 2026-10-02
 
