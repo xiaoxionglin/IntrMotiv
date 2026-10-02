@@ -1,6 +1,23 @@
-# IntrMotiv experiment reports: factorized synthesis
+# IntrMotiv experiment reports: factorized synthesis and status map
 
-This is the canonical entry point for experiment reports. Dates are provenance; the scientific organization is by **which factor changed**. Historical reports are retained because they contain exact evidence, manifests, and implementation details, but their shorthand names should be decoded through the factorization below rather than treated as indivisible algorithms.
+This is the canonical entry point for experiment reports. Dates are provenance;
+the scientific organization is by **which factor changed**. Start with the
+status map below, then read a study report for its matched comparison.
+Historical launch notes retain exact manifests and implementation details.
+The [open-analysis register](open_analyses.md) lists the specific evidence
+still needed to close major scientific claims.
+
+## Report status and ownership
+
+| Line | Current result report | Evidence boundary | Earlier material |
+| --- | --- | --- | --- |
+| CA3 state-goal follow-up | [[ca3_followup_analysis_20260926|Matched CA3 follow-up]] | Complete 75M CPU and G500 factorials; later endpoints have unequal ages | The 25M interim table, restricted 75M snapshot, and atlas are integrated in the same report |
+| Five-cue frozen-DG controls | [[cued_reward5_transfer_20260925|Five-cue campaign and controls]]; [exact 75M endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Paired 50M online evidence and exact 75M frozen/heldout control evidence; the wider eight-arm transfer study has no matched outcome report here | The September 26 interim map, manager, and input-probe analysis is integrated in the campaign report |
+| CA3 predictive active goals | [[ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
+| DG capacity and goal conditioning | [[dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
+| Navigation8 screen | [[navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] | Complete three-seed 75M online snapshot; no shared exact saved terminal checkpoint for the selected seeds | Interim remains the primary result report |
+| Easy landmark maze | [[easy_landmark_maze_qualification_analysis_20260924|Landmark maze qualification]] | 2M qualification; production effect has no matched report here | Qualification is not a production outcome |
+| Directional/predictive recruitment | [[directional_predictive_recruitment_interim_20260904|Directional/predictive diagnosis]] | Early graph and representation diagnosis with causal comparison unresolved | Retained separately from its implementation record |
 
 For code-level architecture definitions, use [[../04_implementation/architecture/README|Architecture Reference]]. For metric meanings and denominators, use [[../04_implementation/IntrMotiv_metric_reference|Metric Reference]] and [[../04_implementation/IntrMotiv_metrics_guidebook|Metrics Guidebook]].
 
@@ -62,7 +79,7 @@ The project then moved from “one DG unit = one destination” toward contextua
 - [[05_ca3_feedback_matched_results_and_full_state_gap_20260913|CA3 feedback matched comparison]] tests feedback-history gradient routing while holding the broader CPD architecture fixed.
 - [[07_film_goal_parameters_and_ca3_depth_weights_20260914|FiLM parameter audit]] shows that goal-dependent parameters exist, but parameter variation is not behavioral control.
 - [[ca3_predictive_active_goals_interim_analysis_20260924|CA3 predictive active goals]] separates shadow readout, worker state, continuous goal, contextual recognition, action conditioning, and horizon.
-- [[ca3_state_goal_followup_interim_analysis_20260924|CA3 state-goal follow-up]] isolates FIXED/EMA anchor maintenance and DOM/UNIQUE contextual candidate admission.
+- [[ca3_followup_analysis_20260926|CA3 state-goal follow-up]] isolates FIXED/EMA anchor maintenance and DOM/UNIQUE contextual candidate admission, with the earlier CPU interim evidence integrated.
 
 **Current lesson:** instantaneous DG identity is often too aliased to serve as a robust goal. The newer architecture keeps DG as a sparse address/event code while using an observed CA3 state and learned predictive readout to define goal identity.
 
@@ -102,10 +119,9 @@ Transfer is a separate scientific question: whether intrinsically learned struct
 
 - [[fixed_reward_transfer_latest_common_20260911|Fixed-reward latest-common comparison]] compares scratch, frozen DG, tuned DG, and policy transfer at a shared training window.
 - [[fixed_reward_dg_peak_transfer_execution_20260924|DG-peak transfer execution]] and [[fixed_reward_transfer_implementation_20260910|transfer implementation]] document later transfer variants.
-- [[cued_reward5_transfer_20260925|Five-cue reward transfer]] replaces the single fixed destination with five instructed reward locations and tests broader reuse.
-- [[cued_reward5_frozen_dg_interim_analysis_20260926|Frozen-DG transfer controls]] compares source versus calibrated random DG place fields, graphs, option hits, reward learning, and CA3/depth input use at matched checkpoints.
+- [[cued_reward5_transfer_20260925|Five-cue reward transfer and frozen-DG controls]] covers the task, campaign, paired online control results, and CA3/depth input probes. The [exact 75M endpoint report](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) adds frozen and heldout comparisons.
 
-**Current lesson:** scratch can optimize a narrow downstream task rapidly, so transfer should increasingly test many instructed destinations or reward changes where reusable representation/control structure has a plausible advantage.
+**Current lesson:** the completed five-cue frozen-DG control endpoints show that stronger source-DG field and option metrics do not imply better downstream reward or heldout success. Analyze the wider eight-arm transfer matrix before claiming which source components help.
 
 ## 4. Current experiment matrix
 
@@ -128,8 +144,8 @@ For a concise current view:
 2. [[../05_plans/poster_results_synthesis_20260922|Poster/paper scientific synthesis]] for the narrative and claim boundary.
 3. [[recent_batches_design_audit_20260906|Design audit]] for the core graph/control failure mode.
 4. [[navigation8_algorithm_screen_interim_20260916|Navigation8]] and [[cpu2048_analysis_20260917|CPU2048]] for matched architecture/controller comparisons.
-5. [[ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] and [[ca3_state_goal_followup_interim_analysis_20260924|state-goal follow-up]] for the current goal-representation line.
-6. [[easy_landmark_maze_qualification_analysis_20260924|easy-landmark cues]], [[corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests.
+5. [[ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] and [[ca3_followup_analysis_20260926|matched state-goal follow-up]] for the current goal-representation line.
+6. [[easy_landmark_maze_qualification_analysis_20260924|easy-landmark cues]], [[corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests; use the [75M frozen-DG endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) for transfer outcomes.
 
 Use the dated implementation/launch reports only when you need exact StudySpecs, job IDs, source revisions, qualification gates, or failure provenance.
 

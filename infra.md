@@ -6,6 +6,28 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Result reports need a stable owner and freshness check — 2026-10-02
+
+- **Evidence:** The CA3 follow-up and five-cue frozen-DG controls each had a
+  detailed interim report alongside a later report. The experiment index
+  pointed readers to older 25M/50M states even after complete 75M comparisons
+  existed. The September 22 poster synthesis still described five-cue
+  transfer as having no plottable result after the frozen-DG endpoints arrived.
+- **Impact:** Readers can treat an older incomplete matrix as the current
+  result, miss a later negative transfer finding, or conflate online spatial,
+  frozen-policy, and heldout outcomes.
+- **Improvement/status:** The two interim reports were folded into their study
+  owners with early tables, figures, and provenance preserved. The
+  [experiment status map](06_experiments/README.md) and
+  [open-analysis register](06_experiments/open_analyses.md) distinguish
+  completed contrasts from missing ones. Further consolidation is warranted
+  only when another interim report has a complete same-study successor.
+- **Acceptance:** Each active study has one result owner, dated snapshot
+  reports link forward to it, and index claims state their evidence age and
+  protocol. A local-link and obsolete-reference check passes after any report
+  merge. Use the [standard report structure](06_experiments/README.md#6-standard-report-structure-going-forward)
+  for updates.
+
 ### Spatial summary exports need protocol and capacity provenance — 2026-09-28
 
 - **Evidence:** The cross-run poster survey deduplicated 15 canonical CSV
@@ -444,7 +466,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** Telemetry can be recorded correctly yet rejected by the study workflow, delaying paired analysis and giving the original StudySpec an incomplete analysis contract.
 - **Improvement/status:** Workflow 1.14 now rejects missing or mismatched online
   spatial target declarations for new StudySpecs, including automatic runtime
-  schedules; focused desktop and NEMO2 tests pass. The [interim analysis](06_experiments/cued_reward5_frozen_dg_interim_analysis_20260926.md) retains the original and analysis-only fingerprints because published old studies are immutable. The split CPU/GPU batch also required workspace symlinks directly to each nested `00_RUN` summary directory for canonical online collection.
+  schedules; focused desktop and NEMO2 tests pass. The [campaign report](06_experiments/cued_reward5_transfer_20260925.md) retains the original and analysis-only fingerprints because published old studies are immutable. The split CPU/GPU batch also required workspace symlinks directly to each nested `00_RUN` summary directory for canonical online collection.
 - **Acceptance:** A focused validator test rejects mismatched or missing target declarations when online spatial telemetry is enabled, and a corrected future StudySpec collects every requested snapshot without an analysis-only copy. See the [standard workflow](04_implementation/standardized_study_workflow.md).
 
 ### Frozen random DG needs normalization calibration — 2026-09-25

@@ -113,7 +113,7 @@ The SVG connects matched seeds. Node capacity differs, so reliable edge count is
 
 ### Frozen source versus random DG: better maps, no demonstrated reward benefit
 
-The [original online table](../../data/cued_reward5_frozen_dg_interim_20260926/online/per_run.csv) contains all six source/random seed pairs for the 40–50M reward window. The [original spatial table](../../data/cued_reward5_frozen_dg_interim_20260926/spatial/per_snapshot.csv) contains all pairs at 50M. The [full interim report](../../cued_reward5_frozen_dg_interim_analysis_20260926.md) gives the study design and qualification limits.
+The [original online table](../../data/cued_reward5_frozen_dg_interim_20260926/online/per_run.csv) contains all six source/random seed pairs for the 40–50M reward window. The [original spatial table](../../data/cued_reward5_frozen_dg_interim_20260926/spatial/per_snapshot.csv) contains all pairs at 50M. The [full interim report](../../cued_reward5_transfer_20260925.md) gives the study design and qualification limits.
 
 | Site family | Source minus random reward mean, 40–50M | Source map cosine, 50M | Random map cosine, 50M | Source graph reachability, 50M | Random graph reachability, 50M |
 | --- | ---: | ---: | ---: | ---: | ---: |

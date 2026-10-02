@@ -5,6 +5,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Current results synthesis
 
 - [[../06_experiments/README|Factorized experiment synthesis and report map — canonical entry point]]
+- [[../06_experiments/open_analyses|Open analyses and claim gates]]
+- [[../06_experiments/results/A0_poster_analysis_20260926/batch_summary|Matched poster endpoint analysis, including 75M five-cue controls]]
 - [[../05_plans/poster_results_synthesis_20260922|Poster and paper synthesis: claims, evidence, candidate runs, and missing tests]]
 
 ## Project Context
@@ -66,6 +68,8 @@ This vault organizes the IntrMotiv research notes around the transition-distance
 ## Experiments
 
 - [[../06_experiments/recent_architecture_batches_synthesis_20260924|September 24 architecture batches: landmark maze and two CA3 studies]]
+- [[../06_experiments/ca3_followup_analysis_20260926|CA3 state-goal follow-up: matched 75M analysis and early CPU atlas]]
+- [[../06_experiments/cued_reward5_transfer_20260925|Five-cue transfer: campaign and frozen-DG controls]]
 - [[../06_experiments/cpu2048_analysis_20260917|CPU2048: All-Seed Place Fields, Trajectories, and Control Graphs]]
 - [[../06_experiments/corridor_geometry_20260919|Corridor Geometry: 27-Run Study, Maps and Qualification Status]]
 - [[../06_experiments/corridor_geometry_analysis_20260921|Corridor Geometry: 100M Training Analysis and Full Evaluation Launch]]

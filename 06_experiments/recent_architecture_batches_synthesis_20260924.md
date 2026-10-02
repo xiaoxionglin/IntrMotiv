@@ -1,5 +1,9 @@
 # Three recent architecture batches: synthesis (24 September 2026)
 
+This is a September 24 snapshot. The [later CA3 state-goal follow-up](ca3_followup_analysis_20260926.md)
+contains complete CPU and G500 75M matched panels, checkpoint diagnostics,
+and the original 25M atlas. Use that report for current follow-up conclusions.
+
 ## Architecture factorization
 
 This synthesis should be read by factors rather than as “three successive architectures”:
@@ -17,7 +21,7 @@ The common question is whether better observation identity, temporal goal identi
 
 1. [Easy landmark maze: completed 2M qualification](easy_landmark_maze_qualification_analysis_20260924.md) asks whether visible, fixed cues change localization, exploration, and control across three existing architectures. Its 12 production runs have since started and remain in progress.
 2. [CA3 predictive active goals: 75M interim analysis](ca3_predictive_active_goals_interim_analysis_20260924.md) compares seven ways to turn recent CA3 history into worker state, goals, and context recognition. All 21 runs have a 75M online spatial snapshot; none has completed the declared 300M horizon.
-3. [CA3 state-goal follow-up: 25M interim analysis](ca3_state_goal_followup_interim_analysis_20260924.md) holds the predictive state-goal design fixed and crosses two anchor-update rules with two candidate-recognition rules. All 12 runs have a 25M snapshot; ten have a 75M snapshot.
+3. [CA3 state-goal follow-up: early 25M record](ca3_followup_analysis_20260926.md#early-cpu-spatial-record-25m-and-restricted-75m) holds the predictive state-goal design fixed and crosses two anchor-update rules with two candidate-recognition rules. In this September 24 collection, all 12 runs had a 25M snapshot and ten had a 75M snapshot.
 
 The first report is a qualification result; the other two are synchronized interim comparisons. Their environments differ: the landmark batch uses a fixed 74-cell maze with visible/neutral cue conditions, whereas both CA3 batches use the established reward-free open field. The three tables must not be pooled into an architecture ranking.
 

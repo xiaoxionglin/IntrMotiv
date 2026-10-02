@@ -2,7 +2,7 @@
 
 ## IntrMotiv: updated results synthesis and poster plan
 
-**Evidence cutoff: 25 September 2026.** This synthesis is organized by scientific factors rather than experiment chronology. It uses the maintained experiment map in [[../06_experiments/README|the factorized experiment synthesis]] and the dated reports linked below. Repository state reviewed immediately before this update: e06cff298adcc9fd47441ac38f86e8eeeb06dc6a on main.
+**Core evidence cutoff: 25 September 2026; five-cue control update: 26 September.** This synthesis is organized by scientific factors rather than experiment chronology. It uses the maintained experiment map in [[../06_experiments/README|the factorized experiment synthesis]] and the dated reports linked below. Repository state for the original synthesis was e06cff298adcc9fd47441ac38f86e8eeeb06dc6a on main. The [open-analysis register](../06_experiments/open_analyses.md) tracks later claim gates.
 
 **Recommended title:** *From spatial codes to controllable goals in a hippocampus-inspired agent*  
 **Subtitle:** *Intrinsic spatial representation, goal aliasing, and predictive CA3 state*
@@ -200,7 +200,7 @@ At the balanced 25M checkpoint:
 
 UNIQUE admission increases mono-field fraction in several paired comparisons but almost eliminates graph attempts and reliable edges. The likely computational issue is a **precision–coverage trade-off**: stricter contextual recognition may reject ambiguous events, but if it abstains too often the controller receives too little graph/replay support. That interpretation is consistent with the data but still requires the recognition and HER diagnostics for confirmation.
 
-Source: [[../06_experiments/ca3_state_goal_followup_interim_analysis_20260924|CA3 state-goal follow-up]].
+Source: [[../06_experiments/ca3_followup_analysis_20260926|CA3 state-goal follow-up]].
 
 ### Neuroscience-facing interpretation
 
@@ -276,9 +276,9 @@ Source: [[../06_experiments/fixed_reward_dg_peak_transfer_execution_20260924|cor
 
 The new five-cue task keeps the same map but samples one of five invisible reward locations each episode and presents a stable number instruction. It therefore asks whether a learned representation/controller can support **multiple changing task goals**, rather than optimizing one fixed location.
 
-The validated design contains eight transfer/scratch arms, three downstream seeds, and 48 runs at 75M. Qualification passed, but production was still being submitted/running at the evidence cutoff. There is no result to plot yet.
+The validated design contains eight transfer/scratch arms, three downstream seeds, and 48 runs at 75M. Qualification had passed by the original evidence cutoff. A later exact 75M analysis now covers the **paired frozen source-DG versus calibrated random-DG controls** in both source families. Source DG has lower reward AUC in all six paired seeds; heldout 75M success is 50.0% versus 58.3% in D50 and 47.5% versus 61.7% in D51 (source versus random, 120 matched-reset trials per arm). These controls do not settle the complete eight-arm transfer question. Its other arms still need a matched outcome report.
 
-Source: [[../06_experiments/cued_reward5_transfer_20260925|five-cue reward transfer]].
+Sources: [[../06_experiments/cued_reward5_transfer_20260925|five-cue campaign and early controls]] and [exact 75M endpoint analysis](../06_experiments/results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings).
 
 **Poster interpretation:** use the single-goal result mainly to motivate why transfer should be tested across multiple reward locations. Do not make it the headline negative result.
 
@@ -375,7 +375,7 @@ That tension is itself relevant to biological navigation, where representations 
 1. **Matched node-control intervention.** From identical physical/memory starts, change only the goal, measure immediate action-distribution change, and record the first learned node reached. Report the full source × command × reached-node matrix. Physical destination is a stronger grounding analysis, not required for the basic controllability criterion.
 2. **CA3 readout health.** Show prediction loss by active/zero targets, state- and action-shuffle deltas, latent variance/effective rank, recognition positive/background distributions, and contextual HER support.
 3. **Common-history representation evaluation.** Compare DG fields on the same observation/history panel rather than only policy-dependent online occupancy.
-4. **Five-cue transfer results.** Compare scratch and transfer across all five instructions and downstream seeds, emphasizing early sample efficiency and per-goal generalization.
+4. **Complete five-cue transfer matrix.** The frozen source/random DG controls have exact 75M reward and heldout results. Compare the remaining scratch and transfer arms across all five instructions and downstream seeds, emphasizing early sample efficiency and per-goal generalization.
 
 ### Stronger paper-level tests
 
