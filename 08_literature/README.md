@@ -8,6 +8,7 @@ This folder collects papers relevant to DG/CA3-inspired landmark discovery, intr
 - [Bastankhah 2026: Empowerment Representations in IntrMotiv (with SGCRL cross-reference)](bastankhah_2026_empowerment_intrmotiv.md)
 - [Control Relevance, Fisher Sensitivity, and Place Fields: Prior-Art Review](control_relevance_fisher_place_fields_20260908.md)
 - [Landmark Sequence Literature Map](landmark_sequence_literature.md)
+- [Structured Memory Prior Work](structured_memory_prior_work.md) — predictive states, fixed reservoirs, and event-driven recurrence relevant to the DG–CA3 hypothesis.
 - [References BibTeX](references.bib)
 - [Downloaded Papers](papers/)
 

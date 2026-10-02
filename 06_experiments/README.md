@@ -7,6 +7,12 @@ Historical launch notes retain exact manifests and implementation details.
 The [open-analysis register](open_analyses.md) lists the specific evidence
 still needed to close major scientific claims.
 
+For a report, use the owner table below. Study inputs and collected tables are
+under `data/<study>/`; figures and analysis bundles are under
+`results/<study>/`. Analysis and rendering scripts remain at this folder's top
+level, generally named `analyze_*`, `plot_*`, or `render_*`. The validated run
+definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
+
 ## Report status and ownership
 
 | Line | Current result report | Evidence boundary | Earlier material |

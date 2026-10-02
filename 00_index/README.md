@@ -1,102 +1,33 @@
-# IntrMotiv Notes Index
+# IntrMotiv research notes
 
-This vault organizes the IntrMotiv research notes around the transition-distance intrinsic reward idea for DG-CA3 landmark exploration.
+This is the scientific reading map. For current empirical claims and every study's report owner, use the [experiment status map](../06_experiments/README.md). For files by task, use the [repository front door](../README.md).
 
-## Current results synthesis
+## Read the core idea
 
-- [[../06_experiments/README|Factorized experiment synthesis and report map — canonical entry point]]
-- [[../06_experiments/open_analyses|Open analyses and claim gates]]
-- [[../06_experiments/results/A0_poster_analysis_20260926/batch_summary|Matched poster endpoint analysis, including 75M five-cue controls]]
-- [[../05_plans/poster_results_synthesis_20260922|Poster and paper synthesis: claims, evidence, candidate runs, and missing tests]]
+1. [Fundamental formulation: representation, exploration, and control](../02_algorithm/fundamental_formulation_representation_exploration_control.md)
+2. [Transition-distance theory](../03_transition_distance/IntrMotiv_transition_distance_theory_report.md) and [reward plan](../03_transition_distance/IntrMotiv_transition_distance_reward_plan.md)
+3. [Current DG–CA3 thought](../02_algorithm/current_thought_ca3_predictive_association.md) and [structured-memory hypothesis](../02_algorithm/structured_memory_hypothesis.md)
+4. [DG–CA3 interface assessment](../01_project_context/DG_CA3_interface_assessment.md); [Jannek's source report](../01_project_context/research_project_report_JannekSchaffert.pdf)
+5. [Prior work on structured memory](../08_literature/structured_memory_prior_work.md) and the [literature index](../08_literature/README.md)
 
-## Project Context
+## Understand the implementation
 
-- [[../01_project_context/DG_CA3_interface_assessment|DG-CA3 Interface Assessment]]
-- Source report: `../research_project_report_JannekSchaffert.pdf`
+- [Architecture reference](../04_implementation/architecture/README.md) and [current HRL architecture](../04_implementation/current_hrl_architecture_summary.md)
+- [Metric reference](../04_implementation/IntrMotiv_metric_reference.md) for definitions; [metrics guidebook](../04_implementation/IntrMotiv_metrics_guidebook.md) for interpretation
+- [Standardized study workflow](../04_implementation/standardized_study_workflow.md) and [place-field telemetry](../04_implementation/reusable_place_field_telemetry.md)
+- [Run code and study definitions](../hpc_runs/README.md)
 
-## Algorithm
+## Follow the evidence
 
-- [[../02_algorithm/IntrMotiv_algorithmic_evaluation|Algorithmic Evaluation]]
-- [[../02_algorithm/IntrMotiv_loss_recommendations_from_report|Loss Recommendations From Jannek's Report]]
+- [Current experiment results and report owners](../06_experiments/README.md)
+- [Open analyses and claim gates](../06_experiments/open_analyses.md)
+- [Matched poster endpoint analysis](../06_experiments/results/A0_poster_analysis_20260926/batch_summary.md)
+- [Plan and poster index](../05_plans/README.md)
 
-## Transition-Distance Reward
+The 10 September boss briefing remains a useful historical reading sequence: [scientific claims](../05_plans/01_findings_scientific_claims_and_publication_plan_20260910.md), [architecture and fields](../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md), [mean and silent units](../06_experiments/03_mean_punishment_and_silent_units_jannek_comparison_20260910.md), [three-goal conditioning](../06_experiments/04_three_goal_context_conditioning_and_dg_capacity_20260910.md), [CA3 feedback](../06_experiments/05_ca3_feedback_matched_results_and_full_state_gap_20260913.md), [goal-set controls](../06_experiments/06_high_option_success_goal_sets_and_controls_20260914.md), and [FiLM parameter audit](../06_experiments/07_film_goal_parameters_and_ca3_depth_weights_20260914.md). Check newer study owners in the experiment index before treating that briefing as current.
 
-- [[../03_transition_distance/IntrMotiv_transition_distance_theory_report|Transition-Distance Theory Report]]
-- [[../03_transition_distance/IntrMotiv_transition_distance_reward_plan|Transition-Distance Reward Problem Plan]]
-- [[../03_transition_distance/DG_CA3_gradient_timing_evaluation|DG-CA3 Gradient Timing Evaluation]]
+## Unresolved and organizational notes
 
-## Implementation
-
-- [[../04_implementation/g500_environment|G500 GPU server environment and verification, 2026-09-14]]
-- [[../06_experiments/intrmotiv_ddqn_her_implementation_20260911|Recurrent DDQN/HER implementation and batch gates, 2026-09-11]]
-
-- [[../04_implementation/graph_planning_optimization_20260911|Graph-planning optimization for future batches, 2026-09-11]]
-- [[../04_implementation/architecture/README|Architecture Reference]]
-- [[../04_implementation/architecture/losses|Loss Catalogue]]
-- [[../04_implementation/architecture/architectural_choices|Architectural Choices]]
-- [[../04_implementation/IntrMotiv_current_implementation_evaluation|Current Implementation Evaluation]]
-- [[../04_implementation/core_logic_audit_20260901|Core Logic Audit, 2026-09-01]]
-- [[../04_implementation/iterative_update_feature_reference|Iterative Update Feature Reference]]
-- [[../04_implementation/IntrMotiv_metrics_guidebook|IntrMotiv Metrics Guidebook]]
-- [[../04_implementation/IntrMotiv_metric_reference|IntrMotiv Metric Reference]]
-- [[../04_implementation/reusable_place_field_telemetry|Reusable DG Place-Field Telemetry]]
-
-## Boss briefing — reading order (10 September 2026)
-
-- [[../05_plans/01_findings_scientific_claims_and_publication_plan_20260910|01 — Findings, scientific claims, and ICLR / Bernstein / Cosyne plan]]
-- [[../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910|02 — Architectures and losses: place fields, trajectories, and graphs]]
-- [[../06_experiments/03_mean_punishment_and_silent_units_jannek_comparison_20260910|03 — Mean, punishment, and silent units: comparison with Jannek]]
-
-- [[../06_experiments/04_three_goal_context_conditioning_and_dg_capacity_20260910|04 — Three-goal HippoSLAM: context conditioning and DG capacity]]
-
-- [[../06_experiments/05_ca3_feedback_matched_results_and_full_state_gap_20260913|05 — CA3 feedback: matched results and full-state gap]]
-
-- [[../06_experiments/06_high_option_success_goal_sets_and_controls_20260914|06 — High option success: goal sets and matched controls]]
-
-- [[../06_experiments/07_film_goal_parameters_and_ca3_depth_weights_20260914|07 — FiLM goal parameters and CA3/depth input weights]]
-
-## Plans
-
-- [[../05_plans/encoder_objective_scrutiny_20260914|Encoder objective scrutiny: temporal geometry and command-specific progress]]
-- [[../05_plans/oracle_dg_place_fields_20260914|Oracle DG place fields: four precise goals and matched controls]]
-- [[../05_plans/five_designs_representation_control_exploration_20260909|Five Designs for Representation, Control, and Exploration]]
-- [[../08_literature/control_relevance_fisher_place_fields_20260908|Control Relevance and Place Fields: Prior-Art Review]]
-- [[../05_plans/future_scope_and_inspirations|Future Scope and Research Inspirations]]
-- [[../05_plans/iterative_update_implementation_plan|Iterative Update Implementation Plan]]
-- [[../05_plans/scientific_program_after_corrected_core_20260902|Scientific Program After Corrected-Core Re-evaluation]]
-
-## Experiments
-
-- [[../06_experiments/recent_architecture_batches_synthesis_20260924|September 24 architecture batches: landmark maze and two CA3 studies]]
-- [[../06_experiments/ca3_followup_analysis_20260926|CA3 state-goal follow-up: matched 75M analysis and early CPU atlas]]
-- [[../06_experiments/cued_reward5_transfer_20260925|Five-cue transfer: campaign and frozen-DG controls]]
-- [[../06_experiments/cpu2048_analysis_20260917|CPU2048: All-Seed Place Fields, Trajectories, and Control Graphs]]
-- [[../06_experiments/corridor_geometry_20260919|Corridor Geometry: 27-Run Study, Maps and Qualification Status]]
-- [[../06_experiments/corridor_geometry_analysis_20260921|Corridor Geometry: 100M Training Analysis and Full Evaluation Launch]]
-
-- [[../06_experiments/dg_capacity_health_20260913|DG-capacity Run Health: Late Control Failure and Movement]]
-
-- [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG Capacity and Goal Conditioning: Interim Checkpoint Analysis]]
-
-- [[../06_experiments/navigation8_algorithm_screen_implementation_20260909|Navigation8 Algorithm Screen Implementation]]
-- [[../06_experiments/late_target_hit_lift_audit_20260908|Late Target-Hit-Lift Jumps: Full-History Audit]]
-- [[../06_experiments/late_training_outliers_20260908|Late-Training Outliers: Spatial Specialization, Exploration, and Control]]
-- [[../06_experiments/late_outlier_spatial_gallery_20260908|Place Fields, Reliable Graphs, and Trajectories of Selected Outliers]]
-- [[../06_experiments/controllability_edge_exploration_20260903|Controllability and Edge-Exploration Batch]]
-- [[../06_experiments/graph_stabilized_recruitment_20260903|Graph-Stabilized Orthogonal Recruitment]]
-- [[../06_experiments/graph_stabilized_recruitment_place_field_telemetry_20260903|Graph-Stabilized Recruitment Place-Field Telemetry]]
-- [[../06_experiments/corrected_core_reevaluation_20260901|Corrected-Core Historical Design Re-evaluation]]
-- [[../06_experiments/corrected_core_candidate_place_field_telemetry_20260902|Corrected-Core Candidate Place-Field Telemetry]]
-- [[../06_experiments/target_control_her_provisional_place_field_telemetry_20260902|Target-Control HER Place-Field Telemetry]]
-- [[../06_experiments/dg_structural_and_manager_exploration_results|Structural Diversity And Manager Exploration Results]]
-- [[../06_experiments/dg_structural_manager_place_field_telemetry|Structural And Manager Place-Field Telemetry]]
-- [[../06_experiments/recent_batch_statistics_report|Recent Batch Statistics Report]]
-
-- [[../06_experiments/intrmotiv_ddqn_metric_consistency_20260912|DDQN Dashboard Consistency: Old Metrics and Qualified Telemetry Repair]]
-- [[../06_experiments/intrmotiv_full_system_controller_20260912|Full-System Controller Integration: Preservation Checks and Remaining Gates]]
-
-## Inbox
-
-- [[../99_inbox/temp|Unresolved: Global CA3-State Credit Assignment]]
-
-- [2026-09-11 fixed-reward transfer: latest shared-step comparison and reusable collector](../06_experiments/fixed_reward_transfer_latest_common_20260911.md)
+- [Global CA3-state credit assignment](../99_inbox/temp.md)
+- [Repository organization decisions](repository_organization_20261002.md)
+- [Infrastructure improvements](../infra.md)

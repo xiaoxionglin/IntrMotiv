@@ -255,7 +255,7 @@ RUN_DESCRIPTION = build_run_description(STUDY)
 ```
 
 Use the established launcher for print-only review and submission exactly as
-described in `BATCH_SUBMISSION.md`. The workflow package does not call `sbatch`
+described in [the NEMO2 batch guide](../hpc_runs/BATCH_SUBMISSION.md). The workflow package does not call `sbatch`
 for training and does not replace `jobs.tsv`, `submission.json`, or
 `scancel.sh`.
 

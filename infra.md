@@ -6,6 +6,29 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Repository navigation and duplicate provenance — 2026-10-02
+
+- **Evidence:** A tracked-file inventory found about 5,900 files, more than
+  5,000 of them under `06_experiments/`. An exact-content scan found 251
+  duplicate groups (281 additional copies, about 32.7 MB). Most large
+  duplicates are pinned inputs or copied figures used by different report
+  bundles. Root-level subject notes, a launcher guide, empty Obsidian files,
+  and tracked Finder metadata also obscured the actual entry points.
+- **Impact:** Folder browsing hid the current result owner among scripts and
+  artifacts. Deleting all identical files would break hashes, relative links,
+  or replay inputs even though their bytes match.
+- **Improvement/status:** A short [repository map](README.md), a focused
+  [research index](00_index/README.md), and subject indexes for plans, runs,
+  and abstracts now route readers to canonical owners. Clearly misplaced
+  root files were moved; empty placeholders and `.DS_Store` files were
+  removed. The [organization note](00_index/repository_organization_20261002.md)
+  records the decision to retain provenance copies and historical paths.
+- **Acceptance:** Every newly moved file has a working index path, all local
+  links in changed Markdown resolve, and the tracked tree contains no
+  `.DS_Store` or empty placeholder files. Future study updates link their
+  report, StudySpec, pinned data, and figures through the existing result
+  owner before considering a broader move.
+
 ### Layer-2 ResNet+LSTM baseline needs runtime qualification — 2026-10-02
 
 - **Evidence:** With `resnet_impala`, the current `Default` encoder uses Sample
