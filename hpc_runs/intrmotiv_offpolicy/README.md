@@ -56,7 +56,7 @@ Run the independent tests with the project interpreter:
 The runtime must be isolated from existing jobs. Use the reviewed terminal
 contract patch and planner optimization in the selected new source checkout.
 The deployment and submitted preflights are recorded in
-`06_experiments/intrmotiv_ddqn_her_implementation_20260911.md`.
+`06_experiments/controllers/intrmotiv_ddqn_her_implementation_20260911.md`.
 
 ## v2 finite-budget repair
 
@@ -67,7 +67,7 @@ steps; `PositionBatcher` carries splits with their original deadline and deliver
 exactly 256 valid TD positions/update. Target-copy cadence and accepted-decision
 update cadence are explicit CLI settings. Unknown environment remaining time is
 `None`; certified final observations are read from outer vector autoreset fields.
-See `06_experiments/intrmotiv_ddqn_her_v2_repair_20260911.md` for the boundary
+See `06_experiments/controllers/intrmotiv_ddqn_her_v2_repair_20260911.md` for the boundary
 bootstrap table, numerical qualification, v1 evidence and staged v2 studies.
 
 For future repairs, run archived audit assertions only against archived source.
@@ -82,7 +82,7 @@ from TD loss alone; require matched-command evaluation and per-goal coverage.
 time×batch decoder evaluation. Default remains `reference`. It is qualified for
 the inspected row-independent TargetFiLMDecoder and goal-independent writes;
 requalify after decoder changes. The objective, TD budget and v2 state dict stay
-unchanged. See `06_experiments/intrmotiv_ddqn_throughput_20260911.md` for paired
+unchanged. See `06_experiments/controllers/intrmotiv_ddqn_throughput_20260911.md` for paired
 runtime evidence, limits and SF integration choices.
 
 For repeated throughput work, use `profile_runtime` with the canonical StudySpec
@@ -133,7 +133,7 @@ an independent run ID. Keep the regression test when changing parent-config
 copying. The actual compute-node smoke run completed and its `ddqn/*` metrics
 and `train/env_steps` were verified through the W&B API; installed SDK support
 alone is not evidence of a successful upload. The production record is
-`06_experiments/intrmotiv_ddqn_sf_production_20260912.md`.
+`06_experiments/controllers/intrmotiv_ddqn_sf_production_20260912.md`.
 
 ## Dashboard parity gate (2026-09-12)
 
@@ -151,6 +151,6 @@ check actual W&B tags for DG, spatial/trajectory and episode coverage, a valid
 native production batch omitted these spatial artifacts; completed training
 history cannot be backfilled from checkpoints. Old DG-capacity dashboards remain
 in their original W&B project, while DDQN runs are in `IntrMotiv`. See
-`06_experiments/intrmotiv_ddqn_metric_consistency_20260912.md` for the comparison
+`06_experiments/controllers/intrmotiv_ddqn_metric_consistency_20260912.md` for the comparison
 and exact artifact locations. Prefer config/cloud metadata over rescanning all
 historical TensorBoard events simply to locate dashboards.

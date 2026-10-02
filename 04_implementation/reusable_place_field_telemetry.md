@@ -10,7 +10,7 @@ existing metric contract and call it an amplitude-weighted spatial score when
 comparing gains/gates. A future normalized metric must be added compatibly,
 with unit-level mean activity and gain-scaling tests. Also distinguish latest-10k
 W&B summaries from retained-100k snapshots, and verify paired-seed assertions
-against saved numbers. See the [technical briefing and concrete discrepancies](../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md).
+against saved numbers. See the [technical briefing and concrete discrepancies](../06_experiments/syntheses/02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md).
 
 This is the standard offline workflow for diagnosing whether IntrMotiv DG
 units form active, spatially distributed, and reasonably stable receptive
@@ -616,7 +616,7 @@ the raw artifact contract when needed, and preserve old manifests and NPZs.
 
 The 2026-08-27 run evaluated 28 tasks with no failures under Slurm job
 `7881719`. Its report, figures, limitations, and artifact root are recorded in
-[[../06_experiments/dg_structural_and_manager_exploration_results|Structural and manager place-field telemetry]].
+[[../06_experiments/dg_representation/dg_structural_and_manager_exploration_results|Structural and manager place-field telemetry]].
 ## CA3 memory additions (2026-09-07)
 
 The same `place_fields.py` entry point supports mutually exclusive
@@ -708,7 +708,7 @@ sample count. Validate occupied-cell maps and activation arrays, while retaining
 expected NaNs for unvisited cells and absent peaks. Reuse
 `analyze_place_field_manifest.py` for active-only cosine, silent units, peak
 diversity and pre-threshold metrics. Exact artifacts and source provenance are
-in `06_experiments/intrmotiv_full_system_controller_20260912.md`.
+in `06_experiments/controllers/intrmotiv_full_system_controller_20260912.md`.
 
 ## G500 shared-feature neighborhood experiment (2026-09-14)
 
@@ -731,7 +731,7 @@ Other objectives retain the ordinary telemetry-only behavior described above.
 The active training snapshot is immutable, so the small G500 panel adapter
 writes the same NPZ arrays under its explicit scratch root without modifying
 the legacy NEMO-only save guard during a run. See the
-[experiment record](../06_experiments/dg_neighborhood_g500_20260914.md).
+[experiment record](../06_experiments/dg_representation/dg_neighborhood_g500_20260914.md).
 
 
 ## Geometry-aware extension (2026-09-19)

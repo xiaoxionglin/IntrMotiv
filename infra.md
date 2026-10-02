@@ -29,16 +29,25 @@ keep implementation guidance in the canonical workflow documents linked below.
   assigns every study note one ordered, role-labeled catalogue entry. Four
   same-study report pairs and one loose second-iteration question note were
   consolidated; the [merge strategy](06_experiments/ORGANIZATION.md) records
-  the boundary. A content-preservation check confirmed that the four source
-  reports survived in their result owners, and a changed-file link/math check
-  found no broken local links or delimiter violations. Keeping pinned nested
-  Markdown in place avoided invalidating source manifests.
+  the boundary. The later physical reorganization moved 70 notes into six
+  topic folders, reducing root Markdown clutter to five files. The five-cue
+  and corrected-core reports retain their old paths because a poster manifest
+  and C15 registry respectively cite them. A content-preservation check
+  confirmed that the four merged source reports survived in their owners;
+  local-link and math checks cover the moved notes. Pinned nested Markdown,
+  data tables, and result bundles remain in place.
+- **Historical hash boundary:** The poster candidate manifest still records
+  SHA-256 `ce9d1329...` for the five-cue report, while the report at the
+  current `HEAD` already hashes to `72939b71...`. The reorganization did not
+  edit that report or manifest. Treat the manifest as a historical input
+  snapshot; if the gallery is regenerated, pin or recover the exact report
+  version before judging its replay against current prose.
 - **Acceptance:** Every newly moved file has a working index path, all local
   links in changed Markdown resolve, and the tracked tree contains no
   `.DS_Store` or empty placeholder files. Future study updates link their
   report, StudySpec, pinned data, and figures through the existing result
   owner before considering a broader move. Recheck that the README catalogue
-  covers every top-level and nested Markdown note after future merges.
+  covers every topic-folder and nested Markdown note after future merges.
 
 ### Layer-2 ResNet+LSTM baseline functional qualification — 2026-10-02
 
@@ -586,7 +595,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ### Reward-site screening lacks physical outcomes for prospective edges — 2026-09-24
 
-- **Evidence:** The [four-run reward-site audit](06_experiments/fixed_reward_site_candidate_audit_20260924.md) found many well-tested DG-event edges in the 75M–300M online snapshots, but no saved per-edge physical arrival positions. The 100k pose/activity samples can show where a DG target activates, while cumulative prospective success counts cannot identify where each commanded success ended. W&B hit advantages were recorded between, rather than exactly at, several saved spatial milestones.
+- **Evidence:** The [four-run reward-site audit](06_experiments/environments_transfer/fixed_reward_site_candidate_audit_20260924.md) found many well-tested DG-event edges in the 75M–300M online snapshots, but no saved per-edge physical arrival positions. The 100k pose/activity samples can show where a DG target activates, while cumulative prospective success counts cannot identify where each commanded success ended. W&B hit advantages were recorded between, rather than exactly at, several saved spatial milestones.
 - **Impact:** A high graph success rate or one diagnostic field peak cannot safely determine a fixed physical reward region. Repeated target IDs can refer to broad boundary responses, and joining unequal checkpoint ages can misrank candidates.
 - **Proposed improvement/status:** Keep the existing graph and snapshot contracts. The fixed-reward source probe records per-trial minimum distance, region entry, cell contact, target ID, matched reset seed, checkpoint, and terminal pose. Across 40 starts, nominated versus shuffled exact-cell contact was 14 versus 13 for DG 50 and 6 versus 5 for DG 51; alternative DG 6, 19, and 45 commands did not improve the DG 51 site in a 12-start screen. A focused extension of the canonical matched-command evaluator now records physical arrival from exact replayed incoming-DG prefixes; two frozen Slurm probes are running. A reusable join to same-checkpoint field maps is still needed.
 - **Acceptance:** For an immutable checkpoint, the standard intervention output supports a source-by-target physical arrival table with all trials and failures retained, exact checkpoint provenance, and a test showing that shuffled commands use identical starts. The corresponding reward-site report can identify at least one region with observed commanded-versus-shuffled arrival probability or explicitly report that none qualifies. Reuse the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
@@ -602,7 +611,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   completed with exit code zero, a 9-by-9 NPZ, verified `[100, 1000]` bounds,
   pre-threshold arrays, and a valid summary. The 12-row 10k plan passed
   print-only validation; no full sweep has been submitted.
-- **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/easy_landmark_maze_qualification_analysis_20260924.md).
+- **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md).
 
 ### Stored controller replay was duplicated into evaluation checkpoints
 
@@ -649,7 +658,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   393.26 GiB on CPU. G500 free space then measured 575 GiB. This cleanup did not
   deploy a serializer fix or restart stalled jobs. Exact deletion manifests and
   frame-spacing limitations are linked from the
-  [matched analysis](06_experiments/ca3_followup_analysis_20260926.md).
+  [matched analysis](06_experiments/ca3_goals/ca3_followup_analysis_20260926.md).
 - [ ] **Deferred revival: four G500 CA3 follow-up runs.** User requested stopping
   them on September 26 and postponing revival. EMA/DOM seed 123 and EMA/UNIQUE
   seeds 8, 99, and 123 were stopped as verified process groups; all 144 processes
@@ -748,7 +757,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   was restored. The remaining fix is bounded fresh-engine process shards with
   an audited merge; exact matching must remain mandatory.
   Evidence is tracked in the
-  [corridor record](06_experiments/corridor_geometry_20260919.md).
+  [corridor record](06_experiments/environments_transfer/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
   zero reward and 120-second timeout, no geometry/pose model input, compatible
   telemetry tests, nine 2M preflights and checkpoint-bound reload/evaluator gates.
@@ -886,7 +895,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   then hit a CPU/CUDA sentinel mismatch in reward progression. The runtime's
   wall-clock limit reads a counter that is never advanced, and the existing
   process launcher returns success even when a child fails. See the
-  [G500 DG qualification record](06_experiments/dg_neighborhood_g500_20260914.md).
+  [G500 DG qualification record](06_experiments/dg_representation/dg_neighborhood_g500_20260914.md).
 - **Impact:** Environment smokes and apparent idle GPUs do not establish
   training correctness, useful concurrency, or reliable termination.
 - **Improvement:** Isolated W&B/device fixes; StudySpec-derived fixed-frame
@@ -1117,7 +1126,7 @@ For each finding, record:
   Twenty native views from the literal 11-by-11 map were rendered and inspected.
   NEMO2 suites and the submitted six-row audit pass; qualification jobs
   `8175373`–`8175378` are active in the dedicated easy-landmark workspace. See
-  the [implementation record](06_experiments/easy_landmark_maze_implementation_20260923.md).
+  the [implementation record](06_experiments/environments_transfer/easy_landmark_maze_implementation_20260923.md).
 - **Reusable lesson:** For new native environments, instantiate the engine and
   parse the rendered StudySpec commands before treating declarative validation
   as sufficient. Search validators and plotting code for inherited grid sizes;

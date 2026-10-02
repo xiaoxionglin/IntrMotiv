@@ -7,7 +7,11 @@ Historical launch notes retain exact manifests and implementation details.
 The [open-analysis register](open_analyses.md) lists the specific evidence
 still needed to close major scientific claims.
 The [organization strategy](ORGANIZATION.md) explains the study-line grouping
-and the criteria used to merge overlapping notes.
+and the criteria used to merge overlapping notes. Study notes are physically
+grouped in `syntheses/`, `hrl_graph/`, `dg_representation/`, `controllers/`,
+`ca3_goals/`, and `environments_transfer/`. Only this index, the strategy,
+the open-analysis register, and two provenance-pinned reports remain as
+Markdown files at this folder's top level.
 
 For a report, use the owner table below. Study inputs and collected tables are
 under `data/<study>/`; figures and analysis bundles are under
@@ -19,13 +23,13 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 
 | Line | Current result report | Evidence boundary | Earlier material |
 | --- | --- | --- | --- |
-| CA3 state-goal follow-up | [[ca3_followup_analysis_20260926|Matched CA3 follow-up]] | Complete 75M CPU and G500 factorials; later endpoints have unequal ages | The 25M interim table, restricted 75M snapshot, and atlas are integrated in the same report |
+| CA3 state-goal follow-up | [[ca3_goals/ca3_followup_analysis_20260926|Matched CA3 follow-up]] | Complete 75M CPU and G500 factorials; later endpoints have unequal ages | The 25M interim table, restricted 75M snapshot, and atlas are integrated in the same report |
 | Five-cue frozen-DG controls | [[cued_reward5_transfer_20260925|Five-cue campaign and controls]]; [exact 75M endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Paired 50M online evidence and exact 75M frozen/heldout control evidence; the wider eight-arm transfer study has no matched outcome report here | The September 26 interim map, manager, and input-probe analysis is integrated in the campaign report |
-| CA3 predictive active goals | [[ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
-| DG capacity and goal conditioning | [[dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
-| Navigation8 screen | [[navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] | Complete three-seed 75M online snapshot; no shared exact saved terminal checkpoint for the selected seeds | Interim remains the primary result report |
-| Easy landmark maze | [[easy_landmark_maze_qualification_analysis_20260924|Landmark maze qualification]] | 2M qualification; production effect has no matched report here | Qualification is not a production outcome |
-| Directional/predictive recruitment | [[directional_predictive_recruitment_interim_20260904|Directional/predictive diagnosis]] | Early graph and representation diagnosis with causal comparison unresolved | Retained separately from its implementation record |
+| CA3 predictive active goals | [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
+| DG capacity and goal conditioning | [[dg_representation/dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
+| Navigation8 screen | [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] | Complete three-seed 75M online snapshot; no shared exact saved terminal checkpoint for the selected seeds | Interim remains the primary result report |
+| Easy landmark maze | [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Landmark maze qualification]] | 2M qualification; production effect has no matched report here | Qualification is not a production outcome |
+| Directional/predictive recruitment | [[hrl_graph/directional_predictive_recruitment_interim_20260904|Directional/predictive diagnosis]] | Early graph and representation diagnosis with causal comparison unresolved | Retained separately from its implementation record |
 
 For code-level architecture definitions, use [[../04_implementation/architecture/README|Architecture Reference]]. For metric meanings and denominators, use [[../04_implementation/IntrMotiv_metric_reference|Metric Reference]] and [[../04_implementation/IntrMotiv_metrics_guidebook|Metrics Guidebook]].
 
@@ -43,59 +47,59 @@ above determines which findings are current.
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Early batch statistics | [SYNTHESIS: batch statistics](recent_batch_statistics_report.md) |
-| September design review | [SYNTHESIS: recent batch design audit](recent_batches_design_audit_20260906.md) |
-| 10 September briefing | [SYNTHESIS: architectures and fields](02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md); [SYNTHESIS: mean and silent units](03_mean_punishment_and_silent_units_jannek_comparison_20260910.md); [SYNTHESIS: three-goal capacity](04_three_goal_context_conditioning_and_dg_capacity_20260910.md); [SYNTHESIS: CA3 feedback](05_ca3_feedback_matched_results_and_full_state_gap_20260913.md); [SYNTHESIS: goal-set controls](06_high_option_success_goal_sets_and_controls_20260914.md); [AUDIT: FiLM and input weights](07_film_goal_parameters_and_ca3_depth_weights_20260914.md) |
-| Late-training signals | [SYNTHESIS: outliers](late_training_outliers_20260908.md); [TELEMETRY: spatial gallery](late_outlier_spatial_gallery_20260908.md); [AUDIT: target-hit lift](late_target_hit_lift_audit_20260908.md) |
-| September architecture and poster selection | [SYNTHESIS: three architecture batches](recent_architecture_batches_synthesis_20260924.md); [AUDIT: poster candidates](poster_candidate_screening_20260925.md); [AUDIT: exemplar snapshot](poster_exemplar_analysis_20260925.md) |
+| Early batch statistics | [SYNTHESIS: batch statistics](syntheses/recent_batch_statistics_report.md) |
+| September design review | [SYNTHESIS: recent batch design audit](syntheses/recent_batches_design_audit_20260906.md) |
+| 10 September briefing | [SYNTHESIS: architectures and fields](syntheses/02_architectures_losses_place_fields_trajectories_and_graphs_20260910.md); [SYNTHESIS: mean and silent units](syntheses/03_mean_punishment_and_silent_units_jannek_comparison_20260910.md); [SYNTHESIS: three-goal capacity](syntheses/04_three_goal_context_conditioning_and_dg_capacity_20260910.md); [SYNTHESIS: CA3 feedback](syntheses/05_ca3_feedback_matched_results_and_full_state_gap_20260913.md); [SYNTHESIS: goal-set controls](syntheses/06_high_option_success_goal_sets_and_controls_20260914.md); [AUDIT: FiLM and input weights](syntheses/07_film_goal_parameters_and_ca3_depth_weights_20260914.md) |
+| Late-training signals | [SYNTHESIS: outliers](syntheses/late_training_outliers_20260908.md); [TELEMETRY: spatial gallery](syntheses/late_outlier_spatial_gallery_20260908.md); [AUDIT: target-hit lift](syntheses/late_target_hit_lift_audit_20260908.md) |
+| September architecture and poster selection | [SYNTHESIS: three architecture batches](syntheses/recent_architecture_batches_synthesis_20260924.md); [AUDIT: poster candidates](syntheses/poster_candidate_screening_20260925.md); [AUDIT: exemplar snapshot](syntheses/poster_exemplar_analysis_20260925.md) |
 
 ### B. Early HRL, graph, and recruitment studies
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| First HRL iteration | [RESULT: batch 1 and next iteration](hrl_batch1_results_and_next_iteration.md); [RUN: iteration 2 and retained questions](hrl_iteration2_implementation_and_batch.md); [PLAN: compatibility pointer](next_iteration_plan_before_iterative_update.md) |
-| Manager design | [RUN: frontier isolation](frontier_manager_isolation_20260831.md); [RUN: manager exploration](hrl_manager_exploration_batch.md); [PLAN: topological frontier](topological_frontier_planning_batch.md) |
-| Controllability and graph recruitment | [RUN: edge exploration](controllability_edge_exploration_20260903.md); [RESULT: graph-stabilized recruitment](graph_stabilized_recruitment_20260903.md); [TELEMETRY: aligned 75M fields](graph_stabilized_recruitment_place_field_telemetry_20260903.md) |
-| Directional and predictive recruitment | [RESULT: interim diagnosis](directional_predictive_recruitment_interim_20260904.md); [RUN: batch definition](directional_predictive_recruitment_20260904.md) |
+| First HRL iteration | [RESULT: batch 1 and next iteration](hrl_graph/hrl_batch1_results_and_next_iteration.md); [RUN: iteration 2 and retained questions](hrl_graph/hrl_iteration2_implementation_and_batch.md); [PLAN: compatibility pointer](hrl_graph/next_iteration_plan_before_iterative_update.md) |
+| Manager design | [RUN: frontier isolation](hrl_graph/frontier_manager_isolation_20260831.md); [RUN: manager exploration](hrl_graph/hrl_manager_exploration_batch.md); [PLAN: topological frontier](hrl_graph/topological_frontier_planning_batch.md) |
+| Controllability and graph recruitment | [RUN: edge exploration](hrl_graph/controllability_edge_exploration_20260903.md); [RESULT: graph-stabilized recruitment](hrl_graph/graph_stabilized_recruitment_20260903.md); [TELEMETRY: aligned 75M fields](hrl_graph/graph_stabilized_recruitment_place_field_telemetry_20260903.md) |
+| Directional and predictive recruitment | [RESULT: interim diagnosis](hrl_graph/directional_predictive_recruitment_interim_20260904.md); [RUN: batch definition](hrl_graph/directional_predictive_recruitment_20260904.md) |
 
 ### C. DG representation and spatial health
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Anti-collapse and regularizers | [RESULT: online and place-field anti-collapse](dg_anti_collapse_results.md); [RESULT: encourage-regularizer interim and 50M telemetry](encourage_dg_regularizers_interim_analysis.md); [AUDIT: DGP trivial minimum](dgp_interim_failure_audit_20260907.md) |
-| Structural diversity and manager exploration | [RESULT: online and 10k-decision spatial results](dg_structural_and_manager_exploration_results.md); [RUN: structural-diversity batch](dg_structural_diversity_batch.md) |
-| Corrected core | [RESULT: historical re-evaluation](corrected_core_reevaluation_20260901.md); [TELEMETRY: selected candidates](corrected_core_candidate_place_field_telemetry_20260902.md) |
-| DG capacity and goal conditioning | [RESULT: interim factorial](dg_capacity_goal_conditioning_interim_20260911.md); [AUDIT: later run health](dg_capacity_health_20260913.md); [PLAN: matrix](dg_capacity_goal_conditioning_plan_20260910.md); [RUN: launch](dg_capacity_goal_conditioning_launch_20260910.md) |
-| DG neighborhood and update mechanics | [RUN: G500 qualification](dg_neighborhood_g500_20260914.md); [AUDIT: normalization gradients](landmark_normalization_gradient_audit.md); [AUDIT: encoder/decoder update contract](encoder_decoder_update_contract_batch_diagnosis.md) |
-| Minimal mechanism test | [RESULT: thresholded rotation toy](threshold_rotation_toy_report.md) |
+| Anti-collapse and regularizers | [RESULT: online and place-field anti-collapse](dg_representation/dg_anti_collapse_results.md); [RESULT: encourage-regularizer interim and 50M telemetry](dg_representation/encourage_dg_regularizers_interim_analysis.md); [AUDIT: DGP trivial minimum](dg_representation/dgp_interim_failure_audit_20260907.md) |
+| Structural diversity and manager exploration | [RESULT: online and 10k-decision spatial results](dg_representation/dg_structural_and_manager_exploration_results.md); [RUN: structural-diversity batch](dg_representation/dg_structural_diversity_batch.md) |
+| Corrected core | [RESULT: historical re-evaluation](corrected_core_reevaluation_20260901.md); [TELEMETRY: selected candidates](dg_representation/corrected_core_candidate_place_field_telemetry_20260902.md) |
+| DG capacity and goal conditioning | [RESULT: interim factorial](dg_representation/dg_capacity_goal_conditioning_interim_20260911.md); [AUDIT: later run health](dg_representation/dg_capacity_health_20260913.md); [PLAN: matrix](dg_representation/dg_capacity_goal_conditioning_plan_20260910.md); [RUN: launch](dg_representation/dg_capacity_goal_conditioning_launch_20260910.md) |
+| DG neighborhood and update mechanics | [RUN: G500 qualification](dg_representation/dg_neighborhood_g500_20260914.md); [AUDIT: normalization gradients](dg_representation/landmark_normalization_gradient_audit.md); [AUDIT: encoder/decoder update contract](dg_representation/encoder_decoder_update_contract_batch_diagnosis.md) |
+| Minimal mechanism test | [RESULT: thresholded rotation toy](dg_representation/threshold_rotation_toy_report.md) |
 
 ### D. Controller, replay, and goal-control studies
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Native DDQN/HER | [RUN: recurrent DDQN/HER](intrmotiv_ddqn_her_implementation_20260911.md); [RUN: Sample Factory integration](intrmotiv_ddqn_sample_factory_integration_20260911.md); [AUDIT: v2 repair](intrmotiv_ddqn_her_v2_repair_20260911.md); [AUDIT: throughput](intrmotiv_ddqn_throughput_20260911.md); [AUDIT: metric consistency](intrmotiv_ddqn_metric_consistency_20260912.md); [RUN: production](intrmotiv_ddqn_sf_production_20260912.md) |
-| Full-system and off-policy control | [RUN: full-system controller](intrmotiv_full_system_controller_20260912.md); [RUN: CRL+/L3P+ baselines](offpolicy_crl_l3p_implementation_20260911.md); [RUN: RR1 extension](controller_rr1_extension_20260913.md) |
-| CPU controller screen | [RESULT: CPU2048](cpu2048_analysis_20260917.md); [RUN: selected CPU comparison](controller_cpu_selected_20260914.md) |
-| Navigation8 screen | [RESULT: 75M interim](navigation8_algorithm_screen_interim_20260916.md); [RUN: implementation](navigation8_algorithm_screen_implementation_20260909.md) |
-| Target-control representation | [TELEMETRY: provisional HER place fields](target_control_her_provisional_place_field_telemetry_20260902.md) |
-| Persistent intrinsic control | [RESULT: 8–9 September status and learning audit](persistent_intrinsic_control_status_20260909.md); [RUN: implementation](persistent_intrinsic_control_implementation.md) |
+| Native DDQN/HER | [RUN: recurrent DDQN/HER](controllers/intrmotiv_ddqn_her_implementation_20260911.md); [RUN: Sample Factory integration](controllers/intrmotiv_ddqn_sample_factory_integration_20260911.md); [AUDIT: v2 repair](controllers/intrmotiv_ddqn_her_v2_repair_20260911.md); [AUDIT: throughput](controllers/intrmotiv_ddqn_throughput_20260911.md); [AUDIT: metric consistency](controllers/intrmotiv_ddqn_metric_consistency_20260912.md); [RUN: production](controllers/intrmotiv_ddqn_sf_production_20260912.md) |
+| Full-system and off-policy control | [RUN: full-system controller](controllers/intrmotiv_full_system_controller_20260912.md); [RUN: CRL+/L3P+ baselines](controllers/offpolicy_crl_l3p_implementation_20260911.md); [RUN: RR1 extension](controllers/controller_rr1_extension_20260913.md) |
+| CPU controller screen | [RESULT: CPU2048](controllers/cpu2048_analysis_20260917.md); [RUN: selected CPU comparison](controllers/controller_cpu_selected_20260914.md) |
+| Navigation8 screen | [RESULT: 75M interim](controllers/navigation8_algorithm_screen_interim_20260916.md); [RUN: implementation](controllers/navigation8_algorithm_screen_implementation_20260909.md) |
+| Target-control representation | [TELEMETRY: provisional HER place fields](controllers/target_control_her_provisional_place_field_telemetry_20260902.md) |
+| Persistent intrinsic control | [RESULT: 8–9 September status and learning audit](controllers/persistent_intrinsic_control_status_20260909.md); [RUN: implementation](controllers/persistent_intrinsic_control_implementation.md) |
 
 ### E. CA3 memory and contextual goals
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Finite-memory novelty | [RUN: memory novelty and minimal control](ca3_memory_novelty_goal_implementation.md) |
-| Predictive active goals | [RESULT: matched 75M interim](ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_predictive_active_goals_20260922.md) |
-| State-goal follow-up | [RESULT: matched follow-up](ca3_followup_analysis_20260926.md); [RUN: state-goal release](ca3_state_goal_followup_20260922.md) |
+| Finite-memory novelty | [RUN: memory novelty and minimal control](ca3_goals/ca3_memory_novelty_goal_implementation.md) |
+| Predictive active goals | [RESULT: matched 75M interim](ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_goals/ca3_predictive_active_goals_20260922.md) |
+| State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: state-goal release](ca3_goals/ca3_state_goal_followup_20260922.md) |
 
 ### F. Environment, reward, and transfer
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Corridor geometry | [RESULT: 100M analysis](corridor_geometry_analysis_20260921.md); [RUN: geometry and qualification](corridor_geometry_20260919.md) |
-| Easy landmark maze | [RESULT: 2M qualification](easy_landmark_maze_qualification_analysis_20260924.md); [RUN: cue screen](easy_landmark_maze_implementation_20260923.md) |
-| Initial fixed-reward transfer | [RESULT: latest common step](fixed_reward_transfer_latest_common_20260911.md); [RUN: implementation](fixed_reward_transfer_implementation_20260910.md); [RUN: repeat-8 replacement](fixed_reward_transfer_repeat8_launch_20260910.md); [PLAN: timing replan](fixed_reward_transfer_timing_replan_20260910.md) |
-| DG-peak and five-cue transfer | [RESULT: five-cue campaign and controls](cued_reward5_transfer_20260925.md); [RUN: DG-peak execution](fixed_reward_dg_peak_transfer_execution_20260924.md); [AUDIT: site candidates](fixed_reward_site_candidate_audit_20260924.md) |
+| Corridor geometry | [RESULT: 100M analysis](environments_transfer/corridor_geometry_analysis_20260921.md); [RUN: geometry and qualification](environments_transfer/corridor_geometry_20260919.md) |
+| Easy landmark maze | [RESULT: 2M qualification](environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md); [RUN: cue screen](environments_transfer/easy_landmark_maze_implementation_20260923.md) |
+| Initial fixed-reward transfer | [RESULT: latest common step](environments_transfer/fixed_reward_transfer_latest_common_20260911.md); [RUN: implementation](environments_transfer/fixed_reward_transfer_implementation_20260910.md); [RUN: repeat-8 replacement](environments_transfer/fixed_reward_transfer_repeat8_launch_20260910.md); [PLAN: timing replan](environments_transfer/fixed_reward_transfer_timing_replan_20260910.md) |
+| DG-peak and five-cue transfer | [RESULT: five-cue campaign and controls](cued_reward5_transfer_20260925.md); [RUN: DG-peak execution](environments_transfer/fixed_reward_dg_peak_transfer_execution_20260924.md); [AUDIT: site candidates](environments_transfer/fixed_reward_site_candidate_audit_20260924.md) |
 
 ### G. Nested Markdown in pinned data and result bundles
 
@@ -150,12 +154,12 @@ A comparison is clean only when its row changes the intended factor while the ot
 
 The earliest question was whether elapsed-time feedback could distribute sparse DG events. The central representation factors became: encoder feedback sign/centering, batch recruitment, population/collision regularization, normalization, temporal exclusion, and retirement. The cleanest representation-focused resources are:
 
-- [[03_mean_punishment_and_silent_units_jannek_comparison_20260910|Mean, punishment, and silent units]] — why suppression plus weak recruitment can create silence.
-- [[dg_anti_collapse_results|DG anti-collapse online and place-field results]].
-- [[dg_structural_and_manager_exploration_results|DG structural and manager exploration results]].
-- [[landmark_normalization_gradient_audit|Normalization/gradient audit]].
-- [[recent_batches_design_audit_20260906|Recent batch design audit]] — ARR/SRC, FiLM, retirement, graph false positives.
-- [[navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] — selected architecture families under one newer action/temporal regime.
+- [[syntheses/03_mean_punishment_and_silent_units_jannek_comparison_20260910|Mean, punishment, and silent units]] — why suppression plus weak recruitment can create silence.
+- [[dg_representation/dg_anti_collapse_results|DG anti-collapse online and place-field results]].
+- [[dg_representation/dg_structural_and_manager_exploration_results|DG structural and manager exploration results]].
+- [[dg_representation/landmark_normalization_gradient_audit|Normalization/gradient audit]].
+- [[syntheses/recent_batches_design_audit_20260906|Recent batch design audit]] — ARR/SRC, FiLM, retirement, graph false positives.
+- [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] — selected architecture families under one newer action/temporal regime.
 
 **Current lesson:** low map overlap, mono-field structure, broad exploration, and graph connectivity are distinct outcomes. None should be used as a proxy for the others.
 
@@ -163,11 +167,11 @@ The earliest question was whether elapsed-time feedback could distribute sparse 
 
 The project then moved from “one DG unit = one destination” toward contextual goals.
 
-- [[04_three_goal_context_conditioning_and_dg_capacity_20260910|Three-goal context conditioning and capacity]] shows that task context can alter DG and decoder state, but capacity and downstream width co-vary.
-- [[05_ca3_feedback_matched_results_and_full_state_gap_20260913|CA3 feedback matched comparison]] tests feedback-history gradient routing while holding the broader CPD architecture fixed.
-- [[07_film_goal_parameters_and_ca3_depth_weights_20260914|FiLM parameter audit]] shows that goal-dependent parameters exist, but parameter variation is not behavioral control.
-- [[ca3_predictive_active_goals_interim_analysis_20260924|CA3 predictive active goals]] separates shadow readout, worker state, continuous goal, contextual recognition, action conditioning, and horizon.
-- [[ca3_followup_analysis_20260926|CA3 state-goal follow-up]] isolates FIXED/EMA anchor maintenance and DOM/UNIQUE contextual candidate admission, with the earlier CPU interim evidence integrated.
+- [[syntheses/04_three_goal_context_conditioning_and_dg_capacity_20260910|Three-goal context conditioning and capacity]] shows that task context can alter DG and decoder state, but capacity and downstream width co-vary.
+- [[syntheses/05_ca3_feedback_matched_results_and_full_state_gap_20260913|CA3 feedback matched comparison]] tests feedback-history gradient routing while holding the broader CPD architecture fixed.
+- [[syntheses/07_film_goal_parameters_and_ca3_depth_weights_20260914|FiLM parameter audit]] shows that goal-dependent parameters exist, but parameter variation is not behavioral control.
+- [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|CA3 predictive active goals]] separates shadow readout, worker state, continuous goal, contextual recognition, action conditioning, and horizon.
+- [[ca3_goals/ca3_followup_analysis_20260926|CA3 state-goal follow-up]] isolates FIXED/EMA anchor maintenance and DOM/UNIQUE contextual candidate admission, with the earlier CPU interim evidence integrated.
 
 **Current lesson:** instantaneous DG identity is often too aliased to serve as a robust goal. The newer architecture keeps DG as a sparse address/event code while using an observed CA3 state and learned predictive readout to define goal identity.
 
@@ -175,10 +179,10 @@ The project then moved from “one DG unit = one destination” toward contextua
 
 Controller changes should not be mixed with representation changes.
 
-- [[intrmotiv_full_system_controller_20260912|Full-system controller integration]] records the transition from PPO-only control to direct/waypoint stored-state DDQN and HER.
-- [[controller_cpu_selected_20260914|Selected CPU comparison]] defines DDQN/HER and cadence manipulations.
-- [[cpu2048_analysis_20260917|CPU2048 analysis]] compares Direct F16 versus Waypoint F64, DDQN versus HER, and cadence 64 versus 2048.
-- [[intrmotiv_ddqn_her_implementation_20260911|Native recurrent DDQN/HER implementation]] and [[intrmotiv_ddqn_metric_consistency_20260912|metric consistency audit]] document the separate native off-policy path.
+- [[controllers/intrmotiv_full_system_controller_20260912|Full-system controller integration]] records the transition from PPO-only control to direct/waypoint stored-state DDQN and HER.
+- [[controllers/controller_cpu_selected_20260914|Selected CPU comparison]] defines DDQN/HER and cadence manipulations.
+- [[controllers/cpu2048_analysis_20260917|CPU2048 analysis]] compares Direct F16 versus Waypoint F64, DDQN versus HER, and cadence 64 versus 2048.
+- [[controllers/intrmotiv_ddqn_her_implementation_20260911|Native recurrent DDQN/HER implementation]] and [[controllers/intrmotiv_ddqn_metric_consistency_20260912|metric consistency audit]] document the separate native off-policy path.
 
 **Current lesson:** DDQN/HER changes the learning problem and replay support, not only optimizer choice. Direct F16 versus Waypoint F64 also changes capacity, manager, and goal interface, so it is a family comparison rather than a capacity ablation.
 
@@ -186,9 +190,9 @@ Controller changes should not be mixed with representation changes.
 
 The graph can look strong even when commands do not causally control destinations.
 
-- [[06_high_option_success_goal_sets_and_controls_20260914|High option success and matched controls]] shows that eventual target activation can be high while FIRST/outcome specificity is weak.
-- [[recent_batches_design_audit_20260906|Design audit]] documents dense-graph false positives and the distinction between target sensitivity and target-specific outcomes.
-- [[controllability_edge_exploration_20260903|Controllability/edge exploration]], [[directional_predictive_recruitment_20260904|directional/predictive recruitment]], and [[topological_frontier_planning_batch|topological frontier planning]] contain the mechanism-level graph experiments.
+- [[syntheses/06_high_option_success_goal_sets_and_controls_20260914|High option success and matched controls]] shows that eventual target activation can be high while FIRST/outcome specificity is weak.
+- [[syntheses/recent_batches_design_audit_20260906|Design audit]] documents dense-graph false positives and the distinction between target sensitivity and target-specific outcomes.
+- [[hrl_graph/controllability_edge_exploration_20260903|Controllability/edge exploration]], [[hrl_graph/directional_predictive_recruitment_20260904|directional/predictive recruitment]], and [[hrl_graph/topological_frontier_planning_batch|topological frontier planning]] contain the mechanism-level graph experiments.
 
 **Current lesson:** edge count, reachability, SCC size, and option success are not sufficient evidence for command-conditioned navigation. Prefer matched commanded-versus-shuffled first-outcome tests.
 
@@ -196,8 +200,8 @@ The graph can look strong even when commands do not causally control destination
 
 Environment manipulations are orthogonal to controller architecture and should be analyzed as such.
 
-- [[corridor_geometry_analysis_20260921|Corridor geometry analysis]] crosses architecture families with open/corridor geometry.
-- [[easy_landmark_maze_qualification_analysis_20260924|Easy landmark maze qualification]] crosses SCR/DGP/Waypoint with rich versus neutral visual cues while holding maze geometry fixed.
+- [[environments_transfer/corridor_geometry_analysis_20260921|Corridor geometry analysis]] crosses architecture families with open/corridor geometry.
+- [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Easy landmark maze qualification]] crosses SCR/DGP/Waypoint with rich versus neutral visual cues while holding maze geometry fixed.
 
 **Current lesson:** making sensory states easier to distinguish can help some architectures without repairing a fundamentally goal-insensitive controller; conversely, corridor geometry can reduce exploration even if it simplifies topology.
 
@@ -205,8 +209,8 @@ Environment manipulations are orthogonal to controller architecture and should b
 
 Transfer is a separate scientific question: whether intrinsically learned structure is useful when a downstream reward is introduced.
 
-- [[fixed_reward_transfer_latest_common_20260911|Fixed-reward latest-common comparison]] compares scratch, frozen DG, tuned DG, and policy transfer at a shared training window.
-- [[fixed_reward_dg_peak_transfer_execution_20260924|DG-peak transfer execution]] and [[fixed_reward_transfer_implementation_20260910|transfer implementation]] document later transfer variants.
+- [[environments_transfer/fixed_reward_transfer_latest_common_20260911|Fixed-reward latest-common comparison]] compares scratch, frozen DG, tuned DG, and policy transfer at a shared training window.
+- [[environments_transfer/fixed_reward_dg_peak_transfer_execution_20260924|DG-peak transfer execution]] and [[environments_transfer/fixed_reward_transfer_implementation_20260910|transfer implementation]] document later transfer variants.
 - [[cued_reward5_transfer_20260925|Five-cue reward transfer and frozen-DG controls]] covers the task, campaign, paired online control results, and CA3/depth input probes. The [exact 75M endpoint report](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) adds frozen and heldout comparisons.
 
 **Current lesson:** the completed five-cue frozen-DG control endpoints show that stronger source-DG field and option metrics do not imply better downstream reward or heldout success. Analyze the wider eight-arm transfer matrix before claiming which source components help.
@@ -230,10 +234,10 @@ For a concise current view:
 
 1. This synthesis.
 2. [[../05_plans/poster_results_synthesis_20260922|Poster/paper scientific synthesis]] for the narrative and claim boundary.
-3. [[recent_batches_design_audit_20260906|Design audit]] for the core graph/control failure mode.
-4. [[navigation8_algorithm_screen_interim_20260916|Navigation8]] and [[cpu2048_analysis_20260917|CPU2048]] for matched architecture/controller comparisons.
-5. [[ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] and [[ca3_followup_analysis_20260926|matched state-goal follow-up]] for the current goal-representation line.
-6. [[easy_landmark_maze_qualification_analysis_20260924|easy-landmark cues]], [[corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests; use the [75M frozen-DG endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) for transfer outcomes.
+3. [[syntheses/recent_batches_design_audit_20260906|Design audit]] for the core graph/control failure mode.
+4. [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8]] and [[controllers/cpu2048_analysis_20260917|CPU2048]] for matched architecture/controller comparisons.
+5. [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] and [[ca3_goals/ca3_followup_analysis_20260926|matched state-goal follow-up]] for the current goal-representation line.
+6. [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|easy-landmark cues]], [[environments_transfer/corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests; use the [75M frozen-DG endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) for transfer outcomes.
 
 Use the dated implementation/launch reports only when you need exact StudySpecs, job IDs, source revisions, qualification gates, or failure provenance.
 

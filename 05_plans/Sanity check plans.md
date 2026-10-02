@@ -1,6 +1,6 @@
 1. **Can the existing DG architecture learn good fields with explicit neighborhood supervision?**  
     Compare the existing objective, neighborhood supervision alone, and supervision plus **temporal versus physical local repulsion**. Train all units through pre-threshold scores while preserving sparse DG→CA3 activity. Measure compactness, disconnected fields, recall, false positives, silence, and held-out generalization.  
-    **Already implemented and launched**, with preliminary results in the [DG experiment report](/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/dg_neighborhood_g500_20260914.md). The implementation evolved from the original fixed-center oracle proposal.
+    **Already implemented and launched**, with preliminary results in the [DG experiment report](/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/dg_representation/dg_neighborhood_g500_20260914.md). The implementation evolved from the original fixed-center oracle proposal.
     
 2. **Did PPO gradients create the useful DG landmarks in the successful fixed-reward task?**  
     Start with PPO→DG **on versus off**. Then separate **actor-only, critic-only, both, and neither**. Check navigation performance and whether fields concentrate near useful turns, bottlenecks, or trajectory starting points.

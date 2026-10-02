@@ -306,7 +306,7 @@ $$
 
 Estimate it on matched spatial coverage, or compare held-out location-probe errors. A policy confined to one corner can make localization trivially easy, so raw entropy reduction is insufficient. If goals switch, current $G_t$ is not necessarily the controller that generated the remembered history; past goals/actions may matter.
 
-The user's single-goal intuition should be retained as **a simplification of the policy-conditioned problem**, not a claim that Lin's environment literally becomes one-dimensional or that one fixed goal guarantees unique routes. The separate heads and persistent commands in the [persistent-control implementation](../06_experiments/persistent_intrinsic_control_implementation.md) are related experimental probes, not evidence that this mechanism has succeeded.
+The user's single-goal intuition should be retained as **a simplification of the policy-conditioned problem**, not a claim that Lin's environment literally becomes one-dimensional or that one fixed goal guarantees unique routes. The separate heads and persistent commands in the [persistent-control implementation](../06_experiments/controllers/persistent_intrinsic_control_implementation.md) are related experimental probes, not evidence that this mechanism has succeeded.
 
 ## 5. A measured place field contains both tuning and behavior
 
@@ -328,11 +328,11 @@ M_i^{\mathrm{ref}}(p)
 [z_i(p,\alpha,h)],
 $$
 
-using the same observation/action sequences and memory initialization across checkpoints. Contextual encoders require replaying histories, not just shuffling static images. Compare these maps with on-policy maps. The [late spatial outliers](../06_experiments/late_training_outliers_20260908.md) currently provide policy-driven evidence, so they cannot isolate these paths.
+using the same observation/action sequences and memory initialization across checkpoints. Contextual encoders require replaying histories, not just shuffling static images. Compare these maps with on-policy maps. The [late spatial outliers](../06_experiments/syntheses/late_training_outliers_20260908.md) currently provide policy-driven evidence, so they cannot isolate these paths.
 
 ## 6. An endogenous target must retain its meaning while it is learned
 
-Recovered from **feedback to DG** and concretely reflected in the [persistent-control implementation](../06_experiments/persistent_intrinsic_control_implementation.md). This is more than an engineering detail: the system must distinguish changing the world from changing the criterion of achievement.
+Recovered from **feedback to DG** and concretely reflected in the [persistent-control implementation](../06_experiments/controllers/persistent_intrinsic_control_implementation.md). This is more than an engineering detail: the system must distinguish changing the world from changing the criterion of achievement.
 
 With a moving event detector, an apparent success score is
 

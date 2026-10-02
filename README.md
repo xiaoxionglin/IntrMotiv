@@ -11,7 +11,7 @@ Start with the [research notes index](00_index/README.md) for the scientific ide
 | Model architecture and metric definitions | [Architecture reference](04_implementation/architecture/README.md) and [metric reference](04_implementation/IntrMotiv_metric_reference.md) |
 | A proposed study or poster | [Plans index](05_plans/README.md) |
 | A validated run matrix, launcher, or test | [Run code index](hpc_runs/README.md) |
-| Experiment scripts, pinned inputs, and generated figures | [Experiment index](06_experiments/README.md); keep each study's inputs under `06_experiments/data/` and outputs under `06_experiments/results/` |
+| Experiment notes, scripts, inputs, and figures | [Experiment index](06_experiments/README.md) for six topic folders; study inputs remain under `06_experiments/data/` and outputs under `06_experiments/results/` |
 | Literature, abstract drafts, or a handoff bundle | [Literature](08_literature/README.md), [abstract drafts](07_abstracts/README.md), or `exports/` |
 | Unresolved idea or infrastructure issue | `99_inbox/` or [infrastructure tracker](infra.md) |
 

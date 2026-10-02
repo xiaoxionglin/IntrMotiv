@@ -75,7 +75,7 @@ Examples worth retaining:
 | DGC Waypoint-DG F64, seed 8 at 25M | Cosine 0.083; 45.3% single-field among eligible units; 64/64 active | F64 can produce a larger, more differentiated landmark vocabulary |
 | Same F64 lineage, seed 99 | Cosine 0.094; 28.8% single-field; 58/64 active | Replicates the qualitative promise, with substantial seed variability |
 
-Sources: [[../06_experiments/corrected_core_candidate_place_field_telemetry_20260902|corrected-core telemetry]], [[../06_experiments/02_architectures_losses_place_fields_trajectories_and_graphs_20260910|architecture/results account]], and [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG-capacity analysis]].
+Sources: [[../06_experiments/dg_representation/corrected_core_candidate_place_field_telemetry_20260902|corrected-core telemetry]], [[../06_experiments/syntheses/02_architectures_losses_place_fields_trajectories_and_graphs_20260910|architecture/results account]], and [[../06_experiments/dg_representation/dg_capacity_goal_conditioning_interim_20260911|DG-capacity analysis]].
 
 Do not equate “single field” with mathematically unimodal tuning. Also distinguish field shape, population distribution across the environment, and physical coverage by the policy.
 
@@ -91,7 +91,7 @@ Across the three-seed DIRECT_WORKER F16 arm, the same pattern is visible more we
 
 **Poster interpretation:** we can find checkpoints that temporarily combine two desirable properties, but the joint state is not yet stable. This is more informative than assigning a permanent “good/bad” label to an architecture.
 
-Source: [[../06_experiments/dg_capacity_goal_conditioning_interim_20260911|DG-capacity analysis, including the newer 75M direct-only follow-up]].
+Source: [[../06_experiments/dg_representation/dg_capacity_goal_conditioning_interim_20260911|DG-capacity analysis, including the newer 75M direct-only follow-up]].
 
 ### 2.3 A good graph or high hit rate can still be goal-insensitive
 
@@ -113,7 +113,7 @@ The same dissociation appears elsewhere:
 - In Navigation8, DGP develops the strongest connected graph while SAT has lower map overlap; neither is a demonstrated command-specific controller.
 - Corridor geometry does not rescue the problem: normalized exploration is lower in corridors than open layouts in all nine architecture–layout pairs.
 
-Sources: [[../06_experiments/06_high_option_success_goal_sets_and_controls_20260914|high-hit analysis]], [[../06_experiments/cpu2048_analysis_20260917|CPU2048]], [[../06_experiments/navigation8_algorithm_screen_interim_20260916|Navigation8]], and [[../06_experiments/corridor_geometry_analysis_20260921|corridor geometry]].
+Sources: [[../06_experiments/syntheses/06_high_option_success_goal_sets_and_controls_20260914|high-hit analysis]], [[../06_experiments/controllers/cpu2048_analysis_20260917|CPU2048]], [[../06_experiments/controllers/navigation8_algorithm_screen_interim_20260916|Navigation8]], and [[../06_experiments/environments_transfer/corridor_geometry_analysis_20260921|corridor geometry]].
 
 **Poster message:** “Spatial selectivity and graph connectivity are not sufficient for controllability: the goal must change actions and preferentially select the intended internal node.”
 
@@ -180,7 +180,7 @@ The important result is not that “CA3 goals work.” They do not yet demonstra
 - adding the current contextual registration/hit machinery sharply reduces reliable graph evidence;
 - every arm still has zero grounded controllability at 75M.
 
-Source: [[../06_experiments/ca3_predictive_active_goals_interim_analysis_20260924|predictive CA3 interim analysis]].
+Source: [[../06_experiments/ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|predictive CA3 interim analysis]].
 
 ### 4.2 Anchor/candidate follow-up
 
@@ -200,7 +200,7 @@ At the balanced 25M checkpoint:
 
 UNIQUE admission increases mono-field fraction in several paired comparisons but almost eliminates graph attempts and reliable edges. The likely computational issue is a **precision–coverage trade-off**: stricter contextual recognition may reject ambiguous events, but if it abstains too often the controller receives too little graph/replay support. That interpretation is consistent with the data but still requires the recognition and HER diagnostics for confirmation.
 
-Source: [[../06_experiments/ca3_followup_analysis_20260926|CA3 state-goal follow-up]].
+Source: [[../06_experiments/ca3_goals/ca3_followup_analysis_20260926|CA3 state-goal follow-up]].
 
 ### Neuroscience-facing interpretation
 
@@ -231,7 +231,7 @@ This is only two frozen episodes from one training seed per architecture, and th
 
 Still, it is useful for the poster as a mechanistic test: **perceptual distinctiveness interacts with architecture**. A visually easier world can help some policies without repairing a goal-insensitive learning rule.
 
-Source: [[../06_experiments/easy_landmark_maze_qualification_analysis_20260924|easy-landmark qualification]].
+Source: [[../06_experiments/environments_transfer/easy_landmark_maze_qualification_analysis_20260924|easy-landmark qualification]].
 
 This is more informative than saying the original environment was simply “too hard.” The emerging question is which part of difficulty matters: perceptual aliasing, goal identity, temporal recognition, or controller learning.
 
@@ -243,7 +243,7 @@ This is more informative than saying the original environment was simply “too 
 
 At the latest shared 50.8–60.8M window of the earlier repeat-8 study, scratch has the highest mean downstream score (9.115). SAT policy transfer is almost tied (9.031), while frozen-DG and most other transfer conditions trail scratch.
 
-Source: [[../06_experiments/fixed_reward_transfer_latest_common_20260911|latest-common transfer comparison]].
+Source: [[../06_experiments/environments_transfer/fixed_reward_transfer_latest_common_20260911|latest-common transfer comparison]].
 
 That result is correctly described as “no mean transfer advantage in the tested window,” not as evidence that intrinsic pretraining is useless.
 
@@ -270,7 +270,7 @@ Two lessons follow:
 
 The zero-shot command probes also show detectable command-dependent action probabilities without reliable physical-arrival advantage, reinforcing the earlier separation between policy sensitivity and navigation.
 
-Source: [[../06_experiments/fixed_reward_dg_peak_transfer_execution_20260924|corrected fixed-reward execution record]].
+Source: [[../06_experiments/environments_transfer/fixed_reward_dg_peak_transfer_execution_20260924|corrected fixed-reward execution record]].
 
 ### 6.3 Five-cue transfer is the more informative test
 
@@ -325,7 +325,7 @@ Avoid a panel listing every historical architecture. Acronyms belong in captions
 4. Single-goal transfer learning curves showing fast scratch learning.
 5. Five-cue environment schematic when results are not yet available.
 
-Useful source assets: [[../06_experiments/data/navigation8_algorithm_screen_interim_20260916/visual_atlas_75m|Navigation8 atlas]], [[../06_experiments/data/cpu2048_analysis_20260917/atlas|CPU2048 atlas]], [[../06_experiments/recent_architecture_batches_synthesis_20260924|recent architecture synthesis]], and the figure links inside the predictive/follow-up reports.
+Useful source assets: [[../06_experiments/data/navigation8_algorithm_screen_interim_20260916/visual_atlas_75m|Navigation8 atlas]], [[../06_experiments/data/cpu2048_analysis_20260917/atlas|CPU2048 atlas]], [[../06_experiments/syntheses/recent_architecture_batches_synthesis_20260924|recent architecture synthesis]], and the figure links inside the predictive/follow-up reports.
 
 ---
 

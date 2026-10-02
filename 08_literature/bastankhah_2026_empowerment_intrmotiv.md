@@ -6,7 +6,7 @@ Read: 2026-09-08. **Mahsa Bastankhah, Sophie Broderick & Benjamin Eysenbach, “
 
 ## What the paper establishes
 
-Empowerment maximizes skill–future-state information, \(\max_{p(z\mid s_0)} I(Z;S^+\mid s_0)\). A skill discriminator factors through forward \(\phi(s_0)\) and backward \(\psi(s^+)\) representations: the former concerns controllable futures, the latter how outcomes are reached. They need not agree. Invariance requires minimal representations/policies and specified dynamics/noise assumptions; an invariant optimum exists, but not every optimum is invariant. Even their combination can lose control-relevant information. Backward sufficiency requires deterministic control-relevant dynamics and common-start, exact-horizon reachability. METRA experiments demonstrate noise robustness; downstream control uses frozen representations with SAC/PPO. These are not APPO or DG/CA3 experiments. See §§3–6, especially Definition 4.1, Corollary 5.6, and Propositions 5.7–5.8. [Full text](https://arxiv.org/html/2605.30656v1).
+Empowerment maximizes skill–future-state information, $\max_{p(z\mid s_0)} I(Z;S^+\mid s_0)$. A skill discriminator factors through forward $\phi(s_0)$ and backward $\psi(s^+)$ representations: the former concerns controllable futures, the latter how outcomes are reached. They need not agree. Invariance requires minimal representations/policies and specified dynamics/noise assumptions; an invariant optimum exists, but not every optimum is invariant. Even their combination can lose control-relevant information. Backward sufficiency requires deterministic control-relevant dynamics and common-start, exact-horizon reachability. METRA experiments demonstrate noise robustness; downstream control uses frozen representations with SAC/PPO. These are not APPO or DG/CA3 experiments. See §§3–6, especially Definition 4.1, Corollary 5.6, and Propositions 5.7–5.8. [Full text](https://arxiv.org/html/2605.30656v1).
 
 ## Synthesis against the project
 
@@ -25,10 +25,10 @@ The following are project-specific interpretations and proposals, not results es
 
 For fixed landmark regions and a specified source-state distribution, use
 
-\[
+$$
 T_\pi(i\to j)=\mathbb E_\pi[\tau_j\mid i],\qquad
 T^*(i\to j)=\inf_\pi T_\pi(i\to j).
-\]
+$$
 
 The first is policy-dependent; the second is optimal expected travel time. Neither is automatically symmetric or equal to spatial geodesic length. The project's positive success payment decreasing with latency also trades off arrival probability against speed. Reporting only successful latencies can favor a policy that fails often. Use the existing 8/16/32/64-decision arrival curves and route-efficiency evaluation, with physical geometry used only for evaluation.
 
@@ -36,15 +36,15 @@ The first is policy-dependent; the second is optimal expected travel time. Neith
 
 Reuse the September 7 matched-start command intervention and common observation panel. At each verified start/CA3 state, execute alternative commands with matched sampling conditions and measure
 
-\[
+$$
 I(G;Y\mid h)=H(Y\mid h)-\mathbb E_G H(Y\mid h,G),
-\]
+$$
 
 where the outcome vocabulary and horizon are fixed independently of the encoder being assessed, and failure/timeout remains an outcome. This extends the project's existing control-representation principle: different commands should reliably produce different outcomes. Also report commanded success; mutual information alone can score a consistent permutation of goal labels highly.
 
 Compare STOP and JOINT on commanded-versus-other hit rates, qualified physical arrivals, route efficiency, and common-panel DG stability. A change in policy action probabilities alone is insufficient. On the same panel, test harmless visual perturbations separately from changes to available routes or task context. Preserve common physical outcomes across checkpoints so DG drift cannot manufacture apparent improvement. Estimate information cautiously with repeated trials and finite-sample uncertainty.
 
-For a later discriminator experiment, a possible reward is \(\log q(g\mid h_t,Y)-\log p(g\mid h_t)\). Store the actual command, its behavior-time prior, horizon, and reward/version information. Replay the behavior condition; do not resample goals or casually apply hindsight PPO. Fix reward evaluation within a learner update and audit asynchronous representation drift and DG BatchNorm semantics. In JOINT, prevent representation changes from changing the success labels. This is a proposed engineering contract, not a tested implementation.
+For a later discriminator experiment, a possible reward is $\log q(g\mid h_t,Y)-\log p(g\mid h_t)$. Store the actual command, its behavior-time prior, horizon, and reward/version information. Replay the behavior condition; do not resample goals or casually apply hindsight PPO. Fix reward evaluation within a learner update and audit asynchronous representation drift and DG BatchNorm semantics. In JOINT, prevent representation changes from changing the success labels. This is a proposed engineering contract, not a tested implementation.
 
 ## Related literature: SGCRL mechanism
 
@@ -60,7 +60,7 @@ Relative links below resolve in the project's `08_literature` folder:
 
 - [Transition-distance reward plan](../03_transition_distance/IntrMotiv_transition_distance_reward_plan.md): stable landmarks, efficient control, and the geodesic hypothesis.
 - [Control as a representation principle](../05_plans/control_representation_principle.md): DG-to-CA3 information path and command/outcome interventions.
-- [CA3 memory novelty and goal implementation, September 7](../06_experiments/ca3_memory_novelty_goal_implementation.md): graph-free baseline, STOP/JOINT, actual-command replay, and qualified-arrival evaluation.
+- [CA3 memory novelty and goal implementation, September 7](../06_experiments/ca3_goals/ca3_memory_novelty_goal_implementation.md): graph-free baseline, STOP/JOINT, actual-command replay, and qualified-arrival evaluation.
 - [Explicit update contract, September 5](../05_plans/explicit_dg_controller_update_contract.md): gradient and representation-version contracts.
 - [Architecture reference](../04_implementation/architecture/README.md): catalogue; older snapshots are not current batch defaults.
 - [Existing control-relevance literature review](control_relevance_fisher_place_fields_20260908.md): broader prior-art positioning.

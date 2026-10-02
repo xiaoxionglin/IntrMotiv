@@ -40,5 +40,5 @@ Archive SHA-256:
 Inspect or extract into a separate temporary directory when reviewing. Do not
 blindly unpack over an evolving runtime checkout: full modified files also
 contain pre-existing project changes that must be compared and preserved.
-See `06_experiments/ca3_memory_novelty_goal_implementation.md` for semantics,
+See `06_experiments/ca3_goals/ca3_memory_novelty_goal_implementation.md` for semantics,
 tests, source provenance, and actual submission records.

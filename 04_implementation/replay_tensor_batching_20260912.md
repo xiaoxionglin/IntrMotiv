@@ -9,7 +9,7 @@ must not be released merely because its correctness preflights complete. Measure
 both complete optimizer transactions and sustained real-run throughput. Do not
 claim an isolated packing speedup is a comparable-throughput result.
 
-Reference: `06_experiments/intrmotiv_full_system_controller_20260912.md`.
+Reference: `06_experiments/controllers/intrmotiv_full_system_controller_20260912.md`.
 All existing preflights remain on their immutable sources while candidates are
 qualified. Final audits 8057457/8057458 are still pending their dependencies.
 
@@ -138,7 +138,7 @@ not production changes.
 ## Authoritative earlier HER baseline and correction
 
 The actual earlier recurrent HER implementation is documented in
-`06_experiments/intrmotiv_ddqn_throughput_20260911.md`, with code in
+`06_experiments/controllers/intrmotiv_ddqn_throughput_20260911.md`, with code in
 `hpc_runs/intrmotiv_offpolicy/batch.py` and `worker.py`. It achieved **2,004.60
 learner-active FPS** in Slurm job 8056867 versus 1,025.05 reference, on 40 allocated
 CPUs/eight Torch threads, no GPU. Both performed 720 updates and 184,320 TD

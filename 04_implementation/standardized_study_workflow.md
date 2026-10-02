@@ -107,7 +107,7 @@ snapshot silently import an older editable installation. Use Sample Factory's
 their required integer types. Distinguish module tests, model parity, full
 learner preservation, and environment preflight in qualification records. The
 current worked example and remaining gates are recorded in
-`06_experiments/intrmotiv_full_system_controller_20260912.md`.
+`06_experiments/controllers/intrmotiv_full_system_controller_20260912.md`.
 
 When allocating a new NEMO2 workspace, check `df` on that exact workspace and
 verify a small write/fsync. Workspace-specific capacity reporting can show the
@@ -416,7 +416,7 @@ validate candidates with these longer snapshots. Keep latest-10k W&B scalars
 separate from latest-100k snapshot metrics, and inspect selected maps: many
 unique peak bins or a high single-field fraction can still describe several
 units concentrated in one region. See the
-[2026-09-08 outlier audit](../06_experiments/late_training_outliers_20260908.md).
+[2026-09-08 outlier audit](../06_experiments/syntheses/late_training_outliers_20260908.md).
 
 Training stores scalar-only W&B monitoring over the latest 10k samples plus
 compressed latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M
@@ -602,7 +602,7 @@ G500 uses ordinary processes, not Slurm. The resource profiler under
 all profiling overrides separately, samples host resources, and requires real
 completed learner frames. Scientific studies remain canonical. Resource
 profiles are not scientific preflight substitutes. See the
-[G500 qualification record](../06_experiments/dg_neighborhood_g500_20260914.md)
+[G500 qualification record](../06_experiments/dg_representation/dg_neighborhood_g500_20260914.md)
 for current evidence and the pending compatible direct-process audit adapter.
 This adds no StudySpec schema or package-version change.
 
@@ -682,7 +682,7 @@ and use a new run namespace after corrections.
 When deploying canonical tests into an isolated runtime, include their reference
 StudySpecs. A missing `graph_stabilized_recruitment.study.json` caused fixture
 errors on the initial copy; the unchanged tests passed after copying fixtures.
-Use the [DDQN batch record](../06_experiments/intrmotiv_ddqn_her_implementation_20260911.md)
+Use the [DDQN batch record](../06_experiments/controllers/intrmotiv_ddqn_her_implementation_20260911.md)
 for exact source, tests, manifests, and the distinction between frozen-reference
 control and future adaptive-DG work.
 
@@ -746,7 +746,7 @@ file SHA and include PPO too. Completed bounded PPO runs need exact reload proof
 not extra training past their horizon. SF's worker SIGINT handlers and
 `LearnerWorker.on_stop` provide the controlled full-checkpoint shutdown path;
 verify that path and exact reload evidence before maintenance. The worked record
-is `06_experiments/intrmotiv_full_system_controller_20260912.md`.
+is `06_experiments/controllers/intrmotiv_full_system_controller_20260912.md`.
 
 The first real `render-telemetry` qualification exposed legacy hardcoded
 checkpoint targets. Version 1.8.1 passes StudySpec targets into the existing
@@ -832,7 +832,7 @@ Focused checks: `python -m pytest -q hpc_runs/intrmotiv_study/test_direct.py
 hpc_runs/hosts/g500/test_profile_training.py` (7 passed). The resource callback
 currently uses the G500 profiler's Linux/NVIDIA probe; generalizing host admission
 is deferred until a second direct-execution host needs it. See the
-[active DG launch record](../06_experiments/dg_neighborhood_g500_20260914.md)
+[active DG launch record](../06_experiments/dg_representation/dg_neighborhood_g500_20260914.md)
 for the scientific gate, current paths, and recovery rules.
 
 

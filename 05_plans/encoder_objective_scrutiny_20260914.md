@@ -392,10 +392,10 @@ plan approval as authorization to train this different algorithm.
 
 Local sources: [loss catalogue](../04_implementation/architecture/losses.md),
 [DGP design](joint_ppo_dg_first_outcome_batch.md),
-[DGP failure audit](../06_experiments/dgp_interim_failure_audit_20260907.md),
-[matched feedback results](../06_experiments/05_ca3_feedback_matched_results_and_full_state_gap_20260913.md),
+[DGP failure audit](../06_experiments/dg_representation/dgp_interim_failure_audit_20260907.md),
+[matched feedback results](../06_experiments/syntheses/05_ca3_feedback_matched_results_and_full_state_gap_20260913.md),
 [historical time-gradient note](../03_transition_distance/DG_CA3_gradient_timing_evaluation.md),
-[threshold toy](../06_experiments/threshold_rotation_toy_report.md).
+[threshold toy](../06_experiments/dg_representation/threshold_rotation_toy_report.md).
 The scoped source archive inspected was
 `hpc_runs/source_snapshots/ca3_memory_novelty_goal_20260907.tar.gz`:
 `custom_learner.py` retains no-grad behavior credit construction and the

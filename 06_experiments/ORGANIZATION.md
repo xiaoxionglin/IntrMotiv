@@ -6,10 +6,19 @@ The inventory on 2 October 2026 contained 79 Markdown files directly in
 `06_experiments/` and 17 below `data/` or `results/`. The top-level files are
 human-authored study notes, reports, audits, and syntheses. Nested Markdown is
 part of pinned data or generated result bundles and retains its original path.
-The [README](README.md) is the single ordered index for both sets.
-Top-level note paths remain stable because Obsidian links, reports, and
-historical commands refer to them. The README sections provide the topical
-chunks without moving the entire archive or changing pinned source paths.
+The [README](README.md) is the single ordered index for both sets. After the
+same-study merges, 70 notes were moved into six topic folders:
+`syntheses/`, `hrl_graph/`, `dg_representation/`, `controllers/`,
+`ca3_goals/`, and `environments_transfer/`. Five Markdown files remain at the
+experiment root: this strategy, the README, the open-analysis register, and
+two provenance-pinned reports. The five-cue report remains at its original
+path because the poster candidate manifest names it and the renderer reads
+that path. Its current bytes already differ from the historical manifest
+hash, so a future gallery replay must select the pinned input version. The
+corrected-core report remains at its original path because the
+C15 variant registry and its pinned source snapshot cite it. All moved-note
+links and relative figure paths were rebased; pinned data and result bundles
+were left in place.
 
 Use the **study line** as the organizing unit. For each line, show its current
 result owner first, followed by the plan, implementation or launch record,
@@ -44,14 +53,17 @@ iteration owner. Other neighboring documents keep separate roles or protocols.
 In particular, a release record remains distinct from its result, a newer
 poster snapshot does not overwrite a matched study result, and the pinned
 `results/.../source_inputs/` copy is retained.
-After consolidation, the catalogue covers 72 top-level study notes and all
-17 nested Markdown files exactly once, excluding this strategy, the README,
-and the open-analysis register.
+After consolidation, the catalogue covers 72 study notes (70 in topic folders
+and two pinned at the experiment root) and all 17 nested bundle Markdown
+files exactly once, excluding this strategy, the README, and the open-analysis
+register.
 
 ## Maintenance
 
-When adding a Markdown report, link it once in the README's relevant study
-line, label its role, and point a superseded snapshot toward its result owner.
+When adding a Markdown report, place it in the relevant topic folder, link it
+once in the README's study line, label its role, and point a superseded
+snapshot toward its result owner. Rebase relative figure and data links when
+moving a note; check callers outside `06_experiments/` as well.
 Before deleting an overlapping note, check all Markdown links, wiki links,
 script literals, and generated manifests. Preserve the study schema, workflow
 version, source hashes, and evaluation protocol during consolidation. After

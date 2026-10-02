@@ -10,7 +10,7 @@ was not transferred and live runtime source was not modified.
 
 ## Cause and scope
 
-The [G500 qualification record](../06_experiments/dg_neighborhood_g500_20260914.md)
+The [G500 qualification record](../06_experiments/dg_representation/dg_neighborhood_g500_20260914.md)
 and `infra.md` identify the core as the dominant measured training cost.
 The active study selects `frontier_direct`, policy-buffer graph memory, and
 `hrl_edge_exploration=False`. Although its tensors already follow the model

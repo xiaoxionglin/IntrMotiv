@@ -43,7 +43,7 @@ The causal idea is that a landmark activated in several behaviorally incompatibl
 
 This is stronger than showing that place-like activity accompanies navigation. It asks whether the demand for reliable control *causes* field formation. It also makes a useful prediction: spatial unimodality need not be universal. Multiple physical locations could legitimately share an identity if they support equivalent control, while one location could require different identities when history changes what can happen next.
 
-**Where it came from:** The [contextual-landmark design](contextual_landmark_state_design.md) identifies transitionally coherent contextual states as the transferable requirement. The [recent batch audit](../06_experiments/recent_batches_design_audit_20260906.md) separates broad, ambiguous fields from commanded control. The [late spatial outliers](../06_experiments/late_training_outliers_20260908.md) suggest that policy gradients can help spatial differentiation, with an effect that depends on the goal interface.
+**Where it came from:** The [contextual-landmark design](contextual_landmark_state_design.md) identifies transitionally coherent contextual states as the transferable requirement. The [recent batch audit](../06_experiments/syntheses/recent_batches_design_audit_20260906.md) separates broad, ambiguous fields from commanded control. The [late spatial outliers](../06_experiments/syntheses/late_training_outliers_20260908.md) suggest that policy gradients can help spatial differentiation, with an effect that depends on the goal interface.
 
 **Evidence boundary:** The outlier's localized fields cluster in one corner, and its target-versus-shuffled performance remains near chance. Current results motivate the question; they do not show that reliable control produced the fields, or that localized fields are sufficient for control.
 
@@ -69,7 +69,7 @@ There are two conceptually different possibilities: DG detects visual events and
 
 This could explain why locally differentiated fields or increased relative selectivity coexist with weak broad exploration. A separate paper could study when reciprocal adaptation produces transferable skills and when it produces a narrow solution.
 
-**Where it came from:** The [late spatial outliers](../06_experiments/late_training_outliers_20260908.md), the [late target-hit-lift audit](../06_experiments/late_target_hit_lift_audit_20260908.md), and the [explicit DG–controller update contract](explicit_dg_controller_update_contract.md).
+**Where it came from:** The [late spatial outliers](../06_experiments/syntheses/late_training_outliers_20260908.md), the [late target-hit-lift audit](../06_experiments/syntheses/late_target_hit_lift_audit_20260908.md), and the [explicit DG–controller update contract](explicit_dg_controller_update_contract.md).
 
 **Proposed decisive test:** Use pre-specialization and late checkpoints to compare joint learning, freezing one component, and common replayed experience. Evaluate on held-out starts and regions. Test whether the apparent specialization persists when observation coverage is held fixed, and whether either component transfers to a separately trained counterpart.
 
@@ -93,7 +93,7 @@ An event can be visually distinctive yet be a poor memory address if its repeate
 
 Repeatedly verifying a difficult transition could be intrinsically valuable if it makes later behavior dependable. This suggests a general exploration principle for physical environments, web workflows, and abstract graphs: improve what the agent can predict or deliberately accomplish.
 
-**Where it came from:** Representation-utility maximization in [fundamental contribution directions](ml_paper_fundamental_contribution_directions.md), qualified by the false-positive connectivity results in the [recent batch audit](../06_experiments/recent_batches_design_audit_20260906.md).
+**Where it came from:** Representation-utility maximization in [fundamental contribution directions](ml_paper_fundamental_contribution_directions.md), qualified by the false-positive connectivity results in the [recent batch audit](../06_experiments/syntheses/recent_batches_design_audit_20260906.md).
 
 **Proposed decisive test:** Construct a setting where novelty favors distracting observations while repeated experience improves a reusable transition. Compare held-out prediction or control improvement with novelty-based exploration. Start from one measurable utility, rather than a sum of connectivity, diversity, and collapse penalties.
 
@@ -105,7 +105,7 @@ Repeatedly verifying a difficult transition could be intrinsically valuable if i
 
 The batch designs exposed how eventual target hits and broad event identities can generate apparently reliable edges even when commands barely affect outcomes. This could become a general methodological or learning-objective paper about establishing causal control over learned abstractions.
 
-**Where it came from:** The [recent batch audit](../06_experiments/recent_batches_design_audit_20260906.md), [contextual-landmark design](contextual_landmark_state_design.md), and [late lift audit](../06_experiments/late_target_hit_lift_audit_20260908.md).
+**Where it came from:** The [recent batch audit](../06_experiments/syntheses/recent_batches_design_audit_20260906.md), [contextual-landmark design](contextual_landmark_state_design.md), and [late lift audit](../06_experiments/syntheses/late_target_hit_lift_audit_20260908.md).
 
 **Proposed decisive test:** Hold starting state and relevant history fixed, intervene on the requested goal, and compare first distinct outcomes with a matched baseline. Include attainable alternatives and report absolute success as well as goal specificity. A first-outcome objective is a candidate mechanism; changing the outcome definition alone does not make an impossible command learnable.
 
@@ -125,7 +125,7 @@ The batch designs exposed how eventual target hits and broad event identities ca
 
 **Hypothesis:** Feedback that repels overused event detectors could improve how limited representational capacity is allocated, but only when coupled to useful temporal or behavioral feedback.
 
-**Where it came from:** The suppressive address-allocation proposal in [fundamental contribution directions](ml_paper_fundamental_contribution_directions.md) and the [threshold-rotation toy report](../06_experiments/threshold_rotation_toy_report.md).
+**Where it came from:** The suppressive address-allocation proposal in [fundamental contribution directions](ml_paper_fundamental_contribution_directions.md) and the [threshold-rotation toy report](../06_experiments/dg_representation/threshold_rotation_toy_report.md).
 
 **Proposed decisive test:** Connect controlled toy inputs to sequence retrieval and compare allocation, route interference, and transfer while separating normalization and temporal-feedback effects.
 

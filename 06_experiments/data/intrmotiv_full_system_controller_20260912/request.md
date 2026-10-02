@@ -251,6 +251,6 @@ This brief is an engineering instruction grounded in the user's correction, not 
 - Uploaded `DDQN/HER v2 repair and qualification`: diagnostic scope, coherent virtual attempts, target cadence tests, and normalization/replay limitations.
 - Uploaded initial DDQN/HER implementation record: original live-source modifications, parent identity, and omitted adaptive/manager capabilities.
 - `SF_hipposlam` original `train_hipposlam.py`, `custom_actor_critic.py`, and `custom_learner.py`: factory extension points, original decoders/branches/gradient boundaries, encoder objectives, recruitment and generation guards.
-- `IntrMotiv/06_experiments/dg_capacity_goal_conditioning_interim_20260911.md`: historical candidate configurations, not a current definitive performance ranking.
+- `IntrMotiv/06_experiments/dg_representation/dg_capacity_goal_conditioning_interim_20260911.md`: historical candidate configurations, not a current definitive performance ranking.
 
 The full deployed originals and live run artifacts must still be inspected by the coding agent. Public source alone is not proof of exactly which uncommitted runtime changes trained a checkpoint.

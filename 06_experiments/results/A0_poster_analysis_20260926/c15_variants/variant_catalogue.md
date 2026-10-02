@@ -100,6 +100,6 @@ Identities and factor settings come from validated StudySpecs; C14/C15/C16 use t
 
 | Variant | Manager / target selection | Control outcome / goal input | Gradient / context / prediction | Recruitment / credit | Grounded score | Prospective success | Reachability |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [C14](../../../../06_experiments/corrected_core_reevaluation_20260901.md) (`CCR_C14_TOPOLOGY_VISIT_O1`) | frontier_direct / visit novelty | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |
-| [C15](../../../../06_experiments/corrected_core_reevaluation_20260901.md) (`CCR_C15_TOPOLOGY_UCB_DIRECT_O1`) | frontier_direct / UCB | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |
-| [C16](../../../../06_experiments/corrected_core_reevaluation_20260901.md) (`CCR_C16_TOPOLOGY_UCB_WAYPOINT_O1`) | frontier_waypoint / UCB | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |
+| [C14](../../../corrected_core_reevaluation_20260901.md) (`CCR_C14_TOPOLOGY_VISIT_O1`) | frontier_direct / visit novelty | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |
+| [C15](../../../corrected_core_reevaluation_20260901.md) (`CCR_C15_TOPOLOGY_UCB_DIRECT_O1`) | frontier_direct / UCB | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |
+| [C16](../../../corrected_core_reevaluation_20260901.md) (`CCR_C16_TOPOLOGY_UCB_WAYPOINT_O1`) | frontier_waypoint / UCB | see original definition | see original definition | see original definition | unavailable | unavailable | unavailable |

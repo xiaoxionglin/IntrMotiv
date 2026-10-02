@@ -349,10 +349,10 @@ in an isolated NEMO2 source checkout before use. All training, logs, caches,
 temporary data and raw telemetry belong under `/work/classic/fr_xl1014-train`.
 
 Evidence: [terminal joined data](../06_experiments/results/late_outliers_20260908/dgp_terminal_rankings.csv),
-[goal-set audit](../06_experiments/06_high_option_success_goal_sets_and_controls_20260914.md),
-[FiLM audit](../06_experiments/07_film_goal_parameters_and_ca3_depth_weights_20260914.md),
-[DGP failure analysis](../06_experiments/dgp_interim_failure_audit_20260907.md),
-[DG64 health](../06_experiments/dg_capacity_health_20260913.md).
+[goal-set audit](../06_experiments/syntheses/06_high_option_success_goal_sets_and_controls_20260914.md),
+[FiLM audit](../06_experiments/syntheses/07_film_goal_parameters_and_ca3_depth_weights_20260914.md),
+[DGP failure analysis](../06_experiments/dg_representation/dgp_interim_failure_audit_20260907.md),
+[DG64 health](../06_experiments/dg_representation/dg_capacity_health_20260913.md).
 
 ## Reusable workflow lesson
 
