@@ -4,31 +4,31 @@
 
 The working hypothesis is:
 
-\[
+$$
 \boxed{\text{spend less computation on each observation; spend more state capacity on structured history}}
-\]
+$$
 
 Instead of constructing a rich instantaneous representation at every timestep, use sparse or event-driven sensory encoding and let a structured temporal memory maintain the state over time.
 
 The current DG→CA3 mechanism can be written as
 
-\[
+$$
 x_{t+1}=Sx_t+Ju_t,
-\]
+$$
 
-where \(u_t\) is sparse DG input and \(S\) is a fixed shift/sequence operator.
+where $u_t$ is sparse DG input and $S$ is a fixed shift/sequence operator.
 
 If there is no new informative input,
 
-\[
+$$
 u_t=0,
-\]
+$$
 
 then
 
-\[
+$$
 x_{t+\tau}=S^\tau x_t.
-\]
+$$
 
 The central architectural claim is therefore:
 
@@ -36,17 +36,17 @@ The central architectural claim is therefore:
 
 Equivalently:
 
-\[
+$$
 \boxed{
 \text{learn WHAT happened}
 +
 \text{hard-code HOW memory evolves with time}
 }
-\]
+$$
 
 rather than
 
-\[
+$$
 \boxed{
 \text{learn WHAT happened}
 +
@@ -54,15 +54,15 @@ rather than
 +
 \text{learn HOW memory evolves}.
 }
-\]
+$$
 
 ## 1. Predictive State Representations (PSRs)
 
 PSRs reject the assumption that state must be a rich instantaneous latent variable inferred directly from the current observation. Instead, state is represented as a sufficient statistic of history through predictions of future action-observation sequences:
 
-\[
+$$
 h_t=(o_1,a_1,\ldots,o_t)\rightarrow z_t.
-\]
+$$
 
 This is conceptually close to the idea that the instantaneous sensory representation itself does not need to constitute the full state.
 
@@ -75,34 +75,34 @@ https://papers.neurips.cc/paper/1983-predictive-representations-of-state.pdf
 
 Reservoir computing uses fixed recurrent dynamics,
 
-\[
+$$
 x_{t+1}=f(W_{\mathrm{res}}x_t+W_{\mathrm{in}}u_t),
-\]
+$$
 
 while typically training only a downstream readout.
 
 The philosophy is:
 
-\[
+$$
 \boxed{\text{fixed rich temporal expansion}+\text{cheap learned readout}}
-\]
+$$
 
 This is mechanically close to
 
-\[
+$$
 x_{t+1}=Sx_t+Ju_t.
-\]
+$$
 
 CA3 can be interpreted as a highly structured reservoir.
 
-**Difference:** standard reservoirs usually use generic/random recurrent dynamics, while \(S\) implements a specific delay-line/sequence prior.
+**Difference:** standard reservoirs usually use generic/random recurrent dynamics, while $S$ implements a specific delay-line/sequence prior.
 
-\[
+$$
 \begin{array}{ll}
 \text{reservoir computing:}&\text{generic fixed temporal expansion}\\
 \text{DG→CA3:}&\text{sparse event-driven, explicitly sequence-structured expansion}
 \end{array}
-\]
+$$
 
 **Reference:** reservoir-computing review  
 https://www.mdpi.com/2673-2688/7/2/70
@@ -113,9 +113,9 @@ Phased LSTM introduces a time gate so recurrent units update only during selecte
 
 The broad principle is:
 
-\[
+$$
 \boxed{\text{not every sensory timestep deserves an expensive recurrent update}.}
-\]
+$$
 
 This is closely related to sparse DG events.
 
@@ -129,9 +129,9 @@ https://papers.neurips.cc/paper_files/paper/2016/hash/5bce843dd76db8c939d5323dd3
 
 Skip RNN learns whether the recurrent hidden state should be updated at a given timestep:
 
-\[
+$$
 o_t\rightarrow\boxed{\text{is this worth updating memory for?}}\rightarrow h_t.
-\]
+$$
 
 This is very close to the proposed role of DG: only some sensory inputs are important enough to update memory.
 
@@ -139,15 +139,15 @@ The critical difference is what happens when an update is skipped.
 
 Skip RNN typically has
 
-\[
+$$
 h_{t+1}=h_t,
-\]
+$$
 
 whereas CA3 has
 
-\[
+$$
 \boxed{x_{t+1}=Sx_t}.
-\]
+$$
 
 So:
 
@@ -176,9 +176,9 @@ https://proceedings.mlr.press/v32/koutnik14
 
 Event-triggered control asks whether control or communication needs to occur at every timestep:
 
-\[
+$$
 \text{continuous dynamics}\rightarrow\boxed{\text{intervene only when necessary}}.
-\]
+$$
 
 This supports the broader intuition that computation and policy intervention can be concentrated at informative or consequential events such as branch points or unexpected transitions.
 
@@ -191,33 +191,33 @@ https://arxiv.org/abs/1809.05152
 
 The options framework moves decision-making above the primitive-action timestep:
 
-\[
+$$
 \boxed{\text{decision}}
 \rightarrow
 \underbrace{\text{extended behavior}}_{\text{no new high-level decision}}
 \rightarrow
 \boxed{\text{decision}}.
-\]
+$$
 
 This is close to the intuition
 
-\[
+$$
 \boxed{\text{branch point}}
 \rightarrow
 \text{predictable trajectory segment}
 \rightarrow
 \boxed{\text{branch point}}.
-\]
+$$
 
 **Difference:** options create temporal abstraction mainly on the action side. DG→CA3 suggests a matching abstraction on the state/memory side:
 
-\[
+$$
 \text{sensory event}
 \rightarrow
 \underbrace{\text{cheap deterministic memory evolution}}_{\tau\text{ steps}}
 \rightarrow
 \text{sensory event}.
-\]
+$$
 
 **Reference:** Sutton, Precup, Singh — *Between MDPs and Semi-MDPs: A Framework for Temporal Abstraction in Reinforcement Learning*  
 https://www.sciencedirect.com/science/article/pii/S0004370299000521
@@ -226,7 +226,7 @@ https://www.sciencedirect.com/science/article/pii/S0004370299000521
 
 The IntrMotiv idea contains at least three ingredients with substantial prior art:
 
-\[
+$$
 \boxed{
 \begin{array}{ll}
 \textbf{A. Sparse/event-driven updates}
@@ -236,7 +236,7 @@ The IntrMotiv idea contains at least three ingredients with substantial prior ar
 \textbf{C. History as state}
 &\leftarrow\text{PSRs and recurrent state representations}
 \end{array}}
-\]
+$$
 
 None of these ingredients alone should be treated as the main novelty.
 
@@ -244,7 +244,7 @@ None of these ingredients alone should be treated as the main novelty.
 
 The more specific combination is:
 
-\[
+$$
 \boxed{
 o_t
 \xrightarrow{\text{sparse DG}}
@@ -254,15 +254,15 @@ u_t
 \xrightarrow{\text{RL}}
 a_t.
 }
-\]
+$$
 
 The particularly distinctive part is
 
-\[
+$$
 u_t=0
 \quad\Rightarrow\quad
 x_{t+\tau}=S^\tau x_t.
-\]
+$$
 
 When no informative input occurs, the representation:
 
@@ -279,17 +279,17 @@ This gives the sharper claim:
 
 Or:
 
-\[
+$$
 \boxed{
 \text{learn WHAT happened}
 +
 \text{hard-code HOW memory evolves with time}
 }
-\]
+$$
 
 instead of:
 
-\[
+$$
 \boxed{
 \text{learn WHAT happened}
 +
@@ -297,7 +297,7 @@ instead of:
 +
 \text{learn HOW memory evolves}.
 }
-\]
+$$
 
 # Implication for IntrMotiv
 
@@ -305,7 +305,7 @@ This framing may explain why the fixed CA3 mechanism works especially well under
 
 The advantage may not be that CA3 learns a richer instantaneous representation than an LSTM. Instead,
 
-\[
+$$
 \boxed{
 \text{sparse sensory events}
 +
@@ -313,7 +313,7 @@ The advantage may not be that CA3 learns a richer instantaneous representation t
 \rightarrow
 \text{useful dynamical state}
 }
-\]
+$$
 
 while a generic recurrent model must infer the temporal transformation from data.
 
