@@ -28,6 +28,6 @@ The 10 September boss briefing remains a useful historical reading sequence: [sc
 
 ## Unresolved and organizational notes
 
-- [Global CA3-state credit assignment](../99_inbox/temp.md)
+- [Global CA3-state credit assignment](../99_inbox/global_ca3_state_credit_assignment.md)
 - [Repository organization decisions](repository_organization_20261002.md)
 - [Infrastructure improvements](../infra.md)
