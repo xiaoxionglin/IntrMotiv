@@ -29,7 +29,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   report, StudySpec, pinned data, and figures through the existing result
   owner before considering a broader move.
 
-### Layer-2 ResNet+LSTM baseline needs runtime qualification — 2026-10-02
+### Layer-2 ResNet+LSTM baseline functional qualification — 2026-10-02
 
 - **Evidence:** With `resnet_impala`, the current `Default` encoder uses Sample
   Factory's trainable IMPALA ResNet; it rejects `layer2_resnet18`. The IntrMotiv
@@ -50,14 +50,29 @@ keep implementation guidance in the canonical workflow documents linked below.
   trunk, DG-width linear/BatchNorm projection, cue/depth transforms, direct
   bypass, LSTM wrapper, and external-reward PPO. Dense removes the sparse
   threshold; `off` preserves old runs. Local actor and regression checks pass
-  (50 tests), including PPO gradients and packed replay. No DMLab rollout,
-  optimizer run, restart, or NEMO2 release has been qualified yet.
-- **Acceptance:** Both modes pass a short workspace-only training/restart and
-  evaluation smoke with nonzero external reward; the canonical NEMO2 checkout
-  receives the tested source. A declarative paired StudySpec holds task,
-  reward, actions, budget, seeds, and evaluation fixed, states any CA3 DG-loss
-  difference, and reports parameter count and throughput. Do not label dense
-  projected features as raw ResNet or DG place-field telemetry.
+  (50 tests), including PPO gradients and packed replay. The paired
+  [StudySpec and NEMO2 qualification](04_implementation/architecture/resnet_lstm_baseline_20261002.md#verification-and-qualification)
+  passed a two-row submission audit, two 4,608-frame training jobs, two exact
+  checkpoint reloads, and two 64-decision checkpoint policy rollouts. All six
+  jobs exited 0; each arm made 18 optimizer updates, with finite losses and
+  nonzero running return estimates. The shared reload checker now selects the
+  learner through the training factory (`SF_hipposlam` `991e6005`), and its
+  focused tests passed on NEMO2. Both arms have equal parameter counts:
+  628,553 trainable and 683,072 frozen in the eight-action configuration.
+- **Remaining acceptance:** The single short rollout per arm had zero reward
+  successes, so measure physical reward success with a longer, replicated
+  evaluation before interpreting learning. A later CA3 comparison must match
+  the external reward and state its DG objective and PPO gradient boundary.
+  Keep the active older NEMO2 checkout pinned while its jobs depend on it;
+  the qualified current `master` is available in a detached checkout. Do not
+  label dense projected features as raw ResNet or DG place-field telemetry.
+- **Reusable lesson:** The desktop Sample Factory smoke was blocked by
+  `torch_shm_manager` sandbox permissions; compute-node training was decisive.
+  DMLab map initialization consumed most of a six- to seven-minute smoke while
+  frame counters remained zero. Check child CPU use and map-build logs before
+  declaring such a run stalled. Reuse the validated StudySpec and training
+  learner factory for future checks instead of handwritten launch or reload
+  variants.
 
 ### Result reports need a stable owner and freshness check — 2026-10-02
 

@@ -10,9 +10,9 @@ projection width, depth and cue transforms, and direct controller bypass.
 `off` remains the default, preserving existing run and checkpoint behavior.
 
 The switch has passed local model construction, forward/backward, replay, and
-focused regression checks. **No DMLab environment rollout, optimizer training
-run, or NEMO2 release qualification has been completed.** It is available in
-the published source, but its scientific performance is unknown.
+focused regression checks. Both settings also passed NEMO2 training, exact
+checkpoint reload, and a short DMLab policy rollout. This qualifies the
+implementation for a matched study; its scientific performance remains unknown.
 
 ## What each setting means
 
@@ -64,7 +64,7 @@ resolved baseline architecture. Follow the
 [`standardized study workflow`](../standardized_study_workflow.md) and its
 print-only review before submission.
 
-## Verification and remaining gates
+## Verification and qualification
 
 The source checkout ran the new baseline tests plus core-logic, update-contract,
 and depth-encoder regressions with the `SF_git` Python environment: **50
@@ -76,13 +76,38 @@ local probe found sparse projected activity around 2.2% and dense signed output
 without exact zeros for its sample batch; these are smoke measurements, not
 dataset statistics.
 
-Before scientific use, run one short **workspace-only** training and restart
-smoke for each mode, verify reward is nonzero and checkpoints reload, then
-qualify the paired StudySpec and evaluation on NEMO2. The source release needs
-synchronization to the NEMO2 runtime checkout and focused tests there. Live
-cluster status was not checked in this task because the previous read-only SSH
-attempt received an authentication denial; the project access rule requires a
-manual login before any automated retry.
+The [paired qualification StudySpec](../../hpc_runs/studies/layer2_lstm_sparsity_qualification_20261002.study.json)
+uses one seed, the same five-cue external-reward task and PPO settings, and
+changes only `layer2_lstm_baseline`. Workflow version `1.14.0` validated and
+audited both submitted commands and all workspace paths; its SHA-256 is
+`4444049e793151ec711cfb9f55fc5e0506153100f3944c07d6484099fd4cf706`.
+The NEMO2 source was an isolated detached checkout at `8e3241bd` for training,
+then `991e6005` for the shared exact-reload checker. The active older checkout
+was left pinned for its existing jobs. NEMO2 focused tests passed: 50 tests
+before training and 9 tests after the reload-checker update.
+
+| Arm | Training job | Frames / optimizer updates | Exact reload job | 64-decision rollout job |
+|---|---:|---:|---:|---:|
+| Sparse | `8256784` | 4,608 / 18 | `8256786`, passed | `8256788`, completed, 0/1 reward success |
+| Dense | `8256785` | 4,608 / 18 | `8256787`, passed | `8256789`, completed, 0/1 reward success |
+
+All six jobs completed with exit code 0. The reload certificates verified exact
+model parameters and buffers, optimizer state, and counters from immutable
+checkpoint copies. Both training runs logged finite loss and gradient norm,
+and nonzero `train/returns_running_mean`; the 64-decision rollouts establish
+checkpoint policy execution, not reward-solving ability. With the same
+eight-action policy head, a shape-equivalent local model count found 628,553
+trainable and 683,072 frozen parameters for either arm. Source weights were
+omitted during this count, which does not change parameter shapes.
+
+The audit, Slurm logs, checkpoint copies, reload certificates, and rollout CSVs
+are under the active workspace at
+`/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/layer2_lstm_qualification_20261002/`.
+This was a functional smoke, not a learning comparison: a longer, replicated
+evaluation with measured external-reward success and throughput is still needed
+before drawing scientific conclusions or comparing against CA3. That comparison
+also needs an explicitly matched external-reward CA3 arm and a stated DG
+training objective and PPO gradient boundary.
 
 ## Reuse lesson
 
@@ -91,4 +116,10 @@ architecture switch. The old `Default` flags concealed a DG/CA3-derived LSTM
 size, a stopped PPO gradient, and a missing direct depth/cue bypass. The new
 switch isolates the change in one explicit mode and reuses the existing
 projection and LSTM implementations; future study definitions should consume
-that mode rather than reproduce its settings in ad hoc launch scripts.
+that mode rather than reproduce its settings in ad hoc launch scripts. The
+canonical checkpoint checker must use the training learner factory rather than
+assume every PPO run uses the distance learner. Local Sample Factory training
+was blocked by desktop shared-memory sandboxing; NEMO2 compute-node jobs were
+the authoritative runtime test. DMLab cold map initialization took most of
+each six- to seven-minute smoke, so check child CPU use before interpreting
+initial zero-frame logging as a stalled run.
