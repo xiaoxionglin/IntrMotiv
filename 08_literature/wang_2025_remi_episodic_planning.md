@@ -1,0 +1,17 @@
+# Wang et al. 2025: REMI and internally driven path planning
+
+Read: 2026-10-03. Zhaoze Wang, Genela Morris, Dori Derdikman, Pratik Chaudhari, and Vijay Balasubramanian, “REMI: Reconstructing Episodic Memory During Internally Driven Path Planning,” NeurIPS 2025. [Proceedings](https://proceedings.neurips.cc/paper_files/paper/2025/hash/72ab0f5ba093e905be35fb27810a9c56-Abstract-Conference.html) · [Full paper](https://proceedings.neurips.cc/paper_files/paper/2025/file/72ab0f5ba093e905be35fb27810a9c56-Paper-Conference.pdf) · DOI: [10.52202/085713-2668](https://doi.org/10.52202/085713-2668). Sven Goedeke pointed Xiao-Xiong and Pelle to the proceedings link in the Freiburg “Research Project” email of 2026-10-03. No email body or paper PDF is copied into this repository.
+
+## What the paper tests
+
+REMI couples sensory-modulated cells, grid-cell path integration, and hippocampal place-like units in a recurrent network. Training with partial/masked input yields an auto-associative link: a sensory cue can reinstate a goal-location grid pattern, while intermediate grid states can reconstruct sensory representations during an imagined route. A separate planner drives the trained network with internally generated speed/direction inputs. In the reported simulations, planning learned from local start-goal pairs generalizes to longer routes and can shortcut the sampled trajectory; a Habitat-Sim demonstration decodes intermediate visual representations into expected views. See §§2–4 and Figs. 1–4 of the paper.
+
+The evidence has important boundaries. Grid responses are partly supervised rather than emerging jointly with place cells. Planning is trained with target grid patterns and a loss toward that target, not learned from an intrinsic exploration objective. The authors note that boundary/obstacle avoidance is outside the model and discuss a scale limit for grid-based long-range planning (§5). The Habitat result demonstrates reconstruction of expected views, not autonomous exploration or robust goal-conditioned control in an unknown maze.
+
+## Relevance to IntrMotiv
+
+The useful comparison is the division of labor: **contextual sensory memory retrieves a goal; a structured spatial code supports imagined displacement; intermediate states reactivate sensory expectations.** This is close to the project's interest in sparse DG events and CA3 sequence-based planning, but REMI's supervised grid metric and externally specified target state differ from IntrMotiv's learned landmark identities, partial observations, intrinsic goal selection, and worker reliability problem. It should be cited as related work on cue-triggered planning and memory reconstruction, not as evidence that IntrMotiv's DG/CA3 mechanism already implements it.
+
+One restrained follow-up is to evaluate an existing IntrMotiv model, without changing training, on a matched-start cue/goal intervention: does changing the recalled target cause a distinct, physically valid imagined or executed route, and do predicted intermediate observations match held-out views? Report target reachability and route feasibility separately from visual reconstruction. This is a proposed test, not a result established by REMI or this project.
+
+Related project context: [Landmark Sequence Literature Map](landmark_sequence_literature.md), [Structured Memory Prior Work](structured_memory_prior_work.md), and [Control as a Representation Principle](../05_plans/control_representation_principle.md).
