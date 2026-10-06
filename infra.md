@@ -1303,3 +1303,20 @@ For each finding, record:
 - **Acceptance criteria:** A synthetic failed run is followed by a completed run;
   the final queue still reports failure, and four-run admission retains at least
   64 GiB of measured host headroom.
+
+# Diagnose stalled Sample Factory learner progress in short NEMO2 qualifications
+
+- **Evidence:** Odor/CA3 qualification jobs 8288060–8288063 all entered `RUNNING`
+  and produced finite learner scalars. Their training-frame counters then stopped
+  at 155,648, 155,648, 49,152, and 81,920 while Slurm still reported them running
+  and actor sample counts continued to increase. The repeated observation spans
+  four independent nodes. See the [odor/CA3 study record](06_experiments/ca3_goals/odor_goal_quality_40_run_plan_20261006.md).
+- **Impact:** A `RUNNING` state and finite early metrics cannot qualify a training
+  cell or justify admitting production runs if the learner has stopped advancing.
+- **Proposed improvement/status:** Identify the blocked learner/actor boundary from
+  Slurm and process diagnostics, then add a reusable progress watchdog that records
+  the last completed learner phase and raises when environment frames stay flat
+  while samples accumulate. Remote process inspection is pending NEMO2 access.
+- **Acceptance criteria:** A short qualification either reaches its declared frame
+  target or exits with an actionable phase and exception. A focused regression test
+  reproduces any confirmed runtime defect without relying on wall-clock timing.
