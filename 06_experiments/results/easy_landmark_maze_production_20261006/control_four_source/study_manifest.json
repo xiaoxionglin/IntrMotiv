@@ -1,0 +1,26 @@
+{
+  "analysis_rows": 3,
+  "batch_name": "easy_landmark_maze_control_20260923",
+  "expected_runs": 3,
+  "intervention": {
+    "evaluation": "landmark-matched-commands-v1",
+    "max_sources": 4,
+    "protocol": "target-control-intervention-v1",
+    "repeats": 5,
+    "require_exact_start_match": true,
+    "target_frames": [
+      75000000
+    ],
+    "targets_per_source": 4
+  },
+  "intervention_rows": 3,
+  "schema": "intrmotiv/study/v1",
+  "study_id": "easy_landmark_maze_control_20260923",
+  "study_sha256": "2deef46769bc4f0e356236269a980539a9da4edc6383efa34ac7070eba0990b0",
+  "study_spec": "/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/analysis/easy_landmark_maze_production_20261006/specs/easy_landmark_maze_control_75m_four_source.study.json",
+  "study_workflow_version": "1.12.0",
+  "telemetry_protocol": "dg-place-fields-v1",
+  "training_mode": "sample_factory",
+  "trajectory_rows": 3,
+  "workflow_version": "1.12.0"
+}

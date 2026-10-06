@@ -89,6 +89,43 @@ def main() -> None:
     fig.savefig(FIGURES / "online_cue_comparison_75m.pdf")
     plt.close(fig)
 
+    # Within-family, paired-seed history shows whether the map effect persists
+    # at each retained age. These are repeated observations of one training seed.
+    rich_history = pd.read_csv(ROOT / "rich_spatial/per_snapshot.csv")
+    neutral_history = pd.read_csv(ROOT / "control_spatial/per_snapshot.csv")
+    rich_history = rich_history.loc[
+        (rich_history.seed == 99) & (rich_history.target_env_steps <= 75_000_000)
+    ]
+    fig, axes = plt.subplots(1, 3, figsize=(13, 5), dpi=100, layout="constrained", sharey=True)
+    for ax, base in zip(axes, BASE_ORDER):
+        for data, cue, color in (
+            (neutral_history, "Neutral", "#56545c"),
+            (rich_history, "Rich", "#2274aa"),
+        ):
+            subset = data.loc[data.base == base].sort_values("target_env_steps")
+            ax.plot(
+                subset.target_env_steps / 1_000_000,
+                subset.active_only_map_cosine,
+                marker="o",
+                markersize=9,
+                linewidth=2.5,
+                color=color,
+                label=cue,
+            )
+        ax.set_title(BASE_LABELS[base], fontsize=20)
+        ax.set_xticks([5, 25, 50, 75])
+        ax.set_xlabel("Training frames (M)", fontsize=17)
+        ax.set_ylim(0.14, 0.61)
+        ax.tick_params(labelsize=17)
+        ax.grid(axis="y", color="#d7dce1", linewidth=1)
+        ax.set_axisbelow(True)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("Active-only map cosine", fontsize=17)
+    axes[0].legend(frameon=False, fontsize=16)
+    fig.savefig(FIGURES / "seed99_map_separation_over_time.png", dpi=100)
+    fig.savefig(FIGURES / "seed99_map_separation_over_time.pdf")
+    plt.close(fig)
+
 
 if __name__ == "__main__":
     main()

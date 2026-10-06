@@ -610,7 +610,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   locally and on isolated NEMO2 source. One-row native preflight job `8218673`
   completed with exit code zero, a 9-by-9 NPZ, verified `[100, 1000]` bounds,
   pre-threshold arrays, and a valid summary. The 12-row 10k plan passed
-  print-only validation; no full sweep has been submitted.
+  print-only validation; all twelve 75M field NPZs and canonical summaries
+  were generated in the 2026-10-06 production sweep. Its matched complete-episode
+  coverage jobs remain in progress.
 - **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md).
 
 ### Newer workflow cannot audit the historical landmark launch — 2026-10-06
@@ -762,7 +764,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   36 replacement rows (8127269--8127304) and bounded qualification 8127266:
   same-seed resets were not observation-identical. The authoritative evaluator
   was restored. The remaining fix is bounded fresh-engine process shards with
-  an audited merge; exact matching must remain mandatory.
+  an audited merge; exact matching must remain mandatory. The easy-landmark
+  75M four-source pilot `8282298` completed in 33 minutes after 102 fresh
+  engine constructions, with 20 exact starts, 80 paired comparisons, no
+  censoring, and no buffer overflow. Twelve four-source rows are in progress;
+  this bounded analysis does not replace a process-sharded full-source panel.
   Evidence is tracked in the
   [corridor record](06_experiments/environments_transfer/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
@@ -802,6 +808,24 @@ keep implementation guidance in the canonical workflow documents linked below.
   authoritative, and use batched artists to retain clear segmented trajectories.
   Stage both canonical test StudySpecs, not only the main reference; a missing
   secondary fixture caused one avoidable failed verification run.
+
+### Frozen place-field contact sheets are too dense for reports — 2026-10-06
+
+- **Evidence:** The standard easy-landmark F16 frozen field export is a 1200×1206
+  PNG with 16 maps and very small per-unit labels. At an ordinary 1000-pixel
+  report width, the labels and maps are too small to inspect; F64 sheets are
+  denser. The selected production report therefore uses readable metric plots
+  and tables while retaining the raw NPZs and full figure set on NEMO2.
+- **Impact:** The numerical field analysis is valid, but readers cannot check
+  field shape or occupancy visually from the default contact sheet at report
+  scale. A superficially complete atlas can conceal this display failure.
+- **Proposed improvement/status:** Open. Add a paged publication/report layout
+  to the canonical frozen-field summarizer, using a verified scalable font and
+  fewer field panels per page. Preserve the underlying NPZ and CSV contracts.
+- **Acceptance:** A representative F16 and F64 page has labels equivalent to at
+  least 12 pt at 1000-pixel viewing width, no clipping, and legible fields and
+  occupancy mask after visual inspection. See the
+  [telemetry guide](04_implementation/reusable_place_field_telemetry.md).
 
 ### Spatial collector rejected declared late milestones — fixed in isolated analysis
 
