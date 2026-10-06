@@ -202,7 +202,7 @@ Environment manipulations are orthogonal to controller architecture and should b
 
 - [[environments_transfer/corridor_geometry_analysis_20260921|Corridor geometry analysis]] crosses architecture families with open/corridor geometry.
 - [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Easy landmark maze qualification]] crosses SCR/DGP/Waypoint with rich versus neutral visual cues while holding maze geometry fixed.
-- [[environments_transfer/easy_landmark_maze_production_analysis_20261006|Easy landmark maze production at 75M]] compares matched-age online behavior, DG maps, frozen fields, and command interventions.
+- [[environments_transfer/easy_landmark_maze_production_analysis_20261006|Easy landmark maze production at 75M]] compares matched-age online behavior, DG fields and trajectories, frozen fields, and command interventions; the [seed-99 atlas](results/easy_landmark_maze_production_20261006/online_atlas_75m/README.md) links every field page and trajectory overview.
 
 **Current lesson:** making sensory states easier to distinguish can help some architectures without repairing a fundamentally goal-insensitive controller; conversely, corridor geometry can reduce exploration even if it simplifies topology.
 

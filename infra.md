@@ -813,19 +813,22 @@ keep implementation guidance in the canonical workflow documents linked below.
   Stage both canonical test StudySpecs, not only the main reference; a missing
   secondary fixture caused one avoidable failed verification run.
 
-### Frozen place-field contact sheets are too dense for reports — 2026-10-06
+### Place-field contact sheets are too dense for reports — 2026-10-06
 
 - **Evidence:** The standard easy-landmark F16 frozen field export is a 1200×1206
   PNG with 16 maps and very small per-unit labels. At an ordinary 1000-pixel
   report width, the labels and maps are too small to inspect; F64 sheets are
-  denser. The selected production report therefore uses readable metric plots
-  and tables while retaining the raw NPZs and full figure set on NEMO2.
+  denser. The canonical 75M online atlas also puts 16 maps on each 1608-pixel
+  page and uses 8-point cue IDs, which become too small at report width. The
+  production report therefore links the full-size atlas and leads with
+  readable all-unit metric tables.
 - **Impact:** The numerical field analysis is valid, but readers cannot check
   field shape or occupancy visually from the default contact sheet at report
   scale. A superficially complete atlas can conceal this display failure.
 - **Proposed improvement/status:** Open. Add a paged publication/report layout
-  to the canonical frozen-field summarizer, using a verified scalable font and
-  fewer field panels per page. Preserve the underlying NPZ and CSV contracts.
+  to the canonical frozen-field summarizer and online atlas renderer, using a
+  verified scalable font and fewer field panels per page. Preserve the
+  underlying NPZ and CSV contracts.
 - **Acceptance:** A representative F16 and F64 page has labels equivalent to at
   least 12 pt at 1000-pixel viewing width, no clipping, and legible fields and
   occupancy mask after visual inspection. See the
