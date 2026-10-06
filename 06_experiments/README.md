@@ -66,7 +66,7 @@ above determines which findings are current.
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Anti-collapse and regularizers | [RESULT: online and place-field anti-collapse](dg_representation/dg_anti_collapse_results.md); [RESULT: encourage-regularizer interim and 50M telemetry](dg_representation/encourage_dg_regularizers_interim_analysis.md); [AUDIT: DGP trivial minimum](dg_representation/dgp_interim_failure_audit_20260907.md) |
+| Anti-collapse and regularizers | [RESULT: online and place-field anti-collapse](dg_representation/dg_anti_collapse_results.md); [RESULT: encourage-regularizer interim and 50M telemetry](dg_representation/encourage_dg_regularizers_interim_analysis.md); [RESULT: DGP 75M outcome and failure audit](dg_representation/dgp_interim_failure_audit_20260907.md) |
 | Structural diversity and manager exploration | [RESULT: online and 10k-decision spatial results](dg_representation/dg_structural_and_manager_exploration_results.md); [RUN: structural-diversity batch](dg_representation/dg_structural_diversity_batch.md) |
 | Corrected core | [RESULT: historical re-evaluation](corrected_core_reevaluation_20260901.md); [TELEMETRY: selected candidates](dg_representation/corrected_core_candidate_place_field_telemetry_20260902.md) |
 | DG capacity and goal conditioning | [RESULT: interim factorial](dg_representation/dg_capacity_goal_conditioning_interim_20260911.md); [AUDIT: later run health](dg_representation/dg_capacity_health_20260913.md); [PLAN: matrix](dg_representation/dg_capacity_goal_conditioning_plan_20260910.md); [RUN: launch](dg_representation/dg_capacity_goal_conditioning_launch_20260910.md) |

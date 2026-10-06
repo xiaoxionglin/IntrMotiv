@@ -115,6 +115,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   protocol. A local-link and obsolete-reference check passes after any report
   merge. Use the [standard report structure](06_experiments/README.md#6-standard-report-structure-going-forward)
   for updates.
+- **DGP follow-up (2026-10-06):** The DGP result owner still led with its
+  23M running-batch diagnosis although all 24 runs and 96 spatial milestones
+  had completed. The existing audit now begins with the full 75M factorial
+  outcome and retains the interim text as dated history; the experiment index
+  points to that owner. For similar studies, check whether a later complete
+  collector manifest exists before updating an interim narrative, and promote
+  full-matrix results in the same report rather than creating another owner.
 
 ### Spatial summary exports need protocol and capacity provenance — 2026-09-28
 

@@ -1,18 +1,106 @@
-# IntrMotiv Batch Regression and Trivial-Minimum Audit
+# DG Policy Gradient and First-Outcome Batch: 75M Outcome and Failure Audit
 
-**2026-09-08 follow-up:** The completed 75M study shows late spatial
-specialization in several JOINT–legacy runs, including seed 123 under HIT.
-The control diagnosis below remains relevant, but the prediction about limited
-late representation learning needs qualification. See the
-[completed outlier audit](../syntheses/late_training_outliers_20260908.md), including
-100k-sample snapshots and matched gradient/interface comparisons.
+**Completed-batch update (2026-10-06):** The first section now synthesizes all
+24 production runs at the declared 75M horizon. The original 23M diagnosis and
+design ledger are retained below as a dated interpretation. The separate
+[outlier audit](../syntheses/late_training_outliers_20260908.md) supplies
+selected field maps and the late-specialization case study.
 
 **Date:** 2026-09-07  
 **Current study:** `dg_policy_gradient_first_outcome_20260906`  
 **Study SHA-256:** `2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5`  
-**Current status at audit:** 24/24 jobs running; synchronized W&B comparison through 23M environment steps
+**Status:** 24/24 production runs completed; common saved 75M checkpoint at 75,005,952 frames. The original interim audit covered 20–23M.
 
-## Executive diagnosis
+## Completed 75M production outcome
+
+The full $2\times2\times2$ factorial study crosses HIT/FIRST worker outcomes,
+STOP/JOINT PPO-to-DG gradients, and legacy/FiLM goal input, with seeds 8, 99,
+and 123 in every cell. The 65–75M training window contains all 24 runs; the
+canonical 100k-observation spatial collector found all 96 declared milestone
+snapshots (5M, 25M, 50M, and 75M). All terminal snapshots have 16/16 active
+DG units. The table separates training-window behavior from 75M snapshot
+measurements. Values are equal-weight means over three trained seeds, not
+independent logging samples.
+
+| Outcome · gradient · input | Coverage AUC, 65–75M | Option completion, 65–75M | Action sensitivity, 65–75M | 75M mono-field units / 16 | 75M active-map cosine | 75M reliable graph reachability |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| FIRST · JOINT · FiLM | 34.1 | 6.50% | 0.0373 | 0.0 | 0.191 | 3.1% |
+| FIRST · JOINT · legacy | 41.6 | 7.03% | 0.0142 | 2.7 | 0.130 | 4.7% |
+| FIRST · STOP · FiLM | 41.0 | 6.67% | 0.0283 | 0.7 | 0.164 | 1.1% |
+| FIRST · STOP · legacy | 41.6 | 6.64% | 0.0166 | 0.0 | 0.168 | 2.4% |
+| HIT · JOINT · FiLM | 39.4 | 52.38% | 0.0123 | 1.0 | 0.177 | 93.9% |
+| HIT · JOINT · legacy | 34.5 | 51.04% | 0.0066 | 2.0 | 0.127 | 96.1% |
+| HIT · STOP · FiLM | 38.0 | 49.92% | 0.0122 | 0.3 | 0.147 | 100.0% |
+| HIT · STOP · legacy | 35.7 | 49.55% | 0.0050 | 0.7 | 0.160 | 89.9% |
+
+**Control inference.** All conditions have 15 candidate targets per source
+in the final window: the nominal `local_successor` curriculum has saturated
+to the full 240 directed pairs. In the sampled-history window summaries,
+the ratio of summed run-level mean counters across the twelve FIRST runs is
+6.05% commanded first outcomes versus 6.71% for source-matched shuffled
+commands (lift 0.903). Every FIRST run's 65–75M first-outcome lift is below
+one. Their mean option completion is 6.71%, close to the $1/15$ chance
+reference. The corresponding HIT target-hit rates are 2.046% versus 2.041%
+shuffled (lift 1.002), despite 50.72% mean option completion.
+These logged commanded/shuffled events and completion metrics have different
+denominators; the close rates, not the raw completion percentages, support the
+absence of demonstrated command specificity. HIT graph reachability averages
+95.0%, while FIRST averages 2.8%; the outcome contrast reverses graph density
+in all twelve matched seed/interface/gradient pairs. Prospective graph-success
+fractions differ by outcome definition and do not supply a comparable
+physical-arrival effect. The bounded frozen command probes in the
+[C15 variant survey](../results/A0_poster_analysis_20260926/c15_variants/report.md)
+cover only selected JOINT–legacy arms and incomplete ordered-pair panels;
+they do not establish full-batch causal control.
+
+**Representation inference.** At the canonical milestones, mean mono-field
+fraction changes from 0.78% at 5M to 3.13% at 25M and 5.73% at both 50M and
+75M. Active-only map cosine falls from 0.341 to 0.158, and mean spatial
+information rises from 0.056 to 0.141. All units remain active; mean visited
+grid-bin fraction changes only from 88.1% to 87.6%. Thus the early statement
+that longer training would only repeat an uninformative representation was too
+strong. At 75M, JOINT minus STOP under legacy input improves mono-field
+fraction by 12.5 percentage points and lowers map cosine by 0.0359 across the
+six outcome-by-seed pairs; cosine improves in all six. Under FiLM, the matched
+mono-field difference is zero and cosine worsens by 0.0289 on average.
+The strongest selected case, HIT–JOINT–legacy seed 123, reaches five
+single-field units, but their qualifying peaks cluster in one corner; its
+65–75M target-hit lift is 0.997. These are policy-driven online fields, so
+neither map improvement nor the small nonzero grounded graph scores prove
+stable identities or commanded arrival.
+
+**Training trajectory and decision.** Mean coverage AUC falls from 58.5 in
+5–15M to 38.2 in 65–75M, while mean target-action sensitivity rises from
+0.0043 to 0.0165. Mean FIRST lift remains below one throughout the saved
+windows; mean HIT lift stays near one. The production horizon therefore supports the
+candidate-saturation and accidental-hit diagnosis, while allowing a useful
+representation-learning effect of JOINT with legacy input. Reusing FIRST for
+training requires an expiring, substantively local candidate relation and a
+matched-command test of outcome selection. Extending this exact saturated
+curriculum past 75M is not supported by the observed control evidence.
+
+**Sources and limits.** The authoritative run identities and contrasts are in
+the [production StudySpec](../../hpc_runs/studies/dg_policy_gradient_first_outcome.study.json),
+schema `intrmotiv/study/v1`, declared workflow `1.4.1`, SHA-256
+`2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5`.
+The [complete milestone table](../results/late_outliers_20260908/dgp_snapshots/per_snapshot.csv)
+and [collector manifest](../results/late_outliers_20260908/dgp_snapshots/analysis_manifest.json)
+were produced with workflow `1.5.0`; the
+[saved 65–75M window rows](../results/late_outliers_20260908/window_metrics.csv)
+provide the training metrics. The [paired spatial effects](../results/late_outliers_20260908/snapshot_paired_effects.csv)
+and [C15 survey](../results/A0_poster_analysis_20260926/c15_variants/report.md)
+are cross-checks. The training histories were sampled at up to 10,000 rows per
+run, so the window-counter ratios are diagnostic summaries rather than exact
+full-history event estimates. Three seeds per cell support descriptive matched
+effects, not a general significance claim. No new evaluator rollout or raw
+trajectory analysis was run for this update.
+
+## Original 23M executive diagnosis (historical)
+
+The sections from here through the original artifacts list record what was
+known on September 7. Their present-tense references to the running batch,
+predictions about later training, and 50M early-stop option are superseded by
+the completed 75M analysis above.
 
 The current batch has not frozen numerically, but it has converged early to
 uninformative equilibria. The decisive common-factor failure is the
