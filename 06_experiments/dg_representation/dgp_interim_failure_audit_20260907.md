@@ -6,6 +6,10 @@ design ledger are retained below as a dated interpretation. The separate
 [outlier audit](../syntheses/late_training_outliers_20260908.md) supplies
 selected field maps and the late-specialization case study.
 
+**Use decision:** These runs are unsuitable as evidence of broadly sampled,
+distributed place fields. The online 88% bin-visit statistic pools many short
+trajectory fragments; the frozen probes show sharply concentrated occupancy.
+
 **Date:** 2026-09-07  
 **Current study:** `dg_policy_gradient_first_outcome_20260906`  
 **Study SHA-256:** `2e3104c975188e7cddeb71bce8816c0f4f0d6eb96688c44e0ea2b7560b5447b5`  
@@ -56,8 +60,9 @@ they do not establish full-batch causal control.
 **Representation inference.** At the canonical milestones, mean mono-field
 fraction changes from 0.78% at 5M to 3.13% at 25M and 5.73% at both 50M and
 75M. Active-only map cosine falls from 0.341 to 0.158, and mean amplitude-weighted spatial
-score rises from 0.056 to 0.141. All units remain active; mean visited
-grid-bin fraction changes only from 88.1% to 87.6%. Thus the early statement
+score rises from 0.056 to 0.141. All units remain active. The 100k online
+bin-union statistic changes from 88.1% to 87.6%, but does not imply broad
+sampling along individual paths. Thus the early statement
 that longer training would only repeat an uninformative representation was too
 strong. At 75M, JOINT minus STOP under legacy input improves mono-field
 fraction by 12.5 percentage points and lowers map cosine by 0.0359 across the
@@ -66,8 +71,10 @@ mono-field difference is zero and cosine worsens by 0.0289 on average.
 The strongest selected case, HIT–JOINT–legacy seed 123, reaches five
 single-field units, but their qualifying peaks cluster in one corner; its
 65–75M target-hit lift is 0.997. These are policy-driven online fields, so
-neither map improvement nor the small nonzero grounded graph scores prove
-stable identities or commanded arrival.
+the scalar map improvement is local specialization under biased exposure,
+not evidence of a usable distributed place-field code. Neither it nor the
+small nonzero grounded graph scores prove stable identities or commanded
+arrival.
 
 ### Place fields and trajectories
 
@@ -87,23 +94,67 @@ region, while other units remain broad or multi-component. The
 show additional selected outcomes, not a representative sample of the full
 factorial matrix.
 
-| 100k online window | Visited grid bins | Stationary physical steps | Segment displacement / path length | Mean physical step distance | Distinct DG peak bins |
+| 100k online window | Bins visited at least once across the window | Stationary physical steps | Segment displacement / path length | Mean physical step distance | Distinct DG peak bins |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | 5M, mean of 24 runs | 88.1% | 2.9% | 0.242 | 34.2 | 15.2 / 16 |
 | 75M, mean of 24 runs | 87.6% | 1.9% | 0.095 | 33.5 | 15.0 / 16 |
 
 "Stationary" means a physical step of at most one environment unit. The
-agents keep moving and visit a similar fraction of the arena in the retained
-window, but their within-segment net displacement per distance traveled is
-lower at 75M. Across the eight terminal cells, mean path efficiency spans
-0.088–0.103 and visited grid-bin fraction spans 86.3–88.1%, so the field
-differences do not track a large difference in gross arena visitation. The
-displacement/path ratio depends on segment lengths and reset
-boundaries; it is a trajectory-shape diagnostic, not a causal measure of
-exploration or goal pursuit. In the focal seed-123 path, highlighted late
-segments repeatedly sample the corner where its qualifying fields lie.
-This aligns the field cluster with exposure, but does not establish whether
-the trajectory caused the fields or the learned policy was drawn to them.
+100k bin statistic counts a location after only one visit and pools many
+separate path segments. The three selected online DGP pages each contain
+1,686–1,693 segments; their 85–88% bin union is therefore a poor measure
+of sustained spatial sampling. Within-segment net displacement per distance
+traveled also falls from 0.242 at 5M to 0.095 at 75M, although that ratio
+depends on segment lengths and reset boundaries. In the focal seed-123 path,
+highlighted late segments repeatedly sample the corner where its qualifying
+fields lie. This aligns the field cluster with exposure, but does not establish
+whether the trajectory caused the fields or the learned policy was drawn to
+them.
+
+The six selected JOINT–legacy HIT/FIRST frozen-policy probes at 75,038,720
+frames give a clearer occupancy check on 10,001 recorded samples per probe.
+They visit only **176–257 of 361** grid bins (49–71%). More
+decisively, their ten most occupied bins contain **50–78% of all samples**;
+the occupancy-weighted effective number of bins, $1/\sum_i p_i^2$, is only
+**7.8–31.0**. Thus even runs with many visited bins spend most of their time
+in a very small part of the arena. These six are selected probes, not the
+full 24-run frozen panel. Their [retained occupancy inputs](../data/poster_missing_analyses_20260926/top_four_frozen_fields/)
+and [frozen-probe summary](../data/poster_missing_analyses_20260926/frozen_place_field_summary.csv)
+support this bounded conclusion.
+
+| JOINT–legacy frozen probe | Visited bins / 361 | Samples in top 10 bins | Effective occupied bins |
+| --- | ---: | ---: | ---: |
+| FIRST, seed 8 | 237 | 68.5% | 16.6 |
+| FIRST, seed 99 | 191 | 77.6% | 7.8 |
+| FIRST, seed 123 | 193 | 68.8% | 14.7 |
+| HIT, seed 8 | 220 | 49.8% | 31.0 |
+| HIT, seed 99 | 257 | 72.0% | 12.0 |
+| HIT, seed 123 | 176 | 73.1% | 15.0 |
+
+### Likely cause of constrained coverage
+
+The strongest identifiable shared change is the target curriculum.
+`local_successor` admits an edge after any positive passive evidence and
+balances commands by least-tested attempts. By 5M it has effectively all
+15 alternatives per source, so the worker spends its control attempts on
+an all-pairs objective rather than the original C15 UCB frontier curriculum
+that prioritized uncertain frontier discovery. The explicit manager
+exploration mode is disabled in the StudySpec, so this substitution removes
+the manager's direct frontier priority once the local-successor set saturates.
+This is a mechanism-based inference, not an isolated ablation.
+
+The within-study trajectory is consistent with that mechanism: **all 24 runs**
+have lower training coverage AUC at 65–75M than at 5–15M (mean 58.5 to 38.2),
+regardless of HIT/FIRST, STOP/JOINT, or legacy/FiLM. FIRST is near chance
+for first outcomes; HIT rewards recurrent accidental target contact without
+command specificity. Neither outcome supplies a reliable directional signal
+to expand the sampled region. ARR DG credit then learns primarily from where
+the policy repeatedly goes, allowing fields to sharpen around a favored
+corner. This last representation-feedback step is plausible but has not been
+isolated experimentally. Original C15's reported UCB-frontier coverage AUC
+was 78.6 at its 100M endpoint; that historical, unequal-age comparator
+supports prioritizing the curriculum explanation but cannot identify its
+effect alone.
 
 The retained 100k snapshots are policy-driven, thresholded online samples.
 The [six selected 10k frozen-policy place-field probes](../results/A0_poster_analysis_20260926/exemplar_gallery/run_index.md)
@@ -117,8 +168,9 @@ amplitude; they are not normalized bits per activation.
 5–15M to 38.2 in 65–75M, while mean target-action sensitivity rises from
 0.0043 to 0.0165. Mean FIRST lift remains below one throughout the saved
 windows; mean HIT lift stays near one. The production horizon therefore supports the
-candidate-saturation and accidental-hit diagnosis, while allowing a useful
-representation-learning effect of JOINT with legacy input. Reusing FIRST for
+candidate-saturation and accidental-hit diagnosis. JOINT with legacy input
+can sharpen maps under the observed paths, but these runs should not be used
+as distributed place-field exemplars. Reusing FIRST for
 training requires an expiring, substantively local candidate relation and a
 matched-command test of outcome selection. Extending this exact saturated
 curriculum past 75M is not supported by the observed control evidence.
@@ -136,8 +188,10 @@ and [C15 survey](../results/A0_poster_analysis_20260926/c15_variants/report.md)
 are cross-checks. The training histories were sampled at up to 10,000 rows per
 run, so the window-counter ratios are diagnostic summaries rather than exact
 full-history event estimates. Three seeds per cell support descriptive matched
-effects, not a general significance claim. No new evaluator rollout or raw
-trajectory analysis was run for this update.
+effects, not a general significance claim. No new evaluator rollout was run;
+the frozen-probe occupancy check reads six saved `occupancy` arrays, counts
+nonzero bins, sums the ten largest bin counts, and computes
+$1/\sum_i p_i^2$ after normalizing bin counts.
 
 ## Original 23M executive diagnosis (historical)
 

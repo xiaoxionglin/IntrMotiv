@@ -127,7 +127,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   owner now distinguishes all-run online field/path summaries, selected map
   pages, and selected frozen probes. Future full-matrix syntheses should check
   the canonical collector's spatial and trajectory columns before declaring
-  representation evidence complete.
+  representation evidence complete. The later occupancy check exposed a
+  second failure: `visited_cell_fraction` counts bins touched once across
+  100k samples and roughly 1,690 trajectory fragments in selected DGP runs.
+  Six frozen probes concentrated 50–78% of observations in ten bins despite
+  much larger bin unions. Report occupied-bin fraction alongside concentration
+  and path segmentation, and withhold distributed-field claims when the
+  sampling distribution is narrow.
 
 ### Spatial summary exports need protocol and capacity provenance — 2026-09-28
 
