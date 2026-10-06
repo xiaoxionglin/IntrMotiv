@@ -1321,8 +1321,12 @@ For each finding, record:
   width/gain test. A corrected local ON/HEBB4 full-learner run completed at
   135,168 frames with exit code zero. Four remote qualifications used the old
   source and must be replaced after corrected-source NEMO2 tests pass.
-  A reusable progress watchdog remains proposed; remote process inspection is
-  pending NEMO2 access.
+  NEMO2 access resumed after the user's manual login. The four superseded jobs
+  were cancelled, and corrected jobs 8290652–8290655 each finished with exit
+  code zero beyond their 524,288-frame target. The corrected source passed 57
+  focused remote tests; an early four-cell production gate then passed before
+  all 40 declared cells were submitted. A reusable progress watchdog remains
+  proposed because Slurm `RUNNING` alone did not reveal the earlier stall.
 - **Acceptance criteria:** A short qualification either reaches its declared frame
   target or exits with an actionable phase and exception. A focused regression test
   reproduces any confirmed runtime defect without relying on wall-clock timing.
