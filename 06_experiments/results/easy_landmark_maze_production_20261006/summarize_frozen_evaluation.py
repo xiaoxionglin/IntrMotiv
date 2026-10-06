@@ -170,6 +170,8 @@ def validate_intervention_trials(path: Path, summary: dict) -> None:
             if len(a) != len(b):
                 raise ValueError(f"Action dimension mismatch: {path}")
             action_distances.append(sum(abs(x - y) for x, y in zip(a, b)) / 2)
+    if not action_distances:
+        raise ValueError(f"No matched action distributions: {path}")
     if not math.isclose(
         sum(action_distances) / len(action_distances),
         summary["mean_initial_action_total_variation"],
@@ -192,6 +194,8 @@ def validate_intervention_trials(path: Path, summary: dict) -> None:
             if len(actual) != 1:
                 raise ValueError(f"Multiple commanded rows in one matched target: {path}")
             differences.append(float(actual[0]) - sum(alternate) / len(alternate))
+    if not differences:
+        raise ValueError(f"No paired arrival comparisons: {path}")
     if len(differences) != summary["paired_comparisons"] or not math.isclose(
         sum(differences) / len(differences), summary["paired_arrival_lift"], abs_tol=1e-9
     ):
