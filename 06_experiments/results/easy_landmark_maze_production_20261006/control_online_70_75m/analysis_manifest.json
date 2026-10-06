@@ -1,0 +1,53 @@
+{
+  "batch_name": "easy_landmark_maze_control_20260923",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/analysis/easy_landmark_maze_production_20261006/control_online_70_75m/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        70000000,
+        75000000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [],
+  "expected_runs": 3,
+  "group_by": [
+    "base"
+  ],
+  "input_rows": 3,
+  "metrics": [
+    "accessible_coverage_auc",
+    "accessible_coverage_fraction",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "option_success",
+    "target_action_sensitivity",
+    "grounded_controllability",
+    "reliable_global_efficiency",
+    "largest_scc",
+    "reachable_pair_fraction",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "replay_mismatch",
+    "ppo_dg_gradient_norm",
+    "encoder_gradient_norm"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "easy_landmark_maze_control_20260923",
+  "study_sha256": "50274cebfb701d5e52c9c9682ea322c74afb13fa0add7e6a7e635aac8b0c835f",
+  "study_spec": "hpc_runs/studies/easy_landmark_maze_control.study.json",
+  "study_workflow_version": "1.12.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0"
+}

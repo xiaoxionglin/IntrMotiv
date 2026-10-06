@@ -1,0 +1,24 @@
+{
+  "batch_name": "easy_landmark_maze_control_20260923",
+  "commands_match_study": true,
+  "expected_runs": 3,
+  "job_ids": [
+    "8180997",
+    "8180998",
+    "8180999"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/_slurm/easy_landmark_maze_control_20260923/submitted_production_20260924/jobs.tsv",
+  "rows": 3,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 3
+  },
+  "study_id": "easy_landmark_maze_control_20260923",
+  "study_sha256": "b8c3305cc8e6257567508ff9daf4e178a63ec4a11df62194aefcce55c3cdf5f9",
+  "study_spec": "/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/analysis/easy_landmark_maze_production_20261006/specs/easy_landmark_maze_control_75m_analysis.study.json",
+  "study_workflow_version": "1.12.0",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0",
+  "workspace_paths_valid": true
+}
