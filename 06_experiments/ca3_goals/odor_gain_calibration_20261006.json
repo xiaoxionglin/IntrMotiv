@@ -1,0 +1,43 @@
+{
+  "schema": "intrmotiv/odor-gain-calibration/v1",
+  "study_sha256": "863c3f1d8081b4f978b64c449b1ad2903d93d573d128388438b936842f7ae76b",
+  "decisions": 10000,
+  "action_seed": 778,
+  "reset_seed": 777,
+  "trajectory_sha256": "a2e8170ebfea06692df0139881fe96513df1a9f9ca2d40c0d945a59344ffb4f6",
+  "map_lua_sha256": "583f8fc9552a03db91e01045abf0aa4800bebb3b7acc6d730e49ee47061e1d1e",
+  "position_min_xy": [
+    116.125,
+    116.125
+  ],
+  "position_max_xy": [
+    1983.875,
+    1983.875
+  ],
+  "odor_centers": [
+    [
+      575.0,
+      575.0
+    ],
+    [
+      575.0,
+      1525.0
+    ],
+    [
+      1525.0,
+      575.0
+    ],
+    [
+      1525.0,
+      1525.0
+    ]
+  ],
+  "odor_spatial_sigma": 350.0,
+  "odor_noise_std": 0.15,
+  "mean_visual_block_norm": 17.896446438598634,
+  "visual_block_norm_std": 0.5167951091326161,
+  "mean_clean_odor_norm": 0.41926961545199154,
+  "mean_noisy_odor_norm_unscaled": 0.5064984175898135,
+  "odor_gain": 42.68481611601036,
+  "production_study_sha256": "f4e1c5d7d3be4178c095432ad3481d4c09cddcc8c674db6119a39ff0f2823e91"
+}

@@ -11,7 +11,8 @@
     "odor_centers": "(575,575);(575,1525);(1525,575);(1525,1525)",
     "odor_spatial_sigma": 350,
     "odor_noise_std": 0.15,
-    "odor_gain_calibration": "pending fixed 10000-decision separate trajectory"
+    "odor_gain_calibration": "06_experiments/ca3_goals/odor_gain_calibration_20261006.json",
+    "odor_map_lua_sha256": "583f8fc9552a03db91e01045abf0aa4800bebb3b7acc6d730e49ee47061e1d1e"
   },
   "training": {
     "mode": "sample_factory",
@@ -169,7 +170,8 @@
       "--ca3_goal_quality_alpha=0.01",
       "--ca3_goal_quality_support_prior=100",
       "--dg_odor_noise_std=0.15",
-      "--dg_odor_gain=1.0"
+      "--dg_odor_gain=42.68481611601036",
+      "--online_spatial_snapshot_targets=5000000,10000000,25000000,50000000,75000000"
     ]
   },
   "bases": [
@@ -661,6 +663,13 @@
       "record_orientation_bins": true,
       "source_context_matched_shuffle": true,
       "counterfactual_action_sensitivity": true
-    }
+    },
+    "online_spatial_target_frames": [
+      5000000,
+      10000000,
+      25000000,
+      50000000,
+      75000000
+    ]
   }
 }
