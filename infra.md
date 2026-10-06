@@ -613,6 +613,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   print-only validation; no full sweep has been submitted.
 - **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md).
 
+### Newer workflow cannot audit the historical landmark launch — 2026-10-06
+
+- **Evidence:** Workflow 1.14 rejected the unchanged 1.12 easy-landmark `jobs.tsv` because it rendered an extra `--depth_sensor_inverse=False` argument for every depth-enabled run. The pinned 1.12 workflow audited the same submitted rich and neutral manifests successfully, including analysis-only StudySpecs whose training rows are unchanged.
+- **Impact:** Running a recent `audit-submission` against a historical launch can report a false command mismatch even when the newer workflow preserves the intended pass-through depth semantics. This complicates provenance review and risks prompting needless edits to submitted StudySpecs.
+- **Proposed improvement/status:** Open. Add version-aware audit compatibility for a documented, semantically identical historical default while retaining strict comparison of all actual training arguments. Keep the launch-era workflow available as the current workaround; use the verified 1.14 source only for its geometry-correct evaluator.
+- **Acceptance:** A focused regression fixture audits the original 1.12 landmark `jobs.tsv` under the current workflow without changing the submitted StudySpec or hiding a real depth-mode mismatch. See the [standardized workflow](04_implementation/standardized_study_workflow.md).
+
 ### Stored controller replay was duplicated into evaluation checkpoints
 
 - **Evidence:** The September 23 NEMO2 audit found 4.514 TiB of checkpoint files

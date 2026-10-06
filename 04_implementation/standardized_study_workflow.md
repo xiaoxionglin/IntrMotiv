@@ -25,6 +25,12 @@ was declared. This keeps historical study meanings and fingerprints intact.
 A study declaring 1.13 uses inverse depth by default and may explicitly pass
 `--depth_sensor_inverse=False` for a pass-through control. Saved training
 configs retain their prior depth response on resume.
+For an unchanged depth-enabled 1.12 landmark launch, run `audit-submission`
+with its pinned 1.12 workflow: 1.14 renders the explicit compatibility switch
+and rejects the original command text. Keep the submitted StudySpec immutable.
+The [infrastructure tracker](../infra.md) records the general version-aware
+audit fix; the verified 1.14 evaluator can consume manifests rendered by the
+pinned workflow.
 
 Version 1.14 defaults fresh IntrMotiv runs to eight roughly evenly spaced
 evaluation milestones across the planned `train_for_env_steps`, including the
