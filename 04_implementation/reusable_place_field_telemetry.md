@@ -778,6 +778,21 @@ engine construction can dominate wall time even with an 8k-decision cap. A
 one-source panel with four targets and five repeats exercises the same evaluator;
 record that qualification override explicitly and preserve the production panel.
 Do not silently shrink scientific evaluation when a qualification panel is slow.
+For the [easy-landmark 75M analysis](../06_experiments/environments_transfer/easy_landmark_maze_production_analysis_20261006.md),
+a declared four-source pilot passed before twelve ordinary four-source jobs;
+all exited zero, but two rows had only four repeats for one source. Preserve
+`sources_evaluated`, `supported_sources`, `starts_evaluated`,
+`paired_comparisons`, `missing`, and censoring in restricted-panel reports,
+and recompute summary endpoints from trial CSVs. This operational result does
+not make a full unsharded source sweep safe.
+
+In that same study, twelve twenty-episode uniform-random JSON outputs were
+byte-identical because geometry, action set, reset seeds, and action seeds
+matched. A future manifest-aware baseline-reuse contract could avoid
+recomputing them; until it validates and records the source artifact and
+environment contract, retain the current per-row evaluator output rather
+than substituting a baseline by hand. The [infrastructure tracker](../infra.md)
+records acceptance criteria.
 For the 100-episode production coverage jobs, request an explicit longer wall
 limit (for example `--time-limit 24:00:00`), rather than the one-hour field-only
 default. Keep per-job TMPDIR short and beneath the allocated workspace root.

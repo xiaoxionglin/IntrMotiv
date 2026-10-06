@@ -1,4 +1,4 @@
-"""Render the matched-age landmark cue comparison from canonical CSV outputs."""
+"""Render online, frozen, and command comparisons from canonical CSV outputs."""
 
 from pathlib import Path
 
@@ -17,6 +17,40 @@ BASE_LABELS = {
 BASE_ORDER = list(BASE_LABELS)
 RICH_SEEDS = (8, 99, 123)
 RICH_OFFSETS = {8: -0.03, 99: 0.12, 123: 0.27}
+
+
+def plot_condition_points(ax, rich, neutral, metric: str) -> None:
+    """Show the one neutral seed and three rich seeds within each family."""
+    for index, base in enumerate(BASE_ORDER):
+        neutral_value = neutral.loc[neutral.base == base, metric].iloc[0]
+        ax.scatter(
+            index - 0.22,
+            neutral_value,
+            s=140,
+            marker="D",
+            color="#56545c",
+            label="Neutral, seed 99" if index == 0 else None,
+            zorder=3,
+        )
+        for seed in RICH_SEEDS:
+            rich_value = rich.loc[(rich.base == base) & (rich.seed == seed), metric].iloc[0]
+            ax.scatter(
+                index + RICH_OFFSETS[seed],
+                rich_value,
+                s=150,
+                marker="o",
+                color="#2274aa",
+                edgecolor="white",
+                linewidth=1,
+                label="Rich, seeds 8/99/123" if index == 0 and seed == 8 else None,
+                zorder=3,
+            )
+    ax.set_xticks(range(len(BASE_ORDER)), [BASE_LABELS[base] for base in BASE_ORDER])
+    ax.set_xlim(-0.5, len(BASE_ORDER) - 0.5)
+    ax.grid(axis="y", color="#d7dce1", linewidth=1)
+    ax.set_axisbelow(True)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.tick_params(labelsize=17)
 
 
 def main() -> None:
@@ -51,38 +85,9 @@ def main() -> None:
     ]
     fig, axes = plt.subplots(1, 2, figsize=(13, 6.5), dpi=100, layout="constrained")
     for ax, (rich, neutral, metric, title, ylabel) in zip(axes, panels):
-        for index, base in enumerate(BASE_ORDER):
-            neutral_value = neutral.loc[neutral.base == base, metric].iloc[0]
-            ax.scatter(
-                index - 0.22,
-                neutral_value,
-                s=140,
-                marker="D",
-                color="#56545c",
-                label="Neutral, seed 99" if index == 0 else None,
-                zorder=3,
-            )
-            for seed in RICH_SEEDS:
-                rich_value = rich.loc[(rich.base == base) & (rich.seed == seed), metric].iloc[0]
-                ax.scatter(
-                    index + RICH_OFFSETS[seed],
-                    rich_value,
-                    s=150,
-                    marker="o",
-                    color="#2274aa",
-                    edgecolor="white",
-                    linewidth=1,
-                    label="Rich, seeds 8/99/123" if index == 0 and seed == 8 else None,
-                    zorder=3,
-                )
-        ax.set_xticks(range(len(BASE_ORDER)), [BASE_LABELS[base] for base in BASE_ORDER])
-        ax.set_xlim(-0.5, len(BASE_ORDER) - 0.5)
+        plot_condition_points(ax, rich, neutral, metric)
         ax.set_title(title, fontsize=20, loc="left", pad=14)
         ax.set_ylabel(ylabel, fontsize=17)
-        ax.grid(axis="y", color="#d7dce1", linewidth=1)
-        ax.set_axisbelow(True)
-        ax.spines[["top", "right"]].set_visible(False)
-        ax.tick_params(labelsize=17)
     axes[0].legend(loc="upper left", frameon=False, fontsize=16)
     FIGURES.mkdir(exist_ok=True)
     fig.savefig(FIGURES / "online_cue_comparison_75m.png", dpi=100)
@@ -124,6 +129,33 @@ def main() -> None:
     axes[0].legend(frameon=False, fontsize=16)
     fig.savefig(FIGURES / "seed99_map_separation_over_time.png", dpi=100)
     fig.savefig(FIGURES / "seed99_map_separation_over_time.pdf")
+    plt.close(fig)
+
+    interventions = pd.read_csv(ROOT / "four_source_interventions_per_run.csv")
+    interventions["base"] = interventions.family.map(
+        {"scr": "SCR_ARR_DIRS", "dgp": "DGP_HIT_JOINT_LEG", "waypoint": "WAYPOINT_F64_DDQN_HER"}
+    )
+    rich = interventions.loc[interventions.cue == "rich"]
+    neutral = interventions.loc[interventions.cue == "control"]
+    fig, axes = plt.subplots(1, 2, figsize=(13, 6.5), dpi=100, layout="constrained")
+    for ax, metric, title, ylabel in (
+        (axes[0], "paired_arrival_lift", "A  Command-caused arrival", "Paired arrival lift"),
+        (
+            axes[1],
+            "mean_initial_action_total_variation",
+            "B  Immediate action change",
+            "Initial-action total variation",
+        ),
+    ):
+        plot_condition_points(ax, rich, neutral, metric)
+        ax.set_title(title, fontsize=20, loc="left", pad=14)
+        ax.set_ylabel(ylabel, fontsize=17)
+    axes[0].axhline(0, color="#333333", linewidth=1.4)
+    axes[0].set_ylim(-0.07, 0.07)
+    axes[1].set_ylim(0, 0.34)
+    axes[0].legend(loc="upper left", frameon=False, fontsize=16)
+    fig.savefig(FIGURES / "four_source_command_control_75m.png", dpi=100)
+    fig.savefig(FIGURES / "four_source_command_control_75m.pdf")
     plt.close(fig)
 
 

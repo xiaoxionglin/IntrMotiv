@@ -40,7 +40,7 @@ def coverage_rows() -> tuple[list[dict], list[dict]]:
     episode_rows = []
     for cue in CUES:
         base = ROOT / f"{cue}_frozen"
-        for item in manifest_rows(base / "trajectory_manifest.tsv"):
+        for item in manifest_rows(base / "analysis_manifest.tsv"):
             label = item["label_suffix"]
             raw = base / "evaluation" / "raw"
             policy = read_json(unique_artifact(raw, label, "policy_episode_coverage.json"))

@@ -611,8 +611,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   completed with exit code zero, a 9-by-9 NPZ, verified `[100, 1000]` bounds,
   pre-threshold arrays, and a valid summary. The 12-row 10k plan passed
   print-only validation; all twelve 75M field NPZs and canonical summaries
-  were generated in the 2026-10-06 production sweep. Its matched complete-episode
-  coverage jobs remain in progress.
+  were generated in the 2026-10-06 production sweep. All twelve matched
+  twenty-policy/twenty-random complete-episode jobs exited zero, and the
+  checked report retains their 240 paired episode summaries.
 - **Acceptance:** A 500-decision landmark job writes a 9-by-9 NPZ with verified bounds, geometry fields, thresholded and pre-threshold maps, no traceback, and a valid summary; focused v1 corridor and v2 landmark tests pass on the exact NEMO2 checkout. Then print/review the 12-row 10k plan before submission. See the [telemetry workflow](04_implementation/reusable_place_field_telemetry.md) and [landmark analysis](06_experiments/environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md).
 
 ### Newer workflow cannot audit the historical landmark launch — 2026-10-06
@@ -767,8 +768,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   an audited merge; exact matching must remain mandatory. The easy-landmark
   75M four-source pilot `8282298` completed in 33 minutes after 102 fresh
   engine constructions, with 20 exact starts, 80 paired comparisons, no
-  censoring, and no buffer overflow. Twelve four-source rows are in progress;
-  this bounded analysis does not replace a process-sharded full-source panel.
+  censoring, and no buffer overflow. All twelve four-source rows then exited
+  zero, giving 952 paired comparisons with no censoring; two rich DGP rows
+  had one source with four rather than five starts, and the missing repeat is
+  explicit. This bounded analysis does not replace a process-sharded
+  full-source panel.
   Evidence is tracked in the
   [corridor record](06_experiments/environments_transfer/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
@@ -829,9 +833,9 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ### Matched uniform-random coverage is recomputed per checkpoint — 2026-10-06
 
-- **Evidence:** The first eleven completed 75M easy-landmark frozen jobs each
+- **Evidence:** All twelve completed 75M easy-landmark frozen jobs each
   ran twenty fresh-engine uniform-random episodes after their policy episodes.
-  All eleven `uniform_random_episode_coverage.json` files are byte-identical
+  All twelve `uniform_random_episode_coverage.json` files are byte-identical
   (SHA-256 `3ceb7cad0c5a734fc9c65463b78b42b4c9f47eb6122786ecc29522db8dc52eb5`):
   same verified geometry, reset/action seeds, action set, and coverage curves
   despite rich/neutral visuals and different checkpoints.
