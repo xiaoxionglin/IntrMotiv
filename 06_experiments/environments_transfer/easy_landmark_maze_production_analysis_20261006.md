@@ -62,13 +62,23 @@ The geometry-correct evaluator sampled 10,000 stochastic-policy decisions at the
 
 The evaluator's `visited_cell_fraction` uses all 81 interior grid bins. The 74 traversable-cell denominator is appropriate when interpreting Waypoint's 74/81 as full accessible-cell visitation; the other counts should be read with the same distinction. Rich Waypoint's frozen probe activates many more DG units at seed 99, but this does not show that the goal-conditioned controller uses their identities. Rich DGP's frozen maps have less overlap and higher spatial information at seed 99 while still concentrating active peaks in six bins. Its pre-threshold maps have 13 peak bins versus nine in neutral, whereas its active maps have six versus eight. Across all three rich DGP seeds, pre-threshold maps have 12–13 peak bins but active maps have only 6–8. That reversal points to a possible bottleneck between visual evidence and sparse DG activity; policy-dependent occupancy prevents attributing it to the threshold alone. The nine rich frozen maps show substantial seed variation, including SCR visited fractions of 0.457–0.914 and DGP 0.346–0.753, so one rollout should not be treated as a stable population value.
 
-## Matched-command intervention and heldout coverage
+## Frozen complete-episode exploration
+
+At the same checkpoint, the evaluator runs twenty complete frozen-policy episodes and twenty uniform-random episodes with the same reset and action seed schedule. All eleven completed random baselines so far are byte-identical, as expected for the fixed maze and action protocol. The table gives the paired seed-99 cue contrast. It is conditional on one trained checkpoint per cue and family; the twenty episode starts measure rollout variation, not training-seed uncertainty.
+
+| Family | Neutral policy coverage AUC | Rich policy coverage AUC | Rich minus neutral | Uniform-random AUC | Rich policy minus random |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SCR | 0.185 | 0.241 | +0.056 | 0.307 | -0.066 |
+| DGP | 0.058 | 0.141 | +0.084 | 0.307 | -0.166 |
+| Waypoint | 0.568 | 0.355 | -0.213 | 0.307 | +0.048 |
+
+The frozen episode cue directions differ from the 70–75M training-window directions for SCR and Waypoint. The training scalars average evolving training episodes; this panel holds one checkpoint fixed and evaluates fresh complete episodes. Rich cues improve DGP's seed-99 frozen exploration but leave it below uniform random, while the rich Waypoint policy remains above random despite losing much of neutral Waypoint's coverage. The rich three-seed ranges will be finalized when the last SCR frozen row exits.
+
+## Matched-command intervention
 
 The exact-start intervention holds the checkpoint policy and graph fixed, changes only the commanded target for matched starts, and measures paired arrival lift and initial-action distribution change. One-source preflights passed for rich seed 99 in all three families (five starts, 20 paired target comparisons each, no censoring). Their arrival lifts were -0.117 for SCR, -0.050 for DGP, and -0.033 for Waypoint; initial-action total variation was 0.021, 0.032, and 0.330. These one-source samples establish evaluator integrity and a possible failure signal, not the family-level conclusion. The four-source DGP pilot passed with 20 exact starts, 80 paired comparisons, no censoring, and lift -0.004. Its independent production rerun produced byte-identical summary and trial CSV files. The other eleven four-source jobs are running. This batch's planned 16-source panel was not launched because historical full panels overflowed the evaluator after many fresh DMLab constructions. The resulting four-source coverage of the source population must be reported with each run.
 
 The paired command contrast is causal *within one frozen checkpoint*: compared commands begin at exactly the same observation and recurrent state. Each checkpoint supplies its own learned source units and graph-supported targets, however. Rich and neutral panels therefore do not share prescribed physical destinations or identical DG identities; a difference between their aggregate lifts is descriptive, not an isolated causal cue effect on control.
-
-The 12 frozen jobs also include 20 complete policy episodes and 20 matched-reset uniform-random episodes per checkpoint. Their episode results are being collected here after job completion. The field-map values above are available because the evaluator writes them before those episodes finish.
 
 ## What this says about easier visuals and prescribed landmarks
 

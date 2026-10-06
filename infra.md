@@ -827,6 +827,27 @@ keep implementation guidance in the canonical workflow documents linked below.
   occupancy mask after visual inspection. See the
   [telemetry guide](04_implementation/reusable_place_field_telemetry.md).
 
+### Matched uniform-random coverage is recomputed per checkpoint — 2026-10-06
+
+- **Evidence:** The first eleven completed 75M easy-landmark frozen jobs each
+  ran twenty fresh-engine uniform-random episodes after their policy episodes.
+  All eleven `uniform_random_episode_coverage.json` files are byte-identical
+  (SHA-256 `3ceb7cad0c5a734fc9c65463b78b42b4c9f47eb6122786ecc29522db8dc52eb5`):
+  same verified geometry, reset/action seeds, action set, and coverage curves
+  despite rich/neutral visuals and different checkpoints.
+- **Impact:** Repeating the same random baseline consumed substantial cluster
+  time and DMLab engine constructions while contributing no new evidence.
+- **Proposed improvement/status:** Open. Let the manifest-driven evaluator
+  reference one immutable random-coverage artifact for an exactly matched
+  geometry, action set, frameskip, reset/action seed schedule, and episode
+  protocol. Validate its checksum and write explicit reuse provenance in each
+  derived comparison; retain the option to recompute for a genuinely changed
+  environment contract.
+- **Acceptance:** A focused test rejects mismatched geometry, action set,
+  episode length, or seeds; a 75M landmark rerender produces the same paired
+  coverage table while running the random baseline only once. See the
+  [telemetry guide](04_implementation/reusable_place_field_telemetry.md).
+
 ### Spatial collector rejected declared late milestones — fixed in isolated analysis
 
 - **Evidence:** CPU2048 collection on September 17 rejected a saved 150M NPZ;
