@@ -1318,8 +1318,9 @@ For each finding, record:
   `_apply_dg_recruitment`: its endpoint telemetry called the old visual-only
   projection input after odor widened DG by four channels. The runtime now uses
   the same DG input builder in forward and recruitment telemetry, with a focused
-  width/gain test. Four remote qualifications used the old source and must be
-  replaced after the corrected local full-learner run and NEMO2 tests pass.
+  width/gain test. A corrected local ON/HEBB4 full-learner run completed at
+  135,168 frames with exit code zero. Four remote qualifications used the old
+  source and must be replaced after corrected-source NEMO2 tests pass.
   A reusable progress watchdog remains proposed; remote process inspection is
   pending NEMO2 access.
 - **Acceptance criteria:** A short qualification either reaches its declared frame
