@@ -1,0 +1,30 @@
+{
+  "batch_name": "easy_landmark_maze_rich_20260923",
+  "commands_match_study": true,
+  "expected_runs": 9,
+  "job_ids": [
+    "8180988",
+    "8180989",
+    "8180990",
+    "8180991",
+    "8180992",
+    "8180993",
+    "8180994",
+    "8180995",
+    "8180996"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-easy-landmark-maze/IntrMotiv/SF_hipposlam/train_dir/_slurm/easy_landmark_maze_rich_20260923/submitted_production_20260924/jobs.tsv",
+  "rows": 9,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 9
+  },
+  "study_id": "easy_landmark_maze_rich_20260923",
+  "study_sha256": "e7e04dcbefbf8c28a28ccfc1fae0ddde5b4a46dd7987cfe7434ec5c61af0ced0",
+  "study_spec": "hpc_runs/studies/easy_landmark_maze_rich.study.json",
+  "study_workflow_version": "1.12.0",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.12.0",
+  "workspace_paths_valid": true
+}
