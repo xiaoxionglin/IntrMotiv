@@ -8,7 +8,9 @@ matching local evaluation/raw directories before running this adapter.
 from __future__ import annotations
 
 import csv
+from itertools import combinations
 import json
+import math
 from pathlib import Path
 
 
@@ -114,6 +116,10 @@ def intervention_rows() -> list[dict]:
                 raise ValueError(f"Unverified frozen intervention for {label}")
             if summary["checkpoint"] != item["checkpoint"]:
                 raise ValueError(f"Checkpoint mismatch for {label}")
+            validate_intervention_trials(
+                unique_artifact(base / "interventions" / "raw", label, "intervention_trials.csv"),
+                summary,
+            )
             rows.append(
                 {
                     "cue": cue,
@@ -134,6 +140,62 @@ def intervention_rows() -> list[dict]:
     if {row["checkpoint_frames"] for row in rows} != {"75005952"}:
         raise ValueError("Intervention rows do not share the exact 75M checkpoint")
     return rows
+
+
+def validate_intervention_trials(path: Path, summary: dict) -> None:
+    """Recompute the paired endpoint from the retained trial-level record."""
+    with path.open(newline="") as stream:
+        trials = list(csv.DictReader(stream))
+    if len(trials) != summary["rows"] or not all(
+        row["exact_start_verified"] == "True" for row in trials
+    ):
+        raise ValueError(f"Trial count or exact-start certificate failed: {path}")
+    by_start: dict[tuple[str, str], list[dict[str, str]]] = {}
+    by_target: dict[tuple[str, str, str], list[dict[str, str]]] = {}
+    for row in trials:
+        start = (row["source"], row["repeat"])
+        by_start.setdefault(start, []).append(row)
+        by_target.setdefault((*start, row["target"]), []).append(row)
+    for start, group in by_start.items():
+        if len({(row["prefix_seed"], row["start_position"]) for row in group}) != 1:
+            raise ValueError(f"Matched start differs within {start}: {path}")
+    action_distances = []
+    for group in by_start.values():
+        commands = {
+            row["command"]: json.loads(row["initial_action_probabilities"])
+            for row in group
+        }
+        for left, right in combinations(sorted(commands), 2):
+            a, b = commands[left], commands[right]
+            if len(a) != len(b):
+                raise ValueError(f"Action dimension mismatch: {path}")
+            action_distances.append(sum(abs(x - y) for x, y in zip(a, b)) / 2)
+    if not math.isclose(
+        sum(action_distances) / len(action_distances),
+        summary["mean_initial_action_total_variation"],
+        abs_tol=1e-8,
+    ):
+        raise ValueError(f"Initial action sensitivity does not reproduce: {path}")
+    differences = []
+    for group in by_target.values():
+        actual = [
+            row["hit"] == "True"
+            for row in group
+            if row["commanded"] == "True" and row["censored"] == "False"
+        ]
+        alternate = [
+            row["hit"] == "True"
+            for row in group
+            if row["commanded"] == "False" and row["censored"] == "False"
+        ]
+        if actual and alternate:
+            if len(actual) != 1:
+                raise ValueError(f"Multiple commanded rows in one matched target: {path}")
+            differences.append(float(actual[0]) - sum(alternate) / len(alternate))
+    if len(differences) != summary["paired_comparisons"] or not math.isclose(
+        sum(differences) / len(differences), summary["paired_arrival_lift"], abs_tol=1e-9
+    ):
+        raise ValueError(f"Paired arrival lift does not reproduce: {path}")
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
