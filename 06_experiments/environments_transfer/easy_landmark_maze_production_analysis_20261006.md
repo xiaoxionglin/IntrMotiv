@@ -18,11 +18,11 @@ The earlier [2M qualification](easy_landmark_maze_qualification_analysis_2026092
 
 The table uses the canonical synchronized TensorBoard window. Coverage AUC is normalized accessible-cell coverage through an episode. Grounded controllability is the online graph counter, not a matched-command causal estimate.
 
-| Family | Neutral seed 99 coverage AUC | Rich seed 99 | Rich seeds 8/99/123 range | Neutral to rich seed-99 grounded controllability | Neutral to rich seed-99 target-action sensitivity |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| SCR | 0.268 | 0.214 | 0.214–0.408 | 0.037 → 0.031 | 0.025 → 0.009 |
-| DGP | 0.084 | 0.141 | 0.141–0.245 | 0.003 → 0.026 | 0.011 → 0.009 |
-| Waypoint | 0.519 | 0.518 | 0.474–0.518 | 0.033 → 0.024 | 0.092 → 0.077 |
+| Family   | Neutral seed 99 coverage AUC | Rich seed 99 | Rich seeds 8/99/123 range | Neutral to rich seed-99 grounded controllability | Neutral to rich seed-99 target-action sensitivity |
+| -------- | ---------------------------: | -----------: | ------------------------: | -----------------------------------------------: | ------------------------------------------------: |
+| SCR      |                        0.268 |        0.214 |               0.214–0.408 |                                    0.037 → 0.031 |                                     0.025 → 0.009 |
+| DGP      |                        0.084 |        0.141 |               0.141–0.245 |                                    0.003 → 0.026 |                                     0.011 → 0.009 |
+| Waypoint |                        0.519 |        0.518 |               0.474–0.518 |                                    0.033 → 0.024 |                                     0.092 → 0.077 |
 
 ![Matched-age online coverage and active-only DG overlap](../results/easy_landmark_maze_production_20261006/figures/online_cue_comparison_75m.png)
 
@@ -51,14 +51,14 @@ The cue-site peak decline is not explained just by failing to pass the reserved 
 
 The [matched seed-99 online atlas](../results/easy_landmark_maze_production_20261006/online_atlas_75m/README.md) renders the retained 100,000-sample windows at the 75M target, not fresh frozen-policy episodes. It shows all DG units, occupancy, and trajectories segmented at stream or episode boundaries; colors identify fragments, not elapsed time. Each field is normalized by its own peak, so compare **shape**, not absolute firing strength. Gray cells were unvisited; black cells are walls. Cue markers show reserved physical sites in both modes, although the neutral sites have no distinctive rendering. A field peak near a marker is not evidence that the cue caused it. The numerical analysis above and the frozen probes below cover all units and report silence, spatial information, and peak diversity.
 
-| Family | Cue/seed | Online visited accessible cells | Stationary steps | Mean physical step distance |
-| --- | --- | ---: | ---: | ---: |
-| SCR | Neutral 99 | 74/74 | 16.4% | 13.16 |
-| SCR | Rich 99 | 73/74 | 13.4% | 12.95 |
-| DGP | Neutral 99 | 59/74 | 97.5% | 0.28 |
-| DGP | Rich 99 | 57/74 | 1.0% | 15.79 |
-| Waypoint | Neutral 99 | 74/74 | 8.8% | 12.69 |
-| Waypoint | Rich 99 | 74/74 | 19.2% | 10.08 |
+| Family   | Cue/seed   | Online visited accessible cells | Stationary steps | Mean physical step distance |
+| -------- | ---------- | ------------------------------: | ---------------: | --------------------------: |
+| SCR      | Neutral 99 |                           74/74 |            16.4% |                       13.16 |
+| SCR      | Rich 99    |                           73/74 |            13.4% |                       12.95 |
+| DGP      | Neutral 99 |                           59/74 |            97.5% |                        0.28 |
+| DGP      | Rich 99    |                           57/74 |             1.0% |                       15.79 |
+| Waypoint | Neutral 99 |                           74/74 |             8.8% |                       12.69 |
+| Waypoint | Rich 99    |                           74/74 |            19.2% |                       10.08 |
 
 The stationary fraction counts within-fragment transitions with displacement at most one DMLab unit; mean distance uses those same transitions. Visited cells pool the full saved window and therefore can be high even if the policy later spends most steps in one area. The neutral DGP trajectory is almost stationary despite visiting 59 cells across fragments. Rich DGP moves but repeatedly occupies the upper maze; its online active DG peaks occupy only six distinct bins, compared with ten for neutral. Across the three rich DGP seeds, stationary fractions are 0.3–1.0%, yet visited cells range from 57 to 74 and all three have only six distinct active peak bins. More motion and visually sharper fields therefore do not imply spatially distributed destinations or command control. SCR and Waypoint visit nearly all accessible cells in these online windows; their frozen complete-episode results below give a stricter exploration comparison.
 
