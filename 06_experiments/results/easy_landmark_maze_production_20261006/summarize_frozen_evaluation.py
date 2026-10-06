@@ -74,6 +74,10 @@ def coverage_rows() -> list[dict]:
             )
     if len(rows) != 12:
         raise ValueError(f"Expected 12 frozen coverage rows, found {len(rows)}")
+    if len({row["geometry_sha256"] for row in rows}) != 1:
+        raise ValueError("Frozen coverage rows do not share one verified geometry")
+    if {row["checkpoint_frames"] for row in rows} != {"75005952"}:
+        raise ValueError("Frozen coverage rows do not share the exact 75M checkpoint")
     return rows
 
 
@@ -107,6 +111,8 @@ def intervention_rows() -> list[dict]:
             )
     if len(rows) != 12:
         raise ValueError(f"Expected 12 intervention rows, found {len(rows)}")
+    if {row["checkpoint_frames"] for row in rows} != {"75005952"}:
+        raise ValueError("Intervention rows do not share the exact 75M checkpoint")
     return rows
 
 
