@@ -202,6 +202,7 @@ Environment manipulations are orthogonal to controller architecture and should b
 
 - [[environments_transfer/corridor_geometry_analysis_20260921|Corridor geometry analysis]] crosses architecture families with open/corridor geometry.
 - [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Easy landmark maze qualification]] crosses SCR/DGP/Waypoint with rich versus neutral visual cues while holding maze geometry fixed.
+- [[environments_transfer/easy_landmark_maze_production_analysis_20261006|Easy landmark maze production at 75M]] compares matched-age online behavior, DG maps, frozen fields, and command interventions.
 
 **Current lesson:** making sensory states easier to distinguish can help some architectures without repairing a fundamentally goal-insensitive controller; conversely, corridor geometry can reduce exploration even if it simplifies topology.
 
@@ -237,7 +238,7 @@ For a concise current view:
 3. [[syntheses/recent_batches_design_audit_20260906|Design audit]] for the core graph/control failure mode.
 4. [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8]] and [[controllers/cpu2048_analysis_20260917|CPU2048]] for matched architecture/controller comparisons.
 5. [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] and [[ca3_goals/ca3_followup_analysis_20260926|matched state-goal follow-up]] for the current goal-representation line.
-6. [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|easy-landmark cues]], [[environments_transfer/corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests; use the [75M frozen-DG endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) for transfer outcomes.
+6. [[environments_transfer/easy_landmark_maze_production_analysis_20261006|easy-landmark cues at 75M]], [[environments_transfer/corridor_geometry_analysis_20260921|corridor geometry]], and [[cued_reward5_transfer_20260925|five-cue transfer]] for environment and transfer tests; use the [75M frozen-DG endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) for transfer outcomes.
 
 Use the dated implementation/launch reports only when you need exact StudySpecs, job IDs, source revisions, qualification gates, or failure provenance.
 
