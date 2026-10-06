@@ -1313,10 +1313,15 @@ For each finding, record:
   four independent nodes. See the [odor/CA3 study record](06_experiments/ca3_goals/odor_goal_quality_40_run_plan_20261006.md).
 - **Impact:** A `RUNNING` state and finite early metrics cannot qualify a training
   cell or justify admitting production runs if the learner has stopped advancing.
-- **Proposed improvement/status:** Identify the blocked learner/actor boundary from
-  Slurm and process diagnostics, then add a reusable progress watchdog that records
-  the last completed learner phase and raises when environment frames stay flat
-  while samples accumulate. Remote process inspection is pending NEMO2 access.
+- **Root cause/status:** A local full-learner reproduction stopped at 28,672 frames
+  with `mat1 and mat2 shapes cannot be multiplied (1x3843 and 3847x16)` in
+  `_apply_dg_recruitment`: its endpoint telemetry called the old visual-only
+  projection input after odor widened DG by four channels. The runtime now uses
+  the same DG input builder in forward and recruitment telemetry, with a focused
+  width/gain test. Four remote qualifications used the old source and must be
+  replaced after the corrected local full-learner run and NEMO2 tests pass.
+  A reusable progress watchdog remains proposed; remote process inspection is
+  pending NEMO2 access.
 - **Acceptance criteria:** A short qualification either reaches its declared frame
   target or exits with an actionable phase and exception. A focused regression test
   reproduces any confirmed runtime defect without relying on wall-clock timing.
