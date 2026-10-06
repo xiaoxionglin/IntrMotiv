@@ -35,6 +35,14 @@ $\min(20,\text{active DG units},\text{visited cues})$, and separate decal and
 colored-wall results. A neutral control retains the same reserved sites but
 marks every cue unrendered, allowing physical-site comparisons without
 claiming replicated cue causality from a single learner seed.
+For a later cue-position question, first inspect the saved `per_snapshot.csv`
+and `cue_assignment.csv` together with the fixed map archive. The assignment
+already records visited sites, cue type, matched unit, and geodesic peak
+distance; count only `within_one_cell` rows whose `cue_visited` is true, or use
+the canonical `cue_peak_match_count`. The rich and neutral layout hashes differ
+because rendering differs, so compare cue IDs and physical floor/wall positions
+rather than requiring equal layout hashes. Render selected retained NPZs only
+when field shapes are needed; this avoids another DMLab evaluation.
 
 Occupancy, trajectory, and field figures overlay cue identity and type on top
 of the existing wall layer. Do not infer cue coding from proximity alone:

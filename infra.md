@@ -820,8 +820,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   report width, the labels and maps are too small to inspect; F64 sheets are
   denser. The canonical 75M online atlas also puts 16 maps on each 1608-pixel
   page and uses 8-point cue IDs, which become too small at report width. The
-  production report therefore links the full-size atlas and leads with
-  readable all-unit metric tables.
+  rich 100M SCR/DGP field rerender reproduced the same issue. The production
+  report therefore links the full-size atlas and leads with readable all-unit
+  metric tables.
 - **Impact:** The numerical field analysis is valid, but readers cannot check
   field shape or occupancy visually from the default contact sheet at report
   scale. A superficially complete atlas can conceal this display failure.
