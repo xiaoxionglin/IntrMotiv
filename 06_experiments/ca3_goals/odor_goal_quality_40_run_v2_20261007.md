@@ -1,0 +1,38 @@
+# Odor and CA3 goal quality: corrected 40-run launch
+
+**Status, 7 October 2026:** four short qualification jobs completed successfully. The first four replacement 75M-frame production cells passed their early health gate, the other 36 were submitted, and all 40 were `RUNNING` at the post-submission check. The combined submitted-manifest audit passed. Training outcomes and milestone evaluations are pending.
+
+## Why the first launch was replaced
+
+The original [study](odor_goal_quality_40_run_plan_20261006.md) passed its first runtime gate, but follow-up review found four implementation problems. Its CA3 event update checked the acceptance flag of the action after the event-producing action. Candidate-subset normalization changed the magnitude and ordering of C15 frontier scores. Candidate and odor draws could not be reconstructed from a fixed stored rollout. The manager's actual candidate sets were absent from training telemetry. All 40 original production jobs, 8290663–8290715, were cancelled from their audited submitted manifest; their partial trajectories are excluded from the replacement study.
+
+## Corrected contract
+
+- The learner pairs the new exclusive DG event observed after an accepted action with the detached CA3 state preceding that action. It updates the corresponding prototype row and quality row once per accepted learner rollout. The fixed update rate remains $0.01$ from start to finish in every condition, including ALL16 and RANDOM. The event at a rollout's first stored observation is excluded because the action that caused it lies outside that rollout.
+- Candidate selection masks the **unchanged globally computed C15 frontier score**. RANDOM chooses up to $K$ eligible IDs uniformly; HEBB uses the fixed quality score with uniform exact ties. All 16 DG identities remain eligible over time. A key from actor seed, persistent manager-choice count, and detached CA3 context reproduces candidate sets on a fixed stored rollout without consuming PyTorch's global random stream.
+- Odor noise is keyed by environment seed and observation index. OFF is zero; ON is four Gaussian spatial fields with independent observation noise of standard deviation $0.15$ of the clean peak, without clipping. The gain of 42.68481611601036 is shared across cells and comes from the separate [fixed 10k-decision calibration](odor_gain_calibration_20261007.json). Only DG receives odor.
+- Actor outputs store the behavior-time candidate mask and choice flag. The learner logs candidate count, distinct IDs, per-ID exposure, empty pools, and successive-choice turnover from accepted rollouts. PPO replay uses its stored behavior goal condition and cannot update the CA3 quality buffers.
+
+The fixed-rollout tests establish exact restoration of CA3 buffers and candidate draws. A process restart can begin a different DMLab episode because the live environment state is not part of the Sample Factory checkpoint; it therefore does not promise a bitwise-identical future training trajectory.
+
+## Source, study, and qualification
+
+The runtime source is isolated on branch `codex/odor-ca3-goal-quality-v2-20261007`, commit `73730b115dcc373767efffdeb77add2968242bed`, pushed and remote hash verified, and synchronized to `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_odor_ca3_v2_20261007/`. The corrected [workflow-1.14 StudySpec](../../hpc_runs/studies/odor_ca3_goal_quality_v2_20261007.study.json) has SHA-256 `c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de`, 40 unique cells, seeds 8/99/123/2026, a 75M-frame horizon, and milestones at 5/10/25/50/75M. Its full print-only manifest at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_odor_ca3_goal_quality_v2_20261007/20261006T232811Z/jobs.tsv` passed the canonical command and workspace-path audit. Local and synchronized NEMO2 focused suites each passed 63 tests.
+
+Qualification jobs 8290765–8290768 covered OFF/RANDOM4, OFF/HEBB8, ON/HEBB4, and ON/RANDOM8. All completed with exit code zero and reached scalar step 540,672, beyond the 524,288-frame target. Every cell supported all 16 DG goals and had no nonfinite scalar samples. OFF odor norms were zero; ON norms were 27.97 and 28.75 at the final step. Candidate-set means were exactly 4 or 8 as configured, with no empty candidate sets. The final update exposed 16 distinct candidates in both RANDOM cells, 9 in OFF/HEBB8, and 5 in ON/HEBB4. These are health and exposure checks, not performance comparisons.
+
+## Production release
+
+The four first-tranche cells were OFF/ALL16, OFF/HEBB4, ON/RANDOM4, and ON/HEBB8, all seed 8. Their print-only manifest at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_odor_ca3_goal_quality_v2_20261007/20261006T233434Z/jobs.tsv` matched the corresponding commands in the audited 40-cell manifest exactly. Their submitted manifest is the sibling `20261006T233522Z/jobs.tsv`, with Slurm IDs 8290776–8290779.
+
+The early health check covered scalar steps 557,056–589,824. All four learner frame counters advanced, and no recorded scalar was nonfinite. Accepted CA3 quality support covered 14/16 goals in OFF/ALL16 and 16/16 in the other three cells. Their latest candidate exposure covered 16, 11, 16, and 10 distinct goals, respectively; there were no empty candidate pools at that update. OFF odor norms were zero; ON norms were 22.21 and 20.04. Frontier score means were finite, between 1.99 and 2.25. No performance threshold selected cells.
+
+The remaining 36-cell print-only manifest at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_odor_ca3_goal_quality_v2_20261007/20261006T233901Z/jobs.tsv` exactly partitioned the 40 audited commands with the first four. Its submitted sibling is `20261006T234219Z/jobs.tsv`. The combined submitted manifest is at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_odor_ca3_goal_quality_v2_20261007/40_cells_submitted.tsv`, with its canonical audit beside it as `40_cells_submitted_audit.json`. These contain 40 unique submitted Slurm IDs, 8290776–8290827. The audit confirms exact command matches, workspace-only paths, workflow `1.14.0`, and unchanged canonical study SHA-256 `c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de`. All 40 jobs were `RUNNING` at the immediate scheduler check.
+
+## Planned analysis
+
+Use the existing external coverage-AUC series for paired 0–75M curves, with early and terminal windows separately. Report HEBB minus RANDOM at matched $K$, RANDOM minus ALL16, ON minus OFF, and $K=4$ minus $K=8$. At 75M run matched-start alternative-command interventions for all 40 cells, reporting first distinct outcomes and failed trials alongside ordinary target hits. Use the established 10k-decision place-field protocol at all five checkpoints for seed 99 and terminal checkpoints for seeds 8 and 123. Preserve silent units, active-only map cosine, peak diversity, spatial information, and pre-threshold maps in the field report.
+
+## Reusable lesson
+
+Unit tests for a stateful controller must verify the actor's buffer timing, not just a locally chosen tensor convention. Keep the C15 score as one shared function when comparing candidate sets, and store behavior-time candidate evidence because commanded targets alone cannot recover exposure. The canonical StudySpec, print-only manifest, and submitted-manifest audit remained the source of truth for the restart; no run matrix was reconstructed from names.

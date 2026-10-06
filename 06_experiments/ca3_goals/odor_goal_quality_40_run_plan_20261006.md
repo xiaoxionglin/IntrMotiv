@@ -1,6 +1,6 @@
 # Odor grounding and CA3 goal quality: 40-run plan
 
-**Status, 7 October 2026:** this first implementation was superseded after review. Its 40 production jobs, 8290663–8290715, were cancelled as a group from the audited submitted manifest. The replacement [v2 StudySpec](../../hpc_runs/studies/odor_ca3_goal_quality_v2_20261007.study.json), SHA-256 `c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de`, fixes accepted-event timing, preserves the original C15 frontier score, makes candidate and odor draws reproducible on a fixed stored rollout, and records actual candidate sets. See the [replacement launch record](odor_goal_quality_40_run_v2_20261007.md) for current jobs and gates. No result from the cancelled jobs will be treated as a 75M outcome.
+**Status, 7 October 2026:** this first implementation was superseded after review. Its 40 production jobs, 8290663–8290715, were cancelled as a group from the audited submitted manifest. The replacement [v2 StudySpec](../../hpc_runs/studies/odor_ca3_goal_quality_v2_20261007.study.json), SHA-256 `c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de`, fixes accepted-event timing, preserves the original C15 frontier score, makes candidate and odor draws reproducible on a fixed stored rollout, and records actual candidate sets. The [replacement launch record](odor_goal_quality_40_run_v2_20261007.md) documents its passed gate and all 40 newly submitted jobs. No result from the cancelled jobs will be treated as a 75M outcome.
 
 ## Implementation and launch record
 

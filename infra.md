@@ -1330,3 +1330,30 @@ For each finding, record:
 - **Acceptance criteria:** A short qualification either reaches its declared frame
   target or exits with an actionable phase and exception. A focused regression test
   reproduces any confirmed runtime defect without relying on wall-clock timing.
+
+# Preserve behavior-time events and candidate evidence in learner-only modules
+
+- **Evidence:** Review of the first odor/CA3 40-cell launch found that its CA3
+  event filter paired a DG event with the acceptance flag one action late, and
+  that candidate-subset normalization changed C15's frontier scores. Actor-side
+  random draws could not be reproduced from a stored state, and command counts
+  did not reveal which candidate sets the manager had seen. The first 40 jobs
+  were cancelled from their audited manifest. See the [replacement study
+  record](06_experiments/ca3_goals/odor_goal_quality_40_run_v2_20261007.md).
+- **Impact:** A quality row could absorb an event from a rejected transition;
+  differences attributed to candidate count could include a score-scale change;
+  and saved results could not diagnose candidate exposure or replay a fixed
+  candidate choice exactly.
+- **Improvement/status:** The v2 runtime shifts the accepted mask to the action
+  preceding the observed event, uses the unchanged global C15 score followed by
+  a candidate mask, keys candidate and odor draws independently of process RNG
+  state, and records the behavior-time candidate set in actor outputs. Focused
+  tests passed locally and in the synchronized NEMO2 source (63 each). Four
+  short NEMO2 qualifications reached 540,672 frames with exit code zero and
+  finite scalars. Live DMLab episode state is still outside the checkpoint
+  contract, so process restart does not promise an identical future trajectory.
+- **Acceptance criteria:** A fixed stored rollout gives identical CA3 buffers
+  and candidate sets after restoration; rejection of the preceding action
+  excludes its event; ALL uses C15's original score scale; and a full Slurm
+  qualification records finite, nonempty candidate diagnostics in both odor
+  and selection arms.

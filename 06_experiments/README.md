@@ -26,6 +26,7 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 | CA3 state-goal follow-up | [[ca3_goals/ca3_followup_analysis_20260926|Matched CA3 follow-up]] | Complete 75M CPU and G500 factorials; later endpoints have unequal ages | The 25M interim table, restricted 75M snapshot, and atlas are integrated in the same report |
 | Five-cue frozen-DG controls | [[cued_reward5_transfer_20260925|Five-cue campaign and controls]]; [exact 75M endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Paired 50M online evidence and exact 75M frozen/heldout control evidence; the wider eight-arm transfer study has no matched outcome report here | The September 26 interim map, manager, and input-probe analysis is integrated in the campaign report |
 | CA3 predictive active goals | [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
+| Odor and CA3 goal quality | [[ca3_goals/odor_goal_quality_40_run_v2_20261007|Corrected 40-run launch]] | Four qualifications and the first production gate passed; all 40 replacement jobs were submitted, with outcomes and checkpoint evaluations pending | The first 40-job launch was cancelled after code review |
 | DG capacity and goal conditioning | [[dg_representation/dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
 | Navigation8 screen | [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] | Complete three-seed 75M online snapshot; no shared exact saved terminal checkpoint for the selected seeds | Interim remains the primary result report |
 | Easy landmark maze | [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Landmark maze qualification]] | 2M qualification; production effect has no matched report here | Qualification is not a production outcome |
@@ -91,6 +92,7 @@ above determines which findings are current.
 | Finite-memory novelty | [RUN: memory novelty and minimal control](ca3_goals/ca3_memory_novelty_goal_implementation.md) |
 | Predictive active goals | [RESULT: matched 75M interim](ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_goals/ca3_predictive_active_goals_20260922.md) |
 | State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: state-goal release](ca3_goals/ca3_state_goal_followup_20260922.md) |
+| Odor and CA3 goal quality | [RUN: corrected 40-cell launch](ca3_goals/odor_goal_quality_40_run_v2_20261007.md); [PLAN: original study and supersession](ca3_goals/odor_goal_quality_40_run_plan_20261006.md) |
 
 ### F. Environment, reward, and transfer
 
