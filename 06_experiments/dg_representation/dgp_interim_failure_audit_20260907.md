@@ -23,15 +23,15 @@ measurements. Values are equal-weight means over three trained seeds, not
 independent logging samples.
 
 | Outcome · gradient · input | Coverage AUC, 65–75M | Option completion, 65–75M | Action sensitivity, 65–75M | 75M mono-field units / 16 | 75M active-map cosine | 75M reliable graph reachability |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| FIRST · JOINT · FiLM | 34.1 | 6.50% | 0.0373 | 0.0 | 0.191 | 3.1% |
-| FIRST · JOINT · legacy | 41.6 | 7.03% | 0.0142 | 2.7 | 0.130 | 4.7% |
-| FIRST · STOP · FiLM | 41.0 | 6.67% | 0.0283 | 0.7 | 0.164 | 1.1% |
-| FIRST · STOP · legacy | 41.6 | 6.64% | 0.0166 | 0.0 | 0.168 | 2.4% |
-| HIT · JOINT · FiLM | 39.4 | 52.38% | 0.0123 | 1.0 | 0.177 | 93.9% |
-| HIT · JOINT · legacy | 34.5 | 51.04% | 0.0066 | 2.0 | 0.127 | 96.1% |
-| HIT · STOP · FiLM | 38.0 | 49.92% | 0.0122 | 0.3 | 0.147 | 100.0% |
-| HIT · STOP · legacy | 35.7 | 49.55% | 0.0050 | 0.7 | 0.160 | 89.9% |
+| -------------------------- | -------------------: | ------------------------: | -------------------------: | ------------------------: | --------------------: | ------------------------------: |
+| FIRST · JOINT · FiLM       |                 34.1 |                     6.50% |                     0.0373 |                       0.0 |                 0.191 |                            3.1% |
+| FIRST · JOINT · legacy     |                 41.6 |                     7.03% |                     0.0142 |                       2.7 |                 0.130 |                            4.7% |
+| FIRST · STOP · FiLM        |                 41.0 |                     6.67% |                     0.0283 |                       0.7 |                 0.164 |                            1.1% |
+| FIRST · STOP · legacy      |                 41.6 |                     6.64% |                     0.0166 |                       0.0 |                 0.168 |                            2.4% |
+| HIT · JOINT · FiLM         |                 39.4 |                    52.38% |                     0.0123 |                       1.0 |                 0.177 |                           93.9% |
+| HIT · JOINT · legacy       |                 34.5 |                    51.04% |                     0.0066 |                       2.0 |                 0.127 |                           96.1% |
+| HIT · STOP · FiLM          |                 38.0 |                    49.92% |                     0.0122 |                       0.3 |                 0.147 |                          100.0% |
+| HIT · STOP · legacy        |                 35.7 |                    49.55% |                     0.0050 |                       0.7 |                 0.160 |                           89.9% |
 
 **Control inference.** All conditions have 15 candidate targets per source
 in the final window: the nominal `local_successor` curriculum has saturated
