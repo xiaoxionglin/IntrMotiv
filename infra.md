@@ -122,6 +122,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   points to that owner. For similar studies, check whether a later complete
   collector manifest exists before updating an interim narrative, and promote
   full-matrix results in the same report rather than creating another owner.
+  The first revision summarized field scores but omitted the stored path
+  diagnostics and field-shape gallery. A user follow-up caught that gap; the
+  owner now distinguishes all-run online field/path summaries, selected map
+  pages, and selected frozen probes. Future full-matrix syntheses should check
+  the canonical collector's spatial and trajectory columns before declaring
+  representation evidence complete.
 
 ### Spatial summary exports need protocol and capacity provenance — 2026-09-28
 

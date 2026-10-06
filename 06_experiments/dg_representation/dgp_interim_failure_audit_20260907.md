@@ -22,16 +22,16 @@ DG units. The table separates training-window behavior from 75M snapshot
 measurements. Values are equal-weight means over three trained seeds, not
 independent logging samples.
 
-| Outcome · gradient · input | Coverage AUC, 65–75M | Option completion, 65–75M | Action sensitivity, 65–75M | 75M mono-field units / 16 | 75M active-map cosine | 75M reliable graph reachability |
-| -------------------------- | -------------------: | ------------------------: | -------------------------: | ------------------------: | --------------------: | ------------------------------: |
-| FIRST · JOINT · FiLM       |                 34.1 |                     6.50% |                     0.0373 |                       0.0 |                 0.191 |                            3.1% |
-| FIRST · JOINT · legacy     |                 41.6 |                     7.03% |                     0.0142 |                       2.7 |                 0.130 |                            4.7% |
-| FIRST · STOP · FiLM        |                 41.0 |                     6.67% |                     0.0283 |                       0.7 |                 0.164 |                            1.1% |
-| FIRST · STOP · legacy      |                 41.6 |                     6.64% |                     0.0166 |                       0.0 |                 0.168 |                            2.4% |
-| HIT · JOINT · FiLM         |                 39.4 |                    52.38% |                     0.0123 |                       1.0 |                 0.177 |                           93.9% |
-| HIT · JOINT · legacy       |                 34.5 |                    51.04% |                     0.0066 |                       2.0 |                 0.127 |                           96.1% |
-| HIT · STOP · FiLM          |                 38.0 |                    49.92% |                     0.0122 |                       0.3 |                 0.147 |                          100.0% |
-| HIT · STOP · legacy        |                 35.7 |                    49.55% |                     0.0050 |                       0.7 |                 0.160 |                           89.9% |
+| Outcome · gradient · input | Coverage AUC, 65–75M | Option completion, 65–75M | Action sensitivity, 65–75M | 75M mono-field fraction of eligible units | 75M active-map cosine | 75M reliable graph reachability |
+| -------------------------- | -------------------: | ------------------------: | -------------------------: | ----------------------------------------: | --------------------: | ------------------------------: |
+| FIRST · JOINT · FiLM       |                 34.1 |                     6.50% |                     0.0373 |                                     0.00% |                 0.191 |                            3.1% |
+| FIRST · JOINT · legacy     |                 41.6 |                     7.03% |                     0.0142 |                                    16.67% |                 0.130 |                            4.7% |
+| FIRST · STOP · FiLM        |                 41.0 |                     6.67% |                     0.0283 |                                     4.17% |                 0.164 |                            1.1% |
+| FIRST · STOP · legacy      |                 41.6 |                     6.64% |                     0.0166 |                                     0.00% |                 0.168 |                            2.4% |
+| HIT · JOINT · FiLM         |                 39.4 |                    52.38% |                     0.0123 |                                     6.25% |                 0.177 |                           93.9% |
+| HIT · JOINT · legacy       |                 34.5 |                    51.04% |                     0.0066 |                                    12.50% |                 0.127 |                           96.1% |
+| HIT · STOP · FiLM          |                 38.0 |                    49.92% |                     0.0122 |                                     2.08% |                 0.147 |                          100.0% |
+| HIT · STOP · legacy        |                 35.7 |                    49.55% |                     0.0050 |                                     4.17% |                 0.160 |                           89.9% |
 
 **Control inference.** All conditions have 15 candidate targets per source
 in the final window: the nominal `local_successor` curriculum has saturated
@@ -55,8 +55,8 @@ they do not establish full-batch causal control.
 
 **Representation inference.** At the canonical milestones, mean mono-field
 fraction changes from 0.78% at 5M to 3.13% at 25M and 5.73% at both 50M and
-75M. Active-only map cosine falls from 0.341 to 0.158, and mean spatial
-information rises from 0.056 to 0.141. All units remain active; mean visited
+75M. Active-only map cosine falls from 0.341 to 0.158, and mean amplitude-weighted spatial
+score rises from 0.056 to 0.141. All units remain active; mean visited
 grid-bin fraction changes only from 88.1% to 87.6%. Thus the early statement
 that longer training would only repeat an uninformative representation was too
 strong. At 75M, JOINT minus STOP under legacy input improves mono-field
@@ -68,6 +68,50 @@ single-field units, but their qualifying peaks cluster in one corner; its
 65–75M target-hit lift is 0.997. These are policy-driven online fields, so
 neither map improvement nor the small nonzero grounded graph scores prove
 stable identities or commanded arrival.
+
+### Place fields and trajectories
+
+The milestone collector classifies a single field using occupancy-aware,
+multilevel component dominance. Its mono-field fraction divides by eligible
+units; 16/16 active units does not itself establish 16 eligible units. At 75M,
+12 of 24 runs have **zero** classified single-field units. The strongest
+run has five, and the mean across all runs is 5.73% of eligible units. Active
+units occupy 11–16 distinct peak bins per run, but peak count alone is a weak
+diversity measure: broad or overlapping fields can have different maxima.
+The median nearest-neighbor distance between dominant peaks, averaged across
+runs, is 230 environment units at 5M and 173 at 75M. The selected
+[HIT–JOINT–legacy seed-123 field/graph/path page](../syntheses/late_outlier_spatial_gallery_20260908.md#focal-hitjointlegacy-seed-123)
+shows the clearest limitation: five qualifying fields occupy a small corner
+region, while other units remain broad or multi-component. The
+[FIRST–JOINT–legacy seed-99 and seed-8 pages](../syntheses/late_outlier_spatial_gallery_20260908.md#dgp-runs)
+show additional selected outcomes, not a representative sample of the full
+factorial matrix.
+
+| 100k online window | Visited grid bins | Stationary physical steps | Segment displacement / path length | Mean physical step distance | Distinct DG peak bins |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 5M, mean of 24 runs | 88.1% | 2.9% | 0.242 | 34.2 | 15.2 / 16 |
+| 75M, mean of 24 runs | 87.6% | 1.9% | 0.095 | 33.5 | 15.0 / 16 |
+
+"Stationary" means a physical step of at most one environment unit. The
+agents keep moving and visit a similar fraction of the arena in the retained
+window, but their within-segment net displacement per distance traveled is
+lower at 75M. Across the eight terminal cells, mean path efficiency spans
+0.088–0.103 and visited grid-bin fraction spans 86.3–88.1%, so the field
+differences do not track a large difference in gross arena visitation. The
+displacement/path ratio depends on segment lengths and reset
+boundaries; it is a trajectory-shape diagnostic, not a causal measure of
+exploration or goal pursuit. In the focal seed-123 path, highlighted late
+segments repeatedly sample the corner where its qualifying fields lie.
+This aligns the field cluster with exposure, but does not establish whether
+the trajectory caused the fields or the learned policy was drawn to them.
+
+The retained 100k snapshots are policy-driven, thresholded online samples.
+The [six selected 10k frozen-policy place-field probes](../results/A0_poster_analysis_20260926/exemplar_gallery/run_index.md)
+cover only JOINT–legacy HIT/FIRST seeds at a slightly later checkpoint, so
+they cannot replace the full 24-run online comparison. Pre-threshold maps
+and fixed-trajectory cross-checkpoint stability are unavailable for the full
+production matrix. Spatial-information values above retain activity
+amplitude; they are not normalized bits per activation.
 
 **Training trajectory and decision.** Mean coverage AUC falls from 58.5 in
 5–15M to 38.2 in 65–75M, while mean target-action sensitivity rises from
