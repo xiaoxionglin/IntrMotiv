@@ -30,7 +30,9 @@ geometry: 19-by-19 for the corridor and 9-by-9 for the landmark map. NEMO2
 preflight job `8218673` completed with exit code zero and wrote a 9-by-9 NPZ
 with bounds `[100, 1000, 100, 1000]`, matched geometry and pre-threshold
 arrays, and a valid summary. The 12-row 10k-decision plan passed print-only
-validation but was not submitted.
+validation; its 75M production sweep later completed all twelve field and
+matched-episode jobs on 6 October 2026. See the
+[easy-landmark production report](../../06_experiments/environments_transfer/easy_landmark_maze_production_analysis_20261006.md).
 
 ## 1.13.0 depth-default compatibility
 
