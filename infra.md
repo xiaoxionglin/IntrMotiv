@@ -6,6 +6,28 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Intervention outcome setting should be checked against the analysis question — 2026-10-07
+
+- **Evidence:** The odor/CA3 plan required first-distinct DG outcomes and
+  ordinary target-hit rates. Its immutable StudySpec requested the canonical
+  intervention protocol but omitted
+  `terminate_on_first_distinct_exclusive_outcome`, so 40 successful jobs wrote
+  target-hit trials only. Their hit masks do not preserve the first wrong
+  event's identity or order. A separately fingerprinted evaluation-only
+  StudySpec was needed for 40 additional first-distinct jobs.
+- **Impact:** A completed 40-row intervention manifest looked sufficient while
+  one declared outcome was unidentifiable. Target-hit stopping also favors the
+  commanded identity over a shuffled target assessed only before that stop.
+- **Improvement/status:** Pending validator or study-review check. The
+  [intervention protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol)
+  should require an explicit stopping-rule declaration for new studies and
+  verify that each requested outcome is present in the trial schema before
+  print-only submission. Keep historical StudySpecs and fingerprints valid.
+- **Acceptance:** A focused test rejects a new study that requests
+  first-distinct reporting but declares target-hit-only output; the reviewed
+  manifest identifies stopping rule and expected outcome columns before any
+  Slurm job starts.
+
 ### Make policy-swapped multilayer probes a canonical optional evaluator mode — 2026-10-07
 
 - **Evidence:** The established place-field sweep records DG under the normal

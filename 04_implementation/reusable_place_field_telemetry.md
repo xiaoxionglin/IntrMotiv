@@ -467,6 +467,18 @@ The row output is `intervention_trials.csv` plus
 input TSV, the summary carries its schema, workflow version, study ID, and
 study SHA-256.
 
+Before print-only submission, check the requested outcome against
+`telemetry.intervention.terminate_on_first_distinct_exclusive_outcome`. Omitting
+it selects the target-hit stopping rule. Target-hit trials stop when the
+commanded identity is reached; their shuffled alternative is measured only
+before that stop, so commanded-minus-shuffled hit rate can be favored by the
+stopping rule. The saved hit mask does not preserve the order of wrong DG
+events and cannot reconstruct first-distinct outcomes afterward. When both
+ordinary target-hit and first-distinct outcomes are required, evaluate the
+same checkpoint manifest under two separately fingerprinted intervention
+settings and distinct output roots. Preserve the production StudySpec and
+label results by stopping rule; never pool the two trial protocols.
+
 ## Raw Artifact Contract
 
 Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
