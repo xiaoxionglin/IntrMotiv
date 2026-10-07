@@ -65,6 +65,89 @@ eight-decision random control tests sensitivity to random-action persistence.
 Mixed or unsupported layers are reported as such. The old 10k probes provide
 context and are not pooled with these 50k measurements.
 
+## Results: own policy versus uniform random
+
+All 54 probes and all 36 own-versus-random pairs completed. Analysis job
+`8296216` exited 0, and [status.json](../results/behavior_field_expression_20261007/status.json)
+records a complete matrix. At 50k, every comparison is supported: 207–316
+of 361 spatial bins have at least ten visits under both policies. Jointly
+eligible units range from 14–16 in DG, 1,129–1,136 in CA3, 116–128 in
+decoder 1, and 111–124 in decoder 2. The [paired-prefix table](../results/behavior_field_expression_20261007/paired_prefixes.csv)
+records these counts beside every score. Even at 10k all contrasts meet the
+formal support rule, with 57–145 common bins for the uniform comparison.
+
+The table shows mean own-minus-uniform bits per activation at 50k. Each mean
+first averages the two evaluation probes within a training seed, then averages
+three training seeds. `+` means all three training seeds were positive at
+40k and 50k; `mixed` means the planned direction criterion failed.
+
+| Layer | C01 | C05 | C15 |
+| --- | ---: | ---: | ---: |
+| DG | +0.567 + | +0.428 mixed | +0.013 mixed |
+| CA3 | −0.020 mixed | +0.513 mixed | −0.204 mixed |
+| Decoder 1 | +0.557 + | +0.324 + | +0.344 + |
+| Decoder 2 | +0.555 + | +0.486 + | +0.148 mixed |
+
+The [seed-level figure](../results/behavior_field_expression_20261007/paired_layer_summary.png)
+shows the nine independent training checkpoints. Decoder 1 meets the planned
+direction and late-stability rule in all three conditions; decoder 2 does so
+in C01 and C05. DG meets it only in C01. CA3 meets it in none. The [condition
+summary](../results/behavior_field_expression_20261007/condition_summary.csv)
+and [paired-prefix table](../results/behavior_field_expression_20261007/paired_prefixes.csv)
+give the exact values, probe repeats, and support counts. The two evaluation
+seeds are repeat measurements, not extra training seeds.
+
+![Seed-level own-minus-uniform spatial-information differences](../results/behavior_field_expression_20261007/paired_layer_summary.png)
+
+The cumulative comparison supports these distinctions. Decoder 1 is positive
+in all three conditions at every 10k increment through 50k. C01 DG becomes
+positive in all seeds by 20k and rises to +0.567 at 50k. C05 DG and CA3 each
+retain one negative training seed at 50k. C15 DG stays near zero and C15 CA3
+is negative in two seeds at 50k. Decoder 2 remains positive in all seeds of
+C01 and C05, but one C15 seed is negative.
+
+The [per-run table](../results/behavior_field_expression_20261007/per_run.csv)
+retains the historical amplitude-weighted score and the requested unit and
+field diagnostics. Across the 18 probes in each policy arm, mean split-half
+map correlation is higher under the own policy than uniform random for DG
+(0.598 versus 0.395), CA3 (0.483 versus 0.220), decoder 1 (0.415 versus
+0.222), and decoder 2 (0.487 versus 0.243). This is a descriptive stability
+readout, not a new independent training-seed test. The same table reports
+silent/eligible units, component counts, dominant mass, distinct peak bins,
+and active-only map cosine alongside the full pre-threshold DG plots.
+
+## Behavior and random-protocol control
+
+The own-policy probes occupy 291–318 bins (mean 315.3); both random arms touch
+all 318 reachable bins in every probe. Own actions are concentrated in actions
+3 and 4 (84.7% combined), while uniform random is nearly 20% per action.
+Mean movement per decision is 27.6 under own policy, 23.7 under uniform
+random, and 33.6 under persistent random. The stationary fractions are 6.6%,
+3.8%, and 3.6%, respectively. The per-run table gives action and heading
+histograms, movement, coverage, and episode counts. The random policies have
+broader occupancy and more uniform headings; the own-policy occupancy is
+spatially concentrated even where its occupied-bin count is high. Equal bin
+weight and a common-bin mask reduce that sampling mismatch, but do not erase
+all temporal or finite-visit effects.
+
+The eight-decision persistent-random control yields an own-policy advantage
+in all three training seeds at 40k and 50k for **every** layer and condition.
+Its mean difference exceeds the uniform-random difference in most contrasts,
+including CA3 and DG cases that fail the primary criterion. Persistent random
+also moves farther and covers the same 318 reachable bins, so the extra
+contrast is not explained by being stuck in a small region. The magnitude of
+the difference depends on the random action protocol; the uniform arm remains
+the predeclared primary test.
+
+The full per-run maps and occupancy panels remain in the active NEMO2
+workspace `summary/` directory. A representative C01 seed-8 pair is copied
+here: [own occupancy](../results/behavior_field_expression_20261007/C01_S8_E51000_own_occupancy.png),
+[uniform occupancy](../results/behavior_field_expression_20261007/C01_S8_E51000_uniform_occupancy.png),
+[own DG maps](../results/behavior_field_expression_20261007/C01_S8_E51000_own_dg.png),
+[uniform DG maps](../results/behavior_field_expression_20261007/C01_S8_E51000_uniform_dg.png),
+[own decoder-1 maps](../results/behavior_field_expression_20261007/C01_S8_E51000_own_decoder_1.png),
+and [uniform decoder-1 maps](../results/behavior_field_expression_20261007/C01_S8_E51000_uniform_decoder_1.png).
+
 ## Execution and verification status
 
 - The nine historical `config.json` files and final checkpoints were copied
@@ -102,8 +185,9 @@ context and are not pooled with these 50k measurements.
   pair has 265 bins with at least ten visits in both policies and jointly
   eligible units in every layer, demonstrating that the paired metric is
   estimable. The 18 persistent-random jobs were print-reviewed and submitted
-  in `probes/submission_20261007T162128Z.tsv`. Condition-level results await
-  the complete 54-row postprocessing pass.
+  in `probes/submission_20261007T162128Z.tsv`; all completed with exit code
+  0 and exact 50k metadata. Compute-node analysis job `8296216` completed
+  with exit code 0 and produced the complete tables and plots linked above.
 
 ## Reusable workflow note
 
@@ -112,4 +196,8 @@ contrast to stay a thin evaluator adapter. The critical validation was a
 paired short rollout: it caught layer-hook, action-override, and alignment
 errors before the large matrix. Future behavior-sampling probes should reuse
 the same staged checkpoint identities and matched-support normalization,
-then change only the declared action controller.
+then change only the declared action controller. Inspecting the archived
+config's *resolved* paths before submission was essential: the initial
+print-only review could not see paths restored inside the evaluator. The
+completed map cache permits cheap support-threshold sensitivity checks
+without re-running DMLab or the full postprocessor.
