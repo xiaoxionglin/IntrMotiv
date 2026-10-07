@@ -52,6 +52,10 @@ also saves 10k/20k/30k/40k/50k paired prefixes, split-half reliability,
 silence, mono-fields, components, dominant mass, distinct peaks, active-only
 cosine, occupancy, headings, movement, and actions. Value and action outputs
 are archived exploratory traces, with no field claim predeclared for them.
+The deployed probe schema is `intrmotiv/behavior-field-probe/v1` and its
+source SHA-256 is `df1f52f624cbf26a27503d764013ef38e4e7f4fb073e7b346310f672d9254efa`;
+the deployed postprocessor source SHA-256 is
+`aafab7ce9f54f42818d36a309854fe4cd37ad6f97e4134b7ff08d4a4c902680d`.
 
 A favorable result requires a consistent positive own-minus-uniform difference
 across the three training seeds of a condition, stable direction late in the
@@ -75,7 +79,7 @@ context and are not pooled with these 50k measurements.
   identical hashes before and after each probe.
 - On that trace, the new DG occupancy matches the established evaluator
   exactly; rate maps differ by at most $9.6\times10^{-8}$ and the canonical
-  spatial score by at most $3.1\times10^{-8}$. The five focused tests pass
+  spatial score by at most $3.1\times10^{-8}$. The eight focused tests pass
   locally and in the NEMO2 runtime.
 - Print-only review validated 18 own-policy and 18 uniform-random independent
   50k-decision jobs against the pinned manifest and active-workspace paths.
@@ -84,7 +88,11 @@ context and are not pooled with these 50k measurements.
   cache, and W&B paths under the retired allocation. The adapter now overrides
   those three paths before the canonical loader constructs DMLab, disables
   W&B, and records the resolved paths in every probe's metadata. A second
-  short preflight is running before the production matrix is resubmitted.
+  short preflight completed (jobs `8294361`/`8294362`, exit 0), and its
+  metadata records only active-workspace runtime paths. The 36 primary jobs
+  were resubmitted; their authoritative job IDs are in
+  `probes/submission_20261007T160713Z.tsv` and
+  `probes/submission_20261007T160743Z.tsv`.
   The cancelled submission records are
   `probes/submission_20261007T155751Z.tsv` and
   `probes/submission_20261007T155828Z.tsv`; their 36 jobs were explicitly

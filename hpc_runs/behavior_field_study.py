@@ -71,8 +71,13 @@ def read_manifest(path: Path, workspace_root: Path, require_inputs: bool) -> lis
         rows = list(reader)
     if len(rows) != 54 or len({row["label"] for row in rows}) != 54:
         raise ValueError("Expected 54 distinct rows: nine models x two evaluation seeds x three policies")
-    if {row["policy"] for row in rows} != set(POLICIES):
-        raise ValueError("A policy arm is missing")
+    actual = {(row["condition"], int(row["seed"]), int(row["eval_seed"]), row["policy"])
+              for row in rows}
+    expected = {(condition, seed, eval_seed, policy)
+                for condition in CONDITIONS for seed in SEEDS
+                for eval_seed in EVAL_SEEDS for policy in POLICIES}
+    if actual != expected:
+        raise ValueError(f"Incomplete or repeated probe matrix: missing={expected - actual}, extra={actual - expected}")
     for row in rows:
         if int(row["decisions"]) != DECISIONS or int(row["checkpoint_frames"]) != CHECKPOINT_FRAMES:
             raise ValueError(f"Protocol mismatch in {row['label']}")

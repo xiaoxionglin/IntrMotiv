@@ -28,7 +28,9 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** One reviewed manifest can run own and seeded random actions
   at an exact decision count, verify frozen parameters and trace alignment,
   and produce both the historical DG score and matched-support normalized
-  score without a parallel checkpoint loader.
+  score without a parallel checkpoint loader. A staged historical config must
+  fail preflight if any restored output/cache path escapes the active workspace
+  before an environment is constructed.
 
 ### Keep sync-first Markdown repositories on the default branch — 2026-10-07
 

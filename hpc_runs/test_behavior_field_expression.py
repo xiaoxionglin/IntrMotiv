@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 from tempfile import TemporaryDirectory
+import csv
 
 import numpy as np
 import torch
@@ -19,6 +20,8 @@ from hpc_runs.behavior_field_probe import (
     configure_workspace_paths,
     frozen_digest, reset_recurrent_state,
 )
+from hpc_runs.behavior_field_study import CONDITIONS, SEEDS, FIELDS, make_rows, read_manifest
+from hpc_runs.behavior_field_analysis import condition_summaries
 
 
 class BehaviorFieldTests(unittest.TestCase):
@@ -101,6 +104,44 @@ class BehaviorFieldTests(unittest.TestCase):
             self.assertEqual(cfg.dmlab_level_cache_path, str(root / "analysis" / "dmlab_cache"))
             self.assertFalse(cfg.with_wandb)
             self.assertTrue(all(path.startswith(str(root)) for path in paths.values()))
+
+    def test_manifest_requires_complete_paired_matrix(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "poster.csv"
+            with source.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=("condition", "seed", "checkpoint_frames", "checkpoint"))
+                writer.writeheader()
+                for condition in CONDITIONS:
+                    for seed in SEEDS:
+                        writer.writerow({"condition": condition, "seed": seed,
+                                         "checkpoint_frames": 100_040_704,
+                                         "checkpoint": f"/retired/{CONDITIONS[condition]}_S{seed}/checkpoint_100040704.pth"})
+            rows = make_rows(source, root)
+            self.assertEqual(len(rows), 54)
+            manifest = root / "manifest.tsv"
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertEqual(len(read_manifest(manifest, root, require_inputs=False)), 54)
+            rows[-1]["policy"] = "own"
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertRaises(ValueError, read_manifest, manifest, root, False)
+
+    def test_condition_summary_does_not_count_eval_repeats_as_seeds(self):
+        rows = [{"condition": "C01", "seed": "8", "eval_seed": str(eval_seed),
+                 "random_policy": "uniform", "layer": "dg", "decisions": prefix,
+                 "supported": True, "difference": .2}
+                for eval_seed in (51000, 52000) for prefix in (40000, 50000)]
+        summary = next(row for row in condition_summaries(rows)
+                       if row["condition"] == "C01" and row["random_policy"] == "uniform"
+                       and row["layer"] == "dg")
+        self.assertEqual(summary["supported_training_seeds"], 1)
+        self.assertFalse(summary["positive_all_three"])
 
 
 if __name__ == "__main__":

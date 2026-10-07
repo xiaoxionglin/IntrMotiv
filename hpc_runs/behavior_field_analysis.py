@@ -96,6 +96,17 @@ def write_csv(path: Path, rows: list[dict]) -> None:
         writer.writerows(rows)
 
 
+def read_trace(folder: Path, expected_policy: str) -> dict[str, np.ndarray]:
+    metadata = json.loads((folder / "metadata.json").read_text())
+    if metadata["decisions"] != 50_000 or metadata["policy"] != expected_policy:
+        raise ValueError(f"Probe metadata mismatch: {folder}")
+    with np.load(folder / "trace.npz", allow_pickle=False) as payload:
+        trace = {key: payload[key] for key in payload.files}
+    if len(trace["pose"]) != 50_000:
+        raise ValueError(f"Probe length mismatch: {folder}")
+    return trace
+
+
 def plot_occupancy(path: Path, trace: dict[str, np.ndarray], title: str) -> None:
     import matplotlib.pyplot as plt
 
@@ -176,23 +187,55 @@ def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
     plt.close(fig)
 
 
+def condition_summaries(comparisons: list[dict]) -> list[dict]:
+    """Average technical repeats inside each training seed before condition means."""
+    result = []
+    for condition in ("C01", "C05", "C15"):
+        for policy in ("uniform", "persistent8"):
+            for layer in LAYERS:
+                seed_differences = []
+                seed_late = []
+                seed_support = []
+                for seed in ("8", "99", "123"):
+                    values = {}
+                    for prefix in (40_000, 50_000):
+                        subset = [row for row in comparisons if
+                                  row["condition"] == condition and row["seed"] == seed
+                                  and row["random_policy"] == policy and row["layer"] == layer
+                                  and row["decisions"] == prefix and row["supported"]]
+                        if len(subset) == 2:
+                            values[prefix] = float(np.mean([row["difference"] for row in subset]))
+                    if 50_000 in values:
+                        seed_differences.append(values[50_000])
+                        seed_support.append(seed)
+                    if 40_000 in values and 50_000 in values:
+                        seed_late.append(values[40_000] > 0 and values[50_000] > 0)
+                complete = len(seed_differences) == 3
+                result.append({
+                    "condition": condition, "random_policy": policy, "layer": layer,
+                    "supported_training_seeds": len(seed_differences),
+                    "seed_ids": ",".join(seed_support),
+                    "mean_difference": float(np.mean(seed_differences)) if seed_differences else None,
+                    "min_seed_difference": float(min(seed_differences)) if seed_differences else None,
+                    "max_seed_difference": float(max(seed_differences)) if seed_differences else None,
+                    "positive_all_three": bool(complete and all(value > 0 for value in seed_differences)),
+                    "positive_and_late_stable": bool(complete and len(seed_late) == 3
+                                                     and all(seed_late) and all(value > 0 for value in seed_differences)),
+                })
+    return result
+
+
 def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) -> dict:
     rows = read_manifest(manifest, workspace_root, require_inputs=False)
     output.mkdir(parents=True, exist_ok=True)
-    traces = {}
+    completed: dict[tuple[str, str, str, str], Path] = {}
     run_rows = []
     for row in rows:
         folder = raw_root / row["label"]
-        if not (folder / "trace.npz").is_file():
+        if not (folder / "trace.npz").is_file() or not (folder / "metadata.json").is_file():
             continue
-        metadata = json.loads((folder / "metadata.json").read_text())
-        if metadata["decisions"] != 50_000 or metadata["policy"] != row["policy"]:
-            raise ValueError(f"Probe metadata mismatch: {folder}")
-        with np.load(folder / "trace.npz", allow_pickle=False) as payload:
-            trace = {key: payload[key] for key in payload.files}
-        if len(trace["pose"]) != 50_000:
-            raise ValueError(f"Probe length mismatch: {folder}")
-        traces[(row["condition"], row["seed"], row["eval_seed"], row["policy"])] = trace
+        trace = read_trace(folder, row["policy"])
+        completed[(row["condition"], row["seed"], row["eval_seed"], row["policy"])] = folder
         plot_occupancy(output / f"{row['label']}_occupancy.png", trace, row["label"])
         plot_prethreshold(output / f"{row['label']}_prethreshold.png", trace, row["label"])
         layer_maps = {}
@@ -210,17 +253,20 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
                         "field_eligible", "field_mono", "field_component_count",
                         "field_dominant_mass_fraction", "field_dominant_peak_bin")
         })
+        del layer_maps, trace
     comparisons = []
     for condition in ("C01", "C05", "C15"):
         for seed in ("8", "99", "123"):
             for eval_seed in ("51000", "52000"):
-                own = traces.get((condition, seed, eval_seed, "own"))
-                if own is None:
+                own_folder = completed.get((condition, seed, eval_seed, "own"))
+                if own_folder is None:
                     continue
+                own = read_trace(own_folder, "own")
                 for policy in ("uniform", "persistent8"):
-                    random = traces.get((condition, seed, eval_seed, policy))
-                    if random is None:
+                    random_folder = completed.get((condition, seed, eval_seed, policy))
+                    if random_folder is None:
                         continue
+                    random = read_trace(random_folder, policy)
                     for prefix in PREFIXES:
                         for layer in LAYERS:
                             own_details = comparison_details(own["pose"][:prefix], own[layer][:prefix])
@@ -230,13 +276,16 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
                                 "random_policy": policy, "decisions": prefix, "layer": layer,
                                 **paired_information(own_details, random_details),
                             })
+                    del random
+                del own
     write_csv(output / "per_run.csv", run_rows)
     write_csv(output / "paired_prefixes.csv", comparisons)
+    write_csv(output / "condition_summary.csv", condition_summaries(comparisons))
     if comparisons:
         plot_paired_summary(output / "paired_layer_summary.png", comparisons)
-    status = {"expected_probes": 54, "completed_probes": len(traces),
+    status = {"expected_probes": 54, "completed_probes": len(completed),
               "completed_pairs": len(comparisons) // (len(PREFIXES) * len(LAYERS)),
-              "result_complete": len(traces) == 54}
+              "result_complete": len(completed) == 54}
     (output / "status.json").write_text(json.dumps(status, indent=2) + "\n")
     return status
 
