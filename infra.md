@@ -991,10 +991,30 @@ keep implementation guidance in the canonical workflow documents linked below.
   final documentation revision `c002faff2c6832f9b0ce63bc6401f95e9cb4718d`.
   The [canonical procedure](https://github.com/xiaoxionglin/SF_hipposlam/blob/codex/nemo-consolidation-20260915/docs/intrmotiv_source_consolidation.md)
   records lineage selection, archive contents, verification, and retirement.
-- **Remaining work:** Retire `controller_cpu_selected_20260914`,
+- **September 15 hold:** `controller_cpu_selected_20260914`,
   `controller_rr1_20260913`, and `controller_stored_production_release_20260912`
-  only after their running/queued jobs finish and a fresh dependency audit.
-  Their existence is currently required, rather than redundant.
+  were retained for live jobs, pending a fresh dependency audit after completion.
+- **October 7 retirement:** A fresh NEMO2 audit found 18 dated sibling
+  `SF_hipposlam_*` source folders, including the three releases above, and no
+  active Slurm job referencing them. All 18 complete folders, including dirty
+  files and Git metadata, were copied to the active workspace at
+  `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_retirement_20261007/checkouts/`
+  and passed an `rsync -naciH` comparison before removal. The inventory,
+  verification, and per-folder retirement record are beside that archive.
+  Only the canonical `SF_hipposlam` checkout remains in the home parent folder;
+  the six active jobs use a separate workspace source. Two stale Git worktree
+  registrations remain (`controller_cuda_20260912` and locked
+  `controller_publication_20260912`): automatic approval review rejected
+  unlocking the retention lock, so Git metadata cleanup is pending approval.
+- **Recurrence and proposed improvement:** The September 15 consolidation was
+  followed by 15 more dated source copies by October 2, making another manual
+  archive and dependency audit necessary. Record each frozen source checkout's
+  owning study, jobs, and retirement condition when it is created; close the
+  record once jobs finish and a verified workspace archive exists. Acceptance:
+  a future source-release audit can identify inactive copies and their archive
+  provenance from this ledger without reconstructing ownership from folder
+  names and Slurm history. Keep the procedure in the
+  [canonical source guide](https://github.com/xiaoxionglin/SF_hipposlam/blob/master/docs/intrmotiv_source_consolidation.md).
 - **September 26 default-branch integration:** Published
   [master merge `7d533391`](https://github.com/xiaoxionglin/SF_hipposlam/commit/7d5333911e7adc88f576208c71ed4edf0132fa6b),
   combining the latest CA3, transfer, frozen-DG, geometry, landmark, and replay
