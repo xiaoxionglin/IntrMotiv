@@ -6,6 +6,22 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep sync-first Markdown repositories on the default branch — 2026-10-07
+
+- **Evidence:** The October 7 branch reconciliation found poster commits
+  already present on `main` and a CA3 plan conflict on an older branch. The
+  Obsidian vault continued to advance on `main` during that work.
+- **Impact:** Routine note branches create duplicate histories and stale report
+  paths, then require merge work before the files are available through sync.
+- **Practice/status:** Use `main` for ordinary Markdown, report, index, and
+  vault-sync edits; commit and push those changes directly. Create a branch or
+  worktree only when the task needs genuine isolation, such as parallel code
+  changes, a risky experiment, or a reviewable release. Merge it promptly once
+  that need ends. Do not create a branch merely because a new task started.
+- **Acceptance:** Routine documentation work reaches the remote default branch
+  without a temporary feature branch. Any new branch has a specific isolation
+  reason and is reconciled before it becomes a stale parallel copy.
+
 ### Validate declared scalar tags against runtime events — 2026-10-07
 
 - **Evidence:** Both push–pull calibration StudySpecs passed schema validation,
