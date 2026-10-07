@@ -70,17 +70,18 @@ def plot_maps(path: Path, trace: dict[str, np.ndarray], layer: str,
     import matplotlib.pyplot as plt
 
     information = details["spatial_information"]
-    selected = np.argsort(information)[-min(8, len(information)):][::-1]
-    fig, axes = plt.subplots(2, 4, figsize=(14, 7), dpi=160)
+    eligible = np.flatnonzero(details["field_eligible"])
+    selected = eligible[np.argsort(information[eligible])[-min(8, len(eligible)):]][::-1]
+    fig, axes = plt.subplots(2, 4, figsize=(10, 6), dpi=120)
     for ax, unit in zip(axes.flat, selected):
         data = details["rate_maps"][:, :, unit].copy()
         data[details["occupancy"] == 0] = np.nan
         ax.imshow(data, origin="lower", cmap="viridis")
-        ax.set_title(f"unit {unit}; score {information[unit]:.3f}", fontsize=13)
-        ax.tick_params(labelsize=12)
+        ax.set_title(f"unit {unit}; score {information[unit]:.3f}", fontsize=15)
+        ax.tick_params(labelsize=15)
     for ax in list(axes.flat)[len(selected):]:
         ax.set_axis_off()
-    fig.suptitle(f"{title}: {layer} (highest eight amplitude-weighted scores)", fontsize=15)
+    fig.suptitle(f"{title}: {layer} (highest eligible scores)", fontsize=16)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
@@ -113,19 +114,19 @@ def plot_occupancy(path: Path, trace: dict[str, np.ndarray], title: str) -> None
     pose = trace["pose"]
     counts, _, _ = np.histogram2d(pose[:, 0], pose[:, 1],
                                   bins=19, range=((100, 2000), (100, 2000)))
-    fig, axes = plt.subplots(1, 2, figsize=(11, 5), dpi=160)
+    fig, axes = plt.subplots(1, 2, figsize=(10, 5), dpi=120)
     image = axes[0].imshow(counts.T, origin="lower", cmap="magma")
     fig.colorbar(image, ax=axes[0], label="decisions per bin")
-    axes[0].set_title("Occupancy", fontsize=15)
+    axes[0].set_title("Occupancy", fontsize=17)
     axes[1].plot(pose[::50, 0], pose[::50, 1], linewidth=0.7)
     axes[1].set_xlim(100, 2000)
     axes[1].set_ylim(100, 2000)
-    axes[1].set_title("Subsampled trajectory", fontsize=15)
+    axes[1].set_title("Subsampled trajectory", fontsize=17)
     for ax in axes:
-        ax.tick_params(labelsize=12)
-        ax.set_xlabel("x", fontsize=13)
-        ax.set_ylabel("y", fontsize=13)
-    fig.suptitle(title, fontsize=16)
+        ax.tick_params(labelsize=15)
+        ax.set_xlabel("x", fontsize=16)
+        ax.set_ylabel("y", fontsize=16)
+    fig.suptitle(title, fontsize=18)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
@@ -138,7 +139,7 @@ def plot_prethreshold(path: Path, trace: dict[str, np.ndarray], title: str) -> N
     logits = trace["dg_pre_threshold"]
     occupancy, _, _ = np.histogram2d(pose[:, 0], pose[:, 1], bins=19,
                                      range=((100, 2000), (100, 2000)))
-    fig, axes = plt.subplots(4, 4, figsize=(14, 14), dpi=160)
+    fig, axes = plt.subplots(4, 4, figsize=(12, 12), dpi=120)
     for unit, ax in enumerate(axes.flat):
         if unit >= logits.shape[1]:
             ax.set_axis_off()
@@ -148,9 +149,9 @@ def plot_prethreshold(path: Path, trace: dict[str, np.ndarray], title: str) -> N
         rate = np.divide(summed, occupancy, out=np.full_like(summed, np.nan), where=occupancy > 0)
         maximum = max(float(np.nanmax(np.abs(rate))), 1e-6)
         ax.imshow(rate.T, origin="lower", cmap="coolwarm", vmin=-maximum, vmax=maximum)
-        ax.set_title(f"DG pre-threshold {unit}", fontsize=13)
-        ax.tick_params(labelsize=12)
-    fig.suptitle(title, fontsize=15)
+        ax.set_title(f"DG logit {unit}", fontsize=18)
+        ax.tick_params(labelsize=18)
+    fig.suptitle(title, fontsize=20)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
@@ -161,7 +162,7 @@ def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
 
     selected = [row for row in comparisons if row["random_policy"] == "uniform"
                 and row["decisions"] == 50_000 and row["difference"] is not None]
-    fig, axes = plt.subplots(1, 4, figsize=(16, 5), dpi=160, sharey=True)
+    fig, axes = plt.subplots(1, 4, figsize=(12, 5), dpi=120, sharey=True)
     colors = {"C01": "#4263a1", "C05": "#b06b23", "C15": "#33835d"}
     for ax, layer in zip(axes, LAYERS):
         for x, condition in enumerate(colors):
@@ -177,11 +178,11 @@ def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
                 ax.plot([x - .14, x + .14], [np.mean(values)] * 2,
                         color="black", linewidth=2)
         ax.axhline(0, color="0.45", linewidth=1)
-        ax.set_xticks(range(3), list(colors), fontsize=12)
-        ax.set_title(layer.replace("_", " ").upper(), fontsize=14)
-        ax.tick_params(labelsize=12)
-    axes[0].set_ylabel("own − uniform random (bits/activation)", fontsize=13)
-    fig.suptitle("Frozen-policy field expression; dots are training seeds", fontsize=15)
+        ax.set_xticks(range(3), list(colors), fontsize=16)
+        ax.set_title(layer.replace("_", " ").upper(), fontsize=17)
+        ax.tick_params(labelsize=15)
+    axes[0].set_ylabel("own − random (bits/activation)", fontsize=16)
+    fig.suptitle("Frozen-policy fields; dots are training seeds", fontsize=19)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)

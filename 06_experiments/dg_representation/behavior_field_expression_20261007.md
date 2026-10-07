@@ -55,7 +55,7 @@ are archived exploratory traces, with no field claim predeclared for them.
 The deployed probe schema is `intrmotiv/behavior-field-probe/v1` and its
 source SHA-256 is `df1f52f624cbf26a27503d764013ef38e4e7f4fb073e7b346310f672d9254efa`;
 the deployed postprocessor source SHA-256 is
-`aafab7ce9f54f42818d36a309854fe4cd37ad6f97e4134b7ff08d4a4c902680d`.
+`430d186cebaf2b97debbf3f801210c237e200fd37c04ed5e306b2c97338189c5`.
 
 A favorable result requires a consistent positive own-minus-uniform difference
 across the three training seeds of a condition, stable direction late in the
@@ -96,8 +96,14 @@ context and are not pooled with these 50k measurements.
   The cancelled submission records are
   `probes/submission_20261007T155751Z.tsv` and
   `probes/submission_20261007T155828Z.tsv`; their 36 jobs were explicitly
-  cancelled, without affecting other studies. Results are pending. The
-  persistent-random arm follows primary completion and health review.
+  cancelled, without affecting other studies. All corrected primary jobs
+  completed with exit code 0, and all 36 raw artifacts passed the exact-length,
+  finite-trace, episode-boundary, and workspace-path audit. One C01 seed-8
+  pair has 265 bins with at least ten visits in both policies and jointly
+  eligible units in every layer, demonstrating that the paired metric is
+  estimable. The 18 persistent-random jobs were print-reviewed and submitted
+  in `probes/submission_20261007T162128Z.tsv`. Condition-level results await
+  the complete 54-row postprocessing pass.
 
 ## Reusable workflow note
 
