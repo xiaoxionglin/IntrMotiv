@@ -6,6 +6,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Place-field trajectory plotter assumes historical family labels — 2026-10-07
+
+- **Evidence:** The established NEMO2 `evaluation/plot_place_field_trajectories.py`
+  filters panels to `fixed_flat`, `global_hrl`, `stream_long_hrl`, and
+  `long_flat`. The odor/CA3 StudySpec has a C15 ARR–MON–FiLM family; its
+  complete 70-row place-field manifest and derived tables passed canonical
+  postprocessing, but the old family-panel plotter cannot display this family.
+- **Impact:** A valid new study can yield empty or misleading standard
+  trajectory panels despite complete telemetry. This study used the canonical
+  derived tables and a thin StudySpec-aware comparative renderer instead.
+- **Improvement/status:** Pending. Let the standard plotter group by declared
+  StudySpec factors or manifest families, without a fixed list of historical
+  controller names. Keep metric definitions in the
+  [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** A focused test renders nonempty panels for this C15 study
+  and the four historical families, preserving their existing values and
+  checkpoint ordering.
+
 ### Concurrent place-field jobs overwrite the shared raw summary — 2026-10-07
 
 - **Evidence:** All 30 odor/CA3 seed-99 5M/10M/25M jobs completed and wrote
