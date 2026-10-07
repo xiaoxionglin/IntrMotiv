@@ -62,9 +62,13 @@ silence, mono-fields, components, dominant mass, distinct peaks, active-only
 cosine, occupancy, headings, movement, and actions. Value and action outputs
 are archived exploratory traces, with no field claim predeclared for them.
 The deployed probe schema is `intrmotiv/behavior-field-probe/v1` and its
-source SHA-256 is `df1f52f624cbf26a27503d764013ef38e4e7f4fb073e7b346310f672d9254efa`;
-the deployed postprocessor source SHA-256 is
-`5a3595171a26edc738c2d5f843a7f57eff1cbb7fc500f4d57865b407c4214424`.
+source SHA-256 is `df1f52f624cbf26a27503d764013ef38e4e7f4fb073e7b346310f672d9254efa`.
+The initial full-map postprocessor source SHA-256 was
+`5a3595171a26edc738c2d5f843a7f57eff1cbb7fc500f4d57865b407c4214424`;
+the final paired reanalysis source SHA-256 is
+`4d006df416fe0a23a7ad2fc1a7ee2f06250ae112f367191d8b7319c8daae8fc0`
+with metric source SHA-256
+`25d433f097ff3b53620207b416cecff2221495c4dcfff9b821b9c8df0aa4f3d0`.
 
 A favorable result requires a consistent positive own-minus-uniform difference
 across the three training seeds of a condition, stable direction late in the
@@ -115,9 +119,61 @@ retain one negative training seed at 50k. C15 DG stays near zero and C15 CA3
 is negative in two seeds at 50k. Decoder 2 remains positive in all seeds of
 C01 and C05, but one C15 seed is negative.
 
-The [per-run table](../results/behavior_field_expression_20261007/per_run.csv)
-retains the historical amplitude-weighted score and the requested unit and
-field diagnostics. Across the 18 probes in each policy arm, mean split-half
+### Matched-support bits per step
+
+Using the same units and equally weighted common bins, the own-minus-uniform
+bits-per-step differences at 50k are:
+
+| Layer | C01 | C05 | C15 |
+| --- | ---: | ---: | ---: |
+| DG | +0.0494 pass | +0.0437 pass | +0.0187 pass |
+| CA3 | +0.1092 pass | +0.1444 pass | −0.0336 mixed |
+| Decoder 1 | +0.1275 pass | +0.1233 pass | +0.0085 mixed |
+| Decoder 2 | +0.0545 pass | +0.0729 pass | +0.0077 mixed |
+
+Here `pass` again requires all three training seeds to have positive
+own-minus-uniform differences at 40k and 50k. C01/C05 CA3 and C15 DG pass
+this bits-per-step rule despite failing the bits-per-activation rule. C15
+decoder 1 shows the reverse: it passes bits per activation but is mixed in
+bits per step. These are differences in what the scores retain about activity
+magnitude, not evidence that either score is erroneous. The [bits-per-step
+seed plot](../results/behavior_field_expression_20261007/paired_layer_summary_bits_per_step.png)
+and [paired-prefix table](../results/behavior_field_expression_20261007/paired_prefixes.csv)
+show the training-seed and probe-level values. Against persistent random,
+bits-per-step differences are positive and late-stable for every condition
+and layer; its [seed plot](../results/behavior_field_expression_20261007/paired_layer_summary_bits_per_step_persistent8.png)
+is kept separate from the primary uniform control.
+
+The [paired table](../results/behavior_field_expression_20261007/paired_prefixes.csv)
+also records mean activity of the *same jointly eligible units on the same
+bins*. It is not simply higher own-policy activity: C01 CA3 averages 0.444
+under own actions versus 0.479 under uniform actions, and C05 CA3 averages
+0.482 versus 0.580, despite their positive bits-per-step differences. The
+unit-wise identity $J_j=\bar r_j I_j$ explains why population means can rank
+differently: units with different activity levels contribute differently to
+the amplitude-weighted mean. C15 decoder 1 averages 0.595 versus 0.661 and
+has positive normalized selectivity but mixed bits per step. Neither score
+alone summarizes both within-unit tuning and which units carry more activity.
+
+![Seed-level own-minus-uniform bits-per-step differences](../results/behavior_field_expression_20261007/paired_layer_summary_bits_per_step.png)
+
+For continuity with the [Lin et al. definition](https://arxiv.org/html/2510.09951v3),
+the [per-run table](../results/behavior_field_expression_20261007/per_run.csv)
+also contains the original **native-occupancy** amplitude-weighted score.
+Its own-minus-uniform condition means at 50k are shown below. These are
+descriptive: each policy supplies different occupancy weights, and each run's
+eligible units are selected separately. The matched-support table above is
+the direct paired comparison.
+
+| Layer | C01 native | C05 native | C15 native |
+| --- | ---: | ---: | ---: |
+| DG | +0.1001 | +0.0296 | +0.0247 |
+| CA3 | +0.3263 | +0.1739 | −0.0088 |
+| Decoder 1 | +0.2243 | +0.2192 | +0.0186 |
+| Decoder 2 | +0.0818 | +0.1685 | +0.0085 |
+
+The same per-run table contains the requested unit and field diagnostics.
+Across the 18 probes in each policy arm, mean split-half
 map correlation is higher under the own policy than uniform random for DG
 (0.598 versus 0.395), CA3 (0.483 versus 0.220), decoder 1 (0.415 versus
 0.222), and decoder 2 (0.487 versus 0.243). This is a descriptive stability
@@ -176,6 +232,11 @@ locations and does **not** change the planned ten-visit result. CA3 is
 especially support-sensitive in C01 and C05, while C15 CA3 remains negative
 in all three seeds at cutoffs of 25, 50, and 100. These changes show why the
 shared-bin count and selected occupancy support must accompany each effect.
+For bits per step, the ten-visit seed directions persist at 25 visits. At 50,
+C15 decoder 1 and 2 become positive in all three seeds on the smaller common
+area. At 100, C05 DG becomes mixed and C15 CA3 remains mixed. The
+[sensitivity table](../results/behavior_field_expression_20261007/support_sensitivity.csv)
+contains both metrics and mean activation for every cutoff.
 
 ## Execution and verification status
 
@@ -217,6 +278,12 @@ shared-bin count and selected occupancy support must accompany each effect.
   in `probes/submission_20261007T162128Z.tsv`; all completed with exit code
   0 and exact 50k metadata. Compute-node analysis job `8296216` completed
   with exit code 0 and produced the complete tables and plots linked above.
+- Bits-per-step paired reanalysis job `8298556` and map-only support job
+  `8298558` both completed with exit code 0. All 720 original paired rows
+  retain their prior support counts and bits-per-activation values exactly.
+  The 144 ten-visit support rows reproduce the 50k paired values for both
+  spatial-information scores and matched-bin mean activation. No DMLab
+  rollout or full per-run map pass was repeated.
 
 ## Reusable workflow note
 
@@ -229,4 +296,7 @@ then change only the declared action controller. Inspecting the archived
 config's *resolved* paths before submission was essential: the initial
 print-only review could not see paths restored inside the evaluator. The
 completed map cache permits cheap support-threshold sensitivity checks
-without re-running DMLab or the full postprocessor.
+without re-running DMLab or the full postprocessor. For a new spatial score,
+the pair-only analysis mode is the shorter canonical path when the aligned
+raw traces and full per-run maps already exist; compare unchanged columns
+against the prior CSV before accepting the revised result.

@@ -17,6 +17,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   W&B paths in the retired workspace; those 36 jobs were cancelled before
   producing traces. The corrected adapter overrides paths before environment
   construction and has a focused regression test.
+- **Reanalysis evidence:** Adding paired bits per step and matched-bin mean
+  activity reused all 54 frozen traces through the adapter's pair-only mode.
+  The 720 previous normalized rows were byte-for-byte unchanged, while the
+  ten-visit map-only sensitivity rows reproduced all 144 full-length pairs.
 - **Impact:** A future policy-sampling study could duplicate the thin adapter
   or mix incompatible decision counts and spatial-score denominators.
 - **Improvement/status:** The [current adapter](hpc_runs/behavior_field_probe.py)
@@ -27,8 +31,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   while retaining the 10k DG contract and manifest compatibility.
 - **Acceptance:** One reviewed manifest can run own and seeded random actions
   at an exact decision count, verify frozen parameters and trace alignment,
-  and produce both the historical DG score and matched-support normalized
-  score without a parallel checkpoint loader. A staged historical config must
+  and produce the historical DG score plus matched-support normalized and
+  bits-per-decision scores without a parallel checkpoint loader. A new score
+  can be recomputed from saved traces without rerunning DMLab or full maps.
+  A staged historical config must
   fail preflight if any restored output/cache path escapes the active workspace
   before an environment is constructed.
 

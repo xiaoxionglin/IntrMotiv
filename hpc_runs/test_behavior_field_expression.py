@@ -55,9 +55,12 @@ class BehaviorFieldTests(unittest.TestCase):
         self.assertAlmostEqual(result["difference"], 0)
         self.assertAlmostEqual(result["bits_per_step_difference"],
                                -result["own_bits_per_step"])
+        self.assertAlmostEqual(result["mean_activation_difference"],
+                               -result["own_mean_activation"])
         random["occupancy"][:] = 0
         self.assertIsNone(paired_information(own, random)["difference"])
         self.assertIsNone(paired_information(own, random)["bits_per_step_difference"])
+        self.assertIsNone(paired_information(own, random)["mean_activation_difference"])
 
     def test_fast_prefix_maps_match_canonical_contract(self):
         rng = np.random.default_rng(9)
@@ -149,7 +152,8 @@ class BehaviorFieldTests(unittest.TestCase):
         rows = [{"condition": "C01", "seed": "8", "eval_seed": str(eval_seed),
                  "random_policy": "uniform", "layer": "dg", "decisions": prefix,
                  "supported": True, "difference": .2,
-                 "bits_per_step_difference": -.3}
+                 "bits_per_step_difference": -.3,
+                 "mean_activation_difference": .4}
                 for eval_seed in (51000, 52000) for prefix in (40000, 50000)]
         summary = next(row for row in condition_summaries(rows)
                        if row["condition"] == "C01" and row["random_policy"] == "uniform"
@@ -159,6 +163,7 @@ class BehaviorFieldTests(unittest.TestCase):
         self.assertEqual(summary["bits_per_step_supported_training_seeds"], 1)
         self.assertAlmostEqual(summary["bits_per_step_mean_difference"], -.3)
         self.assertFalse(summary["bits_per_step_positive_all_three"])
+        self.assertAlmostEqual(summary["activation_mean_difference"], .4)
 
 
 if __name__ == "__main__":

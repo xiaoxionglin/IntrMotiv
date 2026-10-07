@@ -59,7 +59,7 @@ def analyze(manifest: Path, maps_root: Path, output: Path,
                                             "min_visits_per_policy": visits, **metrics})
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(results[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(results[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(results)
     return results

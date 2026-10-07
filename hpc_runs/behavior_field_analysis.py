@@ -105,7 +105,7 @@ def write_csv(path: Path, rows: list[dict]) -> None:
         return
     fields = list(rows[0])
     with path.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -252,10 +252,13 @@ def condition_summaries(comparisons: list[dict]) -> list[dict]:
                                                       "difference")
                 step = metric_condition_summary(comparisons, condition, policy, layer,
                                                 "bits_per_step_difference")
+                activation = metric_condition_summary(comparisons, condition, policy, layer,
+                                                      "mean_activation_difference")
                 result.append({
                     "condition": condition, "random_policy": policy, "layer": layer,
                     **normalized,
                     **{f"bits_per_step_{key}": value for key, value in step.items()},
+                    **{f"activation_{key}": value for key, value in activation.items()},
                 })
     return result
 

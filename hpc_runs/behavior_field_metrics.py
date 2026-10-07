@@ -119,6 +119,9 @@ def paired_information(
         "own_bits_per_step": None,
         "random_bits_per_step": None,
         "bits_per_step_difference": None,
+        "own_mean_activation": None,
+        "random_mean_activation": None,
+        "mean_activation_difference": None,
     }
     if not result["supported"]:
         return result
@@ -129,6 +132,8 @@ def paired_information(
     random_scores = []
     own_step_scores = []
     random_step_scores = []
+    own_means = []
+    random_means = []
     for unit in np.flatnonzero(eligible):
         a, a_step = information_scores(own_map[:, :, unit], weights)
         b, b_step = information_scores(random_map[:, :, unit], weights)
@@ -137,6 +142,8 @@ def paired_information(
             random_scores.append(b)
             own_step_scores.append(a_step)
             random_step_scores.append(b_step)
+            own_means.append(float(np.mean(own_map[:, :, unit][shared])))
+            random_means.append(float(np.mean(random_map[:, :, unit][shared])))
     result["eligible_units"] = len(own_scores)
     if not own_scores:
         result["supported"] = False
@@ -148,6 +155,11 @@ def paired_information(
     result["random_bits_per_step"] = float(np.mean(random_step_scores))
     result["bits_per_step_difference"] = float(np.mean(
         np.asarray(own_step_scores) - random_step_scores
+    ))
+    result["own_mean_activation"] = float(np.mean(own_means))
+    result["random_mean_activation"] = float(np.mean(random_means))
+    result["mean_activation_difference"] = float(np.mean(
+        np.asarray(own_means) - random_means
     ))
     return result
 
