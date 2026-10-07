@@ -1,0 +1,49 @@
+{
+  "batch_name": "intrmotiv_four_prescribed_dg_controller_20261007",
+  "collection": {
+    "exported_histories": null,
+    "loader_backend": "thread",
+    "mode": "fixed",
+    "scalar_size_guidance": 30000,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        22500000,
+        27500000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [
+    "ORACLE_minus_LEARNED"
+  ],
+  "expected_runs": 6,
+  "group_by": [
+    "representation"
+  ],
+  "input_rows": 6,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "option_success_fraction",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "four_prescribed_dg_controller_20261007",
+  "study_sha256": "009cd13111d886839f04624be0913f95773ef4e672ce5c86b6853724afca6b1d",
+  "study_spec": "hpc_runs/studies/four_prescribed_dg_controller_20261007.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

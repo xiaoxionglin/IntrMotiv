@@ -1,6 +1,6 @@
 # Four prescribed DG goals: matched controller screen
 
-**Status, 7 October 2026:** the six matched 75M-frame runs are submitted and running on NEMO2. Native field, short learner, and frozen-checkpoint runtime checks passed. No production controller outcome is reported yet.
+**Status, 7 October 2026:** all six matched 75M-frame runs are still running on NEMO2. Their 5M and 25M checkpoints and online spatial snapshots are complete. The 25M evidence shows that all four prescribed fields are sampled, but oracle goal arrivals remain rare; terminal frozen-policy interventions are pending.
 
 ## Question and comparison
 
@@ -34,6 +34,34 @@ Qualification proceeds in this order:
 4. Use the standard manifest-driven 10k-decision field evaluator and matched-command intervention. Report fixed-oracle versus learned-context maps separately, including silence, active-only overlap, peak diversity and pre-threshold maps. The standard 100-unit grid is too coarse to certify an 80-unit support, so verify the prescribed field shape directly from position/activity samples as an additional diagnostic.
 
 If the oracle arm has clear command lift while LEARNED does not, unstable or ambiguous learned goal identity becomes the leading bottleneck. If both arms show little action change and little lift despite adequate events and candidate exposure, worker goal-conditioning or credit is implicated. If the oracle fields are rarely encountered or goals are infeasible under the deadline, the controller comparison is inconclusive; report that gate rather than interpreting a null result.
+
+## Interim evidence at 5M and 25M
+
+The canonical StudySpec online collector read all six TensorBoard histories at the declared early ages, using windows 2.5–7.5M and 22.5–27.5M. The spatial collector read all 12 retained online snapshots, each containing 100,000 policy observations. The pinned [5M](results/four_prescribed_dg_20261007/online_5m_per_run.csv), [25M](results/four_prescribed_dg_20261007/online_25m_per_run.csv), [per-snapshot](results/four_prescribed_dg_20261007/spatial_5m_25m_per_snapshot.csv), and [per-unit](results/four_prescribed_dg_20261007/spatial_5m_25m_per_unit.csv) tables preserve the individual seeds. Their adjacent manifests preserve the study fingerprint and collector protocol; bulk NPZs remain in the allocated workspace.
+
+| Age | Arm | Mean coverage AUC | Mean online option success | Mean target-action probability TV |
+| --- | --- | ---: | ---: | ---: |
+| 5M | LEARNED | 62.3 | 51.4% | 0.00028 |
+| 5M | ORACLE | 81.9 | 2.23% | 0.00026 |
+| 25M | LEARNED | 35.0 | 33.9% | 0.00047 |
+| 25M | ORACLE | 71.1 | 2.57% | 0.00168 |
+
+These are three-seed means of online window metrics, not matched-start success probabilities. At 25M the oracle coverage AUC is higher for each paired seed (differences 27.2, 40.5 and 40.3), while its option success is lower for each (differences −26.2, −27.1 and −40.8 percentage points). The target-action TV remains small in both arms. Within each arm, commanded and shuffled instantaneous target-hit rates are nearly identical; this is a diagnostic of weak command sensitivity, not the planned matched-start intervention result.
+
+In the ORACLE snapshots, fixed-field positive observations per 100,000 policy observations were:
+
+| Age | DG 0 | DG 1 | DG 2 | DG 3 |
+| --- | ---: | ---: | ---: | ---: |
+| 5M, range over seeds | 139–216 | 59–81 | 181–266 | 167–413 |
+| 25M, range over seeds | 98–223 | 34–75 | 139–311 | 155–263 |
+
+All four prescribed fields therefore occur in every seed and age, and all twelve learned context channels remain active. The stored post-replacement activities match the declared Gaussian function at their recorded poses with maximum absolute error below $3\times10^{-8}$ across the six oracle snapshots. The LEARNED arm's first four units instead had roughly 1,930–4,712 positive observations per 100,000, depending on unit, seed and age. This large event-frequency difference makes online option success an unequal-difficulty comparison. In particular, DG 1 is sampled only 34–81 times per 100,000 in ORACLE.
+
+The oracle graph has **zero reliable directed edges at both ages in all three seeds**; LEARNED has 2–9. The oracle seed-99 25M graph recorded about 5,718 directed attempt mass across the four goal IDs, but its maximum off-diagonal estimated edge reliability was 0.07, well below the declared 0.5 threshold. Its frontier discovery counts were zero. The graph's separate prospective-attempt array was also zero, so these stored attempts should not be presented as completed prospective control trials. The standard 19-by-19 place-field grid and its mono-field eligibility test do not resolve the narrow oracle fields; interpret exact pose/activity checks above rather than the grid's zero mono-field score for those four units.
+
+The present evidence says that fixed, clean fields did **not** yield useful goal arrival by 25M under the current selection and 64-decision option rule. It does not identify a unique cause: the four destinations are far apart, the events are much rarer than learned DG events, and the controller may be insensitive to commands. The higher coverage AUC is an exploration observation; it cannot rescue the reachability interpretation. Continue to the declared milestones, then use the 10k-decision checkpoint protocol and matched-start target intervention to distinguish field availability, command-specific action change and arrival. A follow-up mechanism test should vary field spacing or event frequency and deadline as explicit factors, rather than treating this sparse four-field arm as a clean representation-only oracle.
+
+At the scheduled audit, all six jobs remained running between 41.3M and 43.1M frames, with finite latest train, policy and value losses and nonzero active-target fractions. Both 5M and 25M checkpoint files were present for every seed and arm. No job was resubmitted or changed. The current online and spatial summaries are interim; the standard frozen 10k-decision sweep and matched-start intervention await the later declared checkpoints.
 
 ## Provenance and reusable lesson
 
