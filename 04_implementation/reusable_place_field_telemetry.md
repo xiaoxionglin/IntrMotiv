@@ -204,6 +204,29 @@ question.
 Two thousand decisions are not enough for normal field-diversity evaluation.
 They can detect total silence, but often leave too much of the map unvisited.
 
+## Frozen-policy behavior comparison (October 2026)
+
+The [poster-cohort field-expression study](../06_experiments/dg_representation/behavior_field_expression_20261007.md)
+is an opt-in, 50,000-**decision** extension. Its thin
+[`behavior_field_probe.py`](../hpc_runs/behavior_field_probe.py) adapter reuses
+`place_fields.load_policy_env`, the exact final checkpoint, and the canonical
+19-by-19 field calculations. It records DG, CA3, decoder-1, decoder-2, value,
+and action outputs while the policy executes its own actions or observes
+uniform/persistent-random motor actions. Do not combine its long-probe scores
+with the standard 10k checkpoint series.
+
+The primary paired score normalizes the canonical amplitude-weighted spatial
+score by mean activation and uses equal spatial weights on bins with at least
+ten visits in both policies. It requires at least 20 shared bins and jointly
+eligible units; otherwise the contrast is undefined. Retain the original
+amplitude-weighted score as a separate compatibility column. Because the
+checkpoint is frozen, this intervention tests behavioral expression and
+sampling of a representation, not how behavior affected its learning. Save
+raw downstream traces, since the older online spatial NPZ contains DG only.
+Use the active `fr_xl1014-corridor-geometry` workspace for every new bulk
+artifact; the older `fr_xl1014-train` paths elsewhere in this historical guide
+are not new-output destinations.
+
 ## Manifest Contract
 
 `submit_place_field_sweep.py` and `run_place_field_sweep_single.sh` expect a

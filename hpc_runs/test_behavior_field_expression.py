@@ -3,14 +3,20 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
+from types import SimpleNamespace
+from tempfile import TemporaryDirectory
 
 import numpy as np
 import torch
 from torch import nn
 
-from hpc_runs.behavior_field_metrics import normalized_information, paired_information
+from hpc_runs.behavior_field_metrics import (
+    comparison_details, layer_details, normalized_information, paired_information,
+)
 from hpc_runs.behavior_field_probe import (
     assert_alignment, capture_decoder_module, choose_executed_action,
+    configure_workspace_paths,
     frozen_digest, reset_recurrent_state,
 )
 
@@ -36,6 +42,18 @@ class BehaviorFieldTests(unittest.TestCase):
         self.assertAlmostEqual(result["difference"], 0)
         random["occupancy"][:] = 0
         self.assertIsNone(paired_information(own, random)["difference"])
+
+    def test_fast_prefix_maps_match_canonical_contract(self):
+        rng = np.random.default_rng(9)
+        pose = np.column_stack((rng.uniform(100, 2000, 400),
+                                rng.uniform(100, 2000, 400), np.zeros(400)))
+        activity = rng.exponential(size=(400, 3)).astype(np.float32)
+        activity[rng.random(activity.shape) < .3] = 0
+        slow = layer_details(pose, activity)
+        fast = comparison_details(pose, activity)
+        np.testing.assert_array_equal(slow["occupancy"], fast["occupancy"])
+        np.testing.assert_allclose(slow["rate_maps"], fast["rate_maps"], atol=1e-6)
+        np.testing.assert_array_equal(slow["field_eligible"], fast["field_eligible"])
 
     def test_action_override_and_episode_reset(self):
         rng = np.random.default_rng(123)
@@ -72,6 +90,17 @@ class BehaviorFieldTests(unittest.TestCase):
         with torch.no_grad():
             actor.bn.running_mean.add_(1)
         self.assertNotEqual(initial, frozen_digest(actor))
+
+    def test_historical_output_paths_are_overridden_before_env(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            cfg = SimpleNamespace(train_dir="/retired/train", dmlab_level_cache_path="/retired/cache",
+                                  wandb_dir="/retired/wandb", with_wandb=True)
+            paths = configure_workspace_paths(cfg, root / "runs" / "run", root / "analysis", root)
+            self.assertEqual(cfg.train_dir, str(root / "runs"))
+            self.assertEqual(cfg.dmlab_level_cache_path, str(root / "analysis" / "dmlab_cache"))
+            self.assertFalse(cfg.with_wandb)
+            self.assertTrue(all(path.startswith(str(root)) for path in paths.values()))
 
 
 if __name__ == "__main__":

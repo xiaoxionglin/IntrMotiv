@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import torch
@@ -66,6 +67,23 @@ def assert_alignment(records: dict[str, list], decisions: int) -> None:
         raise RuntimeError(f"Trace alignment or exact decision count failed: {lengths}")
 
 
+def configure_workspace_paths(cfg: Any, run_dir: Path, output_root: Path,
+                              workspace_root: Path) -> dict[str, str]:
+    """Override retired paths from historical configs before environment creation."""
+    root = workspace_root.resolve(strict=True)
+    paths = {
+        "train_dir": run_dir.parent.resolve(),
+        "dmlab_level_cache_path": (output_root / "dmlab_cache").resolve(),
+        "wandb_dir": (output_root / "wandb").resolve(),
+    }
+    for name, path in paths.items():
+        if not path.is_relative_to(root):
+            raise ValueError(f"{name} outside active workspace: {path}")
+        setattr(cfg, name, str(path))
+    cfg.with_wandb = False
+    return {key: str(value) for key, value in paths.items()}
+
+
 def capture_decoder_module(actor: nn.Module) -> tuple[str, nn.Module]:
     """Use the poster's first activation hook, which fires at both MLP layers."""
     for name, module in actor.decoder.named_modules():
@@ -75,18 +93,45 @@ def capture_decoder_module(actor: nn.Module) -> tuple[str, nn.Module]:
 
 
 def collect(run_dir: Path, checkpoint: Path, output: Path, policy: str,
-            decisions: int, eval_seed: int) -> dict[str, object]:
+            decisions: int, eval_seed: int, workspace_root: Path) -> dict[str, object]:
     from sample_factory.algo.sampling.batched_sampling import preprocess_actions
     from sample_factory.algo.utils.rl_utils import make_dones, prepare_and_normalize_obs
     from sample_factory.model.model_utils import get_rnn_size
-    from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
+    from sf_working_directories.IntrMotiv.evaluation import place_fields
 
     if policy not in POLICIES or decisions < 1 or output.exists():
         raise ValueError("Invalid policy, decision count, or existing output")
+    root = workspace_root.resolve(strict=True)
+    for path in (run_dir, checkpoint, output):
+        if not path.resolve().is_relative_to(root):
+            raise ValueError(f"Probe input/output outside active workspace: {path}")
+    output_root = output.parent.parent
+    cache_path = output_root / "dmlab_cache"
+    wandb_path = output_root / "wandb"
+    for path in (cache_path, wandb_path):
+        if not path.resolve().is_relative_to(root):
+            raise ValueError(f"Runtime output outside active workspace: {path}")
+
+    # The historical config restores retired training/cache/W&B paths. Reuse
+    # the canonical loader, but replace those paths immediately before its
+    # environment constructor sees the loaded config.
+    original_factory = place_fields.make_env_func_batched
+    configured_paths: dict[str, str] = {}
+
+    def workspace_factory(cfg, *args, **kwargs):
+        configured_paths.update(configure_workspace_paths(cfg, run_dir, output_root, root))
+        return original_factory(cfg, *args, **kwargs)
+
     torch.set_num_threads(1)
-    cfg, env, env_info, actor, selected, device = load_policy_env(
-        run_dir, decisions, False, 0, checkpoint
-    )
+    place_fields.make_env_func_batched = workspace_factory
+    try:
+        cfg, env, env_info, actor, selected, device = place_fields.load_policy_env(
+            run_dir, decisions, False, 0, checkpoint
+        )
+    finally:
+        place_fields.make_env_func_batched = original_factory
+    if set(configured_paths) != {"train_dir", "dmlab_level_cache_path", "wandb_dir"}:
+        raise RuntimeError("Workspace path override did not run")
     if env.num_agents != 1 or actor.action_space.n < 2:
         raise RuntimeError("Probe requires one agent with discrete actions")
     if not hasattr(env.unwrapped, "seed"):
@@ -194,6 +239,7 @@ def collect(run_dir: Path, checkpoint: Path, output: Path, policy: str,
         "environment": cfg.env, "action_repeat": int(cfg.env_frameskip),
         "action_count": int(actor.action_space.n), "episodes_completed": episode,
         "decoder_hook": decoder_name,
+        "runtime_paths": configured_paths,
         "layer_widths": {key: int(arrays[key].shape[1]) for key in
                          ("dg", "ca3", "decoder_1", "decoder_2")},
         "proposed_executed_disagreements": int(np.count_nonzero(
@@ -211,9 +257,11 @@ def main() -> None:
     parser.add_argument("--policy", choices=POLICIES, required=True)
     parser.add_argument("--decisions", type=int, default=50_000)
     parser.add_argument("--eval-seed", type=int, required=True)
+    parser.add_argument("--workspace-root", type=Path, required=True)
     args = parser.parse_args()
     print(json.dumps(collect(args.run_dir, args.checkpoint, args.output,
-                             args.policy, args.decisions, args.eval_seed)), flush=True)
+                             args.policy, args.decisions, args.eval_seed,
+                             args.workspace_root)), flush=True)
 
 
 if __name__ == "__main__":

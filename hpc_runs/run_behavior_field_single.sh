@@ -36,6 +36,7 @@ decisions = __import__("os").environ.get("BF_DECISIONS_OVERRIDE", row["decisions
 command = [sys.executable, "-m", "hpc_runs.behavior_field_probe",
            "--run-dir", row["run_dir"], "--checkpoint", row["checkpoint"],
            "--policy", row["policy"], "--eval-seed", row["eval_seed"],
-           "--decisions", decisions, "--output", str(output / "raw" / row["label"])]
+           "--decisions", decisions, "--output", str(output / "raw" / row["label"]),
+           "--workspace-root", __import__("os").environ["BF_WORKSPACE"]]
 subprocess.run(command, check=True)
 PY

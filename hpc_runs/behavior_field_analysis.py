@@ -10,7 +10,8 @@ from pathlib import Path
 import numpy as np
 
 from hpc_runs.behavior_field_metrics import (
-    LAYERS, PREFIXES, layer_details, paired_information, split_half_reliability,
+    LAYERS, PREFIXES, comparison_details, layer_details, paired_information,
+    split_half_reliability,
 )
 from hpc_runs.behavior_field_study import read_manifest
 
@@ -222,8 +223,8 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
                         continue
                     for prefix in PREFIXES:
                         for layer in LAYERS:
-                            own_details = layer_details(own["pose"][:prefix], own[layer][:prefix])
-                            random_details = layer_details(random["pose"][:prefix], random[layer][:prefix])
+                            own_details = comparison_details(own["pose"][:prefix], own[layer][:prefix])
+                            random_details = comparison_details(random["pose"][:prefix], random[layer][:prefix])
                             comparisons.append({
                                 "condition": condition, "seed": seed, "eval_seed": eval_seed,
                                 "random_policy": policy, "decisions": prefix, "layer": layer,

@@ -34,6 +34,34 @@ def layer_details(pose: np.ndarray, activity: np.ndarray) -> dict[str, np.ndarra
     )
 
 
+def comparison_details(pose: np.ndarray, activity: np.ndarray) -> dict[str, np.ndarray]:
+    """Only the canonical map/eligibility arrays needed at each prefix.
+
+    Component labeling across 1,136 CA3 channels is reserved for complete
+    50k maps; repeating it at every prefix adds cost without changing SI.
+    """
+    pose = np.asarray(pose, dtype=np.float32)
+    activity = np.maximum(np.asarray(activity, dtype=np.float32), 0)
+    if pose.ndim != 2 or pose.shape[1] != 3 or activity.ndim != 2 or len(pose) != len(activity):
+        raise ValueError("Unaligned pose and activity")
+    x = np.floor((pose[:, 0] - 100) / 100).astype(int)
+    y = np.floor((pose[:, 1] - 100) / 100).astype(int)
+    valid = (x >= 0) & (x < 19) & (y >= 0) & (y < 19)
+    bins = y[valid] * 19 + x[valid]
+    values = activity[valid]
+    occupancy = np.bincount(bins, minlength=361).reshape(19, 19)
+    maps = np.zeros((361, values.shape[1]), dtype=np.float32)
+    eligible = np.zeros(values.shape[1], dtype=bool)
+    for unit in range(values.shape[1]):
+        sums = np.bincount(bins, weights=values[:, unit], minlength=361)
+        maps[:, unit] = np.divide(sums, occupancy.ravel(), out=np.zeros(361),
+                                  where=occupancy.ravel() > 0)
+        active = values[:, unit] > 0
+        eligible[unit] = active.sum() >= 20 and np.unique(bins[active]).size >= 3
+    return {"occupancy": occupancy, "rate_maps": maps.reshape(19, 19, -1),
+            "field_eligible": eligible}
+
+
 def normalized_information(rate_map: np.ndarray, weights: np.ndarray) -> float:
     """Skaggs bits per activation on explicitly chosen spatial weights."""
     rate = np.asarray(rate_map, dtype=np.float64)
@@ -111,8 +139,8 @@ def split_half_reliability(pose: np.ndarray, activity: np.ndarray, dones: np.nda
     if not len(boundaries):
         return None
     split = int(boundaries[np.argmin(abs(boundaries - len(pose) / 2))])
-    first = layer_details(pose[:split], activity[:split])
-    second = layer_details(pose[split:], activity[split:])
+    first = comparison_details(pose[:split], activity[:split])
+    second = comparison_details(pose[split:], activity[split:])
     shared = (first["occupancy"] >= MIN_SHARED_VISITS) & (second["occupancy"] >= MIN_SHARED_VISITS)
     if shared.sum() < MIN_SHARED_BINS:
         return None
