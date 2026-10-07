@@ -117,6 +117,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   edit that report or manifest. Treat the manifest as a historical input
   snapshot; if the gallery is regenerated, pin or recover the exact report
   version before judging its replay against current prose.
+- **Branch reconciliation, 7 October:** `git cherry -v main` marked both
+  `codex/poster-exemplar-gallery` commits as patch-equivalent to work already
+  on `main`; its old report locations differed from the current catalogue.
+  The branch was joined by ancestry after checking those patch IDs, retaining
+  the current tree. The CA3 branch had two unique commits and a plan conflict;
+  the later direct-z recognition decision remained authoritative. For future
+  merges, check ancestry and patch equivalence before reconciling stale trees,
+  then verify every feature tip is an ancestor of `main` and every new report
+  has a catalogue entry. The dated NEMO2 release record is indexed separately
+  from the later G500 production report.
 - **Acceptance:** Every newly moved file has a working index path, all local
   links in changed Markdown resolve, and the tracked tree contains no
   `.DS_Store` or empty placeholder files. Future study updates link their
