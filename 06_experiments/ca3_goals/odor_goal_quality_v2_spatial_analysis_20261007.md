@@ -1,6 +1,6 @@
 # Odor and CA3 goal quality: place fields, trajectories, and graphs
 
-**Status, 7 October 2026:** the complete declared place-field protocol is analyzed: 70 independent 10k-decision rollouts. All 200 retained online spatial/graph snapshots are collected. The 40 matched-start alternative-command intervention jobs are still running; this report does not infer command efficacy from graph or field plots.
+**Status, 7 October 2026:** the complete declared place-field protocol is analyzed: 70 independent 10k-decision rollouts. All 200 retained online spatial/graph snapshots are collected. The 40 ordinary target-hit intervention jobs completed; their [interim command analysis](odor_goal_quality_v2_command_interventions_20261007.md) identifies a stopping-rule limitation. First-distinct-outcome evaluations are running; this spatial report does not infer command efficacy from graph or field plots.
 
 ## Where the outputs are
 
@@ -48,7 +48,7 @@ The [reachability curves](results/odor_v2_spatial_20261007/graph_reachability.pn
 
 ## What remains
 
-The 40 frozen-policy, matched-start alternative-command intervention jobs are still running. Their first distinct DG outcomes, timeouts/failures, target-specific success relative to matched shuffled commands, and action-distribution changes are needed to test whether the graph differences translate into causal goal control. The [coverage analysis](odor_goal_quality_40_run_v2_20261007.md#interim-analysis-complete-training-histories) already reports the 40-run external learning curves and seed-paired contrasts. The final study interpretation must bring that coverage evidence, these spatial/graph results, and the intervention outcomes together without treating online graph hit fractions as intervention success rates.
+The 40 ordinary target-hit evaluations are complete; see their [interim command analysis](odor_goal_quality_v2_command_interventions_20261007.md). The separate first-distinct evaluations must resolve whether the commanded identity is more often the first new DG outcome than a matched shuffled identity, while accounting for wrong first outcomes, timeouts, censoring, and action sensitivity. The [coverage analysis](odor_goal_quality_40_run_v2_20261007.md#interim-analysis-complete-training-histories) already reports the 40-run external learning curves and seed-paired contrasts. The final study interpretation must bring that coverage evidence, these spatial/graph results, and both intervention protocols together without treating online graph hit fractions as intervention success rates.
 
 ## Reproducibility note
 

@@ -1,6 +1,6 @@
 # Odor and CA3 goal quality: corrected 40-run launch
 
-**Status, 7 October 2026:** all 40 replacement runs have their declared 5M/10M/25M/50M/75M checkpoints. The full 40-run coverage histories, all 70 declared 10k-decision place-field rollouts, and all 200 online spatial/graph snapshots have been analyzed. See the [place-field, trajectory, and graph report](odor_goal_quality_v2_spatial_analysis_20261007.md). The 40 terminal matched-start interventions remain `RUNNING`; causal command outcomes are pending.
+**Status, 7 October 2026:** all 40 replacement runs have their declared 5M/10M/25M/50M/75M checkpoints. The full 40-run coverage histories, all 70 declared 10k-decision place-field rollouts, and all 200 online spatial/graph snapshots have been analyzed. See the [place-field, trajectory, and graph report](odor_goal_quality_v2_spatial_analysis_20261007.md). All 40 ordinary target-hit intervention jobs completed; the [interim command analysis](odor_goal_quality_v2_command_interventions_20261007.md) records their stopping-rule limitation. The additional 40 first-distinct-outcome evaluations are running.
 
 ## Why the first launch was replaced
 
@@ -88,9 +88,9 @@ At 70–75M, every run reports support for all 16 CA3 quality rows, zero DG sile
 
 The [complete spatial analysis](odor_goal_quality_v2_spatial_analysis_20261007.md) reports all 70 independent 10k-decision field rollouts and all 200 retained online spatial/graph snapshots. No evaluated DG unit was silent. At 75M, active peak bins averaged 15.4 of 16, but only 5.2% of eligible unit maps met the established mono-field criterion; many maps contain multiple hotspots. The seed-99 checkpoint trajectories and map-stability tables are descriptive because the learned policy and occupancy differ between checkpoints. Across four paired seeds under both odor settings, HEBB4's reliable graph had fewer edges and lower ordered-pair reachability than RANDOM4, despite more prospective attempts. The [field curves](results/odor_v2_spatial_20261007/place_field_checkpoint_trajectory.png), [graph curves](results/odor_v2_spatial_20261007/graph_reachability.png), selected field/trajectory/graph atlases, tables, and provenance are linked from that report. These observational graph measures do not establish causal command success.
 
-## Remaining analysis
+## Command interventions and remaining analysis
 
-After the 40 intervention jobs finish, report matched-start first distinct outcomes and failed trials alongside ordinary target hits and the online target-active diagnostic. Integrate those outcomes with the completed coverage and spatial/graph analyses, keeping the immutable study fingerprint and submitted-command audits in final provenance.
+The [ordinary target-hit report](odor_goal_quality_v2_command_interventions_20261007.md) covers all 40 completed terminal jobs and 48,000 matched-start trials. Commanded targets were hit more often than matched shuffled identities, but stopping each trial at the commanded hit favors that comparison. The original intervention setting did not record first-distinct event order. A separately fingerprinted evaluation-only StudySpec now runs the missing first-distinct protocol on the same 40 checkpoints, without changing the production study or learned parameters. Once those 40 jobs finish, report correct and wrong first distinct outcomes, timeouts, and censored trials alongside ordinary target hits and the online target-active diagnostic. Integrate them with the completed coverage and spatial/graph analyses, keeping both StudySpec fingerprints and submitted-command audits in final provenance.
 
 ## Reusable lesson
 
