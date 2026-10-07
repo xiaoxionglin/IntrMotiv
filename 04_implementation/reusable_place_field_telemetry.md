@@ -219,7 +219,12 @@ The primary paired score normalizes the canonical amplitude-weighted spatial
 score by mean activation and uses equal spatial weights on bins with at least
 ten visits in both policies. It requires at least 20 shared bins and jointly
 eligible units; otherwise the contrast is undefined. Retain the original
-amplitude-weighted score as a separate compatibility column. Because the
+amplitude-weighted score as a separate compatibility column. The paired
+analysis also reports the amplitude-weighted bits-per-decision form on the
+**same shared bins and units** as the normalized score; one decision is the
+discrete step in this protocol. The per-run compatibility column still uses
+each policy's native occupancy, so it is not the paired bits-per-decision
+score. Because the
 checkpoint is frozen, this intervention tests behavioral expression and
 sampling of a representation, not how behavior affected its learning. Save
 raw downstream traces, since the older online spatial NPZ contains DG only.

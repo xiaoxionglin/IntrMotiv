@@ -13,7 +13,8 @@ import torch
 from torch import nn
 
 from hpc_runs.behavior_field_metrics import (
-    comparison_details, layer_details, normalized_information, paired_information,
+    comparison_details, information_scores, layer_details, normalized_information,
+    paired_information,
 )
 from hpc_runs.behavior_field_probe import (
     assert_alignment, capture_decoder_module, choose_executed_action,
@@ -26,10 +27,19 @@ from hpc_runs.behavior_field_analysis import condition_summaries
 
 class BehaviorFieldTests(unittest.TestCase):
     def test_information_is_gain_invariant(self):
+        self.assertEqual(information_scores(np.array([[2.0, 0.0]]),
+                                            np.ones((1, 2))), (1.0, 1.0))
+        self.assertEqual(information_scores(np.array([[4.0, 0.0]]),
+                                            np.ones((1, 2))), (1.0, 2.0))
         rate = np.array([[0.1, 0.3], [0.0, 0.6]])
         weight = np.ones((2, 2))
         self.assertAlmostEqual(normalized_information(rate, weight),
                                normalized_information(rate * 17, weight))
+        per_activation, per_step = information_scores(rate, weight)
+        scaled_activation, scaled_step = information_scores(rate * 17, weight)
+        self.assertAlmostEqual(per_activation, scaled_activation)
+        self.assertAlmostEqual(scaled_step, per_step * 17)
+        self.assertAlmostEqual(per_step, per_activation * rate.mean())
 
     def test_common_support_and_same_units(self):
         occupancy = np.full((19, 19), 10)
@@ -43,8 +53,11 @@ class BehaviorFieldTests(unittest.TestCase):
         self.assertEqual(result["shared_bins"], 361)
         self.assertEqual(result["eligible_units"], 1)
         self.assertAlmostEqual(result["difference"], 0)
+        self.assertAlmostEqual(result["bits_per_step_difference"],
+                               -result["own_bits_per_step"])
         random["occupancy"][:] = 0
         self.assertIsNone(paired_information(own, random)["difference"])
+        self.assertIsNone(paired_information(own, random)["bits_per_step_difference"])
 
     def test_fast_prefix_maps_match_canonical_contract(self):
         rng = np.random.default_rng(9)
@@ -135,13 +148,17 @@ class BehaviorFieldTests(unittest.TestCase):
     def test_condition_summary_does_not_count_eval_repeats_as_seeds(self):
         rows = [{"condition": "C01", "seed": "8", "eval_seed": str(eval_seed),
                  "random_policy": "uniform", "layer": "dg", "decisions": prefix,
-                 "supported": True, "difference": .2}
+                 "supported": True, "difference": .2,
+                 "bits_per_step_difference": -.3}
                 for eval_seed in (51000, 52000) for prefix in (40000, 50000)]
         summary = next(row for row in condition_summaries(rows)
                        if row["condition"] == "C01" and row["random_policy"] == "uniform"
                        and row["layer"] == "dg")
         self.assertEqual(summary["supported_training_seeds"], 1)
         self.assertFalse(summary["positive_all_three"])
+        self.assertEqual(summary["bits_per_step_supported_training_seeds"], 1)
+        self.assertAlmostEqual(summary["bits_per_step_mean_difference"], -.3)
+        self.assertFalse(summary["bits_per_step_positive_all_three"])
 
 
 if __name__ == "__main__":

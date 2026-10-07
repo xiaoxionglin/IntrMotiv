@@ -1,7 +1,7 @@
-"""Shared, policy-comparable spatial metrics for frozen representation probes.
+"""Shared spatial metrics for frozen representation probes.
 
-The canonical IntrMotiv score is amplitude weighted. This module adds its
-bits-per-activation normalization without changing the older metric contract.
+Report the canonical amplitude-weighted score (bits per decision) and its
+gain-invariant normalization (bits per unit of mean activation) together.
 """
 
 from __future__ import annotations
@@ -62,21 +62,29 @@ def comparison_details(pose: np.ndarray, activity: np.ndarray) -> dict[str, np.n
             "field_eligible": eligible}
 
 
-def normalized_information(rate_map: np.ndarray, weights: np.ndarray) -> float:
-    """Skaggs bits per activation on explicitly chosen spatial weights."""
+def information_scores(rate_map: np.ndarray, weights: np.ndarray) -> tuple[float, float]:
+    """Return Skaggs bits per activation and bits per decision on given weights."""
     rate = np.asarray(rate_map, dtype=np.float64)
     weight = np.asarray(weights, dtype=np.float64)
     if rate.shape != weight.shape or (rate < 0).any() or (weight < 0).any():
         raise ValueError("rate and weight must be same-shape nonnegative arrays")
     total = weight.sum()
     if total <= 0:
-        return float("nan")
+        return float("nan"), float("nan")
     p = weight / total
     mean = float(np.sum(p * rate))
     if mean <= 0:
-        return float("nan")
+        return float("nan"), float("nan")
     positive = (p > 0) & (rate > 0)
-    return float(np.sum(p[positive] * rate[positive] * np.log2(rate[positive] / mean)) / mean)
+    bits_per_step = float(np.sum(
+        p[positive] * rate[positive] * np.log2(rate[positive] / mean)
+    ))
+    return bits_per_step / mean, bits_per_step
+
+
+def normalized_information(rate_map: np.ndarray, weights: np.ndarray) -> float:
+    """Skaggs bits per activation on explicitly chosen spatial weights."""
+    return information_scores(rate_map, weights)[0]
 
 
 def paired_information(
@@ -108,6 +116,9 @@ def paired_information(
         "own_bits_per_activation": None,
         "random_bits_per_activation": None,
         "difference": None,
+        "own_bits_per_step": None,
+        "random_bits_per_step": None,
+        "bits_per_step_difference": None,
     }
     if not result["supported"]:
         return result
@@ -116,12 +127,16 @@ def paired_information(
     random_map = np.asarray(random["rate_maps"])
     own_scores = []
     random_scores = []
+    own_step_scores = []
+    random_step_scores = []
     for unit in np.flatnonzero(eligible):
-        a = normalized_information(own_map[:, :, unit], weights)
-        b = normalized_information(random_map[:, :, unit], weights)
-        if np.isfinite(a) and np.isfinite(b):
+        a, a_step = information_scores(own_map[:, :, unit], weights)
+        b, b_step = information_scores(random_map[:, :, unit], weights)
+        if np.isfinite(a) and np.isfinite(b) and np.isfinite(a_step) and np.isfinite(b_step):
             own_scores.append(a)
             random_scores.append(b)
+            own_step_scores.append(a_step)
+            random_step_scores.append(b_step)
     result["eligible_units"] = len(own_scores)
     if not own_scores:
         result["supported"] = False
@@ -129,6 +144,11 @@ def paired_information(
     result["own_bits_per_activation"] = float(np.mean(own_scores))
     result["random_bits_per_activation"] = float(np.mean(random_scores))
     result["difference"] = float(np.mean(np.asarray(own_scores) - random_scores))
+    result["own_bits_per_step"] = float(np.mean(own_step_scores))
+    result["random_bits_per_step"] = float(np.mean(random_step_scores))
+    result["bits_per_step_difference"] = float(np.mean(
+        np.asarray(own_step_scores) - random_step_scores
+    ))
     return result
 
 

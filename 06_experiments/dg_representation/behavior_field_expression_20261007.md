@@ -48,6 +48,15 @@ policies and the intersection of canonically eligible units. A comparison is
 undefined below 20 shared bins or without a jointly eligible active unit.
 This shared-support score is distinct from the historical native-occupancy
 score, which remains in the per-run table for continuity. The postprocessor
+also reports the [Lin et al. bits-per-step form](https://arxiv.org/html/2510.09951v3),
+with one *step* equal to one agent decision in these rollouts. For each unit,
+$J=\sum_b p_b r_b\log_2(r_b/\bar r)$ and the existing normalized score is
+$I=J/\bar r$, where $\bar r=\sum_b p_b r_b$. The paired $J$ uses the **same
+uniform weights on shared bins and the same eligible units** as $I$, so both
+readouts have matched spatial support. Multiplying a unit's activity by $c$
+multiplies $J$ by $c$ while leaving $I$ unchanged. The historical per-run
+amplitude-weighted score uses each policy's native occupancy and is therefore
+not numerically identical to paired common-support $J$. The postprocessor
 also saves 10k/20k/30k/40k/50k paired prefixes, split-half reliability,
 silence, mono-fields, components, dominant mass, distinct peaks, active-only
 cosine, occupancy, headings, movement, and actions. Value and action outputs

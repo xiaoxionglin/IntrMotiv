@@ -172,19 +172,22 @@ def plot_prethreshold(path: Path, trace: dict[str, np.ndarray], title: str) -> N
     plt.close(fig)
 
 
-def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
+def plot_paired_summary(path: Path, comparisons: list[dict],
+                        metric: str = "difference", random_policy: str = "uniform") -> None:
     import matplotlib.pyplot as plt
 
+    if metric not in ("difference", "bits_per_step_difference"):
+        raise ValueError(f"Unknown spatial metric: {metric}")
     prepare_plot_style()
-    selected = [row for row in comparisons if row["random_policy"] == "uniform"
-                and row["decisions"] == 50_000 and row["difference"] is not None]
+    selected = [row for row in comparisons if row["random_policy"] == random_policy
+                and row["decisions"] == 50_000 and row[metric] is not None]
     fig, axes = plt.subplots(1, 4, figsize=(12, 5), dpi=120, sharey=True)
     colors = {"C01": "#4263a1", "C05": "#b06b23", "C15": "#33835d"}
     for ax, layer in zip(axes, LAYERS):
         for x, condition in enumerate(colors):
             values = []
             for seed in ("8", "99", "123"):
-                candidates = [row["difference"] for row in selected if
+                candidates = [row[metric] for row in selected if
                               row["layer"] == layer and row["condition"] == condition
                               and row["seed"] == seed]
                 if candidates:
@@ -197,52 +200,68 @@ def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
         ax.set_xticks(range(3), list(colors), fontsize=16)
         ax.set_title(layer.replace("_", " ").upper(), fontsize=17)
         ax.tick_params(labelsize=15)
-    axes[0].set_ylabel("own − random (bits/activation)", fontsize=16)
-    fig.suptitle("Frozen-policy fields; dots are training seeds", fontsize=19)
+    unit = "bits/activation" if metric == "difference" else "bits/decision"
+    axes[0].set_ylabel(f"own − random ({unit})", fontsize=16)
+    fig.suptitle(f"Own vs {random_policy}; dots are training seeds", fontsize=19)
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
 
 
+def metric_condition_summary(comparisons: list[dict], condition: str,
+                             policy: str, layer: str, metric: str) -> dict:
+    """Average evaluation repeats within each independent training seed."""
+    seed_differences = []
+    seed_late = []
+    seed_support = []
+    for seed in ("8", "99", "123"):
+        values = {}
+        for prefix in (40_000, 50_000):
+            subset = [row for row in comparisons if
+                      row["condition"] == condition and row["seed"] == seed
+                      and row["random_policy"] == policy and row["layer"] == layer
+                      and row["decisions"] == prefix and row["supported"]
+                      and row.get(metric) is not None]
+            if len(subset) == 2:
+                values[prefix] = float(np.mean([row[metric] for row in subset]))
+        if 50_000 in values:
+            seed_differences.append(values[50_000])
+            seed_support.append(seed)
+        if 40_000 in values and 50_000 in values:
+            seed_late.append(values[40_000] > 0 and values[50_000] > 0)
+    complete = len(seed_differences) == 3
+    return {
+        "supported_training_seeds": len(seed_differences),
+        "seed_ids": ",".join(seed_support),
+        "mean_difference": float(np.mean(seed_differences)) if seed_differences else None,
+        "min_seed_difference": float(min(seed_differences)) if seed_differences else None,
+        "max_seed_difference": float(max(seed_differences)) if seed_differences else None,
+        "positive_all_three": bool(complete and all(value > 0 for value in seed_differences)),
+        "positive_and_late_stable": bool(complete and len(seed_late) == 3
+                                         and all(seed_late) and all(value > 0 for value in seed_differences)),
+    }
+
+
 def condition_summaries(comparisons: list[dict]) -> list[dict]:
-    """Average technical repeats inside each training seed before condition means."""
+    """Keep normalized results and add parallel bits-per-decision summaries."""
     result = []
     for condition in ("C01", "C05", "C15"):
         for policy in ("uniform", "persistent8"):
             for layer in LAYERS:
-                seed_differences = []
-                seed_late = []
-                seed_support = []
-                for seed in ("8", "99", "123"):
-                    values = {}
-                    for prefix in (40_000, 50_000):
-                        subset = [row for row in comparisons if
-                                  row["condition"] == condition and row["seed"] == seed
-                                  and row["random_policy"] == policy and row["layer"] == layer
-                                  and row["decisions"] == prefix and row["supported"]]
-                        if len(subset) == 2:
-                            values[prefix] = float(np.mean([row["difference"] for row in subset]))
-                    if 50_000 in values:
-                        seed_differences.append(values[50_000])
-                        seed_support.append(seed)
-                    if 40_000 in values and 50_000 in values:
-                        seed_late.append(values[40_000] > 0 and values[50_000] > 0)
-                complete = len(seed_differences) == 3
+                normalized = metric_condition_summary(comparisons, condition, policy, layer,
+                                                      "difference")
+                step = metric_condition_summary(comparisons, condition, policy, layer,
+                                                "bits_per_step_difference")
                 result.append({
                     "condition": condition, "random_policy": policy, "layer": layer,
-                    "supported_training_seeds": len(seed_differences),
-                    "seed_ids": ",".join(seed_support),
-                    "mean_difference": float(np.mean(seed_differences)) if seed_differences else None,
-                    "min_seed_difference": float(min(seed_differences)) if seed_differences else None,
-                    "max_seed_difference": float(max(seed_differences)) if seed_differences else None,
-                    "positive_all_three": bool(complete and all(value > 0 for value in seed_differences)),
-                    "positive_and_late_stable": bool(complete and len(seed_late) == 3
-                                                     and all(seed_late) and all(value > 0 for value in seed_differences)),
+                    **normalized,
+                    **{f"bits_per_step_{key}": value for key, value in step.items()},
                 })
     return result
 
 
-def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) -> dict:
+def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path,
+            pairs_only: bool = False) -> dict:
     rows = read_manifest(manifest, workspace_root, require_inputs=False)
     output.mkdir(parents=True, exist_ok=True)
     completed: dict[tuple[str, str, str, str], Path] = {}
@@ -251,8 +270,10 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
         folder = raw_root / row["label"]
         if not (folder / "trace.npz").is_file() or not (folder / "metadata.json").is_file():
             continue
-        trace = read_trace(folder, row["policy"])
         completed[(row["condition"], row["seed"], row["eval_seed"], row["policy"])] = folder
+        if pairs_only:
+            continue
+        trace = read_trace(folder, row["policy"])
         plot_occupancy(output / f"{row['label']}_occupancy.png", trace, row["label"])
         plot_prethreshold(output / f"{row['label']}_prethreshold.png", trace, row["label"])
         layer_maps = {}
@@ -271,6 +292,8 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
                         "field_dominant_mass_fraction", "field_dominant_peak_bin")
         })
         del layer_maps, trace
+    if pairs_only and (len(completed) != 54 or not (output / "per_run.csv").is_file()):
+        raise RuntimeError("Pair-only analysis requires a complete prior 54-run map pass")
     comparisons = []
     for condition in ("C01", "C05", "C15"):
         for seed in ("8", "99", "123"):
@@ -295,11 +318,17 @@ def analyze(manifest: Path, raw_root: Path, output: Path, workspace_root: Path) 
                             })
                     del random
                 del own
-    write_csv(output / "per_run.csv", run_rows)
+    if not pairs_only:
+        write_csv(output / "per_run.csv", run_rows)
     write_csv(output / "paired_prefixes.csv", comparisons)
     write_csv(output / "condition_summary.csv", condition_summaries(comparisons))
     if comparisons:
         plot_paired_summary(output / "paired_layer_summary.png", comparisons)
+        plot_paired_summary(output / "paired_layer_summary_bits_per_step.png",
+                            comparisons, metric="bits_per_step_difference")
+        plot_paired_summary(output / "paired_layer_summary_bits_per_step_persistent8.png",
+                            comparisons, metric="bits_per_step_difference",
+                            random_policy="persistent8")
     status = {"expected_probes": 54, "completed_probes": len(completed),
               "completed_pairs": len(comparisons) // (len(PREFIXES) * len(LAYERS)),
               "result_complete": len(completed) == 54}
@@ -313,8 +342,11 @@ def main() -> None:
     parser.add_argument("--raw-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--workspace-root", type=Path, required=True)
+    parser.add_argument("--pairs-only", action="store_true",
+                        help="Reuse completed per-run maps and refresh paired metrics only")
     args = parser.parse_args()
-    print(json.dumps(analyze(args.manifest, args.raw_root, args.output, args.workspace_root)))
+    print(json.dumps(analyze(args.manifest, args.raw_root, args.output,
+                             args.workspace_root, pairs_only=args.pairs_only)))
 
 
 if __name__ == "__main__":

@@ -16,8 +16,13 @@ export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
 mkdir -p "$TMPDIR" "$XDG_CACHE_HOME" "$MPLCONFIGDIR" "$study/summary"
 cd "$runtime"
+extra_args=()
+if [[ "${BF_PAIRS_ONLY:-0}" == 1 ]]; then
+  extra_args+=(--pairs-only)
+fi
 /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.behavior_field_analysis \
   --manifest "$study/behavior_field_expression_20261007.tsv" \
   --raw-root "$study/probes/raw" \
   --output "$study/summary" \
-  --workspace-root "$workspace"
+  --workspace-root "$workspace" \
+  "${extra_args[@]}"
