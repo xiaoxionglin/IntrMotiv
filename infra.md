@@ -1127,6 +1127,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   latest scalar step, file provenance, and gaps relative to requested windows;
   collection fails early with all affected run names and does not confuse
   post-recovery logging gaps with missing spatial or training checkpoints.
+- **New evidence (October 7):** A direct `EventAccumulator` scan of all 40 live
+  odor/CA3 runs, requesting every latest scalar tag, produced no result after
+  more than two minutes and was interrupted. Scheduler and retained-checkpoint
+  inventory checks completed in seconds. Avoid full event-history rescans for
+  routine heartbeat health checks; use a bounded metadata inventory or the
+  canonical collector when a reproducible scalar analysis is actually due.
 - **Acceptance criteria:** A 18-run latest-common scan writes an observable
   per-run progress record, terminates or emits a recoverable partial state under
   a declared time bound, and a resumed collection does not reread already
