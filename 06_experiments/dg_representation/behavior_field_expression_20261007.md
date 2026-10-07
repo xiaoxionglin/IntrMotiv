@@ -78,15 +78,15 @@ formal support rule, with 57–145 common bins for the uniform comparison.
 
 The table shows mean own-minus-uniform bits per activation at 50k. Each mean
 first averages the two evaluation probes within a training seed, then averages
-three training seeds. `+` means all three training seeds were positive at
+three training seeds. `pass` means all three training seeds were positive at
 40k and 50k; `mixed` means the planned direction criterion failed.
 
 | Layer | C01 | C05 | C15 |
 | --- | ---: | ---: | ---: |
-| DG | +0.567 + | +0.428 mixed | +0.013 mixed |
+| DG | +0.567 pass | +0.428 mixed | +0.013 mixed |
 | CA3 | −0.020 mixed | +0.513 mixed | −0.204 mixed |
-| Decoder 1 | +0.557 + | +0.324 + | +0.344 + |
-| Decoder 2 | +0.555 + | +0.486 + | +0.148 mixed |
+| Decoder 1 | +0.557 pass | +0.324 pass | +0.344 pass |
+| Decoder 2 | +0.555 pass | +0.486 pass | +0.148 mixed |
 
 The [seed-level figure](../results/behavior_field_expression_20261007/paired_layer_summary.png)
 shows the nine independent training checkpoints. Decoder 1 meets the planned
@@ -119,7 +119,7 @@ and active-only map cosine alongside the full pre-threshold DG plots.
 ## Behavior and random-protocol control
 
 The own-policy probes occupy 291–318 bins (mean 315.3); both random arms touch
-all 318 reachable bins in every probe. Own actions are concentrated in actions
+318 bins in every probe. Own actions are concentrated in actions
 3 and 4 (84.7% combined), while uniform random is nearly 20% per action.
 Mean movement per decision is 27.6 under own policy, 23.7 under uniform
 random, and 33.6 under persistent random. The stationary fractions are 6.6%,
@@ -134,7 +134,7 @@ The eight-decision persistent-random control yields an own-policy advantage
 in all three training seeds at 40k and 50k for **every** layer and condition.
 Its mean difference exceeds the uniform-random difference in most contrasts,
 including CA3 and DG cases that fail the primary criterion. Persistent random
-also moves farther and covers the same 318 reachable bins, so the extra
+also moves farther and covers the same 318 bins, so the extra
 contrast is not explained by being stuck in a small region. The magnitude of
 the difference depends on the random action protocol; the uniform arm remains
 the predeclared primary test.
@@ -147,6 +147,26 @@ here: [own occupancy](../results/behavior_field_expression_20261007/C01_S8_E5100
 [uniform DG maps](../results/behavior_field_expression_20261007/C01_S8_E51000_uniform_dg.png),
 [own decoder-1 maps](../results/behavior_field_expression_20261007/C01_S8_E51000_own_decoder_1.png),
 and [uniform decoder-1 maps](../results/behavior_field_expression_20261007/C01_S8_E51000_uniform_decoder_1.png).
+
+## Common-support sensitivity
+
+A map-only compute-node check reused the saved canonical 50k maps and required
+25, 50, or 100 visits **per policy** in each common bin. At the original
+ten-visit cutoff it reproduces all 144 primary 50k layer comparisons exactly.
+All 72 own-versus-uniform layer comparisons remain supported at every stricter
+cutoff, but the shared area shrinks: the range is 84–280 bins at 25 visits,
+59–144 at 50, and 24–78 at 100. The complete [sensitivity table](../results/behavior_field_expression_20261007/support_sensitivity.csv)
+gives every score and support count; compute job `8298549` exited 0.
+
+Decoder 1 remains positive for all three training seeds in C01, C05, and C15
+at every cutoff (condition mean at 100 visits: +0.716, +0.335, +0.328).
+C01 decoder 2 also remains positive, as does C05 decoder 2. C15 decoder 2
+remains mixed. DG becomes positive in all three seeds of C05 and C15 when the
+cutoff reaches 50 visits; that compares a much smaller set of well-sampled
+locations and does **not** change the planned ten-visit result. CA3 is
+especially support-sensitive in C01 and C05, while C15 CA3 remains negative
+in all three seeds at cutoffs of 25, 50, and 100. These changes show why the
+shared-bin count and selected occupancy support must accompany each effect.
 
 ## Execution and verification status
 

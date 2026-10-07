@@ -223,6 +223,11 @@ amplitude-weighted score as a separate compatibility column. Because the
 checkpoint is frozen, this intervention tests behavioral expression and
 sampling of a representation, not how behavior affected its learning. Save
 raw downstream traces, since the older online spatial NPZ contains DG only.
+The completed study's saved full-run maps also support inexpensive
+shared-bin visit-cutoff checks via
+[`behavior_field_support_sensitivity.py`](../hpc_runs/behavior_field_support_sensitivity.py),
+without another DMLab rollout. The ten-visit row must exactly reproduce the
+primary 50k paired score before interpreting stricter cutoffs.
 Use the active `fr_xl1014-corridor-geometry` workspace for every new bulk
 artifact; the older `fr_xl1014-train` paths elsewhere in this historical guide
 are not new-output destinations.

@@ -21,7 +21,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   or mix incompatible decision counts and spatial-score denominators.
 - **Improvement/status:** The [current adapter](hpc_runs/behavior_field_probe.py)
   and [metric module](hpc_runs/behavior_field_metrics.py) are reusable; the
-  50k study is active. After results and any runtime fixes, integrate an
+  54-probe 50k study and its analysis completed. Integrate an
   optional policy/readout extension into the established
   [place-field workflow](04_implementation/reusable_place_field_telemetry.md)
   while retaining the 10k DG contract and manifest compatibility.
