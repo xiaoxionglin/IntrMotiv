@@ -1,6 +1,6 @@
 # Four prescribed DG goals: matched controller screen
 
-**Status, 7 October 2026:** implementation and six-run StudySpec are prepared locally. No training result is reported here. Production release requires native field/transition preflight and a short full-learner qualification on a NEMO2 compute node.
+**Status, 7 October 2026:** implementation and six-run StudySpec are committed in the source branch. Native field preflight passed; two short full-learner qualification jobs are running. No controller outcome is reported yet. Production release requires their checkpoint and event checks.
 
 ## Question and comparison
 
@@ -18,7 +18,7 @@ $$
 a_i(p)=\frac{\max(0,g_i(p)-e^{-2})}{1-e^{-2}},\qquad \sigma=20.
 $$
 
-The field peaks at one and is exactly zero at and beyond radius 40 DMLab units. Centers are provisionally $(550,550)$, $(1450,550)$, $(550,1450)$ and $(1650,1650)$, selected from non-wall cells of the fixed third map. Static Lua inspection is insufficient to certify the world-coordinate transform, collision margin, or decision-time event rate. Before training, run a compute-node native DMLab preflight that verifies center positions, support, episode resets, and that all four events can be sampled at repeat eight. Record per-field event counts and transitions under the actual 64-decision horizon. If a field is inaccessible or routinely skipped between observations, fix the declared geometry and regenerate the StudySpec fingerprint before any production submission.
+The field peaks at one and is exactly zero at and beyond radius 40 DMLab units. Centers are $(550,550)$, $(1450,550)$, $(550,1450)$ and $(1650,1650)$, selected from non-wall cells of the fixed third map. Native DMLab job `8291772` completed on a compute node (exit 0) using the training level and eight engine steps per action. Across 200 reset seeds followed by a random-action rollout, 12,201 decision-time observations contained respectively 10, 7, 11 and 59 positive samples, with 4, 4, 5 and 14 entries. Minimum center distances were 9.1, 18.3, 0 and 0 DMLab units. Thus all four fields are accessible and detectable, but detections are sparse. These counts mix reset observations with the random trajectory, so they are an availability check, not a policy encounter-rate estimate. The full-learner qualification must show events and goal exposure before production release.
 
 The prescribed values enter after the learned DG threshold and before CA3. The visual trunk and projection do not receive privileged coordinates. The first four projection outputs in ORACLE are unused, and gradients from the fixed fields are blocked; the remaining twelve learned outputs still update. Manager recognition masks context-only channels while CA3 retains them. The same goal mask applies to LEARNED, so selecting among only four goal IDs is held fixed.
 
@@ -37,6 +37,6 @@ If the oracle arm has clear command lift while LEARNED does not, unstable or amb
 
 ## Provenance and reusable lesson
 
-The current StudySpec validates as six unique cells under schema `intrmotiv/study/v1`, declared workflow `1.14.1`, SHA-256 `009cd13111d886839f04624be0913f95773ef4e672ce5c86b6853724afca6b1d`. It derives from the corrected odor C15 configuration without its odor and Hebbian-selector factors. The runtime implementation is isolated in `/tmp/intrmotiv_four_oracle_20261007` pending source commit, remote synchronization, and compute-node qualification. Local focused tests currently pass; they do not establish native field feasibility or training quality.
+The current StudySpec validates as six unique cells under schema `intrmotiv/study/v1`, declared workflow `1.14.1`, SHA-256 `009cd13111d886839f04624be0913f95773ef4e672ce5c86b6853724afca6b1d`. It derives from the corrected odor C15 configuration without its odor and Hebbian-selector factors. Source commit `c3980b69` is pushed as `codex/four-oracle-dg-20261007` in `SF_hipposlam`; the isolated NEMO2 source is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_four_prescribed_dg_20261007`. The exact NEMO2 focused tests passed (36 tests), and the six production commands passed a print-only StudySpec audit with valid workspace paths. Seed-99 qualification jobs `8291787` (LEARNED) and `8291788` (ORACLE) were submitted. None of these checks establishes training quality yet.
 
 The efficient path for a future prescribed-goal study is to reuse the canonical StudySpec and evaluator, and preflight event availability before launching a large matrix. A perfectly shaped field is not a useful controller test if its event is absent from the actual decision stream.
