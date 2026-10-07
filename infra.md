@@ -1362,3 +1362,27 @@ For each finding, record:
   excludes its event; ALL uses C15's original score scale; and a full Slurm
   qualification records finite, nonempty candidate diagnostics in both odor
   and selection arms.
+
+# Exclude online-spatial artifacts from exact study run discovery
+
+- **Evidence:** At the corrected odor/CA3 study's 5M/10M/25M milestone, the
+  canonical `discover_run_directories` reported two matches for every declared
+  run. Sample Factory stored `RUN_/00_RUN` beside
+  `RUN_/analysis/online_spatial/unbatched/RUN`; the latter has no training
+  config or checkpoint and exists only as an online-spatial artifact.
+- **Impact:** `render-telemetry` could not discover retained checkpoints after
+  online snapshots began, despite all ten seed-99 cells having valid milestone
+  files. Evaluation would stall or require a handwritten run list.
+- **Improvement/status:** Workflow 1.14.1 skips folders below `analysis/` during
+  exact run discovery and retains duplicate detection for actual run payloads.
+  A focused regression test reproduces the collision. All 38 canonical tests
+  passed locally and in the synchronized NEMO2 source; the StudySpec SHA-256
+  and production training commands remain unchanged. The seed-99 partial
+  manifest then rendered 30 declared 5M/10M/25M rows and passed evaluator
+  print-only review.
+- **Acceptance criteria:** Online-spatial artifact folders sharing a run name
+  do not count as a second run; genuine duplicate run payloads still fail;
+  `render-telemetry` and milestone-specific adapters resolve the exact
+  workspace checkpoints without changing the study fingerprint. See the
+  [canonical workflow](04_implementation/standardized_study_workflow.md) and
+  [launch record](06_experiments/ca3_goals/odor_goal_quality_40_run_v2_20261007.md).

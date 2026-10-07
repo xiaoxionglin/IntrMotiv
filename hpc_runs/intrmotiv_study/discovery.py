@@ -20,6 +20,11 @@ def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Pa
     }
     found: dict[str, list[Path]] = {run_name: [] for run_name in expected}
     for path in batch_root.rglob("*"):
+        # Online spatial snapshots live below each launcher's analysis/
+        # directory and may reuse the exact run name as an artifact folder.
+        # They are not Sample Factory run directories.
+        if "analysis" in path.relative_to(batch_root).parts:
+            continue
         if path.is_dir() and path.name in accepted_names:
             found[accepted_names[path.name]].append(path)
     # RUN_/00_RUN is a launcher container plus its actual experiment, not two

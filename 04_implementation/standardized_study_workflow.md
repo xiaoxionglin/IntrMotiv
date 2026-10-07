@@ -2,12 +2,14 @@
 
 ## Status
 
-Current implementation: **1.14.0** (planned-frame milestones and spatial contract validation; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.14.1** (exact run discovery with online-spatial artifacts; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
 The tested NEMO2 1.14.0 source is under
 `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_merge_20260926/global_defaults_v114/hpc_runs/intrmotiv_study/`.
+The compatible 1.14.1 discovery fix was tested in
+`/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_odor_ca3_v2_20261007/hpc_runs/intrmotiv_study/`.
 The live checkout at `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/` remains on
 workflow 1.10.1 while running jobs use it. The vault copy is the versioned
 source of truth; synchronize a release checkout and run focused tests before
