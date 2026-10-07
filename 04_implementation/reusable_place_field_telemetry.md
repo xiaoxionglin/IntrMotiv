@@ -17,6 +17,14 @@ units form active, spatially distributed, and reasonably stable receptive
 fields. Use it across flat, HRL, manager, loss, threshold, and update-schedule
 variants instead of writing batch-specific `enjoy` scripts.
 
+The [analysis completion standard](standardized_study_workflow.md#analysis-completion-standard)
+requires place-field, trajectory, **and** graph sections in every IntrMotiv
+training-study result. Run this manifest-driven field protocol, inspect
+segmented occupancy/trajectories, and collect the available directed-graph
+evidence as one planned analysis package. A completed field sweep alone does
+not close the study analysis; record an absent graph module or missing artifact
+explicitly and keep pending work visible until it is resolved.
+
 ## Landmark-aware optional contract (workflow 1.12.0)
 
 Geometry v2 snapshots may add cue IDs/types, wall cells and orientations,

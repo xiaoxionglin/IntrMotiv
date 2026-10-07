@@ -6,6 +6,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Spatial and graph analyses must ship with study results — 2026-10-07
+
+- **Evidence:** The odor/CA3 40-run coverage report was delivered while the
+  declared place-field jobs were still finishing. After all 70 field rollouts
+  and 200 online spatial/graph snapshots were available, the place-field,
+  trajectory, and graph analyses still needed a separate user request.
+- **Impact:** A scalar-focused answer hid complete spatial evidence and made
+  the user track the analysis lifecycle manually.
+- **Improvement/status:** The [standard study workflow](04_implementation/standardized_study_workflow.md#analysis-completion-standard)
+  now defines a three-component analysis completion requirement; the
+  [telemetry guide](04_implementation/reusable_place_field_telemetry.md) and
+  experiment index point to it. Future study monitoring should advance every
+  declared component when its artifacts become available, without prompting.
+- **Acceptance:** The next completed training-study report links inspected
+  place-field, trajectory, and graph figures/tables from its index entry, or
+  explicitly identifies an unavailable component and keeps analysis status
+  open, before announcing the study analysis as complete.
+
 ### Place-field trajectory plotter assumes historical family labels — 2026-10-07
 
 - **Evidence:** The established NEMO2 `evaluation/plot_place_field_trajectories.py`
