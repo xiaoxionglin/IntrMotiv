@@ -6,6 +6,23 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Concurrent place-field jobs overwrite the shared raw summary — 2026-10-07
+
+- **Evidence:** All 30 odor/CA3 seed-99 5M/10M/25M jobs completed and wrote
+  distinct `place_fields.npz` files, but their shared `production_10k/raw/summary.csv`
+  contained one data row. `place_fields.py` writes that CSV to the common raw
+  directory from each independent job. The documented postprocessors recovered
+  complete 30-row checkpoint tables and 480 unit rows from the NPZs.
+- **Impact:** The raw CSV looks like a completed batch summary but omits most
+  jobs. A reader could wrongly conclude that only one evaluation succeeded.
+- **Improvement/status:** Pending. Make the worker write a row-local summary, or
+  leave batch aggregation entirely to the documented
+  [place-field postprocessing](04_implementation/reusable_place_field_telemetry.md#postprocessing).
+  Preserve the existing NPZ and downstream summary contracts.
+- **Acceptance:** A concurrent ordinary-job sweep leaves one complete summary
+  per artifact; postprocessing yields exactly one row per manifest row without
+  reading or trusting the shared raw CSV. Add a focused concurrent-writer test.
+
 ### Repository navigation and duplicate provenance — 2026-10-02
 
 - **Evidence:** A tracked-file inventory found about 5,900 files, more than
