@@ -117,6 +117,14 @@ learner preservation, and environment preflight in qualification records. The
 current worked example and remaining gates are recorded in
 `06_experiments/controllers/intrmotiv_full_system_controller_20260912.md`.
 
+After rendering a heterogeneous controller matrix, pass one command per unique
+arm through `parse_dmlab_args` from the same source that Slurm will import.
+The 8 October episode-long DG qualification passed StudySpec validation and
+submission audit but its legacy arm failed because a FiLM-only reset flag was
+inherited from the common arguments. Parser preflight caught the corrected
+four-arm production matrix without starting DMLab. Keep a failed submitted
+qualification fingerprint intact and declare any corrected cell separately.
+
 When allocating a new NEMO2 workspace, check `df` on that exact workspace and
 verify a small write/fsync. Workspace-specific capacity reporting can show the
 old allocation as full while a new allocation has space. Update the StudySpec's

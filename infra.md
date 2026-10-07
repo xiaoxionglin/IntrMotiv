@@ -6,6 +6,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Validate every rendered arm with the real training argument parser — 2026-10-08
+
+- **Evidence:** The first episode-long four-arm qualification passed StudySpec
+  validation and exact Slurm-command audit, but its legacy-9 job 8306902
+  stopped after ten seconds: `dg_recruitment_reset_goal_adapter=True` requires
+  FiLM conditioning. The other three FiLM cells were compatible. A corrected,
+  separately fingerprinted one-arm qualification was needed.
+- **Impact:** Schema and submission checks confirm matrix integrity but do not
+  catch incompatible runtime flags, wasting queue time and complicating study
+  provenance before production.
+- **Improvement/status:** Pending. Extend the [standard study workflow](04_implementation/standardized_study_workflow.md)
+  with a print-only parser preflight for every unique rendered arm, using the
+  same runtime source and arguments as Slurm. Keep scientific validation in the
+  training parser; the workflow should call it rather than duplicate rules.
+- **Acceptance:** A StudySpec containing the legacy/FiLM-only flag combination
+  fails before submission with the training parser's specific error; all four
+  corrected episode-long arms pass without launching an environment.
+
 ### Intervention outcome setting should be checked against the analysis question — 2026-10-07
 
 - **Evidence:** The odor/CA3 plan required first-distinct DG outcomes and
