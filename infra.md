@@ -6,6 +6,28 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Prescribed DG channels need explicit evaluator provenance — 2026-10-07
+
+- **Evidence:** In the four-field ORACLE qualification, the encoder replaces DG
+  channels 0–3 after the learned projection threshold. The standard frozen
+  evaluator's `raw_dg_*` and `pre_threshold_*` arrays reconstruct activity from
+  the unused projection rows. Its 500-decision post-replacement
+  `active_fraction` for those channels was `[0, 0, 0.004, 0]`, while
+  `raw_dg_active_fraction` reported unrelated nonzero values for all four.
+- **Impact:** A reader could mistake unused projection maps for the prescribed
+  place fields and draw a false representation conclusion. The 19-by-19
+  standard map grid is also too coarse to certify an 80-unit support diameter.
+- **Improvement/status:** Pending. Add channel provenance to the manifest/NPZ
+  contract and an optional pose-aligned post-replacement DG sample array or
+  field-specific verification summary. Keep existing raw and post-inhibition
+  arrays compatible; label the unused projection rows explicitly in reports.
+  See the [four-field study](06_experiments/ca3_goals/four_prescribed_dg_controller_20261007.md)
+  and [evaluator workflow](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** A prescribed-DG checkpoint probe identifies which rows were
+  overridden, verifies sampled activities against the declared field function
+  at recorded positions, and does not present unused projection maps as the
+  oracle fields. Add focused tests for the provenance metadata.
+
 ### Spatial and graph analyses must ship with study results — 2026-10-07
 
 - **Evidence:** The odor/CA3 40-run coverage report was delivered while the
