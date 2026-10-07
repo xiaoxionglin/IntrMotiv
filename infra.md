@@ -6,6 +6,24 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Validate declared scalar tags against runtime events — 2026-10-07
+
+- **Evidence:** Both push–pull calibration StudySpecs passed schema validation,
+  real argument parsing, and submission audits, but their provisional
+  `analysis.window_metrics` aliases for encoder feedback and worker magnitude
+  did not match the tags emitted in the first TensorBoard files. The actual
+  paths are recorded in the [execution report](06_experiments/controllers/push_pull_ablation_20261007.md).
+- **Impact:** A submitted StudySpec can have correct training commands yet
+  silently miss a declared analysis metric. Editing its tags after submission
+  would change the study SHA-256 and obscure provenance.
+- **Improvement/status:** Pending. Add a print-only metric-tag check that reads
+  a short reference event file or a versioned runtime tag catalogue before
+  submission. Keep the existing [canonical workflow](04_implementation/standardized_study_workflow.md)
+  and its StudySpec contract; do not infer tags from run names.
+- **Acceptance:** A deliberately misspelled analysis tag fails the new check
+  before submission with the nearest observed runtime tag, while a valid
+  study passes and retains its original fingerprint.
+
 ### Prescribed DG channels need explicit evaluator provenance — 2026-10-07
 
 - **Evidence:** In the four-field ORACLE qualification, the encoder replaces DG

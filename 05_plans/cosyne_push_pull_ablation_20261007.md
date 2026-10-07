@@ -1,6 +1,6 @@
 # COSYNE temporal-distance push–pull ablation: C15 and CPU2048 Direct DDQN+HER
 
-Status: experimental plan, 7 October 2026. No new StudySpec, source release, training job, or evaluation job has been created or submitted under this plan.
+Status: calibration in progress, 7 October 2026. Two intact-reference 2M-frame jobs have been submitted under the dedicated W&B project `SF_IntrMotiv_PushPullAblation`; the four-arm ablation StudySpecs and production jobs await fixed-constant calibration and runtime preflight. The live record is [push–pull ablation execution](../06_experiments/controllers/push_pull_ablation_20261007.md).
 
 ## Decision and claim
 
@@ -35,6 +35,8 @@ The non-temporal controls preserve *where* credit is assigned while erasing *whi
 Implement explicit `temporal`, `constant`, and `none` modes for the **interval-credit component only**, defaulting to current temporal behavior. Apply the worker bonus mode consistently to real hits and HER relabeled terminal rewards; preserve its existing hit reward. A coefficient of zero already implements the worker-bonus `none` level, but a constant-bonus mode needs an explicit reward path. The current `encoder_grad_coeff=0` or `extra_encoder_losses=False` must **not** implement interval-credit removal: the former suppresses other DG learning terms, and the latter removes maintenance losses. Keep raw diagnostic credit separate from applied loss so the manipulation check is visible.
 
 Choose one fixed $c_{\rm enc}$ and one fixed $c_{\rm hit}$ **per controller family** before the ablation runs, using a preregistered intact-reference calibration of qualifying events and target hits. Match the temporal arm's mean coefficient over that reference distribution, then freeze both constants for all seeds, arms, and training ages in the family. Do not recompute them from each ablated run: that would reintroduce a trajectory-dependent temporal signal. Record the reference checkpoint/rollout, denominator, estimate uncertainty, and realized reward/gradient scales; if target hits are too rare to calibrate $c_{\rm hit}$ reliably, use a declared fixed theoretical constant and label the scale mismatch.
+
+The dedicated W&B project is `SF_IntrMotiv_PushPullAblation`, with distinct groups for calibration, C15, and CPU2048 Direct DDQN+HER. The existing IntrMotiv Git worktree is the source of the StudySpecs and report; the NEMO2 source snapshot under the active workspace keeps running jobs insulated from runtime edits.
 
 ## Factorial and provenance
 
