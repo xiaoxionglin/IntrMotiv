@@ -1,8 +1,6 @@
 # Odor and CA3 goal quality: corrected 40-run launch
 
-**Status, 7 October 2026:** four short qualification jobs completed successfully. The first four replacement 75M-frame production cells passed their early health gate, the other 36 were submitted, and all 40 were `RUNNING` at the post-submission check. The combined submitted-manifest audit passed. Training outcomes and milestone evaluations are pending.
-
-**Milestone update, 7 October 2026, 07:54 CEST:** all 40 training jobs were still `RUNNING`. All ten seed-99 cells had retained 5M, 10M, and 25M checkpoints. The 30 corresponding 10k-decision place-field jobs were submitted after a successful Slurm preflight; their outputs are pending.
+**Status, 7 October 2026:** all 40 replacement runs have their declared 5M/10M/25M/50M/75M checkpoints. The 30 seed-99 5M/10M/25M place-field rollouts completed; their metrics and the full 40-run coverage histories have been analyzed below. The 40 remaining place-field jobs and 40 terminal interventions were `RUNNING` without failures at the latest check. Terminal spatial and causal results are pending.
 
 ## Why the first launch was replaced
 
@@ -35,7 +33,7 @@ The remaining 36-cell print-only manifest at `/work/classic/fr_xl1014-corridor-g
 
 ## Available milestone evaluation
 
-The full canonical `render-telemetry` command requires the still-future 75M field and intervention checkpoints. The [thin partial renderer](render_odor_v2_partial.py) therefore projected only the available 5M/10M/25M trajectory targets from the **unchanged** StudySpec, using its run expansion, the established checkpoint selector, and canonical manifest writer. It produced 30 rows: ten conditions at each of three targets, all seed 99. Actual checkpoint frames were 5,013,504, 10,027,008, and 25,001,984, at most 27,008 frames from target. The partial provenance records the original study SHA-256. The manifest and provenance are at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_pf_5_10_25m_20261007/`.
+Before the 75M field and intervention checkpoints existed, the [thin partial renderer](render_odor_v2_partial.py) projected only the available 5M/10M/25M trajectory targets from the **unchanged** StudySpec, using its run expansion, the established checkpoint selector, and canonical manifest writer. It produced 30 rows: ten conditions at each of three targets, all seed 99. Actual checkpoint frames were 5,013,504, 10,027,008, and 25,001,984, at most 27,008 frames from target. The partial provenance records the original study SHA-256. The manifest and provenance are at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_pf_5_10_25m_20261007/`.
 
 The first render exposed a workflow discovery collision: each launcher run also has an online-spatial artifact directory with the exact run name. Workflow 1.14.1 excludes directories below `analysis/` from run discovery, while still rejecting duplicate actual runs. The original StudySpec and training commands did not change. All 38 canonical tests passed locally and in the synchronized NEMO2 source; the runtime branch commit `b085cefa3605f0483413f670835d83036454fe5b` was pushed and its remote hash verified.
 
@@ -43,10 +41,57 @@ The print-only preflight command used ordinary Slurm job 8291118 for ON/HEBB8 se
 
 All 40 runs now have each declared 5M/10M/25M/50M/75M milestone. The canonical full `render-telemetry` manifest is at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_full_20261007/`: 70 place-field rows, 50 seed-99 trajectory rows, and 40 terminal intervention rows. Its first 30 place-field rows match the completed partial manifest exactly by label and checkpoint. The remaining 40 rows cover seed 99 at 50M/75M and seeds 8/123 at 75M. Their print-only plan passed exact-row, 10k-decision, ordinary-job, and workspace-path checks; the `remaining_10k/submission_manifest_20261007T113848Z.tsv` commands match the reviewed plan exactly. The 40 intervention commands likewise passed print-only review for 75M checkpoints, 100k-decision caps, canonical runner, and workspace paths; `interventions/submission_manifest_20261007T114025Z.tsv` matches the reviewed plan exactly. Both new job sets are submitted, with results pending.
 
-## Planned analysis
+## Interim analysis: complete training histories
 
-Use the existing external coverage-AUC series for paired 0–75M curves, with early and terminal windows separately. Report HEBB minus RANDOM at matched $K$, RANDOM minus ALL16, ON minus OFF, and $K=4$ minus $K=8$. At 75M run matched-start alternative-command interventions for all 40 cells, reporting first distinct outcomes and failed trials alongside ordinary target hits. Use the established 10k-decision place-field protocol at all five checkpoints for seed 99 and terminal checkpoints for seeds 8 and 123. Preserve silent units, active-only map cosine, peak diversity, spatial information, and pre-threshold maps in the field report.
+The canonical `collect-online` workflow loaded all 40 replacement runs over a fixed 70–75M-frame terminal window and exported the selected event histories with workflow 1.14.1 and the unchanged study SHA-256. Its workspace output is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_online_20261007/`. The [coverage analysis script](analyze_odor_v2_coverage.py) consumes the exported external coverage-AUC tag named in the StudySpec, retains repeated event steps, averages observations within each 5M-frame bin for each run, then pairs the four declared seeds. The early window is 0–10M, the terminal window is 70–75M, and the full-course value equally weights the fifteen 5M bins. This metric is the external *episode coverage AUC* logged during training; a high initial value is not a high area under the training learning curve. The [figure](results/odor_v2_coverage_20261007/coverage_learning_curves.png), [per-run windows](results/odor_v2_coverage_20261007/coverage_windows.csv), [all paired contrasts](results/odor_v2_coverage_20261007/coverage_contrasts.csv), [canonical terminal table](results/odor_v2_coverage_20261007/canonical_terminal_per_run.csv), and [collector provenance](results/odor_v2_coverage_20261007/canonical_online_manifest.json) are saved here; the large raw histories remain in the workspace.
+
+| Odor | Goal set | Early 0–10M | Terminal 70–75M |
+| --- | --- | ---: | ---: |
+| OFF | ALL16 | 79.3 | 51.6 |
+| OFF | RANDOM4 | 72.4 | 42.0 |
+| OFF | HEBB4 | 63.5 | 35.2 |
+| OFF | RANDOM8 | 72.8 | 38.6 |
+| OFF | HEBB8 | 62.9 | 42.5 |
+| ON | ALL16 | 72.1 | 44.0 |
+| ON | RANDOM4 | 75.0 | 34.6 |
+| ON | HEBB4 | 76.8 | 24.6 |
+| ON | RANDOM8 | 76.4 | 40.8 |
+| ON | HEBB8 | 74.6 | 38.7 |
+
+Values are means across the four paired seeds. Every condition declined from the early window to the terminal window. The weakest terminal mean was ON/HEBB4 at 24.6; OFF/ALL16 was highest at 51.6. The condition trajectories and seed variation are visible in the figure and per-run CSV.
+
+| Paired contrast (first minus second) | Early difference | Terminal difference, 95% interval |
+| --- | ---: | ---: |
+| HEBB4–RANDOM4; OFF | -8.9 | -6.8 [-17.3, +3.7] |
+| HEBB8–RANDOM8; OFF | -10.0 | +3.9 [-13.4, +21.2] |
+| HEBB4–RANDOM4; ON | +1.8 | -9.9 [-26.4, +6.5] |
+| HEBB8–RANDOM8; ON | -1.7 | -2.1 [-11.4, +7.3] |
+| RANDOM4–ALL16; OFF | -6.9 | -9.6 [-39.0, +19.9] |
+| RANDOM8–ALL16; OFF | -6.4 | -12.9 [-36.2, +10.4] |
+| RANDOM4–ALL16; ON | +2.9 | -9.5 [-26.0, +7.0] |
+| RANDOM8–ALL16; ON | +4.3 | -3.2 [-14.2, +7.7] |
+| RANDOM4–RANDOM8; OFF | -0.4 | +3.4 [-22.3, +29.0] |
+| HEBB4–HEBB8; OFF | +0.7 | -7.3 [-33.5, +18.9] |
+| RANDOM4–RANDOM8; ON | -1.4 | -6.2 [-20.3, +7.8] |
+| HEBB4–HEBB8; ON | +2.2 | -14.1 [-28.1, -0.1] |
+| ON–OFF; ALL16 | -7.2 | -7.5 [-21.6, +6.6] |
+| ON–OFF; RANDOM4 | +2.6 | -7.4 [-41.4, +26.6] |
+| ON–OFF; HEBB4 | +13.3 | -10.6 [-30.9, +9.7] |
+| ON–OFF; RANDOM8 | +3.5 | +2.2 [-15.3, +19.6] |
+| ON–OFF; HEBB8 | +11.8 | -3.8 [-21.3, +13.8] |
+
+The intervals use a paired $t$ calculation across four seeds and are unadjusted for 17 comparisons. Most contain zero. The ON HEBB4–HEBB8 terminal interval barely excludes zero before adjustment, so it is a lead for inspection rather than a firm selector effect. Taken together, these curves do not show a consistent coverage advantage for the fixed Hebbian selector or odor. This conclusion concerns coverage; it does not establish whether target commands causally control navigation.
+
+At 70–75M, every run reports support for all 16 CA3 quality rows, zero DG silent fraction in the online metric, and zero behavior-replay mismatch. OFF odor norms are zero; ON condition means are 24.8–28.9 after the shared DG gain. Across the 40 runs, the online target-active fraction averages 2.215%, compared with 2.218% for a shuffled target; the per-run difference averages -0.003 percentage points. The categorical action-probability total variation under alternate goal IDs averages 0.0013. The target-active diagnostic is a per-step DG activation measure, not an alternative-command trial outcome. Its near-equality with the shuffled control raises a weak-conditioning concern that the matched-start interventions must resolve.
+
+## Interim analysis: early place fields
+
+The [30 completed 10k-decision field rows](results/odor_v2_coverage_20261007/early_place_field_metrics.csv) cover seed 99 for all ten conditions at 5M, 10M, and 25M. All 30 have zero silent units. Across conditions, mean active-only map cosine changed from 0.140 at 5M to 0.106 at 10M and 0.076 at 25M; distinct active peak bins averaged 15.2, 15.5, and 15.3 of 16 units. The existing amplitude-weighted spatial-information score averaged 0.083, 0.134, and 0.163. Mean visited cells fell from 296 to 261 to 242 over those evaluations. Different policy-driven trajectories and occupancy can change these measures, so these checkpoint rollouts are not fixed-trajectory map-drift evidence. The 50M/75M seed-99 and terminal seed-8/123 jobs are running; full spatial comparisons remain pending.
+
+## Remaining analysis
+
+After the 40 remaining place-field jobs finish, combine their NPZs with the completed 30 rows under the canonical 70-row manifest and run the documented postprocessors. Report silent units, active-only map cosine, peak diversity, spatial information, pre-threshold maps, and occupancy at all declared checkpoints. After the 40 intervention jobs finish, report matched-start first distinct outcomes and failed trials alongside ordinary target hits and the online target-active diagnostic. Keep the immutable study fingerprint and submitted-command audits in the final analysis provenance.
 
 ## Reusable lesson
 
-Unit tests for a stateful controller must verify the actor's buffer timing, not just a locally chosen tensor convention. Keep the C15 score as one shared function when comparing candidate sets, and store behavior-time candidate evidence because commanded targets alone cannot recover exposure. The canonical StudySpec, print-only manifest, and submitted-manifest audit remained the source of truth for the restart; no run matrix was reconstructed from names.
+Unit tests for a stateful controller must verify the actor's buffer timing, not just a locally chosen tensor convention. Keep the C15 score as one shared function when comparing candidate sets, and store behavior-time candidate evidence because commanded targets alone cannot recover exposure. The canonical StudySpec, print-only manifest, and submitted-manifest audit remained the source of truth for the restart; no run matrix was reconstructed from names. For repeated learning-curve windows, `collect-online --export-histories --loader-backend process` read each run's TensorBoard events once, then the lightweight exported histories supplied the 5M bins and paired windows; this avoided another full event scan. Concurrent field jobs overwrote their shared raw `summary.csv`, but their separate NPZs were complete and the documented postprocessors recovered the full 30-row table. Future field sweeps should trust the manifest plus NPZ inventory and aggregate only after the jobs finish.

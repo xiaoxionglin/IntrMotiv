@@ -1,0 +1,71 @@
+{
+  "batch_name": "intrmotiv_odor_ca3_goal_quality_v2_20261007",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_online_20261007/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        70000000,
+        75000000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [
+    "HEBB4_minus_RANDOM4_off",
+    "RANDOM4_minus_ALL16_off",
+    "HEBB8_minus_RANDOM8_off",
+    "RANDOM8_minus_ALL16_off",
+    "RANDOM4_minus_RANDOM8_off",
+    "HEBB4_minus_HEBB8_off",
+    "HEBB4_minus_RANDOM4_on",
+    "RANDOM4_minus_ALL16_on",
+    "HEBB8_minus_RANDOM8_on",
+    "RANDOM8_minus_ALL16_on",
+    "RANDOM4_minus_RANDOM8_on",
+    "HEBB4_minus_HEBB8_on",
+    "ON_minus_OFF_all16",
+    "ON_minus_OFF_random4",
+    "ON_minus_OFF_hebb4",
+    "ON_minus_OFF_random8",
+    "ON_minus_OFF_hebb8"
+  ],
+  "expected_runs": 40,
+  "group_by": [
+    "odor",
+    "goal_set"
+  ],
+  "input_rows": 40,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "option_success_fraction",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv",
+    "goal_quality_events",
+    "goal_quality_supported",
+    "goal_quality_score_mean",
+    "goal_quality_score_std",
+    "odor_norm"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "odor_ca3_goal_quality_v2_20261007",
+  "study_sha256": "c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_odor_ca3_v2_20261007/hpc_runs/studies/odor_ca3_goal_quality_v2_20261007.study.json",
+  "study_workflow_version": "1.14.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
