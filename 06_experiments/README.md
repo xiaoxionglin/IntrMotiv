@@ -96,7 +96,7 @@ above determines which findings are current.
 | --- | --- |
 | Finite-memory novelty | [RUN: memory novelty and minimal control](ca3_goals/ca3_memory_novelty_goal_implementation.md) |
 | Predictive active goals | [RESULT: matched 75M interim](ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_goals/ca3_predictive_active_goals_20260922.md) |
-| State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: state-goal release](ca3_goals/ca3_state_goal_followup_20260922.md) |
+| State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: G500 production](ca3_goals/ca3_state_goal_followup_20260922.md); [RUN: NEMO2 release record](ca3_goals/ca3_state_goal_followup_nemo2_release_20260922.md) |
 | Odor and CA3 goal quality | [RESULT: place fields, trajectories, and graphs](ca3_goals/odor_goal_quality_v2_spatial_analysis_20261007.md); [RESULT/RUN: coverage and corrected launch](ca3_goals/odor_goal_quality_40_run_v2_20261007.md); [PLAN: original study and supersession](ca3_goals/odor_goal_quality_40_run_plan_20261006.md) |
 | Four prescribed DG goals | [RUN: matched six-cell screen](ca3_goals/four_prescribed_dg_controller_20261007.md) |
 

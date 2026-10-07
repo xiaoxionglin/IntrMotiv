@@ -1,7 +1,6 @@
 # CA3-state goal follow-up — 22 September 2026
 
-Status: follow-up fixes and deferred refinements for the deployed predictive active-goal design.
-
+Status: follow-up fixes and deferred refinements for the deployed predictive active-goal design. The September 22 release is documented in the [NEMO2 release record](../06_experiments/ca3_goals/ca3_state_goal_followup_nemo2_release_20260922.md); the September 23 diagnosis below supersedes its action-probe recognition proposal.
 
 ## 23 September diagnosis: simplify goal recognition back to z-space
 
