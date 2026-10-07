@@ -55,7 +55,7 @@ are archived exploratory traces, with no field claim predeclared for them.
 The deployed probe schema is `intrmotiv/behavior-field-probe/v1` and its
 source SHA-256 is `df1f52f624cbf26a27503d764013ef38e4e7f4fb073e7b346310f672d9254efa`;
 the deployed postprocessor source SHA-256 is
-`430d186cebaf2b97debbf3f801210c237e200fd37c04ed5e306b2c97338189c5`.
+`5a3595171a26edc738c2d5f843a7f57eff1cbb7fc500f4d57865b407c4214424`.
 
 A favorable result requires a consistent positive own-minus-uniform difference
 across the three training seeds of a condition, stable direction late in the

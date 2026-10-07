@@ -16,6 +16,18 @@ from hpc_runs.behavior_field_metrics import (
 from hpc_runs.behavior_field_study import read_manifest
 
 
+def prepare_plot_style() -> str:
+    """Require a real scalable font instead of silently using a fallback."""
+    import matplotlib as mpl
+    from matplotlib import font_manager
+
+    font = Path(font_manager.findfont("DejaVu Sans", fallback_to_default=False))
+    if not font.is_file() or font.suffix.lower() not in (".ttf", ".otf"):
+        raise RuntimeError(f"No verified scalable plot font: {font}")
+    mpl.rcParams["font.family"] = "DejaVu Sans"
+    return str(font)
+
+
 def single_summary(trace: dict[str, np.ndarray], layer: str, details: dict[str, np.ndarray]) -> dict:
     eligible = details["field_eligible"].astype(bool)
     info = details["spatial_information"]
@@ -69,6 +81,7 @@ def plot_maps(path: Path, trace: dict[str, np.ndarray], layer: str,
               details: dict[str, np.ndarray], title: str) -> None:
     import matplotlib.pyplot as plt
 
+    prepare_plot_style()
     information = details["spatial_information"]
     eligible = np.flatnonzero(details["field_eligible"])
     selected = eligible[np.argsort(information[eligible])[-min(8, len(eligible)):]][::-1]
@@ -111,6 +124,7 @@ def read_trace(folder: Path, expected_policy: str) -> dict[str, np.ndarray]:
 def plot_occupancy(path: Path, trace: dict[str, np.ndarray], title: str) -> None:
     import matplotlib.pyplot as plt
 
+    prepare_plot_style()
     pose = trace["pose"]
     counts, _, _ = np.histogram2d(pose[:, 0], pose[:, 1],
                                   bins=19, range=((100, 2000), (100, 2000)))
@@ -135,6 +149,7 @@ def plot_occupancy(path: Path, trace: dict[str, np.ndarray], title: str) -> None
 def plot_prethreshold(path: Path, trace: dict[str, np.ndarray], title: str) -> None:
     import matplotlib.pyplot as plt
 
+    prepare_plot_style()
     pose = trace["pose"]
     logits = trace["dg_pre_threshold"]
     occupancy, _, _ = np.histogram2d(pose[:, 0], pose[:, 1], bins=19,
@@ -160,6 +175,7 @@ def plot_prethreshold(path: Path, trace: dict[str, np.ndarray], title: str) -> N
 def plot_paired_summary(path: Path, comparisons: list[dict]) -> None:
     import matplotlib.pyplot as plt
 
+    prepare_plot_style()
     selected = [row for row in comparisons if row["random_policy"] == "uniform"
                 and row["decisions"] == 50_000 and row["difference"] is not None]
     fig, axes = plt.subplots(1, 4, figsize=(12, 5), dpi=120, sharey=True)
