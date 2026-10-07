@@ -1352,6 +1352,11 @@ For each finding, record:
   short NEMO2 qualifications reached 540,672 frames with exit code zero and
   finite scalars. Live DMLab episode state is still outside the checkpoint
   contract, so process restart does not promise an identical future trajectory.
+  The accepted-only CA3 rule also excludes an event at the first observation
+  of a rollout: its acceptance flag is stored with the preceding rollout.
+  Action identity is unnecessary for this Hebbian update; the missing item is
+  only the cross-rollout validity link. The current 40-run batch keeps this
+  documented rule unchanged.
 - **Acceptance criteria:** A fixed stored rollout gives identical CA3 buffers
   and candidate sets after restoration; rejection of the preceding action
   excludes its event; ALL uses C15's original score scale; and a full Slurm
