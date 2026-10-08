@@ -1,0 +1,3 @@
+cohort,run_name,seed,checkpoint_frames,source_fields_evaluated,source_fields_total,starts,trial_rows,paired_comparisons,paired_arrival_lift,mean_initial_action_total_variation,censored_rows,exact_start_verified,policy_frozen,graph_frozen,physical_distance_available,commanded_hit_by_64,alternative_hit_by_64,commanded_hit_by_128,alternative_hit_by_128,commanded_hit_by_256,alternative_hit_by_256,commanded_hit_by_900,alternative_hit_by_900
+finite,OFDG_ORACLE_S99,99,75005952,2,4,4,36,12,0.08333333333333333,0.0350823900710869,0,True,True,True,False,0.0,0.0,0.0,0.0,0.08333333333333333,0.0,,
+episode,OELDG_ORACLE_FILM_S99,99,75005952,2,4,4,36,12,0.0,0.07030420284718275,27,True,True,True,False,0.0,0.0,0.0,0.0,0.16666666666666666,0.08333333333333333,0.25,0.25
