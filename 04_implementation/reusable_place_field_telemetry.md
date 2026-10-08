@@ -486,6 +486,12 @@ the target-hit stopping advantage for the first event, but it does not make
 the shuffled-label comparison a matched-start causal intervention. For an
 executed alternate command, use the `landmark-matched-commands-v1` protocol
 described below and verify its exact-start check and paired physical outcomes.
+Graph-derived pair deadlines can differ across trained conditions. Report
+their distributions with ordinary target-hit rates; otherwise a longer
+opportunity may look like better control. The matched-command evaluator
+compares the same target under different executed commands using that
+target's one deadline within a start. A cross-condition controller comparison
+also benefits from fixed-horizon hit rates with explicit censoring.
 
 ## Raw Artifact Contract
 
@@ -747,6 +753,15 @@ process: repeated native engine construction eventually aborts with
 this level because seeded resets fail the exact observation/state comparison.
 Long evaluations must therefore isolate bounded fresh-engine shards in separate
 processes and merge them; do not weaken the exact matching check.
+The odor/CA3 full-source qualification also reached its eight-hour Slurm
+limit without a summary after more than 500 fresh engines. Its
+[evaluation-only source-shard patch](../hpc_runs/patches/odor_v2_exact_start_source_sharding_20261008.patch)
+uses the original 40-row checkpoint manifest and exact-start function, but
+prints a disjoint source-ID group in each ordinary Slurm command and stores
+each group's raw output separately. Validate each shard's start equality,
+frozen buffers, source/target coverage, failures and censoring before merging;
+then verify that groups cover the intended source IDs without overlap. A
+successful print-only audit alone does not qualify a long native evaluator.
 
 Use this through the standard StudySpec intervention metadata and manifest
 backend. Workflow 1.6.0 supports more than one intervention checkpoint; the

@@ -1,0 +1,124 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -752,0 +753,3 @@
++    parser.add_argument("--focus-sources", type=str,
++                        help="Comma-separated DG source IDs for one bounded exact-start shard")
++    parser.add_argument("--discovery-multiplier", type=int, default=2)
+@@ -754,0 +758,29 @@
++
++
++def landmark_options_for_row(intervention: dict, focus_sources: str | None,
++                             discovery_multiplier: int) -> dict | None:
++    """Keep the StudySpec panel intact while evaluating one source subset."""
++    if intervention.get("evaluation") != "landmark-matched-commands-v1":
++        if focus_sources is not None:
++            raise ValueError("Source shards require landmark-matched-commands-v1")
++        return None
++    options = {
++        key: intervention[key]
++        for key in ("max_sources", "targets_per_source", "repeats")
++        if key in intervention
++    }
++    if focus_sources is None:
++        return options
++    try:
++        source_ids = [int(value) for value in focus_sources.split(",")]
++    except ValueError as exc:
++        raise ValueError("Focus sources must be comma-separated integer DG IDs") from exc
++    if not source_ids or len(source_ids) != len(set(source_ids)) or any(source < 0 for source in source_ids):
++        raise ValueError("Focus sources must be distinct nonnegative DG IDs")
++    if discovery_multiplier <= 0:
++        raise ValueError("Discovery multiplier must be positive")
++    if "max_sources" in options and len(source_ids) > int(options["max_sources"]):
++        raise ValueError("Source shard exceeds StudySpec max_sources")
++    options.update(max_sources=len(source_ids), focus_sources=source_ids,
++                   discovery_multiplier=discovery_multiplier)
++    return options
+@@ -786,4 +818,2 @@
+-        landmark_options=(
+-            {key: intervention[key] for key in ("max_sources", "targets_per_source", "repeats") if key in intervention}
+-            if intervention.get("evaluation") == "landmark-matched-commands-v1"
+-            else None
++        landmark_options=landmark_options_for_row(
++            intervention, args.focus_sources, args.discovery_multiplier
+--- a/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
++++ b/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
+@@ -94,0 +95,9 @@
++shard_args=()
++if [[ -n ${INTERVENTION_FOCUS_SOURCES:-} ]]; then
++  focus_sources=${INTERVENTION_FOCUS_SOURCES//:/,}
++  [[ $focus_sources =~ ^[0-9]+(,[0-9]+)*$ ]] || {
++    echo "INTERVENTION_FOCUS_SOURCES must be comma-separated DG IDs" >&2; exit 2;
++  }
++  shard_args=(--focus-sources "$focus_sources" \
++              --discovery-multiplier "${INTERVENTION_DISCOVERY_MULTIPLIER:-8}")
++fi
+@@ -101 +110,2 @@
+-  --attempts-per-pair 5
++  --attempts-per-pair 5 \
++  "${shard_args[@]}"
+--- a/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
+@@ -146,0 +147,11 @@
++    for key, pattern in (
++        ("INTERVENTION_FOCUS_SOURCES", r"[0-9]+(?:,[0-9]+)*"),
++        ("INTERVENTION_DISCOVERY_MULTIPLIER", r"[1-9][0-9]*"),
++    ):
++        value = os.environ.get(key)
++        if value is not None:
++            if not re.fullmatch(pattern, value):
++                raise ValueError(f"Invalid {key}: {value!r}")
++            # Slurm's comma-delimited export cannot carry a CSV list verbatim.
++            # Encode the list with colons and decode it in the intervention worker.
++            export += f",{key}={value.replace(',', ':')}"
+--- a/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
++++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
+@@ -8,0 +9,48 @@
++from sf_working_directories.IntrMotiv.evaluation import submit_place_field_sweep as submitter
++
++
++def test_source_shard_options_preserve_panel_and_validate_ids():
++    intervention = {
++        "evaluation": "landmark-matched-commands-v1",
++        "max_sources": 16,
++        "targets_per_source": 15,
++        "repeats": 3,
++    }
++    assert ev.landmark_options_for_row(intervention, None, 2) == {
++        "max_sources": 16, "targets_per_source": 15, "repeats": 3,
++    }
++    assert ev.landmark_options_for_row(intervention, "4,5,6,7", 8) == {
++        "max_sources": 4, "targets_per_source": 15, "repeats": 3,
++        "focus_sources": [4, 5, 6, 7], "discovery_multiplier": 8,
++    }
++    for invalid in ("", "0,0", "-1,2", "0,a"):
++        with pytest.raises(ValueError):
++            ev.landmark_options_for_row(intervention, invalid, 8)
++    with pytest.raises(ValueError):
++        ev.landmark_options_for_row(intervention, "0,1", 0)
++    with pytest.raises(ValueError):
++        ev.landmark_options_for_row({"evaluation": "other"}, "0,1", 8)
++
++
++def test_source_shard_exports_are_explicit_and_slurm_safe(monkeypatch, tmp_path):
++    monkeypatch.setenv("INTERVENTION_FOCUS_SOURCES", "0,1,2,3")
++    monkeypatch.setenv("INTERVENTION_DISCOVERY_MULTIPLIER", "8")
++    command = submitter.build_sbatch_command(
++        row=submitter.ManifestRow(0, {"label_suffix": "cell"}),
++        manifest=tmp_path / "manifest.tsv", output_dir=tmp_path / "output",
++        runner=tmp_path / "runner.sh", partition="cpu", cpus=4, memory="16G",
++        time_limit="06:00:00", max_num_frames=300000,
++        job_name_prefix="shard", workspace_root=tmp_path,
++    )
++    exported = next(value for value in command if value.startswith("--export="))
++    assert "INTERVENTION_FOCUS_SOURCES=0:1:2:3" in exported
++    assert "INTERVENTION_DISCOVERY_MULTIPLIER=8" in exported
++    monkeypatch.setenv("INTERVENTION_FOCUS_SOURCES", "0,1,broken")
++    with pytest.raises(ValueError, match="Invalid INTERVENTION_FOCUS_SOURCES"):
++        submitter.build_sbatch_command(
++            row=submitter.ManifestRow(0, {"label_suffix": "cell"}),
++            manifest=tmp_path / "manifest.tsv", output_dir=tmp_path / "output",
++            runner=tmp_path / "runner.sh", partition="cpu", cpus=4, memory="16G",
++            time_limit="06:00:00", max_num_frames=300000,
++            job_name_prefix="shard", workspace_root=tmp_path,
++        )

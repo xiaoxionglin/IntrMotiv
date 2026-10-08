@@ -25,7 +25,8 @@ PRODUCTION_SHA = "c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7
 FIRST_DISTINCT_SHA = "602ea435864c7a193d0563c365e406c93be91d80aceb3cfdbc8b5da8be1b8000"
 SELECTORS = ("all16", "random4", "hebb4", "random8", "hebb8")
 METRICS = ("command_success", "matched_shuffle_success", "command_minus_shuffle",
-           "timeout_rate", "censored_rate", "wrong_first_rate", "action_sensitivity")
+           "timeout_rate", "censored_rate", "wrong_first_rate", "action_sensitivity",
+           "mean_deadline", "deadline_64_fraction")
 
 
 def parse_args() -> argparse.Namespace:
@@ -69,6 +70,8 @@ def read_protocol(raw: Path, protocol: str, expected: dict[tuple[str, int], obje
             raise ValueError(f"{protocol}: invalid DG identity in {trial_path}")
         if (trials.source == trials.target).any():
             raise ValueError(f"{protocol}: self-target in {trial_path}")
+        if trials.deadline.isna().any() or (trials.deadline <= 0).any():
+            raise ValueError(f"{protocol}: invalid deadline in {trial_path}")
         pair_counts = trials.groupby(["source", "target"]).size()
         if (pair_counts > 5).any() or int((pair_counts == 5).sum()) != summary["ordered_pairs_complete"]:
             raise ValueError(f"{protocol}: pair count mismatch in {trial_path}")
@@ -98,6 +101,8 @@ def read_protocol(raw: Path, protocol: str, expected: dict[tuple[str, int], obje
             "censored_rate": float((trials.completion_reason == "censored_boundary").mean()),
             "wrong_first_rate": float(wrong_first.mean()) if protocol == "first_distinct" else np.nan,
             "action_sensitivity": float(summary["mean_counterfactual_action_sensitivity"]),
+            "mean_deadline": float(trials.deadline.mean()),
+            "deadline_64_fraction": float((trials.deadline == 64).mean()),
             "summary_workspace_path": str(remote_raw / summary_path.parent.name / summary_path.name),
             "trials_workspace_path": str(remote_raw / summary_path.parent.name / trial_path.name),
             "summary_sha256": sha256(summary_path),

@@ -995,7 +995,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   zero, giving 952 paired comparisons with no censoring; two rich DGP rows
   had one source with four rather than five starts, and the missing repeat is
   explicit. This bounded analysis does not replace a process-sharded
-  full-source panel.
+  full-source panel. The odor/CA3 16-source, 15-target, three-repeat
+  qualification `8306935` reached more than 500 fresh engine constructions
+  without a native crash but hit its eight-hour Slurm limit before producing
+  a summary. Both failures point to bounded source shards with explicit
+  coverage and merge checks rather than a longer monolithic job. An
+  [evaluation-only patch](hpc_runs/patches/odor_v2_exact_start_source_sharding_20261008.patch)
+  now prints source IDs in each ordinary Slurm command and delegates each
+  shard to the unchanged exact-start evaluator; six focused runtime tests
+  passed. Its first four-source qualification, `8314863`, is running. A
+  complete audited merge remains pending.
   Evidence is tracked in the
   [corridor record](06_experiments/environments_transfer/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
