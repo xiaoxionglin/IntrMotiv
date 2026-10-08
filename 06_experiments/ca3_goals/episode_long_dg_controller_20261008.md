@@ -23,6 +23,8 @@ At 75M, compare ORACLE_FILM and LEARNED4_FILM with their same-seed finite-horizo
 
 At 150M, compare the four new arms within the common episode-long protocol and describe their longer training course. ORACLE_FILM versus LEARNED4_FILM tests fixed-field replacement under the same four-goal vocabulary. ORACLE_LEG9 versus ORACLE_FILM tests the combined conditioning-and-gain package; without a legacy-gain-1 arm it cannot isolate gain 9. C15_FILM asks how the controller behaves with all 16 learned goals and is not a representation-matched control.
 
+The later [C05 FiLM supplement](episode_long_c05_supplement_20261008.md) adds three separately fingerprinted, seed-matched episode-long runs for a C05–C15 controller-family contrast at 75M and 150M. It does not alter this submitted twelve-run StudySpec or its jobs.
+
 ## Outcome protocol
 
 The primary control measure is a **physical arrival** at a target field from an identical start under its own command versus alternative commands. The frozen policy and graph remain unchanged within each matched panel. Measure arrivals by 64, 128, 256 decisions and episode end at 900 decisions; report failures, episode censoring, time to first hit, command-induced initial action change, target exposure, per-field sample size, trajectories and graph outcomes. A 900-decision trial that ends at the physical boundary without a hit is a failure, not a goal timeout. Hit-only option success is secondary because the controller no longer imposes an option deadline.

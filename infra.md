@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Check spatial snapshot feasibility in short qualification studies — 2026-10-08
+
+- **Evidence:** The episode-long C05 qualification declared an online spatial snapshot at 524,288 environment frames while the unchanged default window requires 100,000 policy observations. At frameskip 8, the declared target permits only 65,536 decisions; the completed job overshot to 589,824 frames and still had fewer than 100,000 decisions, so no online snapshot could be written. The original four-arm episode-long qualification used the same short horizon.
+- **Impact:** A valid short training gate can appear to have missing spatial evidence, wasting investigation or causing a false failed-arm decision.
+- **Improvement/status:** Pending. In the [canonical study workflow](04_implementation/standardized_study_workflow.md), validate that a declared short-run snapshot target can fill its observation window at the configured frameskip, or require an explicit shorter qualification window. Preserve submitted StudySpecs and identify impossible historical targets as unavailable, not failed runs.
+- **Acceptance:** A focused validator test rejects a 524,288-frame, frameskip-8, 100,000-observation snapshot declaration before submission; the same study passes with a feasible window or later target.
+
 ### Validate every rendered arm with the real training argument parser — 2026-10-08
 
 - **Evidence:** The first episode-long four-arm qualification passed StudySpec
