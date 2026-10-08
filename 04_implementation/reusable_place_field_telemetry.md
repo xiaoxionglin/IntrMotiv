@@ -870,6 +870,14 @@ all exited zero, but two rows had only four repeats for one source. Preserve
 and recompute summary endpoints from trial CSVs. This operational result does
 not make a full unsharded source sweep safe.
 
+For the [odor/CA3 75M analysis](../06_experiments/ca3_goals/odor_goal_quality_v2_command_interventions_20261007.md),
+a 16-source, 15-target, three-repeat exact-start job timed out after eight
+hours. The same evaluator completed a four-source qualification in 2h44 with
+all requested starts, exact state, frozen policy and graph, and no censoring.
+Print source IDs in each ordinary command; audit disjoint shards and merge
+source coverage, missingness, failures, and censoring before interpreting the
+full panel. The qualification's single-run effect is not a batch estimate.
+
 In that same study, twelve twenty-episode uniform-random JSON outputs were
 byte-identical because geometry, action set, reset seeds, and action seeds
 matched. A future manifest-aware baseline-reuse contract could avoid

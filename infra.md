@@ -1017,8 +1017,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   [evaluation-only patch](hpc_runs/patches/odor_v2_exact_start_source_sharding_20261008.patch)
   now prints source IDs in each ordinary Slurm command and delegates each
   shard to the unchanged exact-start evaluator; six focused runtime tests
-  passed. Its first four-source qualification, `8314863`, is running. A
-  complete audited merge remains pending.
+  passed. Its first four-source qualification, `8314863`, completed in 2h44
+  with exact starts, frozen policy and graph, 4/4 sources, 12/12 starts, 180
+  paired target comparisons, no missing starts or censoring, and no native
+  crash. The remaining 159 ordinary jobs await a final print-only audit and
+  submission; a complete audited merge remains pending.
   Evidence is tracked in the
   [corridor record](06_experiments/environments_transfer/corridor_geometry_20260919.md).
 - **Acceptance:** Nine maps connected and nested, common spawns, exact replay,
