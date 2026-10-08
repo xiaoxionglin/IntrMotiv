@@ -95,6 +95,11 @@
 
 ## Standardized Study Workflow
 
+- When asked to analyze IntrMotiv runs or results, apply the
+  [analysis completion standard](04_implementation/standardized_study_workflow.md#analysis-completion-standard):
+  cover place fields, trajectories, graphs, and goal control without requiring
+  separate prompts for each. Label online statistics alone as interim, and
+  identify and complete missing analyses within the authorized task.
 - Before defining a new training matrix, repeated TensorBoard analysis, or
   telemetry sweep, read `04_implementation/standardized_study_workflow.md` and
   use the latest canonical package under `hpc_runs/intrmotiv_study/`.

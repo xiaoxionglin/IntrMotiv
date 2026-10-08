@@ -153,12 +153,14 @@ for multiprocessing sockets, including evaluation workers.
 
 ## Analysis completion standard
 
-For every IntrMotiv training study, produce a
-linked **place-field, trajectory, and graph analysis** as part of the standard
-result, without waiting for a separate request. A coverage or scalar-only
-summary is an interim result, even when all training runs have finished.
+For every IntrMotiv training study, produce linked **place-field, trajectory,
+graph, and control analyses** as part of the standard result. A request to
+"analyze the data," "analyze the runs," or "analyze the results" invokes all
+four components without requiring the user to name them, unless they explicitly
+narrow the scope. Online coverage, losses, goal hits, and other scalar summaries
+are interim evidence, even when all training runs have finished.
 Schedule the declared checkpoint evaluations during the original study workflow;
-when their data become available, finish all three analyses and update the
+when their data become available, finish all four analyses and update the
 study's result report and the [experiment index](../06_experiments/README.md).
 
 The completed analysis must include:
@@ -168,22 +170,25 @@ The completed analysis must include:
 | Place fields | Manifest-driven 10k-decision checkpoint maps, including thresholded and pre-threshold views; silence/activity, spatial information, active-only map similarity, peak diversity, mono-field structure, visited-bin support, checkpoint course, and replicated terminal seeds. State the denominator and occupancy limits of each metric. |
 | Trajectories | Occupancy and segmented paths from selected representative runs, plus across-condition checkpoint and terminal summaries. Preserve reset/segment boundaries, report visited support, and distinguish policy-driven checkpoint comparisons from a fixed-trajectory drift test. |
 | Graphs | Complete available directed-edge support and outcomes, including attempted versus unattempted edges, reliability/connectivity or reachability, and their checkpoint and paired-condition changes. Use consistent scales for representative graph maps. Keep stored confidence, prospective hits, and matched-start intervention success as distinct quantities. |
+| Control | For goal-conditioned policies, execute alternative commands from matched starts with frozen checkpoints and a common observation budget. Report commanded versus alternative-command physical arrivals when goals have spatial targets, detector hits separately, action changes, time to arrival or hit, failures and episode censoring, goal exposure, and source/goal coverage. Compare paired seeds and checkpoint ages. Retrospective goal-label shuffles, online hit rates, and graph-edge confidence are not substitutes for executed command interventions. |
 
 Use the StudySpec to select conditions, seeds, and checkpoint ages. Apply the
 canonical `collect-spatial` and manifest-driven place-field postprocessors
 described below and in the [telemetry guide](reusable_place_field_telemetry.md);
-reuse retained snapshots before launching any extra rollouts. Put a concise
+reuse retained snapshots before launching any extra rollouts. Distinguish
+online training evidence from frozen-checkpoint evaluation. Put a concise
 interpretation, limitations, and direct figure/table links for **each** of the
-three components in the result report. Keep bulk NPZs, full plot sets, and
+four components in the result report. Keep bulk NPZs, full plot sets, and
 graph-edge tables in the allocated workspace; copy selected readable figures
 and lightweight summaries into the vault. Inspect figures at report size.
 
-If a study genuinely has no graph module or one component's required artifact
-is missing, say so explicitly in that component's section, identify the
-missing input and next action, and keep the analysis status open. Do not infer a
-zero graph from absent edge evidence or mark the study analysis complete from
-the components that happen to be ready first. Automatically revisit pending
-components when the declared jobs or snapshots finish.
+If a component does not apply (for example, no graph module or no commanded
+goals), explain why in its section. If a required artifact is missing, identify
+the missing input and next action, and keep the analysis status open. Do not
+infer a zero graph from absent edge evidence or mark the study analysis complete
+from the components that happen to be ready first. Continue pending components
+within the authorized task as declared jobs or snapshots finish; do not create
+a recurring monitor unless requested.
 
 ## Source-of-truth hierarchy
 
