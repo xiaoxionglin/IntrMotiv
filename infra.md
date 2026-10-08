@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Require populated physical-arrival outcomes in matched-command DG evaluations — 2026-10-08
+
+- **Evidence:** The orthogonal-FiLM prescribed-DG exact-start preflight at 75M (`8314918`) verified identical starts and frozen model/graph, and produced 36 executed-command rows. Its `physical_start_distance` and `physical_minimum_distance` columns were all missing, while `physical_entry_r200`, `physical_entry_r300` and `physical_cell_contact` were all false. The oracle `hit_by_64/128/256` detector columns were populated because its four post-replacement DG fields are fixed Gaussian regions. See the [study analysis](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#matched-command-control).
+- **Impact:** A manifest and trial CSV can appear to satisfy the declared *physical arrival* comparison while physical-position outcomes are absent, especially for learned DG units whose detector event is not itself a fixed spatial destination.
+- **Improvement/status:** Pending. In the canonical exact-start evaluator, write each rollout's bounded physical path and contact with a source-independent spatial target definition when one exists. If a learned field has no stable physical target, mark the physical outcome unavailable and report detector hits separately. Add a post-run schema check that rejects all-null physical-distance outputs when a study claims physical-arrival evidence. Keep trial data in the allocated workspace.
+- **Acceptance:** A fixed-Gaussian goal trial reports finite physical distances and radius/contact flags consistent with its DG hit; a learned field without a defensible spatial center is explicitly unavailable rather than silently false; a focused test catches an all-null physical-arrival panel before result release. Follow the [reusable telemetry protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol).
+
 ### Count censored episode-long commands in graph-control evidence — 2026-10-08
 
 - **Evidence:** At 75M, all twelve episode-long orthogonal-FiLM runs report prospective graph success fraction 1.0, including the prescribed and learned-4 arms whose commanded and shuffled online hit rates are nearly equal. The graph update counts attempted outcomes on target hit or option expiration. In episode-long mode, normal goals cannot expire, so episode-end unresolved commands do not enter the prospective denominator. See the [study result](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#the-episode-long-graph-counter-is-censored).
