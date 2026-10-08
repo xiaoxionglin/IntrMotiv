@@ -1,0 +1,14 @@
+{
+  "run": "00_LCDGQ_ORACLE_FILM_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/long_credit_dg_20261008/qualification_reload/oracle_s99/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "51ad724fcc454ce903fce23444e0f4051e7d891f604ae84ce3f5d4d540f5bb78",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8316173"
+}

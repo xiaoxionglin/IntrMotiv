@@ -1,0 +1,23 @@
+{
+  "batch_name": "long_credit_dg_20261008_qual",
+  "commands_match_study": true,
+  "expected_runs": 2,
+  "job_ids": [
+    "8316165",
+    "8316166"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/long_credit_dg_20261008_qual/20261008T213957Z/jobs.tsv",
+  "rows": 2,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 2
+  },
+  "study_id": "long_credit_dg_qualification_20261008",
+  "study_sha256": "da1fd25b611c39be90c6dd5a8cef0accd30bcd9f6955cd666729540edfb52401",
+  "study_spec": "hpc_runs/studies/long_credit_dg_qualification_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

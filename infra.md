@@ -6,6 +6,22 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Validate telemetry seed selection during StudySpec validation — 2026-10-08
+
+- **Evidence:** The submitted one-seed longer-credit qualification StudySpec
+  validated and its two training jobs completed, but `render-telemetry` later
+  rejected inherited `terminal_seeds=[8,123]` because only seed 99 exists.
+  An immutable evaluation-only selection was needed for the 500-decision smoke.
+- **Impact:** A training manifest can pass every pre-submission gate while its
+  declared frozen evaluation cannot be rendered, delaying the release gate.
+- **Improvement/status:** Pending. Check telemetry seed membership in the
+  canonical StudySpec validator, using the same rule as `render-telemetry`.
+  Keep the submitted qualification fingerprint unchanged. See the
+  [standard workflow](04_implementation/standardized_study_workflow.md).
+- **Acceptance:** A focused test rejects terminal or trajectory seeds absent
+  from the study during `validate`, and accepts the corrected evaluation-only
+  selection before any training or telemetry submission.
+
 ### Require populated physical-arrival outcomes in matched-command DG evaluations — 2026-10-08
 
 - **Evidence:** The orthogonal-FiLM prescribed-DG exact-start preflight at 75M (`8314918`) verified identical starts and frozen model/graph, and produced 36 executed-command rows. Its `physical_start_distance` and `physical_minimum_distance` columns were all missing, while `physical_entry_r200`, `physical_entry_r300` and `physical_cell_contact` were all false. The oracle `hit_by_64/128/256` detector columns were populated because its four post-replacement DG fields are fixed Gaussian regions. See the [study analysis](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#matched-command-control).
@@ -160,21 +176,23 @@ keep implementation guidance in the canonical workflow documents linked below.
   at recorded positions, and does not present unused projection maps as the
   oracle fields. Add focused tests for the provenance metadata.
 
-### Spatial and graph analyses must ship with study results — 2026-10-07
+### Complete spatial and control analyses must ship with study results — 2026-10-07
 
 - **Evidence:** The odor/CA3 40-run coverage report was delivered while the
   declared place-field jobs were still finishing. After all 70 field rollouts
   and 200 online spatial/graph snapshots were available, the place-field,
   trajectory, and graph analyses still needed a separate user request.
 - **Impact:** A scalar-focused answer hid complete spatial evidence and made
-  the user track the analysis lifecycle manually.
+  the user track the analysis lifecycle manually. The original three-component
+  wording also omitted causal goal control and persisted in the telemetry guide
+  and experiment index after the primary standard was corrected.
 - **Improvement/status:** The [standard study workflow](04_implementation/standardized_study_workflow.md#analysis-completion-standard)
-  now defines a three-component analysis completion requirement; the
-  [telemetry guide](04_implementation/reusable_place_field_telemetry.md) and
-  experiment index point to it. Future study monitoring should advance every
-  declared component when its artifacts become available, without prompting.
+  now requires place-field, trajectory, graph, and matched-command control
+  evidence when applicable. The telemetry guide and experiment index were
+  reconciled on 8 October. Advance pending components within an authorized
+  study task; create recurring monitoring only when requested.
 - **Acceptance:** The next completed training-study report links inspected
-  place-field, trajectory, and graph figures/tables from its index entry, or
+  place-field, trajectory, graph, and control figures/tables from its index entry, or
   explicitly identifies an unavailable component and keeps analysis status
   open, before announcing the study analysis as complete.
 

@@ -18,12 +18,13 @@ fields. Use it across flat, HRL, manager, loss, threshold, and update-schedule
 variants instead of writing batch-specific `enjoy` scripts.
 
 The [analysis completion standard](standardized_study_workflow.md#analysis-completion-standard)
-requires place-field, trajectory, **and** graph sections in every IntrMotiv
-training-study result. Run this manifest-driven field protocol, inspect
-segmented occupancy/trajectories, and collect the available directed-graph
-evidence as one planned analysis package. A completed field sweep alone does
-not close the study analysis; record an absent graph module or missing artifact
-explicitly and keep pending work visible until it is resolved.
+requires place-field, trajectory, graph, **and goal-control** sections in every
+IntrMotiv training-study result. Run this manifest-driven field protocol,
+inspect segmented occupancy/trajectories, collect the available directed-graph
+evidence, and execute matched-command interventions for goal-conditioned
+policies. A completed field sweep alone does not close the study analysis;
+record a genuinely inapplicable component or missing artifact explicitly and
+keep pending work visible until it is resolved.
 
 ## Landmark-aware optional contract (workflow 1.12.0)
 

@@ -1,0 +1,39 @@
+# Longer-credit episode-long DG goals
+
+**Status, 8 October 2026:** both seed-99 compute-node qualifications and exact checkpoint reloads passed. The frozen place-field smoke passed. Six 100M-frame production jobs, 8316177–8316182, were submitted and are running. No production outcome is available yet, and no recurring monitor is active.
+
+## Question and controlled change
+
+Can the existing commanded-hit reward and clipped CA3 temporal bonus support goal following when PPO assigns more credit to delayed outcomes? The six-run [StudySpec](../../hpc_runs/studies/long_credit_dg_20261008.study.json) pairs seeds 8, 99 and 123 in two orthogonal-FiLM episode-long arms: four fixed Gaussian DG goals plus twelve learned context units, and C15 with sixteen learned goal units. Each run is planned for 100M frames. The baseline is the corresponding arm and seed in the [existing orthogonal-FiLM study](../../hpc_runs/studies/orthogonal_film_episode_dg_20261008.study.json), evaluated at the same checkpoint age.
+
+The only learning changes are $\gamma=0.99\rightarrow0.999$ and GAE $\lambda=0.95\rightarrow0.99$. The hit reward, CA3 temporal bonus, reward scaling, DG fields, orthogonal FiLM initialization, manager, and episode-long command rule are identical. A commanded goal persists until hit or physical episode end at 900 policy decisions. The intervention tests the **joint longer-credit setting**, not an isolated effect of either discount factor.
+
+The source computes worker reward on a commanded hit as
+
+$$
+r_{\mathrm{hit}}=1+0.01\max(71-d,0),
+$$
+
+where $d$ is the nearest preceding distinct DG-event age in CA3. A wrong-field encounter does not pay this reward or end the command. The bonus does not encode physical distance or stepwise progress. Increasing the effective learning horizon can change the value assigned to delayed hits; it cannot create hit experiences when field exposure is absent.
+
+## Declared execution and parity
+
+The production StudySpec is schema `intrmotiv/study/v1`, workflow `1.14.1`, SHA-256 `c15787924ac6d6c5f0c1ac07532f09b18ac6c8a44819463fdd9fa491921dd14c`. The separate [qualification StudySpec](../../hpc_runs/studies/long_credit_dg_qualification_20261008.study.json) is SHA-256 `da1fd25b611c39be90c6dd5a8cef0accd30bcd9f6955cd666729540edfb52401` and ran the two seed-99 arms for 1,048,576 frames each. Both validated locally and in the synchronized NEMO2 source. The actual NEMO2 argument parser accepted each unique arm and verified the new $\gamma$, $\lambda$, episode-long expiration and `hit_distance` reward mode; `with_vtrace=False` confirms GAE is active. All 45 existing worker-reward/graph tests passed in that source.
+
+A rendered-argument comparison against the baseline found only the two learning parameters, planned length, milestone targets and tracking identity changed. The baseline omitted an explicit GAE setting and therefore uses Sample Factory's default $\lambda=0.95$. The existing source branch and runtime are `codex/orthogonal-film-dg-20261008` at `f93c112d`, mirrored at `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_orthogonal_film_dg_20261008`. The new StudySpecs and thin launcher adapters were copied into that workspace source; model and learner code were not altered.
+
+The qualification print-only launch passed `audit-submission`, including exact commands and workspace-only paths. Jobs 8316165 and 8316166 each reached the 1,048,576-frame milestone and exited zero; their submitted [audit](results/long_credit_dg_20261008/qualification_submission_audit.json) records the exact run matrix and job IDs. Both wrote complete 100,000-observation snapshots. The prescribed field counts were 63, 20, 20 and 33, and every learned context unit was active. The C15 DG snapshot was finite and active. Behavior replay mismatch was zero in both arms. The [canonical qualification collection](results/long_credit_dg_20261008/qualification_online_per_run.csv) preserves the short online windows.
+
+All 34 logged policy, value and advantage-spread values were finite in each arm. The latest prescribed policy/value losses were −0.00087/0.0745 with advantage standard deviation 1.85; C15 had 0.00226/0.382 with advantage standard deviation 28.0. The latter is elevated and needs monitoring at 5M, though no divergence occurred. C15's latest learner batch recorded ten correct outcomes, mean hit age 163.5 decisions and mean hit reward 1.61, within the declared $1$–$1.71$ hit-magnitude range. The prescribed latest batch had no hits, while its broader online window registered rare hits; this is not a control estimate. Exact reload jobs 8316173 and 8316174 exited zero and certified model, optimizer and counters from the saved milestones. Their [oracle](results/long_credit_dg_20261008/qualification_oracle_reload.json) and [C15](results/long_credit_dg_20261008/qualification_c15_reload.json) certificates retain checkpoint hashes.
+
+The submitted qualification StudySpec inherited terminal telemetry seeds 8 and 123 even though it trains only seed 99. Training and its fingerprint remain unchanged. An [evaluation-only selection](../../hpc_runs/studies/long_credit_dg_qualification_eval_20261008.study.json), SHA-256 `5ee0f9be97194a0cc32152b4f6908af33789a9d89605dbf3d3fc14e69398c8f9`, removes those nonexistent terminal rows and rendered the two saved checkpoints. Ordinary 500-decision oracle place-field smoke job 8316176 exited zero after print-only review. Its 78-array NPZ has finite thresholded and pre-threshold maps on all 46 visited bins; unvisited-bin NaNs are the expected mask.
+
+The final production print-only and submitted audits matched all six commands and workspace-only paths. The [production submission audit](results/long_credit_dg_20261008/production_submission_audit.json) binds StudySpec SHA-256 `c15787924ac6d6c5f0c1ac07532f09b18ac6c8a44819463fdd9fa491921dd14c` to jobs 8316177–8316182: prescribed seeds 8/99/123 are 8316177–8316179, and C15 seeds 8/99/123 are 8316180–8316182. All six entered `RUNNING` at first scheduler check. The immutable Slurm manifest is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/long_credit_dg_20261008/20261008T215730Z/jobs.tsv`; its six independent scripts request 60 hours each on the CPU partition. The pre-existing paired baseline jobs were not changed or resubmitted. Their 100M checkpoints were not yet present at submission and remain an evaluation dependency.
+
+## Analysis and decision boundary
+
+At 5M, 25M, 50M, 75M and 100M, compare matched seeds and ages for field exposure, commanded and shuffled hit counts, hit latency where observed, value/advantage diagnostics, action sensitivity and coverage. A missing or rare-hit denominator makes a reward-sufficiency judgment inconclusive. Training statistics are interim evidence.
+
+At declared checkpoints, complete the standard manifest-driven place-field maps, segmented trajectories, directed-graph analysis and frozen matched-command intervention. For prescribed DG, the primary outcome is physical arrival at the commanded Gaussian field versus alternative executed commands from identical starts within 64, 128, 256 and 900 decisions. Report per-field exposure, failure, episode censoring and time to arrival. For C15, report learned-detector hits separately; assign physical destinations only where frozen field maps support them. The episode-long graph's prospective-success denominator omits unresolved commands censored at episode end, so its reliability fraction is not control evidence.
+
+The reward with longer credit is supported only if prescribed DG shows a reproducible positive matched-command physical-arrival lift over its paired baseline at 100M, with the three seed effects and uncertainty reported. Improved online hit counts or coverage alone cannot establish this claim.

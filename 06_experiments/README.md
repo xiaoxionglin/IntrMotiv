@@ -7,8 +7,8 @@ Historical launch notes retain exact manifests and implementation details.
 The [open-analysis register](open_analyses.md) lists the specific evidence
 still needed to close major scientific claims.
 The [standard study workflow](../04_implementation/standardized_study_workflow.md#analysis-completion-standard)
-requires every training-study result to cover place fields, trajectories, and
-graphs, or explicitly document unavailable evidence and keep that component
+requires every training-study result to cover place fields, trajectories, graphs,
+and goal control, or explicitly document unavailable evidence and keep that component
 open. Scalar and coverage reports alone are interim.
 The [organization strategy](ORGANIZATION.md) explains the study-line grouping
 and the criteria used to merge overlapping notes. Study notes are physically
@@ -32,6 +32,7 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 | CA3 predictive active goals | [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
 | Odor and CA3 goal quality | [[ca3_goals/odor_goal_quality_v2_spatial_analysis_20261007|Place fields, trajectories, and graphs]]; [[ca3_goals/odor_goal_quality_v2_command_interventions_20261007|Command interventions]]; [[ca3_goals/odor_goal_quality_40_run_v2_20261007|Coverage and launch]] | All 40 training histories, 70 offline field rollouts, 200 online snapshots, 40 target-hit evaluations, and 40 first-distinct evaluations analyzed; bounded exact-start qualification passed, full executed-command analysis pending | The first 40-job launch was cancelled after code review |
 | Orthogonal FiLM DG replacement | [[ca3_goals/orthogonal_film_dg_20261008|Finite and episode-long replacement]] | 75M online field, trajectory and graph analysis plus all 18 frozen 10k place-field results complete; small prescribed exact-start probe shows zero episode-long arrival lift, full matched-command evaluations running; 150M pending | Tests goal-matrix initialization with a local RNG, then field and horizon effects |
+| Longer-credit DG goals | [[ca3_goals/long_credit_dg_20261008|Episode-long longer-credit test]] | Qualification, exact reload and frozen smoke passed; six 100M runs active, results pending | Tests the existing hit reward with $\gamma=0.999$ and GAE $\lambda=0.99$ against paired orthogonal-FiLM baselines |
 | Four prescribed DG goals | [[ca3_goals/four_prescribed_dg_controller_20261007|Matched controller screen]] | Six 75M runs complete; oracle hits and action sensitivity remain low; frozen causal probe cancelled | Zero-initialized FiLM cohort supplies the paired finite-horizon baseline |
 | Episode-long DG goals | [[ca3_goals/episode_long_dg_controller_20261008|Four-arm horizon study]] | Twelve jobs cancelled after 5M; no 75M/150M outcome | Orthogonal-FiLM replacement supersedes the three FiLM arms; legacy-9 is early context only |
 | Episode-long C05 supplement | [[ca3_goals/episode_long_c05_supplement_20261008|C05–C15 abstract contrast]] | Three production jobs cancelled before planned comparisons | The orthogonal-FiLM replacement restores the family-level contrast |
@@ -106,6 +107,7 @@ above determines which findings are current.
 | State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: G500 production](ca3_goals/ca3_state_goal_followup_20260922.md); [RUN: NEMO2 release record](ca3_goals/ca3_state_goal_followup_nemo2_release_20260922.md) |
 | Odor and CA3 goal quality | [RESULT: place fields, trajectories, and graphs](ca3_goals/odor_goal_quality_v2_spatial_analysis_20261007.md); [RESULT: target-hit and first-distinct command probes](ca3_goals/odor_goal_quality_v2_command_interventions_20261007.md); [RESULT/RUN: coverage and corrected launch](ca3_goals/odor_goal_quality_40_run_v2_20261007.md); [PLAN: original study and supersession](ca3_goals/odor_goal_quality_40_run_plan_20261006.md) |
 | Orthogonal FiLM DG replacement | [RUN: finite, episode-long C15 and C05](ca3_goals/orthogonal_film_dg_20261008.md) |
+| Longer-credit DG goals | [RUN: prescribed and C15 longer-credit study](ca3_goals/long_credit_dg_20261008.md) |
 | Four prescribed DG goals | [RUN: matched six-cell screen](ca3_goals/four_prescribed_dg_controller_20261007.md) |
 | Episode-long DG goals | [RUN: four-arm horizon study and qualification](ca3_goals/episode_long_dg_controller_20261008.md) |
 | Episode-long C05 supplement | [RUN: C05–C15 family contrast and qualification](ca3_goals/episode_long_c05_supplement_20261008.md) |
