@@ -1,6 +1,6 @@
 # Odor and CA3 goal quality: place fields, trajectories, and graphs
 
-**Status, 7 October 2026:** the complete declared place-field protocol is analyzed: 70 independent 10k-decision rollouts. All 200 retained online spatial/graph snapshots are collected. The 40 ordinary target-hit intervention jobs completed; their [interim command analysis](odor_goal_quality_v2_command_interventions_20261007.md) identifies a stopping-rule limitation. First-distinct-outcome evaluations are running; this spatial report does not infer command efficacy from graph or field plots.
+**Status, 8 October 2026:** the complete declared place-field protocol is analyzed: 70 independent 10k-decision rollouts. All 200 retained online spatial/graph snapshots are collected. The 40 ordinary target-hit and 40 first-distinct evaluations completed; their [command analysis](odor_goal_quality_v2_command_interventions_20261007.md) identifies a stopping-rule limitation and weak first-event specificity. Exact-start alternate-command replay is in qualification. This spatial report does not infer command efficacy from graph or field plots.
 
 ## Where the outputs are
 
@@ -48,7 +48,7 @@ The [reachability curves](results/odor_v2_spatial_20261007/graph_reachability.pn
 
 ## What remains
 
-The 40 ordinary target-hit evaluations are complete; see their [interim command analysis](odor_goal_quality_v2_command_interventions_20261007.md). The separate first-distinct evaluations must resolve whether the commanded identity is more often the first new DG outcome than a matched shuffled identity, while accounting for wrong first outcomes, timeouts, censoring, and action sensitivity. The [coverage analysis](odor_goal_quality_40_run_v2_20261007.md#interim-analysis-complete-training-histories) already reports the 40-run external learning curves and seed-paired contrasts. The final study interpretation must bring that coverage evidence, these spatial/graph results, and both intervention protocols together without treating online graph hit fractions as intervention success rates.
+The 40 target-hit and 40 first-distinct evaluations are complete; see the [command analysis](odor_goal_quality_v2_command_interventions_20261007.md). Commanded first identity occurred in 6.75% of first-distinct trials, versus 6.57% for a context-matched shuffled label on the same path. The shuffled label is retrospective, so these rates do not measure an executed alternate command. The [coverage analysis](odor_goal_quality_40_run_v2_20261007.md#interim-analysis-complete-training-histories) reports the 40-run external learning curves and seed-paired contrasts. The combined evidence shows no consistent Hebbian or odor benefit, while exact-start command replay remains in qualification. Online graph hit fractions are not intervention success rates.
 
 ## Reproducibility note
 

@@ -115,30 +115,83 @@ def plot_protocols(frame: pd.DataFrame, out_path: Path) -> None:
         raise RuntimeError(f"A scalable font is required, found {font_path}")
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 15})
     protocols = [name for name in ("target_hit", "first_distinct") if name in set(frame.protocol)]
-    fig, axes = plt.subplots(len(protocols), 2, figsize=(15, 6 * len(protocols)), squeeze=False,
-                             sharey=True)
+    fig, axes = plt.subplots(len(protocols), 2, figsize=(15, 6 * len(protocols)), squeeze=False)
     for row, protocol in enumerate(protocols):
         for col, odor in enumerate(("off", "on")):
             ax = axes[row, col]
             data = frame[(frame.protocol == protocol) & (frame.odor == odor)]
             centers = np.arange(len(SELECTORS))
             for shift, metric, label, color in ((-0.17, "command_success", "Commanded", "#2675ad"),
-                                                (0.17, "matched_shuffle_success", "Matched shuffled", "#ca6b17")):
+                                                (0.17, "matched_shuffle_success", "Shuffled label", "#ca6b17")):
                 groups = [data[data.goal_set == selector][metric].to_numpy() for selector in SELECTORS]
                 means = [values.mean() for values in groups]
                 errors = [values.std(ddof=1) / np.sqrt(len(values)) for values in groups]
                 ax.bar(centers + shift, means, width=0.32, color=color, label=label)
                 ax.errorbar(centers + shift, means, yerr=errors, fmt="none", color="black", capsize=3)
             ax.set_xticks(centers, [s.upper() for s in SELECTORS], rotation=25, ha="right")
-            ax.set_ylim(0, 1)
+            ax.set_ylim(0, 0.85 if protocol == "target_hit" else 0.11)
+            if protocol == "first_distinct":
+                ax.axhline(1 / 15, color="#555555", linestyle=":", linewidth=2,
+                           label="Uniform 1/15 reference" if col == 0 else None)
             ax.set_title(f"{protocol.replace('_', ' ').title()} · odor {odor.upper()}")
             ax.set_ylabel("Trial fraction" if col == 0 else "")
             ax.grid(axis="y", alpha=0.2)
             if row == 0 and col == 0:
                 ax.legend(frameon=False, fontsize=14)
-    fig.suptitle("Frozen matched-start interventions · mean ± SEM across four seeds", fontsize=19)
+    fig.suptitle("Frozen command probes · mean ± SEM across four seeds", fontsize=19)
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     fig.savefig(out_path, dpi=180)
+    plt.close(fig)
+
+
+def first_outcome_by_target(raw: Path, expected: dict[tuple[str, int], object]) -> pd.DataFrame:
+    """Retain wrong-goal identity, including timeouts/censoring as outcome -1."""
+    rows = []
+    for summary_path in sorted(raw.glob("*/intervention_summary.json")):
+        summary = json.loads(summary_path.read_text())
+        run = expected[(summary["condition"], int(summary["seed"]))]
+        trials = pd.read_csv(summary_path.with_name("intervention_trials.csv"), usecols=["target", "outcome"])
+        counts = trials.groupby(["target", "outcome"]).size()
+        for target in range(16):
+            denominator = int((trials.target == target).sum())
+            if denominator == 0:
+                raise ValueError(f"No first-distinct trials for target {target} in {summary_path}")
+            for outcome in range(-1, 16):
+                count = int(counts.get((target, outcome), 0))
+                rows.append({"condition": run.condition, "seed": run.seed, **run.factors,
+                             "target": target, "first_outcome": outcome,
+                             "count": count, "target_trials": denominator})
+    frame = pd.DataFrame(rows)
+    grouped = frame.groupby(["condition", "odor", "goal_set", "target", "first_outcome"],
+                            as_index=False)[["count", "target_trials"]].sum()
+    grouped["fraction"] = grouped["count"] / grouped["target_trials"]
+    return grouped
+
+
+def plot_first_outcomes(frame: pd.DataFrame, odor: str, out_path: Path) -> None:
+    fig, axes = plt.subplots(1, 2, figsize=(14, 7), sharex=True, sharey=True)
+    for ax, selector in zip(axes, ("random4", "hebb4")):
+        group = frame[(frame.odor == odor) & (frame.goal_set == selector)
+                      & (frame.first_outcome >= 0)]
+        matrix = group.pivot(index="target", columns="first_outcome", values="fraction")
+        matrix = matrix.reindex(index=range(16), columns=range(16), fill_value=0)
+        image = ax.imshow(matrix.to_numpy(), origin="lower", vmin=0, vmax=0.12,
+                          cmap="viridis", interpolation="nearest", aspect="equal")
+        ax.plot([-0.5, 15.5], [-0.5, 15.5], color="white", linestyle=":", linewidth=2)
+        ax.set_title(selector.upper(), fontsize=30)
+        ax.set_xticks([0, 4, 8, 12, 15])
+        ax.set_yticks([0, 4, 8, 12, 15])
+        ax.tick_params(labelsize=27)
+        ax.set_xlabel("First distinct DG identity", fontsize=29)
+    axes[0].set_ylabel("Commanded DG identity", fontsize=29)
+    fig.subplots_adjust(left=0.09, right=0.82, bottom=0.16, top=0.76, wspace=0.18)
+    colorbar_axis = fig.add_axes([0.86, 0.19, 0.025, 0.60])
+    colorbar = fig.colorbar(image, cax=colorbar_axis)
+    colorbar.set_label("Fraction of trials", fontsize=27)
+    colorbar.set_ticks([0, 0.03, 0.06, 0.09, 0.12])
+    colorbar.ax.tick_params(labelsize=24)
+    fig.suptitle(f"Odor {odor.upper()} · first distinct outcomes at 75M", fontsize=31, y=0.97)
+    fig.savefig(out_path, dpi=160)
     plt.close(fig)
 
 
@@ -171,6 +224,11 @@ def main() -> None:
     pd.DataFrame(contrasts_per_seed).to_csv(args.out_dir / "interventions_paired_contrasts_per_seed.csv", index=False)
     pd.DataFrame(contrasts_summary).to_csv(args.out_dir / "interventions_paired_contrasts_summary.csv", index=False)
     plot_protocols(frame, args.out_dir / "interventions_success.png")
+    if args.first_distinct_raw:
+        outcomes = first_outcome_by_target(args.first_distinct_raw, expected)
+        outcomes.to_csv(args.out_dir / "first_outcome_by_target.csv", index=False)
+        for odor in ("off", "on"):
+            plot_first_outcomes(outcomes, odor, args.out_dir / f"first_outcomes_{odor}.png")
     provenance = {"schema": study.raw["schema"], "workflow_version": study.declared_workflow_version,
                   "production_study_sha256": PRODUCTION_SHA,
                   "first_distinct_analysis_study_sha256": FIRST_DISTINCT_SHA if args.first_distinct_raw else None,

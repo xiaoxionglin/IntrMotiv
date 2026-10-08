@@ -479,6 +479,14 @@ same checkpoint manifest under two separately fingerprinted intervention
 settings and distinct output roots. Preserve the production StudySpec and
 label results by stopping rule; never pool the two trial protocols.
 
+Both stopping rules execute only the commanded trajectory. Their
+nearest-context shuffled target is a label scored retrospectively on that
+trajectory, not a second executed command. First-distinct stopping removes
+the target-hit stopping advantage for the first event, but it does not make
+the shuffled-label comparison a matched-start causal intervention. For an
+executed alternate command, use the `landmark-matched-commands-v1` protocol
+described below and verify its exact-start check and paired physical outcomes.
+
 ## Raw Artifact Contract
 
 Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:

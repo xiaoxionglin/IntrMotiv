@@ -2,12 +2,16 @@
   "schema": "intrmotiv/study/v1",
   "workflow_version": "1.14.0",
   "production_study_sha256": "c325acb58098b763c5a8e7c0d97a07bca676eaa8dde4e262b6c9dffc4a94d7de",
-  "first_distinct_analysis_study_sha256": null,
+  "first_distinct_analysis_study_sha256": "602ea435864c7a193d0563c365e406c93be91d80aceb3cfdbc8b5da8be1b8000",
   "protocols": [
+    "first_distinct",
     "target_hit"
   ],
   "runs_per_protocol": 40,
   "source_roots": {
+    "first_distinct": [
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_first_distinct_20261007/interventions/raw"
+    ],
     "target_hit": [
       "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/odor_ca3_goal_quality_v2_full_20261007/interventions/raw"
     ]

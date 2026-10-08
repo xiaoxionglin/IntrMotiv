@@ -36,6 +36,11 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** A completed 40-row intervention manifest looked sufficient while
   one declared outcome was unidentifiable. Target-hit stopping also favors the
   commanded identity over a shuffled target assessed only before that stop.
+  The later first-distinct evaluation exposed a second ambiguity: its
+  context-matched shuffled target is a retrospective label on the commanded
+  trajectory, not an alternate command executed from the same state. The
+  requested matched-start causal contrast therefore still needs the separate
+  exact-start evaluator.
 - **Improvement/status:** Pending validator or study-review check. The
   [intervention protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol)
   should require an explicit stopping-rule declaration for new studies and
@@ -43,8 +48,8 @@ keep implementation guidance in the canonical workflow documents linked below.
   print-only submission. Keep historical StudySpecs and fingerprints valid.
 - **Acceptance:** A focused test rejects a new study that requests
   first-distinct reporting but declares target-hit-only output; the reviewed
-  manifest identifies stopping rule and expected outcome columns before any
-  Slurm job starts.
+  manifest identifies stopping rule, whether alternative commands are
+  executed, and expected outcome columns before any Slurm job starts.
 
 ### Make policy-swapped multilayer probes a canonical optional evaluator mode — 2026-10-07
 
