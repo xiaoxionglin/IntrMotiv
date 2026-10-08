@@ -1,0 +1,14 @@
+{
+  "run": "00_OELDG_ORACLE_FILM_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/orthogonal_film_dg_20261008/qualification/reload_episode_c15/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "5478f7354089a805ccba1824aa5764ac1f9ff93419475f2a2c1068ef3697ec3e",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8309969"
+}

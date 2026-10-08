@@ -1,0 +1,47 @@
+{
+  "batch_name": "orth_fdg_20261008_qual_r2",
+  "collection": {
+    "exported_histories": null,
+    "loader_backend": "process",
+    "mode": "per_run_terminal",
+    "scalar_size_guidance": 30000,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        65536,
+        1114112
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [],
+  "expected_runs": 1,
+  "group_by": [
+    "representation"
+  ],
+  "input_rows": 1,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "option_success_fraction",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "orthogonal_film_finite_dg_qualification_20261008",
+  "study_sha256": "d22e7b579bda5e060367445c21ec736c412f7a18272dc00d404ac4f12eb940bb",
+  "study_spec": "hpc_runs/studies/orthogonal_film_finite_dg_qualification_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

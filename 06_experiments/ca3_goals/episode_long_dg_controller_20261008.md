@@ -1,6 +1,6 @@
 # Episode-long DG goals: matched controller study
 
-**Status, 8 October 2026:** all four corrected short qualifications, their exact checkpoint reloads, and a frozen place-field smoke passed. The 12 declared 150M-frame production jobs, 8306923–8306934, have been submitted and were running at the first scheduler check. The bounded matched-command evaluator smoke was still running. No production outcome or horizon effect is claimed yet.
+**Status, 8 October 2026:** the 12 production jobs `8306923`–`8306934` were cancelled at the user's request after reaching their first 5M checkpoint. They did not reach the declared 75M or 150M comparisons. Their qualifications and checkpoint reloads remain valid runtime checks; no production horizon or conditioning effect is claimed. The [orthogonally initialized FiLM replacement](orthogonal_film_dg_20261008.md) carries forward the three FiLM arms. The interrupted legacy-9 arm supplies only early context.
 
 ## Question and design
 
@@ -19,11 +19,11 @@ The fixed-field centers and $\sigma=20$ match the [finite-horizon four-field scr
 
 ## Comparisons and interpretation
 
-At 75M, compare ORACLE_FILM and LEARNED4_FILM with their same-seed finite-horizon counterparts from the six-run screen. The rendered argument audit found only the new episode-long mode, planned training length and milestone/tracking metadata as substantive differences. The default mode is `deadline`, and focused tests preserve its old behavior. This establishes a matched 75M horizon comparison after source and checkpoint parity are rechecked at evaluation time. There is no finite-horizon 150M control.
+The planned 75M analysis would have compared ORACLE_FILM and LEARNED4_FILM with their same-seed finite-horizon counterparts from the six-run screen. The rendered argument audit found only the new episode-long mode, planned training length and milestone/tracking metadata as substantive differences. The default mode is `deadline`, and focused tests preserve its old behavior. This establishes a matched 75M horizon comparison after source and checkpoint parity are rechecked at evaluation time. There is no finite-horizon 150M control.
 
-At 150M, compare the four new arms within the common episode-long protocol and describe their longer training course. ORACLE_FILM versus LEARNED4_FILM tests fixed-field replacement under the same four-goal vocabulary. ORACLE_LEG9 versus ORACLE_FILM tests the combined conditioning-and-gain package; without a legacy-gain-1 arm it cannot isolate gain 9. C15_FILM asks how the controller behaves with all 16 learned goals and is not a representation-matched control.
+The planned 150M analysis would have compared the four arms within the common episode-long protocol and described their longer training course. Cancellation prevents this analysis. ORACLE_FILM versus LEARNED4_FILM tests fixed-field replacement under the same four-goal vocabulary. ORACLE_LEG9 versus ORACLE_FILM tests the combined conditioning-and-gain package; without a legacy-gain-1 arm it cannot isolate gain 9. C15_FILM asks how the controller behaves with all 16 learned goals and is not a representation-matched control.
 
-The later [C05 FiLM supplement](episode_long_c05_supplement_20261008.md) adds three separately fingerprinted, seed-matched episode-long runs for a C05–C15 controller-family contrast at 75M and 150M. It does not alter this submitted twelve-run StudySpec or its jobs.
+The [C05 FiLM supplement](episode_long_c05_supplement_20261008.md) was separately fingerprinted and also cancelled. Its replacement joins the new orthogonal-FiLM comparison. The original StudySpec and submitted job records remain immutable.
 
 ## Outcome protocol
 
@@ -48,13 +48,13 @@ All four corrected short jobs exited 0 and reached their 524,288-frame milestone
 | LEARNED4_FILM | 0.914 | 0.435 | 5 |
 | C15_FILM | 0.445 | 0.847 | 17 |
 
-All listed losses were finite. These are unmatched short windows; zero oracle hits do not test long-horizon control or represent a production outcome. Exact learner reload jobs 8306917–8306920 each exited 0 and wrote a certificate binding the copied checkpoint SHA-256 to restored model, optimizer and counters. Standard manifest-driven frozen place-field smoke job 8306921 loaded the corrected legacy checkpoint, completed 500 decisions, wrote the 78-array NPZ and exited 0; rate maps were finite on the 79 occupied grid cells. That short path sampled none of the four narrow fixed fields. A bounded matched-command smoke job, 8306922, remained active at production submission and is an evaluator check, not a performance result.
+All listed losses were finite. These are unmatched short windows; zero oracle hits do not test long-horizon control or represent a production outcome. Exact learner reload jobs 8306917–8306920 each exited 0 and wrote a certificate binding the copied checkpoint SHA-256 to restored model, optimizer and counters. Standard manifest-driven frozen place-field smoke job 8306921 loaded the corrected legacy checkpoint, completed 500 decisions, wrote the 78-array NPZ and exited 0; rate maps were finite on the 79 occupied grid cells. That short path sampled none of the four narrow fixed fields. Bounded matched-command smoke job 8306922 later completed with exit 0; it is an evaluator check, not a performance result.
 
 ## Production release and next gates
 
 The canonical print-only launcher and submission audit both matched the final 12-cell StudySpec. All twelve independent scripts request 60 hours on the CPU partition, whose maximum is four days; every bulk path resolves under `/work/classic/fr_xl1014-corridor-geometry`. The submitted Slurm manifest is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/intrmotiv_episode_long_dg_controller_20261008/20261008T000131Z/jobs.tsv`. It passed `audit-submission --submitted` with unique job IDs 8306923–8306934. All twelve were RUNNING at the first scheduler check. The separate pre-existing 75M finite-horizon runs were not changed or resubmitted.
 
-At 5M, verify all twelve checkpoints, four prescribed-field encounters, twelve active learned-context channels, goal exposure, finite losses and checkpoint integrity. Stop a failed arm rather than changing it in flight. At 75M, perform the planned paired horizon analysis with an updated source/checkpoint parity audit. At 150M, compare the four new arms and finish frozen place-field, trajectory, graph and matched-command analyses. The `episode-long-dg-study-follow-up` thread heartbeat checks progress every 30 minutes and stays quiet when there is no actionable change.
+The user cancelled all twelve production jobs after their first 5M checkpoint to replace zero-initialized FiLM goal weights with orthogonal rows. Consequently the planned 75M and 150M evaluations cannot be performed on this cohort. The [replacement study](orthogonal_film_dg_20261008.md) retains the FiLM comparison and the C05 supplement, while the legacy-9 checkpoints remain limited to early context. The recurring follow-up was paused at the user's request.
 
 ## Reusable lesson
 

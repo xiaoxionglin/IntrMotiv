@@ -1,0 +1,37 @@
+{
+  "batch_name": "orth_elc05_20261008_qual_r2",
+  "complete": true,
+  "condition_summary_rows": 1,
+  "cue_assignment_rows": 0,
+  "expected_runs": 1,
+  "expected_snapshots": 1,
+  "expected_targets": [
+    1048576
+  ],
+  "figures": [],
+  "graph_edge_rows": 240,
+  "group_by": [
+    "arm"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 1,
+  "per_field_rows": 232,
+  "per_snapshot_rows": 1,
+  "per_unit_rows": 16,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 1,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/orth_elc05_20261008_qual_r2",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "orthogonal_film_episode_c05_qualification_20261008",
+  "study_sha256": "8c1c9db2520f5707650de885cba3cd4e470022a52983cff988c8f12ae8d5f2d2",
+  "study_spec": "hpc_runs/studies/orthogonal_film_episode_c05_qualification_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

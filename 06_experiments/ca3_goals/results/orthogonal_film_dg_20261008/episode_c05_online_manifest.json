@@ -1,0 +1,46 @@
+{
+  "batch_name": "orth_elc05_20261008_qual_r2",
+  "collection": {
+    "exported_histories": null,
+    "loader_backend": "process",
+    "mode": "per_run_terminal",
+    "scalar_size_guidance": 30000,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        65536,
+        1114112
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [],
+  "expected_runs": 1,
+  "group_by": [
+    "arm"
+  ],
+  "input_rows": 1,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "orthogonal_film_episode_c05_qualification_20261008",
+  "study_sha256": "8c1c9db2520f5707650de885cba3cd4e470022a52983cff988c8f12ae8d5f2d2",
+  "study_spec": "hpc_runs/studies/orthogonal_film_episode_c05_qualification_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
