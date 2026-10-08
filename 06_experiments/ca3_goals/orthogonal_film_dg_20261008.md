@@ -1,6 +1,42 @@
 # Orthogonal FiLM goal initialization: replacement DG studies
 
-**Status, 8 October 2026:** the earlier episode-long C15 and C05 production jobs were cancelled at the user's request; the finite-horizon six-run study had already completed. Three corrected 1,048,576-frame compute-node qualifications and exact checkpoint reloads passed. All 18 replacement runs have been submitted and were running at the first scheduler check. No replacement performance result is available yet.
+**Status, 8 October 2026:** three corrected compute-node qualifications and exact checkpoint reloads passed. All six finite replacements completed 75M, and all twelve episode-long replacements have complete 75M online snapshots and continue toward 150M. The comparisons below are online training evidence. Frozen matched-command arrivals have not yet been measured. No recurring monitor is active.
+
+## Interim 75M result
+
+The canonical collector used the same 70–75M-frame window for all twelve episode-long runs. Each row below averages seeds 8, 99 and 123. Coverage AUC is the external exploration measure. Action TV compares policy action distributions under different goals at the same observed state. The last column is the commanded minus retrospectively shuffled target-hit rate per 1,000 logged events; it is a diagnostic, not a matched-command causal effect.
+
+| Episode-long arm | Coverage AUC | Goal-action TV | Commanded minus shuffled hits / 1k |
+| --- | ---: | ---: | ---: |
+| Prescribed FiLM | 64.0 | 0.00317 | approximately 0.00 |
+| Learned-4 FiLM | 38.1 | 0.00064 | +0.28 |
+| C15 all-16 FiLM | 45.0 | 0.00097 | −0.01 |
+| C05 all-16 FiLM | 58.3 | 0.00802 | −3.14 |
+
+Prescribed versus learned-4 coverage increased in every paired seed by 22.8, 30.8 and 24.2 AUC points. C05 exceeded C15 by 9.8, 15.4 and 14.7 points, but this package changes manager selection and two DG losses together. Neither advantage establishes command-driven arrival. The prescribed arm's target-hit rate was only 0.42 per 1,000 events and indistinguishable from its shuffled rate. C05's larger mean action TV is driven substantially by seed 123 (0.0194; the other two seeds were 0.00430 and 0.00035), and its commanded hit rate was below its shuffled rate in all three seeds. These retrospective rates cannot substitute for executing alternative commands from matched starts.
+
+The complete finite study and its zero-$M$ parent use exactly the same 70–75M online window, seeds, goal vocabulary and horizon. The only scientific change is initializing $M$ with orthonormal rows. The three-seed means are:
+
+| Finite arm | Coverage AUC: zero $M$ → orthogonal $M$ | Option success: zero → orthogonal | Goal-action TV: zero → orthogonal |
+| --- | ---: | ---: | ---: |
+| Prescribed | 69.9 → 64.7 | 3.05% → 1.48% | 0.00460 → 0.00257 |
+| Learned-4 | 36.0 → 37.3 | 41.9% → 43.5% | 0.00189 → 0.00268 |
+
+For prescribed, coverage changed by +7.4, −14.1 and −9.2 AUC points in seeds 8, 99 and 123. Orthogonal initialization therefore did not consistently improve exploration or online command sensitivity and halved the already-low oracle option-hit fraction. That hit fraction is strongly confounded by the narrow fields' rarity. In the orthogonal cohort, changing from the finite horizon to episode-long commands changed prescribed coverage by −15.0, +3.1 and +9.9 points across the same seeds; learned-4 changed by −2.1, −2.8 and +7.4. There is no consistent 75M coverage benefit from removing the deadline. These are separately trained policies, so only a frozen matched-command arrival test can isolate goal-following ability.
+
+The [twelve terminal checkpoint matrices](results/orthogonal_film_dg_20261008/finite_75m_film_goal_rows.csv) show that orthogonal initialization did preserve more **parameter** separation. Across the four eligible oracle goal rows at 75M, mean row norm was 1.77 and mean absolute pairwise row cosine was 0.639, compared with norm 1.59 and cosine 0.976 for the zero-initialized oracle controls. Initial orthogonal rows had norm one and cosine zero; neither property is constrained during PPO. Thus the new rows neither stayed orthogonal nor collapsed to zero. Their greater separation did **not** translate into stronger measured action modulation or goal hits. Possible causes include downstream cancellation and sparse or poorly assigned goal credit; the online data do not distinguish them.
+
+All four fixed DG fields were encountered in every 75M episode-long snapshot. Their positive observations per 100,000 behavior observations ranged from 167–233, 52–76, 116–156 and 162–220 for IDs 0–3, respectively; all twelve learned context units remained active. The narrow fields are therefore real but rare, especially goal 1. The 19-by-19 mono-field score still cannot resolve their 40-unit support. In the finite replacement's 75M snapshots, goal 1 appeared only 32–59 times per 100,000. The earlier finite 45–50M window had a prescribed seed-123 coverage of only 26.9 versus 81.9 and 65.5 in the other seeds; by 75M, seed 123 had recovered to 62.3. This transient illustrates why the planned age-matched 75M contrast is preferable to a single early window.
+
+Among learned all-16 representations at 75M, the online mono-field fraction was highly seed-dependent: C15 had 0.500, 0.0625 and 0; C05 had 0, 0.625 and 0 in seeds 8, 99 and 123 respectively. All units were active, but the three-seed mean active-only map cosine was 0.135 in C15 and 0.205 in C05. C05's coverage gain therefore does not coincide with a consistent mono-field or map-separation gain in these online samples. Frozen 10k maps are needed for a stronger field-quality comparison.
+
+### The episode-long graph counter is censored
+
+At 75M the episode-long prescribed and learned-4 arms each report all 12 possible directed edges among their four eligible goals as reliable in all three seeds. Their prospective success fractions are exactly 1.0, as are C15's and C05's, despite the negligible online command advantage above. The source outcome update counts prospective attempts on a hit or option expiration. Episode-long normal goals do not expire, and a physical episode reset does not enter that attempted-outcome branch. Therefore the prospective denominator contains recorded hits but omits unresolved goals censored at episode end. The resulting 100% fraction and reliability-based edge count cannot establish navigation success. The derived `graph_grounded_controllability` also multiplies this biased fraction and must not be used as a control conclusion here. A minimal general repair is to record issued commands and episode-end censoring explicitly, then report physical arrival by fixed observation windows with its denominator and censoring; the planned frozen matched-start intervention already measures the relevant causal contrast.
+
+The [finite 75M per-run table](results/orthogonal_film_dg_20261008/finite_online_70_75m_per_run.csv), [episode-long C15 table](results/orthogonal_film_dg_20261008/episode_online_70_75m_per_run.csv), [C05 table](results/orthogonal_film_dg_20261008/c05_online_70_75m_per_run.csv), adjacent manifests, and their [finite](results/orthogonal_film_dg_20261008/finite_spatial_all_per_snapshot.csv), [C15](results/orthogonal_film_dg_20261008/episode_spatial_all_per_snapshot.csv) and [C05](results/orthogonal_film_dg_20261008/c05_spatial_all_per_snapshot.csv) spatial snapshots contain seed-level evidence and all available ages. Full graph arrays and original NPZs remain in the allocated NEMO2 workspace. The original zero-$M$ finite cohort's [75M table](results/four_prescribed_dg_20261007/online_75m_per_run.csv) is the matched initialization reference.
+
+The finite frozen-checkpoint and intervention manifests contain 12 field and six matched-command rows. Representative 500-decision field preflight `8314889` completed with exit 0 and a valid NPZ containing thresholded and pre-threshold arrays. After print-only review, the 12 independent 10k-decision field jobs `8314905`–`8314916` were submitted. Exact-start prescribed-goal intervention preflight `8314918` was submitted separately with a 20k-decision cap; its result gates the six full finite interventions. The canonical telemetry renderer cannot yet produce the episode-long frozen manifest: future 100M and 150M targets currently select the same latest checkpoint as 75M, causing duplicate labels. Keep the immutable StudySpecs unchanged and render their manifests when the declared checkpoints exist. The 75M online result is therefore provisional with respect to controllability; frozen place-field and matched-command tests and the 150M training result are pending.
 
 ## Question and intervention
 

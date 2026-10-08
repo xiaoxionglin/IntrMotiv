@@ -1,0 +1,49 @@
+{
+  "batch_name": "orth_eldg_20261008",
+  "collection": {
+    "exported_histories": null,
+    "loader_backend": "thread",
+    "mode": "fixed",
+    "scalar_size_guidance": 30000,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        70000000,
+        75000000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [
+    "ORACLE_FILM_minus_LEARNED4_FILM",
+    "C15_FILM_minus_LEARNED4_FILM"
+  ],
+  "expected_runs": 9,
+  "group_by": [
+    "arm"
+  ],
+  "input_rows": 9,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "orthogonal_film_episode_dg_20261008",
+  "study_sha256": "ffa7a53f4b8aef4e14b38bbf24f6f00fe18e4d5a25006ad705b93efcc6cb0af2",
+  "study_spec": "hpc_runs/studies/orthogonal_film_episode_dg_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

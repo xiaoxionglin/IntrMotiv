@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Count censored episode-long commands in graph-control evidence — 2026-10-08
+
+- **Evidence:** At 75M, all twelve episode-long orthogonal-FiLM runs report prospective graph success fraction 1.0, including the prescribed and learned-4 arms whose commanded and shuffled online hit rates are nearly equal. The graph update counts attempted outcomes on target hit or option expiration. In episode-long mode, normal goals cannot expire, so episode-end unresolved commands do not enter the prospective denominator. See the [study result](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#the-episode-long-graph-counter-is-censored).
+- **Impact:** Every observed prospective outcome can be a success by construction. Posterior edge reliability, reliable-edge count and the derived grounded-controllability summary can imply control without accounting for failed or censored commands.
+- **Improvement/status:** Pending. Preserve the existing historical metric contract, but add issued-command and explicit terminal-censor counts to the graph outcome stream. Report physical target arrival within bounded windows with full trial denominators and episode censoring; use matched-start executed alternatives for causal control. Keep the [canonical intervention protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol) as the execution path.
+- **Acceptance:** A test with a commanded goal that ends at an episode boundary without a hit records an issued and censored command; prospective hit fraction is never reported as an unconditional success rate when censoring is omitted. Fixed-window arrival reports hits, failures and censoring separately.
+
 ### Check spatial snapshot feasibility in short qualification studies — 2026-10-08
 
 - **Evidence:** The episode-long C05 qualification declared an online spatial snapshot at 524,288 environment frames while the unchanged default window requires 100,000 policy observations. At frameskip 8, the declared target permits only 65,536 decisions; the completed job overshot to 589,824 frames and still had fewer than 100,000 decisions, so no online snapshot could be written. The original four-arm episode-long qualification used the same short horizon.
