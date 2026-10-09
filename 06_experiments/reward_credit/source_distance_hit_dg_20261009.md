@@ -20,12 +20,12 @@ The source-clock bonus pays $1.70$ at a one-decision hit, $1.07$ at a 64-decisio
 
 The [production StudySpec](../../hpc_runs/studies/source_distance_hit_dg_20261009.study.json) declares four arms, seeds 8, 99 and 123, 100M frames each, and milestones at 5M, 25M, 50M, 75M and 100M. All arms use orthogonal FiLM, $\gamma=0.999$, GAE $\lambda=0.99$, 64-decision PPO rollouts, episode-long commands, and 900-decision physical episodes. They use workspace-only paths and independent CPU jobs.
 
-| Arm | Goal representation and manager | Worker bonus distance | Comparison |
-| --- | --- | --- | --- |
-| ORACLE_SOURCE | Four fixed Gaussian goals plus 12 learned context units; frontier-direct | Elapsed time from source-command assignment | Existing longer-credit ORACLE at paired seed and age |
-| C15_SOURCE | Sixteen learned DG goals; frontier-direct | Elapsed time from source-command assignment | Existing longer-credit C15 at paired seed and age |
-| C05_SOURCE | Sixteen learned DG goals; visit-direct, global punishment 0.01, row repulsion 1 | Elapsed time from source-command assignment | New C05_NEAREST at paired seed and age |
-| C05_NEAREST | Same C05 architecture and longer-credit settings | Original nearest DG | New C05_SOURCE at paired seed and age |
+| Arm           | Goal representation and manager                                                 | Worker bonus distance                       | Comparison                                           |
+| ------------- | ------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------- |
+| ORACLE_SOURCE | Four fixed Gaussian goals plus 12 learned context units; frontier-direct        | Elapsed time from source-command assignment | Existing longer-credit ORACLE at paired seed and age |
+| C15_SOURCE    | Sixteen learned DG goals; frontier-direct                                       | Elapsed time from source-command assignment | Existing longer-credit C15 at paired seed and age    |
+| C05_SOURCE    | Sixteen learned DG goals; visit-direct, global punishment 0.01, row repulsion 1 | Elapsed time from source-command assignment | New C05_NEAREST at paired seed and age               |
+| C05_NEAREST   | Same C05 architecture and longer-credit settings                                | Original nearest DG                         | New C05_SOURCE at paired seed and age                |
 
 C05_SOURCE versus C05_NEAREST isolates the distance rule within C05. The existing orthogonal C05 runs use $\gamma=0.99$ and default GAE $\lambda=0.95$; comparing them to either new C05 arm would combine reward-distance and credit-setting effects. Prescribed/C15 source arms pair with six completed longer-credit controls whose training was unchanged. Cross-family C05–C15 comparisons jointly vary the manager and DG regularizers and are descriptive.
 
