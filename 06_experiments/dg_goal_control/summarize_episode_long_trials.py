@@ -91,7 +91,9 @@ def paired_horizon_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
     paired = []
     for family, finite, episode in arms:
         for seed in (8, 99, 123):
-            for horizon in (64, 128, 256, 900):
+            # Finite-arm intervention trials stop at 256 decisions; 900 is
+            # available only in the episode-long arm and has no paired control.
+            for horizon in (64, 128, 256):
                 finite_rows = frame.loc[
                     frame.run_name.eq(finite) & frame.seed.eq(seed) & frame.horizon.eq(horizon)
                 ]
@@ -115,7 +117,7 @@ def paired_horizon_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
                     "episode_censored_rows": right.censored_rows,
                     "trials_per_arm": left.total_rows,
                 })
-    assert len(paired) == 24
+    assert len(paired) == 18
     return pd.DataFrame(paired)
 
 

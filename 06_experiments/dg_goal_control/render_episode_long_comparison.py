@@ -282,22 +282,22 @@ def plot_deadline_paired_lift() -> None:
     the finite and episode policies do not necessarily share physical starts.
     """
     data = pd.read_csv(RESULTS / "matched_command_75m_paired_horizon_effects.csv")
-    assert len(data) == 24
+    assert len(data) == 18
     colors = {8: "#0072B2", 99: "#D55E00", 123: "#009E73"}
     fig, axes = plt.subplots(1, 2, figsize=(14.5, 5.8), sharey=True)
     for ax, family in zip(axes, ("Prescribed", "Learned-4 detector")):
         rows = data.loc[data.family.eq(family)]
-        assert len(rows) == 12
+        assert len(rows) == 9
         for seed in SEEDS:
             selected = rows.loc[rows.seed.eq(seed)].sort_values("horizon")
-            assert selected.horizon.tolist() == [64, 128, 256, 900]
+            assert selected.horizon.tolist() == [64, 128, 256]
             ax.plot(selected.horizon, selected.episode_minus_finite_lift,
                     marker="o", linewidth=2.2, markersize=9,
                     color=colors[seed], label=f"Seed {seed}")
         ax.axhline(0, color="#333333", linewidth=1)
         ax.set_xscale("log", base=2)
-        ax.set_xticks([64, 128, 256, 900], ["64", "128", "256", "900"])
-        ax.set_xlim(56, 1050)
+        ax.set_xticks([64, 128, 256], ["64", "128", "256"])
+        ax.set_xlim(56, 285)
         ax.set_xlabel("Decision window")
         ax.set_title(family)
         ax.grid(axis="y", color="#D8DEE4")
