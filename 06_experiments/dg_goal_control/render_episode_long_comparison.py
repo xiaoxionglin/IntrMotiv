@@ -718,6 +718,77 @@ def plot_frozen_150m_paths(npz_dir: Path) -> None:
     save(fig, "frozen_paths_150m_seed99")
 
 
+def plot_frozen_100m_path_contrasts(npz_dir: Path) -> None:
+    """Compare reset-segment paths for selected 100M frozen-policy contrasts.
+
+    Each panel is an independent policy-driven rollout. Equal evaluation length
+    makes occupancy comparable, but the plotted paths are not matched starts.
+    """
+    panels = (
+        (
+            "longer_credit_100m_paths_seed99",
+            "100M frozen paths | older versus longer PPO credit | seed 99",
+            (
+                ("OELDG_ORACLE_FILM", "Prescribed | older credit"),
+                ("LCDG_ORACLE_FILM", "Prescribed | longer credit"),
+                ("OELDG_C15_FILM", "C15 | older credit"),
+                ("LCDG_C15_FILM", "C15 | longer credit"),
+            ),
+        ),
+        (
+            "c15_clock_value_100m_paths_seed99",
+            "100M frozen paths | C15 reward clock and value boundary | seed 99",
+            (
+                ("LCDG_C15_FILM", "Nearest clock | continue"),
+                ("SDHG_C15_SOURCE", "Source clock | continue"),
+                ("GVSD_C15_NEAREST", "Nearest clock | stop"),
+                ("GVSD_C15_SOURCE", "Source clock | stop"),
+            ),
+        ),
+    )
+    colors = ("#0072B2", "#D55E00", "#009E73", "#CC79A7")
+    for stem, title, conditions in panels:
+        fig, axes = plt.subplots(2, 2, figsize=(14.5, 13.7), sharex=True, sharey=True)
+        for ax, (condition, label) in zip(axes.flat, conditions):
+            poses = pd.read_csv(npz_dir / f"{condition}__s99_pose.csv")
+            with np.load(npz_dir / f"{condition}__s99.npz", allow_pickle=False) as data:
+                occupancy = data["occupancy"]
+                bounds = data["bounds"]
+            assert len(poses) == 10001 and poses.num_traj.nunique() == 12
+            ax.imshow(np.log1p(occupancy.T), extent=bounds, origin="lower",
+                      cmap="Greys", vmin=0, vmax=7, alpha=0.43,
+                      interpolation="nearest")
+            for segment_id, color in enumerate(colors):
+                segment = poses.loc[poses.num_traj.eq(segment_id)]
+                assert len(segment) == 900
+                ax.plot(segment.x, segment.y, color=color, linewidth=1.5, alpha=0.9)
+                ax.scatter(segment.x.iloc[0], segment.y.iloc[0], color=color,
+                           s=45, edgecolors="black", linewidths=0.5, zorder=4)
+            for x, y in PRESCRIBED_CENTERS:
+                ax.scatter(x, y, marker="*", s=135, facecolors="white",
+                           edgecolors="black", linewidths=0.9, zorder=5)
+            ax.set_xlim(100, 2000)
+            ax.set_ylim(100, 2000)
+            ax.set_aspect("equal")
+            ax.set_xticks([100, 550, 1000, 1450, 2000])
+            ax.set_yticks([100, 550, 1000, 1450, 2000])
+            ax.set_xlabel("x (DMLab units)")
+            ax.set_ylabel("y (DMLab units)")
+            ax.set_title(f"{label} | {int((occupancy > 0).sum())}/361 bins", pad=18)
+        fig.suptitle(f"{title}\nFirst four episodes shown over all 10k occupied observations",
+                     fontsize=23)
+        handles = [Line2D([], [], color=color, linewidth=3,
+                          label=f"Episode {index + 1}")
+                   for index, color in enumerate(colors)]
+        handles.append(Line2D([], [], marker="*", color="none",
+                              markerfacecolor="white", markeredgecolor="black",
+                              markersize=13, label="Four fixed-site locations"))
+        fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, -0.015),
+                   ncol=5, frameon=False)
+        fig.tight_layout(rect=(0, 0.06, 1, 0.94))
+        save(fig, stem)
+
+
 def plot_150m_graph_seed99() -> None:
     """Show attempted support and stored reliability on one common 16×16 scale."""
     edges = pd.read_csv(RESULTS / "graph_edges_150m_seed99.csv")
@@ -815,6 +886,8 @@ def main() -> None:
                         help="Optional directory of canonical 150M seed-99 NPZs for legible atlases")
     parser.add_argument("--frozen-100m-npz-dir", type=Path,
                         help="Optional directory of 42 canonical 100M NPZs for run-wise peak maps")
+    parser.add_argument("--frozen-100m-path-dir", type=Path,
+                        help="Optional directory of seed-99 100M NPZs and pose CSVs for path contrasts")
     args = parser.parse_args()
     setup_style()
     plot_peak_centers()
@@ -831,6 +904,8 @@ def main() -> None:
         plot_frozen_150m_paths(args.frozen_npz_dir)
     if args.frozen_100m_npz_dir is not None:
         plot_frozen_100m_peak_centers(args.frozen_100m_npz_dir)
+    if args.frozen_100m_path_dir is not None:
+        plot_frozen_100m_path_contrasts(args.frozen_100m_path_dir)
     plot_age_matched_coverage()
 
 
