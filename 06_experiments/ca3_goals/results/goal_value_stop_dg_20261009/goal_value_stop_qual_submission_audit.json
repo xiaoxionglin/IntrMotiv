@@ -1,0 +1,27 @@
+{
+  "batch_name": "goal_value_stop_dg_qualification_20261009",
+  "commands_match_study": true,
+  "expected_runs": 6,
+  "job_ids": [
+    "8316669",
+    "8316670",
+    "8316671",
+    "8316672",
+    "8316673",
+    "8316674"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/goal_value_stop_dg_qualification_20261009/20261008T235015Z/jobs.tsv",
+  "rows": 6,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 6
+  },
+  "study_id": "goal_value_stop_dg_qualification_20261009",
+  "study_sha256": "b381343cf015efbd716095f6a0ce136f86f546b187b79eba85870e8e3475934e",
+  "study_spec": "hpc_runs/studies/goal_value_stop_dg_qualification_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

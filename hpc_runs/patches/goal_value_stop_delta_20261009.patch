@@ -1,0 +1,121 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -435,6 +435,17 @@
+     distance = predecessors.min(dim=-1).values.clamp_max(int(baseline))
+     default = torch.full_like(distance, int(baseline))
+     return torch.where(dominant.any(dim=-1), distance, default).to(dtype=torch.float)
++
++
++def worker_value_dones(physical_dones: Tensor, goal_hits: Tensor | None, mode: str) -> Tensor:
++    """Stop worker GAE at a goal hit while leaving physical episode state intact."""
++    if mode == "episode":
++        return physical_dones
++    if mode != "goal_hit":
++        raise ValueError(f"Unknown HRL value termination mode: {mode}")
++    if goal_hits is None or goal_hits.shape != physical_dones.shape:
++        raise ValueError("Goal-hit value boundaries must align with rollout transitions")
++    return (physical_dones.bool() | goal_hits.bool()).to(dtype=physical_dones.dtype)
+ 
+ 
+ def source_command_distance(elapsed: Tensor, source: Tensor, n_sources: int, baseline: int) -> Tensor:
+@@ -4578,11 +4589,26 @@
+                 # There was a bug in older versions of isaacgym where timeouts were reported for non-terminal states.
+                 buff["rewards"].add_(self.cfg.gamma * denormalized_values[:, :-1] * buff["time_outs"] * buff["dones"])
+ 
++            if self.cfg.with_vtrace and getattr(self.cfg, "hrl_value_termination", "episode") == "goal_hit":
++                raise ValueError("Goal-hit value termination is not implemented for V-trace")
++
+             if not self.cfg.with_vtrace:
++                # A completed command is terminal for this worker value target,
++                # while environment dones and recurrent state remain unchanged.
++                value_mode = getattr(self.cfg, "hrl_value_termination", "episode")
++                if value_mode == "goal_hit" and (
++                    not self.cfg.hrl_controllable_graph
++                    or self.cfg.double_value
++                    or getattr(self.cfg, "controller_learning", "ppo") != "ppo"
++                ):
++                    raise ValueError("Goal-hit value termination requires single-value HRL PPO")
++                value_dones = worker_value_dones(
++                    buff["dones"], buff.get("hrl_control_correct_outcome"), value_mode
++                )
+                 # calculate advantage estimate (in case of V-trace it is done separately for each minibatch)
+                 buff["advantages"] = gae_advantages(
+                     buff["rewards"],
+-                    buff["dones"],
++                    value_dones,
+                     denormalized_values,
+                     buff["valids"],
+                     self.cfg.gamma,
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -387,6 +387,12 @@
+     p.add_argument("--hrl_target_hit_reward", default=1.0, type=float)
+     p.add_argument("--hrl_distance_bonus_coeff", default=0.1, type=float)
+     p.add_argument(
++        "--hrl_value_termination",
++        default="episode",
++        choices=["episode", "goal_hit"],
++        help="End worker GAE/value targets at a commanded goal hit without ending the physical episode.",
++    )
++    p.add_argument(
+         "--hrl_hit_bonus_distance",
+         default="nearest_dg",
+         choices=["nearest_dg", "source_dg"],
+--- a/sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py
++++ b/sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py
+@@ -14,6 +14,7 @@
+     legacy_reward_streams,
+     selected_deadline_stats,
+     source_command_distance,
++    worker_value_dones,
+     target_gate_decoder_reward,
+     target_reward_magnitude,
+     target_success_worker_reward,
+@@ -750,6 +751,47 @@
+         self.assertTrue(torch.allclose(source_reward, torch.tensor([[1.21, 0.0]])))
+         self.assertEqual(source_command_distance(elapsed, torch.tensor([[-1, 3]]), 3, 71).tolist(), [[71.0, 71.0]])
+ 
++    def test_goal_hit_terminates_worker_value_only(self):
++        from sample_factory.algo.utils.rl_utils import gae_advantages
++
++        rewards = torch.tensor([[0.0, 1.0, 5.0]])
++        values = torch.zeros((1, 4))
++        valids = torch.ones((1, 4))
++        physical_dones = torch.zeros((1, 3))
++        hits = torch.tensor([[0.0, 1.0, 0.0]])
++        continuing = worker_value_dones(physical_dones, hits, "episode")
++        option_terminal = worker_value_dones(physical_dones, hits, "goal_hit")
++        self.assertIs(continuing, physical_dones)
++        self.assertEqual(option_terminal.tolist(), [[0.0, 1.0, 0.0]])
++        self.assertEqual(physical_dones.tolist(), [[0.0, 0.0, 0.0]])
++        self.assertTrue(torch.equal(
++            gae_advantages(rewards, continuing, values, valids, 1.0, 1.0),
++            torch.tensor([[6.0, 6.0, 5.0]]),
++        ))
++        self.assertTrue(torch.equal(
++            gae_advantages(rewards, option_terminal, values, valids, 1.0, 1.0),
++            torch.tensor([[1.0, 1.0, 5.0]]),
++        ))
++        no_hits = torch.zeros_like(hits)
++        self.assertTrue(torch.equal(worker_value_dones(physical_dones, no_hits, "goal_hit"), physical_dones))
++        # A rollout cutoff without a hit still bootstraps the same command.
++        tail_values = torch.tensor([[0.0, 0.0, 0.0, 7.0]])
++        self.assertTrue(torch.equal(
++            gae_advantages(torch.zeros_like(rewards), worker_value_dones(physical_dones, no_hits, "goal_hit"),
++                           tail_values, valids, 1.0, 1.0),
++            torch.tensor([[7.0, 7.0, 7.0]]),
++        ))
++        tail_hit = torch.tensor([[0.0, 0.0, 1.0]])
++        self.assertTrue(torch.equal(
++            gae_advantages(rewards, worker_value_dones(physical_dones, tail_hit, "goal_hit"),
++                           tail_values, valids, 1.0, 1.0),
++            torch.tensor([[6.0, 6.0, 5.0]]),
++        ))
++        episode_end = torch.tensor([[0.0, 0.0, 1.0]])
++        self.assertEqual(worker_value_dones(episode_end, hits, "goal_hit").tolist(), [[0.0, 1.0, 1.0]])
++        with self.assertRaises(ValueError):
++            worker_value_dones(physical_dones, hits[:, :2], "goal_hit")
++
+     def test_first_distinct_reward_is_signed_chance_centered_and_distance_monotonic(self):
+         internal = torch.tensor([[7.0, 7.0, 2.0, 6.0]])
+         hit = torch.tensor([[0.0, 0.0, 1.0, 0.0]])

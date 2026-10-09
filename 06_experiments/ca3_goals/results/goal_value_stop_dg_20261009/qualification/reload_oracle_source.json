@@ -1,0 +1,14 @@
+{
+  "run": "00_GVSDQ_ORACLE_SOURCE_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/goal_value_stop_dg_20261009/qualification_reload/oracle_source/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "b8097c7f72622080e1c0b9eeb90abe3459aee66760c605be3e60b5d6034bd911",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8316676"
+}

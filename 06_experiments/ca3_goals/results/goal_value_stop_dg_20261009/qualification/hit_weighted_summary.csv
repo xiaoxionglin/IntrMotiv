@@ -1,0 +1,7 @@
+run_name,logged_correct_count_sum,policy_loss_all_finite,policy_loss_points,value_loss_all_finite,value_loss_points,adv_std_all_finite,adv_std_points,correct_elapsed_mean_hit_weighted,correct_reward_magnitude_mean_hit_weighted,correct_source_command_distance_mean_hit_weighted,correct_nearest_dg_distance_mean_hit_weighted,correct_bonus_distance_changed_fraction_hit_weighted
+GVSDQ_C05_NEAREST_S99,202.0,True,34,True,34,True,34,127.99999977338432,1.607623847994474,54.207920943156324,10.237623853258567,0.940594060881303
+GVSDQ_C05_SOURCE_S99,236.0,True,34,True,34,True,34,123.52118624671031,1.1771186519477328,53.28813546390857,10.605932111457243,0.9279661073775615
+GVSDQ_C15_NEAREST_S99,89.0,True,34,True,34,True,34,241.43820113278508,1.5531460997763644,62.48314619600103,15.685393178061153,0.8764044957214527
+GVSDQ_C15_SOURCE_S99,146.0,True,34,True,34,True,34,162.42465855324104,1.130753412638625,57.92465769101496,16.55479457607008,0.9178082220358391
+GVSDQ_ORACLE_NEAREST_S99,5.0,True,34,True,34,True,34,323.6,1.4000000476837158,71.0,31.0,0.6
+GVSDQ_ORACLE_SOURCE_S99,2.0,True,34,True,34,True,34,240.5,1.1200000047683716,59.0,27.5,1.0

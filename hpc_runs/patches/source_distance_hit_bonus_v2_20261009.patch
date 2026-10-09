@@ -1,0 +1,174 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -437,6 +437,22 @@
+     return torch.where(dominant.any(dim=-1), distance, default).to(dtype=torch.float)
+ 
+ 
++def source_dg_distance(prior_progression: Tensor, source: Tensor, baseline: int) -> Tensor:
++    """Age since the option's source DG event strictly before each hit transition.
++
++    An absent source or one outside CA3's trace window receives the baseline,
++    so it contributes no temporal hit bonus. Other DG events cannot refresh it.
++    """
++    if prior_progression.ndim != 3 or source.shape != prior_progression.shape[:2]:
++        raise ValueError("Source IDs must align with DG progression transitions")
++    valid_source = (source >= 0) & (source < prior_progression.size(-1))
++    previous_age = prior_progression.gather(
++        -1, source.clamp(0, prior_progression.size(-1) - 1).long().unsqueeze(-1)
++    ).squeeze(-1)
++    age = (previous_age + 1).clamp_max(int(baseline))
++    return torch.where(valid_source, age, torch.full_like(age, int(baseline))).float()
++
++
+ def build_matched_encoder_credit(
+     progression: Tensor,
+     candidates: Tensor,
+@@ -687,11 +703,15 @@
+     mode: str,
+     hit_reward: float,
+     distance_bonus_coeff: float,
++    distance_override: Tensor | None = None,
+ ) -> Tensor:
+     """Current positive hit magnitude, kept separate from outcome semantics."""
+     reward = torch.full_like(internal_reward[:, 2:], float(hit_reward))
+     if mode == "hit_distance":
+-        legacy_bonus = ((baseline - internal_reward[:, 2:]) * reward_scale).clamp_min(0.0)
++        distance = internal_reward[:, 2:] if distance_override is None else distance_override
++        if distance.shape != reward.shape:
++            raise ValueError("Hit-bonus distance must align with reward transitions")
++        legacy_bonus = ((baseline - distance) * reward_scale).clamp_min(0.0)
+         reward = reward + float(distance_bonus_coeff) * legacy_bonus
+     elif mode != "hit":
+         raise ValueError(f"Unknown HRL worker reward mode: {mode}")
+@@ -739,9 +759,12 @@
+     wrong_outcome: Tensor | None = None,
+     n_targets: int | None = None,
+     command_set_size: Tensor | None = None,
++    distance_override: Tensor | None = None,
+ ) -> Tensor:
+     hit = target_hit[:, 2:].to(dtype=internal_reward.dtype)
+-    reward = target_reward_magnitude(internal_reward, baseline, reward_scale, mode, hit_reward, distance_bonus_coeff)
++    reward = target_reward_magnitude(
++        internal_reward, baseline, reward_scale, mode, hit_reward, distance_bonus_coeff, distance_override
++    )
+     worker_reward = worker_reward_from_magnitude(
+         reward,
+         hit,
+@@ -4306,6 +4329,11 @@
+             exploring = exploration_mode_mask(hrl_state, layout.n_nodes)
+             outcome_labels = control_outcome_labels(hrl_state, buff["dones"], layout)
+             wrong_outcome = outcome_labels["wrong"]
++            source_distance = source_dg_distance(progression[:, 1:-1], outcome_labels["source"], baseline)
++            nearest_distance = internal_reward[:, 2:]
++            distance_override = (
++                source_distance if getattr(self.cfg, "hrl_hit_bonus_distance", "nearest_dg") == "source_dg" else None
++            )
+             command_set_size = None
+             if getattr(self.cfg, "hrl_direct_target_selection", "frontier") == "local_successor":
+                 topo_state = self._topological_state_from_rnn(
+@@ -4320,6 +4348,7 @@
+                 self.cfg.hrl_worker_reward_mode,
+                 self.cfg.hrl_target_hit_reward,
+                 self.cfg.hrl_distance_bonus_coeff,
++                distance_override,
+             )
+             decoder_reward = target_success_worker_reward(
+                 internal_reward,
+@@ -4335,6 +4364,7 @@
+                 wrong_outcome=wrong_outcome,
+                 n_targets=layout.n_nodes,
+                 command_set_size=command_set_size,
++                distance_override=distance_override,
+             )
+             buff["hrl_control_correct_outcome"] = outcome_labels["correct"]
+             buff["hrl_control_wrong_outcome"] = wrong_outcome
+@@ -4343,6 +4373,8 @@
+             buff["hrl_control_censored"] = outcome_labels["censored"]
+             buff["hrl_control_completed"] = outcome_labels["completed"]
+             buff["hrl_control_reward_magnitude"] = magnitude
++            buff["hrl_control_source_dg_distance"] = source_distance
++            buff["hrl_control_nearest_dg_distance"] = nearest_distance
+             buff["hrl_control_elapsed"] = outcome_labels["elapsed"]
+             buff["hrl_control_command_target"] = outcome_labels["target"]
+             buff["hrl_control_source"] = outcome_labels["source"]
+@@ -4805,6 +4837,18 @@
+             stats.hrl_control_reward_magnitude_correct_mean = (
+                 finite_masked_mean(control_magnitude, control_correct).detach().float()
+             )
++            source_distance = var.mb["hrl_control_source_dg_distance"].float()
++            nearest_distance = var.mb["hrl_control_nearest_dg_distance"].float()
++            stats.hrl_control_correct_source_dg_distance_mean = (
++                finite_masked_mean(source_distance, control_correct).detach().float()
++            )
++            stats.hrl_control_correct_nearest_dg_distance_mean = (
++                finite_masked_mean(nearest_distance, control_correct).detach().float()
++            )
++            stats.hrl_control_correct_bonus_distance_changed_fraction = (
++                ((source_distance != nearest_distance) & control_correct).sum()
++                / control_correct.sum().clamp_min(1)
++            ).detach().float()
+             stats.hrl_control_reward_magnitude_wrong_mean = (
+                 finite_masked_mean(control_magnitude, control_wrong).detach().float()
+             )
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -387,6 +387,12 @@
+     p.add_argument("--hrl_target_hit_reward", default=1.0, type=float)
+     p.add_argument("--hrl_distance_bonus_coeff", default=0.1, type=float)
+     p.add_argument(
++        "--hrl_hit_bonus_distance",
++        default="nearest_dg",
++        choices=["nearest_dg", "source_dg"],
++        help="Use the nearest prior DG event or the stored command-source DG age for the worker hit bonus.",
++    )
++    p.add_argument(
+         "--hrl_control_outcome",
+         default="target_hit",
+         choices=["target_hit", "first_distinct"],
+--- a/sf_working_directories/IntrMotiv/dmlab/reward_summaries.py
++++ b/sf_working_directories/IntrMotiv/dmlab/reward_summaries.py
+@@ -229,6 +229,9 @@
+     "hrl_control_correct_elapsed_mean": "intrmotiv/hrl/control/correct_elapsed_mean",
+     "hrl_control_wrong_elapsed_mean": "intrmotiv/hrl/control/wrong_elapsed_mean",
+     "hrl_control_reward_magnitude_correct_mean": "intrmotiv/hrl/control/correct_reward_magnitude_mean",
++    "hrl_control_correct_source_dg_distance_mean": "intrmotiv/hrl/control/correct_source_dg_distance_mean",
++    "hrl_control_correct_nearest_dg_distance_mean": "intrmotiv/hrl/control/correct_nearest_dg_distance_mean",
++    "hrl_control_correct_bonus_distance_changed_fraction": "intrmotiv/hrl/control/correct_bonus_distance_changed_fraction",
+     "hrl_control_reward_magnitude_wrong_mean": "intrmotiv/hrl/control/wrong_reward_magnitude_mean",
+     "hrl_control_observed_pair_coverage": "intrmotiv/hrl/control/observed_pair_coverage",
+     "hrl_control_command_entropy": "intrmotiv/hrl/control/normalized_command_entropy",
+--- a/sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py
++++ b/sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py
+@@ -13,6 +13,7 @@
+     future_target_labels,
+     legacy_reward_streams,
+     selected_deadline_stats,
++    source_dg_distance,
+     target_gate_decoder_reward,
+     target_reward_magnitude,
+     target_success_worker_reward,
+@@ -732,6 +733,24 @@
+         )
+         self.assertTrue(torch.allclose(exploration_reward, torch.tensor([[0.2, 0.0]])))
+ 
++    def test_source_hit_bonus_ignores_intervening_dg_and_keeps_hit_gate(self):
++        # At the first hit another DG is much newer than the command source.
++        # Progression is read before the hit, so simultaneous source activation
++        # on the hit transition cannot masquerade as a preceding source event.
++        progression = torch.tensor([[[49, 2, 0], [71, 1, 0]]])
++        source = torch.tensor([[0, 0]])
++        source_age = source_dg_distance(progression, source, baseline=71)
++        self.assertTrue(torch.equal(source_age, torch.tensor([[50.0, 71.0]])))
++        internal = torch.tensor([[71.0, 71.0, 2.0, 1.0]])
++        hit = torch.tensor([[0.0, 0.0, 1.0, 0.0]])
++        nearest_reward = target_success_worker_reward(internal, hit, 71, 0.1, "hit_distance", 1.0, 0.1)
++        source_reward = target_success_worker_reward(
++            internal, hit, 71, 0.1, "hit_distance", 1.0, 0.1, distance_override=source_age
++        )
++        self.assertTrue(torch.allclose(nearest_reward, torch.tensor([[1.69, 0.0]])))
++        self.assertTrue(torch.allclose(source_reward, torch.tensor([[1.21, 0.0]])))
++        self.assertEqual(source_dg_distance(progression, torch.tensor([[-1, 3]]), 71).tolist(), [[71.0, 71.0]])
++
+     def test_first_distinct_reward_is_signed_chance_centered_and_distance_monotonic(self):
+         internal = torch.tensor([[7.0, 7.0, 2.0, 6.0]])
+         hit = torch.tensor([[0.0, 0.0, 1.0, 0.0]])

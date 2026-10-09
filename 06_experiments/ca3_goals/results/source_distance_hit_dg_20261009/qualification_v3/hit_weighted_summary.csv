@@ -1,0 +1,5 @@
+run_name,logged_correct_count_sum,policy_loss_all_finite,policy_loss_points,value_loss_all_finite,value_loss_points,adv_std_all_finite,adv_std_points,correct_elapsed_mean_hit_weighted,correct_reward_magnitude_mean_hit_weighted,correct_nearest_dg_distance_mean_hit_weighted,correct_bonus_distance_changed_fraction_hit_weighted
+SDHGQ3_C05_NEAREST_S99,153.0,True,34,True,34,True,34,193.85620929992277,1.5989543043710048,11.104575077692667,0.9215686278405533
+SDHGQ3_C05_SOURCE_S99,174.0,True,34,True,34,True,34,146.30459765730234,1.111954015561904,10.045976932021393,0.954022989190858
+SDHGQ3_C15_SOURCE_S99,118.0,True,34,True,34,True,34,174.28813494666147,1.1355084847595731,14.720339197223469,0.9322033895779465
+SDHGQ3_ORACLE_SOURCE_S99,2.0,True,34,True,34,True,34,365.0,1.0,3.0,1.0

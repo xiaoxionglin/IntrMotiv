@@ -1,0 +1,14 @@
+{
+  "run": "00_SDHGQ2_C05_SOURCE_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/source_distance_hit_dg_20261009/qualification_reload/c05_source/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "30e2a4cccda5378493d605772612ff2a9444c36c63ca72b40b1d91911bccf557",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8316639"
+}

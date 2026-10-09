@@ -1,0 +1,33 @@
+{
+  "batch_name": "source_distance_hit_dg_20261009",
+  "commands_match_study": true,
+  "expected_runs": 12,
+  "job_ids": [
+    "8316657",
+    "8316658",
+    "8316659",
+    "8316660",
+    "8316661",
+    "8316662",
+    "8316663",
+    "8316664",
+    "8316665",
+    "8316666",
+    "8316667",
+    "8316668"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/source_distance_hit_dg_20261009/20261008T234417Z/jobs.tsv",
+  "rows": 12,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 12
+  },
+  "study_id": "source_distance_hit_dg_20261009",
+  "study_sha256": "9fd08a86aebf3c4e809b8d4b9ebf505708797b858b1982f099d152289d39400d",
+  "study_spec": "hpc_runs/studies/source_distance_hit_dg_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

@@ -6,6 +6,68 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Check diagnostic scalar names end to end before qualification — 2026-10-09
+
+- **Evidence:** The final source-command reward qualifier completed training,
+  exact reload, and frozen field smoke, but canonical online collection rejected
+  one requested history. The learner produced the old
+  `hrl_control_correct_source_dg_distance_mean` attribute while the summary map
+  and StudySpec requested `correct_source_command_distance_mean`. The production
+  source corrected the attribute; the submitted qualifier's StudySpec remains
+  immutable, with an explicit analysis-only copy omitting the unavailable tag.
+  See the [source-distance report](06_experiments/ca3_goals/source_distance_hit_dg_20261009.md).
+- **Impact:** A valid short training run can lack its declared diagnostic, and
+  a naive average of conditional per-update hit means can understate actual
+  hit reward when zero-hit updates contribute zeros.
+- **Improvement/status:** Pending. Add a preflight that verifies each new
+  StudySpec scalar has a learner producer and summary-map key; use event
+  histories with hit-count weights for conditional hit means. Keep the
+  submitted qualifier fingerprint unchanged.
+- **Acceptance:** A focused fixture with a renamed producer fails before
+  submission; a history with zero-hit and nonzero-hit updates reports the
+  correct hit-weighted reward mean.
+
+### Distinguish option time from CA3 trace age in reward clocks — 2026-10-09
+
+- **Evidence:** The first source-distance qualification excluded intervening
+  *other* DG rows, but used the stored source row's live CA3 trace age. At
+  logged correct hits, C15's hit-weighted completed-option time was 176.2
+  decisions while that trace age was 41.4; C05 source was 176.8 versus 55.2.
+  Repeated activation of the same source row refreshed the purported source
+  clock. See the [study report](06_experiments/ca3_goals/source_distance_hit_dg_20261009.md).
+- **Impact:** A reward change described as measuring elapsed time from the
+  assigned goal source can still reinforce detours and revisits. Unit tests
+  limited to intervening *different* rows miss this failure.
+- **Improvement/status:** The final source study now uses the controller's
+  completed-option elapsed count and tests that same-source reactivation cannot
+  refresh it. A reusable preflight should compare each proposed reward clock
+  with option elapsed on actual short-run hits before production submission.
+- **Acceptance:** A short-run release report states the clock's event anchor,
+  reset rule, censoring, and hit-weighted discrepancy from option elapsed; a
+  focused test covers repeated activation of the source row.
+
+### Audit declared output root against generated training directories — 2026-10-09
+
+- **Evidence:** The corrected source-distance qualification StudySpec declared
+  `train_dir/source_distance_hit_dg_20261009_qualification_v2`, while its
+  unchanged launcher used the batch-name root
+  `train_dir/source_distance_hit_dg_qualification_v2_20261009` in all four
+  generated `--train_dir` arguments. The canonical print-only and submitted
+  audits passed because both paths were inside the workspace. Production's
+  declared and actual roots match; the submitted qualification fingerprint
+  remains immutable.
+- **Impact:** A study can pass submission audit while its output-root metadata
+  points to a directory where no runs will appear, delaying checkpoint
+  discovery and creating a misleading provenance record.
+- **Improvement/status:** Pending. Compare the normalized `training.output_root`
+  with the generated run directories, or make the launcher consume that field
+  as its batch root. Report the resolved root in the audit. Continue to use the
+  actual `jobs.tsv` paths for the submitted qualification. See the
+  [standard workflow](04_implementation/standardized_study_workflow.md).
+- **Acceptance:** A focused test rejects a print-only manifest whose
+  `--train_dir` paths lie under a different workspace-valid batch root, while
+  the matching production StudySpec and launcher pass.
+
 ### Validate telemetry seed selection during StudySpec validation — 2026-10-08
 
 - **Evidence:** The submitted one-seed longer-credit qualification StudySpec

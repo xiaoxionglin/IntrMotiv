@@ -1,0 +1,14 @@
+{
+  "run": "00_SDHGQ3_ORACLE_SOURCE_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/source_distance_hit_dg_20261009/qualification_reload_v3/oracle_source/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "9af8f074a3a38ce15d476a6018853b26ff11eef6a40db0e3d8e84c5499457077",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8316649"
+}

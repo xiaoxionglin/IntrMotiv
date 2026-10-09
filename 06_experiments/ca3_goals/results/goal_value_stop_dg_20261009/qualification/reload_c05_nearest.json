@@ -1,0 +1,14 @@
+{
+  "run": "00_GVSDQ_C05_NEAREST_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/goal_value_stop_dg_20261009/qualification_reload/c05_nearest/checkpoint_000000064_1048576.pth",
+  "checkpoint_sha256": "715b1ff5097400d31048fb113f9d8ef631c4a31c0ca23f97221a79a44b4fc355",
+  "frames": 1048576,
+  "train_step": 64,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8316679"
+}
