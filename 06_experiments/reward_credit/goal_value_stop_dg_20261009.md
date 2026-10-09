@@ -1,5 +1,7 @@
 # Goal-hit-terminal worker value study
 
+**Run and method record.** Read the [unified episode-long DG comparison](../dg_goal_control/episode_long_dg_comparison_20261009.md) for paired results and the common control evidence boundary.
+
 **Status, 9 October 2026:** all eighteen production jobs 8316687–8316704 completed 100M frames. The canonical 95–100M online collection, all ninety declared spatial snapshots, and all eighteen 100M frozen 10k-decision evaluations are complete. No recurring monitor is active.
 
 ## Question and intervention

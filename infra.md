@@ -67,7 +67,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   require a clean patch dry run, syntax check and focused evaluator tests before
   a bounded shard. Add a canonical source-shard selector and audited merge to
   the evaluation package rather than maintaining version-specific patches.
-  Improve repeated-start discovery before scaling the panel, and fix the
+  The 75M orthogonal-FiLM fixed-field follow-up found the same 32
+  source/repeat reset seeds independently in two complete evaluations. A
+  first source-0 shard using a bounded forward search missed its eighth
+  seed, which lay beyond the implied search budget; the job was stopped
+  after 23 minutes. The isolated
+  [seed-panel patch](hpc_runs/patches/episode_long_exact_start_seed_panel_20261009.patch)
+  reuses only those outcome-blind reset seeds, while retaining the original
+  exact-start and frozen-policy checks. Its five focused tests passed; a
+  compute-node qualification is underway. Canonical support for a verified
+  seed panel would avoid repeating costly native discovery while making the
+  seed source and panel coverage explicit. Fix the
   [independent physical-arrival output](#require-populated-physical-arrival-outcomes-in-matched-command-dg-evaluations--2026-10-08)
   before claiming a geometric outcome.
 - **Acceptance:** Every shard reports exact-start validity, completed source
@@ -583,6 +593,18 @@ keep implementation guidance in the canonical workflow documents linked below.
   [open-analysis register](06_experiments/open_analyses.md) distinguish
   completed contrasts from missing ones. Further consolidation is warranted
   only when another interim report has a complete same-study successor.
+- **9 October recurrence:** The orthogonal episode-long, longer-credit,
+  source-clock, goal-value-stop, and reward-decision notes all described parts
+  of one comparison. The index still called the twelve completed 150M runs
+  pending and omitted completed 75M exact-start trial files. The
+  [cross-study result owner](06_experiments/dg_goal_control/episode_long_dg_comparison_20261009.md)
+  now pairs seeds and ages by question; batch files retain methods and
+  provenance. This was a report freshness failure, not missing training data.
+- **Improvement/status:** Before updating a result owner, audit terminal
+  job/checkpoint status and completed evaluation artifacts. When several
+  StudySpecs form one declared scientific program, use one question-first
+  result owner with batch files as supporting records. The unified report
+  applies this manually; an automated artifact-freshness check is pending.
 - **Acceptance:** Each active study has one result owner, dated snapshot
   reports link forward to it, and index claims state their evidence age and
   protocol. A local-link and obsolete-reference check passes after any report
@@ -1335,6 +1357,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   to the canonical frozen-field summarizer and online atlas renderer, using a
   verified scalable font and fewer field panels per page. Preserve the
   underlying NPZ and CSV contracts.
+- **9 October recurrence:** The canonical 150M episode-long F16 frozen sheet
+  again rendered 14-pixel unit labels on a 1200-pixel image, too small for the
+  unified result report. A report-size renderer now reads the unchanged NPZ,
+  transposes and masks maps exactly as the canonical sheet does, and uses
+  inspected scalable 22–32-point Matplotlib labels. The reusable canonical
+  summarizer still needs the same presentation fix; no metric contract changed.
 - **Acceptance:** A representative F16 and F64 page has labels equivalent to at
   least 12 pt at 1000-pixel viewing width, no clipping, and legible fields and
   occupancy mask after visual inspection. See the

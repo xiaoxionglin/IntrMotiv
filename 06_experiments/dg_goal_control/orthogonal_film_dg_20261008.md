@@ -1,6 +1,6 @@
 # Orthogonal FiLM goal initialization: replacement DG studies
 
-**Status, 8 October 2026:** three corrected compute-node qualifications and exact checkpoint reloads passed. All six finite replacements completed 75M, and all twelve episode-long replacements have complete 75M online snapshots and continue toward 150M. All 18 orthogonal-FiLM 75M frozen place-field evaluations completed. Matched-command evaluations are still running; their outcomes are not included in the conclusions below. No recurring monitor is active.
+**Historical run and 75M snapshot record.** The current scientific result owner is the [unified episode-long DG comparison](episode_long_dg_comparison_20261009.md), which adds the completed 150M online and spatial outcomes and the finished 75M exact-start trials. All twelve episode-long training runs completed 150M. The 75M analysis below is retained as the launch cohort's dated evidence and implementation provenance, not as the terminal comparison.
 
 ## Interim 75M result
 

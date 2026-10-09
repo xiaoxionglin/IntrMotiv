@@ -1,5 +1,7 @@
 # Source-DG temporal hit-bonus study
 
+**Run and method record.** Read the [unified episode-long DG comparison](../dg_goal_control/episode_long_dg_comparison_20261009.md) for the paired scientific result across reward clocks, value boundaries and DG families.
+
 **Status, 9 October 2026:** all twelve production runs completed 100M frames. The canonical 95–100M online collection, all sixty declared spatial snapshots, all twelve 75M frozen 10k-decision evaluations, and all twelve 100M frozen evaluations are complete. The original prescribed exact-start preflight, job 8319859, timed out before a result; a bounded evaluation-only source shard, job 8320616, completed with exact starts but only one of eight requested repeated starts and null independent physical-distance columns. No recurring monitor is active.
 
 ## Scientific question

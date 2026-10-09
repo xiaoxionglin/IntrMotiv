@@ -1,5 +1,7 @@
 # Episode-long DG goals: matched controller study
 
+**Historical canceled-run record.** The [unified episode-long DG comparison](episode_long_dg_comparison_20261009.md) owns the results from the orthogonal-FiLM replacements and later credit studies.
+
 **Status, 8 October 2026:** the 12 production jobs `8306923`–`8306934` were cancelled at the user's request after reaching their first 5M checkpoint. They did not reach the declared 75M or 150M comparisons. Their qualifications and checkpoint reloads remain valid runtime checks; no production horizon or conditioning effect is claimed. The [orthogonally initialized FiLM replacement](orthogonal_film_dg_20261008.md) carries forward the three FiLM arms. The interrupted legacy-9 arm supplies only early context.
 
 ## Question and design

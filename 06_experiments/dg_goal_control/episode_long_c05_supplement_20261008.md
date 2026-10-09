@@ -1,5 +1,7 @@
 # Episode-long C05 supplement for the COSYNE contrast
 
+**Historical canceled-run record.** The [unified episode-long DG comparison](episode_long_dg_comparison_20261009.md) owns the completed orthogonal-FiLM C05–C15 results at matched ages.
+
 **Status, 8 October 2026:** the isolated source and qualification gates passed, but production jobs `8308163`–`8308165` were cancelled at the user's request before the declared 75M and 150M comparisons. No C05 episode-long production outcome is claimed. The [orthogonal-FiLM replacement](orthogonal_film_dg_20261008.md) restores the seed-matched C05–C15 family contrast.
 
 ## Question and matched design

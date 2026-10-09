@@ -1,5 +1,7 @@
 # Should the episode-long DG variants enter a distance-reward ablation?
 
+**Archived decision snapshot.** The [unified episode-long DG comparison](../dg_goal_control/episode_long_dg_comparison_20261009.md) is the current scientific result owner and includes the later 150M orthogonal-FiLM evidence. This page preserves the narrower 100M reward-ablation decision and its source references.
+
 **Analysis status, 9 October 2026:** training is complete for the 12 source-clock and 18 goal-value-stop runs at 100M frames. Their 95–100M online metrics and all five retained spatial ages are collected. All 12 source-clock 75M and all 36 paired 100M frozen 10k-decision field rollouts completed, including six matched longer-credit controls. A bounded prescribed matched-command preflight completed but found only one repeated start and no independent geometric arrival measurements. This decision includes paired frozen field and limited executed-command evidence; a replicated control endpoint remains open. No new training batch or recurring monitor was launched for this decision.
 
 ## Decision

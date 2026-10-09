@@ -763,6 +763,17 @@ each group's raw output separately. Validate each shard's start equality,
 frozen buffers, source/target coverage, failures and censoring before merging;
 then verify that groups cover the intended source IDs without overlap. A
 successful print-only audit alone does not qualify a long native evaluator.
+For the four-goal orthogonal-FiLM 75M comparison, two independently completed
+fixed-field panels yielded the same 32 source/repeat reset seeds. A bounded
+forward search still missed the last source-0 seed, so increasing only the
+decision budget would not repair coverage. The isolated
+[seed-panel evaluator patch](../hpc_runs/patches/episode_long_exact_start_seed_panel_20261009.patch)
+accepts those previously verified, outcome-blind reset seeds and retains the
+fresh-engine exact-state and frozen-policy checks. Record the source-panel hash,
+require every declared reset seed in each shard, and reject duplicate or missing
+source/repeat/target/command rows at merge. This patch is a study-specific bridge;
+canonical support should accept an independently verified seed panel through
+the validated intervention manifest.
 
 Use this through the standard StudySpec intervention metadata and manifest
 backend. Workflow 1.6.0 supports more than one intervention checkpoint; the

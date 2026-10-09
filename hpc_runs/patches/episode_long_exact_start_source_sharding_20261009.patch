@@ -1,0 +1,132 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -799,6 +799,37 @@
+     return pd.DataFrame(rows), summary
+ 
+ 
++def landmark_options_for_row(intervention, focus_sources=None, discovery_multiplier=None):
++    """Keep the declared panel while bounding native-engine lifetimes by source."""
++    if intervention.get("evaluation") != "landmark-matched-commands-v1":
++        if focus_sources is not None or discovery_multiplier is not None:
++            raise ValueError("Source shards require landmark-matched-commands-v1")
++        return None
++    options = {
++        key: intervention[key]
++        for key in (
++            "max_sources", "targets_per_source", "repeats", "discovery_multiplier",
++            "target_selection", "fixed_evaluation_horizon", "horizons",
++        )
++        if key in intervention
++    }
++    if focus_sources is not None:
++        try:
++            source_ids = [int(value) for value in focus_sources.split(",")]
++        except ValueError as exc:
++            raise ValueError("Source IDs must be comma-separated integers") from exc
++        if not source_ids or len(source_ids) != len(set(source_ids)) or any(source < 0 for source in source_ids):
++            raise ValueError("Source IDs must be distinct nonnegative integers")
++        if len(source_ids) > int(options.get("max_sources", len(source_ids))):
++            raise ValueError("Source shard exceeds declared max_sources")
++        options.update(max_sources=len(source_ids), focus_sources=source_ids)
++    if discovery_multiplier is not None:
++        if discovery_multiplier <= 0:
++            raise ValueError("Discovery multiplier must be positive")
++        options["discovery_multiplier"] = discovery_multiplier
++    return options
++
++
+ def parse_args() -> argparse.Namespace:
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--manifest", type=pathlib.Path, required=True)
+@@ -807,6 +838,9 @@
+     parser.add_argument("--decision-cap", type=int, default=100000)
+     parser.add_argument("--attempts-per-pair", type=int, default=5)
+     parser.add_argument("--deterministic", action="store_true")
++    parser.add_argument("--focus-sources", type=str,
++                        help="Comma-separated DG source IDs for a bounded exact-start shard")
++    parser.add_argument("--discovery-multiplier", type=int)
+     return parser.parse_args()
+ 
+ 
+@@ -839,22 +873,8 @@
+             )
+             if source in intervention
+         },
+-        landmark_options=(
+-            {
+-                key: intervention[key]
+-                for key in (
+-                    "max_sources",
+-                    "targets_per_source",
+-                    "repeats",
+-                    "discovery_multiplier",
+-                    "target_selection",
+-                    "fixed_evaluation_horizon",
+-                    "horizons",
+-                )
+-                if key in intervention
+-            }
+-            if intervention.get("evaluation") == "landmark-matched-commands-v1"
+-            else None
++        landmark_options=landmark_options_for_row(
++            intervention, args.focus_sources, args.discovery_multiplier
+         ),
+         first_distinct=bool(intervention.get("terminate_on_first_distinct_exclusive_outcome", False)),
+         observed_targets_only=bool(intervention.get("balanced_observed_alternative_targets", False)),
+--- a/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
++++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
+@@ -6,6 +6,25 @@
+ from torch import nn
+ 
+ from sf_working_directories.IntrMotiv.evaluation import target_control_interventions as ev
++
++
++def test_source_shard_options_preserve_declared_panel():
++    intervention = {
++        "evaluation": "landmark-matched-commands-v1", "max_sources": 4,
++        "targets_per_source": 3, "repeats": 8, "horizons": [64, 128, 256, 900],
++        "fixed_evaluation_horizon": 900, "target_selection": "all_eligible",
++    }
++    whole = ev.landmark_options_for_row(intervention)
++    assert whole["max_sources"] == 4 and "focus_sources" not in whole
++    shard = ev.landmark_options_for_row(intervention, "2", 8)
++    assert shard == {**whole, "max_sources": 1, "focus_sources": [2],
++                     "discovery_multiplier": 8}
++    assert whole["max_sources"] == 4  # no mutation of the declared settings
++    for bad in ("", "0,0", "-1", "0,a"):
++        with pytest.raises(ValueError):
++            ev.landmark_options_for_row(intervention, bad, 8)
++    with pytest.raises(ValueError):
++        ev.landmark_options_for_row({"evaluation": "other"}, "0", 8)
+ 
+ 
+ class Graph(nn.Module):
+--- a/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
++++ b/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
+@@ -92,10 +92,25 @@
+ export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ 
+ decision_cap=${PLACE_FIELD_MAX_FRAMES:-100000}
++shard_args=()
++if [[ -n ${INTERVENTION_FOCUS_SOURCES:-} ]]; then
++  focus_sources=${INTERVENTION_FOCUS_SOURCES//:/,}
++  [[ $focus_sources =~ ^[0-9]+(,[0-9]+)*$ ]] || {
++    echo "INTERVENTION_FOCUS_SOURCES must be comma-separated DG IDs" >&2; exit 2;
++  }
++  shard_args=(--focus-sources "$focus_sources")
++fi
++if [[ -n ${INTERVENTION_DISCOVERY_MULTIPLIER:-} ]]; then
++  [[ $INTERVENTION_DISCOVERY_MULTIPLIER =~ ^[1-9][0-9]*$ ]] || {
++    echo "INTERVENTION_DISCOVERY_MULTIPLIER must be positive" >&2; exit 2;
++  }
++  shard_args+=(--discovery-multiplier "$INTERVENTION_DISCOVERY_MULTIPLIER")
++fi
+ /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python \
+   sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py \
+   --manifest "$manifest" \
+   --row-index "$row_index" \
+   --out-dir "$output_dir/raw" \
+   --decision-cap "$decision_cap" \
+-  --attempts-per-pair 5
++  --attempts-per-pair 5 \
++  "${shard_args[@]}"

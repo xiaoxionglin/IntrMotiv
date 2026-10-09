@@ -1,0 +1,125 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -344,6 +344,7 @@
+     target_selection="passive",
+     fixed_evaluation_horizon=None,
+     horizons=None,
++    discovery_seeds=None,
+ ):
+     """Execute different commands from identical engine/prefix states.
+ 
+@@ -371,6 +372,11 @@
+         raise ValueError("focus_target is outside the DG capacity")
+     if focus_sources is not None and any(not 0 <= source < n for source in focus_sources):
+         raise ValueError("focus_sources contains an invalid DG ID")
++    if discovery_seeds is not None and (
++        not discovery_seeds or len(discovery_seeds) != len(set(discovery_seeds))
++        or any(seed < 0 for seed in discovery_seeds)
++    ):
++        raise ValueError("discovery_seeds must be distinct nonnegative seeds")
+     graph = actor.core.policy_graph
+     before = {k: v.detach().clone() for k, v in actor.state_dict().items()}
+     pairs = matched_goal_pairs(graph, goal_count, target_selection)
+@@ -435,10 +441,13 @@
+     try:
+         with torch.no_grad():
+             # Bounded discovery; record multiple starts per source where possible.
+-            for attempt in range(max_sources * repeats * discovery_multiplier):
++            candidate_seeds = (
++                discovery_seeds if discovery_seeds is not None
++                else tuple(31000 + attempt for attempt in range(max_sources * repeats * discovery_multiplier))
++            )
++            for seed in candidate_seeds:
+                 if decisions + prefix_cap >= decision_cap // 4:
+                     break
+-                seed = 31000 + attempt
+                 obs, state = fresh(seed)
+                 prefix = []
+                 actions = np.random.default_rng(seed).integers(0, actor.action_space.n, prefix_cap)
+@@ -650,6 +659,7 @@
+         target_selection=target_selection,
+         goal_count=goal_count,
+         discovery_multiplier=discovery_multiplier,
++        discovery_seeds=list(discovery_seeds) if discovery_seeds is not None else None,
+     )
+     return pd.DataFrame(rows), summary
+ 
+@@ -799,10 +809,12 @@
+     return pd.DataFrame(rows), summary
+ 
+ 
+-def landmark_options_for_row(intervention, focus_sources=None, discovery_multiplier=None):
++def landmark_options_for_row(intervention, focus_sources=None, discovery_multiplier=None,
++                             discovery_seeds=None):
+     """Keep the declared panel while bounding native-engine lifetimes by source."""
+     if intervention.get("evaluation") != "landmark-matched-commands-v1":
+-        if focus_sources is not None or discovery_multiplier is not None:
++        if (focus_sources is not None or discovery_multiplier is not None
++                or discovery_seeds is not None):
+             raise ValueError("Source shards require landmark-matched-commands-v1")
+         return None
+     options = {
+@@ -827,6 +839,14 @@
+         if discovery_multiplier <= 0:
+             raise ValueError("Discovery multiplier must be positive")
+         options["discovery_multiplier"] = discovery_multiplier
++    if discovery_seeds is not None:
++        try:
++            seeds = [int(value) for value in discovery_seeds.split(",")]
++        except ValueError as exc:
++            raise ValueError("Discovery seeds must be comma-separated integers") from exc
++        if not seeds or len(seeds) != len(set(seeds)) or any(seed < 0 for seed in seeds):
++            raise ValueError("Discovery seeds must be distinct nonnegative integers")
++        options["discovery_seeds"] = seeds
+     return options
+ 
+ 
+@@ -841,6 +861,8 @@
+     parser.add_argument("--focus-sources", type=str,
+                         help="Comma-separated DG source IDs for a bounded exact-start shard")
+     parser.add_argument("--discovery-multiplier", type=int)
++    parser.add_argument("--discovery-seeds", type=str,
++                        help="Comma-separated fixed source-panel reset seeds")
+     return parser.parse_args()
+ 
+ 
+@@ -874,7 +896,7 @@
+             if source in intervention
+         },
+         landmark_options=landmark_options_for_row(
+-            intervention, args.focus_sources, args.discovery_multiplier
++            intervention, args.focus_sources, args.discovery_multiplier, args.discovery_seeds
+         ),
+         first_distinct=bool(intervention.get("terminate_on_first_distinct_exclusive_outcome", False)),
+         observed_targets_only=bool(intervention.get("balanced_observed_alternative_targets", False)),
+--- a/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
++++ b/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
+@@ -106,6 +106,13 @@
+   }
+   shard_args+=(--discovery-multiplier "$INTERVENTION_DISCOVERY_MULTIPLIER")
+ fi
++if [[ -n ${INTERVENTION_DISCOVERY_SEEDS:-} ]]; then
++  discovery_seeds=${INTERVENTION_DISCOVERY_SEEDS//:/,}
++  [[ $discovery_seeds =~ ^[0-9]+(,[0-9]+)*$ ]] || {
++    echo "INTERVENTION_DISCOVERY_SEEDS must be comma-separated reset seeds" >&2; exit 2;
++  }
++  shard_args+=(--discovery-seeds "$discovery_seeds")
++fi
+ /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python \
+   sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py \
+   --manifest "$manifest" \
+--- a/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
++++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
+@@ -20,6 +20,12 @@
+     assert shard == {**whole, "max_sources": 1, "focus_sources": [2],
+                      "discovery_multiplier": 8}
+     assert whole["max_sources"] == 4  # no mutation of the declared settings
++    seeded = ev.landmark_options_for_row(intervention, "2", None, "31001,31006")
++    assert seeded["focus_sources"] == [2]
++    assert seeded["discovery_seeds"] == [31001, 31006]
++    for bad in ("", "31001,31001", "-1", "31001,a"):
++        with pytest.raises(ValueError):
++            ev.landmark_options_for_row(intervention, "2", None, bad)
+     for bad in ("", "0,0", "-1", "0,a"):
+         with pytest.raises(ValueError):
+             ev.landmark_options_for_row(intervention, bad, 8)

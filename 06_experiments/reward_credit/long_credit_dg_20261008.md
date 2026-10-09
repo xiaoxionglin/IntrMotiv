@@ -1,5 +1,7 @@
 # Longer-credit episode-long DG goals
 
+**Run and method record.** Read the [unified episode-long DG comparison](../dg_goal_control/episode_long_dg_comparison_20261009.md) for paired results, fields, trajectories, graphs and control evidence across all related batches.
+
 **Status, 9 October 2026:** both seed-99 compute-node qualifications and exact checkpoint reloads passed. All six 100M-frame production jobs, 8316177–8316182, completed. Their 95–100M online metrics, five-age retained spatial snapshots, and six matched 100M frozen 10k-decision field rollouts are collected. Executed matched-command control and the longer-credit sufficiency claim remain open. No recurring monitor is active.
 
 ## Question and controlled change
