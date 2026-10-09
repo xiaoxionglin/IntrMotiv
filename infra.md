@@ -74,9 +74,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   after 23 minutes. The isolated
   [seed-panel patch](hpc_runs/patches/episode_long_exact_start_seed_panel_20261009.patch)
   reuses only those outcome-blind reset seeds, while retaining the original
-  exact-start and frozen-policy checks. Its five focused tests passed; a
-  compute-node qualification is underway. Canonical support for a verified
-  seed panel would avoid repeating costly native discovery while making the
+  exact-start and frozen-policy checks. Its five focused tests and a
+  compute-node qualification passed: the first source shard returned all eight
+  exact starts, 24 paired comparisons, 72 trial rows, frozen model and graph,
+  and no missing rows in 85 minutes (job 8322566). Fifteen other disjoint
+  source shards were submitted after test-only review. Canonical support for a
+  verified seed panel would avoid repeating costly native discovery while making the
   seed source and panel coverage explicit. Fix the
   [independent physical-arrival output](#require-populated-physical-arrival-outcomes-in-matched-command-dg-evaluations--2026-10-08)
   before claiming a geometric outcome.

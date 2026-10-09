@@ -122,6 +122,114 @@ def plot_peak_centers() -> None:
         save(fig, f"peak_centers_150m_{arm}")
 
 
+def plot_frozen_100m_peak_centers(npz_dir: Path) -> None:
+    """Plot one location per active DG unit for every 100M run.
+
+    Learned-unit peaks come from the post-inhibition frozen-policy field
+    classifier. If activity is present but the classifier does not yield a
+    qualified peak, use the maximum of its smoothed map over visited bins and
+    mark that fallback hollow. Fixed IDs 0–3 use declared centers because the
+    classifier leaves replacement rows blank. A peak is not a mono-field.
+    """
+    files = sorted(npz_dir.glob("*__s*.npz"))
+    expected_conditions = set(pd.read_csv(RESULTS / "frozen_100m_reward_per_run.csv").condition)
+    expected_conditions |= set(pd.read_csv(RESULTS / "frozen_100m_older_credit_per_run.csv").condition)
+    assert len(files) == 42 and len(expected_conditions) == 14
+    rows = []
+    for path in files:
+        condition, seed_text = path.stem.rsplit("__s", 1)
+        seed = int(seed_text)
+        assert condition in expected_conditions and seed in SEEDS
+        with np.load(path, allow_pickle=False) as data:
+            xy = data["post_inhibition_field_dominant_peak_xy"]
+            bins = data["post_inhibition_field_dominant_peak_bin"]
+            activity = data["post_inhibition_active_fraction"]
+            smoothed = data["post_inhibition_smoothed_rate_maps"]
+            occupancy = data["post_inhibition_occupancy"]
+            assert xy.shape == (16, 2) and bins.shape == (16, 2)
+            for unit in range(16):
+                fixed = "ORACLE" in condition and unit < 4
+                source = "prescribed_center" if fixed else "observed_peak"
+                if fixed:
+                    # The canonical field classifier leaves replacement rows
+                    # blank; their declared Gaussian centers are the location.
+                    x, y = PRESCRIBED_CENTERS[unit]
+                    bin_x, bin_y = int((x - 100) // 100), int((y - 100) // 100)
+                else:
+                    x, y = map(float, xy[unit])
+                    bin_x, bin_y = map(int, bins[unit])
+                active = bool(activity[unit] > 0)
+                if active and not fixed and not (np.isfinite(x) and np.isfinite(y)):
+                    scores = np.where(occupancy > 0, smoothed[:, :, unit], -np.inf)
+                    assert np.isfinite(scores).any()
+                    bin_x, bin_y = map(int, np.unravel_index(np.argmax(scores), scores.shape))
+                    x, y = 150 + 100 * bin_x, 150 + 100 * bin_y
+                    source = "fallback_smoothed_max"
+                assert not active or (np.isfinite(x) and np.isfinite(y))
+                rows.append(dict(condition=condition, seed=seed, unit=unit,
+                                 x=x if active else np.nan,
+                                 y=y if active else np.nan,
+                                 peak_bin_x=bin_x if active else -1,
+                                 peak_bin_y=bin_y if active else -1,
+                                 location_source=source,
+                                 active=active,
+                                 outer_two_bin_ring=(active and (x <= 250 or x >= 1850
+                                                               or y <= 250 or y >= 1850))))
+    peaks = pd.DataFrame(rows).sort_values(["condition", "seed", "unit"])
+    assert len(peaks) == 42 * 16
+    reported = pd.concat([
+        pd.read_csv(RESULTS / "frozen_100m_reward_per_run.csv"),
+        pd.read_csv(RESULTS / "frozen_100m_older_credit_per_run.csv"),
+    ], ignore_index=True)
+    counts = peaks.groupby(["condition", "seed"]).active.sum()
+    for record in reported.itertuples(index=False):
+        assert counts.loc[(record.condition, record.seed)] == record.active_units
+    peaks.to_csv(RESULTS / "frozen_100m_peak_centers_per_unit.csv", index=False)
+    summary = peaks.groupby(["condition", "seed"], as_index=False).agg(
+        active_peaks=("active", "sum"), outer_two_bin_ring_peaks=("outer_two_bin_ring", "sum"),
+    )
+    summary["outer_two_bin_ring_fraction"] = (
+        summary.outer_two_bin_ring_peaks / summary.active_peaks
+    )
+    summary.to_csv(RESULTS / "frozen_100m_peak_summary_per_run.csv", index=False)
+
+    palette = plt.get_cmap("tab20")
+    for condition in sorted(expected_conditions):
+        selected = peaks.loc[peaks.condition.eq(condition)]
+        assert len(selected) == 48
+        fig, axes = plt.subplots(1, 3, figsize=(16.5, 7.3), sharex=True, sharey=True)
+        for ax, seed in zip(axes, SEEDS):
+            unit_rows = selected.loc[selected.seed.eq(seed)]
+            for row in unit_rows.itertuples(index=False):
+                if not row.active:
+                    continue
+                fixed = "ORACLE" in condition and row.unit < 4
+                fallback = row.location_source == "fallback_smoothed_max"
+                ax.scatter(row.x, row.y, s=125, marker="s" if fixed else "o",
+                           facecolor="white" if fallback else palette(row.unit),
+                           edgecolor=palette(row.unit) if fallback else "black",
+                           linewidth=2.0 if fallback else 0.9, zorder=3)
+            ax.set_title(f"Seed {seed} | {int(unit_rows.active.sum())}/16 peaks")
+            ax.set_xlim(100, 2000)
+            ax.set_ylim(100, 2000)
+            ax.set_aspect("equal")
+            ax.set_xticks([100, 550, 1000, 1450, 2000])
+            ax.set_yticks([100, 550, 1000, 1450, 2000])
+            ax.grid(color="#D8DEE4", linewidth=0.8)
+            ax.set_xlabel("x (DMLab units)")
+        axes[0].set_ylabel("y (DMLab units)")
+        title = ("fixed centers + learned peaks" if "ORACLE" in condition
+                 else "DG dominant peaks")
+        fig.suptitle(f"100M frozen: {title} | {condition}", y=1.02, fontsize=23)
+        handles = [Line2D([], [], marker=("s" if "ORACLE" in condition and unit < 4 else "o"),
+                          color="none", markerfacecolor=palette(unit), markeredgecolor="black",
+                          markersize=12, label=str(unit)) for unit in range(16)]
+        fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, -0.035),
+                   ncol=8, frameon=False, title="DG unit ID", fontsize=19, title_fontsize=19)
+        fig.tight_layout(rect=(0, 0.13, 1, 1))
+        save(fig, f"frozen_peak_centers_100m_{condition.lower()}")
+
+
 def plot_command_lift() -> None:
     data = pd.read_csv(RESULTS / "matched_command_75m_per_horizon.csv")
     groups = [
@@ -705,6 +813,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--frozen-npz-dir", type=Path,
                         help="Optional directory of canonical 150M seed-99 NPZs for legible atlases")
+    parser.add_argument("--frozen-100m-npz-dir", type=Path,
+                        help="Optional directory of 42 canonical 100M NPZs for run-wise peak maps")
     args = parser.parse_args()
     setup_style()
     plot_peak_centers()
@@ -719,6 +829,8 @@ def main() -> None:
         plot_frozen_atlases(args.frozen_npz_dir)
         plot_online_frozen_peak_boundary(args.frozen_npz_dir)
         plot_frozen_150m_paths(args.frozen_npz_dir)
+    if args.frozen_100m_npz_dir is not None:
+        plot_frozen_100m_peak_centers(args.frozen_100m_npz_dir)
     plot_age_matched_coverage()
 
 
