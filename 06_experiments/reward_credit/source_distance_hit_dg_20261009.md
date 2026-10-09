@@ -35,7 +35,7 @@ The terminal [95–100M online table](results/source_distance_hit_dg_20261009/on
 
 ### Earlier 75M comparison
 
-The canonical collector used the same 70–75M-frame window for every run. The [source-clock per-run table](results/source_distance_hit_dg_20261009/online_70_75m/per_run.csv), [paired unchanged-clock table](results/source_distance_hit_dg_20261009/long_credit_online_70_75m/per_run.csv), and [short-horizon table](results/orthogonal_film_dg_20261008/finite_online_70_75m_per_run.csv) preserve the seed-level numbers and StudySpec fingerprints. Coverage AUC is exploration, not arrival at a commanded goal.
+The canonical collector used the same 70–75M-frame window for every run. The [source-clock per-run table](results/source_distance_hit_dg_20261009/online_70_75m/per_run.csv), [paired unchanged-clock table](results/source_distance_hit_dg_20261009/long_credit_online_70_75m/per_run.csv), and [short-horizon table](../dg_goal_control/results/orthogonal_film_dg_20261008/finite_online_70_75m_per_run.csv) preserve the seed-level numbers and StudySpec fingerprints. Coverage AUC is exploration, not arrival at a commanded goal.
 
 | Prescribed DG seed | Short horizon, original credit | Episode-long, longer credit, nearest-DG clock | Episode-long, longer credit, source clock |
 | --- | ---: | ---: | ---: |

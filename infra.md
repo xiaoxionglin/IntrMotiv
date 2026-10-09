@@ -6,6 +6,22 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep immutable study references valid when reorganizing reports — 2026-10-09
+
+- **Evidence:** Four submitted corrected-core StudySpecs pin the historical
+  provenance file under `06_experiments/ca3_goals/results/`. The scientific
+  report and its data now belong under `06_experiments/reward_credit/`; editing
+  the submitted StudySpecs would change their fingerprints.
+- **Impact:** A simple folder move would make validated study inputs and saved
+  CSV provenance paths fail to resolve.
+- **Improvement/status:** The data moved with its report, while the pinned old
+  directory path remains a compatibility symlink. The experiment index names
+  the new location and explains the alias. Future StudySpecs should use a
+  stable provenance path outside topical report folders.
+- **Acceptance:** The four original StudySpec hashes remain unchanged, their
+  provenance paths resolve, and the current report links all plots and data
+  from its new location without relying on the alias.
+
 ### Make declared matched-command settings executable and serializable — 2026-10-09
 
 - **Evidence:** The corrected-core hit-only StudySpec requested all eligible
@@ -43,7 +59,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   job 8320616, completed exit zero in 38 minutes with exact starts and frozen
   policy/graph, but discovered only one of eight requested repeated starts.
   It wrote nine trial rows; independent physical-distance columns remained
-  null even for prescribed fields. See the [decision record](06_experiments/ca3_goals/distance_reward_ablation_decision_20261009.md).
+  null even for prescribed fields. See the [decision record](06_experiments/reward_credit/distance_reward_ablation_decision_20261009.md).
 - **Impact:** Monolithic fresh-engine command tests can consume their entire
   limit without a usable result. Reusing a positional patch across source
   revisions can silently place evaluator code in the wrong function.
@@ -119,7 +135,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   training environment. The current evaluator preserves the saved environment,
   so its first replay launched the wrong level. Jobs 8317604–8317605 were
   cancelled, and corrected sidecar configurations launched jobs 8317627–8317628
-  with the archived level. See the [study record](06_experiments/ca3_goals/corrected_core_distance_reward_ablation_20261009.md).
+  with the archived level. See the [study record](06_experiments/reward_credit/corrected_core_distance_reward_ablation_20261009.md).
 - **Impact:** A map replay can look like a model-source mismatch when the
   episode protocol differs. This also changes visitation and reset structure.
 - **Improvement/status:** Pending. Include the effective evaluation environment
@@ -137,7 +153,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   `dmlab_navigation_action_set` parser key. A sidecar with current parser
   defaults overlaid by every saved value loaded the checkpoint, then the
   helper's strict state-key check found a separate mismatch. See the
-  [study record](06_experiments/ca3_goals/corrected_core_distance_reward_ablation_20261009.md).
+  [study record](06_experiments/reward_credit/corrected_core_distance_reward_ablation_20261009.md).
 - **Impact:** A historical checkpoint can look incompatible because the loader
   assumes a newer config schema, while a permissive load may hide genuinely
   unmatched model state. Either shortcut can corrupt a historical control.
@@ -160,7 +176,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   and StudySpec requested `correct_source_command_distance_mean`. The production
   source corrected the attribute; the submitted qualifier's StudySpec remains
   immutable, with an explicit analysis-only copy omitting the unavailable tag.
-  See the [source-distance report](06_experiments/ca3_goals/source_distance_hit_dg_20261009.md).
+  See the [source-distance report](06_experiments/reward_credit/source_distance_hit_dg_20261009.md).
   The corrected-core hit-only qualifier likewise requested
   `intrmotiv/hrl/control_reward_magnitude_correct_mean`, while its runtime
   emitted `intrmotiv/hrl/control/correct_reward_magnitude_mean`; an immutable
@@ -183,7 +199,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   logged correct hits, C15's hit-weighted completed-option time was 176.2
   decisions while that trace age was 41.4; C05 source was 176.8 versus 55.2.
   Repeated activation of the same source row refreshed the purported source
-  clock. See the [study report](06_experiments/ca3_goals/source_distance_hit_dg_20261009.md).
+  clock. See the [study report](06_experiments/reward_credit/source_distance_hit_dg_20261009.md).
 - **Impact:** A reward change described as measuring elapsed time from the
   assigned goal source can still reinforce detours and revisits. Unit tests
   limited to intervening *different* rows miss this failure.
@@ -246,14 +262,14 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ### Require populated physical-arrival outcomes in matched-command DG evaluations — 2026-10-08
 
-- **Evidence:** The orthogonal-FiLM prescribed-DG exact-start preflight at 75M (`8314918`) verified identical starts and frozen model/graph, and produced 36 executed-command rows. Its `physical_start_distance` and `physical_minimum_distance` columns were all missing, while `physical_entry_r200`, `physical_entry_r300` and `physical_cell_contact` were all false. The oracle `hit_by_64/128/256` detector columns were populated because its four post-replacement DG fields are fixed Gaussian regions. See the [study analysis](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#matched-command-control).
+- **Evidence:** The orthogonal-FiLM prescribed-DG exact-start preflight at 75M (`8314918`) verified identical starts and frozen model/graph, and produced 36 executed-command rows. Its `physical_start_distance` and `physical_minimum_distance` columns were all missing, while `physical_entry_r200`, `physical_entry_r300` and `physical_cell_contact` were all false. The oracle `hit_by_64/128/256` detector columns were populated because its four post-replacement DG fields are fixed Gaussian regions. See the [study analysis](06_experiments/dg_goal_control/orthogonal_film_dg_20261008.md#matched-command-control).
 - **Impact:** A manifest and trial CSV can appear to satisfy the declared *physical arrival* comparison while physical-position outcomes are absent, especially for learned DG units whose detector event is not itself a fixed spatial destination.
 - **Improvement/status:** Pending. In the canonical exact-start evaluator, write each rollout's bounded physical path and contact with a source-independent spatial target definition when one exists. If a learned field has no stable physical target, mark the physical outcome unavailable and report detector hits separately. Add a post-run schema check that rejects all-null physical-distance outputs when a study claims physical-arrival evidence. Keep trial data in the allocated workspace.
 - **Acceptance:** A fixed-Gaussian goal trial reports finite physical distances and radius/contact flags consistent with its DG hit; a learned field without a defensible spatial center is explicitly unavailable rather than silently false; a focused test catches an all-null physical-arrival panel before result release. Follow the [reusable telemetry protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol).
 
 ### Count censored episode-long commands in graph-control evidence — 2026-10-08
 
-- **Evidence:** At 75M, all twelve episode-long orthogonal-FiLM runs report prospective graph success fraction 1.0, including the prescribed and learned-4 arms whose commanded and shuffled online hit rates are nearly equal. The graph update counts attempted outcomes on target hit or option expiration. In episode-long mode, normal goals cannot expire, so episode-end unresolved commands do not enter the prospective denominator. An exact-start prescribed seed-99 preflight then found zero paired arrival lift at 900 decisions, 25% target hits and 75% censored rows from four starts, despite 100% online prospective graph success. See the [study result](06_experiments/ca3_goals/orthogonal_film_dg_20261008.md#the-episode-long-graph-counter-is-censored).
+- **Evidence:** At 75M, all twelve episode-long orthogonal-FiLM runs report prospective graph success fraction 1.0, including the prescribed and learned-4 arms whose commanded and shuffled online hit rates are nearly equal. The graph update counts attempted outcomes on target hit or option expiration. In episode-long mode, normal goals cannot expire, so episode-end unresolved commands do not enter the prospective denominator. An exact-start prescribed seed-99 preflight then found zero paired arrival lift at 900 decisions, 25% target hits and 75% censored rows from four starts, despite 100% online prospective graph success. See the [study result](06_experiments/dg_goal_control/orthogonal_film_dg_20261008.md#the-episode-long-graph-counter-is-censored).
 - **Impact:** Every observed prospective outcome can be a success by construction. Posterior edge reliability, reliable-edge count and the derived grounded-controllability summary can imply control without accounting for failed or censored commands.
 - **Improvement/status:** Pending. Preserve the existing historical metric contract, but add issued-command and explicit terminal-censor counts to the graph outcome stream. Report physical target arrival within bounded windows with full trial denominators and episode censoring; use matched-start executed alternatives for causal control. Keep the [canonical intervention protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol) as the execution path.
 - **Acceptance:** A test with a commanded goal that ends at an episode boundary without a hit records an issued and censored command; prospective hit fraction is never reported as an unconditional success rate when censoring is omitted. Fixed-window arrival reports hits, failures and censoring separately.
@@ -391,7 +407,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   contract and an optional pose-aligned post-replacement DG sample array or
   field-specific verification summary. Keep existing raw and post-inhibition
   arrays compatible; label the unused projection rows explicitly in reports.
-  See the [four-field study](06_experiments/ca3_goals/four_prescribed_dg_controller_20261007.md)
+  See the [four-field study](06_experiments/dg_goal_control/four_prescribed_dg_controller_20261007.md)
   and [evaluator workflow](04_implementation/reusable_place_field_telemetry.md).
 - **Acceptance:** A prescribed-DG checkpoint probe identifies which rows were
   overridden, verifies sampled activities against the declared field function

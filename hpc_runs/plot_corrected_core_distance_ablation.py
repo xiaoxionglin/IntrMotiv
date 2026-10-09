@@ -19,7 +19,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = ROOT / "06_experiments/ca3_goals"
+REPORT = ROOT / "06_experiments/reward_credit"
 INPUT = REPORT / "results/corrected_core_hit_only_20261009/distance_ablation_visual_inputs.zip"
 OUTPUT = REPORT / "assets/corrected_core_distance_reward_ablation_20261009"
 RESULTS = REPORT / "results/corrected_core_hit_only_20261009"

@@ -31,14 +31,14 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 | Five-cue frozen-DG controls | [[cued_reward5_transfer_20260925|Five-cue campaign and controls]]; [exact 75M endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Paired 50M online evidence and exact 75M frozen/heldout control evidence; the wider eight-arm transfer study has no matched outcome report here | The September 26 interim map, manager, and input-probe analysis is integrated in the campaign report |
 | CA3 predictive active goals | [[ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924|Predictive CA3]] | Balanced 75M online spatial analysis; the declared 300M outcome is unreported | Interim remains the primary result report |
 | Odor and CA3 goal quality | [[ca3_goals/odor_goal_quality_v2_spatial_analysis_20261007|Place fields, trajectories, and graphs]]; [[ca3_goals/odor_goal_quality_v2_command_interventions_20261007|Command interventions]]; [[ca3_goals/odor_goal_quality_40_run_v2_20261007|Coverage and launch]] | All 40 training histories, 70 offline field rollouts, 200 online snapshots, 40 target-hit evaluations, and 40 first-distinct evaluations analyzed; bounded exact-start qualification passed, full executed-command analysis pending | The first 40-job launch was cancelled after code review |
-| Orthogonal FiLM DG replacement | [[ca3_goals/orthogonal_film_dg_20261008|Finite and episode-long replacement]] | 75M online field, trajectory and graph analysis plus all 18 frozen 10k place-field results complete; small prescribed exact-start probe shows zero episode-long arrival lift, full matched-command evaluations running; 150M pending | Tests goal-matrix initialization with a local RNG, then field and horizon effects |
-| Longer-credit DG goals | [[ca3_goals/long_credit_dg_20261008|Episode-long longer-credit test]] | All six 100M controls complete; 95–100M online, five-age retained spatial, and 100M frozen field results collected | Matched nearest-clock controls for source-clock and value-stop comparisons |
-| Source-DG hit bonus | [[ca3_goals/source_distance_hit_dg_20261009|Source-only temporal bonus]]; [[ca3_goals/distance_reward_ablation_decision_20261009|Cross-batch decision]] | All twelve 100M runs, five-age retained spatial analyses, and 75M/100M frozen maps complete; bounded exact-start preflight completed with one start; full control panel open | Mean prescribed source-clock hit reward is barely above the base; no demonstrated command-specific arrival improvement |
-| Corrected-core distance-reward ablation | [[ca3_goals/corrected_core_distance_reward_ablation_20261009|Encoder and worker distance rewards]] | Five hit-only runs completed 100M; C15 seed 99 failed early; online, field, fixed-observation maps, segmented trajectories, and paired graph analyses complete; executed-command control pending; 45 later-wave runs held | Original C01/C05/C15 families, staged worker bonus then encoder credit and PPO-to-DG comparisons |
-| Goal-hit-terminal worker value | [[ca3_goals/goal_value_stop_dg_20261009|Matched value-boundary test]]; [[ca3_goals/distance_reward_ablation_decision_20261009|Cross-batch decision]] | All eighteen 100M runs, five-age retained spatial analyses, and 100M frozen maps complete | C15 hit rates fall under value stopping in all paired seeds for both reward clocks; executed-command control remains open |
-| Four prescribed DG goals | [[ca3_goals/four_prescribed_dg_controller_20261007|Matched controller screen]] | Six 75M runs complete; oracle hits and action sensitivity remain low; frozen causal probe cancelled | Zero-initialized FiLM cohort supplies the paired finite-horizon baseline |
-| Episode-long DG goals | [[ca3_goals/episode_long_dg_controller_20261008|Four-arm horizon study]] | Twelve jobs cancelled after 5M; no 75M/150M outcome | Orthogonal-FiLM replacement supersedes the three FiLM arms; legacy-9 is early context only |
-| Episode-long C05 supplement | [[ca3_goals/episode_long_c05_supplement_20261008|C05–C15 abstract contrast]] | Three production jobs cancelled before planned comparisons | The orthogonal-FiLM replacement restores the family-level contrast |
+| Orthogonal FiLM DG replacement | [[dg_goal_control/orthogonal_film_dg_20261008|Finite and episode-long replacement]] | 75M online field, trajectory and graph analysis plus all 18 frozen 10k place-field results complete; small prescribed exact-start probe shows zero episode-long arrival lift, full matched-command evaluations running; 150M pending | Tests goal-matrix initialization with a local RNG, then field and horizon effects |
+| Longer-credit DG goals | [[reward_credit/long_credit_dg_20261008|Episode-long longer-credit test]] | All six 100M controls complete; 95–100M online, five-age retained spatial, and 100M frozen field results collected | Matched nearest-clock controls for source-clock and value-stop comparisons |
+| Source-DG hit bonus | [[reward_credit/source_distance_hit_dg_20261009|Source-only temporal bonus]]; [[reward_credit/distance_reward_ablation_decision_20261009|Cross-batch decision]] | All twelve 100M runs, five-age retained spatial analyses, and 75M/100M frozen maps complete; bounded exact-start preflight completed with one start; full control panel open | Mean prescribed source-clock hit reward is barely above the base; no demonstrated command-specific arrival improvement |
+| Corrected-core distance-reward ablation | [[reward_credit/corrected_core_distance_reward_ablation_20261009|Encoder and worker distance rewards]] | Five hit-only runs completed 100M; C15 seed 99 failed early; online, field, fixed-observation maps, segmented trajectories, and paired graph analyses complete; executed-command control pending; 45 later-wave runs held | Original C01/C05/C15 families, staged worker bonus then encoder credit and PPO-to-DG comparisons |
+| Goal-hit-terminal worker value | [[reward_credit/goal_value_stop_dg_20261009|Matched value-boundary test]]; [[reward_credit/distance_reward_ablation_decision_20261009|Cross-batch decision]] | All eighteen 100M runs, five-age retained spatial analyses, and 100M frozen maps complete | C15 hit rates fall under value stopping in all paired seeds for both reward clocks; executed-command control remains open |
+| Four prescribed DG goals | [[dg_goal_control/four_prescribed_dg_controller_20261007|Matched controller screen]] | Six 75M runs complete; oracle hits and action sensitivity remain low; frozen causal probe cancelled | Zero-initialized FiLM cohort supplies the paired finite-horizon baseline |
+| Episode-long DG goals | [[dg_goal_control/episode_long_dg_controller_20261008|Four-arm horizon study]] | Twelve jobs cancelled after 5M; no 75M/150M outcome | Orthogonal-FiLM replacement supersedes the three FiLM arms; legacy-9 is early context only |
+| Episode-long C05 supplement | [[dg_goal_control/episode_long_c05_supplement_20261008|C05–C15 abstract contrast]] | Three production jobs cancelled before planned comparisons | The orthogonal-FiLM replacement restores the family-level contrast |
 | COSYNE push–pull ablation | [[controllers/push_pull_ablation_20261007|Temporal-distance ablation execution]] | C15 and CPU2048 intact-reference calibration jobs submitted; four-arm contrast pending | Separate W&B project and pinned runtime patch |
 | Frozen-policy field expression | [[dg_representation/behavior_field_expression_20261007|Behavior and field expression]] | Complete 54-probe 50k matrix: decoder 1 is consistent across C01/C05/C15 in bits per activation; bits per step also favors own-policy DG in all three and CA3 in C01/C05, with metric-dependent layers reported | Historical 10k field probes remain separate |
 | DG capacity and goal conditioning | [[dg_representation/dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
@@ -109,17 +109,26 @@ above determines which findings are current.
 | Predictive active goals | [RESULT: matched 75M interim](ca3_goals/ca3_predictive_active_goals_interim_analysis_20260924.md); [RUN: active-goal batch](ca3_goals/ca3_predictive_active_goals_20260922.md) |
 | State-goal follow-up | [RESULT: matched follow-up](ca3_goals/ca3_followup_analysis_20260926.md); [RUN: G500 production](ca3_goals/ca3_state_goal_followup_20260922.md); [RUN: NEMO2 release record](ca3_goals/ca3_state_goal_followup_nemo2_release_20260922.md) |
 | Odor and CA3 goal quality | [RESULT: place fields, trajectories, and graphs](ca3_goals/odor_goal_quality_v2_spatial_analysis_20261007.md); [RESULT: target-hit and first-distinct command probes](ca3_goals/odor_goal_quality_v2_command_interventions_20261007.md); [RESULT/RUN: coverage and corrected launch](ca3_goals/odor_goal_quality_40_run_v2_20261007.md); [PLAN: original study and supersession](ca3_goals/odor_goal_quality_40_run_plan_20261006.md) |
-| Orthogonal FiLM DG replacement | [RUN: finite, episode-long C15 and C05](ca3_goals/orthogonal_film_dg_20261008.md) |
-| Longer-credit DG goals | [RUN: prescribed and C15 longer-credit study](ca3_goals/long_credit_dg_20261008.md) |
-| Source-DG hit bonus | [RUN: source-distance prescribed, C15 and C05 study](ca3_goals/source_distance_hit_dg_20261009.md) |
-| New DG reward-ablation decision | [ANALYSIS: paired 100M source-clock and value-stop comparison](ca3_goals/distance_reward_ablation_decision_20261009.md) |
-| Corrected-core distance-reward ablation | [RUN: staged C01/C05/C15 encoder and worker study](ca3_goals/corrected_core_distance_reward_ablation_20261009.md) |
-| Goal-hit-terminal worker value | [RUN: matched value-boundary comparison](ca3_goals/goal_value_stop_dg_20261009.md) |
-| Four prescribed DG goals | [RUN: matched six-cell screen](ca3_goals/four_prescribed_dg_controller_20261007.md) |
-| Episode-long DG goals | [RUN: four-arm horizon study and qualification](ca3_goals/episode_long_dg_controller_20261008.md) |
-| Episode-long C05 supplement | [RUN: C05–C15 family contrast and qualification](ca3_goals/episode_long_c05_supplement_20261008.md) |
 
-### F. Environment, reward, and transfer
+### F. DG goal representations and controllers
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Orthogonal FiLM DG replacement | [RUN: finite, episode-long C15 and C05](dg_goal_control/orthogonal_film_dg_20261008.md) |
+| Four prescribed DG goals | [RUN: matched six-cell screen](dg_goal_control/four_prescribed_dg_controller_20261007.md) |
+| Episode-long DG goals | [RUN: four-arm horizon study and qualification](dg_goal_control/episode_long_dg_controller_20261008.md) |
+| Episode-long C05 supplement | [RUN: C05–C15 family contrast and qualification](dg_goal_control/episode_long_c05_supplement_20261008.md) |
+
+### G. Reward and value credit
+
+| Study line or question | Files in reading order |
+| --- | --- |
+| Corrected-core encoder and worker reward ablation | [RESULT: question-first report, fields, trajectories, and peak maps](reward_credit/corrected_core_distance_reward_ablation_20261009.md) |
+| Episode-long hit timing and value boundary | [ANALYSIS: paired 100M decision](reward_credit/distance_reward_ablation_decision_20261009.md); [RUN: longer-credit controls](reward_credit/long_credit_dg_20261008.md); [RUN: source-DG hit bonus](reward_credit/source_distance_hit_dg_20261009.md); [RUN: goal-hit-terminal worker value](reward_credit/goal_value_stop_dg_20261009.md) |
+
+The old `ca3_goals/results/corrected_core_hit_only_20261009` path is a compatibility link to the reward-credit results because submitted StudySpecs pin that provenance path. The current report and data live under `reward_credit/`.
+
+### H. Environment, reward, and transfer
 
 | Study line or question | Files in reading order |
 | --- | --- |
@@ -128,7 +137,7 @@ above determines which findings are current.
 | Initial fixed-reward transfer | [RESULT: latest common step](environments_transfer/fixed_reward_transfer_latest_common_20260911.md); [RUN: implementation](environments_transfer/fixed_reward_transfer_implementation_20260910.md); [RUN: repeat-8 replacement](environments_transfer/fixed_reward_transfer_repeat8_launch_20260910.md); [PLAN: timing replan](environments_transfer/fixed_reward_transfer_timing_replan_20260910.md) |
 | DG-peak and five-cue transfer | [RESULT: five-cue campaign and controls](cued_reward5_transfer_20260925.md); [RUN: DG-peak execution](environments_transfer/fixed_reward_dg_peak_transfer_execution_20260924.md); [AUDIT: site candidates](environments_transfer/fixed_reward_site_candidate_audit_20260924.md) |
 
-### G. Nested Markdown in pinned data and result bundles
+### I. Nested Markdown in pinned data and result bundles
 
 These files stay with their source tables and figures. They are indexed here
 for discovery, while the bundle manifests remain authoritative for replay.
