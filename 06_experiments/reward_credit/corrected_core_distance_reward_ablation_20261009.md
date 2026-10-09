@@ -1,6 +1,6 @@
 # Corrected-core encoder and worker distance-reward ablation
 
-**Analysis snapshot, 9 October 2026:** five first-wave hit-only runs reached 100M; C15 seed 99 failed before 5M and has no efficacy result. Matched-age online, place-field, trajectory, and stored-graph comparisons are available below. The full executed-command comparison is not yet included, and the 45-run encoder wave remains held. No recurring monitor is active.
+**Analysis snapshot, 9 October 2026:** five first-wave hit-only runs reached 100M; C15 seed 99 failed before 5M and has no efficacy result. Matched-age online, place-field, trajectory, and stored-graph comparisons are available below. The full executed-command comparison is still pending. The user directed release without waiting for it; all 45 second-wave encoder runs were submitted on 9 October. No recurring monitor is active.
 
 ## Questions and figures
 
@@ -20,10 +20,10 @@ The [original 100M corrected-core analysis](../corrected_core_reevaluation_20260
 | Release | Families | Encoder interval credit                   | PPO-to-DG | Worker reward                         | New 100M runs |
 | ------- | -------- | ----------------------------------------- | --------- | ------------------------------------- | ------------: |
 | First   | C05, C15 | Original temporal                         | STOP      | Hit reward 1, distance bonus 0        |             6 |
-| Held    | C05, C15 | Constant, none with STOP, none with JOINT | As named  | Original temporal bonus or zero bonus |            36 |
-| Held    | C01      | Constant, none with STOP, none with JOINT | As named  | Original flat worker reward           |             9 |
+| Running | C05, C15 | Constant, none with STOP, none with JOINT | As named  | Original temporal bonus or zero bonus |            36 |
+| Running | C01      | Constant, none with STOP, none with JOINT | As named  | Original flat worker reward           |             9 |
 
-The nine completed September C01/C05/C15 runs supply the historical temporal-credit references. The [first-wave StudySpec](../../hpc_runs/studies/corrected_core_hit_only_first_20261009.study.json) has schema `intrmotiv/study/v1`, workflow `1.14.1`, SHA-256 `8a2b432c06f4fd1f81fe3bd39212b7e01ed444b6cdd89c9672fb68b7f61cc5cc`. The [held second-wave StudySpec](../../hpc_runs/studies/corrected_core_encoder_worker_later_20261009.study.json) has the same schema and workflow, 45 runs, and SHA-256 `37733408996f10975eb055ea93226885e15bdb36b39e6ee5722e8afad354a853`. The [two-run qualification StudySpec](../../hpc_runs/studies/corrected_core_hit_only_qualification_20261009.study.json) is separate from the 51 production runs, SHA-256 `9a1db8d51e0fa107ff1a6f5f21593d418bd4c2a623f5bb978646ac7c2a2dc930`.
+The nine completed September C01/C05/C15 runs supply the historical temporal-credit references. The [first-wave StudySpec](../../hpc_runs/studies/corrected_core_hit_only_first_20261009.study.json) has schema `intrmotiv/study/v1`, workflow `1.14.1`, SHA-256 `8a2b432c06f4fd1f81fe3bd39212b7e01ed444b6cdd89c9672fb68b7f61cc5cc`. The [second-wave StudySpec](../../hpc_runs/studies/corrected_core_encoder_worker_later_20261009.study.json) has the same schema and workflow, 45 runs, and SHA-256 `37733408996f10975eb055ea93226885e15bdb36b39e6ee5722e8afad354a853`. The [two-run qualification StudySpec](../../hpc_runs/studies/corrected_core_hit_only_qualification_20261009.study.json) is separate from the 51 production runs, SHA-256 `9a1db8d51e0fa107ff1a6f5f21593d418bd4c2a623f5bb978646ac7c2a2dc930`.
 
 Both production waves use seeds 8, 99, and 123, 100M frames, and checkpoint/snapshot ages 5M, 25M, 50M, 75M, and 100M. Family-specific archived goal timing, deadlines, architecture, DG maintenance losses, $\gamma=0.99$, and GAE $\lambda=0.95$ remain fixed. The first wave changes `hrl_distance_bonus_coeff=0.1` to `0.0`, keeping `hrl_worker_reward_mode=hit_distance`. The second wave changes only its named encoder credit, PPO gradient route, or worker bonus factor. Constant credit applies to the same qualifying dominant DG onsets and arrival rows; `none+JOINT` retains batch recruitment and multi-activation maintenance losses.
 
@@ -31,7 +31,7 @@ The fixed distance-unit constants come from the event-count-weighted mean feedba
 
 The temporal worker bonus versus zero-bonus contrast changes both timing information and added reward magnitude. A magnitude-matched constant-hit bonus is a future, separate experiment if a timing-only claim becomes necessary.
 
-The canonical telemetry contracts include the five checkpoint ages for field maps, trajectories, directed-graph analysis, and frozen command probes at 75M and 100M. A synthetic checkpoint inventory generated 18 field-map rows, 10 trajectory rows, and 12 intervention rows for the first wave. The held wave generated 129, 75, and 72 respectively, with intervention rows restricted to C05/C15; C01 has no commanded-goal probe. No telemetry jobs are submitted before their checkpoints exist.
+The canonical telemetry contracts include the five checkpoint ages for field maps, trajectories, directed-graph analysis, and frozen command probes at 75M and 100M. A synthetic checkpoint inventory generated 18 field-map rows, 10 trajectory rows, and 12 intervention rows for the first wave. The second wave generated 129, 75, and 72 respectively, with intervention rows restricted to C05/C15; C01 has no commanded-goal probe. No telemetry jobs are submitted before their checkpoints exist.
 
 ## Results by question
 
@@ -137,7 +137,13 @@ The declared 75M/100M intervention requires frozen policies and graphs, exactly 
 
 The terminal C05 seed-8 source-IDs 12–15 pair is now running with the repaired patch and a 24-hour compute limit. These two jobs assess realistic throughput and source coverage before releasing all remaining source shards; the full matched-command result is pending. The isolated training source and checkpoints are untouched. Historical 100M C05/C15 checkpoints were copied with matching hashes into the active workspace and use the same fixed-length evaluation environment. Because these are learned DG detectors rather than prescribed physical targets, their activations do not automatically establish arrival at a location; physical destinations will be described only for units whose independent maps support a location claim.
 
-After the full first-wave 100M result and these four analyses are shown, the later-wave release can be reviewed. No automatic second-wave submission is authorized.
+The 9 October user instruction released the larger wave while this command-control analysis was still running. This changes the release timing, not the interpretation: the first-wave control result remains missing, and C15 seed 99 has no complete first-wave zero-bonus comparator. Later paired estimates must identify that missing cell explicitly.
+
+### Second-wave release and launch audit
+
+The [submitted 45-run manifest](results/corrected_core_hit_only_20261009/later_wave_submitted_jobs.tsv) records Slurm jobs 8322439–8322483 under `train_dir/_slurm/corrected_core_encoder_worker_later_20261009/20261009T194308Z/` in the active workspace. The canonical submitted-manifest audit confirmed all 45 unique commands and job IDs, the exact StudySpec SHA-256 above, and workspace-only paths. All 45 were visible as running immediately after submission and had written runtime configurations. An independent check of all 45 parsed configurations found 15 distinct settings, three seeds per setting, and no mismatch in encoder credit, PPO route, worker bonus, goal timing, $\gamma$, rollout, recurrence, or 100M horizon. Each job requests 40 CPUs, 80 GB, and 60 hours on the CPU partition; the declared checkpoints and online snapshots are at 5M, 25M, 50M, 75M, and 100M.
+
+Before launch, print-only review and local and NEMO2 StudySpec validation produced the same 45-run fingerprint. Source-file hashes for the DG encoder, learner, argument parser, and graph controller matched the pinned first-wave release. Focused reward, controller, gradient-ownership, and canonical-study tests passed in the exact isolated source checkout: 50 plus 61 tests. The code audit confirmed that constant and zero interval credit retain the same dominant-onset mask, zero-credit cells retain DG maintenance losses, and `none+JOINT` passes PPO gradients through the DG path. No release-blocking bug was found or source code changed. Compute-node training qualification for these 15 distinct settings was not run before submission; the first 5M check must therefore inspect every setting for finite losses, DG activity, goal exposure where applicable, and checkpoint integrity. These are launch checks, not efficacy evidence.
 
 ## Methods and provenance
 
