@@ -1,0 +1,41 @@
+{
+  "batch_name": "source_distance_hit_dg_20261009",
+  "complete": true,
+  "condition_summary_rows": 20,
+  "cue_assignment_rows": 0,
+  "expected_runs": 12,
+  "expected_snapshots": 60,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 14400,
+  "group_by": [
+    "arm"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 60,
+  "per_field_rows": 15929,
+  "per_snapshot_rows": 60,
+  "per_unit_rows": 960,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 60,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/source_distance_hit_dg_20261009",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "source_distance_hit_dg_20261009",
+  "study_sha256": "9fd08a86aebf3c4e809b8d4b9ebf505708797b858b1982f099d152289d39400d",
+  "study_spec": "hpc_runs/studies/source_distance_hit_dg_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

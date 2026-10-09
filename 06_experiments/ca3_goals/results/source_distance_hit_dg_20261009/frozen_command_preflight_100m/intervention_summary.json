@@ -1,0 +1,55 @@
+{
+  "protocol": "landmark-matched-commands-v1",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/source_distance_hit_dg_20261009/SDHG_ORACLE_SOURCE_S99_/00_SDHG_ORACLE_SOURCE_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+  "decisions": 9736,
+  "supported_sources": 1,
+  "source_panel_coverage": 1.0,
+  "mean_initial_action_total_variation": 0.08327596386273702,
+  "sources_evaluated": 1,
+  "starts_evaluated": 1,
+  "max_sources": 1,
+  "targets_per_source": 3,
+  "repeats_requested": 8,
+  "missing": [
+    {
+      "reason": "insufficient_repeated_starts",
+      "source": 0,
+      "requested": 8,
+      "found": 1
+    }
+  ],
+  "exact_start_verified": true,
+  "policy_frozen": true,
+  "graph_frozen": true,
+  "paired_arrival_lift": -0.16666666666666666,
+  "paired_comparisons": 3,
+  "trial_status": "paired_trials_available",
+  "ambiguous_discovery_observations": 0,
+  "ambiguous_trial_observations": 0,
+  "censored_rows": 5,
+  "rows": 9,
+  "focus_sources": [
+    0
+  ],
+  "focus_target": null,
+  "physical_horizon": null,
+  "fixed_evaluation_horizon": 900,
+  "horizons": [
+    64,
+    128,
+    256,
+    900
+  ],
+  "target_selection": "all_eligible",
+  "goal_count": 4,
+  "discovery_multiplier": 8,
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "study_id": "source_distance_hit_dg_20261009",
+  "study_sha256": "9fd08a86aebf3c4e809b8d4b9ebf505708797b858b1982f099d152289d39400d",
+  "condition": "SDHG_ORACLE_SOURCE",
+  "seed": 99,
+  "checkpoint_frames": 100007936,
+  "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/source_distance_hit_dg_20261009/telemetry_full/intervention_manifest.tsv",
+  "manifest_row": 3
+}

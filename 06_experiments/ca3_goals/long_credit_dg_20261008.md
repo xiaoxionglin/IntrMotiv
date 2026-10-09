@@ -1,6 +1,6 @@
 # Longer-credit episode-long DG goals
 
-**Status, 8 October 2026:** both seed-99 compute-node qualifications and exact checkpoint reloads passed. The frozen place-field smoke passed. Six 100M-frame production jobs, 8316177–8316182, were submitted and are running. No production outcome is available yet, and no recurring monitor is active.
+**Status, 9 October 2026:** both seed-99 compute-node qualifications and exact checkpoint reloads passed. All six 100M-frame production jobs, 8316177–8316182, completed. Their 95–100M online metrics, five-age retained spatial snapshots, and six matched 100M frozen 10k-decision field rollouts are collected. Executed matched-command control and the longer-credit sufficiency claim remain open. No recurring monitor is active.
 
 ## Question and controlled change
 
@@ -31,6 +31,8 @@ The submitted qualification StudySpec inherited terminal telemetry seeds 8 and 1
 The final production print-only and submitted audits matched all six commands and workspace-only paths. The [production submission audit](results/long_credit_dg_20261008/production_submission_audit.json) binds StudySpec SHA-256 `c15787924ac6d6c5f0c1ac07532f09b18ac6c8a44819463fdd9fa491921dd14c` to jobs 8316177–8316182: prescribed seeds 8/99/123 are 8316177–8316179, and C15 seeds 8/99/123 are 8316180–8316182. All six entered `RUNNING` at first scheduler check. The immutable Slurm manifest is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/long_credit_dg_20261008/20261008T215730Z/jobs.tsv`; its six independent scripts request 60 hours each on the CPU partition. The pre-existing paired baseline jobs were not changed or resubmitted. Their 100M checkpoints were not yet present at submission and remain an evaluation dependency.
 
 ## Analysis and decision boundary
+
+The terminal [95–100M online table](results/long_credit_dg_20261008/online_95_100m/per_run.csv), complete [retained spatial schedule](results/long_credit_dg_20261008/spatial_through_100m/per_snapshot.csv), and [100M frozen field metrics](results/long_credit_dg_20261008/frozen_100m/derived_place_field_metrics.csv) are available for all three seeds in both arms. The [episode-long reward decision record](distance_reward_ablation_decision_20261009.md) pairs these nearest-clock continuing-value runs with the source-clock and goal-value-stop arms at 100M. Prescribed frozen fixed rows are encountered 5–42 times per 10,001 decisions, while no learned context row passes the mono-field classifier in any seed. C15 has zero, zero and one mono-field rows across seeds. These are field and exposure results, not a positive control outcome; the originally planned comparison against the older-credit orthogonal-FiLM runs still needs its executed-command endpoint.
 
 At 5M, 25M, 50M, 75M and 100M, compare matched seeds and ages for field exposure, commanded and shuffled hit counts, hit latency where observed, value/advantage diagnostics, action sensitivity and coverage. A missing or rare-hit denominator makes a reward-sufficiency judgment inconclusive. Training statistics are interim evidence.
 

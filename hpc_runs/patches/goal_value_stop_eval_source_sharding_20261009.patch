@@ -1,0 +1,164 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -799,6 +799,39 @@
+     return pd.DataFrame(rows), summary
+ 
+ 
++def landmark_options_for_row(intervention: dict, focus_sources: str | None,
++                             discovery_multiplier: int) -> dict | None:
++    """Preserve declared trial settings while limiting source discovery."""
++    if intervention.get("evaluation") != "landmark-matched-commands-v1":
++        if focus_sources is not None:
++            raise ValueError("Source shards require landmark-matched-commands-v1")
++        return None
++    options = {
++        key: intervention[key]
++        for key in (
++            "max_sources", "targets_per_source", "repeats",
++            "discovery_multiplier", "target_selection",
++            "fixed_evaluation_horizon", "horizons",
++        )
++        if key in intervention
++    }
++    if focus_sources is None:
++        return options
++    try:
++        source_ids = [int(value) for value in focus_sources.split(",")]
++    except ValueError as exc:
++        raise ValueError("Focus sources must be comma-separated DG IDs") from exc
++    if not source_ids or len(source_ids) != len(set(source_ids)) or any(source < 0 for source in source_ids):
++        raise ValueError("Focus sources must be distinct nonnegative DG IDs")
++    if discovery_multiplier <= 0:
++        raise ValueError("Discovery multiplier must be positive")
++    if "max_sources" in options and len(source_ids) > int(options["max_sources"]):
++        raise ValueError("Source shard exceeds StudySpec max_sources")
++    options.update(max_sources=len(source_ids), focus_sources=source_ids,
++                   discovery_multiplier=discovery_multiplier)
++    return options
++
++
+ def parse_args() -> argparse.Namespace:
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--manifest", type=pathlib.Path, required=True)
+@@ -807,6 +840,8 @@
+     parser.add_argument("--decision-cap", type=int, default=100000)
+     parser.add_argument("--attempts-per-pair", type=int, default=5)
+     parser.add_argument("--deterministic", action="store_true")
++    parser.add_argument("--focus-sources", type=str)
++    parser.add_argument("--discovery-multiplier", type=int, default=8)
+     return parser.parse_args()
+ 
+ 
+@@ -839,22 +874,8 @@
+             )
+             if source in intervention
+         },
+-        landmark_options=(
+-            {
+-                key: intervention[key]
+-                for key in (
+-                    "max_sources",
+-                    "targets_per_source",
+-                    "repeats",
+-                    "discovery_multiplier",
+-                    "target_selection",
+-                    "fixed_evaluation_horizon",
+-                    "horizons",
+-                )
+-                if key in intervention
+-            }
+-            if intervention.get("evaluation") == "landmark-matched-commands-v1"
+-            else None
++        landmark_options=landmark_options_for_row(
++            intervention, args.focus_sources, args.discovery_multiplier
+         ),
+         first_distinct=bool(intervention.get("terminate_on_first_distinct_exclusive_outcome", False)),
+         observed_targets_only=bool(intervention.get("balanced_observed_alternative_targets", False)),
+--- a/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
++++ b/sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh
+@@ -91,6 +91,15 @@
+ export MKL_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ 
++shard_args=()
++if [[ -n ${INTERVENTION_FOCUS_SOURCES:-} ]]; then
++  focus_sources=${INTERVENTION_FOCUS_SOURCES//:/,}
++  [[ $focus_sources =~ ^[0-9]+(,[0-9]+)*$ ]] || {
++    echo "INTERVENTION_FOCUS_SOURCES must be comma-separated DG IDs" >&2; exit 2;
++  }
++  shard_args=(--focus-sources "$focus_sources"
++              --discovery-multiplier "${INTERVENTION_DISCOVERY_MULTIPLIER:-8}")
++fi
+ decision_cap=${PLACE_FIELD_MAX_FRAMES:-100000}
+ /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python \
+   sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py \
+@@ -98,4 +107,5 @@
+   --row-index "$row_index" \
+   --out-dir "$output_dir/raw" \
+   --decision-cap "$decision_cap" \
+-  --attempts-per-pair 5
++  --attempts-per-pair 5 \
++  "${shard_args[@]}"
+--- a/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
+@@ -153,6 +153,15 @@
+             if "," in str(path):
+                 raise ValueError("Observation panel path cannot contain Slurm export delimiters")
+             export += f",{key}={path}"
++    for key, pattern in (
++        ("INTERVENTION_FOCUS_SOURCES", r"[0-9]+(?:,[0-9]+)*"),
++        ("INTERVENTION_DISCOVERY_MULTIPLIER", r"[1-9][0-9]*"),
++    ):
++        value = os.environ.get(key)
++        if value is not None:
++            if not re.fullmatch(pattern, value):
++                raise ValueError(f"Invalid {key}: {value!r}")
++            export += f",{key}={value.replace(',', ':')}"
+     return [
+         "sbatch",
+         f"--job-name={safe_job_name(job_name_prefix, row.label)}",
+--- a/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
++++ b/sf_working_directories/IntrMotiv/tests/test_landmark_matched_interventions.py
+@@ -194,3 +194,42 @@
+     assert rows[rows.commanded].hit.all()
+     assert not rows[rows.commanded].censored.any()
+     assert rows[~rows.commanded].censored.all()
++
++
++def test_source_shard_preserves_declared_panel_and_validates_ids():
++    intervention = {
++        "evaluation": "landmark-matched-commands-v1",
++        "max_sources": 16, "targets_per_source": 3, "repeats": 8,
++        "discovery_multiplier": 10, "target_selection": "all_eligible",
++        "fixed_evaluation_horizon": 900, "horizons": [64, 128, 256, 900],
++    }
++    assert ev.landmark_options_for_row(intervention, None, 8) == {
++        key: value for key, value in intervention.items() if key != "evaluation"
++    }
++    shard = ev.landmark_options_for_row(intervention, "0,2", 8)
++    assert shard["focus_sources"] == [0, 2]
++    assert shard["max_sources"] == 2
++    assert shard["discovery_multiplier"] == 8
++    assert shard["fixed_evaluation_horizon"] == 900
++    assert shard["targets_per_source"] == 3
++    assert shard["repeats"] == 8
++    for invalid in ("", "0,0", "-1,2", "0,a"):
++        with pytest.raises(ValueError):
++            ev.landmark_options_for_row(intervention, invalid, 8)
++
++
++def test_source_shard_export_is_slurm_safe(monkeypatch, tmp_path):
++    from sf_working_directories.IntrMotiv.evaluation import submit_place_field_sweep as submitter
++
++    monkeypatch.setenv("INTERVENTION_FOCUS_SOURCES", "0,1")
++    monkeypatch.setenv("INTERVENTION_DISCOVERY_MULTIPLIER", "8")
++    command = submitter.build_sbatch_command(
++        row=submitter.ManifestRow(0, {"label_suffix": "cell"}),
++        manifest=tmp_path / "manifest.tsv", output_dir=tmp_path / "output",
++        runner=tmp_path / "runner.sh", partition="cpu", cpus=4, memory="16G",
++        time_limit="06:00:00", max_num_frames=300000,
++        job_name_prefix="shard", workspace_root=tmp_path,
++    )
++    exported = next(value for value in command if value.startswith("--export="))
++    assert "INTERVENTION_FOCUS_SOURCES=0:1" in exported
++    assert "INTERVENTION_DISCOVERY_MULTIPLIER=8" in exported

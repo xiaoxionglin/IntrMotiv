@@ -6,6 +6,51 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep exact-start source sharding compatible with current evaluators — 2026-10-09
+
+- **Evidence:** The unmodified prescribed source-clock 75M exact-start preflight
+  (8319859) timed out after one hour without a summary. The earlier
+  [bounded-source patch](hpc_runs/patches/odor_v2_exact_start_source_sharding_20261008.patch)
+  failed its dry run against the newer goal-value-stop evaluator: one hunk no
+  longer matched, and its context-free additions would have landed inside the
+  wrong function. An evaluation-only copy was restored from untouched source,
+  then the [contextual adaptation](hpc_runs/patches/goal_value_stop_eval_source_sharding_20261009.patch)
+  passed a clean dry run and six focused tests. Its one-source 100M preflight,
+  job 8320616, completed exit zero in 38 minutes with exact starts and frozen
+  policy/graph, but discovered only one of eight requested repeated starts.
+  It wrote nine trial rows; independent physical-distance columns remained
+  null even for prescribed fields. See the [decision record](06_experiments/ca3_goals/distance_reward_ablation_decision_20261009.md).
+- **Impact:** Monolithic fresh-engine command tests can consume their entire
+  limit without a usable result. Reusing a positional patch across source
+  revisions can silently place evaluator code in the wrong function.
+- **Improvement/status:** Keep the adaptation isolated from training source;
+  require a clean patch dry run, syntax check and focused evaluator tests before
+  a bounded shard. Add a canonical source-shard selector and audited merge to
+  the evaluation package rather than maintaining version-specific patches.
+  Improve repeated-start discovery before scaling the panel, and fix the
+  [independent physical-arrival output](#require-populated-physical-arrival-outcomes-in-matched-command-dg-evaluations--2026-10-08)
+  before claiming a geometric outcome.
+- **Acceptance:** Every shard reports exact-start validity, completed source
+  and target coverage, paired physical arrivals at declared horizons, failures
+  and censoring; the merge rejects duplicate or missing shards and preserves
+  the submitted StudySpec fingerprint.
+
+### Make the frozen trajectory plotter accept declared study labels — 2026-10-09
+
+- **Evidence:** The 75M source-clock postprocessor found and summarized all
+  twelve frozen rollouts, but its trajectory plotter wrote empty legacy
+  condition panels for the study's four declared arm names. The canonical
+  retained-snapshot atlas did render nonempty segmented trajectories for those
+  same arms.
+- **Impact:** A successful plotting command can produce an empty figure that
+  appears to show no movement, obscuring valid rollout data.
+- **Improvement/status:** Pending. Derive panel labels and ordering from the
+  manifest or skip legacy aggregate panels whose selected row set is empty;
+  keep the canonical atlas as the current trajectory view.
+- **Acceptance:** A four-arm source-clock manifest renders at least one
+  nonempty trajectory per selected arm, and an empty selection fails or is
+  labeled unavailable instead of saving blank axes.
+
 ### Bound analysis math threads on crowded NEMO2 login nodes — 2026-10-09
 
 - **Evidence:** The 75M source-distance `collect-spatial --include-details`

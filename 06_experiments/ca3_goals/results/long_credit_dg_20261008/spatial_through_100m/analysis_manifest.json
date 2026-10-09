@@ -1,0 +1,41 @@
+{
+  "batch_name": "long_credit_dg_20261008",
+  "complete": true,
+  "condition_summary_rows": 10,
+  "cue_assignment_rows": 0,
+  "expected_runs": 6,
+  "expected_snapshots": 30,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 7200,
+  "group_by": [
+    "arm"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 30,
+  "per_field_rows": 8035,
+  "per_snapshot_rows": 30,
+  "per_unit_rows": 480,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 30,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/long_credit_dg_20261008",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "long_credit_dg_20261008",
+  "study_sha256": "c15787924ac6d6c5f0c1ac07532f09b18ac6c8a44819463fdd9fa491921dd14c",
+  "study_spec": "hpc_runs/studies/long_credit_dg_20261008.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

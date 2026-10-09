@@ -188,6 +188,16 @@ four components in the result report. Keep bulk NPZs, full plot sets, and
 graph-edge tables in the allocated workspace; copy selected readable figures
 and lightweight summaries into the vault. Inspect figures at report size.
 
+For conditional hit diagnostics such as `correct_reward_magnitude_mean` and
+`correct_elapsed_mean`, do not average per-update means across zero-hit learner
+updates. Export metric histories, join each conditional mean with
+`intrmotiv/hrl/control/correct_count` at the same step, and use that count as
+the weight. Report the summed hit count and distinguish repeated learner-batch
+observations from independent matched-start arrival trials. When evaluating
+only one checkpoint age from a multi-age telemetry manifest, filter the
+generated manifest for postprocessing; keep the submitted StudySpec and its
+fingerprint unchanged.
+
 If a component does not apply (for example, no graph module or no commanded
 goals), explain why in its section. If a required artifact is missing, identify
 the missing input and next action, and keep the analysis status open. Do not

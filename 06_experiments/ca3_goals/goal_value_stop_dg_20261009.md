@@ -1,6 +1,6 @@
 # Goal-hit-terminal worker value study
 
-**Status, 9 October 2026:** six seed-99 compute-node qualifications passed exact checkpoint reload and frozen field smoke. Eighteen 100M production jobs, 8316687–8316704, were submitted with exact StudySpec audit; full outcomes are pending. No recurring monitor is active.
+**Status, 9 October 2026:** all eighteen production jobs 8316687–8316704 completed 100M frames. The canonical 95–100M online collection, all ninety declared spatial snapshots, and all eighteen 100M frozen 10k-decision evaluations are complete. No recurring monitor is active.
 
 ## Question and intervention
 
@@ -30,6 +30,10 @@ The [production StudySpec](../../hpc_runs/studies/goal_value_stop_dg_20261009.st
 | C05 | Source command | `source_distance_hit_dg_20261009`: `c05_source` | `c05_source` |
 
 Within every row, paired seeds and checkpoint ages isolate the value-target boundary. Within each family, the two new arms compare reward clocks under the same goal-hit-terminal value target. The crossed comparisons assess whether the reward-clock effect depends on the value boundary. Family comparisons remain descriptive because representation, manager, and DG regularizers differ.
+
+## 100M result
+
+The [95–100M per-run online table](results/goal_value_stop_dg_20261009/online_95_100m/per_run.csv) and complete [five-age spatial table](results/goal_value_stop_dg_20261009/spatial_through_100m/per_snapshot.csv) carry the immutable production StudySpec SHA-256 `0159bd2e8944a7f1c283822a23cdf0e720336beaf54607b3e60aa1d92069cf2f`. The [cross-study decision record](distance_reward_ablation_decision_20261009.md) gives the paired seed contrasts, field and trajectory analyses, graphs, and the distinction between online and frozen control evidence. Stopping the worker value target at the goal hit has not produced a replicated command-selective benefit in these 100M online results. In C15 it reduces logged hit rates for both reward clocks in all three paired seeds. The completed [100M frozen field results](results/goal_value_stop_dg_20261009/frozen_100m/derived_place_field_metrics.csv) show no replicated field-structure benefit. Executed-command tests remain necessary before making a positive control claim.
 
 ## Code and release checks
 

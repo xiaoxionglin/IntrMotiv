@@ -1,0 +1,41 @@
+{
+  "batch_name": "goal_value_stop_dg_20261009",
+  "complete": true,
+  "condition_summary_rows": 30,
+  "cue_assignment_rows": 0,
+  "expected_runs": 18,
+  "expected_snapshots": 90,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 21600,
+  "group_by": [
+    "arm"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 90,
+  "per_field_rows": 23007,
+  "per_snapshot_rows": 90,
+  "per_unit_rows": 1440,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 90,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/goal_value_stop_dg_20261009",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "goal_value_stop_dg_20261009",
+  "study_sha256": "0159bd2e8944a7f1c283822a23cdf0e720336beaf54607b3e60aa1d92069cf2f",
+  "study_spec": "hpc_runs/studies/goal_value_stop_dg_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

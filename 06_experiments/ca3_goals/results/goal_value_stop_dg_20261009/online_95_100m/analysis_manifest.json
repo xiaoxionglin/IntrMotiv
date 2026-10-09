@@ -1,0 +1,61 @@
+{
+  "batch_name": "goal_value_stop_dg_20261009",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/goal_value_stop_dg_20261009/online_95_100m/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        95000000,
+        100000000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [
+    "ORACLE_SOURCE_minus_ORACLE_NEAREST_at_goal_value_stop",
+    "C15_SOURCE_minus_C15_NEAREST_at_goal_value_stop",
+    "C05_SOURCE_minus_C05_NEAREST_at_goal_value_stop"
+  ],
+  "expected_runs": 18,
+  "group_by": [
+    "arm"
+  ],
+  "input_rows": 18,
+  "metrics": [
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "coverage_auc",
+    "dg_density",
+    "dg_silent_fraction",
+    "dg_usage_entropy",
+    "target_action_sensitivity",
+    "target_hit_numerator",
+    "target_hit_event_count",
+    "shuffled_hit_numerator",
+    "shuffled_hit_event_count",
+    "behavior_replay_mismatch",
+    "target_action_probability_tv",
+    "active_target_fraction",
+    "correct_outcome_count",
+    "censored_outcome_count",
+    "correct_elapsed_mean",
+    "correct_reward_magnitude_mean",
+    "correct_source_command_distance_mean",
+    "correct_nearest_dg_distance_mean",
+    "correct_bonus_distance_changed_fraction"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "goal_value_stop_dg_20261009",
+  "study_sha256": "0159bd2e8944a7f1c283822a23cdf0e720336beaf54607b3e60aa1d92069cf2f",
+  "study_spec": "hpc_runs/studies/goal_value_stop_dg_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
