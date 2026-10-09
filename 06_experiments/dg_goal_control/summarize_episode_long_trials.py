@@ -78,6 +78,47 @@ def summarize(root: Path) -> tuple[list[dict], list[dict]]:
     return rows, provenance
 
 
+def paired_horizon_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
+    """Pair training seeds while retaining each arm's executed-trial denominator.
+
+    Commands are exactly matched to alternatives *within* an arm. Starts need
+    not be identical *between* independently trained finite and episode arms.
+    """
+    arms = (
+        ("Prescribed", "OFDG_ORACLE", "OELDG_ORACLE_FILM"),
+        ("Learned-4 detector", "OFDG_LEARNED", "OELDG_LEARNED4_FILM"),
+    )
+    paired = []
+    for family, finite, episode in arms:
+        for seed in (8, 99, 123):
+            for horizon in (64, 128, 256, 900):
+                finite_rows = frame.loc[
+                    frame.run_name.eq(finite) & frame.seed.eq(seed) & frame.horizon.eq(horizon)
+                ]
+                episode_rows = frame.loc[
+                    frame.run_name.eq(episode) & frame.seed.eq(seed) & frame.horizon.eq(horizon)
+                ]
+                assert len(finite_rows) == len(episode_rows) == 1
+                left, right = finite_rows.iloc[0], episode_rows.iloc[0]
+                assert left.paired_targets == right.paired_targets == 96
+                paired.append({
+                    "family": family, "seed": seed, "horizon": horizon,
+                    "finite_run": finite, "episode_run": episode,
+                    "finite_lift": left.paired_lift,
+                    "episode_lift": right.paired_lift,
+                    "episode_minus_finite_lift": right.paired_lift - left.paired_lift,
+                    "finite_commanded_rate": left.commanded_rate,
+                    "episode_commanded_rate": right.commanded_rate,
+                    "finite_alternative_rate": left.alternative_rate,
+                    "episode_alternative_rate": right.alternative_rate,
+                    "finite_censored_rows": left.censored_rows,
+                    "episode_censored_rows": right.censored_rows,
+                    "trials_per_arm": left.total_rows,
+                })
+    assert len(paired) == 24
+    return pd.DataFrame(paired)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--finite-root", required=True, type=Path)
@@ -93,8 +134,12 @@ def main() -> None:
         all_provenance.extend(provenance)
     assert all_rows and all_provenance
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(all_rows).sort_values(["condition", "seed", "horizon"]).to_csv(
+    frame = pd.DataFrame(all_rows).sort_values(["condition", "seed", "horizon"])
+    frame.to_csv(
         args.output_dir / "matched_command_75m_per_horizon.csv", index=False
+    )
+    paired_horizon_contrasts(frame).to_csv(
+        args.output_dir / "matched_command_75m_paired_horizon_effects.csv", index=False
     )
     pd.DataFrame(all_provenance).sort_values(["condition", "seed"]).to_csv(
         args.output_dir / "matched_command_raw_provenance.csv", index=False

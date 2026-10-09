@@ -275,6 +275,41 @@ def plot_command_lift() -> None:
     save(fig, "matched_command_lift_75m")
 
 
+def plot_deadline_paired_lift() -> None:
+    """Show episode-minus-finite command lift by paired training seed.
+
+    The executed command alternatives share exact starts within each arm;
+    the finite and episode policies do not necessarily share physical starts.
+    """
+    data = pd.read_csv(RESULTS / "matched_command_75m_paired_horizon_effects.csv")
+    assert len(data) == 24
+    colors = {8: "#0072B2", 99: "#D55E00", 123: "#009E73"}
+    fig, axes = plt.subplots(1, 2, figsize=(14.5, 5.8), sharey=True)
+    for ax, family in zip(axes, ("Prescribed", "Learned-4 detector")):
+        rows = data.loc[data.family.eq(family)]
+        assert len(rows) == 12
+        for seed in SEEDS:
+            selected = rows.loc[rows.seed.eq(seed)].sort_values("horizon")
+            assert selected.horizon.tolist() == [64, 128, 256, 900]
+            ax.plot(selected.horizon, selected.episode_minus_finite_lift,
+                    marker="o", linewidth=2.2, markersize=9,
+                    color=colors[seed], label=f"Seed {seed}")
+        ax.axhline(0, color="#333333", linewidth=1)
+        ax.set_xscale("log", base=2)
+        ax.set_xticks([64, 128, 256, 900], ["64", "128", "256", "900"])
+        ax.set_xlim(56, 1050)
+        ax.set_xlabel("Decision window")
+        ax.set_title(family)
+        ax.grid(axis="y", color="#D8DEE4")
+    axes[0].set_ylabel("Episode-long − finite command lift")
+    fig.suptitle("75M goal-deadline contrast | paired training seeds", fontsize=23)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, -0.08),
+               ncol=3, frameon=False)
+    fig.tight_layout(rect=(0, 0.055, 1, 0.92))
+    save(fig, "deadline_paired_lift_75m")
+
+
 def plot_c15_value_stop_field_tradeoff() -> None:
     """Show matched 100M C15 field specificity against frozen path support."""
     data = pd.read_csv(RESULTS / "frozen_100m_reward_per_run.csv")
@@ -933,6 +968,8 @@ def main() -> None:
     setup_style()
     plot_peak_centers()
     plot_command_lift()
+    if (RESULTS / "matched_command_75m_paired_horizon_effects.csv").is_file():
+        plot_deadline_paired_lift()
     plot_reward_factors(reward_factor_table())
     plot_c15_value_stop_field_tradeoff()
     plot_longer_credit()
