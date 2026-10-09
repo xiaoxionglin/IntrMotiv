@@ -501,6 +501,13 @@ python -m hpc_runs.intrmotiv_study collect-spatial \
   /work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/MY_SPATIAL_ANALYSIS
 ```
 
+On a crowded NEMO2 login node, set `OPENBLAS_NUM_THREADS=1`,
+`OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1` before
+starting analysis. The 75M source-distance spatial collection otherwise failed
+during NumPy import when OpenBLAS attempted 60 threads; the identical command
+completed with those limits. This affects analysis process resources, not the
+saved snapshots or training settings.
+
 The default is CSV-only and writes `per_snapshot.csv`,
 `snapshot_inventory.csv`, `condition_summary.csv`, `seed_summary.csv`, and an
 `analysis_manifest.json` containing workflow version, study SHA-256,

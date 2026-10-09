@@ -6,6 +6,22 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Bound analysis math threads on crowded NEMO2 login nodes — 2026-10-09
+
+- **Evidence:** The 75M source-distance `collect-spatial --include-details`
+  attempt failed while importing NumPy: OpenBLAS tried to create 60 threads and
+  the login node returned `Resource temporarily unavailable`. The unchanged
+  canonical command completed after setting `OPENBLAS_NUM_THREADS=1`,
+  `OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`.
+- **Impact:** A valid retained-snapshot analysis can appear to have broken
+  NumPy or source code when the actual limit is process thread capacity.
+- **Improvement/status:** The remote-analysis instructions now state the
+  one-thread workaround. Consider a reusable analysis launcher that sets these
+  defaults without changing training environments.
+- **Acceptance:** The launcher imports NumPy and completes canonical online
+  and spatial collection under the same crowded-node conditions; job scripts
+  retain their own explicit thread settings.
+
 ### Record the evaluation environment in historical field manifests — 2026-10-09
 
 - **Evidence:** The corrected-core C05/C15 historical place-field logs ran

@@ -1,0 +1,43 @@
+{
+  "analysis_rows": 12,
+  "batch_name": "source_distance_hit_dg_20261009",
+  "expected_runs": 12,
+  "intervention": {
+    "alternative_targets": 3,
+    "attempts_per_ordered_pair": 8,
+    "counterfactual_action_sensitivity": true,
+    "decision_cap": 2000000,
+    "discovery_multiplier": 10,
+    "evaluation": "landmark-matched-commands-v1",
+    "exclusive_source_only": true,
+    "fixed_evaluation_horizon": 900,
+    "freeze_graph": true,
+    "freeze_policy": true,
+    "horizons": [
+      64,
+      128,
+      256,
+      900
+    ],
+    "max_sources": 16,
+    "protocol": "target-control-intervention-v1",
+    "record_orientation_bins": true,
+    "repeats": 8,
+    "source_context_matched_shuffle": false,
+    "target_frames": [
+      75000000
+    ],
+    "target_selection": "all_eligible",
+    "targets_per_source": 3
+  },
+  "intervention_rows": 12,
+  "schema": "intrmotiv/study/v1",
+  "study_id": "source_distance_hit_dg_75m_eval_20261009",
+  "study_sha256": "f69858d2c51b8b63ae8cb611bc2cd358dd58db09ff8ed8527e0b1692e1b67f21",
+  "study_spec": "hpc_runs/studies/source_distance_hit_dg_75m_eval_20261009.study.json",
+  "study_workflow_version": "1.14.1",
+  "telemetry_protocol": "dg-place-fields-v1",
+  "training_mode": "sample_factory",
+  "trajectory_rows": 4,
+  "workflow_version": "1.14.1"
+}
