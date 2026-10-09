@@ -8,11 +8,11 @@ This program separates three questions in the original corrected-core C01, C05, 
 
 The [original 100M corrected-core analysis](../corrected_core_reevaluation_20260901.md) reported mean terminal coverage AUC of 38.0 (C01), 42.0 (C05), and 78.6 (C15) across the three seeds. C15's target-hit lift was 0.898 and action sensitivity 0.0019 despite its broad graph; C05 had lift 1.091 and sensitivity 0.0256. These are descriptive online quantities and explain why this program makes matched-start command behavior, rather than coverage or graph confidence, its control endpoint.
 
-| Release | Families | Encoder interval credit | PPO-to-DG | Worker reward | New 100M runs |
-| --- | --- | --- | --- | --- | ---: |
-| First | C05, C15 | Original temporal | STOP | Hit reward 1, distance bonus 0 | 6 |
-| Held | C05, C15 | Constant, none with STOP, none with JOINT | As named | Original temporal bonus or zero bonus | 36 |
-| Held | C01 | Constant, none with STOP, none with JOINT | As named | Original flat worker reward | 9 |
+| Release | Families | Encoder interval credit                   | PPO-to-DG | Worker reward                         | New 100M runs |
+| ------- | -------- | ----------------------------------------- | --------- | ------------------------------------- | ------------: |
+| First   | C05, C15 | Original temporal                         | STOP      | Hit reward 1, distance bonus 0        |             6 |
+| Held    | C05, C15 | Constant, none with STOP, none with JOINT | As named  | Original temporal bonus or zero bonus |            36 |
+| Held    | C01      | Constant, none with STOP, none with JOINT | As named  | Original flat worker reward           |             9 |
 
 The nine completed September C01/C05/C15 runs supply the historical temporal-credit references. The [first-wave StudySpec](../../hpc_runs/studies/corrected_core_hit_only_first_20261009.study.json) has schema `intrmotiv/study/v1`, workflow `1.14.1`, SHA-256 `8a2b432c06f4fd1f81fe3bd39212b7e01ed444b6cdd89c9672fb68b7f61cc5cc`. The [held second-wave StudySpec](../../hpc_runs/studies/corrected_core_encoder_worker_later_20261009.study.json) has the same schema and workflow, 45 runs, and SHA-256 `37733408996f10975eb055ea93226885e15bdb36b39e6ee5722e8afad354a853`. The [two-run qualification StudySpec](../../hpc_runs/studies/corrected_core_hit_only_qualification_20261009.study.json) is separate from the 51 production runs, SHA-256 `9a1db8d51e0fa107ff1a6f5f21593d418bd4c2a623f5bb978646ac7c2a2dc930`.
 
