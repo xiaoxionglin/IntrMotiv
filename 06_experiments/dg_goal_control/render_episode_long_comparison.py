@@ -789,6 +789,47 @@ def plot_frozen_100m_path_contrasts(npz_dir: Path) -> None:
         save(fig, stem)
 
 
+def plot_c05_100m_graph_attempts(npz_dir: Path) -> None:
+    """Show which directed C05 pairs ever entered the graph at 100M.
+
+    Attempted support is a graph-availability diagnostic. The stored confidence
+    omits episode-censored commands and is not used as navigation evidence.
+    """
+    conditions = (
+        ("SDHG_C05_NEAREST", "Nearest clock | continue"),
+        ("SDHG_C05_SOURCE", "Source clock | continue"),
+        ("GVSD_C05_NEAREST", "Nearest clock | stop"),
+        ("GVSD_C05_SOURCE", "Source clock | stop"),
+    )
+    cmap = ListedColormap(["#E0E0E0", "#185A84"])
+    cmap.set_bad("white")
+    norm = BoundaryNorm([-0.5, 0.5, 1.5], cmap.N)
+    fig, axes = plt.subplots(2, 2, figsize=(14.5, 13.2), sharex=True, sharey=True)
+    for ax, (condition, label) in zip(axes.flat, conditions):
+        with np.load(npz_dir / f"{condition}__s99.npz", allow_pickle=False) as data:
+            attempts = data["control_attempts"]
+        assert attempts.shape == (16, 16)
+        attempted = attempts > 0
+        assert not np.diag(attempted).any()
+        status = attempted.astype(float)
+        np.fill_diagonal(status, np.nan)
+        ax.imshow(status, interpolation="nearest", cmap=cmap, norm=norm,
+                  origin="upper")
+        ax.set_xticks([0, 4, 8, 12, 15])
+        ax.set_yticks([0, 4, 8, 12, 15])
+        ax.set_xlabel("Target DG ID")
+        ax.set_ylabel("Source DG ID")
+        ax.set_title(f"{label} | {int(attempted.sum())}/240", pad=18)
+    fig.suptitle("100M C05 directed graph support | seed 99\nAttempted pairs, not executed-command control",
+                 fontsize=23)
+    handles = [Patch(facecolor="#E0E0E0", label="Unattempted"),
+               Patch(facecolor="#185A84", label="Attempted")]
+    fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, -0.015),
+               ncol=2, frameon=False)
+    fig.tight_layout(rect=(0, 0.055, 1, 0.94))
+    save(fig, "c05_clock_value_100m_graph_attempts_seed99")
+
+
 def plot_150m_graph_seed99() -> None:
     """Show attempted support and stored reliability on one common 16×16 scale."""
     edges = pd.read_csv(RESULTS / "graph_edges_150m_seed99.csv")
@@ -904,6 +945,7 @@ def main() -> None:
         plot_frozen_150m_paths(args.frozen_npz_dir)
     if args.frozen_100m_npz_dir is not None:
         plot_frozen_100m_peak_centers(args.frozen_100m_npz_dir)
+        plot_c05_100m_graph_attempts(args.frozen_100m_npz_dir)
     if args.frozen_100m_path_dir is not None:
         plot_frozen_100m_path_contrasts(args.frozen_100m_path_dir)
     plot_age_matched_coverage()
