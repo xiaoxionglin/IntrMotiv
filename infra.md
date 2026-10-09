@@ -6,6 +6,30 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Make declared matched-command settings executable and serializable — 2026-10-09
+
+- **Evidence:** The corrected-core hit-only StudySpec requested all eligible
+  DG targets and fixed 64/128/256/900-decision windows. The existing landmark
+  evaluator instead filtered to sources with at least two observed graph edges
+  and used graph deadlines; new and historical C05 seed-8 preflights completed
+  with zero trials. An analysis-only patch reached exactly replayed starts and
+  wrote nine trials per one-source qualification, then failed to serialize a
+  NumPy integer in its JSON summary. The integer conversion was fixed and
+  checked against the source patch before terminal evaluation.
+- **Impact:** A successful evaluator process can silently answer a different
+  question or produce no command contrast. A final-report write failure can
+  discard provenance after expensive DMLab trials have run.
+- **Improvement/status:** Pending canonical integration. Validate every
+  intervention field against the evaluator's accepted options during print-only
+  review, include failures and censoring at every declared horizon, and test
+  summary serialization on a real matched-start compute-node qualification.
+  Save incremental trial results before lengthy source discovery ends.
+- **Acceptance:** A study requesting all eligible targets and fixed windows
+  yields matched commanded and alternative trial rows with the requested
+  horizons; unknown or ignored settings fail before submission. The full
+  summary is JSON serializable and includes source/goal exposure, exact-start
+  checks, failures, and censoring.
+
 ### Keep exact-start source sharding compatible with current evaluators — 2026-10-09
 
 - **Evidence:** The unmodified prescribed source-clock 75M exact-start preflight
@@ -159,18 +183,29 @@ keep implementation guidance in the canonical workflow documents linked below.
   generated `--train_dir` arguments. The canonical print-only and submitted
   audits passed because both paths were inside the workspace. Production's
   declared and actual roots match; the submitted qualification fingerprint
-  remains immutable.
+  remains immutable. In the corrected-core hit-only first wave, training and
+  checkpoint paths were workspace-valid, but the saved
+  `online_spatial_workspace_root` and `online_spatial_output_root` still pointed
+  to the retired full allocation. Five completed runs wrote small retained
+  snapshots there; these had to be copied into the active workspace before
+  canonical spatial collection. The six-command preflight did not inspect
+  those nested runtime paths.
 - **Impact:** A study can pass submission audit while its output-root metadata
-  points to a directory where no runs will appear, delaying checkpoint
-  discovery and creating a misleading provenance record.
+  points to a directory where no runs will appear, or while one artifact stream
+  writes to a prohibited allocation. Either delays analysis and weakens
+  provenance despite a valid main `train_dir`.
 - **Improvement/status:** Pending. Compare the normalized `training.output_root`
   with the generated run directories, or make the launcher consume that field
-  as its batch root. Report the resolved root in the audit. Continue to use the
-  actual `jobs.tsv` paths for the submitted qualification. See the
+  as its batch root. Also parse effective runtime arguments and validate every
+  output/cache root, including online spatial roots, against the study's active
+  workspace. Report resolved roots in the audit. Continue to use the actual
+  `jobs.tsv` paths for the submitted qualification. See the
   [standard workflow](04_implementation/standardized_study_workflow.md).
 - **Acceptance:** A focused test rejects a print-only manifest whose
   `--train_dir` paths lie under a different workspace-valid batch root, while
-  the matching production StudySpec and launcher pass.
+  the matching production StudySpec and launcher pass. A second test rejects
+  a workspace-valid `train_dir` paired with a retired-allocation online-spatial
+  or cache root before any production job is submitted.
 
 ### Validate telemetry seed selection during StudySpec validation — 2026-10-08
 

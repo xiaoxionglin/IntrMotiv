@@ -1,0 +1,191 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -7,6 +7,7 @@
+ import csv
+ import json
+ import math
++import os
+ import pathlib
+ from dataclasses import dataclass, field
+ 
+@@ -28,7 +29,9 @@
+ )
+ from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env
+ 
+-WORKSPACE_ROOT = pathlib.Path("/work/classic/fr_xl1014-train")
++WORKSPACE_ROOT = pathlib.Path(
++    os.environ.get("INTRMOTIV_WORKSPACE_ROOT", "/work/classic/fr_xl1014-train")
++).resolve()
+ MANIFEST_COLUMNS = (
+     "condition",
+     "family",
+@@ -306,20 +309,46 @@
+     targets_per_source=4,
+     repeats=5,
+     prefix_cap=512,
++    target_selection="observed_outgoing",
++    horizons=(64, 128, 256, 900),
++    fixed_evaluation_horizon=900,
++    focus_sources=None,
++    discovery_multiplier=2,
+ ):
+     """Execute different commands from identical engine/prefix states.
+ 
+     Prefixes are selected by exclusive source observations, never trial success.
+-    Only observed outgoing passive pairs form the evaluation panel. Both a
+-    target's own command and all selected alternative commands score that target.
++    Both a target's own command and all selected alternative commands score
++    that target from an exactly replayed start. Fixed windows include failures.
+     """
+     from sample_factory.algo.utils.make_env import make_env_func_batched
+ 
+     n = int(cfg.Hippo_n_feature)
+     graph = actor.core.policy_graph
+     before = {k: v.detach().clone() for k, v in actor.state_dict().items()}
+-    pairs = (graph.passive_confidence > 0).cpu().numpy()
++    if target_selection == "all_eligible":
++        pairs = np.ones((n, n), dtype=bool)
++    elif target_selection == "observed_outgoing":
++        pairs = (graph.passive_confidence > 0).cpu().numpy()
++    else:
++        raise ValueError(f"Unknown target selection: {target_selection}")
+     np.fill_diagonal(pairs, False)
++    horizons = tuple(int(value) for value in horizons)
++    if not horizons or any(value <= 0 for value in horizons):
++        raise ValueError("Horizon windows must be positive")
++    if fixed_evaluation_horizon < max(horizons):
++        raise ValueError("Fixed evaluation horizon must cover every window")
++    if focus_sources is not None:
++        focus_sources = tuple(int(value) for value in focus_sources)
++        if not focus_sources or len(set(focus_sources)) != len(focus_sources):
++            raise ValueError("Focus sources must be distinct and nonempty")
++        if any(source < 0 or source >= n for source in focus_sources):
++            raise ValueError("Focus source outside allocated DG IDs")
++        if len(focus_sources) > max_sources:
++            raise ValueError("Focus source panel exceeds maximum")
++        max_sources = len(focus_sources)
++    if discovery_multiplier <= 0:
++        raise ValueError("Discovery multiplier must be positive")
+     rows, panel, missing = [], {}, []
+     decisions = 0
+ 
+@@ -377,7 +406,7 @@
+     try:
+         with torch.no_grad():
+             # Bounded discovery; record multiple starts per source where possible.
+-            for attempt in range(max_sources * repeats * 2):
++            for attempt in range(max_sources * repeats * discovery_multiplier):
+                 if decisions + prefix_cap >= decision_cap // 4:
+                     break
+                 seed = 31000 + attempt
+@@ -388,8 +417,20 @@
+                     h = actor.forward_head(prepare_and_normalize_obs(actor, obs))
+                     active = torch.nonzero(h[0, :n] > 0).flatten()
+                     source = int(active.item()) if active.numel() == 1 else -1
+-                    if source >= 0 and (source in panel or len(panel) < max_sources):
+-                        targets = np.flatnonzero(pairs[source]).tolist()[:targets_per_source]
++                    if source >= 0 and (focus_sources is None or source in focus_sources) and (
++                        source in panel or len(panel) < max_sources
++                    ):
++                        eligible = np.flatnonzero(pairs[source])
++                        if target_selection == "all_eligible":
++                            # A source-keyed panel keeps goal exposure independent of
++                            # graph evidence and repeat order.
++                            targets = sorted(
++                                np.random.default_rng(53000 + source).choice(
++                                    eligible, size=min(targets_per_source, len(eligible)), replace=False
++                                ).tolist()
++                            )
++                        else:
++                            targets = eligible.tolist()[:targets_per_source]
+                         if len(targets) >= 2 and len(panel.get(source, [])) < repeats:
+                             panel.setdefault(source, []).append((seed, list(prefix), targets, signature(obs, state)))
+                             break
+@@ -402,7 +443,7 @@
+                     break
+             for source, starts in sorted(panel.items()):
+                 for rep, (seed, prefix, targets, reference) in enumerate(starts):
+-                    horizon = max(pair_deadline(graph, source, t) for t in targets)
++                    horizon = fixed_evaluation_horizon
+                     cost = len(targets) * (len(prefix) + horizon)
+                     if decisions + cost > decision_cap:
+                         missing.append(dict(source=source, repeat=rep, reason="decision_budget"))
+@@ -445,8 +486,8 @@
+                         for target in targets:
+                             deadline = pair_deadline(graph, source, target)
+                             hit_time = first_times[target]
+-                            hit = hit_time is not None and hit_time <= deadline
+-                            censored = not hit and done and elapsed < deadline
++                            hit = hit_time is not None and hit_time <= horizon
++                            censored = not hit and done and elapsed < horizon
+                             rows.append(
+                                 dict(
+                                     source=source,
+@@ -459,6 +500,15 @@
+                                     deadline=deadline,
+                                     hit=hit,
+                                     hit_time=hit_time,
++                                    **{
++                                        f"hit_{window}": hit_time is not None and hit_time <= window
++                                        for window in horizons
++                                    },
++                                    **{
++                                        f"censored_{window}": bool(done and elapsed < window and
++                                            (hit_time is None or hit_time > window))
++                                        for window in horizons
++                                    },
+                                     first_distinct=first_other,
+                                     censored=censored,
+                                     timeout=not hit and not censored,
+@@ -478,11 +528,13 @@
+         for rep in range(len(starts)):
+             for target in starts[rep][2]:
+                 group = [r for r in rows if r["source"] == source and r["repeat"] == rep and r["target"] == target]
+-                actual = [float(r["hit"]) for r in group if r["commanded"] and not r["censored"]]
+-                alternate = [float(r["hit"]) for r in group if not r["commanded"] and not r["censored"]]
++                actual = [float(r["hit"]) for r in group if r["commanded"]]
++                alternate = [float(r["hit"]) for r in group if not r["commanded"]]
+                 if actual and alternate:
+                     differences.append(actual[0] - float(np.mean(alternate)))
+-    supported_sources = int((pairs.sum(axis=1) >= 2).sum())
++    supported_sources = int((pairs.sum(axis=1) >= 2).sum()) if focus_sources is None else int(sum(
++        pairs[source].sum() >= 2 for source in focus_sources
++    ))
+     if len(panel) < min(max_sources, supported_sources):
+         missing.append(
+             dict(reason="source_discovery_limit", requested=min(max_sources, supported_sources), found=len(panel))
+@@ -510,6 +562,11 @@
+             )
+     summary = dict(
+         protocol="landmark-matched-commands-v1",
++        target_selection=target_selection,
++        focus_sources=list(focus_sources) if focus_sources is not None else None,
++        discovery_multiplier=discovery_multiplier,
++        horizons=list(horizons),
++        fixed_evaluation_horizon=fixed_evaluation_horizon,
+         checkpoint=str(checkpoint),
+         decisions=decisions,
+         supported_sources=supported_sources,
+@@ -684,6 +741,8 @@
+     parser.add_argument("--decision-cap", type=int, default=100000)
+     parser.add_argument("--attempts-per-pair", type=int, default=5)
+     parser.add_argument("--deterministic", action="store_true")
++    parser.add_argument("--focus-sources", type=str)
++    parser.add_argument("--discovery-multiplier", type=int, default=2)
+     return parser.parse_args()
+ 
+ 
+@@ -717,7 +776,12 @@
+             if source in intervention
+         },
+         landmark_options=(
+-            {key: intervention[key] for key in ("max_sources", "targets_per_source", "repeats") if key in intervention}
++            {**{key: intervention[key] for key in (
++                "max_sources", "targets_per_source", "repeats", "target_selection",
++                "horizons", "fixed_evaluation_horizon"
++            ) if key in intervention},
++             **({"focus_sources": [int(value) for value in args.focus_sources.split(":")],
++                 "discovery_multiplier": args.discovery_multiplier} if args.focus_sources else {})}
+             if intervention.get("evaluation") == "landmark-matched-commands-v1"
+             else None
+         ),

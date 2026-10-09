@@ -1,0 +1,59 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/observation_panel.py
++++ b/sf_working_directories/IntrMotiv/evaluation/observation_panel.py
+@@ -1,5 +1,6 @@
+ """Common observation trajectories for policy-independent representation tests."""
+ 
++import os
+ from pathlib import Path
+ 
+ import numpy as np
+@@ -27,7 +28,10 @@
+ 
+ def save_panel(path, records):
+     path = Path(path).resolve()
+-    if not str(path).startswith("/work/classic/fr_xl1014-train/"):
++    workspace = Path(
++        os.environ.get("INTRMOTIV_WORKSPACE_ROOT", "/work/classic/fr_xl1014-train")
++    ).resolve()
++    if not path.is_relative_to(workspace):
+         raise ValueError("Observation panels must live in the allocated workspace")
+     if path.exists():
+         raise FileExistsError(path)
+--- a/sf_working_directories/IntrMotiv/evaluation/place_fields.py
++++ b/sf_working_directories/IntrMotiv/evaluation/place_fields.py
+@@ -305,7 +305,7 @@
+         run_dir, max_num_frames, deterministic, checkpoint_rank, checkpoint_path
+     )
+     if replay_panel is not None:
+-        from sf_working_directories.IntrMotiv.evaluation.observation_panel import replay_observations
++        from observation_panel_active_workspace import replay_observations
+ 
+         env.close()
+         pose, dg, logits, worker = replay_observations(
+@@ -366,7 +366,7 @@
+             pos = obs["pos"].clone()
+             rot = obs["rot"].clone()
+             if record_panel is not None:
+-                from sf_working_directories.IntrMotiv.evaluation.observation_panel import record_observation
++                from observation_panel_active_workspace import record_observation
+ 
+                 record_observation(panel_records, obs, panel_previous_actions)
+             normalized_obs = prepare_and_normalize_obs(actor_critic, obs)
+@@ -407,7 +407,7 @@
+             dones = make_dones(terminated, truncated).cpu().numpy()
+             if record_panel is not None:
+                 panel_records["dones"].append(dones.copy())
+-                from sf_working_directories.IntrMotiv.evaluation.observation_panel import previous_actions_after_step
++                from observation_panel_active_workspace import previous_actions_after_step
+ 
+                 panel_previous_actions = previous_actions_after_step(panel_action, dones, actor_critic.action_space.n)
+             episode_reward = rew.float().clone() if episode_reward is None else episode_reward + rew.float()
+@@ -433,7 +433,7 @@
+ 
+     env.close()
+     if record_panel is not None:
+-        from sf_working_directories.IntrMotiv.evaluation.observation_panel import save_panel
++        from observation_panel_active_workspace import save_panel
+ 
+         save_panel(record_panel, panel_records)
+ 

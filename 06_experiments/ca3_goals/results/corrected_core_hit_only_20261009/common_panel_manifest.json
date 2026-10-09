@@ -1,0 +1,16 @@
+{
+  "panel_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+  "panel_observations": 10001,
+  "panel_decision_budget": 10000,
+  "donor": "HDAB_C15_HITONLY_S8 at 100007936 frames",
+  "record_job": 8320645,
+  "record_environment": "openfield_map2_fixed_loc3_fixedlength_noreward",
+  "panel_workspace_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+  "replay_jobs": {
+    "new_c05": [8320764, 8320766, 8320768],
+    "new_c15": [8320762],
+    "historical_c05": [8320763, 8320765, 8320767],
+    "historical_c15": [8320769, 8320770]
+  },
+  "source_note": "Panel recording and replay used the analysis-only active-workspace observation-panel patch. Historical model loading used archived values plus parser-default compatibility sidecars."
+}
