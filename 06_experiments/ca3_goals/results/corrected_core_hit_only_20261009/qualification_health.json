@@ -1,0 +1,262 @@
+{
+  "C05": {
+    "train/loss": {
+      "n": 33,
+      "mean": 0.2243857608374321,
+      "min": 0.012169420719146729,
+      "max": 0.677365779876709,
+      "last": 0.012169420719146729,
+      "last_step": 2064384
+    },
+    "train/policy_loss": {
+      "n": 33,
+      "mean": -0.0005195172817559179,
+      "min": -0.0027865569572895765,
+      "max": 0.001257878728210926,
+      "last": -0.0009442409500479698,
+      "last_step": 2064384
+    },
+    "train/value_loss": {
+      "n": 33,
+      "mean": 0.3005934822739977,
+      "min": 0.10746622085571289,
+      "max": 0.7461248636245728,
+      "last": 0.10746622085571289,
+      "last_step": 2064384
+    },
+    "train/adv_std": {
+      "n": 33,
+      "mean": 0.36091530187563464,
+      "min": 0.2054920792579651,
+      "max": 0.49868249893188477,
+      "last": 0.40690845251083374,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_count": {
+      "n": 33,
+      "mean": 26.333333333333332,
+      "min": 11.0,
+      "max": 39.0,
+      "last": 28.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/censored_count": {
+      "n": 33,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "last": 0.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_elapsed_mean": {
+      "n": 33,
+      "mean": 10.19129620176373,
+      "min": 6.413793087005615,
+      "max": 19.36842155456543,
+      "last": 6.5,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_reward_magnitude_mean": {
+      "n": 33,
+      "mean": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "last": 1.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/active_target_fraction": {
+      "n": 33,
+      "mean": 0.9987718986742424,
+      "min": 0.9970703125,
+      "max": 1.0,
+      "last": 0.998046875,
+      "last_step": 2064384
+    },
+    "train/goal_commanded_count": {
+      "n": 33,
+      "mean": 4.515151515151516,
+      "min": 3.0,
+      "max": 6.0,
+      "last": 5.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/dg/silent_unit_fraction": {
+      "n": 33,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "last": 0.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/dg/usage_entropy": {
+      "n": 33,
+      "mean": 0.9916858293793418,
+      "min": 0.9842640161514282,
+      "max": 0.9960173964500427,
+      "last": 0.9956757426261902,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/goal_condition/action_sensitivity": {
+      "n": 33,
+      "mean": 0.0002455214275731564,
+      "min": 0.00018459548300597817,
+      "max": 0.00030623836209997535,
+      "last": 0.0002830037847161293,
+      "last_step": 2064384
+    },
+    "intrmotiv/reward/intrinsic_mean": {
+      "n": 33,
+      "mean": 0.012858072916666666,
+      "min": 0.00537109375,
+      "max": 0.01904296875,
+      "last": 0.013671875,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/target_hit_numerator": {
+      "n": 33,
+      "mean": 28.606060606060606,
+      "min": 18.0,
+      "max": 44.0,
+      "last": 33.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/target_hit_event_count": {
+      "n": 33,
+      "mean": 2045.4848484848485,
+      "min": 2042.0,
+      "max": 2048.0,
+      "last": 2044.0,
+      "last_step": 2064384
+    }
+  },
+  "C15": {
+    "train/loss": {
+      "n": 33,
+      "mean": 0.43388083870663785,
+      "min": 0.017418287694454193,
+      "max": 1.5005732774734497,
+      "last": 0.017418287694454193,
+      "last_step": 2064384
+    },
+    "train/policy_loss": {
+      "n": 33,
+      "mean": -9.094752429959816e-05,
+      "min": -0.0029785961378365755,
+      "max": 0.003970102872699499,
+      "last": -0.00044376158621162176,
+      "last_step": 2064384
+    },
+    "train/value_loss": {
+      "n": 33,
+      "mean": 0.5231332142244686,
+      "min": 0.09515166282653809,
+      "max": 1.599498987197876,
+      "last": 0.10263476520776749,
+      "last_step": 2064384
+    },
+    "train/adv_std": {
+      "n": 33,
+      "mean": 8.915853731559984,
+      "min": 4.212590217590332,
+      "max": 12.54346752166748,
+      "last": 10.760344505310059,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_count": {
+      "n": 33,
+      "mean": 7.666666666666667,
+      "min": 1.0,
+      "max": 17.0,
+      "last": 12.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/censored_count": {
+      "n": 33,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "last": 0.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_elapsed_mean": {
+      "n": 33,
+      "mean": 43.87658506451231,
+      "min": 23.0,
+      "max": 75.75,
+      "last": 62.41666793823242,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/control/correct_reward_magnitude_mean": {
+      "n": 33,
+      "mean": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "last": 1.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/active_target_fraction": {
+      "n": 33,
+      "mean": 0.6524539924029148,
+      "min": 0.3760416805744171,
+      "max": 0.9089439511299133,
+      "last": 0.6694711446762085,
+      "last_step": 2064384
+    },
+    "train/goal_commanded_count": {
+      "n": 33,
+      "mean": 2.1515151515151514,
+      "min": 1.0,
+      "max": 3.0,
+      "last": 3.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/dg/silent_unit_fraction": {
+      "n": 33,
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "last": 0.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/dg/usage_entropy": {
+      "n": 33,
+      "mean": 0.9806413650512695,
+      "min": 0.9740626215934753,
+      "max": 0.9873266220092773,
+      "last": 0.9775557518005371,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/goal_condition/action_sensitivity": {
+      "n": 33,
+      "mean": 6.48915544540311e-05,
+      "min": 9.070086889551021e-06,
+      "max": 0.00015978630108293146,
+      "last": 6.644513632636517e-05,
+      "last_step": 2064384
+    },
+    "intrmotiv/reward/intrinsic_mean": {
+      "n": 33,
+      "mean": 0.4125902562430411,
+      "min": 0.09658203274011612,
+      "max": 0.83740234375,
+      "last": 0.46601563692092896,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/target_hit_numerator": {
+      "n": 33,
+      "mean": 18.484848484848484,
+      "min": 7.0,
+      "max": 35.0,
+      "last": 20.0,
+      "last_step": 2064384
+    },
+    "intrmotiv/hrl/target_hit_event_count": {
+      "n": 33,
+      "mean": 1225.121212121212,
+      "min": 722.0,
+      "max": 1764.0,
+      "last": 1114.0,
+      "last_step": 2064384
+    }
+  }
+}

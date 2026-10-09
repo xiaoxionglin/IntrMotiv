@@ -137,6 +137,12 @@ For shortened qualification runs that retain production identities, use
 copy of each final checkpoint through the real learner initialization path.
 The certificate binds exact model/buffer, optimizer and counter restoration to
 its checkpoint SHA; DDQN also checks target, replay and publication state.
+If only an optimizer group's `lr` differs, inspect saved `curr_lr` and the
+last minibatch's invalid-sample scaling before declaring checkpoint corruption.
+The optimizer can contain a temporary effective rate below `curr_lr`; learner
+initialization must preserve that saved rate for exact restoration while fresh
+initialization applies the configured nominal rate. Certify both paths on
+compute nodes after any restore-path correction.
 Use `evaluation_preflight` on Slurm for each controller family to check fresh-engine
 prefix equality, frozen state, privileged-input exclusion, and complete matched
 policy/random episodes. Evaluation must disable the training level cache's
@@ -596,6 +602,14 @@ Then use `evaluation/submit_place_field_sweep.py` for its required print-only
 preflight and ordinary-job production submission. Postprocess with the existing
 summarizer, manifest analyzer, trajectory plotter, and stability tool documented
 in `reusable_place_field_telemetry.md`.
+
+For historical field-map replay, verify the effective evaluation level in the
+archived job log as well as the training config. The current evaluator preserves
+the saved `env`; earlier evaluators could override a saved `fixedlength` level
+with the nonfixed version. If they differ, use a separate immutable evaluation
+config sidecar and manifest, record the single changed field, and compare maps
+only under the same effective level. A command-line parser bootstrap `--env`
+does not override the saved config in the current evaluator.
 
 ### Weights-only transfer runtime gates
 

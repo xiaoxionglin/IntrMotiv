@@ -1,0 +1,117 @@
+{
+  "rows": [
+    {
+      "count": 82977.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C01_FLAT_CTRL_S8_/00_CCR_C01_FLAT_CTRL_S8/.summary/0/events.out.tfevents.1788295295.n3324",
+      "family": "C01",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 8,
+      "weighted_feedback": 23644.59990540147
+    },
+    {
+      "count": 63316.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C01_FLAT_CTRL_S99_/00_CCR_C01_FLAT_CTRL_S99/.summary/0/events.out.tfevents.1788295294.n3419",
+      "family": "C01",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 99,
+      "weighted_feedback": 21398.99980521202
+    },
+    {
+      "count": 81062.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C01_FLAT_CTRL_S123_/00_CCR_C01_FLAT_CTRL_S123/.summary/0/events.out.tfevents.1788295295.n3507",
+      "family": "C01",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 123,
+      "weighted_feedback": 23349.699880555272
+    },
+    {
+      "count": 64523.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S8_/00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S8/.summary/0/events.out.tfevents.1788295354.n3515",
+      "family": "C05",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 8,
+      "weighted_feedback": 20578.19990415871
+    },
+    {
+      "count": 62846.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99_/00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S99/.summary/0/events.out.tfevents.1788295355.n3516",
+      "family": "C05",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 99,
+      "weighted_feedback": 19685.199980318546
+    },
+    {
+      "count": 62742.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C05_DIRECT_IMMEDIATE_G001_R100_S123_/00_CCR_C05_DIRECT_IMMEDIATE_G001_R100_S123/.summary/0/events.out.tfevents.1788295356.n3517",
+      "family": "C05",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 123,
+      "weighted_feedback": 20283.799922391772
+    },
+    {
+      "count": 58106.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8_/00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S8/.summary/0/events.out.tfevents.1788295358.n3104",
+      "family": "C15",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 8,
+      "weighted_feedback": 19585.100154280663
+    },
+    {
+      "count": 62739.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99_/00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S99/.summary/0/events.out.tfevents.1788295355.n3104",
+      "family": "C15",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 99,
+      "weighted_feedback": 22504.99968135357
+    },
+    {
+      "count": 62019.0,
+      "event_path": "/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/intrmotiv_corrected_core_reevaluation_20260901/CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123_/00_CCR_C15_TOPOLOGY_UCB_DIRECT_O1_S123/.summary/0/events.out.tfevents.1788295355.n3104",
+      "family": "C15",
+      "first_step": 32768,
+      "last_step": 4980736,
+      "samples": 152,
+      "seed": 123,
+      "weighted_feedback": 21574.499751776457
+    }
+  ],
+  "summary": [
+    {
+      "family": "C01",
+      "mean_temporal_credit": 3.008216207744222,
+      "reward_scale": 0.1,
+      "rule": "weighted_mean",
+      "total_qualifying_events": 227355.0
+    },
+    {
+      "family": "C05",
+      "mean_temporal_credit": 3.1848341130638955,
+      "reward_scale": 0.1,
+      "rule": "weighted_mean",
+      "total_qualifying_events": 190111.0
+    },
+    {
+      "family": "C15",
+      "mean_temporal_credit": 3.4815272326652966,
+      "reward_scale": 0.1,
+      "rule": "weighted_mean",
+      "total_qualifying_events": 182864.0
+    }
+  ]
+}

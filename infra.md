@@ -6,6 +6,45 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Record the evaluation environment in historical field manifests — 2026-10-09
+
+- **Evidence:** The corrected-core C05/C15 historical place-field logs ran
+  `openfield_map2_fixed_loc3_noreward`, overriding the saved `fixedlength`
+  training environment. The current evaluator preserves the saved environment,
+  so its first replay launched the wrong level. Jobs 8317604–8317605 were
+  cancelled, and corrected sidecar configurations launched jobs 8317627–8317628
+  with the archived level. See the [study record](06_experiments/ca3_goals/corrected_core_distance_reward_ablation_20261009.md).
+- **Impact:** A map replay can look like a model-source mismatch when the
+  episode protocol differs. This also changes visitation and reset structure.
+- **Improvement/status:** Pending. Include the effective evaluation environment
+  and its source (saved config or explicit override) in canonical telemetry
+  provenance. Verify both against archived logs before historical replay.
+- **Acceptance:** A print-only historical replay flags any environment mismatch;
+  completed telemetry records the effective DMLab level and makes the archived
+  versus current protocol directly auditable.
+
+### Reload archived configs through a versioned compatibility layer — 2026-10-09
+
+- **Evidence:** The corrected-core distance-ablation audit used the generic
+  `checkpoint_reload` helper on a September C05 checkpoint. It failed before
+  model construction because the saved config lacked the later
+  `dmlab_navigation_action_set` parser key. A sidecar with current parser
+  defaults overlaid by every saved value loaded the checkpoint, then the
+  helper's strict state-key check found a separate mismatch. See the
+  [study record](06_experiments/ca3_goals/corrected_core_distance_reward_ablation_20261009.md).
+- **Impact:** A historical checkpoint can look incompatible because the loader
+  assumes a newer config schema, while a permissive load may hide genuinely
+  unmatched model state. Either shortcut can corrupt a historical control.
+- **Improvement/status:** Pending. Add an opt-in, versioned config migration to
+  the [canonical checkpoint audit](04_implementation/standardized_study_workflow.md)
+  that preserves archived values, records each added default, and reports
+  missing and extra model keys before allowing a compatibility verdict. Keep
+  default reload strict for current checkpoints.
+- **Acceptance:** A synthetic old config with a new inactive parser field
+  reaches model construction and records the migration; a missing active model
+  buffer fails with an explicit key diff; a current checkpoint still restores
+  exactly with no migration.
+
 ### Check diagnostic scalar names end to end before qualification — 2026-10-09
 
 - **Evidence:** The final source-command reward qualifier completed training,
@@ -16,6 +55,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   source corrected the attribute; the submitted qualifier's StudySpec remains
   immutable, with an explicit analysis-only copy omitting the unavailable tag.
   See the [source-distance report](06_experiments/ca3_goals/source_distance_hit_dg_20261009.md).
+  The corrected-core hit-only qualifier likewise requested
+  `intrmotiv/hrl/control_reward_magnitude_correct_mean`, while its runtime
+  emitted `intrmotiv/hrl/control/correct_reward_magnitude_mean`; an immutable
+  analysis-only StudySpec corrected collection without changing training.
 - **Impact:** A valid short training run can lack its declared diagnostic, and
   a naive average of conditional per-update hit means can understate actual
   hit reward when zero-hit updates contribute zeros.

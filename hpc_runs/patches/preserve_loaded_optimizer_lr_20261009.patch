@@ -1,0 +1,17 @@
+diff --git a/sample_factory/algo/learning/learner.py b/sample_factory/algo/learning/learner.py
+--- a/sample_factory/algo/learning/learner.py
++++ b/sample_factory/algo/learning/learner.py
+@@ -259,7 +259,11 @@
+         self.policy_versions_tensor[self.policy_id] = self.train_step
+ 
+         self.lr_scheduler = get_lr_scheduler(self.cfg)
+-        self.curr_lr = self.cfg.learning_rate if self.curr_lr is None else self.curr_lr
+-        self._apply_lr(self.curr_lr)
++        if self.curr_lr is None:
++            # Fresh initialization needs its nominal LR. A checkpoint load has
++            # already restored the optimizer's exact last effective LR, which
++            # may be lower after an invalid-sample minibatch.
++            self.curr_lr = self.cfg.learning_rate
++            self._apply_lr(self.curr_lr)
+ 
+         self.is_initialized = True

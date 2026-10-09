@@ -1,0 +1,36 @@
+{
+  "base_commit": "cdf9ffe9026dc483e9c31dae7a1365af67c28642",
+  "key_files": [
+    {
+      "path": "hpc_runs/intrmotiv_study/spec.py",
+      "sha256": "e812b48b869cffda614cbe51d2765d21d56ce9ba6eb385ba3287675e3808953b"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/dmlab/custom_encoder.py",
+      "sha256": "f141a8e707f6b2d6572d3e37aa2ae324f3c75ca9082363c522494797ecf9d18b"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/dmlab/custom_learner.py",
+      "sha256": "c80ead0d99bd1997caa956dc165831329918a7f681d1ae3cbd38ecb39e10997c"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/dmlab/custom_params.py",
+      "sha256": "b1409de2d0eceb9266025962d6cd0bbb05dc5034647cac571c55107c84924346"
+    },
+    {
+      "path": "sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py",
+      "sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe"
+    },
+    {
+      "path": "sample_factory/algo/learning/learner.py",
+      "sha256": "c4e25f8c35dfb12ab7ade7b9587e623cdbee55c41c17739f1a1b3d372703b1e7"
+    }
+  ],
+  "python_file_count": 750,
+  "root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_corrected_core_distance_ablation_20261009",
+  "runtime_patch_sha256": "1c280baf97d6a348c161333d8edd9359d6938d51db2dae17aababdac8aa6df56",
+  "pre_reload_patch_python_tree_sha256": "5b89e8c0d2dda5687b76166ac6733e4f4bde3cbf52dbdf95e8a10e744598b624",
+  "reload_patch_sha256": "63e5cabbe26d7456039519e0f57fb6097cfee1c65943cc9ef6343a0bab620974",
+  "python_tree_manifest_sha256": "e47b1e4d67ee58d20ad44a87f786eedf9372b085c48eb514b97ea55cf683a2f0",
+  "python_tree_manifest_method": "SHA-256 of sorted relative .py paths, tab, each file SHA-256, newline"
+}

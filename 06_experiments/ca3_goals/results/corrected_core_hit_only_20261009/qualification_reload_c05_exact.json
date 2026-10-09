@@ -1,0 +1,14 @@
+{
+  "run": "00_HDABQ_C05_HITONLY_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/qualification_reload_c05_exact/checkpoint_000000126_2064384.pth",
+  "checkpoint_sha256": "89aec0000eb651358e5f51f493e3e0755b8e38b2bab0501182898efffd8cc84f",
+  "frames": 2064384,
+  "train_step": 126,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8317650"
+}
