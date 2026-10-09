@@ -75,6 +75,23 @@ keep implementation guidance in the canonical workflow documents linked below.
   nonempty trajectory per selected arm, and an empty selection fails or is
   labeled unavailable instead of saving blank axes.
 
+### Preserve paired spatial figure inputs — 2026-10-09
+
+- **Evidence:** The corrected-core hit-bonus comparison required ten common-panel
+  field NPZs and ten frozen-policy pose CSVs for a direct old/new display.
+  Summary tables alone contained field scores and visited-bin counts but could
+  not regenerate the maps or paths. The existing evaluator already saved the
+  needed arrays and reset-aware path IDs, so no new rollout was required.
+- **Impact:** Selected figures can be reviewed and regenerated from a clean
+  checkout without cluster access when their compact source bundle is pinned.
+- **Improvement/status:** This comparison now pins a 2 MB input archive and a
+  renderer beside its report. For future paired studies, make the canonical
+  telemetry collection optionally export such a compact visual-source bundle
+  from the declared manifest rows and common-observation certificate.
+- **Acceptance:** A clean checkout regenerates paired maps and path figures,
+  verifies identical common-panel occupancy, and labels own-policy path
+  comparisons separately from fixed-observation map comparisons.
+
 ### Bound analysis math threads on crowded NEMO2 login nodes — 2026-10-09
 
 - **Evidence:** The 75M source-distance `collect-spatial --include-details`
