@@ -10,6 +10,7 @@ from __future__ import annotations
 from io import BytesIO
 from pathlib import Path
 from zipfile import ZipFile
+from collections import defaultdict
 
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -21,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "06_experiments/ca3_goals"
 INPUT = REPORT / "results/corrected_core_hit_only_20261009/distance_ablation_visual_inputs.zip"
 OUTPUT = REPORT / "assets/corrected_core_distance_reward_ablation_20261009"
+RESULTS = REPORT / "results/corrected_core_hit_only_20261009"
 CONDITIONS = ("historical", "hit_only")
 LABELS = {"historical": "Temporal bonus", "hit_only": "Hit only"}
 ARENA = (100, 2000)
@@ -122,6 +124,106 @@ def field_atlas_figure(archive: ZipFile, family: str, seed: int) -> None:
     save(fig, f"{family}_s{seed}_paired_100m_common_panel_fields")
 
 
+def peak_center_records(archive: ZipFile) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """One strongest observed post-inhibition map bin for each active DG unit."""
+    rows: list[dict] = []
+    summaries: list[dict] = []
+    for family, seeds in (("c05", (8, 99, 123)), ("c15", (8, 123))):
+        for seed in seeds:
+            for condition in CONDITIONS:
+                fields, _ = read_pair(archive, family, seed, condition)
+                maps = fields["post_inhibition_rate_maps"]
+                visited = fields["occupancy"] > 0
+                assert maps.shape == (19, 19, 16)
+                centers = []
+                for unit in range(16):
+                    observed_map = np.where(visited, maps[:, :, unit], -np.inf)
+                    peak = float(observed_map.max())
+                    active = peak > 0
+                    row, col = np.unravel_index(int(observed_map.argmax()), (19, 19)) if active else (-1, -1)
+                    if active:
+                        centers.append((int(row), int(col)))
+                    rows.append({
+                        "family": family.upper(), "seed": seed, "condition": condition,
+                        "unit": unit, "active": active,
+                        "peak_row": int(row) if active else np.nan,
+                        "peak_col": int(col) if active else np.nan,
+                        "x_center": 150 + int(col) * 100 if active else np.nan,
+                        "y_center": 150 + int(row) * 100 if active else np.nan,
+                        "peak_rate": peak if active else 0.0,
+                        "outer_border": bool(row in (0, 18) or col in (0, 18)) if active else False,
+                        "field_eligible": bool(fields["post_inhibition_field_eligible"][unit]),
+                        "single_field": bool(fields["post_inhibition_field_mono"][unit]),
+                    })
+                points = np.asarray(centers, dtype=float)
+                distances = np.sqrt(((points[:, None] - points[None, :]) ** 2).sum(axis=-1))
+                upper = distances[np.triu_indices(len(points), k=1)]
+                summaries.append({
+                    "family": family.upper(), "seed": seed, "condition": condition,
+                    "active_units": len(centers), "unique_peak_bins": len(set(centers)),
+                    "outer_border_peaks": sum(r in (0, 18) or c in (0, 18) for r, c in centers),
+                    "mean_pairwise_peak_distance_bins": float(upper.mean()),
+                })
+    return pd.DataFrame(rows), pd.DataFrame(summaries)
+
+
+def draw_peak_map(ax: plt.Axes, fields: dict, centers: pd.DataFrame,
+                  family: str, seed: int, condition: str) -> None:
+    visited = fields["occupancy"] > 0
+    ax.imshow(np.where(visited, 1.0, np.nan), origin="lower", extent=(*ARENA, *ARENA),
+              cmap="Greys", vmin=0, vmax=2.6, interpolation="nearest")
+    groups: dict[tuple[int, int], list[int]] = defaultdict(list)
+    for row in centers.itertuples():
+        if row.active:
+            groups[(int(row.peak_row), int(row.peak_col))].append(int(row.unit))
+    for (row, col), units in groups.items():
+        x, y = 150 + col * 100, 150 + row * 100
+        shared = len(units) > 1
+        size = 750 if len(units) >= 3 else (420 if shared else 250)
+        label = "\n".join(map(str, units)) if len(units) >= 3 else ",".join(map(str, units))
+        ax.scatter(x, y, s=size,
+                   c="#B44F10" if shared else "#006BA4", edgecolors="white",
+                   linewidths=1.0, zorder=3)
+        ax.text(x, y, label, color="white", ha="center", va="center",
+                fontsize=8 if len(units) >= 3 else (9 if shared else 10),
+                linespacing=0.8, weight="bold", zorder=4)
+    active = int(centers.active.sum())
+    border = int(centers.outer_border.sum())
+    ax.set_title(f"{family.upper()} seed {seed} · {LABELS[condition]}\n"
+                 f"{active} active · {len(groups)} peak bins · {border} outer-border peaks",
+                 fontsize=14)
+    ax.set(xlim=(50, 2050), ylim=(50, 2050), aspect="equal",
+           xlabel="x (arena units)", ylabel="y (arena units)")
+    ax.set_xticks((100, 1000, 2000))
+    ax.set_yticks((100, 1000, 2000))
+
+
+def peak_center_figures(archive: ZipFile) -> None:
+    centers, summary = peak_center_records(archive)
+    centers.to_csv(RESULTS / "peak_centers_common_panel100.csv", index=False)
+    summary.to_csv(RESULTS / "peak_center_summary_common_panel100.csv", index=False)
+    for family, seeds in (("c05", (8, 99, 123)), ("c15", (8, 123))):
+        for seed in seeds:
+            fig, axes = plt.subplots(1, 2, figsize=(11, 6), layout="constrained")
+            for ax, condition in zip(axes, CONDITIONS):
+                fields, _ = read_pair(archive, family, seed, condition)
+                selection = centers.loc[(centers.family == family.upper()) &
+                                        (centers.seed == seed) &
+                                        (centers.condition == condition)]
+                draw_peak_map(ax, fields, selection, family, seed, condition)
+            save(fig, f"{family}_s{seed}_paired_100m_peak_centers")
+        fig, axes = plt.subplots(len(seeds), 2, figsize=(11, 5.5 * len(seeds)),
+                                 layout="constrained", squeeze=False)
+        for row, seed in enumerate(seeds):
+            for col, condition in enumerate(CONDITIONS):
+                fields, _ = read_pair(archive, family, seed, condition)
+                selection = centers.loc[(centers.family == family.upper()) &
+                                        (centers.seed == seed) &
+                                        (centers.condition == condition)]
+                draw_peak_map(axes[row, col], fields, selection, family, seed, condition)
+        save(fig, f"{family}_all_paired_100m_peak_centers")
+
+
 def main() -> None:
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 14,
                          "axes.labelsize": 15, "xtick.labelsize": 13,
@@ -143,6 +245,7 @@ def main() -> None:
         first_episode_figure(archive)
         field_atlas_figure(archive, "c05", 99)
         field_atlas_figure(archive, "c15", 8)
+        peak_center_figures(archive)
 
 
 if __name__ == "__main__":

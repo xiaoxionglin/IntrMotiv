@@ -85,12 +85,16 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** Selected figures can be reviewed and regenerated from a clean
   checkout without cluster access when their compact source bundle is pinned.
 - **Improvement/status:** This comparison now pins a 2 MB input archive and a
-  renderer beside its report. For future paired studies, make the canonical
-  telemetry collection optionally export such a compact visual-source bundle
-  from the declared manifest rows and common-observation certificate.
+  renderer beside its report. The same bundle also yields one peak-center map
+  per evaluated run, with silent units and shared peak bins explicit. For future
+  paired studies, make the canonical telemetry collection optionally export
+  such a compact visual-source bundle from the declared manifest rows and
+  common-observation certificate.
 - **Acceptance:** A clean checkout regenerates paired maps and path figures,
   verifies identical common-panel occupancy, and labels own-policy path
-  comparisons separately from fixed-observation map comparisons.
+  comparisons separately from fixed-observation map comparisons. Peak-center
+  exports agree with the canonical active-unit count, unique-bin count, and
+  pairwise-spacing summaries.
 
 ### Bound analysis math threads on crowded NEMO2 login nodes — 2026-10-09
 
