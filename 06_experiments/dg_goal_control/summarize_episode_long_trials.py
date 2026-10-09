@@ -11,6 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 
@@ -121,6 +122,61 @@ def paired_horizon_contrasts(frame: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(paired)
 
 
+def audit_cross_arm_starts(finite_root: Path, episode_root: Path) -> pd.DataFrame:
+    """Certify shared physical starts for prescribed fields across arms.
+
+    Learned DG source IDs name separately learned events, so overlap of reset
+    seeds is reported but physical-state parity is not assumed for that family.
+    """
+    selected = {}
+    for root in (finite_root, episode_root):
+        for summary_path in sorted(root.glob("*/intervention_summary.json")):
+            summary = json.loads(summary_path.read_text())
+            key = (summary["condition"], int(summary["seed"]))
+            if key[0] in ("OFDG_ORACLE", "OELDG_ORACLE_FILM",
+                          "OFDG_LEARNED", "OELDG_LEARNED4_FILM"):
+                selected[key] = summary_path.with_name("intervention_trials.csv")
+    rows = []
+    for family, finite, episode in (
+        ("Prescribed", "OFDG_ORACLE", "OELDG_ORACLE_FILM"),
+        ("Learned-4 detector", "OFDG_LEARNED", "OELDG_LEARNED4_FILM"),
+    ):
+        for seed in (8, 99, 123):
+            starts = []
+            for condition in (finite, episode):
+                trials = pd.read_csv(selected[(condition, seed)])
+                keys = ["source", "repeat", "prefix_seed"]
+                assert trials.groupby(keys).start_position.nunique().eq(1).all()
+                distinct = trials[["source", "repeat", "prefix_seed", "start_position"]]
+                distinct = distinct.drop_duplicates(keys)
+                assert len(distinct) == 32
+                starts.append(distinct)
+            joined = starts[0].merge(starts[1],
+                                     on=["source", "repeat", "prefix_seed"],
+                                     suffixes=("_finite", "_episode"),
+                                     validate="one_to_one")
+            distances = np.array([
+                np.linalg.norm(
+                    np.asarray(json.loads(a), dtype=float) -
+                    np.asarray(json.loads(b), dtype=float)
+                )
+                for a, b in zip(joined.start_position_finite,
+                                joined.start_position_episode)
+            ])
+            if family == "Prescribed":
+                assert len(joined) == 32 and np.allclose(distances, 0, atol=1e-5)
+            rows.append({
+                "family": family, "seed": seed,
+                "finite_starts": len(starts[0]),
+                "episode_starts": len(starts[1]),
+                "matched_source_repeat_reset_keys": len(joined),
+                "identical_physical_starts": int((distances < 1e-5).sum()),
+                "median_position_distance": float(np.median(distances)) if len(distances) else np.nan,
+                "maximum_position_distance": float(np.max(distances)) if len(distances) else np.nan,
+            })
+    return pd.DataFrame(rows)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--finite-root", required=True, type=Path)
@@ -142,6 +198,9 @@ def main() -> None:
     )
     paired_horizon_contrasts(frame).to_csv(
         args.output_dir / "matched_command_75m_paired_horizon_effects.csv", index=False
+    )
+    audit_cross_arm_starts(args.finite_root, args.episode_root).to_csv(
+        args.output_dir / "matched_command_75m_start_parity.csv", index=False
     )
     pd.DataFrame(all_provenance).sort_values(["condition", "seed"]).to_csv(
         args.output_dir / "matched_command_raw_provenance.csv", index=False

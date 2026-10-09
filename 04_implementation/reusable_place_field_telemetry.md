@@ -748,6 +748,16 @@ physical endpoints, censoring, and panel coverage. Exposed sources/targets are
 an observed subset, not proof of control over all allocated DG units. DG-write
 models reject the legacy decoder-only intervention path.
 
+Exact-start verification is within a frozen arm: its commanded and alternate
+trials share a physical state. A *between-arm* deadline or reward comparison
+needs a separate start-parity audit keyed by source, repeat and reset seed.
+The 75M prescribed-Gaussian finite/episode seed-99 panels share all 32
+physical positions exactly; independently learned DG source IDs do not
+necessarily name the same place, even with matched training seeds. Keep those
+contrasts distinct in result tables. Also, `endpoint` is the position at the
+trial horizon, not at `hit_time`; it cannot substitute for missing physical
+path or hit-position fields when certifying a geometric arrival.
+
 The corridor study exposed a lifecycle limit when all replays run in one Python
 process: repeated native engine construction eventually aborts with
 `*** buffer overflow detected ***` (exit 134). Reusing one engine is invalid for
