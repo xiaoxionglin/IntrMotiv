@@ -1864,6 +1864,16 @@ For each finding, record:
 
 # Diagnose stalled Sample Factory learner progress in short NEMO2 qualifications
 
+- **Recurring evidence, 10 October 2026:** Corrected-core encoder-wave job
+  8322468 raised `Learner update invariant violated: fewer than two valid
+  decisions reached PPO` near 0.5M frames. Workers stopped within 30 minutes,
+  but Slurm still showed `RUNNING` and held 40 CPUs for about 16 hours; the
+  verified failed allocation was cancelled. First-wave C15 job 8317714 had
+  the same learner invariant and required manual cancellation. This adds an
+  exception-aware shutdown requirement to the progress-watchdog proposal:
+  a fatal learner exception must terminate the Slurm job promptly, and the
+  health check must compare learner frames with wall time instead of trusting
+  `RUNNING` or exit code alone.
 - **Evidence:** Odor/CA3 qualification jobs 8288060–8288063 all entered `RUNNING`
   and produced finite learner scalars. Their training-frame counters then stopped
   at 155,648, 155,648, 49,152, and 81,920 while Slurm still reported them running
