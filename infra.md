@@ -6,6 +6,29 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Validate analysis availability before a batch collection — 2026-10-10
+
+- **Evidence:** The 45-run corrected-core encoder/worker StudySpec legitimately
+  includes C01 flat-exploration runs and C05/C15 goal runs. The canonical
+  `collect-online` aborted after loading 24 goal runs because C01 has no HRL
+  hit or command tags. A missing 100M checkpoint from the failed C15
+  zero-bonus constant-credit seed 123 also made the full StudySpec's
+  `render-telemetry` produce duplicate labels through a fallback checkpoint.
+  Five validated analysis-only StudySpecs were needed to collect the 44
+  completed runs and render their telemetry without changing the submitted
+  training specification.
+- **Impact:** One failed or inapplicable cell can block otherwise complete
+  analysis and prompt expensive reloading of TensorBoard or checkpoint scans.
+- **Improvement/status:** Pending. Let analysis declarations specify metric
+  applicability by family and explicit failed-run exclusions, while preserving
+  original run identity and training StudySpec SHA-256. Validate fallback
+  checkpoint labels before rendering; report missing cells rather than silently
+  substituting an earlier age.
+- **Acceptance:** The canonical collector and telemetry renderer process the
+  44 completed rows from this immutable 45-run StudySpec in one call, preserve
+  C01's inapplicable HRL metrics as missing, and state that C15's failed cell
+  has no 100M checkpoint. No duplicate label or TensorBoard reload is needed.
+
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 
 - **Evidence:** Four submitted corrected-core StudySpecs pin the historical
@@ -240,8 +263,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   `online_spatial_workspace_root` and `online_spatial_output_root` still pointed
   to the retired full allocation. Five completed runs wrote small retained
   snapshots there; these had to be copied into the active workspace before
-  canonical spatial collection. The six-command preflight did not inspect
-  those nested runtime paths.
+  canonical spatial collection. The later 44 completed runs wrote another 220
+  snapshots to the same retired path; each was copied to the active workspace
+  with its hash verified before `collect-spatial` produced 220 rows. The
+  six-command preflight did not inspect those nested runtime paths.
 - **Impact:** A study can pass submission audit while its output-root metadata
   points to a directory where no runs will appear, or while one artifact stream
   writes to a prohibited allocation. Either delays analysis and weakens
