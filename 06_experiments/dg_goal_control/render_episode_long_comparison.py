@@ -265,7 +265,7 @@ def plot_command_lift() -> None:
         ax.set_title(("Learned detector" if family == "LEARNED" else "Fixed field entry")
                      + f" ({seed_label} seeds per arm)")
         ax.grid(axis="y", color="#D8DEE4")
-    axes[0].set_ylabel("Commanded − alternative hit probability")
+    axes[0].set_ylabel("Command lift")
     handles, labels = axes[0].get_legend_handles_labels()
     uniq = {label: handle for handle, label in zip(handles, labels) if label in
             ("64-decision deadline", "Episode-long")}

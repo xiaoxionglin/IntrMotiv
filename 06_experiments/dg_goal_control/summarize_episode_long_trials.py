@@ -191,15 +191,17 @@ def main() -> None:
         all_rows.extend(rows)
         all_provenance.extend(provenance)
     assert all_rows and all_provenance
-    args.output_dir.mkdir(parents=True, exist_ok=True)
     frame = pd.DataFrame(all_rows).sort_values(["condition", "seed", "horizon"])
+    paired = paired_horizon_contrasts(frame)
+    start_parity = audit_cross_arm_starts(args.finite_root, args.episode_root)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
     frame.to_csv(
         args.output_dir / "matched_command_75m_per_horizon.csv", index=False
     )
-    paired_horizon_contrasts(frame).to_csv(
+    paired.to_csv(
         args.output_dir / "matched_command_75m_paired_horizon_effects.csv", index=False
     )
-    audit_cross_arm_starts(args.finite_root, args.episode_root).to_csv(
+    start_parity.to_csv(
         args.output_dir / "matched_command_75m_start_parity.csv", index=False
     )
     pd.DataFrame(all_provenance).sort_values(["condition", "seed"]).to_csv(
