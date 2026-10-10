@@ -1,0 +1,85 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -315,6 +315,16 @@
+     if not bool(stale_rollouts.any()):
+         return True
+     return int(accepted_valids.sum().item()) >= int(minimum_valid_decisions)
++
++
++def has_ppo_minibatch_support(valids: Tensor) -> bool:
++    """PPO's advantage variance requires two valid decisions in this minibatch.
++
++    A batch can pass the generation barrier while fixed, unshuffled minibatches
++    put every fresh rollout in one half. Check each half before forwarding it;
++    the batch-wide valid count does not establish minibatch support.
++    """
++    return int(valids.sum().item()) >= 2
+ 
+ 
+ def forced_recruitment_preflight_selection(
+@@ -3825,6 +3835,7 @@
+                 ), "V-trace requires to recurrence and rollout to be equal"
+ 
+             num_sgd_steps = 0
++            skipped_minibatches = 0
+             stats_and_summaries: Optional[AttrDict] = None
+             recruitment_applied = False
+ 
+@@ -3860,6 +3871,10 @@
+ 
+                     # enable syntactic sugar that allows us to access dict's keys as object attributes
+                     mb = AttrDict(mb)
++
++                if not has_ppo_minibatch_support(mb.valids):
++                    skipped_minibatches += 1
++                    continue
+ 
+                 with timing.add_time("calculate_losses"):
+                     iterative_phase = self._iterative_phase()
+@@ -4021,6 +4036,9 @@
+                     self.policy_versions_tensor[self.policy_id] = self.train_step
+ 
+             # end of an epoch
++            if num_sgd_steps == 0:
++                log.warning("No PPO minibatch had two valid decisions; skipping optimizer and DG recruitment")
++                return None
+             if self.lr_scheduler.invoke_after_each_epoch():
+                 self.curr_lr = self.lr_scheduler.update(self.curr_lr, recent_kls)
+ 
+@@ -4037,6 +4055,9 @@
+                 break
+ 
+             prev_epoch_actor_loss = new_epoch_actor_loss
++
++        if skipped_minibatches:
++            log.warning("Skipped %d PPO minibatches with fewer than two valid decisions", skipped_minibatches)
+ 
+         if not recruitment_applied:
+             self._apply_dg_recruitment(gpu_buffer)
+--- a/sf_working_directories/IntrMotiv/tests/test_update_contract.py
++++ b/sf_working_directories/IntrMotiv/tests/test_update_contract.py
+@@ -12,6 +12,7 @@
+     dg_gradient_interaction_stats,
+     finite_masked_mean,
+     forced_recruitment_preflight_selection,
++    has_ppo_minibatch_support,
+     legacy_reward_streams,
+     normalize_dg_projection_rows,
+     record_poststep_calibration_count,
+@@ -34,6 +35,16 @@
+     assert finite_masked_mean(values, torch.tensor([True, True, True, True])).item() == 3.0
+     empty = finite_masked_mean(values, torch.tensor([True, False, False, True]))
+     assert torch.isfinite(empty) and empty.item() == 0.0
++
++
++def test_generation_barrier_can_pass_while_unshuffled_second_minibatch_is_empty():
++    # Reproduces the failed C15 jobs: 32 fresh 64-decision rollouts satisfy the
++    # 2048-decision batch gate, but occupy only one of two fixed PPO minibatches.
++    valid = torch.cat((torch.ones(2048, dtype=torch.bool), torch.zeros(2048, dtype=torch.bool)))
++    assert require_sufficient_generation_batch(valid, torch.tensor([True]), 2048)
++    assert has_ppo_minibatch_support(valid[:2048])
++    assert not has_ppo_minibatch_support(valid[2048:])
++    assert not has_ppo_minibatch_support(torch.tensor([True, False]))
+ 
+ 
+ def test_forced_recruitment_preflight_waits_selects_once_and_uses_first_valid():

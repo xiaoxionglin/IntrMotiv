@@ -135,6 +135,11 @@ then validate and regenerate print-only plans. Allocation does not migrate data.
 For shortened qualification runs that retain production identities, use
 `python -m hpc_runs.intrmotiv_study.checkpoint_reload` to certify an immutable
 copy of each final checkpoint through the real learner initialization path.
+For DG recruitment with fixed, unshuffled PPO minibatches, test the actual
+per-minibatch valid-decision count after generation filtering. A batch-level
+fresh-decision threshold can pass while one minibatch has no fresh data. A
+compute-node qualification should advance beyond any previous learner failure
+point; a `RUNNING` scheduler state alone is insufficient evidence of progress.
 The certificate binds exact model/buffer, optimizer and counter restoration to
 its checkpoint SHA; DDQN also checks target, replay and publication state.
 If only an optimizer group's `lr` differs, inspect saved `curr_lr` and the

@@ -1899,6 +1899,17 @@ For each finding, record:
   a fatal learner exception must terminate the Slurm job promptly, and the
   health check must compare learner frames with wall time instead of trusting
   `RUNNING` or exit code alone.
+- **Correctness root cause and isolated repair:** The generation barrier checked
+  the full PPO batch for at least 2,048 fresh decisions, while C15 used two
+  fixed, unshuffled minibatches. Fresh decisions could occupy only the first
+  minibatch, leaving the second with fewer than two valid decisions and causing
+  the loss invariant to abort. The [C15 recovery record](06_experiments/reward_credit/corrected_core_c15_failed_run_recovery_20261010.md)
+  pins a minimal per-minibatch skip in an isolated source copy. Twenty-two
+  focused tests passed on NEMO2. Two compute-node qualifications completed at
+  2,064,384 frames with finite losses and exact final-checkpoint reload, and
+  fresh 100M replacement jobs 8324628 and 8324629 were released without
+  scientific argument changes. Longer-run stability and the downstream
+  scientific results remain to be checked at their declared milestones.
 - **Evidence:** Odor/CA3 qualification jobs 8288060–8288063 all entered `RUNNING`
   and produced finite learner scalars. Their training-frame counters then stopped
   at 155,648, 155,648, 49,152, and 81,920 while Slurm still reported them running

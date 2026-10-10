@@ -116,7 +116,7 @@ above determines which findings are current.
 
 | Study line or question | Files in reading order |
 | --- | --- |
-| Corrected-core encoder and worker reward ablation | [RESULT: cross-factor questions, common-panel fields, per-run peak maps, trajectories, and graphs](reward_credit/corrected_core_encoder_worker_ablation_20261010.md); [RESULT: first-wave worker bonus and launch provenance](reward_credit/corrected_core_distance_reward_ablation_20261009.md) |
+| Corrected-core encoder and worker reward ablation | [RESULT: cross-factor questions, common-panel fields, per-run peak maps, trajectories, and graphs](reward_credit/corrected_core_encoder_worker_ablation_20261010.md); [RESULT: first-wave worker bonus and launch provenance](reward_credit/corrected_core_distance_reward_ablation_20261009.md); [RUN: failed C15 diagnosis and recovery](reward_credit/corrected_core_c15_failed_run_recovery_20261010.md) |
 | Episode-long hit timing and value boundary | [RESULT: unified comparison with field, trajectory, graph and control evidence](dg_goal_control/episode_long_dg_comparison_20261009.md); [RUN: longer-credit controls](reward_credit/long_credit_dg_20261008.md); [RUN: source-DG hit bonus](reward_credit/source_distance_hit_dg_20261009.md); [RUN: goal-hit-terminal worker value](reward_credit/goal_value_stop_dg_20261009.md); [ARCHIVE: earlier ablation decision](reward_credit/distance_reward_ablation_decision_20261009.md) |
 
 The old `ca3_goals/results/corrected_core_hit_only_20261009` path is a compatibility link to the reward-credit results because submitted StudySpecs pin that provenance path. The current report and data live under `reward_credit/`.

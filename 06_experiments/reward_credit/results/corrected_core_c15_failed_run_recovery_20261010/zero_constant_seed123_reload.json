@@ -1,0 +1,14 @@
+{
+  "run": "00_HDAB_REC_C15_ZERO_CONSTANT_STOP_S123",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/c15_failed_recovery_20261010/reload_zero_constant_2064384/checkpoint_000000126_2064384.pth",
+  "checkpoint_sha256": "4acd399dd1bf3088a63c7ea27929943cfefdce5962fd39be29e4906ab826738e",
+  "frames": 2064384,
+  "train_step": 126,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8324618"
+}

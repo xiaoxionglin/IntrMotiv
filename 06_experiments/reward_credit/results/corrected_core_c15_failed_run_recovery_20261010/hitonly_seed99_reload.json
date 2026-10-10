@@ -1,0 +1,14 @@
+{
+  "run": "00_HDAB_REC_C15_HITONLY_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/c15_failed_recovery_20261010/reload_hitonly_2064384/checkpoint_000000126_2064384.pth",
+  "checkpoint_sha256": "a5aaa2ea25c716ca77d845f21184684c52016ba5f2a8b4bfceef088df07070ea",
+  "frames": 2064384,
+  "train_step": 126,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8324617"
+}

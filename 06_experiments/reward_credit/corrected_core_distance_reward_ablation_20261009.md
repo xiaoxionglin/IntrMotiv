@@ -1,6 +1,6 @@
 # Corrected-core encoder and worker distance-reward ablation
 
-**Analysis snapshot, 10 October 2026:** five first-wave hit-only runs reached 100M; C15 seed 99 failed before 5M and has no efficacy result. Matched-age online, place-field, trajectory, and stored-graph comparisons are available below. One paired C05 seed-8 executed-command comparison is complete; the broader sweep is running. The [companion encoder/worker report](corrected_core_encoder_worker_ablation_20261010.md) covers 44 of 45 completed later-wave runs, with one C15 seed-123 failure. No recurring monitor is active.
+**Analysis snapshot, 10 October 2026:** five first-wave hit-only runs reached 100M; C15 seed 99 failed before 5M and has no efficacy result. Its [diagnosed replacement](corrected_core_c15_failed_run_recovery_20261010.md) passed qualification and is running from scratch. Matched-age online, place-field, trajectory, and stored-graph comparisons are available below. One paired C05 seed-8 executed-command comparison is complete; the broader sweep is running. The [companion encoder/worker report](corrected_core_encoder_worker_ablation_20261010.md) covers 44 of 45 completed later-wave runs, with one C15 seed-123 failure. No recurring monitor is active.
 
 ## Questions and figures
 
