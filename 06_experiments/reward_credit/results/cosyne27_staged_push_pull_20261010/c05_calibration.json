@@ -1,0 +1,33 @@
+{
+  "study_id": "cosyne27_c05_reference_calibration_20261010",
+  "study_sha256": "f189ad271e81a49c26caede6c58accbee7aa4e94085db0b8a2ee40139012fbe8",
+  "job_id": 8324790,
+  "event_file_sha256": "358d61d12e3785e06e7fb8844c95710d06398e4b15fe40df1fee6aa07109f292",
+  "window_frames": [
+    0,
+    2000000
+  ],
+  "reward_scale": 0.1,
+  "hit_reward": 1.0,
+  "distance_bonus_coeff": 0.1,
+  "encoder": {
+    "event_count": 15317.0,
+    "logged_blocks": 49,
+    "first_step": 425984,
+    "last_step": 1998848,
+    "weighted_mean": 0.432839327775102,
+    "constant_distance_units": 4.32839327775102,
+    "block_mean_min": 0.2774580121040344,
+    "block_mean_max": 7.099999904632568
+  },
+  "worker": {
+    "event_count": 460.0,
+    "logged_blocks": 47,
+    "first_step": 491520,
+    "last_step": 1998848,
+    "weighted_mean": 1.5915435296037923,
+    "constant_distance_units": 59.15435296037923,
+    "block_mean_min": 1.0,
+    "block_mean_max": 1.6966667175292969
+  }
+}

@@ -266,7 +266,15 @@ keep implementation guidance in the canonical workflow documents linked below.
   canonical spatial collection. The later 44 completed runs wrote another 220
   snapshots to the same retired path; each was copied to the active workspace
   with its hash verified before `collect-spatial` produced 220 rows. The
-  six-command preflight did not inspect those nested runtime paths.
+  six-command preflight did not inspect those nested runtime paths. The
+  10 October COSYNE C05 reference and first C01/C15 preflights repeated this
+  failure: their `train_dir` and print-only audits used the active workspace,
+  while parser defaults sent four small online-spatial directories to retired
+  `fr_xl1014-train`. Three still-running preflights were canceled, the spatial
+  directories were copied and verified in the active workspace, and
+  replacement StudySpecs explicitly set both spatial roots. The completed C05
+  calibration's reward history remains valid; its original spatial files are
+  labeled as recovered.
 - **Impact:** A study can pass submission audit while its output-root metadata
   points to a directory where no runs will appear, or while one artifact stream
   writes to a prohibited allocation. Either delays analysis and weakens
