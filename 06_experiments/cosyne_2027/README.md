@@ -2,6 +2,8 @@
 
 This is the entry point for the [original two-page abstract outline](../../99_inbox/cosyne%202027%20abstract.md) and its [evidence-linked bullet draft](../../99_inbox/cosyne%202027%20abstract%20-%20evidence-linked%20draft.md). Read the question reports below in the same order as its numbered bullets. Each report leads with a compact plot and links the complete factorized evidence, methods, and unresolved analyses.
 
+**Current-stage architecture figure (2026-10-12):** [editable SVG](architecture_current_stage.svg) · [PNG preview](architecture_current_stage.png).
+
 ## Scientific questions in outline order
 
 | Outline bullets | Question report | Main evidence and current status |
