@@ -390,7 +390,7 @@ def plot_encoder_original_values(data: pd.DataFrame, *, metric: str,
     fig.subplots_adjust(left=0.15, right=0.99, bottom=0.15, top=0.93,
                         wspace=0.27, hspace=0.55)
     cells = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
-    labels = ("C01", "C05 · T hit", "C05 · C hit", "C15")
+    labels = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
     minimums = {"C01": (3, 5, 5), "C05 · temporal hit": (3, 5, 5),
                 "C05 · constant hit": (0, 5, 5), "C15": (3, 3, 5)}
     for ax, cell, label, panel in zip(axes.flat, cells, labels, "abcd"):
