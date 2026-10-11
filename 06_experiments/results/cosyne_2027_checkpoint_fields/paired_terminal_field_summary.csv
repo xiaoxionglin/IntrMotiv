@@ -1,0 +1,37 @@
+family,worker_bonus,contrast,metric,n,mean_difference,sd_difference,positive_pairs,negative_pairs
+C01,inapplicable,C01,active_map_cosine_mean,5,-0.0605016562,0.03348436144,0,5
+C01,inapplicable,C01,active_pairwise_peak_distance_bins,5,-0.2173661468,1.056597846,2,3
+C01,inapplicable,C01,active_unique_peak_bins,5,0.6,1.140175425,3,1
+C01,inapplicable,C01,field_eligible_units,5,-1,0,0,5
+C01,inapplicable,C01,mean_active_fraction,5,-0.00454829517,0.001284884279,0,5
+C01,inapplicable,C01,mean_spatial_information_bits,5,0.01573928724,0.04374748487,3,2
+C01,inapplicable,C01,mono_field_fraction,5,0,0,0,0
+C01,inapplicable,C01,prethreshold_map_cosine_mean,5,-0.09187536001,0.05126590007,0,5
+C01,inapplicable,C01,visited_cell_fraction,5,-0.1191135734,0.1224959438,1,4
+C05,constant,C05 · constant hit,active_map_cosine_mean,5,-0.08483483015,0.05913021715,0,5
+C05,constant,C05 · constant hit,active_pairwise_peak_distance_bins,5,-0.4464767681,0.4345764685,1,4
+C05,constant,C05 · constant hit,active_unique_peak_bins,5,1.4,1.140175425,4,0
+C05,constant,C05 · constant hit,field_eligible_units,5,-0.6,0.894427191,1,4
+C05,constant,C05 · constant hit,mean_active_fraction,5,-0.004048345165,0.004620451268,1,4
+C05,constant,C05 · constant hit,mean_spatial_information_bits,5,0.04087581325,0.06481661065,3,2
+C05,constant,C05 · constant hit,mono_field_fraction,5,0.01083333333,0.05065542638,2,1
+C05,constant,C05 · constant hit,prethreshold_map_cosine_mean,5,-0.02315544328,0.03791447296,2,3
+C05,constant,C05 · constant hit,visited_cell_fraction,5,-0.1728531856,0.1538281794,1,4
+C05,temporal,C05 · temporal hit,active_map_cosine_mean,5,-0.05435598713,0.01859632997,0,5
+C05,temporal,C05 · temporal hit,active_pairwise_peak_distance_bins,5,0.8043759737,2.561747532,4,1
+C05,temporal,C05 · temporal hit,active_unique_peak_bins,5,1.2,2.167948339,4,1
+C05,temporal,C05 · temporal hit,field_eligible_units,5,-0.8,0.4472135955,0,4
+C05,temporal,C05 · temporal hit,mean_active_fraction,5,0.0007399260074,0.003449778435,3,2
+C05,temporal,C05 · temporal hit,mean_spatial_information_bits,5,0.02397263846,0.0378003349,4,1
+C05,temporal,C05 · temporal hit,mono_field_fraction,5,0.0025,0.04719566247,2,1
+C05,temporal,C05 · temporal hit,prethreshold_map_cosine_mean,5,-0.1244914548,0.07695425481,0,5
+C05,temporal,C05 · temporal hit,visited_cell_fraction,5,-0.05650969529,0.1128209654,1,4
+C15,inapplicable,C15,active_map_cosine_mean,3,-0.05282089475,0.03469181196,0,3
+C15,inapplicable,C15,active_pairwise_peak_distance_bins,3,0.9110152996,1.144365713,3,0
+C15,inapplicable,C15,active_unique_peak_bins,3,1.666666667,2.516611478,2,1
+C15,inapplicable,C15,field_eligible_units,3,0.3333333333,0.5773502692,1,0
+C15,inapplicable,C15,mean_active_fraction,3,-0.004853681299,0.002025726355,0,3
+C15,inapplicable,C15,mean_spatial_information_bits,3,-0.01135158653,0.02008564382,1,2
+C15,inapplicable,C15,mono_field_fraction,3,0.08194444444,0.07457440977,2,1
+C15,inapplicable,C15,prethreshold_map_cosine_mean,3,-0.1293990557,0.1148729696,0,3
+C15,inapplicable,C15,visited_cell_fraction,3,-0.1108033241,0.2912146615,1,2

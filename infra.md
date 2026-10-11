@@ -6,25 +6,6 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
-### Use the active workspace in fixed-observation panel validation — 2026-10-11
-
-- **Evidence:** COSYNE common-panel recording job 8331634 loaded its 100M
-  checkpoint and ran until the panel write, then failed because
-  `observation_panel.save_panel` accepts only the retired
-  `/work/classic/fr_xl1014-train/` prefix. The requested panel path was under
-  the active `fr_xl1014-corridor-geometry` allocation. The archived
-  [preflight log](06_experiments/results/cosyne_2027_snapshot_peak_spread/common_panel_preflight_8331634.log)
-  shows the failure; ordinary field rollouts do not call this writer.
-- **Impact:** A long compute-node recording run produces no common-observation
-  panel even though the output path follows the current storage policy.
-- **Improvement/status:** Pending. Validate against the configured active
-  workspace root in the canonical evaluator, with a focused acceptance and
-  rejection test. Qualify an isolated evaluation source before resubmitting
-  fixed-panel work.
-- **Acceptance:** A panel under the active workspace writes with all required
-  observation and episode arrays; a path under home or the retired allocation
-  fails before rollout. See the [evaluation workflow](04_implementation/reusable_place_field_telemetry.md).
-
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
 - **Evidence:** The [COSYNE peak-spread analysis](06_experiments/cosyne_2027/snapshot_peak_spread_20261011.md)
@@ -1129,6 +1110,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   independently retained the same old root and a fixed home-source `cd`;
   their first preflight failed before loading a policy, while the isolated
   environment-aware copy completed 201 trials in 5,000 decisions.
+  The failure recurred in COSYNE recording job 8331634 on 11 October: it loaded
+  a 100M checkpoint and ran until panel write, then rejected the active
+  workspace path. Its [log](06_experiments/results/cosyne_2027_snapshot_peak_spread/common_panel_preflight_8331634.log)
+  is archived.
 - **Impact:** Repeated representation comparisons waste rollout time or require
   roughly 16.4 GB of duplicate checkpoint inputs when source checkpoints are
   read-only in another allocation.
@@ -1143,6 +1128,8 @@ keep implementation guidance in the canonical workflow documents linked below.
   staged 12 further small checkpoints solely because the evaluator validates
   input and output under one allocation; the read-only kernel runner now
   accepts the legacy checkpoint root while retaining active-workspace outputs.
+  The COSYNE recurrence shows that the canonical source fix is still pending;
+  its replacement common-observation preflight remains open.
 - **Acceptance:** A panel save under a declared active workspace succeeds and
   a path outside it fails; a print-only manifest can read an immutable
   checkpoint in an older allocation while every writable path remains in the

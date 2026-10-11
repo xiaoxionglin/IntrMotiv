@@ -1,0 +1,61 @@
+{
+  "schema": "cosyne27_checkpoint_fields_v1",
+  "source": "manifest-driven 10k-decision policy-specific checkpoint evaluation",
+  "sources": [
+    {
+      "study": "c01_temporal_s3",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/derived_place_field_metrics.csv",
+      "sha256": "05f0c9620b44817904e6268b6eb0df3830cfcc1b031a017280bc44d03c86682a",
+      "rows": 7
+    },
+    {
+      "study": "c01_constant_s3",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c01_constant_s3/summary/derived_place_field_metrics.csv",
+      "sha256": "ca281663d17dd479a02e6e9d7dd50665e9804882410b150117994491c7f27dcd",
+      "rows": 7
+    },
+    {
+      "study": "c01_encoder_s2",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c01_encoder_s2/summary/derived_place_field_metrics.csv",
+      "sha256": "aa54e2684995e13c7ccfa23c9ed473f5459ce857fbee49d496ebcb60096aa600",
+      "rows": 12
+    },
+    {
+      "study": "c05_pushpull_s3",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/derived_place_field_metrics.csv",
+      "sha256": "b43cb70740a7f0db4878e20defbd760f39848a73e5350b4c00f1589a9f708f69",
+      "rows": 28
+    },
+    {
+      "study": "c05_pushpull_s2",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s2/summary/derived_place_field_metrics.csv",
+      "sha256": "adcd46d4e98a71a4d5912b1e81c7d4f79aae4131e26677d6cd73a11ca53bcd79",
+      "rows": 24
+    },
+    {
+      "study": "c15_available",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/derived_place_field_metrics.csv",
+      "sha256": "f7bc3be21b717ec3074682e891ebfeae4838d8671d053a8b1ba319d982a803ee",
+      "rows": 8
+    },
+    {
+      "study": "c15_encoder_s2",
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c15_encoder_s2/summary/derived_place_field_metrics.csv",
+      "sha256": "34505ceae6d64e430d72a7d1d07e805968a5ffbd059ff941579c1b844721776c",
+      "rows": 12
+    }
+  ],
+  "checkpoint_rows": 98,
+  "paired_seed_metric_rows": 162,
+  "paired_worker_seed_metric_rows": 90,
+  "condition_counts": {
+    "COS27_C01_CONSTANT": 5,
+    "COS27_C01_TEMPORAL": 5,
+    "COS27_C05_CONSTANT_CONSTANT": 5,
+    "COS27_C05_CONSTANT_TEMPORAL": 5,
+    "COS27_C05_TEMPORAL_CONSTANT": 5,
+    "COS27_C05_TEMPORAL_TEMPORAL": 5,
+    "COS27_C15_CONSTANT": 3,
+    "COS27_C15_TEMPORAL": 5
+  }
+}
