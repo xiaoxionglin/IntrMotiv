@@ -491,6 +491,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   `analysis.window_metrics` aliases for encoder feedback and worker magnitude
   did not match the tags emitted in the first TensorBoard files. The actual
   paths are recorded in the [execution report](06_experiments/controllers/push_pull_ablation_20261007.md).
+  The 12 October C15 constant-hit preparation again required direct event-file
+  tag inspection to find `intrmotiv/hrl/control/correct_count` and
+  `intrmotiv/hrl/control/correct_reward_magnitude_mean` before computing its
+  family-specific [calibration](06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010/c15_worker_calibration_20261012.json).
 - **Impact:** A submitted StudySpec can have correct training commands yet
   silently miss a declared analysis metric. Editing its tags after submission
   would change the study SHA-256 and obscure provenance.
