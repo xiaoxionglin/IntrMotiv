@@ -69,32 +69,36 @@ def complete_mean(repeats: list[dict[str, str]], metric: str) -> float | None:
 
 
 def main() -> None:
-    repeat_rows = [row for source in EVALUATION_SOURCES.values() for row in rows(source)
-                   if row["layer"] == "decoder_1"]
-    repeat_key = lambda row: (row["cohort"], row["condition"], row["training_seed"])
-    by_repeat: dict[tuple[str, str, str], list[dict[str, str]]] = {}
+    repeat_rows = [row for source in EVALUATION_SOURCES.values() for row in rows(source)]
+    repeat_key = lambda row: (row["cohort"], row["condition"], row["training_seed"], row["layer"])
+    by_repeat: dict[tuple[str, str, str, str], list[dict[str, str]]] = {}
     for row in repeat_rows:
         by_repeat.setdefault(repeat_key(row), []).append(row)
-    records: list[dict[str, object]] = []
+    all_layer_records: list[dict[str, object]] = []
     for model in chosen_models():
         cohort = "historical" if model["cohort"] == "historical" else "fresh"
-        group = by_repeat.get((cohort, model["condition"], model["seed"]), [])
-        record: dict[str, object] = {
-            "cohort": cohort, "condition": model["condition"],
-            "family": model["family"], "encoder_credit": model["encoder_credit"],
-            "worker_bonus": model["worker_bonus"], "training_seed": model["seed"],
-            "training_job_id": model["job_id"], "training_status": model["attempt_status"],
-            "study_id": model["study_id"], "study_schema": model["schema"],
-            "workflow_version": model["workflow_version"],
-            "study_sha256": model["study_sha256"],
-            "source_base_commit": model["source_base_commit"],
-            "source_patch_sha256": model["source_patch_sha256"],
-            "recovery_patch_sha256": model["recovery_patch_sha256"],
-            "completed_eval_repeats": len({row["eval_seed"] for row in group}),
-        }
-        for metric in REPEAT_METRICS:
-            record[metric] = complete_mean(group, metric)
-        records.append(record)
+        for layer in ("dg", "ca3", "decoder_1", "decoder_2"):
+            group = by_repeat.get((cohort, model["condition"], model["seed"], layer), [])
+            record: dict[str, object] = {
+                "cohort": cohort, "condition": model["condition"],
+                "family": model["family"], "encoder_credit": model["encoder_credit"],
+                "worker_bonus": model["worker_bonus"], "training_seed": model["seed"],
+                "layer": layer, "training_job_id": model["job_id"],
+                "training_status": model["attempt_status"],
+                "study_id": model["study_id"], "study_schema": model["schema"],
+                "workflow_version": model["workflow_version"],
+                "study_sha256": model["study_sha256"],
+                "source_base_commit": model["source_base_commit"],
+                "source_patch_sha256": model["source_patch_sha256"],
+                "recovery_patch_sha256": model["recovery_patch_sha256"],
+                "completed_eval_repeats": len({row["eval_seed"] for row in group}),
+            }
+            for metric in REPEAT_METRICS:
+                record[metric] = complete_mean(group, metric)
+            all_layer_records.append(record)
+    write(RESULTS / "all_layer_training_seeds.csv", all_layer_records,
+          tuple(all_layer_records[0]))
+    records = [row for row in all_layer_records if row["layer"] == "decoder_1"]
     write(RESULTS / "all_training_seeds.csv", records, tuple(records[0]))
     summaries = []
     factors = sorted({(row["cohort"], row["condition"], row["family"],
@@ -118,13 +122,14 @@ def main() -> None:
         "replication": "two paired evaluation seeds averaged within each independent training seed",
         "source_policy": "historical and fresh cohorts are separate; no pooled effect estimate",
         "rows": len(records),
+        "all_layer_rows": len(all_layer_records),
         "workflow_versions": sorted({str(row["workflow_version"]) for row in records}),
         "study_provenance": sorted({(str(row["study_schema"]), str(row["workflow_version"]),
                                      str(row["study_sha256"])) for row in records}),
         "input_sha256": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                          for path in (TRAINING, *EVALUATION_SOURCES.values()) if path.exists()},
     }, indent=2) + "\n")
-    print(f"summarized {len(records)} planned training models and {len(repeat_rows)} decoder-1 evaluation pairs")
+    print(f"summarized {len(records)} planned training models and {len(repeat_rows)} layer-level evaluation pairs")
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@
   "replication": "two paired evaluation seeds averaged within each independent training seed",
   "source_policy": "historical and fresh cohorts are separate; no pooled effect estimate",
   "rows": 49,
+  "all_layer_rows": 196,
   "workflow_versions": [
     "1.14.1",
     "pre-StudySpec"
@@ -56,6 +57,7 @@
   ],
   "input_sha256": {
     "06_experiments/cosyne_2027/training_runs.csv": "98c8a4f9dc345465b5911f385497334e824f691eb126ee8f1d35ea14372f67c5",
-    "06_experiments/results/cosyne_2027_behavior_secondary/historical_pair_analysis/paired_evaluation_repeats.csv": "776dd984b3f682a24145af728bfcf19027f63459de7a8362b9cf3cc021553af9"
+    "06_experiments/results/cosyne_2027_behavior_secondary/historical_pair_analysis/paired_evaluation_repeats.csv": "776dd984b3f682a24145af728bfcf19027f63459de7a8362b9cf3cc021553af9",
+    "06_experiments/results/cosyne_2027_behavior_secondary/fresh_pair_analysis/paired_evaluation_repeats.csv": "56f2718951921f46c10ee0d7489f5d6e382b4b5cebc24870a3f080a73f21bcc8"
   }
 }

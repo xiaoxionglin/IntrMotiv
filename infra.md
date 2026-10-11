@@ -454,7 +454,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   [metric module](hpc_runs/behavior_field_metrics.py), and
   [pair analyzer](hpc_runs/behavior_field_pair_analysis.py) are reusable;
   the 54-probe 50k study and its common-support reanalysis completed. The fresh
-  probe matrix is running. Integrate an
+  152-probe matrix and 76 paired evaluations also completed, with all raw
+  metadata passing the reusable audit and 25/50-visit sensitivity retained.
+  Integrate an
   optional policy/readout extension into the established
   [place-field workflow](04_implementation/reusable_place_field_telemetry.md)
   while retaining the 10k DG contract and manifest compatibility.

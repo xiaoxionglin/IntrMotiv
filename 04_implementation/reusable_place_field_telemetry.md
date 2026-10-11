@@ -254,6 +254,15 @@ bins visited in both halves of both policies, with the same eligible units.
 This common-support check still leaves within-bin visit counts and temporal
 inputs policy dependent. Keep training seeds as independent observations and
 do not pool historical and fresh source versions.
+The fresh matrix completed all 152 trace records and 76 paired evaluation
+repeats. Run [`audit_behavior_probe_metadata.py`](../hpc_runs/audit_behavior_probe_metadata.py)
+against the probe manifest and raw metadata before interpreting the pairs: it
+checks the complete label set, shared frozen-model/checkpoint identity within
+each training model, executed-action differences, and output workspace paths.
+The [factorized training-seed table](../06_experiments/results/cosyne_2027_behavior_secondary/all_training_seeds.csv)
+and [all-layer table](../06_experiments/results/cosyne_2027_behavior_secondary/all_layer_training_seeds.csv)
+are cached compact summaries. Repeat the split-half contrast at 25 visits per
+half as a sensitivity check; 50 visits may remove support from entire pairs.
 
 ## Manifest Contract
 

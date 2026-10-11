@@ -7,6 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from tempfile import TemporaryDirectory
 import csv
+import json
 
 import numpy as np
 import torch
@@ -23,9 +24,44 @@ from hpc_runs.behavior_field_probe import (
 )
 from hpc_runs.behavior_field_study import CONDITIONS, SEEDS, FIELDS, make_rows, read_manifest
 from hpc_runs.behavior_field_analysis import condition_summaries
+from hpc_runs.audit_behavior_probe_metadata import audit
 
 
 class BehaviorFieldTests(unittest.TestCase):
+    def test_probe_audit_rejects_frozen_hash_drift(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            raw = root / "raw"
+            raw.mkdir()
+            manifest = root / "manifest.tsv"
+            rows = []
+            for policy, digest in (("own", "same"), ("uniform", "different")):
+                label = f"probe_{policy}"
+                folder = raw / label
+                folder.mkdir()
+                (folder / "trace.npz").touch()
+                (folder / "metadata.json").write_text(json.dumps({
+                    "policy": policy, "eval_seed": 51000, "decisions": 50000,
+                    "checkpoint": str(root / "checkpoint.pth"), "run_dir": str(root / "run"),
+                    "proposed_executed_disagreements": 0 if policy == "own" else 10,
+                    "runtime_paths": {"train_dir": str(root / "run")},
+                    "checkpoint_sha256": "same", "frozen_model_sha256": digest,
+                }))
+                rows.append({"condition": "C01", "seed": "8", "eval_seed": "51000",
+                             "policy": policy, "decisions": "50000", "checkpoint_frames": "100000000",
+                             "run_dir": str(root / "run"), "checkpoint": str(root / "checkpoint.pth"),
+                             "label": label})
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertRaises(ValueError, audit, manifest, raw, root)
+            metadata_path = raw / "probe_uniform" / "metadata.json"
+            metadata = json.loads(metadata_path.read_text())
+            metadata["frozen_model_sha256"] = "same"
+            metadata_path.write_text(json.dumps(metadata))
+            self.assertTrue(audit(manifest, raw, root)["all_complete"])
+
     def test_common_support_split_half_uses_same_bins_and_units(self):
         cell = np.arange(2000) % 30
         pose = np.column_stack((150 + 100 * (cell % 19),

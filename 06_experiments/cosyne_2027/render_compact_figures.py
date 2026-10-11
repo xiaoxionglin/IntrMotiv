@@ -154,7 +154,7 @@ def behavior_coverage(data: pd.DataFrame) -> None:
                 matrix[row, col] = (2 if record.completed_eval_repeats == 2
                                     else 0 if str(record.training_status).startswith("running")
                                     else 1)
-                ax.text(col, row, ("T", "E", "✓")[matrix[row, col]],
+                ax.text(col, row, ("T", "E", "P")[matrix[row, col]],
                         ha="center", va="center", fontsize=10, color="#202020")
         ax.imshow(matrix, cmap=cmap, vmin=0, vmax=2, aspect="auto", interpolation="none")
         ax.set_xticks(range(len(cells[family])), [cell[2] for cell in cells[family]])
@@ -166,6 +166,52 @@ def behavior_coverage(data: pd.DataFrame) -> None:
         for y in np.arange(-0.5, 5, 1):
             ax.axhline(y, color="white", linewidth=1)
     export(fig, "02_behavior_expression_coverage")
+
+
+def fresh_behavior_expression(data: pd.DataFrame) -> None:
+    """Render source-isolated fresh effects with every factorial cell visible."""
+    fresh = data[data.cohort == "fresh"].copy()
+    if fresh.information_difference.notna().sum() == 0:
+        return
+    fresh["cell"] = fresh.encoder_credit.str[0].str.upper()
+    fresh.loc[fresh.family == "C05", "cell"] += "/" + fresh.worker_bonus.str[0].str.upper()
+    cells = {"C01": ("T", "C"), "C05": ("T/T", "T/C", "C/T", "C/C"),
+             "C15": ("T", "C")}
+    metrics = (("information_difference", "Δ info (bits/act.)"),
+               ("common_split_half_difference", "Δ split-half r"))
+    fig, axes = plt.subplots(2, 3, figsize=(5.7, 4.25), sharey="row")
+    fig.subplots_adjust(left=0.13, right=0.985, bottom=0.12, top=0.93,
+                        wspace=0.27, hspace=0.50)
+    for row, (metric, ylabel) in enumerate(metrics):
+        finite = fresh[metric].dropna().to_numpy(float)
+        lower = min(0, float(finite.min())) if len(finite) else -0.1
+        upper = max(0, float(finite.max())) if len(finite) else 0.1
+        pad = max(0.04, 0.12 * (upper - lower))
+        for col, family in enumerate(("C01", "C05", "C15")):
+            ax = axes[row, col]
+            ax.axhline(0, color="#888888", lw=0.8, zorder=0)
+            labels = []
+            for x, cell in enumerate(cells[family]):
+                group = fresh[(fresh.family == family) & (fresh.cell == cell)]
+                if len(group) != 5:
+                    raise ValueError(f"missing planned fresh cell: {family} {cell}")
+                values = group.dropna(subset=[metric]).sort_values("training_seed")
+                count = len(values)
+                labels.append(f"{cell}\n{count}/5")
+                if count:
+                    positions = x + np.linspace(-0.13, 0.13, count)
+                    ax.scatter(positions, values[metric], s=17,
+                               color=COLORS[family], linewidth=0, zorder=3)
+                    ax.plot([x - 0.16, x + 0.16], [values[metric].mean()] * 2,
+                            color="black", lw=1.2, zorder=4)
+            ax.set_xticks(range(len(labels)), labels)
+            ax.set_ylim(lower - pad, upper + pad)
+            ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
+            ax.grid(axis="y", color="#e6e6e6", lw=0.5, zorder=0)
+            ax.set_title(f"{'abcdef'[row * 3 + col]}  {family}", loc="left", pad=7)
+            if col == 0:
+                ax.set_ylabel(ylabel)
+    export(fig, "02_behavior_expression_fresh")
 
 
 def credit_presence(data: pd.DataFrame) -> None:
@@ -225,6 +271,7 @@ def main() -> None:
     online_course(tables["online"])
     behavior_expression(tables["behavior"])
     behavior_coverage(tables["behavior"])
+    fresh_behavior_expression(tables["behavior"])
     credit_presence(tables["credit_presence"])
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
@@ -235,7 +282,7 @@ def main() -> None:
         "matplotlib_version": matplotlib.__version__,
         "pandas_version": pd.__version__,
         "mean_marker": "black horizontal line; individual seeds are colored points",
-        "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; check: both evaluation repeats complete",
+        "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; P: both evaluation repeats complete",
         "online_uncertainty": "mean ± 1 SEM across five training seeds at each 1M-step grid point",
         "sources": {name: {"path": str(path.relative_to(ROOT)),
                             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}

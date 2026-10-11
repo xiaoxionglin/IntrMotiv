@@ -8,7 +8,7 @@
   "matplotlib_version": "3.10.8",
   "pandas_version": "2.3.3",
   "mean_marker": "black horizontal line; individual seeds are colored points",
-  "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; check: both evaluation repeats complete",
+  "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; P: both evaluation repeats complete",
   "online_uncertainty": "mean \u00b1 1 SEM across five training seeds at each 1M-step grid point",
   "sources": {
     "online": {
@@ -21,7 +21,7 @@
     },
     "behavior": {
       "path": "06_experiments/results/cosyne_2027_behavior_secondary/all_training_seeds.csv",
-      "sha256": "3a92f5a56f800f97344f2c8c28e93dda6a6f2971ef355744027ee6c9c92d0f31"
+      "sha256": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091"
     },
     "encoder": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",

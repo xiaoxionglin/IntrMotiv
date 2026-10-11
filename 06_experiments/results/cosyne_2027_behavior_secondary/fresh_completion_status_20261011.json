@@ -1,0 +1,16 @@
+{
+  "schema": "cosyne27_behavior_completion_status_v1",
+  "checked_at_utc": "2026-10-11 19:11:58 UTC",
+  "probe_manifest_sha256": "074d769ff9792859a66bc9883edeafe5746ceb6fed9c07d79c688240916660c1",
+  "complete_probe_traces": 152,
+  "expected_probe_traces": 152,
+  "complete_paired_evaluations": 76,
+  "expected_paired_evaluations": 76,
+  "consistent_training_models": 38,
+  "paired_analysis_job": {"job_id": 8334109, "state": "COMPLETED", "exit_code": "0:0"},
+  "pending_c15_constant_replacement_training_jobs": [
+    {"job_id": 8329014, "state": "RUNNING"},
+    {"job_id": 8329015, "state": "RUNNING"}
+  ],
+  "sources": ["fresh_probe_metadata_audit.json", "fresh_pair_analysis/analysis_manifest.json", "sacct -X -n -P -j 8329014,8329015,8334109 -o JobID,State,ExitCode"]
+}
