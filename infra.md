@@ -192,6 +192,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   paired studies, make the canonical telemetry collection optionally export
   such a compact visual-source bundle from the declared manifest rows and
   common-observation certificate.
+- **11 October figure follow-up:** The COSYNE common-panel run table retains
+  five C15 temporal-credit absolute values, while its paired contrast table
+  necessarily retains only the three seeds with completed constant-credit
+  partners. The [compact figure renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now reads the run table for original values and the paired table for
+  $\Delta$, labeling historical reference arms separately. Keep both tables
+  in future compact figure bundles so unpaired runs remain visible without
+  entering an effect estimate.
 - **Acceptance:** A clean checkout regenerates paired maps and path figures,
   verifies identical common-panel occupancy, and labels own-policy path
   comparisons separately from fixed-observation map comparisons. Peak-center

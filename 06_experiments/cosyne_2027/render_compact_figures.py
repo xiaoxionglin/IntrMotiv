@@ -29,6 +29,7 @@ SOURCES = {
     "behavior_shared_raw": RESULTS / "behavior_field_expression_20261007/paired_prefixes.csv",
     "behavior_native_raw": RESULTS / "behavior_field_expression_20261007/per_run.csv",
     "encoder": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
+    "encoder_raw": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/shared_observation_fields.csv",
     "worker_fields": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
     "peaks": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
     "credit_presence": ROOT / "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
@@ -299,51 +300,132 @@ def credit_presence(data: pd.DataFrame) -> None:
     export(fig, "02_credit_presence")
 
 
-def credit_presence_absolute(pairs: pd.DataFrame, raw: pd.DataFrame) -> None:
-    """Recover the two observed arms of the historical presence contrast."""
-    raw = raw[raw.credit.isin(("CONSTANT_STOP", "NONE_STOP"))]
-    values = raw.pivot(index=["family", "worker_bonus", "seed"],
-                       columns="credit", values="active_unit_mean_si_bits")
-    values = values.dropna().reset_index().rename(
-        columns={"CONSTANT_STOP": "first", "NONE_STOP": "second"})
-    values["difference"] = values["first"] - values["second"]
-    values["group"] = values.family + values.worker_bonus.map(
-        {"flat": "", "temporal": "T", "zero": "Z"})
-    archived = pairs[pairs.contrast == "none_stop_minus_constant"]
-    check = values.merge(archived, on=["family", "worker_bonus", "seed"],
-                         validate="one_to_one")
-    if len(check) != 14 or not np.allclose(
-        check.difference, -check.active_unit_mean_si_bits_delta,
-        rtol=0, atol=1e-8):
-        raise ValueError("historical absolute values disagree with paired contrast")
-    paired_values_and_difference(
-        values, name="02_credit_presence_values_and_delta",
-        groups=("C01", "C05T", "C05Z", "C15T", "C15Z"),
-        group_column="group", labels=("01", "05T", "05Z", "15T", "15Z"),
-        colors=(COLORS["C01"], COLORS["C05"], COLORS["C05"],
-                COLORS["C15"], COLORS["C15"]),
-        first_label="Constant credit", second_label="No credit",
-        ylabel="DG info (bits)", delta_label="Δ DG info (bits)",
-        minimum_counts=(3, 3, 3, 3, 2))
-
-
 def encoder_credit(fields: pd.DataFrame, peaks: pd.DataFrame) -> None:
-    fig, axes = plt.subplots(1, 3, figsize=(5.7, 2.1))
-    fig.subplots_adjust(left=0.085, right=0.99, bottom=0.25, top=0.79, wspace=0.33)
+    """Keep paired, same-source temporal-minus-constant effects separate."""
+    fig, axes = plt.subplots(1, 3, figsize=(6.0, 2.1))
+    fig.subplots_adjust(left=0.09, right=0.99, bottom=0.25, top=0.87, wspace=0.48)
     specs = (
-        (fields, "mean_spatial_information_bits", "a  Δ DG info (bits)"),
-        (fields, "active_map_cosine_mean", "b  Δ map cosine"),
+        (fields, "mean_spatial_information_bits", "a", "Δ DG spatial score"),
+        (fields, "active_map_cosine_mean", "b", "Δ map cosine"),
         (peaks[peaks.cutoff == 0.0025], "effective_area_fraction",
-         "c  Δ peak area"),
+         "c", "Δ peak area fraction"),
     )
     colors = (COLORS["C01"], COLORS["C05"], COLORS["C05"], COLORS["C15"])
-    for ax, (table, metric, label) in zip(axes, specs):
+    for ax, (table, metric, panel, ylabel) in zip(axes, specs):
         rows = table[table.metric == metric]
         seed_differences(ax, rows, FACTOR_ORDER, group_column="contrast",
                          labels=("C01", "C05\nT", "C05\nC", "C15"),
                          colors=colors, markers=("o", "o", "s", "o"))
-        ax.set_title(label, loc="left", pad=8)
-    export(fig, "03_encoder_credit_factorized")
+        ax.set_title(panel, loc="left", pad=6, fontweight="bold")
+        ax.set_ylabel(ylabel, labelpad=2)
+    export(fig, "03_encoder_credit_deltas")
+
+
+def encoder_original_values(fresh: pd.DataFrame, historical: pd.DataFrame,
+                            pairs: pd.DataFrame) -> pd.DataFrame:
+    """Assemble a descriptive three-level view with explicit cohort identity."""
+    if len(fresh) < 38 or fresh.duplicated(["family", "worker_bonus",
+                                             "encoder_credit", "seed"]).any():
+        raise ValueError("fresh common-panel run table is incomplete or duplicated")
+    cells = {("C01", "inapplicable"): "C01",
+             ("C05", "temporal"): "C05 · temporal hit",
+             ("C05", "constant"): "C05 · constant hit",
+             ("C15", "temporal"): "C15"}
+    metrics = ("mean_spatial_information_bits", "active_map_cosine_mean")
+    records = []
+    for row in fresh.itertuples(index=False):
+        cell = cells.get((row.family, row.worker_bonus))
+        if cell is None:
+            raise ValueError("unexpected fresh encoder factor cell")
+        for metric in metrics:
+            records.append({"factor_cell": cell, "family": row.family,
+                            "worker_bonus": row.worker_bonus,
+                            "encoder_credit": row.encoder_credit,
+                            "seed": row.seed, "metric": metric,
+                            "value": getattr(row, metric), "cohort": "fresh"})
+    older = historical[(historical.credit == "NONE_STOP") &
+                       (((historical.family == "C01") &
+                         (historical.worker_bonus == "flat")) |
+                        ((historical.family.isin(("C05", "C15"))) &
+                         (historical.worker_bonus == "temporal")))]
+    if len(older) != 9 or older.groupby("family").seed.nunique().to_dict() != {
+        "C01": 3, "C05": 3, "C15": 3}:
+        raise ValueError("historical no-credit reference is incomplete")
+    old_metric = {"mean_spatial_information_bits": "active_unit_mean_si_bits",
+                  "active_map_cosine_mean": "active_map_cosine_mean"}
+    for row in older.itertuples(index=False):
+        cell = "C01" if row.family == "C01" else (
+            "C05 · temporal hit" if row.family == "C05" else "C15")
+        for metric, column in old_metric.items():
+            records.append({"factor_cell": cell, "family": row.family,
+                            "worker_bonus": row.worker_bonus,
+                            "encoder_credit": "none", "seed": row.seed,
+                            "metric": metric, "value": getattr(row, column),
+                            "cohort": "historical"})
+    result = pd.DataFrame.from_records(records)
+    if len(result) != 2 * (len(fresh) + len(older)) or result.duplicated(
+        ["factor_cell", "encoder_credit", "seed", "metric"]).any():
+        raise ValueError("three-level values lost or duplicated runs")
+    if not np.isfinite(result.value).all():
+        raise ValueError("nonfinite three-level encoder values")
+    paired_values = pairs[pairs.metric.isin(metrics)].melt(
+        id_vars=["contrast", "seed", "metric"],
+        value_vars=["constant", "temporal"],
+        var_name="encoder_credit", value_name="paired_value")
+    check = paired_values.merge(
+        result[result.cohort == "fresh"],
+        left_on=["contrast", "seed", "metric", "encoder_credit"],
+        right_on=["factor_cell", "seed", "metric", "encoder_credit"],
+        validate="one_to_one")
+    if len(check) != len(paired_values) or not np.allclose(
+        check.paired_value, check.value, rtol=0, atol=1e-8):
+        raise ValueError("fresh original values disagree with paired delta inputs")
+    return result.sort_values(["metric", "factor_cell", "encoder_credit", "seed"])
+
+
+def plot_encoder_original_values(data: pd.DataFrame, *, metric: str,
+                                 name: str, ylabel: str, upper: float) -> None:
+    """Show three encoder settings while visibly separating source cohorts."""
+    fig, axes = plt.subplots(2, 2, figsize=(4.2, 3.8), sharey=True)
+    fig.subplots_adjust(left=0.15, right=0.99, bottom=0.15, top=0.93,
+                        wspace=0.27, hspace=0.55)
+    cells = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
+    labels = ("C01", "C05 · T hit", "C05 · C hit", "C15")
+    minimums = {"C01": (3, 5, 5), "C05 · temporal hit": (3, 5, 5),
+                "C05 · constant hit": (0, 5, 5), "C15": (3, 3, 5)}
+    for ax, cell, label, panel in zip(axes.flat, cells, labels, "abcd"):
+        rows = data[(data.metric == metric) & (data.factor_cell == cell)]
+        color = COLORS[rows.family.iloc[0]]
+        ax.axvspan(-0.35, 0.45, color="#F3F5F6", zorder=0)
+        ax.axvline(0.5, color="#AAB3BA", ls=(0, (2, 2)), lw=0.75, zorder=1)
+        for x, credit, marker, expected in zip(
+            (0, 1, 2), ("none", "constant", "temporal"),
+            ("D", "s", "o"), minimums[cell]):
+            selected = rows[rows.encoder_credit == credit].sort_values("seed")
+            if len(selected) < expected or selected.seed.nunique() != len(selected):
+                raise ValueError(f"{name}: missing {cell} {credit} seed values")
+            if selected.empty:
+                ax.text(0, upper * 0.08, "n/a", ha="center", va="bottom",
+                        color="#75838C", fontsize=10)
+                continue
+            offsets = np.linspace(-0.085, 0.085, len(selected))
+            if credit == "temporal":
+                ax.scatter(x + offsets, selected.value, s=19, color=color,
+                           marker=marker, linewidth=0, zorder=3)
+            else:
+                ax.scatter(x + offsets, selected.value, s=19, marker=marker,
+                           facecolor="white", edgecolor=color,
+                           linewidth=1.1, zorder=3)
+            ax.plot([x - 0.13, x + 0.13], [selected.value.mean()] * 2,
+                    color="black", lw=1.05, zorder=4)
+        ax.set(xlim=(-0.35, 2.35), ylim=(0, upper))
+        ax.set_xticks((0, 1, 2), ("None\nold", "Const.\nfresh", "Temp.\nfresh"))
+        ax.set_title(f"{panel}  {label}", loc="left", pad=5, fontweight="bold")
+        ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
+        ax.grid(axis="y", color="#E2E8EB", lw=0.5, zorder=0)
+    axes[0, 0].set_ylabel(ylabel, labelpad=2)
+    axes[1, 0].set_ylabel(ylabel, labelpad=2)
+    export(fig, name)
 
 
 def worker_bonus(data: pd.DataFrame) -> None:
@@ -387,28 +469,21 @@ def main() -> None:
             first_label="Own policy", second_label="Random actions",
             ylabel=ylabel, delta_label=delta_label, minimum_counts=(3, 3, 3))
     credit_presence(tables["credit_presence"])
-    credit_presence_absolute(tables["credit_presence"],
-                             tables["credit_presence_raw"])
+    encoder_values = encoder_original_values(tables["encoder_raw"],
+                                             tables["credit_presence_raw"],
+                                             tables["encoder"])
+    encoder_values.to_csv(OUT / "03_encoder_credit_original_values.csv",
+                          index=False, lineterminator="\n")
+    plot_encoder_original_values(
+        encoder_values, metric="mean_spatial_information_bits",
+        name="03_encoder_credit_original_values", ylabel="DG spatial score",
+        upper=0.23)
+    plot_encoder_original_values(
+        encoder_values, metric="active_map_cosine_mean",
+        name="03_encoder_map_cosine_original_values", ylabel="Map cosine",
+        upper=0.17)
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
-    encoder_specs = (
-        (tables["encoder"], "mean_spatial_information_bits",
-         "03_encoder_info_values_and_delta", "DG info (bits)", "Δ DG info (bits)"),
-        (tables["encoder"], "active_map_cosine_mean",
-         "03_encoder_cosine_values_and_delta", "Map cosine", "Δ map cosine"),
-        (tables["peaks"][tables["peaks"].cutoff == 0.0025],
-         "effective_area_fraction", "03_encoder_peak_area_values_and_delta",
-         "Peak area fraction", "Δ peak area fraction"),
-    )
-    for source, metric, name, ylabel, delta_label in encoder_specs:
-        paired_values_and_difference(
-            source[source.metric == metric].rename(
-                columns={"temporal": "first", "constant": "second"}),
-            name=name, groups=FACTOR_ORDER, group_column="contrast",
-            labels=("C01", "C05\nT", "C05\nC", "C15"),
-            colors=(COLORS["C01"], COLORS["C05"], COLORS["C05"], COLORS["C15"]),
-            first_label="Temporal credit", second_label="Constant credit",
-            ylabel=ylabel, delta_label=delta_label, minimum_counts=(5, 5, 5, 3))
     online_worker = tables["online_pairs"][
         tables["online_pairs"].contrast == "temporal_minus_constant_hit_bonus"]
     worker_specs = (
@@ -430,7 +505,7 @@ def main() -> None:
             first_label="Temporal hit", second_label="Constant hit",
             ylabel=ylabel, delta_label=delta_label, minimum_counts=(5, 5))
     metadata = {
-        "schema": "cosyne27_compact_figures_v5", "font": "Arial",
+        "schema": "cosyne27_compact_figures_v6", "font": "Arial",
         "verified_font_file": font_path, "font_pt": 10,
         "default_width_inches_per_panel": 1.9,
         "behavior_panel_size_inches": BEHAVIOR_PANEL_SIZE_IN,
@@ -452,19 +527,29 @@ def main() -> None:
             "point_unit": "one training seed, paired within each factor cell",
             "absolute_encoding": "open square second arm, filled circle first arm, line paired seed",
             "difference_encoding": "first minus second, points seeds, black segment mean",
-            "fresh_encoder_seed_counts": (
-                tables["encoder"][tables["encoder"].metric ==
-                                  "mean_spatial_information_bits"]
-                .groupby("contrast").seed.nunique().to_dict()),
             "fresh_worker_seed_counts": (
                 online_worker[online_worker.metric == "visited_cell_fraction"]
                 .groupby("fixed_factor").seed.nunique().to_dict()),
-            "historical_credit_presence_seed_counts": (
-                tables["credit_presence"][tables["credit_presence"].contrast ==
-                                          "none_stop_minus_constant"]
-                .groupby(["family", "worker_bonus"]).seed.nunique()
-                .rename_axis(index=["family", "worker_bonus"])
-                .reset_index(name="n").to_dict(orient="records")),
+        },
+        "encoder_three_level_originals": {
+            "table": str((OUT / "03_encoder_credit_original_values.csv").relative_to(ROOT)),
+            "table_sha256": hashlib.sha256(
+                (OUT / "03_encoder_credit_original_values.csv").read_bytes()).hexdigest(),
+            "historical_no_credit": "NONE_STOP, same saved observation panel",
+            "fresh_constant_and_temporal": "100M COSYNE factorial checkpoints",
+            "cross_cohort_differences_are_not_effect_estimates": True,
+            "fresh_encoder_paired_seed_counts": (
+                tables["encoder"][tables["encoder"].metric ==
+                                  "mean_spatial_information_bits"]
+                .groupby("contrast").seed.nunique().to_dict()),
+            "fresh_C15_temporal_absolute_seeds": int(len(encoder_values[
+                (encoder_values.metric == "mean_spatial_information_bits") &
+                (encoder_values.factor_cell == "C15") &
+                (encoder_values.encoder_credit == "temporal")])),
+            "fresh_C15_paired_difference_seeds": int(len(tables["encoder"][
+                (tables["encoder"].metric == "mean_spatial_information_bits") &
+                (tables["encoder"].contrast == "C15")])),
+            "C05_constant_hit_no_credit": "not run",
         },
         "sources": {name: {"path": str(path.relative_to(ROOT)),
                             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
