@@ -1,0 +1,41 @@
+{
+  "batch_name": "cosyne27_c15_encoder_s2_20261010",
+  "complete": true,
+  "condition_summary_rows": 10,
+  "cue_assignment_rows": 0,
+  "expected_runs": 4,
+  "expected_snapshots": 20,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 4800,
+  "group_by": [
+    "condition"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 20,
+  "per_field_rows": 5557,
+  "per_snapshot_rows": 20,
+  "per_unit_rows": 320,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 20,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c15_encoder_s2_20261010",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "cosyne27_c15_encoder_s2_20261010",
+  "study_sha256": "c2960fcee18dc51d601971f2b694233e525cf878bd92efaa2d3adce754aa1dfc",
+  "study_spec": "hpc_runs/studies/cosyne27_c15_encoder_s2_20261010.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

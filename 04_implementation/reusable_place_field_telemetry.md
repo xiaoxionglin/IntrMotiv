@@ -310,8 +310,8 @@ Set the common locations on NEMO2:
 ```bash
 REPO=/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam
 PY=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python
-WORKSPACE_ROOT=/work/classic/fr_xl1014-train
-ROOT=/work/classic/fr_xl1014-train/IntrMotiv/SF_hipposlam/train_dir/analysis/<analysis_name>
+WORKSPACE_ROOT=/work/classic/fr_xl1014-corridor-geometry
+ROOT="$WORKSPACE_ROOT/IntrMotiv/SF_hipposlam/train_dir/analysis/<analysis_name>"
 ```
 
 The submitter is print-only by default. It validates the manifest, selected
@@ -322,6 +322,16 @@ prints one independent `sbatch` command per row. Review this plan before adding
 `--workspace-root "$WORKSPACE_ROOT"`. The submitter propagates that exact root
 to the compute-node worker so checkpoint, output, cache, and temporary-path
 guards agree.
+
+The `fr_xl1014-train` allocation is historical and full. Use the active
+`fr_xl1014-corridor-geometry` root above for new analysis output. The
+submitter still defaults to the old allocation, so retain the explicit
+`--workspace-root` argument even for a print-only review. As of the 11 October
+2026 COSYNE replay, canonical `observation_panel.save_panel` still rejects a
+fresh panel in the active allocation after a full rollout; reuse a
+checksum-verified existing panel for identical-observation analysis until the
+[tracked panel-path fix](../infra.md#observation-panel-recording-assumed-the-retired-nemo2-workspace--2026-09-26)
+is integrated. The ordinary place-field replay worker accepts the active root.
 
 Run one representative checkpoint as a cheap preflight. The established
 telemetry resource profile is 4 CPUs and 16 GB:
@@ -440,6 +450,7 @@ and the intervention runner; do not build a second run/checkpoint inventory:
 ```bash
 PYTHONPATH=. "$PY" \
   sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py \
+  --workspace-root "$WORKSPACE_ROOT" \
   --manifest "$ROOT/intervention_manifest.tsv" \
   --output-dir "$ROOT/interventions" \
   --runner sf_working_directories/IntrMotiv/evaluation/run_target_control_intervention_single.sh \

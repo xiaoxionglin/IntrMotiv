@@ -1,0 +1,11 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -777,7 +777,7 @@
+         landmark_options=(
+             {**{key: intervention[key] for key in (
+                 "max_sources", "targets_per_source", "repeats", "target_selection",
+-                "horizons", "fixed_evaluation_horizon"
++                "horizons", "fixed_evaluation_horizon", "discovery_multiplier"
+             ) if key in intervention},
+              **({"focus_sources": [int(value) for value in args.focus_sources.split(":")],
+                  "discovery_multiplier": args.discovery_multiplier} if args.focus_sources else {})}

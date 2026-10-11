@@ -1,0 +1,17 @@
+base,contrast,metric,mean,sd,n
+C15,encoder_temporal_minus_constant,advantage_std,-6.101374766865715,2.5691694238862017,2
+C15,encoder_temporal_minus_constant,censored_outcome_count,0.0,0.0,2
+C15,encoder_temporal_minus_constant,correct_elapsed_mean,-3.2322904532072982,1.157403554802692,2
+C15,encoder_temporal_minus_constant,correct_outcome_count,0.2409836065573785,0.49845232116428767,2
+C15,encoder_temporal_minus_constant,correct_reward_magnitude_mean,-0.00520136610406341,0.005362350721733259,2
+C15,encoder_temporal_minus_constant,coverage_auc,-24.931116936995828,14.316507294510467,2
+C15,encoder_temporal_minus_constant,dg_density,-0.0035105720895235656,0.00024105012522238647,2
+C15,encoder_temporal_minus_constant,dg_silent_fraction,0.0,0.0,2
+C15,encoder_temporal_minus_constant,dg_usage_entropy,0.00158166279558275,0.0024883419212726396,2
+C15,encoder_temporal_minus_constant,encoder_event_count,-102.4163934426229,31.5856484815919,2
+C15,encoder_temporal_minus_constant,encoder_feedback,-0.3076741900356089,0.004891150233605628,2
+C15,encoder_temporal_minus_constant,policy_loss,-0.0007663568702705782,0.0003095983333408966,2
+C15,encoder_temporal_minus_constant,target_action_sensitivity,0.0031982476229504607,0.0063844652651891,2
+C15,encoder_temporal_minus_constant,target_hit_event_count,-44.54426229508192,65.60096223099858,2
+C15,encoder_temporal_minus_constant,target_hit_numerator,-0.0934426229508194,0.6236449971776421,2
+C15,encoder_temporal_minus_constant,value_loss,-0.0056532976057258304,0.0037476842024922537,2

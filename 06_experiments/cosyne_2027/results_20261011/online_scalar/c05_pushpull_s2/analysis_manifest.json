@@ -1,0 +1,59 @@
+{
+  "batch_name": "cosyne27_c05_pushpull_s2_20261010",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/online_scalar/c05_pushpull_s2/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        90000000,
+        100000000
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [
+    "encoder_temporal_minus_constant_given_temporal",
+    "encoder_temporal_minus_constant_given_constant",
+    "worker_temporal_minus_constant_given_temporal",
+    "worker_temporal_minus_constant_given_constant",
+    "encoder_worker_interaction"
+  ],
+  "expected_runs": 8,
+  "group_by": [
+    "condition"
+  ],
+  "input_rows": 8,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "encoder_event_count",
+    "encoder_feedback",
+    "target_hit_event_count",
+    "target_hit_numerator",
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "target_action_sensitivity",
+    "correct_outcome_count",
+    "censored_outcome_count",
+    "correct_elapsed_mean",
+    "correct_reward_magnitude_mean",
+    "dg_silent_fraction",
+    "dg_usage_entropy"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c05_pushpull_s2_20261010",
+  "study_sha256": "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c",
+  "study_spec": "hpc_runs/studies/cosyne27_c05_pushpull_s2_20261010.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

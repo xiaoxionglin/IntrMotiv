@@ -1066,7 +1066,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   one workspace root. The command-intervention Python and shell entry points
   independently retained the same old root and a fixed home-source `cd`;
   their first preflight failed before loading a policy, while the isolated
-  environment-aware copy completed 201 trials in 5,000 decisions.
+  environment-aware copy completed 201 trials in 5,000 decisions. The fresh
+  COSYNE recording job 8331634 repeated the same failure on 11 October 2026:
+  it ran a 10k-decision active-workspace rollout for 16 minutes, then raised
+  `ValueError: Observation panels must live in the allocated workspace` in
+  `observation_panel.save_panel`. The prior checksum-verified panel could be
+  reused for the primary COSYNE comparison; the fresh sensitivity panel was
+  not produced. The [COSYNE result package](06_experiments/cosyne_2027/results_20261011/README.md)
+  records the unaffected shared panel and job provenance. The same task's
+  control print-only review also failed twice until `--workspace-root
+  /work/classic/fr_xl1014-corridor-geometry` was passed explicitly to the
+  canonical submitter; all 48 production rows then validated and submitted.
 - **Impact:** Repeated representation comparisons waste rollout time or require
   roughly 16.4 GB of duplicate checkpoint inputs when source checkpoints are
   read-only in another allocation.

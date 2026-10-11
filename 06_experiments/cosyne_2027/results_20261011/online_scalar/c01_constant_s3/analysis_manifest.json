@@ -1,0 +1,46 @@
+{
+  "batch_name": "cosyne27_c01_constant_s3_20261010",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/online_scalar/c01_constant_s3/histories",
+    "loader_backend": "process",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        90000000,
+        100000000
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [],
+  "expected_runs": 3,
+  "group_by": [
+    "condition"
+  ],
+  "input_rows": 3,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "encoder_event_count",
+    "encoder_feedback",
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "dg_silent_fraction",
+    "dg_usage_entropy"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c01_constant_s3_20261010",
+  "study_sha256": "d6b78aaca7d9ac064d5a4d945de90e80bdfb844846cecb40527f05e083c511b9",
+  "study_spec": "hpc_runs/studies/cosyne27_c01_constant_s3_20261010.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
