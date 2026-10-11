@@ -107,15 +107,16 @@ def behavior_expression(data: pd.DataFrame) -> None:
                                             BEHAVIOR_PANEL_SIZE_IN[1]))
     fig.subplots_adjust(left=0.15, right=0.99, bottom=0.24, top=0.81, wspace=0.48)
     specs = (
-        ("bits_per_activation", "a  Δ info/act."),
-        ("split_half_map_correlation", "b  Δ reliability"),
+        ("bits_per_activation", "a", "Δ info (bits/act.)"),
+        ("split_half_map_correlation", "b", "Δ reliability"),
     )
-    for ax, (metric, label) in zip(axes, specs):
+    for ax, (metric, panel, ylabel) in zip(axes, specs):
         rows = data[(data.layer == "decoder_1") & (data.metric == metric)]
         seed_differences(ax, rows, ("C01", "C05", "C15"), group_column="condition",
                          labels=("C01", "C05", "C15"),
                          colors=tuple(COLORS.values()))
-        ax.set_title(label, loc="left", pad=8)
+        ax.set_title(panel, loc="left", pad=8, fontweight="bold")
+        ax.set_ylabel(ylabel, labelpad=2)
     export(fig, "02_behavior_expression")
 
 
