@@ -2,6 +2,8 @@
 
 This is the entry point for the [original two-page abstract outline](../../99_inbox/cosyne%202027%20abstract.md) and its [evidence-linked bullet draft](../../99_inbox/cosyne%202027%20abstract%20-%20evidence-linked%20draft.md). The [training attempt catalog](training_runs.csv) joins old and new production runs by explicit family, seed, factors, StudySpec fingerprint, job ID, replacement lineage, and NEMO2 run directory. The [frozen-policy evaluation catalog](frozen_policy_evaluations.csv) joins all 54 own-policy/random-policy probes to their nine September parent checkpoints. Regenerate both with `python -m 06_experiments.cosyne_2027.build_run_index` from the repository root.
 
+The [11 October W&B and frozen-policy analysis](online_and_behavior_analysis_20261011.md) has the five-seed C01/C05/C15 spatial-information learning curve, full factorized online candidate plots, additional own-versus-random readouts, and cached per-run/paired tables. Checkpoint-level common-observation and peak-spread analyses remain in progress separately.
+
 The CSVs contain paths and provenance, not copied checkpoints. Bulk checkpoints and raw telemetry stay in their original NEMO2 workspaces. Existing lightweight result tables and selected figures are linked below, so the evidence can be opened from this page without searching old batch folders.
 
 ## Run cohorts and source boundaries

@@ -1,0 +1,11 @@
+{
+  "schema": "intrmotiv/cosyne-behavior-secondary/v1",
+  "source_native": "06_experiments/results/behavior_field_expression_20261007/per_run.csv",
+  "source_shared": "06_experiments/results/behavior_field_expression_20261007/paired_prefixes.csv",
+  "comparison": "own-policy minus uniform-random at 50k decisions",
+  "replication": "two evaluation seeds averaged within each of three training seeds",
+  "native_support_caveat": "split-half reliability and map cosine use each policy's own occupied bins; changes in sampled trajectories can affect them",
+  "shared_support": "information and mean activation use identical eligible units and equally weighted common spatial bins",
+  "uncertainty": "sample standard deviation across three training-seed differences / sqrt(3)",
+  "matplotlib": "3.10.8"
+}

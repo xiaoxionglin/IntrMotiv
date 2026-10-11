@@ -1,0 +1,289 @@
+condition,seed,layer,metric,support,difference
+C01,8,ca3,active_only_map_cosine,policy-native occupancy,-0.0002999710526547794
+C01,8,ca3,bits_per_activation,same units and equally weighted shared bins,-0.0551308578634829
+C01,8,ca3,bits_per_step,same units and equally weighted shared bins,0.15065208935817032
+C01,8,ca3,distinct_peak_bins,policy-native occupancy,-72.0
+C01,8,ca3,mean_activation,same units and equally weighted shared bins,0.0205240892935019
+C01,8,ca3,mean_component_count,policy-native occupancy,0.36913145539906145
+C01,8,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.0767931342124939
+C01,8,ca3,split_half_map_correlation,policy-native occupancy,0.504769471304733
+C01,8,decoder_1,active_only_map_cosine,policy-native occupancy,-0.2024219426655803
+C01,8,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.5271762318826403
+C01,8,decoder_1,bits_per_step,same units and equally weighted shared bins,0.1446623289439756
+C01,8,decoder_1,distinct_peak_bins,policy-native occupancy,-4.0
+C01,8,decoder_1,mean_activation,same units and equally weighted shared bins,-0.14014050013390916
+C01,8,decoder_1,mean_component_count,policy-native occupancy,0.5829945799457996
+C01,8,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.1378820240497589
+C01,8,decoder_1,split_half_map_correlation,policy-native occupancy,0.3789983728555339
+C01,8,decoder_2,active_only_map_cosine,policy-native occupancy,-0.12786035579881397
+C01,8,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.5888673225798533
+C01,8,decoder_2,bits_per_step,same units and equally weighted shared bins,0.060673357260621605
+C01,8,decoder_2,distinct_peak_bins,policy-native occupancy,-6.5
+C01,8,decoder_2,mean_activation,same units and equally weighted shared bins,-0.0706927387278449
+C01,8,decoder_2,mean_component_count,policy-native occupancy,0.2984646676396856
+C01,8,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,-0.06353771686553955
+C01,8,decoder_2,split_half_map_correlation,policy-native occupancy,0.4773661285244202
+C01,8,dg,active_only_map_cosine,policy-native occupancy,-0.0972251293180616
+C01,8,dg,bits_per_activation,same units and equally weighted shared bins,0.556265602750746
+C01,8,dg,bits_per_step,same units and equally weighted shared bins,0.06201433819934865
+C01,8,dg,distinct_peak_bins,policy-native occupancy,0.0
+C01,8,dg,mean_activation,same units and equally weighted shared bins,0.0076128996443003
+C01,8,dg,mean_component_count,policy-native occupancy,0.17708333333333348
+C01,8,dg,mean_dominant_mass_fraction,policy-native occupancy,-0.04193891584873202
+C01,8,dg,split_half_map_correlation,policy-native occupancy,0.4018304838073845
+C01,99,ca3,active_only_map_cosine,policy-native occupancy,0.021996740923785063
+C01,99,ca3,bits_per_activation,same units and equally weighted shared bins,-0.0459985254741892
+C01,99,ca3,bits_per_step,same units and equally weighted shared bins,0.03470641130464985
+C01,99,ca3,distinct_peak_bins,policy-native occupancy,-41.0
+C01,99,ca3,mean_activation,same units and equally weighted shared bins,-0.02033268227776865
+C01,99,ca3,mean_component_count,policy-native occupancy,1.420334507042253
+C01,99,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.1988172978162766
+C01,99,ca3,split_half_map_correlation,policy-native occupancy,0.33443635848599707
+C01,99,decoder_1,active_only_map_cosine,policy-native occupancy,-0.10298516580030165
+C01,99,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.35135820987406907
+C01,99,decoder_1,bits_per_step,same units and equally weighted shared bins,0.10632198526695394
+C01,99,decoder_1,distinct_peak_bins,policy-native occupancy,-9.5
+C01,99,decoder_1,mean_activation,same units and equally weighted shared bins,-0.10536217993559725
+C01,99,decoder_1,mean_component_count,policy-native occupancy,0.6780652322404368
+C01,99,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.13036000728607178
+C01,99,decoder_1,split_half_map_correlation,policy-native occupancy,0.2031315133309191
+C01,99,decoder_2,active_only_map_cosine,policy-native occupancy,-0.07948819424649503
+C01,99,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.5326212038664738
+C01,99,decoder_2,bits_per_step,same units and equally weighted shared bins,0.0504784900512931
+C01,99,decoder_2,distinct_peak_bins,policy-native occupancy,-7.0
+C01,99,decoder_2,mean_activation,same units and equally weighted shared bins,-0.029861550279216303
+C01,99,decoder_2,mean_component_count,policy-native occupancy,0.6852022649606306
+C01,99,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,-0.11944934725761414
+C01,99,decoder_2,split_half_map_correlation,policy-native occupancy,0.13927673410521668
+C01,99,dg,active_only_map_cosine,policy-native occupancy,-0.08150965162495369
+C01,99,dg,bits_per_activation,same units and equally weighted shared bins,0.48452632006741925
+C01,99,dg,bits_per_step,same units and equally weighted shared bins,0.0369064283447375
+C01,99,dg,distinct_peak_bins,policy-native occupancy,0.0
+C01,99,dg,mean_activation,same units and equally weighted shared bins,0.00390729620266935
+C01,99,dg,mean_component_count,policy-native occupancy,0.791666666666667
+C01,99,dg,mean_dominant_mass_fraction,policy-native occupancy,-0.11353126168251043
+C01,99,dg,split_half_map_correlation,policy-native occupancy,0.3074300824682942
+C01,123,ca3,active_only_map_cosine,policy-native occupancy,-0.01625199423314702
+C01,123,ca3,bits_per_activation,same units and equally weighted shared bins,0.041734211029681556
+C01,123,ca3,bits_per_step,same units and equally weighted shared bins,0.14209792472960514
+C01,123,ca3,distinct_peak_bins,policy-native occupancy,-40.0
+C01,123,ca3,mean_activation,same units and equally weighted shared bins,-0.1069268226160538
+C01,123,ca3,mean_component_count,policy-native occupancy,1.7124413145539905
+C01,123,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.2240526378154755
+C01,123,ca3,split_half_map_correlation,policy-native occupancy,0.2773251528239744
+C01,123,decoder_1,active_only_map_cosine,policy-native occupancy,-0.24605856760771333
+C01,123,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.7923762914246587
+C01,123,decoder_1,bits_per_step,same units and equally weighted shared bins,0.1316591358096722
+C01,123,decoder_1,distinct_peak_bins,policy-native occupancy,-8.0
+C01,123,decoder_1,mean_activation,same units and equally weighted shared bins,-0.1451968450668346
+C01,123,decoder_1,mean_component_count,policy-native occupancy,-0.3398437500000002
+C01,123,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.044171810150146484
+C01,123,decoder_1,split_half_map_correlation,policy-native occupancy,0.18824322255688558
+C01,123,decoder_2,active_only_map_cosine,policy-native occupancy,-0.11394214582316164
+C01,123,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.5437791240477138
+C01,123,decoder_2,bits_per_step,same units and equally weighted shared bins,0.052434284169276105
+C01,123,decoder_2,distinct_peak_bins,policy-native occupancy,-4.0
+C01,123,decoder_2,mean_activation,same units and equally weighted shared bins,-0.070665754005822
+C01,123,decoder_2,mean_component_count,policy-native occupancy,0.38115109511750833
+C01,123,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,-0.04646465182304382
+C01,123,decoder_2,split_half_map_correlation,policy-native occupancy,0.2302270581926164
+C01,123,dg,active_only_map_cosine,policy-native occupancy,-0.10966960960325835
+C01,123,dg,bits_per_activation,same units and equally weighted shared bins,0.6612475465723474
+C01,123,dg,bits_per_step,same units and equally weighted shared bins,0.0494190365051098
+C01,123,dg,distinct_peak_bins,policy-native occupancy,-1.0
+C01,123,dg,mean_activation,same units and equally weighted shared bins,-0.0023528449746663
+C01,123,dg,mean_component_count,policy-native occupancy,1.072916666666667
+C01,123,dg,mean_dominant_mass_fraction,policy-native occupancy,-0.15032859146595
+C01,123,dg,split_half_map_correlation,policy-native occupancy,0.19271840445385466
+C05,8,ca3,active_only_map_cosine,policy-native occupancy,-0.05381119459316169
+C05,8,ca3,bits_per_activation,same units and equally weighted shared bins,0.54729331107752
+C05,8,ca3,bits_per_step,same units and equally weighted shared bins,0.22792074380778754
+C05,8,ca3,distinct_peak_bins,policy-native occupancy,-41.0
+C05,8,ca3,mean_activation,same units and equally weighted shared bins,-0.1196010596104765
+C05,8,ca3,mean_component_count,policy-native occupancy,-0.1605469836407185
+C05,8,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.04112181067466736
+C05,8,ca3,split_half_map_correlation,policy-native occupancy,0.17074489497725892
+C05,8,decoder_1,active_only_map_cosine,policy-native occupancy,-0.15383962842747714
+C05,8,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.3124039826320529
+C05,8,decoder_1,bits_per_step,same units and equally weighted shared bins,0.16466790507722107
+C05,8,decoder_1,distinct_peak_bins,policy-native occupancy,-13.0
+C05,8,decoder_1,mean_activation,same units and equally weighted shared bins,-0.0357414466460694
+C05,8,decoder_1,mean_component_count,policy-native occupancy,0.11382952130983637
+C05,8,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.07112976908683777
+C05,8,decoder_1,split_half_map_correlation,policy-native occupancy,0.16968599920779956
+C05,8,decoder_2,active_only_map_cosine,policy-native occupancy,-0.1285694426134285
+C05,8,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.4438284456370188
+C05,8,decoder_2,bits_per_step,same units and equally weighted shared bins,0.0872494379475316
+C05,8,decoder_2,distinct_peak_bins,policy-native occupancy,-6.0
+C05,8,decoder_2,mean_activation,same units and equally weighted shared bins,0.035796383874381804
+C05,8,decoder_2,mean_component_count,policy-native occupancy,-0.07920082667213246
+C05,8,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,-0.07703396677970886
+C05,8,decoder_2,split_half_map_correlation,policy-native occupancy,0.1838424202257553
+C05,8,dg,active_only_map_cosine,policy-native occupancy,-0.09109267975105113
+C05,8,dg,bits_per_activation,same units and equally weighted shared bins,0.569596035965956
+C05,8,dg,bits_per_step,same units and equally weighted shared bins,0.06549847589989495
+C05,8,dg,distinct_peak_bins,policy-native occupancy,1.0
+C05,8,dg,mean_activation,same units and equally weighted shared bins,0.00605489488904515
+C05,8,dg,mean_component_count,policy-native occupancy,0.15416666666666679
+C05,8,dg,mean_dominant_mass_fraction,policy-native occupancy,-0.009361803531646729
+C05,8,dg,split_half_map_correlation,policy-native occupancy,0.043659582662009144
+C05,99,ca3,active_only_map_cosine,policy-native occupancy,0.0604279192994743
+C05,99,ca3,bits_per_activation,same units and equally weighted shared bins,-0.0434236160696652
+C05,99,ca3,bits_per_step,same units and equally weighted shared bins,0.08096533800694261
+C05,99,ca3,distinct_peak_bins,policy-native occupancy,-22.5
+C05,99,ca3,mean_activation,same units and equally weighted shared bins,-0.1178636881505925
+C05,99,ca3,mean_component_count,policy-native occupancy,-0.7793427230046948
+C05,99,ca3,mean_dominant_mass_fraction,policy-native occupancy,0.0848553478717804
+C05,99,ca3,split_half_map_correlation,policy-native occupancy,0.264752205893207
+C05,99,decoder_1,active_only_map_cosine,policy-native occupancy,-0.06877929880673517
+C05,99,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.2470956530520374
+C05,99,decoder_1,bits_per_step,same units and equally weighted shared bins,0.0845451635544294
+C05,99,decoder_1,distinct_peak_bins,policy-native occupancy,-10.5
+C05,99,decoder_1,mean_activation,same units and equally weighted shared bins,-0.14984831353046119
+C05,99,decoder_1,mean_component_count,policy-native occupancy,-0.5155013550135503
+C05,99,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,0.026730120182037354
+C05,99,decoder_1,split_half_map_correlation,policy-native occupancy,0.18427695798363253
+C05,99,decoder_2,active_only_map_cosine,policy-native occupancy,-0.037744731152671296
+C05,99,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.2047372676748222
+C05,99,decoder_2,bits_per_step,same units and equally weighted shared bins,0.04145266593822515
+C05,99,decoder_2,distinct_peak_bins,policy-native occupancy,-10.5
+C05,99,decoder_2,mean_activation,same units and equally weighted shared bins,-0.0553771222776336
+C05,99,decoder_2,mean_component_count,policy-native occupancy,-0.30375917101580807
+C05,99,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,0.014851361513137817
+C05,99,decoder_2,split_half_map_correlation,policy-native occupancy,0.17672902598451032
+C05,99,dg,active_only_map_cosine,policy-native occupancy,0.04425643708403661
+C05,99,dg,bits_per_activation,same units and equally weighted shared bins,-0.0096825419495714
+C05,99,dg,bits_per_step,same units and equally weighted shared bins,0.0269422834847787
+C05,99,dg,distinct_peak_bins,policy-native occupancy,0.0
+C05,99,dg,mean_activation,same units and equally weighted shared bins,-0.00698661882779555
+C05,99,dg,mean_component_count,policy-native occupancy,-0.9895833333333335
+C05,99,dg,mean_dominant_mass_fraction,policy-native occupancy,0.08057114481925964
+C05,99,dg,split_half_map_correlation,policy-native occupancy,0.20176541106857585
+C05,123,ca3,active_only_map_cosine,policy-native occupancy,0.028336476448066028
+C05,123,ca3,bits_per_activation,same units and equally weighted shared bins,1.0357159929546689
+C05,123,ca3,bits_per_step,same units and equally weighted shared bins,0.12433049220683284
+C05,123,ca3,distinct_peak_bins,policy-native occupancy,-32.5
+C05,123,ca3,mean_activation,same units and equally weighted shared bins,-0.056373325010176
+C05,123,ca3,mean_component_count,policy-native occupancy,-0.4646067596881909
+C05,123,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.038074105978012085
+C05,123,ca3,split_half_map_correlation,policy-native occupancy,0.3154363970815557
+C05,123,decoder_1,active_only_map_cosine,policy-native occupancy,-0.13496363863373267
+C05,123,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.4112622365694527
+C05,123,decoder_1,bits_per_step,same units and equally weighted shared bins,0.12070558707250399
+C05,123,decoder_1,distinct_peak_bins,policy-native occupancy,3.0
+C05,123,decoder_1,mean_activation,same units and equally weighted shared bins,-0.1057102509692178
+C05,123,decoder_1,mean_component_count,policy-native occupancy,0.31872830412327446
+C05,123,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.10237753391265869
+C05,123,decoder_1,split_half_map_correlation,policy-native occupancy,0.20606289017753446
+C05,123,decoder_2,active_only_map_cosine,policy-native occupancy,-0.06947510792795528
+C05,123,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.8108842718565099
+C05,123,decoder_2,bits_per_step,same units and equally weighted shared bins,0.0900388861566503
+C05,123,decoder_2,distinct_peak_bins,policy-native occupancy,-9.5
+C05,123,decoder_2,mean_activation,same units and equally weighted shared bins,0.00617353656124995
+C05,123,decoder_2,mean_component_count,policy-native occupancy,0.3567341722199604
+C05,123,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,-0.14558500051498413
+C05,123,decoder_2,split_half_map_correlation,policy-native occupancy,0.3474078539176111
+C05,123,dg,active_only_map_cosine,policy-native occupancy,-0.041395581798915365
+C05,123,dg,bits_per_activation,same units and equally weighted shared bins,0.7226527579338738
+C05,123,dg,bits_per_step,same units and equally weighted shared bins,0.0387232860463409
+C05,123,dg,distinct_peak_bins,policy-native occupancy,-2.0
+C05,123,dg,mean_activation,same units and equally weighted shared bins,-0.00021491053464285
+C05,123,dg,mean_component_count,policy-native occupancy,-1.2468253968253973
+C05,123,dg,mean_dominant_mass_fraction,policy-native occupancy,0.0441778302192688
+C05,123,dg,split_half_map_correlation,policy-native occupancy,0.16716223846280442
+C15,8,ca3,active_only_map_cosine,policy-native occupancy,-0.034953952566021074
+C15,8,ca3,bits_per_activation,same units and equally weighted shared bins,0.02237814694137235
+C15,8,ca3,bits_per_step,same units and equally weighted shared bins,0.08042261310634385
+C15,8,ca3,distinct_peak_bins,policy-native occupancy,-10.5
+C15,8,ca3,mean_activation,same units and equally weighted shared bins,-0.05110251956207765
+C15,8,ca3,mean_component_count,policy-native occupancy,-0.27640845070422504
+C15,8,ca3,mean_dominant_mass_fraction,policy-native occupancy,0.03238046169281006
+C15,8,ca3,split_half_map_correlation,policy-native occupancy,0.1397360588577915
+C15,8,decoder_1,active_only_map_cosine,policy-native occupancy,-0.077801505870673
+C15,8,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.4383569697366595
+C15,8,decoder_1,bits_per_step,same units and equally weighted shared bins,0.04827442670643045
+C15,8,decoder_1,distinct_peak_bins,policy-native occupancy,-10.5
+C15,8,decoder_1,mean_activation,same units and equally weighted shared bins,-0.0818890569197591
+C15,8,decoder_1,mean_component_count,policy-native occupancy,-0.7057969458681173
+C15,8,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,0.05007937550544739
+C15,8,decoder_1,split_half_map_correlation,policy-native occupancy,0.09132221413239265
+C15,8,decoder_2,active_only_map_cosine,policy-native occupancy,-0.08273128144497291
+C15,8,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.26710148281967483
+C15,8,decoder_2,bits_per_step,same units and equally weighted shared bins,0.0242903210205801
+C15,8,decoder_2,distinct_peak_bins,policy-native occupancy,-9.5
+C15,8,decoder_2,mean_activation,same units and equally weighted shared bins,-0.03192520209561855
+C15,8,decoder_2,mean_component_count,policy-native occupancy,-0.293494096531705
+C15,8,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,0.011852234601974487
+C15,8,decoder_2,split_half_map_correlation,policy-native occupancy,0.15673473049777542
+C15,8,dg,active_only_map_cosine,policy-native occupancy,-0.048643709228744364
+C15,8,dg,bits_per_activation,same units and equally weighted shared bins,0.1217735451609081
+C15,8,dg,bits_per_step,same units and equally weighted shared bins,0.03929507496016385
+C15,8,dg,distinct_peak_bins,policy-native occupancy,1.0
+C15,8,dg,mean_activation,same units and equally weighted shared bins,0.0023950522008817
+C15,8,dg,mean_component_count,policy-native occupancy,-0.7708333333333335
+C15,8,dg,mean_dominant_mass_fraction,policy-native occupancy,0.01648890972137451
+C15,8,dg,split_half_map_correlation,policy-native occupancy,0.09154813662041805
+C15,99,ca3,active_only_map_cosine,policy-native occupancy,0.0996767277597014
+C15,99,ca3,bits_per_activation,same units and equally weighted shared bins,-0.2500372382523063
+C15,99,ca3,bits_per_step,same units and equally weighted shared bins,-0.0707635378538515
+C15,99,ca3,distinct_peak_bins,policy-native occupancy,12.0
+C15,99,ca3,mean_activation,same units and equally weighted shared bins,0.0027281805490877997
+C15,99,ca3,mean_component_count,policy-native occupancy,-0.633656103286385
+C15,99,ca3,mean_dominant_mass_fraction,policy-native occupancy,0.07786992192268372
+C15,99,ca3,split_half_map_correlation,policy-native occupancy,0.1569009528343154
+C15,99,decoder_1,active_only_map_cosine,policy-native occupancy,0.01328374525005896
+C15,99,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.21709946589353113
+C15,99,decoder_1,bits_per_step,same units and equally weighted shared bins,-0.0119104587400312
+C15,99,decoder_1,distinct_peak_bins,policy-native occupancy,3.5
+C15,99,decoder_1,mean_activation,same units and equally weighted shared bins,-0.06273429992203745
+C15,99,decoder_1,mean_component_count,policy-native occupancy,-0.29068029054124733
+C15,99,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,0.017222851514816284
+C15,99,decoder_1,split_half_map_correlation,policy-native occupancy,0.14278829676307492
+C15,99,decoder_2,active_only_map_cosine,policy-native occupancy,0.0009149183618760992
+C15,99,decoder_2,bits_per_activation,same units and equally weighted shared bins,-0.12347188639426745
+C15,99,decoder_2,bits_per_step,same units and equally weighted shared bins,-0.00242072159339555
+C15,99,decoder_2,distinct_peak_bins,policy-native occupancy,1.0
+C15,99,decoder_2,mean_activation,same units and equally weighted shared bins,-0.035230047465338296
+C15,99,decoder_2,mean_component_count,policy-native occupancy,-0.5546594982078854
+C15,99,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,0.06500294804573059
+C15,99,decoder_2,split_half_map_correlation,policy-native occupancy,0.22536220618139985
+C15,99,dg,active_only_map_cosine,policy-native occupancy,-0.0024511242636686414
+C15,99,dg,bits_per_activation,same units and equally weighted shared bins,-0.0635454461377113
+C15,99,dg,bits_per_step,same units and equally weighted shared bins,0.00520644145229245
+C15,99,dg,distinct_peak_bins,policy-native occupancy,-1.0
+C15,99,dg,mean_activation,same units and equally weighted shared bins,0.00108504045056175
+C15,99,dg,mean_component_count,policy-native occupancy,0.010416666666666963
+C15,99,dg,mean_dominant_mass_fraction,policy-native occupancy,-0.0043270885944366455
+C15,99,dg,split_half_map_correlation,policy-native occupancy,0.15899812916884887
+C15,123,ca3,active_only_map_cosine,policy-native occupancy,0.13523887801871026
+C15,123,ca3,bits_per_activation,same units and equally weighted shared bins,-0.38405153499921196
+C15,123,ca3,bits_per_step,same units and equally weighted shared bins,-0.11038394680598826
+C15,123,ca3,distinct_peak_bins,policy-native occupancy,-17.5
+C15,123,ca3,mean_activation,same units and equally weighted shared bins,0.03719630111074465
+C15,123,ca3,mean_component_count,policy-native occupancy,-0.10622065727699503
+C15,123,ca3,mean_dominant_mass_fraction,policy-native occupancy,-0.0037871599197387695
+C15,123,ca3,split_half_map_correlation,policy-native occupancy,0.20514640305541054
+C15,123,decoder_1,active_only_map_cosine,policy-native occupancy,-0.043330655254506245
+C15,123,decoder_1,bits_per_activation,same units and equally weighted shared bins,0.37616467239031365
+C15,123,decoder_1,bits_per_step,same units and equally weighted shared bins,-0.010767560758490651
+C15,123,decoder_1,distinct_peak_bins,policy-native occupancy,-13.0
+C15,123,decoder_1,mean_activation,same units and equally weighted shared bins,-0.051855704403070246
+C15,123,decoder_1,mean_component_count,policy-native occupancy,-0.294355486685032
+C15,123,decoder_1,mean_dominant_mass_fraction,policy-native occupancy,-0.016813993453979492
+C15,123,decoder_1,split_half_map_correlation,policy-native occupancy,0.17284836781762003
+C15,123,decoder_2,active_only_map_cosine,policy-native occupancy,-0.012852944691695789
+C15,123,decoder_2,bits_per_activation,same units and equally weighted shared bins,0.3008358674515637
+C15,123,decoder_2,bits_per_step,same units and equally weighted shared bins,0.00108541085024755
+C15,123,decoder_2,distinct_peak_bins,policy-native occupancy,-12.5
+C15,123,decoder_2,mean_activation,same units and equally weighted shared bins,-0.02575137788618415
+C15,123,decoder_2,mean_component_count,policy-native occupancy,-0.1681236261168979
+C15,123,decoder_2,mean_dominant_mass_fraction,policy-native occupancy,0.01553681492805481
+C15,123,decoder_2,split_half_map_correlation,policy-native occupancy,0.2650481511623297
+C15,123,dg,active_only_map_cosine,policy-native occupancy,-0.007035201131160851
+C15,123,dg,bits_per_activation,same units and equally weighted shared bins,-0.018917820135924
+C15,123,dg,bits_per_step,same units and equally weighted shared bins,0.01156652473361685
+C15,123,dg,distinct_peak_bins,policy-native occupancy,-1.0
+C15,123,dg,mean_activation,same units and equally weighted shared bins,0.0052507545915432
+C15,123,dg,mean_component_count,policy-native occupancy,-0.791666666666667
+C15,123,dg,mean_dominant_mass_fraction,policy-native occupancy,0.07690098881721497
+C15,123,dg,split_half_map_correlation,policy-native occupancy,0.2629488929647059

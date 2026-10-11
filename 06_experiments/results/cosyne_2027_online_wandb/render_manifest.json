@@ -1,0 +1,9 @@
+{
+  "schema": "intrmotiv/cosyne-wandb-render/v1",
+  "source_collection_sha256": "4c01cf0d4aa2c890c4742e011dc1bf1a284aba78c0e474e2cd49299d8e78a20e",
+  "alignment": "linear interpolation of each unsampled run history at 1M-frame grid; no smoothing or extrapolation",
+  "uncertainty": "across-training-seed sample standard deviation / sqrt(n) at each frame",
+  "primary_metric": "spatial_information is the amplitude-weighted online DG score over active units, not bits per activation",
+  "n": "original validated runs only: five per complete arm; C15 constant encoder has three until two replacements finish",
+  "matplotlib": "3.10.8"
+}

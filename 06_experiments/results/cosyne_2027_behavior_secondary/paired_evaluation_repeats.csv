@@ -1,0 +1,577 @@
+condition,seed,eval_seed,layer,metric,own,uniform,difference,support,shared_bins,eligible_units
+C01,8,51000,ca3,split_half_map_correlation,0.7066507822419752,0.1733942174055922,0.533256564836383,policy-native occupancy,,
+C01,8,51000,decoder_1,split_half_map_correlation,0.5880299861604402,0.2038037654857693,0.38422622067467094,policy-native occupancy,,
+C01,8,51000,decoder_2,split_half_map_correlation,0.6443822008684622,0.1995699346084838,0.4448122662599784,policy-native occupancy,,
+C01,8,51000,dg,split_half_map_correlation,0.704165607089005,0.2987818661226777,0.4053837409663273,policy-native occupancy,,
+C01,8,52000,ca3,split_half_map_correlation,0.6357048322915617,0.1594224545184787,0.476282377773083,policy-native occupancy,,
+C01,8,52000,decoder_1,split_half_map_correlation,0.5736155846954417,0.1998450596590449,0.37377052503639685,policy-native occupancy,,
+C01,8,52000,decoder_2,split_half_map_correlation,0.7025056488548977,0.1925856580660358,0.509919990788862,policy-native occupancy,,
+C01,8,52000,dg,split_half_map_correlation,0.7177949141891315,0.3195176875406898,0.39827722664844173,policy-native occupancy,,
+C01,99,51000,ca3,split_half_map_correlation,0.5468412468474435,0.2340834321453561,0.3127578147020874,policy-native occupancy,,
+C01,99,51000,decoder_1,split_half_map_correlation,0.3930477945528384,0.257775163576801,0.13527263097603737,policy-native occupancy,,
+C01,99,51000,decoder_2,split_half_map_correlation,0.3459372874589084,0.2984496031407374,0.04748768431817102,policy-native occupancy,,
+C01,99,51000,dg,split_half_map_correlation,0.6216134123368121,0.3271707555872461,0.294442656749566,policy-native occupancy,,
+C01,99,52000,ca3,split_half_map_correlation,0.5914496637981062,0.2353347615281994,0.3561149022699067,policy-native occupancy,,
+C01,99,52000,decoder_1,split_half_map_correlation,0.5220681278790408,0.2510777321932399,0.27099039568580086,policy-native occupancy,,
+C01,99,52000,decoder_2,split_half_map_correlation,0.5039927356654896,0.2729269517732273,0.23106578389226234,policy-native occupancy,,
+C01,99,52000,dg,split_half_map_correlation,0.6654807431611685,0.3450632349741461,0.32041750818702236,policy-native occupancy,,
+C01,123,51000,ca3,split_half_map_correlation,0.4132117939400422,0.1909882492777667,0.2222235446622755,policy-native occupancy,,
+C01,123,51000,decoder_1,split_half_map_correlation,0.3476735276670297,0.2110875949258571,0.1365859327411726,policy-native occupancy,,
+C01,123,51000,decoder_2,split_half_map_correlation,0.4078337734338743,0.2085412101708766,0.19929256326299769,policy-native occupancy,,
+C01,123,51000,dg,split_half_map_correlation,0.4414774546705211,0.2931463365614319,0.14833111810908917,policy-native occupancy,,
+C01,123,52000,ca3,split_half_map_correlation,0.5302064567780428,0.1977796957923694,0.33242676098567336,policy-native occupancy,,
+C01,123,52000,decoder_1,split_half_map_correlation,0.4107399386226946,0.170839426250096,0.2399005123725986,policy-native occupancy,,
+C01,123,52000,decoder_2,split_half_map_correlation,0.4256651432640998,0.1645035901418647,0.2611615531222351,policy-native occupancy,,
+C01,123,52000,dg,split_half_map_correlation,0.5445102454169704,0.3074045546183502,0.23710569079862015,policy-native occupancy,,
+C05,8,51000,ca3,split_half_map_correlation,0.4037931693262044,0.2176928771514356,0.1861002921747688,policy-native occupancy,,
+C05,8,51000,decoder_1,split_half_map_correlation,0.3939644706641568,0.2516038714455637,0.14236059921859312,policy-native occupancy,,
+C05,8,51000,decoder_2,split_half_map_correlation,0.4765500059246192,0.2959802936767204,0.1805697122478988,policy-native occupancy,,
+C05,8,51000,dg,split_half_map_correlation,0.5194754371221975,0.4508038364104912,0.06867160071170625,policy-native occupancy,,
+C05,8,52000,ca3,split_half_map_correlation,0.4256720435948099,0.2702825458150609,0.15538949777974903,policy-native occupancy,,
+C05,8,52000,decoder_1,split_half_map_correlation,0.4347064028958888,0.2376950036988828,0.197011399197006,policy-native occupancy,,
+C05,8,52000,decoder_2,split_half_map_correlation,0.4723201335416338,0.285205005338022,0.1871151282036118,policy-native occupancy,,
+C05,8,52000,dg,split_half_map_correlation,0.5043074688333588,0.4856599042210467,0.01864756461231204,policy-native occupancy,,
+C05,99,51000,ca3,split_half_map_correlation,0.4979904140352082,0.2366701370595771,0.2613202769756311,policy-native occupancy,,
+C05,99,51000,decoder_1,split_half_map_correlation,0.3985199293280573,0.2341828244166204,0.1643371049114369,policy-native occupancy,,
+C05,99,51000,decoder_2,split_half_map_correlation,0.4495437952045628,0.2633950862011261,0.18614870900343666,policy-native occupancy,,
+C05,99,51000,dg,split_half_map_correlation,0.6159850480568756,0.4093673397420918,0.20661770831478382,policy-native occupancy,,
+C05,99,52000,ca3,split_half_map_correlation,0.4967912679083982,0.2286071330976152,0.268184134810783,policy-native occupancy,,
+C05,99,52000,decoder_1,split_half_map_correlation,0.4646514592690325,0.2604346482132044,0.20421681105582812,policy-native occupancy,,
+C05,99,52000,decoder_2,split_half_map_correlation,0.436900666195528,0.269591323229944,0.16730934296558397,policy-native occupancy,,
+C05,99,52000,dg,split_half_map_correlation,0.5906398270574214,0.3937267132350535,0.19691311382236787,policy-native occupancy,,
+C05,123,51000,ca3,split_half_map_correlation,0.5729379822557645,0.2249602673341416,0.34797771492162294,policy-native occupancy,,
+C05,123,51000,decoder_1,split_half_map_correlation,0.4602310697131916,0.2543260609842636,0.20590500872892803,policy-native occupancy,,
+C05,123,51000,decoder_2,split_half_map_correlation,0.6158533671667813,0.2696499596496569,0.3462034075171244,policy-native occupancy,,
+C05,123,51000,dg,split_half_map_correlation,0.6330078648309859,0.4517160223802756,0.18129184245071034,policy-native occupancy,,
+C05,123,52000,ca3,split_half_map_correlation,0.5156547952361121,0.2327597159946237,0.28289507924148843,policy-native occupancy,,
+C05,123,52000,decoder_1,split_half_map_correlation,0.4756706048247394,0.2694498331985985,0.2062207716261409,policy-native occupancy,,
+C05,123,52000,decoder_2,split_half_map_correlation,0.6059087153354701,0.2572964150173724,0.3486123003180977,policy-native occupancy,,
+C05,123,52000,dg,split_half_map_correlation,0.6143712386149923,0.4613386041400938,0.1530326344748985,policy-native occupancy,,
+C15,8,51000,ca3,split_half_map_correlation,0.3934465917999434,0.2474950483924538,0.14595154340748961,policy-native occupancy,,
+C15,8,51000,decoder_1,split_half_map_correlation,0.3001293991198644,0.2264013217136905,0.0737280774061739,policy-native occupancy,,
+C15,8,51000,decoder_2,split_half_map_correlation,0.420201785447095,0.2875924582613599,0.13260932718573515,policy-native occupancy,,
+C15,8,51000,dg,split_half_map_correlation,0.6021126972109413,0.4922161897804197,0.1098965074305216,policy-native occupancy,,
+C15,8,52000,ca3,split_half_map_correlation,0.3805880349892356,0.2470674606811422,0.13352057430809341,policy-native occupancy,,
+C15,8,52000,decoder_1,split_half_map_correlation,0.3520678923643647,0.2431515415057533,0.1089163508586114,policy-native occupancy,,
+C15,8,52000,decoder_2,split_half_map_correlation,0.4852431690984131,0.3043830352885974,0.1808601338098157,policy-native occupancy,,
+C15,8,52000,dg,split_half_map_correlation,0.569475016332433,0.4962752505221185,0.07319976581031451,policy-native occupancy,,
+C15,99,51000,ca3,split_half_map_correlation,0.3846516781456935,0.2147926239604085,0.16985905418528502,policy-native occupancy,,
+C15,99,51000,decoder_1,split_half_map_correlation,0.3129931336615013,0.160178087830855,0.15281504583064628,policy-native occupancy,,
+C15,99,51000,decoder_2,split_half_map_correlation,0.4512313469691779,0.2114026072746216,0.2398287396945563,policy-native occupancy,,
+C15,99,51000,dg,split_half_map_correlation,0.6135077388740487,0.4182473529773043,0.19526038589674444,policy-native occupancy,,
+C15,99,52000,ca3,split_half_map_correlation,0.3618450502161451,0.2179021987327993,0.1439428514833458,policy-native occupancy,,
+C15,99,52000,decoder_1,split_half_map_correlation,0.2922625385176185,0.159500990822115,0.13276154769550352,policy-native occupancy,,
+C15,99,52000,decoder_2,split_half_map_correlation,0.4290779100348491,0.2181822373666057,0.21089567266824338,policy-native occupancy,,
+C15,99,52000,dg,split_half_map_correlation,0.5882245869811025,0.4654887145401492,0.1227358724409533,policy-native occupancy,,
+C15,123,51000,ca3,split_half_map_correlation,0.4103509976366207,0.218769196372844,0.1915818012637767,policy-native occupancy,,
+C15,123,51000,decoder_1,split_half_map_correlation,0.3602387466571404,0.2025729568994779,0.1576657897576625,policy-native occupancy,,
+C15,123,51000,decoder_2,split_half_map_correlation,0.4161700164362845,0.1846677351411509,0.2315022812951336,policy-native occupancy,,
+C15,123,51000,dg,split_half_map_correlation,0.6032772710659466,0.3419129352787461,0.26136433578720053,policy-native occupancy,,
+C15,123,52000,ca3,split_half_map_correlation,0.4340260004561458,0.2153149956091014,0.21871100484704442,policy-native occupancy,,
+C15,123,52000,decoder_1,split_half_map_correlation,0.3947516967833627,0.2067207509057851,0.1880309458775776,policy-native occupancy,,
+C15,123,52000,decoder_2,split_half_map_correlation,0.4819040854660437,0.1833100644365179,0.2985940210295258,policy-native occupancy,,
+C15,123,52000,dg,split_half_map_correlation,0.6204660982798966,0.3559326481376853,0.2645334501422113,policy-native occupancy,,
+C01,8,51000,ca3,active_only_map_cosine,0.334660477795112,0.3360396114756379,-0.0013791336805258902,policy-native occupancy,,
+C01,8,51000,decoder_1,active_only_map_cosine,0.3863181083608444,0.5775885861707347,-0.19127047780989032,policy-native occupancy,,
+C01,8,51000,decoder_2,active_only_map_cosine,0.3296135188457607,0.4542228238455228,-0.12460930499976214,policy-native occupancy,,
+C01,8,51000,dg,active_only_map_cosine,0.1093548836493686,0.1996097439543702,-0.0902548603050016,policy-native occupancy,,
+C01,8,52000,ca3,active_only_map_cosine,0.3334844369310183,0.332705245355802,0.0007791915752163314,policy-native occupancy,,
+C01,8,52000,decoder_1,active_only_map_cosine,0.3621643564812398,0.5757377640025101,-0.2135734075212703,policy-native occupancy,,
+C01,8,52000,decoder_2,active_only_map_cosine,0.3229812693004941,0.4540926758983599,-0.1311114065978658,policy-native occupancy,,
+C01,8,52000,dg,active_only_map_cosine,0.0968353606813386,0.2010307590124602,-0.1041953983311216,policy-native occupancy,,
+C01,99,51000,ca3,active_only_map_cosine,0.3496378303065506,0.3204808773705128,0.029156952936037817,policy-native occupancy,,
+C01,99,51000,decoder_1,active_only_map_cosine,0.4425887290419032,0.5459241415637184,-0.10333541252181516,policy-native occupancy,,
+C01,99,51000,decoder_2,active_only_map_cosine,0.3638522803416077,0.4331986345527038,-0.06934635421109608,policy-native occupancy,,
+C01,99,51000,dg,active_only_map_cosine,0.1271402872140322,0.2072716391708748,-0.0801313519568426,policy-native occupancy,,
+C01,99,52000,ca3,active_only_map_cosine,0.3367919542829146,0.3219554253713823,0.01483652891153231,policy-native occupancy,,
+C01,99,52000,decoder_1,active_only_map_cosine,0.4514702451200731,0.5541051641988612,-0.10263491907878813,policy-native occupancy,,
+C01,99,52000,decoder_2,active_only_map_cosine,0.3575549966490377,0.4471850309309317,-0.08963003428189398,policy-native occupancy,,
+C01,99,52000,dg,active_only_map_cosine,0.1209309028219316,0.2038188541149964,-0.0828879512930648,policy-native occupancy,,
+C01,123,51000,ca3,active_only_map_cosine,0.3233340257572339,0.333159390052192,-0.009825364294958061,policy-native occupancy,,
+C01,123,51000,decoder_1,active_only_map_cosine,0.3175739843789245,0.5612372373352427,-0.2436632529563182,policy-native occupancy,,
+C01,123,51000,decoder_2,active_only_map_cosine,0.3253122044090854,0.4413554960591443,-0.11604329165005889,policy-native occupancy,,
+C01,123,51000,dg,active_only_map_cosine,0.1151792977467513,0.2223311488987766,-0.10715185115202529,policy-native occupancy,,
+C01,123,52000,ca3,active_only_map_cosine,0.3151013549158358,0.3377799790871718,-0.02267862417133598,policy-native occupancy,,
+C01,123,52000,decoder_1,active_only_map_cosine,0.3251936202652026,0.5736475025243111,-0.24845388225910847,policy-native occupancy,,
+C01,123,52000,decoder_2,active_only_map_cosine,0.3322254193336321,0.4440664193298965,-0.1118409999962644,policy-native occupancy,,
+C01,123,52000,dg,active_only_map_cosine,0.1216519272767773,0.2338392953312687,-0.11218736805449141,policy-native occupancy,,
+C05,8,51000,ca3,active_only_map_cosine,0.2938046754112899,0.3228901530631856,-0.029085477651895675,policy-native occupancy,,
+C05,8,51000,decoder_1,active_only_map_cosine,0.4043915670056243,0.5390287787434909,-0.13463721173786658,policy-native occupancy,,
+C05,8,51000,decoder_2,active_only_map_cosine,0.3780586188698036,0.5017002776820145,-0.12364165881221095,policy-native occupancy,,
+C05,8,51000,dg,active_only_map_cosine,0.1721929877469826,0.27198439015665,-0.09979140240966738,policy-native occupancy,,
+C05,8,52000,ca3,active_only_map_cosine,0.2590686194607504,0.3376055309951781,-0.07853691153442771,policy-native occupancy,,
+C05,8,52000,decoder_1,active_only_map_cosine,0.3917822949438486,0.5648243400609363,-0.1730420451170877,policy-native occupancy,,
+C05,8,52000,decoder_2,active_only_map_cosine,0.3713020723358906,0.5047992987505366,-0.13349722641464606,policy-native occupancy,,
+C05,8,52000,dg,active_only_map_cosine,0.1877020123714406,0.2700959694638755,-0.08239395709243488,policy-native occupancy,,
+C05,99,51000,ca3,active_only_map_cosine,0.3913843898030479,0.3461945445495355,0.045189845253512384,policy-native occupancy,,
+C05,99,51000,decoder_1,active_only_map_cosine,0.4729400260350317,0.5618253837098185,-0.08888535767478678,policy-native occupancy,,
+C05,99,51000,decoder_2,active_only_map_cosine,0.4223439812118043,0.4796272090362525,-0.057283227824448224,policy-native occupancy,,
+C05,99,51000,dg,active_only_map_cosine,0.2744424381149288,0.2456773628230794,0.028765075291849407,policy-native occupancy,,
+C05,99,52000,ca3,active_only_map_cosine,0.4196727256826187,0.3440067323371825,0.07566599334543622,policy-native occupancy,,
+C05,99,52000,decoder_1,active_only_map_cosine,0.5120634155437968,0.5607366554824803,-0.048673239938683555,policy-native occupancy,,
+C05,99,52000,decoder_2,active_only_map_cosine,0.4328665641111075,0.4510727985920019,-0.018206234480894368,policy-native occupancy,,
+C05,99,52000,dg,active_only_map_cosine,0.2925886517476181,0.2328408528713943,0.05974779887622381,policy-native occupancy,,
+C05,123,51000,ca3,active_only_map_cosine,0.3052974610988032,0.2767591099812313,0.02853835111757186,policy-native occupancy,,
+C05,123,51000,decoder_1,active_only_map_cosine,0.5270841950072037,0.6556667955187133,-0.1285826005115096,policy-native occupancy,,
+C05,123,51000,decoder_2,active_only_map_cosine,0.3960515180640808,0.4653546550746359,-0.06930313701055513,policy-native occupancy,,
+C05,123,51000,dg,active_only_map_cosine,0.1403536841754505,0.1961121562257388,-0.055758472050288305,policy-native occupancy,,
+C05,123,52000,ca3,active_only_map_cosine,0.3006575295156318,0.2725229277370716,0.028134601778560198,policy-native occupancy,,
+C05,123,52000,decoder_1,active_only_map_cosine,0.5171860250299429,0.6585307017858987,-0.14134467675595574,policy-native occupancy,,
+C05,123,52000,decoder_2,active_only_map_cosine,0.3882633930398214,0.4579104718851768,-0.06964707884535543,policy-native occupancy,,
+C05,123,52000,dg,active_only_map_cosine,0.1530354298823101,0.1800681214298525,-0.027032691547542426,policy-native occupancy,,
+C15,8,51000,ca3,active_only_map_cosine,0.363489701492523,0.4160950525228417,-0.05260535103031866,policy-native occupancy,,
+C15,8,51000,decoder_1,active_only_map_cosine,0.2416263710892939,0.3312629415064693,-0.08963657041717538,policy-native occupancy,,
+C15,8,51000,decoder_2,active_only_map_cosine,0.2874839617903586,0.3600995806936296,-0.07261561890327095,policy-native occupancy,,
+C15,8,51000,dg,active_only_map_cosine,0.1846615633502391,0.2488116565593397,-0.06415009320910062,policy-native occupancy,,
+C15,8,52000,ca3,active_only_map_cosine,0.4034847539932164,0.4207873080949399,-0.01730255410172349,policy-native occupancy,,
+C15,8,52000,decoder_1,active_only_map_cosine,0.2607141219753425,0.3266805632995131,-0.06596644132417062,policy-native occupancy,,
+C15,8,52000,decoder_2,active_only_map_cosine,0.2883984120105375,0.3812453559972124,-0.09284694398667487,policy-native occupancy,,
+C15,8,52000,dg,active_only_map_cosine,0.2072709820014683,0.2404083072498564,-0.03313732524838811,policy-native occupancy,,
+C15,99,51000,ca3,active_only_map_cosine,0.5328408539139549,0.4289517101433153,0.10388914377063957,policy-native occupancy,,
+C15,99,51000,decoder_1,active_only_map_cosine,0.3966801420231296,0.3894592833790345,0.007220858644095107,policy-native occupancy,,
+C15,99,51000,decoder_2,active_only_map_cosine,0.4075425588961773,0.4091244944712787,-0.0015819355751013897,policy-native occupancy,,
+C15,99,51000,dg,active_only_map_cosine,0.261898283421172,0.2608719694075768,0.0010263140135952087,policy-native occupancy,,
+C15,99,52000,ca3,active_only_map_cosine,0.5483185060287876,0.4528541942800244,0.09546431174876324,policy-native occupancy,,
+C15,99,52000,decoder_1,active_only_map_cosine,0.4040835116790969,0.3847368798230741,0.01934663185602281,policy-native occupancy,,
+C15,99,52000,decoder_2,active_only_map_cosine,0.4163522853893424,0.4129405130904888,0.003411772298853588,policy-native occupancy,,
+C15,99,52000,dg,active_only_map_cosine,0.2629665816926139,0.2688951442335464,-0.005928562540932492,policy-native occupancy,,
+C15,123,51000,ca3,active_only_map_cosine,0.5057461708656315,0.3726609479631858,0.13308522290244568,policy-native occupancy,,
+C15,123,51000,decoder_1,active_only_map_cosine,0.4165000519580191,0.470879044029604,-0.05437899207158492,policy-native occupancy,,
+C15,123,51000,decoder_2,active_only_map_cosine,0.3929989785860829,0.4171157465665998,-0.024116767980516873,policy-native occupancy,,
+C15,123,51000,dg,active_only_map_cosine,0.2082641982356361,0.2202712382957872,-0.012007040060151103,policy-native occupancy,,
+C15,123,52000,ca3,active_only_map_cosine,0.5077984365761918,0.370405903441217,0.13739253313497485,policy-native occupancy,,
+C15,123,52000,decoder_1,active_only_map_cosine,0.4400867534825279,0.4723690719199555,-0.03228231843742757,policy-native occupancy,,
+C15,123,52000,decoder_2,active_only_map_cosine,0.397436438934607,0.3990255603374817,-0.0015891214028747047,policy-native occupancy,,
+C15,123,52000,dg,active_only_map_cosine,0.2144684193514265,0.2165317815535971,-0.002063362202170599,policy-native occupancy,,
+C01,8,51000,ca3,mean_dominant_mass_fraction,0.5684648156166077,0.6558854579925537,-0.08742064237594604,policy-native occupancy,,
+C01,8,51000,decoder_1,mean_dominant_mass_fraction,0.5586507320404053,0.7252287864685059,-0.16657805442810059,policy-native occupancy,,
+C01,8,51000,decoder_2,mean_dominant_mass_fraction,0.6698558330535889,0.7686368823051453,-0.0987810492515564,policy-native occupancy,,
+C01,8,51000,dg,mean_dominant_mass_fraction,0.4821715652942657,0.5600955486297607,-0.07792398333549505,policy-native occupancy,,
+C01,8,52000,ca3,mean_dominant_mass_fraction,0.5825316309928894,0.6486972570419312,-0.06616562604904175,policy-native occupancy,,
+C01,8,52000,decoder_1,mean_dominant_mass_fraction,0.6228246092796326,0.7320106029510498,-0.10918599367141724,policy-native occupancy,,
+C01,8,52000,decoder_2,mean_dominant_mass_fraction,0.7126191854476929,0.7409135699272156,-0.028294384479522705,policy-native occupancy,,
+C01,8,52000,dg,mean_dominant_mass_fraction,0.5240778923034668,0.5300317406654358,-0.005953848361968994,policy-native occupancy,,
+C01,99,51000,ca3,mean_dominant_mass_fraction,0.4932913184165954,0.6848955750465393,-0.1916042566299439,policy-native occupancy,,
+C01,99,51000,decoder_1,mean_dominant_mass_fraction,0.585020124912262,0.7457659840583801,-0.16074585914611816,policy-native occupancy,,
+C01,99,51000,decoder_2,mean_dominant_mass_fraction,0.6366901397705078,0.7662453651428223,-0.12955522537231445,policy-native occupancy,,
+C01,99,51000,dg,mean_dominant_mass_fraction,0.4588004052639007,0.5581181645393372,-0.09931775927543646,policy-native occupancy,,
+C01,99,52000,ca3,mean_dominant_mass_fraction,0.4883523285388946,0.6943826675415039,-0.2060303390026093,policy-native occupancy,,
+C01,99,52000,decoder_1,mean_dominant_mass_fraction,0.664557933807373,0.7645320892333984,-0.09997415542602539,policy-native occupancy,,
+C01,99,52000,decoder_2,mean_dominant_mass_fraction,0.6889073252677917,0.7982507944107056,-0.10934346914291382,policy-native occupancy,,
+C01,99,52000,dg,mean_dominant_mass_fraction,0.4387411177158355,0.5664858818054199,-0.1277447640895844,policy-native occupancy,,
+C01,123,51000,ca3,mean_dominant_mass_fraction,0.4284273386001587,0.6443190574645996,-0.21589171886444092,policy-native occupancy,,
+C01,123,51000,decoder_1,mean_dominant_mass_fraction,0.6608943343162537,0.6841033101081848,-0.023208975791931152,policy-native occupancy,,
+C01,123,51000,decoder_2,mean_dominant_mass_fraction,0.6950129866600037,0.7565825581550598,-0.06156957149505615,policy-native occupancy,,
+C01,123,51000,dg,mean_dominant_mass_fraction,0.3767688274383545,0.5058505535125732,-0.12908172607421875,policy-native occupancy,,
+C01,123,52000,ca3,mean_dominant_mass_fraction,0.4299816489219665,0.6621952056884766,-0.23221355676651007,policy-native occupancy,,
+C01,123,52000,decoder_1,mean_dominant_mass_fraction,0.6407586932182312,0.705893337726593,-0.06513464450836182,policy-native occupancy,,
+C01,123,52000,decoder_2,mean_dominant_mass_fraction,0.7172418236732483,0.7486015558242798,-0.031359732151031494,policy-native occupancy,,
+C01,123,52000,dg,mean_dominant_mass_fraction,0.3740629255771637,0.545638382434845,-0.17157545685768127,policy-native occupancy,,
+C05,8,51000,ca3,mean_dominant_mass_fraction,0.587253987789154,0.6426992416381836,-0.05544525384902954,policy-native occupancy,,
+C05,8,51000,decoder_1,mean_dominant_mass_fraction,0.6047147512435913,0.7136365175247192,-0.10892176628112793,policy-native occupancy,,
+C05,8,51000,decoder_2,mean_dominant_mass_fraction,0.6445752382278442,0.7030224204063416,-0.058447182178497314,policy-native occupancy,,
+C05,8,51000,dg,mean_dominant_mass_fraction,0.5154818296432495,0.548865020275116,-0.033383190631866455,policy-native occupancy,,
+C05,8,52000,ca3,mean_dominant_mass_fraction,0.628048837184906,0.6548472046852112,-0.026798367500305176,policy-native occupancy,,
+C05,8,52000,decoder_1,mean_dominant_mass_fraction,0.6643993258476257,0.6977370977401733,-0.03333777189254761,policy-native occupancy,,
+C05,8,52000,decoder_2,mean_dominant_mass_fraction,0.6561934947967529,0.7518142461776733,-0.09562075138092041,policy-native occupancy,,
+C05,8,52000,dg,mean_dominant_mass_fraction,0.585693359375,0.571033775806427,0.014659583568572998,policy-native occupancy,,
+C05,99,51000,ca3,mean_dominant_mass_fraction,0.677127480506897,0.6140398383140564,0.06308764219284058,policy-native occupancy,,
+C05,99,51000,decoder_1,mean_dominant_mass_fraction,0.736584484577179,0.6978012919425964,0.03878319263458252,policy-native occupancy,,
+C05,99,51000,decoder_2,mean_dominant_mass_fraction,0.7825078964233398,0.7495293021202087,0.032978594303131104,policy-native occupancy,,
+C05,99,51000,dg,mean_dominant_mass_fraction,0.5763580203056335,0.5050187706947327,0.07133924961090088,policy-native occupancy,,
+C05,99,52000,ca3,mean_dominant_mass_fraction,0.7007761597633362,0.594153106212616,0.10662305355072021,policy-native occupancy,,
+C05,99,52000,decoder_1,mean_dominant_mass_fraction,0.7522781491279602,0.737601101398468,0.014677047729492188,policy-native occupancy,,
+C05,99,52000,decoder_2,mean_dominant_mass_fraction,0.7551257610321045,0.75840163230896,-0.0032758712768554688,policy-native occupancy,,
+C05,99,52000,dg,mean_dominant_mass_fraction,0.5994988083839417,0.5096957683563232,0.08980304002761841,policy-native occupancy,,
+C05,123,51000,ca3,mean_dominant_mass_fraction,0.5739734172821045,0.6097710728645325,-0.03579765558242798,policy-native occupancy,,
+C05,123,51000,decoder_1,mean_dominant_mass_fraction,0.6185041666030884,0.7038884162902832,-0.08538424968719482,policy-native occupancy,,
+C05,123,51000,decoder_2,mean_dominant_mass_fraction,0.5883158445358276,0.7362219095230103,-0.14790606498718262,policy-native occupancy,,
+C05,123,51000,dg,mean_dominant_mass_fraction,0.5725463628768921,0.5233839750289917,0.04916238784790039,policy-native occupancy,,
+C05,123,52000,ca3,mean_dominant_mass_fraction,0.5955687165260315,0.6359192728996277,-0.04035055637359619,policy-native occupancy,,
+C05,123,52000,decoder_1,mean_dominant_mass_fraction,0.6029626131057739,0.7223334312438965,-0.11937081813812256,policy-native occupancy,,
+C05,123,52000,decoder_2,mean_dominant_mass_fraction,0.5899387001991272,0.7332026362419128,-0.14326393604278564,policy-native occupancy,,
+C05,123,52000,dg,mean_dominant_mass_fraction,0.547843337059021,0.5086500644683838,0.03919327259063721,policy-native occupancy,,
+C15,8,51000,ca3,mean_dominant_mass_fraction,0.6498249769210815,0.62480628490448,0.025018692016601562,policy-native occupancy,,
+C15,8,51000,decoder_1,mean_dominant_mass_fraction,0.6984568238258362,0.6491493582725525,0.04930746555328369,policy-native occupancy,,
+C15,8,51000,decoder_2,mean_dominant_mass_fraction,0.7120187878608704,0.7104977965354919,0.001520991325378418,policy-native occupancy,,
+C15,8,51000,dg,mean_dominant_mass_fraction,0.475019097328186,0.4962383210659027,-0.02121922373771673,policy-native occupancy,,
+C15,8,52000,ca3,mean_dominant_mass_fraction,0.6473976373672485,0.60765540599823,0.039742231369018555,policy-native occupancy,,
+C15,8,52000,decoder_1,mean_dominant_mass_fraction,0.7324582934379578,0.6816070079803467,0.050851285457611084,policy-native occupancy,,
+C15,8,52000,decoder_2,mean_dominant_mass_fraction,0.7249297499656677,0.7027462720870972,0.022183477878570557,policy-native occupancy,,
+C15,8,52000,dg,mean_dominant_mass_fraction,0.5215239524841309,0.4673269093036651,0.054197043180465754,policy-native occupancy,,
+C15,99,51000,ca3,mean_dominant_mass_fraction,0.7226054072380066,0.63373863697052,0.08886677026748657,policy-native occupancy,,
+C15,99,51000,decoder_1,mean_dominant_mass_fraction,0.673159122467041,0.6756571531295776,-0.002498030662536621,policy-native occupancy,,
+C15,99,51000,decoder_2,mean_dominant_mass_fraction,0.7402991056442261,0.6685965061187744,0.07170259952545166,policy-native occupancy,,
+C15,99,51000,dg,mean_dominant_mass_fraction,0.5478549599647522,0.5345348715782166,0.013320088386535645,policy-native occupancy,,
+C15,99,52000,ca3,mean_dominant_mass_fraction,0.7019546031951904,0.6350815296173096,0.06687307357788086,policy-native occupancy,,
+C15,99,52000,decoder_1,mean_dominant_mass_fraction,0.7242087125778198,0.6872649788856506,0.03694373369216919,policy-native occupancy,,
+C15,99,52000,decoder_2,mean_dominant_mass_fraction,0.7676407694816589,0.7093374729156494,0.05830329656600952,policy-native occupancy,,
+C15,99,52000,dg,mean_dominant_mass_fraction,0.5430721640586853,0.5650464296340942,-0.021974265575408936,policy-native occupancy,,
+C15,123,51000,ca3,mean_dominant_mass_fraction,0.6520801782608032,0.6487383842468262,0.0033417940139770508,policy-native occupancy,,
+C15,123,51000,decoder_1,mean_dominant_mass_fraction,0.7067694664001465,0.7048546671867371,0.0019147992134094238,policy-native occupancy,,
+C15,123,51000,decoder_2,mean_dominant_mass_fraction,0.746429979801178,0.7200908660888672,0.02633911371231079,policy-native occupancy,,
+C15,123,51000,dg,mean_dominant_mass_fraction,0.5978729724884033,0.5206212401390076,0.07725173234939575,policy-native occupancy,,
+C15,123,52000,ca3,mean_dominant_mass_fraction,0.6302618980407715,0.6411780118942261,-0.01091611385345459,policy-native occupancy,,
+C15,123,52000,decoder_1,mean_dominant_mass_fraction,0.6798352003097534,0.7153779864311218,-0.03554278612136841,policy-native occupancy,,
+C15,123,52000,decoder_2,mean_dominant_mass_fraction,0.7488789558410645,0.7441444396972656,0.004734516143798828,policy-native occupancy,,
+C15,123,52000,dg,mean_dominant_mass_fraction,0.5847635269165039,0.5082132816314697,0.07655024528503418,policy-native occupancy,,
+C01,8,51000,ca3,mean_component_count,4.803110328638498,4.22593896713615,0.5771713615023479,policy-native occupancy,,
+C01,8,51000,decoder_1,mean_component_count,4.644986449864499,3.75,0.8949864498644988,policy-native occupancy,,
+C01,8,51000,decoder_2,mean_component_count,3.680440771349862,3.1942257217847767,0.48621504956508543,policy-native occupancy,,
+C01,8,51000,dg,mean_component_count,5.875,5.375,0.5,policy-native occupancy,,
+C01,8,52000,ca3,mean_component_count,4.383509389671362,4.222417840375587,0.16109154929577496,policy-native occupancy,,
+C01,8,52000,decoder_1,mean_component_count,3.937669376693767,3.6666666666666665,0.2710027100271004,policy-native occupancy,,
+C01,8,52000,decoder_2,mean_component_count,3.325,3.2142857142857144,0.11071428571428577,policy-native occupancy,,
+C01,8,52000,dg,mean_component_count,5.354166666666667,5.5,-0.14583333333333304,policy-native occupancy,,
+C01,99,51000,ca3,mean_component_count,5.384976525821596,3.852992957746479,1.531983568075117,policy-native occupancy,,
+C01,99,51000,decoder_1,mean_component_count,4.524590163934426,3.4479166666666665,1.0766734972677594,policy-native occupancy,,
+C01,99,51000,decoder_2,mean_component_count,3.939655172413793,2.986449864498645,0.9532053079151481,policy-native occupancy,,
+C01,99,51000,dg,mean_component_count,6.229166666666667,5.208333333333333,1.020833333333334,policy-native occupancy,,
+C01,99,52000,ca3,mean_component_count,5.187206572769953,3.878521126760564,1.308685446009389,policy-native occupancy,,
+C01,99,52000,decoder_1,mean_component_count,3.795081967213114,3.515625,0.2794569672131142,policy-native occupancy,,
+C01,99,52000,decoder_2,mean_component_count,3.3079096045197742,2.890710382513661,0.41719922200611315,policy-native occupancy,,
+C01,99,52000,dg,mean_component_count,6.229166666666667,5.666666666666667,0.5625,policy-native occupancy,,
+C01,123,51000,ca3,mean_component_count,5.821302816901408,4.123826291079812,1.697476525821596,policy-native occupancy,,
+C01,123,51000,decoder_1,mean_component_count,3.765625,4.080729166666667,-0.31510416666666696,policy-native occupancy,,
+C01,123,51000,decoder_2,mean_component_count,3.5628415300546448,3.05420054200542,0.5086409880492249,policy-native occupancy,,
+C01,123,51000,dg,mean_component_count,6.875,5.895833333333333,0.979166666666667,policy-native occupancy,,
+C01,123,52000,ca3,mean_component_count,5.754694835680751,4.027288732394366,1.727406103286385,policy-native occupancy,,
+C01,123,52000,decoder_1,mean_component_count,3.59375,3.9583333333333335,-0.3645833333333335,policy-native occupancy,,
+C01,123,52000,decoder_2,mean_component_count,3.346994535519125,3.0933333333333333,0.2536612021857918,policy-native occupancy,,
+C01,123,52000,dg,mean_component_count,6.416666666666667,5.25,1.166666666666667,policy-native occupancy,,
+C05,8,51000,ca3,mean_component_count,3.936044798113764,4.0625,-0.12645520188623616,policy-native occupancy,,
+C05,8,51000,decoder_1,mean_component_count,4.145502645502646,3.68503937007874,0.46046327542390575,policy-native occupancy,,
+C05,8,51000,decoder_2,mean_component_count,3.3902439024390243,3.585434173669468,-0.19519027123044363,policy-native occupancy,,
+C05,8,51000,dg,mean_component_count,5.088888888888889,4.833333333333333,0.25555555555555554,policy-native occupancy,,
+C05,8,52000,ca3,mean_component_count,3.778072502210433,3.972711267605634,-0.19463876539520086,policy-native occupancy,,
+C05,8,52000,decoder_1,mean_component_count,3.555555555555556,3.788359788359789,-0.232804232804233,policy-native occupancy,,
+C05,8,52000,decoder_2,mean_component_count,3.306233062330623,3.2694444444444444,0.03678861788617871,policy-native occupancy,,
+C05,8,52000,dg,mean_component_count,4.511111111111111,4.458333333333333,0.052777777777778034,policy-native occupancy,,
+C05,99,51000,ca3,mean_component_count,3.6346830985915495,4.480046948356808,-0.8453638497652585,policy-native occupancy,,
+C05,99,51000,decoder_1,mean_component_count,3.4525745257452574,4.112,-0.6594254742547427,policy-native occupancy,,
+C05,99,51000,decoder_2,mean_component_count,2.9458689458689458,3.4365781710914454,-0.4907092252224996,policy-native occupancy,,
+C05,99,51000,dg,mean_component_count,4.458333333333333,5.583333333333333,-1.125,policy-native occupancy,,
+C05,99,52000,ca3,mean_component_count,3.630868544600939,4.34419014084507,-0.713321596244131,policy-native occupancy,,
+C05,99,52000,decoder_1,mean_component_count,3.2764227642276422,3.648,-0.3715772357723579,policy-native occupancy,,
+C05,99,52000,decoder_2,mean_component_count,3.0854700854700856,3.202279202279202,-0.11680911680911654,policy-native occupancy,,
+C05,99,52000,dg,mean_component_count,4.270833333333333,5.125,-0.854166666666667,policy-native occupancy,,
+C05,123,51000,ca3,mean_component_count,3.5019191024505463,4.058303886925796,-0.5563847844752501,policy-native occupancy,,
+C05,123,51000,decoder_1,mean_component_count,4.158602150537634,3.897637795275591,0.26096435526204287,policy-native occupancy,,
+C05,123,51000,decoder_2,mean_component_count,3.8422619047619047,3.42090395480226,0.4213579499596447,policy-native occupancy,,
+C05,123,51000,dg,mean_component_count,3.8666666666666663,5.488888888888889,-1.6222222222222227,policy-native occupancy,,
+C05,123,52000,ca3,mean_component_count,3.528786536758193,3.901615271659325,-0.37282873490113166,policy-native occupancy,,
+C05,123,52000,decoder_1,mean_component_count,4.271505376344086,3.89501312335958,0.37649225298450606,policy-native occupancy,,
+C05,123,52000,decoder_2,mean_component_count,3.893805309734513,3.601694915254237,0.2921103944802761,policy-native occupancy,,
+C05,123,52000,dg,mean_component_count,4.261904761904762,5.133333333333334,-0.8714285714285719,policy-native occupancy,,
+C15,8,51000,ca3,mean_component_count,4.217136150234742,4.321889671361502,-0.10475352112676006,policy-native occupancy,,
+C15,8,51000,decoder_1,mean_component_count,3.303030303030303,4.157181571815718,-0.8541512687854147,policy-native occupancy,,
+C15,8,51000,decoder_2,mean_component_count,3.1484593837535013,3.425770308123249,-0.2773109243697478,policy-native occupancy,,
+C15,8,51000,dg,mean_component_count,5.5625,6.104166666666667,-0.541666666666667,policy-native occupancy,,
+C15,8,52000,ca3,mean_component_count,4.275234741784038,4.723298122065728,-0.44806338028169,policy-native occupancy,,
+C15,8,52000,decoder_1,mean_component_count,3.1065573770491803,3.664,-0.5574426229508198,policy-native occupancy,,
+C15,8,52000,decoder_2,mean_component_count,3.046448087431694,3.3561253561253563,-0.3096772686936622,policy-native occupancy,,
+C15,8,52000,dg,mean_component_count,5.3125,6.3125,-1.0,policy-native occupancy,,
+C15,99,51000,ca3,mean_component_count,3.841255868544601,4.461854460093897,-0.620598591549296,policy-native occupancy,,
+C15,99,51000,decoder_1,mean_component_count,3.660919540229885,3.940860215053764,-0.27994067482387885,policy-native occupancy,,
+C15,99,51000,decoder_2,mean_component_count,3.1666666666666665,3.85752688172043,-0.6908602150537635,policy-native occupancy,,
+C15,99,51000,dg,mean_component_count,6.041666666666667,6.145833333333333,-0.10416666666666607,policy-native occupancy,,
+C15,99,52000,ca3,mean_component_count,4.015845070422535,4.662558685446009,-0.646713615023474,policy-native occupancy,,
+C15,99,52000,decoder_1,mean_component_count,3.47008547008547,3.771505376344086,-0.3014199062586158,policy-native occupancy,,
+C15,99,52000,decoder_2,mean_component_count,3.111111111111111,3.5295698924731185,-0.4184587813620073,policy-native occupancy,,
+C15,99,52000,dg,mean_component_count,6.083333333333333,5.958333333333333,0.125,policy-native occupancy,,
+C15,123,51000,ca3,mean_component_count,4.18368544600939,4.288145539906103,-0.10446009389671307,policy-native occupancy,,
+C15,123,51000,decoder_1,mean_component_count,3.56198347107438,3.9739583333333335,-0.4119748622589534,policy-native occupancy,,
+C15,123,51000,decoder_2,mean_component_count,3.17816091954023,3.5094850948509486,-0.3313241753107188,policy-native occupancy,,
+C15,123,51000,dg,mean_component_count,4.958333333333333,5.916666666666667,-0.9583333333333339,policy-native occupancy,,
+C15,123,52000,ca3,mean_component_count,4.292546948356808,4.400528169014085,-0.107981220657277,policy-native occupancy,,
+C15,123,52000,decoder_1,mean_component_count,3.630555555555556,3.8072916666666665,-0.17673611111111054,policy-native occupancy,,
+C15,123,52000,decoder_2,mean_component_count,3.2564102564102564,3.2613333333333334,-0.00492307692307703,policy-native occupancy,,
+C15,123,52000,dg,mean_component_count,5.0625,5.6875,-0.625,policy-native occupancy,,
+C01,8,51000,ca3,distinct_peak_bins,94.0,163.0,-69.0,policy-native occupancy,,
+C01,8,51000,decoder_1,distinct_peak_bins,72.0,72.0,0.0,policy-native occupancy,,
+C01,8,51000,decoder_2,distinct_peak_bins,61.0,70.0,-9.0,policy-native occupancy,,
+C01,8,51000,dg,distinct_peak_bins,15.0,16.0,-1.0,policy-native occupancy,,
+C01,8,52000,ca3,distinct_peak_bins,92.0,167.0,-75.0,policy-native occupancy,,
+C01,8,52000,decoder_1,distinct_peak_bins,62.0,70.0,-8.0,policy-native occupancy,,
+C01,8,52000,decoder_2,distinct_peak_bins,53.0,57.0,-4.0,policy-native occupancy,,
+C01,8,52000,dg,distinct_peak_bins,16.0,15.0,1.0,policy-native occupancy,,
+C01,99,51000,ca3,distinct_peak_bins,119.0,166.0,-47.0,policy-native occupancy,,
+C01,99,51000,decoder_1,distinct_peak_bins,59.0,69.0,-10.0,policy-native occupancy,,
+C01,99,51000,decoder_2,distinct_peak_bins,56.0,65.0,-9.0,policy-native occupancy,,
+C01,99,51000,dg,distinct_peak_bins,15.0,15.0,0.0,policy-native occupancy,,
+C01,99,52000,ca3,distinct_peak_bins,140.0,175.0,-35.0,policy-native occupancy,,
+C01,99,52000,decoder_1,distinct_peak_bins,61.0,70.0,-9.0,policy-native occupancy,,
+C01,99,52000,decoder_2,distinct_peak_bins,54.0,59.0,-5.0,policy-native occupancy,,
+C01,99,52000,dg,distinct_peak_bins,15.0,15.0,0.0,policy-native occupancy,,
+C01,123,51000,ca3,distinct_peak_bins,128.0,177.0,-49.0,policy-native occupancy,,
+C01,123,51000,decoder_1,distinct_peak_bins,67.0,79.0,-12.0,policy-native occupancy,,
+C01,123,51000,decoder_2,distinct_peak_bins,64.0,62.0,2.0,policy-native occupancy,,
+C01,123,51000,dg,distinct_peak_bins,16.0,16.0,0.0,policy-native occupancy,,
+C01,123,52000,ca3,distinct_peak_bins,132.0,163.0,-31.0,policy-native occupancy,,
+C01,123,52000,decoder_1,distinct_peak_bins,71.0,75.0,-4.0,policy-native occupancy,,
+C01,123,52000,decoder_2,distinct_peak_bins,62.0,72.0,-10.0,policy-native occupancy,,
+C01,123,52000,dg,distinct_peak_bins,13.0,15.0,-2.0,policy-native occupancy,,
+C05,8,51000,ca3,distinct_peak_bins,115.0,154.0,-39.0,policy-native occupancy,,
+C05,8,51000,decoder_1,distinct_peak_bins,50.0,65.0,-15.0,policy-native occupancy,,
+C05,8,51000,decoder_2,distinct_peak_bins,49.0,50.0,-1.0,policy-native occupancy,,
+C05,8,51000,dg,distinct_peak_bins,12.0,11.0,1.0,policy-native occupancy,,
+C05,8,52000,ca3,distinct_peak_bins,99.0,142.0,-43.0,policy-native occupancy,,
+C05,8,52000,decoder_1,distinct_peak_bins,52.0,63.0,-11.0,policy-native occupancy,,
+C05,8,52000,decoder_2,distinct_peak_bins,39.0,50.0,-11.0,policy-native occupancy,,
+C05,8,52000,dg,distinct_peak_bins,12.0,11.0,1.0,policy-native occupancy,,
+C05,99,51000,ca3,distinct_peak_bins,113.0,141.0,-28.0,policy-native occupancy,,
+C05,99,51000,decoder_1,distinct_peak_bins,52.0,63.0,-11.0,policy-native occupancy,,
+C05,99,51000,decoder_2,distinct_peak_bins,37.0,49.0,-12.0,policy-native occupancy,,
+C05,99,51000,dg,distinct_peak_bins,15.0,14.0,1.0,policy-native occupancy,,
+C05,99,52000,ca3,distinct_peak_bins,127.0,144.0,-17.0,policy-native occupancy,,
+C05,99,52000,decoder_1,distinct_peak_bins,58.0,68.0,-10.0,policy-native occupancy,,
+C05,99,52000,decoder_2,distinct_peak_bins,44.0,53.0,-9.0,policy-native occupancy,,
+C05,99,52000,dg,distinct_peak_bins,14.0,15.0,-1.0,policy-native occupancy,,
+C05,123,51000,ca3,distinct_peak_bins,106.0,143.0,-37.0,policy-native occupancy,,
+C05,123,51000,decoder_1,distinct_peak_bins,59.0,51.0,8.0,policy-native occupancy,,
+C05,123,51000,decoder_2,distinct_peak_bins,42.0,44.0,-2.0,policy-native occupancy,,
+C05,123,51000,dg,distinct_peak_bins,12.0,14.0,-2.0,policy-native occupancy,,
+C05,123,52000,ca3,distinct_peak_bins,95.0,123.0,-28.0,policy-native occupancy,,
+C05,123,52000,decoder_1,distinct_peak_bins,56.0,58.0,-2.0,policy-native occupancy,,
+C05,123,52000,decoder_2,distinct_peak_bins,37.0,54.0,-17.0,policy-native occupancy,,
+C05,123,52000,dg,distinct_peak_bins,11.0,13.0,-2.0,policy-native occupancy,,
+C15,8,51000,ca3,distinct_peak_bins,158.0,153.0,5.0,policy-native occupancy,,
+C15,8,51000,decoder_1,distinct_peak_bins,67.0,74.0,-7.0,policy-native occupancy,,
+C15,8,51000,decoder_2,distinct_peak_bins,51.0,73.0,-22.0,policy-native occupancy,,
+C15,8,51000,dg,distinct_peak_bins,16.0,15.0,1.0,policy-native occupancy,,
+C15,8,52000,ca3,distinct_peak_bins,138.0,164.0,-26.0,policy-native occupancy,,
+C15,8,52000,decoder_1,distinct_peak_bins,63.0,77.0,-14.0,policy-native occupancy,,
+C15,8,52000,decoder_2,distinct_peak_bins,62.0,59.0,3.0,policy-native occupancy,,
+C15,8,52000,dg,distinct_peak_bins,15.0,14.0,1.0,policy-native occupancy,,
+C15,99,51000,ca3,distinct_peak_bins,192.0,159.0,33.0,policy-native occupancy,,
+C15,99,51000,decoder_1,distinct_peak_bins,68.0,61.0,7.0,policy-native occupancy,,
+C15,99,51000,decoder_2,distinct_peak_bins,63.0,63.0,0.0,policy-native occupancy,,
+C15,99,51000,dg,distinct_peak_bins,15.0,15.0,0.0,policy-native occupancy,,
+C15,99,52000,ca3,distinct_peak_bins,167.0,176.0,-9.0,policy-native occupancy,,
+C15,99,52000,decoder_1,distinct_peak_bins,62.0,62.0,0.0,policy-native occupancy,,
+C15,99,52000,decoder_2,distinct_peak_bins,61.0,59.0,2.0,policy-native occupancy,,
+C15,99,52000,dg,distinct_peak_bins,14.0,16.0,-2.0,policy-native occupancy,,
+C15,123,51000,ca3,distinct_peak_bins,148.0,162.0,-14.0,policy-native occupancy,,
+C15,123,51000,decoder_1,distinct_peak_bins,52.0,69.0,-17.0,policy-native occupancy,,
+C15,123,51000,decoder_2,distinct_peak_bins,48.0,67.0,-19.0,policy-native occupancy,,
+C15,123,51000,dg,distinct_peak_bins,15.0,16.0,-1.0,policy-native occupancy,,
+C15,123,52000,ca3,distinct_peak_bins,156.0,177.0,-21.0,policy-native occupancy,,
+C15,123,52000,decoder_1,distinct_peak_bins,58.0,67.0,-9.0,policy-native occupancy,,
+C15,123,52000,decoder_2,distinct_peak_bins,60.0,66.0,-6.0,policy-native occupancy,,
+C15,123,52000,dg,distinct_peak_bins,14.0,15.0,-1.0,policy-native occupancy,,
+C01,8,51000,dg,bits_per_activation,,,0.5439453786954767,same units and equally weighted shared bins,265.0,16.0
+C01,8,51000,ca3,bits_per_activation,,,-0.0152834096309003,same units and equally weighted shared bins,265.0,1136.0
+C01,8,51000,decoder_1,bits_per_activation,,,0.5328119940953645,same units and equally weighted shared bins,265.0,123.0
+C01,8,51000,decoder_2,bits_per_activation,,,0.6045628143415681,same units and equally weighted shared bins,265.0,121.0
+C01,8,52000,dg,bits_per_activation,,,0.5685858268060153,same units and equally weighted shared bins,250.0,16.0
+C01,8,52000,ca3,bits_per_activation,,,-0.0949783060960655,same units and equally weighted shared bins,250.0,1136.0
+C01,8,52000,decoder_1,bits_per_activation,,,0.521540469669916,same units and equally weighted shared bins,250.0,123.0
+C01,8,52000,decoder_2,bits_per_activation,,,0.5731718308181385,same units and equally weighted shared bins,250.0,119.0
+C01,99,51000,dg,bits_per_activation,,,0.4795060397662531,same units and equally weighted shared bins,291.0,16.0
+C01,99,51000,ca3,bits_per_activation,,,-0.0556240084837835,same units and equally weighted shared bins,291.0,1136.0
+C01,99,51000,decoder_1,bits_per_activation,,,0.3432929872428646,same units and equally weighted shared bins,291.0,122.0
+C01,99,51000,decoder_2,bits_per_activation,,,0.5233279344825709,same units and equally weighted shared bins,291.0,115.0
+C01,99,52000,dg,bits_per_activation,,,0.4895466003685853,same units and equally weighted shared bins,293.0,16.0
+C01,99,52000,ca3,bits_per_activation,,,-0.0363730424645949,same units and equally weighted shared bins,293.0,1136.0
+C01,99,52000,decoder_1,bits_per_activation,,,0.3594234325052735,same units and equally weighted shared bins,293.0,122.0
+C01,99,52000,decoder_2,bits_per_activation,,,0.5419144732503768,same units and equally weighted shared bins,293.0,117.0
+C01,123,51000,dg,bits_per_activation,,,0.6391526940670218,same units and equally weighted shared bins,294.0,16.0
+C01,123,51000,ca3,bits_per_activation,,,0.0332772888601128,same units and equally weighted shared bins,294.0,1136.0
+C01,123,51000,decoder_1,bits_per_activation,,,0.7946610861098673,same units and equally weighted shared bins,294.0,128.0
+C01,123,51000,decoder_2,bits_per_activation,,,0.5650387127747859,same units and equally weighted shared bins,294.0,121.0
+C01,123,52000,dg,bits_per_activation,,,0.683342399077673,same units and equally weighted shared bins,286.0,16.0
+C01,123,52000,ca3,bits_per_activation,,,0.0501911331992503,same units and equally weighted shared bins,286.0,1136.0
+C01,123,52000,decoder_1,bits_per_activation,,,0.7900914967394501,same units and equally weighted shared bins,286.0,128.0
+C01,123,52000,decoder_2,bits_per_activation,,,0.5225195353206417,same units and equally weighted shared bins,286.0,122.0
+C05,8,51000,dg,bits_per_activation,,,0.6147856136992594,same units and equally weighted shared bins,207.0,15.0
+C05,8,51000,ca3,bits_per_activation,,,0.5803286980795528,same units and equally weighted shared bins,207.0,1131.0
+C05,8,51000,decoder_1,bits_per_activation,,,0.2699614024364321,same units and equally weighted shared bins,207.0,126.0
+C05,8,51000,decoder_2,bits_per_activation,,,0.4078717431730652,same units and equally weighted shared bins,207.0,118.0
+C05,8,52000,dg,bits_per_activation,,,0.5244064582326526,same units and equally weighted shared bins,219.0,15.0
+C05,8,52000,ca3,bits_per_activation,,,0.5142579240754871,same units and equally weighted shared bins,219.0,1131.0
+C05,8,52000,decoder_1,bits_per_activation,,,0.3548465628276737,same units and equally weighted shared bins,219.0,126.0
+C05,8,52000,decoder_2,bits_per_activation,,,0.4797851481009724,same units and equally weighted shared bins,219.0,119.0
+C05,99,51000,dg,bits_per_activation,,,0.0253493748652049,same units and equally weighted shared bins,292.0,16.0
+C05,99,51000,ca3,bits_per_activation,,,0.0097831126319868,same units and equally weighted shared bins,292.0,1136.0
+C05,99,51000,decoder_1,bits_per_activation,,,0.3044170013814548,same units and equally weighted shared bins,292.0,123.0
+C05,99,51000,decoder_2,bits_per_activation,,,0.3248890084439966,same units and equally weighted shared bins,292.0,112.0
+C05,99,52000,dg,bits_per_activation,,,-0.0447144587643477,same units and equally weighted shared bins,303.0,16.0
+C05,99,52000,ca3,bits_per_activation,,,-0.0966303447713172,same units and equally weighted shared bins,303.0,1136.0
+C05,99,52000,decoder_1,bits_per_activation,,,0.18977430472262,same units and equally weighted shared bins,303.0,123.0
+C05,99,52000,decoder_2,bits_per_activation,,,0.0845855269056478,same units and equally weighted shared bins,303.0,114.0
+C05,123,51000,dg,bits_per_activation,,,0.7362761307734177,same units and equally weighted shared bins,297.0,15.0
+C05,123,51000,ca3,bits_per_activation,,,1.051083204147612,same units and equally weighted shared bins,297.0,1129.0
+C05,123,51000,decoder_1,bits_per_activation,,,0.3895845718818878,same units and equally weighted shared bins,297.0,124.0
+C05,123,51000,decoder_2,bits_per_activation,,,0.8164558200804083,same units and equally weighted shared bins,297.0,111.0
+C05,123,52000,dg,bits_per_activation,,,0.70902938509433,same units and equally weighted shared bins,286.0,14.0
+C05,123,52000,ca3,bits_per_activation,,,1.020348781761726,same units and equally weighted shared bins,286.0,1129.0
+C05,123,52000,decoder_1,bits_per_activation,,,0.4329399012570177,same units and equally weighted shared bins,286.0,124.0
+C05,123,52000,decoder_2,bits_per_activation,,,0.8053127236326116,same units and equally weighted shared bins,286.0,111.0
+C15,8,51000,dg,bits_per_activation,,,0.163623720081537,same units and equally weighted shared bins,244.0,16.0
+C15,8,51000,ca3,bits_per_activation,,,0.0797774074991853,same units and equally weighted shared bins,244.0,1136.0
+C15,8,51000,decoder_1,bits_per_activation,,,0.426752603220302,same units and equally weighted shared bins,244.0,120.0
+C15,8,51000,decoder_2,bits_per_activation,,,0.2656520164818877,same units and equally weighted shared bins,244.0,116.0
+C15,8,52000,dg,bits_per_activation,,,0.0799233702402792,same units and equally weighted shared bins,280.0,16.0
+C15,8,52000,ca3,bits_per_activation,,,-0.0350211136164406,same units and equally weighted shared bins,280.0,1136.0
+C15,8,52000,decoder_1,bits_per_activation,,,0.449961336253017,same units and equally weighted shared bins,280.0,121.0
+C15,8,52000,decoder_2,bits_per_activation,,,0.2685509491574619,same units and equally weighted shared bins,280.0,117.0
+C15,99,51000,dg,bits_per_activation,,,-0.0710185472989476,same units and equally weighted shared bins,312.0,16.0
+C15,99,51000,ca3,bits_per_activation,,,-0.2591349774429074,same units and equally weighted shared bins,312.0,1136.0
+C15,99,51000,decoder_1,bits_per_activation,,,0.2330489382096084,same units and equally weighted shared bins,312.0,116.0
+C15,99,51000,decoder_2,bits_per_activation,,,-0.1263240703432541,same units and equally weighted shared bins,312.0,124.0
+C15,99,52000,dg,bits_per_activation,,,-0.056072344976475,same units and equally weighted shared bins,316.0,16.0
+C15,99,52000,ca3,bits_per_activation,,,-0.2409394990617051,same units and equally weighted shared bins,316.0,1136.0
+C15,99,52000,decoder_1,bits_per_activation,,,0.2011499935774539,same units and equally weighted shared bins,316.0,117.0
+C15,99,52000,decoder_2,bits_per_activation,,,-0.1206197024452808,same units and equally weighted shared bins,316.0,124.0
+C15,123,51000,dg,bits_per_activation,,,-0.0130745609659649,same units and equally weighted shared bins,304.0,16.0
+C15,123,51000,ca3,bits_per_activation,,,-0.3779662145794684,same units and equally weighted shared bins,304.0,1136.0
+C15,123,51000,decoder_1,bits_per_activation,,,0.383706737996496,same units and equally weighted shared bins,304.0,121.0
+C15,123,51000,decoder_2,bits_per_activation,,,0.3227079646200243,same units and equally weighted shared bins,304.0,115.0
+C15,123,52000,dg,bits_per_activation,,,-0.0247610793058831,same units and equally weighted shared bins,307.0,16.0
+C15,123,52000,ca3,bits_per_activation,,,-0.3901368554189556,same units and equally weighted shared bins,307.0,1136.0
+C15,123,52000,decoder_1,bits_per_activation,,,0.3686226067841313,same units and equally weighted shared bins,307.0,120.0
+C15,123,52000,decoder_2,bits_per_activation,,,0.2789637702831031,same units and equally weighted shared bins,307.0,117.0
+C01,8,51000,dg,bits_per_step,,,0.0637458190802324,same units and equally weighted shared bins,265.0,16.0
+C01,8,51000,ca3,bits_per_step,,,0.1552959453343776,same units and equally weighted shared bins,265.0,1136.0
+C01,8,51000,decoder_1,bits_per_step,,,0.1457257167128297,same units and equally weighted shared bins,265.0,123.0
+C01,8,51000,decoder_2,bits_per_step,,,0.0613429092931564,same units and equally weighted shared bins,265.0,121.0
+C01,8,52000,dg,bits_per_step,,,0.0602828573184649,same units and equally weighted shared bins,250.0,16.0
+C01,8,52000,ca3,bits_per_step,,,0.146008233381963,same units and equally weighted shared bins,250.0,1136.0
+C01,8,52000,decoder_1,bits_per_step,,,0.1435989411751215,same units and equally weighted shared bins,250.0,123.0
+C01,8,52000,decoder_2,bits_per_step,,,0.0600038052280868,same units and equally weighted shared bins,250.0,119.0
+C01,99,51000,dg,bits_per_step,,,0.0374744433794265,same units and equally weighted shared bins,291.0,16.0
+C01,99,51000,ca3,bits_per_step,,,0.0302228207810566,same units and equally weighted shared bins,291.0,1136.0
+C01,99,51000,decoder_1,bits_per_step,,,0.0946537554818937,same units and equally weighted shared bins,291.0,122.0
+C01,99,51000,decoder_2,bits_per_step,,,0.0435706147602765,same units and equally weighted shared bins,291.0,115.0
+C01,99,52000,dg,bits_per_step,,,0.0363384133100485,same units and equally weighted shared bins,293.0,16.0
+C01,99,52000,ca3,bits_per_step,,,0.0391900018282431,same units and equally weighted shared bins,293.0,1136.0
+C01,99,52000,decoder_1,bits_per_step,,,0.1179902150520142,same units and equally weighted shared bins,293.0,122.0
+C01,99,52000,decoder_2,bits_per_step,,,0.0573863653423097,same units and equally weighted shared bins,293.0,117.0
+C01,123,51000,dg,bits_per_step,,,0.052469234432535,same units and equally weighted shared bins,294.0,16.0
+C01,123,51000,ca3,bits_per_step,,,0.1536329585897504,same units and equally weighted shared bins,294.0,1136.0
+C01,123,51000,decoder_1,bits_per_step,,,0.1404599322465249,same units and equally weighted shared bins,294.0,128.0
+C01,123,51000,decoder_2,bits_per_step,,,0.0564147243958129,same units and equally weighted shared bins,294.0,121.0
+C01,123,52000,dg,bits_per_step,,,0.0463688385776846,same units and equally weighted shared bins,286.0,16.0
+C01,123,52000,ca3,bits_per_step,,,0.1305628908694599,same units and equally weighted shared bins,286.0,1136.0
+C01,123,52000,decoder_1,bits_per_step,,,0.1228583393728195,same units and equally weighted shared bins,286.0,128.0
+C01,123,52000,decoder_2,bits_per_step,,,0.0484538439427393,same units and equally weighted shared bins,286.0,122.0
+C05,8,51000,dg,bits_per_step,,,0.0660899339296582,same units and equally weighted shared bins,207.0,15.0
+C05,8,51000,ca3,bits_per_step,,,0.2120152773404692,same units and equally weighted shared bins,207.0,1131.0
+C05,8,51000,decoder_1,bits_per_step,,,0.1588372538953965,same units and equally weighted shared bins,207.0,126.0
+C05,8,51000,decoder_2,bits_per_step,,,0.0829043023598807,same units and equally weighted shared bins,207.0,118.0
+C05,8,52000,dg,bits_per_step,,,0.0649070178701317,same units and equally weighted shared bins,219.0,15.0
+C05,8,52000,ca3,bits_per_step,,,0.2438262102751059,same units and equally weighted shared bins,219.0,1131.0
+C05,8,52000,decoder_1,bits_per_step,,,0.1704985562590456,same units and equally weighted shared bins,219.0,126.0
+C05,8,52000,decoder_2,bits_per_step,,,0.0915945735351825,same units and equally weighted shared bins,219.0,119.0
+C05,99,51000,dg,bits_per_step,,,0.0290257251765755,same units and equally weighted shared bins,292.0,16.0
+C05,99,51000,ca3,bits_per_step,,,0.0930681084319542,same units and equally weighted shared bins,292.0,1136.0
+C05,99,51000,decoder_1,bits_per_step,,,0.0941169283389768,same units and equally weighted shared bins,292.0,123.0
+C05,99,51000,decoder_2,bits_per_step,,,0.0469220057722405,same units and equally weighted shared bins,292.0,112.0
+C05,99,52000,dg,bits_per_step,,,0.0248588417929819,same units and equally weighted shared bins,303.0,16.0
+C05,99,52000,ca3,bits_per_step,,,0.068862567581931,same units and equally weighted shared bins,303.0,1136.0
+C05,99,52000,decoder_1,bits_per_step,,,0.074973398769882,same units and equally weighted shared bins,303.0,123.0
+C05,99,52000,decoder_2,bits_per_step,,,0.0359833261042098,same units and equally weighted shared bins,303.0,114.0
+C05,123,51000,dg,bits_per_step,,,0.0391857128185823,same units and equally weighted shared bins,297.0,15.0
+C05,123,51000,ca3,bits_per_step,,,0.115735300149359,same units and equally weighted shared bins,297.0,1129.0
+C05,123,51000,decoder_1,bits_per_step,,,0.1066794798386192,same units and equally weighted shared bins,297.0,124.0
+C05,123,51000,decoder_2,bits_per_step,,,0.0817534974802665,same units and equally weighted shared bins,297.0,111.0
+C05,123,52000,dg,bits_per_step,,,0.0382608592740995,same units and equally weighted shared bins,286.0,14.0
+C05,123,52000,ca3,bits_per_step,,,0.1329256842643067,same units and equally weighted shared bins,286.0,1129.0
+C05,123,52000,decoder_1,bits_per_step,,,0.1347316943063888,same units and equally weighted shared bins,286.0,124.0
+C05,123,52000,decoder_2,bits_per_step,,,0.0983242748330341,same units and equally weighted shared bins,286.0,111.0
+C15,8,51000,dg,bits_per_step,,,0.0456512392717114,same units and equally weighted shared bins,244.0,16.0
+C15,8,51000,ca3,bits_per_step,,,0.1117746538778151,same units and equally weighted shared bins,244.0,1136.0
+C15,8,51000,decoder_1,bits_per_step,,,0.061056409454539,same units and equally weighted shared bins,244.0,120.0
+C15,8,51000,decoder_2,bits_per_step,,,0.0274604451462679,same units and equally weighted shared bins,244.0,116.0
+C15,8,52000,dg,bits_per_step,,,0.0329389106486163,same units and equally weighted shared bins,280.0,16.0
+C15,8,52000,ca3,bits_per_step,,,0.0490705723348726,same units and equally weighted shared bins,280.0,1136.0
+C15,8,52000,decoder_1,bits_per_step,,,0.0354924439583219,same units and equally weighted shared bins,280.0,121.0
+C15,8,52000,decoder_2,bits_per_step,,,0.0211201968948923,same units and equally weighted shared bins,280.0,117.0
+C15,99,51000,dg,bits_per_step,,,0.0052412663023929,same units and equally weighted shared bins,312.0,16.0
+C15,99,51000,ca3,bits_per_step,,,-0.0738783330164658,same units and equally weighted shared bins,312.0,1136.0
+C15,99,51000,decoder_1,bits_per_step,,,-0.0113132636125451,same units and equally weighted shared bins,312.0,116.0
+C15,99,51000,decoder_2,bits_per_step,,,-0.0017107508665079,same units and equally weighted shared bins,312.0,124.0
+C15,99,52000,dg,bits_per_step,,,0.005171616602192,same units and equally weighted shared bins,316.0,16.0
+C15,99,52000,ca3,bits_per_step,,,-0.0676487426912372,same units and equally weighted shared bins,316.0,1136.0
+C15,99,52000,decoder_1,bits_per_step,,,-0.0125076538675173,same units and equally weighted shared bins,316.0,117.0
+C15,99,52000,decoder_2,bits_per_step,,,-0.0031306923202832,same units and equally weighted shared bins,316.0,124.0
+C15,123,51000,dg,bits_per_step,,,0.0126388014770124,same units and equally weighted shared bins,304.0,16.0
+C15,123,51000,ca3,bits_per_step,,,-0.113291883485962,same units and equally weighted shared bins,304.0,1136.0
+C15,123,51000,decoder_1,bits_per_step,,,-0.0098568500388746,same units and equally weighted shared bins,304.0,121.0
+C15,123,51000,decoder_2,bits_per_step,,,0.0019311050715045,same units and equally weighted shared bins,304.0,115.0
+C15,123,52000,dg,bits_per_step,,,0.0104942479902213,same units and equally weighted shared bins,307.0,16.0
+C15,123,52000,ca3,bits_per_step,,,-0.1074760101260145,same units and equally weighted shared bins,307.0,1136.0
+C15,123,52000,decoder_1,bits_per_step,,,-0.0116782714781067,same units and equally weighted shared bins,307.0,120.0
+C15,123,52000,decoder_2,bits_per_step,,,0.0002397166289906,same units and equally weighted shared bins,307.0,117.0
+C01,8,51000,dg,mean_activation,,,0.0076002170098945,same units and equally weighted shared bins,265.0,16.0
+C01,8,51000,ca3,mean_activation,,,0.0109252189368035,same units and equally weighted shared bins,265.0,1136.0
+C01,8,51000,decoder_1,mean_activation,,,-0.136758532121681,same units and equally weighted shared bins,265.0,123.0
+C01,8,51000,decoder_2,mean_activation,,,-0.0683979964187904,same units and equally weighted shared bins,265.0,121.0
+C01,8,52000,dg,mean_activation,,,0.0076255822787061,same units and equally weighted shared bins,250.0,16.0
+C01,8,52000,ca3,mean_activation,,,0.0301229596502003,same units and equally weighted shared bins,250.0,1136.0
+C01,8,52000,decoder_1,mean_activation,,,-0.1435224681461373,same units and equally weighted shared bins,250.0,123.0
+C01,8,52000,decoder_2,mean_activation,,,-0.0729874810368994,same units and equally weighted shared bins,250.0,119.0
+C01,99,51000,dg,mean_activation,,,0.0045983277523191,same units and equally weighted shared bins,291.0,16.0
+C01,99,51000,ca3,mean_activation,,,-0.0206369565392788,same units and equally weighted shared bins,291.0,1136.0
+C01,99,51000,decoder_1,mean_activation,,,-0.120923907680081,same units and equally weighted shared bins,291.0,122.0
+C01,99,51000,decoder_2,mean_activation,,,-0.0384603297424528,same units and equally weighted shared bins,291.0,115.0
+C01,99,52000,dg,mean_activation,,,0.0032162646530196,same units and equally weighted shared bins,293.0,16.0
+C01,99,52000,ca3,mean_activation,,,-0.0200284080162585,same units and equally weighted shared bins,293.0,1136.0
+C01,99,52000,decoder_1,mean_activation,,,-0.0898004521911135,same units and equally weighted shared bins,293.0,122.0
+C01,99,52000,decoder_2,mean_activation,,,-0.0212627708159798,same units and equally weighted shared bins,293.0,117.0
+C01,123,51000,dg,mean_activation,,,-0.0007221676351036,same units and equally weighted shared bins,294.0,16.0
+C01,123,51000,ca3,mean_activation,,,-0.1080870708724497,same units and equally weighted shared bins,294.0,1136.0
+C01,123,51000,decoder_1,mean_activation,,,-0.1480501799298963,same units and equally weighted shared bins,294.0,128.0
+C01,123,51000,decoder_2,mean_activation,,,-0.0719330102530785,same units and equally weighted shared bins,294.0,121.0
+C01,123,52000,dg,mean_activation,,,-0.003983522314229,same units and equally weighted shared bins,286.0,16.0
+C01,123,52000,ca3,mean_activation,,,-0.1057665743596579,same units and equally weighted shared bins,286.0,1136.0
+C01,123,52000,decoder_1,mean_activation,,,-0.1423435102037729,same units and equally weighted shared bins,286.0,128.0
+C01,123,52000,decoder_2,mean_activation,,,-0.0693984977585655,same units and equally weighted shared bins,286.0,122.0
+C05,8,51000,dg,mean_activation,,,0.0057471197408934,same units and equally weighted shared bins,207.0,15.0
+C05,8,51000,ca3,mean_activation,,,-0.1377149003277475,same units and equally weighted shared bins,207.0,1131.0
+C05,8,51000,decoder_1,mean_activation,,,-0.0417430662091069,same units and equally weighted shared bins,207.0,126.0
+C05,8,51000,decoder_2,mean_activation,,,0.0363012849688317,same units and equally weighted shared bins,207.0,118.0
+C05,8,52000,dg,mean_activation,,,0.0063626700371969,same units and equally weighted shared bins,219.0,15.0
+C05,8,52000,ca3,mean_activation,,,-0.1014872188932055,same units and equally weighted shared bins,219.0,1131.0
+C05,8,52000,decoder_1,mean_activation,,,-0.0297398270830319,same units and equally weighted shared bins,219.0,126.0
+C05,8,52000,decoder_2,mean_activation,,,0.0352914827799319,same units and equally weighted shared bins,219.0,119.0
+C05,99,51000,dg,mean_activation,,,-0.0063411897499463,same units and equally weighted shared bins,292.0,16.0
+C05,99,51000,ca3,mean_activation,,,-0.1152485197031432,same units and equally weighted shared bins,292.0,1136.0
+C05,99,51000,decoder_1,mean_activation,,,-0.1535405530528036,same units and equally weighted shared bins,292.0,123.0
+C05,99,51000,decoder_2,mean_activation,,,-0.0587321898659394,same units and equally weighted shared bins,292.0,112.0
+C05,99,52000,dg,mean_activation,,,-0.0076320479056448,same units and equally weighted shared bins,303.0,16.0
+C05,99,52000,ca3,mean_activation,,,-0.1204788565980418,same units and equally weighted shared bins,303.0,1136.0
+C05,99,52000,decoder_1,mean_activation,,,-0.1461560740081188,same units and equally weighted shared bins,303.0,123.0
+C05,99,52000,decoder_2,mean_activation,,,-0.0520220546893278,same units and equally weighted shared bins,303.0,114.0
+C05,123,51000,dg,mean_activation,,,-0.0002390554058365,same units and equally weighted shared bins,297.0,15.0
+C05,123,51000,ca3,mean_activation,,,-0.0575739122565053,same units and equally weighted shared bins,297.0,1129.0
+C05,123,51000,decoder_1,mean_activation,,,-0.1007333471526738,same units and equally weighted shared bins,297.0,124.0
+C05,123,51000,decoder_2,mean_activation,,,0.0089616113141797,same units and equally weighted shared bins,297.0,111.0
+C05,123,52000,dg,mean_activation,,,-0.0001907656634492,same units and equally weighted shared bins,286.0,14.0
+C05,123,52000,ca3,mean_activation,,,-0.0551727377638467,same units and equally weighted shared bins,286.0,1129.0
+C05,123,52000,decoder_1,mean_activation,,,-0.1106871547857618,same units and equally weighted shared bins,286.0,124.0
+C05,123,52000,decoder_2,mean_activation,,,0.0033854618083202,same units and equally weighted shared bins,286.0,111.0
+C15,8,51000,dg,mean_activation,,,0.0022397096909116,same units and equally weighted shared bins,244.0,16.0
+C15,8,51000,ca3,mean_activation,,,-0.0619357858606594,same units and equally weighted shared bins,244.0,1136.0
+C15,8,51000,decoder_1,mean_activation,,,-0.0760191763923861,same units and equally weighted shared bins,244.0,120.0
+C15,8,51000,decoder_2,mean_activation,,,-0.0306777361698856,same units and equally weighted shared bins,244.0,116.0
+C15,8,52000,dg,mean_activation,,,0.0025503947108518,same units and equally weighted shared bins,280.0,16.0
+C15,8,52000,ca3,mean_activation,,,-0.0402692532634959,same units and equally weighted shared bins,280.0,1136.0
+C15,8,52000,decoder_1,mean_activation,,,-0.0877589374471321,same units and equally weighted shared bins,280.0,121.0
+C15,8,52000,decoder_2,mean_activation,,,-0.0331726680213515,same units and equally weighted shared bins,280.0,117.0
+C15,99,51000,dg,mean_activation,,,0.001560628938023,same units and equally weighted shared bins,312.0,16.0
+C15,99,51000,ca3,mean_activation,,,0.0007377783398957,same units and equally weighted shared bins,312.0,1136.0
+C15,99,51000,decoder_1,mean_activation,,,-0.0666771502038845,same units and equally weighted shared bins,312.0,116.0
+C15,99,51000,decoder_2,mean_activation,,,-0.0368274325411778,same units and equally weighted shared bins,312.0,124.0
+C15,99,52000,dg,mean_activation,,,0.0006094519631005,same units and equally weighted shared bins,316.0,16.0
+C15,99,52000,ca3,mean_activation,,,0.0047185827582799,same units and equally weighted shared bins,316.0,1136.0
+C15,99,52000,decoder_1,mean_activation,,,-0.0587914496401904,same units and equally weighted shared bins,316.0,117.0
+C15,99,52000,decoder_2,mean_activation,,,-0.0336326623894988,same units and equally weighted shared bins,316.0,124.0
+C15,123,51000,dg,mean_activation,,,0.0054978026892058,same units and equally weighted shared bins,304.0,16.0
+C15,123,51000,ca3,mean_activation,,,0.0381383629061583,same units and equally weighted shared bins,304.0,1136.0
+C15,123,51000,decoder_1,mean_activation,,,-0.0433559005270415,same units and equally weighted shared bins,304.0,121.0
+C15,123,51000,decoder_2,mean_activation,,,-0.019686136672823,same units and equally weighted shared bins,304.0,115.0
+C15,123,52000,dg,mean_activation,,,0.0050037064938806,same units and equally weighted shared bins,307.0,16.0
+C15,123,52000,ca3,mean_activation,,,0.036254239315331,same units and equally weighted shared bins,307.0,1136.0
+C15,123,52000,decoder_1,mean_activation,,,-0.060355508279099,same units and equally weighted shared bins,307.0,120.0
+C15,123,52000,decoder_2,mean_activation,,,-0.0318166190995453,same units and equally weighted shared bins,307.0,117.0

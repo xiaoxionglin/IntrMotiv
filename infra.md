@@ -6,6 +6,26 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Archive W&B spatial histories through the canonical study workflow — 2026-10-11
+
+- **Evidence:** The COSYNE online analysis matched 38 verified original runs by
+  StudySpec `study_id`, experiment, and seed. W&B project membership alone also
+  included failed or qualification attempts. Unsampled histories were exported
+  once to [cached CSVs](06_experiments/results/cosyne_2027_online_wandb/collection_manifest.json)
+  and could then be replotted without repeating network requests.
+- **Impact:** Repeated learning-curve figures need exact run identity and
+  reusable histories; otherwise a changed plot requires another remote scan
+  and may silently mix study attempts.
+- **Improvement/status:** Pending canonical integration. Add optional W&B
+  history export and identity validation to the existing `collect-online`
+  workflow, reusing the StudySpec metadata rather than adding another run list.
+  The current [COSYNE plotter](06_experiments/cosyne_2027/plot_wandb_online.py)
+  demonstrates the export and render contract.
+- **Acceptance:** A StudySpec collection exports each requested W&B metric with
+  run URL, exact identity, and source fingerprint; a cached render regenerates
+  the same seed curves and SEM bands with no W&B access. See the
+  [standardized workflow](04_implementation/standardized_study_workflow.md).
+
 ### Validate analysis availability before a batch collection — 2026-10-10
 
 - **Evidence:** The 45-run corrected-core encoder/worker StudySpec legitimately
