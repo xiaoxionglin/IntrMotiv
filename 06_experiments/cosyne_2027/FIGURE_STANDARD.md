@@ -4,10 +4,10 @@ Use this as the starting layout for figures intended for the two-page US-letter 
 
 ## Physical layout and typography
 
-| Figure type | Panel size at final placement | Type |
-| --- | --- | --- |
-| Behavior-expression paired-seed dot plot | 1.5 × 1.8 inches | Arial, 10 pt for titles, axes, ticks, and annotations |
-| Denser factorized contrasts or learning curve | Up to 1.9 inches wide per panel; set height from content | Arial, 10 pt |
+| Figure type                                   | Panel size at final placement                            | Type                                                  |
+| --------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------- |
+| Behavior-expression paired-seed dot plot      | 1.5 × 1.8 inches                                         | Arial, 10 pt for titles, axes, ticks, and annotations |
+| Denser factorized contrasts or learning curve | Up to 1.9 inches wide per panel; set height from content | Arial, 10 pt                                          |
 
 Render at the **final physical size**. Do not make a large plot and shrink it into the abstract. Verify that Arial resolves to an installed scalable TTF/OTF font; fail explicitly if it does not. For simple dot plots, put the measured quantity and unit on the y-axis and use the top position only for a panel letter. Expand any short axis wording in the caption. Give each panel one comparison, align neighboring axes, and leave enough space for 10 pt tick labels without clipping or overlap. The current behavior-expression pair is 3.0 × 1.8 inches in total.
 
