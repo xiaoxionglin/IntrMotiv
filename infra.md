@@ -2089,6 +2089,8 @@ For each finding, record:
   analysis tables. The [palette](06_experiments/cosyne_2027/COLOR_PALETTE.md)
   separates architecture, mechanism, landmark, and condition roles; the
   absolute candidate now uses gray open-square controls instead of C05 orange.
+  An embedded SVG preview in the palette note avoids inline-HTML swatches,
+  which Obsidian Live Preview may show as source rather than color.
 - **Acceptance:** The six compact PNGs have their declared physical sizes,
   verified scalable Arial, no clipped labels at 100% size, unchanged source
   CSV hashes, and one-to-one claim/source links in the question reports. The

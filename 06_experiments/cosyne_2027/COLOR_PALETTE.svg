@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="360" viewBox="0 0 780 360" role="img" aria-labelledby="title description">
+  <title id="title">COSYNE 2027 color palette</title>
+  <desc id="description">Swatches for three architectures, push and pull mechanisms, three DG landmarks repeated in CA3, normal and control conditions, and neutral structure.</desc>
+  <rect x="0.5" y="0.5" width="779" height="359" rx="9" fill="#FFFFFF" stroke="#BBC4CA"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#183043">
+    <text x="20" y="32" font-size="20" font-weight="700">COSYNE 2027 palette</text>
+    <g font-size="18" font-weight="700">
+      <text x="20" y="80">Architecture</text>
+      <text x="20" y="142">Mechanism</text>
+      <text x="20" y="204">Landmarks</text>
+      <text x="20" y="266">Conditions</text>
+      <text x="20" y="328">Structure</text>
+    </g>
+    <g font-size="18">
+      <text x="209" y="80">C01</text>
+      <text x="414" y="80">C05</text>
+      <text x="619" y="80">C15</text>
+      <text x="209" y="142">Push</text>
+      <text x="414" y="142">Pull</text>
+      <text x="619" y="142">CA3</text>
+      <text x="209" y="204">DG 1 → CA3 1</text>
+      <text x="414" y="204">DG 2 → CA3 2</text>
+      <text x="619" y="204">DG 3 → CA3 3</text>
+      <text x="209" y="266">Normal / own</text>
+      <text x="414" y="266">Control / random</text>
+      <text x="209" y="328">Text</text>
+      <text x="414" y="328">Pair line</text>
+      <text x="619" y="328">Grid</text>
+    </g>
+  </g>
+  <g stroke="#75838C" stroke-width="1">
+    <rect x="170" y="57" width="27" height="27" rx="2" fill="#0072B2"/>
+    <rect x="375" y="57" width="27" height="27" rx="2" fill="#D55E00"/>
+    <rect x="580" y="57" width="27" height="27" rx="2" fill="#009E73"/>
+    <rect x="170" y="119" width="27" height="27" rx="2" fill="#AE453E"/>
+    <rect x="375" y="119" width="27" height="27" rx="2" fill="#236D9D"/>
+    <rect x="580" y="119" width="27" height="27" rx="2" fill="#257873"/>
+    <rect x="170" y="181" width="27" height="27" rx="2" fill="#B58C22"/>
+    <rect x="375" y="181" width="27" height="27" rx="2" fill="#8B6CA8"/>
+    <rect x="580" y="181" width="27" height="27" rx="2" fill="#4C9380"/>
+    <rect x="170" y="243" width="27" height="27" rx="2" fill="#236D9D"/>
+    <rect x="375" y="243" width="27" height="27" rx="2" fill="#75838C"/>
+    <rect x="170" y="305" width="27" height="27" rx="2" fill="#183043"/>
+    <rect x="375" y="305" width="27" height="27" rx="2" fill="#BBC4CA"/>
+    <rect x="580" y="305" width="27" height="27" rx="2" fill="#E2E8EB"/>
+  </g>
+  <g stroke="#E2E8EB" stroke-width="1">
+    <line x1="20" y1="101" x2="760" y2="101"/>
+    <line x1="20" y1="163" x2="760" y2="163"/>
+    <line x1="20" y1="225" x2="760" y2="225"/>
+    <line x1="20" y1="287" x2="760" y2="287"/>
+  </g>
+</svg>
