@@ -1,5 +1,5 @@
 {
-  "schema": "cosyne27_compact_figures_v4",
+  "schema": "cosyne27_compact_figures_v5",
   "font": "Arial",
   "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "font_pt": 10,
@@ -24,6 +24,52 @@
     "evaluation_repeats_averaged_per_training_seed": 2,
     "training_seeds_per_architecture": 3,
     "nonnegative_y_axes_start_at_zero": true
+  },
+  "paired_absolute_and_difference_candidates": {
+    "panel_inches": [
+      1.9,
+      1.9
+    ],
+    "point_unit": "one training seed, paired within each factor cell",
+    "absolute_encoding": "open square second arm, filled circle first arm, line paired seed",
+    "difference_encoding": "first minus second, points seeds, black segment mean",
+    "fresh_encoder_seed_counts": {
+      "C01": 5,
+      "C05 \u00b7 constant hit": 5,
+      "C05 \u00b7 temporal hit": 5,
+      "C15": 3
+    },
+    "fresh_worker_seed_counts": {
+      "constant": 5,
+      "temporal": 5
+    },
+    "historical_credit_presence_seed_counts": [
+      {
+        "family": "C01",
+        "worker_bonus": "flat",
+        "n": 3
+      },
+      {
+        "family": "C05",
+        "worker_bonus": "temporal",
+        "n": 3
+      },
+      {
+        "family": "C05",
+        "worker_bonus": "zero",
+        "n": 3
+      },
+      {
+        "family": "C15",
+        "worker_bonus": "temporal",
+        "n": 3
+      },
+      {
+        "family": "C15",
+        "worker_bonus": "zero",
+        "n": 2
+      }
+    ]
   },
   "sources": {
     "online": {
@@ -50,6 +96,10 @@
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
       "sha256": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432"
     },
+    "worker_fields": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
+      "sha256": "cb9b7793b1ad1e1ace44a5e6cc5784c0365bf85121d7c4f300b1a5ffa8b7ac90"
+    },
     "peaks": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
       "sha256": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a"
@@ -57,6 +107,10 @@
     "credit_presence": {
       "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
       "sha256": "26097b15fab3d641d6168c62d5954a5acbf9d72beb420d27a314ecb4b96b79a3"
+    },
+    "credit_presence_raw": {
+      "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_place_fields.csv",
+      "sha256": "690447dd6e5d5254303b834cd677b5c5ed517756b91b0ae06cf0b4d10f9fa4db"
     }
   }
 }

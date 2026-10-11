@@ -44,6 +44,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   demonstrates the export and render contract. The figure exporters now fix
   SVG hash salt and omit generated Date metadata; two consecutive cached
   snapshot exports produced identical SHA-256.
+- **11 October reuse:** The cached paired table retains both observed arm
+  values alongside each seed difference. The [compact COSYNE renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now draws original values beside the signed contrast without revisiting W&B.
+  Preserve both arm values, seed identity, and contrast direction when moving
+  this export into the canonical collector.
 - **Acceptance:** A StudySpec collection exports each requested W&B metric with
   run URL, exact identity, and source fingerprint; a cached render regenerates
   the same seed curves and SEM bands with no W&B access. See the

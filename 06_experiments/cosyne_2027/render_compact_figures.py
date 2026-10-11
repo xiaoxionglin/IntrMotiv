@@ -29,8 +29,10 @@ SOURCES = {
     "behavior_shared_raw": RESULTS / "behavior_field_expression_20261007/paired_prefixes.csv",
     "behavior_native_raw": RESULTS / "behavior_field_expression_20261007/per_run.csv",
     "encoder": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
+    "worker_fields": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
     "peaks": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
     "credit_presence": ROOT / "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
+    "credit_presence_raw": ROOT / "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_place_fields.csv",
 }
 COLORS = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 FACTOR_ORDER = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
@@ -73,7 +75,7 @@ def seed_differences(ax: plt.Axes, frame: pd.DataFrame, groups: tuple[str, ...],
     ax.axhline(0, color="#888888", lw=0.8, zorder=0)
     for x, (group, color, marker) in enumerate(zip(groups, colors, markers)):
         values = frame[frame[group_column] == group].sort_values("seed")
-        if len(values) not in {2, 3, 5} or values.seed.nunique() != len(values):
+        if len(values) < 2 or values.seed.nunique() != len(values):
             raise ValueError(f"unexpected paired-seed count for {group}: {len(values)}")
         offsets = np.linspace(-0.13, 0.13, len(values))
         y = values.difference.to_numpy(float)
@@ -88,6 +90,68 @@ def seed_differences(ax: plt.Axes, frame: pd.DataFrame, groups: tuple[str, ...],
     ax.set_xticks(range(len(groups)), labels)
     ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
     ax.grid(axis="y", color="#e6e6e6", lw=0.5, zorder=0)
+
+
+def paired_values_and_difference(
+    data: pd.DataFrame, *, name: str, groups: tuple[str, ...],
+    group_column: str, labels: tuple[str, ...], colors: tuple[str, ...],
+    first_label: str, second_label: str, ylabel: str, delta_label: str,
+    minimum_counts: tuple[int, ...],
+) -> None:
+    """Show both observed arms and their paired contrast at final-page size.
+
+    Input rows must already be one observation per training seed. A line connects
+    the two arms of the same seed; the difference panel uses those exact rows.
+    """
+    if not (len(groups) == len(labels) == len(colors) == len(minimum_counts)):
+        raise ValueError("factor labels, colors, and minimum seed counts differ")
+    if set(data[group_column]) != set(groups):
+        raise ValueError(f"{name}: plotted factor cells differ from source rows")
+    if data.duplicated([group_column, "seed"]).any():
+        raise ValueError(f"duplicate seed in {name}")
+    if data[["first", "second", "difference"]].isna().any().any():
+        raise ValueError(f"missing paired value in {name}")
+    if not np.allclose(data["first"] - data["second"], data["difference"],
+                       rtol=0, atol=1e-8):
+        raise ValueError(f"paired contrast does not match source values in {name}")
+
+    fig, axes = plt.subplots(1, 2, figsize=(3.8, 1.9))
+    fig.subplots_adjust(left=0.14, right=0.99, bottom=0.26, top=0.76,
+                        wspace=0.45)
+    absolute_ax, difference_ax = axes
+    for x, (group, color, minimum) in enumerate(zip(groups, colors, minimum_counts)):
+        rows = data[data[group_column] == group].sort_values("seed")
+        if len(rows) < minimum or rows.seed.nunique() != len(rows):
+            raise ValueError(f"{name}: expected at least {minimum} paired seeds for {group}")
+        for offset, row in zip(np.linspace(-0.035, 0.035, len(rows)),
+                               rows.itertuples(index=False)):
+            absolute_ax.plot([x - 0.12 + offset, x + 0.12 + offset],
+                             [row.second, row.first], color="#BBC4CA",
+                             lw=0.7, zorder=1)
+            absolute_ax.scatter(x - 0.12 + offset, row.second, s=17,
+                                marker="s", facecolor="white", edgecolor=color,
+                                linewidth=1.1, zorder=3)
+            absolute_ax.scatter(x + 0.12 + offset, row.first, s=17,
+                                marker="o", color=color, linewidth=0, zorder=3)
+    absolute_ax.set_ylim(bottom=0)
+    absolute_ax.set_xticks(range(len(groups)), labels)
+    absolute_ax.set_ylabel(ylabel, labelpad=2)
+    absolute_ax.set_title("a", loc="left", pad=6, fontweight="bold")
+    absolute_ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
+    absolute_ax.grid(axis="y", color="#e6e6e6", lw=0.5, zorder=0)
+
+    seed_differences(difference_ax, data, groups,
+                     group_column=group_column, labels=labels, colors=colors)
+    difference_ax.set_ylabel(delta_label, labelpad=2)
+    difference_ax.set_title("b", loc="left", pad=6, fontweight="bold")
+    handles = [plt.Line2D([0], [0], marker="o", linestyle="none", color="#30363B",
+                          markersize=4, label=first_label),
+               plt.Line2D([0], [0], marker="s", linestyle="none", color="#75838C",
+                          markerfacecolor="white", markeredgewidth=1.1,
+                          markersize=4, label=second_label)]
+    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.55, 1.02),
+               ncol=2, frameon=False, handletextpad=0.2, columnspacing=0.6)
+    export(fig, name)
 
 
 def online_course(data: pd.DataFrame) -> None:
@@ -235,6 +299,34 @@ def credit_presence(data: pd.DataFrame) -> None:
     export(fig, "02_credit_presence")
 
 
+def credit_presence_absolute(pairs: pd.DataFrame, raw: pd.DataFrame) -> None:
+    """Recover the two observed arms of the historical presence contrast."""
+    raw = raw[raw.credit.isin(("CONSTANT_STOP", "NONE_STOP"))]
+    values = raw.pivot(index=["family", "worker_bonus", "seed"],
+                       columns="credit", values="active_unit_mean_si_bits")
+    values = values.dropna().reset_index().rename(
+        columns={"CONSTANT_STOP": "first", "NONE_STOP": "second"})
+    values["difference"] = values["first"] - values["second"]
+    values["group"] = values.family + values.worker_bonus.map(
+        {"flat": "", "temporal": "T", "zero": "Z"})
+    archived = pairs[pairs.contrast == "none_stop_minus_constant"]
+    check = values.merge(archived, on=["family", "worker_bonus", "seed"],
+                         validate="one_to_one")
+    if len(check) != 14 or not np.allclose(
+        check.difference, -check.active_unit_mean_si_bits_delta,
+        rtol=0, atol=1e-8):
+        raise ValueError("historical absolute values disagree with paired contrast")
+    paired_values_and_difference(
+        values, name="02_credit_presence_values_and_delta",
+        groups=("C01", "C05T", "C05Z", "C15T", "C15Z"),
+        group_column="group", labels=("01", "05T", "05Z", "15T", "15Z"),
+        colors=(COLORS["C01"], COLORS["C05"], COLORS["C05"],
+                COLORS["C15"], COLORS["C15"]),
+        first_label="Constant credit", second_label="No credit",
+        ylabel="DG info (bits)", delta_label="Δ DG info (bits)",
+        minimum_counts=(3, 3, 3, 3, 2))
+
+
 def encoder_credit(fields: pd.DataFrame, peaks: pd.DataFrame) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(5.7, 2.1))
     fig.subplots_adjust(left=0.085, right=0.99, bottom=0.25, top=0.79, wspace=0.33)
@@ -281,11 +373,64 @@ def main() -> None:
     absolute.to_csv(OUT / "02_behavior_expression_absolute_by_seed.csv",
                     index=False, lineterminator="\n")
     behavior_absolute(absolute)
+    for metric, name, ylabel, delta_label in (
+        ("bits_per_activation", "02_behavior_info_values_and_delta",
+         "Info (bits/act.)", "Δ info (bits/act.)"),
+        ("split_half_map_correlation", "02_behavior_reliability_values_and_delta",
+         "Map reliability", "Δ reliability"),
+    ):
+        paired_values_and_difference(
+            absolute[absolute.metric == metric].rename(
+                columns={"experimental": "first", "control": "second"}),
+            name=name, groups=("C01", "C05", "C15"), group_column="condition",
+            labels=("C01", "C05", "C15"), colors=tuple(COLORS.values()),
+            first_label="Own policy", second_label="Random actions",
+            ylabel=ylabel, delta_label=delta_label, minimum_counts=(3, 3, 3))
     credit_presence(tables["credit_presence"])
+    credit_presence_absolute(tables["credit_presence"],
+                             tables["credit_presence_raw"])
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
+    encoder_specs = (
+        (tables["encoder"], "mean_spatial_information_bits",
+         "03_encoder_info_values_and_delta", "DG info (bits)", "Δ DG info (bits)"),
+        (tables["encoder"], "active_map_cosine_mean",
+         "03_encoder_cosine_values_and_delta", "Map cosine", "Δ map cosine"),
+        (tables["peaks"][tables["peaks"].cutoff == 0.0025],
+         "effective_area_fraction", "03_encoder_peak_area_values_and_delta",
+         "Peak area fraction", "Δ peak area fraction"),
+    )
+    for source, metric, name, ylabel, delta_label in encoder_specs:
+        paired_values_and_difference(
+            source[source.metric == metric].rename(
+                columns={"temporal": "first", "constant": "second"}),
+            name=name, groups=FACTOR_ORDER, group_column="contrast",
+            labels=("C01", "C05\nT", "C05\nC", "C15"),
+            colors=(COLORS["C01"], COLORS["C05"], COLORS["C05"], COLORS["C15"]),
+            first_label="Temporal credit", second_label="Constant credit",
+            ylabel=ylabel, delta_label=delta_label, minimum_counts=(5, 5, 5, 3))
+    online_worker = tables["online_pairs"][
+        tables["online_pairs"].contrast == "temporal_minus_constant_hit_bonus"]
+    worker_specs = (
+        (online_worker, "visited_cell_fraction",
+         "04_worker_coverage_values_and_delta", "Visited fraction", "Δ visited fraction"),
+        (online_worker, "spatial_information",
+         "04_worker_online_info_values_and_delta", "Online DG score", "Δ online DG score"),
+        (tables["worker_fields"].rename(
+            columns={"temporal": "first", "constant": "second",
+                     "encoder_credit": "fixed_factor"}),
+         "mean_spatial_information_bits", "04_worker_frozen_info_values_and_delta",
+         "DG info (bits)", "Δ DG info (bits)"),
+    )
+    for source, metric, name, ylabel, delta_label in worker_specs:
+        paired_values_and_difference(
+            source[source.metric == metric], name=name,
+            groups=("temporal", "constant"), group_column="fixed_factor",
+            labels=("T", "C"), colors=("#30363B", "#75838C"),
+            first_label="Temporal hit", second_label="Constant hit",
+            ylabel=ylabel, delta_label=delta_label, minimum_counts=(5, 5))
     metadata = {
-        "schema": "cosyne27_compact_figures_v4", "font": "Arial",
+        "schema": "cosyne27_compact_figures_v5", "font": "Arial",
         "verified_font_file": font_path, "font_pt": 10,
         "default_width_inches_per_panel": 1.9,
         "behavior_panel_size_inches": BEHAVIOR_PANEL_SIZE_IN,
@@ -301,6 +446,25 @@ def main() -> None:
             "control": "uniform-random actions", "experimental": "own policy",
             "evaluation_repeats_averaged_per_training_seed": 2,
             "training_seeds_per_architecture": 3, "nonnegative_y_axes_start_at_zero": True,
+        },
+        "paired_absolute_and_difference_candidates": {
+            "panel_inches": [1.9, 1.9],
+            "point_unit": "one training seed, paired within each factor cell",
+            "absolute_encoding": "open square second arm, filled circle first arm, line paired seed",
+            "difference_encoding": "first minus second, points seeds, black segment mean",
+            "fresh_encoder_seed_counts": (
+                tables["encoder"][tables["encoder"].metric ==
+                                  "mean_spatial_information_bits"]
+                .groupby("contrast").seed.nunique().to_dict()),
+            "fresh_worker_seed_counts": (
+                online_worker[online_worker.metric == "visited_cell_fraction"]
+                .groupby("fixed_factor").seed.nunique().to_dict()),
+            "historical_credit_presence_seed_counts": (
+                tables["credit_presence"][tables["credit_presence"].contrast ==
+                                          "none_stop_minus_constant"]
+                .groupby(["family", "worker_bonus"]).seed.nunique()
+                .rename_axis(index=["family", "worker_bonus"])
+                .reset_index(name="n").to_dict(orient="records")),
         },
         "sources": {name: {"path": str(path.relative_to(ROOT)),
                             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
