@@ -1916,8 +1916,15 @@ For each finding, record:
   focused tests passed on NEMO2. Two compute-node qualifications completed at
   2,064,384 frames with finite losses and exact final-checkpoint reload, and
   fresh 100M replacement jobs 8324628 and 8324629 were released without
-  scientific argument changes. Longer-run stability and the downstream
-  scientific results remain to be checked at their declared milestones.
+  scientific argument changes. The 11 October COSYNE C15 constant-credit
+  jobs 8327183 and 8327184 repeated the same invariant at 491,520 and 819,200
+  learner frames. Both stayed `RUNNING` for about 19 hours after the learner
+  died; they were canceled. A fresh isolated source received the same patch and
+  passed 61 learner, push–pull, and StudySpec tests. Separately named
+  replacements 8329014 and 8329015 were submitted after scientific-argument
+  parity and manifest audits. See the [COSYNE recovery record](06_experiments/reward_credit/cosyne27_staged_push_pull_submission_20261010.md#completion-and-c15-recovery).
+  Longer-run stability and the downstream scientific results remain to be
+  checked at their declared milestones.
 - **Evidence:** Odor/CA3 qualification jobs 8288060–8288063 all entered `RUNNING`
   and produced finite learner scalars. Their training-frame counters then stopped
   at 155,648, 155,648, 49,152, and 81,920 while Slurm still reported them running
