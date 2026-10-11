@@ -25,6 +25,21 @@ def main() -> None:
     data["worker_bonus"] = data.worker_bonus.str.lower()
     if data.duplicated(["encoder_credit", "worker_bonus", "seed"]).any() or len(data) != 20:
         raise ValueError("Expected complete five-seed C05 factorial")
+    matrix = data.pivot(index="seed", columns=["encoder_credit", "worker_bonus"], values="coverage_auc")
+    factor_table = pd.DataFrame({
+        "seed": matrix.index,
+        "constant_encoder_constant_worker": matrix["constant", "constant"].to_numpy(),
+        "constant_encoder_temporal_worker": matrix["constant", "temporal"].to_numpy(),
+        "temporal_encoder_constant_worker": matrix["temporal", "constant"].to_numpy(),
+        "temporal_encoder_temporal_worker": matrix["temporal", "temporal"].to_numpy(),
+    })
+    factor_table["encoder_by_worker_interaction"] = (
+        factor_table.temporal_encoder_temporal_worker
+        - factor_table.constant_encoder_temporal_worker
+        - factor_table.temporal_encoder_constant_worker
+        + factor_table.constant_encoder_constant_worker
+    )
+    factor_table.to_csv(args.output.with_name("c05_coverage_factorial_seed.csv"), index=False)
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 17,
                          "axes.labelsize": 18, "axes.titlesize": 19,

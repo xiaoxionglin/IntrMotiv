@@ -106,6 +106,16 @@ def main() -> None:
     paired(rows, "encoder_credit", "constant", "temporal").to_csv(args.output_dir / "peak_paired_encoder.csv", index=False)
     c05 = rows.loc[rows.family == "C05"]
     paired(c05, "worker_bonus", "constant", "temporal").to_csv(args.output_dir / "peak_paired_worker.csv", index=False)
+    interaction = c05.pivot(index=["seed", "activity_cutoff_fraction", "gaussian_sigma_bins"],
+                            columns=["encoder_credit", "worker_bonus"], values=list(METRICS))
+    differences = pd.DataFrame(index=interaction.index)
+    for metric in METRICS:
+        values = interaction[metric]
+        differences[f"{metric}_interaction"] = (
+            values["temporal", "temporal"] - values["constant", "temporal"]
+            - values["temporal", "constant"] + values["constant", "constant"]
+        )
+    differences.reset_index().to_csv(args.output_dir / "peak_c05_interaction.csv", index=False)
     plot_primary(rows, args.output_dir.parent / "figures" / "common_peak_comparisons")
 
 
