@@ -54,6 +54,27 @@ def source_digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def attach_catalog_factors(rows: pd.DataFrame, *, terminal_repeats: int = 1) -> pd.DataFrame:
+    """Join factors from the StudySpec-derived run index, never from labels."""
+    catalog = pd.read_csv(ROOT / "06_experiments/cosyne_2027/training_runs.csv")
+    expected = catalog[(catalog.cohort == "cosyne")
+                       & (catalog.attempt_status == "verified_100m")]
+    factors = expected[["condition", "seed", "family", "encoder_credit",
+                        "worker_bonus"]].drop_duplicates()
+    if factors.duplicated(["condition", "seed"]).any():
+        raise ValueError("run catalog has duplicate factor metadata")
+    joined = rows.drop(columns=["family"], errors="ignore").merge(
+        factors, on=["condition", "seed"], how="left", validate="many_to_one")
+    if joined[["family", "encoder_credit", "worker_bonus"]].isna().any().any():
+        raise ValueError("frozen checkpoint lacks StudySpec-derived factor metadata")
+    observed = joined[joined.target_frames == 100_000_000]
+    expected_keys = set(zip(expected.condition, expected.seed))
+    observed_keys = set(zip(observed.condition, observed.seed))
+    if expected_keys != observed_keys or len(observed) != len(expected_keys) * terminal_repeats:
+        raise ValueError("terminal checkpoint rows do not match the indexed verified runs")
+    return joined
+
+
 def read_data() -> tuple[pd.DataFrame, list[dict[str, str]]]:
     parts = []
     sources = []
@@ -69,24 +90,9 @@ def read_data() -> tuple[pd.DataFrame, list[dict[str, str]]]:
     all_rows = pd.concat(parts, ignore_index=True)
     if all_rows.duplicated(["condition", "seed", "target_frames"]).any():
         raise ValueError("duplicate frozen checkpoints across study summaries")
-    catalog = pd.read_csv(ROOT / "06_experiments/cosyne_2027/training_runs.csv")
-    expected = catalog[(catalog.cohort == "cosyne")
-                       & (catalog.attempt_status == "verified_100m")]
-    factors = expected[["condition", "seed", "family", "encoder_credit",
-                        "worker_bonus"]].drop_duplicates()
-    if factors.duplicated(["condition", "seed"]).any():
-        raise ValueError("run catalog has duplicate factor metadata")
-    all_rows = all_rows.drop(columns=["family"]).merge(
-        factors, on=["condition", "seed"], how="left", validate="many_to_one")
-    if all_rows[["family", "encoder_credit", "worker_bonus"]].isna().any().any():
-        raise ValueError("frozen checkpoint lacks StudySpec-derived factor metadata")
+    all_rows = attach_catalog_factors(all_rows)
     if all_rows.groupby(["condition", "seed"]).target_frames.max().lt(100_000_000).any():
         raise ValueError("terminal checkpoint missing")
-    expected_keys = set(zip(expected.condition, expected.seed))
-    observed = all_rows[all_rows.target_frames == 100_000_000]
-    observed_keys = set(zip(observed.condition, observed.seed))
-    if expected_keys != observed_keys or len(observed) != len(expected_keys):
-        raise ValueError("terminal checkpoint rows do not match the indexed verified runs")
     return all_rows, sources
 
 
@@ -139,7 +145,8 @@ def paired_worker(rows: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return by_seed, summary
 
 
-def plot_pairs(pairs: pd.DataFrame) -> None:
+def plot_pairs(pairs: pd.DataFrame, *, out_dir: Path = OUT,
+               title_prefix: str = "Paired 100M frozen-checkpoint fields") -> None:
     style()
     for metric, title in METRICS.items():
         fig, ax = plt.subplots(figsize=(7.4, 4.8), layout="constrained")
@@ -162,11 +169,11 @@ def plot_pairs(pairs: pd.DataFrame) -> None:
                xticks=range(len(CONTRASTS)),
                xticklabels=[item[2].replace(" · ", "\n") for item in CONTRASTS])
         ax.grid(axis="y", color="#dddddd", linewidth=0.6)
-        fig.suptitle("Paired 100M frozen-checkpoint fields", fontsize=14)
-        export(fig, OUT / "figures" / f"paired_{metric}")
+        fig.suptitle(title_prefix, fontsize=14)
+        export(fig, out_dir / "figures" / f"paired_{metric}")
 
 
-def plot_worker_pairs(pairs: pd.DataFrame) -> None:
+def plot_worker_pairs(pairs: pd.DataFrame, *, out_dir: Path = OUT) -> None:
     style()
     for metric, title in METRICS.items():
         fig, ax = plt.subplots(figsize=(6.5, 4.8), layout="constrained")
@@ -184,10 +191,11 @@ def plot_worker_pairs(pairs: pd.DataFrame) -> None:
                xlim=(-0.6, 1.6))
         ax.grid(axis="y", color="#dddddd", linewidth=0.6)
         fig.suptitle("C05 worker timing: five paired seeds", fontsize=14)
-        export(fig, OUT / "figures" / f"worker_{metric}")
+        export(fig, out_dir / "figures" / f"worker_{metric}")
 
 
-def plot_factorized(rows: pd.DataFrame) -> None:
+def plot_factorized(rows: pd.DataFrame, *, out_dir: Path = OUT,
+                    title_prefix: str = "All available 100M arms") -> None:
     style()
     terminal = rows[rows.target_frames == 100_000_000]
     for metric, title in METRICS.items():
@@ -212,8 +220,8 @@ def plot_factorized(rows: pd.DataFrame) -> None:
                               linestyle="none", label=f"{arm.title()} encoder")
                    for arm in ("temporal", "constant")]
         ax.legend(handles=handles, loc="best", frameon=False)
-        fig.suptitle("All available 100M arms", fontsize=14)
-        export(fig, OUT / "figures" / f"factorized_{metric}")
+        fig.suptitle(title_prefix, fontsize=14)
+        export(fig, out_dir / "figures" / f"factorized_{metric}")
 
 
 def plot_checkpoint_course(rows: pd.DataFrame) -> None:

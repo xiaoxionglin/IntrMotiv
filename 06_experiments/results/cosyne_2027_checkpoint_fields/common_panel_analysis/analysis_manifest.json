@@ -1,0 +1,23 @@
+{
+  "schema": "cosyne27_common_panel_fields_v1",
+  "source_protocol": "one saved 10001-observation panel replayed on frozen checkpoints",
+  "panel_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+  "occupancy_sha256": "6a338c8fc21ee225d1cd4db9fc73e109f17caaa047786631793383af85e3a10a",
+  "sources": [
+    {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel/summary/derived_place_field_metrics.csv",
+      "sha256": "1db4f1c1bc4bf14ab107dc5ddf2d01504ac505a136519d5e58710723e20f3f9e"
+    },
+    {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/available_terminal_manifest.tsv",
+      "sha256": "4d9b3233933e7152add94c393cd3d691328872d14e3f7534bbf275fa8a282b9c"
+    },
+    {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/occupancy_certificate.json",
+      "sha256": "57ab71400bfe4de2b7f3975bd8ac1fafa28413a34b0e6a3c97bc6e484b64f59b"
+    }
+  ],
+  "terminal_rows": 38,
+  "paired_encoder_seed_metric_rows": 162,
+  "paired_worker_seed_metric_rows": 90
+}

@@ -1,0 +1,61 @@
+contrast,family,worker_bonus,sigma_dmlab_units,metric,n,mean_difference,positive_pairs,negative_pairs
+C01,C01,inapplicable,50,effective_area_fraction,5,0.02681895896,4,1
+C01,C01,inapplicable,50,mean_pairwise_peak_distance,5,31.69481201,3,2
+C01,C01,inapplicable,50,median_nearest_peak_distance,5,11.80339661,2,1
+C01,C01,inapplicable,50,peak_density_gini,5,-0.02425261206,1,4
+C01,C01,inapplicable,50,valid_peaks,5,1.4,5,0
+C01,C01,inapplicable,100,effective_area_fraction,5,0.1085536941,5,0
+C01,C01,inapplicable,100,mean_pairwise_peak_distance,5,31.69481201,3,2
+C01,C01,inapplicable,100,median_nearest_peak_distance,5,11.80339661,2,1
+C01,C01,inapplicable,100,peak_density_gini,5,-0.08051120531,0,5
+C01,C01,inapplicable,100,valid_peaks,5,1.4,5,0
+C01,C01,inapplicable,150,effective_area_fraction,5,0.1550010976,5,0
+C01,C01,inapplicable,150,mean_pairwise_peak_distance,5,31.69481201,3,2
+C01,C01,inapplicable,150,median_nearest_peak_distance,5,11.80339661,2,1
+C01,C01,inapplicable,150,peak_density_gini,5,-0.1232164742,0,5
+C01,C01,inapplicable,150,valid_peaks,5,1.4,5,0
+C05 · constant hit,C05,constant,50,effective_area_fraction,5,-0.02200673772,2,3
+C05 · constant hit,C05,constant,50,mean_pairwise_peak_distance,5,105.4055054,3,2
+C05 · constant hit,C05,constant,50,median_nearest_peak_distance,5,86.57211914,3,1
+C05 · constant hit,C05,constant,50,peak_density_gini,5,0.0161337845,3,2
+C05 · constant hit,C05,constant,50,valid_peaks,5,-1.6,1,3
+C05 · constant hit,C05,constant,100,effective_area_fraction,5,-0.03309971667,2,3
+C05 · constant hit,C05,constant,100,mean_pairwise_peak_distance,5,105.4055054,3,2
+C05 · constant hit,C05,constant,100,median_nearest_peak_distance,5,86.57211914,3,1
+C05 · constant hit,C05,constant,100,peak_density_gini,5,0.0251704021,3,2
+C05 · constant hit,C05,constant,100,valid_peaks,5,-1.6,1,3
+C05 · constant hit,C05,constant,150,effective_area_fraction,5,-0.02726449632,2,3
+C05 · constant hit,C05,constant,150,mean_pairwise_peak_distance,5,105.4055054,3,2
+C05 · constant hit,C05,constant,150,median_nearest_peak_distance,5,86.57211914,3,1
+C05 · constant hit,C05,constant,150,peak_density_gini,5,0.02107100045,3,2
+C05 · constant hit,C05,constant,150,valid_peaks,5,-1.6,1,3
+C05 · temporal hit,C05,temporal,50,effective_area_fraction,5,0.0158843862,4,1
+C05 · temporal hit,C05,temporal,50,mean_pairwise_peak_distance,5,57.82570801,3,2
+C05 · temporal hit,C05,temporal,50,median_nearest_peak_distance,5,64.53544922,4,1
+C05 · temporal hit,C05,temporal,50,peak_density_gini,5,-0.01503962161,1,4
+C05 · temporal hit,C05,temporal,50,valid_peaks,5,1,3,1
+C05 · temporal hit,C05,temporal,100,effective_area_fraction,5,0.08348698012,4,1
+C05 · temporal hit,C05,temporal,100,mean_pairwise_peak_distance,5,57.82570801,3,2
+C05 · temporal hit,C05,temporal,100,median_nearest_peak_distance,5,64.53544922,4,1
+C05 · temporal hit,C05,temporal,100,peak_density_gini,5,-0.06217990714,1,4
+C05 · temporal hit,C05,temporal,100,valid_peaks,5,1,3,1
+C05 · temporal hit,C05,temporal,150,effective_area_fraction,5,0.1125129156,4,1
+C05 · temporal hit,C05,temporal,150,mean_pairwise_peak_distance,5,57.82570801,3,2
+C05 · temporal hit,C05,temporal,150,median_nearest_peak_distance,5,64.53544922,4,1
+C05 · temporal hit,C05,temporal,150,peak_density_gini,5,-0.0891392415,1,4
+C05 · temporal hit,C05,temporal,150,valid_peaks,5,1,3,1
+C15,C15,temporal,50,effective_area_fraction,3,0.02416036334,3,0
+C15,C15,temporal,50,mean_pairwise_peak_distance,3,-45.4128418,2,1
+C15,C15,temporal,50,median_nearest_peak_distance,3,90.2368927,2,1
+C15,C15,temporal,50,peak_density_gini,3,-0.02145752838,0,3
+C15,C15,temporal,50,valid_peaks,3,0.6666666667,2,1
+C15,C15,temporal,100,effective_area_fraction,3,0.07009800338,3,0
+C15,C15,temporal,100,mean_pairwise_peak_distance,3,-45.4128418,2,1
+C15,C15,temporal,100,median_nearest_peak_distance,3,90.2368927,2,1
+C15,C15,temporal,100,peak_density_gini,3,-0.05421232331,0,3
+C15,C15,temporal,100,valid_peaks,3,0.6666666667,2,1
+C15,C15,temporal,150,effective_area_fraction,3,0.06831395996,3,0
+C15,C15,temporal,150,mean_pairwise_peak_distance,3,-45.4128418,2,1
+C15,C15,temporal,150,median_nearest_peak_distance,3,90.2368927,2,1
+C15,C15,temporal,150,peak_density_gini,3,-0.05822608465,0,3
+C15,C15,temporal,150,valid_peaks,3,0.6666666667,2,1

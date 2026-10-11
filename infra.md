@@ -1128,8 +1128,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   staged 12 further small checkpoints solely because the evaluator validates
   input and output under one allocation; the read-only kernel runner now
   accepts the legacy checkpoint root while retaining active-workspace outputs.
-  The COSYNE recurrence shows that the canonical source fix is still pending;
-  its replacement common-observation preflight remains open.
+  The COSYNE recurrence shows that the canonical source fix is still pending.
+  Its 38 terminal models were nevertheless replayed on one previously validated
+  10,001-observation panel, with identical occupancy verified in the
+  [common-panel certificate](06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/occupancy_certificate.json).
+  New-panel recording still needs the canonical path fix and a smoke job.
 - **Acceptance:** A panel save under a declared active workspace succeeds and
   a path outside it fails; a print-only manifest can read an immutable
   checkpoint in an older allocation while every writable path remains in the

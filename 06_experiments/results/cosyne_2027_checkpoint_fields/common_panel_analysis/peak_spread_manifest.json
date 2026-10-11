@@ -1,0 +1,20 @@
+{
+  "schema": "cosyne27_common_panel_peak_spread_v1",
+  "source_metric": "post-inhibition field-eligible peak XY",
+  "equal_peak_mass": true,
+  "shared_visited_bins": 242,
+  "cutoffs": [
+    0.0,
+    0.00025,
+    0.0025,
+    0.01
+  ],
+  "sigma_dmlab_units": [
+    50.0,
+    100.0,
+    150.0
+  ],
+  "source_table": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel/summary/derived_place_field_metrics.csv",
+  "source_table_sha256": "1db4f1c1bc4bf14ab107dc5ddf2d01504ac505a136519d5e58710723e20f3f9e",
+  "npz_count": 38
+}
