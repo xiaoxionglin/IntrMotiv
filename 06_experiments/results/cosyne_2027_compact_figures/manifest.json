@@ -1,9 +1,13 @@
 {
-  "schema": "cosyne27_compact_figures_v2",
+  "schema": "cosyne27_compact_figures_v3",
   "font": "Arial",
   "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "font_pt": 10,
-  "width_inches_per_panel": 1.9,
+  "default_width_inches_per_panel": 1.9,
+  "behavior_panel_size_inches": [
+    1.5,
+    1.8
+  ],
   "unit_of_replication": "training seed",
   "matplotlib_version": "3.10.8",
   "pandas_version": "2.3.3",

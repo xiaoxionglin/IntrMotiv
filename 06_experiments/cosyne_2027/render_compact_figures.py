@@ -33,6 +33,7 @@ SOURCES = {
 COLORS = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 FACTOR_ORDER = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
 FACTOR_LABELS = ("C01", "C05 T", "C05 C", "C15")
+BEHAVIOR_PANEL_SIZE_IN = (1.5, 1.8)
 
 
 def style() -> str:
@@ -102,11 +103,12 @@ def online_course(data: pd.DataFrame) -> None:
 
 
 def behavior_expression(data: pd.DataFrame) -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(3.8, 2.05))
-    fig.subplots_adjust(left=0.13, right=0.99, bottom=0.22, top=0.80, wspace=0.38)
+    fig, axes = plt.subplots(1, 2, figsize=(2 * BEHAVIOR_PANEL_SIZE_IN[0],
+                                            BEHAVIOR_PANEL_SIZE_IN[1]))
+    fig.subplots_adjust(left=0.15, right=0.99, bottom=0.24, top=0.81, wspace=0.48)
     specs = (
-        ("bits_per_activation", "a  Δ info (bits/act.)"),
-        ("split_half_map_correlation", "b  Δ map reliability"),
+        ("bits_per_activation", "a  Δ info/act."),
+        ("split_half_map_correlation", "b  Δ reliability"),
     )
     for ax, (metric, label) in zip(axes, specs):
         rows = data[(data.layer == "decoder_1") & (data.metric == metric)]
@@ -177,9 +179,11 @@ def main() -> None:
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
     metadata = {
-        "schema": "cosyne27_compact_figures_v2", "font": "Arial",
+        "schema": "cosyne27_compact_figures_v3", "font": "Arial",
         "verified_font_file": font_path, "font_pt": 10,
-        "width_inches_per_panel": 1.9, "unit_of_replication": "training seed",
+        "default_width_inches_per_panel": 1.9,
+        "behavior_panel_size_inches": BEHAVIOR_PANEL_SIZE_IN,
+        "unit_of_replication": "training seed",
         "matplotlib_version": matplotlib.__version__,
         "pandas_version": pd.__version__,
         "mean_marker": "black horizontal line; individual seeds are colored points",

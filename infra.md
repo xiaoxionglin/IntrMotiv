@@ -2075,11 +2075,13 @@ For each finding, record:
   the submission size. Organizing by data source also made the narrative order
   hard to review against the abstract bullets.
 - **Improvement/status:** A cached-CSV-only [compact renderer](06_experiments/cosyne_2027/render_compact_figures.py)
-  now generates 1.9-inch-per-panel Arial 10-point plots with short in-panel
+  now generates final-size Arial 10-point plots with short in-panel
   titles, direct line labels, paired-seed dots, and factorized arms. The
   [question index](06_experiments/cosyne_2027/README.md#scientific-questions-in-outline-order)
   links them in outline order; source-analysis reports remain available.
-  The renderer records source hashes and font path in its manifest. This is a
+  The [figure standard](06_experiments/cosyne_2027/FIGURE_STANDARD.md) records
+  a 1.5 × 1.8-inch behavior-dot panel and up to 1.9-inch denser panels. The
+  renderer records source hashes, font path, and physical sizes in its manifest. This is a
   local study adapter because the standardized study and telemetry contracts
   already supply the underlying analysis tables.
 - **Acceptance:** The five compact PNGs have their declared physical sizes,
