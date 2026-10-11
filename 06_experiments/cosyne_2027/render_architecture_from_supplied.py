@@ -104,8 +104,8 @@ def render() -> None:
         tag("svg"),
         {
             "width": "7.2in",
-            "height": "3.9in",
-            "viewBox": "0 0 1440 780",
+            "height": "4.1in",
+            "viewBox": "0 0 1440 820",
             "role": "img",
             "aria-labelledby": "figure-title figure-description",
         },
@@ -115,10 +115,26 @@ def render() -> None:
     )
     ET.SubElement(figure, tag("desc"), {"id": "figure-description"}).text = (
         "The supplied visual encoder, DG, CA3, readout, action and environment "
-        "artwork forms a compact top flow. Below it are the supplied DG "
-        "sparsifier, CA3 temporal traces, and red and blue learning formulas."
+        "artwork forms a compact top flow. A short label identifies DG as a "
+        "learned sparse projection and CA3 as a fixed shift register. Below "
+        "it are the supplied DG sparsifier, CA3 temporal traces, and red and "
+        "blue learning formulas."
     )
-    ET.SubElement(figure, tag("rect"), {"width": "1440", "height": "780", "fill": "#fff"})
+    ET.SubElement(figure, tag("rect"), {"width": "1440", "height": "820", "fill": "#fff"})
+    # This short functional label is the only new figure annotation. W, B,
+    # and the full DG/CA3 updates are deferred to the detailed explanation.
+    ET.SubElement(
+        figure,
+        tag("text"),
+        {
+            "x": "720",
+            "y": "483",
+            "text-anchor": "middle",
+            "font-family": "Arial, sans-serif",
+            "font-size": "34",
+            "fill": "#172c3c",
+        },
+    ).text = "DG: learned sparse projection  →  CA3: fixed shift register"
 
     with tempfile.TemporaryDirectory(prefix="cosyne_architecture_") as temporary:
         temp_dir = Path(temporary)
@@ -126,12 +142,12 @@ def render() -> None:
             # Original main stream, environment return arrow, and loss key.
             ("supplied-main-stream", (48, 230, 1548, 480), (27, 12, 1386, 430)),
             # Original visual intuitions: DG threshold and CA3 temporal trace.
-            ("supplied-sparsifier", (805, 735, 395, 225), (29, 467, 350, 199)),
-            ("supplied-ca3-traces", (395, 1080, 310, 210), (410, 467, 280, 190)),
-            ("supplied-ca3-caption", (465, 1288, 420, 110), (360, 652, 390, 102)),
+            ("supplied-sparsifier", (805, 735, 395, 225), (29, 509, 350, 199)),
+            ("supplied-ca3-traces", (395, 1080, 310, 210), (410, 509, 280, 190)),
+            ("supplied-ca3-caption", (465, 1288, 420, 110), (360, 694, 390, 102)),
             # The original full red DG and blue policy formulas.
-            ("supplied-dg-formula", (1235, 805, 600, 105), (790, 480, 600, 105)),
-            ("supplied-policy-formula", (875, 1455, 465, 125), (840, 618, 490, 132)),
+            ("supplied-dg-formula", (1235, 805, 600, 105), (790, 522, 600, 105)),
+            ("supplied-policy-formula", (875, 1455, 465, 125), (840, 660, 490, 132)),
         ]
         for name, source_pixels, destination in crops:
             add_crop(
