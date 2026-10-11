@@ -1,3 +1,5 @@
+Evidence and run index: [COSYNE 2027](../06_experiments/cosyne_2027/README.md).
+
 Can spatial representation emerge without any spatial supervision and how?
 We designed a system with temporal push pull mechanism based on an architecture inspired by hippocampal DG CA3 physiology, without external spatial reward, spatial supervision or explicit spatial objectives.
 - spatial information increases with training under this loss function

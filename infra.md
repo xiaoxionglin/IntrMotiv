@@ -274,7 +274,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   directories were copied and verified in the active workspace, and
   replacement StudySpecs explicitly set both spatial roots. The completed C05
   calibration's reward history remains valid; its original spatial files are
-  labeled as recovered.
+  labeled as recovered. The 11 October COSYNE evidence index found a second
+  concrete root mismatch in both corrected-core C15 recovery StudySpecs: their
+  declared output root is the shared `corrected_core_c15_failed_recovery_production_20261010`
+  directory, while generated training runs live under the two distinct
+  `corrected_core_c15_*_recovery_production_20261010` batch roots. Both jobs
+  completed at 100M; the index uses the generated run roots, not the declared
+  metadata root, to link their checkpoints.
 - **Impact:** A study can pass submission audit while its output-root metadata
   points to a directory where no runs will appear, or while one artifact stream
   writes to a prohibited allocation. Either delays analysis and weakens
