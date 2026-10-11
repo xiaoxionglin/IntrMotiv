@@ -2,6 +2,8 @@
 
 Use color for **one variable per panel**. Keep labels, marker shapes, and line styles so the meaning survives grayscale printing. See [figure standard](FIGURE_STANDARD.md) for size and typography.
 
+![Architecture, mechanism, landmark, condition, and neutral swatches](COLOR_PALETTE.svg)
+
 | Context                 | Role                                            | Color                                                    | Encoding                                                                                                                                |
 | ----------------------- | ----------------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | Architecture comparison | C01 / C05 / C15                                 | `#0072B2` blue / `#D55E00` vermilion / `#009E73` green   | Existing result-figure colors; label every curve or group.                                                                              |
