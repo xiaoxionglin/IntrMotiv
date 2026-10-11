@@ -1,5 +1,7 @@
 # COSYNE 2027: DG peak spread in retained training snapshots
 
+**Outline placement:** [4–5 encoder-credit ablations](03_encoder_credit.md). That question report leads with the identical-observation result; this file retains the policy-specific 100k-window sensitivity analysis.
+
 **Status, 11 October 2026:** This is an interim analysis of the canonical latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M frames. It includes all 38 verified original fresh runs (190 snapshots, 3,040 unit records). The C15 matched-constant original seeds 8 and 99 failed before a final snapshot, so its paired terminal comparison has three seeds; their replacement training jobs were still running at collection. The later [frozen-checkpoint and identical-observation report](checkpoint_fields_20261011.md) now provides the decisive follow-up. The first [attempt to record a new observation panel](../results/cosyne_2027_snapshot_peak_spread/common_panel_preflight_8331634.log) failed because its writer required the retired NEMO2 workspace; the follow-up reused an existing validated panel.
 
 ## Result at the proposed 0.25% cutoff

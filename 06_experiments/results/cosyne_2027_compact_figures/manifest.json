@@ -1,0 +1,38 @@
+{
+  "schema": "cosyne27_compact_figures_v2",
+  "font": "Arial",
+  "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "font_pt": 10,
+  "width_inches_per_panel": 1.9,
+  "unit_of_replication": "training seed",
+  "matplotlib_version": "3.10.8",
+  "pandas_version": "2.3.3",
+  "mean_marker": "black horizontal line; individual seeds are colored points",
+  "online_uncertainty": "mean \u00b1 1 SEM across five training seeds at each 1M-step grid point",
+  "sources": {
+    "online": {
+      "path": "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv",
+      "sha256": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950"
+    },
+    "online_pairs": {
+      "path": "06_experiments/results/cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
+      "sha256": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f"
+    },
+    "behavior": {
+      "path": "06_experiments/results/cosyne_2027_behavior_secondary/paired_training_seeds.csv",
+      "sha256": "7c643d96ac3294aab1ef653e6e38ec1c5900f098f13f809b0209105d511ecca9"
+    },
+    "encoder": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
+      "sha256": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432"
+    },
+    "peaks": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
+      "sha256": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a"
+    },
+    "credit_presence": {
+      "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
+      "sha256": "26097b15fab3d641d6168c62d5954a5acbf9d72beb420d27a314ecb4b96b79a3"
+    }
+  }
+}

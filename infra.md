@@ -2063,3 +2063,25 @@ For each finding, record:
   workspace checkpoints without changing the study fingerprint. See the
   [canonical workflow](04_implementation/standardized_study_workflow.md) and
   [launch record](06_experiments/ca3_goals/odor_goal_quality_40_run_v2_20261007.md).
+
+### COSYNE evidence plots need a final-size rendering path — 2026-10-11
+
+- **Evidence:** The source analysis set contains 45 SVG candidate plots across
+  online, frozen-policy, and common-panel results; most were rendered as
+  roughly 7–9-inch analysis figures. Scaling them into a two-page letter
+  abstract made source labels and factor cells hard to read. A first direct
+  1.9-inch redraw clipped long axis labels and the three-line endpoint key.
+- **Impact:** Evidence could be numerically complete yet visually unusable at
+  the submission size. Organizing by data source also made the narrative order
+  hard to review against the abstract bullets.
+- **Improvement/status:** A cached-CSV-only [compact renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now generates 1.9-inch-per-panel Arial 10-point plots with short in-panel
+  titles, direct line labels, paired-seed dots, and factorized arms. The
+  [question index](06_experiments/cosyne_2027/README.md#scientific-questions-in-outline-order)
+  links them in outline order; source-analysis reports remain available.
+  The renderer records source hashes and font path in its manifest. This is a
+  local study adapter because the standardized study and telemetry contracts
+  already supply the underlying analysis tables.
+- **Acceptance:** The five compact PNGs have their declared physical sizes,
+  verified scalable Arial, no clipped labels at 100% size, unchanged source
+  CSV hashes, and one-to-one claim/source links in the question reports.

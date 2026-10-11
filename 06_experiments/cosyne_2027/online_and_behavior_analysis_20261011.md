@@ -1,5 +1,7 @@
 # COSYNE 2027: online learning curves and frozen-policy secondary readouts
 
+**Outline placement:** [1–2 model and emergence](01_model_and_spatial_emergence.md) · [3 behavior-dependent code expression](02_behavior_expression.md). Those reports contain the final-size compact figures; this file retains full candidate plots and data provenance.
+
 **Status, 11 October 2026:** The W&B spatial histories of 38 verified fresh original runs have been archived and plotted. The two failed original C15 constant-credit attempts are excluded; their replacements are not yet included. The 54 already completed own/random frozen-policy probes have been reanalyzed for additional readouts. [Retained-snapshot activity-cutoff and peak-spread analyses](snapshot_peak_spread_20261011.md) and the later [frozen-checkpoint/common-observation field comparison](checkpoint_fields_20261011.md) are available. This document remains the online and frozen-policy evidence layer; graph and full command-control outcomes remain in progress.
 
 ## Main learning-course figure
