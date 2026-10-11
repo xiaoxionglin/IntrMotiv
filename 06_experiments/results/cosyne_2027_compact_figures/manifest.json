@@ -1,5 +1,5 @@
 {
-  "schema": "cosyne27_compact_figures_v3",
+  "schema": "cosyne27_compact_figures_v4",
   "font": "Arial",
   "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "font_pt": 10,
@@ -13,6 +13,18 @@
   "pandas_version": "2.3.3",
   "mean_marker": "black horizontal line; individual seeds are colored points",
   "online_uncertainty": "mean \u00b1 1 SEM across five training seeds at each 1M-step grid point",
+  "behavior_absolute_candidate": {
+    "table": "06_experiments/results/cosyne_2027_compact_figures/02_behavior_expression_absolute_by_seed.csv",
+    "panels": [
+      "decoder-1 bits per activation on equally weighted shared bins",
+      "decoder-1 split-half map correlation on policy-native occupancy"
+    ],
+    "control": "uniform-random actions",
+    "experimental": "own policy",
+    "evaluation_repeats_averaged_per_training_seed": 2,
+    "training_seeds_per_architecture": 3,
+    "nonnegative_y_axes_start_at_zero": true
+  },
   "sources": {
     "online": {
       "path": "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv",
@@ -25,6 +37,14 @@
     "behavior": {
       "path": "06_experiments/results/cosyne_2027_behavior_secondary/paired_training_seeds.csv",
       "sha256": "7c643d96ac3294aab1ef653e6e38ec1c5900f098f13f809b0209105d511ecca9"
+    },
+    "behavior_shared_raw": {
+      "path": "06_experiments/results/behavior_field_expression_20261007/paired_prefixes.csv",
+      "sha256": "7d26c9539404034748a62f156d14f0c20875c42751ee1191ce93128580f550d8"
+    },
+    "behavior_native_raw": {
+      "path": "06_experiments/results/behavior_field_expression_20261007/per_run.csv",
+      "sha256": "7d4e337d4cf9e03bd243acf5556975d3fbb0ac65d2728c21fc4d7b714af88e39"
     },
     "encoder": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",

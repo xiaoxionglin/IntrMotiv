@@ -26,6 +26,8 @@ SOURCES = {
     "online": RESULTS / "cosyne_2027_online_wandb/arm_summaries.csv",
     "online_pairs": RESULTS / "cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
     "behavior": RESULTS / "cosyne_2027_behavior_secondary/paired_training_seeds.csv",
+    "behavior_shared_raw": RESULTS / "behavior_field_expression_20261007/paired_prefixes.csv",
+    "behavior_native_raw": RESULTS / "behavior_field_expression_20261007/per_run.csv",
     "encoder": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
     "peaks": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
     "credit_presence": ROOT / "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
@@ -120,6 +122,90 @@ def behavior_expression(data: pd.DataFrame) -> None:
     export(fig, "02_behavior_expression")
 
 
+def behavior_absolute_data(differences: pd.DataFrame) -> pd.DataFrame:
+    """Average two evaluation repeats within each parent training seed."""
+    shared = pd.read_csv(SOURCES["behavior_shared_raw"])
+    shared = shared[(shared.random_policy == "uniform")
+                    & (shared.decisions == 50_000)
+                    & (shared.layer == "decoder_1")]
+    if len(shared) != 18 or not shared.supported.all():
+        raise ValueError("expected 18 supported decoder-1 common-support probes")
+    info = (shared.groupby(["condition", "seed"], as_index=False)
+            .agg(repeats=("eval_seed", "nunique"),
+                 control=("random_bits_per_activation", "mean"),
+                 experimental=("own_bits_per_activation", "mean")))
+    info["metric"] = "bits_per_activation"
+    info["support"] = "same units and equally weighted shared bins"
+
+    native = pd.read_csv(SOURCES["behavior_native_raw"])
+    native = native[(native.layer == "decoder_1")
+                    & native.policy.isin(("own", "uniform"))]
+    if len(native) != 36:
+        raise ValueError("expected 36 decoder-1 native reliability rows")
+    repeat_counts = native.groupby(["condition", "seed", "policy"]).eval_seed.nunique()
+    if not repeat_counts.eq(2).all():
+        raise ValueError("each native policy needs two evaluation repeats")
+    reliability = (native.groupby(["condition", "seed", "policy"], as_index=False)
+                   .split_half_map_correlation.mean()
+                   .pivot(index=["condition", "seed"], columns="policy",
+                          values="split_half_map_correlation")
+                   .reset_index()
+                   .rename(columns={"uniform": "control", "own": "experimental"}))
+    reliability["repeats"] = 2
+    reliability["metric"] = "split_half_map_correlation"
+    reliability["support"] = "policy-native occupancy"
+    result = pd.concat([info, reliability], ignore_index=True)
+    if len(result) != 18 or not result.repeats.eq(2).all():
+        raise ValueError("incomplete absolute-value seed table")
+    result["difference"] = result.experimental - result.control
+    check = differences[(differences.layer == "decoder_1")
+                        & differences.metric.isin(result.metric.unique())]
+    joined = result.merge(check, on=["condition", "seed", "metric", "support"],
+                          suffixes=("", "_archived"), validate="one_to_one")
+    if len(joined) != 18 or not np.allclose(joined.difference, joined.difference_archived,
+                                             rtol=0, atol=1e-10):
+        raise ValueError("absolute values disagree with archived paired differences")
+    return result.sort_values(["metric", "condition", "seed"]).reset_index(drop=True)
+
+
+def behavior_absolute(data: pd.DataFrame) -> None:
+    """Candidate view: show control and experimental values for every seed."""
+    fig, axes = plt.subplots(1, 2, figsize=(2 * BEHAVIOR_PANEL_SIZE_IN[0],
+                                            BEHAVIOR_PANEL_SIZE_IN[1]))
+    fig.subplots_adjust(left=0.15, right=0.99, bottom=0.24, top=0.76, wspace=0.48)
+    control_color, experimental_color = "#D55E00", "#0072B2"
+    specs = (("bits_per_activation", "a", "Info (bits/act.)"),
+             ("split_half_map_correlation", "b", "Map reliability"))
+    for ax, (metric, panel, ylabel) in zip(axes, specs):
+        frame = data[data.metric == metric]
+        for x, condition in enumerate(("C01", "C05", "C15")):
+            seeds = frame[frame.condition == condition].sort_values("seed")
+            if len(seeds) != 3:
+                raise ValueError(f"expected three independent training seeds for {condition}")
+            for offset, row in zip(np.linspace(-0.025, 0.025, len(seeds)),
+                                   seeds.itertuples(index=False)):
+                ax.plot([x - 0.11 + offset, x + 0.11 + offset],
+                        [row.control, row.experimental], color="#aaaaaa",
+                        lw=0.75, zorder=1)
+                ax.scatter(x - 0.11 + offset, row.control, s=17,
+                           color=control_color, linewidth=0, zorder=3)
+                ax.scatter(x + 0.11 + offset, row.experimental, s=17,
+                           color=experimental_color, linewidth=0, zorder=3)
+        ax.set_xticks(range(3), ("C01", "C05", "C15"))
+        ax.set_ylabel(ylabel, labelpad=2)
+        ax.set_title(panel, loc="left", pad=6, fontweight="bold")
+        ax.set_ylim(bottom=0)
+        ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
+        ax.grid(axis="y", color="#e6e6e6", lw=0.5, zorder=0)
+    handles = [plt.Line2D([0], [0], marker="o", linestyle="none", color=color,
+                          markersize=4, label=label)
+               for color, label in ((control_color, "Random control"),
+                                    (experimental_color, "Own policy"))]
+    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 1.02),
+               ncol=2, frameon=False, handletextpad=0.2, columnspacing=0.6)
+    export(fig, "02_behavior_expression_absolute")
+
+
 def credit_presence(data: pd.DataFrame) -> None:
     rows = data[data.contrast == "none_stop_minus_constant"].copy()
     rows["group"] = rows.family + rows.worker_bonus.map({
@@ -176,11 +262,16 @@ def main() -> None:
     tables = {name: pd.read_csv(path) for name, path in SOURCES.items()}
     online_course(tables["online"])
     behavior_expression(tables["behavior"])
+    absolute = behavior_absolute_data(tables["behavior"])
+    OUT.mkdir(parents=True, exist_ok=True)
+    absolute.to_csv(OUT / "02_behavior_expression_absolute_by_seed.csv",
+                    index=False, lineterminator="\n")
+    behavior_absolute(absolute)
     credit_presence(tables["credit_presence"])
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
     metadata = {
-        "schema": "cosyne27_compact_figures_v3", "font": "Arial",
+        "schema": "cosyne27_compact_figures_v4", "font": "Arial",
         "verified_font_file": font_path, "font_pt": 10,
         "default_width_inches_per_panel": 1.9,
         "behavior_panel_size_inches": BEHAVIOR_PANEL_SIZE_IN,
@@ -189,6 +280,14 @@ def main() -> None:
         "pandas_version": pd.__version__,
         "mean_marker": "black horizontal line; individual seeds are colored points",
         "online_uncertainty": "mean ± 1 SEM across five training seeds at each 1M-step grid point",
+        "behavior_absolute_candidate": {
+            "table": str((OUT / "02_behavior_expression_absolute_by_seed.csv").relative_to(ROOT)),
+            "panels": ["decoder-1 bits per activation on equally weighted shared bins",
+                       "decoder-1 split-half map correlation on policy-native occupancy"],
+            "control": "uniform-random actions", "experimental": "own policy",
+            "evaluation_repeats_averaged_per_training_seed": 2,
+            "training_seeds_per_architecture": 3, "nonnegative_y_axes_start_at_zero": True,
+        },
         "sources": {name: {"path": str(path.relative_to(ROOT)),
                             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
                     for name, path in SOURCES.items()},

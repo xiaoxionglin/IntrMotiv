@@ -7,7 +7,7 @@ This is the entry point for the [original two-page abstract outline](../../99_in
 | Outline bullets | Question report | Main evidence and current status |
 | --- | --- | --- |
 | 1–2. Model; spatial coding emerges | [Model and spatial emergence](01_model_and_spatial_emergence.md) | Five-seed online course; fixed-observation developmental course pending. |
-| 3. Behavior changes code expression | [Frozen-policy behavior intervention](02_behavior_expression.md) | Decoder-1 information and reliability across three training seeds per family; reliability needs occupancy-matched follow-up. |
+| 3. Behavior changes code expression | [Frozen-policy behavior intervention](02_behavior_expression.md) | Paired-difference and control-versus-own-policy candidate figures across three training seeds per family; reliability needs occupancy-matched follow-up. |
 | 4–5. Encoder credit; temporal versus constant | [Encoder-credit ablations](03_encoder_credit.md) | Older credit-presence control and fresh common-panel C01/C05/C15 factorial; C01 is 5/5 on three representation measures. |
 | 6–7. Worker timing; exploration and control | [Worker-bonus ablation and closing scope](04_worker_bonus_and_scope.md) | Fresh C05 factorial is mixed; executed command, graph, and hit-latency analyses pending. |
 

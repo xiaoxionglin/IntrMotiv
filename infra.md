@@ -2081,9 +2081,13 @@ For each finding, record:
   links them in outline order; source-analysis reports remain available.
   The [figure standard](06_experiments/cosyne_2027/FIGURE_STANDARD.md) records
   a 1.5 × 1.8-inch behavior-dot panel and up to 1.9-inch denser panels. The
-  renderer records source hashes, font path, and physical sizes in its manifest. This is a
-  local study adapter because the standardized study and telemetry contracts
-  already supply the underlying analysis tables.
-- **Acceptance:** The five compact PNGs have their declared physical sizes,
+  renderer records source hashes, font path, and physical sizes in its manifest.
+  A control/experimental candidate now derives absolute decoder-1 values from
+  the pinned probe tables and checks that their paired differences reproduce
+  the archived difference table. This is a local study adapter because the
+  standardized study and telemetry contracts already supply the underlying
+  analysis tables.
+- **Acceptance:** The six compact PNGs have their declared physical sizes,
   verified scalable Arial, no clipped labels at 100% size, unchanged source
-  CSV hashes, and one-to-one claim/source links in the question reports.
+  CSV hashes, and one-to-one claim/source links in the question reports. The
+  paired absolute values subtract to the archived seed differences.

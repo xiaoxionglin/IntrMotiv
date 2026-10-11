@@ -12,4 +12,12 @@
 
 **Causal scope:** The intervention changes executed actions with the model frozen. It demonstrates behavior-dependent *expression* of the learned code, not that the behavior caused the weights to develop. Decoder-1 information per activation is the clean headline; reliability is a candidate corroboration with the occupancy caveat.
 
-**Plot contract:** Two 1.5 × 1.8-inch panels, Arial 10 pt, following the [COSYNE figure standard](FIGURE_STANDARD.md). Colored dots are training-seed differences and black segments are means; zero is no own/random difference. Regenerate from [cached inputs](../results/cosyne_2027_compact_figures/manifest.json) with [the compact renderer](render_compact_figures.py).
+## Candidate: control and experimental values
+
+![Decoder-1 information and reliability for uniform-random control and own-policy behavior](../results/cosyne_2027_compact_figures/02_behavior_expression_absolute.png)
+
+[Editable SVG](../results/cosyne_2027_compact_figures/02_behavior_expression_absolute.svg) · [paired absolute values by training seed](../results/cosyne_2027_compact_figures/02_behavior_expression_absolute_by_seed.csv) · [original common-support information probes](../results/behavior_field_expression_20261007/paired_prefixes.csv) · [original policy-native reliability probes](../results/behavior_field_expression_20261007/per_run.csv)
+
+This is an alternative presentation of the **same three-training-seed September intervention** shown above. Orange is the uniform-random-action **control**; blue is the frozen model's **own-policy experimental** rollout. A gray line joins the two values from one training seed, after its two evaluation repeats are averaged. Panel **a** is decoder-1 information per activation on the same eligible units and equally weighted shared spatial bins. Panel **b** is split-half decoder-1 map reliability on each policy's own occupied bins, so its absolute values remain sensitive to the different visitation patterns. Both axes start at zero. Subtracting orange from blue reproduces the archived per-seed differences exactly within numerical precision. Additional-seed probes are not included in this candidate and will need a new export when available.
+
+**Plot contract:** Both figures have two 1.5 × 1.8-inch panels in Arial 10 pt, following the [COSYNE figure standard](FIGURE_STANDARD.md). In the difference view, colored dots are training-seed contrasts and black segments are means. In the absolute-value candidate, orange/blue dots are control/own-policy values and gray lines join paired seeds. Regenerate from [cached inputs](../results/cosyne_2027_compact_figures/manifest.json) with [the compact renderer](render_compact_figures.py).
