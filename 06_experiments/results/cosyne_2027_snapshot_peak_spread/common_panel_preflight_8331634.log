@@ -1,0 +1,72 @@
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-10-11 18:32:08,066][1475282] register_encoder_factory: <function make_hipposlam_encoder at 0x7f0f257768c0>[0m
+[36m[2026-10-11 18:32:08,066][1475282] register_model_core_factory: <function make_hipposlam_core at 0x7f0f3169dc60>[0m
+[36m[2026-10-11 18:32:08,066][1475282] register_decoder_factory: <function make_hipposlam_decoder at 0x7f0f3169ea70>[0m
+[36m[2026-10-11 18:32:08,066][1475282] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7f0f31617400>[0m
+[36m[2026-10-11 18:32:08,066][1475282] register_learner_factory: <function make_hipposlam_learner at 0x7f0f257e97e0>[0m
+[33m[2026-10-11 18:32:08,108][1475282] Loading existing experiment configuration from /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_temporal_s3_20261010/COS27_C01_TEMPORAL_S99_/00_COS27_C01_TEMPORAL_S99/config.json[0m
+[36m[2026-10-11 18:32:08,108][1475282] Overriding arg 'use_jit' with value False passed from command line[0m
+[36m[2026-10-11 18:32:08,108][1475282] Overriding arg 'with_pos_obs' with value True passed from command line[0m
+[36m[2026-10-11 18:32:08,108][1475282] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,108][1475282] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,108][1475282] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,108][1475282] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'max_num_frames'=10000 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'max_num_episodes'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Adding new argument 'csv_folder_name'=None that is not in the saved config file![0m
+[36m[2026-10-11 18:32:08,109][1475282] Using GPU 0 for DMLab rendering![0m
+[36m[2026-10-11 18:32:08,109][1475282] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0[0m
+[37m[1m[2026-10-11 18:32:08,109][1475282] True[0m
+[37m[1m[2026-10-11 18:32:08,109][1475282] True[0m
+[37m[1m[2026-10-11 18:32:08,109][1475282] depth_sensor  dmlab env True[0m
+[37m[1m[2026-10-11 18:32:32,401][1475282] using reduced action set![0m
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.[0m
+  logger.warn(
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.[0m
+  logger.warn(
+[36m[2026-10-11 18:32:32,406][1475282] RunningMeanStd input shape: (1,)[0m
+[37m[1m[2026-10-11 18:32:32,416][1475282] True[0m
+[37m[1m[2026-10-11 18:32:32,417][1475282] using depth sensor True[0m
+[36m[2026-10-11 18:32:32,417][1475282] Num input channels for depth encoder: 1[0m
+[36m[2026-10-11 18:32:32,417][1475282] original obs space: Box(0, 255, (4, 72, 96), uint8)[0m
+[37m[1m[2026-10-11 18:32:32,642][1475282] DMLab policy head output size: 3843[0m
+[37m[1m[2026-10-11 18:32:32,643][1475282] denpth_sensor True[0m
+[37m[1m[2026-10-11 18:32:32,643][1475282] denpth_sensor True[0m
+[37m[1m[2026-10-11 18:32:32,643][1475282] using bypass, dim 13[0m
+[33m[2026-10-11 18:32:32,643][1475282] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-10-11 18:32:32,643][1475282] get out size called: 1149[0m
+[37m[1m[2026-10-11 18:32:33,106][1475282] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_temporal_s3_20261010/COS27_C01_TEMPORAL_S99_/00_COS27_C01_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth[0m
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+api:pickup:    	10	; Time: 	29.733333333333
+Map number:	3
+Map number:	3
+Map number:	3
+Map number:	3
+Traceback (most recent call last):
+  File "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/place_fields.py", line 743, in <module>
+    main()
+  File "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/place_fields.py", line 605, in main
+    cfg, checkpoint, pose, dg, pre_threshold_logits, graph_arrays = rollout_dg(
+  File "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/place_fields.py", line 438, in rollout_dg
+    save_panel(record_panel, panel_records)
+  File "/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/sf_working_directories/IntrMotiv/evaluation/observation_panel.py", line 31, in save_panel
+    raise ValueError("Observation panels must live in the allocated workspace")
+ValueError: Observation panels must live in the allocated workspace

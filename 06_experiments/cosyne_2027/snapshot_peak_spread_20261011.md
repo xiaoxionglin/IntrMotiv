@@ -1,6 +1,6 @@
 # COSYNE 2027: DG peak spread in retained training snapshots
 
-**Status, 11 October 2026:** This is an interim analysis of the canonical latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M frames. It includes all 38 verified original fresh runs (190 snapshots, 3,040 unit records). The C15 matched-constant original seeds 8 and 99 failed before a final snapshot, so its paired terminal comparison has three seeds; their replacement training jobs were still running at collection. The separate 10k-decision checkpoint field sweeps were submitted on NEMO2 and are not interpreted here.
+**Status, 11 October 2026:** This is an interim analysis of the canonical latest-100k behavior snapshots at 5M, 25M, 50M, 75M, and 100M frames. It includes all 38 verified original fresh runs (190 snapshots, 3,040 unit records). The C15 matched-constant original seeds 8 and 99 failed before a final snapshot, so its paired terminal comparison has three seeds; their replacement training jobs were still running at collection. The separate 10k-decision checkpoint field sweeps were submitted on NEMO2 and are not interpreted here. The first [common-observation recording preflight](../results/cosyne_2027_snapshot_peak_spread/common_panel_preflight_8331634.log) failed because its panel writer still required the retired NEMO2 workspace; the fixed panel is pending a corrected preflight.
 
 ## Result at the proposed 0.25% cutoff
 

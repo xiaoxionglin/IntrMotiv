@@ -6,6 +6,25 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Use the active workspace in fixed-observation panel validation — 2026-10-11
+
+- **Evidence:** COSYNE common-panel recording job 8331634 loaded its 100M
+  checkpoint and ran until the panel write, then failed because
+  `observation_panel.save_panel` accepts only the retired
+  `/work/classic/fr_xl1014-train/` prefix. The requested panel path was under
+  the active `fr_xl1014-corridor-geometry` allocation. The archived
+  [preflight log](06_experiments/results/cosyne_2027_snapshot_peak_spread/common_panel_preflight_8331634.log)
+  shows the failure; ordinary field rollouts do not call this writer.
+- **Impact:** A long compute-node recording run produces no common-observation
+  panel even though the output path follows the current storage policy.
+- **Improvement/status:** Pending. Validate against the configured active
+  workspace root in the canonical evaluator, with a focused acceptance and
+  rejection test. Qualify an isolated evaluation source before resubmitting
+  fixed-panel work.
+- **Acceptance:** A panel under the active workspace writes with all required
+  observation and episode arrays; a path under home or the retired allocation
+  fails before rollout. See the [evaluation workflow](04_implementation/reusable_place_field_telemetry.md).
+
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
 - **Evidence:** The [COSYNE peak-spread analysis](06_experiments/cosyne_2027/snapshot_peak_spread_20261011.md)
