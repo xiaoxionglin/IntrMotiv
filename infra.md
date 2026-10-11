@@ -438,18 +438,30 @@ keep implementation guidance in the canonical workflow documents linked below.
   activity reused all 54 frozen traces through the adapter's pair-only mode.
   The 720 previous normalized rows were byte-for-byte unchanged, while the
   ten-visit map-only sensitivity rows reproduced all 144 full-length pairs.
+- **Fresh-cohort evidence, 2026-10-11:** The poster-specific manifest validator
+  originally required exactly nine training models and 54 probes, blocking
+  reuse for the 38 available fresh COSYNE checkpoints. A focused extension
+  retains that strict default and validates a complete two-repeat own/uniform
+  matrix with `--flexible`. The canonical terminal manifest and StudySpec
+  source map generated 152 reviewed jobs without parsing condition metadata
+  from run names. A 500-decision paired preflight passed before release. The
+  saved September traces also allowed a four-way common-support split-half
+  check: C05 decoder-1 seed 8 changed from positive native support to a
+  slightly negative two-repeat mean on common support.
 - **Impact:** A future policy-sampling study could duplicate the thin adapter
   or mix incompatible decision counts and spatial-score denominators.
-- **Improvement/status:** The [current adapter](hpc_runs/behavior_field_probe.py)
-  and [metric module](hpc_runs/behavior_field_metrics.py) are reusable; the
-  54-probe 50k study and its analysis completed. Integrate an
+- **Improvement/status:** The [current adapter](hpc_runs/behavior_field_probe.py),
+  [metric module](hpc_runs/behavior_field_metrics.py), and
+  [pair analyzer](hpc_runs/behavior_field_pair_analysis.py) are reusable;
+  the 54-probe 50k study and its common-support reanalysis completed. The fresh
+  probe matrix is running. Integrate an
   optional policy/readout extension into the established
   [place-field workflow](04_implementation/reusable_place_field_telemetry.md)
   while retaining the 10k DG contract and manifest compatibility.
 - **Acceptance:** One reviewed manifest can run own and seeded random actions
   at an exact decision count, verify frozen parameters and trace alignment,
   and produce the historical DG score plus matched-support normalized and
-  bits-per-decision scores without a parallel checkpoint loader. A new score
+  bits-per-decision scores and four-way common-support reliability without a parallel checkpoint loader. A new score
   can be recomputed from saved traces without rerunning DMLab or full maps.
   A staged historical config must
   fail preflight if any restored output/cache path escapes the active workspace

@@ -63,25 +63,45 @@ def make_rows(source: Path, workspace: Path) -> list[dict[str, str]]:
     return rows
 
 
-def read_manifest(path: Path, workspace_root: Path, require_inputs: bool) -> list[dict[str, str]]:
+def read_manifest(path: Path, workspace_root: Path, require_inputs: bool,
+                  strict_poster: bool = True) -> list[dict[str, str]]:
     with path.open(newline="") as stream:
         reader = csv.DictReader(stream, delimiter="\t")
         if tuple(reader.fieldnames or ()) != FIELDS:
             raise ValueError("Unexpected manifest columns")
         rows = list(reader)
-    if len(rows) != 54 or len({row["label"] for row in rows}) != 54:
-        raise ValueError("Expected 54 distinct rows: nine models x two evaluation seeds x three policies")
+    if len({row["label"] for row in rows}) != len(rows):
+        raise ValueError("Duplicate probe label")
     actual = {(row["condition"], int(row["seed"]), int(row["eval_seed"]), row["policy"])
               for row in rows}
-    expected = {(condition, seed, eval_seed, policy)
-                for condition in CONDITIONS for seed in SEEDS
-                for eval_seed in EVAL_SEEDS for policy in POLICIES}
-    if actual != expected:
-        raise ValueError(f"Incomplete or repeated probe matrix: missing={expected - actual}, extra={actual - expected}")
+    if len(actual) != len(rows):
+        raise ValueError("Repeated condition, training seed, evaluation seed, and policy")
+    by_model: dict[tuple[str, int], tuple[str, str, str]] = {}
     for row in rows:
-        if int(row["decisions"]) != DECISIONS or int(row["checkpoint_frames"]) != CHECKPOINT_FRAMES:
+        model = row["condition"], int(row["seed"])
+        identity = row["run_dir"], row["checkpoint"], row["checkpoint_frames"]
+        if model in by_model and by_model[model] != identity:
+            raise ValueError(f"Multiple checkpoints for one training model: {model}")
+        by_model[model] = identity
+    if strict_poster:
+        expected = {(condition, seed, eval_seed, policy)
+                    for condition in CONDITIONS for seed in SEEDS
+                    for eval_seed in EVAL_SEEDS for policy in POLICIES}
+        if actual != expected:
+            raise ValueError(f"Incomplete or repeated probe matrix: missing={expected - actual}, extra={actual - expected}")
+    else:
+        models = {(row["condition"], int(row["seed"])) for row in rows}
+        expected = {(condition, seed, eval_seed, policy)
+                    for condition, seed in models for eval_seed in EVAL_SEEDS
+                    for policy in ("own", "uniform")}
+        if actual != expected:
+            raise ValueError(f"Incomplete own/uniform matrix: missing={expected - actual}, extra={actual - expected}")
+    for row in rows:
+        if int(row["decisions"]) != DECISIONS or (strict_poster and int(row["checkpoint_frames"]) != CHECKPOINT_FRAMES):
             raise ValueError(f"Protocol mismatch in {row['label']}")
-        if row["condition"] not in CONDITIONS or int(row["seed"]) not in SEEDS or int(row["eval_seed"]) not in EVAL_SEEDS:
+        if int(row["checkpoint_frames"]) < 100_000_000 or int(row["eval_seed"]) not in EVAL_SEEDS:
+            raise ValueError(f"Checkpoint or evaluation seed mismatch in {row['label']}")
+        if strict_poster and (row["condition"] not in CONDITIONS or int(row["seed"]) not in SEEDS):
             raise ValueError(f"Identity mismatch in {row['label']}")
         for key in ("run_dir", "checkpoint"):
             value = Path(row[key]).resolve()
@@ -102,7 +122,8 @@ def submit(args: argparse.Namespace) -> None:
     for path in (manifest, output, runner, overlay):
         if not path.is_relative_to(root):
             raise ValueError(f"Artifact escapes active workspace: {path}")
-    rows = read_manifest(manifest, root, require_inputs=True)
+    rows = read_manifest(manifest, root, require_inputs=True,
+                         strict_poster=not args.flexible)
     indices = list(range(len(rows))) if args.rows == "all" else [int(s) for s in args.rows.split(",")]
     if any(i < 0 or i >= len(rows) for i in indices) or len(indices) != len(set(indices)):
         raise ValueError("Invalid or repeated row index")
@@ -162,6 +183,8 @@ def main() -> None:
     launch.add_argument("--overlay", type=Path, required=True)
     launch.add_argument("--rows", default="all")
     launch.add_argument("--arm", choices=("all",) + POLICIES, default="all")
+    launch.add_argument("--flexible", action="store_true",
+                        help="validate any complete two-repeat own/uniform model matrix")
     launch.add_argument("--time-limit", default="08:00:00")
     launch.add_argument("--submit", action="store_true")
     args = parser.parse_args()

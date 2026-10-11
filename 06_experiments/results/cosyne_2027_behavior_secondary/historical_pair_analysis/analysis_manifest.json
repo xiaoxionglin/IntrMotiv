@@ -1,0 +1,9 @@
+{
+  "schema": "intrmotiv/behavior-field-pairs/v1",
+  "cohort": "historical",
+  "manifest_sha256": "db5797830cca1ec4f8366fa5e429d226488d735347f8f936bba32fdd9f44900b",
+  "complete_evaluation_pairs": 18,
+  "expected_evaluation_pairs": 18,
+  "common_support": "same bins with >=10 visits in each policy and each episode-disjoint half; identical full-run eligible units with finite correlations in both policies; decoder 1 also checked at 25 and 50 visits per half",
+  "limitations": "spatial-bin weights are equal, but within-bin sample counts and temporal inputs remain policy dependent"
+}

@@ -25,7 +25,7 @@ OUT = RESULTS / "cosyne_2027_compact_figures"
 SOURCES = {
     "online": RESULTS / "cosyne_2027_online_wandb/arm_summaries.csv",
     "online_pairs": RESULTS / "cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
-    "behavior": RESULTS / "cosyne_2027_behavior_secondary/paired_training_seeds.csv",
+    "behavior": RESULTS / "cosyne_2027_behavior_secondary/all_training_seeds.csv",
     "encoder": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
     "peaks": RESULTS / "cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
     "credit_presence": ROOT / "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
@@ -105,16 +105,67 @@ def behavior_expression(data: pd.DataFrame) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(3.8, 2.05))
     fig.subplots_adjust(left=0.13, right=0.99, bottom=0.22, top=0.80, wspace=0.38)
     specs = (
-        ("bits_per_activation", "a  Δ info (bits/act.)"),
-        ("split_half_map_correlation", "b  Δ map reliability"),
+        ("information_difference", "a  Δ info (bits/act.)"),
+        ("common_split_half_difference", "b  Δ reliability"),
     )
     for ax, (metric, label) in zip(axes, specs):
-        rows = data[(data.layer == "decoder_1") & (data.metric == metric)]
+        rows = data[data.cohort == "historical"].copy()
+        rows["seed"] = rows.training_seed
+        rows["difference"] = rows[metric]
+        if len(rows) != 9 or rows.difference.isna().any():
+            raise ValueError(f"incomplete historical training-seed evidence: {metric}")
         seed_differences(ax, rows, ("C01", "C05", "C15"), group_column="condition",
                          labels=("C01", "C05", "C15"),
                          colors=tuple(COLORS.values()))
         ax.set_title(label, loc="left", pad=8)
     export(fig, "02_behavior_expression")
+
+
+def behavior_coverage(data: pd.DataFrame) -> None:
+    """Show every fresh factorial cell without plotting pending effects as zero."""
+    from matplotlib.colors import ListedColormap
+
+    seeds = (8, 17, 41, 99, 123)
+    cells = {
+        "C01": (("temporal", "inapplicable", "T"),
+                ("constant", "inapplicable", "C")),
+        "C05": (("temporal", "temporal", "T/T"),
+                ("temporal", "constant", "T/C"),
+                ("constant", "temporal", "C/T"),
+                ("constant", "constant", "C/C")),
+        "C15": (("temporal", "temporal", "T"),
+                ("constant", "temporal", "C")),
+    }
+    fresh = data[data.cohort == "fresh"]
+    if len(fresh) != 40:
+        raise ValueError("expected 40 independent fresh training cells")
+    fig, axes = plt.subplots(1, 3, figsize=(5.7, 2.25))
+    fig.subplots_adjust(left=0.075, right=0.985, bottom=0.25, top=0.80, wspace=0.27)
+    cmap = ListedColormap(("#d0d0d0", "#e8f1f6", "#3f8e6a"))
+    for ax, family in zip(axes, ("C01", "C05", "C15")):
+        matrix = np.zeros((5, len(cells[family])), dtype=int)
+        for col, (credit, worker, _) in enumerate(cells[family]):
+            for row, seed in enumerate(seeds):
+                selected = fresh[(fresh.family == family) & (fresh.training_seed == seed)
+                                 & (fresh.encoder_credit == credit) & (fresh.worker_bonus == worker)]
+                if len(selected) != 1:
+                    raise ValueError(f"missing planned factorial cell: {family}, {credit}, {worker}, {seed}")
+                record = selected.iloc[0]
+                matrix[row, col] = (2 if record.completed_eval_repeats == 2
+                                    else 0 if str(record.training_status).startswith("running")
+                                    else 1)
+                ax.text(col, row, ("T", "E", "✓")[matrix[row, col]],
+                        ha="center", va="center", fontsize=10, color="#202020")
+        ax.imshow(matrix, cmap=cmap, vmin=0, vmax=2, aspect="auto", interpolation="none")
+        ax.set_xticks(range(len(cells[family])), [cell[2] for cell in cells[family]])
+        ax.set_yticks(range(5), seeds if family == "C01" else [""] * 5)
+        ax.tick_params(axis="both", length=0, pad=2)
+        ax.set_title(family, loc="left", pad=8)
+        for x in np.arange(-0.5, len(cells[family]), 1):
+            ax.axvline(x, color="white", linewidth=1)
+        for y in np.arange(-0.5, 5, 1):
+            ax.axhline(y, color="white", linewidth=1)
+    export(fig, "02_behavior_expression_coverage")
 
 
 def credit_presence(data: pd.DataFrame) -> None:
@@ -173,16 +224,18 @@ def main() -> None:
     tables = {name: pd.read_csv(path) for name, path in SOURCES.items()}
     online_course(tables["online"])
     behavior_expression(tables["behavior"])
+    behavior_coverage(tables["behavior"])
     credit_presence(tables["credit_presence"])
     encoder_credit(tables["encoder"], tables["peaks"])
     worker_bonus(tables["online_pairs"])
     metadata = {
-        "schema": "cosyne27_compact_figures_v2", "font": "Arial",
+        "schema": "cosyne27_compact_figures_v3", "font": "Arial",
         "verified_font_file": font_path, "font_pt": 10,
         "width_inches_per_panel": 1.9, "unit_of_replication": "training seed",
         "matplotlib_version": matplotlib.__version__,
         "pandas_version": pd.__version__,
         "mean_marker": "black horizontal line; individual seeds are colored points",
+        "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; check: both evaluation repeats complete",
         "online_uncertainty": "mean ± 1 SEM across five training seeds at each 1M-step grid point",
         "sources": {name: {"path": str(path.relative_to(ROOT)),
                             "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}

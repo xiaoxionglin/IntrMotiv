@@ -183,3 +183,65 @@ def split_half_reliability(pose: np.ndarray, activity: np.ndarray, dones: np.nda
         if np.std(a) > 0 and np.std(b) > 0:
             correlations.append(float(np.corrcoef(a, b)[0, 1]))
     return float(np.mean(correlations)) if correlations else None
+
+
+def paired_split_half_reliability(
+    own: dict[str, np.ndarray], random: dict[str, np.ndarray], layer: str,
+    min_visits_per_half: int = MIN_SHARED_VISITS,
+) -> dict[str, object]:
+    """Compare map reliability on identical bins and units in both policies.
+
+    Each policy is split at its episode boundary closest to the midpoint. A
+    spatial bin must meet the visit threshold in all four half traces. This
+    fixes spatial support and bin weights; it does not equalize samples within
+    a bin or the policies' temporal observation sequences.
+    """
+    halves = []
+    full_eligible = []
+    for trace in (own, random):
+        pose = trace["pose"]
+        activity = trace[layer]
+        ends = np.flatnonzero(np.asarray(trace["done"], dtype=bool)) + 1
+        boundaries = ends[(ends > 0) & (ends < len(pose))]
+        if not len(boundaries):
+            return {"supported": False, "shared_bins": 0, "eligible_units": 0,
+                    "own": None, "uniform": None, "difference": None}
+        split = int(boundaries[np.argmin(abs(boundaries - len(pose) / 2))])
+        halves.extend((comparison_details(pose[:split], activity[:split]),
+                       comparison_details(pose[split:], activity[split:])))
+        full_eligible.append(comparison_details(pose, activity)["field_eligible"])
+    support = np.logical_and.reduce([part["occupancy"] >= min_visits_per_half
+                                     for part in halves])
+    result: dict[str, object] = {
+        "supported": False, "shared_bins": int(support.sum()),
+        "eligible_units": 0, "own": None, "uniform": None,
+        "difference": None,
+        "own_half_bins": int(((halves[0]["occupancy"] >= min_visits_per_half) &
+                              (halves[1]["occupancy"] >= min_visits_per_half)).sum()),
+        "uniform_half_bins": int(((halves[2]["occupancy"] >= min_visits_per_half) &
+                                  (halves[3]["occupancy"] >= min_visits_per_half)).sum()),
+    }
+    if support.sum() < MIN_SHARED_BINS:
+        return result
+    eligible = full_eligible[0] & full_eligible[1]
+    if not eligible.any():
+        return result
+    correlations = []
+    for first, second in ((halves[0], halves[1]), (halves[2], halves[3])):
+        a = first["rate_maps"][support][:, eligible].astype(np.float64)
+        b = second["rate_maps"][support][:, eligible].astype(np.float64)
+        a -= a.mean(axis=0)
+        b -= b.mean(axis=0)
+        denominator = np.linalg.norm(a, axis=0) * np.linalg.norm(b, axis=0)
+        corr = np.divide((a * b).sum(axis=0), denominator,
+                         out=np.full_like(denominator, np.nan), where=denominator > 0)
+        correlations.append(corr)
+    both_valid = np.isfinite(correlations[0]) & np.isfinite(correlations[1])
+    result["eligible_units"] = int(both_valid.sum())
+    if not both_valid.any():
+        return result
+    result["own"] = float(correlations[0][both_valid].mean())
+    result["uniform"] = float(correlations[1][both_valid].mean())
+    result["difference"] = result["own"] - result["uniform"]
+    result["supported"] = True
+    return result

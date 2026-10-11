@@ -1,0 +1,29 @@
+{
+  "schema": "cosyne27_fresh_behavior_expression_v1",
+  "training_unit": "independent training seed within architecture and factor cell",
+  "evaluation_repeats": [
+    51000,
+    52000
+  ],
+  "policies": [
+    "own",
+    "uniform"
+  ],
+  "decisions_per_probe": 50000,
+  "available_models": 38,
+  "planned_models": 40,
+  "missing_models": "C15 constant-credit seeds 8 and 99; replacement jobs 8329014 and 8329015 running at plan time",
+  "source_sha256": {
+    "06_experiments/results/cosyne_2027_behavior_secondary/fresh_terminal_manifest_20261011.tsv": "4d9b3233933e7152add94c393cd3d691328872d14e3f7534bbf275fa8a282b9c",
+    "06_experiments/results/cosyne_2027_behavior_secondary/fresh_manifest_sources_20261011.csv": "1d425a25c8f1c6e646f2f7ad0c64e7108dc5ed255027150f6633b2123e31d03d",
+    "06_experiments/cosyne_2027/training_runs.csv": "98c8a4f9dc345465b5911f385497334e824f691eb126ee8f1d35ea14372f67c5"
+  },
+  "manifest_sha256": "074d769ff9792859a66bc9883edeafe5746ceb6fed9c07d79c688240916660c1",
+  "provenance_sha256": "fa3814f414111b709f197b81c2295a59e54e28a78506270e42b2dacfff2ff546",
+  "study_schemas": [
+    "intrmotiv/study/v1"
+  ],
+  "workflow_versions": [
+    "1.14.1"
+  ]
+}

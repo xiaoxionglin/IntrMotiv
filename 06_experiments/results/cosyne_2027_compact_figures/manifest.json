@@ -1,5 +1,5 @@
 {
-  "schema": "cosyne27_compact_figures_v2",
+  "schema": "cosyne27_compact_figures_v3",
   "font": "Arial",
   "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "font_pt": 10,
@@ -8,6 +8,7 @@
   "matplotlib_version": "3.10.8",
   "pandas_version": "2.3.3",
   "mean_marker": "black horizontal line; individual seeds are colored points",
+  "behavior_coverage": "T: training checkpoint pending; E: checkpoint available but paired frozen evaluation incomplete; check: both evaluation repeats complete",
   "online_uncertainty": "mean \u00b1 1 SEM across five training seeds at each 1M-step grid point",
   "sources": {
     "online": {
@@ -19,8 +20,8 @@
       "sha256": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f"
     },
     "behavior": {
-      "path": "06_experiments/results/cosyne_2027_behavior_secondary/paired_training_seeds.csv",
-      "sha256": "7c643d96ac3294aab1ef653e6e38ec1c5900f098f13f809b0209105d511ecca9"
+      "path": "06_experiments/results/cosyne_2027_behavior_secondary/all_training_seeds.csv",
+      "sha256": "3a92f5a56f800f97344f2c8c28e93dda6a6f2971ef355744027ee6c9c92d0f31"
     },
     "encoder": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",

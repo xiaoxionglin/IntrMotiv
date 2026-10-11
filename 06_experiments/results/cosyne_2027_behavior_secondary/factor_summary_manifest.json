@@ -1,0 +1,61 @@
+{
+  "schema": "cosyne27_behavior_training_seeds_v1",
+  "replication": "two paired evaluation seeds averaged within each independent training seed",
+  "source_policy": "historical and fresh cohorts are separate; no pooled effect estimate",
+  "rows": 49,
+  "workflow_versions": [
+    "1.14.1",
+    "pre-StudySpec"
+  ],
+  "study_provenance": [
+    [
+      "historical-manifest",
+      "pre-StudySpec",
+      "c11d604d2c3d4040f52afb53a67a648b7a58fc8aea2c1bb7dc7b5787e825fedf"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "533bd8f145db24b2f892b69706570f48cededc85f07fb60f2df489954a11a8a4"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "b3f9281fb83b4e24d74f057f09d5b7764af071e901dd2a113558fd7e01eb0713"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "bc7a145a6a55a18ce8f059ef37ddd95cc887558b551b6e4e099c73d454f05ceb"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "c2960fcee18dc51d601971f2b694233e525cf878bd92efaa2d3adce754aa1dfc"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "d6b78aaca7d9ac064d5a4d945de90e80bdfb844846cecb40527f05e083c511b9"
+    ],
+    [
+      "intrmotiv/study/v1",
+      "1.14.1",
+      "f1ed084afef1585e11ecb2d867fbf0568d90739a7eccfc31b8d6784a3b993cb2"
+    ]
+  ],
+  "input_sha256": {
+    "06_experiments/cosyne_2027/training_runs.csv": "98c8a4f9dc345465b5911f385497334e824f691eb126ee8f1d35ea14372f67c5",
+    "06_experiments/results/cosyne_2027_behavior_secondary/historical_pair_analysis/paired_evaluation_repeats.csv": "776dd984b3f682a24145af728bfcf19027f63459de7a8362b9cf3cc021553af9"
+  }
+}

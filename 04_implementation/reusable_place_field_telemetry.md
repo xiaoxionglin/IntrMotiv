@@ -238,6 +238,23 @@ Use the active `fr_xl1014-corridor-geometry` workspace for every new bulk
 artifact; the older `fr_xl1014-train` paths elsewhere in this historical guide
 are not new-output destinations.
 
+For a new cohort, derive the 100M checkpoint paths from its canonical
+`render-telemetry` terminal manifest and join each row to the validated
+StudySpec identity before making own/uniform probe rows. The October COSYNE
+extension is [documented here](../06_experiments/cosyne_2027/02_behavior_expression.md),
+with a [derived manifest](../hpc_runs/studies/cosyne27_fresh_behavior_expression_20261011.tsv)
+and a [source join](../06_experiments/results/cosyne_2027_behavior_secondary/fresh_probe_provenance.csv).
+The historical launcher keeps its strict 54-row validation by default;
+`behavior_field_study launch --flexible` accepts any complete two-evaluation-seed
+own/uniform matrix while preserving the same workspace and checkpoint checks.
+Run its print-only plan and a short paired compute-node preflight before the
+full 50k jobs. The [paired analyzer](../hpc_runs/behavior_field_pair_analysis.py)
+keeps incomplete pairs visible and recomputes split-half map correlation on
+bins visited in both halves of both policies, with the same eligible units.
+This common-support check still leaves within-bin visit counts and temporal
+inputs policy dependent. Keep training seeds as independent observations and
+do not pool historical and fresh source versions.
+
 ## Manifest Contract
 
 `submit_place_field_sweep.py` and `run_place_field_sweep_single.sh` expect a

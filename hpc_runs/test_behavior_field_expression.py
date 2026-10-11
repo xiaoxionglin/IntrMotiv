@@ -14,7 +14,7 @@ from torch import nn
 
 from hpc_runs.behavior_field_metrics import (
     comparison_details, information_scores, layer_details, normalized_information,
-    paired_information,
+    paired_information, paired_split_half_reliability,
 )
 from hpc_runs.behavior_field_probe import (
     assert_alignment, capture_decoder_module, choose_executed_action,
@@ -26,6 +26,23 @@ from hpc_runs.behavior_field_analysis import condition_summaries
 
 
 class BehaviorFieldTests(unittest.TestCase):
+    def test_common_support_split_half_uses_same_bins_and_units(self):
+        cell = np.arange(2000) % 30
+        pose = np.column_stack((150 + 100 * (cell % 19),
+                                150 + 100 * (cell // 19), np.zeros(2000)))
+        done = np.zeros(2000, dtype=bool)
+        done[999] = True
+        own_activity = (1 + cell / 30).astype(np.float32)[:, None]
+        uniform_activity = own_activity.copy()
+        uniform_activity[1000:, 0] = 2 - cell[1000:] / 30
+        own = {"pose": pose, "done": done, "decoder_1": own_activity}
+        uniform = {"pose": pose, "done": done, "decoder_1": uniform_activity}
+        result = paired_split_half_reliability(own, uniform, "decoder_1")
+        self.assertTrue(result["supported"])
+        self.assertEqual(result["shared_bins"], 30)
+        self.assertEqual(result["eligible_units"], 1)
+        self.assertGreater(result["difference"], 1.9)
+
     def test_information_is_gain_invariant(self):
         self.assertEqual(information_scores(np.array([[2.0, 0.0]]),
                                             np.ones((1, 2))), (1.0, 1.0))
@@ -147,6 +164,38 @@ class BehaviorFieldTests(unittest.TestCase):
                 writer.writeheader()
                 writer.writerows(rows)
             self.assertRaises(ValueError, read_manifest, manifest, root, False)
+
+    def test_fresh_manifest_requires_two_repeats_per_training_seed(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            manifest = root / "fresh.tsv"
+            rows = []
+            for eval_seed in (51_000, 52_000):
+                for policy in ("own", "uniform"):
+                    rows.append(dict(condition="COS27_C01_TEMPORAL", seed="17",
+                                     eval_seed=str(eval_seed), policy=policy,
+                                     decisions="50000", checkpoint_frames="100007936",
+                                     run_dir=str(root / "run"),
+                                     checkpoint=str(root / "run" / "checkpoint.pth"),
+                                     label=f"C01_17_{eval_seed}_{policy}"))
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertEqual(len(read_manifest(manifest, root, False, strict_poster=False)), 4)
+            rows[1]["checkpoint"] = str(root / "run" / "other_checkpoint.pth")
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertRaises(ValueError, read_manifest, manifest, root, False, False)
+            rows[1]["checkpoint"] = rows[0]["checkpoint"]
+            rows.pop()
+            with manifest.open("w", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=FIELDS, delimiter="\t")
+                writer.writeheader()
+                writer.writerows(rows)
+            self.assertRaises(ValueError, read_manifest, manifest, root, False, False)
 
     def test_condition_summary_does_not_count_eval_repeats_as_seeds(self):
         rows = [{"condition": "C01", "seed": "8", "eval_seed": str(eval_seed),

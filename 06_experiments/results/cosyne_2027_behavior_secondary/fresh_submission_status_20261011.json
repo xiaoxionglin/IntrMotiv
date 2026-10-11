@@ -1,0 +1,19 @@
+{
+  "schema": "cosyne27_fresh_behavior_submission_status_v1",
+  "snapshot_utc": "2026-10-11T18:49:57Z",
+  "workspace": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_behavior_expression_20261011",
+  "full_probe_job_count": 152,
+  "full_probe_jobs_running": 152,
+  "complete_full_probe_traces": 0,
+  "dependent_analysis_job": 8334109,
+  "dependent_analysis_state": "PENDING (Dependency)",
+  "c15_constant_replacement_jobs": {
+    "8329014": "RUNNING",
+    "8329015": "RUNNING"
+  },
+  "preflight_jobs": {
+    "8333951": "COMPLETED 0:0",
+    "8333952": "COMPLETED 0:0"
+  },
+  "historical_common_support_job": "8334110 COMPLETED 0:0"
+}
