@@ -13,8 +13,8 @@ Render at the **final physical size**. Do not make a large plot and shrink it in
 
 ## Evidence encoding
 
-- In paired-difference plots, training seeds are individual colored dots; a short black segment marks their mean. A gray horizontal line marks zero difference. State the contrast direction in the caption.
-- An absolute-value candidate can place gray open-square controls and blue filled-circle experimental values side by side, joined by a thin line for each training seed. Label both groups directly or in a shared legend, begin nonnegative metric axes at zero, and keep the paired-difference source table available.
+- In paired-difference plots, training seeds are individual markers; use architecture hue only for architecture identity and marker shape for crossed factors. A short black segment marks their mean. A gray horizontal line marks zero difference. State the contrast direction in the caption.
+- An absolute-value candidate can place gray open-square controls and charcoal filled-circle experimental values side by side, joined by a thin line for each training seed. Label both groups directly or in a shared legend, begin nonnegative metric axes at zero, and keep the paired-difference source table available.
 - Keep the training seed as the independent unit. Average evaluation repeats within that seed; show the actual $n$ for each factor cell. Show missing cells rather than silently dropping an architecture or manipulation.
 - For learning curves, use environment steps on the horizontal axis, unsmoothed seed means, and a translucent $\pm1$ SEM band. Define interpolation and support in the caption.
 - Use the same factor names, colors, and metric direction across panels. Make signs readable in grayscale through the zero line, marker positions, and direct labels.

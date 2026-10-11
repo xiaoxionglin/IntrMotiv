@@ -64,16 +64,25 @@ def export(fig: plt.Figure, name: str) -> None:
 
 def seed_differences(ax: plt.Axes, frame: pd.DataFrame, groups: tuple[str, ...],
                      *, group_column: str, labels: tuple[str, ...],
-                     colors: tuple[str, ...]) -> None:
+                     colors: tuple[str, ...],
+                     markers: tuple[str, ...] | None = None) -> None:
+    """Show paired training seeds, with optional open squares for a second factor."""
+    markers = markers or ("o",) * len(groups)
+    if not (len(groups) == len(labels) == len(colors) == len(markers)):
+        raise ValueError("one label, color, and marker are required per group")
     ax.axhline(0, color="#888888", lw=0.8, zorder=0)
-    for x, (group, color) in enumerate(zip(groups, colors)):
+    for x, (group, color, marker) in enumerate(zip(groups, colors, markers)):
         values = frame[frame[group_column] == group].sort_values("seed")
         if len(values) not in {2, 3, 5} or values.seed.nunique() != len(values):
             raise ValueError(f"unexpected paired-seed count for {group}: {len(values)}")
         offsets = np.linspace(-0.13, 0.13, len(values))
         y = values.difference.to_numpy(float)
-        ax.scatter(x + offsets, y, s=17, color=color, linewidth=0,
-                   zorder=3)
+        if marker == "s":
+            ax.scatter(x + offsets, y, s=17, marker="s", facecolor="white",
+                       edgecolor=color, linewidth=1.1, zorder=3)
+        else:
+            ax.scatter(x + offsets, y, s=17, marker=marker, color=color,
+                       linewidth=0, zorder=3)
         ax.plot([x - 0.16, x + 0.16], [np.mean(y)] * 2,
                 color="black", lw=1.2, zorder=4)
     ax.set_xticks(range(len(groups)), labels)
@@ -173,7 +182,7 @@ def behavior_absolute(data: pd.DataFrame) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(2 * BEHAVIOR_PANEL_SIZE_IN[0],
                                             BEHAVIOR_PANEL_SIZE_IN[1]))
     fig.subplots_adjust(left=0.15, right=0.99, bottom=0.24, top=0.76, wspace=0.48)
-    control_color, experimental_color = "#75838C", "#236D9D"
+    control_color, experimental_color = "#75838C", "#30363B"
     specs = (("bits_per_activation", "a", "Info (bits/act.)"),
              ("split_half_map_correlation", "b", "Map reliability"))
     for ax, (metric, panel, ylabel) in zip(axes, specs):
@@ -219,7 +228,8 @@ def credit_presence(data: pd.DataFrame) -> None:
     seed_differences(ax, rows, groups, group_column="group",
                      labels=("01", "05T", "05Z", "15T", "15Z"),
                      colors=(COLORS["C01"], COLORS["C05"], COLORS["C05"],
-                             COLORS["C15"], COLORS["C15"]))
+                             COLORS["C15"], COLORS["C15"]),
+                     markers=("o", "o", "s", "o", "s"))
     ax.set_title("Constant − no credit", loc="left", pad=8)
     ax.set_ylabel("Δ DG info (bits)")
     export(fig, "02_credit_presence")
@@ -234,11 +244,12 @@ def encoder_credit(fields: pd.DataFrame, peaks: pd.DataFrame) -> None:
         (peaks[peaks.cutoff == 0.0025], "effective_area_fraction",
          "c  Δ peak area"),
     )
-    colors = (COLORS["C01"], "#E69F00", COLORS["C05"], COLORS["C15"])
+    colors = (COLORS["C01"], COLORS["C05"], COLORS["C05"], COLORS["C15"])
     for ax, (table, metric, label) in zip(axes, specs):
         rows = table[table.metric == metric]
         seed_differences(ax, rows, FACTOR_ORDER, group_column="contrast",
-                         labels=("C01", "C05\nT", "C05\nC", "C15"), colors=colors)
+                         labels=("C01", "C05\nT", "C05\nC", "C15"),
+                         colors=colors, markers=("o", "o", "s", "o"))
         ax.set_title(label, loc="left", pad=8)
     export(fig, "03_encoder_credit_factorized")
 
@@ -253,7 +264,8 @@ def worker_bonus(data: pd.DataFrame) -> None:
         selected = rows[rows.metric == metric]
         seed_differences(ax, selected, ("temporal", "constant"),
                          group_column="fixed_factor", labels=("T", "C"),
-                         colors=("#0072B2", "#D55E00"))
+                         colors=("#30363B", "#75838C"),
+                         markers=("o", "s"))
         ax.set_title(label, loc="left", pad=8)
         ax.set_xlabel("Encoder credit")
     export(fig, "04_worker_timing_factorized")

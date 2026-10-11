@@ -2090,7 +2090,11 @@ For each finding, record:
   separates architecture, mechanism, landmark, and condition roles; the
   absolute candidate now uses gray open-square controls instead of C05 orange.
   An embedded SVG preview in the palette note avoids inline-HTML swatches,
-  which Obsidian Live Preview may show as source rather than color.
+  which Obsidian Live Preview may show as source rather than color. A subsequent
+  color-role audit found C01 blue reused for pull and own-policy behavior, and
+  C15 green close to CA3/landmark teal. The palette now reserves the three
+  architecture hues for architecture comparisons; compact condition and worker
+  plots use neutral markers, while the schematic push/pull recolor is pending.
 - **Acceptance:** The six compact PNGs have their declared physical sizes,
   verified scalable Arial, no clipped labels at 100% size, unchanged source
   CSV hashes, and one-to-one claim/source links in the question reports. The
