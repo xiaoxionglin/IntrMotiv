@@ -34,12 +34,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   and could then be replotted without repeating network requests.
 - **Impact:** Repeated learning-curve figures need exact run identity and
   reusable histories; otherwise a changed plot requires another remote scan
-  and may silently mix study attempts.
+  and may silently mix study attempts. Cached rerenders initially changed SVG
+  timestamps and randomized clip-path IDs even when plotted values were
+  identical, obscuring scientific changes in Git diffs.
 - **Improvement/status:** Pending canonical integration. Add optional W&B
   history export and identity validation to the existing `collect-online`
   workflow, reusing the StudySpec metadata rather than adding another run list.
   The current [COSYNE plotter](06_experiments/cosyne_2027/plot_wandb_online.py)
-  demonstrates the export and render contract.
+  demonstrates the export and render contract. The figure exporters now fix
+  SVG hash salt and omit generated Date metadata; two consecutive cached
+  snapshot exports produced identical SHA-256.
 - **Acceptance:** A StudySpec collection exports each requested W&B metric with
   run URL, exact identity, and source fingerprint; a cached render regenerates
   the same seed curves and SEM bands with no W&B access. See the

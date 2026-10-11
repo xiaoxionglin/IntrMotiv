@@ -195,7 +195,8 @@ def style() -> None:
         "font.family": "DejaVu Sans", "font.size": 12, "axes.labelsize": 12,
         "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12,
         "axes.spines.top": False, "axes.spines.right": False,
-        "svg.fonttype": "none", "pdf.fonttype": 42,
+        "svg.fonttype": "none", "svg.hashsalt": "IntrMotiv-COSYNE-2027",
+        "pdf.fonttype": 42,
     })
 
 
@@ -213,7 +214,7 @@ def draw_curve(ax, frame: pd.DataFrame, *, label: str, color: str, linestyle: st
 def export(fig, stem: Path) -> None:
     stem.parent.mkdir(parents=True, exist_ok=True)
     svg_path = stem.with_suffix(".svg")
-    fig.savefig(svg_path, bbox_inches="tight", dpi=300)
+    fig.savefig(svg_path, bbox_inches="tight", dpi=300, metadata={"Date": None})
     svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n")
     fig.savefig(stem.with_suffix(".png"), bbox_inches="tight", dpi=300)
     plt.close(fig)

@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from .plot_wandb_online import ARM_STYLES, export, style
+from .plot_wandb_online import ARM_STYLES, COLORS, export, style
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -282,6 +282,44 @@ def draw_examples(units: pd.DataFrame, mask: np.ndarray) -> None:
     export(fig, OUT / "figures" / "example_valid_peaks_gaussian")
 
 
+def draw_paired_checks(paired: pd.DataFrame) -> None:
+    """Show behavior and stored-graph differences that could confound peaks."""
+    panels = (
+        ("visited_cell_fraction", "Visited-cell fraction"),
+        ("active_only_map_cosine", "Active-only map cosine"),
+        ("mean_physical_step_distance", "Mean physical step (DMLab units)"),
+        ("graph_reliable_global_efficiency", "Stored graph efficiency"),
+    )
+    groups = (("C01", "inapplicable", "C01\nflat"),
+              ("C05", "temporal", "C05\nT hit"),
+              ("C05", "constant", "C05\nC hit"),
+              ("C15", "temporal", "C15\nT hit"))
+    style()
+    fig, axes = plt.subplots(2, 2, figsize=(10.0, 7.1), layout="constrained")
+    selected = paired[paired.cutoff == 0.0025]
+    for ax, (metric, title) in zip(axes.flat, panels):
+        for x, (family, worker, _) in enumerate(groups):
+            if metric.startswith("graph_") and family == "C01":
+                continue  # flat C01 has no commanded-goal graph
+            rows = selected[(selected.metric == metric)
+                            & (selected.family == family)
+                            & (selected.worker_bonus == worker)].sort_values("seed")
+            values = rows.difference.to_numpy(float)
+            if not len(values):
+                raise ValueError(f"missing paired metric: {family}, {worker}, {metric}")
+            offsets = np.linspace(-0.14, 0.14, len(values))
+            ax.scatter(x + offsets, values, s=45, color=COLORS[family],
+                       edgecolors="white", linewidths=0.8, zorder=3)
+            sem = values.std(ddof=1) / math.sqrt(len(values))
+            ax.errorbar(x, values.mean(), yerr=sem, marker="_", markersize=17,
+                        color="black", capsize=4, zorder=4)
+        ax.axhline(0, color="#777777", linewidth=0.8)
+        ax.set_xticks(range(len(groups)), [g[2] for g in groups])
+        ax.set_ylabel("Temporal − constant")
+        ax.set_title(title, loc="left", fontweight="bold")
+    export(fig, OUT / "figures" / "paired_behavior_graph_checks")
+
+
 def main() -> None:
     units, snapshots, mask = load_sources()
     derived = analyze(units, snapshots, mask)
@@ -289,6 +327,7 @@ def main() -> None:
     per_seed, summary = paired_terminal(derived)
     per_seed.to_csv(OUT / "paired_terminal_by_seed.csv", index=False)
     summary.to_csv(OUT / "paired_terminal_summary.csv", index=False)
+    draw_paired_checks(per_seed)
     for metric, ylabel, stem in (
         ("valid_peaks", "Valid DG peak count", "valid_peaks_by_cutoff"),
         ("mean_pairwise_peak_distance", "Mean peak distance (DMLab units)",
