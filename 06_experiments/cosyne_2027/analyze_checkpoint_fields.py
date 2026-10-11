@@ -43,7 +43,7 @@ CONTRASTS = (
     ("C01", "inapplicable", "C01"),
     ("C05", "temporal", "C05 · temporal hit"),
     ("C05", "constant", "C05 · constant hit"),
-    ("C15", "inapplicable", "C15"),
+    ("C15", "temporal", "C15"),
 )
 PALETTE = {
     "temporal": "#0072B2", "constant": "#D55E00",
@@ -69,18 +69,19 @@ def read_data() -> tuple[pd.DataFrame, list[dict[str, str]]]:
     all_rows = pd.concat(parts, ignore_index=True)
     if all_rows.duplicated(["condition", "seed", "target_frames"]).any():
         raise ValueError("duplicate frozen checkpoints across study summaries")
-    tokens = all_rows.condition.str.split("_", expand=True)
-    all_rows["family"] = tokens[1].str.upper()
-    all_rows["encoder_credit"] = tokens[2].str.lower()
-    all_rows["worker_bonus"] = np.where(all_rows.family == "C05",
-                                         tokens[3].str.lower(), "inapplicable")
-    if not set(all_rows.encoder_credit) <= {"temporal", "constant"}:
-        raise ValueError("unknown encoder-credit arm")
-    if all_rows.groupby(["condition", "seed"]).target_frames.max().lt(100_000_000).any():
-        raise ValueError("terminal checkpoint missing")
     catalog = pd.read_csv(ROOT / "06_experiments/cosyne_2027/training_runs.csv")
     expected = catalog[(catalog.cohort == "cosyne")
                        & (catalog.attempt_status == "verified_100m")]
+    factors = expected[["condition", "seed", "family", "encoder_credit",
+                        "worker_bonus"]].drop_duplicates()
+    if factors.duplicated(["condition", "seed"]).any():
+        raise ValueError("run catalog has duplicate factor metadata")
+    all_rows = all_rows.drop(columns=["family"]).merge(
+        factors, on=["condition", "seed"], how="left", validate="many_to_one")
+    if all_rows[["family", "encoder_credit", "worker_bonus"]].isna().any().any():
+        raise ValueError("frozen checkpoint lacks StudySpec-derived factor metadata")
+    if all_rows.groupby(["condition", "seed"]).target_frames.max().lt(100_000_000).any():
+        raise ValueError("terminal checkpoint missing")
     expected_keys = set(zip(expected.condition, expected.seed))
     observed = all_rows[all_rows.target_frames == 100_000_000]
     observed_keys = set(zip(observed.condition, observed.seed))
