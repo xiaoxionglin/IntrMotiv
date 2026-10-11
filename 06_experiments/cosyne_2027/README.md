@@ -4,6 +4,8 @@ This is the entry point for the [original two-page abstract outline](../../99_in
 
 The [11 October W&B and frozen-policy analysis](online_and_behavior_analysis_20261011.md) has the five-seed C01/C05/C15 spatial-information learning curve, full factorized online candidate plots, additional own-versus-random readouts, and cached per-run/paired tables. Checkpoint-level common-observation and peak-spread analyses remain in progress separately.
 
+The [11 October retained-snapshot peak-spread analysis](snapshot_peak_spread_20261011.md) adds all-factor cutoff sensitivity, eligible peak locations, Gaussian effective area/Gini, seed-paired contrasts, and source tables for 38 completed original runs. It uses each model's own 100k-sample behavior window; the separately submitted 10k checkpoint evaluation and common-observation comparison remain the next gate.
+
 The CSVs contain paths and provenance, not copied checkpoints. Bulk checkpoints and raw telemetry stay in their original NEMO2 workspaces. Existing lightweight result tables and selected figures are linked below, so the evidence can be opened from this page without searching old batch folders.
 
 ## Run cohorts and source boundaries

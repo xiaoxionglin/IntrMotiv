@@ -6,6 +6,25 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
+
+- **Evidence:** The [COSYNE peak-spread analysis](06_experiments/cosyne_2027/snapshot_peak_spread_20261011.md)
+  could reuse per-unit peak coordinates from all 190 retained 100k snapshots,
+  but the v1 NPZ exposes run-specific occupancy rather than a verified common
+  traversability mask. Gaussian peak coverage therefore used the same pooled
+  visited-bin union for all 38 terminal runs, with that limitation explicit.
+- **Impact:** A spatial-spread denominator based on observed occupancy can miss
+  rarely visited accessible cells and cannot by itself remove behavior-driven
+  sampling differences between trained policies.
+- **Improvement/status:** Pending. Add the fixed accessible-area mask and its
+  geometry identity to the compatible online-spatial snapshot contract, then
+  reuse it in common-panel and place-field postprocessing. Preserve old v1
+  readers and mark historical empirical masks as such.
+- **Acceptance:** Paired runs on one environment report identical verified
+  accessible masks, the archive binds the mask to geometry, and peak coverage
+  can be regenerated from cached snapshots without inferring area from visits.
+  See the [reusable spatial workflow](04_implementation/reusable_place_field_telemetry.md).
+
 ### Archive W&B spatial histories through the canonical study workflow — 2026-10-11
 
 - **Evidence:** The COSYNE online analysis matched 38 verified original runs by

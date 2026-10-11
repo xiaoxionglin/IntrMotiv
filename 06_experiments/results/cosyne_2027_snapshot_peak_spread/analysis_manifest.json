@@ -1,0 +1,107 @@
+{
+  "schema": "cosyne27/snapshot-peak-spread/v1",
+  "workflow_version": "1.14.1",
+  "source": "canonical collect-spatial 100k behavior snapshots",
+  "input_sha256": {
+    "c01_constant_s3_analysis_manifest.json": "11443de123bcce3246e89defe8d70bb77ec1863d0af81f42b2c1728b966fa422",
+    "c01_constant_s3_per_snapshot.csv": "437635b9a933f8afdd4ca316dd6b7fbdd1772d15bcc2e4aa54c1575a59310826",
+    "c01_constant_s3_per_unit.csv": "9d243668794b5e1fa1f064b8242430e92a1fd343c6db297cc9a80e70d013bdf3",
+    "c01_encoder_s2_analysis_manifest.json": "ada2d22338d0d52959bfca3d4c5b030240b3f9aba3079ab9c2199997b0d9bc8f",
+    "c01_encoder_s2_per_snapshot.csv": "b0bcc46062d217f3aadcda457858ab00eeb654f782f187f47e6728c3cfa92a22",
+    "c01_encoder_s2_per_unit.csv": "0d4c2db53715c0ce412168983015478b33b68e6c0b79b0bb9b11c503b6ce139a",
+    "c01_temporal_s3_analysis_manifest.json": "1db5e9e6295f0b0524e0c46b663f20b6dbddf91e934da9e7fcba36aadead5104",
+    "c01_temporal_s3_per_snapshot.csv": "92c0e8cb2d5cb788fb7dd6dc15ce9240903a48074846347e8384b124498636bc",
+    "c01_temporal_s3_per_unit.csv": "8a157481009d2fb8e0b917f3ba726bc17c801fcd83624bd6037247f3449a7303",
+    "c05_pushpull_s2_analysis_manifest.json": "472602dff12af2a9ddab4367ff54be4d86e4cac4e46dc1d0f383fc59e66aa627",
+    "c05_pushpull_s2_per_snapshot.csv": "1ff6b7458ec4b5407f22df979944e42b41be62f10cbff7e3ef343dd92e69eec2",
+    "c05_pushpull_s2_per_unit.csv": "1f7211e076edb0d7d0b7e14f05e0ae36acc29c30486a2681573bca4f33f8c880",
+    "c05_pushpull_s3_analysis_manifest.json": "64e18e5c20e82763634f6b0548d9f1e38667f9fa5edec6eba02e8a5c9d58969a",
+    "c05_pushpull_s3_per_snapshot.csv": "c5263b387409509692fa52e9e036fd4e1b6b8ff10cc38ab0c94406f0facc31dc",
+    "c05_pushpull_s3_per_unit.csv": "2b72a108f9ad3af766047ef1697acedeff151bb48c505a0f425a9f3b65fec226",
+    "c15_encoder_s2_analysis_manifest.json": "5b78e3f84e4515874a69f83cce6bb86695dad74953023e2c11280a04a50c51bd",
+    "c15_encoder_s2_per_snapshot.csv": "6e284090ab91e41dda219b097952c008e9268e6dadb7b06aaf950dbd3104a480",
+    "c15_encoder_s2_per_unit.csv": "1d99b7ff72552e3177d636f96edcb2ddbb0e8548351c183324689e3cd9f1c17e",
+    "c15_encoder_s3_analysis_manifest.json": "08267f032dd785e2b468d67925286883fb18a31c53071548d9e0934a4837ffea",
+    "c15_encoder_s3_per_snapshot.csv": "10de16f4158eb183eaef2b07fef35be1e9d6ab7fac8a59408f35efd08be3edf3",
+    "c15_encoder_s3_per_unit.csv": "82feb611fd606cb8ca0288d8cd596c5d345bee779e8dc95c074c9946573e5227"
+  },
+  "source_studies": {
+    "cosyne27_c01_constant_s3_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "d6b78aaca7d9ac064d5a4d945de90e80bdfb844846cecb40527f05e083c511b9",
+      "observed_snapshots": 15,
+      "expected_snapshots": 15,
+      "complete": true
+    },
+    "cosyne27_c01_encoder_s2_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "533bd8f145db24b2f892b69706570f48cededc85f07fb60f2df489954a11a8a4",
+      "observed_snapshots": 20,
+      "expected_snapshots": 20,
+      "complete": true
+    },
+    "cosyne27_c01_temporal_s3_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "bc7a145a6a55a18ce8f059ef37ddd95cc887558b551b6e4e099c73d454f05ceb",
+      "observed_snapshots": 15,
+      "expected_snapshots": 15,
+      "complete": true
+    },
+    "cosyne27_c05_pushpull_s2_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c",
+      "observed_snapshots": 40,
+      "expected_snapshots": 40,
+      "complete": true
+    },
+    "cosyne27_c05_pushpull_s3_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+      "observed_snapshots": 60,
+      "expected_snapshots": 60,
+      "complete": true
+    },
+    "cosyne27_c15_encoder_s2_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "c2960fcee18dc51d601971f2b694233e525cf878bd92efaa2d3adce754aa1dfc",
+      "observed_snapshots": 20,
+      "expected_snapshots": 20,
+      "complete": true
+    },
+    "cosyne27_c15_encoder_s3_20261010": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "b3f9281fb83b4e24d74f057f09d5b7764af071e901dd2a113558fd7e01eb0713",
+      "observed_snapshots": 20,
+      "expected_snapshots": 30,
+      "complete": false
+    }
+  },
+  "mask_sha256": "8c60a0accece3cfe582d98e7f08bcd29f2f9087cc0512d76b147d3d918e6a205",
+  "terminal_snapshots": 38,
+  "snapshots_all_ages": 190,
+  "cutoff_fractions": [
+    0.0,
+    0.00025,
+    0.0025,
+    0.01
+  ],
+  "cutoff_rule": "positive activity at 0; >= cutoff otherwise",
+  "valid_peak_rule": "canonical eligible: >=20 active observations in >=3 bins; finite dominant peak; meets activity cutoff",
+  "gaussian_sigma_dmlab_units": 100.0,
+  "gaussian_sigma_sensitivity_dmlab_units": [
+    50.0,
+    100.0,
+    150.0
+  ],
+  "coverage": "exp(Shannon entropy of equal-mass Gaussian peak density on pooled visited bins) / pooled visited-bin count",
+  "pooled_mask_caveat": "union of visited bins from all 38 terminal own-policy snapshots; not a fixed observation sequence or exact traversability mask",
+  "unit_of_replication": "training seed paired within family and fixed worker bonus",
+  "matplotlib": "3.10.8"
+}
