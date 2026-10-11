@@ -2086,7 +2086,9 @@ For each finding, record:
   the pinned probe tables and checks that their paired differences reproduce
   the archived difference table. This is a local study adapter because the
   standardized study and telemetry contracts already supply the underlying
-  analysis tables.
+  analysis tables. The [palette](06_experiments/cosyne_2027/COLOR_PALETTE.md)
+  separates architecture, mechanism, landmark, and condition roles; the
+  absolute candidate now uses gray open-square controls instead of C05 orange.
 - **Acceptance:** The six compact PNGs have their declared physical sizes,
   verified scalable Arial, no clipped labels at 100% size, unchanged source
   CSV hashes, and one-to-one claim/source links in the question reports. The

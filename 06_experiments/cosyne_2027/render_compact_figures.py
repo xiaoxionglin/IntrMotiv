@@ -173,7 +173,7 @@ def behavior_absolute(data: pd.DataFrame) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(2 * BEHAVIOR_PANEL_SIZE_IN[0],
                                             BEHAVIOR_PANEL_SIZE_IN[1]))
     fig.subplots_adjust(left=0.15, right=0.99, bottom=0.24, top=0.76, wspace=0.48)
-    control_color, experimental_color = "#D55E00", "#0072B2"
+    control_color, experimental_color = "#75838C", "#236D9D"
     specs = (("bits_per_activation", "a", "Info (bits/act.)"),
              ("split_half_map_correlation", "b", "Map reliability"))
     for ax, (metric, panel, ylabel) in zip(axes, specs):
@@ -185,10 +185,11 @@ def behavior_absolute(data: pd.DataFrame) -> None:
             for offset, row in zip(np.linspace(-0.025, 0.025, len(seeds)),
                                    seeds.itertuples(index=False)):
                 ax.plot([x - 0.11 + offset, x + 0.11 + offset],
-                        [row.control, row.experimental], color="#aaaaaa",
+                        [row.control, row.experimental], color="#BBC4CA",
                         lw=0.75, zorder=1)
-                ax.scatter(x - 0.11 + offset, row.control, s=17,
-                           color=control_color, linewidth=0, zorder=3)
+                ax.scatter(x - 0.11 + offset, row.control, s=17, marker="s",
+                           facecolor="white", edgecolor=control_color,
+                           linewidth=1.1, zorder=3)
                 ax.scatter(x + 0.11 + offset, row.experimental, s=17,
                            color=experimental_color, linewidth=0, zorder=3)
         ax.set_xticks(range(3), ("C01", "C05", "C15"))
@@ -197,10 +198,11 @@ def behavior_absolute(data: pd.DataFrame) -> None:
         ax.set_ylim(bottom=0)
         ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
         ax.grid(axis="y", color="#e6e6e6", lw=0.5, zorder=0)
-    handles = [plt.Line2D([0], [0], marker="o", linestyle="none", color=color,
-                          markersize=4, label=label)
-               for color, label in ((control_color, "Random control"),
-                                    (experimental_color, "Own policy"))]
+    handles = [plt.Line2D([0], [0], marker="s", linestyle="none", color=control_color,
+                          markerfacecolor="white", markeredgewidth=1.1,
+                          markersize=4, label="Random control"),
+               plt.Line2D([0], [0], marker="o", linestyle="none",
+                          color=experimental_color, markersize=4, label="Own policy")]
     fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 1.02),
                ncol=2, frameon=False, handletextpad=0.2, columnspacing=0.6)
     export(fig, "02_behavior_expression_absolute")
