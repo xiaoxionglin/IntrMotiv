@@ -112,6 +112,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   After print-only review, 15 additional C15 temporal seed-17 75M source jobs
   were submitted as 8352047–8352061 to test the same full-panel method under
   the second architecture; [their commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c15_s2_source01_15_panel_20261012.tsv)
+  are retained. The two failed C05 seed-41 rows were also print-reviewed and
+  submitted as 32 bounded source jobs 8352066–8352097 with separate per-row
+  workspace paths and n3104 excluded; [their commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c05_s2_s41_source_panels_20261012.tsv)
   are retained.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
