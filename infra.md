@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Size compact result panels for the final conference page — 2026-10-12
+
+- **Evidence:** In the [COSYNE 2027 layout draft](07_abstracts/cosyne_2027_submission_draft/README.md), the existing worker-timing panel fits only at about half the text width alongside four other figures. Its plot labels are small at the rendered two-page size, while enlarging it sends content to a third page.
+- **Impact:** A figure can be legible as a standalone SVG yet difficult to read in the submission PDF. Late layout work then becomes a choice between dropping evidence and shrinking labels.
+- **Improvement/status:** Pending. Let the existing compact-figure renderer target a specified print width and minimum final text size for selected panels; keep data and captions unchanged. Do this when the worker analysis is finalized, rather than adding a one-off resize script now.
+- **Acceptance:** The selected worker panel remains legible at its actual PDF width, the complete abstract stays within the chosen page limit, and the rendered PDF passes a visual page-size check.
+
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
 - **Evidence:** The [COSYNE peak-spread analysis](06_experiments/cosyne_2027/snapshot_peak_spread_20261011.md)

@@ -1,0 +1,88 @@
+% COSYNE 2027 layout draft. Compile with Tectonic or pdfLaTeX.
+% The 2026 submission supplied by the author sets the letterpaper, 12 pt,
+% half-inch-margin starting style. Scientific claim checks are in OPEN_QUESTIONS.md.
+\documentclass[letterpaper,12pt]{article}
+\usepackage[letterpaper,margin=0.5in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{microtype}
+\usepackage{float}
+
+\captionsetup{font=footnotesize,labelfont=bf,skip=3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Spatial Organization from Temporal Push--Pull Learning}\par
+\end{center}
+\vspace{-5pt}
+
+How can spatial representations emerge from egocentric experience without a map, position labels, or external reward? We propose that a hippocampal-inspired circuit can turn the timing of encountered sensory events into a learning signal. In our agent, sparse dentate gyrus (DG) responses mark salient visual experiences, while CA3-like sequences carry their recent history. Temporal separation between events creates two complementary pressures: a ``push'' that favors distinct DG landmarks and a ``pull'' that rewards the policy for reaching internally defined targets. Spatial structure can thus arise through the agent's interaction with the world rather than being imposed as a training target.
+
+In a continuous visual arena, the agent develops spatially informative DG activity during exploration. Replacing temporal DG feedback with constant feedback makes DG responses less spatially informative, more redundant, and concentrated in fewer parts of the arena. This supports a role for temporal pattern separation in organizing the code. The policy-side ``pull'' is shaped by temporal target-hit credit and actor--critic discounting. Replacing the temporally weighted target-hit bonus with a constant bonus has mixed effects on exploration and DG fields. Actor--critic discounting can largely substitute for the bonus's timing effect by favoring faster traversal. Weakening that discount worsens measured spatial information.
+% CHECK: The substitution claim is an interpretation. The C05 constant-bonus
+% comparison keeps PPO discounting; the separate longer-credit study changes
+% gamma and GAE lambda together and evaluates fields on different trajectories.
+
+The agent's interactions with the world also shape how its learned code is expressed. With weights frozen, the learned policy evokes more spatially informative downstream responses than random actions.
+% CHECK: Frozen-policy probes establish expression, not a training-policy effect.
+
+Together, these results show how temporal memory and self-directed action can produce spatial organization without direct spatial instruction.
+
+\vspace{2pt}\hrule\vspace{5pt}
+
+\begin{center}
+\includegraphics[width=0.84\linewidth]{figures/architecture.pdf}
+\end{center}
+\vspace{-10pt}
+\captionof{figure}{\textbf{A temporal push--pull circuit for reward-free visual exploration.} Egocentric RGB observations pass through a fixed ResNet-18 layer-2 trunk to a learned sparse DG-like layer. A fixed CA3-like sequence memory carries recent DG events to the policy readout. Temporal separation supplies encoder ``push'' credit; target hits supply worker ``pull'' credit. Actions determine subsequent observations.}
+\label{fig:architecture}
+
+\vspace{2pt}
+\begin{minipage}{\linewidth}
+\centering
+\includegraphics[width=0.50\linewidth]{figures/worker_coverage.pdf}
+\captionof{figure}{\textbf{Worker timing: analysis in progress.} C05 temporal versus mean-matched constant target-hit bonuses, holding encoder mode (T or C) fixed ($n=5$ matched seeds per arm). \textbf{Left:} Last-window visited fractions. \textbf{Right:} Temporal-minus-constant paired differences; black bars mark means. Matched-command results will replace this placeholder.}
+\label{fig:worker-wip}
+\end{minipage}
+
+\vspace{2pt}
+\begin{minipage}{\linewidth}
+\centering
+\begin{minipage}[c]{0.27\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/online_spatial_course.pdf}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.71\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/c01_peak_density.pdf}
+\end{minipage}
+\captionof{figure}{\textbf{Spatial activity emerges during exploration.} \textbf{Left:} Mean online amplitude-weighted DG spatial score for C01, C05, and C15, with $\pm1$ s.e.m. across five training seeds; each observation window follows its current policy. \textbf{Right:} Example peak-density maps from C01 seed 99 on the same 10,001 frozen observations: temporal versus mean-matched constant encoder credit. Orange dots locate eligible DG peaks after a 0.25\% activity cutoff. The five-seed fixed-observation comparison appears in Fig.~\ref{fig:encoder}.}
+\label{fig:emergence}
+\end{minipage}
+
+\vspace{2pt}
+\begin{minipage}{\linewidth}
+\centering
+\includegraphics[width=0.96\linewidth]{figures/encoder_credit_deltas.pdf}
+\captionof{figure}{\textbf{Temporal encoder credit improves the DG code on identical observations.} Paired temporal-minus-constant differences at approximately 100 million training frames for (a) DG spatial score, (b) active-only map cosine, and (c) eligible-peak area fraction. Each point is one training-seed pair; black bars are within-condition means and the gray line marks zero. C01 has five pairs, with higher information, lower map similarity, and broader peak coverage in every pair. C05 holds worker-hit timing fixed within each subgroup; C15 currently has three matched pairs. All networks were replayed on one shared 10,001-observation panel covering 242 visited bins.}
+\label{fig:encoder}
+\end{minipage}
+
+\vspace{2pt}
+\begin{minipage}{\linewidth}
+\centering
+% Retain the top row of the source's six-panel figure. The lower row shows
+% split-half reliability and remains available in the source analysis.
+\includegraphics[width=0.93\linewidth,trim=0 160bp 0 0,clip]{figures/behavior_expression_fresh.pdf}
+\captionof{figure}{\textbf{Behavior changes the expression of a frozen code.} Decoder-1 spatial-information contrast between each model's own policy and uniform random actions (bits per activation), with two frozen-policy repeats averaged per training seed. All 38 available fresh models have positive contrasts. C01/C15 labels denote encoder timing; C05 labels give encoder/worker timing in that order. Network weights are fixed during the action intervention.}
+\label{fig:behavior}
+\end{minipage}
+
+\end{document}
