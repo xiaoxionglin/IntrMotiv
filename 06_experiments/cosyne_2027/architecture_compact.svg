@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="7.2in" height="3.3in" viewBox="0 0 1440 660" role="img"
+     aria-labelledby="figure-title figure-description">
+  <title id="figure-title">IntrMotiv architecture: temporal feedback shapes landmarks and policy</title>
+  <desc id="figure-description">A reward-free visual navigation loop. Visual input passes through a frozen ResNet-18, a learned sparse DG landmark projection, a fixed CA3 sequence memory, and a PPO worker policy to action. A small plot shows that larger CA3 event separation increases positive DG credit while decreasing the flat worker reward. Actions change the next observation.</desc>
+  <defs>
+    <style><![CDATA[
+      text { font-family: 'DejaVu Sans', sans-serif; fill: #183043; }
+      .main { font-size: 39px; font-weight: 700; }
+      .node { font-size: 34px; font-weight: 700; }
+      .sub { font-size: 34px; font-weight: 400; }
+      .small { font-size: 34px; font-weight: 600; }
+      .strap { font-size: 34px; font-weight: 700; letter-spacing: 1px; }
+      .panel { fill: #fff; stroke: #9aabb6; stroke-width: 3; }
+      .flow { fill: none; stroke: #40586a; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .push { fill: none; stroke: #ae453e; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .pull { fill: none; stroke: #236d9d; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .push-text { fill: #ae453e; }
+      .pull-text { fill: #236d9d; }
+    ]]></style>
+    <marker id="arrow-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#40586a"/></marker>
+    <marker id="arrow-push" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#ae453e"/></marker>
+    <marker id="arrow-pull" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#236d9d"/></marker>
+  </defs>
+
+  <rect x="0" y="0" width="1440" height="660" fill="#fff"/>
+  <text class="strap" x="38" y="50">INTRMOTIV: DG–CA3 CONTROL</text>
+  <text class="sub" x="1402" y="50" text-anchor="end">No position labels or external reward</text>
+
+  <!-- The world loop is kept above the feedforward pathway. -->
+  <path class="flow" d="M1282 177 V116 H124 V177" marker-end="url(#arrow-ink)"/>
+  <rect x="412" y="86" width="604" height="45" rx="21" fill="#fff"/>
+  <text class="sub" x="714" y="120" text-anchor="middle">action changes next observation</text>
+
+  <!-- Main information path. -->
+  <path class="flow" d="M213 278 H243" marker-end="url(#arrow-ink)"/>
+  <path class="flow" d="M451 278 H481" marker-end="url(#arrow-ink)"/>
+  <path class="flow" d="M669 278 H699" marker-end="url(#arrow-ink)"/>
+  <path class="flow" d="M896 278 H926" marker-end="url(#arrow-ink)"/>
+  <path class="flow" d="M1144 278 H1174" marker-end="url(#arrow-ink)"/>
+
+  <g id="visual-input">
+    <rect class="panel" x="38" y="177" width="175" height="207" rx="15"/>
+    <rect x="51" y="191" width="149" height="99" rx="5" fill="#b9dcf1"/>
+    <path d="M51 227 L89 203 L108 203 L108 272 L51 290 Z" fill="#ae965a"/>
+    <path d="M200 227 L162 203 L143 203 L143 272 L200 290 Z" fill="#b6954d"/>
+    <path d="M108 272 L143 272 L200 290 H51 Z" fill="#7893a0"/>
+    <path d="M72 221 H94 M159 221 H179" stroke="#ede1a8" stroke-width="5"/>
+    <text class="main" x="125" y="356" text-anchor="middle">RGB</text>
+  </g>
+
+  <g id="frozen-visual-trunk">
+    <rect class="panel" x="253" y="177" width="198" height="207" rx="15" fill="#f4f6f7"/>
+    <rect x="266" y="191" width="170" height="44" rx="11" fill="#e2e8eb"/>
+    <text class="small" x="351" y="225" text-anchor="middle">FROZEN</text>
+    <text class="node" x="352" y="305" text-anchor="middle">ResNet-18</text>
+    <text class="sub" x="352" y="360" text-anchor="middle">layer 2</text>
+  </g>
+
+  <g id="dg-landmarks">
+    <rect x="491" y="177" width="178" height="207" rx="15" fill="#fff7f5" stroke="#ae453e" stroke-width="4"/>
+    <text class="main" x="580" y="226" text-anchor="middle" fill="#ae453e">DG</text>
+    <circle cx="531" cy="281" r="15" fill="#ae453e"/>
+    <circle cx="580" cy="281" r="15" fill="#edd2ce"/>
+    <circle cx="629" cy="281" r="15" fill="#edd2ce"/>
+    <text class="sub" x="580" y="360" text-anchor="middle">learned</text>
+  </g>
+
+  <g id="ca3-sequences">
+    <rect x="709" y="177" width="187" height="207" rx="15" fill="#f3faf8" stroke="#257873" stroke-width="4"/>
+    <text class="main" x="802" y="226" text-anchor="middle" fill="#176963">CA3</text>
+    <path d="M743 264 H851 M743 286 H851 M743 308 H851" stroke="#a9c7c3" stroke-width="4"/>
+    <circle cx="749" cy="264" r="8" fill="#bd5d4c"/><circle cx="783" cy="264" r="8" fill="#bd5d4c"/><circle cx="817" cy="264" r="8" fill="#bd5d4c"/>
+    <circle cx="749" cy="286" r="8" fill="#d9bb71"/><circle cx="783" cy="286" r="8" fill="#d9bb71"/>
+    <circle cx="749" cy="308" r="8" fill="#3978a4"/>
+    <text class="sub" x="802" y="360" text-anchor="middle">fixed seq.</text>
+  </g>
+
+  <g id="worker-policy">
+    <rect x="936" y="177" width="208" height="207" rx="15" fill="#f4f8fc" stroke="#236d9d" stroke-width="4"/>
+    <text class="main" x="1040" y="228" text-anchor="middle">Worker</text>
+    <text class="sub" x="1040" y="276" text-anchor="middle">2×MLP</text>
+    <path d="M994 302 H1086" stroke="#6f9cbc" stroke-width="5"/>
+    <circle cx="1007" cy="302" r="10" fill="#236d9d"/><circle cx="1040" cy="302" r="10" fill="#236d9d"/><circle cx="1073" cy="302" r="10" fill="#236d9d"/>
+    <text class="sub" x="1040" y="360" text-anchor="middle">PPO</text>
+  </g>
+
+  <g id="action">
+    <rect class="panel" x="1184" y="177" width="206" height="207" rx="15"/>
+    <circle cx="1287" cy="275" r="43" fill="#f1f4f6" stroke="#6f8794" stroke-width="3"/>
+    <path d="M1287 305 V246 M1287 246 L1270 264 M1287 246 L1304 264 M1262 284 L1244 284 M1312 284 L1330 284" stroke="#253e4f" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="main" x="1287" y="360" text-anchor="middle">Action</text>
+  </g>
+
+  <!-- The opposing slopes make the push-pull intuition visible without the full loss derivation. -->
+  <path class="flow" d="M802 386 V424" marker-end="url(#arrow-ink)"/>
+  <rect x="621" y="437" width="343" height="208" rx="16" fill="#edf4f2" stroke="#257873" stroke-width="4"/>
+  <text class="node" x="792" y="481" text-anchor="middle">CA3 separation d</text>
+  <path d="M666 593 H924" fill="none" stroke="#6d8790" stroke-width="3"/>
+  <path class="push" d="M681 579 L922 511"/>
+  <path class="pull" d="M681 511 L922 579"/>
+  <text class="sub" x="679" y="624" text-anchor="middle">near</text>
+  <text class="sub" x="915" y="624" text-anchor="middle">far</text>
+
+  <path class="push" d="M619 535 H580 V392" marker-end="url(#arrow-push)"/>
+  <text class="strap push-text" x="270" y="485">PUSH</text>
+  <text class="sub push-text" x="270" y="535">r_enc = βd</text>
+
+  <path class="pull" d="M966 535 H1040 V392" marker-end="url(#arrow-pull)"/>
+  <text class="strap pull-text" x="1094" y="485">PULL</text>
+  <text class="sub pull-text" x="1094" y="535">r_dec = β(E−d)</text>
+</svg>

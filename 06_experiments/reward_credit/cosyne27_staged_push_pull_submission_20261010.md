@@ -1,6 +1,6 @@
 # COSYNE 2027 staged push–pull submission
 
-**Status, 11 October 2026:** 38 of the 40 original production jobs completed with exit code zero and a checkpoint at or beyond 100M frames. C15 constant-credit seeds 8 and 99 stopped below 1M frames after a known learner invariant failure, although Slurm continued to show them as running. Those allocations were canceled. Two fresh replacement jobs, 8329014 and 8329015, were submitted under a separately qualified source patch and are running. The full five-seed C15 comparison is pending their 100M outcomes. This record distinguishes submitted jobs, scheduler completion, and verified training completion.
+**Status, 12 October 2026:** 38 of the 40 original production jobs completed with exit code zero and a checkpoint at or beyond 100M frames. C15 constant-credit seeds 8 and 99 stopped below 1M frames after a known learner invariant failure, although Slurm continued to show them as running. Those allocations were canceled. Their two fresh replacement jobs, 8329014 and 8329015, are still running; the full five-seed C15 comparison is pending their 100M outcomes. The [15-run fresh comparison follow-up](cosyne27_missing_training_20261012.md) qualified C15 constant worker hit bonus and C01 no-credit controls, then submitted all 15 production jobs. This record distinguishes submitted jobs, scheduler completion, and verified training completion.
 
 ## Scientific comparisons and seed structure
 

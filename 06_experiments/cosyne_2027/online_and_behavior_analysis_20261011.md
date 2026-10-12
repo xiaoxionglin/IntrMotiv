@@ -1,5 +1,7 @@
 # COSYNE 2027: online learning curves and frozen-policy secondary readouts
 
+**Outline placement:** [1–2 model and emergence](01_model_and_spatial_emergence.md) · [3 behavior-dependent code expression](02_behavior_expression.md). Those reports contain the final-size compact figures; this file retains full candidate plots and data provenance.
+
 **Status, 11 October 2026:** The W&B spatial histories of 38 verified fresh original runs have been archived and plotted. The two failed original C15 constant-credit attempts are excluded; their replacements are not yet included. The 54 already completed own/random frozen-policy probes have been reanalyzed for additional readouts. [Retained-snapshot activity-cutoff and peak-spread analyses](snapshot_peak_spread_20261011.md) and the later [frozen-checkpoint/common-observation field comparison](checkpoint_fields_20261011.md) are available. This document remains the online and frozen-policy evidence layer; graph and full command-control outcomes remain in progress.
 
 ## Main learning-course figure
@@ -24,12 +26,12 @@ The [factorized spatial-information plot](../results/cosyne_2027_online_wandb/fi
 
 The table is temporal minus constant encoder credit in the mean of each seed's interpolated 90–99M window. Worker bonus is held fixed as indicated. Full paired values, including C05 worker-bonus contrasts, are in [the per-seed table](../results/cosyne_2027_online_wandb/paired_contrasts_by_seed.csv) and [summary table](../results/cosyne_2027_online_wandb/paired_contrast_summaries.csv).
 
-| Family; fixed worker | Paired seeds | DG score | Map cosine | Unique peak bins | Nearest peak distance |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| C01; inapplicable | 5 | +0.010 (4/5 positive) | −0.064 (4/5 lower) | +1.24 (5/5 higher) | +60.7 (5/5 higher) |
-| C05; temporal hit | 5 | +0.006 (4/5 positive) | −0.077 (5/5 lower) | +1.91 (5/5 higher) | +98.9 (5/5 higher) |
-| C05; constant hit | 5 | +0.017 (3/5 positive) | −0.067 (4/5 lower) | +0.54 (4/5 higher) | +40.8 (4/5 higher) |
-| C15; temporal hit | 3 | −0.004 (2/3 positive) | −0.066 (3/3 lower) | +1.29 (3/3 higher) | +128.9 (3/3 higher) |
+| Family; fixed worker | Paired seeds |              DG score |         Map cosine |   Unique peak bins | Nearest peak distance |
+| -------------------- | -----------: | --------------------: | -----------------: | -----------------: | --------------------: |
+| C01; inapplicable    |            5 | +0.010 (4/5 positive) | −0.064 (4/5 lower) | +1.24 (5/5 higher) |    +60.7 (5/5 higher) |
+| C05; temporal hit    |            5 | +0.006 (4/5 positive) | −0.077 (5/5 lower) | +1.91 (5/5 higher) |    +98.9 (5/5 higher) |
+| C05; constant hit    |            5 | +0.017 (3/5 positive) | −0.067 (4/5 lower) | +0.54 (4/5 higher) |    +40.8 (4/5 higher) |
+| C15; temporal hit    |            3 | −0.004 (2/3 positive) | −0.066 (3/3 lower) | +1.29 (3/3 higher) |   +128.9 (3/3 higher) |
 
 The peak-spacing signal is more consistent than the DG spatial-score difference. It is a **lead**, not yet a place-field conclusion: every fresh arm has active-unit fraction 1.0 by the online “fired at least once” definition, which cannot detect practically silent units; the score includes amplitude; each policy supplies a different recent trajectory; and the mono-field fraction is low and mixed. Common-observation maps, active-only checks, 0.025%/0.25%/1% activity cutoffs, and valid peak locations are needed before choosing a claim about temporal credit or spatial spread.
 

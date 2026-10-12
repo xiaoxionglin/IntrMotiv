@@ -125,6 +125,16 @@ inherited from the common arguments. Parser preflight caught the corrected
 four-arm production matrix without starting DMLab. Keep a failed submitted
 qualification fingerprint intact and declare any corrected cell separately.
 
+For a mean-matched constant worker-hit bonus, calibrate against the temporal
+hit reward in that *same architecture and source release*. Weight each logged
+`intrmotiv/hrl/control/correct_reward_magnitude_mean` by its corresponding
+`intrmotiv/hrl/control/correct_count` over the declared reference window;
+exclude blocks with zero correct hits. Convert the resulting mean through the
+runtime reward scale and distance-bonus coefficient, then pin the reference
+StudySpec, job, event-file hash, event count, and constant in a lightweight
+calibration artifact. C05's constant is not a substitute for C15's, even when
+the resulting values happen to be close. See the [COSYNE C15 calibration](../06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010/c15_worker_calibration_20261012.json).
+
 When allocating a new NEMO2 workspace, check `df` on that exact workspace and
 verify a small write/fsync. Workspace-specific capacity reporting can show the
 old allocation as full while a new allocation has space. Update the StudySpec's

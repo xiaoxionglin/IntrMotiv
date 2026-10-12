@@ -1,0 +1,20 @@
+{
+  "study_id": "cosyne27_c15_qualification_v2_20261010",
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "study_sha256": "c495ebaa9408f018be9f22299afd0d3db6e98656af54eb45668496961533156d",
+  "job_id": 8324844,
+  "event_file_sha256": "888143d0af669ceb4e45a9e73eb7e28ceab11251a96a0f5adff724023b3d02e4",
+  "window_frames": [0, 2000000],
+  "reward_scale": 0.1,
+  "hit_reward": 1.0,
+  "distance_bonus_coeff": 0.1,
+  "worker": {
+    "event_count": 308.0,
+    "logged_blocks": 46,
+    "first_step": 524288,
+    "last_step": 1998848,
+    "weighted_mean": 1.5901624041718323,
+    "constant_distance_units": 59.016240417183226
+  }
+}

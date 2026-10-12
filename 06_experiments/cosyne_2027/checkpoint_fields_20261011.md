@@ -1,6 +1,8 @@
 # COSYNE 2027: frozen-checkpoint field comparison
 
-**Status, 11 October 2026:** All 98 declared policy-specific frozen-checkpoint field jobs for the available original fresh runs have finished: 38 terminal checkpoints plus additional 5M, 25M, 50M, and 75M checkpoints for seed 17 in every arm and seed 99 except C15 constant credit. All 38 available terminal checkpoints have also been replayed on **one identical 10,001-observation panel**. Retained 100k-window trajectories now cover 190 snapshots from 38 runs, and complete directed-edge tables cover 140 snapshots from the 28 goal-conditioned runs. The two failed original C15 constant-credit seeds 8 and 99 still await replacement training, so C15 has three paired terminal seeds. The [policy-specific source tables](../results/cosyne_2027_checkpoint_fields/analysis_manifest.json) contain 98 unique checkpoint rows; the [common-panel source tables](../results/cosyne_2027_checkpoint_fields/common_panel_analysis/analysis_manifest.json) contain 38 terminal rows. Matched-command interventions are running and remain the control gate.
+**Outline placement:** [4–5 encoder-credit ablations](03_encoder_credit.md) and [6–7 worker timing and scope](04_worker_bonus_and_scope.md). Those question reports lead with final-size figures; this file retains the full checkpoint tables, factor cells, and source boundaries.
+
+**Status, 11 October 2026:** All 98 declared policy-specific frozen-checkpoint field jobs for the available original fresh runs have finished: 38 terminal checkpoints plus additional 5M, 25M, 50M, and 75M checkpoints for seed 17 in every arm and seed 99 except C15 constant credit. All 38 available terminal checkpoints have also been replayed on **one identical 10,001-observation panel**. Retained 100k-window trajectories cover 190 snapshots from 38 runs, and complete directed-edge tables cover 140 snapshots from the 28 goal-conditioned runs. The two failed original C15 constant-credit seeds 8 and 99 await replacement training, so C15 has three paired terminal seeds. The [policy-specific source tables](../results/cosyne_2027_checkpoint_fields/analysis_manifest.json) contain 98 unique checkpoint rows; the [common-panel source tables](../results/cosyne_2027_checkpoint_fields/common_panel_analysis/analysis_manifest.json) contain 38 terminal rows. Matched-command interventions remain the control gate.
 
 ## Identical observations: strongest representational result
 
@@ -10,12 +12,12 @@
 
 Temporal minus mean-matched constant encoder credit on the same observations at 100M:
 
-| Architecture; worker hit bonus | Paired seeds | DG spatial information | Active-only map cosine | Field-eligible units | Gaussian effective peak area, 0.25% cutoff |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| C01; inapplicable | 5 | +0.058 bits, 5/5 higher | −0.033, 5/5 lower | +1.6, 5/5 higher | +0.109, 5/5 higher |
-| C05; temporal | 5 | +0.033 bits, 4/5 higher | −0.059, 5/5 lower | +0.8, 3/5 higher | +0.083, 4/5 higher |
-| C05; constant | 5 | +0.020 bits, 2/5 higher | −0.010, 3/5 lower | −1.4, 1/5 higher | −0.033, 2/5 higher |
-| C15; temporal | 3 | +0.036 bits, 2/3 higher | −0.045, 3/3 lower | +0.7, 2/3 higher | +0.070, 3/3 higher |
+| Architecture; worker hit bonus | Paired seeds |  DG spatial information | Active-only map cosine | Field-eligible units | Gaussian effective peak area, 0.25% cutoff |
+| ------------------------------ | -----------: | ----------------------: | ---------------------: | -------------------: | -----------------------------------------: |
+| C01; inapplicable              |            5 | +0.0575 bits, 5/5 higher |      −0.033, 5/5 lower |     +1.6, 5/5 higher |                         +0.109, 5/5 higher |
+| C05; temporal                  |            5 | +0.033 bits, 4/5 higher |      −0.059, 5/5 lower |     +0.8, 3/5 higher |                         +0.083, 4/5 higher |
+| C05; constant                  |            5 | +0.020 bits, 2/5 higher |      −0.010, 3/5 lower |     −1.4, 1/5 higher |                         −0.033, 2/5 higher |
+| C15; temporal                  |            3 | +0.036 bits, 2/3 higher |      −0.045, 3/3 lower |     +0.7, 2/3 higher |                         +0.070, 3/3 higher |
 
 The C01 comparison supports a narrower, stronger result: temporal encoder credit leads to more spatially informative, less redundant DG activity with broader eligible-peak coverage under **identical evaluation input** in every paired seed. C05 depends on worker timing; its constant-hit arm is mixed on all three measures. C15 is promising but has only three paired seeds. [Pre-threshold map cosine](../results/cosyne_2027_checkpoint_fields/common_panel_analysis/figures/paired_prethreshold_map_cosine_mean.svg) is lower in all C01, C05 temporal-hit, and C15 pairs, but only three of five C05 constant-hit pairs. The [full factorized fixed-panel plots](../results/cosyne_2027_checkpoint_fields/common_panel_analysis/figures/factorized_mean_spatial_information_bits.svg) and [worker-bonus table](../results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv) retain every architecture, manipulation, and seed.
 

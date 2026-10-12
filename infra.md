@@ -44,6 +44,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   demonstrates the export and render contract. The figure exporters now fix
   SVG hash salt and omit generated Date metadata; two consecutive cached
   snapshot exports produced identical SHA-256.
+- **11 October reuse:** The cached paired table retains both observed arm
+  values alongside each seed difference. The [compact COSYNE renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now draws original values beside the signed contrast without revisiting W&B.
+  Preserve both arm values, seed identity, and contrast direction when moving
+  this export into the canonical collector.
 - **Acceptance:** A StudySpec collection exports each requested W&B metric with
   run URL, exact identity, and source fingerprint; a cached render regenerates
   the same seed curves and SEM bands with no W&B access. See the
@@ -187,6 +192,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   paired studies, make the canonical telemetry collection optionally export
   such a compact visual-source bundle from the declared manifest rows and
   common-observation certificate.
+- **11 October figure follow-up:** The COSYNE common-panel run table retains
+  five C15 temporal-credit absolute values, while its paired contrast table
+  necessarily retains only the three seeds with completed constant-credit
+  partners. The [compact figure renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now reads the run table for original values and the paired table for
+  $\Delta$, labeling historical reference arms separately. Keep both tables
+  in future compact figure bundles so unpaired runs remain visible without
+  entering an effect estimate.
 - **Acceptance:** A clean checkout regenerates paired maps and path figures,
   verifies identical common-panel occupancy, and labels own-policy path
   comparisons separately from fixed-observation map comparisons. Peak-center
@@ -478,6 +491,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   `analysis.window_metrics` aliases for encoder feedback and worker magnitude
   did not match the tags emitted in the first TensorBoard files. The actual
   paths are recorded in the [execution report](06_experiments/controllers/push_pull_ablation_20261007.md).
+  The 12 October C15 constant-hit preparation again required direct event-file
+  tag inspection to find `intrmotiv/hrl/control/correct_count` and
+  `intrmotiv/hrl/control/correct_reward_magnitude_mean` before computing its
+  family-specific [calibration](06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010/c15_worker_calibration_20261012.json).
 - **Impact:** A submitted StudySpec can have correct training commands yet
   silently miss a declared analysis metric. Editing its tags after submission
   would change the study SHA-256 and obscure provenance.
@@ -2063,3 +2080,39 @@ For each finding, record:
   workspace checkpoints without changing the study fingerprint. See the
   [canonical workflow](04_implementation/standardized_study_workflow.md) and
   [launch record](06_experiments/ca3_goals/odor_goal_quality_40_run_v2_20261007.md).
+
+### COSYNE evidence plots need a final-size rendering path — 2026-10-11
+
+- **Evidence:** The source analysis set contains 45 SVG candidate plots across
+  online, frozen-policy, and common-panel results; most were rendered as
+  roughly 7–9-inch analysis figures. Scaling them into a two-page letter
+  abstract made source labels and factor cells hard to read. A first direct
+  1.9-inch redraw clipped long axis labels and the three-line endpoint key.
+- **Impact:** Evidence could be numerically complete yet visually unusable at
+  the submission size. Organizing by data source also made the narrative order
+  hard to review against the abstract bullets.
+- **Improvement/status:** A cached-CSV-only [compact renderer](06_experiments/cosyne_2027/render_compact_figures.py)
+  now generates final-size Arial 10-point plots with short in-panel
+  titles, direct line labels, paired-seed dots, and factorized arms. The
+  [question index](06_experiments/cosyne_2027/README.md#scientific-questions-in-outline-order)
+  links them in outline order; source-analysis reports remain available.
+  The [figure standard](06_experiments/cosyne_2027/FIGURE_STANDARD.md) records
+  a 1.5 × 1.8-inch behavior-dot panel and up to 1.9-inch denser panels. The
+  renderer records source hashes, font path, and physical sizes in its manifest.
+  A control/experimental candidate now derives absolute decoder-1 values from
+  the pinned probe tables and checks that their paired differences reproduce
+  the archived difference table. This is a local study adapter because the
+  standardized study and telemetry contracts already supply the underlying
+  analysis tables. The [palette](06_experiments/cosyne_2027/COLOR_PALETTE.md)
+  separates architecture, mechanism, landmark, and condition roles; the
+  absolute candidate now uses gray open-square controls instead of C05 orange.
+  An embedded SVG preview in the palette note avoids inline-HTML swatches,
+  which Obsidian Live Preview may show as source rather than color. A subsequent
+  color-role audit found C01 blue reused for pull and own-policy behavior, and
+  C15 green close to CA3/landmark teal. The palette now reserves the three
+  architecture hues for architecture comparisons; compact condition and worker
+  plots use neutral markers, while the schematic push/pull recolor is pending.
+- **Acceptance:** The six compact PNGs have their declared physical sizes,
+  verified scalable Arial, no clipped labels at 100% size, unchanged source
+  CSV hashes, and one-to-one claim/source links in the question reports. The
+  paired absolute values subtract to the archived seed differences.

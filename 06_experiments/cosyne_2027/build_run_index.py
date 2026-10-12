@@ -34,6 +34,8 @@ COHORTS = (
     ("cosyne", "cosyne27_c15_encoder_s3_20261010", NEW_RESULTS / "c15_encoder_s3_jobs.tsv"),
     ("cosyne", "cosyne27_c15_encoder_s2_20261010", NEW_RESULTS / "c15_encoder_s2_jobs.tsv"),
     ("cosyne_replacement", "cosyne27_c15_constant_recovery_20261011", NEW_RESULTS / "c15_constant_recovery_20261011_jobs.tsv"),
+    ("cosyne_new", "cosyne27_c01_no_credit_s5_20261012", NEW_RESULTS / "c01_no_credit_s5_20261012_jobs.tsv"),
+    ("cosyne_new", "cosyne27_c15_constant_hit_s5_20261012", NEW_RESULTS / "c15_constant_hit_s5_20261012_jobs.tsv"),
 )
 
 RECOVERY_JOBS = {
@@ -73,6 +75,7 @@ def report_for(cohort: str) -> str:
         "old_replacement": "06_experiments/reward_credit/corrected_core_c15_failed_run_recovery_20261010.md",
         "cosyne": "06_experiments/reward_credit/cosyne27_staged_push_pull_submission_20261010.md",
         "cosyne_replacement": "06_experiments/reward_credit/cosyne27_staged_push_pull_submission_20261010.md",
+        "cosyne_new": "06_experiments/reward_credit/cosyne27_missing_training_20261012.md",
     }
     return reports[cohort]
 
@@ -120,7 +123,9 @@ def study_rows() -> list[dict[str, str]]:
             metadata = run.metadata
             status = "verified_100m"
             if cohort == "cosyne_replacement":
-                status = "running_2026-10-11"
+                status = "running_2026-10-12"
+            elif cohort == "cosyne_new":
+                status = "running_2026-10-12"
             elif cohort == "old_replacement":
                 status = "verified_100m_2026-10-11"
             replaced_job = metadata.get("recovery_original_job", "")
@@ -170,8 +175,8 @@ def write_csv(path: Path, fields: tuple[str, ...], rows: list[dict[str, str]]) -
 
 def main() -> None:
     rows = historical_rows() + study_rows()
-    if len(rows) != 104 or len({row["job_id"] for row in rows}) != 104:
-        raise ValueError("expected 104 uniquely submitted training attempts")
+    if len(rows) != 119 or len({row["job_id"] for row in rows}) != 119:
+        raise ValueError("expected 119 uniquely submitted training attempts")
     write_csv(HERE / "training_runs.csv", FIELDNAMES, rows)
 
     with (STUDIES / "behavior_field_expression_20261007.tsv").open(newline="") as stream:

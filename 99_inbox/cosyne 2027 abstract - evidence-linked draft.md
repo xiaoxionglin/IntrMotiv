@@ -2,6 +2,8 @@
 
 [Original outline](cosyne%202027%20abstract.md) · [Run and evidence index](../06_experiments/cosyne_2027/README.md) · [Training-attempt catalog](../06_experiments/cosyne_2027/training_runs.csv)
 
+**Question reports in the bullet order below:** [1–2 model and emergence](../06_experiments/cosyne_2027/01_model_and_spatial_emergence.md) · [3 behavior-dependent expression](../06_experiments/cosyne_2027/02_behavior_expression.md) · [4–5 encoder credit](../06_experiments/cosyne_2027/03_encoder_credit.md) · [6–7 worker timing and control](../06_experiments/cosyne_2027/04_worker_bonus_and_scope.md). Each leads with a 1.9-inch-per-panel figure where the evidence permits and links its factorized source tables. The original outline is unchanged.
+
 **Working question:** Can spatially informative activity emerge from visual experience and internally generated behavior without position labels, external task reward, or an explicit spatial representation loss? Which parts of temporal feedback help representation and exploration?
 
 **Proposed story for two letter-size pages:** Lead with the common representation mechanism and the flat C01 model. Introduce C05/C15 goal-conditioned variants as tests of whether the same code can support behavior. On identical observations, the fresh five-seed C01 comparison supports higher DG spatial information, lower active-only map similarity, and broader eligible-peak coverage from temporal encoder credit. Present C05 as a conditional architecture check and C15 as a three-seed extension.

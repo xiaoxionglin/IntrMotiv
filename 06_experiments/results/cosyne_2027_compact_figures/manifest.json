@@ -1,0 +1,103 @@
+{
+  "schema": "cosyne27_compact_figures_v6",
+  "font": "Arial",
+  "verified_font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "font_pt": 10,
+  "default_width_inches_per_panel": 1.9,
+  "behavior_panel_size_inches": [
+    1.5,
+    1.8
+  ],
+  "unit_of_replication": "training seed",
+  "matplotlib_version": "3.10.8",
+  "pandas_version": "2.3.3",
+  "mean_marker": "black horizontal line; individual seeds are colored points",
+  "online_uncertainty": "mean \u00b1 1 SEM across five training seeds at each 1M-step grid point",
+  "behavior_absolute_candidate": {
+    "table": "06_experiments/results/cosyne_2027_compact_figures/02_behavior_expression_absolute_by_seed.csv",
+    "panels": [
+      "decoder-1 bits per activation on equally weighted shared bins",
+      "decoder-1 split-half map correlation on policy-native occupancy"
+    ],
+    "control": "uniform-random actions",
+    "experimental": "own policy",
+    "evaluation_repeats_averaged_per_training_seed": 2,
+    "training_seeds_per_architecture": 3,
+    "nonnegative_y_axes_start_at_zero": true
+  },
+  "paired_absolute_and_difference_candidates": {
+    "panel_inches": [
+      1.9,
+      1.9
+    ],
+    "point_unit": "one training seed, paired within each factor cell",
+    "absolute_encoding": "open square second arm, filled circle first arm, line paired seed",
+    "difference_encoding": "first minus second, points seeds, black segment mean",
+    "fresh_worker_seed_counts": {
+      "constant": 5,
+      "temporal": 5
+    }
+  },
+  "encoder_three_level_originals": {
+    "table": "06_experiments/results/cosyne_2027_compact_figures/03_encoder_credit_original_values.csv",
+    "table_sha256": "68eb073c345f35fe8660fadfbc91f0047731270baa636a2ecbe961f125f6a43d",
+    "historical_no_credit": "NONE_STOP, same saved observation panel",
+    "fresh_constant_and_temporal": "100M COSYNE factorial checkpoints",
+    "cross_cohort_differences_are_not_effect_estimates": true,
+    "fresh_encoder_paired_seed_counts": {
+      "C01": 5,
+      "C05 \u00b7 constant hit": 5,
+      "C05 \u00b7 temporal hit": 5,
+      "C15": 3
+    },
+    "fresh_C15_temporal_absolute_seeds": 5,
+    "fresh_C15_paired_difference_seeds": 3,
+    "C05_constant_hit_no_credit": "not run"
+  },
+  "sources": {
+    "online": {
+      "path": "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv",
+      "sha256": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950"
+    },
+    "online_pairs": {
+      "path": "06_experiments/results/cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
+      "sha256": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f"
+    },
+    "behavior": {
+      "path": "06_experiments/results/cosyne_2027_behavior_secondary/paired_training_seeds.csv",
+      "sha256": "7c643d96ac3294aab1ef653e6e38ec1c5900f098f13f809b0209105d511ecca9"
+    },
+    "behavior_shared_raw": {
+      "path": "06_experiments/results/behavior_field_expression_20261007/paired_prefixes.csv",
+      "sha256": "7d26c9539404034748a62f156d14f0c20875c42751ee1191ce93128580f550d8"
+    },
+    "behavior_native_raw": {
+      "path": "06_experiments/results/behavior_field_expression_20261007/per_run.csv",
+      "sha256": "7d4e337d4cf9e03bd243acf5556975d3fbb0ac65d2728c21fc4d7b714af88e39"
+    },
+    "encoder": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
+      "sha256": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432"
+    },
+    "encoder_raw": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/shared_observation_fields.csv",
+      "sha256": "0b7bd34f739017342be779ea718e675944f132eba27afde871ea268086cdcc8f"
+    },
+    "worker_fields": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
+      "sha256": "cb9b7793b1ad1e1ace44a5e6cc5784c0365bf85121d7c4f300b1a5ffa8b7ac90"
+    },
+    "peaks": {
+      "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
+      "sha256": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a"
+    },
+    "credit_presence": {
+      "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",
+      "sha256": "26097b15fab3d641d6168c62d5954a5acbf9d72beb420d27a314ecb4b96b79a3"
+    },
+    "credit_presence_raw": {
+      "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_place_fields.csv",
+      "sha256": "690447dd6e5d5254303b834cd677b5c5ed517756b91b0ae06cf0b4d10f9fa4db"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+condition,seed,repeats,control,experimental,metric,support,difference
+C01,8,2,0.522822009864465,1.0499982417471054,bits_per_activation,same units and equally weighted shared bins,0.5271762318826404
+C01,99,2,0.6089148708462516,0.9602730807203206,bits_per_activation,same units and equally weighted shared bins,0.35135820987406896
+C01,123,2,0.6104507921369398,1.4028270835615984,bits_per_activation,same units and equally weighted shared bins,0.7923762914246586
+C05,8,2,0.7289979041490424,1.0414018867810955,bits_per_activation,same units and equally weighted shared bins,0.31240398263205305
+C05,99,2,0.7212874508979805,0.9683831039500177,bits_per_activation,same units and equally weighted shared bins,0.24709565305203718
+C05,123,2,0.4387614715975917,0.8500237081670445,bits_per_activation,same units and equally weighted shared bins,0.4112622365694528
+C15,8,2,1.4635913804571223,1.901948350193782,bits_per_activation,same units and equally weighted shared bins,0.4383569697366596
+C15,99,2,1.2137102641449833,1.430809730038514,bits_per_activation,same units and equally weighted shared bins,0.2170994658935308
+C15,123,2,0.8251567148330459,1.2013213872233595,bits_per_activation,same units and equally weighted shared bins,0.3761646723903136
+C01,8,2,0.2018244125724071,0.580822785427941,split_half_map_correlation,policy-native occupancy,0.37899837285553384
+C01,99,2,0.25442644788502045,0.4575579612159396,split_half_map_correlation,policy-native occupancy,0.20313151333091917
+C01,123,2,0.19096351058797656,0.37920673314486214,split_half_map_correlation,policy-native occupancy,0.18824322255688558
+C05,8,2,0.24464943757222324,0.4143354367800228,split_half_map_correlation,policy-native occupancy,0.1696859992077996
+C05,99,2,0.2473087363149124,0.4315856942985449,split_half_map_correlation,policy-native occupancy,0.18427695798363247
+C05,123,2,0.26188794709143104,0.46795083726896547,split_half_map_correlation,policy-native occupancy,0.20606289017753443
+C15,8,2,0.2347764316097219,0.32609864574211456,split_half_map_correlation,policy-native occupancy,0.09132221413239267
+C15,99,2,0.15983953932648498,0.3026278360895599,split_half_map_correlation,policy-native occupancy,0.14278829676307492
+C15,123,2,0.2046468539026315,0.3774952217202515,split_half_map_correlation,policy-native occupancy,0.17284836781762003

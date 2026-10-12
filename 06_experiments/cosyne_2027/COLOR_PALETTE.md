@@ -1,0 +1,19 @@
+# COSYNE 2027 color palette
+
+Architecture is the only **global quantitative color key**. Keep its three hues fixed across result figures. Encode other factors with position, marker shape, and line style whenever architectures also appear. See [figure standard](FIGURE_STANDARD.md) for size and typography.
+
+![Architecture, mechanism, landmark, condition, and neutral swatches](COLOR_PALETTE.svg)
+
+| Context                 | Role                                            | Color                                                  | Encoding                                                                                                                 |
+| ----------------------- | ----------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Architecture comparison | C01 / C05 / C15                                 | `#0072B2` blue / `#D55E00` vermilion / `#009E73` green | Existing result-figure colors; label every curve or group.                                                               |
+| Mechanism schematic     | Push / pull / CA3 structure                     | `#424B53` dark ink / `#DCE4E8` light gray              | Push: solid labeled arrow. Pull: dashed labeled arrow. CA3: neutral background. Do not assign push/pull data colors.    |
+| Illustrative landmarks  | DG events 1 / 2 / 3                             | `#B58C22` ochre / `#8B6CA8` violet / `#BD5C89` rose    | Number each event and repeat its color on the corresponding CA3 sequence segment; use only in the illustration.          |
+| Condition comparison    | Normal or own policy / control or random        | `#30363B` charcoal / `#75838C` slate gray             | Normal: filled circle, solid line. Control: open square, dashed line. Pair matched seeds with light-gray connectors.     |
+| Neutral structure       | Text / pair connector / grid or unvisited area | `#183043` / `#BBC4CA` / `#E2E8EB`                      | Keep backgrounds white or nearly white; never use grid gray as a data series.                                           |
+
+Show the three landmark events' order by position and arrows as well as color.
+
+**Factorial panels:** When C01/C05/C15 are compared, architecture owns the hue; encode temporal versus constant or intact versus ablated with solid/filled versus dashed/open marks. In a single-architecture comparison, use charcoal versus gray for conditions and label the manipulation. For a $2\times2$ C05 plot, show one factor as a signed contrast and the other by position and marker shape; use line style for crossed learning curves. Do not reuse an architecture hue to mean a reward, behavior, or control condition.
+
+**Current adoption:** The architecture curves retain their established colors. The control-versus-own-policy [behavior candidate](02_behavior_expression.md#candidate-control-and-experimental-values) uses the neutral condition row. The compact architecture schematic still has the earlier red/blue push/pull arrows and needs a later revision to this rule; the three event hues are reserved for that DG-to-CA3 illustration. Archived diagnostic figures use earlier local palettes and are not the color key for the abstract.
