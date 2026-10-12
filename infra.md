@@ -2153,6 +2153,16 @@ For each finding, record:
   connected absolute control-versus-condition values in smaller panels,
   validated against the archived paired differences. The figure standard
   records that specific submission requirement to prevent another regression.
+  A 12 October claim audit found that the submission's baseline-only decoder
+  panel concealed available C05 and C15 pairs, while its pull panel omitted
+  online DG information and the separate longer-PPO-credit comparison. The
+  grouped renderer now plots every available fixed-worker decoder pair and
+  distinguishes target-hit weighting from the joint discount/GAE intervention;
+  the caption identifies shared replay, online summaries, and independent
+  policy-driven frozen paths. For future claim additions, inventory the
+  factor table and its evaluation protocol before choosing a representative
+  panel; accept a composite only when every plotted comparison has a matched
+  source row, an explicit control, and a stated sampling basis.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

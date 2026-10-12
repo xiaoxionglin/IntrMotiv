@@ -35,8 +35,11 @@ SOURCES = {
     "example": DATA / "c01_seed8_peak_example.json",
     "decoder": RESULTS / "cosyne_2027_temporal_credit_layers" / "paired_by_seed.csv",
     "worker": RESULTS / "cosyne_2027_online_wandb" / "paired_contrasts_by_seed.csv",
+    "longer_credit_online": RESULTS.parent / "dg_goal_control" / "results" / "episode_long_comparison_20261009" / "longer_credit_100m_paired.csv",
+    "longer_credit_fields": RESULTS.parent / "dg_goal_control" / "results" / "episode_long_comparison_20261009" / "longer_credit_100m_frozen_fields_paired.csv",
 }
-COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
+COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73",
+         "P": "#7B4FA3"}
 GRAY = "#5B646C"
 FIGURE_HEIGHT = 4.48
 CONTENT_SCALE = 0.88  # Preserve horizontal panel widths and type size.
@@ -109,8 +112,7 @@ def paired_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
         if data.empty:
             continue
         y_positions = row + np.linspace(-0.17, 0.17, len(data))
-        color = COLOR["C01" if group == "C01" else
-                      "C15" if group == "C15" else "C05"]
+        color = COLOR[group.split("-")[0]]
         for y, control, experimental in zip(
                 y_positions, data[control_column], data[experimental_column]):
             ax.plot([control, experimental], [y, y], color="#BDC5C9",
@@ -124,27 +126,6 @@ def paired_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
     ax.invert_yaxis()
     ax.set_xlim(*xlim)
     ax.set_yticks(range(len(groups)), groups if labels else [""] * len(groups))
-    finish_axes(ax)
-
-
-def paired_seeds(ax: plt.Axes, values: pd.DataFrame, control_column: str,
-                 experimental_column: str, *, xlim: tuple[float, float],
-                 color: str) -> None:
-    """Compact one-factor control-versus-condition plot with paired seeds."""
-    data = values.sort_values("seed")
-    y_positions = np.arange(len(data))
-    for y, control, experimental in zip(
-            y_positions, data[control_column], data[experimental_column]):
-        ax.plot([control, experimental], [y, y], color="#BDC5C9",
-                lw=0.65, zorder=1)
-    ax.scatter(data[control_column], y_positions, s=13, marker="s",
-               facecolor="white", edgecolor=GRAY, linewidth=0.85, zorder=3)
-    ax.scatter(data[experimental_column], y_positions, s=13, color=color,
-               linewidth=0, zorder=4)
-    ax.set_ylim(-0.45, len(data) - 0.55)
-    ax.invert_yaxis()
-    ax.set_xlim(*xlim)
-    ax.set_yticks([])
     finish_axes(ax)
 
 
@@ -166,6 +147,8 @@ def results_figure() -> dict[str, float]:
     peaks = pd.read_csv(SOURCES["peaks"])
     decoder = pd.read_csv(SOURCES["decoder"])
     worker = pd.read_csv(SOURCES["worker"])
+    longer_online = pd.read_csv(SOURCES["longer_credit_online"])
+    longer_fields = pd.read_csv(SOURCES["longer_credit_fields"])
     example = json.loads(SOURCES["example"].read_text())
     mask = np.asarray(example["visited_bin_mask"], dtype=bool)
     assert mask.shape == (19, 19) and mask.sum() == 242
@@ -294,34 +277,68 @@ def results_figure() -> dict[str, float]:
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
     section(fig, 0.12, 2.10, "E  Temporal push: decoder readout")
-    section(fig, 2.95, 2.10, "F  Temporal pull: target-hit coverage")
-    downstream = decoder[(decoder.family == "C01") &
-                         (decoder.factor == "encoder") &
+    section(fig, 2.72, 2.10, "F  Temporal pull: two interventions")
+    downstream = decoder[(decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
-                         (decoder.metric == "mean_bits_per_activation_eligible")]
-    assert len(downstream) == 5 and downstream.difference.gt(0).all()
+                         (decoder.metric == "mean_bits_per_activation_eligible")].copy()
+    downstream["group"] = downstream.apply(
+        lambda row: (f"C05-{row.fixed_arm[0].upper()}"
+                     if row.family == "C05" else row.family), axis=1)
+    decoder_groups = ["C01", "C05-T", "C05-C", "C15"]
+    assert downstream.groupby("group").size().reindex(decoder_groups).tolist() == [5, 5, 5, 3]
+    assert downstream.groupby("group").difference.apply(
+        lambda values: values.gt(0).sum()).reindex(decoder_groups).tolist() == [5, 5, 4, 2]
     assert np.allclose(downstream.temporal - downstream.constant,
                        downstream.difference, atol=1e-10)
-    ax = axes_in(fig, 1.10, 0.89, 1.20, 0.88)
-    paired_seeds(ax, downstream, "constant", "temporal",
-                 xlim=(0, 2.35), color=COLOR["C01"])
-    ax.set_title("C01 · higher in 5/5 pairs", fontsize=10, pad=2)
-    ax.set_xlabel("Decoder bits/activation", fontsize=9, labelpad=1)
+    ax = axes_in(fig, 0.67, 0.89, 1.63, 0.88)
+    paired_rows(ax, downstream, decoder_groups, "constant", "temporal",
+                labels=True, xlim=(0, 3.0), marker_size=10)
+    ax.set_title("Decoder-1 information", fontsize=10, pad=2)
+    ax.set_xlabel("Bits/activation", fontsize=9, labelpad=1)
+
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
-                  (worker.metric == "visited_cell_fraction")]
-    assert len(pull) == 10
-    for x0, fixed, label in [(3.20, "temporal", "Temporal encoder"),
-                             (5.20, "constant", "Constant encoder")]:
-        subset = pull[pull.fixed_factor == fixed].copy()
-        assert len(subset) == 5
-        assert np.allclose(subset["first"] - subset["second"],
-                           subset.difference, atol=1e-10)
-        ax = axes_in(fig, x0, 0.89, 1.10, 0.88)
-        paired_seeds(ax, subset, "second", "first",
-                     xlim=(0, 0.95), color=COLOR["C05"])
-        ax.set_title(label, fontsize=10, pad=2)
-        ax.set_xlabel("Visited fraction", fontsize=9, labelpad=1)
+                  (worker.metric.isin(["visited_cell_fraction",
+                                     "spatial_information"]))].copy()
+    pull["group"] = pull.fixed_factor.map({"temporal": "C05-T", "constant": "C05-C"})
+    assert pull.groupby(["metric", "group"]).size().eq(5).all() and len(pull) == 20
+    assert np.allclose(pull["first"] - pull["second"], pull.difference, atol=1e-10)
+    for x0, metric, title, limits, xlabel, labels in [
+        (3.02, "visited_cell_fraction", "Hit: coverage", (0.52, 0.92), "Visited frac.", True),
+        (4.07, "spatial_information", "Hit: DG score", (0.08, 0.23), "DG score", False),
+    ]:
+        ax = axes_in(fig, x0, 0.89, 0.79, 0.88)
+        paired_rows(ax, pull[pull.metric == metric], ["C05-T", "C05-C"],
+                    "second", "first", labels=labels, xlim=limits, marker_size=10)
+        ax.set_title(title, fontsize=9, pad=2)
+        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
+        ax.locator_params(axis="x", nbins=2)
+
+    # Longer PPO credit changes gamma and GAE lambda together. Its online
+    # coverage and policy-driven frozen-field samples are separate evaluations.
+    longer = longer_online.merge(longer_fields, on=["dg_family", "seed"],
+                                 validate="one_to_one")
+    assert len(longer) == 6 and longer.groupby("dg_family").size().eq(3).all()
+    assert np.allclose(longer.longer_coverage_auc - longer.baseline_coverage_auc,
+                       longer.coverage_auc_delta, atol=1e-10)
+    assert np.allclose(longer.learned_si_bits_after - longer.learned_si_bits_before,
+                       longer.learned_si_bits_delta, atol=1e-10)
+    assert longer.coverage_auc_delta.gt(0).all()
+    assert longer.learned_si_bits_delta.lt(0).all()
+    longer["group"] = longer.dg_family.map({"Prescribed": "P", "C15": "C15"})
+    assert longer.group.notna().all()
+    for x0, control, experimental, title, limits, xlabel, labels in [
+        (5.35, "baseline_coverage_auc", "longer_coverage_auc",
+         "γ,λ↑: coverage", (40, 95), "AUC (points)", True),
+        (6.46, "learned_si_bits_before", "learned_si_bits_after",
+         "γ,λ↑: DG info", (0.09, 0.22), "SI (bits)", False),
+    ]:
+        ax = axes_in(fig, x0, 0.89, 0.78, 0.88)
+        paired_rows(ax, longer, ["P", "C15"], control, experimental,
+                    labels=labels, xlim=limits, marker_size=11)
+        ax.set_title(title, fontsize=9, pad=2)
+        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
+        ax.locator_params(axis="x", nbins=2)
 
     save(fig, "results_sections")
     return {
@@ -329,9 +346,17 @@ def results_figure() -> dict[str, float]:
         "selected_peak_area_temporal": example["arms"]["temporal"]["effective_area_fraction"],
         "selected_peak_area_constant": example["arms"]["constant"]["effective_area_fraction"],
         "behavior_models": len(behavior_absolute),
-        "decoder_c01_mean_delta": float(downstream.difference.mean()),
+        "decoder_delta_by_group": downstream.groupby("group").difference.mean().to_dict(),
+        "worker_delta_by_metric_and_group": {
+            f"{metric}:{group}": float(value) for (metric, group), value in
+            pull.groupby(["metric", "group"]).difference.mean().items()},
+        "longer_credit_delta_by_family": {
+            family: {"coverage_auc": float(rows.coverage_auc_delta.mean()),
+                     "learned_si_bits": float(rows.learned_si_bits_delta.mean())}
+            for family, rows in longer.groupby("dg_family")},
         "result_panel_width_inches": {
-            "behavior": 1.43, "dg": 0.86, "decoder": 1.20, "worker": 1.10},
+            "behavior": 1.43, "dg": 0.86, "decoder": 1.63,
+            "worker": 0.79, "longer_credit": 0.78},
     }
 
 

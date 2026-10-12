@@ -7,7 +7,9 @@
     "peaks": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a",
     "example": "e27ec12deb99afbaa45b4bed707281b140e3acb74a385b6fc70bc7787dd13332",
     "decoder": "8ba3aacb9fb4f792888c1ae967adf67ab3a9b782c41cec1ec1e60e1a5cc6a89f",
-    "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f"
+    "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f",
+    "longer_credit_online": "5cd2940a742f5e90ef56b304f9b066facefe0578cc420441f9ac9bc4ab1fa328",
+    "longer_credit_fields": "239d669639f921c7e15e91eb0ca33a7d286876dc8b28a15c5814fea6dcc0eb93"
   },
   "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "results_size_inches": [
@@ -19,12 +21,34 @@
     "selected_peak_area_temporal": 0.3844299901,
     "selected_peak_area_constant": 0.2296116607,
     "behavior_models": 38,
-    "decoder_c01_mean_delta": 0.6804208447790872,
+    "decoder_delta_by_group": {
+      "C01": 0.680420844779087,
+      "C05-C": 0.5585231772078734,
+      "C05-T": 0.43804495309717995,
+      "C15": 0.21680692301682045
+    },
+    "worker_delta_by_metric_and_group": {
+      "spatial_information:C05-C": 0.023456341876,
+      "spatial_information:C05-T": 0.012666058678,
+      "visited_cell_fraction:C05-C": -0.086683661148,
+      "visited_cell_fraction:C05-T": 0.0258499677022
+    },
+    "longer_credit_delta_by_family": {
+      "C15": {
+        "coverage_auc": 11.922205099303879,
+        "learned_si_bits": -0.05649981386598587
+      },
+      "Prescribed": {
+        "coverage_auc": 14.19339610331622,
+        "learned_si_bits": -0.021584981394833332
+      }
+    },
     "result_panel_width_inches": {
       "behavior": 1.43,
       "dg": 0.86,
-      "decoder": 1.2,
-      "worker": 1.1
+      "decoder": 1.63,
+      "worker": 0.79,
+      "longer_credit": 0.78
     }
   },
   "peak_example_choice": "largest C01 peak-area difference among five paired seeds",

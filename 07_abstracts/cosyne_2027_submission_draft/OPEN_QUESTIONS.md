@@ -5,10 +5,10 @@ This layout reproduces the author's current 12 October GitHub title and 312-word
 ## Scientific claims to confirm
 
 1. **Temporal pull and discounting.** The C05 temporal-versus-constant target-hit comparison rewards hits in both arms, and PPO discounting remains active. The separate longer-credit study changes both PPO discount and GAE lambda, so it does not isolate discounting as a substitute for temporal hit weighting. Decide whether the abstract's stronger substitution interpretation is justified.
-2. **Spatial information under longer credit.** Three C15 longer-credit runs have lower measured spatial information on separate policy rollouts. Those policies visit different places, so this result alone does not isolate a fixed-input DG-code change.
+2. **Spatial information under longer credit.** Three C15 and three prescribed-goal longer-credit runs have lower measured spatial information on separate policy rollouts. Those policies visit different places, so this result alone does not isolate a fixed-input DG-code change. The intervention jointly changes PPO $\gamma$ and GAE $\lambda$.
 3. **Policy and representation.** The own-policy-versus-random intervention freezes network weights. It supports behavior-dependent decoder spatial information, not a training-policy effect on DG weights.
-4. **Worker temporal-hit credit.** Figure 2F compares coverage. Its mean C05 contrast is +0.026 for a temporal encoder and -0.087 for a constant encoder, each with five paired seeds. Matched-command outcomes, physical-arrival labels, and C15 worker controls are needed for a goal-control claim.
-5. **C15 encoder comparison.** Figure 2D has only three matched C15 encoder seed pairs. Downstream effects are mixed; refresh after replacement checkpoints and common-panel replays complete.
+4. **Worker temporal-hit credit.** Figure 2F compares C05 coverage and online DG spatial score. Coverage mean differences are +0.026 for a temporal encoder and -0.087 for a constant encoder; DG-score means are +0.013 and +0.023, each with five paired seeds. The same panel separately shows longer PPO credit for prescribed-goal and C15 agents. Matched-command outcomes, physical-arrival labels, and C15 worker controls are needed for a goal-control claim.
+5. **C15 encoder comparison.** Figure 2D and E have only three matched C15 encoder seed pairs. Decoder-1 information rises in two and falls in one; refresh after replacement checkpoints and common-panel replays complete.
 
 ## Missing submission elements
 
