@@ -1,0 +1,29 @@
+{
+  "study_id": "cosyne27_c05_worker_g999_l995_qualification_20261012",
+  "study_sha256": "d34b65350cad2500e4877e8a9513a62ea3adfc0b9a79105e199718a27fc80661",
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "complete": true,
+  "rows": [
+    {
+      "run": "COS27_C05_G999L995_Q_TEMPORAL_S99",
+      "max_step": 2064384,
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_worker_g999_l995_qualification_20261012/COS27_C05_G999L995_Q_TEMPORAL_S99_/00_COS27_C05_G999L995_Q_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000000124_2031616.pth",
+      "snapshot_count": 2,
+      "correct_hit_observations": 808.0,
+      "hit_reward_mean": 1.6080074730781044,
+      "hit_elapsed_mean": 11.2487624204985,
+      "max_silent_fraction": 0.0
+    },
+    {
+      "run": "COS27_C05_G999L995_Q_CONSTANT_S99",
+      "max_step": 2064384,
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_worker_g999_l995_qualification_20261012/COS27_C05_G999L995_Q_CONSTANT_S99_/00_COS27_C05_G999L995_Q_CONSTANT_S99/checkpoint_p0/milestones/checkpoint_000000124_2031616.pth",
+      "snapshot_count": 2,
+      "correct_hit_observations": 1162.0,
+      "hit_reward_mean": 1.5915435408971397,
+      "hit_elapsed_mean": 11.829604169793056,
+      "max_silent_fraction": 0.0
+    }
+  ]
+}
