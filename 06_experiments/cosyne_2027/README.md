@@ -39,6 +39,8 @@ The September source checkout is unavailable, so old-intact versus corrected-cor
 
 The [fresh completion report](../reward_credit/cosyne27_missing_training_20261012.md#remaining-fresh-factorial-cells-pending-scope-choice) inventories ten further five-seed C05/C15 cells (50 runs), including no-credit and zero-hit-bonus controls. These are pending a scope choice and have not been submitted.
 
+The 48 original C05/C15 matched-command evaluation jobs 8331735–8331782 all reached their eight-hour limit with no terminal trial tables. Only the earlier nine-row protocol preflight is available; no seed-paired executed-control estimate can yet be made. See the [control failure audit and recovery gate](checkpoint_fields_20261011.md#matched-command-control-gate). The two C15 constant-credit replacement trainings 8329014/8329015 were still running at the 12 October 03:20 Berlin check.
+
 ## How to use this index
 
 Filter `training_runs.csv` by `family`, `encoder_credit`, `worker_bonus`, and `seed`; use `attempt_status` and `replaces_job_id` to exclude failed originals. `study_path`, `schema`, `workflow_version`, and `study_sha256` identify the validated definition. `submitted_manifest` points to the archived command and job record. `run_dir` points to the original NEMO2 output; the September rows use the retired historical allocation, which is read only. The 54 rows in `frozen_policy_evaluations.csv` are repeated evaluation seeds and policies attached to nine parent training seeds, not 54 independent training replicates.

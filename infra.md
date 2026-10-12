@@ -141,6 +141,14 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** Monolithic fresh-engine command tests can consume their entire
   limit without a usable result. Reusing a positional patch across source
   revisions can silently place evaluator code in the wrong function.
+- **Repeated evidence, 2026-10-12:** All 48 COSYNE C05/C15 matched-command
+  jobs 8331735–8331782 ended `TIMEOUT` at approximately eight hours. None
+  wrote a production trial CSV or summary JSON; representative logs kept
+  constructing fresh DMLab engines near cancellation. The evaluator writes
+  only after the full source panel returns, so these jobs expose no auditable
+  partial coverage. The one-start nine-row preflight had succeeded but did
+  not qualify the full 16-source, eight-repeat protocol. See the [COSYNE
+  control audit](06_experiments/cosyne_2027/checkpoint_fields_20261011.md#matched-command-control-gate).
 - **Improvement/status:** Keep the adaptation isolated from training source;
   require a clean patch dry run, syntax check and focused evaluator tests before
   a bounded shard. Add a canonical source-shard selector and audited merge to
