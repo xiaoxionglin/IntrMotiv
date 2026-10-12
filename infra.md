@@ -2170,6 +2170,14 @@ For each finding, record:
   readout MLP layer 1 label. Future composites should audit factor suffixes
   across panels, then inspect the compiled PDF for heading collisions and
   caption pagination before packaging the Overleaf source.
+  A subsequent [Figure 2 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure2_candidates/README.md)
+  separates exploratory layouts from the compact submission package. Its
+  renderer reuses the canonical panel source paths, checks paired arithmetic,
+  and fails when axis limits would hide an observation. The first pass caught
+  C15 detector-hit rates above 15 per 1,000 decisions that a prescribed-goal
+  axis ending below 1 would have clipped; the comparison now uses a labeled
+  log axis. For future figure trials, keep source-hashed candidate exports
+  outside the upload ZIP and include a plot-range assertion before visual QA.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

@@ -21,3 +21,7 @@ The composite was rendered at its final 7.5-by-4.48-inch print size using scalab
 The merged prose-first review draft allows the expanded architecture description, results narrative, and detailed captions to exceed the two-page limit for author review. A later submission pass must bring it within that limit.
 
 Rebuild the panels with the project SF_git Python environment using render_submission_panels.py, then run build_overleaf_package.py to refresh the compact ZIP. Pass `--full` only when an expanded candidate-library ZIP is needed. Compile main.tex with Tectonic or XeLaTeX.
+
+## Figure 2 layout candidates
+
+The [Figure 2 candidate gallery](figure2_candidates/README.md) keeps four separately rendered PDF/SVG/PNG alternatives inside the IntrMotiv repository, outside the compact Overleaf ZIP. They explore vertical paired-value axes, a complete matched DG/CA3/readout contrast matrix with both information measures, behavior and control outcomes, and a broad positive/mixed/negative metric inventory. Their script, captions, source hashes, and selection notes are in that folder. The current Figure 2 and `main.tex` remain the submission draft until a candidate is chosen.

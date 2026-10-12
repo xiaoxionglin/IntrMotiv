@@ -1,0 +1,103 @@
+{
+  "purpose": "Exploratory Figure 2 alternatives; excluded from the Overleaf ZIP",
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "software": {
+    "matplotlib": "3.10.8",
+    "pandas": "2.3.3",
+    "numpy": "1.26.4"
+  },
+  "source_paths": {
+    "online": "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv",
+    "behavior": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_training_seeds.csv",
+    "behavior_absolute": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_decoder1_absolute.csv",
+    "encoder": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
+    "peaks": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
+    "example": "07_abstracts/cosyne_2027_submission_draft/data/c01_seed8_peak_example.json",
+    "decoder": "06_experiments/results/cosyne_2027_temporal_credit_layers/paired_by_seed.csv",
+    "worker": "06_experiments/results/cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
+    "longer_credit_online": "06_experiments/dg_goal_control/results/episode_long_comparison_20261009/longer_credit_100m_paired.csv",
+    "longer_credit_fields": "06_experiments/dg_goal_control/results/episode_long_comparison_20261009/longer_credit_100m_frozen_fields_paired.csv",
+    "worker_fields": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
+    "worker_outcomes": "06_experiments/results/cosyne_2027_checkpoint_fields/worker_timing_summary/paired_by_seed.csv"
+  },
+  "source_sha256": {
+    "online": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950",
+    "behavior": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
+    "behavior_absolute": "b042878a67ce4d0bad744703d4c15fe5e1619e9149b994bf0b82abf41af6068e",
+    "encoder": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432",
+    "peaks": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a",
+    "example": "e27ec12deb99afbaa45b4bed707281b140e3acb74a385b6fc70bc7787dd13332",
+    "decoder": "8ba3aacb9fb4f792888c1ae967adf67ab3a9b782c41cec1ec1e60e1a5cc6a89f",
+    "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f",
+    "longer_credit_online": "5cd2940a742f5e90ef56b304f9b066facefe0578cc420441f9ac9bc4ab1fa328",
+    "longer_credit_fields": "239d669639f921c7e15e91eb0ca33a7d286876dc8b28a15c5814fea6dcc0eb93",
+    "worker_fields": "cb9b7793b1ad1e1ace44a5e6cc5784c0365bf85121d7c4f300b1a5ffa8b7ac90",
+    "worker_outcomes": "3212c0d89e97889184305bf1c60fe75368108dda07fdcba7958695d1617052a4"
+  },
+  "figures": {
+    "01_vertical_story": {
+      "files": {
+        "pdf": "01_vertical_story.pdf",
+        "svg": "01_vertical_story.svg",
+        "png": "01_vertical_story.png"
+      },
+      "sha256": {
+        "pdf": "05ba2592e381739518edf6a87f28154d59f8c8a3055edb99585abc2051488515",
+        "svg": "dd8cde1d70360b7be734cd91e29320ac3cbcf110f0ea46dc9a808e3f28b17d2a",
+        "png": "c422d1bdf010fb13dfab922568d4ea3612252bef00aef15c34d3ae4c131c1963"
+      },
+      "inches": [
+        7.5,
+        9.4
+      ]
+    },
+    "02_factor_matrix": {
+      "files": {
+        "pdf": "02_factor_matrix.pdf",
+        "svg": "02_factor_matrix.svg",
+        "png": "02_factor_matrix.png"
+      },
+      "sha256": {
+        "pdf": "e21bba0f11274d08dab4f5fb38237e0bdd1f53c0826498ba670e5bb445164125",
+        "svg": "addd30c62327adcb1afea2181e7643971da9ebe2ba8a3a7980cd97b26e0552a6",
+        "png": "b5b68ea82cbea4a215795d679412200eea2ff09a2fef8603daad66f8a64b15eb"
+      },
+      "inches": [
+        7.5,
+        11.5
+      ]
+    },
+    "03_control_outcomes": {
+      "files": {
+        "pdf": "03_control_outcomes.pdf",
+        "svg": "03_control_outcomes.svg",
+        "png": "03_control_outcomes.png"
+      },
+      "sha256": {
+        "pdf": "32468386f1ab5f6994be72ccfd75a7e65eac4af72115a7535df85e74d5272469",
+        "svg": "4c81ff7c680377f6a7acc19a8d4590fcf20ebd58ccf71af1e48e11bc74010f71",
+        "png": "51d9ff3b91dd3cc371094779d4490255bbe4bc33e41be9cf3971fb35bdd90fee"
+      },
+      "inches": [
+        7.5,
+        8.7
+      ]
+    },
+    "04_metric_inventory": {
+      "files": {
+        "pdf": "04_metric_inventory.pdf",
+        "svg": "04_metric_inventory.svg",
+        "png": "04_metric_inventory.png"
+      },
+      "sha256": {
+        "pdf": "ce2ba74d9a6f84a3b9f147623a662d0e94f19008fd23b1299e4b7df43070fd47",
+        "svg": "314d3251c497675d9c9692904c8e8d947b55c4399fbd9b234ff89b511139d388",
+        "png": "70ca6ea025c1145eb85a243a553fd6b2a10e130aac735cd3a1d2762368aedae0"
+      },
+      "inches": [
+        7.5,
+        24.0
+      ]
+    }
+  }
+}
