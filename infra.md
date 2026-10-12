@@ -83,8 +83,15 @@ keep implementation guidance in the canonical workflow documents linked below.
   and [canonical submitter export patch](hpc_runs/patches/submit_place_field_sweep_focus_sources_20261012.patch)
   now pass explicit source IDs without changing the StudySpec's discovery
   multiplier. Both patches passed dry-run review and syntax checks on NEMO2;
-  four focused matched-command tests passed. One source-0 pilot for C05 row 2
-  is running as job 8344905. A full-panel audited merge is still required.
+  four focused matched-command tests passed. The source-0 pilot for C05 row 2
+  completed as job 8344905 on n3104 in 2h12, with eight exact starts, 24
+  paired comparisons, 72 trial rows, frozen policy and graph, no missing
+  records, and the declared discovery multiplier of 10. This supports bounded
+  fresh-engine execution even on a node that had aborted monolithic rows; it
+  does not prove all 16 sources can be discovered within a one-source shard.
+  Source-15 C05 and source-0 C15 pilots are running as jobs 8345378 and
+  8345379 to check coverage before expanding shards. A full-panel audited
+  merge is still required.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
