@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Show implicit PPO discount settings in study review — 2026-10-12
+
+- **Evidence:** The fresh COSYNE C05 StudySpec declares gamma 0.99 but omits GAE lambda, so its validated NEMO2 Sample Factory runtime supplies the 0.95 default. The new longer-credit C05 test must explicitly declare both 0.999 and 0.99; otherwise a comparison of worker-timing effects could be mistaken for a gamma-only interaction.
+- **Impact:** A valid rendered StudySpec can hide a consequential optimizer default, making cross-study causal attribution too broad.
+- **Improvement/status:** Pending workflow improvement. Have canonical `render-runs` or a compact validation report resolve and display both effective values from the target runtime, without changing previously submitted StudySpec hashes. The current [workflow guidance](04_implementation/standardized_study_workflow.md) records the manual check.
+- **Acceptance:** The review artifact prints effective gamma and GAE lambda for every unique arm, identifies inherited defaults, and flags a proposed gamma-only comparison whose lambda values differ.
+
 ### Size compact result panels for the final conference page — 2026-10-12
 
 - **Evidence:** In the [COSYNE 2027 layout draft](07_abstracts/cosyne_2027_submission_draft/README.md), six existing vector plots fit as panels under one caption on page 2, while the main text still fits the two-page limit. Several dot-plot axis labels require zooming at page size; their points and full-size sources remain available. Enlarging the panels would crowd out main text.

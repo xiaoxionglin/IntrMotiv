@@ -135,6 +135,8 @@ StudySpec, job, event-file hash, event count, and constant in a lightweight
 calibration artifact. C05's constant is not a substitute for C15's, even when
 the resulting values happen to be close. See the [COSYNE C15 calibration](../06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010/c15_worker_calibration_20261012.json).
 
+For PPO credit-horizon comparisons, render and inspect both `--gamma` and `--gae_lambda`. The original fresh COSYNE C05 studies explicitly set gamma 0.99 but inherited Sample Factory GAE lambda 0.95; the longer-credit test explicitly sets 0.999 and 0.99. Within each regimen, pair worker-reward contrasts by seed. Across those regimens, describe a joint horizon change unless lambda-matched controls are also trained. Keep the submitted original StudySpecs immutable. See the [C05 longer-credit qualification](../06_experiments/reward_credit/cosyne27_high_discount_hit_timing_20261012.md).
+
 When allocating a new NEMO2 workspace, check `df` on that exact workspace and
 verify a small write/fsync. Workspace-specific capacity reporting can show the
 old allocation as full while a new allocation has space. Update the StudySpec's
