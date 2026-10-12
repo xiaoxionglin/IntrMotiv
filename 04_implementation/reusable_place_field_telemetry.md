@@ -895,6 +895,15 @@ engine construction can dominate wall time even with an 8k-decision cap. A
 one-source panel with four targets and five repeats exercises the same evaluator;
 record that qualification override explicitly and preserve the production panel.
 Do not silently shrink scientific evaluation when a qualification panel is slow.
+For a full-size all-eligible, fixed-horizon panel, a reduced one-source
+qualification checks correctness but does not bound runtime. The COSYNE 2027
+16-source/eight-repeat batch of 48 rows all hit an eight-hour limit before the
+evaluator's final write; the unchanged manifest rows were print-reviewed and
+resubmitted with a three-day limit. Time one full-size row before a new large
+batch, and retain its Slurm elapsed time, engine-reset count, and output status.
+Until the evaluator checkpoints validated source/start progress, timeouts leave
+no trial CSV and reruns repeat the row. The [infrastructure tracker](../infra.md#make-declared-matched-command-settings-executable-and-serializable--2026-10-09)
+records the resumability acceptance criterion.
 For the [easy-landmark 75M analysis](../06_experiments/environments_transfer/easy_landmark_maze_production_analysis_20261006.md),
 a declared four-source pilot passed before twelve ordinary four-source jobs;
 all exited zero, but two rows had only four repeats for one source. Preserve

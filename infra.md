@@ -55,6 +55,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   wrote nine trials per one-source qualification, then failed to serialize a
   NumPy integer in its JSON summary. The integer conversion was fixed and
   checked against the source patch before terminal evaluation.
+  On 12 October, all 48 COSYNE 2027 full-size intervention rows timed out at
+  eight hours without a trial CSV; Slurm recorded `TIMEOUT|0:0` for every row.
+  A representative row opened 256 DMLab engines before cancellation. The
+  one-source qualification had passed, but did not bound a 16-source,
+  eight-repeat production row. The unchanged rows were print-reviewed and
+  resubmitted with a three-day limit.
 - **Impact:** A successful evaluator process can silently answer a different
   question or produce no command contrast. A final-report write failure can
   discard provenance after expensive DMLab trials have run.
@@ -62,12 +68,16 @@ keep implementation guidance in the canonical workflow documents linked below.
   intervention field against the evaluator's accepted options during print-only
   review, include failures and censoring at every declared horizon, and test
   summary serialization on a real matched-start compute-node qualification.
-  Save incremental trial results before lengthy source discovery ends.
+  Save incremental trial results or a verified resumable source panel before
+  lengthy source discovery and rollout execution ends. Estimate production
+  wall time with one full-size timing row, not only a reduced qualification.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
   summary is JSON serializable and includes source/goal exposure, exact-start
-  checks, failures, and censoring.
+  checks, failures, and censoring. A timed-out row resumes from its last
+  validated source/start without changing the study fingerprint or repeating
+  completed trials.
 
 ### Keep exact-start source sharding compatible with current evaluators — 2026-10-09
 
