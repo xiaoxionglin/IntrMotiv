@@ -20,6 +20,7 @@ STUDIES = ROOT / "hpc_runs/studies"
 OLD_RESULTS = ROOT / "06_experiments/reward_credit/results/corrected_core_hit_only_20261009"
 NEW_RESULTS = ROOT / "06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010"
 HIGH_DISCOUNT_RESULTS = ROOT / "06_experiments/reward_credit/results/cosyne27_high_discount_hit_timing_20261012"
+VERIFIED_OUTCOMES = HERE / "verified_production_outcomes.tsv"
 
 # Cohort-level sources only. Individual identities and factors are generated.
 COHORTS = (
@@ -70,6 +71,21 @@ def manifest_rows(path: Path) -> dict[str, dict[str, str]]:
     return rows
 
 
+def verified_production_jobs() -> set[str]:
+    """Read audited terminal outcomes; live scheduler state never enters the catalog."""
+    with VERIFIED_OUTCOMES.open(newline="") as stream:
+        records = list(csv.DictReader(stream, delimiter="\t"))
+    job_ids = [record["job_id"] for record in records]
+    if len(job_ids) != len(set(job_ids)):
+        raise ValueError(f"duplicate verified job in {VERIFIED_OUTCOMES}")
+    for record in records:
+        if (record["slurm_state"] != "COMPLETED" or record["exit_code"] != "0:0"
+                or int(record["checkpoint_frame"]) < 100_000_000
+                or not record["checkpoint_path"]):
+            raise ValueError(f"unverified terminal outcome for job {record['job_id']}")
+    return set(job_ids)
+
+
 def report_for(cohort: str) -> str:
     reports = {
         "historical": "06_experiments/corrected_core_reevaluation_20260901.md",
@@ -112,6 +128,7 @@ def historical_rows() -> list[dict[str, str]]:
 
 def study_rows() -> list[dict[str, str]]:
     rows = []
+    verified_jobs = verified_production_jobs()
     for cohort, study_name, manifest_path in COHORTS:
         study_path = STUDIES / f"{study_name}.study.json"
         spec = load_study(study_path)
@@ -126,7 +143,7 @@ def study_rows() -> list[dict[str, str]]:
             metadata = run.metadata
             status = "verified_100m"
             if cohort in ("cosyne_new", "cosyne_long_credit"):
-                status = "running_2026-10-12"
+                status = "verified_100m" if job["job_id"] in verified_jobs else "running_2026-10-12"
             elif cohort == "old_replacement":
                 status = "verified_100m_2026-10-11"
             replaced_job = metadata.get("recovery_original_job", "")
@@ -160,6 +177,9 @@ def study_rows() -> list[dict[str, str]]:
         if manifest and set(manifest) != expected:
             raise ValueError(f"manifest has unexpected jobs: {set(manifest) - expected}")
     by_job = {row["job_id"]: row for row in rows}
+    eligible_jobs = {row["job_id"] for row in rows if row["cohort"] in ("cosyne_new", "cosyne_long_credit")}
+    if not verified_jobs <= eligible_jobs:
+        raise ValueError(f"verified jobs missing from incremental cohorts: {verified_jobs - eligible_jobs}")
     for replacement in (row for row in rows if row["replaces_job_id"]):
         original = by_job[replacement["replaces_job_id"]]
         original["attempt_status"] = "failed_replaced"
