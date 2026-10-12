@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep figure-ready field arrays with occupancy metadata — 2026-10-12
+
+- **Evidence:** Revising the [experimental COSYNE Figure 1](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md) required screening archived probe tables for visited-bin counts, visually comparing separate SVG sheets, and cropping chosen tiles at export-specific pixel coordinates. The first example covered 220 of 361 bins; the replacement covered 310. The underlying historical NPZs were not in this repository.
+- **Impact:** Small illustrative panels can hide poor sampling, and a later change in source SVG layout can silently shift pixel crops. Choosing a better-covered example is unnecessarily manual even though the canonical [place-field workflow](04_implementation/reusable_place_field_telemetry.md) already computes maps and occupancy.
+- **Improvement/status:** Pending for future figure-source exports. Save selected per-unit response arrays, occupancy masks, unit scores, run identity, and common or per-unit color limits in one lightweight, hashable figure-input artifact. Keep raw telemetry in the allocated workspace.
+- **Acceptance:** A figure renderer can select and draw a named unit from that artifact without SVG pixel coordinates, verify visited-bin count and scale mode, and reproduce the chosen tile and its caption from pinned inputs.
+
 ### Show implicit PPO discount settings in study review — 2026-10-12
 
 - **Evidence:** The fresh COSYNE C05 StudySpec declares gamma 0.99 but omits GAE lambda, so its validated NEMO2 Sample Factory runtime supplies the 0.95 default. The new longer-credit C05 test must explicitly declare both 0.999 and 0.99; otherwise a comparison of worker-timing effects could be mistaken for a gamma-only interaction.

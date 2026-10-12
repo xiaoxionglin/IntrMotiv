@@ -9,7 +9,9 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
+import tempfile
 
 import matplotlib
 
@@ -17,10 +19,11 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 import pandas as pd
+from PIL import Image
 
 DRAFT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(DRAFT))
-from render_submission_panels import COLOR, SOURCES, archived_example_tiles, style  # noqa: E402
+from render_submission_panels import COLOR, SOURCES, style  # noqa: E402
 
 
 HERE = Path(__file__).resolve().parent
@@ -28,6 +31,11 @@ STEM = "01_architecture_spatial_right"
 INK = "#1A3448"
 RED = "#A33C3C"
 BLUE = "#17679C"
+ARCHIVE = (DRAFT.parents[1] / "06_experiments" / "results" /
+           "A0_poster_analysis_20260926" / "flat_goal_comparison")
+FIELD_SOURCE = ARCHIVE / "c15_seed99" / "place_fields_individual_scale.svg"
+FIELD_TABLE = ARCHIVE / "place_field_individual_scales.csv"
+PROBE_TABLE = ARCHIVE / "matched_terminal_per_run.csv"
 
 
 def box(ax, x, y, width, height, lines, *, edge=INK, fill="white"):
@@ -110,10 +118,28 @@ def spatial_emergence(fig):
 
 
 def example_fields(fig):
-    tiles = archived_example_tiles()
+    """Crop two audited C15 seed-99 maps from the higher-coverage probe."""
+    probe = pd.read_csv(PROBE_TABLE)
+    row = probe[(probe.condition == "C15") & (probe.seed == 99)].squeeze()
+    assert int(row.visited_bins_probe) == 310
+    scales = pd.read_csv(FIELD_TABLE)
+    selected = scales[(scales.condition == "C15") & (scales.seed == 99)]
+    assert list(selected.unit) == [7, 11, 1, 0]
+    # These stable export coordinates omit axes, titles, and the original
+    # per-unit colorbars. The caption states that the scales are independent.
+    crops = {"DG 7": (147, 211, 525, 590),
+             "DG 0": (663, 684, 1043, 1064)}
+    with tempfile.TemporaryDirectory(prefix="cosyne_figure1_fields_") as temporary:
+        rendered = Path(temporary) / "fields.png"
+        subprocess.run(["inkscape", str(FIELD_SOURCE),
+                        f"--export-filename={rendered}", "--export-width=1200"],
+                       check=True, capture_output=True, text=True)
+        source = Image.open(rendered).convert("RGB")
+        assert source.width == 1200 and source.height >= 1064
+        tiles = {name: source.crop(bounds).copy() for name, bounds in crops.items()}
     fig.text(0.625, 0.415, "C  Example DG place fields", va="top",
              fontsize=12, fontweight="bold", color="#20272C")
-    for x, name in ((0.674, "DG 11"), (0.831, "DG 0")):
+    for x, name in ((0.674, "DG 7"), (0.831, "DG 0")):
         ax = fig.add_axes([x, 0.095, 0.13, 0.27])
         ax.imshow(tiles[name], interpolation="nearest")
         ax.set_xticks([])
@@ -143,8 +169,11 @@ def main():
             target.write_text("\n".join(line.rstrip() for line in
                                         target.read_text().splitlines()) + "\n")
     plt.close(fig)
-    inputs = {key: hashlib.sha256(SOURCES[key].read_bytes()).hexdigest()
-              for key in ("online", "archived_place_fields", "archived_trajectory")}
+    inputs = {name: hashlib.sha256(path.read_bytes()).hexdigest()
+              for name, path in (("online", SOURCES["online"]),
+                                 ("archived_place_fields", FIELD_SOURCE),
+                                 ("field_rank_table", FIELD_TABLE),
+                                 ("probe_table", PROBE_TABLE))}
     manifest = {"figure": STEM, "size_inches": [7.5, 3.12],
                 "font": font, "sources_sha256": inputs,
                 "separate_archived_example": True}
