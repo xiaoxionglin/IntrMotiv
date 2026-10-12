@@ -14,11 +14,11 @@ This layout reproduces the author's current 12 October GitHub title and 312-word
 
 - The LaTeX summary is 312 words versus the official 300-word requirement; the title is 128 characters versus the 100-character maximum. Shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
 - Finish commanded-target and physical-arrival contrasts before interpreting temporal-hit coverage as goal control or making a directional pull claim.
-- COSYNE 2027 specifies two pages (US Letter/A4), 12-point minimum body, 10-point captions/references permitted, margins at least 0.5 inch, and double-blind anonymity; ensure the compiled PDF and its metadata comply. The title and summary must be shortened.
+- COSYNE 2027 specifies two pages (US Letter/A4), 12-point minimum body, 10-point captions/references permitted, margins at least 0.5 inch, and double-blind anonymity. The comprehensive review draft is currently three pages by the author's choice; shorten the title and summary and select what to condense before submission, then check the final PDF and its metadata.
 - Review panel priority at final submission size. The figure keeps all scientifically distinct plotted contrasts; the earlier full candidate library remains in the backed-up expanded ZIP.
 
 ## Layout and example choice
 
-The architecture is displayed at its original 6.59-inch width. The results are rendered as one 7.5-by-4.95-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
+The architecture is displayed at its original 6.59-inch width. The results are rendered as one 7.5-by-4.48-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
 
 Official COSYNE 2027 rules: https://www.cosyne.org/abstracts-submission (checked 2026-10-12).

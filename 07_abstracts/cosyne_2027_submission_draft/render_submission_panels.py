@@ -38,9 +38,9 @@ SOURCES = {
 }
 COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 GRAY = "#5B646C"
-FIGURE_HEIGHT = 4.95
-CONTENT_SCALE = 0.88  # Fit all data panels at their original widths and type sizes.
-CONTENT_OFFSET = 0.05
+FIGURE_HEIGHT = 4.48
+CONTENT_SCALE = 0.88  # Preserve horizontal panel widths and type size.
+CONTENT_OFFSET = -0.43  # Crop unused space below the bottom-row labels.
 
 
 def style() -> str:
@@ -203,9 +203,9 @@ def results_figure() -> dict[str, float]:
 
     # A: five-seed online course. B: absolute random-control versus own-policy
     # decoder values, with two repeats averaged inside each training seed.
-    section(fig, 0.12, 5.46, "A  Spatial coding emerges")
-    section(fig, 2.24, 5.46, "B  Policy shapes expression")
-    ax = axes_in(fig, 0.58, 4.17, 1.42, 1.01)
+    section(fig, 0.12, 5.46, "A  Spatial emergence")
+    section(fig, 2.24, 5.46, "B  Behavior shapes spatial coding")
+    ax = axes_in(fig, 0.58, 4.24, 1.42, 0.94)
     for family, worker_arm in (("C01", "inapplicable"), ("C05", "temporal"),
                                ("C15", "temporal")):
         rows = online[(online.family == family) &
@@ -241,7 +241,7 @@ def results_figure() -> dict[str, float]:
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(3.85) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 3.76, "C–D  Temporal push on shared observations")
+    section(fig, 0.12, 3.76, "C–D  Temporal push: DG fields")
     fig.text(0.38 / 7.5, content_y(3.51) / FIGURE_HEIGHT,
              "C  Selected C01 example: seed 8 (largest of 5 pairs)",
              fontsize=9, color=GRAY)
@@ -293,8 +293,8 @@ def results_figure() -> dict[str, float]:
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 2.10, "E  Push reaches the readout")
-    section(fig, 3.30, 2.10, "F  Temporal-hit coverage")
+    section(fig, 0.12, 2.10, "E  Temporal push: decoder readout")
+    section(fig, 2.95, 2.10, "F  Temporal pull: target-hit coverage")
     downstream = decoder[(decoder.family == "C01") &
                          (decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
@@ -302,26 +302,22 @@ def results_figure() -> dict[str, float]:
     assert len(downstream) == 5 and downstream.difference.gt(0).all()
     assert np.allclose(downstream.temporal - downstream.constant,
                        downstream.difference, atol=1e-10)
-    ax = axes_in(fig, 0.60, 0.73, 1.20, 1.04)
+    ax = axes_in(fig, 1.10, 0.89, 1.20, 0.88)
     paired_seeds(ax, downstream, "constant", "temporal",
                  xlim=(0, 2.35), color=COLOR["C01"])
-    ax.set_title("Baseline · 5 pairs", fontsize=10, pad=2)
+    ax.set_title("C01 · higher in 5/5 pairs", fontsize=10, pad=2)
     ax.set_xlabel("Decoder bits/activation", fontsize=9, labelpad=1)
-    fig.text(2.04 / 7.5, content_y(1.40) / FIGURE_HEIGHT,
-             "5/5 temporal higher\nmean gain +0.68", fontsize=9,
-             va="top", color=GRAY)
-
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
                   (worker.metric == "visited_cell_fraction")]
     assert len(pull) == 10
-    for x0, fixed, label in [(3.88, "temporal", "Temporal encoder"),
-                             (5.78, "constant", "Constant encoder")]:
+    for x0, fixed, label in [(3.20, "temporal", "Temporal encoder"),
+                             (5.20, "constant", "Constant encoder")]:
         subset = pull[pull.fixed_factor == fixed].copy()
         assert len(subset) == 5
         assert np.allclose(subset["first"] - subset["second"],
                            subset.difference, atol=1e-10)
-        ax = axes_in(fig, x0, 0.73, 1.10, 1.04)
+        ax = axes_in(fig, x0, 0.89, 1.10, 0.88)
         paired_seeds(ax, subset, "second", "first",
                      xlim=(0, 0.95), color=COLOR["C05"])
         ax.set_title(label, fontsize=10, pad=2)

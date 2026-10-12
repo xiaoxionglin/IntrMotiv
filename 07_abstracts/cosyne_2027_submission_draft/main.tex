@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{microtype}
 \usepackage{float}
+\emergencystretch=1em
 
 \captionsetup{font=footnotesize,labelfont=bf,skip=3pt}
 \setlength{\parindent}{0pt}
@@ -43,9 +44,15 @@ Together, our results demonstrate how spatial coding can emerge from the interac
 \end{minipage}
 
 \newpage
-\textbf{Three tests.} We measure spatial coding along evolving trajectories, change actions with network weights fixed, and replay identical observations through separately trained networks (Fig.~\ref{fig:results}). DG coding rises online (A), and learned behavior raises decoder-1 information in all 38 frozen models (B). On shared inputs, temporal DG credit improves baseline DG information, map separation, peak spread, and decoder information in all five matched seeds (C--E). Common replay removes evaluation-sampling differences, although training paths may still matter.
+\textbf{Three tests.} We measure spatial coding along evolving trajectories, change actions with network weights fixed, and replay identical observations through separately trained networks (Fig.~\ref{fig:results}). These comparisons distinguish the emergence of a spatial code during learning, its expression under different behavior, and the contribution of temporal DG credit to the learned network. Common replay removes evaluation-sampling differences, although training paths may still matter.
 
-\textbf{Temporal pull.} Adding temporal weighting to C05 target-hit reward has mixed effects (F). Both worker bonuses reward detector hits; actor--critic discounting already favors earlier ones. Detector hits do not establish physical goal arrival.
+\textbf{Spatial emergence and temporal push.} DG coding rises online as the agent explores (Fig.~\ref{fig:results}A). With the same 10,001 observations replayed through each trained network, temporal DG credit improves the baseline DG spatial score in all five matched seeds (mean $+0.0575$), reduces map overlap, and broadens the area covered by eligible field peaks (mean $+0.109$; Fig.~\ref{fig:results}C,D). Seed 8 illustrates the largest peak-area increase among these pairs, while panel D shows the full distribution. The improvement reaches the downstream readout: decoder-1 spatial information rises in all five baseline pairs (mean $+0.680$ bits per activation; Fig.~\ref{fig:results}E). Goal-conditioned encoder comparisons largely point the same way, although the frontier-goal condition currently has only three matched pairs.
+
+\textbf{Behavior shapes spatial coding.} With each network frozen, its learned policy elicits more spatially informative decoder-1 activity and more reliable spatial maps than random actions in all 38 matched models (Fig.~\ref{fig:results}B). Thus, behavior changes the spatial signal available from a fixed network. This test identifies an effect of the agent's interaction with the environment at evaluation time; it does not by itself show how policy changes shaped the network during training.
+
+\textbf{Temporal pull.} Adding temporal weighting to the goal-conditioned policy's target-hit reward has mixed effects on coverage and DG fields (Fig.~\ref{fig:results}F). Both worker bonuses reward detector hits, and actor--critic discounting already favors earlier hits, which may weaken the additional effect of explicit temporal weighting. A separate longer-credit intervention changes PPO discount and GAE lambda jointly: frontier-policy coverage rises while spatial information falls on separate policy rollouts. Because those rollouts sample different experiences, this observation does not isolate a fixed-input change in DG coding. Detector hits also do not establish physical goal arrival; matched-command and physical-arrival analyses are needed to assess goal control.
+% CHECK: The longer-credit comparison changes PPO gamma and GAE lambda jointly;
+% its spatial maps follow separate policies. Do not call it isolated discounting.
 
 \begin{minipage}{\linewidth}
 \centering
