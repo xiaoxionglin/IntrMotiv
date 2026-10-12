@@ -5,13 +5,13 @@
 
 ## Title
 
-Spatial representations emerge from temporal experience in a hippocampus-inspired navigation agent without spatial supervision
+Spatial representations emerge from temporal event credit in a hippocampus-inspired navigation agent without spatial supervision
 
 ## Abstract
 
 Can spatial representations emerge from sensory inputs and learning objectives that do not explicitly encode space? We investigate this question using a bottom-up computational architecture inspired by hippocampal physiology, without position labels, maps, or spatial rewards. Rather than imposing spatial structure through an explicit learning objective, we explore whether it can emerge from the temporal organization of sensory experience and the agent's interactions with its environment.
 
-Our model combines sparse dentate gyrus (DG)-like sensory responses with CA3-like sequential memory. Temporal relationships between encountered sensory events provide two complementary learning signals: a **“push”** that reinforces DG activity according to the temporal separation between events, and a **“pull”** that motivates the policy to reach internally defined sensory targets. The agent learns from egocentric visual experience and intrinsic rewards, without explicit information about its physical location or spatial distances.
+Our model combines dentate gyrus (DG)-like sparse sensory events with CA3-like sequential memory. Temporal relationships between encountered DG events provide two complementary learning signals: a **“push”** that reinforces DG activity with more temporal separation between events, and a **“pull”** that motivates the policy to reach between internally defined DG targets sooner, making the temporal separation. The agent learns from egocentric visual experience and intrinsic rewards, without explicit information about its physical location or spatial distances.
 
 During exploration of a continuous visual environment, spatially informative DG activity emerges. To isolate the contribution of temporal information, we compare temporally weighted DG feedback against mean-matched constant feedback, evaluating the resulting representations on identical sensory observations. Temporal feedback produces higher DG spatial information, less redundant response maps, and a broader spatial distribution of field peaks across five paired training seeds. These improvements extend to downstream decoder representations, where spatial information also increases consistently. In contrast, temporally weighting the policy's target-hit reward does not consistently improve exploration or spatial representation quality compared with constant hit rewards.
 
