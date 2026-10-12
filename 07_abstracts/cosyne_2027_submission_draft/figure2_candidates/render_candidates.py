@@ -660,6 +660,17 @@ def main() -> None:
     inventory.to_csv(HERE / "metric_inventory.csv", index=False)
     figures["04_metric_inventory"] = export(
         inventory_atlas(inventory), "04_metric_inventory")
+    for stem, mode in (("05_compact_vertical_pairs", "paired"),
+                       ("06_compact_vertical_boxes", "box")):
+        shared.results_figure(mode=mode, output_dir=HERE, stem=stem)
+        files = {extension: f"{stem}.{extension}"
+                 for extension in ("pdf", "svg", "png")}
+        figures[stem] = {
+            "files": files,
+            "sha256": {extension: hashlib.sha256((HERE / filename).read_bytes()).hexdigest()
+                       for extension, filename in files.items()},
+            "inches": [7.5, shared.FIGURE_HEIGHT],
+        }
     manifest = {
         "purpose": "Exploratory Figure 2 alternatives; excluded from the Overleaf ZIP",
         "font": font,

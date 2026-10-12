@@ -49,7 +49,9 @@
       "decoder": 1.63,
       "worker": 0.79,
       "longer_credit": 0.78
-    }
+    },
+    "orientation": "vertical",
+    "summary_mark": "paired seeds"
   },
   "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
   "behavior_absolute_source": "6412596:06_experiments/results/cosyne_2027_behavior_secondary/fresh_pair_analysis/paired_evaluation_repeats.csv"

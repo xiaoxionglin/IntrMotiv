@@ -8,6 +8,7 @@ in this repository.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -65,10 +66,10 @@ def style() -> str:
     return font
 
 
-def save(fig: plt.Figure, stem: str) -> None:
-    FIGURES.mkdir(exist_ok=True)
+def save(fig: plt.Figure, stem: str, directory: Path = FIGURES) -> None:
+    directory.mkdir(exist_ok=True)
     for suffix in ("pdf", "svg", "png"):
-        target = FIGURES / f"{stem}.{suffix}"
+        target = directory / f"{stem}.{suffix}"
         metadata = ({"Date": None} if suffix == "svg" else
                     {"CreationDate": None, "ModDate": None} if suffix == "pdf" else
                     None)
@@ -99,33 +100,62 @@ def finish_axes(ax: plt.Axes) -> None:
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.tick_params(length=2.2, width=0.6, pad=1.5)
-    ax.grid(axis="x", color="#E6E8E9", lw=0.5, zorder=0)
+    ax.grid(axis="y", color="#E6E8E9", lw=0.5, zorder=0)
 
 
 def paired_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
                 control_column: str, experimental_column: str,
                 *, labels: bool, xlim: tuple[float, float],
-                marker_size: float = 10) -> None:
-    """Show actual control and experimental values joined within training seed."""
+                marker_size: float = 10, mode: str = "paired") -> None:
+    """Show vertical paired values or paired-difference boxes with seed dots."""
+    assert mode in {"paired", "box"}
+    observed = values[[control_column, experimental_column]].to_numpy(dtype=float)
+    assert np.isfinite(observed).all()
+    if mode == "paired":
+        assert observed.min() >= xlim[0] - 1e-9 and observed.max() <= xlim[1] + 1e-9, (
+            f"Observed values {observed.min():.4g}–{observed.max():.4g} "
+            f"exceed vertical limits {xlim}")
     for row, group in enumerate(groups):
         data = values[values.group == group].sort_values("seed")
         if data.empty:
             continue
-        y_positions = row + np.linspace(-0.17, 0.17, len(data))
+        x_positions = row + np.linspace(-0.12, 0.12, len(data))
         color = COLOR[group.split("-")[0]]
-        for y, control, experimental in zip(
-                y_positions, data[control_column], data[experimental_column]):
-            ax.plot([control, experimental], [y, y], color="#BDC5C9",
-                    lw=0.55, zorder=1)
-        ax.scatter(data[control_column], y_positions, s=marker_size,
-                   marker="s", facecolor="white", edgecolor=GRAY,
-                   linewidth=0.75, zorder=3)
-        ax.scatter(data[experimental_column], y_positions, s=marker_size,
-                   color=color, linewidth=0, zorder=4)
-    ax.set_ylim(-0.42, len(groups) - 0.58)
-    ax.invert_yaxis()
-    ax.set_xlim(*xlim)
-    ax.set_yticks(range(len(groups)), groups if labels else [""] * len(groups))
+        if mode == "paired":
+            for x, control, experimental in zip(
+                    x_positions, data[control_column], data[experimental_column]):
+                ax.plot([x, x], [control, experimental], color="#BDC5C9",
+                        lw=0.55, zorder=1)
+            ax.scatter(x_positions, data[control_column], s=marker_size,
+                       marker="s", facecolor="white", edgecolor=GRAY,
+                       linewidth=0.75, zorder=3)
+            ax.scatter(x_positions, data[experimental_column], s=marker_size,
+                       color=color, linewidth=0, zorder=4)
+        else:
+            differences = (data[experimental_column] - data[control_column]).to_numpy()
+            box = ax.boxplot([differences], positions=[row], widths=0.48,
+                             whis=(0, 100), showfliers=False, patch_artist=True,
+                             manage_ticks=False)
+            box["boxes"][0].set(facecolor=color, edgecolor=color, alpha=0.18, linewidth=0.8)
+            for item in box["whiskers"] + box["caps"]:
+                item.set(color=color, linewidth=0.75)
+            box["medians"][0].set(color=color, linewidth=1.1)
+            ax.scatter(x_positions, differences, s=marker_size * 0.7,
+                       color=color, edgecolor="white", linewidth=0.2, zorder=4)
+    ax.set_xlim(-0.42, len(groups) - 0.58)
+    if mode == "paired":
+        ax.set_ylim(*xlim)
+    else:
+        differences = (values[experimental_column] - values[control_column]).to_numpy()
+        extent = max(abs(float(differences.min())), abs(float(differences.max())))
+        extent = max(extent * 1.18, 0.01)
+        ax.set_ylim(-extent, extent)
+        ax.axhline(0, color="#7D858A", lw=0.7, zorder=1)
+    short = {"C05-wT": "05T", "C05-wC": "05C",
+             "C05-eT": "05T", "C05-eC": "05C"}
+    ax.set_xticks(range(len(groups)),
+                  [short.get(group, group) for group in groups] if labels else [""] * len(groups))
+    ax.tick_params(axis="x", labelsize=8 if len(groups) > 3 else 9)
     finish_axes(ax)
 
 
@@ -139,7 +169,8 @@ def peak_grid(peaks: np.ndarray, mask: np.ndarray) -> np.ndarray:
     return grid / grid.sum()
 
 
-def results_figure() -> dict[str, float]:
+def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
+                   stem: str = "results_sections") -> dict[str, float]:
     online = pd.read_csv(SOURCES["online"])
     behavior = pd.read_csv(SOURCES["behavior"])
     behavior_absolute = pd.read_csv(SOURCES["behavior_absolute"])
@@ -180,9 +211,10 @@ def results_figure() -> dict[str, float]:
         Line2D([], [], linestyle="none", marker="o", markersize=4,
                color="#30363B", label="Condition"),
     ]
-    fig.legend(handles=handles, loc="upper right", bbox_to_anchor=(0.985, 1.005),
-               ncol=2, frameon=False, fontsize=9, handletextpad=0.2,
-               columnspacing=0.5)
+    if mode == "paired":
+        fig.legend(handles=handles, loc="upper right", bbox_to_anchor=(0.985, 1.005),
+                   ncol=2, frameon=False, fontsize=9, handletextpad=0.2,
+                   columnspacing=0.5)
 
     # A: five-seed online course. B: absolute random-control versus own-policy
     # decoder values, with two repeats averaged inside each training seed.
@@ -217,9 +249,9 @@ def results_figure() -> dict[str, float]:
     ]:
         ax = axes_in(fig, x0, 4.20, 1.43, 0.98)
         paired_rows(ax, behavior_rows, behavior_groups, control, experimental,
-                    labels=x0 < 4, xlim=limits, marker_size=8)
+                    labels=True, xlim=limits, marker_size=8, mode=mode)
         ax.set_title(title, fontsize=10, pad=2)
-        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
+        ax.set_ylabel(xlabel, fontsize=8, labelpad=1)
 
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(3.85) / FIGURE_HEIGHT] * 2,
@@ -268,10 +300,9 @@ def results_figure() -> dict[str, float]:
         assert np.allclose(subset.temporal - subset.constant,
                            subset.difference, atol=1e-10)
         paired_rows(ax, subset, row_names, "constant", "temporal",
-                    labels=index == 0, xlim=limits, marker_size=10)
+                    labels=True, xlim=limits, marker_size=10, mode=mode)
         ax.set_title(title, fontsize=10, pad=2)
-        ax.tick_params(axis="x", labelsize=9)
-        ax.locator_params(axis="x", nbins=2)
+        ax.locator_params(axis="y", nbins=3)
 
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
@@ -292,9 +323,9 @@ def results_figure() -> dict[str, float]:
                        downstream.difference, atol=1e-10)
     ax = axes_in(fig, 0.67, 0.89, 1.63, 0.88)
     paired_rows(ax, downstream, decoder_groups, "constant", "temporal",
-                labels=True, xlim=(0, 3.0), marker_size=10)
+                labels=True, xlim=(0, 3.0), marker_size=10, mode=mode)
     ax.set_title("Readout MLP layer 1", fontsize=10, pad=2)
-    ax.set_xlabel("Bits/activation", fontsize=9, labelpad=1)
+    ax.set_ylabel("Bits/activation", fontsize=8, labelpad=1)
 
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
@@ -309,10 +340,10 @@ def results_figure() -> dict[str, float]:
     ]:
         ax = axes_in(fig, x0, 0.89, 0.79, 0.88)
         paired_rows(ax, pull[pull.metric == metric], ["C05-eT", "C05-eC"],
-                    "second", "first", labels=labels, xlim=limits, marker_size=10)
+                    "second", "first", labels=True, xlim=limits, marker_size=10,
+                    mode=mode)
         ax.set_title(title, fontsize=9, pad=2)
-        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
-        ax.locator_params(axis="x", nbins=2)
+        ax.locator_params(axis="y", nbins=3)
 
     # Longer PPO credit changes gamma and GAE lambda together. Its online
     # coverage and policy-driven frozen-field samples are separate evaluations.
@@ -335,12 +366,11 @@ def results_figure() -> dict[str, float]:
     ]:
         ax = axes_in(fig, x0, 0.89, 0.78, 0.88)
         paired_rows(ax, longer, ["P", "C15"], control, experimental,
-                    labels=labels, xlim=limits, marker_size=11)
+                    labels=True, xlim=limits, marker_size=11, mode=mode)
         ax.set_title(title, fontsize=9, pad=2)
-        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
-        ax.locator_params(axis="x", nbins=2)
+        ax.locator_params(axis="y", nbins=3)
 
-    save(fig, "results_sections")
+    save(fig, stem, output_dir)
     return {
         "selected_seed": 8,
         "selected_peak_area_temporal": example["arms"]["temporal"]["effective_area_fraction"],
@@ -357,11 +387,24 @@ def results_figure() -> dict[str, float]:
         "result_panel_width_inches": {
             "behavior": 1.43, "dg": 0.86, "decoder": 1.63,
             "worker": 0.79, "longer_credit": 0.78},
+        "orientation": "vertical",
+        "summary_mark": "paired seeds" if mode == "paired" else "paired-difference boxes",
     }
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--candidate", choices=("pairs", "boxes"),
+                        help="Export a compact layout candidate without changing the submission figure")
+    args = parser.parse_args()
     font = style()
+    if args.candidate:
+        output_dir = DRAFT / "figure2_candidates"
+        mode = "paired" if args.candidate == "pairs" else "box"
+        stem = f"{'05_compact_vertical_pairs' if mode == 'paired' else '06_compact_vertical_boxes'}"
+        summary = results_figure(mode=mode, output_dir=output_dir, stem=stem)
+        print(json.dumps(summary, indent=2))
+        return
     summary = results_figure()
     manifest = {
         "source_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest()

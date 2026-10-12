@@ -2182,6 +2182,15 @@ For each finding, record:
   axis ending below 1 would have clipped; the comparison now uses a labeled
   log axis. For future figure trials, keep source-hashed candidate exports
   outside the upload ZIP and include a plot-range assertion before visual QA.
+  A compact follow-up kept the 7.5-by-4.48-inch submission footprint while
+  switching paired values to vertical axes and adding a paired-difference
+  box-plot trial. The same renderer now emits both variants from the verified
+  seed tables, with every seed overlaid on the box summaries; this matters
+  because several groups contain only three or five pairs. At realistic
+  1,000-pixel display width, a long box-plot key collided with the panel A
+  heading and was removed. For future compact trials, inspect the rasterized
+  figure at its actual reading size in addition to checking source dimensions,
+  and put detailed mark definitions in the caption when a key costs panel space.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
