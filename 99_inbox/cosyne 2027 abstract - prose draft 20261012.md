@@ -5,7 +5,7 @@
 
 ## Title
 
-Spatial representations emerge from 
+Spatial representations emerge from bottom-up temporal push-pull mechanism in a Hippocampus inspired visual navigation agent without spatial supervision 
 ## Abstract
 
 How can spatial representations emerge from egocentric experience without a map, position labels, or external reward? We propose that a hippocampal-inspired circuit can turn the timing of encountered sensory events into a learning signal. In our agent, sparse dentate gyrus (DG) responses mark salient visual experiences, while CA3-like sequences carry their recent history. Temporal separation between events creates two complementary pressures: a “push” that favors distinct DG landmarks and a “pull” that rewards the policy for reaching internally defined targets. Spatial structure can thus arise through the agent’s interaction with the world rather than being imposed as a training target.
