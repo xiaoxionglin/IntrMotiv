@@ -19,6 +19,7 @@ HERE = Path(__file__).resolve().parent
 STUDIES = ROOT / "hpc_runs/studies"
 OLD_RESULTS = ROOT / "06_experiments/reward_credit/results/corrected_core_hit_only_20261009"
 NEW_RESULTS = ROOT / "06_experiments/reward_credit/results/cosyne27_staged_push_pull_20261010"
+HIGH_DISCOUNT_RESULTS = ROOT / "06_experiments/reward_credit/results/cosyne27_high_discount_hit_timing_20261012"
 
 # Cohort-level sources only. Individual identities and factors are generated.
 COHORTS = (
@@ -36,6 +37,7 @@ COHORTS = (
     ("cosyne_replacement", "cosyne27_c15_constant_recovery_20261011", NEW_RESULTS / "c15_constant_recovery_20261011_jobs.tsv"),
     ("cosyne_new", "cosyne27_c01_no_credit_s5_20261012", NEW_RESULTS / "c01_no_credit_s5_20261012_jobs.tsv"),
     ("cosyne_new", "cosyne27_c15_constant_hit_s5_20261012", NEW_RESULTS / "c15_constant_hit_s5_20261012_jobs.tsv"),
+    ("cosyne_long_credit", "cosyne27_c05_long_credit_worker_s5_20261012", HIGH_DISCOUNT_RESULTS / "production_submitted_jobs.tsv"),
 )
 
 RECOVERY_JOBS = {
@@ -76,6 +78,7 @@ def report_for(cohort: str) -> str:
         "cosyne": "06_experiments/reward_credit/cosyne27_staged_push_pull_submission_20261010.md",
         "cosyne_replacement": "06_experiments/reward_credit/cosyne27_staged_push_pull_submission_20261010.md",
         "cosyne_new": "06_experiments/reward_credit/cosyne27_missing_training_20261012.md",
+        "cosyne_long_credit": "06_experiments/reward_credit/cosyne27_high_discount_hit_timing_20261012.md",
     }
     return reports[cohort]
 
@@ -124,7 +127,7 @@ def study_rows() -> list[dict[str, str]]:
             status = "verified_100m"
             if cohort == "cosyne_replacement":
                 status = "running_2026-10-12"
-            elif cohort == "cosyne_new":
+            elif cohort in ("cosyne_new", "cosyne_long_credit"):
                 status = "running_2026-10-12"
             elif cohort == "old_replacement":
                 status = "verified_100m_2026-10-11"
@@ -175,8 +178,8 @@ def write_csv(path: Path, fields: tuple[str, ...], rows: list[dict[str, str]]) -
 
 def main() -> None:
     rows = historical_rows() + study_rows()
-    if len(rows) != 119 or len({row["job_id"] for row in rows}) != 119:
-        raise ValueError("expected 119 uniquely submitted training attempts")
+    if len(rows) != 129 or len({row["job_id"] for row in rows}) != 129:
+        raise ValueError("expected 129 uniquely submitted training attempts")
     write_csv(HERE / "training_runs.csv", FIELDNAMES, rows)
 
     with (STUDIES / "behavior_field_expression_20261007.tsv").open(newline="") as stream:

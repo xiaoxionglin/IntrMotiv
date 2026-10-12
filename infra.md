@@ -156,6 +156,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   partial coverage. The one-start nine-row preflight had succeeded but did
   not qualify the full 16-source, eight-repeat protocol. See the [COSYNE
   control audit](06_experiments/cosyne_2027/checkpoint_fields_20261011.md#matched-command-control-gate).
+  At the 12 October 06:38 Berlin check, another 48 same-label full-panel
+  jobs 8343879–8343926 were running with 72-hour limits. One inspected
+  command still used the monolithic manifest row and original output path.
+  Their outcomes are pending; do not overlap a shard recovery with them.
 - **Improvement/status:** Keep the adaptation isolated from training source;
   require a clean patch dry run, syntax check and focused evaluator tests before
   a bounded shard. Add a canonical source-shard selector and audited merge to
