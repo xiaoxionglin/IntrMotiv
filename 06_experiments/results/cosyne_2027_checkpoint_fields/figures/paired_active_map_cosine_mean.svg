@@ -288,8 +288,10 @@ z
 " style="stroke: #ffffff; stroke-width: 0.6"/>
     </defs>
     <g clip-path="url(#pb184d800bf)">
-     <use xlink:href="#mdf8f193ad5" x="471.547171" y="91.193464" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="471.547171" y="143.060411" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="479.491207" y="91.193464" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="487.435244" y="109.393991" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="495.379281" y="195.222293" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="503.323317" y="178.915865" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
     </g>
    </g>
@@ -309,7 +311,15 @@ L 146.45275 136.750975
 " clip-path="url(#pb184d800bf)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_14">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="120.787401" y="59.822238" transform="rotate(-0 120.787401 59.822238)">n=5</text>
+    <g id="patch_5">
+     <path d="M 106.699589 62.166491
+L 134.875214 62.166491
+L 134.875214 47.672741
+L 106.699589 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="120.787401" y="58.230866" transform="rotate(-0 120.787401 58.230866)">n=5</text>
    </g>
    <g id="line2d_23">
     <path d="M 217.338 128.549666
@@ -317,7 +327,15 @@ L 268.668698 128.549666
 " clip-path="url(#pb184d800bf)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="243.003349" y="97.935493" transform="rotate(-0 243.003349 97.935493)">n=5</text>
+    <g id="patch_6">
+     <path d="M 228.915536 62.166491
+L 257.091161 62.166491
+L 257.091161 47.672741
+L 228.915536 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="243.003349" y="58.230866" transform="rotate(-0 243.003349 58.230866)">n=5</text>
    </g>
    <g id="line2d_24">
     <path d="M 339.553947 169.223252
@@ -325,15 +343,31 @@ L 390.884645 169.223252
 " clip-path="url(#pb184d800bf)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_16">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="365.219296" y="104.212658" transform="rotate(-0 365.219296 104.212658)">n=5</text>
+    <g id="patch_7">
+     <path d="M 351.131484 62.166491
+L 379.307109 62.166491
+L 379.307109 47.672741
+L 351.131484 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="365.219296" y="58.230866" transform="rotate(-0 365.219296 58.230866)">n=5</text>
    </g>
    <g id="line2d_25">
-    <path d="M 461.769895 126.501107
-L 513.100593 126.501107
+    <path d="M 461.769895 143.557205
+L 513.100593 143.557205
 " clip-path="url(#pb184d800bf)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_17">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="487.435244" y="88.697839" transform="rotate(-0 487.435244 88.697839)">n=3</text>
+    <g id="patch_8">
+     <path d="M 473.347431 62.166491
+L 501.523056 62.166491
+L 501.523056 47.672741
+L 473.347431 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="487.435244" y="58.230866" transform="rotate(-0 487.435244 58.230866)">n=5</text>
    </g>
    <g id="text_18">
     <text style="font-size: 14.4px; font-family: 'DejaVu Sans'; text-anchor: middle" x="304.111322" y="37.691605" transform="rotate(-0 304.111322 37.691605)">Active-only map cosine</text>

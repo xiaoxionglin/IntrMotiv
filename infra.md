@@ -90,6 +90,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   44 completed rows from this immutable 45-run StudySpec in one call, preserve
   C01's inapplicable HRL metrics as missing, and state that C15's failed cell
   has no 100M checkpoint. No duplicate label or TensorBoard reload is needed.
+- **12 October follow-up:** The COSYNE policy-specific field adapter initially
+  selected only the original `cosyne` cohort. Once two verified C15 replacement
+  runs supplied six valid checkpoint summaries, that filter would have excluded
+  them from the five-seed C15 paired analysis. The adapter now joins the
+  `cosyne_replacement` cohort through the same StudySpec-derived catalog and
+  still requires one terminal row per verified run. This fixes the local field
+  readout; the common-panel, trajectory, and graph adapters must retain clear
+  source lineage when the replacement outputs are incorporated.
 
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 
