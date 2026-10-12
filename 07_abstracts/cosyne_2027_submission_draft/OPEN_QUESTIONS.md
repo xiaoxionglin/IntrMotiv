@@ -19,6 +19,6 @@ This layout reproduces the author's current 12 October GitHub title and 312-word
 
 ## Layout and example choice
 
-The architecture is displayed at its original 6.59-inch width. The results are rendered as one 7.5-by-4.95-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
+The architecture is displayed at its original 6.59-inch width. The results are rendered as one 7.5-by-4.48-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
 
 Official COSYNE 2027 rules: https://www.cosyne.org/abstracts-submission (checked 2026-10-12).
