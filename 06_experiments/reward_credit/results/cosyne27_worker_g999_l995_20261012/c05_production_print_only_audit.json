@@ -1,0 +1,20 @@
+{
+  "batch_name": "cosyne27_c05_worker_g999_l995_s5_20261012",
+  "commands_match_study": true,
+  "expected_runs": 10,
+  "job_ids": [],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cosyne27_c05_worker_g999_l995_s5_20261012/20261012T203955Z/jobs.tsv",
+  "rows": 10,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "generated": 10
+  },
+  "study_id": "cosyne27_c05_worker_g999_l995_s5_20261012",
+  "study_sha256": "1bd2f1b3f9351923e7d0847384339ef73b30ca8efd1aba02181bcf179147cc9b",
+  "study_spec": "hpc_runs/studies/cosyne27_c05_worker_g999_l995_s5_20261012.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": false,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}
