@@ -89,9 +89,14 @@ keep implementation guidance in the canonical workflow documents linked below.
   records, and the declared discovery multiplier of 10. This supports bounded
   fresh-engine execution even on a node that had aborted monolithic rows; it
   does not prove all 16 sources can be discovered within a one-source shard.
-  Source-15 C05 and source-0 C15 pilots are running as jobs 8345378 and
-  8345379 to check coverage before expanding shards. A full-panel audited
-  merge is still required.
+  The source-15 C05 and source-0 C15 pilots also completed as jobs 8345378
+  and 8345379, each with eight exact starts, 24 paired comparisons, 72 rows,
+  frozen policy and graph, and no missing records. The C05 high-index source
+  was discoverable within the declared multiplier of 10. Fourteen further
+  C05 source shards for the same manifest row were print-reviewed and submitted
+  as jobs 8345452–8345465 to validate a complete 16-source panel. A full-panel
+  audited merge is still required, and one completed row will not establish
+  reliability across all C05/C15 checkpoints.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
