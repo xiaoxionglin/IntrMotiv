@@ -6,11 +6,14 @@
 
 How can spatial representations emerge from egocentric experience without a map, position labels, or external reward? We propose that a hippocampal-inspired circuit can turn the timing of encountered sensory events into a learning signal. In our agent, sparse dentate gyrus (DG) responses mark salient visual experiences, while CA3-like sequences carry their recent history. Temporal separation between events creates two complementary pressures: a “push” that favors distinct DG landmarks and a “pull” that rewards the policy for reaching internally defined targets. Spatial structure can thus arise through the agent’s interaction with the world rather than being imposed as a training target.
 
-In a continuous visual arena, the agent develops spatially informative DG activity during exploration. Replacing temporal DG feedback with constant feedback makes DG responses less spatially informative, more redundant, and concentrated in fewer parts of the arena. This supports a role for temporal pattern separation in organizing the code. We also test the policy-side “pull”: replacing its temporally weighted target-hit bonus with a constant bonus has mixed effects on the area explored. The DG push therefore has a clearer demonstrated contribution to spatial coding than temporal pull currently has to exploration.
+In a continuous visual arena, the agent develops spatially informative DG activity during exploration. Replacing temporal DG feedback with constant feedback makes DG responses less spatially informative, more redundant, and concentrated in fewer parts of the arena. This supports a role for temporal pattern separation in organizing the code. We also test the policy-side “pull”: replacing its temporally weighted target-hit bonus with a constant bonus has mixed effects on the representation and exploration. Its effect can be largely substituted by the actor-critic temporal discount factor to encourage faster traversal. 
 
-The agent's interaction with the world further shapes the representation because of the recurrent memory. With weights frozen, the learned policy evokes more spatially informative downstream responses than random actions, showing that behavior changes how the code is expressed. This suggests a route by which policy could also refine the learned code, although that training effect remains to be tested.
+The agent's interaction with the world further shapes the representation because of the recurrent memory. With weights frozen, the learned policy evokes more spatially informative downstream responses than random actions, showing that behavior changes how the code is expressed. This exemplifies the intertwinement of policy and representational learning.
 
-Together, these results show how temporal memory and self-directed action can produce spatial organization without direct spatial instruction. They also separate two claims: forming a spatial code and using it to explore.
+Together, these results show how temporal memory and self-directed action can produce spatial organization without direct spatial instruction. 
+
+~~They also separate two claims: forming a spatial code and using it to explore.~~
+comment: do we even have space for this?
 
 ## Comments to resolve before the two-page draft
 
