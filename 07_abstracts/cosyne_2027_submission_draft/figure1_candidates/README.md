@@ -1,8 +1,10 @@
 # Experimental Figure 1: spatial results at right
 
-[PDF](01_architecture_spatial_right.pdf) · [SVG](01_architecture_spatial_right.svg) · [PNG preview](01_architecture_spatial_right.png)
+[Preferred original-art candidate PDF](02_original_architecture_spatial_right.pdf) · [SVG](02_original_architecture_spatial_right.svg) · [PNG preview](02_original_architecture_spatial_right.png)
 
-This is a **separate candidate** at 7.5 × 3.12 inches. The submitted architecture figure, Figure 2, `main.tex`, and the compact Overleaf ZIP are unchanged. The left schematic is simplified so that its text remains at least 12 pt; the equations from the current architecture do not appear in this design. The spatial-emergence course and two example place fields occupy a narrow column on the right.
+[Earlier simplified candidate PDF](01_architecture_spatial_right.pdf) · [SVG](01_architecture_spatial_right.svg) · [PNG preview](01_architecture_spatial_right.png)
+
+Both layouts are **separate candidates** at 7.5 × 3.12 inches. The submitted architecture figure, Figure 2, `main.tex`, and the compact Overleaf ZIP are unchanged. Candidate 2 restores the author's original visual architecture elements: the egocentric scene, ResNet-18 wedge, DG sparsifier, CA3 sequence, readout, maze, feedback arrows, and temporal-separation inset. It crops away the large formula rows and masks the observation-update formula above the diagram. Isolated labels for the threshold, matrix links, and event interval remain in the source artwork; no equation is displayed. Three short prose lines beneath the artwork keep its fixed and learned components and push/pull roles readable at the compact width. The architecture artwork is embedded at 600 dpi from the original SVG, while the result curve, uncertainty bands, axes, and labels are vector in the PDF and SVG. Candidate 1 remains available to compare the simplified-block treatment. The spatial-emergence course and two example place fields occupy a narrow column on the right in both layouts.
 
 ## Suggested caption
 
@@ -14,12 +16,13 @@ This is a **separate candidate** at 7.5 × 3.12 inches. The submitted architectu
 
 ## Source and regeneration
 
-Panel B reads the archived [online arm summary](../../../06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv). Panel C crops two tiles from the [C15 seed-99 per-unit-scale SVG](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c15_seed99/place_fields_individual_scale.svg); the [probe table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv) verifies occupancy and evaluation length, and the [unit table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv) verifies field identities, spatial-information scores, and color ranges. [manifest.json](manifest.json) records the source hashes. The field tiles are raster crops; the schematic, curve, uncertainty bands, axes, and labels remain vector in the PDF and SVG.
+Panel A of candidate 2 crops the original [architecture v2 SVG](../figures/architecture_v2.svg) with exact export, crop, and formula-mask coordinates recorded in [its manifest](02_original_architecture_spatial_right_manifest.json). Panel B reads the archived [online arm summary](../../../06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv). Panel C crops two tiles from the [C15 seed-99 per-unit-scale SVG](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c15_seed99/place_fields_individual_scale.svg); the [probe table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv) verifies occupancy and evaluation length, and the [unit table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv) verifies field identities, spatial-information scores, and color ranges. The original [candidate 1 manifest](manifest.json) records its input hashes. The field tiles are raster crops in both candidates.
 
 From this directory, rebuild with:
 
 ```bash
 MPLCONFIGDIR=/tmp/cosyne_figure1_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python render_architecture_with_fields.py
+MPLCONFIGDIR=/tmp/cosyne_figure1_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python render_original_architecture_candidate.py
 ```
 
 This layout would require moving the Figure 2A spatial-emergence panel and the two Figure 2C field tiles out of Figure 2 if selected for the submission, then updating both captions and figure references. The present candidate does not make those changes.
