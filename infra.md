@@ -2123,3 +2123,24 @@ For each finding, record:
   verified scalable Arial, no clipped labels at 100% size, unchanged source
   CSV hashes, and one-to-one claim/source links in the question reports. The
   paired absolute values subtract to the archived seed differences.
+
+### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
+
+- **Evidence:** COSYNE C05 layer preflights 8343829 and 8343830 reproduced the
+  archived DG mean spatial score exactly but failed a direct occupancy-array
+  equality check. The panel had 10,001 observations and 242 visited bins in
+  both representations; the archived `place_fields.npz` occupancy equaled the
+  shared spatial-contract occupancy **after transpose**, with zero count
+  difference. Axis-corrected preflight 8343831 then passed its per-unit DG
+  score and occupancy checks. This surfaced while reusing the identical panel
+  for CA3 and decoder analyses.
+- **Impact:** An unqualified equality assertion rejects valid replay output;
+  a silent axis mismatch could misplace spatial maps despite matching totals.
+- **Improvement/status:** The new [layer replay](hpc_runs/common_panel_layer_probe.py)
+  explicitly verifies the transpose and all DG unit scores. The convention is
+  documented in [reusable place-field telemetry](04_implementation/reusable_place_field_telemetry.md).
+  A versioned canonical occupancy-axis field in future evaluator NPZs remains
+  open; preserve the legacy schema when reading old artifacts.
+- **Acceptance:** An asymmetric-map regression fixture verifies the conversion,
+  every C05 layer replay matches archived DG occupancy and per-unit scores,
+  and future source readers declare the axis order before joining maps.

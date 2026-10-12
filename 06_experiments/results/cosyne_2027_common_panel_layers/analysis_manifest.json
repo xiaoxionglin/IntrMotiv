@@ -1,0 +1,183 @@
+{
+  "schema": "cosyne27-common-panel-layers-analysis/v1",
+  "protocol": "frozen C05 terminal checkpoints, common 10001-observation panel",
+  "panel_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+  "sources": {
+    "training_catalog": {
+      "path": "06_experiments/cosyne_2027/training_runs.csv",
+      "sha256": "4fa1f6e1fe6507e27e1b830e72a9572b23f50d23fbee743a5dc1aafd2b4f83e5"
+    },
+    "study_specs": {
+      "cosyne27_c05_pushpull_s3_20261010": {
+        "path": "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json",
+        "sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+        "schema": "intrmotiv/study/v1",
+        "workflow_version": "1.14.1"
+      },
+      "cosyne27_c05_pushpull_s2_20261010": {
+        "path": "hpc_runs/studies/cosyne27_c05_pushpull_s2_20261010.study.json",
+        "sha256": "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c",
+        "schema": "intrmotiv/study/v1",
+        "workflow_version": "1.14.1"
+      }
+    },
+    "replays": [
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_CONSTANT__s123__f100007936.json",
+        "sha256": "bb2f118c94d09b29afef10c2882c78cadbd343284182e48abe4aa1d6633d451c",
+        "checkpoint_sha256": "5633eadd2eef1df39147ab6932fd291665759e62f014304cd587488cc3dfce2a",
+        "dg_reference_sha256": "8016ae388a4a36c01d72d7af1601b82257c23ce19a37ee737946a428b4e977e7"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_CONSTANT__s17__f100007936.json",
+        "sha256": "abeee467391629d884a4ae81ad5d0b156ba7befbb3a632a721175b7040ea6b92",
+        "checkpoint_sha256": "4dede8079a3d80f6dbb37147d715b16ce02d99370354a60c2fa5809ae0ba8c48",
+        "dg_reference_sha256": "d75c103b3367eae858ad3e63a276b929565cbcd70914c7e9dbcdb416137882a4"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_CONSTANT__s41__f100007936.json",
+        "sha256": "8cb3972a896568d25acb252d179e3fc454f9e5aeafb85c2089d4ca1e53e40c0c",
+        "checkpoint_sha256": "39203a92acb0ba4d022a68c06a1ced25efc0b927610361958eed3a95bef1299f",
+        "dg_reference_sha256": "3b814fbb97d95a1e4508b505d1f5de8e1563ee5c784e8f7357f83e1a69af585d"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_CONSTANT__s8__f100007936.json",
+        "sha256": "f867b4bfc15db67d1ac9286454bb1f55579b801e0d74841a6b44760bc9c2bad7",
+        "checkpoint_sha256": "fb1b9d94844612bce6f3888bb09d8edfe363929394990925801044ac31d27337",
+        "dg_reference_sha256": "a6d44ad180023d2e95d47be73ad0f961b6855860b1dab88ac0dee5580bd803bc"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_CONSTANT__s99__f100007936.json",
+        "sha256": "a3cef00d3e1fb9031ce84ae6be41b5aa627f030a7dca7f47f568b22370b042cf",
+        "checkpoint_sha256": "cf4971a2965d5bdbd50348d22fa9b531d2b8235d1b8d436ef19824b31a382d5e",
+        "dg_reference_sha256": "09f6ed75ad64617a5253075f149fd09d13f326b66a79170add8d9c42253718e9"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_TEMPORAL__s123__f100007936.json",
+        "sha256": "b19a2d6a360c2dda14ea28b6b8c59805d4baa907e333d9b7f6575ad5f45e075c",
+        "checkpoint_sha256": "0d0873c4cb457be8820ece1defc06bdb245ba69c7adaa0a331df9a27cdf372d9",
+        "dg_reference_sha256": "0531966932c3872ad2010f737dba998b763286a25948d7e89d1b983c02998236"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_TEMPORAL__s17__f100007936.json",
+        "sha256": "1a7b4a311a6795ac477d4258ec0d9aacfcf8d3d0208eea1ec600f0a598f568ac",
+        "checkpoint_sha256": "550e065e7711b4908d995c8d4491f19093cdeb76f11863e6e7b9375be7a19496",
+        "dg_reference_sha256": "a10bd3411b1b4bad26d636605c46fc3a2a78773a238bfe228952a910691a01e4"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_TEMPORAL__s41__f100007936.json",
+        "sha256": "93f112d1b927a78af56b4cf63ed5ff67a578ea48e93028e0e986f9627507fe89",
+        "checkpoint_sha256": "2f2866202503c57f79596f43e21bd7e60a0a02f9a0414209446258e20fd8edb8",
+        "dg_reference_sha256": "5aebb2ebe7b2babbfe3e42818f368dc733690b08ef8d6761a4bd0ff72e8c6f8a"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_TEMPORAL__s8__f100007936.json",
+        "sha256": "0b7e40f35b620db780d94bda7b096f2e1cde925dc44c93cc920717efa0989ec8",
+        "checkpoint_sha256": "862b584831a1a875f822938c1602a2c2742b26d3f25ab93494e2e76c39e51777",
+        "dg_reference_sha256": "a7c29ac1eae01cb6efd64605d1a85feab1cb2d29769773e5a6e22c17216082f2"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_CONSTANT_TEMPORAL__s99__f100007936.json",
+        "sha256": "8870e88232b99a3d7d3c1d5fe9697cd62139773cbc13ea754dcee3a732bf248a",
+        "checkpoint_sha256": "f3fc474f8458a635604764843d49c67bbb79fa335fcc6e8c1d4d2b455c49c3a2",
+        "dg_reference_sha256": "f2090fb4c44e1491365cdc8dd1a98bdb62d98b67818342d5441d9edbca73e64e"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_CONSTANT__s123__f100007936.json",
+        "sha256": "d13d8a47e28803f299535a572b1cdc87bc6f59b8335509b1c3772c0c478011ef",
+        "checkpoint_sha256": "5441611d7a8802ca4c5cb85ea69b9d82db99c313b9127775e5123d31fad925f9",
+        "dg_reference_sha256": "9cdb89263e98b4bd9ed422d972f38b16e8b548eb2888238cc808044fd022b32b"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_CONSTANT__s17__f100007936.json",
+        "sha256": "b9e63d84a05dca0fbb8625b23922cccf8a9576661b7718160424254545651dd9",
+        "checkpoint_sha256": "6adca7695231133554258d60cda7bcc57aa4b4974daa5caec66ac92494de8009",
+        "dg_reference_sha256": "e7e5088b99d4845aa976617cb611b972ee6203ae14dd4d8ace10c23ad31c911c"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_CONSTANT__s41__f100007936.json",
+        "sha256": "6d6d130e8f9c6b63696d18905c963b69cd10655184e725908395a8d8fe3efa3b",
+        "checkpoint_sha256": "cc0d120d6ccf1b5b6eabcd1355c71a70752b1b5c9b35fc51bd271caf16c510e9",
+        "dg_reference_sha256": "cac617e8b57e2e896e54830dc9d2fcbe31219dcf77df4125b9e076922248e491"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_CONSTANT__s8__f100007936.json",
+        "sha256": "50c7d483d90ea17f4630c477121db7e4ecabbb13ea09a31bbfeca7e450fa82d4",
+        "checkpoint_sha256": "e72923a3bb0da414433f369f979f9c29c2ace061e09f10b9e8601aea7846c83f",
+        "dg_reference_sha256": "9bda32b8723b178f854ac5e8dda6e9ad1243f0ff3608972f01ee90dd974b49e0"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_CONSTANT__s99__f100007936.json",
+        "sha256": "2cd5b69b1806e90664de6120518d67b823555c067b237c8a29191c1e0de5302d",
+        "checkpoint_sha256": "2c6dfc9d617c7c3f36b00b3309b9f141f67a007abc63a183772201cccb587798",
+        "dg_reference_sha256": "b673562c350de59c4b1c819d8dc955175f193942ed5db8ee8806bf5283514878"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s123__f100007936.json",
+        "sha256": "4bc8c96e9aa7ca3842d2a4a8b03d901d7c8684bc034de027dfc878ba50f883e5",
+        "checkpoint_sha256": "f87a6c70801f5767e2c6eaaf5b616a75e0281e4e9635e6c35b0126fcfca3c2a9",
+        "dg_reference_sha256": "0ec1051504cca7a0298690b3904c48317ca22c0a91e2380a9c20c16ac9e9fe9b"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s17__f100007936.json",
+        "sha256": "ae03a2a79745dd88851082ca7687170416eb338f0e80f72ce37ce66c6bc7368b",
+        "checkpoint_sha256": "d26dc581ecfff40a0e7cf7701aadb8e8481a57503d722dbfcd5e8deaa7ef1b5c",
+        "dg_reference_sha256": "8672ef2ac5eac93d3e94aa473a26c996ed9f921b17fb2c301aa34d4351503f64"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s41__f100007936.json",
+        "sha256": "683268c38b2e716a20dc08e72f10c1752a5e93fcb92df2976f89d02d6384bbec",
+        "checkpoint_sha256": "cdd4038f2bc582cbd92b954adeb4225d52979b89f9086a183cf7f8d7c2bddcfd",
+        "dg_reference_sha256": "1c1663667f06091cf7ed5974913c63aab8dff9ed9251f4f93c01dce70d6ab267"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s8__f100007936.json",
+        "sha256": "5e8387d049cf8b7054d1054e3d75e088616d3eb7c2231bcdb2d406bf11314a88",
+        "checkpoint_sha256": "e6fa3b2b35f81963a956e7dcbccbdb7303e471c9fb9a0b2f8ac36cb5bfcc432c",
+        "dg_reference_sha256": "1a1c9f11f070538fec3eb3366cf61dc9559f32861ef7e98ec7e43925415e081d"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.json",
+        "sha256": "cc2764ebc424eaa4ff1ac01dfbcc7375f131075519c60f5e0124c66efaac52c5",
+        "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+        "dg_reference_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7"
+      }
+    ]
+  },
+  "source_code": [
+    {
+      "path": "hpc_runs/common_panel_layer_probe.py",
+      "sha256": "a1fd1c48ee43b0f7d17555bb87f095a3363343b4f6754e6523580dfb4bafc448"
+    },
+    {
+      "path": "hpc_runs/run_common_panel_layer_single.sh",
+      "sha256": "bb6d9ebae959ee08563a40715dc08d824323842289cbe7e68923890afc261a33"
+    },
+    {
+      "path": "hpc_runs/submit_common_panel_layers.py",
+      "sha256": "55d12cdcb796e7a4d5dd084a207a872805ad7466d79920720ccce9188e567742"
+    },
+    {
+      "path": "06_experiments/cosyne_2027/analyze_common_panel_layers.py",
+      "sha256": "b2b4e710cbdbc52401c7b796277a6490ace6cf4662c68d2143fd87f013891f19"
+    }
+  ],
+  "seed_count": 5,
+  "factor_cells": 4,
+  "layers": [
+    "ca3",
+    "decoder_1",
+    "decoder_2"
+  ],
+  "figure_font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "figure_detail_size_inches": [
+    6.5,
+    9
+  ],
+  "figure_detail_dpi": 170,
+  "metric_definitions": {
+    "mean_bits_per_activation_eligible": "occupancy-weighted spatial information divided by mean rectified activity, averaged over units active at least 20 observations in 3 bins",
+    "mean_amplitude_weighted_bits_all": "original Skaggs amplitude-weighted score averaged over all layer units; zeros retained",
+    "mean_positive_fraction": "fraction of rectified layer samples greater than zero"
+  }
+}

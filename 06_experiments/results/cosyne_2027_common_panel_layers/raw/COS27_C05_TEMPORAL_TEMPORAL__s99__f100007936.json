@@ -1,0 +1,61 @@
+{
+  "schema": "intrmotiv/common-panel-layers/v1",
+  "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+  "seed": 99,
+  "checkpoint_frames": 100007936,
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+  "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+  "panel_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+  "dg_reference": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+  "dg_reference_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+  "dg_reference_mean_amplitude_weighted_bits": 0.09487377723018972,
+  "dg_replay_mean_amplitude_weighted_bits": 0.09487377739549661,
+  "dg_max_unit_score_absolute_error": 1.8266285428669704e-09,
+  "archived_dg_occupancy_orientation": "x_y; transpose matches replay y_x",
+  "frozen_model_sha256": "dedc873202d168f528a328085ec7ce83ca25bdb631df233ce9f01cef99d60af9",
+  "decoder_hook": "decoder.mlp.1",
+  "runtime_paths": {
+    "train_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_",
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_common_panel_layers_20261012/output/dmlab_cache",
+    "wandb_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_common_panel_layers_20261012/output/wandb"
+  },
+  "layers": {
+    "ca3": {
+      "units": 1136,
+      "eligible_units": 1136,
+      "silent_units": 0,
+      "mean_positive_fraction": 0.12556482027853552,
+      "mean_rectified_activation": 0.3700549304485321,
+      "mean_bits_per_activation_eligible": 2.3882604023969973,
+      "mean_amplitude_weighted_bits_all": 0.3518162368113733,
+      "median_bits_per_activation_eligible": 2.5603420460551263,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    },
+    "decoder_1": {
+      "units": 128,
+      "eligible_units": 115,
+      "silent_units": 2,
+      "mean_positive_fraction": 0.24772913333666632,
+      "mean_rectified_activation": 0.4732097089290619,
+      "mean_bits_per_activation_eligible": 2.352887040962532,
+      "mean_amplitude_weighted_bits_all": 0.14473708413128564,
+      "median_bits_per_activation_eligible": 2.3037510673963566,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    },
+    "decoder_2": {
+      "units": 128,
+      "eligible_units": 105,
+      "silent_units": 4,
+      "mean_positive_fraction": 0.33547504624537544,
+      "mean_rectified_activation": 0.26268330216407776,
+      "mean_bits_per_activation_eligible": 1.6286531479808692,
+      "mean_amplitude_weighted_bits_all": 0.04670061035492029,
+      "median_bits_per_activation_eligible": 1.001656618493621,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    }
+  }
+}

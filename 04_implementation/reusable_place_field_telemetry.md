@@ -703,6 +703,11 @@ when interpreting representation changes across policies or checkpoints.
 Replay materializes compressed arrays once and copies activation snapshots
 before episode resets; regression tests protect against repeated decompression
 and NumPy/Torch shared-storage corruption at terminal boundaries.
+When joining legacy `place_fields.npz` occupancy with the shared
+`spatial_contract` or frozen behavior-probe maps, transpose the archived DG
+occupancy: the legacy evaluator stores `(x, y)` axes while the shared metric
+contract stores `(y, x)`. Verify the full count array after transpose and the
+per-unit DG spatial scores, rather than comparing visited-bin counts alone.
 New NPZs preserve the original fields and add raw rectified-DG maps beside
 post-inhibition and continuous pre-threshold maps. `pose_alignment` explicitly
 records `observation_time`; older one-step-offset artifacts must not be silently
