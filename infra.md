@@ -96,8 +96,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   them from the five-seed C15 paired analysis. The adapter now joins the
   `cosyne_replacement` cohort through the same StudySpec-derived catalog and
   still requires one terminal row per verified run. This fixes the local field
-  readout; the common-panel, trajectory, and graph adapters must retain clear
-  source lineage when the replacement outputs are incorporated.
+  readout. The trajectory/graph adapter now includes recovery as a separate
+  StudySpec source with exact CSV hashes; the common-panel adapter still needs
+  the same explicit lineage when its replacement outputs are available.
 
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 
