@@ -1,0 +1,96 @@
+{
+  "collector_manifest_sha256": "e00ecce4da9e11b7b78d016b5e557377cc93d25afa72213ca6537d1da043edf1",
+  "collector_per_run_sha256": "a228a9865693e60efcffa1646e723bcb8ad5ab7d355d47f9017eeefc6c03d7af",
+  "event_sources_by_run": {
+    "COS27_C05_G999_CONSTANT_S123": [
+      {
+        "bytes": 101189589,
+        "mtime_ns": 1791833656024235480,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_CONSTANT_S123_/00_COS27_C05_G999_CONSTANT_S123/.summary/0/events.out.tfevents.1791779948.n3127"
+      }
+    ],
+    "COS27_C05_G999_CONSTANT_S17": [
+      {
+        "bytes": 100891464,
+        "mtime_ns": 1791832253923239637,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_CONSTANT_S17_/00_COS27_C05_G999_CONSTANT_S17/.summary/0/events.out.tfevents.1791779947.n3201"
+      }
+    ],
+    "COS27_C05_G999_CONSTANT_S41": [
+      {
+        "bytes": 100771605,
+        "mtime_ns": 1791831639309311895,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_CONSTANT_S41_/00_COS27_C05_G999_CONSTANT_S41/.summary/0/events.out.tfevents.1791779947.n3201"
+      }
+    ],
+    "COS27_C05_G999_CONSTANT_S8": [
+      {
+        "bytes": 100834527,
+        "mtime_ns": 1791831973652167443,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_CONSTANT_S8_/00_COS27_C05_G999_CONSTANT_S8/.summary/0/events.out.tfevents.1791779948.n3127"
+      }
+    ],
+    "COS27_C05_G999_CONSTANT_S99": [
+      {
+        "bytes": 100988009,
+        "mtime_ns": 1791832637746974626,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_CONSTANT_S99_/00_COS27_C05_G999_CONSTANT_S99/.summary/0/events.out.tfevents.1791779948.n3127"
+      }
+    ],
+    "COS27_C05_G999_TEMPORAL_S123": [
+      {
+        "bytes": 100918160,
+        "mtime_ns": 1791832374752055916,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_TEMPORAL_S123_/00_COS27_C05_G999_TEMPORAL_S123/.summary/0/events.out.tfevents.1791779946.n3122"
+      }
+    ],
+    "COS27_C05_G999_TEMPORAL_S17": [
+      {
+        "bytes": 100973188,
+        "mtime_ns": 1791832631021315100,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_TEMPORAL_S17_/00_COS27_C05_G999_TEMPORAL_S17/.summary/0/events.out.tfevents.1791779946.n3122"
+      }
+    ],
+    "COS27_C05_G999_TEMPORAL_S41": [
+      {
+        "bytes": 100892068,
+        "mtime_ns": 1791832192387479983,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_TEMPORAL_S41_/00_COS27_C05_G999_TEMPORAL_S41/.summary/0/events.out.tfevents.1791779947.n3125"
+      }
+    ],
+    "COS27_C05_G999_TEMPORAL_S8": [
+      {
+        "bytes": 100946342,
+        "mtime_ns": 1791832459843942497,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_TEMPORAL_S8_/00_COS27_C05_G999_TEMPORAL_S8/.summary/0/events.out.tfevents.1791779927.n3106"
+      }
+    ],
+    "COS27_C05_G999_TEMPORAL_S99": [
+      {
+        "bytes": 101017729,
+        "mtime_ns": 1791832756243492994,
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_s5_20261012/COS27_C05_G999_TEMPORAL_S99_/00_COS27_C05_G999_TEMPORAL_S99/.summary/0/events.out.tfevents.1791779944.n3106"
+      }
+    ]
+  },
+  "history_csv_sha256_by_run": {
+    "COS27_C05_G999_CONSTANT_S123": "5685d4bcfd0ad498c0ce6d284ac450b84df820fc4cb0787469d38894d5615c09",
+    "COS27_C05_G999_CONSTANT_S17": "3b938afa6870469d8217267ce8c8d5c574d1e6edb7f88ba1e5f931bea1fbb232",
+    "COS27_C05_G999_CONSTANT_S41": "d7156caa545b26147e8fb34dd3a98fd1908fb661f84a0b6d5140b415b817b3c1",
+    "COS27_C05_G999_CONSTANT_S8": "bf3b4a6f661afe9716c29d86707dc7079167b47f3e0059d220d5d46df7030dfa",
+    "COS27_C05_G999_CONSTANT_S99": "cdde4637c6f4aea3da4ad1a447002c7567461d779830510f405543e3d60f3b16",
+    "COS27_C05_G999_TEMPORAL_S123": "620a55ceba2c25bec6054af05125e35d475576a861fccc6577dd06fe5bcad4dd",
+    "COS27_C05_G999_TEMPORAL_S17": "d6ea7d55e935428f89d1b57762063d7f218899ac13d8eace5adefe2830061f98",
+    "COS27_C05_G999_TEMPORAL_S41": "f89c728698446d9e4146727ec4b423a8144ffdc214927f35124b903437576db0",
+    "COS27_C05_G999_TEMPORAL_S8": "d9a529ba74634a9dabe0dba0c193df5945f84a31320cfdd7d9e4cdb165c90b7f",
+    "COS27_C05_G999_TEMPORAL_S99": "7d260023e0d5322a00a5479c752f484db92b2f5109e1d08912f3603225e22870"
+  },
+  "interpretation": "Repeated learner-batch DG detector-hit observations; no independently mapped physical arrivals.",
+  "paired_seed_count": 5,
+  "run_count": 10,
+  "schema": "intrmotiv/study/v1",
+  "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_c05_long_credit_worker_20261012/online_90_100m_histories_thread1",
+  "study_id": "cosyne27_c05_long_credit_worker_s5_20261012",
+  "study_sha256": "448161895fe97f0d289e809e15f17152886a8445a86a913b8efb31ad34c264c5",
+  "workflow_version": "1.14.1"
+}

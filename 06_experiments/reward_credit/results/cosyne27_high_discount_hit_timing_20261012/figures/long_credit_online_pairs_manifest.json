@@ -1,0 +1,37 @@
+{
+  "dpi_png": 300,
+  "figure_inches": [
+    6.2,
+    8.4
+  ],
+  "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "font_size_pt": 15,
+  "hit_weighted_csv": "06_experiments/reward_credit/results/cosyne27_high_discount_hit_timing_20261012/hit_weighted_90_100m/hit_weighted_per_run.csv",
+  "hit_weighted_csv_sha256": "d278bb6a534c23c1e9fb1adc546c511f573236dcb8a0168a69c0175df8ad2bce",
+  "meaning": "Online training observations, not independent physical arrivals or executed-command trials.",
+  "online_per_run_csv": "06_experiments/reward_credit/results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/per_run.csv",
+  "online_per_run_csv_sha256": "a228a9865693e60efcffa1646e723bcb8ad5ab7d355d47f9017eeefc6c03d7af",
+  "pairing": "constant and temporal worker bonus within training seed",
+  "panels": [
+    {
+      "column": "correct_hit_observations",
+      "label": "Correct-hit observations\n(repeated learner batches)"
+    },
+    {
+      "column": "hit_weighted_elapsed_decisions",
+      "label": "Elapsed decisions per correct hit\n(count weighted)"
+    },
+    {
+      "column": "coverage_auc",
+      "label": "Online coverage AUC"
+    }
+  ],
+  "sample_unit": "training seed",
+  "training_seeds": [
+    8,
+    17,
+    41,
+    99,
+    123
+  ]
+}
