@@ -106,7 +106,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   audited merger produced one full C05 seed-99 75M row with 128 exact starts,
   384 paired comparisons, 1,152 trials, no missing records, and the original
   study fingerprint. The [interim result](06_experiments/cosyne_2027/results_20261011/control_interim/summary/control_seed_checkpoint_metrics.csv)
-  retains detector-hit differences and a 46-row missingness ledger. Two
+  retains detector-hit differences and a 44-row missingness ledger. Four
   completed rows do not establish reliability across all C05/C15 checkpoints;
   the remaining rows still need bounded recovery or a verified monolithic end.
   After print-only review, 15 additional C15 temporal seed-17 75M source jobs
@@ -120,7 +120,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   fingerprint; its single-row 900-decision detector-hit lift was +0.0026.
   The remaining two failed C15 temporal rows were print-reviewed and submitted
   as 32 bounded source jobs 8354534–8354565, with [commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c15_s2_remaining_source_panels_20261012.tsv)
-  retained. The refreshed interim ledger has two completed rows and 46 missing.
+  retained. Both C05 seed-41 rows also passed the 16-source merge, each with
+  128 exact starts, 384 paired comparisons, 1,152 trials, and the original
+  StudySpec fingerprint. Their 900-decision detector-hit lifts were +0.0104
+  at 75M and -0.0052 at 100M, repeated checkpoints of the same seed. The
+  refreshed interim ledger has four completed rows and 44 missing.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
