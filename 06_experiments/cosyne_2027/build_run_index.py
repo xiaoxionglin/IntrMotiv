@@ -71,7 +71,7 @@ def manifest_rows(path: Path) -> dict[str, dict[str, str]]:
     return rows
 
 
-def verified_production_jobs() -> set[str]:
+def verified_production_jobs() -> dict[str, dict[str, str]]:
     """Read audited terminal outcomes; live scheduler state never enters the catalog."""
     with VERIFIED_OUTCOMES.open(newline="") as stream:
         records = list(csv.DictReader(stream, delimiter="\t"))
@@ -83,7 +83,7 @@ def verified_production_jobs() -> set[str]:
                 or int(record["checkpoint_frame"]) < 100_000_000
                 or not record["checkpoint_path"]):
             raise ValueError(f"unverified terminal outcome for job {record['job_id']}")
-    return set(job_ids)
+    return {record["job_id"]: record for record in records}
 
 
 def report_for(cohort: str) -> str:
@@ -178,8 +178,14 @@ def study_rows() -> list[dict[str, str]]:
             raise ValueError(f"manifest has unexpected jobs: {set(manifest) - expected}")
     by_job = {row["job_id"]: row for row in rows}
     eligible_jobs = {row["job_id"] for row in rows if row["cohort"] in ("cosyne_new", "cosyne_long_credit")}
-    if not verified_jobs <= eligible_jobs:
-        raise ValueError(f"verified jobs missing from incremental cohorts: {verified_jobs - eligible_jobs}")
+    if not set(verified_jobs) <= eligible_jobs:
+        raise ValueError(f"verified jobs missing from incremental cohorts: {set(verified_jobs) - eligible_jobs}")
+    for job_id, evidence in verified_jobs.items():
+        checkpoint = evidence["checkpoint_path"]
+        expected_root = f"{by_job[job_id]['run_dir']}/checkpoint_p0/"
+        if not checkpoint.startswith(expected_root) or not checkpoint.endswith(
+                f"_{evidence['checkpoint_frame']}.pth"):
+            raise ValueError(f"checkpoint path does not match job {job_id}")
     for replacement in (row for row in rows if row["replaces_job_id"]):
         original = by_job[replacement["replaces_job_id"]]
         original["attempt_status"] = "failed_replaced"

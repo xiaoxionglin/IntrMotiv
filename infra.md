@@ -1904,7 +1904,7 @@ For each finding, record:
 - **Evidence:** COSYNE job 8335154 reached its 100M checkpoint while 14 jobs in the same fresh cohort were still running. The [catalog builder](06_experiments/cosyne_2027/build_run_index.py) previously assigned one hardcoded status to every run in that cohort.
 - **Impact:** A cohort-wide status either hid verified results or marked incomplete jobs ready for analysis. Repeated manual CSV edits would be overwritten by the canonical builder.
 - **Improvement/status:** The builder now reads a small [verified outcome record](06_experiments/cosyne_2027/verified_production_outcomes.tsv) keyed by submitted job ID, validates exit zero and a checkpoint frame at or beyond 100M, and retains StudySpec and manifest as the sources of run identity and factors. Individual completions can be added without changing study definitions.
-- **Acceptance:** Rebuilding the catalog marks only recorded completed jobs `verified_100m`, leaves other incremental jobs pending, rejects duplicate or sub-100M outcomes, and reproduces the same catalog on a second run.
+- **Acceptance:** Rebuilding the catalog marks only recorded completed jobs `verified_100m`, leaves other incremental jobs pending, rejects duplicate, sub-100M, or wrong-run checkpoint records, and reproduces the same catalog on a second run.
 
 ### Native landmark manifest and review renderer — completed locally, 2026-09-23
 
