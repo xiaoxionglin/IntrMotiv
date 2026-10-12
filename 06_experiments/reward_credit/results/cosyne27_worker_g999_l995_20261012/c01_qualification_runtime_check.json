@@ -1,0 +1,21 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "study_workflow_version": "1.14.1",
+  "study_id": "cosyne27_c01_horizon_g999_l995_qualification_20261012",
+  "study_spec": "hpc_runs/studies/cosyne27_c01_horizon_g999_l995_qualification_20261012.study.json",
+  "study_sha256": "85502133298e42cfe67e51986ccc3b0411a8a6126934c840616752813b386d0a",
+  "batch_name": "cosyne27_c01_horizon_g999_l995_qualification_20261012",
+  "training_mode": "sample_factory",
+  "expected_runs": 1,
+  "complete": true,
+  "rows": [
+    {
+      "run": "COS27_C01_G999L995_Q_S99",
+      "max_step": 2031616,
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_horizon_g999_l995_qualification_20261012/COS27_C01_G999L995_Q_S99_/00_COS27_C01_G999L995_Q_S99/checkpoint_p0/milestones/checkpoint_000000124_2031616.pth",
+      "snapshot_count": 2,
+      "max_silent_fraction": 0.0
+    }
+  ]
+}
