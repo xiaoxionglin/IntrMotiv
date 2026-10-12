@@ -2,6 +2,7 @@
   "source_sha256": {
     "online": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950",
     "behavior": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
+    "behavior_absolute": "b042878a67ce4d0bad744703d4c15fe5e1619e9149b994bf0b82abf41af6068e",
     "encoder": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432",
     "peaks": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a",
     "example": "e27ec12deb99afbaa45b4bed707281b140e3acb74a385b6fc70bc7787dd13332",
@@ -11,7 +12,7 @@
   "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "results_size_inches": [
     7.5,
-    5.9
+    4.95
   ],
   "variant_size_inches": [
     6.58689,
@@ -22,7 +23,14 @@
     "selected_peak_area_temporal": 0.3844299901,
     "selected_peak_area_constant": 0.2296116607,
     "behavior_models": 38,
-    "decoder_c01_mean_delta": 0.6804208447790872
+    "decoder_c01_mean_delta": 0.6804208447790872,
+    "result_panel_width_inches": {
+      "behavior": 1.43,
+      "dg": 0.86,
+      "decoder": 1.2,
+      "worker": 1.1
+    }
   },
-  "peak_example_choice": "largest C01 peak-area difference among five paired seeds"
+  "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
+  "behavior_absolute_source": "6412596:06_experiments/results/cosyne_2027_behavior_secondary/fresh_pair_analysis/paired_evaluation_repeats.csv"
 }

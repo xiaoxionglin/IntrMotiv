@@ -30,6 +30,7 @@ DATA = DRAFT / "data"
 SOURCES = {
     "online": RESULTS / "cosyne_2027_online_wandb" / "arm_summaries.csv",
     "behavior": DATA / "fresh_behavior_training_seeds.csv",
+    "behavior_absolute": DATA / "fresh_behavior_decoder1_absolute.csv",
     "encoder": RESULTS / "cosyne_2027_checkpoint_fields" / "common_panel_analysis" / "paired_encoder_fields.csv",
     "peaks": RESULTS / "cosyne_2027_checkpoint_fields" / "common_panel_analysis" / "paired_peak_spread_by_seed.csv",
     "example": DATA / "c01_seed8_peak_example.json",
@@ -38,6 +39,7 @@ SOURCES = {
 }
 COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 GRAY = "#5B646C"
+FIGURE_HEIGHT = 4.95
 
 
 def style() -> str:
@@ -63,8 +65,11 @@ def save(fig: plt.Figure, stem: str) -> None:
     FIGURES.mkdir(exist_ok=True)
     for suffix in ("pdf", "svg", "png"):
         target = FIGURES / f"{stem}.{suffix}"
+        metadata = ({"Date": None} if suffix == "svg" else
+                    {"CreationDate": None, "ModDate": None} if suffix == "pdf" else
+                    None)
         fig.savefig(target, dpi=300,
-                    metadata={"Date": None} if suffix == "svg" else None)
+                    metadata=metadata)
         if suffix == "svg":
             target.write_text("\n".join(line.rstrip() for line in
                                         target.read_text().splitlines()) + "\n")
@@ -106,11 +111,12 @@ def variant_strip() -> None:
 
 
 def axes_in(fig: plt.Figure, x: float, y: float, width: float, height: float):
-    return fig.add_axes([x / 7.5, y / 5.9, width / 7.5, height / 5.9])
+    return fig.add_axes([x / 7.5, y / FIGURE_HEIGHT,
+                         width / 7.5, height / FIGURE_HEIGHT])
 
 
 def section(fig: plt.Figure, x: float, y: float, label: str) -> None:
-    fig.text(x / 7.5, y / 5.9, label, fontsize=10, fontweight="bold",
+    fig.text(x / 7.5, y / FIGURE_HEIGHT, label, fontsize=10, fontweight="bold",
              color="#20272C", va="top")
 
 
@@ -121,25 +127,52 @@ def finish_axes(ax: plt.Axes) -> None:
     ax.grid(axis="x", color="#E6E8E9", lw=0.5, zorder=0)
 
 
-def seed_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
-              value_column: str, *, labels: bool, xlim: tuple[float, float]) -> None:
-    ax.axvline(0, color="#70787F", lw=0.8, zorder=0)
+def paired_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
+                control_column: str, experimental_column: str,
+                *, labels: bool, xlim: tuple[float, float],
+                marker_size: float = 10) -> None:
+    """Show actual control and experimental values joined within training seed."""
     for row, group in enumerate(groups):
         data = values[values.group == group].sort_values("seed")
         if data.empty:
             continue
-        y = np.linspace(row - 0.16, row + 0.16, len(data))
-        color = COLOR["C01" if group == "Baseline" else
+        y_positions = row + np.linspace(-0.17, 0.17, len(data))
+        color = COLOR["C01" if group in {"Baseline", "Base"} else
                       "C15" if group == "Frontier" else "C05"]
-        ax.scatter(data[value_column], y, s=11, color=color, zorder=3,
-                   linewidths=0)
-        mean = data[value_column].mean()
-        ax.plot([mean, mean], [row - 0.22, row + 0.22],
-                color="#171D20", lw=1.5, zorder=4)
-    ax.set_ylim(-0.45, len(groups) - 0.55)
+        for y, control, experimental in zip(
+                y_positions, data[control_column], data[experimental_column]):
+            ax.plot([control, experimental], [y, y], color="#BDC5C9",
+                    lw=0.55, zorder=1)
+        ax.scatter(data[control_column], y_positions, s=marker_size,
+                   marker="s", facecolor="white", edgecolor=GRAY,
+                   linewidth=0.75, zorder=3)
+        ax.scatter(data[experimental_column], y_positions, s=marker_size,
+                   color=color, linewidth=0, zorder=4)
+    ax.set_ylim(-0.42, len(groups) - 0.58)
     ax.invert_yaxis()
     ax.set_xlim(*xlim)
     ax.set_yticks(range(len(groups)), groups if labels else [""] * len(groups))
+    finish_axes(ax)
+
+
+def paired_seeds(ax: plt.Axes, values: pd.DataFrame, control_column: str,
+                 experimental_column: str, *, xlim: tuple[float, float],
+                 color: str) -> None:
+    """Compact one-factor control-versus-condition plot with paired seeds."""
+    data = values.sort_values("seed")
+    y_positions = np.arange(len(data))
+    for y, control, experimental in zip(
+            y_positions, data[control_column], data[experimental_column]):
+        ax.plot([control, experimental], [y, y], color="#BDC5C9",
+                lw=0.65, zorder=1)
+    ax.scatter(data[control_column], y_positions, s=13, marker="s",
+               facecolor="white", edgecolor=GRAY, linewidth=0.85, zorder=3)
+    ax.scatter(data[experimental_column], y_positions, s=13, color=color,
+               linewidth=0, zorder=4)
+    ax.set_ylim(-0.45, len(data) - 0.55)
+    ax.invert_yaxis()
+    ax.set_xlim(*xlim)
+    ax.set_yticks([])
     finish_axes(ax)
 
 
@@ -156,6 +189,7 @@ def peak_grid(peaks: np.ndarray, mask: np.ndarray) -> np.ndarray:
 def results_figure() -> dict[str, float]:
     online = pd.read_csv(SOURCES["online"])
     behavior = pd.read_csv(SOURCES["behavior"])
+    behavior_absolute = pd.read_csv(SOURCES["behavior_absolute"])
     encoder = pd.read_csv(SOURCES["encoder"])
     peaks = pd.read_csv(SOURCES["peaks"])
     decoder = pd.read_csv(SOURCES["decoder"])
@@ -172,11 +206,34 @@ def results_figure() -> dict[str, float]:
     assert np.isclose(selected.temporal, example["arms"]["temporal"]["effective_area_fraction"])
     assert np.isclose(selected.constant, example["arms"]["constant"]["effective_area_fraction"])
 
-    fig = plt.figure(figsize=(7.5, 5.9), facecolor="white")
-    # Sections 1 and 2: time course and behavior-conditioned expression.
-    section(fig, 0.12, 5.84, "A  Spatial coding emerges")
-    section(fig, 2.52, 5.84, "B  Policy shapes expression")
-    ax = axes_in(fig, 0.45, 4.54, 1.64, 1.02)
+    fresh = behavior[(behavior.cohort == "fresh") &
+                     (behavior.layer == "decoder_1")].dropna(
+                         subset=["information_difference", "common_split_half_difference"])
+    keys = ["condition", "family", "encoder_credit", "worker_bonus", "training_seed"]
+    checked = behavior_absolute.merge(fresh, on=keys, validate="one_to_one")
+    assert len(checked) == 38
+    assert np.allclose(checked.own_info - checked.random_info,
+                       checked.information_difference, atol=1e-10)
+    assert np.allclose(checked.own_reliability - checked.random_reliability,
+                       checked.common_split_half_difference, atol=1e-10)
+
+    fig = plt.figure(figsize=(7.5, FIGURE_HEIGHT), facecolor="white")
+    from matplotlib.lines import Line2D
+    handles = [
+        Line2D([], [], linestyle="none", marker="s", markersize=4,
+               markerfacecolor="white", markeredgecolor=GRAY, label="Control"),
+        Line2D([], [], linestyle="none", marker="o", markersize=4,
+               color="#30363B", label="Condition"),
+    ]
+    fig.legend(handles=handles, loc="upper right", bbox_to_anchor=(0.985, 1.005),
+               ncol=2, frameon=False, fontsize=9, handletextpad=0.2,
+               columnspacing=0.5)
+
+    # A: five-seed online course. B: absolute random-control versus own-policy
+    # decoder values, with two repeats averaged inside each training seed.
+    section(fig, 0.12, 4.86, "A  Spatial coding emerges")
+    section(fig, 2.24, 4.86, "B  Policy shapes expression")
+    ax = axes_in(fig, 0.40, 3.75, 1.60, 0.77)
     for family, worker_arm in (("C01", "inapplicable"), ("C05", "temporal"),
                                ("C15", "temporal")):
         rows = online[(online.family == family) &
@@ -187,7 +244,7 @@ def results_figure() -> dict[str, float]:
         x = rows.env_steps.to_numpy() / 1e6
         mean = rows["mean"].to_numpy()
         sem = rows["sem"].to_numpy()
-        ax.plot(x, mean, lw=1.2, color=COLOR[family], label=family)
+        ax.plot(x, mean, lw=1.1, color=COLOR[family], label=family)
         ax.fill_between(x, mean - sem, mean + sem, alpha=0.13, color=COLOR[family])
     ax.set(xlim=(0, 100), xlabel="Steps (millions)", ylabel="DG score")
     ax.legend(loc="upper left", frameon=False, fontsize=9, ncol=3,
@@ -195,123 +252,116 @@ def results_figure() -> dict[str, float]:
               borderpad=0)
     finish_axes(ax)
 
-    fresh = behavior[(behavior.cohort == "fresh") &
-                     (behavior.layer == "decoder_1")].dropna(
-                         subset=["information_difference", "common_split_half_difference"])
-    assert len(fresh) == 38
-    behavior_rows = fresh.rename(columns={"training_seed": "seed"}).copy()
+    behavior_rows = behavior_absolute.rename(columns={"training_seed": "seed"}).copy()
     behavior_rows["group"] = behavior_rows.family.map({
         "C01": "Baseline", "C05": "Goal", "C15": "Frontier"})
-    groups = ["Baseline", "Goal", "Frontier"]
-    for x0, column, title, limits in [
-        (3.00, "information_difference", "Decoder info", (-0.06, 1.13)),
-        (5.26, "common_split_half_difference", "Map reliability", (-0.05, 0.61)),
+    behavior_groups = ["Baseline", "Goal", "Frontier"]
+    for x0, control, experimental, title, limits, xlabel in [
+        (2.92, "random_info", "own_info", "Decoder info", (0, 1.9), "Bits/activation"),
+        (5.23, "random_reliability", "own_reliability",
+         "Map reliability", (0, 0.9), "Split-half correlation"),
     ]:
-        ax = axes_in(fig, x0, 4.54, 1.70, 1.02)
-        seed_rows(ax, behavior_rows, groups, column, labels=x0 < 4,
-                  xlim=limits)
+        ax = axes_in(fig, x0, 3.78, 1.43, 0.72)
+        paired_rows(ax, behavior_rows, behavior_groups, control, experimental,
+                    labels=x0 < 4, xlim=limits, marker_size=8)
         ax.set_title(title, fontsize=10, pad=2)
-        ax.set_xlabel("Own − random", fontsize=9, labelpad=1)
+        ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
 
-    # Section 3: the largest observed baseline peak-area effect, with all seeds beside it.
-    fig.add_artist(plt.Line2D([0.02, 0.98], [4.13 / 5.9, 4.13 / 5.9],
+    fig.add_artist(plt.Line2D([0.02, 0.98], [3.42 / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 3.98, "C–D  Temporal push broadens and separates DG code")
-    fig.text(0.37 / 7.5, 3.63 / 5.9, "Seed 8: largest of 5 pairs", fontsize=9,
-             color=GRAY)
-    grids = {}
-    for arm in ("temporal", "constant"):
-        grids[arm] = peak_grid(np.asarray(example["arms"][arm]["peaks_xy"]), mask)
+    section(fig, 0.12, 3.31, "C–D  Temporal push broadens and separates DG code")
+    fig.text(0.38 / 7.5, 3.06 / FIGURE_HEIGHT, "Seed 8: largest of 5 pairs",
+             fontsize=9, color=GRAY)
+
+    # C: peak-coordinate example. D: original absolute values for every
+    # matched encoder pair, grouped by architecture and fixed worker arm.
+    grids = {arm: peak_grid(np.asarray(example["arms"][arm]["peaks_xy"]), mask)
+             for arm in ("temporal", "constant")}
     vmax = max(np.nanmax(value) for value in grids.values())
-    for x0, arm, label in [(0.37, "temporal", "Temporal"), (1.58, "constant", "Constant")]:
-        ax = axes_in(fig, x0, 2.44, 1.07, 1.04)
+    for x0, arm, label in [(0.38, "temporal", "Temporal"),
+                           (1.62, "constant", "Constant")]:
+        ax = axes_in(fig, x0, 2.13, 1.04, 0.76)
         grid = np.ma.masked_where(~mask, grids[arm])
         cmap = plt.get_cmap("Greys").copy()
         cmap.set_bad("#DDDDDD")
         ax.imshow(grid, origin="lower", extent=(100, 2000, 100, 2000),
                   cmap=cmap, vmin=0, vmax=vmax, interpolation="nearest")
         xy = np.asarray(example["arms"][arm]["peaks_xy"])
-        ax.scatter(xy[:, 0], xy[:, 1], s=10, color="#D55E00",
-                   edgecolor="white", linewidth=0.3)
+        ax.scatter(xy[:, 0], xy[:, 1], s=8, color="#D55E00",
+                   edgecolor="white", linewidth=0.25)
         ax.set_xticks([])
         ax.set_yticks([])
         area = example["arms"][arm]["effective_area_fraction"]
         ax.set_title(f"{label} ({area:.3f})", fontsize=9, pad=2)
 
-    # Each DG statistic retains all available paired training seeds.
     contrasts = ["C01", "C05 · temporal hit", "C05 · constant hit", "C15"]
     row_names = ["Base", "Goal-T", "Goal-C", "Frontier"]
     metrics = [
-        ("DG score", encoder, "mean_spatial_information_bits", (-0.06, 0.13)),
-        ("Map cosine", encoder, "active_map_cosine_mean", (-0.17, 0.09)),
-        ("Peak area", peaks, "effective_area_fraction", (-0.23, 0.20)),
+        ("DG score", encoder, "mean_spatial_information_bits", (0, 0.23)),
+        ("Map cosine", encoder, "active_map_cosine_mean", (0, 0.17)),
+        ("Peak area", peaks, "effective_area_fraction", (0, 0.48)),
     ]
     for index, (title, source, metric, limits) in enumerate(metrics):
-        x0 = (3.72, 4.92, 6.12)[index]
-        ax = axes_in(fig, x0, 2.46, 1.01, 1.04)
+        x0 = (3.62, 4.91, 6.20)[index]
+        ax = axes_in(fig, x0, 2.13, 0.86, 0.76)
         subset = source[source.metric == metric].copy()
         if source is peaks:
             subset = subset[subset.cutoff == 0.0025]
         subset["group"] = subset.contrast.map(dict(zip(contrasts, row_names)))
-        subset = subset.rename(columns={"difference": "value"})
-        seed_rows(ax, subset, row_names, "value", labels=index == 0, xlim=limits)
-        ax.set_title(title, fontsize=9, pad=2)
+        assert len(subset) == 18 and subset.group.notna().all()
+        assert np.allclose(subset.temporal - subset.constant,
+                           subset.difference, atol=1e-10)
+        paired_rows(ax, subset, row_names, "constant", "temporal",
+                    labels=index == 0, xlim=limits, marker_size=10)
+        ax.set_title(title, fontsize=10, pad=2)
         ax.tick_params(axis="x", labelsize=9)
-        ax.set_xlabel("Δ", fontsize=9, labelpad=1)
+        ax.locator_params(axis="x", nbins=2)
 
-    # Section 4: a narrow downstream effect and the still provisional pull test.
-    fig.add_artist(plt.Line2D([0.02, 0.98], [2.18 / 5.9, 2.18 / 5.9],
+    fig.add_artist(plt.Line2D([0.02, 0.98], [1.92 / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 2.08, "E  Push reaches the readout")
-    section(fig, 3.20, 2.08, "F  Temporal pull: work in progress")
+    section(fig, 0.12, 1.83, "E  Push reaches the readout")
+    section(fig, 3.30, 1.83, "F  Temporal pull: work in progress")
     downstream = decoder[(decoder.family == "C01") &
                          (decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
                          (decoder.metric == "mean_bits_per_activation_eligible")]
     assert len(downstream) == 5 and downstream.difference.gt(0).all()
-    ax = axes_in(fig, 0.48, 0.48, 2.05, 1.20)
-    x = downstream.sort_values("seed").difference.to_numpy()
-    ax.axvline(0, lw=0.8, color=GRAY)
-    ax.scatter(x, np.linspace(-0.13, 0.13, len(x)), s=19,
-               color=COLOR["C01"], zorder=3)
-    ax.plot([x.mean(), x.mean()], [-0.22, 0.22], color="#171D20", lw=1.5)
-    ax.set_ylim(-0.35, 0.35)
-    ax.set_yticks([])
-    ax.set_xlim(-0.05, 1.20)
-    ax.set_xlabel("Δ decoder-1 info (bits/activation)", fontsize=9)
-    ax.set_title(f"Baseline · 5/5 positive · mean +{x.mean():.2f}",
-                 fontsize=9, pad=2)
-    finish_axes(ax)
+    assert np.allclose(downstream.temporal - downstream.constant,
+                       downstream.difference, atol=1e-10)
+    ax = axes_in(fig, 0.60, 0.61, 1.20, 0.85)
+    paired_seeds(ax, downstream, "constant", "temporal",
+                 xlim=(0, 2.35), color=COLOR["C01"])
+    ax.set_title("Baseline · 5 pairs", fontsize=10, pad=2)
+    ax.set_xlabel("Decoder bits/activation", fontsize=9, labelpad=1)
+    fig.text(2.04 / 7.5, 1.18 / FIGURE_HEIGHT,
+             "5/5 temporal higher\nmean gain +0.68", fontsize=9,
+             va="top", color=GRAY)
 
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
                   (worker.metric == "visited_cell_fraction")]
     assert len(pull) == 10
-    for x0, fixed, label in [(3.66, "temporal", "Temporal encoder"),
-                             (5.48, "constant", "Constant encoder")]:
-        subset = pull[pull.fixed_factor == fixed].sort_values("seed")
-        ax = axes_in(fig, x0, 0.48, 1.48, 1.20)
-        y = np.arange(5)
-        for offset, row in enumerate(subset.itertuples(index=False)):
-            ax.plot([row.second, row.first], [offset, offset],
-                    color="#ADB5BA", lw=0.8, zorder=1)
-        ax.scatter(subset["first"], y, s=19, color=COLOR["C05"], zorder=3)
-        ax.scatter(subset["second"], y, s=19, marker="s", facecolor="white",
-                   edgecolor=COLOR["C05"], linewidth=0.9, zorder=3)
-        ax.set_xlim(0.52, 0.91)
-        ax.set_ylim(-0.45, 4.45)
-        ax.set_yticks([])
-        ax.set_title(f"{label} · Δ{subset.difference.mean():+.3f}",
-                     fontsize=9, pad=2)
-        ax.set_xlabel("Visited fraction", fontsize=9)
-        finish_axes(ax)
+    for x0, fixed, label in [(3.88, "temporal", "Temporal encoder"),
+                             (5.78, "constant", "Constant encoder")]:
+        subset = pull[pull.fixed_factor == fixed].copy()
+        assert len(subset) == 5
+        assert np.allclose(subset["first"] - subset["second"],
+                           subset.difference, atol=1e-10)
+        ax = axes_in(fig, x0, 0.61, 1.10, 0.85)
+        paired_seeds(ax, subset, "second", "first",
+                     xlim=(0, 0.95), color=COLOR["C05"])
+        ax.set_title(label, fontsize=10, pad=2)
+        ax.set_xlabel("Visited fraction", fontsize=9, labelpad=1)
+
     save(fig, "results_sections")
     return {
         "selected_seed": 8,
         "selected_peak_area_temporal": example["arms"]["temporal"]["effective_area_fraction"],
         "selected_peak_area_constant": example["arms"]["constant"]["effective_area_fraction"],
-        "behavior_models": len(fresh),
-        "decoder_c01_mean_delta": float(x.mean()),
+        "behavior_models": len(behavior_absolute),
+        "decoder_c01_mean_delta": float(downstream.difference.mean()),
+        "result_panel_width_inches": {
+            "behavior": 1.43, "dg": 0.86, "decoder": 1.20, "worker": 1.10},
     }
 
 
@@ -323,10 +373,13 @@ def main() -> None:
         "source_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest()
                           for name, path in SOURCES.items()},
         "font_path": font,
-        "results_size_inches": [7.5, 5.9],
+        "results_size_inches": [7.5, FIGURE_HEIGHT],
         "variant_size_inches": [6.58689, 0.91],
         "figure_values": summary,
         "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
+        "behavior_absolute_source": (
+            "6412596:06_experiments/results/cosyne_2027_behavior_secondary/"
+            "fresh_pair_analysis/paired_evaluation_repeats.csv"),
     }
     (DRAFT / "PANEL_PROVENANCE.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(json.dumps(summary, indent=2))

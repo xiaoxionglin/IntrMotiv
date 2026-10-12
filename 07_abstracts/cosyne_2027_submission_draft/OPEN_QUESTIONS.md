@@ -1,6 +1,6 @@
 # COSYNE 2027 draft: checks for discussion
 
-This layout uses the author's latest 12 October GitHub title and 321-word abstract, including the removal of neutral open-question claims. It marks incomplete analyses in the main text or comments rather than changing those abstract sentences.
+This layout uses the author's latest 12 October GitHub title and 304-word abstract, including the removal of neutral open-question claims. Its two repetitive closing sentences are provisionally condensed into one sentence in LaTeX, following the latest author comment. It marks incomplete analyses in the main text or comments rather than changing those abstract sentences.
 
 ## Scientific claims to confirm
 
@@ -18,11 +18,11 @@ This layout uses the author's latest 12 October GitHub title and 321-word abstra
 
 ## Missing submission elements
 
-- The abstract is about 321 words; confirm the final word limit and shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
+- The LaTeX abstract is about 304 words; confirm the final word limit and shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
 - Finish commanded-target and physical-arrival contrasts before replacing the temporal-hit placeholder or making a directional pull claim.
 - Confirm the 2027 template, page and word limits, anonymity, title, and author block.
 - Review panel priority at final submission size. The figure keeps all scientifically distinct plotted contrasts; the full candidate library remains in the Overleaf ZIP.
 
 ## Layout and example choice
 
-The architecture is displayed at its original 6.59-inch width. The result panels are rendered as one 7.5-inch-wide figure with 9–10 pt internal type at final size. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
+The architecture is displayed at its original 6.59-inch width. The result panels are rendered as one 7.5-by-4.95-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.

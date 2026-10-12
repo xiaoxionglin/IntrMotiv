@@ -2148,6 +2148,11 @@ For each finding, record:
   The grouped submission figure also compiles at 7.5 inches, keeps each
   plotted contrast legible at final page size, and labels the selected example
   as the largest observed pair.
+  A later submission review found the composite had regressed to
+  difference-only axes and oversized dot panels. The renderer now uses
+  connected absolute control-versus-condition values in smaller panels,
+  validated against the archived paired differences. The figure standard
+  records that specific submission requirement to prevent another regression.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
