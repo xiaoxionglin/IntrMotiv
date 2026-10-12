@@ -27,6 +27,7 @@ OUT = ROOT / "06_experiments/results/cosyne_2027_checkpoint_fields"
 STUDIES = (
     "c01_temporal_s3", "c01_constant_s3", "c01_encoder_s2",
     "c05_pushpull_s3", "c05_pushpull_s2", "c15_available", "c15_encoder_s2",
+    "c15_recovery",
 )
 METRICS = {
     "mean_spatial_information_bits": "Mean DG spatial information (bits)",
@@ -57,7 +58,7 @@ def source_digest(path: Path) -> str:
 def attach_catalog_factors(rows: pd.DataFrame, *, terminal_repeats: int = 1) -> pd.DataFrame:
     """Join factors from the StudySpec-derived run index, never from labels."""
     catalog = pd.read_csv(ROOT / "06_experiments/cosyne_2027/training_runs.csv")
-    expected = catalog[(catalog.cohort == "cosyne")
+    expected = catalog[(catalog.cohort.isin(("cosyne", "cosyne_replacement")))
                        & (catalog.attempt_status == "verified_100m")]
     factors = expected[["condition", "seed", "family", "encoder_credit",
                         "worker_bonus"]].drop_duplicates()
@@ -163,8 +164,9 @@ def plot_pairs(pairs: pd.DataFrame, *, out_dir: Path = OUT,
                        edgecolor="white", linewidth=0.6, zorder=2)
             ax.plot([x - 0.21, x + 0.21], [values.difference.mean()] * 2,
                     color="black", linewidth=2, zorder=3)
-            ax.text(x, values.difference.max(), f"n={len(values)}", ha="center",
-                    va="bottom", fontsize=12)
+            ax.text(x, 0.98, f"n={len(values)}", ha="center", va="top",
+                    transform=ax.get_xaxis_transform(), fontsize=12,
+                    bbox={"facecolor": "white", "edgecolor": "none", "pad": 1.5})
         ax.set(title=title, ylabel="Temporal − constant",
                xticks=range(len(CONTRASTS)),
                xticklabels=[item[2].replace(" · ", "\n") for item in CONTRASTS])

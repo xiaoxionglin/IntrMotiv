@@ -24,7 +24,7 @@ import pandas as pd
 COHORTS = (
     "c01_constant_s3", "c01_encoder_s2", "c01_temporal_s3",
     "c05_pushpull_s2", "c05_pushpull_s3", "c15_encoder_s2",
-    "c15_encoder_s3",
+    "c15_encoder_s3", "c15_recovery",
 )
 TARGETS = (5_000_000, 25_000_000, 50_000_000, 75_000_000, 100_000_000)
 GRAPH_COLUMNS = (
@@ -83,12 +83,12 @@ def read_sources(root: Path) -> tuple[pd.DataFrame, pd.DataFrame, list[dict]]:
     all_snapshots = pd.concat(snapshots, ignore_index=True)
     all_edges = pd.concat(edges, ignore_index=True)
     key = ["run_name", "target_env_steps"]
-    if len(all_snapshots) != 190 or all_snapshots.duplicated(key).any():
-        raise ValueError("Expected 190 unique retained snapshots from 38 runs")
+    if len(all_snapshots) != 200 or all_snapshots.duplicated(key).any():
+        raise ValueError("Expected 200 unique retained snapshots from 40 runs")
     if sorted(all_snapshots.target_env_steps.unique()) != list(TARGETS):
         raise ValueError("Unexpected snapshot ages")
-    if len(all_edges) != 140 * 240 or all_edges.groupby(key).size().ne(240).any():
-        raise ValueError("Expected all 240 directed nonself edges at 140 graph snapshots")
+    if len(all_edges) != 150 * 240 or all_edges.groupby(key).size().ne(240).any():
+        raise ValueError("Expected all 240 directed nonself edges at 150 graph snapshots")
     return all_snapshots, all_edges, sources
 
 
@@ -124,7 +124,7 @@ def graph_support(snapshots: pd.DataFrame, edges: pd.DataFrame) -> pd.DataFrame:
         "graph_prospective_success_count", "graph_prospective_success_fraction",
     ]]
     result = metadata.merge(grouped, on=key, how="left", validate="one_to_one")
-    if len(result) != 140 or result.prospective_attempted_edges.isna().any():
+    if len(result) != 150 or result.prospective_attempted_edges.isna().any():
         raise ValueError("Graph metadata and edges do not cover the same snapshots")
     if not np.allclose(result.prospective_attempts, result.graph_prospective_attempt_count):
         raise ValueError("Prospective attempts disagree with canonical snapshot summary")
@@ -242,8 +242,8 @@ def main() -> None:
                      "graph_reachable_pair_fraction")
     graph_pairs = paired(graph, graph_metrics)
     trajectory_pairs = paired(trajectory, TRAJECTORY_COLUMNS)
-    if len(graph_pairs) != 65 or len(trajectory_pairs) != 90:
-        raise ValueError("Paired seed inventory differs from 50 C05 + 15 C15 graph and 90 trajectory rows")
+    if len(graph_pairs) != 75 or len(trajectory_pairs) != 100:
+        raise ValueError("Paired seed inventory differs from 50 C05 + 25 C15 graph and 100 trajectory rows")
     graph_pairs.to_csv(
         args.output_dir / "paired_directed_graph.csv", index=False)
     trajectory_pairs.to_csv(

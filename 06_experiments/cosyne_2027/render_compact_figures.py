@@ -324,7 +324,7 @@ def encoder_credit(fields: pd.DataFrame, peaks: pd.DataFrame) -> None:
 def encoder_original_values(fresh: pd.DataFrame, historical: pd.DataFrame,
                             pairs: pd.DataFrame) -> pd.DataFrame:
     """Assemble a descriptive three-level view with explicit cohort identity."""
-    if len(fresh) < 38 or fresh.duplicated(["family", "worker_bonus",
+    if len(fresh) != 40 or fresh.duplicated(["family", "worker_bonus",
                                              "encoder_credit", "seed"]).any():
         raise ValueError("fresh common-panel run table is incomplete or duplicated")
     cells = {("C01", "inapplicable"): "C01",
@@ -392,7 +392,7 @@ def plot_encoder_original_values(data: pd.DataFrame, *, metric: str,
     cells = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
     labels = ("C01", "C05 · temporal hit", "C05 · constant hit", "C15")
     minimums = {"C01": (3, 5, 5), "C05 · temporal hit": (3, 5, 5),
-                "C05 · constant hit": (0, 5, 5), "C15": (3, 3, 5)}
+                "C05 · constant hit": (0, 5, 5), "C15": (3, 5, 5)}
     for ax, cell, label, panel in zip(axes.flat, cells, labels, "abcd"):
         rows = data[(data.metric == metric) & (data.factor_cell == cell)]
         color = COLORS[rows.family.iloc[0]]

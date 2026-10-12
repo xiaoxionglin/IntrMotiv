@@ -273,8 +273,10 @@ z
 " style="stroke: #ffffff; stroke-width: 0.6"/>
     </defs>
     <g clip-path="url(#pa1c44b80c7)">
-     <use xlink:href="#mdf8f193ad5" x="469.473016" y="302.427632" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="469.473016" y="112.335857" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="477.680888" y="302.427632" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="485.888761" y="189.780654" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="494.096633" y="132.283759" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="502.304505" y="56.012368" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
     </g>
    </g>
@@ -294,7 +296,15 @@ L 133.581626 186.260436
 " clip-path="url(#pa1c44b80c7)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_13">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="107.063884" y="123.921104" transform="rotate(-0 107.063884 123.921104)">n=5</text>
+    <g id="patch_5">
+     <path d="M 92.976072 62.166491
+L 121.151697 62.166491
+L 121.151697 47.672741
+L 92.976072 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="107.063884" y="58.230866" transform="rotate(-0 107.063884 58.230866)">n=5</text>
    </g>
    <g id="line2d_21">
     <path d="M 206.821102 159.74146
@@ -302,7 +312,15 @@ L 259.856584 159.74146
 " clip-path="url(#pa1c44b80c7)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_14">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="233.338843" y="91.065736" transform="rotate(-0 233.338843 91.065736)">n=5</text>
+    <g id="patch_6">
+     <path d="M 219.251031 62.166491
+L 247.426656 62.166491
+L 247.426656 47.672741
+L 219.251031 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="233.338843" y="58.230866" transform="rotate(-0 233.338843 58.230866)">n=5</text>
    </g>
    <g id="line2d_22">
     <path d="M 333.096061 209.024513
@@ -310,15 +328,31 @@ L 386.131543 209.024513
 " clip-path="url(#pa1c44b80c7)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="359.613802" y="101.62639" transform="rotate(-0 359.613802 101.62639)">n=5</text>
+    <g id="patch_7">
+     <path d="M 345.525989 62.166491
+L 373.701614 62.166491
+L 373.701614 47.672741
+L 345.525989 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="359.613802" y="58.230866" transform="rotate(-0 359.613802 58.230866)">n=5</text>
    </g>
    <g id="line2d_23">
-    <path d="M 459.371019 182.740218
-L 512.406502 182.740218
+    <path d="M 459.371019 158.568054
+L 512.406502 158.568054
 " clip-path="url(#pa1c44b80c7)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_16">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="485.888761" y="53.516743" transform="rotate(-0 485.888761 53.516743)">n=3</text>
+    <g id="patch_8">
+     <path d="M 471.800948 62.166491
+L 499.976573 62.166491
+L 499.976573 47.672741
+L 471.800948 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="485.888761" y="58.230866" transform="rotate(-0 485.888761 58.230866)">n=5</text>
    </g>
    <g id="text_17">
     <text style="font-size: 14.4px; font-family: 'DejaVu Sans'; text-anchor: middle" x="296.476322" y="37.691605" transform="rotate(-0 296.476322 37.691605)">Visited-bin fraction</text>

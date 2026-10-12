@@ -90,6 +90,20 @@ keep implementation guidance in the canonical workflow documents linked below.
   44 completed rows from this immutable 45-run StudySpec in one call, preserve
   C01's inapplicable HRL metrics as missing, and state that C15's failed cell
   has no 100M checkpoint. No duplicate label or TensorBoard reload is needed.
+- **12 October follow-up:** The COSYNE policy-specific field adapter initially
+  selected only the original `cosyne` cohort. Once two verified C15 replacement
+  runs supplied six valid checkpoint summaries, that filter would have excluded
+  them from the five-seed C15 paired analysis. The adapter now joins the
+  `cosyne_replacement` cohort through the same StudySpec-derived catalog and
+  still requires one terminal row per verified run. This fixes the local field
+  readout. The trajectory/graph adapter now includes recovery as a separate
+  StudySpec source with exact CSV hashes. The two replacement common-panel DG
+  replays were later found in an existing submitted cohort; the field and
+  peak-spread adapters now admit all 40 manifest rows with one verified
+  occupancy hash. The downstream-layer adapter now also admits the two replacement JSONs
+  through that StudySpec-derived catalog, verifies their checkpoints and DG
+  parity, and renders five paired C15 encoder seeds. The separate source patch
+  remains explicit in the catalog and scientific interpretation.
 
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 
@@ -157,9 +171,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   not qualify the full 16-source, eight-repeat protocol. See the [COSYNE
   control audit](06_experiments/cosyne_2027/checkpoint_fields_20261011.md#matched-command-control-gate).
   At the 12 October 06:38 Berlin check, another 48 same-label full-panel
-  jobs 8343879–8343926 were running with 72-hour limits. One inspected
-  command still used the monolithic manifest row and original output path.
-  Their outcomes are pending; do not overlap a shard recovery with them.
+  jobs 8343879–8343926 were running with 72-hour limits. A later
+  [48-command audit](06_experiments/results/cosyne_2027_checkpoint_fields/control_rerun_command_audit_20261012.json)
+  verifies that every command used its original monolithic manifest row and
+  one of three original output folders, with no source-shard argument.
+  By 08:24, 12 had failed with exit `134:0` after 3:36–4:00 hours; all
+  twelve logs end in `buffer overflow detected` and a core dump from the
+  native DMLab process. Seven failures were on n3104 and five on n3109,
+  so this is not confined to one node. The other 36 were still running;
+  no production trial table had been written. The [exact failure ledger](06_experiments/results/cosyne_2027_checkpoint_fields/control_rerun_failures_20261012.csv)
+  retains job IDs and log paths. Do not overlap a shard recovery with active
+  outputs, and do not treat an extended wall limit as a native-crash fix.
 - **Improvement/status:** Keep the adaptation isolated from training source;
   require a clean patch dry run, syntax check and focused evaluator tests before
   a bounded shard. Add a canonical source-shard selector and audited merge to
@@ -1876,6 +1898,13 @@ For each finding, record:
 - [Reusable place-field telemetry](04_implementation/reusable_place_field_telemetry.md)
 
 ## Completed Improvements
+
+### Record partial training completions without changing study definitions — completed locally, 2026-10-12
+
+- **Evidence:** COSYNE job 8335154 reached its 100M checkpoint while 14 jobs in the same fresh cohort were still running. The [catalog builder](06_experiments/cosyne_2027/build_run_index.py) previously assigned one hardcoded status to every run in that cohort.
+- **Impact:** A cohort-wide status either hid verified results or marked incomplete jobs ready for analysis. Repeated manual CSV edits would be overwritten by the canonical builder.
+- **Improvement/status:** The builder now reads a small [verified outcome record](06_experiments/cosyne_2027/verified_production_outcomes.tsv) keyed by submitted job ID, validates exit zero and a checkpoint frame at or beyond 100M, and retains StudySpec and manifest as the sources of run identity and factors. Individual completions can be added without changing study definitions.
+- **Acceptance:** Rebuilding the catalog marks only recorded completed jobs `verified_100m`, leaves other incremental jobs pending, rejects duplicate, sub-100M, or wrong-run checkpoint records, and reproduces the same catalog on a second run.
 
 ### Native landmark manifest and review renderer — completed locally, 2026-09-23
 

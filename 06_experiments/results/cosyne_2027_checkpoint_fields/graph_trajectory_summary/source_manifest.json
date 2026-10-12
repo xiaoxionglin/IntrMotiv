@@ -1,9 +1,9 @@
 {
   "schema": "cosyne27-graph-trajectory/v1",
   "sample_unit": "training seed",
-  "trajectory_snapshots": 190,
-  "graph_snapshots": 140,
-  "directed_edge_rows": 33600,
+  "trajectory_snapshots": 200,
+  "graph_snapshots": 150,
+  "directed_edge_rows": 36000,
   "sources": [
     {
       "cohort": "c01_constant_s3",
@@ -85,6 +85,18 @@
       "analysis_manifest_sha256": "08267f032dd785e2b468d67925286883fb18a31c53071548d9e0934a4837ffea",
       "graph_edge_rows": 4800,
       "graph_edge_sha256": "30c818a2836c632ad82841d313ee6da819640b3af0848a73c06a0b242687f2da"
+    },
+    {
+      "cohort": "c15_recovery",
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.14.1",
+      "study_sha256": "f1ed084afef1585e11ecb2d867fbf0568d90739a7eccfc31b8d6784a3b993cb2",
+      "study_id": "cosyne27_c15_constant_recovery_20261011",
+      "snapshot_rows": 10,
+      "per_snapshot_sha256": "ef9268190d29957def8ca50df38b6f164aef6f93c05ea5065497b5b706b430c1",
+      "analysis_manifest_sha256": "3e70d2227fd8a491fa5cc0c11c07779833256e306b3a3690510241035915d649",
+      "graph_edge_rows": 2400,
+      "graph_edge_sha256": "6aebcca5d85e77f63ff31bc1d39fcead406a3b8233a78ea127d0b03f79c90aab"
     }
   ],
   "graph_qualification": "Stored graph and prospective detector events; no executed command inference"

@@ -134,6 +134,15 @@ C05,constant,C05 · constant hit,123,mono_field_fraction,0,0,0
 C05,constant,C05 · constant hit,123,prethreshold_map_cosine_mean,-0.01943246679,-0.0008291950491,-0.01860327174
 C05,constant,C05 · constant hit,123,field_eligible_units,14,16,-2
 C05,constant,C05 · constant hit,123,visited_cell_fraction,0.6703601108,0.6703601108,0
+C15,temporal,C15,8,mean_spatial_information_bits,0.1183130507,0.109199758,0.009113292715
+C15,temporal,C15,8,mean_active_fraction,0.02527872213,0.02651609839,-0.001237376262
+C15,temporal,C15,8,active_map_cosine_mean,0.05169325137,0.1495303012,-0.09783704986
+C15,temporal,C15,8,active_unique_peak_bins,16,16,0
+C15,temporal,C15,8,active_pairwise_peak_distance_bins,9.329243962,10.90595606,-1.5767121
+C15,temporal,C15,8,mono_field_fraction,0,0,0
+C15,temporal,C15,8,prethreshold_map_cosine_mean,-0.005434952833,0.1063796657,-0.1118146185
+C15,temporal,C15,8,field_eligible_units,16,16,0
+C15,temporal,C15,8,visited_cell_fraction,0.6703601108,0.6703601108,0
 C15,temporal,C15,17,mean_spatial_information_bits,0.09567433041,0.0633135043,0.03236082612
 C15,temporal,C15,17,mean_active_fraction,0.02424757524,0.03089691031,-0.006649335066
 C15,temporal,C15,17,active_map_cosine_mean,0.07778715658,0.1187189733,-0.04093181669
@@ -152,6 +161,15 @@ C15,temporal,C15,41,mono_field_fraction,0.07142857143,0,0.07142857143
 C15,temporal,C15,41,prethreshold_map_cosine_mean,0.01951743388,0.1300663108,-0.1105488769
 C15,temporal,C15,41,field_eligible_units,14,15,-1
 C15,temporal,C15,41,visited_cell_fraction,0.6703601108,0.6703601108,0
+C15,temporal,C15,99,mean_spatial_information_bits,0.1305851638,0.1852047083,-0.05461954454
+C15,temporal,C15,99,mean_active_fraction,0.0326279872,0.03913983602,-0.006511848815
+C15,temporal,C15,99,active_map_cosine_mean,0.1324515059,0.1591017606,-0.02665025469
+C15,temporal,C15,99,active_unique_peak_bins,15,14,1
+C15,temporal,C15,99,active_pairwise_peak_distance_bins,7.984567545,10.41175872,-2.42719118
+C15,temporal,C15,99,mono_field_fraction,0,0,0
+C15,temporal,C15,99,prethreshold_map_cosine_mean,0.06124280893,0.06467586898,-0.00343306005
+C15,temporal,C15,99,field_eligible_units,16,16,0
+C15,temporal,C15,99,visited_cell_fraction,0.6703601108,0.6703601108,0
 C15,temporal,C15,123,mean_spatial_information_bits,0.1330743841,0.04639923193,0.08667515214
 C15,temporal,C15,123,mean_active_fraction,0.02456629337,0.01170507949,0.01286121388
 C15,temporal,C15,123,active_map_cosine_mean,0.07528108566,0.1294407559,-0.05415967029

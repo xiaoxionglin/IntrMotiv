@@ -38,7 +38,7 @@ def digest(path: Path) -> str:
 
 def main() -> None:
     certificate = json.loads(CERTIFICATE.read_text())
-    if (certificate["replay_files"] != 38
+    if (certificate["replay_files"] != 40
             or len(certificate["panel_paths"]) != 1
             or len(certificate["occupancy_sha256"]) != 1
             or certificate["evaluated_observations"] != [10001]
@@ -47,8 +47,8 @@ def main() -> None:
 
     source = pd.read_csv(SOURCE)
     manifest = pd.read_csv(MANIFEST, sep="\t")
-    if len(source) != 38 or len(manifest) != 38:
-        raise ValueError("expected the 38 available terminal checkpoints")
+    if len(source) != 40 or len(manifest) != 40:
+        raise ValueError("expected 40 verified terminal checkpoints including C15 replacements")
     if set(source.label_suffix) != set(manifest.label_suffix):
         raise ValueError("source and validated terminal manifest disagree")
     if source.visited_cells.nunique() != 1 or source.frames.nunique() != 1:

@@ -1,6 +1,6 @@
 # Fresh COSYNE comparison completion
 
-**Status, 12 October 2026:** All 15 production runs common to every proposed scope passed local and NEMO2 StudySpec validation, exact print-only launcher generation, both 2M qualification gates, real runtime argument parsing, and submitted-manifest audits. C01 jobs 8335152–8335156 and C15 jobs 8335157–8335166 all entered `RUNNING`. Their 100M outcomes remain pending. Additional cells below are an inventory only and have not been submitted.
+**Status, 12 October 2026:** All 15 production runs common to every proposed scope completed with Slurm exit `0:0`, advancing learner samples, and distinct 100,007,936-frame milestone checkpoints. The verified runs are C01 jobs 8335152–8335156 and C15 jobs 8335157–8335166. Their [canonical catalog](../cosyne_2027/training_runs.csv) now records `verified_100m`; scientific readouts remain to be completed. Additional cells below are an inventory only and have not been submitted.
 
 ## Initial 15 runs
 
@@ -15,14 +15,22 @@ The C15 hit constant comes from C15's own 2M temporal-credit/temporal-hit refere
 
 The isolated C15 source is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cosyne27_c15_ppo_recovery_20261011/`; the C01 source is `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cosyne27_push_pull_20261010/`. Both have canonical workflow 1.14.1. The prior [C15 recovery record](cosyne27_staged_push_pull_submission_20261010.md#completion-and-c15-recovery) documents the learner patch and its 61 focused source tests. Newly staged files are only declarative StudySpecs and thin adapters; the focused canonical workflow suite passed 42/42 in **each** staged source. All generated train, W&B, cache, telemetry, and Slurm paths are in `/work/classic/fr_xl1014-corridor-geometry/`, whose available capacity was 1.3 TB at preparation.
 
-## Qualification and release
+## Qualification, release, and completion
 
 | Gate | StudySpec SHA-256 | Job IDs | Required evidence |
 | --- | --- | --- | --- |
 | C01 no-credit 2M | [StudySpec](../../hpc_runs/studies/cosyne27_c01_no_credit_qualification_20261012.study.json), `ccdff39b4c586273f2bcd073ae6dec4ff1fa93e0639699211af51b0f23e63bcc` | 8335147 | Passed: exit zero, 2.064M-frame checkpoint, 2.032M learner steps, finite losses/activity, two workspace online-spatial snapshots |
 | C15 constant-hit temporal/constant encoder 2M | [StudySpec](../../hpc_runs/studies/cosyne27_c15_constant_hit_qualification_20261012.study.json), `3152029dd13c86a68cb2e0cb51f38e3b0b92a3f13d613eb64a46908e76e415f4` | 8335148–8335149 | Passed: both exit zero, 2.064M-frame checkpoints, 2.032M learner steps, finite losses/activity, two workspace snapshots each; 354/294 correct hits with respective weighted reward 1.590162415/1.590162427 |
 
-Both archived qualification manifests, [C01](results/cosyne27_staged_push_pull_20261010/c01_no_credit_qualification_20261012_jobs.tsv) and [C15](results/cosyne27_staged_push_pull_20261010/c15_constant_hit_qualification_20261012_jobs.tsv), passed `audit-submission --submitted`. Production print-only and [C01](results/cosyne27_staged_push_pull_20261010/c01_no_credit_s5_20261012_jobs.tsv) and [C15](results/cosyne27_staged_push_pull_20261010/c15_constant_hit_s5_20261012_jobs.tsv) submitted manifests have 5 and 10 exact commands, 60-hour CPU limits, 40 CPUs, 80 GB, and `workspace_paths_valid=true`. Every command passed the real `parse_dmlab_args` in its staged source; both submitted manifests passed `audit-submission --submitted`. All 15 jobs entered `RUNNING` at the release check. Verify learner progress, then require exit zero and a checkpoint at or beyond 100M before scientific analysis. The two pre-existing C15 matched-constant encoder replacements, jobs 8329014 and 8329015, remained running at the 12 October check. Their failed originals, 8327183 and 8327184, are audit attempts, not replicates.
+Both archived qualification manifests, [C01](results/cosyne27_staged_push_pull_20261010/c01_no_credit_qualification_20261012_jobs.tsv) and [C15](results/cosyne27_staged_push_pull_20261010/c15_constant_hit_qualification_20261012_jobs.tsv), passed `audit-submission --submitted`. Production print-only and [C01](results/cosyne27_staged_push_pull_20261010/c01_no_credit_s5_20261012_jobs.tsv) and [C15](results/cosyne27_staged_push_pull_20261010/c15_constant_hit_s5_20261012_jobs.tsv) submitted manifests have 5 and 10 exact commands, 60-hour CPU limits, 40 CPUs, 80 GB, and `workspace_paths_valid=true`. Every command passed the real `parse_dmlab_args` in its staged source; both submitted manifests passed `audit-submission --submitted`.
+
+| Production arm | Jobs | Verified terminal evidence |
+| --- | --- | --- |
+| C01 no encoder credit | 8335152–8335156 | 5/5 exit `0:0`; each has a 100,007,936-frame milestone and more than 12.5M learner samples |
+| C15 temporal encoder credit, constant worker hit bonus | 8335157–8335161 | 5/5 exit `0:0`; each has a 100,007,936-frame milestone and more than 12.5M learner samples |
+| C15 constant encoder credit, constant worker hit bonus | 8335162–8335166 | 5/5 exit `0:0`; each has a 100,007,936-frame milestone and more than 12.5M learner samples |
+
+The [verified outcome record](../cosyne_2027/verified_production_outcomes.tsv) preserves the exact checkpoint path and Slurm exit for every production job and drives `attempt_status` through the canonical builder. Place-field, trajectory, graph, and goal-control analyses remain pending. The two pre-existing C15 matched-constant encoder replacements, jobs 8329014 and 8329015, also completed with exit `0:0` and 100,007,936-frame milestones; the [recovery record](cosyne27_staged_push_pull_submission_20261010.md#completion-and-c15-recovery) contains their details. Their failed originals, 8327183 and 8327184, remain audit attempts, not replicates.
 
 ## Remaining fresh factorial cells, pending scope choice
 
