@@ -125,9 +125,7 @@ def study_rows() -> list[dict[str, str]]:
                 raise ValueError(f"missing submitted job for {experiment}")
             metadata = run.metadata
             status = "verified_100m"
-            if cohort == "cosyne_replacement":
-                status = "running_2026-10-12"
-            elif cohort in ("cosyne_new", "cosyne_long_credit"):
+            if cohort in ("cosyne_new", "cosyne_long_credit"):
                 status = "running_2026-10-12"
             elif cohort == "old_replacement":
                 status = "verified_100m_2026-10-11"

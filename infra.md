@@ -159,7 +159,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   At the 12 October 06:38 Berlin check, another 48 same-label full-panel
   jobs 8343879–8343926 were running with 72-hour limits. One inspected
   command still used the monolithic manifest row and original output path.
-  Their outcomes are pending; do not overlap a shard recovery with them.
+  By 08:24, 12 had failed with exit `134:0` after 3:36–4:00 hours; all
+  twelve logs end in `buffer overflow detected` and a core dump from the
+  native DMLab process. Seven failures were on n3104 and five on n3109,
+  so this is not confined to one node. The other 36 were still running;
+  no production trial table had been written. The [exact failure ledger](06_experiments/results/cosyne_2027_checkpoint_fields/control_rerun_failures_20261012.csv)
+  retains job IDs and log paths. Do not overlap a shard recovery with active
+  outputs, and do not treat an extended wall limit as a native-crash fix.
 - **Improvement/status:** Keep the adaptation isolated from training source;
   require a clean patch dry run, syntax check and focused evaluator tests before
   a bounded shard. Add a canonical source-shard selector and audited merge to
