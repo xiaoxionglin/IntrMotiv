@@ -54,6 +54,7 @@ def summarize_layer(pose: np.ndarray, activity: np.ndarray) -> tuple[dict, np.nd
     normalized = np.asarray(normalized)
     amplitude = np.asarray(amplitude)
     selected = normalized[eligible & np.isfinite(normalized)]
+    selected_amplitude = amplitude[eligible & np.isfinite(normalized)]
     result = {
         "units": int(positive.shape[1]),
         "eligible_units": int(eligible.sum()),
@@ -61,6 +62,7 @@ def summarize_layer(pose: np.ndarray, activity: np.ndarray) -> tuple[dict, np.nd
         "mean_positive_fraction": float(np.mean(positive > 0)),
         "mean_rectified_activation": float(positive.mean()),
         "mean_bits_per_activation_eligible": float(selected.mean()) if selected.size else None,
+        "mean_bits_per_step_eligible": float(selected_amplitude.mean()) if selected_amplitude.size else None,
         "mean_amplitude_weighted_bits_all": float(amplitude.mean()),
         "median_bits_per_activation_eligible": float(np.median(selected)) if selected.size else None,
         "visited_bins": int(np.count_nonzero(occupancy)),
@@ -75,8 +77,8 @@ def load_row(manifest: Path, index: int) -> dict[str, str]:
     if not 0 <= index < len(rows):
         raise IndexError(index)
     row = rows[index]
-    if not row["condition"].startswith("COS27_C05_") or int(row["target_frames"]) != 100_000_000:
-        raise ValueError("Expected a fresh C05 terminal row")
+    if not row["condition"].startswith(("COS27_C01_", "COS27_C05_", "COS27_C15_")) or int(row["target_frames"]) != 100_000_000:
+        raise ValueError("Expected a fresh COSYNE terminal row")
     return row
 
 

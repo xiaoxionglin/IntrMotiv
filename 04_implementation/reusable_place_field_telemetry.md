@@ -708,6 +708,14 @@ When joining legacy `place_fields.npz` occupancy with the shared
 occupancy: the legacy evaluator stores `(x, y)` axes while the shared metric
 contract stores `(y, x)`. Verify the full count array after transpose and the
 per-unit DG spatial scores, rather than comparing visited-bin counts alone.
+For downstream CA3 and decoder measurements on that same saved panel, reuse
+`hpc_runs/common_panel_layer_probe.py` and its ordinary-job launcher
+`hpc_runs/submit_common_panel_layers.py`. Select terminal rows from the
+checkpoint manifest, run print-only review, and keep raw replay JSON in the
+allocated workspace. The probe checks DG occupancy and per-unit score parity
+before writing CA3/decoder summaries. The [COSYNE all-architecture report](../06_experiments/cosyne_2027/temporal_credit_multilayer_20261012.md)
+shows how to join these summaries to verified training attempts and compare
+only identical saved ages; missing training or replay cells remain missing.
 New NPZs preserve the original fields and add raw rectified-DG maps beside
 post-inhibition and continuous pre-threshold maps. `pose_alignment` explicitly
 records `observation_time`; older one-step-offset artifacts must not be silently

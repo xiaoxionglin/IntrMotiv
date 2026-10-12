@@ -21,3 +21,5 @@ def test_gain_changes_amplitude_score_but_not_bits_per_activation():
                       scaled["mean_bits_per_activation_eligible"])
     assert np.isclose(3 * first["mean_amplitude_weighted_bits_all"],
                       scaled["mean_amplitude_weighted_bits_all"])
+    assert np.isclose(3 * first["mean_bits_per_step_eligible"],
+                      scaled["mean_bits_per_step_eligible"])

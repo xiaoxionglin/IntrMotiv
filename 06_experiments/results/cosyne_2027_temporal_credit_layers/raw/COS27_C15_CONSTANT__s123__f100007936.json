@@ -1,0 +1,64 @@
+{
+  "schema": "intrmotiv/common-panel-layers/v1",
+  "condition": "COS27_C15_CONSTANT",
+  "seed": 123,
+  "checkpoint_frames": 100007936,
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_CONSTANT_S123_/00_COS27_C15_CONSTANT_S123/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+  "checkpoint_sha256": "a7caa49554c7a6af038bc91d6d3f41c5636c4e5168ff1016bfd9e7d0b68d4045",
+  "panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+  "panel_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+  "dg_reference": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C15_CONSTANT_S123__00_COS27_C15_CONSTANT_S123__COS27_C15_CONSTANT__s123__f100007936/place_fields.npz",
+  "dg_reference_sha256": "7e846422143853ca38d22e8ac3197ac34df4bef644e9c3bd2a8760afdbb6b8f8",
+  "dg_reference_mean_amplitude_weighted_bits": 0.04639923192981435,
+  "dg_replay_mean_amplitude_weighted_bits": 0.04639923189839389,
+  "dg_max_unit_score_absolute_error": 1.7613559499807252e-09,
+  "archived_dg_occupancy_orientation": "x_y; transpose matches replay y_x",
+  "frozen_model_sha256": "841d445ed4081bdf4e4c7ac272323f1146fc149f9b1bcd287bdbb1329ef260e9",
+  "decoder_hook": "decoder.mlp.1",
+  "runtime_paths": {
+    "train_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_CONSTANT_S123_",
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_temporal_credit_layers_20261012/output/dmlab_cache",
+    "wandb_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_temporal_credit_layers_20261012/output/wandb"
+  },
+  "layers": {
+    "ca3": {
+      "units": 1136,
+      "eligible_units": 993,
+      "silent_units": 142,
+      "mean_positive_fraction": 0.07703173344637368,
+      "mean_rectified_activation": 0.15620076656341553,
+      "mean_bits_per_activation_eligible": 1.9948930364687611,
+      "mean_bits_per_step_eligible": 0.27305133153753486,
+      "mean_amplitude_weighted_bits_all": 0.2386853756573854,
+      "median_bits_per_activation_eligible": 1.912922145464837,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    },
+    "decoder_1": {
+      "units": 128,
+      "eligible_units": 124,
+      "silent_units": 1,
+      "mean_positive_fraction": 0.49938912358764126,
+      "mean_rectified_activation": 0.4153626263141632,
+      "mean_bits_per_activation_eligible": 0.7074470046329013,
+      "mean_bits_per_step_eligible": 0.1181781681761574,
+      "mean_amplitude_weighted_bits_all": 0.114490166399265,
+      "median_bits_per_activation_eligible": 0.45855765685753413,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    },
+    "decoder_2": {
+      "units": 128,
+      "eligible_units": 101,
+      "silent_units": 18,
+      "mean_positive_fraction": 0.41146510348965104,
+      "mean_rectified_activation": 0.29044750332832336,
+      "mean_bits_per_activation_eligible": 0.9710889319391355,
+      "mean_bits_per_step_eligible": 0.06963165429939512,
+      "mean_amplitude_weighted_bits_all": 0.05495164906470957,
+      "median_bits_per_activation_eligible": 0.711919714544678,
+      "visited_bins": 242,
+      "observations_in_bounds": 10001
+    }
+  }
+}

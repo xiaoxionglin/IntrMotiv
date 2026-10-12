@@ -2152,3 +2152,6 @@ For each finding, record:
 - **Acceptance:** An asymmetric-map regression fixture verifies the conversion,
   every C05 layer replay matches archived DG occupancy and per-unit scores,
   and future source readers declare the axis order before joining maps.
+  The same validation also passed for all 18 C01/C15 original terminal
+  replays (ordinary jobs 8343832–8343833 and the 16 reviewed follow-ups),
+  confirming reuse across the three architectures.

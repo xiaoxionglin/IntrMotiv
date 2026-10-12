@@ -1,0 +1,11 @@
+family,encoder_credit,worker_bonus,planned_seeds,verified_training_seeds,common_panel_seeds,missing_panel_seeds
+C01,temporal,inapplicable,5,"8,17,41,99,123","8,17,41,99,123",
+C01,constant,inapplicable,5,"8,17,41,99,123","8,17,41,99,123",
+C05,temporal,temporal,5,"8,17,41,99,123","8,17,41,99,123",
+C05,temporal,constant,5,"8,17,41,99,123","8,17,41,99,123",
+C05,constant,temporal,5,"8,17,41,99,123","8,17,41,99,123",
+C05,constant,constant,5,"8,17,41,99,123","8,17,41,99,123",
+C15,temporal,temporal,5,"8,17,41,99,123","8,17,41,99,123",
+C15,temporal,constant,5,,,"8,17,41,99,123"
+C15,constant,temporal,5,"17,41,123","17,41,123","8,99"
+C15,constant,constant,5,,,"8,17,41,99,123"
