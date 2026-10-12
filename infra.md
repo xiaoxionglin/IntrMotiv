@@ -100,8 +100,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   StudySpec source with exact CSV hashes. The two replacement common-panel DG
   replays were later found in an existing submitted cohort; the field and
   peak-spread adapters now admit all 40 manifest rows with one verified
-  occupancy hash. The downstream-layer adapter still needs the same explicit
-  recovery lineage after its replacement replays finish.
+  occupancy hash. The downstream-layer adapter now also admits the two replacement JSONs
+  through that StudySpec-derived catalog, verifies their checkpoints and DG
+  parity, and renders five paired C15 encoder seeds. The separate source patch
+  remains explicit in the catalog and scientific interpretation.
 
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 

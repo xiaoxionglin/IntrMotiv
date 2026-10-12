@@ -2,7 +2,7 @@
 
 [Question index](README.md) · [Encoder-credit report](03_encoder_credit.md) · [Worker-bonus report](04_worker_bonus_and_scope.md) · [DG checkpoint analysis](checkpoint_fields_20261011.md)
 
-**Status, 12 October 2026:** The 38 verified original fresh terminal checkpoints have been replayed through CA3, decoder 1, and decoder 2 on one saved 10,001-observation sequence. Every replay reproduced its archived DG spatial score and the 242-bin occupancy panel after accounting for the established axis convention. This completes the original C01 and C05 factor cells and gives three paired C15 encoder seeds **for downstream layers**. The two C15 constant-encoder replacement trainings completed at 100M, and their DG fields now pass the same 10,001-observation replay, giving five paired C15 DG seeds in the [field report](checkpoint_fields_20261011.md). Their seed-8 CA3/decoder preflight [completed with exit zero](../results/cosyne_2027_temporal_credit_layers/raw/COS27_C15_CONSTANT__s8__f100007936.json): the exact 100,007,936-frame checkpoint reproduced the archived DG score within $5.1\times10^{-9}$ per unit, and all three downstream layers have finite metrics on the same 242-bin, 10,001-observation panel. The reviewed seed-99 replay was [submitted once as job 8345388](../results/cosyne_2027_temporal_credit_layers/submission_20261012T103050Z.tsv). Neither replacement enters the paired downstream summary until both pass the complete-source audit. The separate C15 constant-worker checkpoints remain absent from this layer table. Missing cells are **unmeasured**, not zero.
+**Status, 12 October 2026:** All 40 verified fresh terminal checkpoints, including the two C15 constant-credit replacements, have been replayed through CA3, decoder 1, and decoder 2 on one saved 10,001-observation sequence. The [40-source analysis manifest](../results/cosyne_2027_temporal_credit_layers/analysis_manifest.json) verifies training and checkpoint identities, DG reference parity, and the shared 242-bin panel. C01, C05, and C15 temporal-worker encoder contrasts now have five paired seeds. The separate C15 constant-worker checkpoints remain absent from this layer table. Missing cells are **unmeasured**, not zero.
 
 ## Answer at the current evidence boundary
 
@@ -10,7 +10,7 @@ Temporal **encoder** credit improves decoder-1 spatial information in C01 on all
 
 C05 partly extends the encoder result. Decoder 1 gains per activation in 5/5 pairs with temporal worker bonus and 4/5 with constant worker bonus; its all-unit score rises in 4/5 and 5/5 respectively. CA3 normalized information rises in 4/5 pairs under either fixed worker arm, but its all-unit score is mixed with constant worker bonus. Decoder 2 depends more on the worker arm. Temporal **worker** bonus does not provide a consistent spatial-information gain at fixed encoder credit. With temporal encoder credit it **lowers** the amplitude-weighted decoder-1 and decoder-2 scores in all five worker pairs, even though normalized information has mixed signs. The C05 paired interaction is small and mixed for CA3, and negative on average but dispersed for the decoder; it is not a stable cross-layer interaction claim.
 
-C15 has three matched encoder seeds (17, 41, 123) in its temporal-worker downstream-layer table. CA3 and both decoder layers have mixed normalized signs (2/3 higher); amplitude-weighted decoder-2 information is slightly lower on average (1/3 higher). Replacement seeds 8 and 99 have verified 100M checkpoints and DG replays but await downstream-layer replay. The separate constant-worker extension has no measured layer pairs yet, so C15 worker timing and interaction remain unavailable.
+C15's five paired temporal-worker seeds show higher information **per activation** under temporal encoder credit in CA3 (+0.243 ± 0.367 bits), decoder 1 (+0.314 ± 0.373), and decoder 2 (+0.272 ± 0.194), each in 4/5 seeds. The all-unit amplitude-weighted scores are less favorable: CA3 is mixed (+0.062 ± 0.185; 3/5 higher), decoder 1 averages −0.036 ± 0.102 (2/5 higher), and decoder 2 averages −0.041 ± 0.072 (1/5 higher). Positive-sample fractions in both decoder layers are lower in 4/5 temporal-credit pairs. Thus C15 has a normalized spatial selectivity gain on this panel, with reduced decoder activity or amplitude limiting the all-unit score. Replacement seeds 8 and 99 use the isolated learner recovery source, so the five-seed estimate crosses that source boundary. The separate constant-worker extension has no measured layer pairs yet; C15 worker timing and interaction remain unavailable.
 
 ![Encoder-credit seed pairs for decoder 1](../results/cosyne_2027_temporal_credit_layers/encoder_paired_decoder_1.png)
 
@@ -20,7 +20,7 @@ Dots are paired training seeds, black segments are the seed means, and shaded po
 
 ### Absolute original values on the common panel
 
-These are run-level means ± sample SD across **all available** training seeds in each cell. C15's T/T row has five models and its C/T row only three, so subtracting those two displayed means is **not** the paired C15 effect. The paired tables below use only seeds 17, 41, and 123 for that contrast. T and C denote temporal and constant encoder / worker settings; C01 has no worker bonus.
+These are run-level means ± sample SD across all five paired training seeds in each available cell. T and C denote temporal and constant encoder / worker settings; C01 has no worker bonus. The C15 constant-encoder seeds 8 and 99 have distinct recovery source lineage, retained in the run catalog and analysis manifest.
 
 | Architecture; encoder / worker | n | CA3 bits/activation | Decoder 1 bits/activation | Decoder 2 bits/activation |
 | --- | ---: | ---: | ---: | ---: |
@@ -31,7 +31,7 @@ These are run-level means ± sample SD across **all available** training seeds i
 | C05; C / T | 5 | 1.547 ± 0.289 | 1.722 ± 0.209 | 1.420 ± 0.154 |
 | C05; C / C | 5 | 1.404 ± 0.354 | 1.545 ± 0.332 | 1.257 ± 0.108 |
 | C15; T / T | 5 | 1.606 ± 0.152 | 1.181 ± 0.391 | 1.194 ± 0.214 |
-| C15; C / T | 3 | 1.627 ± 0.371 | 0.843 ± 0.233 | 0.885 ± 0.090 |
+| C15; C / T | 5 | 1.363 ± 0.447 | 0.867 ± 0.221 | 0.921 ± 0.082 |
 
 | Architecture; encoder / worker | n | CA3 weighted bits/step | Decoder 1 weighted bits/step | Decoder 2 weighted bits/step |
 | --- | ---: | ---: | ---: | ---: |
@@ -42,7 +42,7 @@ These are run-level means ± sample SD across **all available** training seeds i
 | C05; C / T | 5 | 0.362 ± 0.053 | 0.170 ± 0.040 | 0.070 ± 0.016 |
 | C05; C / C | 5 | 0.428 ± 0.134 | 0.205 ± 0.106 | 0.076 ± 0.039 |
 | C15; T / T | 5 | 0.469 ± 0.103 | 0.203 ± 0.043 | 0.088 ± 0.032 |
-| C15; C / T | 3 | 0.314 ± 0.116 | 0.179 ± 0.075 | 0.084 ± 0.038 |
+| C15; C / T | 5 | 0.407 ± 0.188 | 0.239 ± 0.125 | 0.130 ± 0.076 |
 
 ## Factorized paired estimates
 
@@ -60,7 +60,7 @@ The occupancy-weighted spatial score is divided by each unit's mean rectified re
 | C05 worker T − C; encoder T | +0.141 ± 0.148; 4/5 | +0.057 ± 0.740; 3/5 | −0.203 ± 0.362; 2/5 |
 | C05 worker T − C; encoder C | +0.144 ± 0.334; 3/5 | +0.177 ± 0.489; 3/5 | +0.163 ± 0.198; 3/5 |
 | C05 paired interaction | −0.003 ± 0.204; 3/5 | −0.120 ± 1.016; 3/5 | −0.366 ± 0.540; 2/5 |
-| C15 encoder T − C; worker T | +0.047 ± 0.331; 2/3 | +0.217 ± 0.462; 2/3 | +0.185 ± 0.213; 2/3 |
+| C15 encoder T − C; worker T | +0.243 ± 0.367; 4/5 | +0.314 ± 0.373; 4/5 | +0.272 ± 0.194; 4/5 |
 | C15 encoder T − C; worker C | pending | pending | pending |
 | C15 worker T − C; encoder T | pending | pending | pending |
 | C15 worker T − C; encoder C | pending | pending | pending |
@@ -77,7 +77,7 @@ This is the original unnormalized spatial score, averaged over **all** units, in
 | C05 worker T − C; encoder T | −0.038 ± 0.101; 1/5 | −0.093 ± 0.112; 0/5 | −0.057 ± 0.058; 0/5 |
 | C05 worker T − C; encoder C | −0.066 ± 0.096; 1/5 | −0.035 ± 0.100; 2/5 | −0.006 ± 0.041; 3/5 |
 | C05 paired interaction | +0.028 ± 0.154; 3/5 | −0.057 ± 0.095; 2/5 | −0.051 ± 0.044; 1/5 |
-| C15 encoder T − C; worker T | +0.114 ± 0.201; 2/3 | +0.010 ± 0.095; 2/3 | −0.002 ± 0.064; 1/3 |
+| C15 encoder T − C; worker T | +0.062 ± 0.185; 3/5 | −0.036 ± 0.102; 2/5 | −0.041 ± 0.072; 1/5 |
 | C15 encoder T − C; worker C | pending | pending | pending |
 | C15 worker T − C; encoder T | pending | pending | pending |
 | C15 worker T − C; encoder C | pending | pending | pending |
@@ -88,16 +88,16 @@ C01's higher decoder-1 and decoder-2 information per activation does not come fr
 
 In C05 with a **constant** worker bonus, two temporal-encoder seeds have 71 completely silent CA3 channels on this panel; the constant-encoder peers have none. The per-activation CA3 mean excludes ineligible channels, while the all-channel amplitude score retains them. This is one reason the two CA3 metrics disagree on the strength of that arm. C05 worker-temporal versus worker-constant differences in decoder positive fraction and mean response are mixed, but decoder-1/2 all-unit spatial scores fall in every temporal-encoder seed. [Per-run counts and response magnitudes](../results/cosyne_2027_temporal_credit_layers/absolute_by_seed.csv) allow that distinction to be audited.
 
-The [DG fixed-panel analysis](checkpoint_fields_20261011.md#identical-observations-strongest-representational-result) provides the input-layer context: temporal encoder credit changes its amplitude-weighted spatial score by +0.0575 (5/5) in C01, +0.0333 (4/5) in C05 with temporal worker bonus, +0.0195 (2/5) in C05 with constant worker bonus, and +0.0358 (2/3) in C15. Holding C05 encoder credit fixed, temporal worker bonus changes DG score by −0.012 and −0.026 in the temporal- and constant-encoder arms. DG's score is an amplitude-weighted measure; the downstream normalized readout is a separate calculation.
+The [DG fixed-panel analysis](checkpoint_fields_20261011.md#identical-observations-strongest-representational-result) provides the input-layer context: temporal encoder credit changes its amplitude-weighted spatial score by +0.0575 (5/5) in C01, +0.0333 (4/5) in C05 with temporal worker bonus, +0.0195 (2/5) in C05 with constant worker bonus, and +0.012 (3/5) in C15. Holding C05 encoder credit fixed, temporal worker bonus changes DG score by −0.012 and −0.026 in the temporal- and constant-encoder arms. DG's score is an amplitude-weighted measure; the downstream normalized readout is a separate calculation.
 
 ## What the comparison does and does not establish
 
-The absolute layer comparison freezes each trained model and replays one identical saved input sequence, including action history and episode resets. It tests the **between-trained-model** effect of credit timing on representation under that input. Training behavior can still mediate the learned weights; internal recurrent and goal states remain model dependent. One saved C15-policy state distribution is not a comprehensive state-space test. Five paired training seeds support C01 and C05 estimates; C15 has three pairs, and the five C05 seeds recur across its factor arms. The sample SD is descriptive, not a confidence interval over environments.
+The absolute layer comparison freezes each trained model and replays one identical saved input sequence, including action history and episode resets. It tests the **between-trained-model** effect of credit timing on representation under that input. Training behavior can still mediate the learned weights; internal recurrent and goal states remain model dependent. One saved C15-policy state distribution is not a comprehensive state-space test. Five paired training seeds support C01, C05, and the C15 temporal-worker encoder contrast; C15's two replacement constant-credit seeds have a distinct source patch. The five C05 seeds recur across its factor arms. The sample SD is descriptive, not a confidence interval over environments.
 
 The separate [own-policy versus uniform-random frozen intervention](02_behavior_expression.md) changes executed actions **within** a model and measures behavior-conditioned expression. Its positive decoder-1 own-minus-random effects cannot be counted as temporal-credit gains. Policy-native 10k [checkpoint fields](checkpoint_fields_20261011.md#policy-specific-10k-decision-comparison) and 50k behavior probes sample different visited states; they are useful sensitivity checks, but the fixed-panel tables above carry the absolute representation comparison. Stored graph and executed-command results stay in the [worker and control report](04_worker_bonus_and_scope.md).
 
 ## Provenance and open cells
 
-The [analysis manifest](../results/cosyne_2027_temporal_credit_layers/analysis_manifest.json) records every replay JSON and checkpoint hash, the saved-panel SHA-256, the canonical `training_runs.csv` hash, StudySpec fingerprints, schema `intrmotiv/study/v1`, and workflow version `1.14.1`. [Availability by factor cell](../results/cosyne_2027_temporal_credit_layers/availability.csv) separates verified training from completed layer replay. The [compute-node replay](../../hpc_runs/common_panel_layer_probe.py) uses the established frozen-policy decoder hooks and shared spatial metrics; the [ordinary-job launcher](../../hpc_runs/submit_common_panel_layers.py) generated a print-only plan and skipped completed preflights. The C01/C15 source ran in the allocated NEMO2 workspace after local and remote focused tests; [two exact submission ledgers](../results/cosyne_2027_temporal_credit_layers/submission_20261012T011345Z.tsv) [record all 18 jobs](../results/cosyne_2027_temporal_credit_layers/submission_20261012T011622Z.tsv), which finished with Slurm exit `0:0`. The original C05 20-run replay reused its separately staged source and passed the same DG reference check. All 38 accepted layer replays are at 100,007,936 frames; the C15 replacement source patch remains visible in the training catalog when its future cells are admitted.
+The [analysis manifest](../results/cosyne_2027_temporal_credit_layers/analysis_manifest.json) records all 40 replay JSONs and checkpoint hashes, the saved-panel SHA-256, the canonical `training_runs.csv` hash, StudySpec fingerprints, schema `intrmotiv/study/v1`, and workflow version `1.14.1`. [Availability by factor cell](../results/cosyne_2027_temporal_credit_layers/availability.csv) separates verified training from completed layer replay. The [compute-node replay](../../hpc_runs/common_panel_layer_probe.py) uses the established frozen-policy decoder hooks and shared spatial metrics; the [ordinary-job launcher](../../hpc_runs/submit_common_panel_layers.py) generated print-only plans and rejected completed outputs. The original C01/C15 [submission ledgers](../results/cosyne_2027_temporal_credit_layers/submission_20261012T011345Z.tsv) [record 18 jobs](../results/cosyne_2027_temporal_credit_layers/submission_20261012T011622Z.tsv), and the two [C15 replacement](../results/cosyne_2027_temporal_credit_layers/submission_20261012T094330Z.tsv) [ledgers](../results/cosyne_2027_temporal_credit_layers/submission_20261012T103050Z.tsv) record jobs 8345364 and 8345388. All 20 C01/C15 replays exited zero. The [C15 replacement layer audit](../results/cosyne_2027_temporal_credit_layers/c15_recovery_layer_job_audit_20261012.csv) records both zero exits, exact checkpoint and panel hashes, DG per-unit parity, and replay JSON hashes. The original C05 20-run replay reused its separately staged source and passed the same DG reference check. All 40 accepted layer replays are at 100,007,936 frames; the C15 replacement source patch remains visible in the training catalog.
 
-**Next evidence gate:** Audit seed-99 layer job 8345388 and its JSON, then recompute C15 matched-age downstream encoder contrasts after both replacement JSONs pass checkpoint, DG parity, and finite-layer audits. The replacements and constant-worker extension use an isolated C15 learner recovery patch, whereas the original temporal-worker arms were trained from the earlier source; retain that source distinction in C15 interpretation. Do not substitute missing cells with zeros or compare different saved ages as terminal peers. No new training or duplicate layer job is required for the 38 completed original checkpoints.
+**Next evidence gate:** The C15 constant-worker extension has no accepted CA3/decoder replay in this table; incorporate it only after verified terminal checkpoints and identical-panel replays are available. Its learner source has the isolated C15 recovery patch, whereas the original temporal-worker arms used the earlier source; retain that distinction. The separate executed-control evaluations are still running. No new training or duplicate layer job is needed for the 40 completed terminal models.
