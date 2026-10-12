@@ -2240,6 +2240,18 @@ For each finding, record:
   common-replay intervention. The renderer hashes the original SVGs, crops
   only their visual tiles, and darkens the trajectory stroke for small-size
   viewing; rerendering at 1,000-pixel width is the acceptance check.
+  The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
+  then tested the original architecture art at a larger 5.8-inch width beside
+  a narrow spatial-information plot and four tiny archived response maps.
+  Enlarging all small source-SVG fonts to 10 pt caused labels to collide with
+  the existing modules. Candidate 3 instead masks only the original word-label
+  regions and redraws the same names at 10 pt, keeping the source modules and
+  arrows. The original small mathematical and matrix symbols remain. The
+  1,000-pixel PDF preview caught a clipped B heading and overlapping map
+  labels before delivery. Acceptance for a future strict-font variant is that
+  the remaining embedded symbols are handled without module overlap or
+  clipping, while the original architecture elements and submitted figure
+  remain intact.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

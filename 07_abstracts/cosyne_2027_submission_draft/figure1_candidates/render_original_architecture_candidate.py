@@ -29,8 +29,8 @@ STEM = "02_original_architecture_spatial_right"
 ARCHITECTURE_SOURCE = DRAFT / "figures" / "architecture_v2.svg"
 
 
-def original_artwork(fig: plt.Figure) -> None:
-    """Show the original modules and illustrations, excluding all equations."""
+def load_original_artwork() -> Image.Image:
+    """Crop the original modules and illustrations, excluding all equations."""
     with tempfile.TemporaryDirectory(prefix="cosyne_original_architecture_") as temporary:
         rendered = Path(temporary) / "architecture.png"
         subprocess.run(
@@ -47,6 +47,12 @@ def original_artwork(fig: plt.Figure) -> None:
         # The top-right observation-update formula is inside the diagram's
         # rectangular crop. Cover only that formula, above the feedback arrow.
         ImageDraw.Draw(art).rectangle((2180, 60, 2800, 176), fill="white")
+    return art
+
+
+def original_artwork(fig: plt.Figure) -> None:
+    """Show the author's architecture art at the candidate-2 dimensions."""
+    art = load_original_artwork()
 
     fig.text(0.015, 0.967, "A  Push–pull navigation architecture",
              va="top", fontsize=12, fontweight="bold", color="#20272C")

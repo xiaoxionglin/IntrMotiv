@@ -117,8 +117,8 @@ def spatial_emergence(fig):
              fontsize=12, fontweight="bold", color="#20272C")
 
 
-def example_fields(fig):
-    """Crop two audited C15 seed-99 maps from the higher-coverage probe."""
+def load_archived_field_tiles():
+    """Load the four audited C15 seed-99 maps from the higher-coverage probe."""
     probe = pd.read_csv(PROBE_TABLE)
     row = probe[(probe.condition == "C15") & (probe.seed == 99)].squeeze()
     assert int(row.visited_bins_probe) == 310
@@ -128,6 +128,8 @@ def example_fields(fig):
     # These stable export coordinates omit axes, titles, and the original
     # per-unit colorbars. The caption states that the scales are independent.
     crops = {"DG 7": (147, 211, 525, 590),
+             "DG 11": (663, 211, 1043, 590),
+             "DG 1": (147, 684, 525, 1064),
              "DG 0": (663, 684, 1043, 1064)}
     with tempfile.TemporaryDirectory(prefix="cosyne_figure1_fields_") as temporary:
         rendered = Path(temporary) / "fields.png"
@@ -137,6 +139,12 @@ def example_fields(fig):
         source = Image.open(rendered).convert("RGB")
         assert source.width == 1200 and source.height >= 1064
         tiles = {name: source.crop(bounds).copy() for name, bounds in crops.items()}
+    return tiles
+
+
+def example_fields(fig):
+    """Show two selected maps in the original narrow-column layout."""
+    tiles = load_archived_field_tiles()
     fig.text(0.625, 0.415, "C  Example DG place fields", va="top",
              fontsize=12, fontweight="bold", color="#20272C")
     for x, name in ((0.674, "DG 7"), (0.831, "DG 0")):
