@@ -8,10 +8,10 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ### Size compact result panels for the final conference page — 2026-10-12
 
-- **Evidence:** In the [COSYNE 2027 layout draft](07_abstracts/cosyne_2027_submission_draft/README.md), the existing worker-timing panel fits only at about half the text width alongside four other figures. Its plot labels are small at the rendered two-page size, while enlarging it sends content to a third page.
-- **Impact:** A figure can be legible as a standalone SVG yet difficult to read in the submission PDF. Late layout work then becomes a choice between dropping evidence and shrinking labels.
-- **Improvement/status:** Pending. Let the existing compact-figure renderer target a specified print width and minimum final text size for selected panels; keep data and captions unchanged. Do this when the worker analysis is finalized, rather than adding a one-off resize script now.
-- **Acceptance:** The selected worker panel remains legible at its actual PDF width, the complete abstract stays within the chosen page limit, and the rendered PDF passes a visual page-size check.
+- **Evidence:** In the [COSYNE 2027 layout draft](07_abstracts/cosyne_2027_submission_draft/README.md), six existing vector plots fit as panels under one caption on page 2, while the main text still fits the two-page limit. Several dot-plot axis labels require zooming at page size; their points and full-size sources remain available. Enlarging the panels would crowd out main text.
+- **Impact:** A figure can be legible as a standalone SVG yet difficult to read in a grouped submission figure. Panel selection, caption detail, and final-size typography need to be reviewed together.
+- **Improvement/status:** Pending for final submission. Let the existing compact-figure renderer target a specified print width and minimum final text size when selected panels are promoted to lead figures; keep data and captions unchanged. The current grouped figure is a space-allocation draft, so avoid one-off rewriting of the source plots now.
+- **Acceptance:** The chosen final panels remain legible at actual PDF width, the submission meets its page limit, and the rendered PDF passes a visual page-size check.
 
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
