@@ -14,13 +14,13 @@ The unit below is the *training seed*. Worker contrasts are temporal minus const
 
 [Editable plot](../results/cosyne_2027_checkpoint_fields/worker_timing_summary/worker_reward_exposure.svg) · [online original values and paired differences](../results/cosyne_2027_compact_figures/04_worker_coverage_values_and_delta.svg) · [conditional-hit seed table](../results/cosyne_2027_checkpoint_fields/conditional_hits/conditional_hit_seed_metrics.csv)
 
-| Last training-window outcome | Temporal encoder: worker T − C | Constant encoder: worker T − C | Seed-paired interaction |
-| --- | ---: | ---: | ---: |
-| Correct-hit observations, 90–100M | −9,135 (1/5 positive) | +3,010 (3/5) | −12,145 (1/5) |
-| Count-weighted correct-hit elapsed decisions, 90–100M | +0.815 (4/5) | +0.541 (2/5) | +0.274 (2/5) |
-| Count-weighted correct-hit reward magnitude, 90–100M | +0.063 (4/5) | +0.067 (5/5) | −0.004 (4/5) |
-| Online visited-cell fraction, 90–99M | +0.026 (4/5) | −0.087 (1/5) | +0.113 (4/5) |
-| Retained 100k-decision visited-cell fraction at 100M | −0.006 (0/5 positive; two ties) | 0.000 (five ties) | −0.006 (0/5 positive) |
+| Last training-window outcome                          |  Temporal encoder: worker T − C | Constant encoder: worker T − C | Seed-paired interaction |
+| ----------------------------------------------------- | ------------------------------: | -----------------------------: | ----------------------: |
+| Correct-hit observations, 90–100M                     |           −9,135 (1/5 positive) |                   +3,010 (3/5) |           −12,145 (1/5) |
+| Count-weighted correct-hit elapsed decisions, 90–100M |                    +0.815 (4/5) |                   +0.541 (2/5) |            +0.274 (2/5) |
+| Count-weighted correct-hit reward magnitude, 90–100M  |                    +0.063 (4/5) |                   +0.067 (5/5) |            −0.004 (4/5) |
+| Online visited-cell fraction, 90–99M                  |                    +0.026 (4/5) |                   −0.087 (1/5) |            +0.113 (4/5) |
+| Retained 100k-decision visited-cell fraction at 100M  | −0.006 (0/5 positive; two ties) |              0.000 (five ties) |   −0.006 (0/5 positive) |
 
 The correct-hit counts and elapsed/reward means come from the [existing NEMO2 collector outputs](../results/cosyne_2027_checkpoint_fields/conditional_hits/conditional_hit_seed_metrics.csv). Each C05 seed has 305 observed updates with correct hits and zero censored observations in that telemetry. Reward and elapsed means are **weighted by correct-hit count**, avoiding an unweighted average of update means. Higher reward per correct hit does not show greater hit exposure: the count contrast reverses across encoder arms, and repeated training telemetry is not independent trial evidence. Calibration mean-matched the designed bonuses, not the realized per-hit rewards for every seed.
 
