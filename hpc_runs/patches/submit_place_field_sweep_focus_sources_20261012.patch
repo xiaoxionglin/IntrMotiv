@@ -1,0 +1,41 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
+@@ -114,6 +114,7 @@
+     job_name_prefix: str,
+     workspace_root: pathlib.Path = WORKSPACE_ROOT,
+     exclude_nodes: str | None = None,
++    intervention_focus_sources: str | None = None,
+     record_observation_panel: pathlib.Path | None = None,
+     replay_observation_panel: pathlib.Path | None = None,
+ ) -> list[str]:
+@@ -132,6 +133,13 @@
+             "WANDB_MODE=disabled",
+         )
+     )
++    if intervention_focus_sources is not None:
++        if not re.fullmatch(r"[0-9]+(?::[0-9]+)*", intervention_focus_sources):
++            raise ValueError("Intervention focus sources must be colon-separated DG IDs")
++        source_ids = [int(value) for value in intervention_focus_sources.split(":")]
++        if len(source_ids) != len(set(source_ids)):
++            raise ValueError("Intervention focus sources must be distinct")
++        export += f",INTERVENTION_FOCUS_SOURCES={intervention_focus_sources}"
+     for key, value in (
+         ("PLACE_FIELD_RECORD_PANEL", record_observation_panel),
+         ("PLACE_FIELD_REPLAY_PANEL", replay_observation_panel),
+@@ -190,6 +198,8 @@
+     parser.add_argument("--time-limit", default="01:00:00")
+     parser.add_argument("--job-name-prefix", default="intrmotiv-pf")
+     parser.add_argument("--exclude-nodes", help="Slurm nodes to exclude from every submitted row")
++    parser.add_argument("--intervention-focus-sources",
++                        help="Colon-separated DG IDs for a bounded control source shard")
+     parser.add_argument("--pause-between", type=float, default=1.0)
+     panel = parser.add_mutually_exclusive_group()
+     panel.add_argument("--record-observation-panel", type=pathlib.Path)
+@@ -235,6 +245,7 @@
+             job_name_prefix=args.job_name_prefix,
+             workspace_root=workspace_root,
+             exclude_nodes=args.exclude_nodes,
++            intervention_focus_sources=args.intervention_focus_sources,
+             record_observation_panel=args.record_observation_panel,
+             replay_observation_panel=args.replay_observation_panel,
+         )

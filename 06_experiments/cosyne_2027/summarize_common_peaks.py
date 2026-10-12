@@ -52,7 +52,7 @@ def plot_primary(rows: pd.DataFrame, output: Path) -> None:
     panels = [("active_units", "Valid DG units", (0, 17)),
               ("coverage_effective_area_fraction", "Peak coverage effective area", (.2, .55)),
               ("active_only_map_cosine", "Active-only map cosine", (0, .2)),
-              ("mean_information_per_activation_bits", "Information per activation (bits)", (1.8, 4.4))]
+              ("mean_information_per_activation_bits", "Information per activation (bits)", (1.6, 4.4))]
     colors = {"constant": "#2C6593", "temporal": "#B34C34"}
     handles = [plt.Line2D([], [], marker="o", linestyle="", color=color, markersize=10, label=f"{name.title()} encoder")
                for name, color in colors.items()]

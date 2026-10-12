@@ -79,7 +79,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   missing shards during merge. Estimate production wall time with one full-size
   timing row, not only a reduced qualification. The ongoing COSYNE 2027 rows
   need that bounded path before interpreting the absent output as a control
-  outcome.
+  outcome. An [isolated source-shard patch](hpc_runs/patches/cosyne27_control_source_shards_20261012.patch)
+  and [canonical submitter export patch](hpc_runs/patches/submit_place_field_sweep_focus_sources_20261012.patch)
+  now pass explicit source IDs without changing the StudySpec's discovery
+  multiplier. Both patches passed dry-run review and syntax checks on NEMO2;
+  four focused matched-command tests passed. One source-0 pilot for C05 row 2
+  is running as job 8344905. A full-panel audited merge is still required.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full

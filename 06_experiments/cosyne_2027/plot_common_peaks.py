@@ -77,10 +77,10 @@ def main() -> None:
     panel(rows, support, [
         ("COS27_C01_CONSTANT", 99, "C01 constant encoder"),
         ("COS27_C01_TEMPORAL", 99, "C01 temporal encoder"),
-        ("COS27_C15_CONSTANT", 17, "C15 constant encoder"),
-        ("COS27_C15_TEMPORAL", 17, "C15 temporal encoder"),
+        ("COS27_C15_CONSTANT", 99, "C15 constant encoder"),
+        ("COS27_C15_TEMPORAL", 99, "C15 temporal encoder"),
     ], args.output_dir / "common_peak_density_c01_c15", 1.0, 0.0025,
-          "DG peak density · C01 seed 99 / C15 seed 17")
+          "DG peak density · C01 and C15 seed 99")
     panel(rows, support, [
         ("COS27_C05_CONSTANT_CONSTANT", 99, "Constant encoder\nConstant worker"),
         ("COS27_C05_TEMPORAL_CONSTANT", 99, "Temporal encoder\nConstant worker"),

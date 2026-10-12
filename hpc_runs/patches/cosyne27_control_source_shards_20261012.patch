@@ -1,0 +1,46 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
++++ b/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py
+@@ -742,7 +742,7 @@
+     parser.add_argument("--attempts-per-pair", type=int, default=5)
+     parser.add_argument("--deterministic", action="store_true")
+     parser.add_argument("--focus-sources", type=str)
+-    parser.add_argument("--discovery-multiplier", type=int, default=2)
++    parser.add_argument("--discovery-multiplier", type=int)
+     return parser.parse_args()
+ 
+ 
+@@ -780,8 +780,10 @@
+                 "max_sources", "targets_per_source", "repeats", "target_selection",
+                 "horizons", "fixed_evaluation_horizon", "discovery_multiplier"
+             ) if key in intervention},
+-             **({"focus_sources": [int(value) for value in args.focus_sources.split(":")],
+-                 "discovery_multiplier": args.discovery_multiplier} if args.focus_sources else {})}
++             **({"focus_sources": [int(value) for value in args.focus_sources.split(":")]}
++                if args.focus_sources else {}),
++             **({"discovery_multiplier": args.discovery_multiplier}
++                if args.discovery_multiplier is not None else {})}
+             if intervention.get("evaluation") == "landmark-matched-commands-v1"
+             else None
+         ),
+--- a/run_target_control_intervention_single.sh
++++ b/run_target_control_intervention_single.sh
+@@ -81,10 +81,18 @@
+ export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK:-4}
+ 
+ decision_cap=${PLACE_FIELD_MAX_FRAMES:-100000}
++shard_args=()
++if [[ -n ${INTERVENTION_FOCUS_SOURCES:-} ]]; then
++  [[ $INTERVENTION_FOCUS_SOURCES =~ ^[0-9]+(:[0-9]+)*$ ]] || {
++    echo "INTERVENTION_FOCUS_SOURCES must be colon-separated DG IDs" >&2; exit 2;
++  }
++  shard_args=(--focus-sources "$INTERVENTION_FOCUS_SOURCES")
++fi
+ /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python \
+   /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/control_runtime/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py \
+   --manifest "$manifest" \
+   --row-index "$row_index" \
+   --out-dir "$output_dir/raw" \
+   --decision-cap "$decision_cap" \
+-  --attempts-per-pair 5
++  --attempts-per-pair 5 \
++  "${shard_args[@]}"

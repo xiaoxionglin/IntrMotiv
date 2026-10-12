@@ -22,7 +22,7 @@ PANELS = [
         ("COS27_C05_CONSTANT_TEMPORAL", "Constant encoder", "#2C6593"),
         ("COS27_C05_TEMPORAL_TEMPORAL", "Temporal encoder", "#B34C34"),
     ]),
-    ("C15 · seed 17", "c15_encoder_s2", None, [
+    ("C15 · seed 99", "c15_available", None, [
         ("COS27_C15_CONSTANT", "Constant encoder", "#2C6593"),
         ("COS27_C15_TEMPORAL", "Temporal encoder", "#B34C34"),
     ]),

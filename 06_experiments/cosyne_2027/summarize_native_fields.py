@@ -55,8 +55,8 @@ def main() -> None:
     if joined.study_sha256.isna().any():
         raise ValueError("Missing StudySpec fingerprint for a native terminal row")
     joined[["family", "encoder_credit", "worker_bonus"]] = joined.condition.apply(lambda value: pd.Series(factors(value)))
-    if len(joined) != 38 or joined.duplicated(["condition", "seed"]).any():
-        raise ValueError(f"Expected 38 unique verified 100M endpoints, got {len(joined)}")
+    if len(joined) != 40 or joined.duplicated(["condition", "seed"]).any():
+        raise ValueError(f"Expected 40 unique verified 100M endpoints, got {len(joined)}")
     joined.to_csv(args.output_dir / "native_terminal_seed_metrics.csv", index=False)
     keys = ["family", "encoder_credit", "worker_bonus"]
     summary = joined.groupby(keys)[list(METRICS)].agg(["count", "mean", "std", "sem"])
