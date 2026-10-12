@@ -1,6 +1,6 @@
 # C05 worker hit timing under longer PPO credit
 
-**Status, 12 October 2026:** Both 2M-frame seed-99 qualifications completed with Slurm exit zero and passed the runtime gates below. The ten 100M-frame production runs, jobs 8344868–8344877, passed the exact submitted-manifest audit and all entered `RUNNING`. No five-seed high-discount outcome is available yet.
+**Status, 12 October 2026:** Both 2M-frame seed-99 qualifications passed. All ten 100M-frame production jobs 8344868–8344877 exited `0:0`; each run directory has a named 100,007,936-frame checkpoint. The canonical 90–100M online collector completed for all five paired seeds. Its results below are interim training readouts; checkpoint-content, spatial-snapshot, place-field, downstream-layer, trajectory, graph, and executed-control audits remain open.
 
 ## Question and contrast
 
@@ -20,6 +20,21 @@ Both specifications use schema `intrmotiv/study/v1` and workflow `1.14.1`. The i
 Both qualifications saved checkpoints at 2,064,384 environment frames. Each logged 63 finite policy-loss, value-loss, advantage-spread, DG-density, decoder-loss, and hit-control observations. Each wrote both 1M and 2M online-spatial snapshots; the 2M arrays have finite DG activity, 16/16 active DG units, and 16 finite spatial-information scores. Decoder loss was finite and nonzero, with 165,760 decoder parameters reported. The [runtime check](results/cosyne27_high_discount_hit_timing_20261012/qualification_runtime_check.json) binds the source event and snapshot files by SHA-256.
 
 At seed 99 over this short qualification, temporal versus constant bonus had 1,114 versus 843 logged correct-hit observations; correct-hit-count-weighted reward magnitudes were 1.6172 versus 1.5915, and weighted elapsed decisions were 10.96 versus 12.97. The constant magnitude matches the calibrated fixed reward, and the temporal term was engaged. These are repeated learner-batch observations from one seed, so their differences do **not** estimate the five-seed effect or executed goal control. Both Slurm jobs exited zero.
+
+## Interim five-seed online window
+
+The [canonical 90–100M collection](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/analysis_manifest.json) matches the submitted StudySpec SHA-256 `448161895fe97f0d289e809e15f17152886a8445a86a913b8efb31ad34c264c5`, schema `intrmotiv/study/v1`, and workflow `1.14.1`. Its [ten run rows](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/per_run.csv) all reach 100,040,704 frames. The selected learner scalars have 305 finite observations per run within the common 90–100M window; online coverage has 520–541 finite observations. These scalar means are *per logged observation*, not count-weighted trial latency or total exposure.
+
+| Training seed | Temporal minus constant correct detector-hit count per log point | Temporal minus constant online coverage AUC |
+| --- | ---: | ---: |
+| 8 | −2.16 | −6.90 |
+| 17 | +16.65 | −22.44 |
+| 41 | +56.49 | −33.18 |
+| 99 | −25.77 | +22.31 |
+| 123 | +57.15 | −21.44 |
+| Paired mean | +20.47 | −12.33 |
+
+The [canonical paired table](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/paired_contrasts.csv) and [summary](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/paired_contrast_summary.csv) retain all 16 declared metrics. The temporal bonus has a higher logged correct-hit count in 3/5 seed pairs, while online coverage AUC is lower in 4/5. All ten policy-loss, value-loss, advantage-spread, DG-density, and DG-usage-entropy window means are finite, and the logged DG silent fraction is zero in every run. This is mixed online evidence: neither a consistent speed gain nor executed goal control follows. Count-weighted hit latency and reward magnitude require aligning each scalar to its contemporaneous correct-hit count; arithmetic means of the logged latency or magnitude are insufficient.
 
 For completed 100M runs, report five paired seed differences for 90–100M correct-hit exposure and count-weighted latency/reward, online coverage, policy-specific and common-observation DG/CA3/decoder information, trajectories, and directed graph support. Keep stored prospective detector-hit ratios separate from executed commands. Any frozen matched-command evaluation needs bounded source shards and independently mapped physical arrival; the original monolithic evaluator timed out and the current schema only certifies DG-detector hits. Report 64/128/256/900-decision censoring and failures separately. Do not infer better goal control from online hits, field quality, or stored graph ratios alone.
 

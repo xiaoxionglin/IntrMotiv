@@ -1,0 +1,55 @@
+{
+  "batch_name": "cosyne27_c05_long_credit_worker_s5_20261012",
+  "collection": {
+    "exported_histories": null,
+    "loader_backend": "thread",
+    "mode": "fixed",
+    "scalar_size_guidance": 30000,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        90000000,
+        100000000
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [
+    "worker_temporal_minus_constant_at_high_credit"
+  ],
+  "expected_runs": 10,
+  "group_by": [
+    "condition"
+  ],
+  "input_rows": 10,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "encoder_event_count",
+    "encoder_feedback",
+    "target_hit_event_count",
+    "target_hit_numerator",
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "target_action_sensitivity",
+    "correct_outcome_count",
+    "censored_outcome_count",
+    "correct_elapsed_mean",
+    "correct_reward_magnitude_mean",
+    "dg_silent_fraction",
+    "dg_usage_entropy"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c05_long_credit_worker_s5_20261012",
+  "study_sha256": "448161895fe97f0d289e809e15f17152886a8445a86a913b8efb31ad34c264c5",
+  "study_spec": "hpc_runs/studies/cosyne27_c05_long_credit_worker_s5_20261012.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
