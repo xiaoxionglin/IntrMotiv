@@ -9,6 +9,7 @@
 \usepackage{caption}
 \usepackage{microtype}
 \usepackage{float}
+\emergencystretch=1em
 
 \captionsetup{font=footnotesize,labelfont=bf,skip=3pt}
 \setlength{\parindent}{0pt}
@@ -40,23 +41,23 @@ Together, our results demonstrate how spatial coding can emerge from the interac
 \includegraphics{figures/architecture.pdf}
 \par\vspace{2pt}
 \includegraphics{figures/variant_schematic.pdf}
-\captionof{figure}{\textbf{Push--pull architecture and variants.} Fixed visual trunk, learned sparse DG, fixed CA3 sequence memory, and policy readout. Red: temporal DG credit; blue: target-hit policy credit. The strip compares baseline, goal-conditioned, and frontier-goal policies.}
+\captionof{figure}{\textbf{Push--pull architecture and variants.} Fixed visual trunk, learned sparse DG, fixed CA3 sequence memory, and policy readout. Red: temporal DG credit; blue: target-hit policy credit. The strip labels C01 baseline, C05 goal-conditioned policy, and C15 goal-conditioned policy with frontier goal choice.}
 \label{fig:architecture}
 \end{minipage}
 
 \newpage
 \textbf{Spatial emergence and temporal push.} DG spatial coding rises during exploration (Fig.~\ref{fig:results}A). On the same 10,001 observations, temporal DG credit increases the baseline DG spatial score in all five paired seeds (mean $+0.0575$), reduces map redundancy, and broadens the area covered by eligible field peaks (mean $+0.109$; Fig.~\ref{fig:results}C,D). Seed 8 shows the largest peak-area increase among the five pairs. Decoder-1 information also rises by $0.680$ bits per activation on average in all five baseline pairs (Fig.~\ref{fig:results}E). Goal-conditioned comparisons largely point the same way; the frontier condition has only three matched encoder pairs.
 
-\textbf{Temporal pull.} Replacing temporally weighted target-hit credit with constant hit credit has mixed effects on coverage (Fig.~\ref{fig:results}F) and DG fields. Both rewards still reinforce target arrival, while actor--critic discounting favors earlier arrival. Weakening PPO discounting increases frontier-policy coverage but reduces measured spatial information on separate policy rollouts. The temporal-hit panel remains a placeholder while matched-command and physical-arrival analyses are completed.
+\textbf{Temporal pull.} Replacing temporally weighted target-hit credit with constant hit credit has mixed effects on coverage (Fig.~\ref{fig:results}F) and DG fields. Both rewards reinforce target arrival, while actor--critic discounting favors earlier arrival. A separate longer-credit intervention changes PPO discount and GAE lambda jointly; its higher frontier-policy coverage and lower spatial information were measured on different policy rollouts, so they do not isolate a fixed-input DG-code change. The temporal-hit panel remains provisional while matched-command and physical-arrival analyses are completed.
 % CHECK: The longer-credit comparison changes PPO gamma and GAE lambda jointly;
 % its spatial maps follow separate policies. Do not call it isolated discounting.
-% ILLUSTRATION TODO: discuss a tiny common-replay versus policy-rollout schematic,
-% a target-hit timing schematic, and a commanded versus actual-goal schematic.
+% The result figure's bottom strip explains these comparisons; the goal-control
+% sketch is explicitly marked as planned and does not represent an outcome.
 
 \begin{minipage}{\linewidth}
 \centering
 \includegraphics{figures/results_sections.pdf}
-\captionof{figure}{\textbf{Results grouped by claim.} Open squares show controls, filled circles show the tested condition, and gray lines join measurements from one training seed. \textbf{A,} Online DG spatial score (mean $\pm1$ s.e.m.; five seeds per family). \textbf{B,} Random-action control versus each frozen model's own policy: decoder-1 information and split-half map reliability (38 models, two evaluation repeats averaged per model). \textbf{C,} Baseline seed 8, selected for the \emph{largest} peak-area difference of five paired seeds: temporal $0.384$, constant $0.230$. Orange dots are eligible peaks after a 0.25\% activity cutoff on a shared observation panel; gray bins were unvisited. \textbf{D,} Constant-credit control versus temporal DG credit for every available paired seed, showing DG spatial score, active-map cosine, and peak area on identical observations. Goal-T and Goal-C fix the temporal or constant worker bonus. \textbf{E,} Constant-credit control versus temporal DG credit in baseline decoder-1 information ($5/5$ higher with temporal credit). \textbf{F,} Work in progress: constant-hit control versus temporal-hit worker credit in C05 visited fraction, with the encoder fixed ($n=5$ per arm; mean temporal-minus-constant effects $+0.026$ and $-0.087$).}
+\captionof{figure}{\textbf{Results grouped by claim.} All dot plots show absolute values: gray open squares are controls, filled colored circles are tested conditions, and thin gray connectors pair training seeds. C01 is baseline, C05 is goal-conditioned policy, and C15 adds frontier goal choice. \textbf{A,} Online DG spatial score (mean $\pm1$ s.e.m.; five seeds per family). \textbf{B,} Random-action control versus each frozen model's own policy: decoder-1 spatial information and split-half map reliability (38 models, with two evaluation repeats averaged per model). \textbf{C,} Selected C01 seed 8, chosen for the \emph{largest} temporal-minus-constant peak-area contrast among five paired seeds: $0.384$ versus $0.230$. Orange dots mark eligible field peaks after a 0.25\% activity cutoff on shared observations; gray bins were unvisited. \textbf{D,} Constant versus temporal DG credit on identical observations for every available encoder pair: DG spatial score, active-map cosine, and peak area. C01, C05-T, and C05-C have five pairs each; C15 has three. The C05-T/C comparisons hold temporal or constant worker bonus fixed. \textbf{E,} C01 decoder-1 information for constant versus temporal DG credit, higher in all five pairs (mean temporal-minus-constant $+0.680$ bits per activation). \textbf{F,} Work in progress: C05 visited fraction with constant-hit control versus temporal-hit worker credit and the encoder fixed (five pairs per encoder arm; mean temporal-minus-constant effects $+0.026$ and $-0.087$). This is a coverage comparison, not a goal-control result. The bottom strip distinguishes common-input DG tests from policy rollouts, illustrates hit timing, and marks commanded-versus-actual-goal analysis as planned.}
 \label{fig:results}
 \end{minipage}
 

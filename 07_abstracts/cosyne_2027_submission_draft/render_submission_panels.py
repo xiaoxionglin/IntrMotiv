@@ -39,7 +39,9 @@ SOURCES = {
 }
 COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 GRAY = "#5B646C"
-FIGURE_HEIGHT = 4.95
+FIGURE_HEIGHT = 5.30
+CONTENT_SCALE = 0.85  # Compress plot rows vertically without changing type or panel widths.
+CONTENT_OFFSET = 0.40  # Leave a bottom strip for analysis-interpretation keys.
 
 
 def style() -> str:
@@ -111,13 +113,61 @@ def variant_strip() -> None:
 
 
 def axes_in(fig: plt.Figure, x: float, y: float, width: float, height: float):
-    return fig.add_axes([x / 7.5, y / FIGURE_HEIGHT,
-                         width / 7.5, height / FIGURE_HEIGHT])
+    return fig.add_axes([x / 7.5, content_y(y) / FIGURE_HEIGHT,
+                         width / 7.5, height * CONTENT_SCALE / FIGURE_HEIGHT])
+
+
+def content_y(y: float) -> float:
+    return y * CONTENT_SCALE + CONTENT_OFFSET
 
 
 def section(fig: plt.Figure, x: float, y: float, label: str) -> None:
-    fig.text(x / 7.5, y / FIGURE_HEIGHT, label, fontsize=10, fontweight="bold",
+    fig.text(x / 7.5, content_y(y) / FIGURE_HEIGHT,
+             label, fontsize=10, fontweight="bold",
              color="#20272C", va="top")
+
+
+def explanation_strip(fig: plt.Figure) -> None:
+    """Distinguish evaluation inputs and mark unfinished goal-control analysis."""
+    fig.add_artist(plt.Line2D([0.02, 0.98], [0.72 / FIGURE_HEIGHT] * 2,
+                              transform=fig.transFigure, color="#CCD1D4", lw=0.6))
+    boxes = [
+        (0.12, "Input comparison"),
+        (2.62, "Target-hit timing"),
+        (5.12, "Goal-control check (planned)"),
+    ]
+    for left, title in boxes:
+        ax = fig.add_axes([left / 7.5, 0.05 / FIGURE_HEIGHT,
+                           2.28 / 7.5, 0.60 / FIGURE_HEIGHT])
+        ax.set(xlim=(0, 1), ylim=(0, 1))
+        ax.axis("off")
+        ax.add_patch(Rectangle((0, 0), 1, 1, facecolor="#F8F9F9",
+                               edgecolor="#CBD1D4", linewidth=0.6))
+        ax.text(0.04, 0.84, title, fontsize=9, fontweight="bold",
+                color="#20272C", va="center")
+        if left < 1:
+            ax.text(0.04, 0.48, "DG:", fontsize=9, va="center")
+            ax.text(0.26, 0.48, "same frames for both DGs",
+                    fontsize=9, va="center")
+            ax.text(0.04, 0.18, "Policy:", fontsize=9, va="center")
+            ax.text(0.26, 0.18, "distinct rollouts", fontsize=9, va="center")
+        elif left < 5:
+            ax.plot([0.10, 0.91], [0.43, 0.43], color=GRAY, lw=0.8)
+            for x, label in [(0.13, "command"), (0.48, "early hit"),
+                             (0.86, "late hit")]:
+                ax.plot([x, x], [0.37, 0.49], color=GRAY, lw=0.8)
+                ax.text(x, 0.14, label, fontsize=9, ha="center", va="center")
+        else:
+            ax.add_patch(Circle((0.19, 0.34), 0.055, facecolor="white",
+                                edgecolor=COLOR["C05"], linewidth=1))
+            ax.add_patch(Circle((0.79, 0.34), 0.045, facecolor=COLOR["C05"],
+                                edgecolor="none"))
+            ax.annotate("", xy=(0.73, 0.34), xytext=(0.26, 0.34),
+                        arrowprops={"arrowstyle": "->", "lw": 0.8,
+                                    "linestyle": "--", "color": GRAY})
+            ax.text(0.50, 0.43, "?", fontsize=9, ha="center", color=GRAY)
+            ax.text(0.19, 0.16, "commanded", fontsize=9, ha="center")
+            ax.text(0.79, 0.16, "actual arrival", fontsize=9, ha="center")
 
 
 def finish_axes(ax: plt.Axes) -> None:
@@ -137,8 +187,8 @@ def paired_rows(ax: plt.Axes, values: pd.DataFrame, groups: list[str],
         if data.empty:
             continue
         y_positions = row + np.linspace(-0.17, 0.17, len(data))
-        color = COLOR["C01" if group in {"Baseline", "Base"} else
-                      "C15" if group == "Frontier" else "C05"]
+        color = COLOR["C01" if group == "C01" else
+                      "C15" if group == "C15" else "C05"]
         for y, control, experimental in zip(
                 y_positions, data[control_column], data[experimental_column]):
             ax.plot([control, experimental], [y, y], color="#BDC5C9",
@@ -231,9 +281,9 @@ def results_figure() -> dict[str, float]:
 
     # A: five-seed online course. B: absolute random-control versus own-policy
     # decoder values, with two repeats averaged inside each training seed.
-    section(fig, 0.12, 4.86, "A  Spatial coding emerges")
-    section(fig, 2.24, 4.86, "B  Policy shapes expression")
-    ax = axes_in(fig, 0.40, 3.75, 1.60, 0.77)
+    section(fig, 0.12, 5.46, "A  Spatial coding emerges")
+    section(fig, 2.24, 5.46, "B  Policy shapes expression")
+    ax = axes_in(fig, 0.58, 4.17, 1.42, 1.01)
     for family, worker_arm in (("C01", "inapplicable"), ("C05", "temporal"),
                                ("C15", "temporal")):
         rows = online[(online.family == family) &
@@ -253,24 +303,25 @@ def results_figure() -> dict[str, float]:
     finish_axes(ax)
 
     behavior_rows = behavior_absolute.rename(columns={"training_seed": "seed"}).copy()
-    behavior_rows["group"] = behavior_rows.family.map({
-        "C01": "Baseline", "C05": "Goal", "C15": "Frontier"})
-    behavior_groups = ["Baseline", "Goal", "Frontier"]
+    behavior_rows["group"] = behavior_rows.family
+    behavior_groups = ["C01", "C05", "C15"]
     for x0, control, experimental, title, limits, xlabel in [
         (2.92, "random_info", "own_info", "Decoder info", (0, 1.9), "Bits/activation"),
         (5.23, "random_reliability", "own_reliability",
          "Map reliability", (0, 0.9), "Split-half correlation"),
     ]:
-        ax = axes_in(fig, x0, 3.78, 1.43, 0.72)
+        ax = axes_in(fig, x0, 4.20, 1.43, 0.98)
         paired_rows(ax, behavior_rows, behavior_groups, control, experimental,
                     labels=x0 < 4, xlim=limits, marker_size=8)
         ax.set_title(title, fontsize=10, pad=2)
         ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
 
-    fig.add_artist(plt.Line2D([0.02, 0.98], [3.42 / FIGURE_HEIGHT] * 2,
+    fig.add_artist(plt.Line2D([0.02, 0.98],
+                              [content_y(3.85) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 3.31, "C–D  Temporal push broadens and separates DG code")
-    fig.text(0.38 / 7.5, 3.06 / FIGURE_HEIGHT, "Seed 8: largest of 5 pairs",
+    section(fig, 0.12, 3.76, "C–D  Temporal push on shared observations")
+    fig.text(0.38 / 7.5, content_y(3.51) / FIGURE_HEIGHT,
+             "C  Selected C01 example: seed 8 (largest of 5 pairs)",
              fontsize=9, color=GRAY)
 
     # C: peak-coordinate example. D: original absolute values for every
@@ -280,7 +331,7 @@ def results_figure() -> dict[str, float]:
     vmax = max(np.nanmax(value) for value in grids.values())
     for x0, arm, label in [(0.38, "temporal", "Temporal"),
                            (1.62, "constant", "Constant")]:
-        ax = axes_in(fig, x0, 2.13, 1.04, 0.76)
+        ax = axes_in(fig, x0, 2.51, 1.04, 0.83)
         grid = np.ma.masked_where(~mask, grids[arm])
         cmap = plt.get_cmap("Greys").copy()
         cmap.set_bad("#DDDDDD")
@@ -295,7 +346,7 @@ def results_figure() -> dict[str, float]:
         ax.set_title(f"{label} ({area:.3f})", fontsize=9, pad=2)
 
     contrasts = ["C01", "C05 · temporal hit", "C05 · constant hit", "C15"]
-    row_names = ["Base", "Goal-T", "Goal-C", "Frontier"]
+    row_names = ["C01", "C05-T", "C05-C", "C15"]
     metrics = [
         ("DG score", encoder, "mean_spatial_information_bits", (0, 0.23)),
         ("Map cosine", encoder, "active_map_cosine_mean", (0, 0.17)),
@@ -303,7 +354,7 @@ def results_figure() -> dict[str, float]:
     ]
     for index, (title, source, metric, limits) in enumerate(metrics):
         x0 = (3.62, 4.91, 6.20)[index]
-        ax = axes_in(fig, x0, 2.13, 0.86, 0.76)
+        ax = axes_in(fig, x0, 2.43, 0.86, 0.96)
         subset = source[source.metric == metric].copy()
         if source is peaks:
             subset = subset[subset.cutoff == 0.0025]
@@ -317,10 +368,11 @@ def results_figure() -> dict[str, float]:
         ax.tick_params(axis="x", labelsize=9)
         ax.locator_params(axis="x", nbins=2)
 
-    fig.add_artist(plt.Line2D([0.02, 0.98], [1.92 / FIGURE_HEIGHT] * 2,
+    fig.add_artist(plt.Line2D([0.02, 0.98],
+                              [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 1.83, "E  Push reaches the readout")
-    section(fig, 3.30, 1.83, "F  Temporal pull: work in progress")
+    section(fig, 0.12, 2.10, "E  Push reaches the readout")
+    section(fig, 3.30, 2.10, "F  Temporal hit: work in progress")
     downstream = decoder[(decoder.family == "C01") &
                          (decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
@@ -328,12 +380,12 @@ def results_figure() -> dict[str, float]:
     assert len(downstream) == 5 and downstream.difference.gt(0).all()
     assert np.allclose(downstream.temporal - downstream.constant,
                        downstream.difference, atol=1e-10)
-    ax = axes_in(fig, 0.60, 0.61, 1.20, 0.85)
+    ax = axes_in(fig, 0.60, 0.73, 1.20, 1.04)
     paired_seeds(ax, downstream, "constant", "temporal",
                  xlim=(0, 2.35), color=COLOR["C01"])
     ax.set_title("Baseline · 5 pairs", fontsize=10, pad=2)
     ax.set_xlabel("Decoder bits/activation", fontsize=9, labelpad=1)
-    fig.text(2.04 / 7.5, 1.18 / FIGURE_HEIGHT,
+    fig.text(2.04 / 7.5, content_y(1.40) / FIGURE_HEIGHT,
              "5/5 temporal higher\nmean gain +0.68", fontsize=9,
              va="top", color=GRAY)
 
@@ -347,12 +399,13 @@ def results_figure() -> dict[str, float]:
         assert len(subset) == 5
         assert np.allclose(subset["first"] - subset["second"],
                            subset.difference, atol=1e-10)
-        ax = axes_in(fig, x0, 0.61, 1.10, 0.85)
+        ax = axes_in(fig, x0, 0.73, 1.10, 1.04)
         paired_seeds(ax, subset, "second", "first",
                      xlim=(0, 0.95), color=COLOR["C05"])
         ax.set_title(label, fontsize=10, pad=2)
         ax.set_xlabel("Visited fraction", fontsize=9, labelpad=1)
 
+    explanation_strip(fig)
     save(fig, "results_sections")
     return {
         "selected_seed": 8,

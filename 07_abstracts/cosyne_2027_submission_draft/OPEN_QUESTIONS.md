@@ -10,21 +10,21 @@ This layout reproduces the author's current 12 October GitHub title and 312-word
 4. **Worker temporal-hit credit.** Figure 2F is a coverage placeholder. Its mean C05 contrast is +0.026 for a temporal encoder and -0.087 for a constant encoder, each with five paired seeds. Matched-command outcomes, physical-arrival labels, and C15 worker controls are needed for a goal-control claim.
 5. **C15 encoder comparison.** Figure 2D has only three matched C15 encoder seed pairs. Downstream effects are mixed; refresh after replacement checkpoints and common-panel replays complete.
 
-## Illustrations to discuss later
+## Explanatory strip in Figure 2
 
-- A tiny schematic distinguishing the identical-observation replay used for encoder tests from policy rollouts used for behavioral expression.
-- A target-hit timing sketch explaining temporal versus constant worker credit and how PPO discounting also favors earlier hits.
-- A commanded-versus-actual-goal sketch for the planned goal-control analysis.
+- The input comparison distinguishes identical-observation replay for encoder tests from the distinct rollouts used to evaluate behavioral expression.
+- The timing sketch shows command, early hit, and late hit. Both worker-credit arms reward arrival, and PPO discounting favors earlier hits; the sketch does not establish an effect of temporal hit weighting.
+- The commanded-versus-actual-goal sketch is explicitly marked as a planned goal-control check, with no outcome implied.
 
 ## Missing submission elements
 
 - The LaTeX summary is 312 words versus the official 300-word requirement; the title is 128 characters versus the 100-character maximum. Shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
 - Finish commanded-target and physical-arrival contrasts before replacing the temporal-hit placeholder or making a directional pull claim.
 - COSYNE 2027 specifies two pages (US Letter/A4), 12-point minimum body, 10-point captions/references permitted, margins at least 0.5 inch, and double-blind anonymity; ensure the compiled PDF and its metadata comply. The title and summary must be shortened.
-- Review panel priority at final submission size. The figure keeps all scientifically distinct plotted contrasts; the full candidate library remains in the Overleaf ZIP.
+- Review panel priority at final submission size. The figure keeps all scientifically distinct plotted contrasts; the earlier full candidate library remains in the backed-up expanded ZIP.
 
 ## Layout and example choice
 
-The architecture is displayed at its original 6.59-inch width. The result panels are rendered as one 7.5-by-4.95-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
+The architecture is displayed at its original 6.59-inch width. The result panels and explanatory strip are rendered as one 7.5-by-5.30-inch figure with 9–10 pt internal type at final size. The dot plots show paired control and tested-condition values in smaller individual panels, rather than difference axes. Panel C deliberately selects seed 8 because its peak-area difference is the largest of five baseline pairs. Panel D shows all paired seeds so the selected example cannot be mistaken for the distribution.
 
 Official COSYNE 2027 rules: https://www.cosyne.org/abstracts-submission (checked 2026-10-12).

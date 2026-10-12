@@ -2173,6 +2173,17 @@ For each finding, record:
 - **Acceptance:** Import the ZIP as a standalone Overleaf project, compile
   `main.tex`, and verify that the indexed alternative paths can replace a
   current `\includegraphics` target without downloading another asset.
+- **Follow-up evidence and impact:** After the submission source was
+  repackaged as a compact upload, the builder still wrote its expanded library
+  to the compact ZIP path. A routine figure refresh could replace the selected
+  upload with a much larger historical archive.
+- **Follow-up improvement/status:** The builder now refreshes the compact
+  package by default and writes the expanded library to a separate path with
+  `--full`. Fixed archive timestamps make unchanged inputs byte-stable.
+- **Follow-up acceptance:** The compact ZIP preserves the three current
+  PDF/SVG pairs and compiles with its own `main.tex`; both rendered pages match
+  the source draft. The dated full backup remains historical and is not
+  presented as current figure content.
 
 ### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
 

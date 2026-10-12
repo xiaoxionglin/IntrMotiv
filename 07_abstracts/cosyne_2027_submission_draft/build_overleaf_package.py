@@ -1,12 +1,13 @@
-"""Build a self-contained Overleaf project with the COSYNE figure library.
+"""Build the selected Overleaf project or its expanded figure library.
 
-The figures used by main.tex stay at their existing paths. Other COSYNE SVGs
-are included under figures/candidates/ with matching PDFs, so a candidate can
-be selected by changing only an \includegraphics path in Overleaf.
+The default compact archive contains exactly the current figure sources and
+PDFs. ``--full`` writes a separate archive with candidate COSYNE plots; it
+never replaces the current upload package.
 """
 
 from __future__ import annotations
 
+import argparse
 import re
 import subprocess
 import tempfile
@@ -18,6 +19,7 @@ DRAFT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = DRAFT_DIR.parents[1]
 RESULTS_DIR = REPO_ROOT / "06_experiments" / "results"
 ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources.zip"
+FULL_ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources_full.zip"
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
@@ -44,7 +46,55 @@ def export_pdf(svg_path: Path, pdf_path: Path) -> None:
         raise RuntimeError(f"Could not export {svg_path}: {result.stderr.strip()}")
 
 
-def build() -> None:
+def write_archive(assets: dict[str, Path], path: Path) -> None:
+    """Write a stable archive after checking every referenced source file."""
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED,
+                         compresslevel=9) as archive:
+        for archive_name, source_path in sorted(assets.items()):
+            if not source_path.is_file():
+                raise FileNotFoundError(source_path)
+            info = zipfile.ZipInfo(archive_name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            archive.writestr(info, source_path.read_bytes(), compress_type=zipfile.ZIP_DEFLATED,
+                             compresslevel=9)
+
+
+def check_included_figures(assets: dict[str, Path]) -> None:
+    included = set(re.findall(r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}",
+                              (DRAFT_DIR / "main.tex").read_text()))
+    missing = included.difference(assets)
+    if missing:
+        raise RuntimeError(f"main.tex references missing files: {sorted(missing)}")
+
+
+def build_compact() -> None:
+    """Package only current PDF figures, their SVG sources, and submission notes."""
+    pdf_names = ("architecture.pdf", "variant_schematic.pdf", "results_sections.pdf")
+    svg_names = ("architecture_uploaded.svg", "variant_schematic.svg",
+                 "results_sections.svg")
+    with tempfile.TemporaryDirectory(prefix=".cosyne_compact_", dir=DRAFT_DIR) as temp_name:
+        temp_dir = Path(temp_name)
+        assets = {
+            name: DRAFT_DIR / name for name in
+            ("main.tex", "README.md", "OPEN_QUESTIONS.md", "PANEL_PROVENANCE.json")
+        }
+        assets.update({f"figures/{name}": DRAFT_DIR / "figures" / name
+                       for name in pdf_names + svg_names})
+        index = temp_dir / "FIGURE_OPTIONS.md"
+        index.write_text("# Figures in this compact Overleaf project\n\n"
+                         "The three PDFs below are used by `main.tex`; each has an SVG source.\n\n"
+                         + "\n".join(f"- `figures/{name}`" for name in pdf_names)
+                         + "\n\nThe expanded candidate library is in the repository's full archive.\n")
+        assets[index.name] = index
+        check_included_figures(assets)
+        staged = temp_dir / ARCHIVE_PATH.name
+        write_archive(assets, staged)
+        staged.replace(ARCHIVE_PATH)
+    print(f"Packaged {len(pdf_names)} current PDFs and their SVG sources: {ARCHIVE_PATH}")
+
+
+def build_full() -> None:
     current_pdfs = sorted((DRAFT_DIR / "figures").glob("*.pdf"))
     for svg_name in CURRENT_SVG_SOURCES:
         expected_pdf = DRAFT_DIR / "figures" / f"{Path(svg_name).stem.removesuffix('_uploaded')}.pdf"
@@ -96,11 +146,7 @@ def build() -> None:
             assets[archive_png.as_posix()] = source_path
             groups.setdefault(relative.parts[0], []).append(archive_png.as_posix())
 
-        included_figures = set(re.findall(r"\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}",
-                                          (DRAFT_DIR / "main.tex").read_text()))
-        missing_figures = included_figures.difference(assets)
-        if missing_figures:
-            raise RuntimeError(f"main.tex references missing files: {sorted(missing_figures)}")
+        check_included_figures(assets)
 
         index_lines = [
             "# Figure options for the COSYNE draft",
@@ -124,19 +170,21 @@ def build() -> None:
         index_path.write_text("\n".join(index_lines) + "\n")
         assets["FIGURE_OPTIONS.md"] = index_path
 
-        staged_zip = temp_dir / ARCHIVE_PATH.name
-        with zipfile.ZipFile(staged_zip, "w", compression=zipfile.ZIP_DEFLATED,
-                             compresslevel=9) as archive:
-            for archive_name, source_path in sorted(assets.items()):
-                if not source_path.is_file():
-                    raise FileNotFoundError(source_path)
-                archive.write(source_path, archive_name)
-        staged_zip.replace(ARCHIVE_PATH)
+        staged_zip = temp_dir / FULL_ARCHIVE_PATH.name
+        write_archive(assets, staged_zip)
+        staged_zip.replace(FULL_ARCHIVE_PATH)
         print(f"Packaged {len(current_pdfs)} current PDFs, {len(candidate_svgs)} "
               f"candidate PDF/SVG pairs, {len(raster_only)} PNG-only examples, "
               f"and {len(CURRENT_SVG_SOURCES)} current SVGs")
-        print(ARCHIVE_PATH)
+        print(FULL_ARCHIVE_PATH)
 
 
 if __name__ == "__main__":
-    build()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--full", action="store_true",
+                        help="write a separate archive with all candidate figures")
+    args = parser.parse_args()
+    if args.full:
+        build_full()
+    else:
+        build_compact()
