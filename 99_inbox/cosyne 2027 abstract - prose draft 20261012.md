@@ -2,6 +2,10 @@
 
 **Status:** Revised narrative draft, 12 October 2026. This version emphasizes the proposed mechanism and take-home message; a [two-page LaTeX layout draft](../07_abstracts/cosyne_2027_submission_draft/main.pdf) is now available. The [bullet outline](cosyne%202027%20abstract%20-%20evidence-linked%20draft.md) and [question reports](../06_experiments/cosyne_2027/README.md) remain the evidence index. The attached 2026 COSYNE submission is a style reference, not evidence for the 2027 results.
 
+
+## Title
+
+Spatial representations emerge from 
 ## Abstract
 
 How can spatial representations emerge from egocentric experience without a map, position labels, or external reward? We propose that a hippocampal-inspired circuit can turn the timing of encountered sensory events into a learning signal. In our agent, sparse dentate gyrus (DG) responses mark salient visual experiences, while CA3-like sequences carry their recent history. Temporal separation between events creates two complementary pressures: a “push” that favors distinct DG landmarks and a “pull” that rewards the policy for reaching internally defined targets. Spatial structure can thus arise through the agent’s interaction with the world rather than being imposed as a training target.
