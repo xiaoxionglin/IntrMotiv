@@ -1,0 +1,90 @@
+{
+  "canonical_summarize_control_trial_metrics": {
+    "alternate_hit_128": 0.7747395833333334,
+    "alternate_hit_256": 0.8307291666666666,
+    "alternate_hit_64": 0.66796875,
+    "alternate_hit_900": 0.86328125,
+    "censored_fraction_128": 0.0,
+    "censored_fraction_256": 0.0,
+    "censored_fraction_64": 0.0,
+    "censored_fraction_900": 0.1362847222222222,
+    "commanded_hit_128": 0.7916666666666666,
+    "commanded_hit_256": 0.8359375,
+    "commanded_hit_64": 0.671875,
+    "commanded_hit_900": 0.8619791666666666,
+    "mean_command_endpoint_separation_xy": 132.52165522538837,
+    "paired_detector_hit_lift_128": 0.016927083333333332,
+    "paired_detector_hit_lift_256": 0.005208333333333333,
+    "paired_detector_hit_lift_64": 0.00390625,
+    "paired_detector_hit_lift_900": -0.0013020833333333333,
+    "trial_rows": 1152
+  },
+  "checkpoint_frames": 75005952,
+  "cohort": "c05_pushpull_s3",
+  "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+  "coverage": {
+    "exact_start_verified_all": true,
+    "matched_command_triplets": 384,
+    "source_count": 16,
+    "source_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "source_shard_rows_numerically_equal_to_merge": true,
+    "source_target_pairs": 48,
+    "starts_per_source": 8,
+    "trial_rows": 1152,
+    "unique_source_repeat_starts": 128
+  },
+  "horizon_counts_all_arms": {
+    "128": {
+      "censored": 0,
+      "detector_hits": 899,
+      "not_hit_and_not_censored_by_horizon": 253
+    },
+    "256": {
+      "censored": 0,
+      "detector_hits": 959,
+      "not_hit_and_not_censored_by_horizon": 193
+    },
+    "64": {
+      "censored": 0,
+      "detector_hits": 771,
+      "not_hit_and_not_censored_by_horizon": 381
+    },
+    "900": {
+      "censored": 157,
+      "detector_hits": 994,
+      "not_hit_and_not_censored_by_horizon": 1
+    }
+  },
+  "interpretation": {
+    "checkpoint_age_effect_available": false,
+    "hit_type": "DG target detector hit",
+    "paired_training_seed_effect_available": false,
+    "physical_arrival_independently_mapped": false,
+    "prospective_graph_ratio_used": false,
+    "source_shard_full_panel_equivalence": "The 16 source tables reconcile to the merged trial records by row key and numeric tolerance; this is not a completed 48-job full-panel cohort."
+  },
+  "merged_trials_sha256": "09fd6dcf434a09983b8868947958bd4ad6ae9228c864086ed04813d656adbe8e",
+  "source_kind": "merged_distinct_source_shards",
+  "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/control_merged/raw/COS27_C05_TEMPORAL_TEMPORAL__s99__f75005952",
+  "status": "interim_single_run_complete_source_panel",
+  "study_id": "cosyne27_c05_pushpull_s3_20261010",
+  "study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+  "training_seed": 99
+}
