@@ -98,7 +98,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   [audited merger](06_experiments/cosyne_2027/merge_control_source_shards.py)
   now checks StudySpec identity, exact starts, command triplets, source coverage,
   and duplicate trial keys before writing a separate result; a pilot-based
-  merge and duplicate rejection test passed. A real full-panel merge is still
+  merge and duplicate rejection test passed. Five shards placed on n3104 then
+  recorded `NODE_FAIL|1:0` after 2h27 and were automatically requeued; the
+  [attempt history](06_experiments/cosyne_2027/results_20261011/control_submissions/c05_s3_source_requeues_20261012.tsv)
+  preserves both attempts. This node outage is distinct from the earlier
+  native exit-134 buffer overflows. A real full-panel merge is still
   required, and one completed row will not establish
   reliability across all C05/C15 checkpoints.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
