@@ -23,15 +23,15 @@
     "behavior_models": 38,
     "decoder_delta_by_group": {
       "C01": 0.680420844779087,
-      "C05-C": 0.5585231772078734,
-      "C05-T": 0.43804495309717995,
+      "C05-wC": 0.5585231772078734,
+      "C05-wT": 0.43804495309717995,
       "C15": 0.21680692301682045
     },
     "worker_delta_by_metric_and_group": {
-      "spatial_information:C05-C": 0.023456341876,
-      "spatial_information:C05-T": 0.012666058678,
-      "visited_cell_fraction:C05-C": -0.086683661148,
-      "visited_cell_fraction:C05-T": 0.0258499677022
+      "spatial_information:C05-eC": 0.023456341876,
+      "spatial_information:C05-eT": 0.012666058678,
+      "visited_cell_fraction:C05-eC": -0.086683661148,
+      "visited_cell_fraction:C05-eT": 0.0258499677022
     },
     "longer_credit_delta_by_family": {
       "C15": {

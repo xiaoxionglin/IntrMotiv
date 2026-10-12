@@ -2163,6 +2163,13 @@ For each finding, record:
   factor table and its evaluation protocol before choosing a representative
   panel; accept a composite only when every plotted comparison has a matched
   source row, an explicit control, and a stated sampling basis.
+  A caption review found that `C05-T/C` ambiguously named a fixed worker
+  setting in the push plots and a fixed encoder setting in the pull plots.
+  The renderer and caption now use `C05-wT/wC` and `C05-eT/eC` respectively,
+  while preserving the canonical `decoder_1` data key behind the displayed
+  readout MLP layer 1 label. Future composites should audit factor suffixes
+  across panels, then inspect the compiled PDF for heading collisions and
+  caption pagination before packaging the Overleaf source.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

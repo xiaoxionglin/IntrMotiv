@@ -715,7 +715,7 @@ L 144 25.3152
      </g>
     </g>
     <g id="text_4">
-     <text style="font-size: 9px; font-family: 'Arial'; text-anchor: middle" x="92.88" y="107.3561" transform="rotate(-0 92.88 107.3561)">Steps (millions)</text>
+     <text style="font-size: 9px; font-family: 'Arial'; text-anchor: middle" x="92.88" y="107.3561" transform="rotate(-0 92.88 107.3561)">Frames (millions)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -1429,7 +1429,7 @@ z
     </g>
    </g>
    <g id="text_17">
-    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle" x="261.72" y="23.3152" transform="rotate(-0 261.72 23.3152)">Decoder info</text>
+    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle" x="261.72" y="23.210513" transform="rotate(-0 261.72 23.210513)">Readout MLP layer 1</text>
    </g>
    <g id="PathCollection_4">
     <defs>
@@ -2170,7 +2170,7 @@ L 314.483478 138.7296
       </g>
      </g>
      <g id="text_27">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="256.94" y="164.443416" transform="rotate(-0 256.94 164.443416)">C05-T</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="256.94" y="164.443416" transform="rotate(-0 256.94 164.443416)">C05-wT</text>
      </g>
     </g>
     <g id="ytick_11">
@@ -2180,7 +2180,7 @@ L 314.483478 138.7296
       </g>
      </g>
      <g id="text_28">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="256.94" y="180.283416" transform="rotate(-0 256.94 180.283416)">C05-C</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="256.94" y="180.283416" transform="rotate(-0 256.94 180.283416)">C05-wC</text>
      </g>
     </g>
     <g id="ytick_12">
@@ -2991,7 +2991,7 @@ L 165.6 241.3728
       </g>
      </g>
      <g id="text_43">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="44.54" y="265.212216" transform="rotate(-0 44.54 265.212216)">C05-T</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="44.54" y="265.212216" transform="rotate(-0 44.54 265.212216)">C05-wT</text>
      </g>
     </g>
     <g id="ytick_23">
@@ -3001,7 +3001,7 @@ L 165.6 241.3728
       </g>
      </g>
      <g id="text_44">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="44.54" y="279.732216" transform="rotate(-0 44.54 279.732216)">C05-C</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="44.54" y="279.732216" transform="rotate(-0 44.54 279.732216)">C05-wC</text>
      </g>
     </g>
     <g id="ytick_24">
@@ -3060,7 +3060,7 @@ L 165.6 297.1296
     </g>
    </g>
    <g id="text_46">
-    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle" x="106.92" y="239.3728" transform="rotate(-0 106.92 239.3728)">Decoder-1 information</text>
+    <text style="font-size: 10px; font-family: 'Arial'; text-anchor: middle" x="106.92" y="239.268113" transform="rotate(-0 106.92 239.268113)">Readout MLP layer 1</text>
    </g>
    <g id="PathCollection_43">
     <g clip-path="url(#p6ea9278851)">
@@ -3199,7 +3199,7 @@ L 257.256 241.3728
       </g>
      </g>
      <g id="text_50">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="213.74" y="257.320911" transform="rotate(-0 213.74 257.320911)">C05-T</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="213.74" y="257.320911" transform="rotate(-0 213.74 257.320911)">C05-eT</text>
      </g>
     </g>
     <g id="ytick_26">
@@ -3209,7 +3209,7 @@ L 257.256 241.3728
       </g>
      </g>
      <g id="text_51">
-      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="213.74" y="287.62352" transform="rotate(-0 213.74 287.62352)">C05-C</text>
+      <text style="font-size: 9px; font-family: 'Arial'; text-anchor: end" x="213.74" y="287.62352" transform="rotate(-0 213.74 287.62352)">C05-eC</text>
      </g>
     </g>
    </g>
@@ -3750,7 +3750,7 @@ L 529.2 214.128
    <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #5b646c" x="27.36" y="131.1264" transform="rotate(-0 27.36 131.1264)">C  Selected C01 example: seed 8 (largest of 5 pairs)</text>
   </g>
   <g id="text_71">
-   <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="8.64" y="227.621813" transform="rotate(-0 8.64 227.621813)">E  Temporal push: decoder readout</text>
+   <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="8.64" y="227.621813" transform="rotate(-0 8.64 227.621813)">E  Temporal push: readout</text>
   </g>
   <g id="text_72">
    <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="195.84" y="227.621813" transform="rotate(-0 195.84 227.621813)">F  Temporal pull: two interventions</text>

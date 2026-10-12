@@ -201,7 +201,7 @@ def results_figure() -> dict[str, float]:
         sem = rows["sem"].to_numpy()
         ax.plot(x, mean, lw=1.1, color=COLOR[family], label=family)
         ax.fill_between(x, mean - sem, mean + sem, alpha=0.13, color=COLOR[family])
-    ax.set(xlim=(0, 100), xlabel="Steps (millions)", ylabel="DG score")
+    ax.set(xlim=(0, 100), xlabel="Frames (millions)", ylabel="DG score")
     ax.legend(loc="upper left", frameon=False, fontsize=9, ncol=3,
               handlelength=0.7, columnspacing=0.3, handletextpad=0.2,
               borderpad=0)
@@ -211,7 +211,7 @@ def results_figure() -> dict[str, float]:
     behavior_rows["group"] = behavior_rows.family
     behavior_groups = ["C01", "C05", "C15"]
     for x0, control, experimental, title, limits, xlabel in [
-        (2.92, "random_info", "own_info", "Decoder info", (0, 1.9), "Bits/activation"),
+        (2.92, "random_info", "own_info", "Readout MLP layer 1", (0, 1.9), "Bits/activation"),
         (5.23, "random_reliability", "own_reliability",
          "Map reliability", (0, 0.9), "Split-half correlation"),
     ]:
@@ -251,7 +251,7 @@ def results_figure() -> dict[str, float]:
         ax.set_title(f"{label} ({area:.3f})", fontsize=9, pad=2)
 
     contrasts = ["C01", "C05 · temporal hit", "C05 · constant hit", "C15"]
-    row_names = ["C01", "C05-T", "C05-C", "C15"]
+    row_names = ["C01", "C05-wT", "C05-wC", "C15"]
     metrics = [
         ("DG score", encoder, "mean_spatial_information_bits", (0, 0.23)),
         ("Map cosine", encoder, "active_map_cosine_mean", (0, 0.17)),
@@ -276,15 +276,15 @@ def results_figure() -> dict[str, float]:
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 2.10, "E  Temporal push: decoder readout")
+    section(fig, 0.12, 2.10, "E  Temporal push: readout")
     section(fig, 2.72, 2.10, "F  Temporal pull: two interventions")
     downstream = decoder[(decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
                          (decoder.metric == "mean_bits_per_activation_eligible")].copy()
     downstream["group"] = downstream.apply(
-        lambda row: (f"C05-{row.fixed_arm[0].upper()}"
+        lambda row: (f"C05-w{row.fixed_arm[0].upper()}"
                      if row.family == "C05" else row.family), axis=1)
-    decoder_groups = ["C01", "C05-T", "C05-C", "C15"]
+    decoder_groups = ["C01", "C05-wT", "C05-wC", "C15"]
     assert downstream.groupby("group").size().reindex(decoder_groups).tolist() == [5, 5, 5, 3]
     assert downstream.groupby("group").difference.apply(
         lambda values: values.gt(0).sum()).reindex(decoder_groups).tolist() == [5, 5, 4, 2]
@@ -293,14 +293,14 @@ def results_figure() -> dict[str, float]:
     ax = axes_in(fig, 0.67, 0.89, 1.63, 0.88)
     paired_rows(ax, downstream, decoder_groups, "constant", "temporal",
                 labels=True, xlim=(0, 3.0), marker_size=10)
-    ax.set_title("Decoder-1 information", fontsize=10, pad=2)
+    ax.set_title("Readout MLP layer 1", fontsize=10, pad=2)
     ax.set_xlabel("Bits/activation", fontsize=9, labelpad=1)
 
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
                   (worker.metric.isin(["visited_cell_fraction",
                                      "spatial_information"]))].copy()
-    pull["group"] = pull.fixed_factor.map({"temporal": "C05-T", "constant": "C05-C"})
+    pull["group"] = pull.fixed_factor.map({"temporal": "C05-eT", "constant": "C05-eC"})
     assert pull.groupby(["metric", "group"]).size().eq(5).all() and len(pull) == 20
     assert np.allclose(pull["first"] - pull["second"], pull.difference, atol=1e-10)
     for x0, metric, title, limits, xlabel, labels in [
@@ -308,7 +308,7 @@ def results_figure() -> dict[str, float]:
         (4.07, "spatial_information", "Hit: DG score", (0.08, 0.23), "DG score", False),
     ]:
         ax = axes_in(fig, x0, 0.89, 0.79, 0.88)
-        paired_rows(ax, pull[pull.metric == metric], ["C05-T", "C05-C"],
+        paired_rows(ax, pull[pull.metric == metric], ["C05-eT", "C05-eC"],
                     "second", "first", labels=labels, xlim=limits, marker_size=10)
         ax.set_title(title, fontsize=9, pad=2)
         ax.set_xlabel(xlabel, fontsize=9, labelpad=1)
