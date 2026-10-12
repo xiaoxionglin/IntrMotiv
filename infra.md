@@ -87,8 +87,8 @@ keep implementation guidance in the canonical workflow documents linked below.
   completed as job 8344905 on n3104 in 2h12, with eight exact starts, 24
   paired comparisons, 72 trial rows, frozen policy and graph, no missing
   records, and the declared discovery multiplier of 10. This supports bounded
-  fresh-engine execution even on a node that had aborted monolithic rows; it
-  does not prove all 16 sources can be discovered within a one-source shard.
+  fresh-engine execution even on a node that had aborted monolithic rows; the
+  complete source panel was subsequently checked separately.
   The source-15 C05 and source-0 C15 pilots also completed as jobs 8345378
   and 8345379, each with eight exact starts, 24 paired comparisons, 72 rows,
   frozen policy and graph, and no missing records. The C05 high-index source
@@ -102,9 +102,17 @@ keep implementation guidance in the canonical workflow documents linked below.
   recorded `NODE_FAIL|1:0` after 2h27 and were automatically requeued; the
   [attempt history](06_experiments/cosyne_2027/results_20261011/control_submissions/c05_s3_source_requeues_20261012.tsv)
   preserves both attempts. This node outage is distinct from the earlier
-  native exit-134 buffer overflows. A real full-panel merge is still
-  required, and one completed row will not establish
-  reliability across all C05/C15 checkpoints.
+  native exit-134 buffer overflows. All 16 shards then completed, and the
+  audited merger produced one full C05 seed-99 75M row with 128 exact starts,
+  384 paired comparisons, 1,152 trials, no missing records, and the original
+  study fingerprint. The [interim result](06_experiments/cosyne_2027/results_20261011/control_interim/summary/control_seed_checkpoint_metrics.csv)
+  retains detector-hit differences and a 47-row missingness ledger. One
+  completed row does not establish reliability across all C05/C15 checkpoints;
+  the remaining rows still need bounded recovery or a verified monolithic end.
+  After print-only review, 15 additional C15 temporal seed-17 75M source jobs
+  were submitted as 8352047–8352061 to test the same full-panel method under
+  the second architecture; [their commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c15_s2_source01_15_panel_20261012.tsv)
+  are retained.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
