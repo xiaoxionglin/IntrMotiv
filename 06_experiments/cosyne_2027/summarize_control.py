@@ -59,6 +59,8 @@ def main() -> None:
     parser.add_argument("root", type=Path, help="NEMO2 analysis root with cohort intervention manifests and control/raw")
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("--allow-incomplete", action="store_true")
+    parser.add_argument("--use-merged-shards", action="store_true",
+                        help="Include audited control_merged/raw rows when the ordinary output is absent")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -67,17 +69,29 @@ def main() -> None:
         manifest_path = args.root / cohort / "intervention_manifest.tsv"
         if not manifest_path.exists():
             continue
+        study = json.loads((args.root / cohort / "study_manifest.json").read_text())
         manifest = pd.read_csv(manifest_path, sep="\t")
-        for record in manifest.itertuples(index=False):
+        for row_index, record in enumerate(manifest.itertuples(index=False)):
             raw_dir = args.root / cohort / "control" / "raw" / record.label_suffix
+            merged_dir = args.root / cohort / "control_merged" / "raw" / record.label_suffix
+            if args.use_merged_shards and (merged_dir / "intervention_summary.json").exists():
+                if (raw_dir / "intervention_summary.json").exists():
+                    raise ValueError(f"Both ordinary and merged output exist for {record.label_suffix}")
+                raw_dir = merged_dir
             trial_path = raw_dir / "intervention_trials.csv"
             summary_path = raw_dir / "intervention_summary.json"
             if not trial_path.exists() or not summary_path.exists():
                 missing.append((cohort, record.label_suffix))
                 continue
             summary = json.loads(summary_path.read_text())
-            if summary["checkpoint_frames"] != record.checkpoint_frames:
-                raise ValueError(f"Checkpoint mismatch for {record.label_suffix}")
+            expected = {"schema": study["schema"], "workflow_version": study["workflow_version"],
+                        "study_id": study["study_id"], "study_sha256": study["study_sha256"],
+                        "condition": record.condition, "seed": record.seed,
+                        "checkpoint_frames": record.checkpoint_frames,
+                        "checkpoint": record.checkpoint, "manifest_row": row_index}
+            for key, value in expected.items():
+                if summary.get(key) != value:
+                    raise ValueError(f"{key} mismatch for {record.label_suffix}")
             trials = pd.read_csv(trial_path)
             family, encoder, worker = factors(record.condition)
             row = {"cohort": cohort, "condition": record.condition, "family": family,
@@ -86,6 +100,7 @@ def main() -> None:
                    "label_suffix": record.label_suffix, "study_id": summary["study_id"],
                    "study_sha256": summary["study_sha256"], "schema": summary["schema"],
                    "workflow_version": summary["workflow_version"],
+                   "output_kind": "source_shard_merge" if raw_dir == merged_dir else "ordinary",
                    "sources_evaluated": summary["sources_evaluated"],
                    "supported_sources": summary["supported_sources"],
                    "source_panel_coverage": summary["source_panel_coverage"],

@@ -95,7 +95,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   was discoverable within the declared multiplier of 10. Fourteen further
   C05 source shards for the same manifest row were print-reviewed and submitted
   as jobs 8345452–8345465 to validate a complete 16-source panel. A full-panel
-  audited merge is still required, and one completed row will not establish
+  [audited merger](06_experiments/cosyne_2027/merge_control_source_shards.py)
+  now checks StudySpec identity, exact starts, command triplets, source coverage,
+  and duplicate trial keys before writing a separate result; a pilot-based
+  merge and duplicate rejection test passed. A real full-panel merge is still
+  required, and one completed row will not establish
   reliability across all C05/C15 checkpoints.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
