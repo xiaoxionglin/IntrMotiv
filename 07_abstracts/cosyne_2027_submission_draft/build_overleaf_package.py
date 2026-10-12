@@ -23,7 +23,6 @@ FULL_ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources_full.zip"
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
-    "variant_schematic.svg": DRAFT_DIR / "figures" / "variant_schematic.svg",
     "results_sections.svg": DRAFT_DIR / "figures" / "results_sections.svg",
     "online_spatial_course.svg": RESULTS_DIR / "cosyne_2027_compact_figures" / "01_online_spatial_course.svg",
     "c01_peak_density.svg": RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "common_panel_analysis" / "figures" / "c01_seed99_common_peak_density.svg",
@@ -70,9 +69,8 @@ def check_included_figures(assets: dict[str, Path]) -> None:
 
 def build_compact() -> None:
     """Package only current PDF figures, their SVG sources, and submission notes."""
-    pdf_names = ("architecture.pdf", "variant_schematic.pdf", "results_sections.pdf")
-    svg_names = ("architecture_uploaded.svg", "variant_schematic.svg",
-                 "results_sections.svg")
+    pdf_names = ("architecture.pdf", "results_sections.pdf")
+    svg_names = ("architecture_uploaded.svg", "results_sections.svg")
     with tempfile.TemporaryDirectory(prefix=".cosyne_compact_", dir=DRAFT_DIR) as temp_name:
         temp_dir = Path(temp_name)
         assets = {
@@ -83,7 +81,7 @@ def build_compact() -> None:
                        for name in pdf_names + svg_names})
         index = temp_dir / "FIGURE_OPTIONS.md"
         index.write_text("# Figures in this compact Overleaf project\n\n"
-                         "The three PDFs below are used by `main.tex`; each has an SVG source.\n\n"
+                         "The two PDFs below are used by `main.tex`; each has an SVG source.\n\n"
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
                          + "\n\nThe expanded candidate library is in the repository's full archive.\n")
         assets[index.name] = index

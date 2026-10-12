@@ -1,4 +1,4 @@
-"""Render the final-size COSYNE architecture-variant strip and results figure.
+"""Render the final-size COSYNE results figure.
 
 All plotted comparisons come from archived seed-level tables. The selected
 seed-8 example uses only the lightweight peak coordinates and occupancy mask
@@ -17,7 +17,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties, findfont
-from matplotlib.patches import Circle, FancyArrowPatch, Rectangle
 import numpy as np
 import pandas as pd
 
@@ -39,9 +38,9 @@ SOURCES = {
 }
 COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73"}
 GRAY = "#5B646C"
-FIGURE_HEIGHT = 5.30
-CONTENT_SCALE = 0.85  # Compress plot rows vertically without changing type or panel widths.
-CONTENT_OFFSET = 0.40  # Leave a bottom strip for analysis-interpretation keys.
+FIGURE_HEIGHT = 4.95
+CONTENT_SCALE = 0.88  # Fit all data panels at their original widths and type sizes.
+CONTENT_OFFSET = 0.05
 
 
 def style() -> str:
@@ -78,40 +77,6 @@ def save(fig: plt.Figure, stem: str) -> None:
     plt.close(fig)
 
 
-def variant_strip() -> None:
-    """Three schematic policy variants, at the same width as the source art."""
-    fig = plt.figure(figsize=(6.58689, 0.91))
-    panels = [
-        ("Baseline (C01)", "direct exploration", False, False, COLOR["C01"]),
-        ("Goal-conditioned policy (C05)", "internal DG target", True, False, COLOR["C05"]),
-        ("Goal-conditioned policy (C15)", "frontier goal choice", True, True, COLOR["C15"]),
-    ]
-    for i, (title, subtitle, has_target, frontier, color) in enumerate(panels):
-        left = i * 2.195
-        ax = fig.add_axes([left / 6.58689, 0.08, 2.10 / 6.58689, 0.72])
-        ax.set_xlim(0, 2.10)
-        ax.set_ylim(0, 0.72)
-        ax.axis("off")
-        ax.add_patch(Rectangle((0.02, 0.02), 2.06, 0.68, fill=False,
-                               edgecolor="#BCC5CA", linewidth=0.8))
-        ax.text(0.11, 0.55, title, fontsize=10, fontweight="bold", color="#252B30")
-        ax.text(0.11, 0.39, subtitle, fontsize=9, color=GRAY)
-        ax.add_patch(Circle((0.31, 0.16), 0.07, facecolor=color, edgecolor="white",
-                            linewidth=0.5))
-        ax.add_patch(FancyArrowPatch((0.40, 0.16), (1.64, 0.16),
-                                     arrowstyle="-|>", mutation_scale=9,
-                                     linewidth=1.2, color=color,
-                                     connectionstyle="arc3,rad=-0.10"))
-        if has_target:
-            ax.add_patch(Circle((1.75, 0.17), 0.075, facecolor="white",
-                                edgecolor=color, linewidth=1.2))
-            ax.plot([1.75, 1.75], [0.10, 0.24], color=color, lw=0.7)
-            ax.plot([1.68, 1.82], [0.17, 0.17], color=color, lw=0.7)
-        if frontier:
-            ax.plot([1.42, 1.42], [0.06, 0.31], color=GRAY, lw=0.8, ls="--")
-    save(fig, "variant_schematic")
-
-
 def axes_in(fig: plt.Figure, x: float, y: float, width: float, height: float):
     return fig.add_axes([x / 7.5, content_y(y) / FIGURE_HEIGHT,
                          width / 7.5, height * CONTENT_SCALE / FIGURE_HEIGHT])
@@ -125,49 +90,6 @@ def section(fig: plt.Figure, x: float, y: float, label: str) -> None:
     fig.text(x / 7.5, content_y(y) / FIGURE_HEIGHT,
              label, fontsize=10, fontweight="bold",
              color="#20272C", va="top")
-
-
-def explanation_strip(fig: plt.Figure) -> None:
-    """Distinguish evaluation inputs and mark unfinished goal-control analysis."""
-    fig.add_artist(plt.Line2D([0.02, 0.98], [0.72 / FIGURE_HEIGHT] * 2,
-                              transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    boxes = [
-        (0.12, "Input comparison"),
-        (2.62, "Target-hit timing"),
-        (5.12, "Goal-control check (planned)"),
-    ]
-    for left, title in boxes:
-        ax = fig.add_axes([left / 7.5, 0.05 / FIGURE_HEIGHT,
-                           2.28 / 7.5, 0.60 / FIGURE_HEIGHT])
-        ax.set(xlim=(0, 1), ylim=(0, 1))
-        ax.axis("off")
-        ax.add_patch(Rectangle((0, 0), 1, 1, facecolor="#F8F9F9",
-                               edgecolor="#CBD1D4", linewidth=0.6))
-        ax.text(0.04, 0.84, title, fontsize=9, fontweight="bold",
-                color="#20272C", va="center")
-        if left < 1:
-            ax.text(0.04, 0.48, "DG:", fontsize=9, va="center")
-            ax.text(0.26, 0.48, "same frames for both DGs",
-                    fontsize=9, va="center")
-            ax.text(0.04, 0.18, "Policy:", fontsize=9, va="center")
-            ax.text(0.26, 0.18, "distinct rollouts", fontsize=9, va="center")
-        elif left < 5:
-            ax.plot([0.10, 0.91], [0.43, 0.43], color=GRAY, lw=0.8)
-            for x, label in [(0.13, "command"), (0.48, "early hit"),
-                             (0.86, "late hit")]:
-                ax.plot([x, x], [0.37, 0.49], color=GRAY, lw=0.8)
-                ax.text(x, 0.14, label, fontsize=9, ha="center", va="center")
-        else:
-            ax.add_patch(Circle((0.19, 0.34), 0.055, facecolor="white",
-                                edgecolor=COLOR["C05"], linewidth=1))
-            ax.add_patch(Circle((0.79, 0.34), 0.045, facecolor=COLOR["C05"],
-                                edgecolor="none"))
-            ax.annotate("", xy=(0.73, 0.34), xytext=(0.26, 0.34),
-                        arrowprops={"arrowstyle": "->", "lw": 0.8,
-                                    "linestyle": "--", "color": GRAY})
-            ax.text(0.50, 0.43, "?", fontsize=9, ha="center", color=GRAY)
-            ax.text(0.19, 0.16, "commanded", fontsize=9, ha="center")
-            ax.text(0.79, 0.16, "actual arrival", fontsize=9, ha="center")
 
 
 def finish_axes(ax: plt.Axes) -> None:
@@ -372,7 +294,7 @@ def results_figure() -> dict[str, float]:
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
     section(fig, 0.12, 2.10, "E  Push reaches the readout")
-    section(fig, 3.30, 2.10, "F  Temporal hit: work in progress")
+    section(fig, 3.30, 2.10, "F  Temporal-hit coverage")
     downstream = decoder[(decoder.family == "C01") &
                          (decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
@@ -405,7 +327,6 @@ def results_figure() -> dict[str, float]:
         ax.set_title(label, fontsize=10, pad=2)
         ax.set_xlabel("Visited fraction", fontsize=9, labelpad=1)
 
-    explanation_strip(fig)
     save(fig, "results_sections")
     return {
         "selected_seed": 8,
@@ -420,14 +341,12 @@ def results_figure() -> dict[str, float]:
 
 def main() -> None:
     font = style()
-    variant_strip()
     summary = results_figure()
     manifest = {
         "source_sha256": {name: hashlib.sha256(path.read_bytes()).hexdigest()
                           for name, path in SOURCES.items()},
         "font_path": font,
         "results_size_inches": [7.5, FIGURE_HEIGHT],
-        "variant_size_inches": [6.58689, 0.91],
         "figure_values": summary,
         "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
         "behavior_absolute_source": (

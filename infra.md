@@ -2180,7 +2180,7 @@ For each finding, record:
 - **Follow-up improvement/status:** The builder now refreshes the compact
   package by default and writes the expanded library to a separate path with
   `--full`. Fixed archive timestamps make unchanged inputs byte-stable.
-- **Follow-up acceptance:** The compact ZIP preserves the three current
+- **Follow-up acceptance:** The compact ZIP preserves the current
   PDF/SVG pairs and compiles with its own `main.tex`; both rendered pages match
   the source draft. The dated full backup remains historical and is not
   presented as current figure content.
