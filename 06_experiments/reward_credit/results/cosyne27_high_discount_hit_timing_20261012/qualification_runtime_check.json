@@ -1,0 +1,75 @@
+{
+  "arms": {
+    "constant": {
+      "correct_hit_count_sum": 843.0,
+      "correct_hit_elapsed_weighted_mean": 12.973902728351128,
+      "correct_hit_reward_weighted_mean": 1.5915435002509102,
+      "decoder_parameter_count": 165760.0,
+      "event_count": 63,
+      "event_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_CONSTANT_S99_/00_COS27_C05_G999_Q_CONSTANT_S99/.summary/0/events.out.tfevents.1791770346.n3106",
+      "event_sha256": "119debd0fc89f6e3390d286eaf4c102bef9df1cc4acf0b67a98b43517056713f",
+      "job_id": "8343878",
+      "last_adv_std": 1.558994174003601,
+      "last_decoder_loss": 0.09078530222177505,
+      "last_dg_density": 0.03131103515625,
+      "last_learner_step": 2064384,
+      "last_policy_loss": 0.0008502430282533169,
+      "last_reported_env_steps": 2031616.0,
+      "last_value_loss": 0.09758316725492477,
+      "snapshots": [
+        {
+          "dg_active_units": 16,
+          "dg_activity_mean": 0.009886358864605427,
+          "finite_spatial_info_units": 16,
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_CONSTANT_S99/policy_00/snapshot_target_000001000000_actual_000001015808.npz",
+          "sha256": "a0486edc446088822e1612368f75aeca0fd679d93f1a88829238d321d0c4272b"
+        },
+        {
+          "dg_active_units": 16,
+          "dg_activity_mean": 0.03815529868006706,
+          "finite_spatial_info_units": 16,
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_CONSTANT_S99/policy_00/snapshot_target_000002000000_actual_000002031616.npz",
+          "sha256": "a3866e90c2fe921074940972b6859ece3410240e3f7eb31b5c19a031e693ed6c"
+        }
+      ]
+    },
+    "temporal": {
+      "correct_hit_count_sum": 1114.0,
+      "correct_hit_elapsed_weighted_mean": 10.962298014861677,
+      "correct_hit_reward_weighted_mean": 1.6172172735366617,
+      "decoder_parameter_count": 165760.0,
+      "event_count": 63,
+      "event_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_TEMPORAL_S99_/00_COS27_C05_G999_Q_TEMPORAL_S99/.summary/0/events.out.tfevents.1791770332.n3106",
+      "event_sha256": "3bc85c17e7640716946ab05265f1aced027d3a024e9c382e17b824757229d7a7",
+      "job_id": "8343877",
+      "last_adv_std": 3.026074171066284,
+      "last_decoder_loss": 0.13566845655441284,
+      "last_dg_density": 0.033843994140625,
+      "last_learner_step": 2064384,
+      "last_policy_loss": 0.0006463209865614772,
+      "last_reported_env_steps": 2031616.0,
+      "last_value_loss": 0.14290834963321686,
+      "snapshots": [
+        {
+          "dg_active_units": 16,
+          "dg_activity_mean": 0.00862646009773016,
+          "finite_spatial_info_units": 16,
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_TEMPORAL_S99/policy_00/snapshot_target_000001000000_actual_000001015808.npz",
+          "sha256": "ac2a7ce17462e11ab44b39630fd960f9a001e572bd57aab94c2cc9d02898cf84"
+        },
+        {
+          "dg_active_units": 16,
+          "dg_activity_mean": 0.041796520352363586,
+          "finite_spatial_info_units": 16,
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c05_long_credit_worker_qualification_20261012/COS27_C05_G999_Q_TEMPORAL_S99/policy_00/snapshot_target_000002000000_actual_000002031616.npz",
+          "sha256": "704e32a06007b3065c0700d01a5d8bd3c691ce5b8b1f7de83e439fbdd0b3688f"
+        }
+      ]
+    }
+  },
+  "qualified": true,
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c05_long_credit_worker_qualification_20261012",
+  "study_sha256": "32f83fbc1a99e16acca5b82a45f621100bfec558e558758be48355ce6f3665e8",
+  "workflow_version": "1.14.1"
+}
