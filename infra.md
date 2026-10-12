@@ -2139,6 +2139,23 @@ For each finding, record:
   CSV hashes, and one-to-one claim/source links in the question reports. The
   paired absolute values subtract to the archived seed differences.
 
+### COSYNE Overleaf package omitted figure choices — 2026-10-12
+
+- **Evidence:** The first two-page package contained only `main.tex` and the
+  seven PDFs already selected for the draft. It omitted the SVG originals,
+  alternative COSYNE plots, and raster-only field, graph, and trajectory
+  examples, so panel choices still required searching the repository.
+- **Impact:** Editing the submission in Overleaf could not be done from the
+  uploaded project alone; choosing another result panel required a separate
+  asset search and conversion.
+- **Improvement/status:** The draft's `build_overleaf_package.py` now collects
+  the COSYNE SVG library, exports matching PDFs, includes PNG-only examples,
+  and writes a grouped asset index. It checks that every figure referenced by
+  `main.tex` is present before replacing the ZIP.
+- **Acceptance:** Import the ZIP as a standalone Overleaf project, compile
+  `main.tex`, and verify that the indexed alternative paths can replace a
+  current `\includegraphics` target without downloading another asset.
+
 ### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
 
 - **Evidence:** COSYNE C05 layer preflights 8343829 and 8343830 reproduced the

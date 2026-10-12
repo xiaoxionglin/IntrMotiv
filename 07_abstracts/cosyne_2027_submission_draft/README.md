@@ -1,6 +1,8 @@
 # COSYNE 2027 two-page submission draft
 
-Open [main.pdf](main.pdf) for the two-page preview. The first page contains the abstract, model text, and the author's uploaded architecture. The second places all result plots together as panels A--F under one caption, with main text around them. [OPEN_QUESTIONS.md](OPEN_QUESTIONS.md) records claim checks and missing work. The self-contained Overleaf package is `cosyne_2027_overleaf_sources.zip`.
+Open [main.pdf](main.pdf) for the two-page layout preview. It predates the latest title edit in `main.tex`; compiling the ZIP in Overleaf will render that edit. The first page contains the abstract, model text, and the author's uploaded architecture. The second places all result plots together as panels A--F under one caption, with main text around them. [OPEN_QUESTIONS.md](OPEN_QUESTIONS.md) records claim checks and missing work. The self-contained Overleaf package is `cosyne_2027_overleaf_sources.zip`.
+
+The ZIP includes the seven PDFs used by `main.tex`, their original SVGs, and the broader COSYNE figure library as PDF/SVG pairs under `figures/candidates/`. Place-field, graph, and trajectory examples that exist only as PNGs are included too. Open `FIGURE_OPTIONS.md` in the ZIP to browse the choices by analysis folder. A candidate can be tried by changing an `\includegraphics` path in `main.tex` to its PDF or PNG path; the matching SVG for each PDF preserves the original vector source. The ZIP also contains `references.bib`, this README, and the scientific claim checks. Rebuild it after figure updates with `python build_overleaf_package.py` from this directory; the builder verifies that every figure referenced by `main.tex` is included.
 
 ## Figure provenance
 
@@ -10,10 +12,10 @@ Open [main.pdf](main.pdf) for the two-page preview. The first page contains the 
 | A: DG course | `06_experiments/results/cosyne_2027_compact_figures/01_online_spatial_course.svg` |
 | B: peak maps | `06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/figures/c01_seed99_common_peak_density.svg` |
 | C: downstream encoder credit | `06_experiments/results/cosyne_2027_temporal_credit_layers/encoder_paired_decoder_1.svg`; this adds the new CA3/decoder common-panel analysis to the original draft plots. |
-| D: frozen-policy behavior | The complete six-panel `02_behavior_expression_fresh.svg` from branch commit `6412596` (`codex/cosyne-behavior-fresh-seeds`). Both the information and split-half-reliability rows are retained. |
+| D: frozen-policy behavior | The complete six-panel `02_behavior_expression_fresh.svg` from branch commit `6412596` (`codex/cosyne-behavior-fresh-seeds`) is preserved in `figures/behavior_expression_fresh.svg`. Both the information and split-half-reliability rows are retained. |
 | E: DG encoder contrasts | `06_experiments/results/cosyne_2027_compact_figures/03_encoder_credit_deltas.svg` |
 | F: worker timing placeholder | `06_experiments/results/cosyne_2027_compact_figures/04_worker_coverage_values_and_delta.svg` |
 
 The plots are the original vector panels converted to PDF without changing their data or graphics. `main.tex` arranges them in one grouped figure, keeping every original plot from the first draft and adding the complete decoder-1 encoder-credit plot. The dot-plot panels are intentionally small at page size, as requested. Their full-size source plots remain at the paths above for inspection and later panel selection.
 
-Compile `main.tex` from this directory with `tectonic main.tex` or a compatible XeLaTeX installation. The TeX file and its seven included PDFs are sufficient for Overleaf.
+Compile `main.tex` from this directory with `tectonic main.tex` or a compatible XeLaTeX installation. In Overleaf, upload the ZIP as a new project and select `main.tex` as the main document.
