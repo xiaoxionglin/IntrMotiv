@@ -1,21 +1,22 @@
-# COSYNE 2027 two-page submission draft
+# COSYNE 2027 submission layout draft
 
-Open [main.pdf](main.pdf) for the two-page layout preview. It predates the latest title edit in `main.tex`; compiling the ZIP in Overleaf will render that edit. The first page contains the abstract, model text, and the author's uploaded architecture. The second places all result plots together as panels A--F under one caption, with main text around them. [OPEN_QUESTIONS.md](OPEN_QUESTIONS.md) records claim checks and missing work. The self-contained Overleaf package is `cosyne_2027_overleaf_sources.zip`.
+Open [main.pdf](main.pdf) to review the two-page layout. Page 1 contains the author's latest GitHub title and 321-word abstract, the original-size architecture, and a compact illustration of the three policy families. Page 2 groups the results by claim and includes the temporal-hit work-in-progress panel. [OPEN_QUESTIONS.md](OPEN_QUESTIONS.md) records claim checks and analyses for discussion.
 
-The ZIP includes the seven PDFs used by `main.tex`, their original SVGs, and the broader COSYNE figure library as PDF/SVG pairs under `figures/candidates/`. Place-field, graph, and trajectory examples that exist only as PNGs are included too. Open `FIGURE_OPTIONS.md` in the ZIP to browse the choices by analysis folder. A candidate can be tried by changing an `\includegraphics` path in `main.tex` to its PDF or PNG path; the matching SVG for each PDF preserves the original vector source. The ZIP also contains `references.bib`, this README, and the scientific claim checks. Rebuild it after figure updates with `python build_overleaf_package.py` from this directory; the builder verifies that every figure referenced by `main.tex` is included.
+Upload cosyne_2027_overleaf_sources.zip as a new Overleaf project and set main.tex as the main document. The ZIP contains every image used by the draft, their SVG sources, the figure-rendering script and its lightweight inputs, and the broader COSYNE plot library as candidate PDF/SVG pairs and PNG-only examples. FIGURE_OPTIONS.md in the ZIP indexes these assets. Raw NEMO2 evaluator arrays are deliberately excluded; PANEL_PROVENANCE.json lists the verified source hashes.
 
-## Figure provenance
+## Figure provenance and selection
 
 | Draft element | Source and treatment |
 | --- | --- |
-| Architecture | The newer uploaded `architecture.svg` (`ec6b31dd-636e-48d6-9250-9664fbb0026b`, SHA-256 `107e97deab90cdba634a0442c706226dbef89a98340d677963f825cbb14d566d`). Its unchanged vector is saved as `figures/architecture_uploaded.svg` and converted to `figures/architecture.pdf`. |
-| A: DG course | `06_experiments/results/cosyne_2027_compact_figures/01_online_spatial_course.svg` |
-| B: peak maps | `06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/figures/c01_seed99_common_peak_density.svg` |
-| C: downstream encoder credit | `06_experiments/results/cosyne_2027_temporal_credit_layers/encoder_paired_decoder_1.svg`; this adds the new CA3/decoder common-panel analysis to the original draft plots. |
-| D: frozen-policy behavior | The complete six-panel `02_behavior_expression_fresh.svg` from branch commit `6412596` (`codex/cosyne-behavior-fresh-seeds`) is preserved in `figures/behavior_expression_fresh.svg`. Both the information and split-half-reliability rows are retained. |
-| E: DG encoder contrasts | `06_experiments/results/cosyne_2027_compact_figures/03_encoder_credit_deltas.svg` |
-| F: worker timing placeholder | `06_experiments/results/cosyne_2027_compact_figures/04_worker_coverage_values_and_delta.svg` |
+| Architecture | Newer author-uploaded architecture SVG, SHA-256 107e97deab90cdba634a0442c706226dbef89a98340d677963f825cbb14d566d. The converted PDF is displayed at its original 6.59-inch width. |
+| Variant strip | Rendered by [render_submission_panels.py](render_submission_panels.py); baseline C01, goal-conditioned C05, and goal-conditioned policy with frontier goal choice C15. |
+| A: DG course | Five-seed online summary from cosyne_2027_online_wandb/arm_summaries.csv. |
+| B: frozen-policy expression | Fresh decoder-1 common-panel data for 38 models from branch commit 6412596. Both information and split-half reliability appear. |
+| C: selected peak-map example | Baseline seed 8, the largest peak-area temporal-minus-constant difference among five matched seeds at the 0.25% activity cutoff: 0.384 versus 0.230 (difference +0.155). This example is selected for effect size and is not presented as typical. |
+| D: DG paired statistics | All available matched seeds for DG score, active-map cosine, and peak area on common observations. The baseline mean peak-area difference is +0.109 across five positive pairs. |
+| E: decoder credit | Baseline decoder-1 information difference; five positive pairs, mean +0.680 bits per activation. |
+| F: worker-hit placeholder | C05 visited fractions for temporal and constant worker-hit credit, with each encoder arm held fixed. This is a provisional coverage panel while goal-control analyses are completed. |
 
-The plots are the original vector panels converted to PDF without changing their data or graphics. `main.tex` arranges them in one grouped figure, keeping every original plot from the first draft and adding the complete decoder-1 encoder-credit plot. The dot-plot panels are intentionally small at page size, as requested. Their full-size source plots remain at the paths above for inspection and later panel selection.
+The composite was rendered at its final 7.5-inch print width using Arial: most labels are 10 pt and the remaining labels are 9 pt. Its selected example was extracted from two SHA-256-verified evaluator arrays into lightweight peak coordinates and an occupancy mask. The full source plots remain available in the repository and the Overleaf candidate library for later selection.
 
-Compile `main.tex` from this directory with `tectonic main.tex` or a compatible XeLaTeX installation. In Overleaf, upload the ZIP as a new project and select `main.tex` as the main document.
+Rebuild the panels with the project SF_git Python environment using render_submission_panels.py, then rebuild the ZIP with build_overleaf_package.py. Compile main.tex with Tectonic or XeLaTeX.

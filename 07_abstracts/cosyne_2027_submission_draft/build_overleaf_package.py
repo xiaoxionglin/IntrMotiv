@@ -21,6 +21,8 @@ ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources.zip"
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
+    "variant_schematic.svg": DRAFT_DIR / "figures" / "variant_schematic.svg",
+    "results_sections.svg": DRAFT_DIR / "figures" / "results_sections.svg",
     "online_spatial_course.svg": RESULTS_DIR / "cosyne_2027_compact_figures" / "01_online_spatial_course.svg",
     "c01_peak_density.svg": RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "common_panel_analysis" / "figures" / "c01_seed99_common_peak_density.svg",
     "encoder_paired_decoder_1.svg": RESULTS_DIR / "cosyne_2027_temporal_credit_layers" / "encoder_paired_decoder_1.svg",
@@ -64,10 +66,17 @@ def build() -> None:
             "main.tex": DRAFT_DIR / "main.tex",
             "README.md": DRAFT_DIR / "README.md",
             "OPEN_QUESTIONS.md": DRAFT_DIR / "OPEN_QUESTIONS.md",
+            "render_submission_panels.py": DRAFT_DIR / "render_submission_panels.py",
+            "PANEL_PROVENANCE.json": DRAFT_DIR / "PANEL_PROVENANCE.json",
             "references.bib": REPO_ROOT / "08_literature" / "references.bib",
         }
+        for data_path in sorted((DRAFT_DIR / "data").glob("*")):
+            if data_path.is_file():
+                assets[f"data/{data_path.name}"] = data_path
         for pdf_path in current_pdfs:
             assets[f"figures/{pdf_path.name}"] = pdf_path
+        for png_path in sorted((DRAFT_DIR / "figures").glob("*.png")):
+            assets[f"figures/{png_path.name}"] = png_path
         for svg_name, source_path in CURRENT_SVG_SOURCES.items():
             assets[f"figures/{svg_name}"] = source_path
 

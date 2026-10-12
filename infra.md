@@ -2134,10 +2134,20 @@ For each finding, record:
   C15 green close to CA3/landmark teal. The palette now reserves the three
   architecture hues for architecture comparisons; compact condition and worker
   plots use neutral markers, while the schematic push/pull recolor is pending.
+  The submission-specific [grouped renderer](07_abstracts/cosyne_2027_submission_draft/render_submission_panels.py)
+  now places cached seed-level contrasts into one final-width figure with
+  9–10-point Arial text. It uses hash-verified lightweight peak coordinates for
+  the largest baseline peak-area example (seed 8) and shows all five paired
+  seeds alongside it. Its provenance manifest records the selected example,
+  source hashes, physical sizes, and resolved font. Raw evaluator arrays remain
+  in the NEMO2 workspace, outside the draft and Overleaf ZIP.
 - **Acceptance:** The six compact PNGs have their declared physical sizes,
   verified scalable Arial, no clipped labels at 100% size, unchanged source
   CSV hashes, and one-to-one claim/source links in the question reports. The
   paired absolute values subtract to the archived seed differences.
+  The grouped submission figure also compiles at 7.5 inches, keeps each
+  plotted contrast legible at final page size, and labels the selected example
+  as the largest observed pair.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
@@ -2152,6 +2162,9 @@ For each finding, record:
   the COSYNE SVG library, exports matching PDFs, includes PNG-only examples,
   and writes a grouped asset index. It checks that every figure referenced by
   `main.tex` is present before replacing the ZIP.
+  The rebuilt package also includes the grouped renderer, lightweight
+  inputs, and provenance manifest, so the selected composite can be
+  regenerated without storing raw evaluator arrays.
 - **Acceptance:** Import the ZIP as a standalone Overleaf project, compile
   `main.tex`, and verify that the indexed alternative paths can replace a
   current `\includegraphics` target without downloading another asset.

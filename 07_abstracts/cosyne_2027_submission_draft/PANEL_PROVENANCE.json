@@ -1,0 +1,28 @@
+{
+  "source_sha256": {
+    "online": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950",
+    "behavior": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
+    "encoder": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432",
+    "peaks": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a",
+    "example": "e27ec12deb99afbaa45b4bed707281b140e3acb74a385b6fc70bc7787dd13332",
+    "decoder": "8ba3aacb9fb4f792888c1ae967adf67ab3a9b782c41cec1ec1e60e1a5cc6a89f",
+    "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f"
+  },
+  "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "results_size_inches": [
+    7.5,
+    5.9
+  ],
+  "variant_size_inches": [
+    6.58689,
+    0.91
+  ],
+  "figure_values": {
+    "selected_seed": 8,
+    "selected_peak_area_temporal": 0.3844299901,
+    "selected_peak_area_constant": 0.2296116607,
+    "behavior_models": 38,
+    "decoder_c01_mean_delta": 0.6804208447790872
+  },
+  "peak_example_choice": "largest C01 peak-area difference among five paired seeds"
+}

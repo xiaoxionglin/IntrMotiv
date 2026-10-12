@@ -12,68 +12,52 @@
 
 \captionsetup{font=footnotesize,labelfont=bf,skip=3pt}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt}
+\setlength{\parskip}{2pt}
 \setlength{\abovecaptionskip}{3pt}
 \setlength{\belowcaptionskip}{0pt}
 \pagestyle{empty}
 
 \begin{document}
 \begin{center}
-{\Large\bfseries Spatial Representation Emerges from Temporal Push--Pull Learning}\par
+{\large\bfseries Spatial representations emerge from temporal experience in a hippocampus-inspired navigation agent without spatial supervision}\par
 \end{center}
 \vspace{-5pt}
 
-How can spatial representations emerge from egocentric experience without a map, position labels, or external reward? We propose that a hippocampal-inspired circuit can turn the timing of encountered sensory events into a learning signal. In our agent, sparse dentate gyrus (DG) responses mark salient visual experiences, while CA3-like sequences carry their recent history. Temporal separation between events creates two complementary pressures: a ``push'' that favors distinct DG landmarks and a ``pull'' that rewards the policy for reaching internally defined targets. Spatial structure can thus arise through the agent's interaction with the world rather than being imposed as a training target.
+Can spatial representations emerge from sensory inputs and learning objectives that do not explicitly encode space? We investigate this question using a bottom-up computational architecture inspired by hippocampal physiology, without position labels, maps, or spatial rewards. Rather than imposing spatial structure through an explicit learning objective, we explore whether it can emerge from the temporal organization of sensory experience and the agent's interactions with its environment.
 
-In a continuous visual arena, the agent develops spatially informative DG activity during exploration. Replacing temporal DG feedback with constant feedback makes DG responses less spatially informative, more redundant, and concentrated in fewer parts of the arena. The benefit extends to downstream representations. This supports a role for temporal pattern separation in organizing the code. The policy-side ``pull'' is shaped by temporal target-hit credit and actor--critic discounting. Replacing the temporally weighted target-hit bonus with a constant bonus has mixed effects on exploration and DG fields. Actor--critic discounting can largely substitute for the bonus's timing effect by favoring faster traversal. Weakening that discount worsens measured spatial information.
-% CHECK: The substitution claim is an interpretation. The C05 constant-bonus
-% comparison keeps PPO discounting; the separate longer-credit study changes
-% gamma and GAE lambda together and evaluates fields on different trajectories.
+Our model combines sparse dentate gyrus (DG)-like sensory responses with CA3-like sequential memory. Temporal relationships between encountered sensory events provide two complementary learning signals: a \textbf{“push”} that reinforces DG activity according to the temporal separation between events, and a \textbf{“pull”} that motivates the policy to reach internally defined sensory targets. The agent learns from egocentric visual experience and intrinsic rewards, without explicit information about its physical location or spatial distances.
 
-The agent's interactions with the world also shape how its learned code is expressed. With weights frozen, the learned policy evokes more spatially informative downstream responses than random actions.
-% CHECK: Frozen-policy probes establish expression, not a training-policy effect.
+During exploration of a continuous visual environment, spatially informative DG activity emerges. To isolate the contribution of temporal information, we compare temporally weighted DG feedback against mean-matched constant feedback, evaluating the resulting representations on identical sensory observations. Temporal feedback produces higher DG spatial information, less redundant response maps, and a broader spatial distribution of field peaks across five paired training seeds. These improvements extend to downstream decoder representations, where spatial information also increases consistently. In contrast, temporally weighting the policy's target-hit reward does not consistently improve exploration or spatial representation quality compared with constant hit rewards.
 
-Together, these results show how temporal memory and self-directed action can produce spatial organization without direct spatial instruction.
+The agent's behavior further influences the expression of its learned representations. Even with network weights frozen, the learned policy produces more spatially informative downstream activity than random actions, demonstrating that spatial coding depends not only on sensory representations but also on how an agent interacts with its environment.
+
+Together, these results demonstrate that spatial representations can emerge from temporally structured sensory experience and non-spatial learning objectives in a hippocampus-inspired circuit. They illustrate how temporal learning and self-generated behavior can jointly contribute to spatial organization without explicitly optimizing for space.
 
 \vspace{2pt}\hrule\vspace{4pt}
 
-\textbf{Model and tests.} The agent acts from egocentric RGB observations in a continuous arena without position input or external reward (Fig.~\ref{fig:architecture}). A fixed visual trunk feeds a learned DG sparsifier; fixed CA3-like sequences retain recent sparse events for an actor--critic readout. Temporal separation between events trains the DG ``push,'' while target encounters train the policy ``pull.'' We compare each temporal credit signal with a mean-matched constant version and probe trained networks on identical saved observations, so evaluation paths cannot explain the paired representational differences.
-
 \begin{minipage}{\linewidth}
 \centering
-\includegraphics[width=\linewidth]{figures/architecture.pdf}
-\captionof{figure}{\textbf{Author-supplied push--pull architecture.} A fixed ResNet-18 layer-2 visual trunk feeds a learned sparse DG layer (about 2.5\% active timesteps). Fixed CA3-like sequence dynamics carry DG events to the two-layer policy readout. Temporal separation gives DG its encoder credit (red); internally defined target encounters supply policy credit (blue). Actions determine the next observation.}
+\includegraphics{figures/architecture.pdf}
+\par\vspace{2pt}
+\includegraphics{figures/variant_schematic.pdf}
+\captionof{figure}{\textbf{Push--pull architecture and variants.} Fixed visual trunk, learned sparse DG, fixed CA3 sequence memory, and policy readout. Red: temporal DG credit; blue: target-hit policy credit. The strip compares baseline, goal-conditioned, and frontier-goal policies.}
 \label{fig:architecture}
 \end{minipage}
 
-\textbf{Representation and behavior.} Spatial DG activity rises during policy-driven exploration (Fig.~\ref{fig:results}A). On a common 10,001-observation replay, temporal DG credit increases the C01 DG spatial score in all five seed pairs (mean $+0.0575$), reduces map redundancy, and spreads eligible peaks over more arena area (Fig.~\ref{fig:results}B,E). Its effect reaches the readout: decoder-1 spatial information rises by $0.680$ bits per activation on average in all five C01 pairs (Fig.~\ref{fig:results}C). The C05 decoder-1 comparison mostly follows the same direction; C15 still has only three matched pairs.
-
 \newpage
-\textbf{Behavior and pull.} The policy selects the experiences through which this code is expressed. With weights frozen, each of the 38 available models evokes more informative decoder-1 activity under its own policy than under random actions (Fig.~\ref{fig:results}D). This action intervention establishes a behavioral expression effect. The temporal worker-hit bonus itself has mixed coverage and field effects against a constant hit bonus (Fig.~\ref{fig:results}F); a constant bonus still rewards target arrival, and actor--critic discounting still favors earlier arrivals. Longer PPO credit increases C15 coverage but reduces measured spatial information on separate policy rollouts. Commanded-target and physical-arrival results are still being analyzed.
+\textbf{Spatial emergence and temporal push.} DG spatial coding rises during exploration (Fig.~\ref{fig:results}A). On the same 10,001 observations, temporal DG credit increases the baseline DG spatial score in all five paired seeds (mean $+0.0575$), reduces map redundancy, and broadens the area covered by eligible field peaks (mean $+0.109$; Fig.~\ref{fig:results}C,D). Seed 8 shows the largest peak-area increase among the five pairs. Decoder-1 information also rises by $0.680$ bits per activation on average in all five baseline pairs (Fig.~\ref{fig:results}E). Goal-conditioned comparisons largely point the same way; the frontier condition has only three matched encoder pairs.
+
+\textbf{Temporal pull.} Replacing temporally weighted target-hit credit with constant hit credit has mixed effects on coverage (Fig.~\ref{fig:results}F) and DG fields. Both rewards still reinforce target arrival, while actor--critic discounting favors earlier arrival. Weakening PPO discounting increases frontier-policy coverage but reduces measured spatial information on separate policy rollouts. The temporal-hit panel remains a placeholder while matched-command and physical-arrival analyses are completed.
 % CHECK: The longer-credit comparison changes PPO gamma and GAE lambda jointly;
 % its spatial maps follow separate policies. Do not call it isolated discounting.
-% CHECK: Matched-command and physical-arrival evidence is pending; the compact
-% worker panel is a placeholder, not evidence of improved goal following.
+% ILLUSTRATION TODO: discuss a tiny common-replay versus policy-rollout schematic,
+% a target-hit timing schematic, and a commanded versus actual-goal schematic.
 
 \begin{minipage}{\linewidth}
 \centering
-\begin{minipage}[c]{0.19\linewidth}\centering\textbf{A}\par
-\includegraphics[width=\linewidth]{figures/online_spatial_course.pdf}\end{minipage}\hfill
-\begin{minipage}[c]{0.46\linewidth}\centering\textbf{B}\par
-\includegraphics[width=\linewidth]{figures/c01_peak_density.pdf}\end{minipage}\hfill
-\begin{minipage}[c]{0.32\linewidth}\centering\textbf{C}\par
-\includegraphics[width=\linewidth]{figures/encoder_paired_decoder_1.pdf}\end{minipage}
-\par\vspace{2pt}
-\begin{minipage}[t]{0.51\linewidth}\centering\textbf{D}\par
-\includegraphics[width=\linewidth]{figures/behavior_expression_fresh.pdf}\end{minipage}\hfill
-\begin{minipage}[t]{0.46\linewidth}\centering
-\textbf{E}\par\includegraphics[width=\linewidth]{figures/encoder_credit_deltas.pdf}
-\par\vspace{2pt}\textbf{F}\par\includegraphics[width=0.82\linewidth]{figures/worker_coverage.pdf}
-\end{minipage}
-\captionof{figure}{\textbf{Spatial evidence in one panel set.} \textbf{A,} Online DG score, mean $\pm1$ s.e.m. across five seeds per temporal-credit family. \textbf{B,} C01 seed-99 peak-density example on the same 10,001 observations, temporal versus constant encoder credit; orange dots mark eligible peaks after a 0.25\% activity cutoff. \textbf{C,} Paired temporal-minus-constant decoder-1 information on that common panel; shaded C15 cells are pending. \textbf{D,} Own-policy minus random-action decoder-1 information and split-half reliability for 38 frozen models, with two repeats averaged per seed. \textbf{E,} DG spatial-score, map-similarity, and peak-area paired encoder contrasts on identical observations. \textbf{F,} Work in progress: C05 temporal versus constant worker-hit credit, showing last-window visited fractions and paired differences ($n=5$ per fixed encoder arm). Black bars mark seed means; T/C denote temporal/constant credit. Full-size source plots and analysis links are in the draft README.}
+\includegraphics{figures/results_sections.pdf}
+\captionof{figure}{\textbf{Results grouped by the study's claims.} \textbf{A,} Online DG spatial score (mean $\pm1$ s.e.m.; five seeds per family). \textbf{B,} Decoder-1 information and split-half map reliability under each frozen model's own policy minus random actions (38 models; dots are models, black bars are means). \textbf{C,} Baseline seed 8, selected for the \emph{largest} peak-area difference of five paired seeds: temporal $0.384$, constant $0.230$. Orange dots are eligible peaks after a 0.25\% activity cutoff on a shared observation panel; gray bins were unvisited. \textbf{D,} All available paired temporal-minus-constant encoder-credit differences in DG spatial score, active-map cosine, and peak area; each dot is a seed, black bars are means. Goal-T and Goal-C fix the temporal or constant worker bonus, respectively. \textbf{E,} Baseline decoder-1 information difference on identical observations ($5/5$ positive). \textbf{F,} Work in progress: C05 visited fraction for temporal (filled circles) versus constant (open squares) worker-hit credit, with the encoder held fixed ($n=5$ per arm); titles give mean paired differences.}
 \label{fig:results}
 \end{minipage}
-
-\textbf{Comparison logic.} C01 isolates encoder timing without a worker target; C05 crosses encoder and worker timing in five matched seeds per arm, and C15 adds frontier goals, with three matched encoder seeds so far. The common replay fixes 10,001 external observations and action history, separating learned responses from evaluation paths. The own-versus-random probe instead fixes each network and changes actions. Together, these tests distinguish code formation from behavioral expression; matched-command analyses will determine whether worker credit improves target arrival.
 
 \end{document}
