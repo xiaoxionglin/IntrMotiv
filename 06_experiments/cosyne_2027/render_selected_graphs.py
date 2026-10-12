@@ -20,6 +20,8 @@ SELECTED = {
     "cosyne27_c15_encoder_s2_20261010": (
         "COS27_C15_TEMPORAL_S17", "COS27_C15_CONSTANT_S17",
     ),
+    "cosyne27_c15_encoder_s3_20261010": ("COS27_C15_TEMPORAL_S99",),
+    "cosyne27_c15_constant_recovery_20261011": ("COS27_REC_C15_CONSTANT_S99",),
 }
 
 
@@ -42,8 +44,6 @@ def main() -> None:
             render_graph_outcomes(
                 attempts, successes, args.output / name,
                 title=f"{name} · 100M frames",
-                ratio_label="Prospective detector hits / attempts",
-                figure_scale=1.3, formats=("png", "pdf"),
             )
             print(name, "attempted edges", int((attempts > 0).sum()), flush=True)
 

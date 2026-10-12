@@ -1,0 +1,50 @@
+{
+  "batch_name": "cosyne27_c15_constant_recovery_20261011",
+  "complete": true,
+  "condition_summary_rows": 5,
+  "cue_assignment_rows": 0,
+  "expected_runs": 2,
+  "expected_snapshots": 10,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery/online_spatial/figures/COS27_REC_C15_CONSTANT_S99/target_000100000000_policy_00_place_fields_page01.png",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery/online_spatial/figures/COS27_REC_C15_CONSTANT_S99/target_000100000000_policy_00_place_fields_page01.pdf",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery/online_spatial/figures/COS27_REC_C15_CONSTANT_S99/target_000100000000_policy_00_trajectory.png",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery/online_spatial/figures/COS27_REC_C15_CONSTANT_S99/target_000100000000_policy_00_trajectory.pdf"
+  ],
+  "graph_edge_rows": 2400,
+  "group_by": [
+    "condition"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 10,
+  "per_field_rows": 3068,
+  "per_snapshot_rows": 10,
+  "per_unit_rows": 160,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 10,
+  "selected_plot_runs": [
+    "COS27_REC_C15_CONSTANT_S99"
+  ],
+  "selected_plot_targets": [
+    100000000
+  ],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c15_constant_recovery_20261011",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "cosyne27_c15_constant_recovery_20261011",
+  "study_sha256": "f1ed084afef1585e11ecb2d867fbf0568d90739a7eccfc31b8d6784a3b993cb2",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

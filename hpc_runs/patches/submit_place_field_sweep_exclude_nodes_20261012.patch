@@ -1,0 +1,34 @@
+--- a/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
++++ b/sf_working_directories/IntrMotiv/evaluation/submit_place_field_sweep.py
+@@ -113,6 +113,7 @@
+     max_num_frames: int,
+     job_name_prefix: str,
+     workspace_root: pathlib.Path = WORKSPACE_ROOT,
++    exclude_nodes: str | None = None,
+     record_observation_panel: pathlib.Path | None = None,
+     replay_observation_panel: pathlib.Path | None = None,
+ ) -> list[str]:
+@@ -147,6 +148,7 @@
+         f"--cpus-per-task={cpus}",
+         f"--mem={memory}",
+         f"--time={time_limit}",
++        *([f"--exclude={exclude_nodes}"] if exclude_nodes else []),
+         f"--output={output_dir / 'slurm' / (row.label + '-%j.out')}",
+         f"--export={export}",
+         str(runner),
+@@ -187,6 +189,7 @@
+     parser.add_argument("--memory", default="16G")
+     parser.add_argument("--time-limit", default="01:00:00")
+     parser.add_argument("--job-name-prefix", default="intrmotiv-pf")
++    parser.add_argument("--exclude-nodes", help="Slurm nodes to exclude from every submitted row")
+     parser.add_argument("--pause-between", type=float, default=1.0)
+     panel = parser.add_mutually_exclusive_group()
+     panel.add_argument("--record-observation-panel", type=pathlib.Path)
+@@ -231,6 +234,7 @@
+             max_num_frames=args.max_num_frames,
+             job_name_prefix=args.job_name_prefix,
+             workspace_root=workspace_root,
++            exclude_nodes=args.exclude_nodes,
+             record_observation_panel=args.record_observation_panel,
+             replay_observation_panel=args.replay_observation_panel,
+         )

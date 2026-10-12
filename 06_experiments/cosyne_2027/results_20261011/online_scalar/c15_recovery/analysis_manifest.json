@@ -1,0 +1,53 @@
+{
+  "batch_name": "cosyne27_c15_constant_recovery_20261011",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/online_scalar/c15_recovery/histories",
+    "loader_backend": "process",
+    "mode": "per_run_terminal",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        90040704,
+        100040704
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [],
+  "expected_runs": 2,
+  "group_by": [
+    "condition"
+  ],
+  "input_rows": 2,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "encoder_event_count",
+    "encoder_feedback",
+    "target_hit_event_count",
+    "target_hit_numerator",
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "target_action_sensitivity",
+    "correct_outcome_count",
+    "censored_outcome_count",
+    "correct_elapsed_mean",
+    "correct_reward_magnitude_mean",
+    "dg_silent_fraction",
+    "dg_usage_entropy"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c15_constant_recovery_20261011",
+  "study_sha256": "f1ed084afef1585e11ecb2d867fbf0568d90739a7eccfc31b8d6784a3b993cb2",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_recovery.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

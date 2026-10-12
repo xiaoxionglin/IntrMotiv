@@ -60,7 +60,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   A representative row opened 256 DMLab engines before cancellation. The
   one-source qualification had passed, but did not bound a 16-source,
   eight-repeat production row. The unchanged rows were print-reviewed and
-  resubmitted with a three-day limit.
+  resubmitted with a three-day limit. Twelve of those retries then aborted
+  with native `*** buffer overflow detected ***` and exit 134 after roughly
+  3.5–4 hours, across nodes n3104 and n3109. Seven first-detected rows were
+  print-reviewed and retried with explicit Slurm node exclusion via the
+  [evaluation submitter patch](hpc_runs/patches/submit_place_field_sweep_exclude_nodes_20261012.patch);
+  the exclusion is diagnostic and does not establish a node-specific cause.
 - **Impact:** A successful evaluator process can silently answer a different
   question or produce no command contrast. A final-report write failure can
   discard provenance after expensive DMLab trials have run.
@@ -69,8 +74,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   review, include failures and censoring at every declared horizon, and test
   summary serialization on a real matched-start compute-node qualification.
   Save incremental trial results or a verified resumable source panel before
-  lengthy source discovery and rollout execution ends. Estimate production
-  wall time with one full-size timing row, not only a reduced qualification.
+  lengthy source discovery and rollout execution ends. Bound repeated fresh
+  DMLab construction with exact-start source shards and reject duplicate or
+  missing shards during merge. Estimate production wall time with one full-size
+  timing row, not only a reduced qualification. The ongoing COSYNE 2027 rows
+  need that bounded path before interpreting the absent output as a control
+  outcome.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full

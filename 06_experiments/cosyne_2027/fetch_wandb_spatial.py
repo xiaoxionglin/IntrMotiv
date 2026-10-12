@@ -47,6 +47,38 @@ def selected_attempts(path: Path) -> list[dict[str, str]]:
     ]
 
 
+def reusable_cache(output: Path, attempts: list[dict[str, str]]) -> tuple[list[dict], list[dict[str, str]]]:
+    """Reuse histories only when their identity, provenance, and row count match."""
+    manifest_path = output / "manifest.json"
+    if not manifest_path.exists():
+        return [], attempts
+    old_records = json.loads(manifest_path.read_text())
+    by_name = {record["run_name"]: record for record in old_records}
+    if len(by_name) != len(old_records):
+        raise ValueError("Duplicate run name in cached W&B manifest")
+    reused: list[dict] = []
+    missing: list[dict[str, str]] = []
+    identity = ("study_id", "study_sha256", "run_name", "condition", "family",
+                "encoder_credit", "worker_bonus", "source_base_commit", "recovery_patch_sha256")
+    for attempt in attempts:
+        record = by_name.get(attempt["run_name"])
+        history_path = output / f"{attempt['run_name']}.csv"
+        if record is None or any(str(record.get(key)) != attempt[key] for key in identity) or (
+            str(record.get("seed")) != attempt["seed"]
+        ) or record.get("history_file") != history_path.name or not history_path.is_file():
+            missing.append(attempt)
+            continue
+        with history_path.open(newline="") as stream:
+            reader = csv.reader(stream)
+            header = next(reader, [])
+            rows = sum(1 for _ in reader)
+        if header != HISTORY_KEYS or rows != record.get("history_rows"):
+            missing.append(attempt)
+            continue
+        reused.append(record)
+    return reused, missing
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("catalog", type=Path)
@@ -55,12 +87,12 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=True)
 
     attempts = selected_attempts(args.catalog)
+    manifest, missing_attempts = reusable_cache(args.output, attempts)
     by_study: dict[str, list[dict[str, str]]] = {}
-    for row in attempts:
+    for row in missing_attempts:
         by_study.setdefault(row["study_id"], []).append(row)
 
-    api = wandb.Api(timeout=45)
-    manifest: list[dict[str, str | int]] = []
+    api = wandb.Api(timeout=45) if by_study else None
     for study_id, study_rows in by_study.items():
         indexed = {
             (row["run_name"], row["condition"], int(row["seed"])): row
