@@ -1,0 +1,21 @@
+{
+  "design": "five matched training seeds per C05 2x2 factorial cell",
+  "seeds": [
+    8,
+    17,
+    41,
+    99,
+    123
+  ],
+  "source_sha256": {
+    "online_90_99m": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f",
+    "correct_hit_90_100m": "bb3201548a19efb8436c57c7df5d9c5bb70995b2bd66a5102eff6e4159bc9272",
+    "same_observations_100m": "cb9b7793b1ad1e1ace44a5e6cc5784c0365bf85121d7c4f300b1a5ffa8b7ac90",
+    "trajectory_100m": "fda74dd584102b4227079714dc796f647d0c1ef77775f4bc8442bb49e5f8dc3f",
+    "stored_graph_100m": "c631d8e66bbb74dd6d08e1ef45975ddf95a7baf97aac0d0baf77aeea8dfddcc4"
+  },
+  "behavior_source_commit": "6412596",
+  "behavior_source_path": "06_experiments/results/cosyne_2027_behavior_secondary/all_training_seeds.csv",
+  "behavior_source_sha256": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
+  "graph_definition": "stored prospective detector outcomes, never executed commands or physical arrivals"
+}
