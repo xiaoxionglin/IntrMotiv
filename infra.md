@@ -106,8 +106,8 @@ keep implementation guidance in the canonical workflow documents linked below.
   audited merger produced one full C05 seed-99 75M row with 128 exact starts,
   384 paired comparisons, 1,152 trials, no missing records, and the original
   study fingerprint. The [interim result](06_experiments/cosyne_2027/results_20261011/control_interim/summary/control_seed_checkpoint_metrics.csv)
-  retains detector-hit differences and a 47-row missingness ledger. One
-  completed row does not establish reliability across all C05/C15 checkpoints;
+  retains detector-hit differences and a 46-row missingness ledger. Two
+  completed rows do not establish reliability across all C05/C15 checkpoints;
   the remaining rows still need bounded recovery or a verified monolithic end.
   After print-only review, 15 additional C15 temporal seed-17 75M source jobs
   were submitted as 8352047–8352061 to test the same full-panel method under
@@ -115,7 +115,12 @@ keep implementation guidance in the canonical workflow documents linked below.
   are retained. The two failed C05 seed-41 rows were also print-reviewed and
   submitted as 32 bounded source jobs 8352066–8352097 with separate per-row
   workspace paths and n3104 excluded; [their commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c05_s2_s41_source_panels_20261012.tsv)
-  are retained.
+  are retained. The 16-source C15 seed-17 75M merge also passed with 128
+  exact starts, 384 paired comparisons, 1,152 trials, and the canonical
+  fingerprint; its single-row 900-decision detector-hit lift was +0.0026.
+  The remaining two failed C15 temporal rows were print-reviewed and submitted
+  as 32 bounded source jobs 8354534–8354565, with [commands](06_experiments/cosyne_2027/results_20261011/control_submissions/c15_s2_remaining_source_panels_20261012.tsv)
+  retained. The refreshed interim ledger has two completed rows and 46 missing.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
