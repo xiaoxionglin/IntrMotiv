@@ -42,7 +42,8 @@ CONTRAST_GROUPS = {
 
 def load_tables() -> dict[str, pd.DataFrame | dict]:
     tables = {key: (json.loads(path.read_text()) if path.suffix == ".json"
-                    else pd.read_csv(path)) for key, path in SOURCE_PATHS.items()}
+                    else pd.read_csv(path)) for key, path in SOURCE_PATHS.items()
+              if path.suffix in {".json", ".csv"}}
     for key in ("encoder", "peaks", "decoder", "worker_fields"):
         data = tables[key]
         assert isinstance(data, pd.DataFrame)

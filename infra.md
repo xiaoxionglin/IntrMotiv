@@ -2225,6 +2225,14 @@ For each finding, record:
   C15 readout estimate from three pairs (two positive) to five pairs (four
   positive), so future figure updates should fetch and inspect source-table
   changes before freezing figure counts and captions.
+  A further compact revision switched the submitted panels to paired-difference
+  boxes with $\Delta$ printed on every vertical result axis. Compressing the
+  narrow plots created room for an archived trajectory and two individual DG
+  response maps. Those images belong to a separate C01 model, so the panel
+  and caption explicitly distinguish the qualitative probe from the current
+  common-replay intervention. The renderer hashes the original SVGs, crops
+  only their visual tiles, and darkens the trajectory stroke for small-size
+  viewing; rerendering at 1,000-pixel width is the acceptance check.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

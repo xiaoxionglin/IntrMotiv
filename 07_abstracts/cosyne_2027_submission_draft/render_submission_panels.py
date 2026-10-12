@@ -11,6 +11,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
+import tempfile
 from pathlib import Path
 
 import matplotlib
@@ -20,6 +22,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties, findfont
 import numpy as np
 import pandas as pd
+from PIL import Image
 
 
 DRAFT = Path(__file__).resolve().parent
@@ -38,6 +41,12 @@ SOURCES = {
     "worker": RESULTS / "cosyne_2027_online_wandb" / "paired_contrasts_by_seed.csv",
     "longer_credit_online": RESULTS.parent / "dg_goal_control" / "results" / "episode_long_comparison_20261009" / "longer_credit_100m_paired.csv",
     "longer_credit_fields": RESULTS.parent / "dg_goal_control" / "results" / "episode_long_comparison_20261009" / "longer_credit_100m_frozen_fields_paired.csv",
+    # Separate archival C01 seed-8 probe; illustrative, not a member of the
+    # current common-replay temporal-versus-constant comparison.
+    "archived_trajectory": RESULTS / "A0_poster_analysis_20260926" /
+    "flat_goal_comparison" / "c01_seed8" / "trajectory_full.svg",
+    "archived_place_fields": RESULTS / "A0_poster_analysis_20260926" /
+    "flat_goal_comparison" / "c01_seed8" / "place_fields_shared_scale.svg",
 }
 COLOR = {"C01": "#0072B2", "C05": "#D55E00", "C15": "#009E73",
          "P": "#7B4FA3"}
@@ -169,7 +178,44 @@ def peak_grid(peaks: np.ndarray, mask: np.ndarray) -> np.ndarray:
     return grid / grid.sum()
 
 
-def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
+def archived_example_tiles() -> dict[str, np.ndarray]:
+    """Extract three axes from verified archival SVGs for compact display.
+
+    The full archive figures remain the authoritative source. Crops exclude
+    their original labels; the composite and caption restore provenance.
+    Pixel coordinates correspond to the stable 600/1200-pixel SVG exports.
+    """
+    exports = {
+        "trajectory": ("archived_trajectory", 600, (112, 91, 531, 509)),
+        "DG 11": ("archived_place_fields", 1200, (147, 149, 558, 561)),
+        "DG 0": ("archived_place_fields", 1200, (588, 657, 998, 1068)),
+    }
+    tiles = {}
+    with tempfile.TemporaryDirectory(prefix="cosyne_example_") as temporary:
+        rendered = {}
+        for label, (source_key, width, crop) in exports.items():
+            if source_key not in rendered:
+                path = Path(temporary) / f"{source_key}.png"
+                subprocess.run(
+                    ["inkscape", str(SOURCES[source_key]), "--export-type=png",
+                     f"--export-filename={path}", f"--export-width={width}"],
+                    check=True, capture_output=True, text=True)
+                rendered[source_key] = Image.open(path).convert("RGB")
+            original = rendered[source_key]
+            assert crop[2] <= original.width and crop[3] <= original.height
+            tile = np.asarray(original.crop(crop)).copy()
+            if label == "trajectory":
+                # Keep the archived coordinates intact; darken only its pale
+                # gray path strokes so they survive the final 0.84-inch tile.
+                gray = tile.mean(axis=2)
+                path_pixels = (gray >= 140) & (gray < 220) & (
+                    tile.max(axis=2) - tile.min(axis=2) < 8)
+                tile[path_pixels] = (tile[path_pixels] * 0.68).astype(np.uint8)
+            tiles[label] = tile
+    return tiles
+
+
+def results_figure(*, mode: str = "box", output_dir: Path = FIGURES,
                    stem: str = "results_sections") -> dict[str, float]:
     online = pd.read_csv(SOURCES["online"])
     behavior = pd.read_csv(SOURCES["behavior"])
@@ -216,8 +262,8 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
                    ncol=2, frameon=False, fontsize=9, handletextpad=0.2,
                    columnspacing=0.5)
 
-    # A: five-seed online course. B: absolute random-control versus own-policy
-    # decoder values, with two repeats averaged inside each training seed.
+    # A: five-seed online course. B: matched own-policy/random-action contrasts,
+    # with two repeats averaged inside each frozen training model.
     section(fig, 0.12, 5.46, "A  Spatial emergence")
     section(fig, 2.24, 5.46, "B  Behavior shapes spatial coding")
     ax = axes_in(fig, 0.58, 4.24, 1.42, 0.94)
@@ -242,56 +288,73 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
     behavior_rows = behavior_absolute.rename(columns={"training_seed": "seed"}).copy()
     behavior_rows["group"] = behavior_rows.family
     behavior_groups = ["C01", "C05", "C15"]
-    for x0, control, experimental, title, limits, xlabel in [
-        (2.92, "random_info", "own_info", "Readout MLP layer 1", (0, 1.9), "Bits/activation"),
+    for x0, control, experimental, title, limits, ylabel in [
+        (2.92, "random_info", "own_info", "Readout spatial coding", (0, 1.9), "bits/activation"),
         (5.23, "random_reliability", "own_reliability",
-         "Map reliability", (0, 0.9), "Split-half correlation"),
+         "Map stability", (0, 0.9), "split-half r"),
     ]:
         ax = axes_in(fig, x0, 4.20, 1.43, 0.98)
         paired_rows(ax, behavior_rows, behavior_groups, control, experimental,
                     labels=True, xlim=limits, marker_size=8, mode=mode)
-        ax.set_title(title, fontsize=10, pad=2)
-        ax.set_ylabel(xlabel, fontsize=8, labelpad=1)
+        ax.set_title(title if mode == "box" else
+                     ("Readout MLP layer 1" if control == "random_info" else "Map reliability"),
+                     fontsize=9 if mode == "box" else 10, pad=2)
+        ax.set_ylabel((r"$\Delta$ " if mode == "box" else "") + ylabel,
+                      fontsize=8, labelpad=1)
 
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(3.85) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
-    section(fig, 0.12, 3.76, "C–D  Temporal push: DG fields")
-    fig.text(0.38 / 7.5, content_y(3.51) / FIGURE_HEIGHT,
-             "C  Selected C01 example: seed 8 (largest of 5 pairs)",
-             fontsize=9, color=GRAY)
-
-    # C: peak-coordinate example. D: original absolute values for every
-    # matched encoder pair, grouped by architecture and fixed worker arm.
-    grids = {arm: peak_grid(np.asarray(example["arms"][arm]["peaks_xy"]), mask)
-             for arm in ("temporal", "constant")}
-    vmax = max(np.nanmax(value) for value in grids.values())
-    for x0, arm, label in [(0.38, "temporal", "Temporal"),
-                           (1.62, "constant", "Constant")]:
-        ax = axes_in(fig, x0, 2.51, 1.04, 0.83)
-        grid = np.ma.masked_where(~mask, grids[arm])
-        cmap = plt.get_cmap("Greys").copy()
-        cmap.set_bad("#DDDDDD")
-        ax.imshow(grid, origin="lower", extent=(100, 2000, 100, 2000),
-                  cmap=cmap, vmin=0, vmax=vmax, interpolation="nearest")
-        xy = np.asarray(example["arms"][arm]["peaks_xy"])
-        ax.scatter(xy[:, 0], xy[:, 1], s=8, color="#D55E00",
-                   edgecolor="white", linewidth=0.25)
-        ax.set_xticks([])
-        ax.set_yticks([])
-        area = example["arms"][arm]["effective_area_fraction"]
-        ax.set_title(f"{label} ({area:.3f})", fontsize=9, pad=2)
+    section(fig, 0.12, 3.76,
+            "C–D  Spatial examples and temporal DG credit" if mode == "box"
+            else "C–D  Temporal push: DG fields")
+    if mode == "box":
+        fig.text(0.30 / 7.5, content_y(3.51) / FIGURE_HEIGHT,
+                 "C  Archived C01 seed 8 probe (separate run)",
+                 fontsize=8.5, color=GRAY)
+        tiles = archived_example_tiles()
+        for x0, title in ((0.34, "Trajectory"), (1.37, "DG 11"), (2.40, "DG 0")):
+            ax = axes_in(fig, x0, 2.48, 0.84, 0.84)
+            ax.imshow(tiles["trajectory" if title == "Trajectory" else title],
+                      interpolation="nearest")
+            ax.set_aspect("equal")
+            ax.set_xticks([])
+            ax.set_yticks([])
+            ax.set_title(title, fontsize=8.5, pad=2)
+    else:
+        fig.text(0.38 / 7.5, content_y(3.51) / FIGURE_HEIGHT,
+                 "C  Selected C01 example: seed 8 (largest of 5 pairs)",
+                 fontsize=9, color=GRAY)
+        grids = {arm: peak_grid(np.asarray(example["arms"][arm]["peaks_xy"]), mask)
+                 for arm in ("temporal", "constant")}
+        vmax = max(np.nanmax(value) for value in grids.values())
+        for x0, arm, label in [(0.38, "temporal", "Temporal"),
+                               (1.62, "constant", "Constant")]:
+            ax = axes_in(fig, x0, 2.51, 1.04, 0.83)
+            grid = np.ma.masked_where(~mask, grids[arm])
+            cmap = plt.get_cmap("Greys").copy()
+            cmap.set_bad("#DDDDDD")
+            ax.imshow(grid, origin="lower", extent=(100, 2000, 100, 2000),
+                      cmap=cmap, vmin=0, vmax=vmax, interpolation="nearest")
+            xy = np.asarray(example["arms"][arm]["peaks_xy"])
+            ax.scatter(xy[:, 0], xy[:, 1], s=8, color="#D55E00",
+                       edgecolor="white", linewidth=0.25)
+            ax.set_xticks([])
+            ax.set_yticks([])
+            area = example["arms"][arm]["effective_area_fraction"]
+            ax.set_title(f"{label} ({area:.3f})", fontsize=9, pad=2)
 
     contrasts = ["C01", "C05 · temporal hit", "C05 · constant hit", "C15"]
     row_names = ["C01", "C05-wT", "C05-wC", "C15"]
     metrics = [
-        ("DG score", encoder, "mean_spatial_information_bits", (0, 0.23)),
-        ("Map cosine", encoder, "active_map_cosine_mean", (0, 0.17)),
-        ("Peak area", peaks, "effective_area_fraction", (0, 0.48)),
+        ("DG coding", encoder, "mean_spatial_information_bits", (0, 0.23), "bits/step"),
+        ("Map overlap", encoder, "active_map_cosine_mean", (0, 0.17), "cosine"),
+        ("Field spread", peaks, "effective_area_fraction", (0, 0.48), "area"),
     ]
-    for index, (title, source, metric, limits) in enumerate(metrics):
-        x0 = (3.62, 4.91, 6.20)[index]
-        ax = axes_in(fig, x0, 2.43, 0.86, 0.96)
+    for index, (title, source, metric, limits, unit) in enumerate(metrics):
+        x0 = ((3.72, 4.97, 6.22) if mode == "box" else
+              (3.62, 4.91, 6.20))[index]
+        ax = axes_in(fig, x0, 2.43, 0.72 if mode == "box" else 0.86, 0.96)
         subset = source[source.metric == metric].copy()
         if source is peaks:
             subset = subset[subset.cutoff == 0.0025]
@@ -301,14 +364,20 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
                            subset.difference, atol=1e-10)
         paired_rows(ax, subset, row_names, "constant", "temporal",
                     labels=True, xlim=limits, marker_size=10, mode=mode)
-        ax.set_title(title, fontsize=10, pad=2)
+        ax.set_title(title if mode == "box" else
+                     ("DG score", "Map cosine", "Peak area")[index],
+                     fontsize=8.5 if mode == "box" else 10, pad=2)
+        if mode == "box":
+            ax.set_ylabel(r"$\Delta$ " + unit, fontsize=7.5, labelpad=0)
+            ax.tick_params(axis="y", labelsize=7, pad=1)
+            ax.set_xticks(range(4), ["01", "wT", "wC", "15"], fontsize=7.5)
         ax.locator_params(axis="y", nbins=3)
 
     fig.add_artist(plt.Line2D([0.02, 0.98],
                               [content_y(2.20) / FIGURE_HEIGHT] * 2,
                               transform=fig.transFigure, color="#CCD1D4", lw=0.6))
     section(fig, 0.12, 2.10, "E  Temporal push: readout")
-    section(fig, 2.72, 2.10, "F  Temporal pull: two interventions")
+    section(fig, 2.72, 2.10, "F  Temporal pull: hit and PPO credit")
     downstream = decoder[(decoder.factor == "encoder") &
                          (decoder.layer == "decoder_1") &
                          (decoder.metric == "mean_bits_per_activation_eligible")].copy()
@@ -324,8 +393,10 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
     ax = axes_in(fig, 0.67, 0.89, 1.63, 0.88)
     paired_rows(ax, downstream, decoder_groups, "constant", "temporal",
                 labels=True, xlim=(0, 3.0), marker_size=10, mode=mode)
-    ax.set_title("Readout MLP layer 1", fontsize=10, pad=2)
-    ax.set_ylabel("Bits/activation", fontsize=8, labelpad=1)
+    ax.set_title("Readout spatial coding" if mode == "box" else
+                 "Readout MLP layer 1", fontsize=9 if mode == "box" else 10, pad=2)
+    ax.set_ylabel((r"$\Delta$ " if mode == "box" else "") + "bits/activation",
+                  fontsize=8, labelpad=1)
 
     pull = worker[(worker.contrast == "temporal_minus_constant_hit_bonus") &
                   (worker.family == "C05") &
@@ -334,15 +405,20 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
     pull["group"] = pull.fixed_factor.map({"temporal": "C05-eT", "constant": "C05-eC"})
     assert pull.groupby(["metric", "group"]).size().eq(5).all() and len(pull) == 20
     assert np.allclose(pull["first"] - pull["second"], pull.difference, atol=1e-10)
-    for x0, metric, title, limits, xlabel, labels in [
-        (3.02, "visited_cell_fraction", "Hit: coverage", (0.52, 0.92), "Visited frac.", True),
-        (4.07, "spatial_information", "Hit: DG score", (0.08, 0.23), "DG score", False),
+    for x0, metric, title, limits, unit in [
+        (3.02, "visited_cell_fraction", "Hits: coverage", (0.52, 0.92), "fraction"),
+        (4.07, "spatial_information", "Hits: DG coding", (0.08, 0.23), "bits/step"),
     ]:
-        ax = axes_in(fig, x0, 0.89, 0.79, 0.88)
+        if mode == "box":
+            x0 = {3.02: 2.88, 4.07: 3.98}[x0]
+        ax = axes_in(fig, x0, 0.89, 0.68 if mode == "box" else 0.79, 0.88)
         paired_rows(ax, pull[pull.metric == metric], ["C05-eT", "C05-eC"],
                     "second", "first", labels=True, xlim=limits, marker_size=10,
                     mode=mode)
         ax.set_title(title, fontsize=9, pad=2)
+        if mode == "box":
+            ax.set_ylabel(r"$\Delta$ " + unit, fontsize=7.5, labelpad=0)
+            ax.tick_params(axis="y", labelsize=7, pad=1)
         ax.locator_params(axis="y", nbins=3)
 
     # Longer PPO credit changes gamma and GAE lambda together. Its online
@@ -358,23 +434,27 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
     assert longer.learned_si_bits_delta.lt(0).all()
     longer["group"] = longer.dg_family.map({"Prescribed": "P", "C15": "C15"})
     assert longer.group.notna().all()
-    for x0, control, experimental, title, limits, xlabel, labels in [
+    for x0, control, experimental, title, limits, unit in [
         (5.35, "baseline_coverage_auc", "longer_coverage_auc",
-         "γ,λ↑: coverage", (40, 95), "AUC (points)", True),
+         "PPO: coverage", (40, 95), "AUC (pt)"),
         (6.46, "learned_si_bits_before", "learned_si_bits_after",
-         "γ,λ↑: DG info", (0.09, 0.22), "SI (bits)", False),
+         "PPO: DG coding", (0.09, 0.22), "bits/step"),
     ]:
-        ax = axes_in(fig, x0, 0.89, 0.78, 0.88)
+        if mode == "box":
+            x0 = {5.35: 5.08, 6.46: 6.18}[x0]
+        ax = axes_in(fig, x0, 0.89, 0.68 if mode == "box" else 0.78, 0.88)
         paired_rows(ax, longer, ["P", "C15"], control, experimental,
                     labels=True, xlim=limits, marker_size=11, mode=mode)
-        ax.set_title(title, fontsize=9, pad=2)
+        ax.set_title(title if mode == "box" else
+                     ("γ,λ↑: coverage" if control == "baseline_coverage_auc"
+                      else "γ,λ↑: DG info"), fontsize=8.5 if mode == "box" else 9, pad=2)
+        if mode == "box":
+            ax.set_ylabel(r"$\Delta$ " + unit, fontsize=7.5, labelpad=0)
+            ax.tick_params(axis="y", labelsize=7, pad=1)
         ax.locator_params(axis="y", nbins=3)
 
     save(fig, stem, output_dir)
-    return {
-        "selected_seed": 8,
-        "selected_peak_area_temporal": example["arms"]["temporal"]["effective_area_fraction"],
-        "selected_peak_area_constant": example["arms"]["constant"]["effective_area_fraction"],
+    summary = {
         "behavior_models": len(behavior_absolute),
         "decoder_delta_by_group": downstream.groupby("group").difference.mean().to_dict(),
         "worker_delta_by_metric_and_group": {
@@ -385,11 +465,26 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
                      "learned_si_bits": float(rows.learned_si_bits_delta.mean())}
             for family, rows in longer.groupby("dg_family")},
         "result_panel_width_inches": {
-            "behavior": 1.43, "dg": 0.86, "decoder": 1.63,
-            "worker": 0.79, "longer_credit": 0.78},
+            "behavior": 1.43, "dg": 0.72 if mode == "box" else 0.86,
+            "decoder": 1.63, "worker": 0.68 if mode == "box" else 0.79,
+            "longer_credit": 0.68 if mode == "box" else 0.78},
         "orientation": "vertical",
         "summary_mark": "paired seeds" if mode == "paired" else "paired-difference boxes",
+        "illustration": ("separate archived C01 trajectory and place fields"
+                         if mode == "box" else "current common-replay peak example"),
     }
+    if mode == "paired":
+        summary.update({
+            "selected_seed": 8,
+            "selected_peak_area_temporal": example["arms"]["temporal"]["effective_area_fraction"],
+            "selected_peak_area_constant": example["arms"]["constant"]["effective_area_fraction"],
+        })
+    else:
+        summary["archived_illustration"] = {
+            "family": "C01", "seed": 8, "checkpoint_frames": 100040704,
+            "evaluation_decisions": 10001, "dg_units": [11, 0],
+        }
+    return summary
 
 
 def main() -> None:
@@ -412,7 +507,7 @@ def main() -> None:
         "font_path": font,
         "results_size_inches": [7.5, FIGURE_HEIGHT],
         "figure_values": summary,
-        "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
+        "peak_example_choice": "shown in paired-value candidate 5 only",
         "behavior_absolute_source": (
             "6412596:06_experiments/results/cosyne_2027_behavior_secondary/"
             "fresh_pair_analysis/paired_evaluation_repeats.csv"),

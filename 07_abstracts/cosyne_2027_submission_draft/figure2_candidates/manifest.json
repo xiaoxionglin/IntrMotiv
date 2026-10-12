@@ -17,6 +17,8 @@
     "worker": "06_experiments/results/cosyne_2027_online_wandb/paired_contrasts_by_seed.csv",
     "longer_credit_online": "06_experiments/dg_goal_control/results/episode_long_comparison_20261009/longer_credit_100m_paired.csv",
     "longer_credit_fields": "06_experiments/dg_goal_control/results/episode_long_comparison_20261009/longer_credit_100m_frozen_fields_paired.csv",
+    "archived_trajectory": "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c01_seed8/trajectory_full.svg",
+    "archived_place_fields": "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c01_seed8/place_fields_shared_scale.svg",
     "worker_fields": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
     "worker_outcomes": "06_experiments/results/cosyne_2027_checkpoint_fields/worker_timing_summary/paired_by_seed.csv"
   },
@@ -31,6 +33,8 @@
     "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f",
     "longer_credit_online": "5cd2940a742f5e90ef56b304f9b066facefe0578cc420441f9ac9bc4ab1fa328",
     "longer_credit_fields": "239d669639f921c7e15e91eb0ca33a7d286876dc8b28a15c5814fea6dcc0eb93",
+    "archived_trajectory": "e63b93dbee3b54b771810459cf5d02a8b8c7e7a0767ebcbf450eaf0515577a76",
+    "archived_place_fields": "c995b2fb7d98f37f65cbd6ca5b6fefbde92320001a0a740403ff3a5d686edba7",
     "worker_fields": "cb9b7793b1ad1e1ace44a5e6cc5784c0365bf85121d7c4f300b1a5ffa8b7ac90",
     "worker_outcomes": "3212c0d89e97889184305bf1c60fe75368108dda07fdcba7958695d1617052a4"
   },
@@ -106,9 +110,9 @@
         "png": "05_compact_vertical_pairs.png"
       },
       "sha256": {
-        "pdf": "bb301f257dd5f6e64765de047230a5ca651f13b3fb8f5a03ec4c3a377dc34b90",
-        "svg": "90584f2cbf7d9184c7907c24f18377d46f54bacdec00eb15b1245c6a387b754e",
-        "png": "8b23b86efbf199597e7bd260a570e8d4762046c324d018b0b51128ed5d3681f0"
+        "pdf": "d1068de6923b486914b197460ee23540d9414ebaa4817db9f21fe57435f25a42",
+        "svg": "70d462923e4e4f3f5494d1deafdfb07c5338d58d7cd4e7fa082b4518df85d9d8",
+        "png": "47607de783861158e3896f15bda6fab3e6208a9d5b0a56fd9176dfd0245f1da5"
       },
       "inches": [
         7.5,
@@ -122,9 +126,9 @@
         "png": "06_compact_vertical_boxes.png"
       },
       "sha256": {
-        "pdf": "cbada761d2c9eabd5c94b7cb2264fcc00ccb99a4cb16fe856768139e2a2f6c4d",
-        "svg": "f3711a491ab82066c02d22688faa706370a7f62da333602831a0ab2b8ac27482",
-        "png": "3b004f6ec6d185df0675f0d0566c7495eefffaef9bf5007e7866303afd20833a"
+        "pdf": "775cf2bf5dbdb7b63793e6ebc656d169970f2833666df9b160677f5f5a23ff8c",
+        "svg": "2c7c90ed457d40729c7f3226f8891e626baa7cc40b2ea97c13e79824dd51c081",
+        "png": "78ceb14587793f11f7d2a8f843b5cfbdd3448679c357bc422e56727062802e66"
       },
       "inches": [
         7.5,

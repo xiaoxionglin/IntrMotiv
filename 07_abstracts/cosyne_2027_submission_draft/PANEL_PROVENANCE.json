@@ -9,7 +9,9 @@
     "decoder": "0f12e995e5478c3318eea17774a891e9f38ba1d63070e2c9555e550cb35fd927",
     "worker": "059a3abb3e8cb3d5bc6a21e5a2bed598396e4cd0f14983307ccc8e062deebe0f",
     "longer_credit_online": "5cd2940a742f5e90ef56b304f9b066facefe0578cc420441f9ac9bc4ab1fa328",
-    "longer_credit_fields": "239d669639f921c7e15e91eb0ca33a7d286876dc8b28a15c5814fea6dcc0eb93"
+    "longer_credit_fields": "239d669639f921c7e15e91eb0ca33a7d286876dc8b28a15c5814fea6dcc0eb93",
+    "archived_trajectory": "e63b93dbee3b54b771810459cf5d02a8b8c7e7a0767ebcbf450eaf0515577a76",
+    "archived_place_fields": "c995b2fb7d98f37f65cbd6ca5b6fefbde92320001a0a740403ff3a5d686edba7"
   },
   "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "results_size_inches": [
@@ -17,9 +19,6 @@
     4.48
   ],
   "figure_values": {
-    "selected_seed": 8,
-    "selected_peak_area_temporal": 0.3844299901,
-    "selected_peak_area_constant": 0.2296116607,
     "behavior_models": 38,
     "decoder_delta_by_group": {
       "C01": 0.680420844779087,
@@ -45,14 +44,25 @@
     },
     "result_panel_width_inches": {
       "behavior": 1.43,
-      "dg": 0.86,
+      "dg": 0.72,
       "decoder": 1.63,
-      "worker": 0.79,
-      "longer_credit": 0.78
+      "worker": 0.68,
+      "longer_credit": 0.68
     },
     "orientation": "vertical",
-    "summary_mark": "paired seeds"
+    "summary_mark": "paired-difference boxes",
+    "illustration": "separate archived C01 trajectory and place fields",
+    "archived_illustration": {
+      "family": "C01",
+      "seed": 8,
+      "checkpoint_frames": 100040704,
+      "evaluation_decisions": 10001,
+      "dg_units": [
+        11,
+        0
+      ]
+    }
   },
-  "peak_example_choice": "largest C01 peak-area difference among five paired seeds",
+  "peak_example_choice": "shown in paired-value candidate 5 only",
   "behavior_absolute_source": "6412596:06_experiments/results/cosyne_2027_behavior_secondary/fresh_pair_analysis/paired_evaluation_repeats.csv"
 }
