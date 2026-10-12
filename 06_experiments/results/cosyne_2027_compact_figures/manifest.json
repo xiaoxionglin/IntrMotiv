@@ -40,7 +40,7 @@
   },
   "encoder_three_level_originals": {
     "table": "06_experiments/results/cosyne_2027_compact_figures/03_encoder_credit_original_values.csv",
-    "table_sha256": "68eb073c345f35fe8660fadfbc91f0047731270baa636a2ecbe961f125f6a43d",
+    "table_sha256": "1f1a70269a2ba081485298b69b8b8a1d71d00dc23a87d0232d7e4b8984395e5a",
     "historical_no_credit": "NONE_STOP, same saved observation panel",
     "fresh_constant_and_temporal": "100M COSYNE factorial checkpoints",
     "cross_cohort_differences_are_not_effect_estimates": true,
@@ -48,10 +48,10 @@
       "C01": 5,
       "C05 \u00b7 constant hit": 5,
       "C05 \u00b7 temporal hit": 5,
-      "C15": 3
+      "C15": 5
     },
     "fresh_C15_temporal_absolute_seeds": 5,
-    "fresh_C15_paired_difference_seeds": 3,
+    "fresh_C15_paired_difference_seeds": 5,
     "C05_constant_hit_no_credit": "not run"
   },
   "sources": {
@@ -77,11 +77,11 @@
     },
     "encoder": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_encoder_fields.csv",
-      "sha256": "0c7a1f722153933c365b78679436e865f6d177d02424c0c1a57fc3c0889bf432"
+      "sha256": "0d9ea02cf64ea13d5a38f1641ded8a8e1abdc43fa515eea31e399ee70696d6f4"
     },
     "encoder_raw": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/shared_observation_fields.csv",
-      "sha256": "0b7bd34f739017342be779ea718e675944f132eba27afde871ea268086cdcc8f"
+      "sha256": "af78cd524beff1e5b6fe9f04822cfd3c4b5e9b045f31b2752c3080e7c8ac8006"
     },
     "worker_fields": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_worker_fields.csv",
@@ -89,7 +89,7 @@
     },
     "peaks": {
       "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/paired_peak_spread_by_seed.csv",
-      "sha256": "966af9e8c0c2f2f9714387ad771be4e067532fb7385f5353d091e314d13bc70a"
+      "sha256": "7376055610b57be38e6174414c7a39f5cc475f88806f89c9163861fae913bd6f"
     },
     "credit_presence": {
       "path": "06_experiments/reward_credit/results/corrected_core_encoder_worker_20261010/common_panel_encoder_pairs.csv",

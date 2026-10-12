@@ -224,6 +224,11 @@ C05 · constant hit,C05,constant,150,123,effective_area_fraction,0.5609228733,0.
 C05 · constant hit,C05,constant,150,123,peak_density_gini,0.572649905,0.6692874907,-0.09663758576
 C05 · constant hit,C05,constant,150,123,mean_pairwise_peak_distance,1139.623413,790.8932495,348.7301636
 C05 · constant hit,C05,constant,150,123,median_nearest_peak_distance,347.5766602,100,247.5766602
+C15,C15,temporal,50,8,valid_peaks,16,16,0
+C15,C15,temporal,50,8,effective_area_fraction,0.1365661589,0.1388744879,-0.002308329014
+C15,C15,temporal,50,8,peak_density_gini,0.890071654,0.8864920464,0.003579607622
+C15,C15,temporal,50,8,mean_pairwise_peak_distance,1033.613525,1165.533569,-131.9200439
+C15,C15,temporal,50,8,median_nearest_peak_distance,211.8034058,358.1138916,-146.3104858
 C15,C15,temporal,50,17,valid_peaks,14,12,2
 C15,C15,temporal,50,17,effective_area_fraction,0.1229494541,0.08943761598,0.03351183809
 C15,C15,temporal,50,17,peak_density_gini,0.8998699988,0.9306069503,-0.03073695141
@@ -234,11 +239,21 @@ C15,C15,temporal,50,41,effective_area_fraction,0.126665963,0.1176592722,0.009006
 C15,C15,temporal,50,41,peak_density_gini,0.8955970791,0.9036342055,-0.008037126369
 C15,C15,temporal,50,41,mean_pairwise_peak_distance,862.3759766,1114.584229,-252.208252
 C15,C15,temporal,50,41,median_nearest_peak_distance,360.5551147,200,160.5551147
+C15,C15,temporal,50,99,valid_peaks,16,16,0
+C15,C15,temporal,50,99,effective_area_fraction,0.1064603508,0.1316448563,-0.02518450549
+C15,C15,temporal,50,99,peak_density_gini,0.9168659066,0.8938780612,0.02298784537
+C15,C15,temporal,50,99,mean_pairwise_peak_distance,1116.103638,1141.020142,-24.91650391
+C15,C15,temporal,50,99,median_nearest_peak_distance,211.8034058,200,11.80340576
 C15,C15,temporal,50,123,valid_peaks,15,13,2
 C15,C15,temporal,50,123,effective_area_fraction,0.1239927369,0.09403017583,0.02996256106
 C15,C15,temporal,50,123,peak_density_gini,0.8957542836,0.921352791,-0.02559850737
 C15,C15,temporal,50,123,mean_pairwise_peak_distance,1135.25415,1131.543823,3.710327148
 C15,C15,temporal,50,123,median_nearest_peak_distance,300,360.5551147,-60.55511475
+C15,C15,temporal,100,8,valid_peaks,16,16,0
+C15,C15,temporal,100,8,effective_area_fraction,0.4084877483,0.3900693973,0.01841835104
+C15,C15,temporal,100,8,peak_density_gini,0.6944252056,0.7058931556,-0.01146795006
+C15,C15,temporal,100,8,mean_pairwise_peak_distance,1033.613525,1165.533569,-131.9200439
+C15,C15,temporal,100,8,median_nearest_peak_distance,211.8034058,358.1138916,-146.3104858
 C15,C15,temporal,100,17,valid_peaks,14,12,2
 C15,C15,temporal,100,17,effective_area_fraction,0.3367710626,0.2692129263,0.06755813629
 C15,C15,temporal,100,17,peak_density_gini,0.7439714056,0.799939857,-0.05596845141
@@ -249,11 +264,21 @@ C15,C15,temporal,100,41,effective_area_fraction,0.4223495254,0.3612057351,0.0611
 C15,C15,temporal,100,41,peak_density_gini,0.6819290625,0.7278752912,-0.04594622864
 C15,C15,temporal,100,41,mean_pairwise_peak_distance,862.3759766,1114.584229,-252.208252
 C15,C15,temporal,100,41,median_nearest_peak_distance,360.5551147,200,160.5551147
+C15,C15,temporal,100,99,valid_peaks,16,16,0
+C15,C15,temporal,100,99,effective_area_fraction,0.2949999043,0.3321902988,-0.03719039453
+C15,C15,temporal,100,99,peak_density_gini,0.7783129324,0.7489691673,0.02934376515
+C15,C15,temporal,100,99,mean_pairwise_peak_distance,1116.103638,1141.020142,-24.91650391
+C15,C15,temporal,100,99,median_nearest_peak_distance,211.8034058,200,11.80340576
 C15,C15,temporal,100,123,valid_peaks,15,13,2
 C15,C15,temporal,100,123,effective_area_fraction,0.384379181,0.3027870975,0.08159208353
 C15,C15,temporal,100,123,peak_density_gini,0.7051257749,0.7658480648,-0.0607222899
 C15,C15,temporal,100,123,mean_pairwise_peak_distance,1135.25415,1131.543823,3.710327148
 C15,C15,temporal,100,123,median_nearest_peak_distance,300,360.5551147,-60.55511475
+C15,C15,temporal,150,8,valid_peaks,16,16,0
+C15,C15,temporal,150,8,effective_area_fraction,0.6556540357,0.6579445171,-0.002290481438
+C15,C15,temporal,150,8,peak_density_gini,0.5000177359,0.4965791331,0.003438602774
+C15,C15,temporal,150,8,mean_pairwise_peak_distance,1033.613525,1165.533569,-131.9200439
+C15,C15,temporal,150,8,median_nearest_peak_distance,211.8034058,358.1138916,-146.3104858
 C15,C15,temporal,150,17,valid_peaks,14,12,2
 C15,C15,temporal,150,17,effective_area_fraction,0.493069394,0.4459961732,0.0470732208
 C15,C15,temporal,150,17,peak_density_gini,0.6231085452,0.662891855,-0.0397833098
@@ -264,6 +289,11 @@ C15,C15,temporal,150,41,effective_area_fraction,0.6280484669,0.5642430545,0.0638
 C15,C15,temporal,150,41,peak_density_gini,0.5120531881,0.5720566362,-0.0600034481
 C15,C15,temporal,150,41,mean_pairwise_peak_distance,862.3759766,1114.584229,-252.208252
 C15,C15,temporal,150,41,median_nearest_peak_distance,360.5551147,200,160.5551147
+C15,C15,temporal,150,99,valid_peaks,16,16,0
+C15,C15,temporal,150,99,effective_area_fraction,0.4607790308,0.5231604078,-0.06238137707
+C15,C15,temporal,150,99,peak_density_gini,0.6536621883,0.6058293318,0.04783285649
+C15,C15,temporal,150,99,mean_pairwise_peak_distance,1116.103638,1141.020142,-24.91650391
+C15,C15,temporal,150,99,median_nearest_peak_distance,211.8034058,200,11.80340576
 C15,C15,temporal,150,123,valid_peaks,15,13,2
 C15,C15,temporal,150,123,effective_area_fraction,0.5915582647,0.4974950179,0.09406324672
 C15,C15,temporal,150,123,peak_density_gini,0.5415284072,0.6164199033,-0.07489149604

@@ -1,7 +1,7 @@
 """Measure eligible DG peak spread on the fixed COSYNE observation panel.
 
 The raw evaluator NPZs stay in the allocated NEMO2 workspace. Pass a temporary
-local copy of the 38 terminal NPZs with --raw-root to regenerate these small
+local copy of the 40 terminal NPZs with --raw-root to regenerate these small
 tables and figures. All peak densities use the same 242-bin panel occupancy.
 """
 
@@ -40,8 +40,8 @@ REMOTE_RAW = ("/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/
 
 def read_npzs(raw_root: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, np.ndarray]]:
     source = pd.read_csv(SOURCE)
-    if len(source) != 38 or source.label.nunique() != 38:
-        raise ValueError("expected exactly 38 named common-panel source rows")
+    if len(source) != 40 or source.label.nunique() != 40:
+        raise ValueError("expected exactly 40 named common-panel source rows")
     records = []
     widths = []
     provenance = []

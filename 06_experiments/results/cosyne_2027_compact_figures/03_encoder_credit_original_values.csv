@@ -35,8 +35,10 @@ C05 · temporal hit,C05,temporal,temporal,17,active_map_cosine_mean,0.0388167100
 C05 · temporal hit,C05,temporal,temporal,41,active_map_cosine_mean,0.1029548589,fresh
 C05 · temporal hit,C05,temporal,temporal,99,active_map_cosine_mean,0.02527025565,fresh
 C05 · temporal hit,C05,temporal,temporal,123,active_map_cosine_mean,0.09543768009,fresh
+C15,C15,temporal,constant,8,active_map_cosine_mean,0.1495303012,fresh
 C15,C15,temporal,constant,17,active_map_cosine_mean,0.1187189733,fresh
 C15,C15,temporal,constant,41,active_map_cosine_mean,0.1225289109,fresh
+C15,C15,temporal,constant,99,active_map_cosine_mean,0.1591017606,fresh
 C15,C15,temporal,constant,123,active_map_cosine_mean,0.1294407559,fresh
 C15,C15,temporal,none,8,active_map_cosine_mean,0.0621772686632428,historical
 C15,C15,temporal,none,99,active_map_cosine_mean,0.0507580524558498,historical
@@ -82,8 +84,10 @@ C05 · temporal hit,C05,temporal,temporal,17,mean_spatial_information_bits,0.140
 C05 · temporal hit,C05,temporal,temporal,41,mean_spatial_information_bits,0.150552218,fresh
 C05 · temporal hit,C05,temporal,temporal,99,mean_spatial_information_bits,0.09487377723,fresh
 C05 · temporal hit,C05,temporal,temporal,123,mean_spatial_information_bits,0.1467494981,fresh
+C15,C15,temporal,constant,8,mean_spatial_information_bits,0.109199758,fresh
 C15,C15,temporal,constant,17,mean_spatial_information_bits,0.0633135043,fresh
 C15,C15,temporal,constant,41,mean_spatial_information_bits,0.09935715828,fresh
+C15,C15,temporal,constant,99,mean_spatial_information_bits,0.1852047083,fresh
 C15,C15,temporal,constant,123,mean_spatial_information_bits,0.04639923193,fresh
 C15,C15,temporal,none,8,mean_spatial_information_bits,0.0258810855168403,historical
 C15,C15,temporal,none,99,mean_spatial_information_bits,0.0094320639853787,historical

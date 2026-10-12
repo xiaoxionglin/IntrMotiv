@@ -97,8 +97,11 @@ keep implementation guidance in the canonical workflow documents linked below.
   `cosyne_replacement` cohort through the same StudySpec-derived catalog and
   still requires one terminal row per verified run. This fixes the local field
   readout. The trajectory/graph adapter now includes recovery as a separate
-  StudySpec source with exact CSV hashes; the common-panel adapter still needs
-  the same explicit lineage when its replacement outputs are available.
+  StudySpec source with exact CSV hashes. The two replacement common-panel DG
+  replays were later found in an existing submitted cohort; the field and
+  peak-spread adapters now admit all 40 manifest rows with one verified
+  occupancy hash. The downstream-layer adapter still needs the same explicit
+  recovery lineage after its replacement replays finish.
 
 ### Keep immutable study references valid when reorganizing reports — 2026-10-09
 

@@ -258,8 +258,10 @@ z
 " style="stroke: #ffffff; stroke-width: 0.6"/>
     </defs>
     <g clip-path="url(#pbee777a638)">
-     <use xlink:href="#mdf8f193ad5" x="467.917909" y="56.012368" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="467.917909" y="203.861526" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="476.323594" y="56.012368" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="484.729278" y="302.427632" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
+     <use xlink:href="#mdf8f193ad5" x="493.134962" y="154.578474" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
      <use xlink:href="#mdf8f193ad5" x="501.540647" y="56.012368" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.6"/>
     </g>
    </g>
@@ -279,7 +281,15 @@ L 123.931443 203.861526
 " clip-path="url(#pbee777a638)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_12">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="96.774617" y="152.082849" transform="rotate(-0 96.774617 152.082849)">n=5</text>
+    <g id="patch_5">
+     <path d="M 82.686804 62.166491
+L 110.862429 62.166491
+L 110.862429 47.672741
+L 82.686804 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="96.774617" y="58.230866" transform="rotate(-0 96.774617 58.230866)">n=5</text>
    </g>
    <g id="line2d_19">
     <path d="M 198.936011 144.721863
@@ -287,7 +297,15 @@ L 253.249664 144.721863
 " clip-path="url(#pbee777a638)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_13">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="226.092837" y="102.799796" transform="rotate(-0 226.092837 102.799796)">n=5</text>
+    <g id="patch_6">
+     <path d="M 212.005025 62.166491
+L 240.18065 62.166491
+L 240.18065 47.672741
+L 212.005025 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="226.092837" y="58.230866" transform="rotate(-0 226.092837 58.230866)">n=5</text>
    </g>
    <g id="line2d_20">
     <path d="M 328.254231 213.718137
@@ -295,15 +313,31 @@ L 382.567884 213.718137
 " clip-path="url(#pbee777a638)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_14">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="355.411058" y="102.799796" transform="rotate(-0 355.411058 102.799796)">n=5</text>
+    <g id="patch_7">
+     <path d="M 341.323245 62.166491
+L 369.49887 62.166491
+L 369.49887 47.672741
+L 341.323245 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="355.411058" y="58.230866" transform="rotate(-0 355.411058 58.230866)">n=5</text>
    </g>
    <g id="line2d_21">
-    <path d="M 457.572452 138.150789
-L 511.886104 138.150789
+    <path d="M 457.572452 154.578474
+L 511.886104 154.578474
 " clip-path="url(#pbee777a638)" style="fill: none; stroke: #000000; stroke-width: 2; stroke-linecap: square"/>
    </g>
    <g id="text_15">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="484.729278" y="53.516743" transform="rotate(-0 484.729278 53.516743)">n=3</text>
+    <g id="patch_8">
+     <path d="M 470.641466 62.166491
+L 498.817091 62.166491
+L 498.817091 47.672741
+L 470.641466 47.672741
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="484.729278" y="58.230866" transform="rotate(-0 484.729278 58.230866)">n=5</text>
    </g>
    <g id="text_16">
     <text style="font-size: 14.4px; font-family: 'DejaVu Sans'; text-anchor: middle" x="290.751947" y="37.691605" transform="rotate(-0 290.751947 37.691605)">Distinct active peak bins</text>
