@@ -80,15 +80,15 @@ DG replay,mono_field_fraction,C05-wC,mono_field_fraction,5,2,2,1,-0.008484848478
 DG replay,prethreshold_map_cosine_mean,C05-wC,prethreshold_map_cosine_mean,5,2,3,0,-0.0176411575572,encoder + worker_fields
 DG replay,field_eligible_units,C05-wC,field_eligible_units,5,1,3,1,-1.4,encoder + worker_fields
 DG replay,visited_cell_fraction,C05-wC,visited_cell_fraction,5,0,0,5,0.0,encoder + worker_fields
-DG replay,mean_spatial_information_bits,C15,mean_spatial_information_bits,3,2,1,0,0.03580532104,encoder + worker_fields
-DG replay,mean_active_fraction,C15,mean_active_fraction,3,1,2,0,0.00143943939,encoder + worker_fields
-DG replay,active_map_cosine_mean,C15,active_map_cosine_mean,3,0,3,0,-0.044655118836666674,encoder + worker_fields
-DG replay,active_unique_peak_bins,C15,active_unique_peak_bins,3,2,1,0,1.3333333333333333,encoder + worker_fields
-DG replay,active_pairwise_peak_distance_bins,C15,active_pairwise_peak_distance_bins,3,2,1,0,0.5563680320666667,encoder + worker_fields
-DG replay,mono_field_fraction,C15,mono_field_fraction,3,2,0,1,0.04761904762,encoder + worker_fields
-DG replay,prethreshold_map_cosine_mean,C15,prethreshold_map_cosine_mean,3,0,3,0,-0.16328447858333334,encoder + worker_fields
-DG replay,field_eligible_units,C15,field_eligible_units,3,2,1,0,0.6666666666666666,encoder + worker_fields
-DG replay,visited_cell_fraction,C15,visited_cell_fraction,3,0,0,3,0.0,encoder + worker_fields
+DG replay,mean_spatial_information_bits,C15,mean_spatial_information_bits,5,3,2,0,0.012381942258999998,encoder + worker_fields
+DG replay,mean_active_fraction,C15,mean_active_fraction,5,1,4,0,-0.0006861813814,encoder + worker_fields
+DG replay,active_map_cosine_mean,C15,active_map_cosine_mean,5,0,5,0,-0.051690532212,encoder + worker_fields
+DG replay,active_unique_peak_bins,C15,active_unique_peak_bins,5,3,1,1,1.0,encoder + worker_fields
+DG replay,active_pairwise_peak_distance_bins,C15,active_pairwise_peak_distance_bins,5,2,3,0,-0.4669598367599999,encoder + worker_fields
+DG replay,mono_field_fraction,C15,mono_field_fraction,5,2,0,3,0.028571428572000002,encoder + worker_fields
+DG replay,prethreshold_map_cosine_mean,C15,prethreshold_map_cosine_mean,5,0,5,0,-0.12102022286,encoder + worker_fields
+DG replay,field_eligible_units,C15,field_eligible_units,5,2,1,2,0.4,encoder + worker_fields
+DG replay,visited_cell_fraction,C15,visited_cell_fraction,5,0,0,5,0.0,encoder + worker_fields
 DG replay,mean_spatial_information_bits,C05-eC,mean_spatial_information_bits,5,1,4,0,-0.025509025715,encoder + worker_fields
 DG replay,mean_active_fraction,C05-eC,mean_active_fraction,5,3,2,0,0.0014761023899,encoder + worker_fields
 DG replay,active_map_cosine_mean,C05-eC,active_map_cosine_mean,5,3,2,0,0.026186177708000004,encoder + worker_fields
@@ -167,26 +167,26 @@ Peak spread,effective area fraction @ 1%,C05-wC,effective_area_fraction,5,0,5,0,
 Peak spread,peak density gini @ 1%,C05-wC,peak_density_gini,5,5,0,0,0.05244234385341999,peaks
 Peak spread,mean pairwise peak distance @ 1%,C05-wC,mean_pairwise_peak_distance,5,3,2,0,103.68669434799999,peaks
 Peak spread,median nearest peak distance @ 1%,C05-wC,median_nearest_peak_distance,5,4,1,0,163.31656494199999,peaks
-Peak spread,valid peaks @ 0%,C15,valid_peaks,3,2,1,0,0.6666666666666666,peaks
-Peak spread,effective area fraction @ 0%,C15,effective_area_fraction,3,3,0,0,0.07556685375666668,peaks
-Peak spread,peak density gini @ 0%,C15,peak_density_gini,3,0,3,0,-0.058534932143333336,peaks
-Peak spread,mean pairwise peak distance @ 0%,C15,mean_pairwise_peak_distance,3,2,1,0,-25.345804850666667,peaks
-Peak spread,median nearest peak distance @ 0%,C15,median_nearest_peak_distance,3,2,1,0,71.23631794999999,peaks
-Peak spread,valid peaks @ 0.025%,C15,valid_peaks,3,2,1,0,0.6666666666666666,peaks
-Peak spread,effective area fraction @ 0.025%,C15,effective_area_fraction,3,3,0,0,0.07556685375666668,peaks
-Peak spread,peak density gini @ 0.025%,C15,peak_density_gini,3,0,3,0,-0.058534932143333336,peaks
-Peak spread,mean pairwise peak distance @ 0.025%,C15,mean_pairwise_peak_distance,3,2,1,0,-25.345804850666667,peaks
-Peak spread,median nearest peak distance @ 0.025%,C15,median_nearest_peak_distance,3,2,1,0,71.23631794999999,peaks
-Peak spread,valid peaks @ 0.25%,C15,valid_peaks,3,2,1,0,0.6666666666666666,peaks
-Peak spread,effective area fraction @ 0.25%,C15,effective_area_fraction,3,3,0,0,0.07009800338000001,peaks
-Peak spread,peak density gini @ 0.25%,C15,peak_density_gini,3,0,3,0,-0.05421232331666667,peaks
-Peak spread,mean pairwise peak distance @ 0.25%,C15,mean_pairwise_peak_distance,3,2,1,0,-45.41284181733332,peaks
-Peak spread,median nearest peak distance @ 0.25%,C15,median_nearest_peak_distance,3,2,1,0,90.23689268333332,peaks
-Peak spread,valid peaks @ 1%,C15,valid_peaks,3,2,1,0,2.0,peaks
-Peak spread,effective area fraction @ 1%,C15,effective_area_fraction,3,3,0,0,0.08392350095666666,peaks
-Peak spread,peak density gini @ 1%,C15,peak_density_gini,3,0,3,0,-0.06447013677333334,peaks
-Peak spread,mean pairwise peak distance @ 1%,C15,mean_pairwise_peak_distance,3,0,3,0,-94.16959636,peaks
-Peak spread,median nearest peak distance @ 1%,C15,median_nearest_peak_distance,3,1,2,0,-133.97351076666666,peaks
+Peak spread,valid peaks @ 0%,C15,valid_peaks,5,2,1,2,0.4,peaks
+Peak spread,effective area fraction @ 0%,C15,effective_area_fraction,5,4,1,0,0.041585703556000005,peaks
+Peak spread,peak density gini @ 0%,C15,peak_density_gini,5,1,4,0,-0.031545796268,peaks
+Peak spread,mean pairwise peak distance @ 0%,C15,mean_pairwise_peak_distance,5,2,3,0,-46.5747924724,peaks
+Peak spread,median nearest peak distance @ 0%,C15,median_nearest_peak_distance,5,3,2,0,15.840374761999993,peaks
+Peak spread,valid peaks @ 0.025%,C15,valid_peaks,5,2,1,2,0.4,peaks
+Peak spread,effective area fraction @ 0.025%,C15,effective_area_fraction,5,4,1,0,0.041585703556000005,peaks
+Peak spread,peak density gini @ 0.025%,C15,peak_density_gini,5,1,4,0,-0.031545796268,peaks
+Peak spread,mean pairwise peak distance @ 0.025%,C15,mean_pairwise_peak_distance,5,2,3,0,-46.5747924724,peaks
+Peak spread,median nearest peak distance @ 0.025%,C15,median_nearest_peak_distance,5,3,2,0,15.840374761999993,peaks
+Peak spread,valid peaks @ 0.25%,C15,valid_peaks,5,2,1,2,0.4,peaks
+Peak spread,effective area fraction @ 0.25%,C15,effective_area_fraction,5,4,1,0,0.038304393330000006,peaks
+Peak spread,peak density gini @ 0.25%,C15,peak_density_gini,5,1,4,0,-0.028952230972000004,peaks
+Peak spread,mean pairwise peak distance @ 0.25%,C15,mean_pairwise_peak_distance,5,2,3,0,-58.615014652400006,peaks
+Peak spread,median nearest peak distance @ 0.25%,C15,median_nearest_peak_distance,5,3,2,0,27.240719601999995,peaks
+Peak spread,valid peaks @ 1%,C15,valid_peaks,5,2,3,0,0.2,peaks
+Peak spread,effective area fraction @ 1%,C15,effective_area_fraction,5,3,2,0,0.025698131595999995,peaks
+Peak spread,peak density gini @ 1%,C15,peak_density_gini,5,2,3,0,-0.019845366418,peaks
+Peak spread,mean pairwise peak distance @ 1%,C15,mean_pairwise_peak_distance,5,0,5,0,-76.2284423856,peaks
+Peak spread,median nearest peak distance @ 1%,C15,median_nearest_peak_distance,5,2,2,1,-75.951373306,peaks
 CA3 / readout,CA3 · bits/activation,C01,mean_bits_per_activation_eligible,5,4,1,0,0.087867114382738,decoder
 CA3 / readout,CA3 · weighted bits/step,C01,mean_amplitude_weighted_bits_all,5,5,0,0,0.2556019689967255,decoder
 CA3 / readout,CA3 · positive fraction,C01,mean_positive_fraction,5,3,2,0,0.00228996466550528,decoder
@@ -241,24 +241,24 @@ CA3 / readout,Readout MLP layer 2 · positive fraction,C05-wC,mean_positive_frac
 CA3 / readout,Readout MLP layer 2 · mean response,C05-wC,mean_rectified_activation,5,3,2,0,0.11770202219486237,decoder
 CA3 / readout,Readout MLP layer 2 · eligible units,C05-wC,eligible_units,5,3,2,0,5.2,decoder
 CA3 / readout,Readout MLP layer 2 · silent units,C05-wC,silent_units,5,2,3,0,-5.2,decoder
-CA3 / readout,CA3 · bits/activation,C15,mean_bits_per_activation_eligible,3,2,1,0,0.04728385167307525,decoder
-CA3 / readout,CA3 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,3,2,1,0,0.11438961525630431,decoder
-CA3 / readout,CA3 · positive fraction,C15,mean_positive_fraction,3,2,1,0,0.021749116168195335,decoder
-CA3 / readout,CA3 · mean response,C15,mean_rectified_activation,3,1,2,0,0.05717243750890097,decoder
-CA3 / readout,CA3 · eligible units,C15,eligible_units,3,2,1,0,94.33333333333333,decoder
-CA3 / readout,CA3 · silent units,C15,silent_units,3,1,2,0,-47.333333333333336,decoder
-CA3 / readout,Readout MLP layer 1 · bits/activation,C15,mean_bits_per_activation_eligible,3,2,1,0,0.21680692301682045,decoder
-CA3 / readout,Readout MLP layer 1 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,3,2,1,0,0.009821108349814566,decoder
-CA3 / readout,Readout MLP layer 1 · positive fraction,C15,mean_positive_fraction,3,1,2,0,-0.07143712712062124,decoder
-CA3 / readout,Readout MLP layer 1 · mean response,C15,mean_rectified_activation,3,1,2,0,-0.12541270256042478,decoder
-CA3 / readout,Readout MLP layer 1 · eligible units,C15,eligible_units,3,1,2,0,-1.3333333333333333,decoder
-CA3 / readout,Readout MLP layer 1 · silent units,C15,silent_units,3,0,2,1,-0.6666666666666666,decoder
-CA3 / readout,Readout MLP layer 2 · bits/activation,C15,mean_bits_per_activation_eligible,3,2,1,0,0.18483407211457456,decoder
-CA3 / readout,Readout MLP layer 2 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,3,1,2,0,-0.0015418766788803985,decoder
-CA3 / readout,Readout MLP layer 2 · positive fraction,C15,mean_positive_fraction,3,1,2,0,-0.0546552115621771,decoder
-CA3 / readout,Readout MLP layer 2 · mean response,C15,mean_rectified_activation,3,1,2,0,-0.0667250454425812,decoder
-CA3 / readout,Readout MLP layer 2 · eligible units,C15,eligible_units,3,1,2,0,-3.3333333333333335,decoder
-CA3 / readout,Readout MLP layer 2 · silent units,C15,silent_units,3,1,2,0,-3.3333333333333335,decoder
+CA3 / readout,CA3 · bits/activation,C15,mean_bits_per_activation_eligible,5,4,1,0,0.24317902088250584,decoder
+CA3 / readout,CA3 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,5,3,2,0,0.061907614703053594,decoder
+CA3 / readout,CA3 · positive fraction,C15,mean_positive_fraction,5,2,3,0,-0.002075707922165537,decoder
+CA3 / readout,CA3 · mean response,C15,mean_rectified_activation,5,1,4,0,-0.00841216444969175,decoder
+CA3 / readout,CA3 · eligible units,C15,eligible_units,5,2,1,2,56.6,decoder
+CA3 / readout,CA3 · silent units,C15,silent_units,5,1,2,2,-28.4,decoder
+CA3 / readout,Readout MLP layer 1 · bits/activation,C15,mean_bits_per_activation_eligible,5,4,1,0,0.3135169900509231,decoder
+CA3 / readout,Readout MLP layer 1 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,5,2,3,0,-0.03618896646693054,decoder
+CA3 / readout,Readout MLP layer 1 · positive fraction,C15,mean_positive_fraction,5,1,4,0,-0.10443674382561738,decoder
+CA3 / readout,Readout MLP layer 1 · mean response,C15,mean_rectified_activation,5,1,4,0,-0.2870304107666016,decoder
+CA3 / readout,Readout MLP layer 1 · eligible units,C15,eligible_units,5,2,3,0,-1.6,decoder
+CA3 / readout,Readout MLP layer 1 · silent units,C15,silent_units,5,2,2,1,0.2,decoder
+CA3 / readout,Readout MLP layer 2 · bits/activation,C15,mean_bits_per_activation_eligible,5,4,1,0,0.27229321721755273,decoder
+CA3 / readout,Readout MLP layer 2 · weighted bits/step,C15,mean_amplitude_weighted_bits_all,5,1,4,0,-0.04128719672611271,decoder
+CA3 / readout,Readout MLP layer 2 · positive fraction,C15,mean_positive_fraction,5,1,4,0,-0.07254758899110086,decoder
+CA3 / readout,Readout MLP layer 2 · mean response,C15,mean_rectified_activation,5,1,4,0,-0.14712225794792175,decoder
+CA3 / readout,Readout MLP layer 2 · eligible units,C15,eligible_units,5,2,3,0,-1.0,decoder
+CA3 / readout,Readout MLP layer 2 · silent units,C15,silent_units,5,2,3,0,-4.0,decoder
 CA3 / readout,CA3 · bits/activation,C05-eT,mean_bits_per_activation_eligible,5,4,1,0,0.14115932534449532,decoder
 CA3 / readout,CA3 · weighted bits/step,C05-eT,mean_amplitude_weighted_bits_all,5,1,4,0,-0.03819983938952322,decoder
 CA3 / readout,CA3 · positive fraction,C05-eT,mean_positive_fraction,5,3,2,0,-0.00039702015713920095,decoder

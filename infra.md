@@ -2220,6 +2220,11 @@ For each finding, record:
   heading and was removed. For future compact trials, inspect the rasterized
   figure at its actual reading size in addition to checking source dimensions,
   and put detailed mark definitions in the caption when a key costs panel space.
+  During delivery, `origin/main` supplied two additional verified C15 pairs
+  to the DG and downstream tables. Merging before the final render changed the
+  C15 readout estimate from three pairs (two positive) to five pairs (four
+  positive), so future figure updates should fetch and inspect source-table
+  changes before freezing figure counts and captions.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

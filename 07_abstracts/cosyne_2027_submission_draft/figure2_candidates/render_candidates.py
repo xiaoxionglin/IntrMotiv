@@ -94,7 +94,7 @@ def validate_selected_evidence(t: dict[str, pd.DataFrame | dict]) -> None:
         "C01": 10, "C05": 20, "C15": 8}
     encoder = tagged(t["encoder"], kind="encoder_fields")
     for _, rows in encoder.groupby("metric"):
-        assert rows.groupby("group").size().reindex(ENCODER_GROUPS).tolist() == [5, 5, 5, 3]
+        assert rows.groupby("group").size().reindex(ENCODER_GROUPS).tolist() == [5, 5, 5, 5]
     worker = tagged(t["worker_fields"], kind="worker_fields")
     for _, rows in worker.groupby("metric"):
         assert rows.groupby("group").size().reindex(WORKER_GROUPS).tolist() == [5, 5]
@@ -102,7 +102,7 @@ def validate_selected_evidence(t: dict[str, pd.DataFrame | dict]) -> None:
     for _, rows in layers.groupby(["layer", "metric"]):
         encoder_rows = tagged(rows[rows.factor == "encoder"], kind="encoder_layers")
         worker_rows = tagged(rows[rows.factor == "worker"], kind="worker_layers")
-        assert encoder_rows.groupby("group").size().reindex(ENCODER_GROUPS).tolist() == [5, 5, 5, 3]
+        assert encoder_rows.groupby("group").size().reindex(ENCODER_GROUPS).tolist() == [5, 5, 5, 5]
         assert worker_rows.groupby("group").size().reindex(WORKER_GROUPS).tolist() == [5, 5]
     long_rows = t["longer_credit_online"]
     assert long_rows.groupby("dg_family").size().to_dict() == {

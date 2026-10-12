@@ -296,7 +296,7 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
         if source is peaks:
             subset = subset[subset.cutoff == 0.0025]
         subset["group"] = subset.contrast.map(dict(zip(contrasts, row_names)))
-        assert len(subset) == 18 and subset.group.notna().all()
+        assert len(subset) == 20 and subset.group.notna().all()
         assert np.allclose(subset.temporal - subset.constant,
                            subset.difference, atol=1e-10)
         paired_rows(ax, subset, row_names, "constant", "temporal",
@@ -316,9 +316,9 @@ def results_figure(*, mode: str = "paired", output_dir: Path = FIGURES,
         lambda row: (f"C05-w{row.fixed_arm[0].upper()}"
                      if row.family == "C05" else row.family), axis=1)
     decoder_groups = ["C01", "C05-wT", "C05-wC", "C15"]
-    assert downstream.groupby("group").size().reindex(decoder_groups).tolist() == [5, 5, 5, 3]
+    assert downstream.groupby("group").size().reindex(decoder_groups).tolist() == [5, 5, 5, 5]
     assert downstream.groupby("group").difference.apply(
-        lambda values: values.gt(0).sum()).reindex(decoder_groups).tolist() == [5, 5, 4, 2]
+        lambda values: values.gt(0).sum()).reindex(decoder_groups).tolist() == [5, 5, 4, 4]
     assert np.allclose(downstream.temporal - downstream.constant,
                        downstream.difference, atol=1e-10)
     ax = axes_in(fig, 0.67, 0.89, 1.63, 0.88)
