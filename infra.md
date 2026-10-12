@@ -157,8 +157,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   not qualify the full 16-source, eight-repeat protocol. See the [COSYNE
   control audit](06_experiments/cosyne_2027/checkpoint_fields_20261011.md#matched-command-control-gate).
   At the 12 October 06:38 Berlin check, another 48 same-label full-panel
-  jobs 8343879–8343926 were running with 72-hour limits. One inspected
-  command still used the monolithic manifest row and original output path.
+  jobs 8343879–8343926 were running with 72-hour limits. A later
+  [48-command audit](06_experiments/results/cosyne_2027_checkpoint_fields/control_rerun_command_audit_20261012.json)
+  verifies that every command used its original monolithic manifest row and
+  one of three original output folders, with no source-shard argument.
   By 08:24, 12 had failed with exit `134:0` after 3:36–4:00 hours; all
   twelve logs end in `buffer overflow detected` and a core dump from the
   native DMLab process. Seven failures were on n3104 and five on n3109,
