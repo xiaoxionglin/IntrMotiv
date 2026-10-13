@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import math
 import re
 import subprocess
 import sys
@@ -41,6 +40,7 @@ EXAMPLE_WIDTH = 2.25
 EXAMPLE_HEIGHT = 2.15
 MAP_WIDTH = 2.25
 MAP_HEIGHT = 2.15
+PUSH_GROUPS = ("C01", "C05-wT", "C15")
 
 
 @dataclass(frozen=True)
@@ -88,10 +88,12 @@ def rows(tables: dict) -> list[BoxSpec]:
     longer["group"] = longer.dg_family.map({"Prescribed": "P", "C15": "C15"})
 
     def add(slug: str, title: str, section: str, data: pd.DataFrame,
-            groups: list[str], control: str, tested: str, unit: str,
+            groups: tuple[str, ...] | list[str], control: str, tested: str, unit: str,
             contrast: str, protocol: str, source_keys: tuple[str, ...],
             *, original: bool = True, raw_pair_example: bool = True) -> None:
-        subset = data.copy()
+        # The source table retains C05-wC. This inventory displays the three
+        # requested push-ablation arms, with C05-wT labeled simply C05.
+        subset = data[data.group.isin(groups)].copy()
         assert subset.groupby("group").size().reindex(groups).notna().all(), slug
         identity = ["condition", "seed"] if section == "B" else ["group", "seed"]
         assert not subset.duplicated(identity).any(), slug
@@ -122,18 +124,18 @@ def rows(tables: dict) -> list[BoxSpec]:
         ("D02_map_overlap", "DG map overlap", "active_map_cosine_mean", "cosine"),
     ]:
         add(slug, title, "D", encoder[encoder.metric == key],
-            gallery.ENCODER_GROUPS, "constant", "temporal", unit,
+            PUSH_GROUPS, "constant", "temporal", unit,
             "temporal_minus_constant_encoder", "common_replay", ("encoder",),
             raw_pair_example=True)
     add("D03_peak_area", "Field-peak coverage", "D",
         peaks[peaks.metric == "effective_area_fraction"],
-        gallery.ENCODER_GROUPS, "constant", "temporal", "area fraction",
+        PUSH_GROUPS, "constant", "temporal", "area fraction",
         "temporal_minus_constant_encoder", "common_replay", ("peaks", "example"),
         raw_pair_example=True)
     add("E01_readout1_information", "Readout layer 1 coding", "E",
         encoder_layers[(encoder_layers.layer == "decoder_1") &
                        (encoder_layers.metric == "mean_bits_per_activation_eligible")],
-        gallery.ENCODER_GROUPS, "constant", "temporal", "bits/activation",
+        PUSH_GROUPS, "constant", "temporal", "bits/activation",
         "temporal_minus_constant_encoder", "common_replay", ("decoder",),
         raw_pair_example=True)
 
@@ -160,7 +162,7 @@ def rows(tables: dict) -> list[BoxSpec]:
         ("D05_prethreshold_overlap", "Prethreshold DG map overlap", "prethreshold_map_cosine_mean", "cosine"),
     ]:
         add(slug, title, "D", encoder[encoder.metric == key],
-            gallery.ENCODER_GROUPS, "constant", "temporal", unit,
+            PUSH_GROUPS, "constant", "temporal", unit,
             "temporal_minus_constant_encoder", "common_replay", ("encoder",),
             original=False)
     for slug, title, key, unit in [
@@ -168,7 +170,7 @@ def rows(tables: dict) -> list[BoxSpec]:
         ("D07_peak_separation", "Separation of field peaks", "mean_pairwise_peak_distance", "DMLab units"),
     ]:
         add(slug, title, "D", peaks[peaks.metric == key],
-            gallery.ENCODER_GROUPS, "constant", "temporal", unit,
+            PUSH_GROUPS, "constant", "temporal", unit,
             "temporal_minus_constant_encoder", "common_replay", ("peaks",),
             original=False)
     for slug, title, layer, metric, unit in [
@@ -180,7 +182,7 @@ def rows(tables: dict) -> list[BoxSpec]:
     ]:
         subset = encoder_layers[(encoder_layers.layer == layer) &
                                 (encoder_layers.metric == metric)]
-        add(slug, title, "E", subset, gallery.ENCODER_GROUPS,
+        add(slug, title, "E", subset, PUSH_GROUPS,
             "constant", "temporal", unit, "temporal_minus_constant_encoder",
             "common_replay", ("decoder",), original=False)
     add("F05_worker_replay_dg", "Worker credit: replayed DG coding", "F",
@@ -258,8 +260,8 @@ def box_plot(spec: BoxSpec) -> dict[str, str]:
     shared.paired_rows(ax, spec.data, list(spec.groups), spec.control,
                        spec.tested, labels=True, xlim=(0, 1),
                        marker_size=15, mode="box")
-    tick_names = {"C05-wT": "wT", "C05-wC": "wC", "C05-eT": "eT",
-                  "C05-eC": "eC", "C01": "01", "C15": "15"}
+    tick_names = {"C05-wT": "C05", "C05-wC": "wC", "C05-eT": "eT",
+                  "C05-eC": "eC"}
     ax.set_xticks(range(len(spec.groups)),
                   [tick_names.get(group, group) for group in spec.groups])
     ax.tick_params(axis="x", labelsize=12, rotation=55, length=2, pad=1)
@@ -390,9 +392,9 @@ def text_elements() -> list[dict]:
         ("F", "Worker and PPO credit"),
     ]
     for letter, title in headings:
-        fig = plt.figure(figsize=(3.0, .55), facecolor="white")
+        fig = plt.figure(figsize=(3.25, .55), facecolor="white")
         fig.text(.04, .55, f"{letter}  {title}", ha="left", va="center",
-                 fontsize=14, fontweight="bold", color="#20272C")
+                 fontsize=12, fontweight="bold", color="#20272C")
         slug = f"label_{letter.lower()}"
         items.append({"slug": slug, "section": letter, "kind": "section_label",
                       "original": True, "sources": [], "hashes": export(fig, slug)})
@@ -410,16 +412,56 @@ def text_elements() -> list[dict]:
     return items
 
 
-def combined_canvas(items: list[dict]) -> dict[str, str]:
-    """Place editable SVG groups on a neutral inventory board."""
+def canvas_group(item: dict) -> str:
+    """Group by the experimental intervention rather than panel letter."""
+    if item["kind"] in {"section_label", "legend"}:
+        return "Loose labels and key"
+    if item["kind"] in {"archived_tile", "peak_example"}:
+        return "Spatial examples"
+    if item["kind"] == "course":
+        return "Spatial emergence"
+    if item["section"] == "B":
+        return "Frozen-behavior comparison"
+    return {
+        "temporal_minus_constant_encoder": "Push ablation · DG encoder credit",
+        "temporal_minus_constant_worker": "Pull ablation · worker credit",
+        "joint_longer_ppo_gae": "Longer PPO and GAE credit",
+    }[item["contrast"]]
+
+
+MAIN_GROUPS = (
+    "Spatial emergence", "Frozen-behavior comparison",
+    "Push ablation · DG encoder credit", "Pull ablation · worker credit",
+    "Longer PPO and GAE credit", "Spatial examples", "Loose labels and key",
+)
+SCATTER_GROUPS = (
+    "Frozen-behavior comparison", "Push ablation · DG encoder credit",
+    "Pull ablation · worker credit", "Longer PPO and GAE credit",
+    "Spatial examples",
+)
+
+
+def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
+                    heading: str, note: str) -> dict[str, str]:
+    """Place independent SVG components in labeled, movable asset groups."""
     columns = 5
     slot_width = 3.30 * 72
     slot_height = 2.50 * 72
     margin = 0.28 * 72
-    header = 0.65 * 72
-    rows_count = math.ceil(len(items) / columns)
+    header = 0.78 * 72
+    group_label_height = 0.34 * 72
+    group_gap = 0.15 * 72
+    grouped = [(name, [item for item in items if canvas_group(item) == name])
+               for name in groups]
+    grouped = [(name, members) for name, members in grouped if members]
+    assert sum(len(members) for _, members in grouped) == len(items)
+    def row_height(name: str) -> float:
+        return 0.85 * 72 if name == "Loose labels and key" else slot_height
+
     width = 2 * margin + columns * slot_width
-    height = header + rows_count * slot_height + margin
+    height = header + margin + sum(
+        group_label_height + ((len(members) + columns - 1) // columns) * row_height(name)
+        + group_gap for name, members in grouped)
     ns = "http://www.w3.org/2000/svg"
     ET.register_namespace("", ns)
     root = ET.Element(f"{{{ns}}}svg", {
@@ -428,39 +470,47 @@ def combined_canvas(items: list[dict]) -> dict[str, str]:
     title = ET.SubElement(root, f"{{{ns}}}text", {
         "x": str(margin), "y": "25", "font-family": "Arial",
         "font-size": "16", "font-weight": "bold", "fill": "#20272C"})
-    title.text = "Figure 2 loose components · drag any element into your own layout"
+    title.text = heading
     subtitle = ET.SubElement(root, f"{{{ns}}}text", {
         "x": str(margin), "y": "44", "font-family": "Arial",
         "font-size": "10", "fill": "#5B646C"})
-    subtitle.text = "+ marks extra candidates; every box has the same 0.68 × 0.774 in data axes. Individual SVG/PDF files are in components/."
-    for index, item in enumerate(items):
-        slug = item["slug"]
-        source = (COMPONENTS / f"{slug}.svg").read_text()
-        ids = re.findall(r'\bid="([^"]+)"', source)
-        for old in sorted(ids, key=len, reverse=True):
-            new = f"{slug}_{old}"
-            source = source.replace(f'id="{old}"', f'id="{new}"')
-            source = source.replace(f"url(#{old})", f"url(#{new})")
-            source = source.replace(f'href="#{old}"', f'href="#{new}"')
-        sub = ET.fromstring(source)
-        source_width = float(re.search(r"([0-9.]+)", sub.get("width", ""))[1])
-        source_height = float(re.search(r"([0-9.]+)", sub.get("height", ""))[1])
-        row, col = divmod(index, columns)
-        x = margin + col * slot_width
-        y = header + row * slot_height
-        slot = ET.SubElement(root, f"{{{ns}}}g", {"id": f"component_{slug}"})
-        inner = ET.SubElement(slot, f"{{{ns}}}svg", {
-            "x": f"{x:.2f}", "y": f"{y:.2f}",
-            "width": f"{source_width:.2f}pt", "height": f"{source_height:.2f}pt",
-            "viewBox": sub.get("viewBox", f"0 0 {source_width} {source_height}")})
-        inner.extend(list(sub))
-    path = HERE / "figure2_loose_canvas.svg"
+    subtitle.text = note
+    y = header
+    for group_name, members in grouped:
+        label = ET.SubElement(root, f"{{{ns}}}text", {
+            "x": str(margin), "y": f"{y + 14:.2f}", "font-family": "Arial",
+            "font-size": "14", "font-weight": "bold", "fill": "#20272C"})
+        label.text = group_name
+        y += group_label_height
+        for index, item in enumerate(members):
+            slug = item["slug"]
+            source = (COMPONENTS / f"{slug}.svg").read_text()
+            ids = re.findall(r'\bid="([^"]+)"', source)
+            for old in sorted(ids, key=len, reverse=True):
+                new = f"{slug}_{old}"
+                source = source.replace(f'id="{old}"', f'id="{new}"')
+                source = source.replace(f"url(#{old})", f"url(#{new})")
+                source = source.replace(f'href="#{old}"', f'href="#{new}"')
+            sub = ET.fromstring(source)
+            source_width = float(re.search(r"([0-9.]+)", sub.get("width", ""))[1])
+            source_height = float(re.search(r"([0-9.]+)", sub.get("height", ""))[1])
+            row, col = divmod(index, columns)
+            x = margin + col * slot_width
+            item_y = y + row * row_height(group_name)
+            slot = ET.SubElement(root, f"{{{ns}}}g", {"id": f"component_{slug}"})
+            inner = ET.SubElement(slot, f"{{{ns}}}svg", {
+                "x": f"{x:.2f}", "y": f"{item_y:.2f}",
+                "width": f"{source_width:.2f}pt", "height": f"{source_height:.2f}pt",
+                "viewBox": sub.get("viewBox", f"0 0 {source_width} {source_height}")})
+            inner.extend(list(sub))
+        y += ((len(members) + columns - 1) // columns) * row_height(group_name) + group_gap
+    path = HERE / f"{stem}.svg"
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
     path.write_text("\n".join(line.rstrip() for line in
                               path.read_text().splitlines()) + "\n")
     files = {"svg": path}
     for suffix in ("pdf", "png"):
-        target = HERE / f"figure2_loose_canvas.{suffix}"
+        target = HERE / f"{stem}.{suffix}"
         command = ["inkscape", str(path), f"--export-type={suffix}",
                    f"--export-filename={target}"]
         if suffix == "png":
@@ -497,7 +547,9 @@ def main() -> None:
         if spec.raw_pair_example:
             items.append({"slug": spec.slug + "_raw_pairs", "section": spec.section,
                           "kind": "raw_pairs", "original": spec.original,
-                          "box": spec.slug, "sources": list(spec.source_keys),
+                          "box": spec.slug, "groups": list(spec.groups),
+                          "contrast": spec.contrast, "protocol": spec.protocol,
+                          "sources": list(spec.source_keys),
                           "hashes": raw_pair_plot(spec)})
     items.extend(archived_tiles())
     for arm in ("temporal", "constant"):
@@ -506,9 +558,24 @@ def main() -> None:
                       "original": False, "sources": ["example", "peaks"],
                       "hashes": peak_scatter(tables, arm)})
     items.extend(text_elements())
-    board = combined_canvas(items)
+    for item in items:
+        item["canvas_group"] = canvas_group(item)
+    main_items = [item for item in items if item["kind"] not in
+                  {"raw_pairs", "peak_example"}]
+    scatter_items = [item for item in items if item["kind"] in
+                     {"raw_pairs", "peak_example"}]
+    main_items.sort(key=lambda item: MAIN_GROUPS.index(item["canvas_group"]))
+    scatter_items.sort(key=lambda item: SCATTER_GROUPS.index(item["canvas_group"]))
+    main_board = combined_canvas(
+        main_items, stem="figure2_loose_canvas", groups=MAIN_GROUPS,
+        heading="Figure 2 · box plots and other loose components",
+        note="Grouped by intervention. + marks extra candidates; all box data axes are 0.68 × 0.774 in. Individual files are in components/.")
+    scatter_board = combined_canvas(
+        scatter_items, stem="figure2_scatter_canvas", groups=SCATTER_GROUPS,
+        heading="Figure 2 · scatter components",
+        note="Raw control-versus-tested pairs and field-peak locations; each component remains independently movable.")
     manifest = {
-        "schema": "intrmotiv/cosyne-figure2-loose-canvas/v1",
+        "schema": "intrmotiv/cosyne-figure2-loose-canvas/v2",
         "basis": "06_compact_vertical_boxes",
         "purpose": "Movable assets for author-led Figure 2 layout; not submitted",
         "box_axes_inches": [PLOT_WIDTH, PLOT_HEIGHT],
@@ -519,10 +586,17 @@ def main() -> None:
                           for key, path in gallery.SOURCE_PATHS.items()},
         "source_paths": {key: str(path.relative_to(shared.ROOT))
                          for key, path in gallery.SOURCE_PATHS.items()},
-        "items": items, "canvas_sha256": board,
+        "items": items,
+        "canvases": {
+            "figure2_loose_canvas": {
+                "kind": "main", "items": [item["slug"] for item in main_items],
+                "sha256": main_board},
+            "figure2_scatter_canvas": {
+                "kind": "scatter", "items": [item["slug"] for item in scatter_items],
+                "sha256": scatter_board}},
     }
     (HERE / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"Exported {len(items)} independently editable components")
+    print(f"Exported {len(main_items)} main and {len(scatter_items)} scatter components")
 
 
 if __name__ == "__main__":

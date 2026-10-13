@@ -1,6 +1,6 @@
 # Candidate Figure 2 gallery
 
-[Loose Figure 2 canvas with movable elements and extra plots](07_loose_canvas/README.md) · [editable SVG board](07_loose_canvas/figure2_loose_canvas.svg)
+[Loose Figure 2 components and extra plots](07_loose_canvas/README.md) · [main SVG canvas](07_loose_canvas/figure2_loose_canvas.svg) · [scatter SVG canvas](07_loose_canvas/figure2_scatter_canvas.svg)
 
 These are exploratory alternatives to Figure 2. They live in the IntrMotiv repository beside the submission draft; `build_overleaf_package.py` does **not** add them to the compact Overleaf ZIP. Candidate 6 mirrors the submitted box-plot layout; candidate 5 retains original paired values and the peak-map illustration. The PDFs and SVGs keep vector text and marks, with the archived trajectory and response-map tiles in candidate 6 embedded as cropped raster images; the full PNGs are 300-dpi previews. [manifest.json](manifest.json) records the exact source hashes, font, software versions, and output dimensions. [render_candidates.py](render_candidates.py) regenerates all six candidates from archived lightweight tables and illustrative SVGs.
 
