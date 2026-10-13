@@ -1,0 +1,219 @@
+{
+  "schema": "intrmotiv/figure1-field-options/v1",
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "options": [
+    {
+      "name": "01_cosyne_c15_temporal_s123",
+      "title": "COSYNE C15 temporal \u00b7 seed 123",
+      "kind": "cosyne",
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 123,
+      "checkpoint_frames": 100007936,
+      "visited_bins": 307,
+      "total_bins": 361,
+      "source_scale": "shared within-run scale; gray means unvisited",
+      "units": {
+        "4": {
+          "si": 0.2583279061556332,
+          "mono_score": 1.0,
+          "mono_field": true,
+          "active_fraction": 0.0168983101689831
+        },
+        "3": {
+          "si": 0.1651307460465332,
+          "mono_score": 1.0,
+          "mono_field": true,
+          "active_fraction": 0.0153984601539846
+        },
+        "15": {
+          "si": 0.1872578513982541,
+          "mono_score": 0.3377112150192261,
+          "mono_field": false,
+          "active_fraction": 0.0177982201779822
+        },
+        "12": {
+          "si": 0.1728602825483771,
+          "mono_score": 0.4775921702384949,
+          "mono_field": false,
+          "active_fraction": 0.0212978702129787
+        }
+      },
+      "source_sha256": {
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_fields_COS27_C15_TEMPORAL_S123__00_COS27_C15_TEMPORAL_S123__COS27_C15_TEMPORAL__s123__f100007936.png": "a5488b5b6686422126e53bf3b207b7c06ded78588270be73f9f92c2fe07bbf4b",
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/per_unit_place_field_metrics.csv": "7f73aeec11f68de5be6b06ec914c64dc59a64b2741cc2304a29b8ffa2beef860",
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_field_summary.csv": "b7356c787465cfbfdd572e026cfb92b7bdb9f11d08a8be7e070f950c9ce2145d"
+      }
+    },
+    {
+      "name": "02_cosyne_c05_const_temporal_s99",
+      "title": "COSYNE C05 constant/temporal \u00b7 seed 99",
+      "kind": "cosyne",
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 99,
+      "checkpoint_frames": 100007936,
+      "visited_bins": 248,
+      "total_bins": 361,
+      "source_scale": "shared within-run scale; gray means unvisited",
+      "units": {
+        "5": {
+          "si": 0.1364483693263969,
+          "mono_score": 1.0,
+          "mono_field": true,
+          "active_fraction": 0.0304969503049695
+        },
+        "4": {
+          "si": 0.3734737923562606,
+          "mono_score": 0.4335433840751648,
+          "mono_field": false,
+          "active_fraction": 0.0352964703529647
+        },
+        "15": {
+          "si": 0.289998952067543,
+          "mono_score": 0.4275386035442352,
+          "mono_field": false,
+          "active_fraction": 0.0306969303069693
+        },
+        "12": {
+          "si": 0.1676132657827904,
+          "mono_score": 0.7687579393386841,
+          "mono_field": false,
+          "active_fraction": 0.0321967803219678
+        }
+      },
+      "source_sha256": {
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_fields_COS27_C05_CONSTANT_TEMPORAL_S99__00_COS27_C05_CONSTANT_TEMPORAL_S99__COS27_C05_CONSTANT_TEMPORAL__s99__f100007936.png": "14ef1ca94a744e855147f76dbcafe6a3cbbbc81d625773bd848377e0ace95cdf",
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/per_unit_place_field_metrics.csv": "cc2456f7ad87ed610fb38e562be5760dc5ded9d0d406e1d095b95da5234a4b8c",
+        "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_field_summary.csv": "559972d87878bcef118851b14abf9b4202730abf00645c48e399f52497fb7488"
+      }
+    },
+    {
+      "name": "03_archived_c15_s8",
+      "title": "Earlier C15 \u00b7 seed 8",
+      "kind": "archive",
+      "condition": "C15",
+      "seed": 8,
+      "checkpoint_frames": 100040704,
+      "visited_bins": 249,
+      "total_bins": 361,
+      "source_scale": "independent per-unit scales; white means unvisited",
+      "units": {
+        "15": {
+          "si": 0.3345331494189604,
+          "mono_score": 0.66479695,
+          "mono_field": false,
+          "active_fraction": 0.0542945705429457
+        },
+        "10": {
+          "si": 0.2529932069423359,
+          "mono_score": 0.6485462,
+          "mono_field": false,
+          "active_fraction": 0.0304969503049695
+        },
+        "7": {
+          "si": 0.2249106758108407,
+          "mono_score": 1.0,
+          "mono_field": true,
+          "active_fraction": 0.0020997900209979
+        },
+        "14": {
+          "si": 0.21828305325953,
+          "mono_score": 0.38213554,
+          "mono_field": false,
+          "active_fraction": 0.0172982701729827
+        }
+      },
+      "source_sha256": {
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c15_seed8/place_fields_individual_scale.svg": "7d42eebe4035049731f3454cdadb118a57d92e2cf250657e8c4207bb687d9b69",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_units.csv": "f6022e4a301f3087e98fe1950e57264084576322345a1fc3b9205d6b04b65786",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65"
+      }
+    },
+    {
+      "name": "04_archived_c05_s123",
+      "title": "Earlier C05 \u00b7 seed 123",
+      "kind": "archive",
+      "condition": "C05",
+      "seed": 123,
+      "checkpoint_frames": 100040704,
+      "visited_bins": 257,
+      "total_bins": 361,
+      "source_scale": "independent per-unit scales; white means unvisited",
+      "units": {
+        "6": {
+          "si": 0.3226769061007774,
+          "mono_score": 0.3217678,
+          "mono_field": false,
+          "active_fraction": 0.0410958904109589
+        },
+        "1": {
+          "si": 0.2609317981170057,
+          "mono_score": 0.0,
+          "mono_field": false,
+          "active_fraction": 0.0015998400159984
+        },
+        "2": {
+          "si": 0.2219203745243061,
+          "mono_score": 1.0,
+          "mono_field": true,
+          "active_fraction": 0.027997200279972
+        },
+        "3": {
+          "si": 0.2215850687390444,
+          "mono_score": 0.40281153,
+          "mono_field": false,
+          "active_fraction": 0.0474952504749525
+        }
+      },
+      "source_sha256": {
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c05_seed123/place_fields_individual_scale.svg": "346471f3b9807c7670506592256409f56d92e76c88d49bbd243fb00bb78a05b6",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_units.csv": "f6022e4a301f3087e98fe1950e57264084576322345a1fc3b9205d6b04b65786",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65"
+      }
+    },
+    {
+      "name": "05_archived_c01_s99",
+      "title": "Earlier C01 \u00b7 seed 99",
+      "kind": "archive",
+      "condition": "C01",
+      "seed": 99,
+      "checkpoint_frames": 100040704,
+      "visited_bins": 264,
+      "total_bins": 361,
+      "source_scale": "independent per-unit scales; white means unvisited",
+      "units": {
+        "1": {
+          "si": 0.3503295672893056,
+          "mono_score": 0.34431726,
+          "mono_field": false,
+          "active_fraction": 0.0383961603839616
+        },
+        "2": {
+          "si": 0.2804959300581322,
+          "mono_score": 0.14497691,
+          "mono_field": false,
+          "active_fraction": 0.0341965803419658
+        },
+        "12": {
+          "si": 0.2485985677018224,
+          "mono_score": 0.56549984,
+          "mono_field": false,
+          "active_fraction": 0.0306969303069693
+        },
+        "13": {
+          "si": 0.2369235176524294,
+          "mono_score": 0.28488982,
+          "mono_field": false,
+          "active_fraction": 0.0274972502749725
+        }
+      },
+      "source_sha256": {
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c01_seed99/place_fields_individual_scale.svg": "7e5c7931919e0c3f49dc0260999317aa430c44f87c102e17a1ec2798af60430d",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv": "aff5e1e796703197976dd8f2b69cf878ce2e475d8e8c5700f8d46f69c8b8facc",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/mono_field_units.csv": "f6022e4a301f3087e98fe1950e57264084576322345a1fc3b9205d6b04b65786",
+        "06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv": "67eff0e5d3856bc377a750a5ddf2aba8bf842d786e8b11bcb7354a0a7dcb0c65"
+      }
+    }
+  ]
+}

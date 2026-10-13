@@ -2252,6 +2252,13 @@ For each finding, record:
   the remaining embedded symbols are handled without module overlap or
   clipping, while the original architecture elements and submitted figure
   remain intact.
+  A five-option DG example gallery exposed another layout trap: the earlier
+  per-unit-scale SVGs have run-dependent canvas bounds. Fixed pixel crops
+  included axis ticks or lost edge bins. The [gallery renderer](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/render_place_field_options.py)
+  now derives the four map bounds from each SVG's own axes patches and validates
+  the square crops. Future candidate galleries should combine unit-level SI,
+  mono score, activity fraction, and probe occupancy, then inspect full-size
+  fields before treating a strict mono score as a compelling visual example.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
