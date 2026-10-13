@@ -1,5 +1,5 @@
 {
-  "schema": "intrmotiv/figure1-eight-field-gallery/v1",
+  "schema": "intrmotiv/figure1-eight-field-gallery/v2",
   "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "sheets": [
     {
@@ -41,6 +41,12 @@
               "active_fraction": 0.0328967103289671
             }
           },
+          "selection_ids": {
+            "C01-1": 6,
+            "C01-2": 15,
+            "C01-3": 5,
+            "C01-4": 0
+          },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/place_fields_COS27_C01_TEMPORAL_S99__00_COS27_C01_TEMPORAL_S99__COS27_C01_TEMPORAL__s99__f100007936.png": "0d1449507fc20d82f13727d38923d35b9ad08ad177f486865e65de76cb68611e",
             "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/per_unit_place_field_metrics.csv": "f43f6a4e32654824d73b856ae273c41fec81a31eb3b3d6b770b81d7596e75ecb",
@@ -81,6 +87,12 @@
               "mono_field": false,
               "active_fraction": 0.0395960403959604
             }
+          },
+          "selection_ids": {
+            "C01-5": 2,
+            "C01-6": 10,
+            "C01-7": 7,
+            "C01-8": 15
           },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c01_constant_s3/summary/place_fields_COS27_C01_CONSTANT_S99__00_COS27_C01_CONSTANT_S99__COS27_C01_CONSTANT__s99__f100007936.png": "67a0f979d8b3d5c4682690bdb4752469038a37457337fcda893179b4eb7e6db6",
@@ -129,6 +141,12 @@
               "active_fraction": 0.0277972202779722
             }
           },
+          "selection_ids": {
+            "C05-1": 5,
+            "C05-2": 12,
+            "C05-3": 7,
+            "C05-4": 6
+          },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_fields_COS27_C05_CONSTANT_TEMPORAL_S99__00_COS27_C05_CONSTANT_TEMPORAL_S99__COS27_C05_CONSTANT_TEMPORAL__s99__f100007936.png": "14ef1ca94a744e855147f76dbcafe6a3cbbbc81d625773bd848377e0ace95cdf",
             "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/per_unit_place_field_metrics.csv": "cc2456f7ad87ed610fb38e562be5760dc5ded9d0d406e1d095b95da5234a4b8c",
@@ -169,6 +187,12 @@
               "mono_field": false,
               "active_fraction": 0.0244975502449755
             }
+          },
+          "selection_ids": {
+            "C05-5": 11,
+            "C05-6": 7,
+            "C05-7": 3,
+            "C05-8": 5
           },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
@@ -217,6 +241,12 @@
               "active_fraction": 0.0200979902009799
             }
           },
+          "selection_ids": {
+            "C15-1": 4,
+            "C15-2": 3,
+            "C15-3": 7,
+            "C15-4": 11
+          },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_fields_COS27_C15_TEMPORAL_S123__00_COS27_C15_TEMPORAL_S123__COS27_C15_TEMPORAL__s123__f100007936.png": "a5488b5b6686422126e53bf3b207b7c06ded78588270be73f9f92c2fe07bbf4b",
             "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/per_unit_place_field_metrics.csv": "7f73aeec11f68de5be6b06ec914c64dc59a64b2741cc2304a29b8ffa2beef860",
@@ -257,6 +287,12 @@
               "mono_field": false,
               "active_fraction": 0.0183981601839816
             }
+          },
+          "selection_ids": {
+            "C15-5": 0,
+            "C15-6": 11,
+            "C15-7": 3,
+            "C15-8": 14
           },
           "source_sha256": {
             "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_fields_COS27_C15_CONSTANT_S123__00_COS27_C15_CONSTANT_S123__COS27_C15_CONSTANT__s123__f100007936.png": "5876bae144910c72a637e9cf00745c5deb5675db12f7fed0793d8ec040788e7a",

@@ -62,6 +62,7 @@ def draw_sheet(name: str, title: str, rows: list[dict]) -> None:
                  f"{row['visited']}/361 bins visited ({row['visited'] / 361:.0%})",
                  va="top", fontsize=12, fontweight="bold")
         for column, unit in enumerate(row["units"]):
+            selection_id = f"{name.upper()}-{row_index * 4 + column + 1}"
             x = 0.030 + column * 0.247
             ax = fig.add_axes([x, map_y, 0.205, 0.1875])
             ax.imshow(row["tiles"][unit], interpolation="nearest")
@@ -72,7 +73,8 @@ def draw_sheet(name: str, title: str, rows: list[dict]) -> None:
                 spine.set_linewidth(0.7)
             metric = row["metrics"][unit]
             center = x + 0.1025
-            fig.text(center, map_y - 0.010, f"DG {unit}", ha="center", va="top",
+            fig.text(center, map_y - 0.010, f"{selection_id} · DG {unit}",
+                     ha="center", va="top",
                      fontsize=12, fontweight="bold")
             fig.text(center, map_y - 0.047,
                      f"SI {metric['si']:.3f} bits", ha="center", va="top", fontsize=12)
@@ -97,13 +99,13 @@ def draw_sheet(name: str, title: str, rows: list[dict]) -> None:
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     font = style()
-    manifest = {"schema": "intrmotiv/figure1-eight-field-gallery/v1",
+    manifest = {"schema": "intrmotiv/figure1-eight-field-gallery/v2",
                 "font": font, "sheets": []}
     selection_rows = []
     for name, title, specifications in SHEETS:
         rows = []
         manifest_rows = []
-        for label, batch, condition, seed, units in specifications:
+        for row_index, (label, batch, condition, seed, units) in enumerate(specifications):
             tiles, metrics, visited, scale_note, sources = cosyne_option(
                 batch, condition, seed, units)
             rows.append({"label": label, "condition": condition, "seed": seed,
@@ -115,14 +117,19 @@ def main() -> None:
                 "visited_bins": visited, "total_bins": 361,
                 "source_scale": scale_note,
                 "units": {str(unit): metrics[unit] for unit in units},
+                "selection_ids": {
+                    f"{name.upper()}-{row_index * 4 + position + 1}": unit
+                    for position, unit in enumerate(units)},
                 "source_sha256": {
                     str(path.relative_to(DRAFT.parents[1])):
                     hashlib.sha256(path.read_bytes()).hexdigest()
                     for path in sources},
             })
-            for unit in units:
+            for position, unit in enumerate(units):
+                selection_id = f"{name.upper()}-{row_index * 4 + position + 1}"
                 selection_rows.append({
-                    "architecture": name.upper(), "row_label": label,
+                    "selection_id": selection_id, "architecture": name.upper(),
+                    "row_label": label,
                     "condition": condition, "seed": seed,
                     "checkpoint_frames": 100007936, "probe_decisions": 10001,
                     "visited_bins": visited, "unit": unit, **metrics[unit],

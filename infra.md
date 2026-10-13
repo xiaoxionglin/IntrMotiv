@@ -2273,6 +2273,8 @@ For each finding, record:
   for any final example is an author-selected map whose visible footprint and
   provenance are accurately described in the caption; a request for eight
   choices does not imply that eight clean compact fields exist in every run.
+  Stable selection IDs on both the sheets and CSV prevent ambiguous references
+  when a DG number appears in more than one condition.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

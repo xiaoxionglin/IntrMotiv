@@ -1,12 +1,33 @@
 # Eight screened DG examples per architecture
 
-These are **selection sheets**, not replacements for the submitted Figure 1. Each sheet shows eight different DG units from two terminal networks of the same architecture. The rows are separate trained runs and separate frozen-policy probes; comparisons of response amplitude or map location across rows are not controlled.
+These are **selection sheets** for choosing Figure 1 examples. Each tile has a unique ID printed beside its DG unit number. Send back IDs such as `C15-1`, `C15-2`, `C05-1`, and `C01-1`; the ID identifies the exact architecture, training condition, seed, and unit through the [selection table](selected_units.csv). No submission figure has been changed from this gallery.
 
-| Architecture | Full-size sheet | Source conditions | Visited bins |
+## Architecture and asset index
+
+All three architectures share the fixed ImageNet-pretrained ResNet-18 trunk through layer 2, a learned DG projection with batch normalization, a fixed CA3-like sequence memory, and a learned action/value readout. The architecture names describe how the policy explores or selects internally detected DG goals:
+
+| Architecture | Navigation design | Eight-map assets | Selection IDs |
 | --- | --- | --- | --- |
-| C01, direct exploration | [PNG](c01_eight_screened_fields.png) · [PDF](c01_eight_screened_fields.pdf) | temporal DG credit; constant DG credit, seed 99 | 226/361; 307/361 |
-| C05, DG-target navigation | [PNG](c05_eight_screened_fields.png) · [PDF](c05_eight_screened_fields.pdf) | constant DG / temporal worker; temporal DG / temporal worker, seed 99 | 248/361; 190/361 |
-| C15, frontier-selected DG targets | [PNG](c15_eight_screened_fields.png) · [PDF](c15_eight_screened_fields.pdf) | temporal DG credit; constant DG credit, seed 123 | 307/361; 239/361 |
+| **C01** | Direct exploration; no DG target-selection worker. | [PNG](c01_eight_screened_fields.png) · [PDF](c01_eight_screened_fields.pdf) | `C01-1`–`C01-8` |
+| **C05** | Uses an internally detected DG event as a navigation target. | [PNG](c05_eight_screened_fields.png) · [PDF](c05_eight_screened_fields.pdf) | `C05-1`–`C05-8` |
+| **C15** | Adds frontier-based selection of DG targets. | [PNG](c15_eight_screened_fields.png) · [PDF](c15_eight_screened_fields.pdf) | `C15-1`–`C15-8` |
+
+The [original architecture artwork](../../../figures/architecture_v2.svg) and [Figure 1 design notes](../../README.md) give the shared module diagram and longer explanation.
+
+## Exact unit index
+
+Read each sheet left to right: IDs 1–4 are the top row and IDs 5–8 are the bottom row. Each row comes from one terminal network and one policy-driven probe. The listed DG numbers are in the same left-to-right order as the IDs.
+
+| IDs | Condition in that row | Seed | DG units in ID order | Visited bins |
+| --- | --- | ---: | --- | ---: |
+| `C01-1`–`C01-4` | Temporal DG credit | 99 | 6, 15, 5, 0 | 226/361 (63%) |
+| `C01-5`–`C01-8` | Constant DG credit | 99 | 2, 10, 7, 15 | 307/361 (85%) |
+| `C05-1`–`C05-4` | Constant DG / temporal worker | 99 | 5, 12, 7, 6 | 248/361 (69%) |
+| `C05-5`–`C05-8` | Temporal DG / temporal worker | 99 | 11, 7, 3, 5 | 190/361 (53%) |
+| `C15-1`–`C15-4` | Temporal DG credit | 123 | 4, 3, 7, 11 | 307/361 (85%) |
+| `C15-5`–`C15-8` | Constant DG credit | 123 | 0, 11, 3, 14 | 239/361 (66%) |
+
+DG credit changes how event responses are reinforced. The C05 row labels also specify the policy worker's target-hit credit; both displayed C05 rows use temporal worker credit. The C15 comparison varies DG credit while its frontier-target policy remains the same architecture. Condition, seed, and probe coverage must travel with any selected map.
 
 **Screening.** I inspected all 16 maps in each of the six saved atlases and excluded the most visibly diffuse responses, including C01 constant DG 4, 11, and 14; C05 constant/temporal DG 4 and 15; and C15 temporal DG 0, 1, 12, and 14. Selection also considered the saved spatial-information and mono-field scores and avoided nearly silent units. This is a qualitative screen, not a new statistical field-size threshold. Some retained candidates are weak, border-weighted, or have multiple hotspots. C01 in particular does **not** supply eight convincing compact place fields; the sheet makes its less compelling alternatives visible rather than silently replacing them with broad high-score maps.
 
