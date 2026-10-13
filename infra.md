@@ -2274,7 +2274,10 @@ For each finding, record:
   provenance are accurately described in the caption; a request for eight
   choices does not imply that eight clean compact fields exist in every run.
   Stable selection IDs on both the sheets and CSV prevent ambiguous references
-  when a DG number appears in more than one condition.
+  when a DG number appears in more than one condition. A separate
+  [unfiltered atlas index](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_place_field_atlases.md)
+  now links the complete 16-unit source PNGs directly, since a shortlist can
+  otherwise be mistaken for the full available visual dataset.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
