@@ -1,0 +1,37 @@
+{
+  "schema": "intrmotiv/cosyne-worker-regimen-paired-figure/v1",
+  "row_unit": "one matched training-seed pair within family and policy-credit regimen",
+  "contrast": "temporal minus constant worker bonus; temporal DG encoder held fixed",
+  "high_credit_source_commit": "a26852f",
+  "high_credit_source_root": "06_experiments/reward_credit/results/cosyne27_worker_g999_l995_20261012",
+  "source_bundles": {
+    "high_c05": {
+      "spatial_information_and_graph": "c05_spatial_per_snapshot.csv; SHA-256 7c939d889b83553c79d7e2f4297cf6ce00b12898aa5435cb261c0bd7da5abeec",
+      "coverage_auc": "c05_online_per_run.csv; SHA-256 b2407e5223dba96083957bd440b03f61bed1131a389e0873c86bf505cf923b5c",
+      "hit_observations": "c05_worker_hit_weighted_90_100m.csv; SHA-256 543e69d6f1b92166a8887e2fbbb4374f3151cbf625efbf54e5a861f9cabb6eef",
+      "verification": "all 20 seed-metric differences recomputed locally"
+    },
+    "high_c15": {
+      "spatial_information_and_graph": "c15_spatial_per_snapshot.csv; SHA-256 6128a15f59e693380fa8491ea8f18e99c1a3e3f9347c79e254286198b22ff128",
+      "coverage_auc": "c15_online_per_run.csv; SHA-256 5e51650c428147e8e52e32f4a460b7ee21b042e332924b57d6418a56c8bcdd7f",
+      "hit_observations": "c15_worker_hit_weighted_90_100m.csv; SHA-256 805183fa0da625df28edeacd4434f3c69231300c0acbc1d2b30410390061bc1e",
+      "verification": "all 20 seed-metric differences recomputed locally"
+    },
+    "original_c05": {
+      "spatial_information": [
+        "06_experiments/results/cosyne_2027_snapshot_peak_spread/inputs/c05_pushpull_s3_per_snapshot.csv; SHA-256 c5263b387409509692fa52e9e036fd4e1b6b8ff10cc38ab0c94406f0facc31dc",
+        "06_experiments/results/cosyne_2027_snapshot_peak_spread/inputs/c05_pushpull_s2_per_snapshot.csv; SHA-256 1ff6b7458ec4b5407f22df979944e42b41be62f10cbff7e3ef343dd92e69eec2"
+      ],
+      "coverage_auc": "NEMO2 analysis/cosyne27_checkpoint_20261011/online_scalar/c05_pushpull_{s3,s2}/per_run.csv",
+      "hit_observations": "06_experiments/results/cosyne_2027_checkpoint_fields/conditional_hits/conditional_hit_seed_metrics.csv; SHA-256 bb3201548a19efb8436c57c7df5d9c5bb70995b2bd66a5102eff6e4159bc9272",
+      "reliable_edges": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/paired_worker_directed_graph.csv; SHA-256 c631d8e66bbb74dd6d08e1ef45975ddf95a7baf97aac0d0baf77aeea8dfddcc4",
+      "verification": "15 SI/hit/graph values recomputed locally; five AUC differences supplied by source task"
+    },
+    "original_c15": {
+      "spatial_information_and_graph": "NEMO2 analysis/online_spatial/{cosyne27_c15_encoder_s3_20261010,cosyne27_c15_encoder_s2_20261010,cosyne27_c15_constant_hit_s5_20261012}/**/snapshot_target_000100000000_actual_*.npz",
+      "coverage_auc_and_hit_observations": "NEMO2 analysis/{cosyne27_original_gamma_worker_compare_20261013/c15_temporal_s3,cosyne27_checkpoint_20261011/online_scalar/c15_encoder_s2,cosyne27_original_gamma_worker_compare_20261013/c15_constant}/per_run.csv",
+      "verification": "20 seed-metric differences supplied by source task; remote file export was rejected by automatic approval review, so this task did not independently reload them"
+    }
+  },
+  "precision": "Original C05 spatial-information differences use locally recomputed nine-decimal values; other rows retain the supplied rounded differences."
+}

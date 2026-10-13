@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep authorized paired source tables with cross-regimen figures — 2026-10-13
+
+- **Evidence:** The [worker-regimen box plots](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md) could verify all high-credit rows and three original-C05 readouts from local artifacts. Original-C05 AUC and original-C15 source summaries remained on NEMO2; automatic approval review rejected copying five private summary CSVs into the worktree. The figure therefore carries a compact seed table and explicit source-status metadata, but those remote readouts were not independently reloaded in this task.
+- **Impact:** A future plot revision cannot independently recompute every paired value from the repository alone, and a source handoff can blur the distinction between verified and supplied rows.
+- **Improvement/status:** Pending. Extend the canonical [study analysis workflow](04_implementation/standardized_study_workflow.md) to emit an authorized, lightweight paired table with both arm values, exact run identity, metric protocol, and source hashes when the analysis is collected. Keep bulk NPZs and event histories in the allocated workspace.
+- **Acceptance:** A local figure rebuild recomputes every plotted difference from that table, verifies five matched seeds per group and source fingerprints, and identifies any arm crossing a learner-patch boundary.
+
 ### Keep figure-ready field arrays with occupancy metadata — 2026-10-12
 
 - **Evidence:** Revising the [experimental COSYNE Figure 1](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md) required screening archived probe tables for visited-bin counts, visually comparing separate SVG sheets, and cropping chosen tiles at export-specific pixel coordinates. The first example covered 220 of 361 bins; the replacement covered 310. The underlying historical NPZs were not in this repository.
