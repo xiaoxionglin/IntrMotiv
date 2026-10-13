@@ -2421,10 +2421,16 @@ For each finding, record:
   now retains each occupied-bin mask, eligible dominant peak, active fraction,
   and source NPZ hash. Its pooled 318-bin support and 100-unit Gaussian area
   reproduce the [paired peak-coverage results](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_representation_pairs.csv).
+  Follow-up inspection found that the archived nearest-peak distance included
+  one low-activity C05 peak per snapshot that the area calculation excluded at
+  its 0.25% activity cutoff. Recomputing both measures on identical peak sets
+  changes the C05 mean spacing difference from +67.2 to +8.3 DMLab units.
 - **Impact:** The comparison now measures spatial peak coverage directly;
   distinct-bin counts alone could have missed clustering. The 53 KB summary
   regenerates the figures without another remote NPZ read, while raw NPZs
-  remain in the allocated workspace.
+  remain in the allocated workspace. The [peak-location sheets and diagnostic](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md#why-coverage-and-nearest-peak-distance-appeared-to-disagree)
+  now expose cutoff sensitivity and seed-level variation instead of relying on
+  the group means alone.
 - **Improvement/status:** Completed for this high-credit cohort through the
   [snapshot-input collector](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/collect_high_credit_peak_inputs.py)
   and reusable canonical peak-area function. A general canonical spatial
@@ -2434,5 +2440,7 @@ For each finding, record:
 - **Acceptance:** All 20 declared seed/arm snapshots have pinned paths and
   SHA-256 hashes, the archived inputs regenerate the five paired values per
   family, and an independent direct-NPZ calculation agrees with the archived
-  values. Preserve the mask hash, cutoff, blur width, and NPZ hashes in the
-  comparison metadata.
+  values. The archived all-eligible spacing is reproduced from the coordinates
+  within 0.0001 DMLab units, and the revised spacing uses exactly the peaks
+  used for area. Preserve the mask hash, cutoff, blur width, and NPZ hashes in
+  the comparison metadata.

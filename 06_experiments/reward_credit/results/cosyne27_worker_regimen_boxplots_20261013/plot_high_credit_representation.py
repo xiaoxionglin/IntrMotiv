@@ -43,12 +43,12 @@ METRICS = (
     ("effective_peak_area_fraction", "B  Field-peak coverage", "area fraction", "peak_coverage"),
     ("unique_active_peak_bins", "C  Distinct peak bins", "bins", "distinct_peak_bins"),
     ("mono_field_unit_fraction", "D  Single fields", "fraction", "single_fields"),
-    ("median_dominant_peak_nearest_neighbor_distance", "E  Peak spacing", "DMLab units", "peak_spacing"),
+    ("cutoff_median_nearest_peak_distance", "E  Peak spacing", "DMLab units", "peak_spacing"),
 )
 
 
-def peak_area_data() -> tuple[pd.DataFrame, dict]:
-    """Apply the canonical equal-mass Gaussian entropy-area metric on one mask."""
+def load_peak_inputs() -> tuple[list[dict], np.ndarray]:
+    """Validate the archived 20 snapshots and return their common spatial mask."""
     if not PEAK_INPUTS.is_file():
         raise FileNotFoundError(f"Missing {PEAK_INPUTS}; collect the peak inputs first")
     source = json.loads(PEAK_INPUTS.read_text())
@@ -70,28 +70,48 @@ def peak_area_data() -> tuple[pd.DataFrame, dict]:
         masks.append(np.fromiter((bit == "1" for bit in bits),
                                  dtype=bool, count=361).reshape(19, 19))
     shared_mask = np.logical_or.reduce(masks)
+    return records, shared_mask
+
+
+def selected_peak_coordinates(record: dict) -> tuple[np.ndarray, np.ndarray]:
+    """Return coverage-qualified peaks and eligible peaks below its activity cutoff."""
+    fractions = np.asarray(record["active_fraction"], dtype=float)
+    eligible = np.asarray(record["field_eligible"], dtype=bool)
+    coordinates = np.array([[np.nan if value is None else value for value in pair]
+                            for pair in record["field_dominant_peak_xy"]], dtype=float)
+    if (fractions.shape != (16,) or eligible.shape != (16,) or
+            coordinates.shape != (16, 2) or not np.isfinite(fractions).all()):
+        raise ValueError(f"Invalid DG-unit input in {record['run_name']}")
+    finite_eligible = eligible & np.isfinite(coordinates).all(axis=1)
+    qualified = finite_eligible & (fractions >= PEAK_CUTOFF)
+    selected = coordinates[qualified]
+    excluded = coordinates[finite_eligible & ~qualified]
+    if len(selected) < 2 or ((selected < 100) | (selected >= 2000)).any():
+        raise ValueError(f"Insufficient bounded peaks in {record['run_name']}")
+    return selected, excluded
+
+
+def peak_area_data() -> tuple[pd.DataFrame, dict]:
+    """Apply the canonical area and nearest-distance metrics to the same peaks."""
+    records, shared_mask = load_peak_inputs()
     mask_hash = hashlib.sha256(shared_mask.astype(np.uint8).tobytes()).hexdigest()
     rows = []
     for record in records:
-        fractions = np.asarray(record["active_fraction"], dtype=float)
-        eligible = np.asarray(record["field_eligible"], dtype=bool)
-        coordinates = np.array([[np.nan if value is None else value for value in pair]
-                                for pair in record["field_dominant_peak_xy"]], dtype=float)
-        if (fractions.shape != (16,) or eligible.shape != (16,) or
-                coordinates.shape != (16, 2) or not np.isfinite(fractions).all()):
-            raise ValueError(f"Invalid DG-unit input in {record['run_name']}")
-        valid = (fractions >= PEAK_CUTOFF) & eligible & np.isfinite(coordinates).all(axis=1)
-        xy = coordinates[valid]
-        if len(xy) < 1 or ((xy < 100) | (xy >= 2000)).any():
-            raise ValueError(f"No valid bounded peaks in {record['run_name']}")
-        area = peak_metric.spread_metrics(
-            xy, shared_mask, peak_metric.SIGMA)["effective_area_fraction"]
-        if not np.isfinite(area) or not (0 < area <= 1):
-            raise ValueError(f"Invalid peak area in {record['run_name']}")
+        xy, excluded = selected_peak_coordinates(record)
+        metrics = peak_metric.spread_metrics(xy, shared_mask, peak_metric.SIGMA)
+        uncut = peak_metric.spread_metrics(
+            np.concatenate((xy, excluded)), shared_mask,
+            peak_metric.SIGMA)["median_nearest_peak_distance"]
+        area = metrics["effective_area_fraction"]
+        nearest = metrics["median_nearest_peak_distance"]
+        if not np.isfinite([area, nearest, uncut]).all() or not (0 < area <= 1):
+            raise ValueError(f"Invalid peak geometry in {record['run_name']}")
         rows.append({"family": record["family"], "seed": record["seed"],
                      "worker_bonus": record["worker_bonus"],
                      "effective_peak_area_fraction": area,
-                     "eligible_peak_count": int(valid.sum()),
+                     "cutoff_median_nearest_peak_distance": nearest,
+                     "uncut_median_nearest_peak_distance": uncut,
+                     "eligible_peak_count": int(len(xy)),
                      "snapshot_sha256": record["snapshot_sha256"]})
     provenance = {
         "mask_definition": "union of occupied bins across all 20 high-credit 100M snapshots",
@@ -142,13 +162,24 @@ def paired_data() -> tuple[pd.DataFrame, dict]:
                 row[f"delta_{metric}"] = t - c
             for arm, label in (("TEMPORAL", "temporal"), ("CONSTANT", "constant")):
                 peak = area.loc[(family, seed, arm)]
+                if not np.isclose(
+                        float(peak.uncut_median_nearest_peak_distance),
+                        float(indexed.loc[(seed, arm),
+                                          "median_dominant_peak_nearest_neighbor_distance"]),
+                        atol=1e-4):
+                    raise ValueError(f"Uncut peak-spacing source mismatch for {family} seed {seed} {arm}")
                 row[f"{label}_effective_peak_area_fraction"] = float(
                     peak.effective_peak_area_fraction)
+                row[f"{label}_cutoff_median_nearest_peak_distance"] = float(
+                    peak.cutoff_median_nearest_peak_distance)
                 row[f"{label}_eligible_peak_count"] = int(peak.eligible_peak_count)
                 row[f"{label}_snapshot_sha256"] = str(peak.snapshot_sha256)
             row["delta_effective_peak_area_fraction"] = (
                 row["temporal_effective_peak_area_fraction"] -
                 row["constant_effective_peak_area_fraction"])
+            row["delta_cutoff_median_nearest_peak_distance"] = (
+                row["temporal_cutoff_median_nearest_peak_distance"] -
+                row["constant_cutoff_median_nearest_peak_distance"])
             expected_si = existing.loc[(family, seed), "delta_spatial_information_bits"]
             if not np.isclose(row["delta_active_unit_mean_spatial_information"],
                               expected_si, atol=1e-6):
