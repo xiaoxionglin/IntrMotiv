@@ -22,6 +22,10 @@ ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources.zip"
 FULL_ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources_full.zip"
 LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_fiddle.svg": DRAFT_DIR / "Figure2_fiddle.svg",
+    "figures/Figure2_tetris.svg": DRAFT_DIR / "Figure2_tetris.svg",
+    "figures/Figure2_tetris.pdf": DRAFT_DIR / "Figure2_tetris.pdf",
+    "figures/Figure2_tetris.png": DRAFT_DIR / "Figure2_tetris.png",
+    "FIGURE2_COMPACT_NOTES.md": DRAFT_DIR / "Figure2_tetris_README.md",
     "figures/Figure2_fiddle_with_fields.svg": DRAFT_DIR / "Figure2_fiddle_with_fields.svg",
     "figures/Figure2_fiddle_with_fields.pdf": DRAFT_DIR / "Figure2_fiddle_with_fields.pdf",
     "figures/Figure2_fiddle_with_fields.png": DRAFT_DIR / "Figure2_fiddle_with_fields.png",
@@ -97,10 +101,11 @@ def build_compact() -> None:
         index.write_text("# Figures in this compact Overleaf project\n\n"
                          "The two PDFs below are used by `main.tex`; each has an SVG source.\n\n"
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
-                         + "\n\nThe editable Figure 2 layout trial is at "
-                         "`figures/Figure2_fiddle_with_fields.svg`, with a PDF "
-                         "and preview beside it. Read `FIGURE2_LAYOUT_NOTES.md` "
-                         "before using its caption.\n\nThe expanded candidate "
+                         + "\n\nThe compact editable Figure 2 layout trial is at "
+                         "`figures/Figure2_tetris.svg`, with a PDF and preview "
+                         "beside it. Read `FIGURE2_COMPACT_NOTES.md` and the "
+                         "longer `FIGURE2_LAYOUT_NOTES.md` for its caption. "
+                         "The earlier taller trial is also included.\n\nThe expanded candidate "
                          "library is in the repository's full archive.\n")
         assets[index.name] = index
         check_included_figures(assets)
@@ -180,7 +185,11 @@ def build_full() -> None:
             "",
         ]
         index_lines.extend(f"- `figures/{pdf_path.name}`" for pdf_path in current_pdfs)
-        index_lines.extend(["", "## Current Figure 2 layout trial", "",
+        index_lines.extend(["", "## Compact Figure 2 layout trial", "",
+                            "- `figures/Figure2_tetris.pdf`",
+                            "- `figures/Figure2_tetris.svg`",
+                            "- `FIGURE2_COMPACT_NOTES.md`",
+                            "", "## Earlier Figure 2 layout trial", "",
                             "- `figures/Figure2_fiddle_with_fields.pdf`",
                             "- `figures/Figure2_fiddle_with_fields.svg`",
                             "- `FIGURE2_LAYOUT_NOTES.md`"])

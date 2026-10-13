@@ -2377,6 +2377,13 @@ For each finding, record:
   the exported PDF at its intended width. Acceptance is no clipped text, a
   caption distinguishing qualitative own-policy maps from paired replay data,
   and explicit placeholder labels for any proposed metric illustrations.
+  The next page-width trial placed three same-run maps in the first row's
+  unused right margin, moved the push/pull rows closer, and spread the four
+  result groups in each row without resizing them. This reduced the figure
+  from 4.49 to 2.92 inches high at the draft's 7.5-inch text width. For later
+  compact layouts, measure group bounds first, move complete SVG groups, and
+  leave non-data icon proposals on a separate taller trial. Check the outermost
+  headings and bottom tick labels after export; both clipped on the first pass.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
