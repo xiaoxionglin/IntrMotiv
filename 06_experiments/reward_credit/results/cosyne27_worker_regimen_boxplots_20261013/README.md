@@ -6,6 +6,8 @@
 
 **Shared hit-rate axis, dual graph-edge axes:** [PDF](high_credit_worker_shared_hit_rate_dual_edges_compact.pdf) · [SVG](high_credit_worker_shared_hit_rate_dual_edges_compact.svg) · [PNG preview](high_credit_worker_shared_hit_rate_dual_edges_compact.png) · [paired per-arm hit rates](high_credit_hit_rate_pairs.csv) · [renderer](plot_high_credit_dual_axes.py)
 
+**Additional DG representation measures:** [PDF](high_credit_worker_representation_compact.pdf) · [SVG](high_credit_worker_representation_compact.svg) · [PNG preview](high_credit_worker_representation_compact.png) · [per-arm and paired-seed values](high_credit_representation_pairs.csv) · [renderer](plot_high_credit_representation.py)
+
 **Earlier dual C/D axes:** [PDF](high_credit_worker_dual_axis_hit_rate_compact.pdf) · [SVG](high_credit_worker_dual_axis_hit_rate_compact.svg) · [PNG preview](high_credit_worker_dual_axis_hit_rate_compact.png)
 
 The selected compact figure is 7.5 × 2.5 inches. It follows the submitted Figure 2's Arial typography, C05 orange/C15 green palette, quartile boxes with individual seed dots, min–max whiskers, and explicit signed $\Delta$ axes. All four panels show **only** the high policy-credit regimen, with C05 and C15 on each horizontal axis. Each panel uses its own vertical unit and range.
@@ -49,6 +51,27 @@ MPLCONFIGDIR=/tmp/cosyne_high_shared_mpl /home/xiaoxiong/miniforge3/envs/SF_git/
 ```
 
 Omit `--shared-hit-axis` to regenerate the earlier dual C/D candidate.
+
+## Additional DG representation measures at high policy credit
+
+The [companion figure](high_credit_worker_representation_compact.pdf) uses the same C05/C15 temporal-minus-constant worker-bonus pairs, with temporal DG encoder credit held fixed. Both worker arms use policy $\gamma=0.999$ and GAE $\lambda=0.995$. Each model contributes its own-policy 100,000-decision spatial snapshot at the 100M-frame checkpoint. Colored dots are the five matched training-seed differences (8, 17, 41, 99, 123), open diamonds are their arithmetic means, boxes span quartiles, whiskers reach the minimum and maximum, and zero denotes equal arms. Positive values mean more of the named quantity under temporal worker credit. No significance test is shown. All four panels use one shared C05/C15 scale *within that panel*; vertical scales differ between panels.
+
+| Measure, temporal minus constant worker bonus | C05 mean; positive seeds | C15 mean; positive seeds |
+| --- | ---: | ---: |
+| A. Active-only mean DG map cosine | +0.0185; 2/5 | +0.0175; 3/5 |
+| B. Distinct active DG peak bins | −0.6 bins; 1/5 (one tie) | +0.2 bins; 1/5 (three ties) |
+| C. Single-field fraction of field-eligible units | +0.0625; 4/5 | −0.0375; 0/5 (two ties) |
+| D. Median nearest-neighbor distance between dominant DG peaks | +67.2 DMLab units; 3/5 (one tie) | +15.1 units; 3/5 |
+
+**A, map overlap:** mean pairwise cosine of the active units' post-inhibition spatial rate maps over that run's occupied bins. Lower cosine means less overlap among unit maps within a run; a positive difference means more overlap in the temporal-worker arm. C05 seed 123 contributes a +0.212 difference, while its other four seeds include three negative differences. **B, distinct peaks:** the number of different spatial bins occupied by active units' dominant peaks. A count of 16 means all 16 peaks fall in different bins; this is a concentration proxy, **not** the Gaussian effective-area or spatial-coverage fraction reported for the separate encoder-credit study. **C, single fields:** the fraction of field-eligible DG units whose activity passes the evaluator's single-field test. **D, peak spacing:** the median, over eligible dominant peaks, of the distance to the nearest other dominant peak. Greater spacing does not guarantee uniform spatial coverage. Panels B and D complement each other because peak bins can be distinct yet clustered in one region.
+
+The DG spatial-information panel in the preceding figure is the **amplitude-weighted bits per decision** score averaged over active units, not bits per activation. The source evaluator computes occupancy-weighted $\sum_x p(x)r(x)\log_2[r(x)/\bar r]$ without dividing by mean activity $\bar r$. The preceding axis's short label “$\Delta$ bits” should therefore be read as $\Delta$ bits/decision.
+
+These own-policy rollouts sample different trajectories and occupancy patterns. Their mean visited-cell-fraction differences are nearly zero (C05 +0.0011; C15 0.0000), but that does not match the actual observations or occupancy weights. The map-cosine and peak-count directions are mixed, so this high-credit worker comparison does not establish a consistent improvement in absolute DG representation quality. The archived summary CSVs do not contain per-unit peak coordinates or the Gaussian effective-area metric for these high-credit pairs; that fuller peak-coverage comparison requires the original snapshot arrays. The [paired data table](high_credit_representation_pairs.csv) retains both arms and all seed differences, including spatial information and visited-cell fraction. It is regenerated from the pinned `a26852f` spatial tables listed in [source mapping](sources.json):
+
+```bash
+MPLCONFIGDIR=/tmp/cosyne_high_representation_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_representation.py
+```
 
 ## Earlier full-size comparison
 

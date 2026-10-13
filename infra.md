@@ -2407,3 +2407,25 @@ For each finding, record:
   The same validation also passed for all 18 C01/C15 original terminal
   replays (ordinary jobs 8343832–8343833 and the 16 reviewed follow-ups),
   confirming reuse across the three architectures.
+
+### Retain reproducible peak-coverage summaries with spatial snapshots — 2026-10-13
+
+- **Evidence:** The pinned high-policy-credit C05/C15 worker spatial exports at
+  `a26852f` contain active-map cosine, distinct peak-bin counts, single-field
+  fractions, and nearest-neighbor peak distances, but no per-unit peak
+  coordinates or Gaussian effective-area values. The companion
+  [representation plot](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md#additional-dg-representation-measures-at-high-policy-credit)
+  can therefore compare clustering proxies, but cannot reproduce the fuller
+  peak-coverage measure used for the encoder-credit analysis from its archived
+  lightweight tables alone.
+- **Impact:** Comparing peak spread across worker regimens requires reopening
+  remote snapshot arrays; a distinct-bin count may miss peaks clustered in one
+  region.
+- **Improvement/status:** Proposed: extend the canonical spatial collection
+  output with either per-unit eligible peak coordinates plus the shared support
+  definition, or a versioned effective-area summary and its cutoff, blur width,
+  and mask provenance. Keep raw NPZs in the allocated workspace under the
+  [reusable telemetry policy](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** A lightweight archived export regenerates the effective-area
+  comparison for every declared seed pair, and a focused test matches the
+  archived NPZ calculation without copying bulk arrays into the vault.
