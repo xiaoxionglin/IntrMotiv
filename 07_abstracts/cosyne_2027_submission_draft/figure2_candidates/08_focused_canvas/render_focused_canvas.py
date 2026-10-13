@@ -67,6 +67,10 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
         "emergence": shared.SOURCES["online"],
         "frozen_behavior_dg": HERE / "fresh_behavior_dg_bits_per_step.csv",
         "frozen_behavior_readout": shared.SOURCES["behavior_absolute"],
+        "frozen_behavior_geometry": HERE / "behavior_geometry_by_model.csv",
+        "frozen_behavior_geometry_repeats": HERE / "behavior_geometry_by_repeat.csv",
+        "frozen_behavior_geometry_inputs": HERE / "behavior_geometry_inputs.csv",
+        "frozen_behavior_geometry_manifest": HERE / "behavior_geometry_manifest.json",
         "additional_fg_hits": HERE / "additional_fg_hit_inputs.json",
     }
     source_hashes = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -95,6 +99,32 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
                                  behavior_readout.random_reliability)
     assert set(behavior_dg.seed) == set(behavior_readout.seed)
     values.append(pair_table(behavior_readout, "readout_reliability", arm="behavior"))
+    behavior_geometry = source(paths["frozen_behavior_geometry"]).copy()
+    geometry_repeats = source(paths["frozen_behavior_geometry_repeats"])
+    geometry_manifest = json.loads(paths["frozen_behavior_geometry_manifest"].read_text())
+    assert geometry_manifest["schema"] == "intrmotiv/figure2-frozen-behavior-geometry/v1"
+    assert (geometry_manifest["complete_models"],
+            geometry_manifest["paired_repeats"],
+            geometry_manifest["raw_probes"]) == (38, 76, 152)
+    identity = ["condition", "family", "training_seed", "encoder_credit", "worker_bonus"]
+    pd.testing.assert_frame_equal(
+        behavior_geometry[identity].sort_values(identity).reset_index(drop=True),
+        behavior_dg[identity].sort_values(identity).reset_index(drop=True),
+        check_dtype=False,
+    )
+    for column in ("map_cosine_difference", "peak_coverage_difference"):
+        means = geometry_repeats.groupby(identity, as_index=False)[column].mean()
+        checked = behavior_geometry[identity + [column]].merge(
+            means, on=identity, validate="one_to_one", suffixes=("_model", "_repeat"))
+        assert len(checked) == 38
+        assert np.allclose(checked[f"{column}_model"], checked[f"{column}_repeat"])
+    behavior_geometry["seed"] = (behavior_geometry.condition + "_S" +
+                                  behavior_geometry.training_seed.astype(str))
+    assert set(behavior_geometry.seed) == set(behavior_dg.seed)
+    for metric, column in (("map_overlap", "map_cosine_difference"),
+                           ("peak_coverage", "peak_coverage_difference")):
+        values.append(pair_table(behavior_geometry.rename(columns={column: "delta"}),
+                                 metric, arm="behavior"))
     for metric, key in [("dg_information", "mean_spatial_information_bits"),
                         ("map_overlap", "active_map_cosine_mean")]:
         data = encoder[encoder.metric == key].rename(columns={"difference": "delta"})
@@ -152,7 +182,8 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
                 for key, _, _ in METRICS}
     expected.update({("pull", key): {"C05": 5, "C15": 5} for key, _, _ in METRICS})
     expected.update({("behavior", key): {"C01": 10, "C05": 20, "C15": 8}
-                     for key in ("dg_information", "readout_reliability")})
+                     for key in ("dg_information", "map_overlap",
+                                 "peak_coverage", "readout_reliability")})
     for (arm, metric), sample in result.groupby(["arm", "metric"]):
         assert sample.groupby("family").size().to_dict() == expected[arm, metric], (arm, metric)
         if arm != "behavior":
@@ -239,14 +270,14 @@ def compose(slugs: list[tuple[str, float, float]]) -> None:
     ink = "http://www.inkscape.org/namespaces/inkscape"
     ET.register_namespace("", ns)
     ET.register_namespace("inkscape", ink)
-    width, height = 6.15*72, 19.25*72
-    root = ET.Element(f"{{{ns}}}svg", {"width": "6.15in", "height": "19.25in",
+    width, height = 6.15*72, 21.45*72
+    root = ET.Element(f"{{{ns}}}svg", {"width": "6.15in", "height": "21.45in",
                                        "viewBox": f"0 0 {width} {height}"})
     layer = ET.SubElement(root, f"{{{ns}}}g", {"id": "layer_plots",
         f"{{{ink}}}groupmode": "layer", f"{{{ink}}}label": "Movable plots"})
     for label, y in [("A  Spatial emergence", 20), ("B  Frozen behavior", 205),
-                     ("C  Push · original policy credit", 396),
-                     ("D  Pull · high policy credit, temporal shaping", 887)]:
+                     ("C  Push · original policy credit", 551),
+                     ("D  Pull · high policy credit, temporal shaping", 1042)]:
         node = ET.SubElement(layer, f"{{{ns}}}text", {"x": "20", "y": str(y),
             "font-family": "Arial", "font-size": "13", "font-weight": "bold"})
         node.text = label
@@ -271,6 +302,7 @@ def compose(slugs: list[tuple[str, float, float]]) -> None:
     assert not any(node.tag == f"{{{ns}}}svg" for node in root.iter() if node is not root)
     path = HERE / "focused_canvas_editable.svg"
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
+    path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
     for suffix in ("pdf", "png"):
         target = HERE / f"focused_canvas.{suffix}"
         args = ["inkscape", str(path), f"--export-filename={target}"]
@@ -285,14 +317,16 @@ def main() -> None:
     COMP.mkdir(parents=True, exist_ok=True)
     values, hashes = load_values()
     slugs = [(emergence(), 24, 33)]
-    for column, (metric, title, unit) in enumerate([
+    for index, (metric, title, unit) in enumerate([
         ("dg_information", "DG spatial information", "bits/step"),
+        ("map_overlap", "DG map overlap", "cosine"),
+        ("peak_coverage", "Field-peak coverage", "area fraction"),
         ("readout_reliability", "Readout map reliability", "split-half r"),
     ]):
         sample = values[(values.arm == "behavior") & (values.metric == metric)]
         slug = card("behavior", metric, title, unit, sample)
-        slugs.append((slug, 24 + column * 210, 219))
-    for arm, start_y in [("push", 411), ("pull", 902)]:
+        slugs.append((slug, 24 + index % 2 * 210, 219 + index // 2 * 155))
+    for arm, start_y in [("push", 566), ("pull", 1057)]:
         for index, (key, title, unit) in enumerate(METRICS):
             sample = values[(values.arm == arm) & (values.metric == key)]
             slug = card(arm, key, title, unit, sample)
