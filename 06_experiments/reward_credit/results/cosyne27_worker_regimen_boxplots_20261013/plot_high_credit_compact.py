@@ -17,7 +17,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
-from matplotlib.ticker import FixedLocator, FuncFormatter
+from matplotlib.ticker import FixedLocator
 import numpy as np
 import pandas as pd
 
@@ -147,45 +147,56 @@ def draw_metric(ax: plt.Axes, data: pd.DataFrame, metric: str,
     ax.yaxis.set_major_locator(MaxNLocator(nbins=3, symmetric=True))
 
 
-def draw_broken_relative_metric(fig: plt.Figure, data: pd.DataFrame,
+def draw_capped_relative_metric(fig: plt.Figure, data: pd.DataFrame,
                                 position: int, metric: str,
                                 title: str, ylabel: str) -> None:
-    """Keep the central ±100% range legible while retaining all larger dots."""
+    """Show the central percentage range and label each higher seed value."""
     left = 0.75 + position * 1.80
     width = 1.20
-    lower = fig.add_axes([left / 7.5, 0.28 / 2.50,
-                          width / 7.5, 0.88 / 2.50])
-    upper = fig.add_axes([left / 7.5, 1.28 / 2.50,
-                          width / 7.5, 0.53 / 2.50], sharex=lower)
-    draw_values(lower, data, metric, scale=100.0)
-    draw_values(upper, data, metric, scale=100.0)
-    upper_limit = 620 if metric == "relative_correct_hit_observations" else 330
-    upper_ticks = (200, 400, 600) if upper_limit == 620 else (200, 300)
-    lower.set_ylim(-105, 105)
-    upper.set_ylim(110, upper_limit)
-    lower.yaxis.set_major_locator(FixedLocator((-100, 0, 100)))
-    upper.yaxis.set_major_locator(FixedLocator(upper_ticks))
-    for ax in (lower, upper):
-        ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:g}"))
-    lower.set_xticks((0, 1), ("C05", "C15"))
-    upper.tick_params(axis="x", bottom=False, labelbottom=False)
-    lower.spines["top"].set_visible(False)
-    upper.spines["bottom"].set_visible(False)
-    upper.set_title(title, loc="left", fontweight="bold", pad=3)
-    fig.text((left - 0.49) / 7.5, 1.05 / 2.50, ylabel,
-             rotation=90, va="center", ha="center", fontsize=12)
-    # Diagonal marks identify the omitted 105–110% interval and scale jump.
-    for ax, y in ((lower, 1), (upper, 0)):
-        for x in (0, 1):
-            ax.plot((x - 0.025, x + 0.025), (y - 0.035, y + 0.035),
-                    transform=ax.transAxes, color="#20272C", lw=0.8,
-                    clip_on=False)
+    ax = fig.add_axes([left / 7.5, 0.28 / 2.50,
+                       width / 7.5, 1.53 / 2.50])
+    draw_values(ax, data, metric, scale=100.0)
+    lower_limit = -25 if metric == "relative_correct_hit_observations" else -100
+    ticks = (-25, 0, 25, 50, 75, 100) if lower_limit == -25 else (-100, -50, 0, 50, 100)
+    ax.set_ylim(lower_limit, 120)
+    ax.yaxis.set_major_locator(FixedLocator(ticks))
+    ax.set_xticks((0, 1), ("C05", "C15"))
+    ax.set_title(title, loc="left", fontweight="bold", pad=3)
+    ax.set_ylabel(ylabel, labelpad=1)
+
+    for family_position, family in enumerate(("C05", "C15")):
+        values = (data[data.family == family].set_index("seed")
+                  .loc[list(SEEDS), metric].to_numpy(dtype=float) * 100)
+        mean = float(np.mean(values))
+        mean_x = family_position + (0.22 if family_position == 0 else 0.16)
+        if mean <= 100:
+            ax.scatter(mean_x, mean, marker="D", s=28, facecolor="white",
+                       edgecolor="#20272C", linewidth=1.2, zorder=6)
+        else:
+            ax.scatter(mean_x, 103, marker="D", s=28, facecolor="white",
+                       edgecolor="#20272C", linewidth=1.2, zorder=6)
+            ax.text(mean_x, 83, f"μ{mean:.0f}%", ha="center", va="center",
+                    fontsize=12, color="#20272C")
+
+        outliers = [(index, value) for index, value in enumerate(values)
+                    if value > 100]
+        for outlier_index, (seed_index, value) in enumerate(outliers):
+            x = family_position + np.linspace(-0.12, 0.12, len(SEEDS))[seed_index]
+            ax.scatter(x, 105, marker="^", s=31, facecolor=COLOR[family],
+                       edgecolor="white", linewidth=0.3, zorder=7)
+            label_x = x
+            if len(outliers) > 1:
+                label_x = family_position + (-0.10 if outlier_index == 0 else 0.70)
+            ax.annotate(f"{value:.0f}%", xy=(x, 105), xytext=(label_x, 115),
+                        ha="center", va="center", fontsize=12,
+                        arrowprops={"arrowstyle": "-", "color": COLOR[family],
+                                    "lw": 0.6} if label_x != x else None)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--relative-counts", action="store_true",
-                        help="Use (T-C)/(C+1) for panels C and D; retain A and B")
+                        help="Use percent-scale (T-C)/(C+1) for C and D; retain A and B")
     args = parser.parse_args()
     data = high_credit_data()
     if args.relative_counts:
@@ -202,11 +213,13 @@ def main() -> None:
     fig.text(0.03, 0.96, heading + r"($\gamma=0.999$, $\lambda=0.995$)",
              va="top", fontsize=12, fontweight="bold", color="#20272C")
     if args.relative_counts:
-        fig.text(0.03, 0.88, r"C–D: $100(T-C)/(C+\epsilon)$, $\epsilon=1$ count",
+        fig.text(0.03, 0.88,
+                 r"C–D: $100(T-C)/(C+\epsilon)$, $\epsilon=1$ count; "
+                 "diamond = mean; triangle = above 100%",
                  va="top", fontsize=12, color="#20272C")
     for position, (metric, title, ylabel) in enumerate(metrics):
         if args.relative_counts and position >= 2:
-            draw_broken_relative_metric(fig, data, position, metric, title, ylabel)
+            draw_capped_relative_metric(fig, data, position, metric, title, ylabel)
         else:
             ax = fig.add_axes([(0.75 + position * 1.80) / 7.5,
                                0.28 / 2.50, 1.20 / 7.5, 1.53 / 2.50])
