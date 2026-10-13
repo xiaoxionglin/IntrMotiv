@@ -35,7 +35,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Acceptance:** The chosen final panels remain legible at actual PDF width, the submission meets its page limit, and the rendered PDF passes a visual page-size check.
 - **13 October reuse:** The [high-credit worker strip](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md) reuses Figure 2's font, architecture palette, box/seed-dot convention, and fixed 7.5-inch width. Filtering to one regimen and showing C05/C15 on each x-axis removed the earlier four-group label crowding. Review its actual-size PDF before any submission placement; the hit-observation panel still spans different family magnitudes.
 - **13 October relative-count check:** The same strip now has a separate $100(T-C)/(C+1)$ count variant with a short visible scale and numeric labels for seed values above 100%. Reloading the pinned per-arm source tables exposed three zero C05 graph baselines and a 586% C05 hit-ratio value, so the ratio figure must travel with its per-arm counts, denominator definition, and stated visible axis range. For future compact comparisons, inspect denominators and zero counts before choosing a relative scale; never silently cap or omit the large ratios.
-- **13 October hit-rate check:** The [dual-axis candidate](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md#dual-axis-alternative-with-a-hit-rate) replaced summed learner-batch correct-hit observations with the pinned `target_hit_numerator`/`target_hit_event_count` rate. The numerator and denominator have matching 306-update windows, and the exported per-arm table preserves both. When promoting an online rate to a lead figure, use the event denominator the producer actually logs and state whether it measures learner-batch events, transitions, completed options, or physical arrivals; do not relabel a repeated scalar sum as an episode rate.
+- **13 October hit-rate check:** The [shared-hit-rate candidate](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md#shared-hit-rate-scale-with-dual-graph-edge-axes) replaced summed learner-batch correct-hit observations with the pinned `target_hit_numerator`/`target_hit_event_count` rate. The numerator and denominator have matching 306-update windows, and the exported per-arm table preserves both. The rate puts C05 and C15 on a usable common axis, while raw graph-edge differences still need family-specific scales. When promoting an online rate to a lead figure, use the event denominator the producer actually logs and state whether it measures learner-batch events, transitions, completed options, or physical arrivals; do not relabel a repeated scalar sum as an episode rate.
 
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
@@ -2256,6 +2256,18 @@ For each finding, record:
   common-replay intervention. The renderer hashes the original SVGs, crops
   only their visual tiles, and darkens the trajectory stroke for small-size
   viewing; rerendering at 1,000-pixel width is the acceptance check.
+  The [loose Figure 2 canvas](07_abstracts/cosyne_2027_submission_draft/figure2_candidates/07_loose_canvas/README.md)
+  now exports those candidate-06 panels as separately movable SVG/PDF/PNG
+  assets, with every box retaining the smallest original 0.68-by-0.774-inch
+  data axes. It adds a raw paired-value check for every box, the selected peak-location
+  example, and 16 archived candidate metrics omitted for space. Its first
+  contact sheet exposed titles and provenance notes extending into adjacent
+  slots despite correctly sized plot axes. Wrapping titles on each card,
+  moving protocol details to the index, and spacing the neutral inventory
+  board fixed that without resizing the axes. The reusable acceptance check
+  is to validate all paired arithmetic and source hashes, inspect individual
+  assets at native size, scan the contact sheet for collisions, and keep the
+  assembled inventory explicitly separate from the submitted figure.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
