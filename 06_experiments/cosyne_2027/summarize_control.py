@@ -17,7 +17,7 @@ import pandas as pd
 from analysis_factors import factors
 
 
-COHORTS = ("c05_pushpull_s3", "c05_pushpull_s2", "c15_encoder_s2", "c15_available")
+COHORTS = ("c05_pushpull_s3", "c05_pushpull_s2", "c15_encoder_s2", "c15_recovery")
 HORIZONS = (64, 128, 256, 900)
 
 

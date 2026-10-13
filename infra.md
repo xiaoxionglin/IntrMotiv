@@ -106,7 +106,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   audited merger produced one full C05 seed-99 75M row with 128 exact starts,
   384 paired comparisons, 1,152 trials, no missing records, and the original
   study fingerprint. The [interim result](06_experiments/cosyne_2027/results_20261011/control_interim/summary/control_seed_checkpoint_metrics.csv)
-  retains detector-hit differences and a 38-row missingness ledger. Ten
+  retains detector-hit differences and a 37-row missingness ledger. Fifteen
   completed rows do not establish reliability across all C05/C15 checkpoints;
   the remaining rows still need bounded recovery or a verified monolithic end.
   After print-only review, 15 additional C15 temporal seed-17 75M source jobs
@@ -125,14 +125,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   StudySpec fingerprint. Their 900-decision detector-hit lifts were +0.0104
   at 75M and -0.0052 at 100M, repeated checkpoints of the same seed. The
   two C15 rows also passed the source merge. Four ordinary jobs completed and
-  passed the same summary, bringing the ledger to ten completed rows and 38
-  missing. By the 13 October Slurm check, 33 of the 48 three-day retries had
-  failed with exit 134; 23 failed rows had neither a completed output nor an
-  active node-excluded retry. The [manifest-linked plan](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_plan_20261013.tsv)
-  groups those rows into three bounded batches. The [first batch](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch1_submitted_20261013.tsv)
-  contains 128 canonically print-reviewed source jobs for eight failed rows;
-  its submitted job IDs and exact Slurm commands are retained. An already
-  recovered row's redundant monolithic retry 8344882 was cancelled to avoid
+  passed the same summary. The control adapter now includes the four C15
+  replacement endpoints under their own validated StudySpec, making 52
+  declared rows in total. Five further C05 source panels passed the audit,
+  bringing the ledger to 15 completed rows and 37 missing. By the latest
+  13 October check, 36 of the original 48 three-day retries had failed with
+  exit 134. The [manifest-linked plan](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_plan_20261013.tsv)
+  and [addendum](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_addendum_20261013.tsv)
+  cover all 30 failed rows without a completed result. Four print-reviewed
+  bounded batches submitted 480 ordinary source jobs, with exact commands and
+  IDs in [batch 1](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch1_submitted_20261013.tsv),
+  [batch 2](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch2_submitted_20261013.tsv),
+  [batch 3](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch3_submitted_20261013.tsv),
+  and [batch 4](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch4_submitted_20261013.tsv).
+  All six node-excluded monolithic retries also failed with exit 134. An
+  already recovered row's redundant retry 8344882 was cancelled to avoid
   conflicting ordinary and merged outputs. This confirms source sharding as
   the practical recovery path while the monolithic engine-lifecycle failure
   remains unresolved.
