@@ -39,7 +39,32 @@ LAYOUT_TRIAL_ASSETS = {
         DRAFT_DIR / "figure1_candidates" / "full_seed_atlases" /
         "c15_constant_s123.png"),
     "FIGURE2_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_fiddle_with_fields_README.md",
+    "figures/Figure2_story.svg": DRAFT_DIR / "Figure2_story.svg",
+    "figures/Figure2_story.pdf": DRAFT_DIR / "Figure2_story.pdf",
+    "figures/Figure2_story.png": DRAFT_DIR / "Figure2_story.png",
+    "figures/Figure2_behavior_candidate_stats.svg": DRAFT_DIR / "Figure2_behavior_candidate_stats.svg",
+    "figures/Figure2_behavior_candidate_stats.pdf": DRAFT_DIR / "Figure2_behavior_candidate_stats.pdf",
+    "figures/Figure2_behavior_candidate_stats.png": DRAFT_DIR / "Figure2_behavior_candidate_stats.png",
+    "FIGURE2_STORY_NOTES.md": DRAFT_DIR / "Figure2_story_README.md",
+    "FIGURE2_STORY_SOURCES.json": DRAFT_DIR / "Figure2_story_manifest.json",
+    "data/Figure2_trajectory_by_snapshot.csv": (
+        RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "graph_trajectory_summary" /
+        "trajectory_by_snapshot.csv"),
+    "figures/trajectory_examples/NG_s99.png": (
+        RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
+        "trajectories/COS27_C01_TEMPORAL_S99.png"),
+    "figures/trajectory_examples/UG_s99.png": (
+        RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
+        "trajectories/COS27_C05_TEMPORAL_TEMPORAL_S99.png"),
+    "figures/trajectory_examples/FG_s17.png": (
+        RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
+        "trajectories/COS27_C15_TEMPORAL_S17.png"),
 }
+for metric in ("path_efficiency", "visited_cell_fraction",
+               "stationary_step_fraction", "mean_physical_step_distance"):
+    for extension in ("svg", "pdf", "png"):
+        filename = f"Figure2_behavior_{metric}.{extension}"
+        LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
@@ -110,7 +135,10 @@ def build_compact() -> None:
                          "is `figures/Figure2_tetris_sidebar.pdf`. "
                          "Read `FIGURE2_COMPACT_NOTES.md` and the "
                          "longer `FIGURE2_LAYOUT_NOTES.md` for its caption. "
-                         "The earlier taller trial is also included.\n\nThe expanded candidate "
+                         "A story layout with trajectories and swappable behavior "
+                         "statistics is `figures/Figure2_story.pdf`; see "
+                         "`FIGURE2_STORY_NOTES.md`. The earlier taller trial is "
+                         "also included.\n\nThe expanded candidate "
                          "library is in the repository's full archive.\n")
         assets[index.name] = index
         check_included_figures(assets)
@@ -196,6 +224,11 @@ def build_full() -> None:
                             "- `figures/Figure2_tetris_sidebar.pdf`",
                             "- `figures/Figure2_tetris_sidebar.svg`",
                             "- `FIGURE2_COMPACT_NOTES.md`",
+                            "", "## Figure 2 story layout and behavior-stat alternatives", "",
+                            "- `figures/Figure2_story.pdf`",
+                            "- `figures/Figure2_story.svg`",
+                            "- `figures/Figure2_behavior_candidate_stats.pdf`",
+                            "- `FIGURE2_STORY_NOTES.md`",
                             "", "## Earlier Figure 2 layout trial", "",
                             "- `figures/Figure2_fiddle_with_fields.pdf`",
                             "- `figures/Figure2_fiddle_with_fields.svg`",

@@ -1,0 +1,49 @@
+{
+  "schema": "cosyne27-figure2-story/v1",
+  "source_trajectory_table": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/trajectory_by_snapshot.csv",
+  "source_trajectory_table_sha256": "06f0976fdd0615575586624f40bfef240d2bf7b3c021f1f5b7a605673904ee7d",
+  "sample_unit": "training seed; five per architecture",
+  "metric_window": "100,000-decision own-policy snapshot at 100M training frames",
+  "cohorts": {
+    "NG": [
+      "COS27_C01_TEMPORAL_S8",
+      "COS27_C01_TEMPORAL_S17",
+      "COS27_C01_TEMPORAL_S41",
+      "COS27_C01_TEMPORAL_S99",
+      "COS27_C01_TEMPORAL_S123"
+    ],
+    "UG": [
+      "COS27_C05_TEMPORAL_TEMPORAL_S8",
+      "COS27_C05_TEMPORAL_TEMPORAL_S17",
+      "COS27_C05_TEMPORAL_TEMPORAL_S41",
+      "COS27_C05_TEMPORAL_TEMPORAL_S99",
+      "COS27_C05_TEMPORAL_TEMPORAL_S123"
+    ],
+    "FG": [
+      "COS27_C15_TEMPORAL_S8",
+      "COS27_C15_TEMPORAL_S17",
+      "COS27_C15_TEMPORAL_S41",
+      "COS27_C15_TEMPORAL_S99",
+      "COS27_C15_TEMPORAL_S123"
+    ]
+  },
+  "example_trajectories": {
+    "NG": {
+      "run_name": "COS27_C01_TEMPORAL_S99",
+      "sha256": "3c3fe049b53b6b4970823800d748b8b7388b0c9e54000cbf10ce68a7805ce603",
+      "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C01_TEMPORAL_S99.png"
+    },
+    "UG": {
+      "run_name": "COS27_C05_TEMPORAL_TEMPORAL_S99",
+      "sha256": "32c4cff899085581ef70eec2c79ddbff1054396fc87a8bdc0be335699c545015",
+      "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C05_TEMPORAL_TEMPORAL_S99.png"
+    },
+    "FG": {
+      "run_name": "COS27_C15_TEMPORAL_S17",
+      "sha256": "38c0e772bd78f31cf77302572669f61f71f54284614bfcdfc98561cb53f61fe0",
+      "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C15_TEMPORAL_S17.png"
+    }
+  },
+  "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
+  "image_crop": "right trajectory panel only, fixed world extent, no color change"
+}
