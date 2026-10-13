@@ -33,6 +33,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** A figure can be legible as a standalone SVG yet difficult to read in a grouped submission figure. Panel selection, caption detail, and final-size typography need to be reviewed together.
 - **Improvement/status:** Pending for final submission. Let the existing compact-figure renderer target a specified print width and minimum final text size when selected panels are promoted to lead figures. Preserve the caption's comparison protocol when changing panels, and recompile after prose edits because the figure-and-caption block moves as one unit. The current grouped figure is a space-allocation draft, so avoid one-off rewriting of the source plots now.
 - **Acceptance:** The chosen final panels remain legible at actual PDF width, the submission meets its page limit, and the rendered PDF passes a visual page-size check.
+- **13 October reuse:** The [high-credit worker strip](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md) reuses Figure 2's font, architecture palette, box/seed-dot convention, and fixed 7.5-inch width. Filtering to one regimen and showing C05/C15 on each x-axis removed the earlier four-group label crowding. Review its actual-size PDF before any submission placement; the hit-observation panel still spans different family magnitudes.
 
 ### Preserve a fixed accessible-area mask with spatial snapshots — 2026-10-11
 
