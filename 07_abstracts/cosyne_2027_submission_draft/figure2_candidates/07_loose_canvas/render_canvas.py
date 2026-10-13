@@ -628,21 +628,28 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
         group_label_height + positions(members)[1] * row_height(name)
         + group_gap for name, members in grouped)
     ns = "http://www.w3.org/2000/svg"
+    inkscape_ns = "http://www.inkscape.org/namespaces/inkscape"
     ET.register_namespace("", ns)
+    ET.register_namespace("inkscape", inkscape_ns)
     root = ET.Element(f"{{{ns}}}svg", {
         "width": f"{width / 72:.3f}in", "height": f"{height / 72:.3f}in",
         "viewBox": f"0 0 {width:.3f} {height:.3f}"})
-    title = ET.SubElement(root, f"{{{ns}}}text", {
+    layer = ET.SubElement(root, f"{{{ns}}}g", {
+        "id": "layer_components",
+        f"{{{inkscape_ns}}}groupmode": "layer",
+        f"{{{inkscape_ns}}}label": "Individual plots and labels",
+    })
+    title = ET.SubElement(layer, f"{{{ns}}}text", {
         "x": str(margin), "y": "25", "font-family": "Arial",
         "font-size": "16", "font-weight": "bold", "fill": "#20272C"})
     title.text = heading
-    subtitle = ET.SubElement(root, f"{{{ns}}}text", {
+    subtitle = ET.SubElement(layer, f"{{{ns}}}text", {
         "x": str(margin), "y": "44", "font-family": "Arial",
         "font-size": "10", "fill": "#5B646C"})
     subtitle.text = note
     y = header
     for group_name, members in grouped:
-        label = ET.SubElement(root, f"{{{ns}}}text", {
+        label = ET.SubElement(layer, f"{{{ns}}}text", {
             "x": str(margin), "y": f"{y + 14:.2f}", "font-family": "Arial",
             "font-size": "14", "font-weight": "bold", "fill": "#20272C"})
         label.text = group_name
@@ -665,26 +672,39 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
             item_y = y + row * row_height(group_name)
             scale_x = source_width / view_box[2]
             scale_y = source_height / view_box[3]
-            slot = ET.SubElement(root, f"{{{ns}}}g", {
+            slot = ET.SubElement(layer, f"{{{ns}}}g", {
                 "id": f"component_{slug}",
+                f"{{{inkscape_ns}}}label": slug,
                 "transform": (f"translate({x:.2f} {item_y:.2f}) "
                               f"scale({scale_x:.8g} {scale_y:.8g}) "
                               f"translate({-view_box[0]:.8g} {-view_box[1]:.8g})")})
             # Matplotlib exports a full-page white rectangle. It makes an editor
             # select the card bounds instead of the visible graph and masks nearby
             # components. Keep only actual plot objects as direct peer groups.
-            for node in sub.iter():
-                if node.get("id") == f"{slug}_figure_1":
-                    for child in list(node):
-                        if child.get("id") == f"{slug}_patch_1":
-                            node.remove(child)
-            slot.extend(child for child in sub if child.tag != f"{{{ns}}}metadata")
+            figure = next(node for node in sub
+                          if node.get("id") == f"{slug}_figure_1")
+            for child in list(figure):
+                if child.get("id") == f"{slug}_patch_1":
+                    figure.remove(child)
+            # The Matplotlib figure group has no visual attributes. Its axes,
+            # text, and paths can be direct children of the one draggable plot
+            # object, while its definitions remain local to that object.
+            slot.extend(child for child in sub if child.tag == f"{{{ns}}}defs")
+            slot.extend(list(figure))
         y += row_count * row_height(group_name) + group_gap
+    direct_components = [child for child in layer if child.tag == f"{{{ns}}}g"]
+    if (len(direct_components) != len(items) or
+            any(node.tag == f"{{{ns}}}svg" for node in root.iter() if node is not root)):
+        raise ValueError("Canvas must have one direct group per component and no nested SVG")
     path = HERE / f"{stem}.svg"
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
     path.write_text("\n".join(line.rstrip() for line in
                               path.read_text().splitlines()) + "\n")
-    files = {"svg": path}
+    # A fresh name avoids editors reusing an older imported SVG-image object.
+    # Both files contain the same Inkscape-native layer and direct plot objects.
+    editable = HERE / f"{stem}_editable.svg"
+    editable.write_bytes(path.read_bytes())
+    files = {"svg": path, "editable_svg": editable}
     for suffix in ("pdf", "png"):
         target = HERE / f"{stem}.{suffix}"
         command = ["inkscape", str(path), f"--export-type={suffix}",

@@ -2285,6 +2285,13 @@ For each finding, record:
   SVG groups without those patches, then query group bounds in Inkscape and
   inspect exported board previews. Retain the distinct high-credit protocol in
   the canvas index; the difference-only source does not support raw-arm scatters.
+  A further editor check found that root-level groups alone were not convenient
+  to select in the user's workflow. The renderer now puts each complete plot
+  directly under one explicit Inkscape layer, strips the redundant Matplotlib
+  figure wrapper, and exports fresh `*_editable.svg` filenames to avoid stale
+  imported image objects. Verify the saved hierarchy as well as queried bounds;
+  when composing another document, open the editable SVG and copy its plot
+  objects rather than placing the whole board as an external image.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
