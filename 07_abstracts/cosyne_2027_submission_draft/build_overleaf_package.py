@@ -1,8 +1,8 @@
-"""Build the selected Overleaf project or its expanded figure library.
+"""Build the current Overleaf project or its expanded figure library.
 
-The default compact archive contains exactly the current figure sources and
-PDFs. ``--full`` writes a separate archive with candidate COSYNE plots; it
-never replaces the current upload package.
+The default archive contains the current figure sources, PDFs, and the active
+Figure 2 layout trial. ``--full`` writes a separate archive with candidate
+COSYNE plots; it never replaces the current upload package.
 """
 
 from __future__ import annotations
@@ -20,6 +20,19 @@ REPO_ROOT = DRAFT_DIR.parents[1]
 RESULTS_DIR = REPO_ROOT / "06_experiments" / "results"
 ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources.zip"
 FULL_ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources_full.zip"
+LAYOUT_TRIAL_ASSETS = {
+    "figures/Figure2_fiddle.svg": DRAFT_DIR / "Figure2_fiddle.svg",
+    "figures/Figure2_fiddle_with_fields.svg": DRAFT_DIR / "Figure2_fiddle_with_fields.svg",
+    "figures/Figure2_fiddle_with_fields.pdf": DRAFT_DIR / "Figure2_fiddle_with_fields.pdf",
+    "figures/Figure2_fiddle_with_fields.png": DRAFT_DIR / "Figure2_fiddle_with_fields.png",
+    "figures/c15_temporal_s123_atlas.png": (
+        DRAFT_DIR / "figure1_candidates" / "full_seed_atlases" /
+        "c15_temporal_s123.png"),
+    "figures/c15_constant_s123_atlas.png": (
+        DRAFT_DIR / "figure1_candidates" / "full_seed_atlases" /
+        "c15_constant_s123.png"),
+    "FIGURE2_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_fiddle_with_fields_README.md",
+}
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
@@ -68,7 +81,7 @@ def check_included_figures(assets: dict[str, Path]) -> None:
 
 
 def build_compact() -> None:
-    """Package only current PDF figures, their SVG sources, and submission notes."""
+    """Package current figures, active layout trial, and submission notes."""
     pdf_names = ("architecture.pdf", "results_sections.pdf")
     svg_names = ("architecture_uploaded.svg", "results_sections.svg")
     with tempfile.TemporaryDirectory(prefix=".cosyne_compact_", dir=DRAFT_DIR) as temp_name:
@@ -79,11 +92,16 @@ def build_compact() -> None:
         }
         assets.update({f"figures/{name}": DRAFT_DIR / "figures" / name
                        for name in pdf_names + svg_names})
+        assets.update(LAYOUT_TRIAL_ASSETS)
         index = temp_dir / "FIGURE_OPTIONS.md"
         index.write_text("# Figures in this compact Overleaf project\n\n"
                          "The two PDFs below are used by `main.tex`; each has an SVG source.\n\n"
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
-                         + "\n\nThe expanded candidate library is in the repository's full archive.\n")
+                         + "\n\nThe editable Figure 2 layout trial is at "
+                         "`figures/Figure2_fiddle_with_fields.svg`, with a PDF "
+                         "and preview beside it. Read `FIGURE2_LAYOUT_NOTES.md` "
+                         "before using its caption.\n\nThe expanded candidate "
+                         "library is in the repository's full archive.\n")
         assets[index.name] = index
         check_included_figures(assets)
         staged = temp_dir / ARCHIVE_PATH.name
@@ -127,6 +145,7 @@ def build_full() -> None:
             assets[f"figures/{png_path.name}"] = png_path
         for svg_name, source_path in CURRENT_SVG_SOURCES.items():
             assets[f"figures/{svg_name}"] = source_path
+        assets.update(LAYOUT_TRIAL_ASSETS)
 
         groups: dict[str, list[str]] = {}
         for source_path in candidate_svgs:
@@ -161,6 +180,10 @@ def build_full() -> None:
             "",
         ]
         index_lines.extend(f"- `figures/{pdf_path.name}`" for pdf_path in current_pdfs)
+        index_lines.extend(["", "## Current Figure 2 layout trial", "",
+                            "- `figures/Figure2_fiddle_with_fields.pdf`",
+                            "- `figures/Figure2_fiddle_with_fields.svg`",
+                            "- `FIGURE2_LAYOUT_NOTES.md`"])
         for group, pdf_paths in sorted(groups.items()):
             index_lines.extend(["", f"## {group} ({len(pdf_paths)} plots)", ""])
             index_lines.extend(f"- `{path}`" for path in pdf_paths)

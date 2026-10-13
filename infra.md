@@ -2367,6 +2367,15 @@ For each finding, record:
   scales and the full metrics table; regenerate from NPZs rather than
   recoloring a clipped PNG. Acceptance is 40 paired atlases, 640 scale rows,
   verified source hashes, and no atlas omitted by the index generator.
+  An author-supplied Figure 2 SVG crop clipped the tops of two vertical axis
+  labels. A separate layout trial extends its viewBox upward instead of
+  rescaling the plots, and embeds three exact crops from the indexed C15
+  temporal seed-123 atlas. The original checkpoint atlas and indexed copy are
+  byte-identical. For later manual SVG layouts, preserve editable plot groups,
+  verify map identity and scale convention against the atlas index, then inspect
+  the exported PDF at its intended width. Acceptance is no clipped text, a
+  caption distinguishing qualitative own-policy maps from paired replay data,
+  and explicit placeholder labels for any proposed metric illustrations.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
