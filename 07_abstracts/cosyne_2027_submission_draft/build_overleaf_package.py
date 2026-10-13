@@ -47,6 +47,12 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_behavior_candidate_stats.png": DRAFT_DIR / "Figure2_behavior_candidate_stats.png",
     "FIGURE2_STORY_NOTES.md": DRAFT_DIR / "Figure2_story_README.md",
     "FIGURE2_STORY_SOURCES.json": DRAFT_DIR / "Figure2_story_manifest.json",
+    "data/fresh_behavior_decoder1_absolute.csv": (
+        DRAFT_DIR / "data/fresh_behavior_decoder1_absolute.csv"),
+    "data/Figure2_behavior_geometry_by_model.csv": (
+        DRAFT_DIR / "figure2_candidates/08_focused_canvas/behavior_geometry_by_model.csv"),
+    "data/Figure2_behavior_geometry_provenance.json": (
+        DRAFT_DIR / "figure2_candidates/08_focused_canvas/behavior_geometry_manifest.json"),
     "data/Figure2_trajectory_by_snapshot.csv": (
         RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "graph_trajectory_summary" /
         "trajectory_by_snapshot.csv"),
