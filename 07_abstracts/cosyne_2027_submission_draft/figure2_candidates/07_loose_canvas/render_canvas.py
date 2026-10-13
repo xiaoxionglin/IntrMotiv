@@ -47,6 +47,7 @@ EXAMPLE_HEIGHT = 2.15
 MAP_WIDTH = 2.25
 MAP_HEIGHT = 2.15
 PUSH_GROUPS = ("C01", "C05-wT", "C15")
+DISPLAY_NAMES = {"C01": "NG", "C05": "UG", "C15": "FG"}
 LEGACY_WORKER_TIMING_SLUG = "F12_high_credit_worker_timing"
 HIGH_CREDIT_DIRECTORY = (
     shared.ROOT / "06_experiments" / "reward_credit" / "results" /
@@ -110,7 +111,7 @@ def rows(tables: dict) -> list[BoxSpec]:
             contrast: str, protocol: str, source_keys: tuple[str, ...],
             *, original: bool = True, raw_pair_example: bool = True) -> None:
         # The source table retains C05-wC. This inventory displays the three
-        # requested push-ablation arms, with C05-wT labeled simply C05.
+        # requested push-ablation arms, with C05-wT displayed as UG.
         subset = data[data.group.isin(groups)].copy()
         assert subset.groupby("group").size().reindex(groups).notna().all(), slug
         identity = ["condition", "seed"] if section == "B" else ["group", "seed"]
@@ -288,10 +289,11 @@ def box_plot(spec: BoxSpec) -> dict[str, str]:
     for line in ax.lines[:-1]:  # box edges, whiskers, caps, and medians
         line.set_zorder(5)
     ax.lines[-1].set_zorder(1)  # zero reference line
-    tick_names = {"C05-wT": "C05", "C05-wC": "wC", "C05-eT": "eT",
+    tick_names = {"C05-wT": "UG", "C05-wC": "wC", "C05-eT": "eT",
                   "C05-eC": "eC"}
     ax.set_xticks(range(len(spec.groups)),
-                  [tick_names.get(group, group) for group in spec.groups])
+                  [tick_names.get(group, DISPLAY_NAMES.get(group, group))
+                   for group in spec.groups])
     ax.tick_params(axis="x", labelsize=8, rotation=55, length=2, pad=1)
     for label in ax.get_xticklabels():
         label.set_ha("right")
@@ -359,7 +361,8 @@ def online_course(tables: dict) -> dict[str, str]:
         x = group.env_steps.to_numpy() / 1e6
         mean = group["mean"].to_numpy()
         sem = group["sem"].to_numpy()
-        ax.plot(x, mean, color=shared.COLOR[family], lw=1.2, label=family)
+        ax.plot(x, mean, color=shared.COLOR[family], lw=1.2,
+                label=DISPLAY_NAMES[family])
         ax.fill_between(x, mean - sem, mean + sem, color=shared.COLOR[family], alpha=.15)
     ax.set(xlim=(0, 100), xlabel="Frames (millions)", ylabel="DG bits/step")
     fig.legend(*ax.get_legend_handles_labels(), loc="upper left",
@@ -377,7 +380,7 @@ def archived_tiles() -> list[dict]:
     output = []
     for title, tile in shared.archived_example_tiles().items():
         fig = plt.figure(figsize=(MAP_WIDTH, MAP_HEIGHT), facecolor="white")
-        card_title(fig, f"Archived C01 S8: {title.title()}", original=True)
+        card_title(fig, f"Archived NG S8: {title.title()}", original=True)
         ax = fig.add_axes([0.46 / MAP_WIDTH, 0.30 / MAP_HEIGHT,
                            1.30 / MAP_WIDTH, 1.30 / MAP_HEIGHT])
         ax.imshow(tile, interpolation="nearest")
@@ -401,7 +404,7 @@ def peak_scatter(tables: dict, arm: str) -> dict[str, str]:
         np.asarray(example["arms"][name]["peaks_xy"], dtype=float), mask).max())
         for name in ("temporal", "constant"))
     fig = plt.figure(figsize=(MAP_WIDTH, MAP_HEIGHT), facecolor="white")
-    card_title(fig, f"C01 S8 peaks: {arm}", original=True)
+    card_title(fig, f"NG S8 peaks: {arm}", original=True)
     ax = fig.add_axes([0.46 / MAP_WIDTH, 0.30 / MAP_HEIGHT,
                        1.30 / MAP_WIDTH, 1.30 / MAP_HEIGHT])
     cmap = plt.get_cmap("Greys").copy()
@@ -441,8 +444,8 @@ def text_elements() -> list[dict]:
                       "original": True, "sources": [], "hashes": export(fig, slug)})
     fig = plt.figure(figsize=(3.0, .7), facecolor="white")
     for x, y, family, title in [
-        (.08, .68, "C01", "C01"), (.47, .68, "C05", "C05"),
-        (.08, .28, "C15", "C15"), (.47, .28, "P", "Prescribed")]:
+        (.08, .68, "C01", "NG"), (.47, .68, "C05", "UG"),
+        (.08, .28, "C15", "FG"), (.47, .28, "P", "Prescribed")]:
         fig.text(x, y, "●", color=shared.COLOR[family], fontsize=14,
                  ha="left", va="center")
         fig.text(x + .09, y, title, color="#20272C", fontsize=12,
@@ -509,7 +512,7 @@ def high_credit_box(slug: str, title: str, values: pd.DataFrame,
                        zorder=6)
     ax.axhline(0, color="#7D858A", lw=.7, zorder=1)
     ax.set_xlim(-.55, 1.55)
-    ax.set_xticks([0, 1], ["C05", "C15"])
+    ax.set_xticks([0, 1], [DISPLAY_NAMES["C05"], DISPLAY_NAMES["C15"]])
     ax.tick_params(axis="x", labelsize=8, length=2, pad=1)
     ax.tick_params(axis="y", labelsize=8, length=2, pad=0)
     if twin is None:
@@ -597,7 +600,7 @@ SCATTER_GROUPS = (
     "Spatial examples",
 )
 MAIN_CANVAS_NOTE = (
-    "Grouped by intervention. + marks extra candidates; box plots are 1.2 × 1.0 in including labels, excluding titles."
+    "NG = no goal · UG = uniform goal · FG = frontier goal. + marks extra candidates; boxes are 1.2 × 1.0 in."
 )
 
 
@@ -726,6 +729,7 @@ def main_canvas(items: list[dict]) -> dict[str, str]:
 
 def box_plot_manifest_metadata() -> dict:
     return {
+        "display_names": DISPLAY_NAMES,
         "box_plot_region_inches": [PLOT_WIDTH, PLOT_HEIGHT],
         "box_data_axes_inches": [DATA_AXES_WIDTH, DATA_AXES_HEIGHT],
         "box_text_points": {"ticks": 8, "axis_labels": 10, "titles": 12},
@@ -828,7 +832,7 @@ def main(*, main_only: bool = False) -> None:
     scatter_board = combined_canvas(
         scatter_items, stem="figure2_scatter_canvas", groups=SCATTER_GROUPS,
         heading="Figure 2 · scatter components",
-        note="Raw control-versus-tested pairs and field-peak locations; each component remains independently movable.")
+        note="NG = no goal · UG = uniform goal · FG = frontier goal. Raw paired values and field-peak locations.")
     manifest = {
         "schema": "intrmotiv/cosyne-figure2-loose-canvas/v2",
         "basis": "06_compact_vertical_boxes",
