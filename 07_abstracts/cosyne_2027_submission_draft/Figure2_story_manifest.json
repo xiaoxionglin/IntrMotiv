@@ -50,6 +50,14 @@
       "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C15_TEMPORAL_S17.png"
     }
   },
+  "field_example_atlas": "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/c15_temporal_s123.png",
+  "field_example_atlas_sha256": "a5488b5b6686422126e53bf3b207b7c06ded78588270be73f9f92c2fe07bbf4b",
+  "field_example_units": [
+    4,
+    7,
+    12,
+    15
+  ],
   "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
   "image_crop": "right trajectory panel or selected square tile, fixed world extent, no color change"
 }

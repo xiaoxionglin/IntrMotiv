@@ -19,7 +19,7 @@ import subprocess
 
 from PIL import Image
 
-from build_figure2_fiddle_with_fields import UNITS, map_data_uri
+from build_figure2_fiddle_with_fields import ATLAS, map_data_uri
 from build_figure2_tetris import OUTPUT as BASE_SVG, move_group
 
 
@@ -35,6 +35,7 @@ GALLERY = HERE / "Figure2_behavior_candidate_stats.svg"
 MANIFEST = HERE / "Figure2_story_manifest.json"
 
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
+FIELD_UNITS = (4, 7, 12, 15)
 RUNS = {
     "NG": "COS27_C01_TEMPORAL_S99",
     "UG": "COS27_C05_TEMPORAL_TEMPORAL_S123",
@@ -161,7 +162,7 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
 
     out = ['<g id="panel-a-path-efficiency" aria-label="Path efficiency, five seeds per design">',
            '<text x="7" y="29" class="poster-stat-title">Path efficiency</text>',
-           f'<path d="M {left},{top} V {bottom} H 100" stroke="#171717" '
+           f'<path d="M {left},{top} V {bottom} H 85" stroke="#171717" '
            'stroke-width="0.7" fill="none"/>']
     for tick in (0.0, 0.25, 0.5):
         ty = scale(tick)
@@ -170,7 +171,7 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
             f'<text x="{left-4}" y="{ty+3:g}" text-anchor="end" '
             f'class="poster-stat-tick">{tick:g}</text>',
         ))
-    for family, cx in (("NG", 42), ("UG", 66), ("FG", 90)):
+    for family, cx in (("NG", 40), ("UG", 58), ("FG", 76)):
         values = [float(row["path_efficiency"]) for row in rows[family]]
         for value, jitter in zip(values, (-3.8, -1.9, 0, 1.9, 3.8)):
             out.append(f'<circle cx="{cx+jitter:g}" cy="{scale(value):g}" r="1.55" '
@@ -320,7 +321,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
            '<text x="486" y="12" class="story-heading">Fields</text>']
-    for x, family in zip((104, 146, 188), ("NG", "UG", "FG")):
+    for x, family in zip((89, 131, 173), ("NG", "UG", "FG")):
         run_name = RUNS[family]
         seed = run_name.rsplit("S", 1)[-1]
         out.extend((
@@ -337,13 +338,13 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     out.append(behavior_schematic())
     out.append(credit_schematic(105, "push", "push"))
     out.append(credit_schematic(170, "pull", "pull"))
-    for y, unit in zip((20, 95, 170), UNITS):
+    for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
         out.extend((
-            f'<image x="486" y="{y}" width="42" height="42" '
+            f'<image x="487" y="{y}" width="40" height="40" '
             f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
-            f'<rect x="486" y="{y}" width="42" height="42" '
+            f'<rect x="487" y="{y}" width="40" height="40" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
-            f'<text x="507" y="{y+52}" text-anchor="middle" '
+            f'<text x="507" y="{y+49}" text-anchor="middle" '
             f'class="field-label">DG {unit}</text>',
         ))
     out.append('</g>')
@@ -419,6 +420,9 @@ def build() -> None:
         "cohorts": {family: [row["run_name"] for row in values]
                     for family, values in rows.items()},
         "example_trajectories": selected,
+        "field_example_atlas": str(ATLAS.relative_to(ROOT)),
+        "field_example_atlas_sha256": sha256(ATLAS),
+        "field_example_units": list(FIELD_UNITS),
         "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
         "image_crop": "right trajectory panel or selected square tile, fixed world extent, no color change",
     }, indent=2) + "\n")
