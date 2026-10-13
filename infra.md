@@ -2285,6 +2285,13 @@ For each finding, record:
   Verify the actual rendered axes-label bounds, layer order, and file hashes
   before committing a size change, since the data-axes rectangle alone does
   not include tick and axis labels.
+  The selected high-policy-credit worker comparison is a verified 7.5-by-2.5-inch
+  composite with a shared hit-rate axis and two graph-edge scales. Keep it as
+  one source-hashed, full-width movable component in the pull-ablation group;
+  splitting its C/D panels without preserving their axis meanings would make
+  their cross-architecture comparison ambiguous. Check the copied artifact
+  against its source hashes and give its distinct high-credit protocol in the
+  canvas index rather than treating it as another ordinary C05 worker box.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.

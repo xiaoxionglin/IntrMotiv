@@ -1572,6 +1572,35 @@
         "png": "93431412d783b3d5f29481850f2ea0c46c0f1c4ced72edafe8d4e505ea4cc271"
       },
       "canvas_group": "Loose labels and key"
+    },
+    {
+      "slug": "F12_high_credit_worker_timing",
+      "section": "F",
+      "kind": "external_composite",
+      "original": false,
+      "title": "High policy-credit worker timing",
+      "contrast": "temporal_minus_constant_worker",
+      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+      "groups": [
+        "C05",
+        "C15"
+      ],
+      "n": 10,
+      "canvas_span": 5,
+      "canvas_group": "Pull ablation \u00b7 worker credit",
+      "sources": [
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact"
+      ],
+      "source_artifact_sha256": {
+        "svg": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7",
+        "pdf": "773e2610f43f47ddaaec01ca49f5cdc52f2f70eec20449470ea2a8ee116a6233",
+        "png": "c788791f03fc4d751050982a7b5aad8e716ddb3a6111da1bda1b34807a857308"
+      },
+      "hashes": {
+        "svg": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7",
+        "pdf": "773e2610f43f47ddaaec01ca49f5cdc52f2f70eec20449470ea2a8ee116a6233",
+        "png": "c788791f03fc4d751050982a7b5aad8e716ddb3a6111da1bda1b34807a857308"
+      }
     }
   ],
   "canvases": {
@@ -1594,6 +1623,7 @@
         "E04_ca3_weighted",
         "E05_readout1_weighted",
         "E06_readout2_weighted",
+        "F12_high_credit_worker_timing",
         "F01_worker_coverage",
         "F02_worker_online_dg",
         "F05_worker_replay_dg",
@@ -1617,9 +1647,9 @@
         "label_color_key"
       ],
       "sha256": {
-        "svg": "a1a1795f7b5bb95724920bfa67a6bca73d8fce59ae164a1b84f418c1bdb6f977",
-        "pdf": "d4380e3ea1f9db0c8ae6c477746227f4e742c89281514cbc521b159151daeee8",
-        "png": "6367c4fbdfc8271dd068ddf63f2b5740f40d57ab9a4c79a625768c7d6f93f68c"
+        "svg": "824fbeeced95f7121d6344d8a1a33177049092984c552821e6de6a206f475974",
+        "pdf": "eadde98c51b8c8ab18035f5aa705cb74c117e7ea33ac3195972753a58ec7e2e1",
+        "png": "3bbe08486e3b4f56fdee3b3df6842e456296c053220eeb3137dc3821af962907"
       }
     },
     "figure2_scatter_canvas": {
