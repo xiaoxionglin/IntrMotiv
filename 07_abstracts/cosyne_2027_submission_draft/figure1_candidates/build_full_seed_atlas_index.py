@@ -21,6 +21,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 RESULTS = ROOT / "06_experiments/results/cosyne_2027_checkpoint_fields"
 OUTPUT = HERE / "full_seed_atlases"
+MINMAX_OUTPUT = HERE / "full_seed_atlases_minmax"
 INDEX = HERE / "full_place_field_atlases.md"
 REMOTE_ROOT = ("/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/"
                "SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011")
@@ -91,6 +92,10 @@ def write_unit_table(terminal: pd.DataFrame, recovery_csv: Path) -> list[dict]:
 
 
 def write_index(records: pd.DataFrame) -> None:
+    minmax_paths = [MINMAX_OUTPUT / file for file in records.file]
+    minmax_count = sum(path.is_file() for path in minmax_paths)
+    if minmax_count not in (0, len(records)):
+        raise ValueError(f"Only {minmax_count}/{len(records)} min–max atlases exist")
     lines = [
         "# All COSYNE terminal DG place-field atlases",
         "",
@@ -112,8 +117,9 @@ def write_index(records: pd.DataFrame) -> None:
         "",
         "## Select from every seed",
         "",
-        "Each cell links the complete 16-unit atlas and states its visited "
-        "spatial bins out of 361. Select by architecture, DG credit, worker "
+        "Each cell links the complete 16-unit atlas in both scale conventions "
+        "and states its visited spatial bins out of 361. Select by architecture, "
+        "DG credit, worker "
         "credit, seed, and unit number—for example, `C05 temporal/temporal, "
         "seed 123, DG 7`. C01 has no target worker; both C15 rows have the "
         "same frontier-target architecture and temporal worker credit.",
@@ -131,8 +137,10 @@ def write_index(records: pd.DataFrame) -> None:
             if len(matches) != 1:
                 raise ValueError(f"Missing or duplicate atlas: {family}/{encoder}/{worker}/{seed}")
             row = matches.iloc[0]
-            cells.append(f"[all 16](full_seed_atlases/{row.file}) · "
-                         f"{int(row.visited_cells)} bins")
+            links = f"[shared](full_seed_atlases/{row.file})"
+            if minmax_count:
+                links += f" · [min–max](full_seed_atlases_minmax/{row.file})"
+            cells.append(f"{links} · {int(row.visited_cells)} bins")
         lines.append(f"| {family} | {label} | " + " | ".join(cells) + " |")
     lines += [
         "",
@@ -140,8 +148,20 @@ def write_index(records: pd.DataFrame) -> None:
         "",
         "Each atlas comes from one 10,001-decision policy-driven frozen-model "
         "probe near 100 million training frames. Gray bins were unvisited. "
-        "The response-amplitude color scale is shared by the 16 units "
-        "**within** an atlas, but differs across atlases. Probe occupancy "
+        "The original **shared** renderer divides every rate by the 98th "
+        "percentile of all finite values pooled across that run's 16 unit "
+        "maps, then clips the display to 0–1. Thus color has one scale "
+        "within a run, but not across runs. The separate **min–max** renderer "
+        "sets each unit's visited-bin minimum to 0 and maximum to 1, "
+        "without percentile clipping; all 640 minima happen to be zero. "
+        "Its maps preserve the original occupancy mask and orientation and "
+        "print each unit's raw range below the tile. Min–max color exposes "
+        "shape but cannot compare response amplitude across units. The "
+        "[per-unit scale table](full_seed_atlases_minmax/unit_scale_ranges.csv) "
+        "and [min–max source hashes](full_seed_atlases_minmax/manifest.json) "
+        "record the exact transformation; the "
+        "[renderer](render_minmax_terminal_atlases.py) rebuilds these maps "
+        "from the numerical NPZs. Probe occupancy "
         "and sampled trajectories differ across networks; these images are "
         "for selecting illustrative units, not for a controlled contrast. "
         "Use the [all-seed metric table](full_seed_atlases/terminal_seed_metrics.csv) "
@@ -149,7 +169,7 @@ def write_index(records: pd.DataFrame) -> None:
         "values. The [per-unit table](full_seed_atlases/terminal_unit_metrics.csv) "
         "lists all 640 unit scores, activity fractions, and mono-field "
         "measurements. The [source manifest](full_seed_atlases/manifest.json) "
-        "for remote paths and PNG hashes. The original "
+        "records remote paths and PNG hashes. The original "
         "[checkpoint analysis](../../../06_experiments/cosyne_2027/checkpoint_fields_20261011.md) "
         "reports paired statistical results.",
         "",

@@ -2283,6 +2283,17 @@ For each finding, record:
   level deeper under `field/summary`. Source hashes and that exception are in
   the gallery manifest. Future copies should derive identities from the
   checkpoint table and validate all 40 files before inviting visual selection.
+  The original atlas renderer scales each run's 16 maps by their pooled 98th
+  percentile and clips larger values. This can hide weak but structured units.
+  A separate [per-unit min–max atlas set](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_place_field_atlases.md)
+  now uses the archived numerical NPZs, preserving occupancy and orientation;
+  a reconstructed original tile matched its source PNG pixel for pixel.
+  Printing each unit's raw range and active fraction beside the normalized map
+  prevents a rare spike or low-amplitude unit from looking quantitatively
+  comparable to a stronger map. For future visual selection, inspect both
+  scales and the full metrics table; regenerate from NPZs rather than
+  recoloring a clipped PNG. Acceptance is 40 paired atlases, 640 scale rows,
+  verified source hashes, and no atlas omitted by the index generator.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

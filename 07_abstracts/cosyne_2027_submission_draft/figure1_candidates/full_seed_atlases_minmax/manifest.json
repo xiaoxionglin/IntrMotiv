@@ -1,0 +1,329 @@
+{
+  "schema": "intrmotiv/cosyne-terminal-atlas-minmax/v1",
+  "normalization": "(rate - visited_min) / (visited_max - visited_min); constant maps show 0",
+  "rate_maps": "post-threshold occupancy-corrected DG maps",
+  "occupancy": "unvisited bins gray; [x,y,unit] source transposed for image display",
+  "source_index": "full_seed_atlases/terminal_seed_metrics.csv",
+  "atlases": [
+    {
+      "condition": "COS27_C01_TEMPORAL",
+      "seed": 8,
+      "output": "c01_temporal_s8.png",
+      "output_sha256": "ead52f62b9895b7d460df34422cea74a6f1b3f1018a0335cabde20e0c2344cb5",
+      "source_npz_relative_path": "c01_temporal_s3/raw/COS27_C01_TEMPORAL_S8__00_COS27_C01_TEMPORAL_S8__COS27_C01_TEMPORAL__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "057dce45c7f2d180f87b6680a2199e4f5347524011793590e8248da6559fc4cf"
+    },
+    {
+      "condition": "COS27_C01_TEMPORAL",
+      "seed": 99,
+      "output": "c01_temporal_s99.png",
+      "output_sha256": "c226bf5f371b37ac526aff003f01755fc953b73d9aa3c9102f783ea46bd7edde",
+      "source_npz_relative_path": "c01_temporal_s3/raw/COS27_C01_TEMPORAL_S99__00_COS27_C01_TEMPORAL_S99__COS27_C01_TEMPORAL__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "4c11c512e5ceaab119f5bd30c692816eedd17b6b4bfff3e21c1d6a1153e52b31"
+    },
+    {
+      "condition": "COS27_C01_TEMPORAL",
+      "seed": 123,
+      "output": "c01_temporal_s123.png",
+      "output_sha256": "0bb6628a8ceb38c5f1fb5c04b2bf76f2ba4a33edc75def78d4187b78708e9797",
+      "source_npz_relative_path": "c01_temporal_s3/raw/COS27_C01_TEMPORAL_S123__00_COS27_C01_TEMPORAL_S123__COS27_C01_TEMPORAL__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "12dc272a1ddefdfa8728712aec978cf08c2d8154325d5d87c4727f4488267dec"
+    },
+    {
+      "condition": "COS27_C01_CONSTANT",
+      "seed": 8,
+      "output": "c01_constant_s8.png",
+      "output_sha256": "dbac6e29979d97f062da254d13c2c29a2106046ae311396bfd213f15fc538f51",
+      "source_npz_relative_path": "c01_constant_s3/raw/COS27_C01_CONSTANT_S8__00_COS27_C01_CONSTANT_S8__COS27_C01_CONSTANT__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "9a1454419a1d7795a4ea6e0ce612d055acf3205f7400b1ca0b24d99917427eb4"
+    },
+    {
+      "condition": "COS27_C01_CONSTANT",
+      "seed": 99,
+      "output": "c01_constant_s99.png",
+      "output_sha256": "93dd4bbdfb8b880a0f2672875167040bdc54fc846c1a76716a6f10391d53b9a4",
+      "source_npz_relative_path": "c01_constant_s3/raw/COS27_C01_CONSTANT_S99__00_COS27_C01_CONSTANT_S99__COS27_C01_CONSTANT__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "cc38a43ee36c1330b009c8dfcf08e9796f2cff6c5ad226ab096ac7a48b16524f"
+    },
+    {
+      "condition": "COS27_C01_CONSTANT",
+      "seed": 123,
+      "output": "c01_constant_s123.png",
+      "output_sha256": "43fd03c09a2b223db97c8cdaf0f2a01bf9d2e5e965ff4d235d617f58322c2366",
+      "source_npz_relative_path": "c01_constant_s3/raw/COS27_C01_CONSTANT_S123__00_COS27_C01_CONSTANT_S123__COS27_C01_CONSTANT__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "f0aa925951b006b27cc41855cb908589d37ab211e0f4e2f1dfe26074e2e85e32"
+    },
+    {
+      "condition": "COS27_C01_CONSTANT",
+      "seed": 17,
+      "output": "c01_constant_s17.png",
+      "output_sha256": "79d9e8a8a4fbdd7c037b9340972c278e48e13aca15023afbf251174e60edec55",
+      "source_npz_relative_path": "c01_encoder_s2/raw/COS27_C01_CONSTANT_S17__00_COS27_C01_CONSTANT_S17__COS27_C01_CONSTANT__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "3c25674b79f998cd20fb7fa37f4349dd26eb7760842f17ff273f5446e330a694"
+    },
+    {
+      "condition": "COS27_C01_CONSTANT",
+      "seed": 41,
+      "output": "c01_constant_s41.png",
+      "output_sha256": "60defb04fd635f000231d902c292b7d6305fa5f3767d9db1072d026ca194a926",
+      "source_npz_relative_path": "c01_encoder_s2/raw/COS27_C01_CONSTANT_S41__00_COS27_C01_CONSTANT_S41__COS27_C01_CONSTANT__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "91ae29c44fba34d404944f180e1883cf0cbad789c373667baf8abbc55604eb91"
+    },
+    {
+      "condition": "COS27_C01_TEMPORAL",
+      "seed": 17,
+      "output": "c01_temporal_s17.png",
+      "output_sha256": "762a4426575582a1ae1158e04612ee06b42d959d969f30294b047ea14d2671c8",
+      "source_npz_relative_path": "c01_encoder_s2/raw/COS27_C01_TEMPORAL_S17__00_COS27_C01_TEMPORAL_S17__COS27_C01_TEMPORAL__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "87b83823472afb12844fdfd4746476609fe5ebca02316b4c18de004e12aefdff"
+    },
+    {
+      "condition": "COS27_C01_TEMPORAL",
+      "seed": 41,
+      "output": "c01_temporal_s41.png",
+      "output_sha256": "e3434be3d5cb3f453fe52bf19ddd05fff55371efb533a087951cbed4f71d3117",
+      "source_npz_relative_path": "c01_encoder_s2/raw/COS27_C01_TEMPORAL_S41__00_COS27_C01_TEMPORAL_S41__COS27_C01_TEMPORAL__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "252a06bc79e66183b877211c5d76b8116e955ee87f5d635671b3fac837bda3ed"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "seed": 8,
+      "output": "c05_constant_constant_s8.png",
+      "output_sha256": "ab86f4555e991fce90d2d5b952d3677a554b7938cfdb80baabfc28c920f7a790",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_CONSTANT_S8__00_COS27_C05_CONSTANT_CONSTANT_S8__COS27_C05_CONSTANT_CONSTANT__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "29862395f17f45c0309da8dfc464d74e7b06c62d7da525e37f74cb870585463b"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "seed": 99,
+      "output": "c05_constant_constant_s99.png",
+      "output_sha256": "dfcc0ba5604520b9c9ac24d4d2aaffdfd4edadeca012042be9e06faea4e2cfbc",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_CONSTANT_S99__00_COS27_C05_CONSTANT_CONSTANT_S99__COS27_C05_CONSTANT_CONSTANT__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "b0f5e28fcfe473f5c6a7428c7e8ab93f5dcfa8ccd498e793be4902a2aadbf3a6"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "seed": 123,
+      "output": "c05_constant_constant_s123.png",
+      "output_sha256": "4127f2279042dd2d23eb76a24cd92e630e9a24bdaa2188dd84baeae551725014",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_CONSTANT_S123__00_COS27_C05_CONSTANT_CONSTANT_S123__COS27_C05_CONSTANT_CONSTANT__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "ae7a2d38a1291e966242f901d0a05cfbe14218a31e1b06f85f789cece7dc5a77"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 8,
+      "output": "c05_constant_temporal_s8.png",
+      "output_sha256": "29b3c1d48f046319a043d3d162918cd537287c68d5b69d3c4e012435a38093bc",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_TEMPORAL_S8__00_COS27_C05_CONSTANT_TEMPORAL_S8__COS27_C05_CONSTANT_TEMPORAL__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "3e4e12ddc4322828902da854949dbc1be67fe24223696bdb7d532f38cc856b9b"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 99,
+      "output": "c05_constant_temporal_s99.png",
+      "output_sha256": "0f9c702e89f825d3682f342df6caa3e5e621aef98f706919f58a02f24f3c3203",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_TEMPORAL_S99__00_COS27_C05_CONSTANT_TEMPORAL_S99__COS27_C05_CONSTANT_TEMPORAL__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "f241ffac53d0465dbd0a98ef6d1cc27b7695f09d78d70edd3955e26a4208dbdf"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 123,
+      "output": "c05_constant_temporal_s123.png",
+      "output_sha256": "46b35755f4ad98db84c2f208b46d0b9fd12a857f811189e0d651b6ac38dc532f",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_CONSTANT_TEMPORAL_S123__00_COS27_C05_CONSTANT_TEMPORAL_S123__COS27_C05_CONSTANT_TEMPORAL__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "3d30bb7b2d257520d2d2096485ca1b69be7fa7ddcda647bcd4712adbb8ffd43b"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_CONSTANT",
+      "seed": 8,
+      "output": "c05_temporal_constant_s8.png",
+      "output_sha256": "7e4dfcc651218e139504725d291555074c78a7c2bce1543ce8387f997c486b21",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_CONSTANT_S8__00_COS27_C05_TEMPORAL_CONSTANT_S8__COS27_C05_TEMPORAL_CONSTANT__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "7410bc0a880c3b7da3bdb7ccee8f0e272c9ab175d1cb3fc8ca0912ac78dacc10"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_CONSTANT",
+      "seed": 99,
+      "output": "c05_temporal_constant_s99.png",
+      "output_sha256": "1d0e2ad471d14dec47125d39e9d28c12ad13fea7ed05ca167374bfc1d17ba993",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_CONSTANT_S99__00_COS27_C05_TEMPORAL_CONSTANT_S99__COS27_C05_TEMPORAL_CONSTANT__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "877fe9abbf3c023248f7823389ef74a62694e7c716636414e2e4e43639476504"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_CONSTANT",
+      "seed": 123,
+      "output": "c05_temporal_constant_s123.png",
+      "output_sha256": "4edfc3397eda49f06c6d5215de719bea19aa4f5e6816e130de7e7b64bd615e96",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_CONSTANT_S123__00_COS27_C05_TEMPORAL_CONSTANT_S123__COS27_C05_TEMPORAL_CONSTANT__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "1fe1137c26ab0ccb94b496842b85c1d8145436bd005196090b8e5b6b78ac4f17"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 8,
+      "output": "c05_temporal_temporal_s8.png",
+      "output_sha256": "37b4ceb8ec9e85ad891bf32946fa9ea187504ee10c1b1a78ccc4068437c91c80",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S8__00_COS27_C05_TEMPORAL_TEMPORAL_S8__COS27_C05_TEMPORAL_TEMPORAL__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "f756a1e067e95f5b71f8ec396812589b239ac24a6af00c48f494a9335a03cf1e"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 99,
+      "output": "c05_temporal_temporal_s99.png",
+      "output_sha256": "3eb9d80cfbbc3b5d73d20765fe34ce39575fb51034994345fe2b98708af73abd",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "876eff7e7e557475be7a35ad81b02203bae514bf326719217bc85d9275985059"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 123,
+      "output": "c05_temporal_temporal_s123.png",
+      "output_sha256": "ebd8c34f86340352b7f77f436bd46b2a10a98c23a668a683648a4a42c7dcd12b",
+      "source_npz_relative_path": "c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S123__00_COS27_C05_TEMPORAL_TEMPORAL_S123__COS27_C05_TEMPORAL_TEMPORAL__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "bb08af790a30bfd2de70fc7a603d9f0a976ac9cb80751a48e39f997ceada3893"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "seed": 17,
+      "output": "c05_constant_constant_s17.png",
+      "output_sha256": "193dddd6e5ac495b0b53623554c8b0801c271931c3352cc3e54e5a6f0744dc4d",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_CONSTANT_CONSTANT_S17__00_COS27_C05_CONSTANT_CONSTANT_S17__COS27_C05_CONSTANT_CONSTANT__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "7d3418b5b35ddcacd1a5e75bcc63f794885a3dd6ff48bcc63b8708c18a54a8a4"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "seed": 41,
+      "output": "c05_constant_constant_s41.png",
+      "output_sha256": "2ace48972adb5ec5061376c7346013d28cb8c26523770c47961d7354c403950b",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_CONSTANT_CONSTANT_S41__00_COS27_C05_CONSTANT_CONSTANT_S41__COS27_C05_CONSTANT_CONSTANT__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "4765ec1f1ead67de0f1720cbd863b6af6f70dcb102549e2a7b192396e65a1145"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 17,
+      "output": "c05_constant_temporal_s17.png",
+      "output_sha256": "29593edcd2578dafc857b1818b097c63fe3100edbb4ff3dc5be94f9feeba8883",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_CONSTANT_TEMPORAL_S17__00_COS27_C05_CONSTANT_TEMPORAL_S17__COS27_C05_CONSTANT_TEMPORAL__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "54f236a9554e54b7b2606a997814aec3ac51786d1e3a30d57432dbd18f1107f3"
+    },
+    {
+      "condition": "COS27_C05_CONSTANT_TEMPORAL",
+      "seed": 41,
+      "output": "c05_constant_temporal_s41.png",
+      "output_sha256": "c15ab6ad91d64905b945b3510c2fa1ccdafeb4d1211beb2076c01a1d33e693f0",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_CONSTANT_TEMPORAL_S41__00_COS27_C05_CONSTANT_TEMPORAL_S41__COS27_C05_CONSTANT_TEMPORAL__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "b363a8c5c18ef164b501c4edd03049e297c7c72d1d35185249717f5f1ffa4747"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_CONSTANT",
+      "seed": 17,
+      "output": "c05_temporal_constant_s17.png",
+      "output_sha256": "ecec2a99907a732f604c890c11405bb69a74741f6217bf01c12ceda1dfa5ed06",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_TEMPORAL_CONSTANT_S17__00_COS27_C05_TEMPORAL_CONSTANT_S17__COS27_C05_TEMPORAL_CONSTANT__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "4b26f5dc37edfb31f3b07023d61d1b2e5b212a31c650e419e470076921f52205"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_CONSTANT",
+      "seed": 41,
+      "output": "c05_temporal_constant_s41.png",
+      "output_sha256": "ecf8dbca1071f04ce89714b0016095a20939b7938770d8d13293f57dbded2fcd",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_TEMPORAL_CONSTANT_S41__00_COS27_C05_TEMPORAL_CONSTANT_S41__COS27_C05_TEMPORAL_CONSTANT__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "f479f2ed0232aeb3d37b982ec3157a149ca2b84d2be301929d94f03ea02b71ed"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 17,
+      "output": "c05_temporal_temporal_s17.png",
+      "output_sha256": "72b875d4a60be5608f3d18a04603b895a9638addfc99301be89b9779ad4c5e71",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_TEMPORAL_TEMPORAL_S17__00_COS27_C05_TEMPORAL_TEMPORAL_S17__COS27_C05_TEMPORAL_TEMPORAL__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "c5296201c2057d395ef0e948185fb19ed63b40677781888c33738653a00d5b4f"
+    },
+    {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 41,
+      "output": "c05_temporal_temporal_s41.png",
+      "output_sha256": "cc7b805d423726798e57c0722deb3460460afeabf2a21ecc74c907472580bfcf",
+      "source_npz_relative_path": "c05_pushpull_s2/raw/COS27_C05_TEMPORAL_TEMPORAL_S41__00_COS27_C05_TEMPORAL_TEMPORAL_S41__COS27_C05_TEMPORAL_TEMPORAL__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "29dd2bc8975a5f7f4018efc56be590eaab8e90e407de82946a10b6f5ee597060"
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 123,
+      "output": "c15_constant_s123.png",
+      "output_sha256": "0496f75a4e78b04696f4a3f2d9de7359dd4f0c093d22b85822a46f2c1ea049f9",
+      "source_npz_relative_path": "c15_available/raw/COS27_C15_CONSTANT_S123__00_COS27_C15_CONSTANT_S123__COS27_C15_CONSTANT__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "bf8bebeaa4339028c5a908416c879cdd80a4fdc258b932ea004b53fde16c7b3b"
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 8,
+      "output": "c15_temporal_s8.png",
+      "output_sha256": "5aa428a1e07dff05a93e0fe3624cc96691b96ce062a9c74015f4f82f947b3791",
+      "source_npz_relative_path": "c15_available/raw/COS27_C15_TEMPORAL_S8__00_COS27_C15_TEMPORAL_S8__COS27_C15_TEMPORAL__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "03592c6326b4d968e3b9f9575546539119936d7c2d0b3db81008fa7fd9dafaf0"
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 99,
+      "output": "c15_temporal_s99.png",
+      "output_sha256": "a9b09a6354250e1ea66bf77f7e2e35b10d2e0cdfbe13cca6570eefdf94e03c98",
+      "source_npz_relative_path": "c15_available/raw/COS27_C15_TEMPORAL_S99__00_COS27_C15_TEMPORAL_S99__COS27_C15_TEMPORAL__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "36add964394941ed35055207a34c5753e404824cfe1f2f19bf0e6896abfb0a58"
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 123,
+      "output": "c15_temporal_s123.png",
+      "output_sha256": "d2300532c00b8befc546a1bc6013157855793b4b0655e2f6ac90d6b8bc1efb08",
+      "source_npz_relative_path": "c15_available/raw/COS27_C15_TEMPORAL_S123__00_COS27_C15_TEMPORAL_S123__COS27_C15_TEMPORAL__s123__f100007936/place_fields.npz",
+      "source_npz_sha256": "4a1d47152dc5efda07448226daa52ebbefd5efa63e6a31c2c990baddc23ce634"
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 17,
+      "output": "c15_constant_s17.png",
+      "output_sha256": "eb72789d8ce4b968eb380ac19d2609caacf2222be6ea457b6476f27b9c94021c",
+      "source_npz_relative_path": "c15_encoder_s2/raw/COS27_C15_CONSTANT_S17__00_COS27_C15_CONSTANT_S17__COS27_C15_CONSTANT__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "e2e8892ab4c57799c50e46f51b15288e3f6645c74583f520e5158ebab2bf2722"
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 41,
+      "output": "c15_constant_s41.png",
+      "output_sha256": "e4e14cae1f1488acefca1b7b972f4d4f26ffa95e27ad320b4d82ad9e42b1cf24",
+      "source_npz_relative_path": "c15_encoder_s2/raw/COS27_C15_CONSTANT_S41__00_COS27_C15_CONSTANT_S41__COS27_C15_CONSTANT__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "9b6478efa4d5a243acf816c17f16c06839807bafb3eea82899a3e1b00e74e8c1"
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 17,
+      "output": "c15_temporal_s17.png",
+      "output_sha256": "7ad6826ee9452d79fbeeb649b5eeaee950a56d35c6a1566b64d031ebfd2f16d7",
+      "source_npz_relative_path": "c15_encoder_s2/raw/COS27_C15_TEMPORAL_S17__00_COS27_C15_TEMPORAL_S17__COS27_C15_TEMPORAL__s17__f100007936/place_fields.npz",
+      "source_npz_sha256": "d6024b853ad4584eadb225861bc1b908e49ae0c86668d446f33c7be3beda9ffb"
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 41,
+      "output": "c15_temporal_s41.png",
+      "output_sha256": "d48ba6cbdf2d5c376170f0106cea75a25968a2f5e3e02b0346d2378c0d37c394",
+      "source_npz_relative_path": "c15_encoder_s2/raw/COS27_C15_TEMPORAL_S41__00_COS27_C15_TEMPORAL_S41__COS27_C15_TEMPORAL__s41__f100007936/place_fields.npz",
+      "source_npz_sha256": "0366c8006aade27d1c941fff317e2cf8a1451c1af52038119460bd856316e161"
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 8,
+      "output": "c15_constant_s8.png",
+      "output_sha256": "2ca1cc3bf5cf32b4daf47e7a3e48a68b0a68ae4c51d62ca5850555de191088fe",
+      "source_npz_relative_path": "c15_recovery/field/raw/COS27_REC_C15_CONSTANT_S8__00_COS27_REC_C15_CONSTANT_S8__COS27_C15_CONSTANT__s8__f100007936/place_fields.npz",
+      "source_npz_sha256": "6be5d3b9885772be2964fd0716e8c4243e5394714c4464a0d0f01b4aa792e0c7"
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 99,
+      "output": "c15_constant_s99.png",
+      "output_sha256": "d6bf0335600516df3ed1d3d533fde53976867b0368653e88973f320004b98daf",
+      "source_npz_relative_path": "c15_recovery/field/raw/COS27_REC_C15_CONSTANT_S99__00_COS27_REC_C15_CONSTANT_S99__COS27_C15_CONSTANT__s99__f100007936/place_fields.npz",
+      "source_npz_sha256": "5c5cb6b73dadc42799bbaa3db77b27273a47fb9ef7a9d2ed01fa89c7a80e993b"
+    }
+  ]
+}
