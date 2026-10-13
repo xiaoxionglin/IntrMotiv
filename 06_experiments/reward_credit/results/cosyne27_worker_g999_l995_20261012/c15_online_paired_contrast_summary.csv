@@ -1,0 +1,17 @@
+base,contrast,metric,mean,sd,n
+C15,worker_temporal_minus_constant,advantage_std,-23.20610290228152,31.092541244952407,5
+C15,worker_temporal_minus_constant,censored_outcome_count,0.0,0.0,5
+C15,worker_temporal_minus_constant,correct_elapsed_mean,-0.2867165158776679,10.980678240274106,5
+C15,worker_temporal_minus_constant,correct_outcome_count,1.8241830065359477,3.1144651552824842,5
+C15,worker_temporal_minus_constant,correct_reward_magnitude_mean,0.08964577141930072,0.023727718442166496,5
+C15,worker_temporal_minus_constant,coverage_auc,2.2788428950638506,34.24337503913913,5
+C15,worker_temporal_minus_constant,dg_density,0.0008819979000714871,0.0024014069297645705,5
+C15,worker_temporal_minus_constant,dg_silent_fraction,0.0,0.0,5
+C15,worker_temporal_minus_constant,dg_usage_entropy,0.0030213040464064367,0.009914561701237785,5
+C15,worker_temporal_minus_constant,encoder_event_count,-26.569934640522842,186.6311273947406,5
+C15,worker_temporal_minus_constant,encoder_feedback,-0.021101461185349363,0.07247653169030194,5
+C15,worker_temporal_minus_constant,policy_loss,-0.0019990418902164028,0.0015800607457329573,5
+C15,worker_temporal_minus_constant,target_action_sensitivity,0.00037309563685162145,0.000954790137007314,5
+C15,worker_temporal_minus_constant,target_hit_event_count,-96.68169934640522,331.656971532638,5
+C15,worker_temporal_minus_constant,target_hit_numerator,0.8424836601307188,1.155223904733221,5
+C15,worker_temporal_minus_constant,value_loss,-0.0027913415853962837,0.0051862958082966705,5

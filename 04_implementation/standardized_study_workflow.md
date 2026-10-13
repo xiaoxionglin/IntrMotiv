@@ -534,6 +534,13 @@ starting analysis. The 75M source-distance spatial collection otherwise failed
 during NumPy import when OpenBLAS attempted 60 threads; the identical command
 completed with those limits. This affects analysis process resources, not the
 saved snapshots or training settings.
+The 100M C05/C15 `collect-online --export-histories` attempt also exhausted
+the login-node thread limit when two eight-worker process collectors started
+together. With the same numerical-library limits, collect one study at a time
+using the thread loader; both completed without changing study specifications
+or training artifacts. Retain the exported histories for later count-weighted
+conditional-hit analysis instead of rescanning roughly 100 MB of TensorBoard
+events per run.
 
 The default is CSV-only and writes `per_snapshot.csv`,
 `snapshot_inventory.csv`, `condition_summary.csv`, `seed_summary.csv`, and an

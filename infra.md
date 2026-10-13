@@ -261,6 +261,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   the login node returned `Resource temporarily unavailable`. The unchanged
   canonical command completed after setting `OPENBLAS_NUM_THREADS=1`,
   `OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`.
+  On 13 October, concurrent eight-worker C05/C15 `collect-online` process
+  collectors hit the same limit; one-study-at-a-time thread collection with
+  bounded numerical-library threads completed. See the
+  [standard workflow](04_implementation/standardized_study_workflow.md#analysis-completion-standard).
 - **Impact:** A valid retained-snapshot analysis can appear to have broken
   NumPy or source code when the actual limit is process thread capacity.
 - **Improvement/status:** The remote-analysis instructions now state the

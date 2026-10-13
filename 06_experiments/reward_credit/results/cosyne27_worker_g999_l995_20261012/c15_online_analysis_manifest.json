@@ -1,0 +1,55 @@
+{
+  "batch_name": "cosyne27_c15_worker_g999_l995_s5_20261012",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_worker_g999_l995_20261012/c15_online/histories",
+    "loader_backend": "thread",
+    "mode": "per_run_terminal",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        90040704,
+        100040704
+      ]
+    ]
+  },
+  "contrast_group_by": [
+    "base"
+  ],
+  "contrasts": [
+    "worker_temporal_minus_constant"
+  ],
+  "expected_runs": 10,
+  "group_by": [
+    "condition"
+  ],
+  "input_rows": 10,
+  "metrics": [
+    "coverage_auc",
+    "dg_density",
+    "encoder_event_count",
+    "encoder_feedback",
+    "target_hit_event_count",
+    "target_hit_numerator",
+    "policy_loss",
+    "value_loss",
+    "advantage_std",
+    "target_action_sensitivity",
+    "correct_outcome_count",
+    "censored_outcome_count",
+    "correct_elapsed_mean",
+    "correct_reward_magnitude_mean",
+    "dg_silent_fraction",
+    "dg_usage_entropy"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cosyne27_c15_worker_g999_l995_s5_20261012",
+  "study_sha256": "4f6c645848c1b956000fc264ddca0378ebc1f0957665d9d7c719212bff4e24aa",
+  "study_spec": "hpc_runs/studies/cosyne27_c15_worker_g999_l995_s5_20261012.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}
