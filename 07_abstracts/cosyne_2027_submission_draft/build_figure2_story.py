@@ -144,6 +144,41 @@ def metric_card(metric: str, rows: dict[str, list[dict[str, str]]],
     return "\n".join(out)
 
 
+def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
+    """Draw A's compact seed dots and black mean bars as on the Bernstein poster."""
+    left, top, bottom = 29, 36, 69
+    minimum, maximum = 0.0, 0.5
+
+    def scale(value: float) -> float:
+        if not minimum <= value <= maximum:
+            raise ValueError(f"Path efficiency {value} outside the printed axis")
+        return bottom - (value - minimum) * (bottom - top) / (maximum - minimum)
+
+    out = ['<g id="panel-a-path-efficiency" aria-label="Path efficiency, five seeds per design">',
+           '<text x="7" y="29" class="poster-stat-title">Path efficiency</text>',
+           f'<path d="M {left},{top} V {bottom} H 100" stroke="#171717" '
+           'stroke-width="0.7" fill="none"/>']
+    for tick in (0.0, 0.25, 0.5):
+        ty = scale(tick)
+        out.extend((
+            f'<path d="M {left-2},{ty:g} H {left}" stroke="#171717" stroke-width="0.7"/>',
+            f'<text x="{left-4}" y="{ty+3:g}" text-anchor="end" '
+            f'class="poster-stat-tick">{tick:g}</text>',
+        ))
+    for family, cx in (("NG", 42), ("UG", 66), ("FG", 90)):
+        values = [float(row["path_efficiency"]) for row in rows[family]]
+        for value, jitter in zip(values, (-3.8, -1.9, 0, 1.9, 3.8)):
+            out.append(f'<circle cx="{cx+jitter:g}" cy="{scale(value):g}" r="1.55" '
+                       f'fill="{COLORS[family]}"/>')
+        mean_y = scale(sum(values) / len(values))
+        out.extend((
+            f'<path d="M {cx-7},{mean_y:g} H {cx+7}" stroke="#171717" stroke-width="1"/>',
+            f'<text x="{cx}" y="80" text-anchor="middle" class="poster-stat-tick">{family}</text>',
+        ))
+    out.append('</g>')
+    return "\n".join(out)
+
+
 def trajectory_uri(run_name: str, expected_sha256: str) -> str:
     path = TRAJECTORIES / f"{run_name}.png"
     if sha256(path) != expected_sha256:
@@ -187,20 +222,20 @@ def behavior_schematic() -> str:
     """Match the rounded-box ablation style, using only black/gray ink."""
     return "\n".join((
         '<g id="behavior-ablation-schematic">',
-        '<rect x="5" y="118" width="30" height="23" rx="4" class="black-box"/>',
-        '<rect x="52" y="118" width="82" height="23" rx="4" class="black-box"/>',
-        '<rect x="151" y="118" width="39" height="23" rx="4" class="black-box"/>',
-        '<text x="20" y="134" text-anchor="middle" class="box-label">Env</text>',
-        '<text x="93" y="134" text-anchor="middle" class="box-label">Representation</text>',
-        '<text x="170.5" y="134" text-anchor="middle" class="box-label">Policy</text>',
-        '<path d="M 35,129.5 H 52 M 134,129.5 H 151" class="black-arrow"/>',
-        '<path d="M 47,127 L 52,129.5 L 47,132 M 146,127 L 151,129.5 L 146,132" '
-        'fill="none" stroke="#26323a" stroke-width="1"/>',
-        '<path d="M 170,117 C 166,106 37,106 20,117" class="black-arrow"/>',
-        '<path d="M 16,113 L 20,117 L 24,112" fill="none" '
-        'stroke="#26323a" stroke-width="1"/>',
-        '<path d="M 95,103 L 105,113 M 95,113 L 105,103" fill="none" '
-        'stroke="#26323a" stroke-width="2"/>',
+        '<rect x="232" y="39" width="17" height="18" rx="3" class="black-box"/>',
+        '<rect x="254" y="39" width="16" height="18" rx="3" class="black-box"/>',
+        '<rect x="275" y="39" width="18" height="18" rx="3" class="black-box"/>',
+        '<text x="240.5" y="51" text-anchor="middle" class="box-label">Env</text>',
+        '<text x="262" y="51" text-anchor="middle" class="box-label">DG</text>',
+        '<text x="284" y="51" text-anchor="middle" class="box-label">Pol.</text>',
+        '<path d="M 249,48 H 254 M 270,48 H 275" class="black-arrow"/>',
+        '<path d="M 251,45.5 L 254,48 L 251,50.5 M 272,45.5 L 275,48 L 272,50.5" '
+        'fill="none" stroke="#26323a" stroke-width="0.9"/>',
+        '<path d="M 284,38 C 282,28 240,28 240,38" class="black-arrow"/>',
+        '<path d="M 237,34 L 240,38 L 243,34" fill="none" '
+        'stroke="#26323a" stroke-width="0.9"/>',
+        '<path d="M 258,28 L 266,36 M 258,36 L 266,28" fill="none" '
+        'stroke="#171717" stroke-width="1.6"/>',
         '</g>',
     ))
 
@@ -240,45 +275,47 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.story-label{font:10px Arial,sans-serif;fill:#25313a}'
            '.field-label{font:9px Arial,sans-serif;fill:#25313a}'
            '.mini-label{font:9px Arial,sans-serif;fill:#25313a}'
-           '.box-label{font:10px Arial,sans-serif;fill:#171717}'
+           '.box-label{font:9px Arial,sans-serif;fill:#171717}'
            '.black-box{fill:#f4f4f4;stroke:#171717;stroke-width:1}'
            '.black-arrow{fill:none;stroke:#26323a;stroke-width:1}'
+           '.poster-stat-title{font:700 9px Arial,sans-serif;fill:#25313a}'
+           '.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}'
            '</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
-           '<text x="6" y="99" class="story-letter">B</text>',
-           '<text x="23" y="99" class="story-heading">Behavior ablation</text>',
-           '<text x="6" y="166" class="story-letter">C</text>',
-           '<text x="23" y="166" class="story-heading">Push ablation</text>',
-           '<text x="6" y="231" class="story-letter">D</text>',
-           '<text x="23" y="231" class="story-heading">Pull ablation</text>',
-           '<text x="467" y="99" class="story-letter">E</text>',
-           '<text x="484" y="99" class="story-heading">DG fields</text>']
-    for x, family in zip((9, 79, 149), ("NG", "UG", "FG")):
+           '<text x="231" y="12" class="story-letter">B</text>',
+           '<text x="248" y="12" class="story-heading">Behavior ablation</text>',
+           '<text x="6" y="94" class="story-letter">C</text>',
+           '<text x="23" y="94" class="story-heading">Push ablation</text>',
+           '<text x="6" y="159" class="story-letter">D</text>',
+           '<text x="23" y="159" class="story-heading">Pull ablation</text>',
+           '<text x="469" y="12" class="story-letter">E</text>',
+           '<text x="486" y="12" class="story-heading">Fields</text>']
+    for x, family in zip((104, 146, 188), ("NG", "UG", "FG")):
         run_name = RUNS[family]
         seed = run_name.rsplit("S", 1)[-1]
         out.extend((
-            f'<text x="{x+32}" y="22" text-anchor="middle" class="story-label" '
+            f'<text x="{x+20}" y="28" text-anchor="middle" class="story-label" '
             f'fill="{COLORS[family]}">{family} · s{seed}</text>',
-            f'<image x="{x}" y="25" width="64" height="64" '
+            f'<image x="{x}" y="31" width="40" height="40" '
             'preserveAspectRatio="none" '
             f'xlink:href="{trajectory_uri(run_name, selected[family]["sha256"])}"/>',
-            f'<rect x="{x}" y="25" width="64" height="64" '
+            f'<rect x="{x}" y="31" width="40" height="40" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
-    out.append(metric_card("path_efficiency", rows, 227, 4, 307, 86))
+    out.append(poster_dot_metric(rows))
     out.append(behavior_schematic())
-    out.append(credit_schematic(177, "push", "push"))
-    out.append(credit_schematic(242, "pull", "pull"))
-    for y, unit in zip((104, 169, 234), UNITS):
+    out.append(credit_schematic(105, "push", "push"))
+    out.append(credit_schematic(170, "pull", "pull"))
+    for y, unit in zip((20, 95, 170), UNITS):
         out.extend((
-            f'<image x="479" y="{y}" width="48" height="48" '
+            f'<image x="486" y="{y}" width="42" height="42" '
             f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
-            f'<rect x="479" y="{y}" width="48" height="48" '
+            f'<rect x="486" y="{y}" width="42" height="42" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
-            f'<text x="503" y="{y+58}" text-anchor="middle" '
+            f'<text x="507" y="{y+52}" text-anchor="middle" '
             f'class="field-label">DG {unit}</text>',
         ))
     out.append('</g>')
@@ -286,6 +323,12 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
 
 
 def export(svg: str, path: Path) -> None:
+    # Inkscape embeds fresh PDF metadata on every export. Preserve stable
+    # candidate PDFs when their editable SVG and rendered files are unchanged.
+    if (path.is_file() and path.read_text() == svg
+            and path.with_suffix(".pdf").is_file()
+            and path.with_suffix(".png").is_file()):
+        return
     path.write_text(svg)
     for extension, width in (("pdf", None), ("png", "1800")):
         command = ["inkscape", str(path),
@@ -310,10 +353,10 @@ def build() -> None:
     rows = terminal_rows()
     selected = selected_trajectories()
     svg = BASE_SVG.read_text()
-    for old, new in (('height="210pt"', 'height="300pt"'),
-                     ('viewBox="0 0 540 210"', 'viewBox="0 0 540 300"'),
+    for old, new in (('height="210pt"', 'height="230pt"'),
+                     ('viewBox="0 0 540 210"', 'viewBox="0 0 540 230"'),
                      ('id="pdf-origin-fix" transform="translate(0,12)"',
-                      'id="pdf-origin-fix" transform="translate(0,102)"'),
+                      'id="pdf-origin-fix" transform="translate(0,20)"'),
                      ('sodipodi:docname="Figure2_tetris.svg"',
                       'sodipodi:docname="Figure2_story.svg"')):
         if svg.count(old) != 1:
@@ -321,9 +364,12 @@ def build() -> None:
         svg = svg.replace(old, new, 1)
     for group in ("g699", "g701", "g702", "compact-map-examples"):
         svg = hide_group(svg, group)
+    for group in ("component_behavior_dg_information",
+                  "component_behavior_readout_reliability"):
+        svg = move_group(svg, group, 97 if group.endswith("dg_information") else 100, 0)
     for prefix in ("push", "pull"):
         for metric in ("dg_information", "map_overlap", "peak_coverage", "graph_edges"):
-            svg = move_group(svg, f"component_{prefix}_{metric}", -68, 0)
+            svg = move_group(svg, f"component_{prefix}_{metric}", -68, 10)
     svg = re.sub(r"</svg>\s*$", story_overlay(rows, selected) + "\n</svg>\n", svg)
     export(svg, STORY)
 
