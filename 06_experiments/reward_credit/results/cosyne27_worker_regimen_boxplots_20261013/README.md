@@ -20,7 +20,7 @@ MPLCONFIGDIR=/tmp/cosyne_high_compact_mpl /home/xiaoxiong/miniforge3/envs/SF_git
 
 ## Relative-count alternative: panels C and D
 
-The second compact figure retains the same A and B panels. For **C, correct-hit observations**, and **D, reliable graph edges**, each seed instead shows $(T-C)/(C+1)$, where $T$ and $C$ are the temporal- and constant-bonus arm counts for that matched architecture and seed. The added one is **one observation** in C and **one edge** in D. Zero means equal counts; positive values favor the temporal arm. These values are dimensionless, but they are not literal percentage changes when $C$ is small. Boxes, medians, min–max whiskers, and dots have the same definitions as in the absolute-difference figure. The high-credit setting, five seeds, observation windows, and own-policy graph protocol are unchanged.
+The second compact figure retains the same A and B panels. For **C, correct-hit observations**, and **D, reliable graph edges**, each seed instead shows $100(T-C)/(C+\epsilon)$ on the **relative change (%)** axis, where $T$ and $C$ are the temporal- and constant-bonus arm counts for that matched architecture and seed, and $\epsilon=1$ count. The added one is **one observation** in C and **one edge** in D. Zero means equal counts; positive values favor the temporal arm. The lower segment shows −100% to +100%; the upper segment retains values above +100% after a visible axis break. No outlier is capped or omitted. These are ratios on a percent scale, but they are not literal percentage changes from the constant arm when $C$ is small or zero. Boxes, medians, min–max whiskers, and dots have the same definitions as in the absolute-difference figure. The high-credit setting, five seeds, observation windows, and own-policy graph protocol are unchanged.
 
 The [per-arm table](high_credit_cplus1_seed_values.csv) records all 20 counts and ratios. Its C and D source CSVs are the pinned `a26852f` files named in [source mapping](sources.json). The renderer reloads those files from Git history, checks every $T-C$ against the original paired table, then exports the relative figure and table. Regenerate with:
 
@@ -28,7 +28,7 @@ The [per-arm table](high_credit_cplus1_seed_values.csv) records all 20 counts an
 MPLCONFIGDIR=/tmp/cosyne_high_relative_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_compact.py --relative-counts
 ```
 
-**Interpretation limit:** at 100M frames, the C05 constant graph has zero reliable edges in seeds 8, 41, and 99. The added one makes their ratios finite: 0, 3, and 3 respectively. These are count differences divided by a stabilizing one-edge denominator, not estimates of a conventional percent change from a nonzero baseline. C05 seed 41 also has a 5.86 relative correct-hit change because its constant-arm count is only 1,687. The raw counts and absolute-difference figure should accompany any cross-architecture reading of these panels.
+**Interpretation limit:** at 100M frames, the C05 constant graph has zero reliable edges in seeds 8, 41, and 99. The added one makes their plotted values finite: 0%, 300%, and 300% respectively. These are count differences divided by a stabilizing one-edge denominator, not estimates of a conventional percent change from a nonzero baseline. C05 seed 41 also appears at 586% for correct hits because its constant-arm count is only 1,687. The raw counts and absolute-difference figure should accompany any cross-architecture reading of these panels.
 
 ## Earlier full-size comparison
 

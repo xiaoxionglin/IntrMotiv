@@ -17,6 +17,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib.ticker import FixedLocator, FuncFormatter
 import numpy as np
 import pandas as pd
 
@@ -40,8 +41,8 @@ SOURCE_COMMIT = "a26852f"
 SOURCE_DIRECTORY = "06_experiments/reward_credit/results/cosyne27_worker_g999_l995_20261012"
 RELATIVE_METRICS = (
     METRICS[0], METRICS[1],
-    ("relative_correct_hit_observations", "C  Correct hits", r"$(T-C)/(C+1)$"),
-    ("relative_reliable_edges", "D  Graph edges", r"$(T-C)/(C+1)$"),
+    ("relative_correct_hit_observations", "C  Correct hits", "Relative change (%)"),
+    ("relative_reliable_edges", "D  Graph edges", "Relative change (%)"),
 )
 
 
@@ -110,12 +111,12 @@ def relative_count_data(data: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
-def draw_metric(ax: plt.Axes, data: pd.DataFrame, metric: str,
-                title: str, ylabel: str) -> None:
+def draw_values(ax: plt.Axes, data: pd.DataFrame, metric: str,
+                scale: float = 1.0) -> list[float]:
     all_values = []
     for position, family in enumerate(("C05", "C15")):
         values = (data[data.family == family].set_index("seed")
-                  .loc[list(SEEDS), metric].to_numpy(dtype=float))
+                  .loc[list(SEEDS), metric].to_numpy(dtype=float) * scale)
         all_values.extend(values)
         color = COLOR[family]
         box = ax.boxplot([values], positions=[position], widths=0.48,
@@ -129,15 +130,56 @@ def draw_metric(ax: plt.Axes, data: pd.DataFrame, metric: str,
         ax.scatter(position + np.linspace(-0.12, 0.12, len(SEEDS)), values,
                    s=18, color=color, edgecolor="white", linewidth=0.3,
                    zorder=4)
-    extent = max(abs(min(all_values)), abs(max(all_values))) * 1.18
-    ax.set_ylim(-extent, extent)
     ax.set_xlim(-0.42, 1.58)
     ax.axhline(0, color="#7D858A", lw=0.7, zorder=1)
+    finish_axes(ax)
+    return all_values
+
+
+def draw_metric(ax: plt.Axes, data: pd.DataFrame, metric: str,
+                title: str, ylabel: str) -> None:
+    all_values = draw_values(ax, data, metric)
+    extent = max(abs(min(all_values)), abs(max(all_values))) * 1.18
+    ax.set_ylim(-extent, extent)
     ax.set_xticks((0, 1), ("C05", "C15"))
     ax.set_title(title, loc="left", fontweight="bold", pad=3)
     ax.set_ylabel(ylabel, labelpad=1)
     ax.yaxis.set_major_locator(MaxNLocator(nbins=3, symmetric=True))
-    finish_axes(ax)
+
+
+def draw_broken_relative_metric(fig: plt.Figure, data: pd.DataFrame,
+                                position: int, metric: str,
+                                title: str, ylabel: str) -> None:
+    """Keep the central ±100% range legible while retaining all larger dots."""
+    left = 0.75 + position * 1.80
+    width = 1.20
+    lower = fig.add_axes([left / 7.5, 0.28 / 2.50,
+                          width / 7.5, 0.88 / 2.50])
+    upper = fig.add_axes([left / 7.5, 1.28 / 2.50,
+                          width / 7.5, 0.53 / 2.50], sharex=lower)
+    draw_values(lower, data, metric, scale=100.0)
+    draw_values(upper, data, metric, scale=100.0)
+    upper_limit = 620 if metric == "relative_correct_hit_observations" else 330
+    upper_ticks = (200, 400, 600) if upper_limit == 620 else (200, 300)
+    lower.set_ylim(-105, 105)
+    upper.set_ylim(110, upper_limit)
+    lower.yaxis.set_major_locator(FixedLocator((-100, 0, 100)))
+    upper.yaxis.set_major_locator(FixedLocator(upper_ticks))
+    for ax in (lower, upper):
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:g}"))
+    lower.set_xticks((0, 1), ("C05", "C15"))
+    upper.tick_params(axis="x", bottom=False, labelbottom=False)
+    lower.spines["top"].set_visible(False)
+    upper.spines["bottom"].set_visible(False)
+    upper.set_title(title, loc="left", fontweight="bold", pad=3)
+    fig.text((left - 0.49) / 7.5, 1.05 / 2.50, ylabel,
+             rotation=90, va="center", ha="center", fontsize=12)
+    # Diagonal marks identify the omitted 105–110% interval and scale jump.
+    for ax, y in ((lower, 1), (upper, 0)):
+        for x in (0, 1):
+            ax.plot((x - 0.025, x + 0.025), (y - 0.035, y + 0.035),
+                    transform=ax.transAxes, color="#20272C", lw=0.8,
+                    clip_on=False)
 
 
 def main() -> None:
@@ -159,10 +201,16 @@ def main() -> None:
                "High policy credit: temporal − constant worker bonus  ")
     fig.text(0.03, 0.96, heading + r"($\gamma=0.999$, $\lambda=0.995$)",
              va="top", fontsize=12, fontweight="bold", color="#20272C")
+    if args.relative_counts:
+        fig.text(0.03, 0.88, r"C–D: $100(T-C)/(C+\epsilon)$, $\epsilon=1$ count",
+                 va="top", fontsize=12, color="#20272C")
     for position, (metric, title, ylabel) in enumerate(metrics):
-        ax = fig.add_axes([(0.75 + position * 1.80) / 7.5,
-                           0.28 / 2.50, 1.20 / 7.5, 1.53 / 2.50])
-        draw_metric(ax, data, metric, title, ylabel)
+        if args.relative_counts and position >= 2:
+            draw_broken_relative_metric(fig, data, position, metric, title, ylabel)
+        else:
+            ax = fig.add_axes([(0.75 + position * 1.80) / 7.5,
+                               0.28 / 2.50, 1.20 / 7.5, 1.53 / 2.50])
+            draw_metric(ax, data, metric, title, ylabel)
     save(fig, RELATIVE_OUTPUT_STEM if args.relative_counts else OUTPUT_STEM, HERE)
 
 
