@@ -12,6 +12,7 @@ import json
 import re
 import subprocess
 import sys
+import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -32,8 +33,12 @@ import render_candidates as gallery  # noqa: E402
 
 shared = gallery.shared
 COMPONENTS = HERE / "components"
-PLOT_WIDTH = 0.68
-PLOT_HEIGHT = 0.88 * shared.CONTENT_SCALE  # candidate 06's smallest axes
+PLOT_WIDTH = 1.20  # Complete plot, including tick and axis labels; no title.
+PLOT_HEIGHT = 1.00
+DATA_AXES_LEFT = 0.93
+DATA_AXES_BOTTOM = 0.47
+DATA_AXES_WIDTH = 0.695
+DATA_AXES_HEIGHT = 0.66
 CARD_WIDTH = 2.25
 CARD_HEIGHT = 1.95
 EXAMPLE_WIDTH = 2.25
@@ -255,21 +260,44 @@ def card_title(fig: plt.Figure, title: str, *, original: bool) -> None:
 def box_plot(spec: BoxSpec) -> dict[str, str]:
     fig = plt.figure(figsize=(CARD_WIDTH, CARD_HEIGHT), facecolor="white")
     card_title(fig, spec.title, original=spec.original)
-    ax = fig.add_axes([0.90 / CARD_WIDTH, 0.40 / CARD_HEIGHT,
-                       PLOT_WIDTH / CARD_WIDTH, PLOT_HEIGHT / CARD_HEIGHT])
+    ax = fig.add_axes([DATA_AXES_LEFT / CARD_WIDTH,
+                       DATA_AXES_BOTTOM / CARD_HEIGHT,
+                       DATA_AXES_WIDTH / CARD_WIDTH,
+                       DATA_AXES_HEIGHT / CARD_HEIGHT])
     shared.paired_rows(ax, spec.data, list(spec.groups), spec.control,
                        spec.tested, labels=True, xlim=(0, 1),
                        marker_size=15, mode="box")
+    for dots in ax.collections:
+        dots.set_alpha(0.7)
+        dots.set_zorder(2)
+    for box in ax.patches:
+        box.set_zorder(4)
+    for line in ax.lines[:-1]:  # box edges, whiskers, caps, and medians
+        line.set_zorder(5)
+    ax.lines[-1].set_zorder(1)  # zero reference line
     tick_names = {"C05-wT": "C05", "C05-wC": "wC", "C05-eT": "eT",
                   "C05-eC": "eC"}
     ax.set_xticks(range(len(spec.groups)),
                   [tick_names.get(group, group) for group in spec.groups])
-    ax.tick_params(axis="x", labelsize=12, rotation=55, length=2, pad=1)
+    ax.tick_params(axis="x", labelsize=8, rotation=55, length=2, pad=1)
     for label in ax.get_xticklabels():
         label.set_ha("right")
-    ax.tick_params(axis="y", labelsize=12, length=2, pad=1)
+    ax.tick_params(axis="y", labelsize=8, length=2, pad=0)
     ax.yaxis.set_major_locator(MaxNLocator(nbins=3))
-    ax.set_ylabel(r"$\Delta$ " + spec.unit, fontsize=12, labelpad=1)
+    ax.set_ylabel(r"$\Delta$ " + spec.unit, fontsize=10, labelpad=-1.5)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    plot_bounds = ax.get_tightbbox(renderer).transformed(
+        fig.dpi_scale_trans.inverted())
+    title_bounds = fig.texts[0].get_window_extent(renderer).transformed(
+        fig.dpi_scale_trans.inverted())
+    if (plot_bounds.width > PLOT_WIDTH + 0.001 or
+            plot_bounds.height > PLOT_HEIGHT + 0.001 or
+            plot_bounds.y1 >= title_bounds.y0):
+        raise ValueError(
+            f"{spec.slug}: box plot with labels measures "
+            f"{plot_bounds.width:.3f} × {plot_bounds.height:.3f} in "
+            "or overlaps its title")
     return export(fig, spec.slug)
 
 
@@ -439,6 +467,9 @@ SCATTER_GROUPS = (
     "Pull ablation · worker credit", "Longer PPO and GAE credit",
     "Spatial examples",
 )
+MAIN_CANVAS_NOTE = (
+    "Grouped by intervention. + marks extra candidates; box plots are 1.2 × 1.0 in including labels, excluding titles."
+)
 
 
 def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
@@ -521,7 +552,24 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
             for suffix, file in files.items()}
 
 
-def main() -> None:
+def main_canvas(items: list[dict]) -> dict[str, str]:
+    return combined_canvas(
+        items, stem="figure2_loose_canvas", groups=MAIN_GROUPS,
+        heading="Figure 2 · box plots and other loose components",
+        note=MAIN_CANVAS_NOTE)
+
+
+def box_plot_manifest_metadata() -> dict:
+    return {
+        "box_plot_region_inches": [PLOT_WIDTH, PLOT_HEIGHT],
+        "box_data_axes_inches": [DATA_AXES_WIDTH, DATA_AXES_HEIGHT],
+        "box_text_points": {"ticks": 8, "axis_labels": 10, "titles": 12},
+        "box_dot_alpha": 0.7,
+        "box_summary_layer": "above dots",
+    }
+
+
+def main(*, main_only: bool = False) -> None:
     font = shared.style()
     plt.rcParams.update({"font.size": 12, "axes.labelsize": 12,
                          "xtick.labelsize": 12, "ytick.labelsize": 12,
@@ -529,6 +577,29 @@ def main() -> None:
     tables = gallery.load_tables()
     gallery.validate_selected_evidence(tables)
     specs = rows(tables)
+    if main_only:
+        manifest_path = HERE / "manifest.json"
+        manifest = json.loads(manifest_path.read_text())
+        current_sources = {
+            key: hashlib.sha256(path.read_bytes()).hexdigest()
+            for key, path in gallery.SOURCE_PATHS.items()}
+        assert manifest["source_sha256"] == current_sources, (
+            "Source tables changed; run the full renderer to refresh both canvases")
+        items = manifest["items"]
+        by_slug = {item["slug"]: item for item in items}
+        for spec in specs:
+            item = by_slug[spec.slug]
+            assert item["kind"] == "box" and item["groups"] == list(spec.groups)
+            assert item["n"] == len(spec.data)
+            item["hashes"] = box_plot(spec)
+        main_items = [by_slug[slug] for slug in
+                      manifest["canvases"]["figure2_loose_canvas"]["items"]]
+        manifest["canvases"]["figure2_loose_canvas"]["sha256"] = main_canvas(main_items)
+        manifest.pop("box_axes_inches", None)
+        manifest.update(box_plot_manifest_metadata())
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+        print(f"Updated {len(specs)} boxes and the main canvas; scatter files unchanged")
+        return
     items = [{"slug": "A01_spatial_emergence", "section": "A", "kind": "course",
               "original": True, "sources": ["online"],
               "hashes": online_course(tables)}]
@@ -566,10 +637,7 @@ def main() -> None:
                      {"raw_pairs", "peak_example"}]
     main_items.sort(key=lambda item: MAIN_GROUPS.index(item["canvas_group"]))
     scatter_items.sort(key=lambda item: SCATTER_GROUPS.index(item["canvas_group"]))
-    main_board = combined_canvas(
-        main_items, stem="figure2_loose_canvas", groups=MAIN_GROUPS,
-        heading="Figure 2 · box plots and other loose components",
-        note="Grouped by intervention. + marks extra candidates; all box data axes are 0.68 × 0.774 in. Individual files are in components/.")
+    main_board = main_canvas(main_items)
     scatter_board = combined_canvas(
         scatter_items, stem="figure2_scatter_canvas", groups=SCATTER_GROUPS,
         heading="Figure 2 · scatter components",
@@ -578,7 +646,7 @@ def main() -> None:
         "schema": "intrmotiv/cosyne-figure2-loose-canvas/v2",
         "basis": "06_compact_vertical_boxes",
         "purpose": "Movable assets for author-led Figure 2 layout; not submitted",
-        "box_axes_inches": [PLOT_WIDTH, PLOT_HEIGHT],
+        **box_plot_manifest_metadata(),
         "font_path": font,
         "software": {"matplotlib": matplotlib.__version__,
                      "pandas": pd.__version__, "numpy": np.__version__},
@@ -600,4 +668,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--main-only", action="store_true",
+                        help="Update box components and main canvas without touching scatter files")
+    main(main_only=parser.parse_args().main_only)

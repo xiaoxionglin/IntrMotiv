@@ -2278,6 +2278,13 @@ For each finding, record:
   selection, regenerate both boards and check that each plotted group has the
   expected paired-seed count, all scatter assets have moved, labels remain
   legible at native card size, and no source-table arm is silently discarded.
+  The next main-canvas revision requested a larger fixed plot footprint while
+  leaving scatter assets untouched. A `--main-only` render mode now checks
+  source hashes before updating the 26 box components and main board; this
+  avoids rewriting the companion scatter exports during iterative layout.
+  Verify the actual rendered axes-label bounds, layer order, and file hashes
+  before committing a size change, since the data-axes rectangle alone does
+  not include tick and axis labels.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
