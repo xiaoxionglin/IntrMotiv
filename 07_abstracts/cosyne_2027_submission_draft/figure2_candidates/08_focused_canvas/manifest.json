@@ -9,14 +9,16 @@
     "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_hit_rate_pairs.csv": "9059e03445593391953033c99bffebf92ce568d4d3cc550fe06adcae92883b68",
     "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/paired_seed_differences.csv": "6d0043324e5ca202804c53299af96687e0d4a1298081d4b02d61e2f66e77c892",
     "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950",
+    "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv": "fdace3aee97e3515c62847c01010a0fd66859e89a97ad2b158858bfdcfdd2bed",
     "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_decoder1_absolute.csv": "b042878a67ce4d0bad744703d4c15fe5e1619e9149b994bf0b82abf41af6068e",
     "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/additional_fg_hit_inputs.json": "9661057166c7acf870f4ee842675e4a9e0c64b9219cd475280f2df6cbfb298bf"
   },
   "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "behavior_dg_source": "6412596:06_experiments/results/cosyne_2027_behavior_secondary/all_layer_training_seeds.csv",
   "components": [
     "spatial_emergence",
-    "B01_readout_policy_information",
-    "B02_policy_map_reliability",
+    "behavior_dg_information",
+    "behavior_readout_reliability",
     "push_dg_information",
     "push_map_overlap",
     "push_peak_coverage",
@@ -31,6 +33,12 @@
     "pull_graph_edges"
   ],
   "sample_counts": {
+    "behavior/dg_information/C01": 10,
+    "behavior/dg_information/C05": 20,
+    "behavior/dg_information/C15": 8,
+    "behavior/readout_reliability/C01": 10,
+    "behavior/readout_reliability/C05": 20,
+    "behavior/readout_reliability/C15": 8,
     "pull/dg_information/C05": 5,
     "pull/dg_information/C15": 5,
     "pull/graph_edges/C05": 5,

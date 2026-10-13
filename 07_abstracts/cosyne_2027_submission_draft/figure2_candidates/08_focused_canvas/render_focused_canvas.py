@@ -23,7 +23,6 @@ DRAFT = HERE.parents[1]
 sys.path.insert(0, str(DRAFT))
 import render_submission_panels as shared  # noqa: E402
 
-OLD = HERE.parent / "07_loose_canvas" / "components"
 RESULTS = ROOT / "06_experiments" / "results" / "cosyne_2027_checkpoint_fields"
 HIGH = ROOT / "06_experiments" / "reward_credit" / "results" / "cosyne27_worker_regimen_boxplots_20261013"
 COMP = HERE / "components"
@@ -66,7 +65,8 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
         "pull_hits": HIGH / "high_credit_hit_rate_pairs.csv",
         "pull_graph": HIGH / "paired_seed_differences.csv",
         "emergence": shared.SOURCES["online"],
-        "frozen_behavior": shared.SOURCES["behavior_absolute"],
+        "frozen_behavior_dg": HERE / "fresh_behavior_dg_bits_per_step.csv",
+        "frozen_behavior_readout": shared.SOURCES["behavior_absolute"],
         "additional_fg_hits": HERE / "additional_fg_hit_inputs.json",
     }
     source_hashes = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -80,6 +80,21 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
     peaks = peaks[(peaks.cutoff == .0025) &
                   peaks.contrast.isin(["C01", "C05 · temporal hit", "C15"])]
     values = []
+    behavior_dg = source(paths["frozen_behavior_dg"])
+    assert len(behavior_dg) == 40
+    behavior_dg = behavior_dg.dropna(subset=["bits_per_step_difference"]).copy()
+    assert behavior_dg.completed_eval_repeats.eq(2).all()
+    behavior_dg["seed"] = (behavior_dg.condition + "_S" +
+                           behavior_dg.training_seed.astype(str))
+    behavior_dg = behavior_dg.rename(columns={"bits_per_step_difference": "delta"})
+    values.append(pair_table(behavior_dg, "dg_information", arm="behavior"))
+    behavior_readout = source(paths["frozen_behavior_readout"]).copy()
+    behavior_readout["seed"] = (behavior_readout.condition + "_S" +
+                                behavior_readout.training_seed.astype(str))
+    behavior_readout["delta"] = (behavior_readout.own_reliability -
+                                 behavior_readout.random_reliability)
+    assert set(behavior_dg.seed) == set(behavior_readout.seed)
+    values.append(pair_table(behavior_readout, "readout_reliability", arm="behavior"))
     for metric, key in [("dg_information", "mean_spatial_information_bits"),
                         ("map_overlap", "active_map_cosine_mean")]:
         data = encoder[encoder.metric == key].rename(columns={"difference": "delta"})
@@ -136,9 +151,12 @@ def load_values() -> tuple[pd.DataFrame, dict[str, str]]:
                 {"C05": 5, "C15": 5})
                 for key, _, _ in METRICS}
     expected.update({("pull", key): {"C05": 5, "C15": 5} for key, _, _ in METRICS})
+    expected.update({("behavior", key): {"C01": 10, "C05": 20, "C15": 8}
+                     for key in ("dg_information", "readout_reliability")})
     for (arm, metric), sample in result.groupby(["arm", "metric"]):
         assert sample.groupby("family").size().to_dict() == expected[arm, metric], (arm, metric)
-        assert set(sample.seed).issubset(SEEDS)
+        if arm != "behavior":
+            assert set(sample.seed).issubset(SEEDS)
     return result, source_hashes
 
 
@@ -148,7 +166,9 @@ def card(arm: str, metric: str, title: str, unit: str, data: pd.DataFrame) -> st
     fig.text(.045, .965, title, ha="left", va="top", fontsize=12,
              fontweight="bold", color="#20272C")
     ax = fig.add_axes([.93 / 2.25, .47 / 1.95, .69 / 2.25, .66 / 1.95])
-    groups = ["C01", "C05", "C15"] if metric not in {"hit_rate", "graph_edges"} and arm == "push" else ["C05", "C15"]
+    groups = (["C01", "C05", "C15"] if arm == "behavior" or
+              (arm == "push" and metric not in {"hit_rate", "graph_edges"})
+              else ["C05", "C15"])
     samples = [data[data.family == family].sort_values("seed").delta.to_numpy()
                for family in groups]
     for index, (family, sample) in enumerate(zip(groups, samples)):
@@ -265,10 +285,12 @@ def main() -> None:
     COMP.mkdir(parents=True, exist_ok=True)
     values, hashes = load_values()
     slugs = [(emergence(), 24, 33)]
-    for column, name in enumerate(["B01_readout_policy_information", "B02_policy_map_reliability"]):
-        slug = name
-        (COMP / f"{slug}.svg").write_bytes((OLD / f"{slug}.svg").read_bytes())
-        (COMP / f"{slug}.pdf").write_bytes((OLD / f"{slug}.pdf").read_bytes())
+    for column, (metric, title, unit) in enumerate([
+        ("dg_information", "DG spatial information", "bits/step"),
+        ("readout_reliability", "Readout map reliability", "split-half r"),
+    ]):
+        sample = values[(values.arm == "behavior") & (values.metric == metric)]
+        slug = card("behavior", metric, title, unit, sample)
         slugs.append((slug, 24 + column * 210, 219))
     for arm, start_y in [("push", 411), ("pull", 902)]:
         for index, (key, title, unit) in enumerate(METRICS):
@@ -280,6 +302,7 @@ def main() -> None:
     (HERE / "manifest.json").write_text(json.dumps({
         "schema": "intrmotiv/figure2-focused-canvas/v1",
         "source_sha256": hashes, "font": font,
+        "behavior_dg_source": "6412596:06_experiments/results/cosyne_2027_behavior_secondary/all_layer_training_seeds.csv",
         "components": [item[0] for item in slugs],
         "sample_counts": {f"{arm}/{metric}/{family}": len(group)
                           for (arm, metric, family), group in
