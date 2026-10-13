@@ -1,9 +1,9 @@
 """Build a Figure 2 story layout and swappable terminal-behavior metrics.
 
 The result dot plots come from the author's editable Figure 2 canvas. They are
-translated, never scaled. The new trajectory thumbnails are crops of archived
-100M policy-sampled snapshots; the summary charts use five terminal training
-seeds per architecture from the canonical graph/trajectory summary.
+translated, never scaled. The trajectory thumbnails show independent 10k
+frozen-policy probes at 100M training frames; the summary charts use separate
+100k online-spatial windows for five terminal seeds per architecture.
 """
 
 from __future__ import annotations
@@ -37,9 +37,14 @@ MANIFEST = HERE / "Figure2_story_manifest.json"
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
 RUNS = {
     "NG": "COS27_C01_TEMPORAL_S99",
-    "UG": "COS27_C05_TEMPORAL_TEMPORAL_S99",
+    "UG": "COS27_C05_TEMPORAL_TEMPORAL_S123",
     "FG": "COS27_C15_TEMPORAL_S17",
 }
+UG_TILE = HERE / "figure2_candidates/UG_s123_100m_trajectory_tile.png"
+UG_FULL = HERE / "figure2_candidates/UG_s123_100m_trajectory.png"
+UG_TILE_SHA256 = "1c1af9ec4ee2fe2e8ecc2446caf7c0fadca901b863c38bc57adfa58cd254786e"
+UG_FULL_SHA256 = "6dfa9ca75a5a74e5c3b6555b91ea6b1d1445d57e71c2a5db71a76ce604f83820"
+UG_POSE_SHA256 = "27c283ba992897e36a989acd56d4c5373b8d8353d2af7b47276f19d317b00a85"
 METRICS = {
     "path_efficiency": ("Path efficiency", 0.0, 0.5, (0.0, 0.25, 0.5)),
     "visited_cell_fraction": ("Visited bins (fraction)", 0.8, 0.9, (0.8, 0.85, 0.9)),
@@ -179,17 +184,18 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
     return "\n".join(out)
 
 
-def trajectory_uri(run_name: str, expected_sha256: str) -> str:
-    path = TRAJECTORIES / f"{run_name}.png"
+def trajectory_uri(path: Path, expected_sha256: str) -> str:
     if sha256(path) != expected_sha256:
         raise ValueError(f"Trajectory source hash changed: {path}")
     with Image.open(path) as source:
-        if source.width not in (1425, 1429) or source.height not in (688, 690):
-            raise ValueError(f"Unexpected trajectory sheet size: {source.size}")
-        # The source's right panel is a square trajectory map with fixed world
-        # coordinates. Crop axes, title, and occupancy map without altering lines.
-        crop = (902, 147, 1368, 613) if source.width == 1425 else (908, 151, 1368, 611)
-        tile = source.crop(crop).convert("RGB")
+        if source.size == (466, 466):
+            tile = source.convert("RGB")
+        elif source.width in (1425, 1429) and source.height in (688, 690):
+            # The archived source's right panel is a square trajectory map.
+            crop = (902, 147, 1368, 613) if source.width == 1425 else (908, 151, 1368, 611)
+            tile = source.crop(crop).convert("RGB")
+        else:
+            raise ValueError(f"Unexpected trajectory image size: {source.size}")
     buffer = BytesIO()
     tile.save(buffer, format="PNG")
     return "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode()
@@ -201,6 +207,27 @@ def selected_trajectories() -> dict[str, dict[str, str]]:
         by_run = {row["run_name"]: row for row in csv.DictReader(stream)
                   if row["kind"] == "trajectory"}
     for family, run_name in RUNS.items():
+        if family == "UG":
+            if not UG_FULL.is_file() or not UG_TILE.is_file():
+                raise FileNotFoundError("Selected UG seed-123 canonical render is missing")
+            if sha256(UG_TILE) != UG_TILE_SHA256 or sha256(UG_FULL) != UG_FULL_SHA256:
+                raise ValueError("Selected UG seed-123 render changed; verify its pose source")
+            records[family] = {
+                "run_name": run_name,
+                "sha256": UG_TILE_SHA256,
+                "local_path": str(UG_TILE.relative_to(ROOT)),
+                "full_plot_path": str(UG_FULL.relative_to(ROOT)),
+                "full_plot_sha256": UG_FULL_SHA256,
+                "source_pose_sha256": UG_POSE_SHA256,
+                "source_pose_path": (
+                    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/"
+                    "train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/raw/"
+                    "COS27_C05_TEMPORAL_TEMPORAL_S123__00_COS27_C05_TEMPORAL_TEMPORAL_S123__"
+                    "COS27_C05_TEMPORAL_TEMPORAL__s123__f100007936/pose.csv"
+                ),
+                "renderer": "hpc_runs.intrmotiv_study.spatial.render_occupancy_trajectory",
+            }
+            continue
         record = by_run.get(run_name)
         if record is None:
             raise ValueError(f"No archived selected trajectory for {run_name}")
@@ -297,12 +324,13 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
         run_name = RUNS[family]
         seed = run_name.rsplit("S", 1)[-1]
         out.extend((
-            f'<text x="{x+20}" y="28" text-anchor="middle" class="story-label" '
-            f'fill="{COLORS[family]}">{family} · s{seed}</text>',
-            f'<image x="{x}" y="31" width="40" height="40" '
+            f'<text x="{x+20}" y="26" text-anchor="middle" class="story-label" '
+            f'fill="{COLORS[family]}">{family}</text>',
+            f'<text x="{x+20}" y="36" text-anchor="middle" class="story-label">s{seed}</text>',
+            f'<image x="{x}" y="40" width="40" height="40" '
             'preserveAspectRatio="none" '
-            f'xlink:href="{trajectory_uri(run_name, selected[family]["sha256"])}"/>',
-            f'<rect x="{x}" y="31" width="40" height="40" '
+            f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
+            f'<rect x="{x}" y="40" width="40" height="40" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
@@ -386,12 +414,13 @@ def build() -> None:
         "source_trajectory_table": str(DATA.relative_to(ROOT)),
         "source_trajectory_table_sha256": sha256(DATA),
         "sample_unit": "training seed; five per architecture",
-        "metric_window": "100,000-decision own-policy snapshot at 100M training frames",
+        "metric_window": "latest 100,000 online own-policy observations at 100M training frames",
+        "trajectory_example_window": "separate 10,001-observation frozen own-policy probe at the 100M checkpoint",
         "cohorts": {family: [row["run_name"] for row in values]
                     for family, values in rows.items()},
         "example_trajectories": selected,
         "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
-        "image_crop": "right trajectory panel only, fixed world extent, no color change",
+        "image_crop": "right trajectory panel or selected square tile, fixed world extent, no color change",
     }, indent=2) + "\n")
 
 

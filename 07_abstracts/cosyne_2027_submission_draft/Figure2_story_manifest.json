@@ -3,7 +3,8 @@
   "source_trajectory_table": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/trajectory_by_snapshot.csv",
   "source_trajectory_table_sha256": "06f0976fdd0615575586624f40bfef240d2bf7b3c021f1f5b7a605673904ee7d",
   "sample_unit": "training seed; five per architecture",
-  "metric_window": "100,000-decision own-policy snapshot at 100M training frames",
+  "metric_window": "latest 100,000 online own-policy observations at 100M training frames",
+  "trajectory_example_window": "separate 10,001-observation frozen own-policy probe at the 100M checkpoint",
   "cohorts": {
     "NG": [
       "COS27_C01_TEMPORAL_S8",
@@ -34,9 +35,14 @@
       "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C01_TEMPORAL_S99.png"
     },
     "UG": {
-      "run_name": "COS27_C05_TEMPORAL_TEMPORAL_S99",
-      "sha256": "32c4cff899085581ef70eec2c79ddbff1054396fc87a8bdc0be335699c545015",
-      "local_path": "06_experiments/results/cosyne_2027_checkpoint_fields/selected_figures/trajectories/COS27_C05_TEMPORAL_TEMPORAL_S99.png"
+      "run_name": "COS27_C05_TEMPORAL_TEMPORAL_S123",
+      "sha256": "1c1af9ec4ee2fe2e8ecc2446caf7c0fadca901b863c38bc57adfa58cd254786e",
+      "local_path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/UG_s123_100m_trajectory_tile.png",
+      "full_plot_path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/UG_s123_100m_trajectory.png",
+      "full_plot_sha256": "6dfa9ca75a5a74e5c3b6555b91ea6b1d1445d57e71c2a5db71a76ce604f83820",
+      "source_pose_sha256": "27c283ba992897e36a989acd56d4c5373b8d8353d2af7b47276f19d317b00a85",
+      "source_pose_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S123__00_COS27_C05_TEMPORAL_TEMPORAL_S123__COS27_C05_TEMPORAL_TEMPORAL__s123__f100007936/pose.csv",
+      "renderer": "hpc_runs.intrmotiv_study.spatial.render_occupancy_trajectory"
     },
     "FG": {
       "run_name": "COS27_C15_TEMPORAL_S17",
@@ -45,5 +51,5 @@
     }
   },
   "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
-  "image_crop": "right trajectory panel only, fixed world extent, no color change"
+  "image_crop": "right trajectory panel or selected square tile, fixed world extent, no color change"
 }

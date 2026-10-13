@@ -56,6 +56,10 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/trajectory_examples/UG_s99.png": (
         RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
         "trajectories/COS27_C05_TEMPORAL_TEMPORAL_S99.png"),
+    "figures/trajectory_examples/UG_s123.png": (
+        DRAFT_DIR / "figure2_candidates/UG_s123_100m_trajectory.png"),
+    "figures/trajectory_examples/UG_s123_tile.png": (
+        DRAFT_DIR / "figure2_candidates/UG_s123_100m_trajectory_tile.png"),
     "figures/trajectory_examples/FG_s17.png": (
         RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
         "trajectories/COS27_C15_TEMPORAL_S17.png"),
