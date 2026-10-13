@@ -1,0 +1,115 @@
+{
+  "schema": "intrmotiv/focused-canvas-additional-fg-hits/v1",
+  "window_low": 90000000,
+  "window_high": 100000000,
+  "rows": [
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 8,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_constant_recovery_20261011/COS27_REC_C15_CONSTANT_S8_/00_COS27_REC_C15_CONSTANT_S8",
+      "updates": 305,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 3739.0,
+      "target_hit_event_observation_count": 133955.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_constant_recovery_20261011/COS27_REC_C15_CONSTANT_S8_/00_COS27_REC_C15_CONSTANT_S8/.summary/0/events.out.tfevents.1791731090.n3109",
+          "size": 114494966,
+          "mtime_ns": 1791785332766634390
+        }
+      ]
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 99,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_constant_recovery_20261011/COS27_REC_C15_CONSTANT_S99_/00_COS27_REC_C15_CONSTANT_S99",
+      "updates": 305,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 3190.0,
+      "target_hit_event_observation_count": 185809.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_constant_recovery_20261011/COS27_REC_C15_CONSTANT_S99_/00_COS27_REC_C15_CONSTANT_S99/.summary/0/events.out.tfevents.1791731102.n3104",
+          "size": 114912568,
+          "mtime_ns": 1791784062197124331
+        }
+      ]
+    },
+    {
+      "condition": "COS27_C15_CONSTANT",
+      "seed": 123,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_CONSTANT_S123_/00_COS27_C15_CONSTANT_S123",
+      "updates": 302,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 3333.0,
+      "target_hit_event_observation_count": 220289.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_CONSTANT_S123_/00_COS27_C15_CONSTANT_S123/.summary/0/events.out.tfevents.1791661153.n3116",
+          "size": 113910067,
+          "mtime_ns": 1791713983639532339
+        }
+      ]
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 8,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S8_/00_COS27_C15_TEMPORAL_S8",
+      "updates": 305,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 2126.0,
+      "target_hit_event_observation_count": 178866.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S8_/00_COS27_C15_TEMPORAL_S8/.summary/0/events.out.tfevents.1791661153.n3106",
+          "size": 114801514,
+          "mtime_ns": 1791713685672835885
+        }
+      ]
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 99,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S99_/00_COS27_C15_TEMPORAL_S99",
+      "updates": 305,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 2604.0,
+      "target_hit_event_observation_count": 280371.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S99_/00_COS27_C15_TEMPORAL_S99/.summary/0/events.out.tfevents.1791661148.n3111",
+          "size": 114792449,
+          "mtime_ns": 1791713552250480444
+        }
+      ]
+    },
+    {
+      "condition": "COS27_C15_TEMPORAL",
+      "seed": 123,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S123_/00_COS27_C15_TEMPORAL_S123",
+      "updates": 305,
+      "first_step": 90013696,
+      "last_step": 99975168,
+      "correct_hit_observation_count": 2373.0,
+      "target_hit_event_observation_count": 264910.0,
+      "censored_observation_count": 0.0,
+      "event_files": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c15_encoder_s3_20261010/COS27_C15_TEMPORAL_S123_/00_COS27_C15_TEMPORAL_S123/.summary/0/events.out.tfevents.1791661153.n3114",
+          "size": 114821244,
+          "mtime_ns": 1791713813387773666
+        }
+      ]
+    }
+  ]
+}

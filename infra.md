@@ -2304,6 +2304,20 @@ For each finding, record:
   imported image objects. Verify the saved hierarchy as well as queried bounds;
   when composing another document, open the editable SVG and copy its plot
   objects rather than placing the whole board as an external image.
+  A subsequent focused Figure 2 canvas exposed a stale FG online-hit summary:
+  the archived conditional-hit CSV still had only two encoder pairs, although
+  terminal manifests and six further completed run histories supported all
+  five paired seeds. The narrow recovery read the six existing 90–100M
+  TensorBoard histories with the established scalar tags, archived summed
+  numerator/denominator counts with run paths and event-file metadata, and
+  rebuilt the focused canvas with five FG pairs. This was a retrieval gap,
+  not missing training. For future figure updates, compare each panel's seed
+  keys against the latest terminal manifest before treating an archived
+  analysis table as complete; refresh only missing summaries through the
+  canonical collector or a small source-compatible adapter. Acceptance:
+  every displayed box has declared seed keys and sample count, all added
+  counts have finite aligned histories and a positive denominator, and the
+  source-hashed figure regenerates without access to bulk event files.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
