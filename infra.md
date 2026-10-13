@@ -2415,17 +2415,24 @@ For each finding, record:
   fractions, and nearest-neighbor peak distances, but no per-unit peak
   coordinates or Gaussian effective-area values. The companion
   [representation plot](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md#additional-dg-representation-measures-at-high-policy-credit)
-  can therefore compare clustering proxies, but cannot reproduce the fuller
-  peak-coverage measure used for the encoder-credit analysis from its archived
-  lightweight tables alone.
-- **Impact:** Comparing peak spread across worker regimens requires reopening
-  remote snapshot arrays; a distinct-bin count may miss peaks clustered in one
-  region.
-- **Improvement/status:** Proposed: extend the canonical spatial collection
-  output with either per-unit eligible peak coordinates plus the shared support
-  definition, or a versioned effective-area summary and its cutoff, blur width,
-  and mask provenance. Keep raw NPZs in the allocated workspace under the
-  [reusable telemetry policy](04_implementation/reusable_place_field_telemetry.md).
-- **Acceptance:** A lightweight archived export regenerates the effective-area
-  comparison for every declared seed pair, and a focused test matches the
-  archived NPZ calculation without copying bulk arrays into the vault.
+  originally contained only clustering proxies. The 20 matching 100M-frame
+  high-credit NPZs were reopened in the allocated NEMO2 workspace; their
+  lightweight [peak-input archive](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_peak_snapshot_inputs.json)
+  now retains each occupied-bin mask, eligible dominant peak, active fraction,
+  and source NPZ hash. Its pooled 318-bin support and 100-unit Gaussian area
+  reproduce the [paired peak-coverage results](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_representation_pairs.csv).
+- **Impact:** The comparison now measures spatial peak coverage directly;
+  distinct-bin counts alone could have missed clustering. The 53 KB summary
+  regenerates the figures without another remote NPZ read, while raw NPZs
+  remain in the allocated workspace.
+- **Improvement/status:** Completed for this high-credit cohort through the
+  [snapshot-input collector](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/collect_high_credit_peak_inputs.py)
+  and reusable canonical peak-area function. A general canonical spatial
+  collection export of eligible peak coordinates and shared-mask provenance
+  remains proposed for future studies; do not copy this cohort adapter into
+  another study. Follow the [reusable telemetry policy](04_implementation/reusable_place_field_telemetry.md).
+- **Acceptance:** All 20 declared seed/arm snapshots have pinned paths and
+  SHA-256 hashes, the archived inputs regenerate the five paired values per
+  family, and an independent direct-NPZ calculation agrees with the archived
+  values. Preserve the mask hash, cutoff, blur width, and NPZ hashes in the
+  comparison metadata.

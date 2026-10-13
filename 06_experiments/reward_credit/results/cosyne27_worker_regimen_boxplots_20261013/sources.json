@@ -33,5 +33,11 @@
       "verification": "20 seed-metric differences supplied by source task; remote file export was rejected by automatic approval review, so this task did not independently reload them"
     }
   },
+  "high_credit_peak_coverage": {
+    "snapshot_inputs": "high_credit_peak_snapshot_inputs.json; SHA-256 e7ecef0a06dd853e1f0a0e78bd4403b2f7350bf53e16584defbb2eb0a7a50835",
+    "source_npzs": "20 100M-frame high-credit own-policy online-spatial NPZs in the allocated NEMO2 workspace; individual paths and SHA-256 hashes are in the lightweight input JSON",
+    "shared_mask": "union of the 20 occupied-bin masks; 318 of 361 bins; SHA-256 fc9481bbb296fae9facc6890267a828266e5d0554493ee98d471e4cc7a454e5a",
+    "metric": "canonical equal-mass Gaussian peak density with 100-DMLab-unit blur, field eligibility, 0.25% active cutoff, exp(Shannon entropy)/318"
+  },
   "precision": "Original C05 spatial-information differences use locally recomputed nine-decimal values; other rows retain the supplied rounded differences."
 }
