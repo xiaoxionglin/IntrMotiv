@@ -4,7 +4,9 @@
 
 **Relative-count alternative:** [PDF](high_credit_worker_cplus1_compact.pdf) · [SVG](high_credit_worker_cplus1_compact.svg) · [PNG preview](high_credit_worker_cplus1_compact.png) · [per-arm counts and relative values](high_credit_cplus1_seed_values.csv)
 
-**Dual-axis hit-rate alternative:** [PDF](high_credit_worker_dual_axis_hit_rate_compact.pdf) · [SVG](high_credit_worker_dual_axis_hit_rate_compact.svg) · [PNG preview](high_credit_worker_dual_axis_hit_rate_compact.png) · [paired per-arm hit rates](high_credit_hit_rate_pairs.csv) · [renderer](plot_high_credit_dual_axes.py)
+**Shared hit-rate axis, dual graph-edge axes:** [PDF](high_credit_worker_shared_hit_rate_dual_edges_compact.pdf) · [SVG](high_credit_worker_shared_hit_rate_dual_edges_compact.svg) · [PNG preview](high_credit_worker_shared_hit_rate_dual_edges_compact.png) · [paired per-arm hit rates](high_credit_hit_rate_pairs.csv) · [renderer](plot_high_credit_dual_axes.py)
+
+**Earlier dual C/D axes:** [PDF](high_credit_worker_dual_axis_hit_rate_compact.pdf) · [SVG](high_credit_worker_dual_axis_hit_rate_compact.svg) · [PNG preview](high_credit_worker_dual_axis_hit_rate_compact.png)
 
 The selected compact figure is 7.5 × 2.5 inches. It follows the submitted Figure 2's Arial typography, C05 orange/C15 green palette, quartile boxes with individual seed dots, min–max whiskers, and explicit signed $\Delta$ axes. All four panels show **only** the high policy-credit regimen, with C05 and C15 on each horizontal axis. Each panel uses its own vertical unit and range.
 
@@ -32,19 +34,21 @@ MPLCONFIGDIR=/tmp/cosyne_high_relative_mpl /home/xiaoxiong/miniforge3/envs/SF_gi
 
 **Interpretation limit:** at 100M frames, the C05 constant graph has zero reliable edges in seeds 8, 41, and 99. The added one makes their plotted values finite: 0%, 300%, and 300% respectively. These are count differences divided by a stabilizing one-edge denominator, not estimates of a conventional percent change from a nonzero baseline. C05 seed 41 also appears at 586% for correct hits because its constant-arm count is only 1,687. The corresponding C05 mean values are 131% for hits and 116% for graph edges; both lie above the drawn +100% tick and are labeled. The raw counts and absolute-difference figure should accompany any cross-architecture reading of these panels.
 
-## Dual-axis alternative with a hit rate
+## Shared hit-rate scale with dual graph-edge axes
 
-**C and D use original temporal-minus-constant differences, with separate C05 and C15 y scales.** Orange left ticks apply only to C05, green right ticks only to C15; both zero lines are aligned. A and B remain the same absolute-difference panels. Each C or D box spans its architecture's five seed-paired differences; whiskers reach the observed minimum and maximum, dots are seeds, and the open diamond is their arithmetic mean. Equal vertical heights across orange and green do **not** imply equal numerical differences: read each color against its own axis. The figure remains 7.5 × 2.5 inches and includes only the high policy-credit regimen ($\gamma=0.999$, GAE $\lambda=0.995$).
+**C now puts C05 and C15 hit-rate differences on one shared y-axis.** Their observed ranges fit within the same −15 to +15 hits-per-1,000 scale, so their heights can be compared directly. **D retains separate graph-edge scales:** orange left ticks apply only to C05, green right ticks only to C15, with zero lines aligned. Equal vertical heights in D do **not** imply equal edge-count differences. A and B remain the same absolute-difference panels. Each C or D box spans its architecture's five seed-paired differences; whiskers reach the observed minimum and maximum, dots are seeds, and the open diamond is their arithmetic mean. The figure remains 7.5 × 2.5 inches and includes only the high policy-credit regimen ($\gamma=0.999$, GAE $\lambda=0.995$). The [earlier candidate](high_credit_worker_dual_axis_hit_rate_compact.pdf) used separate C05 and C15 axes for C as well; its hit-rate data and D panel were otherwise the same.
 
 **C, commanded target-hit rate:** for each arm and seed, divide the sum of `target_hit_numerator` by the sum of `target_hit_event_count` over the 90–100M-frame online window, then multiply by 1,000. The source summaries average both components over the same 306 learner updates, so their ratio equals the ratio of those sums. The paired value is the temporal-arm rate minus the constant-arm rate, in **hits per 1,000 eligible logged events**. It is an online training diagnostic, **not a per-episode success fraction or independent physical-goal arrival rate**. It replaces the earlier sum of repeated learner-batch correct-hit observations, which had no meaningful episode denominator. The rate uses a distinct target-hit numerator and eligible-event denominator; it is not the earlier correct-hit count divided by 306. The [per-arm table](high_credit_hit_rate_pairs.csv) records both components, both rates, and every paired difference. The mean paired changes are +5.19 per 1,000 for C05 and +2.06 per 1,000 for C15; C05 has four positive seed differences and C15 has three. C15 seed 8's denominator also changes substantially between arms (1,276 to 606 mean eligible events per update), so the rate contrast should be read alongside its components.
 
 **D, reliable graph edges:** the original temporal-minus-constant 100M own-policy snapshot difference, without the relative-count offset. C05 differences range from −12 to +3 edges (mean −0.8); C15 differences from +11 to +54 edges (mean +21.6). The dual axes show each architecture's spread without imposing a shared count range. They do not turn graph edges into a normalized measure of control or make the two graph regimes directly equivalent.
 
-The C source is each architecture's pinned `online_per_run.csv` at commit `a26852f`; the D source is the high-credit portion of the [paired difference table](paired_seed_differences.csv), itself checked against the pinned spatial summaries. The relevant source CSVs and hashes are listed in [source mapping](sources.json). Regenerate the candidate and hit-rate table with:
+The C source is each architecture's pinned `online_per_run.csv` at commit `a26852f`; the D source is the high-credit portion of the [paired difference table](paired_seed_differences.csv), itself checked against the pinned spatial summaries. The relevant source CSVs and hashes are listed in [source mapping](sources.json). Regenerate the shared-C candidate and hit-rate table with:
 
 ```bash
-MPLCONFIGDIR=/tmp/cosyne_high_dual_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_dual_axes.py
+MPLCONFIGDIR=/tmp/cosyne_high_shared_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_dual_axes.py --shared-hit-axis
 ```
+
+Omit `--shared-hit-axis` to regenerate the earlier dual C/D candidate.
 
 ## Earlier full-size comparison
 

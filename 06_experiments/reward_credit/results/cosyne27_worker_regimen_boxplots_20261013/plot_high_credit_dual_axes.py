@@ -1,12 +1,14 @@
-"""Compact high-credit contrast with family-specific axes for C and D.
+"""Compact high-credit contrasts with a family-specific graph-edge axis.
 
 C is the paired change in commanded target hits per 1,000 eligible logged
-events. D is the original paired change in reliable graph-edge count. The two
-families use separately labeled, zero-aligned y axes in these two panels.
+events. D is the original paired change in reliable graph-edge count. The
+default preserves the earlier dual-axis C/D candidate; --shared-hit-axis
+places both C families on one scale while retaining D's two zero-aligned axes.
 """
 
 from __future__ import annotations
 
+import argparse
 import math
 
 import matplotlib
@@ -22,6 +24,7 @@ from plot_high_credit_compact import (
     SEEDS,
     SOURCE_COMMIT,
     draw_metric,
+    finish_axes,
     high_credit_data,
     save,
     source_table,
@@ -30,6 +33,7 @@ from plot_high_credit_compact import (
 
 
 OUTPUT_STEM = "high_credit_worker_dual_axis_hit_rate_compact"
+SHARED_HIT_OUTPUT_STEM = "high_credit_worker_shared_hit_rate_dual_edges_compact"
 HIT_RATE_TABLE = HERE / "high_credit_hit_rate_pairs.csv"
 PANEL_POSITIONS = ((0.72, 1.12), (2.34, 1.12), (4.02, 1.15), (5.95, 1.15))
 
@@ -144,7 +148,35 @@ def draw_dual_panel(fig: plt.Figure, data: pd.DataFrame, slot: int,
     ax_c05.set_title(title, loc="left", fontweight="bold", pad=3)
 
 
+def draw_shared_hit_panel(fig: plt.Figure, data: pd.DataFrame) -> None:
+    """Draw both hit-rate contrasts against one genuinely comparable scale."""
+    left, width = PANEL_POSITIONS[2]
+    ax = fig.add_axes([left / 7.5, 0.28 / 2.50,
+                       width / 7.5, 1.53 / 2.50])
+    all_values = []
+    for position, family in enumerate(("C05", "C15")):
+        values = (data[data.family == family].set_index("seed")
+                  .loc[list(SEEDS), "delta_hits_per_1000_events"].to_numpy(dtype=float))
+        draw_family_box(ax, values, family, position)
+        all_values.extend(values)
+    limit = 5 * math.ceil(1.08 * max(abs(value) for value in all_values) / 5)
+    ax.set_ylim(-limit, limit)
+    ax.set_xlim(-0.42, 1.58)
+    ax.set_yticks((-limit, 0, limit))
+    ax.axhline(0, color="#7D858A", lw=0.7, zorder=1)
+    ax.set_xticks((0, 1), ("C05", "C15"))
+    for label, family in zip(ax.get_xticklabels(), ("C05", "C15")):
+        label.set_color(COLOR[family])
+    ax.set_title("C  Hit rate", loc="left", fontweight="bold", pad=3)
+    ax.set_ylabel(r"$\Delta$ hits / 1k", labelpad=1)
+    finish_axes(ax)
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--shared-hit-axis", action="store_true",
+                        help="Give C05 and C15 one hit-rate axis; keep D's dual axes")
+    args = parser.parse_args()
     data = high_credit_data()
     hit_rates = paired_hit_rates()
     data = data.merge(hit_rates[["family", "seed", "delta_hits_per_1000_events"]],
@@ -158,9 +190,14 @@ def main() -> None:
              "High policy credit: temporal − constant worker bonus  "
              r"($\gamma=0.999$, $\lambda=0.995$)",
              va="top", fontsize=12, fontweight="bold", color="#20272C")
-    fig.text(0.03, 0.88,
-             "C: Δ hits / 1k eligible events; D: Δ edges.  "
-             "C05 left (orange), C15 right (green).",
+    subtitle = (
+        "C: shared Δ hits / 1k eligible events.  "
+        "D: separate Δ-edge scales (C05 left, C15 right)."
+        if args.shared_hit_axis else
+        "C: Δ hits / 1k eligible events; D: Δ edges.  "
+        "C05 left (orange), C15 right (green)."
+    )
+    fig.text(0.03, 0.88, subtitle,
              va="top", fontsize=12, color="#20272C")
     for slot, (metric, title, ylabel) in enumerate((
         ("delta_spatial_information_bits", "A  DG information", r"$\Delta$ bits"),
@@ -170,9 +207,12 @@ def main() -> None:
         ax = fig.add_axes([left / 7.5, 0.28 / 2.50,
                            width / 7.5, 1.53 / 2.50])
         draw_metric(ax, data, metric, title, ylabel)
-    draw_dual_panel(fig, data, 2, "delta_hits_per_1000_events", "C  Hit rate")
+    if args.shared_hit_axis:
+        draw_shared_hit_panel(fig, data)
+    else:
+        draw_dual_panel(fig, data, 2, "delta_hits_per_1000_events", "C  Hit rate")
     draw_dual_panel(fig, data, 3, "delta_reliable_edges", "D  Graph edges")
-    save(fig, OUTPUT_STEM, HERE)
+    save(fig, SHARED_HIT_OUTPUT_STEM if args.shared_hit_axis else OUTPUT_STEM, HERE)
 
 
 if __name__ == "__main__":
