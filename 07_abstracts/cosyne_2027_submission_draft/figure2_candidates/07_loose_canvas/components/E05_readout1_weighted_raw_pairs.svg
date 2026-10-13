@@ -50,55 +50,75 @@ L 0 2
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#mc2d365d704" x="70.625393" y="118.8" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#mc2d365d704" x="64.54086" y="118.8" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="70.625393" y="130.389375" transform="rotate(-0 70.625393 130.389375)">0.2</text>
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="64.54086" y="130.389375" transform="rotate(-0 64.54086 130.389375)">0.15</text>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_3">
       <g>
-       <use xlink:href="#mc2d365d704" x="104.041028" y="118.8" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#mc2d365d704" x="95.432461" y="118.8" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="104.041028" y="130.389375" transform="rotate(-0 104.041028 130.389375)">0.4</text>
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="95.432461" y="130.389375" transform="rotate(-0 95.432461 130.389375)">0.30</text>
      </g>
     </g>
-    <g id="text_3">
+    <g id="xtick_3">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mc2d365d704" x="126.324063" y="118.8" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="126.324063" y="130.389375" transform="rotate(-0 126.324063 130.389375)">0.45</text>
+     </g>
+    </g>
+    <g id="text_4">
      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="88.2" y="142.36375" transform="rotate(-0 88.2 142.36375)">Control</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
-     <g id="line2d_4">
+     <g id="line2d_5">
       <defs>
        <path id="m09d0672d89" d="M 0 0
 L -2 0
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#m09d0672d89" x="47.52" y="95.694607" style="stroke: #000000; stroke-width: 0.8"/>
-      </g>
-     </g>
-     <g id="text_4">
-      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: end" x="44.52" y="99.989295" transform="rotate(-0 44.52 99.989295)">0.2</text>
-     </g>
-    </g>
-    <g id="ytick_2">
-     <g id="line2d_5">
-      <g>
-       <use xlink:href="#m09d0672d89" x="47.52" y="62.278972" style="stroke: #000000; stroke-width: 0.8"/>
+       <use xlink:href="#m09d0672d89" x="47.52" y="101.77914" style="stroke: #000000; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: end" x="44.52" y="66.573659" transform="rotate(-0 44.52 66.573659)">0.4</text>
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: end" x="44.52" y="106.073827" transform="rotate(-0 44.52 106.073827)">0.15</text>
      </g>
     </g>
-    <g id="text_6">
-     <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="24.455" y="78.12" transform="rotate(-90 24.455 78.12)">Tested</text>
+    <g id="ytick_2">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m09d0672d89" x="47.52" y="70.887539" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: end" x="44.52" y="75.182226" transform="rotate(-0 44.52 75.182226)">0.30</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m09d0672d89" x="47.52" y="39.995937" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 12px; font-family: 'Arial'; text-anchor: end" x="44.52" y="44.290625" transform="rotate(-0 44.52 44.290625)">0.45</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 12px; font-family: 'Arial'; text-anchor: middle" x="17.781875" y="78.12" transform="rotate(-90 17.781875 78.12)">Tested</text>
     </g>
    </g>
    <g id="PathCollection_1">
@@ -116,11 +136,11 @@ z
 " style="stroke: #ffffff; stroke-width: 0.25"/>
     </defs>
     <g clip-path="url(#p893ea517a4)">
-     <use xlink:href="#m36fc90acd3" x="54.843513" y="102.041161" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m36fc90acd3" x="52.515789" y="91.834963" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m36fc90acd3" x="59.076979" y="92.372443" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m36fc90acd3" x="53.559475" y="93.513551" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m36fc90acd3" x="55.923865" y="91.823608" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m36fc90acd3" x="55.384989" y="99.304832" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m36fc90acd3" x="52.515789" y="86.724462" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m36fc90acd3" x="60.603247" y="87.386971" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m36fc90acd3" x="53.802258" y="88.793525" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m36fc90acd3" x="56.716654" y="86.710466" style="fill: #0072b2; stroke: #ffffff; stroke-width: 0.25"/>
     </g>
    </g>
    <g id="PathCollection_2">
@@ -138,31 +158,14 @@ z
 " style="stroke: #ffffff; stroke-width: 0.25"/>
     </defs>
     <g clip-path="url(#p893ea517a4)">
-     <use xlink:href="#mdf107b32b3" x="56.632745" y="93.786565" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#mdf107b32b3" x="67.402217" y="88.70711" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#mdf107b32b3" x="61.558021" y="76.882844" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#mdf107b32b3" x="74.220472" y="104.927834" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#mdf107b32b3" x="67.850865" y="83.622949" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#mdf107b32b3" x="57.590434" y="89.130048" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#mdf107b32b3" x="70.865107" y="82.869006" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#mdf107b32b3" x="63.66143" y="68.294172" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#mdf107b32b3" x="79.269429" y="102.863006" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#mdf107b32b3" x="71.41812" y="76.602164" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
     </g>
    </g>
    <g id="PathCollection_3">
-    <defs>
-     <path id="m7915dc1a56" d="M -0 3.162278
-L 3.162278 0
-L 0 -3.162278
-L -3.162278 -0
-z
-" style="stroke: #ffffff; stroke-width: 0.25"/>
-    </defs>
-    <g clip-path="url(#p893ea517a4)">
-     <use xlink:href="#m7915dc1a56" x="60.245554" y="91.606553" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m7915dc1a56" x="98.000039" y="42.435789" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m7915dc1a56" x="54.94154" y="71.775253" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m7915dc1a56" x="63.271556" y="84.615436" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m7915dc1a56" x="80.838226" y="80.186498" style="fill: #d55e00; stroke: #ffffff; stroke-width: 0.25"/>
-    </g>
-   </g>
-   <g id="PathCollection_4">
     <defs>
      <path id="m34979babab" d="M 0 2.236068
 C 0.593012 2.236068 1.161816 2.000462 1.581139 1.581139
@@ -177,11 +180,11 @@ z
 " style="stroke: #ffffff; stroke-width: 0.25"/>
     </defs>
     <g clip-path="url(#p893ea517a4)">
-     <use xlink:href="#m34979babab" x="74.281668" y="99.034929" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m34979babab" x="64.070418" y="101.598542" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m34979babab" x="80.717043" y="99.29582" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m34979babab" x="110.415535" y="84.062479" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
-     <use xlink:href="#m34979babab" x="56.338566" y="92.016931" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m34979babab" x="79.344861" y="95.599289" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m34979babab" x="66.758264" y="98.759252" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m34979babab" x="87.277237" y="95.920869" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m34979babab" x="123.884211" y="77.143939" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
+     <use xlink:href="#m34979babab" x="57.227823" y="86.94876" style="fill: #009e73; stroke: #ffffff; stroke-width: 0.25"/>
     </g>
    </g>
    <g id="patch_3">
@@ -195,11 +198,11 @@ L 128.88 118.8
 " style="fill: none; stroke: #000000; stroke-width: 0.7; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
   </g>
-  <g id="text_7">
+  <g id="text_9">
    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; fill: #20272c" transform="translate(7.29 13.269)">Readout layer 1</text>
    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial'; fill: #20272c" transform="translate(7.29 26.101875)">weighted coding</text>
   </g>
-  <g id="text_8">
+  <g id="text_10">
    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial'; text-anchor: end; fill: #5b646c" x="155.52" y="13.949156" transform="rotate(-0 155.52 13.949156)">+</text>
   </g>
  </g>

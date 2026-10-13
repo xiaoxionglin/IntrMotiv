@@ -2268,6 +2268,16 @@ For each finding, record:
   is to validate all paired arithmetic and source hashes, inspect individual
   assets at native size, scan the contact sheet for collisions, and keep the
   assembled inventory explicitly separate from the submitted figure.
+  The 13 October layout follow-up split all raw-pair and peak-location
+  scatter components onto a second canvas, leaving boxes, the online course,
+  and archived maps together. Both boards now group assets by the tested
+  intervention rather than only panel letter. For the push-ablation inventory,
+  display C01, C05-wT (labeled C05), and C15 while retaining the archived
+  C05-wC source and candidate-06 comparison. The renderer now records board
+  membership and display groups in the manifest. When changing a display
+  selection, regenerate both boards and check that each plotted group has the
+  expected paired-seed count, all scatter assets have moved, labels remain
+  legible at native card size, and no source-table arm is silently discarded.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
