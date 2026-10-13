@@ -106,7 +106,7 @@ keep implementation guidance in the canonical workflow documents linked below.
   audited merger produced one full C05 seed-99 75M row with 128 exact starts,
   384 paired comparisons, 1,152 trials, no missing records, and the original
   study fingerprint. The [interim result](06_experiments/cosyne_2027/results_20261011/control_interim/summary/control_seed_checkpoint_metrics.csv)
-  retains detector-hit differences and a 44-row missingness ledger. Four
+  retains detector-hit differences and a 38-row missingness ledger. Ten
   completed rows do not establish reliability across all C05/C15 checkpoints;
   the remaining rows still need bounded recovery or a verified monolithic end.
   After print-only review, 15 additional C15 temporal seed-17 75M source jobs
@@ -124,7 +124,18 @@ keep implementation guidance in the canonical workflow documents linked below.
   128 exact starts, 384 paired comparisons, 1,152 trials, and the original
   StudySpec fingerprint. Their 900-decision detector-hit lifts were +0.0104
   at 75M and -0.0052 at 100M, repeated checkpoints of the same seed. The
-  refreshed interim ledger has four completed rows and 44 missing.
+  two C15 rows also passed the source merge. Four ordinary jobs completed and
+  passed the same summary, bringing the ledger to ten completed rows and 38
+  missing. By the 13 October Slurm check, 33 of the 48 three-day retries had
+  failed with exit 134; 23 failed rows had neither a completed output nor an
+  active node-excluded retry. The [manifest-linked plan](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_plan_20261013.tsv)
+  groups those rows into three bounded batches. The [first batch](06_experiments/cosyne_2027/results_20261011/control_submissions/failed_source_recovery_batch1_submitted_20261013.tsv)
+  contains 128 canonically print-reviewed source jobs for eight failed rows;
+  its submitted job IDs and exact Slurm commands are retained. An already
+  recovered row's redundant monolithic retry 8344882 was cancelled to avoid
+  conflicting ordinary and merged outputs. This confirms source sharding as
+  the practical recovery path while the monolithic engine-lifecycle failure
+  remains unresolved.
 - **Acceptance:** A study requesting all eligible targets and fixed windows
   yields matched commanded and alternative trial rows with the requested
   horizons; unknown or ignored settings fail before submission. The full
