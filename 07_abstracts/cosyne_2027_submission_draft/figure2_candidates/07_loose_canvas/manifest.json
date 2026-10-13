@@ -2,6 +2,21 @@
   "schema": "intrmotiv/cosyne-figure2-loose-canvas/v2",
   "basis": "06_compact_vertical_boxes",
   "purpose": "Movable assets for author-led Figure 2 layout; not submitted",
+  "box_plot_region_inches": [
+    1.2,
+    1.0
+  ],
+  "box_data_axes_inches": [
+    0.695,
+    0.66
+  ],
+  "box_text_points": {
+    "ticks": 8,
+    "axis_labels": 10,
+    "titles": 12
+  },
+  "box_dot_alpha": 0.7,
+  "box_summary_layer": "above dots",
   "font_path": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
   "software": {
     "matplotlib": "3.10.8",
@@ -1483,6 +1498,168 @@
       "canvas_group": "Spatial examples"
     },
     {
+      "slug": "F12_high_credit_dg",
+      "section": "F",
+      "kind": "difference_box",
+      "original": false,
+      "title": "High credit: DG coding",
+      "groups": [
+        "C05",
+        "C15"
+      ],
+      "n": 10,
+      "unit": "bits",
+      "contrast": "temporal_minus_constant_worker",
+      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+      "difference_column": "delta_spatial_information_bits",
+      "mean_delta_by_group": {
+        "C05": -0.0025398000000000005,
+        "C15": -0.017233
+      },
+      "sources": [
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/paired_seed_differences.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_hit_rate_pairs.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact.svg"
+      ],
+      "source_sha256": {
+        "paired": "6d0043324e5ca202804c53299af96687e0d4a1298081d4b02d61e2f66e77c892",
+        "hit_rates": "9059e03445593391953033c99bffebf92ce568d4d3cc550fe06adcae92883b68",
+        "selected_figure": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7"
+      },
+      "axis_scales": null,
+      "hashes": {
+        "svg": "aaa8baf47463238cf9dcfde608ace7581f4f257a2f0ccefb71e3fc620dfb1892",
+        "pdf": "70a09a4b5c51e1ea391068cebd609dbc84ac24c22865536429f92d32ca233fd2",
+        "png": "4fb9c89ee5108fc5e86ac5d4d3fe524f2c71452bb3c82f2b3eed4aa0916a7fa6"
+      },
+      "canvas_group": "Pull ablation \u00b7 worker credit"
+    },
+    {
+      "slug": "F13_high_credit_coverage",
+      "section": "F",
+      "kind": "difference_box",
+      "original": false,
+      "title": "High credit: coverage",
+      "groups": [
+        "C05",
+        "C15"
+      ],
+      "n": 10,
+      "unit": "AUC",
+      "contrast": "temporal_minus_constant_worker",
+      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+      "difference_column": "delta_coverage_auc",
+      "mean_delta_by_group": {
+        "C05": 16.615159999999996,
+        "C15": 2.27884
+      },
+      "sources": [
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/paired_seed_differences.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_hit_rate_pairs.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact.svg"
+      ],
+      "source_sha256": {
+        "paired": "6d0043324e5ca202804c53299af96687e0d4a1298081d4b02d61e2f66e77c892",
+        "hit_rates": "9059e03445593391953033c99bffebf92ce568d4d3cc550fe06adcae92883b68",
+        "selected_figure": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7"
+      },
+      "axis_scales": null,
+      "hashes": {
+        "svg": "e80220153fd837e23682a18f5e35399187852885d37c1710a4d20f0378eb23f3",
+        "pdf": "e611c1004a37489e55889e7e6d12f3ee6f34472e064dc3774cc9610e93625918",
+        "png": "6533b8991810e0ee31e70522aa66c12d3d5383e0fa792c8b6a83f9283c38008e"
+      },
+      "canvas_group": "Pull ablation \u00b7 worker credit"
+    },
+    {
+      "slug": "F14_high_credit_hit_rate",
+      "section": "F",
+      "kind": "difference_box",
+      "original": false,
+      "title": "High credit: hit rate",
+      "groups": [
+        "C05",
+        "C15"
+      ],
+      "n": 10,
+      "unit": "hits/1,000",
+      "contrast": "temporal_minus_constant_worker",
+      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+      "difference_column": "delta_hits_per_1000_events",
+      "mean_delta_by_group": {
+        "C05": 5.1873737874439545,
+        "C15": 2.060346201126304
+      },
+      "sources": [
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/paired_seed_differences.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_hit_rate_pairs.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact.svg"
+      ],
+      "source_sha256": {
+        "paired": "6d0043324e5ca202804c53299af96687e0d4a1298081d4b02d61e2f66e77c892",
+        "hit_rates": "9059e03445593391953033c99bffebf92ce568d4d3cc550fe06adcae92883b68",
+        "selected_figure": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7"
+      },
+      "axis_scales": {
+        "shared": [
+          -15,
+          15
+        ]
+      },
+      "hashes": {
+        "svg": "5e7b1ee4b68cdb1892e257699b05fa3be97c6ac93bd7a5f59772f8dbc6974ef0",
+        "pdf": "f09877b7acdab1f5c87039a9208ce90ad5f5d84432164e9b2dc3136d3b7e0842",
+        "png": "12f9cd12cfde9cbf4bc001ea6c7a4ffbc9cd568412d662ebfd6412852305bf1f"
+      },
+      "canvas_group": "Pull ablation \u00b7 worker credit"
+    },
+    {
+      "slug": "F15_high_credit_graph_edges",
+      "section": "F",
+      "kind": "difference_box",
+      "original": false,
+      "title": "High credit: graph edges",
+      "groups": [
+        "C05",
+        "C15"
+      ],
+      "n": 10,
+      "unit": "edges",
+      "contrast": "temporal_minus_constant_worker",
+      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+      "difference_column": "delta_reliable_edges",
+      "mean_delta_by_group": {
+        "C05": -0.8,
+        "C15": 21.6
+      },
+      "sources": [
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/paired_seed_differences.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_hit_rate_pairs.csv",
+        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact.svg"
+      ],
+      "source_sha256": {
+        "paired": "6d0043324e5ca202804c53299af96687e0d4a1298081d4b02d61e2f66e77c892",
+        "hit_rates": "9059e03445593391953033c99bffebf92ce568d4d3cc550fe06adcae92883b68",
+        "selected_figure": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7"
+      },
+      "axis_scales": {
+        "C05": [
+          -15,
+          15
+        ],
+        "C15": [
+          -60,
+          60
+        ]
+      },
+      "hashes": {
+        "svg": "ca84723ddfc5d0725012ea143febf0dcfcade6193ec70691ae748eb5e9c83921",
+        "pdf": "6595fffd96616970102ec06a9347d6fba50bb43b727c1476d8832b7951fbf523",
+        "png": "08c8f2b8ee4a732a98db0e46809ca1b0d72efb6ad68fa6a1cb9f332555a17e88"
+      },
+      "canvas_group": "Pull ablation \u00b7 worker credit"
+    },
+    {
       "slug": "label_a",
       "section": "A",
       "kind": "section_label",
@@ -1572,35 +1749,6 @@
         "png": "93431412d783b3d5f29481850f2ea0c46c0f1c4ced72edafe8d4e505ea4cc271"
       },
       "canvas_group": "Loose labels and key"
-    },
-    {
-      "slug": "F12_high_credit_worker_timing",
-      "section": "F",
-      "kind": "external_composite",
-      "original": false,
-      "title": "High policy-credit worker timing",
-      "contrast": "temporal_minus_constant_worker",
-      "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
-      "groups": [
-        "C05",
-        "C15"
-      ],
-      "n": 10,
-      "canvas_span": 5,
-      "canvas_group": "Pull ablation \u00b7 worker credit",
-      "sources": [
-        "06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/high_credit_worker_shared_hit_rate_dual_edges_compact"
-      ],
-      "source_artifact_sha256": {
-        "svg": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7",
-        "pdf": "773e2610f43f47ddaaec01ca49f5cdc52f2f70eec20449470ea2a8ee116a6233",
-        "png": "c788791f03fc4d751050982a7b5aad8e716ddb3a6111da1bda1b34807a857308"
-      },
-      "hashes": {
-        "svg": "88b5497b2c25cc470a0e45e4078d67e6cc7fc12a9a9e205561e69d0abd3e00d7",
-        "pdf": "773e2610f43f47ddaaec01ca49f5cdc52f2f70eec20449470ea2a8ee116a6233",
-        "png": "c788791f03fc4d751050982a7b5aad8e716ddb3a6111da1bda1b34807a857308"
-      }
     }
   ],
   "canvases": {
@@ -1623,7 +1771,10 @@
         "E04_ca3_weighted",
         "E05_readout1_weighted",
         "E06_readout2_weighted",
-        "F12_high_credit_worker_timing",
+        "F12_high_credit_dg",
+        "F13_high_credit_coverage",
+        "F14_high_credit_hit_rate",
+        "F15_high_credit_graph_edges",
         "F01_worker_coverage",
         "F02_worker_online_dg",
         "F05_worker_replay_dg",
@@ -1647,9 +1798,9 @@
         "label_color_key"
       ],
       "sha256": {
-        "svg": "824fbeeced95f7121d6344d8a1a33177049092984c552821e6de6a206f475974",
-        "pdf": "eadde98c51b8c8ab18035f5aa705cb74c117e7ea33ac3195972753a58ec7e2e1",
-        "png": "3bbe08486e3b4f56fdee3b3df6842e456296c053220eeb3137dc3821af962907"
+        "svg": "4fd90bba4e5d6d9ef03c46afbcde7b6f73eb38cfa84cead2de5b76a79a5f2a9d",
+        "pdf": "ec52008560cf3a65a09a9e4bbae06b2d439f865a681bcd620c285316f6c17dab",
+        "png": "d7fe95622a9d205dbb65659bc807c56b4b3a36323ca7b0f69d2d17760b5544eb"
       }
     },
     "figure2_scatter_canvas": {
@@ -1685,25 +1836,10 @@
         "C04_peaks_constant"
       ],
       "sha256": {
-        "svg": "d7e0f12a5c2bf29bce71ea5bcaf4ec4ac34e27dce436e35ab5428ac97ea45d18",
-        "pdf": "43c07f6a0eb39cee3b676aed532a96b6ee7a4acae473fb86f6f1656868c33446",
-        "png": "c493955a9bb5e2e2edca9398a534d00c6b170ff8485422fe166399e481497454"
+        "svg": "ab00b1de5cfa1bc13599ada95a4dc5eea9961061db7a865d9dfa6e45d5d474f5",
+        "pdf": "c313c826d8f66f4bc60352ec61f023149af8d6cbac798b4b7e21175d6562a9e0",
+        "png": "f86d360c26f4cfbcb8e590a6ce2eba32a2cd56fe8a3a46ca05eee8fcac8cf95c"
       }
     }
-  },
-  "box_plot_region_inches": [
-    1.2,
-    1.0
-  ],
-  "box_data_axes_inches": [
-    0.695,
-    0.66
-  ],
-  "box_text_points": {
-    "ticks": 8,
-    "axis_labels": 10,
-    "titles": 12
-  },
-  "box_dot_alpha": 0.7,
-  "box_summary_layer": "above dots"
+  }
 }

@@ -2,18 +2,17 @@
 
 This is an asset shelf for author-led layout, not another proposed Figure 2.
 The ten compact box plots use the exact panel data of candidate 06. Additional
-plots draw from the same archived tables used by the candidate gallery.
+plots draw from archived gallery tables and pinned high-credit worker results.
 """
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import re
-import shutil
 import subprocess
 import sys
-import argparse
 from dataclasses import dataclass
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -22,6 +21,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.transforms import Bbox
 from matplotlib.ticker import MaxNLocator
 import numpy as np
 import pandas as pd
@@ -47,12 +47,18 @@ EXAMPLE_HEIGHT = 2.15
 MAP_WIDTH = 2.25
 MAP_HEIGHT = 2.15
 PUSH_GROUPS = ("C01", "C05-wT", "C15")
-WORKER_TIMING_SLUG = "F12_high_credit_worker_timing"
-WORKER_TIMING_SOURCE = (
+LEGACY_WORKER_TIMING_SLUG = "F12_high_credit_worker_timing"
+HIGH_CREDIT_DIRECTORY = (
     shared.ROOT / "06_experiments" / "reward_credit" / "results" /
-    "cosyne27_worker_regimen_boxplots_20261013" /
-    "high_credit_worker_shared_hit_rate_dual_edges_compact"
+    "cosyne27_worker_regimen_boxplots_20261013"
 )
+HIGH_CREDIT_SOURCES = {
+    "paired": HIGH_CREDIT_DIRECTORY / "paired_seed_differences.csv",
+    "hit_rates": HIGH_CREDIT_DIRECTORY / "high_credit_hit_rate_pairs.csv",
+    "selected_figure": HIGH_CREDIT_DIRECTORY /
+    "high_credit_worker_shared_hit_rate_dual_edges_compact.svg",
+}
+HIGH_CREDIT_SEEDS = (8, 17, 41, 99, 123)
 
 
 @dataclass(frozen=True)
@@ -447,29 +453,120 @@ def text_elements() -> list[dict]:
     return items
 
 
-def worker_timing_component() -> dict:
-    """Copy the verified compact high-credit worker plot as one movable asset."""
-    COMPONENTS.mkdir(parents=True, exist_ok=True)
-    hashes = {}
-    source_hashes = {}
-    for suffix in ("svg", "pdf", "png"):
-        source = WORKER_TIMING_SOURCE.with_suffix(f".{suffix}")
-        target = COMPONENTS / f"{WORKER_TIMING_SLUG}.{suffix}"
-        shutil.copyfile(source, target)
-        hashes[suffix] = hashlib.sha256(target.read_bytes()).hexdigest()
-        source_hashes[suffix] = hashlib.sha256(source.read_bytes()).hexdigest()
-    return {
-        "slug": WORKER_TIMING_SLUG, "section": "F",
-        "kind": "external_composite", "original": False,
-        "title": "High policy-credit worker timing",
-        "contrast": "temporal_minus_constant_worker",
-        "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
-        "groups": ["C05", "C15"], "n": 10, "canvas_span": 5,
-        "canvas_group": "Pull ablation · worker credit",
-        "sources": [str(WORKER_TIMING_SOURCE.relative_to(shared.ROOT))],
-        "source_artifact_sha256": source_hashes,
-        "hashes": hashes,
-    }
+def high_credit_rows() -> pd.DataFrame:
+    """Load the pinned high-credit paired differences without inventing raw arms."""
+    paired = pd.read_csv(HIGH_CREDIT_SOURCES["paired"])
+    paired = paired[paired.policy_credit == "high"].copy()
+    hits = pd.read_csv(HIGH_CREDIT_SOURCES["hit_rates"])
+    expected = {(family, seed) for family in ("C05", "C15")
+                for seed in HIGH_CREDIT_SEEDS}
+    for name, frame in (("paired", paired), ("hit_rates", hits)):
+        keys = list(zip(frame.family, frame.seed))
+        if len(keys) != len(expected) or set(keys) != expected:
+            raise ValueError(f"High-credit {name} must contain five matched seeds per family")
+    data = paired.merge(hits[["family", "seed", "delta_hits_per_1000_events"]],
+                        on=["family", "seed"], validate="one_to_one")
+    columns = ["delta_spatial_information_bits", "delta_coverage_auc",
+               "delta_hits_per_1000_events", "delta_reliable_edges"]
+    if not np.isfinite(data[columns].to_numpy(dtype=float)).all():
+        raise ValueError("High-credit paired differences contain nonfinite values")
+    return data
+
+
+HIGH_CREDIT_METRICS = (
+    ("F12_high_credit_dg", "High credit: DG coding", "delta_spatial_information_bits", "bits"),
+    ("F13_high_credit_coverage", "High credit: coverage", "delta_coverage_auc", "AUC"),
+    ("F14_high_credit_hit_rate", "High credit: hit rate", "delta_hits_per_1000_events", "hits/1,000"),
+    ("F15_high_credit_graph_edges", "High credit: graph edges", "delta_reliable_edges", "edges"),
+)
+
+
+def high_credit_box(slug: str, title: str, values: pd.DataFrame,
+                    metric: str, unit: str) -> dict[str, str]:
+    """Draw one same-size component; each dot is one paired training seed."""
+    fig = plt.figure(figsize=(CARD_WIDTH, CARD_HEIGHT), facecolor="white")
+    card_title(fig, title, original=False)
+    ax = fig.add_axes([DATA_AXES_LEFT / CARD_WIDTH,
+                       DATA_AXES_BOTTOM / CARD_HEIGHT,
+                       (0.59 if metric == "delta_reliable_edges" else DATA_AXES_WIDTH) / CARD_WIDTH,
+                       DATA_AXES_HEIGHT / CARD_HEIGHT])
+    twin = ax.twinx() if metric == "delta_reliable_edges" else None
+    for index, family in enumerate(("C05", "C15")):
+        target = twin if family == "C15" and twin is not None else ax
+        sample = values.loc[values.family == family, metric].to_numpy(dtype=float)
+        color = shared.COLOR[family]
+        target.scatter(np.full(len(sample), index) + np.linspace(-.075, .075, len(sample)),
+                       sample, s=15, color=color, alpha=.7, zorder=2,
+                       edgecolors="none")
+        target.boxplot([sample], positions=[index], widths=.28, patch_artist=True,
+                       showfliers=False, whis=(0, 100), zorder=4,
+                       boxprops={"facecolor": "white", "edgecolor": color, "linewidth": 1},
+                       whiskerprops={"color": color, "linewidth": 1},
+                       capprops={"color": color, "linewidth": 1},
+                       medianprops={"color": color, "linewidth": 1.3})
+        target.scatter([index], [sample.mean()], marker="D", s=20,
+                       facecolors="white", edgecolors=color, linewidths=1,
+                       zorder=6)
+    ax.axhline(0, color="#7D858A", lw=.7, zorder=1)
+    ax.set_xlim(-.55, 1.55)
+    ax.set_xticks([0, 1], ["C05", "C15"])
+    ax.tick_params(axis="x", labelsize=8, length=2, pad=1)
+    ax.tick_params(axis="y", labelsize=8, length=2, pad=0)
+    if twin is None:
+        limit = max(abs(values[metric].min()), abs(values[metric].max())) * 1.13
+        if metric == "delta_hits_per_1000_events":
+            limit = 15
+        ax.set_ylim(-limit, limit)
+        ax.yaxis.set_major_locator(MaxNLocator(nbins=3))
+    else:
+        ax.set_ylim(-15, 15)
+        twin.set_ylim(-60, 60)
+        ax.set_yticks([-15, 0, 15])
+        twin.set_yticks([-60, 0, 60])
+        ax.tick_params(axis="y", colors=shared.COLOR["C05"])
+        twin.tick_params(axis="y", colors=shared.COLOR["C15"],
+                         labelsize=8, length=2, pad=0)
+        twin.spines[["top", "bottom", "left"]].set_visible(False)
+    ax.set_ylabel(r"$\Delta$ " + unit, fontsize=10, labelpad=-1.5)
+    ax.spines["top"].set_visible(False)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    tight = [axis.get_tightbbox(renderer) for axis in (ax, twin) if axis is not None]
+    plot_bounds = Bbox.union(tight).transformed(fig.dpi_scale_trans.inverted())
+    title_bounds = fig.texts[0].get_window_extent(renderer).transformed(
+        fig.dpi_scale_trans.inverted())
+    if (plot_bounds.width > PLOT_WIDTH + .001 or
+            plot_bounds.height > PLOT_HEIGHT + .001 or
+            plot_bounds.y1 >= title_bounds.y0):
+        raise ValueError(f"{slug}: plot region {plot_bounds.width:.3f} × "
+                         f"{plot_bounds.height:.3f} in exceeds standard or title")
+    return export(fig, slug)
+
+
+def high_credit_components() -> list[dict]:
+    data = high_credit_rows()
+    sources = [str(path.relative_to(shared.ROOT)) for path in HIGH_CREDIT_SOURCES.values()]
+    source_hashes = {key: hashlib.sha256(path.read_bytes()).hexdigest()
+                     for key, path in HIGH_CREDIT_SOURCES.items()}
+    items = []
+    for slug, title, metric, unit in HIGH_CREDIT_METRICS:
+        items.append({
+            "slug": slug, "section": "F", "kind": "difference_box",
+            "original": False, "title": title, "groups": ["C05", "C15"],
+            "n": len(data), "unit": unit,
+            "contrast": "temporal_minus_constant_worker",
+            "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+            "difference_column": metric,
+            "mean_delta_by_group": {family: float(data.loc[data.family == family, metric].mean())
+                                    for family in ("C05", "C15")},
+            "sources": sources, "source_sha256": source_hashes,
+            "axis_scales": ({"C05": [-15, 15], "C15": [-60, 60]}
+                            if metric == "delta_reliable_edges" else
+                            {"shared": [-15, 15]}
+                            if metric == "delta_hits_per_1000_events" else None),
+            "hashes": high_credit_box(slug, title, data, metric, unit),
+        })
+    return items
 
 
 def canvas_group(item: dict) -> str:
@@ -520,32 +617,15 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
     assert sum(len(members) for _, members in grouped) == len(items)
 
     def positions(members: list[dict]) -> tuple[list[tuple[dict, int, int]], int]:
-        placed = []
-        row = col = 0
-        for item in members:
-            span = int(item.get("canvas_span", 1))
-            assert 1 <= span <= columns
-            if col + span > columns:
-                row += 1
-                col = 0
-            placed.append((item, row, col))
-            col += span
-            if col == columns:
-                row += 1
-                col = 0
-        return placed, row + (col > 0)
+        return [(item, index // columns, index % columns)
+                for index, item in enumerate(members)], (len(members) + columns - 1) // columns
 
     def row_height(name: str) -> float:
         return 0.85 * 72 if name == "Loose labels and key" else slot_height
 
-    def wide_row_gap(members: list[dict]) -> float:
-        return 0.80 * 72 if any(
-            item.get("canvas_span") == columns for item in members) else 0.0
-
     width = 2 * margin + columns * slot_width
     height = header + margin + sum(
         group_label_height + positions(members)[1] * row_height(name)
-        + wide_row_gap(members)
         + group_gap for name, members in grouped)
     ns = "http://www.w3.org/2000/svg"
     ET.register_namespace("", ns)
@@ -568,7 +648,6 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
         label.text = group_name
         y += group_label_height
         placed, row_count = positions(members)
-        spacer = wide_row_gap(members)
         for item, row, col in placed:
             slug = item["slug"]
             source = (COMPONENTS / f"{slug}.svg").read_text()
@@ -579,18 +658,28 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
                 source = source.replace(f"url(#{old})", f"url(#{new})")
                 source = source.replace(f'href="#{old}"', f'href="#{new}"')
             sub = ET.fromstring(source)
+            view_box = [float(number) for number in sub.get("viewBox").split()]
             source_width = float(re.search(r"([0-9.]+)", sub.get("width", ""))[1])
             source_height = float(re.search(r"([0-9.]+)", sub.get("height", ""))[1])
             x = margin + col * slot_width
-            item_y = y + row * row_height(group_name) + (spacer if row else 0)
-            slot = ET.SubElement(root, f"{{{ns}}}g", {"id": f"component_{slug}"})
-            inner = ET.SubElement(slot, f"{{{ns}}}svg", {
-                "x": f"{x:.2f}", "y": f"{item_y:.2f}",
-                "width": f"{source_width:.2f}pt", "height": f"{source_height:.2f}pt",
-                "viewBox": sub.get("viewBox", f"0 0 {source_width} {source_height}"),
-                "overflow": "visible" if item["kind"] == "external_composite" else "hidden"})
-            inner.extend(list(sub))
-        y += row_count * row_height(group_name) + spacer + group_gap
+            item_y = y + row * row_height(group_name)
+            scale_x = source_width / view_box[2]
+            scale_y = source_height / view_box[3]
+            slot = ET.SubElement(root, f"{{{ns}}}g", {
+                "id": f"component_{slug}",
+                "transform": (f"translate({x:.2f} {item_y:.2f}) "
+                              f"scale({scale_x:.8g} {scale_y:.8g}) "
+                              f"translate({-view_box[0]:.8g} {-view_box[1]:.8g})")})
+            # Matplotlib exports a full-page white rectangle. It makes an editor
+            # select the card bounds instead of the visible graph and masks nearby
+            # components. Keep only actual plot objects as direct peer groups.
+            for node in sub.iter():
+                if node.get("id") == f"{slug}_figure_1":
+                    for child in list(node):
+                        if child.get("id") == f"{slug}_patch_1":
+                            node.remove(child)
+            slot.extend(child for child in sub if child.tag != f"{{{ns}}}metadata")
+        y += row_count * row_height(group_name) + group_gap
     path = HERE / f"{stem}.svg"
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
     path.write_text("\n".join(line.rstrip() for line in
@@ -648,26 +737,32 @@ def main(*, main_only: bool = False) -> None:
             assert item["kind"] == "box" and item["groups"] == list(spec.groups)
             assert item["n"] == len(spec.data)
             item["hashes"] = box_plot(spec)
-        worker_item = worker_timing_component()
-        if WORKER_TIMING_SLUG in by_slug:
-            by_slug[WORKER_TIMING_SLUG].update(worker_item)
-        else:
-            items.append(worker_item)
-            by_slug[WORKER_TIMING_SLUG] = worker_item
+        items[:] = [item for item in items
+                    if item["slug"] != LEGACY_WORKER_TIMING_SLUG]
+        by_slug.pop(LEGACY_WORKER_TIMING_SLUG, None)
+        for worker_item in high_credit_components():
+            worker_item["canvas_group"] = canvas_group(worker_item)
+            if worker_item["slug"] in by_slug:
+                by_slug[worker_item["slug"]].update(worker_item)
+            else:
+                items.append(worker_item)
+                by_slug[worker_item["slug"]] = worker_item
         main_items = [by_slug[slug] for slug in
-                      manifest["canvases"]["figure2_loose_canvas"]["items"]]
-        if worker_item not in main_items:
-            main_items.append(worker_item)
+                      manifest["canvases"]["figure2_loose_canvas"]["items"]
+                      if slug != LEGACY_WORKER_TIMING_SLUG]
+        for slug, *_ in HIGH_CREDIT_METRICS:
+            if by_slug[slug] not in main_items:
+                main_items.append(by_slug[slug])
         main_items.sort(key=lambda item: (
             MAIN_GROUPS.index(item["canvas_group"]),
-            0 if item["kind"] == "external_composite" else 1))
+            0 if item["kind"] == "difference_box" else 1))
         manifest["canvases"]["figure2_loose_canvas"]["items"] = [
             item["slug"] for item in main_items]
         manifest["canvases"]["figure2_loose_canvas"]["sha256"] = main_canvas(main_items)
         manifest.pop("box_axes_inches", None)
         manifest.update(box_plot_manifest_metadata())
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
-        print(f"Updated {len(specs)} boxes, worker comparison, and main canvas; scatter files unchanged")
+        print(f"Updated {len(specs)} standard boxes, four high-credit boxes, and main canvas")
         return
     items = [{"slug": "A01_spatial_emergence", "section": "A", "kind": "course",
               "original": True, "sources": ["online"],
@@ -697,7 +792,7 @@ def main(*, main_only: bool = False) -> None:
         items.append({"slug": slug, "section": "C", "kind": "peak_example",
                       "original": False, "sources": ["example", "peaks"],
                       "hashes": peak_scatter(tables, arm)})
-    items.append(worker_timing_component())
+    items.extend(high_credit_components())
     items.extend(text_elements())
     for item in items:
         item["canvas_group"] = canvas_group(item)
@@ -707,7 +802,7 @@ def main(*, main_only: bool = False) -> None:
                      {"raw_pairs", "peak_example"}]
     main_items.sort(key=lambda item: (
         MAIN_GROUPS.index(item["canvas_group"]),
-        0 if item["kind"] == "external_composite" else 1))
+        0 if item["kind"] == "difference_box" else 1))
     scatter_items.sort(key=lambda item: SCATTER_GROUPS.index(item["canvas_group"]))
     main_board = main_canvas(main_items)
     scatter_board = combined_canvas(
