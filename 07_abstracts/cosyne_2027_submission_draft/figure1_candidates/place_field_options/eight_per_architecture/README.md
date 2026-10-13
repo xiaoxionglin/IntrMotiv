@@ -1,6 +1,6 @@
 # Eight screened DG examples per architecture
 
-These are **selection sheets** for choosing Figure 1 examples. For every DG unit in the six source networks, see the [complete unfiltered atlases](../../full_place_field_atlases.md). Each tile here has a unique ID printed beside its DG unit number. Send back IDs such as `C15-1`, `C15-2`, `C05-1`, and `C01-1`; the ID identifies the exact architecture, training condition, seed, and unit through the [selection table](selected_units.csv). No submission figure has been changed from this gallery.
+These are **selection sheets** for choosing Figure 1 examples. For every DG unit across all five seeds and eight factor cells, see the [40 complete unfiltered atlases](../../full_place_field_atlases.md). Each tile here has a unique ID printed beside its DG unit number. Send back IDs such as `C15-1`, `C15-2`, `C05-1`, and `C01-1`; the ID identifies the exact architecture, training condition, seed, and unit through the [selection table](selected_units.csv). No submission figure has been changed from this gallery.
 
 ## Architecture and asset index
 

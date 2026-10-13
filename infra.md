@@ -2276,8 +2276,13 @@ For each finding, record:
   Stable selection IDs on both the sheets and CSV prevent ambiguous references
   when a DG number appears in more than one condition. A separate
   [unfiltered atlas index](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_place_field_atlases.md)
-  now links the complete 16-unit source PNGs directly, since a shortlist can
-  otherwise be mistaken for the full available visual dataset.
+  now links all 40 terminal 16-unit source PNGs, since a shortlist can
+  otherwise be mistaken for the full available visual dataset. The canonical
+  local checkpoint table supplied all condition/seed keys; 38 atlas paths
+  matched its study folders, while the two C15 recovery PNGs were nested one
+  level deeper under `field/summary`. Source hashes and that exception are in
+  the gallery manifest. Future copies should derive identities from the
+  checkpoint table and validate all 40 files before inviting visual selection.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

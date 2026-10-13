@@ -1,6 +1,6 @@
 # Experimental Figure 1: spatial results at right
 
-[All 16 DG maps in each available source atlas](full_place_field_atlases.md) · six unfiltered condition/seed atlases with architecture notes and unit metrics
+[All 16 DG maps from every terminal seed](full_place_field_atlases.md) · 40 unfiltered condition/seed atlases with architecture notes and unit metrics
 
 [Five alternative four-field sets](place_field_options/README.md) · [scrollable overview](place_field_options/all_five_overview.png)
 
