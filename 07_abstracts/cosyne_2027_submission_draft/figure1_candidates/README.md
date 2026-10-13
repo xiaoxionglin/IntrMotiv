@@ -2,6 +2,8 @@
 
 [Five alternative four-field sets](place_field_options/README.md) · [scrollable overview](place_field_options/all_five_overview.png)
 
+[Eight screened DG examples per architecture](place_field_options/eight_per_architecture/README.md) · [C01 sheet](place_field_options/eight_per_architecture/c01_eight_screened_fields.png) · [C05 sheet](place_field_options/eight_per_architecture/c05_eight_screened_fields.png) · [C15 sheet](place_field_options/eight_per_architecture/c15_eight_screened_fields.png)
+
 [Latest architecture-priority candidate PDF](03_architecture_priority_compact_results.pdf) · [SVG](03_architecture_priority_compact_results.svg) · [PNG preview](03_architecture_priority_compact_results.png)
 
 [Earlier original-art candidate PDF](02_original_architecture_spatial_right.pdf) · [SVG](02_original_architecture_spatial_right.svg) · [PNG preview](02_original_architecture_spatial_right.png)

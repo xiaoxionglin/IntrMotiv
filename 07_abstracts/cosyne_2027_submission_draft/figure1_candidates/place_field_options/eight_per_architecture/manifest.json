@@ -1,0 +1,270 @@
+{
+  "schema": "intrmotiv/figure1-eight-field-gallery/v1",
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "sheets": [
+    {
+      "architecture": "C01",
+      "title": "C01 \u00b7 direct exploration",
+      "rows": [
+        {
+          "label": "temporal DG credit",
+          "condition": "COS27_C01_TEMPORAL",
+          "seed": 99,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 226,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "6": {
+              "si": 0.2763527674197234,
+              "mono_score": 0.4734529554843902,
+              "mono_field": false,
+              "active_fraction": 0.025997400259974
+            },
+            "15": {
+              "si": 0.1233719158242392,
+              "mono_score": 0.4951913952827453,
+              "mono_field": false,
+              "active_fraction": 0.0272972702729727
+            },
+            "5": {
+              "si": 0.1392292471833819,
+              "mono_score": 0.3945564925670624,
+              "mono_field": false,
+              "active_fraction": 0.0201979802019798
+            },
+            "0": {
+              "si": 0.113813121420623,
+              "mono_score": 0.3439352214336395,
+              "mono_field": false,
+              "active_fraction": 0.0328967103289671
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/place_fields_COS27_C01_TEMPORAL_S99__00_COS27_C01_TEMPORAL_S99__COS27_C01_TEMPORAL__s99__f100007936.png": "0d1449507fc20d82f13727d38923d35b9ad08ad177f486865e65de76cb68611e",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/per_unit_place_field_metrics.csv": "f43f6a4e32654824d73b856ae273c41fec81a31eb3b3d6b770b81d7596e75ecb",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_temporal_s3/summary/place_field_summary.csv": "1e9e3145124cb14c1fb353df285d876c6d7fafb277e5ebaaa9038c6581802794"
+          }
+        },
+        {
+          "label": "constant DG credit",
+          "condition": "COS27_C01_CONSTANT",
+          "seed": 99,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 307,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "2": {
+              "si": 0.3624639381793686,
+              "mono_score": 0.2414859682321548,
+              "mono_field": false,
+              "active_fraction": 0.0288971102889711
+            },
+            "10": {
+              "si": 0.1598414850574624,
+              "mono_score": 0.344646006822586,
+              "mono_field": false,
+              "active_fraction": 0.0214978502149785
+            },
+            "7": {
+              "si": 0.1836132475503266,
+              "mono_score": 0.1743050664663314,
+              "mono_field": false,
+              "active_fraction": 0.0356964303569643
+            },
+            "15": {
+              "si": 0.214481652948921,
+              "mono_score": 0.2345684468746185,
+              "mono_field": false,
+              "active_fraction": 0.0395960403959604
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_constant_s3/summary/place_fields_COS27_C01_CONSTANT_S99__00_COS27_C01_CONSTANT_S99__COS27_C01_CONSTANT__s99__f100007936.png": "67a0f979d8b3d5c4682690bdb4752469038a37457337fcda893179b4eb7e6db6",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_constant_s3/summary/per_unit_place_field_metrics.csv": "648a8ed401c88ad3b4aed83b6befcb2ee61e0505d627631d8994e37f226d3171",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c01_constant_s3/summary/place_field_summary.csv": "1a51b152a285d0f264c47932b9e310155e244f9cacaba15da62a3b822eb27bbf"
+          }
+        }
+      ]
+    },
+    {
+      "architecture": "C05",
+      "title": "C05 \u00b7 DG-target navigation",
+      "rows": [
+        {
+          "label": "constant DG / temporal worker",
+          "condition": "COS27_C05_CONSTANT_TEMPORAL",
+          "seed": 99,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 248,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "5": {
+              "si": 0.1364483693263969,
+              "mono_score": 1.0,
+              "mono_field": true,
+              "active_fraction": 0.0304969503049695
+            },
+            "12": {
+              "si": 0.1676132657827904,
+              "mono_score": 0.7687579393386841,
+              "mono_field": false,
+              "active_fraction": 0.0321967803219678
+            },
+            "7": {
+              "si": 0.1548478275405534,
+              "mono_score": 0.5558723211288452,
+              "mono_field": false,
+              "active_fraction": 0.0315968403159684
+            },
+            "6": {
+              "si": 0.228730302586627,
+              "mono_score": 0.3667463362216949,
+              "mono_field": false,
+              "active_fraction": 0.0277972202779722
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_fields_COS27_C05_CONSTANT_TEMPORAL_S99__00_COS27_C05_CONSTANT_TEMPORAL_S99__COS27_C05_CONSTANT_TEMPORAL__s99__f100007936.png": "14ef1ca94a744e855147f76dbcafe6a3cbbbc81d625773bd848377e0ace95cdf",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/per_unit_place_field_metrics.csv": "cc2456f7ad87ed610fb38e562be5760dc5ded9d0d406e1d095b95da5234a4b8c",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_field_summary.csv": "559972d87878bcef118851b14abf9b4202730abf00645c48e399f52497fb7488"
+          }
+        },
+        {
+          "label": "temporal DG / temporal worker",
+          "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+          "seed": 99,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 190,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "11": {
+              "si": 0.1984323702371143,
+              "mono_score": 0.7203072905540466,
+              "mono_field": false,
+              "active_fraction": 0.0248975102489751
+            },
+            "7": {
+              "si": 0.212399814705455,
+              "mono_score": 0.4701462090015411,
+              "mono_field": false,
+              "active_fraction": 0.0301969803019698
+            },
+            "3": {
+              "si": 0.211190789538038,
+              "mono_score": 0.4005254805088043,
+              "mono_field": false,
+              "active_fraction": 0.0355964403559644
+            },
+            "5": {
+              "si": 0.1715178985841869,
+              "mono_score": 0.3881349265575409,
+              "mono_field": false,
+              "active_fraction": 0.0244975502449755
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/per_unit_place_field_metrics.csv": "cc2456f7ad87ed610fb38e562be5760dc5ded9d0d406e1d095b95da5234a4b8c",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/place_field_summary.csv": "559972d87878bcef118851b14abf9b4202730abf00645c48e399f52497fb7488"
+          }
+        }
+      ]
+    },
+    {
+      "architecture": "C15",
+      "title": "C15 \u00b7 frontier-selected DG targets",
+      "rows": [
+        {
+          "label": "temporal DG credit",
+          "condition": "COS27_C15_TEMPORAL",
+          "seed": 123,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 307,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "4": {
+              "si": 0.2583279061556332,
+              "mono_score": 1.0,
+              "mono_field": true,
+              "active_fraction": 0.0168983101689831
+            },
+            "3": {
+              "si": 0.1651307460465332,
+              "mono_score": 1.0,
+              "mono_field": true,
+              "active_fraction": 0.0153984601539846
+            },
+            "7": {
+              "si": 0.1492083549862836,
+              "mono_score": 0.7515763640403748,
+              "mono_field": false,
+              "active_fraction": 0.0200979902009799
+            },
+            "11": {
+              "si": 0.1219118046891257,
+              "mono_score": 0.188021644949913,
+              "mono_field": false,
+              "active_fraction": 0.0200979902009799
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_fields_COS27_C15_TEMPORAL_S123__00_COS27_C15_TEMPORAL_S123__COS27_C15_TEMPORAL__s123__f100007936.png": "a5488b5b6686422126e53bf3b207b7c06ded78588270be73f9f92c2fe07bbf4b",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/per_unit_place_field_metrics.csv": "7f73aeec11f68de5be6b06ec914c64dc59a64b2741cc2304a29b8ffa2beef860",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_field_summary.csv": "b7356c787465cfbfdd572e026cfb92b7bdb9f11d08a8be7e070f950c9ce2145d"
+          }
+        },
+        {
+          "label": "constant DG credit",
+          "condition": "COS27_C15_CONSTANT",
+          "seed": 123,
+          "checkpoint_frames": 100007936,
+          "probe_decisions": 10001,
+          "visited_bins": 239,
+          "total_bins": 361,
+          "source_scale": "shared within-run scale; gray means unvisited",
+          "units": {
+            "0": {
+              "si": 0.3580031151619884,
+              "mono_score": 0.588019847869873,
+              "mono_field": false,
+              "active_fraction": 0.0282971702829717
+            },
+            "11": {
+              "si": 0.1546283773351225,
+              "mono_score": 0.658527672290802,
+              "mono_field": false,
+              "active_fraction": 0.0310968903109689
+            },
+            "3": {
+              "si": 0.1433482012615616,
+              "mono_score": 0.5442222356796265,
+              "mono_field": false,
+              "active_fraction": 0.0334966503349665
+            },
+            "14": {
+              "si": 0.1054018614615472,
+              "mono_score": 0.6871533989906311,
+              "mono_field": false,
+              "active_fraction": 0.0183981601839816
+            }
+          },
+          "source_sha256": {
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_fields_COS27_C15_CONSTANT_S123__00_COS27_C15_CONSTANT_S123__COS27_C15_CONSTANT__s123__f100007936.png": "5876bae144910c72a637e9cf00745c5deb5675db12f7fed0793d8ec040788e7a",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/per_unit_place_field_metrics.csv": "7f73aeec11f68de5be6b06ec914c64dc59a64b2741cc2304a29b8ffa2beef860",
+            "06_experiments/results/cosyne_2027_checkpoint_fields/c15_available/summary/place_field_summary.csv": "b7356c787465cfbfdd572e026cfb92b7bdb9f11d08a8be7e070f950c9ce2145d"
+          }
+        }
+      ]
+    }
+  ]
+}

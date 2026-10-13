@@ -2265,6 +2265,14 @@ For each finding, record:
   the square crops. Future candidate galleries should combine unit-level SI,
   mono score, activity fraction, and probe occupancy, then inspect full-size
   fields before treating a strict mono score as a compelling visual example.
+  The later eight-unit-per-architecture [selection sheets](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/place_field_options/eight_per_architecture/README.md)
+  showed that high spatial score and high mono score still leave edge-weighted
+  or multimodal maps. The reusable shortcut is to inspect the complete saved
+  16-unit atlas first, exclude visually diffuse examples, then render choices
+  with score, active fraction, run identity, and visited-bin count. Acceptance
+  for any final example is an author-selected map whose visible footprint and
+  provenance are accurately described in the caption; a request for eight
+  choices does not imply that eight clean compact fields exist in every run.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
