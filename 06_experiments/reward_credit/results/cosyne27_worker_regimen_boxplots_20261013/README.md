@@ -2,6 +2,8 @@
 
 [Compact Figure-2-style PDF](high_credit_worker_compact.pdf) · [SVG](high_credit_worker_compact.svg) · [PNG preview](high_credit_worker_compact.png) · [paired seed values](paired_seed_differences.csv) · [source mapping](sources.json) · [compact renderer](plot_high_credit_compact.py)
 
+**Relative-count alternative:** [PDF](high_credit_worker_cplus1_compact.pdf) · [SVG](high_credit_worker_cplus1_compact.svg) · [PNG preview](high_credit_worker_cplus1_compact.png) · [per-arm counts and relative values](high_credit_cplus1_seed_values.csv)
+
 The selected compact figure is 7.5 × 2.5 inches. It follows the submitted Figure 2's Arial typography, C05 orange/C15 green palette, quartile boxes with individual seed dots, min–max whiskers, and explicit signed $\Delta$ axes. All four panels show **only** the high policy-credit regimen, with C05 and C15 on each horizontal axis. Each panel uses its own vertical unit and range.
 
 ## Compact figure caption
@@ -15,6 +17,18 @@ The [paired table](paired_seed_differences.csv) retains the five high-credit dif
 ```bash
 MPLCONFIGDIR=/tmp/cosyne_high_compact_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_compact.py
 ```
+
+## Relative-count alternative: panels C and D
+
+The second compact figure retains the same A and B panels. For **C, correct-hit observations**, and **D, reliable graph edges**, each seed instead shows $(T-C)/(C+1)$, where $T$ and $C$ are the temporal- and constant-bonus arm counts for that matched architecture and seed. The added one is **one observation** in C and **one edge** in D. Zero means equal counts; positive values favor the temporal arm. These values are dimensionless, but they are not literal percentage changes when $C$ is small. Boxes, medians, min–max whiskers, and dots have the same definitions as in the absolute-difference figure. The high-credit setting, five seeds, observation windows, and own-policy graph protocol are unchanged.
+
+The [per-arm table](high_credit_cplus1_seed_values.csv) records all 20 counts and ratios. Its C and D source CSVs are the pinned `a26852f` files named in [source mapping](sources.json). The renderer reloads those files from Git history, checks every $T-C$ against the original paired table, then exports the relative figure and table. Regenerate with:
+
+```bash
+MPLCONFIGDIR=/tmp/cosyne_high_relative_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python plot_high_credit_compact.py --relative-counts
+```
+
+**Interpretation limit:** at 100M frames, the C05 constant graph has zero reliable edges in seeds 8, 41, and 99. The added one makes their ratios finite: 0, 3, and 3 respectively. These are count differences divided by a stabilizing one-edge denominator, not estimates of a conventional percent change from a nonzero baseline. C05 seed 41 also has a 5.86 relative correct-hit change because its constant-arm count is only 1,687. The raw counts and absolute-difference figure should accompany any cross-architecture reading of these panels.
 
 ## Earlier full-size comparison
 
