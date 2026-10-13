@@ -2246,6 +2246,18 @@ For each finding, record:
   common-replay intervention. The renderer hashes the original SVGs, crops
   only their visual tiles, and darkens the trajectory stroke for small-size
   viewing; rerendering at 1,000-pixel width is the acceptance check.
+  The [loose Figure 2 canvas](07_abstracts/cosyne_2027_submission_draft/figure2_candidates/07_loose_canvas/README.md)
+  now exports those candidate-06 panels as separately movable SVG/PDF/PNG
+  assets, with every box retaining the smallest original 0.68-by-0.774-inch
+  data axes. It adds a raw paired-value check for every box, the selected peak-location
+  example, and 16 archived candidate metrics omitted for space. Its first
+  contact sheet exposed titles and provenance notes extending into adjacent
+  slots despite correctly sized plot axes. Wrapping titles on each card,
+  moving protocol details to the index, and spacing the neutral inventory
+  board fixed that without resizing the axes. The reusable acceptance check
+  is to validate all paired arithmetic and source hashes, inspect individual
+  assets at native size, scan the contact sheet for collisions, and keep the
+  assembled inventory explicitly separate from the submitted figure.
   The [Figure 1 candidate gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/README.md)
   then tested the original architecture art at a larger 5.8-inch width beside
   a narrow spatial-information plot and four tiny archived response maps.
