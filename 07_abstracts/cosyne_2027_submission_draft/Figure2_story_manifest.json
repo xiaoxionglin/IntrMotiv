@@ -59,12 +59,12 @@
     15
   ],
   "frozen_behavior_comparison": {
+    "source_dg_table": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv",
+    "source_dg_table_sha256": "fdace3aee97e3515c62847c01010a0fd66859e89a97ad2b158858bfdcfdd2bed",
+    "source_all_layer_table": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_training_seeds.csv",
+    "source_all_layer_table_sha256": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
     "source_readout_table": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_decoder1_absolute.csv",
     "source_readout_table_sha256": "b042878a67ce4d0bad744703d4c15fe5e1619e9149b994bf0b82abf41af6068e",
-    "source_geometry_table": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/behavior_geometry_by_model.csv",
-    "source_geometry_table_sha256": "e9a890b2331c3df907cc2ade4778c8d4bddb8645a9614347984c7128469db12b",
-    "source_geometry_manifest": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/behavior_geometry_manifest.json",
-    "source_geometry_manifest_sha256": "43d33628adca3ea87a7b17cef771e7d1278af0312e8ca381e92564d6b3e7eb82",
     "sample_unit": "terminal frozen model; two paired 50,000-decision probes averaged within model",
     "sample_counts": {
       "NG": 10,
@@ -72,10 +72,10 @@
       "FG": 8
     },
     "difference": "learned-policy minus uniform-random-action value",
-    "added_metrics": [
-      "readout MLP layer 1 spatial information (bits/activation)",
-      "mean active DG map cosine",
-      "effective field-peak area fraction"
+    "metrics": [
+      "DG spatial information (bits/step)",
+      "readout MLP layer 1 spatial information (bits/step)",
+      "readout MLP layer 1 split-half spatial-map reliability"
     ]
   },
   "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",

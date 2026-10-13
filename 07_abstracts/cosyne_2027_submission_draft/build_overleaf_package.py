@@ -49,6 +49,10 @@ LAYOUT_TRIAL_ASSETS = {
     "FIGURE2_STORY_SOURCES.json": DRAFT_DIR / "Figure2_story_manifest.json",
     "data/fresh_behavior_decoder1_absolute.csv": (
         DRAFT_DIR / "data/fresh_behavior_decoder1_absolute.csv"),
+    "data/fresh_behavior_training_seeds.csv": (
+        DRAFT_DIR / "data/fresh_behavior_training_seeds.csv"),
+    "data/Figure2_behavior_dg_bits_per_step.csv": (
+        DRAFT_DIR / "figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv"),
     "data/Figure2_behavior_geometry_by_model.csv": (
         DRAFT_DIR / "figure2_candidates/08_focused_canvas/behavior_geometry_by_model.csv"),
     "data/Figure2_behavior_geometry_provenance.json": (
