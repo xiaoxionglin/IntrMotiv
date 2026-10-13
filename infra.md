@@ -2262,9 +2262,11 @@ For each finding, record:
   scatter components onto a second canvas, leaving boxes, the online course,
   and archived maps together. Both boards now group assets by the tested
   intervention rather than only panel letter. For the push-ablation inventory,
-  display C01, C05-wT (labeled C05), and C15 while retaining the archived
-  C05-wC source and candidate-06 comparison. The renderer now records board
-  membership and display groups in the manifest. When changing a display
+  display source groups C01, C05-wT, and C15 while retaining the archived
+  C05-wC source and candidate-06 comparison. The final display names are NG
+  (no goal), UG (uniform goal), and FG (frontier goal), respectively; preserve
+  the original IDs in data keys and filenames. The renderer records the label
+  mapping, board membership, and display groups in the manifest. When changing a display
   selection, regenerate both boards and check that each plotted group has the
   expected paired-seed count, all scatter assets have moved, labels remain
   legible at native card size, and no source-table arm is silently discarded.
