@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
 import subprocess
 import sys
 import argparse
@@ -46,6 +47,12 @@ EXAMPLE_HEIGHT = 2.15
 MAP_WIDTH = 2.25
 MAP_HEIGHT = 2.15
 PUSH_GROUPS = ("C01", "C05-wT", "C15")
+WORKER_TIMING_SLUG = "F12_high_credit_worker_timing"
+WORKER_TIMING_SOURCE = (
+    shared.ROOT / "06_experiments" / "reward_credit" / "results" /
+    "cosyne27_worker_regimen_boxplots_20261013" /
+    "high_credit_worker_shared_hit_rate_dual_edges_compact"
+)
 
 
 @dataclass(frozen=True)
@@ -440,6 +447,31 @@ def text_elements() -> list[dict]:
     return items
 
 
+def worker_timing_component() -> dict:
+    """Copy the verified compact high-credit worker plot as one movable asset."""
+    COMPONENTS.mkdir(parents=True, exist_ok=True)
+    hashes = {}
+    source_hashes = {}
+    for suffix in ("svg", "pdf", "png"):
+        source = WORKER_TIMING_SOURCE.with_suffix(f".{suffix}")
+        target = COMPONENTS / f"{WORKER_TIMING_SLUG}.{suffix}"
+        shutil.copyfile(source, target)
+        hashes[suffix] = hashlib.sha256(target.read_bytes()).hexdigest()
+        source_hashes[suffix] = hashlib.sha256(source.read_bytes()).hexdigest()
+    return {
+        "slug": WORKER_TIMING_SLUG, "section": "F",
+        "kind": "external_composite", "original": False,
+        "title": "High policy-credit worker timing",
+        "contrast": "temporal_minus_constant_worker",
+        "protocol": "high_policy_credit_online_90_100m_and_own_policy_snapshot_100m",
+        "groups": ["C05", "C15"], "n": 10, "canvas_span": 5,
+        "canvas_group": "Pull ablation · worker credit",
+        "sources": [str(WORKER_TIMING_SOURCE.relative_to(shared.ROOT))],
+        "source_artifact_sha256": source_hashes,
+        "hashes": hashes,
+    }
+
+
 def canvas_group(item: dict) -> str:
     """Group by the experimental intervention rather than panel letter."""
     if item["kind"] in {"section_label", "legend"}:
@@ -486,12 +518,34 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
                for name in groups]
     grouped = [(name, members) for name, members in grouped if members]
     assert sum(len(members) for _, members in grouped) == len(items)
+
+    def positions(members: list[dict]) -> tuple[list[tuple[dict, int, int]], int]:
+        placed = []
+        row = col = 0
+        for item in members:
+            span = int(item.get("canvas_span", 1))
+            assert 1 <= span <= columns
+            if col + span > columns:
+                row += 1
+                col = 0
+            placed.append((item, row, col))
+            col += span
+            if col == columns:
+                row += 1
+                col = 0
+        return placed, row + (col > 0)
+
     def row_height(name: str) -> float:
         return 0.85 * 72 if name == "Loose labels and key" else slot_height
 
+    def wide_row_gap(members: list[dict]) -> float:
+        return 0.80 * 72 if any(
+            item.get("canvas_span") == columns for item in members) else 0.0
+
     width = 2 * margin + columns * slot_width
     height = header + margin + sum(
-        group_label_height + ((len(members) + columns - 1) // columns) * row_height(name)
+        group_label_height + positions(members)[1] * row_height(name)
+        + wide_row_gap(members)
         + group_gap for name, members in grouped)
     ns = "http://www.w3.org/2000/svg"
     ET.register_namespace("", ns)
@@ -513,7 +567,9 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
             "font-size": "14", "font-weight": "bold", "fill": "#20272C"})
         label.text = group_name
         y += group_label_height
-        for index, item in enumerate(members):
+        placed, row_count = positions(members)
+        spacer = wide_row_gap(members)
+        for item, row, col in placed:
             slug = item["slug"]
             source = (COMPONENTS / f"{slug}.svg").read_text()
             ids = re.findall(r'\bid="([^"]+)"', source)
@@ -525,16 +581,16 @@ def combined_canvas(items: list[dict], *, stem: str, groups: tuple[str, ...],
             sub = ET.fromstring(source)
             source_width = float(re.search(r"([0-9.]+)", sub.get("width", ""))[1])
             source_height = float(re.search(r"([0-9.]+)", sub.get("height", ""))[1])
-            row, col = divmod(index, columns)
             x = margin + col * slot_width
-            item_y = y + row * row_height(group_name)
+            item_y = y + row * row_height(group_name) + (spacer if row else 0)
             slot = ET.SubElement(root, f"{{{ns}}}g", {"id": f"component_{slug}"})
             inner = ET.SubElement(slot, f"{{{ns}}}svg", {
                 "x": f"{x:.2f}", "y": f"{item_y:.2f}",
                 "width": f"{source_width:.2f}pt", "height": f"{source_height:.2f}pt",
-                "viewBox": sub.get("viewBox", f"0 0 {source_width} {source_height}")})
+                "viewBox": sub.get("viewBox", f"0 0 {source_width} {source_height}"),
+                "overflow": "visible" if item["kind"] == "external_composite" else "hidden"})
             inner.extend(list(sub))
-        y += ((len(members) + columns - 1) // columns) * row_height(group_name) + group_gap
+        y += row_count * row_height(group_name) + spacer + group_gap
     path = HERE / f"{stem}.svg"
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
     path.write_text("\n".join(line.rstrip() for line in
@@ -592,13 +648,26 @@ def main(*, main_only: bool = False) -> None:
             assert item["kind"] == "box" and item["groups"] == list(spec.groups)
             assert item["n"] == len(spec.data)
             item["hashes"] = box_plot(spec)
+        worker_item = worker_timing_component()
+        if WORKER_TIMING_SLUG in by_slug:
+            by_slug[WORKER_TIMING_SLUG].update(worker_item)
+        else:
+            items.append(worker_item)
+            by_slug[WORKER_TIMING_SLUG] = worker_item
         main_items = [by_slug[slug] for slug in
                       manifest["canvases"]["figure2_loose_canvas"]["items"]]
+        if worker_item not in main_items:
+            main_items.append(worker_item)
+        main_items.sort(key=lambda item: (
+            MAIN_GROUPS.index(item["canvas_group"]),
+            0 if item["kind"] == "external_composite" else 1))
+        manifest["canvases"]["figure2_loose_canvas"]["items"] = [
+            item["slug"] for item in main_items]
         manifest["canvases"]["figure2_loose_canvas"]["sha256"] = main_canvas(main_items)
         manifest.pop("box_axes_inches", None)
         manifest.update(box_plot_manifest_metadata())
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
-        print(f"Updated {len(specs)} boxes and the main canvas; scatter files unchanged")
+        print(f"Updated {len(specs)} boxes, worker comparison, and main canvas; scatter files unchanged")
         return
     items = [{"slug": "A01_spatial_emergence", "section": "A", "kind": "course",
               "original": True, "sources": ["online"],
@@ -628,6 +697,7 @@ def main(*, main_only: bool = False) -> None:
         items.append({"slug": slug, "section": "C", "kind": "peak_example",
                       "original": False, "sources": ["example", "peaks"],
                       "hashes": peak_scatter(tables, arm)})
+    items.append(worker_timing_component())
     items.extend(text_elements())
     for item in items:
         item["canvas_group"] = canvas_group(item)
@@ -635,7 +705,9 @@ def main(*, main_only: bool = False) -> None:
                   {"raw_pairs", "peak_example"}]
     scatter_items = [item for item in items if item["kind"] in
                      {"raw_pairs", "peak_example"}]
-    main_items.sort(key=lambda item: MAIN_GROUPS.index(item["canvas_group"]))
+    main_items.sort(key=lambda item: (
+        MAIN_GROUPS.index(item["canvas_group"]),
+        0 if item["kind"] == "external_composite" else 1))
     scatter_items.sort(key=lambda item: SCATTER_GROUPS.index(item["canvas_group"]))
     main_board = main_canvas(main_items)
     scatter_board = combined_canvas(
