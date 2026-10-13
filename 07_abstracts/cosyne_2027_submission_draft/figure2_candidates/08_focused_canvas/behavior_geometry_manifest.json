@@ -1,0 +1,17 @@
+{
+  "schema": "intrmotiv/figure2-frozen-behavior-geometry/v1",
+  "provenance_sha256": "fa3814f414111b709f197b81c2295a59e54e28a78506270e42b2dacfff2ff546",
+  "raw_probes": 152,
+  "paired_repeats": 76,
+  "complete_models": 38,
+  "comparison": "own policy minus uniform random; two repeats averaged within model",
+  "spatial_support": "bins with >=10 visits in both policies, separately for each paired repeat",
+  "dg_units": "same units field-eligible in both arms (>=20 active observations in >=3 bins)",
+  "map_cosine": "mean over distinct pairs of jointly eligible DG rate maps on common bins; zero-norm map pairs excluded",
+  "peak_coverage": "equal-mass Gaussian density (sigma=100 DMLab units) of dominant shared-bin peaks; jointly eligible units with >=0.25% active decisions in both arms; exp(entropy)/common-bin count",
+  "source_code_sha256": {
+    "behavior_field_metrics": "63de0b73c7edd69cd95186db1ea087586ed61989dadd552924da962fc33f7709",
+    "pairwise_map_cosine": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+    "peak_spread": "a3e8afaa6bbf16f9ea735c31c70b386a002fa4e30f7aeb93a3c7fe7d8f977eb1"
+  }
+}
