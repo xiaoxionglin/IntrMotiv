@@ -267,15 +267,21 @@ keep implementation guidance in the canonical workflow documents linked below.
   attempt failed while importing NumPy: OpenBLAS tried to create 60 threads and
   the login node returned `Resource temporarily unavailable`. The unchanged
   canonical command completed after setting `OPENBLAS_NUM_THREADS=1`,
-  `OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`.
+  `OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`. The
+  13 October high-discount C05 `collect-online --export-histories` process
+  backend repeated the failure with eight workers each attempting 60 OpenBLAS
+  threads. A distinct output using the thread backend with bounded BLAS/OpenMP
+  threads completed all ten run histories and the count-weighted analysis.
 - **Impact:** A valid retained-snapshot analysis can appear to have broken
   NumPy or source code when the actual limit is process thread capacity.
-- **Improvement/status:** The remote-analysis instructions now state the
-  one-thread workaround. Consider a reusable analysis launcher that sets these
-  defaults without changing training environments.
+- **Improvement/status:** The remote-analysis instructions state the one-thread
+  workaround; recurrence now supports a reusable analysis launcher or safe
+  process-worker environment default that sets these limits without changing
+  training environments or StudySpec identities.
 - **Acceptance:** The launcher imports NumPy and completes canonical online
-  and spatial collection under the same crowded-node conditions; job scripts
-  retain their own explicit thread settings.
+  history export and spatial collection under the same crowded-node conditions,
+  including the process backend when requested; job scripts retain their own
+  explicit thread settings.
 
 ### Record the evaluation environment in historical field manifests — 2026-10-09
 

@@ -1,0 +1,198 @@
+{
+  "interpretation": "DG detector hits only; prospective graph outcomes and physical arrivals remain separate.",
+  "panels": [
+    {
+      "canonical_trial_metrics": {
+        "alternate_hit_128": 0.8658854166666666,
+        "alternate_hit_256": 0.93359375,
+        "alternate_hit_64": 0.7408854166666666,
+        "alternate_hit_900": 0.9817708333333334,
+        "censored_fraction_128": 0.0,
+        "censored_fraction_256": 0.0,
+        "censored_fraction_64": 0.0,
+        "censored_fraction_900": 0.019965277777777776,
+        "commanded_hit_128": 0.8645833333333334,
+        "commanded_hit_256": 0.9348958333333334,
+        "commanded_hit_64": 0.7447916666666666,
+        "commanded_hit_900": 0.9765625,
+        "mean_command_endpoint_separation_xy": 688.1093274317745,
+        "paired_detector_hit_lift_128": -0.0013020833333333333,
+        "paired_detector_hit_lift_256": 0.0013020833333333333,
+        "paired_detector_hit_lift_64": 0.00390625,
+        "paired_detector_hit_lift_900": -0.005208333333333333,
+        "trial_rows": 1152
+      },
+      "checkpoint_frames": 100007936,
+      "cohort": "cosyne27_c05_pushpull_s2_20261010",
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "exact_start_verified": true,
+      "graph_frozen": true,
+      "horizon_counts_all_arms": {
+        "128": {
+          "censored": 0,
+          "detector_hits": 997,
+          "not_hit_not_censored_by_horizon": 155
+        },
+        "256": {
+          "censored": 0,
+          "detector_hits": 1076,
+          "not_hit_not_censored_by_horizon": 76
+        },
+        "64": {
+          "censored": 0,
+          "detector_hits": 855,
+          "not_hit_not_censored_by_horizon": 297
+        },
+        "900": {
+          "censored": 23,
+          "detector_hits": 1129,
+          "not_hit_not_censored_by_horizon": 0
+        }
+      },
+      "manifest_row": 15,
+      "matched_command_triplets": 384,
+      "merged_trials_sha256": "bd3031f84027db27f0db3052459a9fbc8d1dee215e9e3ef8dee24fdbbf6c84e2",
+      "physical_arrival_independently_mapped": false,
+      "policy_frozen": true,
+      "provenance_sha256": "12b35973af23f4dc28ffc40fb571a3d14c6685a3697355bbf3cc3da87b06bd44",
+      "remote_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s2/control_merged/raw/COS27_C05_CONSTANT_CONSTANT__s41__f100007936",
+      "seed": 41,
+      "source_reconciliation": "source_tables_not_present_in_allowed_root",
+      "source_target_pairs": 48,
+      "sources": 16,
+      "starts": 128,
+      "study_sha256": "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c",
+      "summary_sha256": "a25fbfb5ff9fa6172208a66aed72dbc49fd2ae71ab86353c297c48ccf02432ee",
+      "trial_rows": 1152
+    },
+    {
+      "canonical_trial_metrics": {
+        "alternate_hit_128": 0.9036458333333334,
+        "alternate_hit_256": 0.94921875,
+        "alternate_hit_64": 0.7669270833333334,
+        "alternate_hit_900": 0.96875,
+        "censored_fraction_128": 0.0,
+        "censored_fraction_256": 0.0,
+        "censored_fraction_64": 0.0,
+        "censored_fraction_900": 0.027777777777777776,
+        "commanded_hit_128": 0.9036458333333334,
+        "commanded_hit_256": 0.9609375,
+        "commanded_hit_64": 0.7682291666666666,
+        "commanded_hit_900": 0.9791666666666666,
+        "mean_command_endpoint_separation_xy": 480.7760859811313,
+        "paired_detector_hit_lift_128": 0.0,
+        "paired_detector_hit_lift_256": 0.01171875,
+        "paired_detector_hit_lift_64": 0.0013020833333333333,
+        "paired_detector_hit_lift_900": 0.010416666666666666,
+        "trial_rows": 1152
+      },
+      "checkpoint_frames": 75005952,
+      "cohort": "cosyne27_c05_pushpull_s2_20261010",
+      "condition": "COS27_C05_CONSTANT_CONSTANT",
+      "exact_start_verified": true,
+      "graph_frozen": true,
+      "horizon_counts_all_arms": {
+        "128": {
+          "censored": 0,
+          "detector_hits": 1041,
+          "not_hit_not_censored_by_horizon": 111
+        },
+        "256": {
+          "censored": 0,
+          "detector_hits": 1098,
+          "not_hit_not_censored_by_horizon": 54
+        },
+        "64": {
+          "censored": 0,
+          "detector_hits": 884,
+          "not_hit_not_censored_by_horizon": 268
+        },
+        "900": {
+          "censored": 32,
+          "detector_hits": 1120,
+          "not_hit_not_censored_by_horizon": 0
+        }
+      },
+      "manifest_row": 14,
+      "matched_command_triplets": 384,
+      "merged_trials_sha256": "7aa8813264fa0a923d42bd968ee749830d5cbc60ac97d0a286a71649567676c2",
+      "physical_arrival_independently_mapped": false,
+      "policy_frozen": true,
+      "provenance_sha256": "7969a4e69df79d57ce891f655d532cc7116f51e37f9bfdd691c539de8be7e3f9",
+      "remote_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s2/control_merged/raw/COS27_C05_CONSTANT_CONSTANT__s41__f75005952",
+      "seed": 41,
+      "source_reconciliation": "source_tables_not_present_in_allowed_root",
+      "source_target_pairs": 48,
+      "sources": 16,
+      "starts": 128,
+      "study_sha256": "a071114e3181f4b75fe1c897c732938b7deddee9a2681a967f4e9b5ad05cef2c",
+      "summary_sha256": "5c9b4ff1ecaf2c66d6af0398a43da6c2d510f5ac3c1df8543b5470e8b7957b08",
+      "trial_rows": 1152
+    },
+    {
+      "canonical_trial_metrics": {
+        "alternate_hit_128": 0.8033854166666666,
+        "alternate_hit_256": 0.92578125,
+        "alternate_hit_64": 0.64453125,
+        "alternate_hit_900": 0.9609375,
+        "censored_fraction_128": 0.0,
+        "censored_fraction_256": 0.0,
+        "censored_fraction_64": 0.0,
+        "censored_fraction_900": 0.03819444444444445,
+        "commanded_hit_128": 0.8203125,
+        "commanded_hit_256": 0.9270833333333334,
+        "commanded_hit_64": 0.6380208333333334,
+        "commanded_hit_900": 0.9635416666666666,
+        "mean_command_endpoint_separation_xy": 296.0592119056074,
+        "paired_detector_hit_lift_128": 0.016927083333333332,
+        "paired_detector_hit_lift_256": 0.0013020833333333333,
+        "paired_detector_hit_lift_64": -0.006510416666666667,
+        "paired_detector_hit_lift_900": 0.0026041666666666665,
+        "trial_rows": 1152
+      },
+      "checkpoint_frames": 75005952,
+      "cohort": "cosyne27_c15_encoder_s2_20261010",
+      "condition": "COS27_C15_TEMPORAL",
+      "exact_start_verified": true,
+      "graph_frozen": true,
+      "horizon_counts_all_arms": {
+        "128": {
+          "censored": 0,
+          "detector_hits": 932,
+          "not_hit_not_censored_by_horizon": 220
+        },
+        "256": {
+          "censored": 0,
+          "detector_hits": 1067,
+          "not_hit_not_censored_by_horizon": 85
+        },
+        "64": {
+          "censored": 0,
+          "detector_hits": 740,
+          "not_hit_not_censored_by_horizon": 412
+        },
+        "900": {
+          "censored": 44,
+          "detector_hits": 1108,
+          "not_hit_not_censored_by_horizon": 0
+        }
+      },
+      "manifest_row": 0,
+      "matched_command_triplets": 384,
+      "merged_trials_sha256": "c0ac93ee621faa4d3ca469560f8618fd70be2462367a7c23e81043e910a050bc",
+      "physical_arrival_independently_mapped": false,
+      "policy_frozen": true,
+      "provenance_sha256": "529af9ac308aaa7bf47dbe006479c401ce749363e11f9cfa5cb7671d9e030855",
+      "remote_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c15_encoder_s2/control_merged/raw/COS27_C15_TEMPORAL__s17__f75005952",
+      "seed": 17,
+      "source_reconciliation": "all_16_shard_hashes_and_1152_rows_verified",
+      "source_target_pairs": 48,
+      "sources": 16,
+      "starts": 128,
+      "study_sha256": "c2960fcee18dc51d601971f2b694233e525cf878bd92efaa2d3adce754aa1dfc",
+      "summary_sha256": "ec1ce5aeee5128b89b99599efc4fff257a859b1718f159a9696d84a76e2602e4",
+      "trial_rows": 1152
+    }
+  ],
+  "status": "single_run_source_shard_panels_not_seed_paired"
+}

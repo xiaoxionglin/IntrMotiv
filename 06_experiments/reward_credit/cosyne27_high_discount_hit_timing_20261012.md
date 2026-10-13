@@ -1,6 +1,6 @@
 # C05 worker hit timing under longer PPO credit
 
-**Status, 12 October 2026:** Both 2M-frame seed-99 qualifications completed with Slurm exit zero and passed the runtime gates below. The ten 100M-frame production runs, jobs 8344868–8344877, passed the exact submitted-manifest audit and all entered `RUNNING`. No five-seed high-discount outcome is available yet.
+**Status, 13 October 2026:** Both 2M-frame seed-99 qualifications passed. All ten 100M-frame production jobs 8344868–8344877 exited `0:0`; each run directory has a named 100,007,936-frame checkpoint and all five declared spatial snapshot files. The five-seed 90–100M online and count-weighted hit analyses below are complete as *training readouts*. Checkpoint-content, snapshot-content, place-field, downstream-layer, trajectory, graph, and executed-control audits remain open.
 
 ## Question and contrast
 
@@ -21,8 +21,27 @@ Both qualifications saved checkpoints at 2,064,384 environment frames. Each logg
 
 At seed 99 over this short qualification, temporal versus constant bonus had 1,114 versus 843 logged correct-hit observations; correct-hit-count-weighted reward magnitudes were 1.6172 versus 1.5915, and weighted elapsed decisions were 10.96 versus 12.97. The constant magnitude matches the calibrated fixed reward, and the temporal term was engaged. These are repeated learner-batch observations from one seed, so their differences do **not** estimate the five-seed effect or executed goal control. Both Slurm jobs exited zero.
 
+## Interim five-seed online window
+
+The [canonical 90–100M collection](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/analysis_manifest.json) matches the submitted StudySpec SHA-256 `448161895fe97f0d289e809e15f17152886a8445a86a913b8efb31ad34c264c5`, schema `intrmotiv/study/v1`, and workflow `1.14.1`. Its [ten run rows](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/per_run.csv) all reach 100,040,704 frames. The selected learner scalars have 305 finite observations per run within the common 90–100M window; online coverage has 520–541 finite observations. The [count-weighted adapter](analyze_count_weighted_hits.py) joins each same-step correct-hit count to its conditional elapsed and reward means; its [source manifest](results/cosyne27_high_discount_hit_timing_20261012/hit_weighted_90_100m/analysis_manifest.json) hashes the ten exported histories and records their remote event-file provenance. The raw histories remain in the allocated workspace. All 305 selected steps in each run have positive counts, so none were dropped from these particular weighted means.
+
+| Training seed | Correct DG detector-hit observations | Count-weighted elapsed decisions per correct hit | Count-weighted reward magnitude | Online coverage AUC |
+| --- | ---: | ---: | ---: | ---: |
+| 8 | −658 | −0.92 | −0.094 | −6.90 |
+| 17 | +5,077 | +0.12 | +0.076 | −22.44 |
+| 41 | +17,228 | −0.61 | +0.024 | −33.18 |
+| 99 | −7,861 | +6.27 | +0.075 | +22.31 |
+| 123 | +17,432 | +2.44 | +0.081 | −21.44 |
+| Paired mean | +6,243.6 | +1.46 | +0.032 | −12.33 |
+
+Entries are temporal minus constant within the same training seed; **positive elapsed means slower hits**. The [absolute per-run values](results/cosyne27_high_discount_hit_timing_20261012/hit_weighted_90_100m/hit_weighted_per_run.csv), [paired differences](results/cosyne27_high_discount_hit_timing_20261012/hit_weighted_90_100m/hit_weighted_paired.csv), and [report-size paired plot](results/cosyne27_high_discount_hit_timing_20261012/figures/long_credit_online_pairs.svg) preserve the five individual seeds. The hit counts are repeated learner-batch observations, not independent matched-start trials or mapped physical arrivals. The temporal bonus has more logged correct hits in 3/5 seed pairs but *slower* count-weighted hits in 3/5; coverage AUC is lower in 4/5. The count-weighted reward difference is positive in 4/5, confirming that the temporal term remains engaged late in training. The [canonical paired table](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/paired_contrasts.csv) and [summary](results/cosyne27_high_discount_hit_timing_20261012/online_90_100m/paired_contrast_summary.csv) retain all 16 declared online metrics. All ten policy-loss, value-loss, advantage-spread, DG-density, and DG-usage-entropy window means are finite, and logged DG silent fraction is zero in every run. These mixed online outcomes do not establish faster physical goal reaching or executed control.
+
+![Five paired high-discount C05 training seeds: logged detector-hit counts, count-weighted hit latency, and online coverage, constant versus temporal worker bonus.](results/cosyne27_high_discount_hit_timing_20261012/figures/long_credit_online_pairs.png)
+
+Each gray line joins one training seed; open squares are constant bonus and filled circles are temporal bonus. Panels show absolute values over the common 90–100M window, with a zero baseline and no confidence interval for five seeds. The [figure renderer](plot_long_credit_online_pairs.py) and [input/font manifest](results/cosyne27_high_discount_hit_timing_20261012/figures/long_credit_online_pairs_manifest.json) reproduce the SVG and PNG. The same five seeds form the independent units of the paired contrasts; the many logged learner batches are not additional replicates.
+
 For completed 100M runs, report five paired seed differences for 90–100M correct-hit exposure and count-weighted latency/reward, online coverage, policy-specific and common-observation DG/CA3/decoder information, trajectories, and directed graph support. Keep stored prospective detector-hit ratios separate from executed commands. Any frozen matched-command evaluation needs bounded source shards and independently mapped physical arrival; the original monolithic evaluator timed out and the current schema only certifies DG-detector hits. Report 64/128/256/900-decision censoring and failures separately. Do not infer better goal control from online hits, field quality, or stored graph ratios alone.
 
 ## Reusable lesson
 
-The original COSYNE StudySpec omitted GAE $\lambda$, and the verified runtime default is 0.95. A high-$\gamma$ study should declare $\lambda$ and describe the joint effective credit horizon before comparing it with that original cohort. Reusing the versioned C05 source and its own hit calibration made the reward contrast precise without a new training implementation.
+The original COSYNE StudySpec omitted GAE $\lambda$, and the verified runtime default is 0.95. A high-$\gamma$ study should declare $\lambda$ and describe the joint effective credit horizon before comparing it with that original cohort. Reusing the versioned C05 source and its own hit calibration made the reward contrast precise without a new training implementation. The process-backed history export exhausted OpenBLAS threads on the NEMO2 login node; a distinct output using the canonical thread backend with BLAS and OpenMP threads set to one completed. Its per-step export allowed correct-hit weighting without another training run or DMLab rollout.
