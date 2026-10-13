@@ -25,6 +25,9 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_tetris.svg": DRAFT_DIR / "Figure2_tetris.svg",
     "figures/Figure2_tetris.pdf": DRAFT_DIR / "Figure2_tetris.pdf",
     "figures/Figure2_tetris.png": DRAFT_DIR / "Figure2_tetris.png",
+    "figures/Figure2_tetris_sidebar.svg": DRAFT_DIR / "Figure2_tetris_sidebar.svg",
+    "figures/Figure2_tetris_sidebar.pdf": DRAFT_DIR / "Figure2_tetris_sidebar.pdf",
+    "figures/Figure2_tetris_sidebar.png": DRAFT_DIR / "Figure2_tetris_sidebar.png",
     "FIGURE2_COMPACT_NOTES.md": DRAFT_DIR / "Figure2_tetris_README.md",
     "figures/Figure2_fiddle_with_fields.svg": DRAFT_DIR / "Figure2_fiddle_with_fields.svg",
     "figures/Figure2_fiddle_with_fields.pdf": DRAFT_DIR / "Figure2_fiddle_with_fields.pdf",
@@ -103,7 +106,9 @@ def build_compact() -> None:
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
                          + "\n\nThe compact editable Figure 2 layout trial is at "
                          "`figures/Figure2_tetris.svg`, with a PDF and preview "
-                         "beside it. Read `FIGURE2_COMPACT_NOTES.md` and the "
+                         "beside it. A tighter option with two empty side slots "
+                         "is `figures/Figure2_tetris_sidebar.pdf`. "
+                         "Read `FIGURE2_COMPACT_NOTES.md` and the "
                          "longer `FIGURE2_LAYOUT_NOTES.md` for its caption. "
                          "The earlier taller trial is also included.\n\nThe expanded candidate "
                          "library is in the repository's full archive.\n")
@@ -188,6 +193,8 @@ def build_full() -> None:
         index_lines.extend(["", "## Compact Figure 2 layout trial", "",
                             "- `figures/Figure2_tetris.pdf`",
                             "- `figures/Figure2_tetris.svg`",
+                            "- `figures/Figure2_tetris_sidebar.pdf`",
+                            "- `figures/Figure2_tetris_sidebar.svg`",
                             "- `FIGURE2_COMPACT_NOTES.md`",
                             "", "## Earlier Figure 2 layout trial", "",
                             "- `figures/Figure2_fiddle_with_fields.pdf`",

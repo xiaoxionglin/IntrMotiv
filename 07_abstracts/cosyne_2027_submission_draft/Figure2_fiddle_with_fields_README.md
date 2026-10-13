@@ -4,6 +4,8 @@
 
 This 6.78 × 4.49 inch layout keeps the author's [Figure2_fiddle.svg](Figure2_fiddle.svg) plots and diagram groups in place. The lower strip adds three maps from the **C15 temporal DG-credit, seed-123** terminal network linked in the [complete atlas index](figure1_candidates/full_place_field_atlases.md): DG 4, 7, and 15. They come from one 10,001-decision frozen-policy probe near 100 million training frames, which visited 307 of 361 spatial bins. Gray means unvisited; color uses the source atlas's shared **within-run** scale. DG 4 meets the archived strict single-component criterion; DG 7 and 15 are informative spatial responses but should not be described as single compact fields. Selection is illustrative, not an estimate of prevalence. The dashed cards reserve space for split-half reliability, map-overlap, peak-coverage, and graph-edge illustrations; they contain no data.
 
+The PDF now has a nonnegative view box so its top row is not clipped on export. The incomplete source axis label is shown as “Δ reliability”; the caption defines its split-half measure.
+
 The constant-credit C15 seed-123 [atlas](figure1_candidates/full_seed_atlases/c15_constant_s123.png) is available for a later visual comparison. That model follows a different policy-driven trajectory and visits 239 of 361 bins, so juxtaposed maps would illustrate two separate probes rather than a fixed-input credit effect. The paired replay boxes above are the controlled representation comparison.
 
 ## Caption draft for this layout

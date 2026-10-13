@@ -29,6 +29,32 @@ ATLAS = (HERE / "figure1_candidates" / "full_seed_atlases" /
 UNITS = (4, 7, 15)
 
 
+def repair_readout_label(svg: str) -> str:
+    """Replace the source's incomplete 'split-half r' label."""
+    svg, count = re.subn(
+        r'<text\s+id="text118"[\s\S]*?</text>',
+        '<text id="text118" style="font-size:10px;font-family:Arial">'
+        'Δ reliability</text>', svg, count=1)
+    if count != 1:
+        raise ValueError("Could not repair the incomplete reliability label")
+    return svg
+
+
+def fix_pdf_viewbox(svg: str, width: str, height: str, top_offset: int) -> str:
+    """Translate content into a nonnegative viewBox for reliable PDF export."""
+    old = f'viewBox="0 -{top_offset} {width} {height}"'
+    new = f'viewBox="0 0 {width} {height}"'
+    if svg.count(old) != 1:
+        raise ValueError(f"Expected exactly one negative PDF viewBox: {old}")
+    svg = svg.replace(old, new, 1)
+    svg, count = re.subn(r'(<svg\b[\s\S]*?>)',
+                         rf'\1<g id="pdf-origin-fix" transform="translate(0,{top_offset})">',
+                         svg, count=1)
+    if count != 1:
+        raise ValueError("Could not locate the SVG root")
+    return re.sub(r"</svg>\s*$", "</g>\n</svg>\n", svg)
+
+
 def map_data_uri(unit: int) -> str:
     with Image.open(ATLAS) as source:
         if source.size != (1200, 1206):
@@ -99,7 +125,9 @@ def main() -> None:
                             'sodipodi:docname="Figure2_fiddle_with_fields.svg"', 1)
     if len(re.findall(r"</svg>\s*$", source)) != 1:
         raise ValueError("Could not find a unique SVG closing tag")
+    source = repair_readout_label(source)
     output = re.sub(r"</svg>\s*$", lower_strip() + "\n</svg>\n", source)
+    output = fix_pdf_viewbox(output, "488.09423", "323", 8)
     OUTPUT.write_text(output)
     for extension, width in (("pdf", None), ("png", "1800")):
         command = ["inkscape", str(OUTPUT),
