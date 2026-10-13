@@ -1,0 +1,49 @@
+{
+  "batch_name": "source_command_c05_c15_constant_hit_qualification_20261012",
+  "complete": false,
+  "condition_summary_rows": 2,
+  "cue_assignment_rows": 0,
+  "expected_runs": 2,
+  "expected_snapshots": 4,
+  "expected_targets": [
+    1000000,
+    2000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "arm"
+  ],
+  "include_details": false,
+  "missing": [
+    {
+      "policy_id": 0,
+      "run_name": "SDHG_C05_CONST_Q_S99",
+      "target_env_steps": 2000000
+    },
+    {
+      "policy_id": 0,
+      "run_name": "SDHG_C15_CONST_Q_S99",
+      "target_env_steps": 2000000
+    }
+  ],
+  "observed_snapshots": 2,
+  "per_field_rows": 0,
+  "per_snapshot_rows": 2,
+  "per_unit_rows": 0,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 2,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/source_command_c05_c15_constant_hit_qualification_20261012",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "source_command_c05_c15_constant_hit_qualification_20261012",
+  "study_sha256": "975606b177ef0093cd898da0f00fd2224cd8f6c770f73317552b11eadb088464",
+  "study_spec": "hpc_runs/studies/source_command_c05_c15_constant_hit_qualification_20261012.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

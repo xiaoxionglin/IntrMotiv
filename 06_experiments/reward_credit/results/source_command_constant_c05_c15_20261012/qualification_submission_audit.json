@@ -1,0 +1,23 @@
+{
+  "batch_name": "source_command_c05_c15_constant_hit_qualification_20261012",
+  "commands_match_study": true,
+  "expected_runs": 2,
+  "job_ids": [
+    "8350027",
+    "8350029"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/source_command_c05_c15_constant_hit_qualification_20261012/20261012T154703Z/jobs.tsv",
+  "rows": 2,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 2
+  },
+  "study_id": "source_command_c05_c15_constant_hit_qualification_20261012",
+  "study_sha256": "975606b177ef0093cd898da0f00fd2224cd8f6c770f73317552b11eadb088464",
+  "study_spec": "hpc_runs/studies/source_command_c05_c15_constant_hit_qualification_20261012.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

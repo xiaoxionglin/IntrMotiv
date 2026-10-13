@@ -1,0 +1,55 @@
+{
+  "schema": "intrmotiv/hit-bonus-calibration/v1",
+  "comparison_study_id": "source_distance_hit_dg_20261009",
+  "comparison_study_sha256": "9fd08a86aebf3c4e809b8d4b9ebf505708797b858b1982f099d152289d39400d",
+  "source_csv": "06_experiments/reward_credit/results/source_distance_hit_dg_20261009/online_95_100m/hit_weighted_95_100m.csv",
+  "source_csv_sha256": "ed03f6e9845cf71193790abdb1f83ee9094fdf608a71be237f33d58c5b9d3884",
+  "reference_window_env_steps": [
+    95000000,
+    100000000
+  ],
+  "reference_rows": {
+    "c05": [
+      {
+        "run_name": "SDHG_C05_SOURCE_S8",
+        "hit_count": 6794.0,
+        "mean_hit_magnitude": 1.3638843333226356
+      },
+      {
+        "run_name": "SDHG_C05_SOURCE_S99",
+        "hit_count": 11385.0,
+        "mean_hit_magnitude": 1.5359798217584126
+      },
+      {
+        "run_name": "SDHG_C05_SOURCE_S123",
+        "hit_count": 15165.0,
+        "mean_hit_magnitude": 1.557572717954332
+      }
+    ],
+    "c15": [
+      {
+        "run_name": "SDHG_C15_SOURCE_S8",
+        "hit_count": 2359.0,
+        "mean_hit_magnitude": 1.4294658872524324
+      },
+      {
+        "run_name": "SDHG_C15_SOURCE_S99",
+        "hit_count": 2315.0,
+        "mean_hit_magnitude": 1.3481209744644989
+      },
+      {
+        "run_name": "SDHG_C15_SOURCE_S123",
+        "hit_count": 2015.0,
+        "mean_hit_magnitude": 1.4045012659825402
+      }
+    ]
+  },
+  "constant_total_hit_magnitude": {
+    "c05": 1.5107350857452901,
+    "c15": 1.3937928143023803
+  },
+  "formula": "per arm: sum(hit_count * mean_hit_magnitude) / sum(hit_count)",
+  "qualifier_study_id": "source_command_c05_c15_constant_hit_qualification_20261012",
+  "production_study_id": "source_command_c05_c15_constant_hit_s3_20261012",
+  "interpretation": "Matched to mature source-clock learner-batch hit exposure in each architecture; constant reward can differ from source-clock mean at earlier training ages."
+}

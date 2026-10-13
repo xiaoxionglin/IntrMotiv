@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Preserve clean lineage after externally cancelled training — 2026-10-13
+
+- **Evidence:** Source-command constant-hit jobs 8350083–8350088 were cancelled together after 65,536–98,304 frames, leaving six run directories but no checkpoints. Reusing their batch and run names would expose a fresh submission to Sample Factory restart behavior and mix cancelled with replacement logs.
+- **Impact:** A valid scheduler resubmission can silently attach to partial training directories, obscuring provenance and checkpoint-age analysis.
+- **Improvement/status:** The five-seed [recovery study](06_experiments/reward_credit/source_command_constant_hit_c05_c15_20261012.md) uses new batch, run, and output identities. The established [submission guide](hpc_runs/BATCH_SUBMISSION.md) should make a no-checkpoint, external-cancellation case explicit in its retry section; no new launcher is needed.
+- **Acceptance:** Before a retry, the operator inventories old checkpoint and run directories, then print-only and submitted audits prove that every replacement has a fresh output root and the original cancelled manifest remains intact.
+
 ### Show implicit PPO discount settings in study review — 2026-10-12
 
 - **Evidence:** The fresh COSYNE C05 StudySpec declares gamma 0.99 but omits GAE lambda, so its validated NEMO2 Sample Factory runtime supplies the 0.95 default. The new longer-credit C05 test must explicitly declare both 0.999 and 0.99; otherwise a comparison of worker-timing effects could be mistaken for a gamma-only interaction.
@@ -449,7 +456,10 @@ keep implementation guidance in the canonical workflow documents linked below.
   validation and exact Slurm-command audit, but its legacy-9 job 8306902
   stopped after ten seconds: `dg_recruitment_reset_goal_adapter=True` requires
   FiLM conditioning. The other three FiLM cells were compatible. A corrected,
-  separately fingerprinted one-arm qualification was needed.
+  separately fingerprinted one-arm qualification was needed. The 12 October
+  C05/C15 constant-hit qualifier initially validated with the nonexistent
+  `--online_spatial_snapshot_interval` flag; source inspection found the real
+  `--online_spatial_snapshot_interval_frames` parser key before submission.
 - **Impact:** Schema and submission checks confirm matrix integrity but do not
   catch incompatible runtime flags, wasting queue time and complicating study
   provenance before production.
@@ -458,8 +468,9 @@ keep implementation guidance in the canonical workflow documents linked below.
   same runtime source and arguments as Slurm. Keep scientific validation in the
   training parser; the workflow should call it rather than duplicate rules.
 - **Acceptance:** A StudySpec containing the legacy/FiLM-only flag combination
-  fails before submission with the training parser's specific error; all four
-  corrected episode-long arms pass without launching an environment.
+  fails before submission with the training parser's specific error; an unknown
+  snapshot-cadence flag also fails; corrected arms pass without launching an
+  environment.
 
 ### Intervention outcome setting should be checked against the analysis question — 2026-10-07
 

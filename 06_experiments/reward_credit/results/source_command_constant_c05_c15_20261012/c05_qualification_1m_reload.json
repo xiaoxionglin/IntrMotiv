@@ -1,0 +1,14 @@
+{
+  "run": "00_SDHG_C05_CONST_Q_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/source_command_constant_c05_c15_20261012/qualification_reload_1m/C05_S99/checkpoint_000000062_1015808.pth",
+  "checkpoint_sha256": "51c0acb875e49abe5c23cd55d5d2ca6a82063a224531f102a839129cc90a69e5",
+  "frames": 1015808,
+  "train_step": 62,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cpu",
+  "job_id": "8350073"
+}
