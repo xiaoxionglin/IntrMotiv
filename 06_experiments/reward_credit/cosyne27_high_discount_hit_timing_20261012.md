@@ -1,6 +1,6 @@
 # C05 worker hit timing under longer PPO credit
 
-**Status, 13 October 2026:** Both 2M-frame seed-99 qualifications passed. All ten 100M-frame production jobs 8344868–8344877 exited `0:0`; each run directory has a named 100,007,936-frame checkpoint and all five declared spatial snapshot files. The five-seed 90–100M online and count-weighted hit analyses below are complete as *training readouts*. Checkpoint-content, snapshot-content, place-field, downstream-layer, trajectory, graph, and executed-control audits remain open.
+**Status, 13 October 2026:** Both 2M-frame seed-99 qualifications passed. All ten 100M-frame production jobs 8344868–8344877 exited `0:0`; each run directory has a named 100,007,936-frame checkpoint and all five declared spatial snapshot files. Their terminal outcomes are recorded in the [verified production ledger](../cosyne_2027/verified_production_outcomes.tsv) and [run catalog](../cosyne_2027/training_runs.csv). The five-seed 90–100M online and count-weighted hit analyses below are complete as *training readouts*. Checkpoint-content, snapshot-content, place-field, downstream-layer, trajectory, graph, and executed-control audits remain open.
 
 ## Question and contrast
 
