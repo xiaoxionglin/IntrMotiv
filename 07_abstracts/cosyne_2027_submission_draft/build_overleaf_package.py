@@ -47,6 +47,22 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_behavior_candidate_stats.png": DRAFT_DIR / "Figure2_behavior_candidate_stats.png",
     "FIGURE2_STORY_NOTES.md": DRAFT_DIR / "Figure2_story_README.md",
     "FIGURE2_STORY_SOURCES.json": DRAFT_DIR / "Figure2_story_manifest.json",
+    "FIGURE2_INTRINSIC_REWARD_NOTES.md": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/README.md"),
+    "FIGURE2_INTRINSIC_REWARD_SOURCES.json": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/render_manifest.json"),
+    "FIGURE2_INTRINSIC_REWARD_RUNS.json": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/collection_manifest.json"),
+    "data/Figure2_intrinsic_reward_arm_summaries.csv": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/arm_summaries.csv"),
+    "data/Figure2_intrinsic_reward_by_seed.csv": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/interpolated_by_seed.csv"),
+    "figures/01b_online_intrinsic_reward_course.svg": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01b_online_intrinsic_reward_course.svg"),
+    "figures/01b_online_intrinsic_reward_course.pdf": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01b_online_intrinsic_reward_course.pdf"),
+    "figures/01b_online_intrinsic_reward_course.png": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01b_online_intrinsic_reward_course.png"),
     "data/fresh_behavior_decoder1_absolute.csv": (
         DRAFT_DIR / "data/fresh_behavior_decoder1_absolute.csv"),
     "data/fresh_behavior_training_seeds.csv": (
@@ -154,7 +170,10 @@ def build_compact() -> None:
                          "A story layout with trajectories and swappable behavior "
                          "statistics is `figures/Figure2_story.pdf`; see "
                          "`FIGURE2_STORY_NOTES.md`. The earlier taller trial is "
-                         "also included.\n\nThe expanded candidate "
+                         "also included. A matching five-seed mean intrinsic-"
+                         "reward training course is available at "
+                         "`figures/01b_online_intrinsic_reward_course.pdf`; "
+                         "see `FIGURE2_INTRINSIC_REWARD_NOTES.md`.\n\nThe expanded candidate "
                          "library is in the repository's full archive.\n")
         assets[index.name] = index
         check_included_figures(assets)
@@ -245,6 +264,10 @@ def build_full() -> None:
                             "- `figures/Figure2_story.svg`",
                             "- `figures/Figure2_behavior_candidate_stats.pdf`",
                             "- `FIGURE2_STORY_NOTES.md`",
+                            "", "## Mean intrinsic reward course", "",
+                            "- `figures/01b_online_intrinsic_reward_course.pdf`",
+                            "- `figures/01b_online_intrinsic_reward_course.svg`",
+                            "- `FIGURE2_INTRINSIC_REWARD_NOTES.md`",
                             "", "## Earlier Figure 2 layout trial", "",
                             "- `figures/Figure2_fiddle_with_fields.pdf`",
                             "- `figures/Figure2_fiddle_with_fields.svg`",

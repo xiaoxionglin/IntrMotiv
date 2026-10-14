@@ -89,6 +89,18 @@ keep implementation guidance in the canonical workflow documents linked below.
   now draws original values beside the signed contrast without revisiting W&B.
   Preserve both arm values, seed identity, and contrast direction when moving
   this export into the canonical collector.
+- **14 October reward follow-up:** The archived spatial histories did not include
+  `intrmotiv/reward/intrinsic_mean`, so the [intrinsic-reward course](06_experiments/results/cosyne_2027_intrinsic_reward_course/README.md)
+  required a second, narrow W&B scan for the same 15 verified NG/UG/FG runs.
+  The original run catalog's whole-file hash had changed after unrelated runs
+  were added, but all 15 selected run identities, factors, StudySpec hashes,
+  seeds, and completion statuses still matched. The collector now checks those
+  rows explicitly and archives reward mean, sum, and nonzero fraction; sum/mean
+  confirms 2,048 decisions per logged update. Extend the canonical collector
+  with optional exact reward tags and row-level identity validation so later
+  metrics can be added without re-fetching unrelated histories or rejecting
+  harmless catalog additions. Acceptance: a cached render reproduces all
+  five-seed mean/SEM reward curves and labels their producer metric and unit.
 - **Acceptance:** A StudySpec collection exports each requested W&B metric with
   run URL, exact identity, and source fingerprint; a cached render regenerates
   the same seed curves and SEM bands with no W&B access. See the

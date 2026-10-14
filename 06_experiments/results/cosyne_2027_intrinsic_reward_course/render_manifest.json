@@ -1,0 +1,27 @@
+{
+  "schema": "intrmotiv/cosyne-intrinsic-reward-course-figure/v1",
+  "figure": "01b_online_intrinsic_reward_course",
+  "physical_size_inches": [
+    1.9,
+    1.9
+  ],
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "comparison_figure": "06_experiments/results/cosyne_2027_compact_figures/01_online_spatial_course.svg",
+  "metric_tag": "intrmotiv/reward/intrinsic_mean",
+  "aggregation": "W&B logged per-update mean over valid transitions, including zero-reward transitions; plotted mean and SEM across five training seeds at each interpolated 1M-step point",
+  "grid_millions": [
+    1,
+    99
+  ],
+  "seeds_per_family": 5,
+  "source_collection_manifest_sha256": "80de4e583c36d002a69fc0a43b0851f59f4c577a445aa3daa87bddd4b36ca70c",
+  "source_summary_sha256": "50324126d9efe0ba093bc9b81315a63162071a1658e865954efe572c948aa09b",
+  "reward_sum_over_mean_range": [
+    2047.9997691157494,
+    2048.000217563325
+  ],
+  "rendered_y_limits": [
+    0.0,
+    3.087819657317714
+  ]
+}
