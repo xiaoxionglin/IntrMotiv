@@ -88,18 +88,18 @@
   "fg_seed_screen_method": "For each of five complete 100000-observation C15 snapshots, histogram x/y into fixed 19x19 bins across [100,2000] on each axis; visited bins have positive count; effective bins = exp(-sum(p_i log p_i)); uniformity = effective bins / visited bins. The sampled-65 score uses the exact fixed-seed fragment set. Larger uniformity is more even occupancy.",
   "fg_selection_rule": "Author-requested visual comparison at common world bounds and 38 pt panel size; disclose full-window and sampled-fragment occupancy scores for all five C15 temporal-credit seeds.",
   "files": {
-    "65_fragments.pdf": "87f7f1200f3e513f6052c7b063544d7798e73ca70c3b81af498f50f0084ef2f6",
-    "65_fragments.png": "3aaeb010546d1bcc7934505d2d7520f792f1458f468e43e598a45752ab6f4d91",
-    "65_fragments.svg": "8ffdb4f950f1a86ba0dc4478f2daa31ce0f8bba1b5cea69f342edafea0d2c0a2",
-    "FG_65_fragments_tile.pdf": "d687975800bd2e763367b594e9e29ab9a9dcdb07abcb3f024154681124daabd4",
-    "FG_65_fragments_tile.png": "4b6e083c13bb0542c0b31df128a7c80888536f3f3d096146d2bc61007aff9898",
-    "FG_65_fragments_tile.svg": "c84ad1cb3e92a7e4ba3a28b55f85a7ab666d9eab278a93e22868ba38445381e8",
-    "NG_65_fragments_tile.pdf": "29f64a8d45c8cee342ae5b75f860ba0337f1f1c06df98d9e0b6d506900a488d0",
-    "NG_65_fragments_tile.png": "83203338bcccb5e9552c77cad55914e3cf109250d9018b0eb5092423c7665cbe",
-    "NG_65_fragments_tile.svg": "b3fd2c80cc5623d4cbf9a10d8a6174582fd14d69ef9527947fa473db506d3da7",
-    "UG_65_fragments_tile.pdf": "b0f1f6a80a8aef554a0dc8e6216780d2bf503f4433c4be970a4c67523085ae55",
-    "UG_65_fragments_tile.png": "300849fe44fba34ab3fa67a32f90def065cb79a99fb79443ab60e425a6e502ea",
-    "UG_65_fragments_tile.svg": "ed2cef47bd0b8220c2ffe875de295b7bef8214bfb0f8190fe5defd57755968a9",
+    "65_fragments.pdf": "88258eba124b683cac647d7f70783c48cfb2e50465a237981b5ad8906bd56777",
+    "65_fragments.png": "1470c938d3a9e1b8561609d861982dfa512e2f016e4b0f742a3b3dc4f0a64de6",
+    "65_fragments.svg": "3613b0969ed4d258150d3d6e1a40885db60ef78a08ea5f3a2056f8d14f8524f9",
+    "FG_65_fragments_tile.pdf": "f6d9fc0674a13b4dbd9518a08492955c29ce7095d34f36051053a79037091b94",
+    "FG_65_fragments_tile.png": "1ab3434eca1f6f2876054c820ddbf952b3db5b8c8f8e69c3cf37cc8a37caf132",
+    "FG_65_fragments_tile.svg": "8d206b6df02c6bc189a9ec9002d435e7d31690561923803194928ebc1a8c5d61",
+    "NG_65_fragments_tile.pdf": "4fbde7c3fd2205ded7797dc82047de9a7485bfbe6c12d9fcc7dba40921f4aee1",
+    "NG_65_fragments_tile.png": "5f8cc6017621380c3140a0b6f59620c62a0607dbde3d2d9d2d15e39fc0596ff9",
+    "NG_65_fragments_tile.svg": "dbe88d4b78ba6f9532db6d718ee60fa1633125a448e0bb0abf03ef4861074093",
+    "UG_65_fragments_tile.pdf": "69e2b5c2f4f99595146d1af205f1a2f882cac396294f93906a4051f031bf6674",
+    "UG_65_fragments_tile.png": "d6cedfc5a5473bfcadd1f6d90e01675df0a975891c7245230b54adb284868cad",
+    "UG_65_fragments_tile.svg": "1c8f9d219902f9bc5a5af4745377c66e88d0dd8aa6fc73d0f376c0b7a292b990",
     "archived_hits_C05_seed99_tile.pdf": "d980e00d160af98468b7ae790734bd4c3ae90807d177437750df7e35ac3db2e4",
     "archived_hits_C05_seed99_tile.png": "122afbc2f5c27ebbb2c99a1107d2ca1e2384189a5b87a28cb467f8cf82284d33",
     "archived_hits_C05_seed99_tile.svg": "6e257b974f66f059f3c89fd1a40e62dacf612eec6702eb47e18527746147c8e5",
@@ -556,14 +556,22 @@
     100007936
   ],
   "source_window_observations": 100000,
-  "step_color": "Viridis sequential color, with shared normalization 0 to 99999 across NG/UG/FG. Each within-fragment line segment uses the midpoint of its two original observation row indices in the 100000-observation source window; later rows are brighter. The colorbar label is step. Sampling order does not set the color.",
+  "step_color": "Viridis sequential color, with shared normalization 0 to 63 across NG/UG/FG. Step zero is the first observation within each intact fragment; each line segment uses the midpoint of its two local observation indices. Colors reset at every fragment boundary; shorter fragments do not reach the high end. The vertical colorbar at right is labeled step. Original 100000-window row index and random sampling order do not set the color.",
+  "step_color_scale": {
+    "colorbar_orientation": "vertical right",
+    "colormap": "viridis",
+    "first_observation_step": 0,
+    "last_colorbar_step": 63,
+    "line_segment_color_step": "midpoint of consecutive local observation indices",
+    "scope": "within each selected fragment"
+  },
   "variants": {
     "65_fragments": {
       "count_per_run": 65,
       "panel_square_points": 38,
       "sheet_points": [
-        270,
-        140
+        330,
+        100
       ],
       "tile_points": [
         38,

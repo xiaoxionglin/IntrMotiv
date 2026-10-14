@@ -62,7 +62,8 @@ HIT_SOURCES = {
 ARCHIVE_COUNT = 65
 VARIANTS = {"65_fragments": ARCHIVE_COUNT}
 BOUNDS = (100.0, 2000.0, 100.0, 2000.0)
-STEP_NORM = Normalize(vmin=0, vmax=99999)
+MAX_SEGMENT_OBSERVATIONS = 64
+STEP_NORM = Normalize(vmin=0, vmax=MAX_SEGMENT_OBSERVATIONS - 1)
 PANEL_PT = 38
 
 
@@ -218,20 +219,21 @@ def segment_coordinates(payload: np.lib.npyio.NpzFile, family: str, count: int
                         ) -> list[tuple[np.ndarray, np.ndarray]]:
     points = payload[f"xy_{family}"]
     offsets = payload[f"offsets_{family}"]
-    starts = payload[f"start_rows_{family}"]
-    return [(points[int(offsets[index]):int(offsets[index + 1])],
-             int(starts[index]) + np.arange(int(offsets[index + 1] - offsets[index])))
-            for index in range(count)]
+    paths = [points[int(offsets[index]):int(offsets[index + 1])]
+             for index in range(count)]
+    return [(part, np.arange(len(part))) for part in paths]
 
 
 def draw_gradient_path(ax: plt.Axes,
                        paths: list[tuple[np.ndarray, np.ndarray]]) -> None:
-    """Color every within-fragment decision step by its original 100k row."""
+    """Reset the step color at each intact fragment's first observation."""
+    if any(len(xy) > MAX_SEGMENT_OBSERVATIONS for xy, _ in paths):
+        raise ValueError("Fragment exceeds the declared within-fragment step scale")
     segments = np.concatenate([
         np.stack((xy[:-1], xy[1:]), axis=1) for xy, _ in paths])
     steps = np.concatenate([rows[:-1] + .5 for _, rows in paths])
-    if len(segments) != len(steps) or steps.min() < 0 or steps.max() > 99999:
-        raise ValueError("Invalid original-window step indices")
+    if len(segments) != len(steps) or steps.min() < 0 or steps.max() > STEP_NORM.vmax:
+        raise ValueError("Invalid within-fragment step indices")
     lines = LineCollection(segments, cmap="viridis", norm=STEP_NORM,
                            linewidths=.55, alpha=1.0, capstyle="round")
     lines.set_array(steps)
@@ -262,29 +264,28 @@ def draw_path(ax: plt.Axes, paths: list[np.ndarray], color: str) -> None:
 def render_fragment_variants(payload: np.lib.npyio.NpzFile) -> list[str]:
     outputs = []
     for stem, count in VARIANTS.items():
-        width_pt, height_pt = 270, 140
+        width_pt, height_pt = 330, 100
         fig = plt.figure(figsize=(width_pt / 72, height_pt / 72))
-        fig.text(10 / width_pt, 136 / height_pt,
+        fig.text(10 / width_pt, 98 / height_pt,
                  f"Trajectory fragments · {count} per architecture",
                  ha="left", va="top", fontsize=12, fontweight="bold")
         for index, family in enumerate(FAMILIES):
-            x_pt = 26 + index * 90
-            ax = fig.add_axes([x_pt / width_pt, 72 / height_pt,
+            x_pt = 20 + index * 80
+            ax = fig.add_axes([x_pt / width_pt, 24 / height_pt,
                                PANEL_PT / width_pt, PANEL_PT / height_pt])
             draw_gradient_path(ax, segment_coordinates(payload, family, count))
-            fig.text((x_pt + PANEL_PT / 2) / width_pt, 117 / height_pt,
+            fig.text((x_pt + PANEL_PT / 2) / width_pt, 73 / height_pt,
                      f"{family} · seed {SEEDS[family]}",
                      ha="center", va="center", fontsize=12)
-        color_axis = fig.add_axes([50 / width_pt, 39 / height_pt,
-                                   170 / width_pt, 6 / height_pt])
+        color_axis = fig.add_axes([250 / width_pt, 24 / height_pt,
+                                   6 / width_pt, PANEL_PT / height_pt])
         colorbar = fig.colorbar(ScalarMappable(norm=STEP_NORM, cmap="viridis"),
-                                cax=color_axis, orientation="horizontal")
-        colorbar.set_ticks([0, 50000, 99999])
-        colorbar.set_ticklabels(["0", "50,000", "99,999"])
+                                cax=color_axis, orientation="vertical")
+        colorbar.set_ticks([0, 32, 63])
         colorbar.ax.tick_params(labelsize=12, length=2, width=.5, pad=1)
         colorbar.outline.set_linewidth(.4)
-        fig.text(227 / width_pt, 42 / height_pt, "step", ha="left", va="center",
-                 fontsize=12)
+        fig.text(298 / width_pt, 43 / height_pt, "step", ha="center",
+                 va="center", rotation=90, fontsize=12)
         outputs.extend(save(fig, stem))
         for family in FAMILIES:
             tile = plt.figure(figsize=(PANEL_PT / 72, PANEL_PT / 72))
@@ -410,10 +411,14 @@ def render() -> None:
         "fg_seed_screen": fg_screen,
         "source_window_env_frames": [99207936, 100007936],
         "source_window_observations": 100000,
-        "step_color": "Viridis sequential color, with shared normalization 0 to 99999 across NG/UG/FG. Each within-fragment line segment uses the midpoint of its two original observation row indices in the 100000-observation source window; later rows are brighter. The colorbar label is step. Sampling order does not set the color.",
+        "step_color": "Viridis sequential color, with shared normalization 0 to 63 across NG/UG/FG. Step zero is the first observation within each intact fragment; each line segment uses the midpoint of its two local observation indices. Colors reset at every fragment boundary; shorter fragments do not reach the high end. The vertical colorbar at right is labeled step. Original 100000-window row index and random sampling order do not set the color.",
+        "step_color_scale": {"scope": "within each selected fragment", "first_observation_step": 0,
+                             "last_colorbar_step": MAX_SEGMENT_OBSERVATIONS - 1,
+                             "line_segment_color_step": "midpoint of consecutive local observation indices",
+                             "colormap": "viridis", "colorbar_orientation": "vertical right"},
         "bounds_xy_dmlab": list(BOUNDS),
         "variants": {name: {"count_per_run": count, "panel_square_points": PANEL_PT,
-                            "sheet_points": [270, 140], "tile_points": [PANEL_PT, PANEL_PT]}
+                            "sheet_points": [330, 100], "tile_points": [PANEL_PT, PANEL_PT]}
                      for name, count in VARIANTS.items()},
         "selected_inputs": selection,
         "selected_fragment_archive_sha256": sha256(INPUTS),
