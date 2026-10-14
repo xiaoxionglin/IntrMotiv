@@ -428,7 +428,8 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   behavior: dict[str, dict[str, list[float]]],
                   *, peak_panel: str | None = None,
                   trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
-                  elbow_arrows: bool = False) -> str:
+                  elbow_arrows: bool = False,
+                  paired_peak_layout: bool = False) -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
                   '.peak-label{font:700 9px Arial,sans-serif}'
                   if peak_panel is not None else '')
@@ -451,18 +452,17 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            f'{peak_style}</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
-           '<text x="231" y="12" class="story-letter">B</text>',
-           '<text x="248" y="12" class="story-heading">Behavior ablation</text>',
            '<text x="6" y="94" class="story-letter">C</text>',
            '<text x="23" y="94" class="story-heading">Push ablation</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
-           '<text x="469" y="12" class="story-letter">E</text>',
-           ('<text id="peak-spread-heading" x="483" y="12" '
+           f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
+           (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
             'class="peak-heading">Peak spread</text>'
             if peak_panel is not None else
             '<text x="486" y="12" class="story-heading">Fields</text>')]
-    for center_x, family in zip((97, 150, 203), ("NG", "UG", "FG")):
+    centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+    for center_x, family in zip(centers, ("NG", "UG", "FG")):
         x = center_x - trajectory_tile_size / 2
         out.extend((
             f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
@@ -476,12 +476,21 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
-    out.append(behavior_schematic())
+    behavior_shift = -34 if paired_peak_layout else 0
+    out.extend((
+        f'<text x="{231 + behavior_shift}" y="12" class="story-letter">B</text>',
+        f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Behavior ablation</text>',
+    ))
+    if behavior_shift:
+        out.append(f'<g transform="translate({behavior_shift},0)">{behavior_schematic()}</g>')
+    else:
+        out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
-        out.append(behavior_card(metric, behavior[metric], x))
+        out.append(behavior_card(metric, behavior[metric], x + behavior_shift))
     # Keep B's metric names on the y axes, as in the push and pull rows.
     for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
                                ("dg_reliability", 386, "Δ reliability")):
+        x += behavior_shift
         y_center = 30 + RESULT_AXIS_HEIGHT / 2
         out.append(f'<text id="behavior-{metric}-ylabel" '
                    f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
@@ -530,7 +539,8 @@ def standalone(body: str, width: int, height: int) -> str:
             '</style>' + body + '</svg>\n')
 
 
-def layout_base(extra_plot_shift: float = 0) -> str:
+def layout_base(extra_plot_shift: float = 0,
+                metric_extra_shifts: tuple[float, float, float, float] = (0, 0, 0, 0)) -> str:
     """Prepare the editable source canvas shared by the two story variants."""
     if not BASE_SVG.is_file():
         raise FileNotFoundError("Build the compact Figure 2 source before the story layout")
@@ -548,9 +558,11 @@ def layout_base(extra_plot_shift: float = 0) -> str:
                   "component_behavior_dg_information", "component_behavior_readout_reliability"):
         svg = hide_group(svg, group)
     for prefix in ("push", "pull"):
-        for metric in ("dg_information", "map_overlap", "peak_coverage", "graph_edges"):
+        for metric, metric_shift in zip(
+                ("dg_information", "map_overlap", "peak_coverage", "graph_edges"),
+                metric_extra_shifts):
             svg = move_group(svg, f"component_{prefix}_{metric}",
-                             -68 + extra_plot_shift, 10)
+                             -68 + extra_plot_shift + metric_shift, 10)
     return svg
 
 
