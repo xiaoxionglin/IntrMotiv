@@ -1,6 +1,6 @@
 # Figure 1 v3 candidate: DG information, intrinsic reward, and fields
 
-[Editable SVG](04_architecture_v3_dg_reward_fields.svg) · [Print PDF](04_architecture_v3_dg_reward_fields.pdf) · [PNG preview](04_architecture_v3_dg_reward_fields.png) · [Source manifest](04_architecture_v3_dg_reward_fields_manifest.json)
+[SVG](04_architecture_v3_dg_reward_fields.svg) · [Print PDF](04_architecture_v3_dg_reward_fields.pdf) · [PNG preview](04_architecture_v3_dg_reward_fields.png) · [Source manifest](04_architecture_v3_dg_reward_fields_manifest.json)
 
 This is a separate **8.5 × 1.9-inch** candidate, within the width of US letter paper. It retains the authored [architecture v3](../architecture_v3.svg) at its original 5.41-inch width and essentially its original 1.9-inch height. All new panels are to its right. The two training curves are each 0.90 inch wide, and the three fields are closely spaced. If inserted into the current 7.5-inch submission figure area, the complete candidate would be reduced to 88% of its native size. It has not replaced the submitted Figure 1 or changed the TeX source.
 
