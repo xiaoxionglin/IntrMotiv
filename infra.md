@@ -2465,6 +2465,12 @@ For each finding, record:
   the goal selector connected to both. One uses the original colored event
   cue. Acceptance: both the SVG and a 53-mm render retain that arrow shape,
   the architecture frame styles, and a legible $j=g$ gate.
+  A later review showed that placing $j=g$ directly on the blue return path
+  made the comparison look like the path's source. The [side-gate trials](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/goal_policy_icon_options/simple/gate_comparison.png)
+  keep one blue $\Delta\to\pi$ path and use a separate comparator feeding a
+  small multiplication node; the two-input version also draws $j$ from the
+  event. Acceptance: at 53 mm, the path remains easy to trace, the comparator
+  is visibly a modulation, and the caption explains NG's always-open mask.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
