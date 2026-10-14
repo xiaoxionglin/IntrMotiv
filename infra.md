@@ -2487,6 +2487,12 @@ For each finding, record:
   the shorter Policy heading was recentered over its wedge. Keep these
   substitutions scoped to the selected layout and verify the exported PDF
   rather than regenerating earlier candidates with altered labels.
+  The author then edited the 06 SVG directly. That SVG is now the canonical
+  base; the PDF and PNG should be exported from it, and the renderer refuses
+  to overwrite an existing goal-gate SVG. Generated alternatives require a
+  new output stem. Acceptance: SVG checksum remains fixed during exports,
+  PDF and PNG reflect the edited layout, and future generator runs cannot
+  silently replace the author's changes.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 

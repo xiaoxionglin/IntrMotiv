@@ -316,11 +316,19 @@ def verify_selection() -> dict[int, dict]:
 
 
 def main(*, relative_reward: bool = False,
-         goal_gate_header: bool = False) -> None:
+         goal_gate_header: bool = False,
+         output_stem: str | None = None) -> None:
     if goal_gate_header and not relative_reward:
         raise ValueError("The goal-gate layout requires the relative-reward courses")
-    stem = (GOAL_GATE_STEM if goal_gate_header else
-            RELATIVE_STEM if relative_reward else STEM)
+    stem = output_stem or (GOAL_GATE_STEM if goal_gate_header else
+                           RELATIVE_STEM if relative_reward else STEM)
+    if output_stem is not None and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", output_stem):
+        raise ValueError("--output-stem must be a simple filename stem")
+    if (stem == GOAL_GATE_STEM or goal_gate_header) and (HERE / f"{stem}.svg").exists():
+        raise FileExistsError(
+            f"{stem}.svg already exists. The 06 SVG is an author-edited base; "
+            "use a new --output-stem for generated alternatives."
+        )
     font = style()
     metrics = verify_selection()
     online = pd.read_csv(SOURCES["online"])
@@ -488,6 +496,9 @@ if __name__ == "__main__":
                         help="Save a separate version with reward curves divided by each condition's own mean")
     parser.add_argument("--goal-gate-header", action="store_true",
                         help="Save a separate B/C merged version with the side-gate icon above both curves")
+    parser.add_argument("--output-stem",
+                        help="New filename stem for a generated alternative (required to avoid replacing the author-edited 06 SVG)")
     args = parser.parse_args()
     main(relative_reward=args.relative_reward or args.goal_gate_header,
-         goal_gate_header=args.goal_gate_header)
+         goal_gate_header=args.goal_gate_header,
+         output_stem=args.output_stem)

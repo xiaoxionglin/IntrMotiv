@@ -14,7 +14,7 @@
     "three_temporal_symbols": "TS"
   },
   "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
-  "courses": "arithmetic five-seed mean \u00b1 SEM, same verified runs, 1\u201399M frames",
+  "courses": "arithmetic five-seed mean ± SEM, same verified runs, 1–99M frames",
   "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
   "fields": {
     "condition": "COS27_C15_TEMPORAL",
@@ -23,7 +23,7 @@
     "probe_decisions": 10001,
     "visited_bins": 307,
     "total_bins": 361,
-    "source_scale": "per-unit visited-bin min\u2013max; gray unvisited",
+    "source_scale": "per-unit visited-bin min–max; gray unvisited",
     "units": {
       "1": {
         "spatial_information_bits": 0.167605260195476,
@@ -95,5 +95,16 @@
     "B": "spatial-information and relative-reward courses share one panel; side-gate icon occupies its top row with the NG/UG/FG legend stacked at its right",
     "C": "three C15 seed-123 DG response maps; panel letter only, no heading",
     "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide, with TS and Pol. labels"
+  },
+  "layout_source": "Author-edited SVG; source_sha256 records inputs to the preceding generated composition, not a way to reconstruct manual edits.",
+  "author_base": {
+    "canonical_file": "06_architecture_v3_goal_gate_header.svg",
+    "committed_on_main": "66f48e4",
+    "svg_sha256": "879e0fd4c2f355597c6e0765bb5a3c9accfd1e85c95560be18d83aa731161ea0",
+    "derived_exports": {
+      "pdf": "c92db61aaeca2b0fb6305dc996bf69f4cfc57c004fddeb72f13f89ac6b7e0aa3",
+      "png": "2ddf3b250bfecc44a899f0e40cca49604fa996bab050ca532f2eb3f2abf7cc6f"
+    },
+    "export_method": "Inkscape SVG export; PDF at source page size and PNG at 2250 px width"
   }
 }
