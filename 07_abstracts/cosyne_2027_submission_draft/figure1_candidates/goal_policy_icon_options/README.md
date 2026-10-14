@@ -1,5 +1,7 @@
 # NG, UG, and FG icon candidates
 
+[Simpler goal-selector diagrams](simple/README.md) · [comparison preview](simple/overview.png). These new alternatives show a single goal selector whose output conditions the policy and gates pull according to the destination in $\Delta_{i\to j}$.
+
 [Compare all three designs](overview.png) · [editable overview](overview.svg) · [PDF](overview.pdf)
 
 Each row is a separate three-icon design. The individual strips are native SVGs at **53 mm × 14.72 mm**, sized to fit the current Figure 1 right side:
