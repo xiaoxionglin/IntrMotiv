@@ -63,7 +63,7 @@ def cosine_icon() -> str:
     patches = ''.join(
         f'<circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#cosine-rate)"/>'
         f'<path d="M {x},{y+9.2:.2f} V {y+1.7:.2f} M {x},{y+9.2:.2f} H {x+7.5:.2f}" '
-        f'fill="none" stroke="{MUTED}" stroke-width="0.52"/>'
+        'fill="none" stroke="#65717a" stroke-width="0.72"/>'
         for name, x, y, cx, cy in fields
     )
     return gradient + patches + comparison_link()
@@ -140,18 +140,24 @@ def reliability_icon() -> str:
         (4.10, 4.5, 8.35, 9.0), (15.10, 4.5, 19.35, 9.0),
         (4.10, 42.0, 6.90, 44.8), (15.10, 42.0, 21.45, 48.35),
     )
+    clip_paths = ''.join(
+        f'<clipPath id="reliability-field-{index}"><rect x="{x}" y="{y}" '
+        'width="9.2" height="9.2"/></clipPath>'
+        for index, (x, y, _, _) in enumerate(fields)
+    )
     out = [
         '<defs><radialGradient id="reliability-rate">'
         f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
         f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
         f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        '</radialGradient></defs>',
+        f'</radialGradient>{clip_paths}</defs>',
     ]
-    for x, y, cx, cy in fields:
+    for index, (x, y, cx, cy) in enumerate(fields):
         out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
                    f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
-        out.append(f'<circle cx="{cx}" cy="{cy}" r="4.0" '
-                   'fill="url(#reliability-rate)"/>')
+        out.append(f'<g clip-path="url(#reliability-field-{index})">'
+                   f'<circle cx="{cx}" cy="{cy}" r="4.0" '
+                   'fill="url(#reliability-rate)"/></g>')
     out.append(
         f'<path d="M 14.17,37.3 V 19.3 M 11.8,21.8 L 14.17,19.3 L 16.54,21.8" '
         f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'

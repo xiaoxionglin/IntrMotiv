@@ -1,0 +1,81 @@
+{
+  "schema": "cosyne27-figure2-story-icon-variant/v1",
+  "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
+  "parent_story_source_sha256": "37f8833a5c8f0c0f0a1676f033767ad3318ed32c5cbcbde69231eb15fcfe8a76",
+  "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
+  "icon_source_sha256": "f57d010bcce8eaea1bd6ed09f3050867ba24407ae847caf053585aac21c63581",
+  "physical_size_points": [
+    540,
+    230
+  ],
+  "removed_panel": "E",
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+  "behavior_reliability_shift_points": 65,
+  "result_group_shifts_points": {
+    "dg_information": 1,
+    "map_overlap": 17,
+    "peak_coverage": 33,
+    "graph_edges": 49
+  },
+  "result_icon_size_points": [
+    19.0,
+    57
+  ],
+  "result_icon_positions_points": {
+    "push": {
+      "cosine": [
+        179,
+        100.5
+      ],
+      "coverage": [
+        295,
+        100.5
+      ],
+      "edges": [
+        411,
+        100.5
+      ]
+    },
+    "pull": {
+      "cosine": [
+        179,
+        165.5
+      ],
+      "coverage": [
+        295,
+        165.5
+      ],
+      "edges": [
+        411,
+        165.5
+      ]
+    }
+  },
+  "reliability_icon_size_points": [
+    28.34645669291339,
+    56.69291338582678
+  ],
+  "reliability_icon_position_points": [
+    382,
+    24.5
+  ],
+  "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
+  "icons": {
+    "cosine": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_cosine.svg",
+      "sha256": "06b4de6e974644ebd2566e8e4115f5043ea69cff3a3c7784f529ebbd9fc93067"
+    },
+    "coverage": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",
+      "sha256": "e0c66f918b68197dc95f5ff43db6db1e2f1929cc722e049b49bb4b9d9c67bbbc"
+    },
+    "edges": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_edges.svg",
+      "sha256": "0bb96b4420a53731ccb5c61f124fddcd392e3a5ace60eff52ba886e92a58f232"
+    },
+    "reliability": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_reliability.svg",
+      "sha256": "685c5c52cf590d8968a41d4731df4eda86b81ef407c228be40d005e4a053597d"
+    }
+  }
+}
