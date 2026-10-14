@@ -4,6 +4,8 @@
 
 These are exploratory alternatives to Figure 2. They live in the IntrMotiv repository beside the submission draft; `build_overleaf_package.py` does **not** add them to the compact Overleaf ZIP. Candidate 6 mirrors the submitted box-plot layout; candidate 5 retains original paired values and the peak-map illustration. The PDFs and SVGs keep vector text and marks, with the archived trajectory and response-map tiles in candidate 6 embedded as cropped raster images; the full PNGs are 300-dpi previews. [manifest.json](manifest.json) records the exact source hashes, font, software versions, and output dimensions. [render_candidates.py](render_candidates.py) regenerates all six candidates from archived lightweight tables and illustrative SVGs.
 
+The separate [trajectory-thumbnail trial](09_trajectory_thumbnails/README.md) offers three sparse path variants and a clearly labeled verified-hit example. Its assets are standalone and are not part of the six layouts or an Overleaf package.
+
 The separately archived [mean intrinsic-reward training course](../../../06_experiments/results/cosyne_2027_intrinsic_reward_course/README.md) has selectable **linear and log-y 1.9 × 1.9-inch plots** matching the online DG course. Both are included in the compact and full Overleaf packages, with their own run-identity and scalar provenance. They do not change the six gallery layouts or the current Figure 2.
 
 | Candidate | Main question | Arrangement | Review size |
