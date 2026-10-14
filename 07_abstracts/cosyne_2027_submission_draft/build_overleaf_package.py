@@ -117,7 +117,7 @@ for metric in ("path_efficiency", "visited_cell_fraction",
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_behavior_{metric}.{extension}"
         LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
-for name in ("cosine", "coverage", "edges", "reliability"):
+for name in ("overlap", "coverage", "edges", "reliability"):
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_metric_icon_{name}.{extension}"
         LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename

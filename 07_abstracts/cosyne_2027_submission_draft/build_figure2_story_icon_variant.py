@@ -24,12 +24,12 @@ STORY_SOURCE = HERE / "build_figure2_story.py"
 SCALE_RESULTS = 57 / HEIGHT_PT
 RESULT_ICON_WIDTH = WIDTH_PT * SCALE_RESULTS
 RESULT_POSITIONS = {
-    "push": {"cosine": (179, 100.5), "coverage": (295, 100.5),
+    "push": {"overlap": (178, 100.5), "coverage": (295, 100.5),
              "edges": (411, 100.5)},
-    "pull": {"cosine": (179, 165.5), "coverage": (295, 165.5),
+    "pull": {"overlap": (178, 165.5), "coverage": (295, 165.5),
              "edges": (411, 165.5)},
 }
-RELIABILITY_POSITION = (382, 24.5)
+RELIABILITY_POSITION = (384, 24.5)
 
 
 def unique_icon(name: str, instance: str) -> str:
@@ -48,9 +48,10 @@ def icon_overlay() -> str:
              'aria-label="Schematic metric icons; upper example has higher raw metric value">']
     for row, metrics in RESULT_POSITIONS.items():
         for metric, (x, y) in metrics.items():
+            scale = 1.0 if metric == "overlap" else SCALE_RESULTS
             parts.append(
                 f'<g id="{row}-{metric}-icon" '
-                f'transform="translate({x:g},{y:g}) scale({SCALE_RESULTS:.8f})">'
+                f'transform="translate({x:g},{y:g}) scale({scale:.8f})">'
                 f'{unique_icon(metric, f"{row}-{metric}")}</g>'
             )
     x, y = RELIABILITY_POSITION
@@ -69,7 +70,8 @@ def build() -> None:
     overlay = story_overlay(
         terminal_rows(), selected_trajectories(), behavior_differences(),
         trajectory_tile_size=38, elbow_arrows=True, paired_peak_layout=True,
-        show_panel_e=False, reliability_shift=65,
+        show_panel_e=False, behavior_layout_shift=30,
+        compact_behavior_schematic=True, reliability_shift=33,
         extra_overlay=icon_overlay(),
     )
     svg, count = re.subn(r'</svg>\s*$', overlay + '\n</svg>\n', svg)
@@ -86,12 +88,17 @@ def build() -> None:
         "physical_size_points": [540, 230],
         "removed_panel": "E",
         "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
-        "behavior_reliability_shift_points": 65,
+        "behavior_layout_shift_points": 30,
+        "compact_behavior_schematic": True,
+        "behavior_reliability_shift_points": 33,
         "result_group_shifts_points": {
             "dg_information": 1, "map_overlap": 17,
             "peak_coverage": 33, "graph_edges": 49,
         },
-        "result_icon_size_points": [RESULT_ICON_WIDTH, 57],
+        "result_icon_size_points": {
+            "overlap": [WIDTH_PT, 20 * 72 / 25.4],
+            "coverage_and_edges": [RESULT_ICON_WIDTH, 57],
+        },
         "result_icon_positions_points": RESULT_POSITIONS,
         "reliability_icon_size_points": [WIDTH_PT, 20 * 72 / 25.4],
         "reliability_icon_position_points": RELIABILITY_POSITION,

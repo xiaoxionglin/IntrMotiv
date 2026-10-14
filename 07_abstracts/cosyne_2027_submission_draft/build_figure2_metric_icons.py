@@ -1,6 +1,6 @@
 """Build four small, data-free icons for Figure 2's metric labels.
 
-Cosine, coverage, and edges are 10 by 30 mm; reliability is 10 by 20 mm.
+Coverage and edges are 10 by 30 mm; overlap and reliability are 10 by 20 mm.
 The larger contact sheet is only a preview.
 """
 
@@ -16,6 +16,10 @@ HEIGHT_PT = 30 * 72 / 25.4
 INK = "#27343c"
 MUTED = "#919ba2"
 ACCENT = "#555f66"
+# DG neuron colors reproduce the blue, red, and yellow circles in Figure 1.
+# Purple is the fourth identity for the four-unit coverage and graph examples.
+DG_COLORS = ("#4364a6", "#a73e30", "#c3b058", "#8864a8")
+BLUE, RED, YELLOW, PURPLE = DG_COLORS
 
 
 def svg_document(body: str, height_mm: float = 30) -> str:
@@ -45,28 +49,58 @@ def comparison_link() -> str:
     )
 
 
-def cosine_icon() -> str:
-    """Two pairs of DG place fields: one similar, one spatially different."""
-    fields = (
-        ("similar-a", 4.10, 10.30, 8.35, 14.70),
-        ("similar-b", 15.10, 10.30, 19.35, 14.70),
-        ("different-a", 4.10, 63.00, 6.90, 65.80),
-        ("different-b", 15.10, 63.00, 21.45, 69.35),
+def paired_map_icon(kind: str) -> str:
+    """Show high/low map similarity with explicit neuron and time identities."""
+    if kind not in {"overlap", "reliability"}:
+        raise ValueError(kind)
+    # Rows are high then low. Columns represent different units for overlap,
+    # or the same unit observed in two episode-disjoint time halves.
+    colors = ((RED, YELLOW), (RED, YELLOW)) if kind == "overlap" else (
+        (RED, RED), (YELLOW, YELLOW))
+    centers = (((8.35, 9.1), (19.35, 9.1)),
+               ((6.9, 46.6), (21.45, 50.15)))
+    cards = ((4.10, 4.5), (15.10, 4.5),
+             (4.10, 42.0), (15.10, 42.0))
+    definitions = []
+    for color_name, color in (("red", RED), ("yellow", YELLOW)):
+        definitions.append(
+            f'<radialGradient id="map-{kind}-{color_name}">'
+            f'<stop offset="0" stop-color="{color}" stop-opacity="0.75"/>'
+            f'<stop offset="0.58" stop-color="{color}" stop-opacity="0.28"/>'
+            f'<stop offset="1" stop-color="{color}" stop-opacity="0"/>'
+            '</radialGradient>')
+    definitions.extend(
+        f'<clipPath id="{kind}-field-{index}"><rect x="{x}" y="{y}" '
+        'width="9.2" height="9.2"/></clipPath>'
+        for index, (x, y) in enumerate(cards)
     )
-    gradient = (
-        '<defs><radialGradient id="cosine-rate">'
-        f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
-        f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
-        f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        '</radialGradient></defs>'
+    out = ['<defs>' + ''.join(definitions) + '</defs>']
+    for index, (x, y) in enumerate(cards):
+        row, column = divmod(index, 2)
+        color = colors[row][column]
+        gradient = "red" if color == RED else "yellow"
+        cx, cy = centers[row][column]
+        out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
+                   f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
+        out.append(f'<g clip-path="url(#{kind}-field-{index})">'
+                   f'<circle cx="{cx}" cy="{cy}" r="4.0" '
+                   f'fill="url(#map-{kind}-{gradient})"/></g>')
+        # A colored DG-circle is a neuron identity, not a peak marker.
+        out.append(f'<circle cx="{x+1.55:.2f}" cy="{y+11.5:.2f}" r="1.1" '
+                   f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
+        marker = ("t1", "t2")[column] if kind == "reliability" else ("1", "2")[column]
+        out.append(f'<text x="{x+3.25:.2f}" y="{y+12.65:.2f}" '
+                   f'font-family="DejaVu Sans" font-size="3.5" fill="{INK}">{marker}</text>')
+    out.append(
+        f'<path d="M 14.17,37.3 V 20.0 M 11.8,22.5 L 14.17,20.0 L 16.54,22.5" '
+        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
-    patches = ''.join(
-        f'<circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#cosine-rate)"/>'
-        f'<path d="M {x},{y+9.2:.2f} V {y+1.7:.2f} M {x},{y+9.2:.2f} H {x+7.5:.2f}" '
-        'fill="none" stroke="#65717a" stroke-width="0.72"/>'
-        for name, x, y, cx, cy in fields
-    )
-    return gradient + patches + comparison_link()
+    return ''.join(out)
+
+
+def overlap_icon() -> str:
+    """Compare distinct red and yellow DG neurons within each row."""
+    return paired_map_icon("overlap")
 
 
 def coverage_icon() -> str:
@@ -86,9 +120,9 @@ def coverage_icon() -> str:
     def draw_peaks(points: tuple[tuple[float, float], ...], clip_id: str) -> str:
         return (f'<g clip-path="url(#{clip_id})">' + ''.join(
             f'<circle cx="{x}" cy="{y}" r="5.1" fill="url(#coverage-blur)"/>'
-            f'<circle cx="{x}" cy="{y}" r="1.15" fill="{INK}" '
-            'stroke="white" stroke-width="0.35"/>'
-            for x, y in points
+            f'<circle cx="{x}" cy="{y}" r="1.45" fill="{DG_COLORS[index]}" '
+            f'stroke="{INK}" stroke-width="0.38"/>'
+            for index, (x, y) in enumerate(points)
         ) + '</g>')
 
     peaks = draw_peaks(dispersed, 'coverage-top') + draw_peaks(clustered, 'coverage-bottom')
@@ -117,9 +151,9 @@ def graph_arrows(edges: tuple[tuple[int, int], ...], y_offset: float) -> str:
             f'stroke="{INK}" stroke-width="1.05"/>'
         )
     circles = ''.join(
-        f'<circle cx="{x}" cy="{y+y_offset}" r="2.35" fill="white" '
+        f'<circle cx="{x}" cy="{y+y_offset}" r="2.35" fill="{DG_COLORS[index]}" '
         f'stroke="{INK}" stroke-width="0.95"/>'
-        for x, y in nodes
+        for index, (x, y) in enumerate(nodes)
     )
     return ''.join(paths) + circles
 
@@ -136,37 +170,11 @@ def edges_icon() -> str:
 
 def reliability_icon() -> str:
     """A single DG field compared across two episode-disjoint halves."""
-    fields = (
-        (4.10, 4.5, 8.35, 9.0), (15.10, 4.5, 19.35, 9.0),
-        (4.10, 42.0, 6.90, 44.8), (15.10, 42.0, 21.45, 48.35),
-    )
-    clip_paths = ''.join(
-        f'<clipPath id="reliability-field-{index}"><rect x="{x}" y="{y}" '
-        'width="9.2" height="9.2"/></clipPath>'
-        for index, (x, y, _, _) in enumerate(fields)
-    )
-    out = [
-        '<defs><radialGradient id="reliability-rate">'
-        f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
-        f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
-        f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        f'</radialGradient>{clip_paths}</defs>',
-    ]
-    for index, (x, y, cx, cy) in enumerate(fields):
-        out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
-                   f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
-        out.append(f'<g clip-path="url(#reliability-field-{index})">'
-                   f'<circle cx="{cx}" cy="{cy}" r="4.0" '
-                   'fill="url(#reliability-rate)"/></g>')
-    out.append(
-        f'<path d="M 14.17,37.3 V 19.3 M 11.8,21.8 L 14.17,19.3 L 16.54,21.8" '
-        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
-    )
-    return ''.join(out)
+    return paired_map_icon("reliability")
 
 
 ICONS = {
-    "cosine": cosine_icon,
+    "overlap": overlap_icon,
     "coverage": coverage_icon,
     "edges": edges_icon,
     "reliability": reliability_icon,
@@ -195,23 +203,23 @@ def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        write_and_export(path, svg_document(factory(), 20 if name == 'reliability' else 30))
+        write_and_export(path, svg_document(factory(), 20 if name in ('overlap', 'reliability') else 30))
 
     # Enlarged inspection sheet; use standalone files for physical dimensions.
-    locations = (("cosine", 13), ("coverage", 115), ("edges", 217),
+    locations = (("overlap", 13), ("coverage", 115), ("edges", 217),
                  ("reliability", 319))
     sheet_parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="147mm" height="70mm" '
         'viewBox="0 0 417 198"><rect width="417" height="198" fill="white"/>',
-        '<style>text{font:11px Arial,sans-serif;fill:#27343c}</style>',
+        '<style>text.preview-label{font:11px Arial,sans-serif;fill:#27343c}</style>',
     ]
     for name, x in locations:
-        top = 34 if name == 'reliability' else 8
+        top = 34 if name in ('overlap', 'reliability') else 8
         sheet_parts.append(f'<g transform="translate({x},{top}) scale(1.9)">'
                            f'{ICONS[name]()}')
         sheet_parts.append('</g>')
-        sheet_parts.append(f'<text x="{x+27}" y="185" text-anchor="middle">'
-                           f'{"Map cosine" if name == "cosine" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
+        sheet_parts.append(f'<text class="preview-label" x="{x+27}" y="185" text-anchor="middle">'
+                           f'{"Map overlap" if name == "overlap" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
                            '</text>')
     sheet_parts.append('</svg>\n')
     sheet = HERE / "Figure2_metric_icons_preview.svg"

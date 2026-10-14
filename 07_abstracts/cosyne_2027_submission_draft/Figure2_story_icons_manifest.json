@@ -1,30 +1,38 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "37f8833a5c8f0c0f0a1676f033767ad3318ed32c5cbcbde69231eb15fcfe8a76",
+  "parent_story_source_sha256": "9ed3de5f533928b230b12ffd3b95786f939e34b26121decd9f7bacb67b44e0ce",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "f57d010bcce8eaea1bd6ed09f3050867ba24407ae847caf053585aac21c63581",
+  "icon_source_sha256": "ed7cfd931c48b66b920328f41ccf5b138d3fd8fa22dd5efa65f09981b127ca6c",
   "physical_size_points": [
     540,
     230
   ],
   "removed_panel": "E",
   "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
-  "behavior_reliability_shift_points": 65,
+  "behavior_layout_shift_points": 30,
+  "compact_behavior_schematic": true,
+  "behavior_reliability_shift_points": 33,
   "result_group_shifts_points": {
     "dg_information": 1,
     "map_overlap": 17,
     "peak_coverage": 33,
     "graph_edges": 49
   },
-  "result_icon_size_points": [
-    19.0,
-    57
-  ],
+  "result_icon_size_points": {
+    "overlap": [
+      28.34645669291339,
+      56.69291338582678
+    ],
+    "coverage_and_edges": [
+      19.0,
+      57
+    ]
+  },
   "result_icon_positions_points": {
     "push": {
-      "cosine": [
-        179,
+      "overlap": [
+        178,
         100.5
       ],
       "coverage": [
@@ -37,8 +45,8 @@
       ]
     },
     "pull": {
-      "cosine": [
-        179,
+      "overlap": [
+        178,
         165.5
       ],
       "coverage": [
@@ -56,26 +64,26 @@
     56.69291338582678
   ],
   "reliability_icon_position_points": [
-    382,
+    384,
     24.5
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
   "icons": {
-    "cosine": {
-      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_cosine.svg",
-      "sha256": "06b4de6e974644ebd2566e8e4115f5043ea69cff3a3c7784f529ebbd9fc93067"
+    "overlap": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
+      "sha256": "c0f769b64bfd4d7a67a68b4d534f27a49939484ac7e377f1f055def7118add0a"
     },
     "coverage": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",
-      "sha256": "e0c66f918b68197dc95f5ff43db6db1e2f1929cc722e049b49bb4b9d9c67bbbc"
+      "sha256": "0d7f5608033340ae3e598ed03e67866e2a76f02ffdb5999bf66cb25f035b650c"
     },
     "edges": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_edges.svg",
-      "sha256": "0bb96b4420a53731ccb5c61f124fddcd392e3a5ace60eff52ba886e92a58f232"
+      "sha256": "2cfe106dea3e3d296e329ec0f63adff4cacfae1445137a63295f3f38c3d5fb89"
     },
     "reliability": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_reliability.svg",
-      "sha256": "685c5c52cf590d8968a41d4731df4eda86b81ef407c228be40d005e4a053597d"
+      "sha256": "547d4f0fe28dcca97e4680213f9128e61e5868d1e4685ea717cc9b94cd75ecb7"
     }
   }
 }
