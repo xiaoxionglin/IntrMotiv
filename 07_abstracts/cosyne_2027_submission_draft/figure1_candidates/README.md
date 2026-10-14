@@ -1,5 +1,7 @@
 # Experimental Figure 1: spatial results at right
 
+[Figure 1 v3 with DG information, log intrinsic reward, and three C15 seed-123 fields](04_architecture_v3_dg_reward_fields_README.md) · [PDF](04_architecture_v3_dg_reward_fields.pdf) · [SVG](04_architecture_v3_dg_reward_fields.svg) · [PNG](04_architecture_v3_dg_reward_fields.png). This newer candidate keeps the v3 artwork at its original size and places every addition to its right within the 7.5-inch submission width.
+
 [All 16 DG maps from every terminal seed](full_place_field_atlases.md) · 40 unfiltered condition/seed atlases in shared and per-unit min–max scales, with architecture notes and unit metrics
 
 [Five alternative four-field sets](place_field_options/README.md) · [scrollable overview](place_field_options/all_five_overview.png)
@@ -12,7 +14,7 @@
 
 [Earlier simplified candidate PDF](01_architecture_spatial_right.pdf) · [SVG](01_architecture_spatial_right.svg) · [PNG preview](01_architecture_spatial_right.png)
 
-All three layouts are **separate candidates** at 7.5 × 3.12 inches. The submitted architecture figure, Figure 2, `main.tex`, and the compact Overleaf ZIP are unchanged. Candidate 3 gives the author's original architecture artwork about 5.8 inches of width, compresses the spatial-emergence plot into a narrow top-right strip, and places all four archived DG maps in a tiny two-by-two grid beneath it. Candidate 2 uses the same art at about 4.5 inches wide with a wider plot and two larger maps. Candidate 1 retains a simplified-box comparison.
+The earlier three layouts are **separate candidates** at 7.5 × 3.12 inches. The submitted architecture figure, Figure 2, `main.tex`, and the compact Overleaf ZIP are unchanged. Candidate 3 gives the author's original architecture artwork about 5.8 inches of width, compresses the spatial-emergence plot into a narrow top-right strip, and places all four archived DG maps in a tiny two-by-two grid beneath it. Candidate 2 uses the same art at about 4.5 inches wide with a wider plot and two larger maps. Candidate 1 retains a simplified-box comparison.
 
 The original art includes the egocentric scene, ResNet-18 wedge, DG sparsifier, CA3 sequence, readout, maze, feedback arrows, and temporal-separation inset. The adapter crops away the large formula rows and masks the observation-update formula above the diagram. Isolated symbols for the threshold, matrix links, and event interval remain in the artwork; no equation is displayed. Three prose lines beneath it state which modules are fixed or learned and identify the push and pull paths. In candidate 3, the diagram's explanatory word labels are redrawn at 10 pt in their original locations; its other added text is 11–12 pt. The original small mathematical and matrix symbols remain part of the artwork. The art is embedded at 600 dpi; plot lines, uncertainty bands, axes, and added text are vector in the PDF and SVG.
 

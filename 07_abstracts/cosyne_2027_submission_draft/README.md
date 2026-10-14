@@ -20,6 +20,8 @@ The composite remains at its original 7.5-by-4.48-inch print size using scalable
 
 The merged prose-first review draft allows the expanded architecture description, results narrative, and detailed captions to exceed the two-page limit for author review. A later submission pass must bring it within that limit.
 
+A separate [Figure 1 v3 candidate](figure1_candidates/04_architecture_v3_dg_reward_fields_README.md) retains the v3 architecture at its original size and places DG spatial information, the log intrinsic-reward course, and three C15 seed-123 response maps entirely to its right within the current 7.5-inch figure width. The candidate notes give the field-selection limits and a complete caption. It has not replaced the submitted architecture.
+
 Rebuild the panels with the project SF_git Python environment using render_submission_panels.py, then run build_overleaf_package.py to refresh the compact ZIP. Pass `--full` only when an expanded candidate-library ZIP is needed. Compile main.tex with Tectonic or XeLaTeX.
 
 ## Figure 2 layout candidates

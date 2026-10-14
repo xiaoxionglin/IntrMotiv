@@ -2405,6 +2405,20 @@ For each finding, record:
   the exported PDF at its intended width. Acceptance is no clipped text, a
   caption distinguishing qualitative own-policy maps from paired replay data,
   and explicit placeholder labels for any proposed metric illustrations.
+  The Figure 1 v3 right-side candidate exposed a related selection constraint:
+  C15 temporal seed 123 has two strict monofield units, but their maxima are
+  only one grid cell apart. To show distinct peak locations without implying
+  all examples are strict monofields, the candidate uses DG 4, 1, and 11 and
+  records each unit's score, strict status, and maximum-response cell in its
+  [manifest](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/04_architecture_v3_dg_reward_fields_manifest.json).
+  The renderer checks those cells against the indexed per-unit min–max atlas.
+  Future field selections should balance the unit metrics with spatial spread
+  of maxima and state that tradeoff in the caption. The final right-side
+  composition keeps the v3 artwork at 5.41 × 1.90 inches inside a 7.5-inch
+  figure by narrowing both course axes and moving per-field DG labels into
+  the caption; PDF export at 540 × 136.8 points verifies that width. The v3
+  top-left title leaves too little room for a panel letter; a small A badge
+  on the observation image avoids covering either title or encoder box.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure
