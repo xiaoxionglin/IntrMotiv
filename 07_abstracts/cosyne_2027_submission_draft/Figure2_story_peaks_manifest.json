@@ -1,0 +1,55 @@
+{
+  "schema": "cosyne27-figure2-story-peak-variant/v1",
+  "parent_figure": "Figure2_story.svg",
+  "physical_size_points": [
+    540,
+    230
+  ],
+  "trajectory_tile_points": 42,
+  "peak_map_size_points": 58.0,
+  "peak_map_data": "07_abstracts/cosyne_2027_submission_draft/Figure2_story_peaks_data.csv",
+  "sample_protocol": "terminal 100k-decision online snapshots; separate from panel-A 10k frozen-policy trajectory probes",
+  "target_env_steps": 100000000,
+  "field_eligibility": "at least 20 active observations in at least three spatial bins",
+  "active_fraction_cutoff": 0.0025,
+  "gaussian_sigma_dmlab_units": 100,
+  "map_world_bounds_dmlab_units": [
+    100,
+    2000,
+    100,
+    2000
+  ],
+  "shared_density_display_range_mass_per_bin": [
+    0,
+    0.04
+  ],
+  "shared_visited_mask": "06_experiments/results/cosyne_2027_snapshot_peak_spread/common_visited_mask.json",
+  "shared_visited_mask_sha256": "8c60a0accece3cfe582d98e7f08bcd29f2f9087cc0512d76b147d3d918e6a205",
+  "derived_peak_spread_table": "06_experiments/results/cosyne_2027_snapshot_peak_spread/per_snapshot_cutoff_spread.csv",
+  "derived_peak_spread_table_sha256": "6873d4f83b7694d611588bfa591dcaef4b60e547b49195ce6757bb583e38acef",
+  "canonical_peak_analysis": "06_experiments/cosyne_2027/analyze_snapshot_peak_spread.py",
+  "canonical_peak_analysis_sha256": "a3e8afaa6bbf16f9ea735c31c70b386a002fa4e30f7aeb93a3c7fe7d8f977eb1",
+  "examples": {
+    "NG": {
+      "run_name": "COS27_C01_TEMPORAL_S99",
+      "source_per_unit_table": "06_experiments/results/cosyne_2027_snapshot_peak_spread/inputs/c01_temporal_s3_per_unit.csv",
+      "source_per_unit_sha256": "8a157481009d2fb8e0b917f3ba726bc17c801fcd83624bd6037247f3449a7303",
+      "valid_peaks": 15,
+      "effective_area_fraction": 0.4478202717695144
+    },
+    "UG": {
+      "run_name": "COS27_C05_TEMPORAL_TEMPORAL_S123",
+      "source_per_unit_table": "06_experiments/results/cosyne_2027_snapshot_peak_spread/inputs/c05_pushpull_s3_per_unit.csv",
+      "source_per_unit_sha256": "2b72a108f9ad3af766047ef1697acedeff151bb48c505a0f425a9f3b65fec226",
+      "valid_peaks": 15,
+      "effective_area_fraction": 0.3457826798703299
+    },
+    "FG": {
+      "run_name": "COS27_C15_TEMPORAL_S17",
+      "source_per_unit_table": "06_experiments/results/cosyne_2027_snapshot_peak_spread/inputs/c15_encoder_s2_per_unit.csv",
+      "source_per_unit_sha256": "1d99b7ff72552e3177d636f96edcb2ddbb0e8548351c183324689e3cd9f1c17e",
+      "valid_peaks": 16,
+      "effective_area_fraction": 0.22477600345651014
+    }
+  }
+}

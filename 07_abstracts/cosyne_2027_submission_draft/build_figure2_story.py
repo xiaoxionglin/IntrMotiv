@@ -429,6 +429,9 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   *, peak_panel: str | None = None,
                   trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
                   elbow_arrows: bool = False) -> str:
+    peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
+                  '.peak-label{font:700 9px Arial,sans-serif}'
+                  if peak_panel is not None else '')
     out = ['<g id="story-overlay">',
            '<style>.story-heading{font:700 12px Arial,sans-serif;fill:#25313a}'
            '.story-letter{font:700 13px Arial,sans-serif;fill:#25313a}'
@@ -445,9 +448,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.behavior-y-label{font:10px Arial,sans-serif;fill:#25313a}'
            '.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}'
-           '.peak-heading{font:700 10px Arial,sans-serif;fill:#25313a}'
-           '.peak-label{font:700 9px Arial,sans-serif}'
-           '</style>',
+           f'{peak_style}</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
            '<text x="231" y="12" class="story-letter">B</text>',
@@ -457,7 +458,8 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="6" y="159" class="story-letter">D</text>',
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
-           ('<text x="483" y="12" class="peak-heading">Peak spread</text>'
+           ('<text id="peak-spread-heading" x="483" y="12" '
+            'class="peak-heading">Peak spread</text>'
             if peak_panel is not None else
             '<text x="486" y="12" class="story-heading">Fields</text>')]
     for center_x, family in zip((97, 150, 203), ("NG", "UG", "FG")):
@@ -528,12 +530,10 @@ def standalone(body: str, width: int, height: int) -> str:
             '</style>' + body + '</svg>\n')
 
 
-def build() -> None:
+def layout_base(extra_plot_shift: float = 0) -> str:
+    """Prepare the editable source canvas shared by the two story variants."""
     if not BASE_SVG.is_file():
         raise FileNotFoundError("Build the compact Figure 2 source before the story layout")
-    rows = terminal_rows()
-    selected = selected_trajectories()
-    behavior = behavior_differences()
     svg = BASE_SVG.read_text()
     for old, new in (('height="210pt"', 'height="230pt"'),
                      ('viewBox="0 0 540 210"', 'viewBox="0 0 540 230"'),
@@ -549,7 +549,16 @@ def build() -> None:
         svg = hide_group(svg, group)
     for prefix in ("push", "pull"):
         for metric in ("dg_information", "map_overlap", "peak_coverage", "graph_edges"):
-            svg = move_group(svg, f"component_{prefix}_{metric}", -68, 10)
+            svg = move_group(svg, f"component_{prefix}_{metric}",
+                             -68 + extra_plot_shift, 10)
+    return svg
+
+
+def build() -> None:
+    rows = terminal_rows()
+    selected = selected_trajectories()
+    behavior = behavior_differences()
+    svg = layout_base()
     svg = re.sub(r"</svg>\s*$", story_overlay(rows, selected, behavior) + "\n</svg>\n", svg)
     export(svg, STORY)
 
