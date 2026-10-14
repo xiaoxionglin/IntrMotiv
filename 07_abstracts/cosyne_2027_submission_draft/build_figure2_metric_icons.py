@@ -1,7 +1,7 @@
-"""Build three small, data-free icons for Figure 2's metric labels.
+"""Build four small, data-free icons for Figure 2's metric labels.
 
-Each standalone SVG/PDF is exactly 10 by 30 mm. The larger contact sheet is
-only a preview; the manuscript can use the individual vector assets.
+Cosine, coverage, and edges are 10 by 30 mm; reliability is 10 by 20 mm.
+The larger contact sheet is only a preview.
 """
 
 from __future__ import annotations
@@ -18,10 +18,11 @@ MUTED = "#919ba2"
 ACCENT = "#555f66"
 
 
-def svg_document(body: str) -> str:
+def svg_document(body: str, height_mm: float = 30) -> str:
+    height_pt = height_mm * 72 / 25.4
     return (
-        '<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="30mm" '
-        f'viewBox="0 0 {WIDTH_PT:.6f} {HEIGHT_PT:.6f}">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="{height_mm:g}mm" '
+        f'viewBox="0 0 {WIDTH_PT:.6f} {height_pt:.6f}">'
         '<g stroke-linecap="round" stroke-linejoin="round">'
         f'{body}</g></svg>\n'
     )
@@ -37,10 +38,9 @@ def frames() -> str:
 
 
 def comparison_link() -> str:
-    """A two-headed link means comparison, never a result direction."""
+    """Point toward the higher statistic, matching an upward plot axis."""
     return (
-        f'<path d="M 14.17,32.2 V 52.7 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7 '
-        f'M 11.8,50.2 L 14.17,52.7 L 16.54,50.2" '
+        f'<path d="M 14.17,52.7 V 32.2 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7" '
         f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
 
@@ -58,24 +58,15 @@ def cosine_icon() -> str:
         f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
         f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
         f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        '</radialGradient>'
-        + ''.join(
-            f'<clipPath id="cosine-{name}-clip"><rect x="{x}" y="{y}" '
-            'width="9.2" height="9.2"/></clipPath>'
-            for name, x, y, _, _ in fields
-        )
-        + '</defs>'
+        '</radialGradient></defs>'
     )
     patches = ''.join(
-        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="white"/>'
-        f'<g clip-path="url(#cosine-{name}-clip)">'
         f'<circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#cosine-rate)"/>'
-        '</g>'
-        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="none" '
-        f'stroke="{MUTED}" stroke-width="0.47"/>'
+        f'<path d="M {x},{y+9.2:.2f} V {y+1.7:.2f} M {x},{y+9.2:.2f} H {x+7.5:.2f}" '
+        f'fill="none" stroke="{MUTED}" stroke-width="0.52"/>'
         for name, x, y, cx, cy in fields
     )
-    return gradient + frames() + patches + comparison_link()
+    return gradient + patches + comparison_link()
 
 
 def coverage_icon() -> str:
@@ -90,8 +81,8 @@ def coverage_icon() -> str:
         '<clipPath id="coverage-bottom"><rect x="2.52" y="57.2" width="23.3" height="23.3"/></clipPath>'
         '</defs>'
     )
-    clustered = ((11.3, 14.0), (13.8, 16.8), (16.0, 13.0), (17.0, 18.9))
-    dispersed = ((7.0, 63.0), (21.0, 64.2), (8.1, 75.8), (20.7, 76.1))
+    dispersed = ((7.0, 10.3), (21.0, 11.5), (8.1, 23.1), (20.7, 23.4))
+    clustered = ((11.3, 66.7), (13.8, 69.5), (16.0, 65.7), (17.0, 71.6))
     def draw_peaks(points: tuple[tuple[float, float], ...], clip_id: str) -> str:
         return (f'<g clip-path="url(#{clip_id})">' + ''.join(
             f'<circle cx="{x}" cy="{y}" r="5.1" fill="url(#coverage-blur)"/>'
@@ -100,7 +91,7 @@ def coverage_icon() -> str:
             for x, y in points
         ) + '</g>')
 
-    peaks = draw_peaks(clustered, 'coverage-top') + draw_peaks(dispersed, 'coverage-bottom')
+    peaks = draw_peaks(dispersed, 'coverage-top') + draw_peaks(clustered, 'coverage-bottom')
     return gradient + frames() + peaks + comparison_link()
 
 
@@ -137,16 +128,42 @@ def edges_icon() -> str:
     """Two stored directed graphs with different reliable-edge counts."""
     return (
         frames()
-        + graph_arrows(((0, 1), (1, 3)), 0)
-        + graph_arrows(((0, 1), (0, 2), (1, 3), (2, 3)), 52.7)
+        + graph_arrows(((0, 1), (0, 2), (1, 3), (2, 3)), 0)
+        + graph_arrows(((0, 1), (1, 3)), 52.7)
         + comparison_link()
     )
+
+
+def reliability_icon() -> str:
+    """A single DG field compared across two episode-disjoint halves."""
+    fields = (
+        (4.10, 4.5, 8.35, 9.0), (15.10, 4.5, 19.35, 9.0),
+        (4.10, 42.0, 6.90, 44.8), (15.10, 42.0, 21.45, 48.35),
+    )
+    out = [
+        '<defs><radialGradient id="reliability-rate">'
+        f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
+        f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
+        f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
+        '</radialGradient></defs>',
+    ]
+    for x, y, cx, cy in fields:
+        out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
+                   f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
+        out.append(f'<circle cx="{cx}" cy="{cy}" r="4.0" '
+                   'fill="url(#reliability-rate)"/>')
+    out.append(
+        f'<path d="M 14.17,37.3 V 19.3 M 11.8,21.8 L 14.17,19.3 L 16.54,21.8" '
+        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+    )
+    return ''.join(out)
 
 
 ICONS = {
     "cosine": cosine_icon,
     "coverage": coverage_icon,
     "edges": edges_icon,
+    "reliability": reliability_icon,
 }
 
 
@@ -172,21 +189,23 @@ def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        write_and_export(path, svg_document(factory()))
+        write_and_export(path, svg_document(factory(), 20 if name == 'reliability' else 30))
 
-    # Enlarged inspection sheet; standalone icons retain their 10 × 30 mm size.
-    locations = (("cosine", 13), ("coverage", 116), ("edges", 219))
+    # Enlarged inspection sheet; use standalone files for physical dimensions.
+    locations = (("cosine", 13), ("coverage", 115), ("edges", 217),
+                 ("reliability", 319))
     sheet_parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="110mm" height="70mm" '
-        'viewBox="0 0 312 198"><rect width="312" height="198" fill="white"/>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="147mm" height="70mm" '
+        'viewBox="0 0 417 198"><rect width="417" height="198" fill="white"/>',
         '<style>text{font:11px Arial,sans-serif;fill:#27343c}</style>',
     ]
     for name, x in locations:
-        sheet_parts.append(f'<g transform="translate({x},8) scale(1.9)">'
+        top = 34 if name == 'reliability' else 8
+        sheet_parts.append(f'<g transform="translate({x},{top}) scale(1.9)">'
                            f'{ICONS[name]()}')
         sheet_parts.append('</g>')
         sheet_parts.append(f'<text x="{x+27}" y="185" text-anchor="middle">'
-                           f'{"Map cosine" if name == "cosine" else "Peak coverage" if name == "coverage" else "Reliable edges"}'
+                           f'{"Map cosine" if name == "cosine" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
                            '</text>')
     sheet_parts.append('</svg>\n')
     sheet = HERE / "Figure2_metric_icons_preview.svg"
