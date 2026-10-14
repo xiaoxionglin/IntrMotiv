@@ -38,6 +38,10 @@ DG_INFORMATION = HERE / "figure2_candidates/08_focused_canvas/fresh_behavior_dg_
 DG_RELIABILITY = HERE / "data/fresh_behavior_dg_reliability.csv"
 
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
+# Match the plotting rectangles in the existing push and pull SVG components.
+RESULT_AXIS_WIDTH = 49.68
+RESULT_AXIS_HEIGHT = 47.52
+TRAJECTORY_TILE_SIZE = 46
 FIELD_UNITS = (4, 7, 12, 15)
 RUNS = {
     "NG": "COS27_C01_TEMPORAL_S99",
@@ -141,7 +145,9 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
         "dg_reliability": (-0.05, 0.55, (0.0, 0.25, 0.5)),
     }
     minimum, maximum, ticks = specs[metric]
-    left, right, top, bottom = x + 25, x + 80, 41, 72
+    # Reserve space for the vertical metric name and its numeric tick labels.
+    left, top = x + 35, 30
+    right, bottom = left + RESULT_AXIS_WIDTH, top + RESULT_AXIS_HEIGHT
 
     def scale(value: float) -> float:
         if not minimum <= value <= maximum:
@@ -150,18 +156,19 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
 
     out = [f'<g id="behavior-{metric}" aria-label="{metric}, learned minus random actions">',
            f'<path d="M {left},{top} V {bottom} H {right}" class="behavior-axis"/>']
-    for tick in ticks:
+    for tick_index, tick in enumerate(ticks):
         ty = scale(tick)
         out.extend((
             f'<path d="M {left-2},{ty:.3f} H {left}" class="behavior-axis"/>',
-            f'<text x="{left-3}" y="{ty+3:.3f}" text-anchor="end" '
+            f'<text id="behavior-{metric}-ytick-{tick_index}" '
+            f'x="{left-3}" y="{ty+3:.3f}" text-anchor="end" '
             f'class="behavior-tick">{tick:g}</text>',
         ))
     if minimum < 0 < maximum:
         out.append(f'<path d="M {left},{scale(0):.3f} H {right}" '
                    'stroke="#879096" stroke-width="0.55"/>')
     for index, family in enumerate(("NG", "UG", "FG")):
-        cx = left + 9 + index * 18
+        cx = left + RESULT_AXIS_WIDTH * (index + 0.5) / 3
         values = samples[family]
         color = COLORS[family]
         for dot_index, value in enumerate(values):
@@ -178,7 +185,8 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
             f'<rect x="{cx-3:.3f}" y="{scale(q3):.3f}" width="6" '
             f'height="{scale(q1)-scale(q3):.3f}" fill="white" stroke="{color}" stroke-width="0.9"/>',
             f'<path d="M {cx-3:.3f},{scale(median):.3f} H {cx+3:.3f}" stroke="{color}" stroke-width="0.9"/>',
-            f'<text x="{cx:.3f}" y="82" text-anchor="middle" class="behavior-tick">{family}</text>',
+            f'<text x="{cx:.3f}" y="{bottom+9:.3f}" text-anchor="middle" '
+            f'class="behavior-tick">{family}</text>',
         ))
     out.append('</g>')
     return "\n".join(out)
@@ -238,7 +246,7 @@ def metric_card(metric: str, rows: dict[str, list[dict[str, str]]],
 
 def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
     """Draw A's compact seed dots and black mean bars as on the Bernstein poster."""
-    left, top, bottom = 22, 36, 69
+    left, top, bottom = 35, 36, 69
     minimum, maximum = 0.0, 0.5
 
     def scale(value: float) -> float:
@@ -247,25 +255,30 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
         return bottom - (value - minimum) * (bottom - top) / (maximum - minimum)
 
     out = ['<g id="panel-a-path-efficiency" aria-label="Path efficiency, five seeds per design">',
-           '<text x="7" y="29" class="poster-stat-title">Path efficiency</text>',
-           f'<path d="M {left},{top} V {bottom} H 64" stroke="#171717" '
+           '<text id="panel-a-path-efficiency-ylabel" x="9" y="52.5" '
+           'text-anchor="middle" transform="rotate(-90 9 52.5)" '
+           'class="poster-stat-title">Path efficiency</text>',
+           f'<path d="M {left},{top} V {bottom} H 71" stroke="#171717" '
            'stroke-width="0.7" fill="none"/>']
-    for tick in (0.0, 0.25, 0.5):
+    for tick_index, tick in enumerate((0.0, 0.25, 0.5)):
         ty = scale(tick)
         out.extend((
             f'<path d="M {left-2},{ty:g} H {left}" stroke="#171717" stroke-width="0.7"/>',
-            f'<text x="{left-4}" y="{ty+3:g}" text-anchor="end" '
+            f'<text id="panel-a-path-efficiency-ytick-{tick_index}" '
+            f'x="{left-4}" y="{ty+3:g}" text-anchor="end" '
             f'class="poster-stat-tick">{tick:g}</text>',
         ))
-    for family, cx in (("NG", 29), ("UG", 44), ("FG", 59)):
+    for family, cx in (("NG", 39), ("UG", 53), ("FG", 67)):
         values = [float(row["path_efficiency"]) for row in rows[family]]
         for value, jitter in zip(values, (-3.8, -1.9, 0, 1.9, 3.8)):
             out.append(f'<circle cx="{cx+jitter:g}" cy="{scale(value):g}" r="1.55" '
                        f'fill="{COLORS[family]}"/>')
         mean_y = scale(sum(values) / len(values))
         out.extend((
-            f'<path d="M {cx-5},{mean_y:g} H {cx+5}" stroke="#171717" stroke-width="1"/>',
-            f'<text x="{cx}" y="80" text-anchor="middle" class="poster-stat-tick">{family}</text>',
+            f'<path d="M {cx-4},{mean_y:g} H {cx+4}" stroke="#171717" stroke-width="1"/>',
+            f'<text id="panel-a-path-efficiency-category-{family}" '
+            f'x="{cx}" y="80" text-anchor="middle" '
+            f'class="poster-stat-tick">{family}</text>',
         ))
     out.append('</g>')
     return "\n".join(out)
@@ -354,8 +367,37 @@ def behavior_schematic() -> str:
     ))
 
 
-def credit_schematic(y: int, crossed: str, name: str) -> str:
-    """Compact the original DG/TS/Policy motif while retaining both arrows."""
+def credit_schematic(y: int, crossed: str, name: str,
+                     elbow_arrows: bool = False) -> str:
+    """Compact the DG/TS/Policy motif while retaining both directed arrows."""
+    if elbow_arrows:
+        # The lower TS box leaves a narrow column for the result plots. The
+        # crossed connection stays visible on the vertical leg of its arrow.
+        cross_x = 25 if crossed == "push" else 51
+        return "\n".join((
+            f'<g id="{name}-schematic">',
+            f'<rect x="4" y="{y}" width="19" height="21" rx="4" '
+            'fill="#c58c8c" stroke="#933333" stroke-width="0.9"/>',
+            f'<rect x="29" y="{y+12}" width="19" height="21" rx="4" '
+            'fill="#edf4f2" stroke="#257873" stroke-width="0.9"/>',
+            f'<rect x="53" y="{y}" width="22" height="21" rx="4" '
+            'fill="#abc9e0" stroke="#16639a" stroke-width="0.9"/>',
+            f'<text x="13.5" y="{y+14}" text-anchor="middle" class="mini-label">DG</text>',
+            f'<text x="38.5" y="{y+26}" text-anchor="middle" class="mini-label">TS</text>',
+            f'<text x="64" y="{y+14}" text-anchor="middle" class="mini-label">Pol.</text>',
+            f'<path d="M 29,{y+22.5} H 25 V {y+10.5} H 23" '
+            'fill="none" stroke="#933333" stroke-width="1.2"/>',
+            f'<path d="M 26,{y+8} L 23,{y+10.5} L 26,{y+13}" '
+            'fill="none" stroke="#933333" stroke-width="1"/>',
+            f'<path d="M 48,{y+22.5} H 51 V {y+10.5} H 53" '
+            'fill="none" stroke="#16639a" stroke-width="1.2"/>',
+            f'<path d="M 50,{y+8} L 53,{y+10.5} L 50,{y+13}" '
+            'fill="none" stroke="#16639a" stroke-width="1"/>',
+            f'<path d="M {cross_x-4},{y+15} L {cross_x+4},{y+25} '
+            f'M {cross_x-4},{y+25} L {cross_x+4},{y+15}" '
+            'stroke="#171717" stroke-width="1.7" fill="none"/>',
+            '</g>',
+        ))
     cross_x = 27 if crossed == "push" else 56
     return "\n".join((
         f'<g id="{name}-schematic">',
@@ -383,7 +425,14 @@ def credit_schematic(y: int, crossed: str, name: str) -> str:
 
 def story_overlay(rows: dict[str, list[dict[str, str]]],
                   selected: dict[str, dict[str, str]],
-                  behavior: dict[str, dict[str, list[float]]]) -> str:
+                  behavior: dict[str, dict[str, list[float]]],
+                  *, peak_panel: str | None = None,
+                  trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
+                  elbow_arrows: bool = False,
+                  paired_peak_layout: bool = False) -> str:
+    peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
+                  '.peak-label{font:700 9px Arial,sans-serif}'
+                  if peak_panel is not None else '')
     out = ['<g id="story-overlay">',
            '<style>.story-heading{font:700 12px Arial,sans-serif;fill:#25313a}'
            '.story-letter{font:700 13px Arial,sans-serif;fill:#25313a}'
@@ -397,50 +446,70 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}'
-           '.behavior-title{font:700 10px Arial,sans-serif;fill:#25313a}'
-           '.behavior-unit{font:9px Arial,sans-serif;fill:#25313a}'
+           '.behavior-y-label{font:10px Arial,sans-serif;fill:#25313a}'
            '.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}'
-           '</style>',
+           f'{peak_style}</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
-           '<text x="231" y="12" class="story-letter">B</text>',
-           '<text x="248" y="12" class="story-heading">Behavior ablation</text>',
            '<text x="6" y="94" class="story-letter">C</text>',
            '<text x="23" y="94" class="story-heading">Push ablation</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
-           '<text x="469" y="12" class="story-letter">E</text>',
-           '<text x="486" y="12" class="story-heading">Fields</text>']
-    for x, family in zip((68, 121, 174), ("NG", "UG", "FG")):
+           f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
+           (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
+            'class="peak-heading">Peak spread</text>'
+            if peak_panel is not None else
+            '<text x="486" y="12" class="story-heading">Fields</text>')]
+    centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+    for center_x, family in zip(centers, ("NG", "UG", "FG")):
+        x = center_x - trajectory_tile_size / 2
         out.extend((
-            f'<text x="{x+25}" y="26" text-anchor="middle" class="story-label" '
+            f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
             f'fill="{COLORS[family]}">{family}</text>',
-            f'<image x="{x}" y="30" width="50" height="50" '
+            f'<image x="{x:g}" y="32" width="{trajectory_tile_size}" '
+            f'height="{trajectory_tile_size}" '
             'preserveAspectRatio="none" '
             f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
-            f'<rect x="{x}" y="30" width="50" height="50" '
+            f'<rect x="{x:g}" y="32" width="{trajectory_tile_size}" '
+            f'height="{trajectory_tile_size}" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
-    out.append(behavior_schematic())
+    behavior_shift = -34 if paired_peak_layout else 0
+    out.extend((
+        f'<text x="{231 + behavior_shift}" y="12" class="story-letter">B</text>',
+        f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Behavior ablation</text>',
+    ))
+    if behavior_shift:
+        out.append(f'<g transform="translate({behavior_shift},0)">{behavior_schematic()}</g>')
+    else:
+        out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
-        out.append(behavior_card(metric, behavior[metric], x))
-    # Layer and unit labels are SVG text added after the quantitative marks.
-    for x, measure in ((296, "Info · bit/step"), (386, "Reliability")):
-        out.extend((f'<text x="{x+42}" y="25" text-anchor="middle" class="behavior-title">DG</text>',
-                    f'<text x="{x+42}" y="35" text-anchor="middle" class="behavior-unit">{measure}</text>'))
-    out.append(credit_schematic(105, "push", "push"))
-    out.append(credit_schematic(170, "pull", "pull"))
-    for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
-        out.extend((
-            f'<image x="487" y="{y}" width="40" height="40" '
-            f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
-            f'<rect x="487" y="{y}" width="40" height="40" '
-            'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
-            f'<text x="507" y="{y+49}" text-anchor="middle" '
-            f'class="field-label">DG {unit}</text>',
-        ))
+        out.append(behavior_card(metric, behavior[metric], x + behavior_shift))
+    # Keep B's metric names on the y axes, as in the push and pull rows.
+    for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
+                               ("dg_reliability", 386, "Δ reliability")):
+        x += behavior_shift
+        y_center = 30 + RESULT_AXIS_HEIGHT / 2
+        out.append(f'<text id="behavior-{metric}-ylabel" '
+                   f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
+                   f'transform="rotate(-90 {x+6} {y_center:.3f})" '
+                   f'class="behavior-y-label">{measure}</text>')
+    out.append(credit_schematic(105, "push", "push", elbow_arrows))
+    out.append(credit_schematic(170, "pull", "pull", elbow_arrows))
+    if peak_panel is None:
+        for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
+            out.extend((
+                f'<image x="487" y="{y}" width="40" height="40" '
+                f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
+                f'<rect x="487" y="{y}" width="40" height="40" '
+                'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
+                f'<text x="507" y="{y+49}" text-anchor="middle" '
+                f'class="field-label">DG {unit}</text>',
+            ))
+    else:
+        out.append(peak_panel)
     out.append('</g>')
     return "\n".join(out)
 
@@ -470,12 +539,11 @@ def standalone(body: str, width: int, height: int) -> str:
             '</style>' + body + '</svg>\n')
 
 
-def build() -> None:
+def layout_base(extra_plot_shift: float = 0,
+                metric_extra_shifts: tuple[float, float, float, float] = (0, 0, 0, 0)) -> str:
+    """Prepare the editable source canvas shared by the two story variants."""
     if not BASE_SVG.is_file():
         raise FileNotFoundError("Build the compact Figure 2 source before the story layout")
-    rows = terminal_rows()
-    selected = selected_trajectories()
-    behavior = behavior_differences()
     svg = BASE_SVG.read_text()
     for old, new in (('height="210pt"', 'height="230pt"'),
                      ('viewBox="0 0 540 210"', 'viewBox="0 0 540 230"'),
@@ -490,8 +558,19 @@ def build() -> None:
                   "component_behavior_dg_information", "component_behavior_readout_reliability"):
         svg = hide_group(svg, group)
     for prefix in ("push", "pull"):
-        for metric in ("dg_information", "map_overlap", "peak_coverage", "graph_edges"):
-            svg = move_group(svg, f"component_{prefix}_{metric}", -68, 10)
+        for metric, metric_shift in zip(
+                ("dg_information", "map_overlap", "peak_coverage", "graph_edges"),
+                metric_extra_shifts):
+            svg = move_group(svg, f"component_{prefix}_{metric}",
+                             -68 + extra_plot_shift + metric_shift, 10)
+    return svg
+
+
+def build() -> None:
+    rows = terminal_rows()
+    selected = selected_trajectories()
+    behavior = behavior_differences()
+    svg = layout_base()
     svg = re.sub(r"</svg>\s*$", story_overlay(rows, selected, behavior) + "\n</svg>\n", svg)
     export(svg, STORY)
 
