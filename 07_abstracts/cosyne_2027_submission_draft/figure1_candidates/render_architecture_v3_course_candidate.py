@@ -38,7 +38,7 @@ PEAK_CELLS_XY = {4: (2, 4), 1: (6, 15), 11: (17, 3)}
 FAMILIES = (("C01", "inapplicable", "NG"),
             ("C05", "temporal", "UG"),
             ("C15", "temporal", "FG"))
-SIZE_IN = (8.5, 1.9)
+SIZE_IN = (7.5, 1.9)
 
 
 def sha256(path: Path) -> str:
@@ -73,20 +73,20 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None
         ax.fill_between(x, mean - sem, mean + sem,
                         color=COLOR[family], alpha=0.17, linewidth=0)
     ax.set_xlim(0, 100)
-    ax.set_xticks((0, 50, 100))
+    ax.set_xticks((0, 100))
     ax.tick_params(axis="both", labelsize=8, length=2, width=0.6, pad=1)
     ax.grid(axis="y", color="#E6E8E9", linewidth=0.5)
     ax.spines[["top", "right"]].set_visible(False)
     if log:
         ax.set_yscale("log")
         ax.set_ylim(0.01, 5)
-        ax.set_yticks((0.01, 0.1, 1))
+        ax.set_yticks((0.01, 1))
         ax.yaxis.set_major_formatter(LogFormatterMathtext())
         ax.yaxis.set_minor_locator(NullLocator())
         ax.set_ylabel("reward/step", fontsize=8)
     else:
         ax.set_ylim(0, 0.22)
-        ax.set_yticks((0, 0.1, 0.2))
+        ax.set_yticks((0, 0.2))
         ax.set_ylabel("bits/step", fontsize=8)
 
 
@@ -139,44 +139,43 @@ def main() -> None:
     tiles = field_tiles()
 
     fig = plt.figure(figsize=SIZE_IN, facecolor="white")
+    # Keep the original 5.41-inch artwork at native size. The remaining
+    # 2.09 inches hold two narrow course plots above three unlabeled maps.
     ax_art = fig.add_axes([0, 0, 5.40856 / SIZE_IN[0], 1])
     ax_art.imshow(architecture, interpolation="lanczos")
     ax_art.axis("off")
 
-    fig.text(5.58 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
+    fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
-    ax_info = fig.add_axes([5.82 / SIZE_IN[0], 1.00 / 1.9,
-                            0.90 / SIZE_IN[0], 0.55 / 1.9])
+    ax_info = fig.add_axes([5.70 / SIZE_IN[0], 0.99 / 1.9,
+                            0.60 / SIZE_IN[0], 0.47 / 1.9])
     course(ax_info, online, "spatial_information", log=False)
-    for x, family, label in ((6.35, "C01", "NG"), (6.60, "C05", "UG"),
-                             (6.85, "C15", "FG")):
-        fig.text(x / SIZE_IN[0], 1.78 / 1.9, label, va="top", fontsize=8,
+    for x, family, label in ((5.64, "C01", "NG"), (5.97, "C05", "UG"),
+                             (6.30, "C15", "FG")):
+        fig.text(x / SIZE_IN[0], 1.62 / 1.9, label, va="top", fontsize=8,
                  fontweight="bold", color=COLOR[family])
 
-    fig.text(7.16 / SIZE_IN[0], 1.84 / 1.9, "C  Intrinsic reward", va="top",
-             fontsize=9.5, fontweight="bold", color="#20272C")
-    ax_reward = fig.add_axes([7.35 / SIZE_IN[0], 1.00 / 1.9,
-                              0.90 / SIZE_IN[0], 0.55 / 1.9])
+    fig.text(6.67 / SIZE_IN[0], 1.84 / 1.9,
+             "C  Intrinsic\nreward (log)", va="top", fontsize=8.8,
+             linespacing=0.9, fontweight="bold", color="#20272C")
+    ax_reward = fig.add_axes([6.88 / SIZE_IN[0], 0.99 / 1.9,
+                              0.56 / SIZE_IN[0], 0.47 / 1.9])
     course(ax_reward, reward, "intrinsic_mean", log=True)
-    for center in (6.27, 7.80):
-        fig.text(center / SIZE_IN[0], 0.82 / 1.9, "Frames (M)",
-                 ha="center", va="center", fontsize=8, color="#20272C")
+    fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9, "Training frames (M)",
+             ha="center", va="center", fontsize=8, color="#20272C")
 
-    fig.text(5.58 / SIZE_IN[0], 0.70 / 1.9, "D  FG fields · seed 123", va="top",
+    fig.text(5.52 / SIZE_IN[0], 0.73 / 1.9, "D  Example DG place field", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
     for index, unit in enumerate(UNITS):
-        x = 5.67 + 0.86 * index
-        ax = fig.add_axes([x / SIZE_IN[0], 0.055 / 1.9,
-                           0.45 / SIZE_IN[0], 0.45 / 1.9])
+        x = 5.54 + 0.65 * index
+        ax = fig.add_axes([x / SIZE_IN[0], 0.005 / 1.9,
+                           0.54 / SIZE_IN[0], 0.54 / 1.9])
         ax.imshow(tiles[unit], interpolation="nearest")
         ax.set_xticks([])
         ax.set_yticks([])
         for spine in ax.spines.values():
             spine.set_linewidth(0.55)
             spine.set_edgecolor("#77858A")
-        fig.text((x + 0.47) / SIZE_IN[0], 0.27 / 1.9, f"DG {unit}",
-                 ha="left", va="center",
-                 fontsize=8, color="#20272C")
 
     for suffix in ("pdf", "svg", "png"):
         destination = HERE / f"{STEM}.{suffix}"

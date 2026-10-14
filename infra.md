@@ -2411,7 +2411,10 @@ For each finding, record:
   [manifest](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/04_architecture_v3_dg_reward_fields_manifest.json).
   The renderer checks those cells against the indexed per-unit min–max atlas.
   Future field selections should balance the unit metrics with spatial spread
-  of maxima and state that tradeoff in the caption.
+  of maxima and state that tradeoff in the caption. The final right-side
+  composition keeps the v3 artwork at 5.41 × 1.90 inches inside a 7.5-inch
+  figure by narrowing both course axes and moving per-field DG labels into
+  the caption; PDF export at 540 × 136.8 points verifies that width.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure
