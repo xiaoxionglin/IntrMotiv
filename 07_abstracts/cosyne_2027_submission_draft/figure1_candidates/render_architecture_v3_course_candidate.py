@@ -144,6 +144,10 @@ def main() -> None:
     ax_art = fig.add_axes([0, 0, 5.40856 / SIZE_IN[0], 1])
     ax_art.imshow(architecture, interpolation="lanczos")
     ax_art.axis("off")
+    # The v3 title touches the top-left edge; place A on the image corner.
+    fig.text(0.040 / SIZE_IN[0], 1.16 / 1.9, "A", va="top",
+             fontsize=9.5, fontweight="bold", color="#20272C",
+             bbox={"facecolor": "white", "edgecolor": "none", "pad": 1.0})
 
     fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
@@ -194,6 +198,7 @@ def main() -> None:
         "size_inches": list(SIZE_IN),
         "font": font,
         "architecture": "unchanged v3 SVG rendered at 3500 pixels wide",
+        "panel_a_label": "small white badge on the upper-left observation image",
         "courses": "arithmetic five-seed mean ± SEM, same verified runs, 1–99M frames",
         "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
         "reward_log_scale": "log10 display axis; arithmetic means and additive SEM unchanged",

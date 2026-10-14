@@ -2414,7 +2414,9 @@ For each finding, record:
   of maxima and state that tradeoff in the caption. The final right-side
   composition keeps the v3 artwork at 5.41 × 1.90 inches inside a 7.5-inch
   figure by narrowing both course axes and moving per-field DG labels into
-  the caption; PDF export at 540 × 136.8 points verifies that width.
+  the caption; PDF export at 540 × 136.8 points verifies that width. The v3
+  top-left title leaves too little room for a panel letter; a small A badge
+  on the observation image avoids covering either title or encoder box.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure

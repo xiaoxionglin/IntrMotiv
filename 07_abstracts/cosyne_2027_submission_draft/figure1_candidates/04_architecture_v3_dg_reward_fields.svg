@@ -2187,25 +2187,36 @@ L 531.36 97.56
    </g>
   </g>
   <g id="text_11">
-   <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="397.44" y="11.119922" transform="rotate(-0 397.44 11.119922)">B  DG info</text>
+   <g id="patch_23">
+    <path d="M 1.835 62.999687
+L 10.785781 62.999687
+L 10.785781 52.235
+L 1.835 52.235
+z
+" style="fill: #ffffff"/>
+   </g>
+   <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="2.88" y="60.079922" transform="rotate(-0 2.88 60.079922)">A</text>
   </g>
   <g id="text_12">
-   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #0072b2" x="406.08" y="25.88625" transform="rotate(-0 406.08 25.88625)">NG</text>
+   <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="397.44" y="11.119922" transform="rotate(-0 397.44 11.119922)">B  DG info</text>
   </g>
   <g id="text_13">
-   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #d55e00" x="429.84" y="25.88625" transform="rotate(-0 429.84 25.88625)">UG</text>
+   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #0072b2" x="406.08" y="25.88625" transform="rotate(-0 406.08 25.88625)">NG</text>
   </g>
   <g id="text_14">
-   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #009e73" x="453.6" y="25.88625" transform="rotate(-0 453.6 25.88625)">FG</text>
+   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #d55e00" x="429.84" y="25.88625" transform="rotate(-0 429.84 25.88625)">UG</text>
   </g>
   <g id="text_15">
+   <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; text-anchor: start; fill: #009e73" x="453.6" y="25.88625" transform="rotate(-0 453.6 25.88625)">FG</text>
+  </g>
+  <g id="text_16">
    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Arial'; fill: #20272c" transform="translate(480.24 10.618875)">C  Intrinsic</text>
    <text style="font-weight: 700; font-size: 8.8px; font-family: 'Arial'; fill: #20272c" transform="translate(480.24 18.121012)">reward (log)</text>
   </g>
-  <g id="text_16">
+  <g id="text_17">
    <text style="font-size: 8px; font-family: 'Arial'; text-anchor: middle; fill: #20272c" x="467.28" y="80.55" transform="rotate(-0 467.28 80.55)">Training frames (M)</text>
   </g>
-  <g id="text_17">
+  <g id="text_18">
    <text style="font-weight: 700; font-size: 9.5px; font-family: 'Arial'; text-anchor: start; fill: #20272c" x="397.44" y="91.155703" transform="rotate(-0 397.44 91.155703)">D  Example DG place field</text>
   </g>
  </g>
