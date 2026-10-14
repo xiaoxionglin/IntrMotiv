@@ -2229,6 +2229,14 @@ For each finding, record:
   author's choice. Acceptance: apply the chosen role mapping in canonical
   figure sources and dependent icons, then inspect the final PDF and captions
   for consistent unit, architecture, and mechanism identities.
+  - **14 October DG identity refinement:** The author favored the neutral-NG
+    option but found its ochre and teal DG identities too close to UG and FG.
+    Two hash-recorded vector variants now assign violet and rose to the DG
+    identities emphasized by overlap and reliability; the second uses muted
+    taupe and cyan for the remaining two. Review the full-size A2/A3 previews
+    before promoting one mapping. The exact-replacement renderer retains the
+    original layout and numeric data, and the expanded Overleaf package carries
+    both options.
   The submission-specific [grouped renderer](07_abstracts/cosyne_2027_submission_draft/render_submission_panels.py)
   now places cached seed-level contrasts into one final-width figure with
   9–10-point Arial text. It uses hash-verified lightweight peak coordinates for

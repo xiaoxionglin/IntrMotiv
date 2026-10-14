@@ -123,8 +123,13 @@ PALETTE_TRIAL_ASSETS = {
     "figures/palette_trials/palette_key.png": PALETTE_TRIAL_DIR / "palette_key.png",
     "figures/palette_trials/comparison_figure1.png": PALETTE_TRIAL_DIR / "comparison_figure1.png",
     "figures/palette_trials/comparison_figure2.png": PALETTE_TRIAL_DIR / "comparison_figure2.png",
+    "figures/palette_trials/comparison_figure1_A_refinements.png": (
+        PALETTE_TRIAL_DIR / "comparison_figure1_A_refinements.png"),
+    "figures/palette_trials/comparison_figure2_A_refinements.png": (
+        PALETTE_TRIAL_DIR / "comparison_figure2_A_refinements.png"),
 }
-for palette_name in ("slate_ng", "purple_pull", "role_neutral"):
+for palette_name in ("slate_ng", "slate_ng_violet_rose",
+                     "slate_ng_tuned_dg", "purple_pull", "role_neutral"):
     for figure_name in ("figure1", "figure2"):
         for extension in ("svg", "pdf"):
             filename = f"{palette_name}_{figure_name}.{extension}"
@@ -346,8 +351,12 @@ def build_full() -> None:
                             "- `FIGURE_PALETTE_TRIALS_NOTES.md`",
                             "- `figures/palette_trials/comparison_figure1.png`",
                             "- `figures/palette_trials/comparison_figure2.png`",
+                            "- `figures/palette_trials/comparison_figure1_A_refinements.png`",
+                            "- `figures/palette_trials/comparison_figure2_A_refinements.png`",
                             "- `figures/palette_trials/palette_key.png`",
                             "- `figures/palette_trials/slate_ng_figure1.pdf` and `slate_ng_figure2.pdf`",
+                            "- `figures/palette_trials/slate_ng_violet_rose_figure1.pdf` and `slate_ng_violet_rose_figure2.pdf`",
+                            "- `figures/palette_trials/slate_ng_tuned_dg_figure1.pdf` and `slate_ng_tuned_dg_figure2.pdf`",
                             "- `figures/palette_trials/purple_pull_figure1.pdf` and `purple_pull_figure2.pdf`",
                             "- `figures/palette_trials/role_neutral_figure1.pdf` and `role_neutral_figure2.pdf`",
                             "", "## Mean intrinsic reward course", "",
