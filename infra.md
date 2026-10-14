@@ -2221,6 +2221,14 @@ For each finding, record:
   C15 green close to CA3/landmark teal. The palette now reserves the three
   architecture hues for architecture comparisons; compact condition and worker
   plots use neutral markers, while the schematic push/pull recolor is pending.
+  The [Figure 1/2 palette previews](07_abstracts/cosyne_2027_submission_draft/figure_palette_candidates/README.md)
+  now compare the author-edited 7.5-inch figures with two colored alternatives
+  and the standard's neutral solid-push/dashed-pull encoding. Exact source
+  hashes and color substitutions are recorded, and the plotted data stay fixed.
+  This makes the overlap visible at print size; promotion is pending the
+  author's choice. Acceptance: apply the chosen role mapping in canonical
+  figure sources and dependent icons, then inspect the final PDF and captions
+  for consistent unit, architecture, and mechanism identities.
   The submission-specific [grouped renderer](07_abstracts/cosyne_2027_submission_draft/render_submission_panels.py)
   now places cached seed-level contrasts into one final-width figure with
   9–10-point Arial text. It uses hash-verified lightweight peak coordinates for

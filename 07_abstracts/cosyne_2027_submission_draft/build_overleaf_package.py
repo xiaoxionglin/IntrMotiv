@@ -116,6 +116,20 @@ LAYOUT_TRIAL_ASSETS = {
         RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "selected_figures" /
         "trajectories/COS27_C15_TEMPORAL_S17.png"),
 }
+PALETTE_TRIAL_DIR = DRAFT_DIR / "figure_palette_candidates"
+PALETTE_TRIAL_ASSETS = {
+    "FIGURE_PALETTE_TRIALS_NOTES.md": PALETTE_TRIAL_DIR / "README.md",
+    "data/Figure_palette_trials_manifest.json": PALETTE_TRIAL_DIR / "manifest.json",
+    "figures/palette_trials/palette_key.png": PALETTE_TRIAL_DIR / "palette_key.png",
+    "figures/palette_trials/comparison_figure1.png": PALETTE_TRIAL_DIR / "comparison_figure1.png",
+    "figures/palette_trials/comparison_figure2.png": PALETTE_TRIAL_DIR / "comparison_figure2.png",
+}
+for palette_name in ("slate_ng", "purple_pull", "role_neutral"):
+    for figure_name in ("figure1", "figure2"):
+        for extension in ("svg", "pdf"):
+            filename = f"{palette_name}_{figure_name}.{extension}"
+            PALETTE_TRIAL_ASSETS[f"figures/palette_trials/{filename}"] = (
+                PALETTE_TRIAL_DIR / filename)
 for metric in ("path_efficiency", "visited_cell_fraction",
                "stationary_step_fraction", "mean_physical_step_distance"):
     for extension in ("svg", "pdf", "png"):
@@ -270,6 +284,7 @@ def build_full() -> None:
         for svg_name, source_path in CURRENT_SVG_SOURCES.items():
             assets[f"figures/{svg_name}"] = source_path
         assets.update(LAYOUT_TRIAL_ASSETS)
+        assets.update(PALETTE_TRIAL_ASSETS)
 
         groups: dict[str, list[str]] = {}
         for source_path in candidate_svgs:
@@ -327,6 +342,14 @@ def build_full() -> None:
                             "- `FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`",
                             "- `figures/Figure2_metric_icons_preview.pdf`",
                             "- `FIGURE2_METRIC_ICONS_NOTES.md`",
+                            "", "## Figure 1 and Figure 2 palette trials", "",
+                            "- `FIGURE_PALETTE_TRIALS_NOTES.md`",
+                            "- `figures/palette_trials/comparison_figure1.png`",
+                            "- `figures/palette_trials/comparison_figure2.png`",
+                            "- `figures/palette_trials/palette_key.png`",
+                            "- `figures/palette_trials/slate_ng_figure1.pdf` and `slate_ng_figure2.pdf`",
+                            "- `figures/palette_trials/purple_pull_figure1.pdf` and `purple_pull_figure2.pdf`",
+                            "- `figures/palette_trials/role_neutral_figure1.pdf` and `role_neutral_figure2.pdf`",
                             "", "## Mean intrinsic reward course", "",
                             "- `figures/01b_online_intrinsic_reward_course.pdf`",
                             "- `figures/01b_online_intrinsic_reward_course.svg`",

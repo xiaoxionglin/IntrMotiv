@@ -1,0 +1,205 @@
+{
+  "schema": "cosyne27-color-palette-preview/v1",
+  "sources": {
+    "figure1": {
+      "path": "figure1_candidates/06_architecture_v3_goal_gate_header.svg",
+      "sha256": "879e0fd4c2f355597c6e0765bb5a3c9accfd1e85c95560be18d83aa731161ea0"
+    },
+    "figure2": {
+      "path": "Figure2_story_icons.svg",
+      "sha256": "29d43b5f7a2597050d013e53c83e9627c8a665f35047eae101026cf10c14a14c"
+    }
+  },
+  "scope": "Exact vector color substitutions only; geometry, data, Viridis trajectory colors, embedded images, and place fields unchanged",
+  "palettes": {
+    "slate_ng": {
+      "colors": {
+        "name": "slate_ng",
+        "description": "Neutral NG; red push and blue pull; violet, ochre, and teal DG identities",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#9D3349",
+        "pull": "#175E91",
+        "dg_blue": "#735DA8",
+        "dg_red": "#C7922F",
+        "dg_yellow": "#3E9C9C",
+        "dg_fourth": "#C477A5",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "228475d426456d532aa8c3873deeb46f92703e3917a1d19385bad3013647648e"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "6c929e42517badb54c92eb854be5d872eca8805e6a97ea96c86efedfa8525dda"
+        }
+      }
+    },
+    "purple_pull": {
+      "colors": {
+        "name": "purple_pull",
+        "description": "NG/UG/FG stay categorical; umber push and purple pull; cyan, rose, and ochre DG identities",
+        "ng": "#276FA6",
+        "ug": "#C85F24",
+        "fg": "#198E71",
+        "push": "#8C5231",
+        "pull": "#6E52A3",
+        "dg_blue": "#3AA9B4",
+        "dg_red": "#C2536F",
+        "dg_yellow": "#C7A83F",
+        "dg_fourth": "#687F55",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "949ceaf72eff59cdc0ade34e1aabdadbb1cb2aaf3b81bff775a7e2c666e6c3ae"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "b84aafa4b2c45dde18062d721b5aa7a7a7c7337266fdec22de553bb54cb40ddd"
+        }
+      }
+    },
+    "role_neutral": {
+      "colors": {
+        "name": "role_neutral",
+        "description": "Project color standard: architecture owns hue; neutral solid push, dashed pull; ochre, violet, and rose DG identities",
+        "ng": "#0072B2",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#424B53",
+        "pull": "#424B53",
+        "dg_blue": "#B58C22",
+        "dg_red": "#8B6CA8",
+        "dg_yellow": "#BD5C89",
+        "dg_fourth": "#75838C",
+        "pull_dashed": true
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "64e03183d36fcb7dd3467f0d13d6c74db14f9078ca0572bab873899a5c808abd"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "1208ddb93741d7f9de4eaa36dafdbb585c2acc1bdbb8579a81f05da567214412"
+        }
+      }
+    }
+  }
+}
