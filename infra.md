@@ -2416,8 +2416,13 @@ For each finding, record:
   composition keeps the v3 artwork at 5.41 × 1.90 inches inside a 7.5-inch
   figure by narrowing both course axes and moving per-field DG labels into
   the caption; PDF export at 540 × 136.8 points verifies that width. The v3
-  top-left title leaves too little room for a panel letter; a small A badge
-  on the observation image avoids covering either title or encoder box.
+  top-left title leaves too little room for a panel letter. A later candidate
+  inlined the original SVG elements, shifted only that title to place A on the
+  heading line, and kept the source file unchanged. Its PDF preserves native
+  paths and text alongside the original embedded scene and maze images. For
+  further layout changes, import source SVG elements instead of rasterizing
+  the architecture; verify unique IDs and render the complete composition,
+  since transparent CA3 circles appear lighter over the page background.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure

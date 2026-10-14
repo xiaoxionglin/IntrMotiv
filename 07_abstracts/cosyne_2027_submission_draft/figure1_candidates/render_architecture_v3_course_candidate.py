@@ -11,7 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
-import tempfile
+import xml.etree.ElementTree as ET
 
 import matplotlib
 
@@ -39,21 +39,69 @@ FAMILIES = (("C01", "inapplicable", "NG"),
             ("C05", "temporal", "UG"),
             ("C15", "temporal", "FG"))
 SIZE_IN = (7.5, 1.9)
+SVG_NS = "http://www.w3.org/2000/svg"
+XLINK_NS = "http://www.w3.org/1999/xlink"
+ARCHITECTURE_WIDTH_IN = 5.4085569
+VIS_TITLE_SHIFT_MM = 3.8
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def original_architecture() -> Image.Image:
-    """Render the unchanged authored v3 artwork at >600 dpi in the figure."""
-    with tempfile.TemporaryDirectory(prefix="figure1_v3_") as temporary:
-        image_path = Path(temporary) / "architecture.png"
-        subprocess.run(
-            ["inkscape", str(ARCHITECTURE), f"--export-filename={image_path}",
-             "--export-width=3500"], check=True, capture_output=True, text=True)
-        with Image.open(image_path) as source:
-            return source.convert("RGB")
+def inline_architecture(composite_svg: Path) -> None:
+    """Replace Matplotlib's placeholder with v3's native SVG elements.
+
+    The source SVG uses IDs for markers, glyphs, and filters. Its IDs are
+    disjoint from Matplotlib's IDs, so preserve them and their references.
+    """
+    ET.register_namespace("", SVG_NS)
+    ET.register_namespace("xlink", XLINK_NS)
+    ET.register_namespace("inkscape", "http://www.inkscape.org/namespaces/inkscape")
+    ET.register_namespace("sodipodi", "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd")
+    composite = ET.parse(composite_svg)
+    root = composite.getroot()
+    target = next((node for node in root.iter() if node.get("id") == "axes_1"), None)
+    if target is None:
+        raise ValueError("Architecture placeholder axes missing")
+    for child in list(target):
+        target.remove(child)
+
+    source = ET.parse(ARCHITECTURE).getroot()
+    if source.get("viewBox") != "0 0 137.37734 48.268308":
+        raise ValueError("Architecture v3 viewBox changed")
+    nested = ET.Element(f"{{{SVG_NS}}}svg", {
+        "id": "architecture_v3_vector",
+        "x": "0", "y": "0",
+        "width": f"{ARCHITECTURE_WIDTH_IN * 72:.6f}",
+        "height": f"{SIZE_IN[1] * 72:.6f}",
+        "viewBox": source.get("viewBox"),
+        "preserveAspectRatio": "xMinYMin meet",
+    })
+    for child in source:
+        if child.tag.rsplit("}", 1)[-1] != "namedview":
+            nested.append(child)
+
+    title = next(node for node in nested.iter()
+                 if node.tag == f"{{{SVG_NS}}}text"
+                 and "Vis. Encoder" in "".join(node.itertext()))
+    # Shift only the heading, leaving the modules and all arrow geometry at
+    # their authored size. The text and its two ancestors each have an x scale.
+    source_units_per_mm = 1 / (0.26458333 * 0.28110339 * 5.1396257)
+    title.set("x", f"{float(title.get('x')) + VIS_TITLE_SHIFT_MM * source_units_per_mm:.6f}")
+    for node in nested.iter():
+        if node.tag == f"{{{SVG_NS}}}text" and "temopral" in "".join(node.itertext()):
+            for descendant in node.iter():
+                if descendant.text:
+                    descendant.text = descendant.text.replace("temopral", "temporal")
+
+    target.append(nested)
+    all_ids = [node.get("id") for node in root.iter() if node.get("id")]
+    if len(all_ids) != len(set(all_ids)):
+        raise ValueError("Duplicate SVG IDs after architecture import")
+    composite.write(composite_svg, encoding="utf-8", xml_declaration=True)
+    composite_svg.write_text("\n".join(line.rstrip() for line in
+                                       composite_svg.read_text().splitlines()) + "\n")
 
 
 def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None:
@@ -133,7 +181,6 @@ def verify_selection() -> dict[int, dict]:
 def main() -> None:
     font = style()
     metrics = verify_selection()
-    architecture = original_architecture()
     online = pd.read_csv(SOURCES["online"])
     reward = pd.read_csv(REWARD)
     tiles = field_tiles()
@@ -141,13 +188,12 @@ def main() -> None:
     fig = plt.figure(figsize=SIZE_IN, facecolor="white")
     # Keep the original 5.41-inch artwork at native size. The remaining
     # 2.09 inches hold two narrow course plots above three unlabeled maps.
-    ax_art = fig.add_axes([0, 0, 5.40856 / SIZE_IN[0], 1])
-    ax_art.imshow(architecture, interpolation="lanczos")
+    # The placeholder axes is filled with the source SVG after Matplotlib
+    # finishes its independent plots and labels.
+    ax_art = fig.add_axes([0, 0, ARCHITECTURE_WIDTH_IN / SIZE_IN[0], 1])
     ax_art.axis("off")
-    # The v3 title touches the top-left edge; place A on the image corner.
-    fig.text(0.040 / SIZE_IN[0], 1.16 / 1.9, "A", va="top",
-             fontsize=9.5, fontweight="bold", color="#20272C",
-             bbox={"facecolor": "white", "edgecolor": "none", "pad": 1.0})
+    fig.text(0.035 / SIZE_IN[0], 1.86 / 1.9, "A", va="top",
+             fontsize=9.5, fontweight="bold", color="#20272C")
 
     fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
@@ -172,7 +218,7 @@ def main() -> None:
              fontsize=9.5, fontweight="bold", color="#20272C")
     for index, unit in enumerate(UNITS):
         x = 5.54 + 0.65 * index
-        ax = fig.add_axes([x / SIZE_IN[0], 0.005 / 1.9,
+        ax = fig.add_axes([x / SIZE_IN[0], 0.035 / 1.9,
                            0.54 / SIZE_IN[0], 0.54 / 1.9])
         ax.imshow(tiles[unit], interpolation="nearest")
         ax.set_xticks([])
@@ -181,24 +227,28 @@ def main() -> None:
             spine.set_linewidth(0.55)
             spine.set_edgecolor("#77858A")
 
-    for suffix in ("pdf", "svg", "png"):
-        destination = HERE / f"{STEM}.{suffix}"
-        metadata = ({"Date": None} if suffix == "svg" else
-                    {"CreationDate": None, "ModDate": None} if suffix == "pdf" else None)
-        fig.savefig(destination, dpi=600 if suffix != "png" else 300,
-                    metadata=metadata)
-        if suffix == "svg":
-            destination.write_text("\n".join(line.rstrip() for line in
-                                            destination.read_text().splitlines()) + "\n")
+    svg = HERE / f"{STEM}.svg"
+    fig.savefig(svg, dpi=300, metadata={"Date": None})
     plt.close(fig)
+    inline_architecture(svg)
+    for suffix, options in (
+        ("pdf", ["--export-type=pdf"]),
+        ("png", [f"--export-width={round(SIZE_IN[0] * 300)}"]),
+    ):
+        destination = HERE / f"{STEM}.{suffix}"
+        subprocess.run(["inkscape", str(svg), *options,
+                        f"--export-filename={destination}"],
+                       check=True, capture_output=True, text=True)
 
     (HERE / f"{STEM}_manifest.json").write_text(json.dumps({
         "schema": "intrmotiv/figure1-v3-course-candidate/v1",
         "figure": STEM,
         "size_inches": list(SIZE_IN),
         "font": font,
-        "architecture": "unchanged v3 SVG rendered at 3500 pixels wide",
-        "panel_a_label": "small white badge on the upper-left observation image",
+        "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
+        "architecture_arrangement": {"vis_encoder_heading_shift_mm": VIS_TITLE_SHIFT_MM,
+                                     "push_legend_typo_corrected": True},
+        "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
         "courses": "arithmetic five-seed mean ± SEM, same verified runs, 1–99M frames",
         "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
         "reward_log_scale": "log10 display axis; arithmetic means and additive SEM unchanged",

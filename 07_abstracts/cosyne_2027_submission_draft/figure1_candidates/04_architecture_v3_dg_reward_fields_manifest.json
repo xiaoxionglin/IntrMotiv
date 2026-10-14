@@ -6,8 +6,12 @@
     1.9
   ],
   "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
-  "architecture": "unchanged v3 SVG rendered at 3500 pixels wide",
-  "panel_a_label": "small white badge on the upper-left observation image",
+  "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
+  "architecture_arrangement": {
+    "vis_encoder_heading_shift_mm": 3.8,
+    "push_legend_typo_corrected": true
+  },
+  "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
   "courses": "arithmetic five-seed mean \u00b1 SEM, same verified runs, 1\u201399M frames",
   "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
   "reward_log_scale": "log10 display axis; arithmetic means and additive SEM unchanged",
