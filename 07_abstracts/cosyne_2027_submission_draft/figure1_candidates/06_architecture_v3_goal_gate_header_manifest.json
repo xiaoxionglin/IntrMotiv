@@ -1,0 +1,97 @@
+{
+  "schema": "intrmotiv/figure1-v3-course-candidate/v1",
+  "figure": "06_architecture_v3_goal_gate_header",
+  "size_inches": [
+    7.5,
+    1.9
+  ],
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
+  "architecture_arrangement": {
+    "vis_encoder_heading_shift_mm": 3.8,
+    "push_legend_typo_corrected": true
+  },
+  "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
+  "courses": "arithmetic five-seed mean \u00b1 SEM, same verified runs, 1\u201399M frames",
+  "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
+  "fields": {
+    "condition": "COS27_C15_TEMPORAL",
+    "seed": 123,
+    "checkpoint_frames": 100007936,
+    "probe_decisions": 10001,
+    "visited_bins": 307,
+    "total_bins": 361,
+    "source_scale": "per-unit visited-bin min\u2013max; gray unvisited",
+    "units": {
+      "1": {
+        "spatial_information_bits": 0.167605260195476,
+        "active_fraction": 0.0214978502149785,
+        "mono_score": 0.2862946391105652,
+        "strict_monofield": false,
+        "peak_cell_xy": [
+          6,
+          15
+        ]
+      },
+      "4": {
+        "spatial_information_bits": 0.2583279061556332,
+        "active_fraction": 0.0168983101689831,
+        "mono_score": 1.0,
+        "strict_monofield": true,
+        "peak_cell_xy": [
+          2,
+          4
+        ]
+      },
+      "11": {
+        "spatial_information_bits": 0.1219118046891257,
+        "active_fraction": 0.0200979902009799,
+        "mono_score": 0.188021644949913,
+        "strict_monofield": false,
+        "peak_cell_xy": [
+          17,
+          3
+        ]
+      }
+    }
+  },
+  "source_sha256": {
+    "07_abstracts/cosyne_2027_submission_draft/architecture_v3.svg": "31f7fde40c461c46bde048336ae85845392f3e9069d80edc063c07f7779bfcb6",
+    "06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv": "827872585241426dd2356fa7deeef338c917740ab70f22a2f466ab13d1369950",
+    "06_experiments/results/cosyne_2027_intrinsic_reward_course/arm_summaries.csv": "50324126d9efe0ba093bc9b81315a63162071a1658e865954efe572c948aa09b",
+    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases_minmax/c15_temporal_s123.png": "d2300532c00b8befc546a1bc6013157855793b4b0655e2f6ac90d6b8bc1efb08",
+    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_unit_metrics.csv": "9e6cba3692c8c4813ee1afa3a7e5d7b8c9a088fb6d28aeca8d187015418f34ed",
+    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_seed_metrics.csv": "b7b044ef5b7c03f59cefe8d77cb1a7b9e2beb1bc1e7d8fe02ff967fcad875c70",
+    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/goal_policy_icon_options/simple/05_side_gate.svg": "c65fa689e200d7c738af7c42c8cdf7e2f9bce235be2e01733b34b7bc07ad70ac",
+    "06_experiments/results/cosyne_2027_online_wandb/interpolated_by_seed.csv": "0cbc7e6ac1477af004876033658f79ca1bdfd66870b5fd091b0e0d697d83d1ed",
+    "06_experiments/results/cosyne_2027_intrinsic_reward_course/interpolated_by_seed.csv": "a60054c77b25bba07ea32281f7f9ed9823cb242d22c823b903f42ae1019b747a"
+  },
+  "course_smoothing": {
+    "applies_to": [
+      "B spatial information",
+      "B intrinsic reward"
+    ],
+    "method": "Gaussian filter on each seed's 1-million-frame grid before recomputing mean and SEM",
+    "sigma_million_frames": 1.5,
+    "edge_mode": "nearest",
+    "line_width_points": 0.45,
+    "band_alpha": 0.1
+  },
+  "reward_display": {
+    "transformation": "five-seed mean and SEM at each training point divided by the arithmetic mean of the 99 five-seed means for that condition",
+    "normalizer_by_family": {
+      "C01": 2.561000150111111,
+      "C05": 0.04377573994525254,
+      "C15": 1.457085876927172
+    },
+    "unit": "fold of own-condition mean",
+    "reference_line": 1,
+    "normalizer_uncertainty": "treated as a descriptive fixed scaling constant"
+  },
+  "reward_axis_scale": "linear display axis of within-condition fold change",
+  "panel_layout": {
+    "B": "spatial-information and relative-reward courses share one panel; side-gate icon occupies its top row with the NG/UG/FG legend stacked at its right",
+    "C": "three C15 seed-123 DG response maps",
+    "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide"
+  }
+}

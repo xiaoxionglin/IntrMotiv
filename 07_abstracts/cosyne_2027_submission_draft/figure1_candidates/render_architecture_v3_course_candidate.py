@@ -30,8 +30,10 @@ from render_submission_panels import COLOR, SOURCES
 
 STEM = "04_architecture_v3_dg_reward_fields"
 RELATIVE_STEM = "05_architecture_v3_relative_reward"
+GOAL_GATE_STEM = "06_architecture_v3_goal_gate_header"
 ROOT = DRAFT.parents[1]
 ARCHITECTURE = DRAFT / "architecture_v3.svg"
+GOAL_GATE_ICON = HERE / "goal_policy_icon_options/simple/05_side_gate.svg"
 ATLAS = HERE / "full_seed_atlases_minmax/c15_temporal_s123.png"
 UNIT_METRICS = HERE / "full_seed_atlases/terminal_unit_metrics.csv"
 SEED_METRICS = HERE / "full_seed_atlases/terminal_seed_metrics.csv"
@@ -110,9 +112,34 @@ def inline_architecture(composite_svg: Path) -> None:
                                        composite_svg.read_text().splitlines()) + "\n")
 
 
+def inline_goal_gate(composite_svg: Path) -> None:
+    """Place the editable side-gate artwork in B's top legend row."""
+    tree = ET.parse(composite_svg)
+    root = tree.getroot()
+    source = ET.parse(GOAL_GATE_ICON).getroot()
+    if source.get("viewBox") != "0 0 53 20":
+        raise ValueError("Goal-gate icon geometry changed")
+    width_in = 1.23
+    top_in = 1.84
+    nested = ET.SubElement(root, f"{{{SVG_NS}}}svg", {
+        "id": "goal_gate_header_vector",
+        "x": f"{5.88 * 72:.6f}",
+        "y": f"{(SIZE_IN[1] - top_in) * 72:.6f}",
+        "width": f"{width_in * 72:.6f}",
+        "height": f"{width_in * 20 / 53 * 72:.6f}",
+        "viewBox": source.get("viewBox"),
+    })
+    nested.extend(list(source))
+    ids = [node.get("id") for node in root.iter() if node.get("id")]
+    if len(ids) != len(set(ids)):
+        raise ValueError("Duplicate SVG IDs after goal-gate import")
+    tree.write(composite_svg, encoding="utf-8", xml_declaration=True)
+
+
 def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
            relative_to_mean: bool = False, thin_lines: bool = False,
-           seed_table: pd.DataFrame | None = None) -> dict[str, float]:
+           seed_table: pd.DataFrame | None = None,
+           compact_ylabel: bool = False) -> dict[str, float]:
     """Plot means and SEM, optionally scaled by each condition's own mean.
 
     The denominator is the mean of the 99 plotted five-seed means. Scaling
@@ -175,7 +202,8 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
     if relative_to_mean:
         ax.set_ylim(0, 2)
         ax.set_yticks((0, 1, 2))
-        ax.set_ylabel("Intrinsic reward\n/ own mean", fontsize=8)
+        ax.set_ylabel("Reward\n/ mean" if compact_ylabel else
+                      "Intrinsic reward\n/ own mean", fontsize=8)
     elif log:
         ax.set_yscale("log")
         ax.set_ylim(0.01, 5)
@@ -230,8 +258,12 @@ def verify_selection() -> dict[int, dict]:
     return result
 
 
-def main(*, relative_reward: bool = False) -> None:
-    stem = RELATIVE_STEM if relative_reward else STEM
+def main(*, relative_reward: bool = False,
+         goal_gate_header: bool = False) -> None:
+    if goal_gate_header and not relative_reward:
+        raise ValueError("The goal-gate layout requires the relative-reward courses")
+    stem = (GOAL_GATE_STEM if goal_gate_header else
+            RELATIVE_STEM if relative_reward else STEM)
     font = style()
     metrics = verify_selection()
     online = pd.read_csv(SOURCES["online"])
@@ -250,42 +282,63 @@ def main(*, relative_reward: bool = False) -> None:
     fig.text(0.035 / SIZE_IN[0], 1.86 / 1.9, "A", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
 
-    if relative_reward:
+    if goal_gate_header:
+        fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B", va="top",
+                 fontsize=9.5, fontweight="bold", color="#20272C")
+    elif relative_reward:
         fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B", va="top",
                  fontsize=9.5, fontweight="bold", color="#20272C")
     else:
         fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
                  fontsize=9.5, fontweight="bold", color="#20272C")
-    course_height = 0.69 if relative_reward else 0.47
+    course_height = 0.45 if goal_gate_header else 0.69 if relative_reward else 0.47
+    course_bottom = 0.92 if goal_gate_header else 0.99
     info_left = 5.85 if relative_reward else 5.70
-    info_width = 0.52 if relative_reward else 0.60
-    ax_info = fig.add_axes([info_left / SIZE_IN[0], 0.99 / 1.9,
+    info_width = 0.59 if goal_gate_header else 0.52 if relative_reward else 0.60
+    ax_info = fig.add_axes([info_left / SIZE_IN[0], course_bottom / 1.9,
                             info_width / SIZE_IN[0], course_height / 1.9])
     course(ax_info, online, "spatial_information", log=False,
            thin_lines=relative_reward, seed_table=online_seeds)
     if relative_reward:
         ax_info.set_ylabel("Spatial info", fontsize=8)
-    legend = ((5.82, 6.10, 6.37), 1.84) if relative_reward else (
-        (5.64, 5.97, 6.30), 1.62)
-    for x, (family, label) in zip(legend[0], (("C01", "NG"),
-                                          ("C05", "UG"), ("C15", "FG"))):
-        fig.text(x / SIZE_IN[0], legend[1] / 1.9, label, va="top", fontsize=8,
+    if goal_gate_header:
+        legend_positions = ((7.22, 1.81), (7.22, 1.66), (7.22, 1.51))
+    else:
+        legend_x = ((5.82, 6.10, 6.37) if relative_reward else
+                    (5.64, 5.97, 6.30))
+        legend_y = 1.84 if relative_reward else 1.62
+        legend_positions = tuple((x, legend_y) for x in legend_x)
+    for (x, y), (family, label) in zip(legend_positions,
+                                       (("C01", "NG"), ("C05", "UG"),
+                                        ("C15", "FG"))):
+        fig.text(x / SIZE_IN[0], y / 1.9, label, va="top", fontsize=8,
                  fontweight="bold", color=COLOR[family])
 
-    reward_heading = "C" if relative_reward else "C  Intrinsic\nreward (log)"
-    fig.text(6.67 / SIZE_IN[0], 1.84 / 1.9,
-             reward_heading, va="top", fontsize=9.5 if relative_reward else 8.8,
-             linespacing=0.9, fontweight="bold", color="#20272C")
-    ax_reward = fig.add_axes([6.88 / SIZE_IN[0], 0.99 / 1.9,
+    if not goal_gate_header:
+        reward_heading = "C" if relative_reward else "C  Intrinsic\nreward (log)"
+        fig.text(6.67 / SIZE_IN[0], 1.84 / 1.9,
+                 reward_heading, va="top", fontsize=9.5 if relative_reward else 8.8,
+                 linespacing=0.9, fontweight="bold", color="#20272C")
+    ax_reward = fig.add_axes([6.88 / SIZE_IN[0], course_bottom / 1.9,
                               0.56 / SIZE_IN[0], course_height / 1.9])
     reward_normalizers = course(ax_reward, reward, "intrinsic_mean", log=True,
                                 relative_to_mean=relative_reward,
                                 thin_lines=relative_reward,
-                                seed_table=reward_seeds)
-    fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9, "Training frames (M)",
-             ha="center", va="center", fontsize=8, color="#20272C")
+                                seed_table=reward_seeds,
+                                compact_ylabel=goal_gate_header)
+    if goal_gate_header:
+        # Two short x labels sit beneath their respective axes; a centered
+        # label would collide with the second plot's vertical reward label.
+        for center_x in (6.145, 7.16):
+            fig.text(center_x / SIZE_IN[0], 0.75 / 1.9, "Frames (M)",
+                     ha="center", va="center", fontsize=8, color="#20272C")
+    else:
+        fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9,
+                 "Training frames (M)",
+                 ha="center", va="center", fontsize=8, color="#20272C")
 
-    fig.text(5.52 / SIZE_IN[0], 0.73 / 1.9, "D  Example DG place field", va="top",
+    fig.text(5.52 / SIZE_IN[0], (0.67 if goal_gate_header else 0.73) / 1.9,
+             ("C" if goal_gate_header else "D") + "  Example DG place field", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
     for index, unit in enumerate(UNITS):
         x = 5.54 + 0.65 * index
@@ -302,6 +355,8 @@ def main(*, relative_reward: bool = False) -> None:
     fig.savefig(svg, dpi=300, metadata={"Date": None})
     plt.close(fig)
     inline_architecture(svg)
+    if goal_gate_header:
+        inline_goal_gate(svg)
     for suffix, options in (
         ("pdf", ["--export-type=pdf"]),
         ("png", [f"--export-width={round(SIZE_IN[0] * 300)}"]),
@@ -330,11 +385,14 @@ def main(*, relative_reward: bool = False) -> None:
                    "units": metrics},
         "source_sha256": {str(path.relative_to(ROOT)): sha256(path)
                           for path in (ARCHITECTURE, SOURCES["online"], REWARD,
-                                       ATLAS, UNIT_METRICS, SEED_METRICS)},
+                                       ATLAS, UNIT_METRICS, SEED_METRICS,
+                                       *([GOAL_GATE_ICON] if goal_gate_header else []))},
     }
     if relative_reward:
         manifest["course_smoothing"] = {
-            "applies_to": ["B spatial information", "C intrinsic reward"],
+            "applies_to": (["B spatial information", "B intrinsic reward"]
+                           if goal_gate_header else
+                           ["B spatial information", "C intrinsic reward"]),
             "method": "Gaussian filter on each seed's 1-million-frame grid before recomputing mean and SEM",
             "sigma_million_frames": SMOOTHING_SIGMA_M_FRAMES,
             "edge_mode": "nearest",
@@ -354,6 +412,12 @@ def main(*, relative_reward: bool = False) -> None:
         }
         manifest.pop("reward_log_scale")
         manifest["reward_axis_scale"] = "linear display axis of within-condition fold change"
+    if goal_gate_header:
+        manifest["panel_layout"] = {
+            "B": "spatial-information and relative-reward courses share one panel; side-gate icon occupies its top row with the NG/UG/FG legend stacked at its right",
+            "C": "three C15 seed-123 DG response maps",
+            "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide",
+        }
     (HERE / f"{stem}_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
 
@@ -361,4 +425,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--relative-reward", action="store_true",
                         help="Save a separate version with reward curves divided by each condition's own mean")
-    main(relative_reward=parser.parse_args().relative_reward)
+    parser.add_argument("--goal-gate-header", action="store_true",
+                        help="Save a separate B/C merged version with the side-gate icon above both curves")
+    args = parser.parse_args()
+    main(relative_reward=args.relative_reward or args.goal_gate_header,
+         goal_gate_header=args.goal_gate_header)
