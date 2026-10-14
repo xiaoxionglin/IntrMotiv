@@ -6,7 +6,7 @@
 
 [Figure 1 v3 with intrinsic reward relative to each architecture's own mean](05_architecture_v3_relative_reward_README.md) · [PDF](05_architecture_v3_relative_reward.pdf) · [SVG](05_architecture_v3_relative_reward.svg) · [PNG](05_architecture_v3_relative_reward.png). This variant has taller, thinner-lined training plots with vertical axis labels, and its C curves show within-architecture reward dynamics rather than absolute reward scale.
 
-[Figure 1 v3 with the side gate in the B header](06_architecture_v3_goal_gate_header_README.md) · [PDF](06_architecture_v3_goal_gate_header.pdf) · [SVG](06_architecture_v3_goal_gate_header.svg) · [PNG](06_architecture_v3_goal_gate_header.png). This separate 7.5 × 1.9-inch variant combines both training curves in B, places NG/UG/FG vertically to the right of the side-gate schematic, and makes the three place fields C.
+[Figure 1 v3 with the side gate in the B header](06_architecture_v3_goal_gate_header_README.md) · [PDF](06_architecture_v3_goal_gate_header.pdf) · [SVG](06_architecture_v3_goal_gate_header.svg) · [PNG](06_architecture_v3_goal_gate_header.png). This separate 7.5 × 1.9-inch variant combines both training curves in B, places NG/UG/FG vertically to the right of the side-gate schematic, and makes the three place fields C without a heading. It uses TS, Policy, and Pol. labels to match Figure 2.
 
 [All 16 DG maps from every terminal seed](full_place_field_atlases.md) · 40 unfiltered condition/seed atlases in shared and per-unit min–max scales, with architecture notes and unit metrics
 

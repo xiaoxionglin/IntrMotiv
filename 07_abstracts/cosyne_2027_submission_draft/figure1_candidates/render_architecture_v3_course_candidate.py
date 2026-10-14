@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import xml.etree.ElementTree as ET
 
@@ -57,7 +58,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def inline_architecture(composite_svg: Path) -> None:
+def inline_architecture(composite_svg: Path, *, harmonize_labels: bool = False) -> None:
     """Replace Matplotlib's placeholder with v3's native SVG elements.
 
     The source SVG uses IDs for markers, glyphs, and filters. Its IDs are
@@ -102,6 +103,8 @@ def inline_architecture(composite_svg: Path) -> None:
             for descendant in node.iter():
                 if descendant.text:
                     descendant.text = descendant.text.replace("temopral", "temporal")
+    if harmonize_labels:
+        harmonize_architecture_labels(nested)
 
     target.append(nested)
     all_ids = [node.get("id") for node in root.iter() if node.get("id")]
@@ -112,6 +115,51 @@ def inline_architecture(composite_svg: Path) -> None:
                                        composite_svg.read_text().splitlines()) + "\n")
 
 
+def harmonize_architecture_labels(nested: ET.Element) -> None:
+    """Use Figure 2's TS/Policy vocabulary in the current candidate only."""
+    readout_labels = [node for node in nested.iter()
+                      if node.tag == f"{{{SVG_NS}}}text"
+                      and "Readout" in "".join(node.itertext())]
+    if len(readout_labels) != 1:
+        raise ValueError("Expected one architecture Readout heading")
+    for descendant in readout_labels[0].iter():
+        if descendant.text:
+            descendant.text = descendant.text.replace("Readout", "Policy")
+        if descendant.get("x") is not None:
+            # Center the shorter replacement over the same readout wedge.
+            descendant.set("x", f"{float(descendant.get('x')) + 6.3:.6f}")
+
+    # Three original delta glyphs label the same temporal-separation motif:
+    # the central example, push, and pull. Preserve their neighboring arrows
+    # and DG event circles while replacing only each glyph with editable text.
+    glyph_href = f"{{{XLINK_NS}}}href"
+    parent_by_child = {child: parent for parent in nested.iter() for child in parent}
+    delta_glyphs = [node for node in nested.iter()
+                    if node.tag == f"{{{SVG_NS}}}use"
+                    and node.get(glyph_href) == "#ldg_STIXGeneral-Regular-394"]
+    if len(delta_glyphs) != 3:
+        raise ValueError("Expected three architecture temporal-separation glyphs")
+    for index, glyph in enumerate(delta_glyphs, start=1):
+        transform = glyph.get("transform", "")
+        match = re.fullmatch(r"matrix\(([^)]+)\)", transform)
+        if match is None:
+            raise ValueError(f"Unexpected delta glyph transform: {transform}")
+        values = [float(value) for value in re.split(r"[,\s]+", match.group(1))]
+        if (len(values) != 6 or
+                not np.allclose(values[:4], [0.20044281, 0, 0, -0.20044281])):
+            raise ValueError(f"Unexpected delta glyph scale: {transform}")
+        replacement = ET.Element(f"{{{SVG_NS}}}text", {
+            "id": f"temporal_separation_ts_{index}",
+            "x": f"{values[4] - 2:.6f}", "y": f"{values[5]:.6f}",
+            "font-family": "Helvetica, Arial, sans-serif",
+            "font-size": "14", "fill": "#252525",
+        })
+        replacement.text = "TS"
+        parent = parent_by_child[glyph]
+        parent.insert(list(parent).index(glyph), replacement)
+        parent.remove(glyph)
+
+
 def inline_goal_gate(composite_svg: Path) -> None:
     """Place the editable side-gate artwork in B's top legend row."""
     tree = ET.parse(composite_svg)
@@ -119,6 +167,15 @@ def inline_goal_gate(composite_svg: Path) -> None:
     source = ET.parse(GOAL_GATE_ICON).getroot()
     if source.get("viewBox") != "0 0 53 20":
         raise ValueError("Goal-gate icon geometry changed")
+    icon_labels = {node.text: node for node in source.iter()
+                   if node.tag == f"{{{SVG_NS}}}text"
+                   and node.text in ("Δ", "π")}
+    if set(icon_labels) != {"Δ", "π"}:
+        raise ValueError("Goal-gate icon labels changed")
+    icon_labels["Δ"].text = "TS"
+    icon_labels["Δ"].set("font-size", "4.3")
+    icon_labels["π"].text = "Pol."
+    icon_labels["π"].set("font-size", "4.2")
     width_in = 1.23
     top_in = 1.84
     nested = ET.SubElement(root, f"{{{SVG_NS}}}svg", {
@@ -337,9 +394,10 @@ def main(*, relative_reward: bool = False,
                  "Training frames (M)",
                  ha="center", va="center", fontsize=8, color="#20272C")
 
+    field_heading = "C" if goal_gate_header else "D  Example DG place field"
     fig.text(5.52 / SIZE_IN[0], (0.67 if goal_gate_header else 0.73) / 1.9,
-             ("C" if goal_gate_header else "D") + "  Example DG place field", va="top",
-             fontsize=9.5, fontweight="bold", color="#20272C")
+             field_heading, va="top", fontsize=9.5, fontweight="bold",
+             color="#20272C")
     for index, unit in enumerate(UNITS):
         x = 5.54 + 0.65 * index
         ax = fig.add_axes([x / SIZE_IN[0], 0.035 / 1.9,
@@ -354,7 +412,7 @@ def main(*, relative_reward: bool = False,
     svg = HERE / f"{stem}.svg"
     fig.savefig(svg, dpi=300, metadata={"Date": None})
     plt.close(fig)
-    inline_architecture(svg)
+    inline_architecture(svg, harmonize_labels=goal_gate_header)
     if goal_gate_header:
         inline_goal_gate(svg)
     for suffix, options in (
@@ -373,7 +431,10 @@ def main(*, relative_reward: bool = False,
         "font": font,
         "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
         "architecture_arrangement": {"vis_encoder_heading_shift_mm": VIS_TITLE_SHIFT_MM,
-                                     "push_legend_typo_corrected": True},
+                                     "push_legend_typo_corrected": True,
+                                     **({"readout_heading": "Policy",
+                                         "three_temporal_symbols": "TS"}
+                                        if goal_gate_header else {})},
         "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
         "courses": "arithmetic five-seed mean ± SEM, same verified runs, 1–99M frames",
         "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
@@ -415,8 +476,8 @@ def main(*, relative_reward: bool = False,
     if goal_gate_header:
         manifest["panel_layout"] = {
             "B": "spatial-information and relative-reward courses share one panel; side-gate icon occupies its top row with the NG/UG/FG legend stacked at its right",
-            "C": "three C15 seed-123 DG response maps",
-            "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide",
+            "C": "three C15 seed-123 DG response maps; panel letter only, no heading",
+            "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide, with TS and Pol. labels",
         }
     (HERE / f"{stem}_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
