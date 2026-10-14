@@ -2425,6 +2425,13 @@ For each finding, record:
   further layout changes, import source SVG elements instead of rasterizing
   the architecture; verify unique IDs and render the complete composition,
   since transparent CA3 circles appear lighter over the page background.
+  The reward curves in that compact right column span different raw scales.
+  A separate [relative-reward variant](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/05_architecture_v3_relative_reward_README.md)
+  divides each condition's plotted five-seed mean and SEM by the median of
+  its own 99 means, recording the factors in the manifest. This makes the
+  time courses inspectable on one axis without an absolute-scale comparison;
+  label the denominator, the one-fold reference, and the descriptive treatment
+  of its uncertainty whenever reusing this view.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure

@@ -7,6 +7,7 @@ per-unit visited-bin min–max color scaling, not a shared amplitude scale.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -27,6 +28,7 @@ from render_submission_panels import COLOR, SOURCES
 
 
 STEM = "04_architecture_v3_dg_reward_fields"
+RELATIVE_STEM = "05_architecture_v3_relative_reward"
 ROOT = DRAFT.parents[1]
 ARCHITECTURE = DRAFT / "architecture_v3.svg"
 ATLAS = HERE / "full_seed_atlases_minmax/c15_temporal_s123.png"
@@ -104,7 +106,17 @@ def inline_architecture(composite_svg: Path) -> None:
                                        composite_svg.read_text().splitlines()) + "\n")
 
 
-def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None:
+def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
+           relative_to_median: bool = False) -> dict[str, float]:
+    """Plot means and SEM, optionally scaled by each condition's own median.
+
+    The denominator is the median of the 99 plotted five-seed means. Scaling
+    the mean and SEM by the same positive constant preserves the original
+    uncertainty bands and the within-condition trajectory.
+    """
+    normalizers = {}
+    if relative_to_median:
+        ax.axhline(1, color="#70777B", lw=0.7, ls=(0, (2, 2)), zorder=0)
     for family, worker, label in FAMILIES:
         rows = table[(table.family == family) &
                      (table.encoder_credit == "temporal") &
@@ -115,6 +127,12 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None
         x = rows.env_steps.to_numpy() / 1e6
         mean = rows["mean"].to_numpy()
         sem = rows["sem"].to_numpy()
+        denominator = float(np.median(mean)) if relative_to_median else 1.0
+        if not np.isfinite(denominator) or denominator <= 0:
+            raise ValueError(f"Invalid reward normalization: {family}")
+        normalizers[family] = denominator
+        mean = mean / denominator
+        sem = sem / denominator
         if log and np.any(mean - sem <= 0):
             raise ValueError(f"Log course has nonpositive uncertainty bound: {family}")
         ax.plot(x, mean, color=COLOR[family], lw=1.15, label=label)
@@ -125,7 +143,11 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None
     ax.tick_params(axis="both", labelsize=8, length=2, width=0.6, pad=1)
     ax.grid(axis="y", color="#E6E8E9", linewidth=0.5)
     ax.spines[["top", "right"]].set_visible(False)
-    if log:
+    if relative_to_median:
+        ax.set_ylim(0, 2)
+        ax.set_yticks((0, 1, 2))
+        ax.set_ylabel("fold", fontsize=8)
+    elif log:
         ax.set_yscale("log")
         ax.set_ylim(0.01, 5)
         ax.set_yticks((0.01, 1))
@@ -136,6 +158,7 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool) -> None
         ax.set_ylim(0, 0.22)
         ax.set_yticks((0, 0.2))
         ax.set_ylabel("bits/step", fontsize=8)
+    return normalizers
 
 
 def field_tiles() -> dict[int, Image.Image]:
@@ -178,7 +201,8 @@ def verify_selection() -> dict[int, dict]:
     return result
 
 
-def main() -> None:
+def main(*, relative_reward: bool = False) -> None:
+    stem = RELATIVE_STEM if relative_reward else STEM
     font = style()
     metrics = verify_selection()
     online = pd.read_csv(SOURCES["online"])
@@ -205,12 +229,15 @@ def main() -> None:
         fig.text(x / SIZE_IN[0], 1.62 / 1.9, label, va="top", fontsize=8,
                  fontweight="bold", color=COLOR[family])
 
+    reward_heading = ("C  Reward\n÷ own median" if relative_reward else
+                      "C  Intrinsic\nreward (log)")
     fig.text(6.67 / SIZE_IN[0], 1.84 / 1.9,
-             "C  Intrinsic\nreward (log)", va="top", fontsize=8.8,
+             reward_heading, va="top", fontsize=8.2 if relative_reward else 8.8,
              linespacing=0.9, fontweight="bold", color="#20272C")
     ax_reward = fig.add_axes([6.88 / SIZE_IN[0], 0.99 / 1.9,
                               0.56 / SIZE_IN[0], 0.47 / 1.9])
-    course(ax_reward, reward, "intrinsic_mean", log=True)
+    reward_normalizers = course(ax_reward, reward, "intrinsic_mean", log=True,
+                                relative_to_median=relative_reward)
     fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9, "Training frames (M)",
              ha="center", va="center", fontsize=8, color="#20272C")
 
@@ -227,7 +254,7 @@ def main() -> None:
             spine.set_linewidth(0.55)
             spine.set_edgecolor("#77858A")
 
-    svg = HERE / f"{STEM}.svg"
+    svg = HERE / f"{stem}.svg"
     fig.savefig(svg, dpi=300, metadata={"Date": None})
     plt.close(fig)
     inline_architecture(svg)
@@ -235,14 +262,14 @@ def main() -> None:
         ("pdf", ["--export-type=pdf"]),
         ("png", [f"--export-width={round(SIZE_IN[0] * 300)}"]),
     ):
-        destination = HERE / f"{STEM}.{suffix}"
+        destination = HERE / f"{stem}.{suffix}"
         subprocess.run(["inkscape", str(svg), *options,
                         f"--export-filename={destination}"],
                        check=True, capture_output=True, text=True)
 
-    (HERE / f"{STEM}_manifest.json").write_text(json.dumps({
+    manifest = {
         "schema": "intrmotiv/figure1-v3-course-candidate/v1",
-        "figure": STEM,
+        "figure": stem,
         "size_inches": list(SIZE_IN),
         "font": font,
         "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
@@ -260,8 +287,22 @@ def main() -> None:
         "source_sha256": {str(path.relative_to(ROOT)): sha256(path)
                           for path in (ARCHITECTURE, SOURCES["online"], REWARD,
                                        ATLAS, UNIT_METRICS, SEED_METRICS)},
-    }, indent=2) + "\n")
+    }
+    if relative_reward:
+        manifest["reward_display"] = {
+            "transformation": "five-seed mean and SEM at each training point divided by the median of the 99 five-seed means for that condition",
+            "normalizer_by_family": reward_normalizers,
+            "unit": "fold of own-condition median",
+            "reference_line": 1,
+            "normalizer_uncertainty": "treated as a descriptive fixed scaling constant",
+        }
+        manifest.pop("reward_log_scale")
+        manifest["reward_axis_scale"] = "linear display axis of within-condition fold change"
+    (HERE / f"{stem}_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--relative-reward", action="store_true",
+                        help="Save a separate version with reward curves divided by each condition's own median")
+    main(relative_reward=parser.parse_args().relative_reward)

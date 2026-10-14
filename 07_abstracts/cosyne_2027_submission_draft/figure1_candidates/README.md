@@ -2,6 +2,8 @@
 
 [Figure 1 v3 with DG information, log intrinsic reward, and three C15 seed-123 fields](04_architecture_v3_dg_reward_fields_README.md) · [PDF](04_architecture_v3_dg_reward_fields.pdf) · [SVG](04_architecture_v3_dg_reward_fields.svg) · [PNG](04_architecture_v3_dg_reward_fields.png). This newer candidate keeps the v3 artwork at its original size and places every addition to its right within the 7.5-inch submission width.
 
+[Figure 1 v3 with intrinsic reward relative to each architecture's own median](05_architecture_v3_relative_reward_README.md) · [PDF](05_architecture_v3_relative_reward.pdf) · [SVG](05_architecture_v3_relative_reward.svg) · [PNG](05_architecture_v3_relative_reward.png). This variant changes only panel C, so its curves show within-architecture reward dynamics rather than absolute reward scale.
+
 [All 16 DG maps from every terminal seed](full_place_field_atlases.md) · 40 unfiltered condition/seed atlases in shared and per-unit min–max scales, with architecture notes and unit metrics
 
 [Five alternative four-field sets](place_field_options/README.md) · [scrollable overview](place_field_options/all_five_overview.png)
