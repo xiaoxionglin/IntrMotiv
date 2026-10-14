@@ -53,6 +53,7 @@ LAYOUT_TRIAL_ASSETS = {
     "FIGURE2_STORY_PEAKS_NOTES.md": DRAFT_DIR / "Figure2_story_peaks_README.md",
     "FIGURE2_STORY_PEAKS_SOURCES.json": DRAFT_DIR / "Figure2_story_peaks_manifest.json",
     "data/Figure2_story_peaks_data.csv": DRAFT_DIR / "Figure2_story_peaks_data.csv",
+    "FIGURE2_METRIC_ICONS_NOTES.md": DRAFT_DIR / "Figure2_metric_icons_README.md",
     "data/Figure2_story_peak_mask.json": (
         RESULTS_DIR / "cosyne_2027_snapshot_peak_spread/common_visited_mask.json"),
     "FIGURE2_INTRINSIC_REWARD_NOTES.md": (
@@ -111,6 +112,13 @@ for metric in ("path_efficiency", "visited_cell_fraction",
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_behavior_{metric}.{extension}"
         LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+for name in ("cosine", "coverage", "edges"):
+    for extension in ("svg", "pdf", "png"):
+        filename = f"Figure2_metric_icon_{name}.{extension}"
+        LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+for extension in ("svg", "pdf", "png"):
+    filename = f"Figure2_metric_icons_preview.{extension}"
+    LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
@@ -186,7 +194,9 @@ def build_compact() -> None:
                          "sidebar option with paired temporal/control peak maps "
                          "is `figures/Figure2_story_peaks.pdf`. "
                          "See `FIGURE2_STORY_NOTES.md` and "
-                         "`FIGURE2_STORY_PEAKS_NOTES.md`. The earlier taller trial is "
+                         "`FIGURE2_STORY_PEAKS_NOTES.md`. Three tiny metric icons "
+                         "and their preview are in `figures/Figure2_metric_icon_*.pdf` "
+                         "and `FIGURE2_METRIC_ICONS_NOTES.md`. The earlier taller trial is "
                          "also included. A matching five-seed mean intrinsic-"
                          "reward training course is available at "
                          "`figures/01b_online_intrinsic_reward_course.pdf`, with "
@@ -285,6 +295,8 @@ def build_full() -> None:
                             "- `figures/Figure2_behavior_candidate_stats.pdf`",
                             "- `FIGURE2_STORY_NOTES.md`",
                             "- `FIGURE2_STORY_PEAKS_NOTES.md`",
+                            "- `figures/Figure2_metric_icons_preview.pdf`",
+                            "- `FIGURE2_METRIC_ICONS_NOTES.md`",
                             "", "## Mean intrinsic reward course", "",
                             "- `figures/01b_online_intrinsic_reward_course.pdf`",
                             "- `figures/01b_online_intrinsic_reward_course.svg`",
