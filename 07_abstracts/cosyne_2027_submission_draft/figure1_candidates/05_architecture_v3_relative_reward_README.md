@@ -2,13 +2,17 @@
 
 [SVG](05_architecture_v3_relative_reward.svg) · [Print PDF](05_architecture_v3_relative_reward.pdf) · [PNG preview](05_architecture_v3_relative_reward.png) · [Source manifest](05_architecture_v3_relative_reward_manifest.json) · [Original absolute-reward candidate](04_architecture_v3_dg_reward_fields_README.md)
 
-This candidate keeps the 7.5 × 1.9-inch canvas, architecture, and three place-field examples of candidate 04. Panels B and C have taller axes, thinner training curves, and vertical axis labels in place of their titles. The submitted TeX figure is unchanged.
+This candidate keeps the 7.5 × 1.9-inch canvas, architecture, and three place-field examples of candidate 04. Panels B and C have taller axes, 0.45-point training curves, and vertical axis labels in place of their titles. The submitted TeX figure is unchanged.
+
+## Display smoothing in B and C
+
+Each of the five seed curves is lightly smoothed on the one-million-frame grid with a Gaussian kernel of 1.5 grid-point standard deviation (1.5 million frames; nearest-value treatment at the ends). The plotted mean and SEM are recomputed across these five smoothed curves. This is a display transformation: neighboring points become correlated, and the raw seed data and original candidate 04 remain available for inspection. The five-seed summaries were independently reproduced from the archived seed tables before smoothing.
 
 ## Panel C
 
-Each curve is the five-seed arithmetic mean of intrinsic reward per step at 99 points from 1 to 99 million training frames. For each architecture separately, the renderer divides its mean curve and SEM band by the **arithmetic mean of those 99 plotted means**. The linear vertical axis therefore shows fold of that architecture's own mean, and the dotted line marks one fold. This constant scaling preserves the shape of each mean curve and its original SEM band while removing absolute reward units from the comparison. The denominator is treated as a descriptive fixed scaling constant, so the band is not an uncertainty interval for it. The three reward signals are architecture-dependent; curve height here describes within-architecture reward dynamics, not absolute reward magnitude or navigation performance.
+Each curve starts from the five-seed arithmetic mean of intrinsic reward per step at 99 points from 1 to 99 million training frames. For each architecture separately, the renderer divides its smoothed mean curve and recomputed SEM band by the **arithmetic mean of the original 99 plotted means**. The linear vertical axis therefore shows fold of that architecture's own unsmoothed training-course mean, and the dotted line marks one fold. The denominator is treated as a descriptive fixed scaling constant, so the band is not an uncertainty interval for it. The three reward signals are architecture-dependent; curve height here describes within-architecture reward dynamics, not absolute reward magnitude or navigation performance.
 
-Suggested concise caption: **C,** Intrinsic reward divided by each architecture's own training-course mean, on a linear axis. Lines show five-seed means and shading shows ± SEM after the same within-architecture scaling; the dotted line marks one fold.
+Suggested concise caption: **C,** Intrinsic reward divided by each architecture's own unsmoothed training-course mean, on a linear axis. In B and C, seed curves were lightly Gaussian-smoothed across training (1.5 million-frame standard deviation) before computing the displayed five-seed mean ± SEM. The dotted line in C marks one fold.
 
 ## Regeneration
 

@@ -2429,10 +2429,12 @@ For each finding, record:
   A separate [relative-reward variant](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/05_architecture_v3_relative_reward_README.md)
   divides each condition's plotted five-seed mean and SEM by the arithmetic
   mean of its own 99 training-point means, recording the factors in the
-  manifest. This makes the
-  time courses inspectable on one axis without an absolute-scale comparison;
-  label the denominator, the one-fold reference, and the descriptive treatment
-  of its uncertainty whenever reusing this view.
+  manifest. This makes the time courses inspectable on one axis without an
+  absolute-scale comparison. The archived seed curves reproduce the stored
+  mean and SEM, allowing a 1.5-million-frame Gaussian display smoothing to
+  be applied per seed before recomputing the bands, rather than smoothing an
+  already-aggregated SEM. Future reuse should label the denominator, the
+  one-fold reference, and the descriptive treatment of its uncertainty.
   The next page-width trial placed three same-run maps in the first row's
   unused right margin, moved the push/pull rows closer, and spread the four
   result groups in each row without resizing them. This reduced the figure

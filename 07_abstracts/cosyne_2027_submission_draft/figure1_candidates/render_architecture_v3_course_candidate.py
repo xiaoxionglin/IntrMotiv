@@ -22,6 +22,7 @@ from matplotlib.ticker import LogFormatterMathtext, NullLocator
 import numpy as np
 import pandas as pd
 from PIL import Image
+from scipy.ndimage import gaussian_filter1d
 
 from render_architecture_with_fields import DRAFT, HERE, style
 from render_submission_panels import COLOR, SOURCES
@@ -35,6 +36,8 @@ ATLAS = HERE / "full_seed_atlases_minmax/c15_temporal_s123.png"
 UNIT_METRICS = HERE / "full_seed_atlases/terminal_unit_metrics.csv"
 SEED_METRICS = HERE / "full_seed_atlases/terminal_seed_metrics.csv"
 REWARD = ROOT / "06_experiments/results/cosyne_2027_intrinsic_reward_course/arm_summaries.csv"
+REWARD_SEEDS = REWARD.with_name("interpolated_by_seed.csv")
+ONLINE_SEEDS = ROOT / "06_experiments/results/cosyne_2027_online_wandb/interpolated_by_seed.csv"
 UNITS = (4, 1, 11)
 PEAK_CELLS_XY = {4: (2, 4), 1: (6, 15), 11: (17, 3)}
 FAMILIES = (("C01", "inapplicable", "NG"),
@@ -45,6 +48,7 @@ SVG_NS = "http://www.w3.org/2000/svg"
 XLINK_NS = "http://www.w3.org/1999/xlink"
 ARCHITECTURE_WIDTH_IN = 5.4085569
 VIS_TITLE_SHIFT_MM = 3.8
+SMOOTHING_SIGMA_M_FRAMES = 1.5
 
 
 def sha256(path: Path) -> str:
@@ -107,12 +111,14 @@ def inline_architecture(composite_svg: Path) -> None:
 
 
 def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
-           relative_to_mean: bool = False, thin_lines: bool = False) -> dict[str, float]:
+           relative_to_mean: bool = False, thin_lines: bool = False,
+           seed_table: pd.DataFrame | None = None) -> dict[str, float]:
     """Plot means and SEM, optionally scaled by each condition's own mean.
 
     The denominator is the mean of the 99 plotted five-seed means. Scaling
-    the mean and SEM by the same positive constant preserves the original
-    uncertainty bands and the within-condition trajectory.
+    the mean and SEM by the same positive constant preserves the within-
+    condition trajectory. When requested, smoothing happens separately for
+    each seed before re-aggregating the mean and SEM.
     """
     normalizers = {}
     if relative_to_mean:
@@ -128,6 +134,27 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
         mean = rows["mean"].to_numpy()
         sem = rows["sem"].to_numpy()
         denominator = float(np.mean(mean)) if relative_to_mean else 1.0
+        if seed_table is not None:
+            if not np.allclose(np.diff(x), 1, rtol=0, atol=1e-9):
+                raise ValueError(f"Smoothing requires a one-million-frame grid: {family}")
+            seeds = seed_table[(seed_table.family == family) &
+                               (seed_table.metric == metric)]
+            if "encoder_credit" in seeds:
+                seeds = seeds[(seeds.encoder_credit == "temporal") &
+                              (seeds.worker_bonus == worker)]
+            curves = seeds.pivot(index="env_steps", columns="seed", values="value")
+            if (curves.shape != (99, 5) or
+                    not np.array_equal(curves.index.to_numpy(), rows.env_steps.to_numpy()) or
+                    not np.all(np.isfinite(curves.to_numpy()))):
+                raise ValueError(f"Incomplete seed curves: {family}, {metric}")
+            if (not np.allclose(curves.mean(axis=1), mean, rtol=0, atol=1e-8) or
+                    not np.allclose(curves.sem(axis=1), sem, rtol=0, atol=1e-8)):
+                raise ValueError(f"Seed curves disagree with archived summary: {family}, {metric}")
+            smoothed = gaussian_filter1d(curves.to_numpy(),
+                                         sigma=SMOOTHING_SIGMA_M_FRAMES,
+                                         axis=0, mode="nearest")
+            mean = smoothed.mean(axis=1)
+            sem = smoothed.std(axis=1, ddof=1) / np.sqrt(smoothed.shape[1])
         if not np.isfinite(denominator) or denominator <= 0:
             raise ValueError(f"Invalid reward normalization: {family}")
         normalizers[family] = denominator
@@ -135,10 +162,10 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
         sem = sem / denominator
         if log and np.any(mean - sem <= 0):
             raise ValueError(f"Log course has nonpositive uncertainty bound: {family}")
-        ax.plot(x, mean, color=COLOR[family], lw=0.7 if thin_lines else 1.15,
+        ax.plot(x, mean, color=COLOR[family], lw=0.45 if thin_lines else 1.15,
                 label=label)
         ax.fill_between(x, mean - sem, mean + sem,
-                        color=COLOR[family], alpha=0.12 if thin_lines else 0.17,
+                        color=COLOR[family], alpha=0.10 if thin_lines else 0.17,
                         linewidth=0)
     ax.set_xlim(0, 100)
     ax.set_xticks((0, 100))
@@ -209,6 +236,8 @@ def main(*, relative_reward: bool = False) -> None:
     metrics = verify_selection()
     online = pd.read_csv(SOURCES["online"])
     reward = pd.read_csv(REWARD)
+    online_seeds = pd.read_csv(ONLINE_SEEDS) if relative_reward else None
+    reward_seeds = pd.read_csv(REWARD_SEEDS) if relative_reward else None
     tiles = field_tiles()
 
     fig = plt.figure(figsize=SIZE_IN, facecolor="white")
@@ -233,7 +262,7 @@ def main(*, relative_reward: bool = False) -> None:
     ax_info = fig.add_axes([info_left / SIZE_IN[0], 0.99 / 1.9,
                             info_width / SIZE_IN[0], course_height / 1.9])
     course(ax_info, online, "spatial_information", log=False,
-           thin_lines=relative_reward)
+           thin_lines=relative_reward, seed_table=online_seeds)
     if relative_reward:
         ax_info.set_ylabel("Spatial info", fontsize=8)
     legend = ((5.82, 6.10, 6.37), 1.84) if relative_reward else (
@@ -251,7 +280,8 @@ def main(*, relative_reward: bool = False) -> None:
                               0.56 / SIZE_IN[0], course_height / 1.9])
     reward_normalizers = course(ax_reward, reward, "intrinsic_mean", log=True,
                                 relative_to_mean=relative_reward,
-                                thin_lines=relative_reward)
+                                thin_lines=relative_reward,
+                                seed_table=reward_seeds)
     fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9, "Training frames (M)",
              ha="center", va="center", fontsize=8, color="#20272C")
 
@@ -303,6 +333,18 @@ def main(*, relative_reward: bool = False) -> None:
                                        ATLAS, UNIT_METRICS, SEED_METRICS)},
     }
     if relative_reward:
+        manifest["course_smoothing"] = {
+            "applies_to": ["B spatial information", "C intrinsic reward"],
+            "method": "Gaussian filter on each seed's 1-million-frame grid before recomputing mean and SEM",
+            "sigma_million_frames": SMOOTHING_SIGMA_M_FRAMES,
+            "edge_mode": "nearest",
+            "line_width_points": 0.45,
+            "band_alpha": 0.10,
+        }
+        manifest["source_sha256"].update({
+            str(path.relative_to(ROOT)): sha256(path)
+            for path in (ONLINE_SEEDS, REWARD_SEEDS)
+        })
         manifest["reward_display"] = {
             "transformation": "five-seed mean and SEM at each training point divided by the arithmetic mean of the 99 five-seed means for that condition",
             "normalizer_by_family": reward_normalizers,

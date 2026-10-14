@@ -61,7 +61,20 @@
     "06_experiments/results/cosyne_2027_intrinsic_reward_course/arm_summaries.csv": "50324126d9efe0ba093bc9b81315a63162071a1658e865954efe572c948aa09b",
     "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases_minmax/c15_temporal_s123.png": "d2300532c00b8befc546a1bc6013157855793b4b0655e2f6ac90d6b8bc1efb08",
     "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_unit_metrics.csv": "9e6cba3692c8c4813ee1afa3a7e5d7b8c9a088fb6d28aeca8d187015418f34ed",
-    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_seed_metrics.csv": "b7b044ef5b7c03f59cefe8d77cb1a7b9e2beb1bc1e7d8fe02ff967fcad875c70"
+    "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_seed_metrics.csv": "b7b044ef5b7c03f59cefe8d77cb1a7b9e2beb1bc1e7d8fe02ff967fcad875c70",
+    "06_experiments/results/cosyne_2027_online_wandb/interpolated_by_seed.csv": "0cbc7e6ac1477af004876033658f79ca1bdfd66870b5fd091b0e0d697d83d1ed",
+    "06_experiments/results/cosyne_2027_intrinsic_reward_course/interpolated_by_seed.csv": "a60054c77b25bba07ea32281f7f9ed9823cb242d22c823b903f42ae1019b747a"
+  },
+  "course_smoothing": {
+    "applies_to": [
+      "B spatial information",
+      "C intrinsic reward"
+    ],
+    "method": "Gaussian filter on each seed's 1-million-frame grid before recomputing mean and SEM",
+    "sigma_million_frames": 1.5,
+    "edge_mode": "nearest",
+    "line_width_points": 0.45,
+    "band_alpha": 0.1
   },
   "reward_display": {
     "transformation": "five-seed mean and SEM at each training point divided by the arithmetic mean of the 99 five-seed means for that condition",
