@@ -9,6 +9,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
+import xml.etree.ElementTree as ET
+
+from matplotlib import colormaps
 
 from build_figure2_metric_icons import HEIGHT_PT, ICONS, WIDTH_PT
 from build_figure2_story import (
@@ -31,6 +34,59 @@ RESULT_POSITIONS = {
 }
 RELIABILITY_POSITION = (404, 24.5)
 PATH_EFFICIENCY_POSITION = (4, 27)
+TRAJECTORY_CANDIDATES = HERE / "figure2_candidates/09_trajectory_thumbnails"
+TRAJECTORY_TILES = {
+    family: TRAJECTORY_CANDIDATES / f"{family}_65_fragments_tile.svg"
+    for family in ("NG", "UG", "FG")
+}
+
+
+def trajectory_tile(family: str, x: float, y: float, size: int) -> str:
+    """Embed the selected fragment tile as vector paths at the existing size."""
+    root = ET.parse(TRAJECTORY_TILES[family]).getroot()
+    svg_ns = "http://www.w3.org/2000/svg"
+    ET.register_namespace("", svg_ns)
+    ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
+    for child in list(root):
+        if child.tag == f"{{{svg_ns}}}metadata":
+            root.remove(child)
+    ids = {
+        element.attrib["id"]: f"trajectory-{family}-{element.attrib['id']}"
+        for element in root.iter() if "id" in element.attrib
+    }
+    for element in root.iter():
+        for key, value in tuple(element.attrib.items()):
+            if key == "id":
+                element.set(key, ids[value])
+            else:
+                for old, new in ids.items():
+                    value = value.replace(f"url(#{old})", f"url(#{new})")
+                    if value == f"#{old}":
+                        value = f"#{new}"
+                element.set(key, value)
+    root.set("id", f"figure2a-{family}-trajectory")
+    root.set("x", f"{x:g}")
+    root.set("y", f"{y:g}")
+    root.set("width", f"{size:g}")
+    root.set("height", f"{size:g}")
+    return ET.tostring(root, encoding="unicode")
+
+
+def trajectory_step_scale() -> str:
+    """Show the local 0–63 step colors used independently in each fragment."""
+    x0, y0, width, height = 143, 75, 68, 4
+    parts = ['<g id="figure2a-step-scale" aria-label="Step within each trajectory fragment">',
+             '<text x="110" y="79.5" class="mini-label">step</text>',
+             '<text x="136" y="79.5" class="mini-label">0</text>']
+    cmap = colormaps["viridis"]
+    for step in range(64):
+        rgb = cmap(step / 63)[:3]
+        color = "#" + "".join(f"{round(channel * 255):02x}" for channel in rgb)
+        parts.append(f'<rect x="{x0 + step * width / 64:.5f}" y="{y0}" '
+                     f'width="{width / 64 + .01:.5f}" height="{height}" '
+                     f'fill="{color}" stroke="none"/>')
+    parts.append('<text x="214" y="79.5" class="mini-label">63</text></g>')
+    return "\n".join(parts)
 
 
 def unique_icon(name: str, instance: str) -> str:
@@ -79,7 +135,8 @@ def build() -> None:
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
         information_shift=10, reliability_shift=43,
-        extra_overlay=icon_overlay(),
+        trajectory_renderer=trajectory_tile,
+        extra_overlay=icon_overlay() + trajectory_step_scale(),
     )
     svg, count = re.subn(r'</svg>\s*$', overlay + '\n</svg>\n', svg)
     if count != 1:
@@ -94,7 +151,15 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square and display 65 complete fragments; C/D components redistributed horizontally",
+        "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0–63 within each fragment",
+        "trajectory_tiles": {family: {
+            "path": str(path.relative_to(ROOT)), "sha256": sha256(path),
+        } for family, path in TRAJECTORY_TILES.items()},
+        "trajectory_candidate_manifest": {
+            "path": str((TRAJECTORY_CANDIDATES / "manifest.json").relative_to(ROOT)),
+            "sha256": sha256(TRAJECTORY_CANDIDATES / "manifest.json"),
+        },
         "trajectory_shift_points": 34,
         "path_metric_shift_points": 33,
         "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",

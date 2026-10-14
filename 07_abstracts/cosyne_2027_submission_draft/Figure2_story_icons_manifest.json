@@ -1,7 +1,7 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "5e06fb02af3a2190bc3b496a07f9c749cb8a42cae17558ff242f280ca55f15c7",
+  "parent_story_source_sha256": "bfd5dae5ace0c4abb27d9b6ef3440de43006c9cb2689a90315ef2e20b4f60432",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
   "icon_source_sha256": "a30ba3e76e292704e2c1860a9cea1925cca0271f6a0a11980a5ecf7d79d3b72e",
   "physical_size_points": [
@@ -9,7 +9,26 @@
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square and display 65 complete fragments; C/D components redistributed horizontally",
+  "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0\u201363 within each fragment",
+  "trajectory_tiles": {
+    "NG": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/NG_65_fragments_tile.svg",
+      "sha256": "dbe88d4b78ba6f9532db6d718ee60fa1633125a448e0bb0abf03ef4861074093"
+    },
+    "UG": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/UG_65_fragments_tile.svg",
+      "sha256": "1c8f9d219902f9bc5a5af4745377c66e88d0dd8aa6fc73d0f376c0b7a292b990"
+    },
+    "FG": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/FG_65_fragments_tile.svg",
+      "sha256": "8d206b6df02c6bc189a9ec9002d435e7d31690561923803194928ebc1a8c5d61"
+    }
+  },
+  "trajectory_candidate_manifest": {
+    "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/manifest.json",
+    "sha256": "70535691e7f3c9a9330921d85fc50aa167e29514af42453898ddac2f88f0ae83"
+  },
   "trajectory_shift_points": 34,
   "path_metric_shift_points": 33,
   "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",

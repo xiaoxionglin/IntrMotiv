@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from typing import Callable
 
 from PIL import Image
 
@@ -436,6 +437,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   behavior_layout_shift: float = 0,
                   information_shift: float = 0,
                   reliability_shift: float = 0,
+                  trajectory_renderer: Callable[[str, float, float, int], str] | None = None,
                   extra_overlay: str = '') -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
                   '.peak-label{font:700 9px Arial,sans-serif}'
@@ -475,13 +477,18 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     centers = tuple(center + trajectory_shift for center in base_centers)
     for center_x, family in zip(centers, ("NG", "UG", "FG")):
         x = center_x - trajectory_tile_size / 2
-        out.extend((
-            f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
-            f'fill="{COLORS[family]}">{family}</text>',
+        trajectory = (
+            trajectory_renderer(family, x, 32, trajectory_tile_size)
+            if trajectory_renderer is not None else
             f'<image x="{x:g}" y="32" width="{trajectory_tile_size}" '
             f'height="{trajectory_tile_size}" '
             'preserveAspectRatio="none" '
-            f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
+            f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>'
+        )
+        out.extend((
+            f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
+            f'fill="{COLORS[family]}">{family}</text>',
+            trajectory,
             f'<rect x="{x:g}" y="32" width="{trajectory_tile_size}" '
             f'height="{trajectory_tile_size}" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',

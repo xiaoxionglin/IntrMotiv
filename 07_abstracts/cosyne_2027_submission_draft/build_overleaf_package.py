@@ -58,6 +58,10 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_story_icons.png": DRAFT_DIR / "Figure2_story_icons.png",
     "FIGURE2_STORY_ICONS_NOTES.md": DRAFT_DIR / "Figure2_story_icons_README.md",
     "FIGURE2_STORY_ICONS_SOURCES.json": DRAFT_DIR / "Figure2_story_icons_manifest.json",
+    "FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md": (
+        DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails/README.md"),
+    "data/Figure2_trajectory_fragments_manifest.json": (
+        DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails/manifest.json"),
     "FIGURE2_METRIC_ICONS_NOTES.md": DRAFT_DIR / "Figure2_metric_icons_README.md",
     "data/Figure2_story_peak_mask.json": (
         RESULTS_DIR / "cosyne_2027_snapshot_peak_spread/common_visited_mask.json"),
@@ -124,6 +128,15 @@ for name in ("path_efficiency", "overlap", "coverage", "edges", "reliability"):
 for extension in ("svg", "pdf", "png"):
     filename = f"Figure2_metric_icons_preview.{extension}"
     LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+for family in ("NG", "UG", "FG"):
+    for extension in ("svg", "pdf", "png"):
+        filename = f"{family}_65_fragments_tile.{extension}"
+        LAYOUT_TRIAL_ASSETS[f"figures/trajectory_examples/{filename}"] = (
+            DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails" / filename)
+for extension in ("svg", "pdf", "png"):
+    filename = f"65_fragments.{extension}"
+    LAYOUT_TRIAL_ASSETS[f"figures/trajectory_examples/{filename}"] = (
+        DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails" / filename)
 
 CURRENT_SVG_SOURCES = {
     "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
@@ -201,7 +214,10 @@ def build_compact() -> None:
                          "See `FIGURE2_STORY_NOTES.md` and "
                          "`FIGURE2_STORY_PEAKS_NOTES.md`. An E-free layout with "
                          "metric icons is `figures/Figure2_story_icons.pdf` and "
-                         "`FIGURE2_STORY_ICONS_NOTES.md`. Five tiny metric icons "
+                         "`FIGURE2_STORY_ICONS_NOTES.md`. Its three 65-fragment "
+                         "trajectory tiles are separate editable SVGs under "
+                         "`figures/trajectory_examples/`; see "
+                         "`FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`. Five tiny metric icons "
                          "and their preview are in `figures/Figure2_metric_icon_*.pdf` "
                          "and `FIGURE2_METRIC_ICONS_NOTES.md`. The earlier taller trial is "
                          "also included. A matching five-seed mean intrinsic-"
@@ -305,6 +321,10 @@ def build_full() -> None:
                             "- `FIGURE2_STORY_NOTES.md`",
                             "- `FIGURE2_STORY_PEAKS_NOTES.md`",
                             "- `FIGURE2_STORY_ICONS_NOTES.md`",
+                            "- `figures/trajectory_examples/NG_65_fragments_tile.svg`",
+                            "- `figures/trajectory_examples/UG_65_fragments_tile.svg`",
+                            "- `figures/trajectory_examples/FG_65_fragments_tile.svg`",
+                            "- `FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`",
                             "- `figures/Figure2_metric_icons_preview.pdf`",
                             "- `FIGURE2_METRIC_ICONS_NOTES.md`",
                             "", "## Mean intrinsic reward course", "",
