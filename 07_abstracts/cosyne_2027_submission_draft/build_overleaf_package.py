@@ -53,6 +53,8 @@ LAYOUT_TRIAL_ASSETS = {
         DRAFT_DIR / "data/fresh_behavior_training_seeds.csv"),
     "data/Figure2_behavior_dg_bits_per_step.csv": (
         DRAFT_DIR / "figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv"),
+    "data/Figure2_behavior_dg_reliability.csv": (
+        DRAFT_DIR / "data/fresh_behavior_dg_reliability.csv"),
     "data/Figure2_behavior_geometry_by_model.csv": (
         DRAFT_DIR / "figure2_candidates/08_focused_canvas/behavior_geometry_by_model.csv"),
     "data/Figure2_behavior_geometry_provenance.json": (

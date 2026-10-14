@@ -34,9 +34,8 @@ SELECTED = TRAJECTORIES.parent / "selected_figure_sources.csv"
 STORY = HERE / "Figure2_story.svg"
 GALLERY = HERE / "Figure2_behavior_candidate_stats.svg"
 MANIFEST = HERE / "Figure2_story_manifest.json"
-READOUT = HERE / "data/fresh_behavior_decoder1_absolute.csv"
-ALL_LAYER = HERE / "data/fresh_behavior_training_seeds.csv"
 DG_INFORMATION = HERE / "figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv"
+DG_RELIABILITY = HERE / "data/fresh_behavior_dg_reliability.csv"
 
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
 FIELD_UNITS = (4, 7, 12, 15)
@@ -103,13 +102,12 @@ def label(value: float) -> str:
 
 
 def behavior_differences() -> dict[str, dict[str, list[float]]]:
-    """Join three B metrics on exactly the same 38 completed frozen models."""
-    def load(path: Path, allowed_layer: str | None = None) -> dict[tuple[str, str, int], dict[str, str]]:
+    """Join DG information and reliability on the same 38 frozen models."""
+    def load(path: Path) -> dict[tuple[str, str, int], dict[str, str]]:
         with path.open(newline="") as stream:
             rows = list(csv.DictReader(stream))
-        if allowed_layer is not None:
-            rows = [row for row in rows if row["layer"] == allowed_layer and row["cohort"] == "fresh"]
-        rows = [row for row in rows if row.get("completed_eval_repeats", "2") == "2"]
+        rows = [row for row in rows if row.get("cohort", "fresh") == "fresh"
+                and row.get("layer", "dg") == "dg" and row["completed_eval_repeats"] == "2"]
         keyed = {(row["condition"], row["family"], int(row["training_seed"])): row
                  for row in rows}
         if len(keyed) != len(rows) or len(keyed) != 38:
@@ -117,20 +115,17 @@ def behavior_differences() -> dict[str, dict[str, list[float]]]:
         return keyed
 
     dg = load(DG_INFORMATION)
-    ca1 = load(ALL_LAYER, "decoder_1")
-    reliability = load(READOUT)
-    if dg.keys() != ca1.keys() or dg.keys() != reliability.keys():
-        raise ValueError("The DG, CA1, and reliability cohorts do not match")
+    reliability = load(DG_RELIABILITY)
+    if dg.keys() != reliability.keys():
+        raise ValueError("DG information and reliability cohorts do not match")
     samples = {metric: {family: [] for family in ("NG", "UG", "FG")}
-               for metric in ("dg_information", "ca1_information", "ca1_reliability")}
+               for metric in ("dg_information", "dg_reliability")}
     names = {"C01": "NG", "C05": "UG", "C15": "FG"}
     for identity in sorted(dg):
         family = names[identity[1]]
         samples["dg_information"][family].append(float(dg[identity]["bits_per_step_difference"]))
-        samples["ca1_information"][family].append(float(ca1[identity]["bits_per_step_difference"]))
-        read = reliability[identity]
-        samples["ca1_reliability"][family].append(
-            float(read["own_reliability"]) - float(read["random_reliability"]))
+        samples["dg_reliability"][family].append(
+            float(reliability[identity]["common_split_half_difference"]))
     for metric, families in samples.items():
         if {family: len(values) for family, values in families.items()} != {"NG": 10, "UG": 20, "FG": 8}:
             raise ValueError(f"Unexpected sample counts for {metric}")
@@ -140,14 +135,13 @@ def behavior_differences() -> dict[str, dict[str, list[float]]]:
 
 
 def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
-    """Draw a narrow, editable box/dot chart; layer labels are added later as SVG text."""
+    """Draw an editable box/dot chart near the width of C and D's originals."""
     specs = {
         "dg_information": (-0.02, 0.12, (0.0, 0.05, 0.1)),
-        "ca1_information": (-0.1, 0.4, (-0.1, 0.15, 0.4)),
-        "ca1_reliability": (0.0, 0.5, (0.0, 0.25, 0.5)),
+        "dg_reliability": (-0.05, 0.55, (0.0, 0.25, 0.5)),
     }
     minimum, maximum, ticks = specs[metric]
-    left, right, top, bottom = x + 25, x + 66, 41, 70
+    left, right, top, bottom = x + 25, x + 80, 41, 72
 
     def scale(value: float) -> float:
         if not minimum <= value <= maximum:
@@ -167,7 +161,7 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
         out.append(f'<path d="M {left},{scale(0):.3f} H {right}" '
                    'stroke="#879096" stroke-width="0.55"/>')
     for index, family in enumerate(("NG", "UG", "FG")):
-        cx = left + 6 + index * 14
+        cx = left + 9 + index * 18
         values = samples[family]
         color = COLORS[family]
         for dot_index, value in enumerate(values):
@@ -184,7 +178,7 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
             f'<rect x="{cx-3:.3f}" y="{scale(q3):.3f}" width="6" '
             f'height="{scale(q1)-scale(q3):.3f}" fill="white" stroke="{color}" stroke-width="0.9"/>',
             f'<path d="M {cx-3:.3f},{scale(median):.3f} H {cx+3:.3f}" stroke="{color}" stroke-width="0.9"/>',
-            f'<text x="{cx:.3f}" y="80" text-anchor="middle" class="behavior-tick">{family}</text>',
+            f'<text x="{cx:.3f}" y="82" text-anchor="middle" class="behavior-tick">{family}</text>',
         ))
     out.append('</g>')
     return "\n".join(out)
@@ -341,7 +335,7 @@ def hide_group(svg: str, group_id: str) -> str:
 def behavior_schematic() -> str:
     """Match the rounded-box ablation style, using only black/gray ink."""
     return "\n".join((
-        '<g id="behavior-ablation-schematic" transform="translate(-42,0)">',
+        '<g id="behavior-ablation-schematic">',
         '<rect x="232" y="39" width="17" height="18" rx="3" class="black-box"/>',
         '<rect x="254" y="39" width="16" height="18" rx="3" class="black-box"/>',
         '<rect x="275" y="39" width="18" height="18" rx="3" class="black-box"/>',
@@ -403,45 +397,39 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}'
-           '.behavior-title{font:700 9px Arial,sans-serif;fill:#25313a}'
+           '.behavior-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.behavior-unit{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}'
            '</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
-           '<text x="190" y="12" class="story-letter">B</text>',
-           '<text x="207" y="12" class="story-heading">Behavior ablation</text>',
+           '<text x="231" y="12" class="story-letter">B</text>',
+           '<text x="248" y="12" class="story-heading">Behavior ablation</text>',
            '<text x="6" y="94" class="story-letter">C</text>',
            '<text x="23" y="94" class="story-heading">Push ablation</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
            '<text x="486" y="12" class="story-heading">Fields</text>']
-    for x, family in zip((67, 107, 147), ("NG", "UG", "FG")):
-        run_name = RUNS[family]
-        seed = run_name.rsplit("S", 1)[-1]
+    for x, family in zip((68, 121, 174), ("NG", "UG", "FG")):
         out.extend((
-            f'<text x="{x+19}" y="26" text-anchor="middle" class="story-label" '
+            f'<text x="{x+25}" y="26" text-anchor="middle" class="story-label" '
             f'fill="{COLORS[family]}">{family}</text>',
-            f'<text x="{x+19}" y="36" text-anchor="middle" class="story-label">s{seed}</text>',
-            f'<image x="{x}" y="40" width="38" height="38" '
+            f'<image x="{x}" y="30" width="50" height="50" '
             'preserveAspectRatio="none" '
             f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
-            f'<rect x="{x}" y="40" width="38" height="38" '
+            f'<rect x="{x}" y="30" width="50" height="50" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
     out.append(behavior_schematic())
-    for metric, x in (("dg_information", 255), ("ca1_information", 328),
-                      ("ca1_reliability", 401)):
+    for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
         out.append(behavior_card(metric, behavior[metric], x))
     # Layer and unit labels are SVG text added after the quantitative marks.
-    for x, layer, measure in ((255, "DG", "info · bit/step"),
-                              (328, "CA1", "info · bit/step"),
-                              (401, "CA1", "reliability")):
-        out.extend((f'<text x="{x+36}" y="25" text-anchor="middle" class="behavior-title">{layer}</text>',
-                    f'<text x="{x+36}" y="35" text-anchor="middle" class="behavior-unit">{measure}</text>'))
+    for x, measure in ((296, "Info · bit/step"), (386, "Reliability")):
+        out.extend((f'<text x="{x+42}" y="25" text-anchor="middle" class="behavior-title">DG</text>',
+                    f'<text x="{x+42}" y="35" text-anchor="middle" class="behavior-unit">{measure}</text>'))
     out.append(credit_schematic(105, "push", "push"))
     out.append(credit_schematic(170, "pull", "pull"))
     for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
@@ -516,7 +504,7 @@ def build() -> None:
     export(standalone("\n".join(gallery_cards), 540, 190),
            GALLERY)
     MANIFEST.write_text(json.dumps({
-        "schema": "cosyne27-figure2-story/v1",
+        "schema": "cosyne27-figure2-story/v2",
         "source_trajectory_table": str(DATA.relative_to(ROOT)),
         "source_trajectory_table_sha256": sha256(DATA),
         "sample_unit": "training seed; five per architecture",
@@ -531,17 +519,17 @@ def build() -> None:
         "frozen_behavior_comparison": {
             "source_dg_table": str(DG_INFORMATION.relative_to(ROOT)),
             "source_dg_table_sha256": sha256(DG_INFORMATION),
-            "source_all_layer_table": str(ALL_LAYER.relative_to(ROOT)),
-            "source_all_layer_table_sha256": sha256(ALL_LAYER),
-            "source_readout_table": str(READOUT.relative_to(ROOT)),
-            "source_readout_table_sha256": sha256(READOUT),
+            "source_dg_reliability_table": str(DG_RELIABILITY.relative_to(ROOT)),
+            "source_dg_reliability_table_sha256": sha256(DG_RELIABILITY),
+            "reliability_archive_commit": "6412596",
+            "reliability_archive_path": "06_experiments/results/cosyne_2027_behavior_secondary/all_layer_training_seeds.csv",
+            "reliability_archive_sha256": "1a601d3501de92e4187ba53c3bca00ca587441808ac4e06626b0e7ae48755c29",
             "sample_unit": "terminal frozen model; two paired 50,000-decision probes averaged within model",
             "sample_counts": {family: len(behavior["dg_information"][family])
                               for family in ("NG", "UG", "FG")},
             "difference": "learned-policy minus uniform-random-action value",
             "metrics": ["DG spatial information (bits/step)",
-                        "readout MLP layer 1 spatial information (bits/step)",
-                        "readout MLP layer 1 split-half spatial-map reliability"],
+                        "DG common-support split-half spatial-map reliability"],
         },
         "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
         "image_crop": "right trajectory panel or selected square tile, fixed world extent, no color change",

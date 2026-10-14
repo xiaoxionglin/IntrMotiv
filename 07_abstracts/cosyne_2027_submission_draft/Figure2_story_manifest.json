@@ -1,5 +1,5 @@
 {
-  "schema": "cosyne27-figure2-story/v1",
+  "schema": "cosyne27-figure2-story/v2",
   "source_trajectory_table": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/trajectory_by_snapshot.csv",
   "source_trajectory_table_sha256": "06f0976fdd0615575586624f40bfef240d2bf7b3c021f1f5b7a605673904ee7d",
   "sample_unit": "training seed; five per architecture",
@@ -61,10 +61,11 @@
   "frozen_behavior_comparison": {
     "source_dg_table": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/fresh_behavior_dg_bits_per_step.csv",
     "source_dg_table_sha256": "fdace3aee97e3515c62847c01010a0fd66859e89a97ad2b158858bfdcfdd2bed",
-    "source_all_layer_table": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_training_seeds.csv",
-    "source_all_layer_table_sha256": "c5039f52d93e1f13fba27c0851c726155cfd96f2a3523bec2f158462783c7091",
-    "source_readout_table": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_decoder1_absolute.csv",
-    "source_readout_table_sha256": "b042878a67ce4d0bad744703d4c15fe5e1619e9149b994bf0b82abf41af6068e",
+    "source_dg_reliability_table": "07_abstracts/cosyne_2027_submission_draft/data/fresh_behavior_dg_reliability.csv",
+    "source_dg_reliability_table_sha256": "23e0eeddfc4cb1e130a6f6c9ea11f68b35e4875fe35458d5f86cecad7dc58641",
+    "reliability_archive_commit": "6412596",
+    "reliability_archive_path": "06_experiments/results/cosyne_2027_behavior_secondary/all_layer_training_seeds.csv",
+    "reliability_archive_sha256": "1a601d3501de92e4187ba53c3bca00ca587441808ac4e06626b0e7ae48755c29",
     "sample_unit": "terminal frozen model; two paired 50,000-decision probes averaged within model",
     "sample_counts": {
       "NG": 10,
@@ -74,8 +75,7 @@
     "difference": "learned-policy minus uniform-random-action value",
     "metrics": [
       "DG spatial information (bits/step)",
-      "readout MLP layer 1 spatial information (bits/step)",
-      "readout MLP layer 1 split-half spatial-map reliability"
+      "DG common-support split-half spatial-map reliability"
     ]
   },
   "path_efficiency_definition": "sum of per-segment end-to-end displacement divided by total path length",
