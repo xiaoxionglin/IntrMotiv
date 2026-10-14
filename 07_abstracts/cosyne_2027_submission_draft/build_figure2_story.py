@@ -367,8 +367,37 @@ def behavior_schematic() -> str:
     ))
 
 
-def credit_schematic(y: int, crossed: str, name: str) -> str:
-    """Compact the original DG/TS/Policy motif while retaining both arrows."""
+def credit_schematic(y: int, crossed: str, name: str,
+                     elbow_arrows: bool = False) -> str:
+    """Compact the DG/TS/Policy motif while retaining both directed arrows."""
+    if elbow_arrows:
+        # The lower TS box leaves a narrow column for the result plots. The
+        # crossed connection stays visible on the vertical leg of its arrow.
+        cross_x = 25 if crossed == "push" else 51
+        return "\n".join((
+            f'<g id="{name}-schematic">',
+            f'<rect x="4" y="{y}" width="19" height="21" rx="4" '
+            'fill="#c58c8c" stroke="#933333" stroke-width="0.9"/>',
+            f'<rect x="29" y="{y+12}" width="19" height="21" rx="4" '
+            'fill="#edf4f2" stroke="#257873" stroke-width="0.9"/>',
+            f'<rect x="53" y="{y}" width="22" height="21" rx="4" '
+            'fill="#abc9e0" stroke="#16639a" stroke-width="0.9"/>',
+            f'<text x="13.5" y="{y+14}" text-anchor="middle" class="mini-label">DG</text>',
+            f'<text x="38.5" y="{y+26}" text-anchor="middle" class="mini-label">TS</text>',
+            f'<text x="64" y="{y+14}" text-anchor="middle" class="mini-label">Pol.</text>',
+            f'<path d="M 29,{y+22.5} H 25 V {y+10.5} H 23" '
+            'fill="none" stroke="#933333" stroke-width="1.2"/>',
+            f'<path d="M 26,{y+8} L 23,{y+10.5} L 26,{y+13}" '
+            'fill="none" stroke="#933333" stroke-width="1"/>',
+            f'<path d="M 48,{y+22.5} H 51 V {y+10.5} H 53" '
+            'fill="none" stroke="#16639a" stroke-width="1.2"/>',
+            f'<path d="M 50,{y+8} L 53,{y+10.5} L 50,{y+13}" '
+            'fill="none" stroke="#16639a" stroke-width="1"/>',
+            f'<path d="M {cross_x-4},{y+15} L {cross_x+4},{y+25} '
+            f'M {cross_x-4},{y+25} L {cross_x+4},{y+15}" '
+            'stroke="#171717" stroke-width="1.7" fill="none"/>',
+            '</g>',
+        ))
     cross_x = 27 if crossed == "push" else 56
     return "\n".join((
         f'<g id="{name}-schematic">',
@@ -396,7 +425,10 @@ def credit_schematic(y: int, crossed: str, name: str) -> str:
 
 def story_overlay(rows: dict[str, list[dict[str, str]]],
                   selected: dict[str, dict[str, str]],
-                  behavior: dict[str, dict[str, list[float]]]) -> str:
+                  behavior: dict[str, dict[str, list[float]]],
+                  *, peak_panel: str | None = None,
+                  trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
+                  elbow_arrows: bool = False) -> str:
     out = ['<g id="story-overlay">',
            '<style>.story-heading{font:700 12px Arial,sans-serif;fill:#25313a}'
            '.story-letter{font:700 13px Arial,sans-serif;fill:#25313a}'
@@ -413,6 +445,8 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.behavior-y-label{font:10px Arial,sans-serif;fill:#25313a}'
            '.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}'
+           '.peak-heading{font:700 10px Arial,sans-serif;fill:#25313a}'
+           '.peak-label{font:700 9px Arial,sans-serif}'
            '</style>',
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
@@ -423,18 +457,20 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="6" y="159" class="story-letter">D</text>',
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
-           '<text x="486" y="12" class="story-heading">Fields</text>']
+           ('<text x="483" y="12" class="peak-heading">Peak spread</text>'
+            if peak_panel is not None else
+            '<text x="486" y="12" class="story-heading">Fields</text>')]
     for center_x, family in zip((97, 150, 203), ("NG", "UG", "FG")):
-        x = center_x - TRAJECTORY_TILE_SIZE / 2
+        x = center_x - trajectory_tile_size / 2
         out.extend((
             f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
             f'fill="{COLORS[family]}">{family}</text>',
-            f'<image x="{x:g}" y="32" width="{TRAJECTORY_TILE_SIZE}" '
-            f'height="{TRAJECTORY_TILE_SIZE}" '
+            f'<image x="{x:g}" y="32" width="{trajectory_tile_size}" '
+            f'height="{trajectory_tile_size}" '
             'preserveAspectRatio="none" '
             f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
-            f'<rect x="{x:g}" y="32" width="{TRAJECTORY_TILE_SIZE}" '
-            f'height="{TRAJECTORY_TILE_SIZE}" '
+            f'<rect x="{x:g}" y="32" width="{trajectory_tile_size}" '
+            f'height="{trajectory_tile_size}" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
@@ -449,17 +485,20 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                    f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
                    f'transform="rotate(-90 {x+6} {y_center:.3f})" '
                    f'class="behavior-y-label">{measure}</text>')
-    out.append(credit_schematic(105, "push", "push"))
-    out.append(credit_schematic(170, "pull", "pull"))
-    for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
-        out.extend((
-            f'<image x="487" y="{y}" width="40" height="40" '
-            f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
-            f'<rect x="487" y="{y}" width="40" height="40" '
-            'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
-            f'<text x="507" y="{y+49}" text-anchor="middle" '
-            f'class="field-label">DG {unit}</text>',
-        ))
+    out.append(credit_schematic(105, "push", "push", elbow_arrows))
+    out.append(credit_schematic(170, "pull", "pull", elbow_arrows))
+    if peak_panel is None:
+        for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
+            out.extend((
+                f'<image x="487" y="{y}" width="40" height="40" '
+                f'preserveAspectRatio="none" xlink:href="{map_data_uri(unit)}"/>',
+                f'<rect x="487" y="{y}" width="40" height="40" '
+                'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
+                f'<text x="507" y="{y+49}" text-anchor="middle" '
+                f'class="field-label">DG {unit}</text>',
+            ))
+    else:
+        out.append(peak_panel)
     out.append('</g>')
     return "\n".join(out)
 
