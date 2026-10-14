@@ -345,40 +345,23 @@ def hide_group(svg: str, group_id: str) -> str:
     return svg
 
 
-def behavior_schematic(compact: bool = False) -> str:
+def behavior_schematic() -> str:
     """Match the rounded-box ablation style, using only black/gray ink."""
-    if compact:
-        # Save ten points beside the information y-label without reducing type.
-        env_left, env_width = 232, 16
-        dg_left, dg_width = 250, 14
-        policy_left, policy_width = 266, 17
-    else:
-        env_left, env_width = 232, 17
-        dg_left, dg_width = 254, 16
-        policy_left, policy_width = 275, 18
-    env_center = env_left + env_width / 2
-    dg_center = dg_left + dg_width / 2
-    policy_center = policy_left + policy_width / 2
-    arc_left = env_center if compact else 240
     return "\n".join((
         '<g id="behavior-ablation-schematic">',
-        f'<rect x="{env_left}" y="39" width="{env_width}" height="18" rx="3" class="black-box"/>',
-        f'<rect x="{dg_left}" y="39" width="{dg_width}" height="18" rx="3" class="black-box"/>',
-        f'<rect x="{policy_left}" y="39" width="{policy_width}" height="18" rx="3" class="black-box"/>',
-        f'<text x="{env_center:g}" y="51" text-anchor="middle" class="box-label">Env</text>',
-        f'<text x="{dg_center:g}" y="51" text-anchor="middle" class="box-label">DG</text>',
-        f'<text x="{policy_center:g}" y="51" text-anchor="middle" class="box-label">Pol.</text>',
-        f'<path d="M {env_left+env_width},48 H {dg_left} '
-        f'M {dg_left+dg_width},48 H {policy_left}" class="black-arrow"/>',
-        f'<path d="M {dg_left-2},45.5 L {dg_left},48 L {dg_left-2},50.5 '
-        f'M {policy_left-2},45.5 L {policy_left},48 L {policy_left-2},50.5" '
+        '<rect x="232" y="39" width="17" height="18" rx="3" class="black-box"/>',
+        '<rect x="254" y="39" width="16" height="18" rx="3" class="black-box"/>',
+        '<rect x="275" y="39" width="18" height="18" rx="3" class="black-box"/>',
+        '<text x="240.5" y="51" text-anchor="middle" class="box-label">Env</text>',
+        '<text x="262" y="51" text-anchor="middle" class="box-label">DG</text>',
+        '<text x="284" y="51" text-anchor="middle" class="box-label">Pol.</text>',
+        '<path d="M 249,48 H 254 M 270,48 H 275" class="black-arrow"/>',
+        '<path d="M 251,45.5 L 254,48 L 251,50.5 M 272,45.5 L 275,48 L 272,50.5" '
         'fill="none" stroke="#26323a" stroke-width="0.9"/>',
-        f'<path d="M {policy_center:g},38 C {policy_center-2:g},28 '
-        f'{arc_left:g},28 {arc_left:g},38" class="black-arrow"/>',
-        f'<path d="M {arc_left-3:g},34 L {arc_left:g},38 L {arc_left+3:g},34" fill="none" '
+        '<path d="M 284,38 C 282,28 240,28 240,38" class="black-arrow"/>',
+        '<path d="M 237,34 L 240,38 L 243,34" fill="none" '
         'stroke="#26323a" stroke-width="0.9"/>',
-        f'<path d="M {dg_center-4:g},28 L {dg_center+4:g},36 '
-        f'M {dg_center-4:g},36 L {dg_center+4:g},28" fill="none" '
+        '<path d="M 258,28 L 266,36 M 258,36 L 266,28" fill="none" '
         'stroke="#171717" stroke-width="1.6"/>',
         '</g>',
     ))
@@ -449,7 +432,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   paired_peak_layout: bool = False,
                   show_panel_e: bool = True,
                   behavior_layout_shift: float = 0,
-                  compact_behavior_schematic: bool = False,
+                  information_shift: float = 0,
                   reliability_shift: float = 0,
                   extra_overlay: str = '') -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
@@ -507,17 +490,16 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
         f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Behavior ablation</text>',
     ))
     if behavior_shift:
-        out.append(f'<g transform="translate({behavior_shift},0)">'
-                   f'{behavior_schematic(compact_behavior_schematic)}</g>')
+        out.append(f'<g transform="translate({behavior_shift},0)">{behavior_schematic()}</g>')
     else:
-        out.append(behavior_schematic(compact_behavior_schematic))
+        out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
-        metric_shift = reliability_shift if metric == 'dg_reliability' else 0
+        metric_shift = reliability_shift if metric == 'dg_reliability' else information_shift
         out.append(behavior_card(metric, behavior[metric], x + behavior_shift + metric_shift))
     # Keep B's metric names on the y axes, as in the push and pull rows.
     for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
                                ("dg_reliability", 386, "Δ reliability")):
-        x += behavior_shift + (reliability_shift if metric == 'dg_reliability' else 0)
+        x += behavior_shift + (reliability_shift if metric == 'dg_reliability' else information_shift)
         y_center = 30 + RESULT_AXIS_HEIGHT / 2
         out.append(f'<text id="behavior-{metric}-ylabel" '
                    f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '

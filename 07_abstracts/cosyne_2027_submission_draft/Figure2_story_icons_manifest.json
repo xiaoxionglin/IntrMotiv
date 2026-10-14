@@ -1,9 +1,9 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "9ed3de5f533928b230b12ffd3b95786f939e34b26121decd9f7bacb67b44e0ce",
+  "parent_story_source_sha256": "fb80a4eb2e98fd612a839bcbc24bd60e66c185d51fcb382131c7f8e82827a5bd",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "ed7cfd931c48b66b920328f41ccf5b138d3fd8fa22dd5efa65f09981b127ca6c",
+  "icon_source_sha256": "724766cb435743541ba85e28e2903157ff99802edff4bf3b5c2efeeebebce680",
   "physical_size_points": [
     540,
     230
@@ -11,8 +11,8 @@
   "removed_panel": "E",
   "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
   "behavior_layout_shift_points": 30,
-  "compact_behavior_schematic": true,
-  "behavior_reliability_shift_points": 33,
+  "behavior_information_shift_points": 10,
+  "behavior_reliability_shift_points": 43,
   "result_group_shifts_points": {
     "dg_information": 1,
     "map_overlap": 17,
@@ -64,7 +64,7 @@
     56.69291338582678
   ],
   "reliability_icon_position_points": [
-    384,
+    394,
     24.5
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
@@ -83,7 +83,7 @@
     },
     "reliability": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_reliability.svg",
-      "sha256": "547d4f0fe28dcca97e4680213f9128e61e5868d1e4685ea717cc9b94cd75ecb7"
+      "sha256": "2797dc0a8a3d82ff4f9c6cd936eeeff9e730139c14d3e3b31cf3a612bf1ca74c"
     }
   }
 }

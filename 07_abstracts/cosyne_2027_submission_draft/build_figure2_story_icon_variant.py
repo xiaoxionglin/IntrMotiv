@@ -29,7 +29,7 @@ RESULT_POSITIONS = {
     "pull": {"overlap": (178, 165.5), "coverage": (295, 165.5),
              "edges": (411, 165.5)},
 }
-RELIABILITY_POSITION = (384, 24.5)
+RELIABILITY_POSITION = (394, 24.5)
 
 
 def unique_icon(name: str, instance: str) -> str:
@@ -71,7 +71,7 @@ def build() -> None:
         terminal_rows(), selected_trajectories(), behavior_differences(),
         trajectory_tile_size=38, elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=30,
-        compact_behavior_schematic=True, reliability_shift=33,
+        information_shift=10, reliability_shift=43,
         extra_overlay=icon_overlay(),
     )
     svg, count = re.subn(r'</svg>\s*$', overlay + '\n</svg>\n', svg)
@@ -89,8 +89,8 @@ def build() -> None:
         "removed_panel": "E",
         "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
         "behavior_layout_shift_points": 30,
-        "compact_behavior_schematic": True,
-        "behavior_reliability_shift_points": 33,
+        "behavior_information_shift_points": 10,
+        "behavior_reliability_shift_points": 43,
         "result_group_shifts_points": {
             "dg_information": 1, "map_overlap": 17,
             "peak_coverage": 33, "graph_edges": 49,

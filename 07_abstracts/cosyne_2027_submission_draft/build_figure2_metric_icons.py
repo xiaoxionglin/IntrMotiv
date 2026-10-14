@@ -56,7 +56,7 @@ def paired_map_icon(kind: str) -> str:
     # Rows are high then low. Columns represent different units for overlap,
     # or the same unit observed in two episode-disjoint time halves.
     colors = ((RED, YELLOW), (RED, YELLOW)) if kind == "overlap" else (
-        (RED, RED), (YELLOW, YELLOW))
+        (RED, RED), (RED, RED))
     centers = (((8.35, 9.1), (19.35, 9.1)),
                ((6.9, 46.6), (21.45, 50.15)))
     cards = ((4.10, 4.5), (15.10, 4.5),
