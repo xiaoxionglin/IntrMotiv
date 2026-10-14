@@ -1,16 +1,17 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "fb80a4eb2e98fd612a839bcbc24bd60e66c185d51fcb382131c7f8e82827a5bd",
+  "parent_story_source_sha256": "1ab3dffad49b5cd12c5ad70b233e9447abe9edb930bfa0ec374bead2e027993e",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "724766cb435743541ba85e28e2903157ff99802edff4bf3b5c2efeeebebce680",
+  "icon_source_sha256": "a30ba3e76e292704e2c1860a9cea1925cca0271f6a0a11980a5ecf7d79d3b72e",
   "physical_size_points": [
     540,
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
-  "behavior_layout_shift_points": 30,
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square and shifted right; C/D components redistributed horizontally",
+  "trajectory_shift_points": 30,
+  "behavior_layout_shift_points": 40,
   "behavior_information_shift_points": 10,
   "behavior_reliability_shift_points": 43,
   "result_group_shifts_points": {
@@ -64,11 +65,23 @@
     56.69291338582678
   ],
   "reliability_icon_position_points": [
-    394,
+    404,
     24.5
+  ],
+  "path_efficiency_icon_size_points": [
+    28.34645669291339,
+    56.69291338582678
+  ],
+  "path_efficiency_icon_position_points": [
+    74,
+    27
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
   "icons": {
+    "path_efficiency": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_path_efficiency.svg",
+      "sha256": "36345eae5e89d93aa6e1291001780c54c5733e7a06170bcf703c0e120233584a"
+    },
     "overlap": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
       "sha256": "c0f769b64bfd4d7a67a68b4d534f27a49939484ac7e377f1f055def7118add0a"

@@ -1,6 +1,6 @@
 """Build the E-free Figure 2 story with metric icons beside B, C, and D.
 
-This variant reuses all quantitative panels from the story figure. Its seven
+This variant reuses all quantitative panels from the story figure. Its eight
 schematic icons are purely explanatory and remain editable vector content.
 """
 
@@ -29,7 +29,8 @@ RESULT_POSITIONS = {
     "pull": {"overlap": (178, 165.5), "coverage": (295, 165.5),
              "edges": (411, 165.5)},
 }
-RELIABILITY_POSITION = (394, 24.5)
+RELIABILITY_POSITION = (404, 24.5)
+PATH_EFFICIENCY_POSITION = (74, 27)
 
 
 def unique_icon(name: str, instance: str) -> str:
@@ -57,6 +58,10 @@ def icon_overlay() -> str:
     x, y = RELIABILITY_POSITION
     parts.append(f'<g id="behavior-reliability-icon" transform="translate({x:g},{y:g})">'
                  f'{unique_icon("reliability", "behavior")}</g>')
+    x, y = PATH_EFFICIENCY_POSITION
+    parts.append(f'<g id="exploration-path-efficiency-icon" '
+                 f'transform="translate({x:g},{y:g})">'
+                 f'{unique_icon("path_efficiency", "exploration")}</g>')
     parts.append('</g>')
     return '\n'.join(parts)
 
@@ -69,8 +74,9 @@ def build() -> None:
     svg = svg.replace(old_name, 'sodipodi:docname="Figure2_story_icons.svg"', 1)
     overlay = story_overlay(
         terminal_rows(), selected_trajectories(), behavior_differences(),
-        trajectory_tile_size=38, elbow_arrows=True, paired_peak_layout=True,
-        show_panel_e=False, behavior_layout_shift=30,
+        trajectory_tile_size=38, trajectory_shift=30,
+        elbow_arrows=True, paired_peak_layout=True,
+        show_panel_e=False, behavior_layout_shift=40,
         information_shift=10, reliability_shift=43,
         extra_overlay=icon_overlay(),
     )
@@ -87,8 +93,9 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
-        "behavior_layout_shift_points": 30,
+        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square and shifted right; C/D components redistributed horizontally",
+        "trajectory_shift_points": 30,
+        "behavior_layout_shift_points": 40,
         "behavior_information_shift_points": 10,
         "behavior_reliability_shift_points": 43,
         "result_group_shifts_points": {
@@ -102,6 +109,8 @@ def build() -> None:
         "result_icon_positions_points": RESULT_POSITIONS,
         "reliability_icon_size_points": [WIDTH_PT, 20 * 72 / 25.4],
         "reliability_icon_position_points": RELIABILITY_POSITION,
+        "path_efficiency_icon_size_points": [WIDTH_PT, 20 * 72 / 25.4],
+        "path_efficiency_icon_position_points": PATH_EFFICIENCY_POSITION,
         "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
         "icons": {name: {
             "path": str((HERE / f"Figure2_metric_icon_{name}.svg").relative_to(ROOT)),

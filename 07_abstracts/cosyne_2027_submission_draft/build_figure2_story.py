@@ -428,6 +428,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   behavior: dict[str, dict[str, list[float]]],
                   *, peak_panel: str | None = None,
                   trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
+                  trajectory_shift: float = 0,
                   elbow_arrows: bool = False,
                   paired_peak_layout: bool = False,
                   show_panel_e: bool = True,
@@ -469,7 +470,8 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
              if peak_panel is not None else
              '<text x="486" y="12" class="story-heading">Fields</text>'),
         ))
-    centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+    base_centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+    centers = tuple(center + trajectory_shift for center in base_centers)
     for center_x, family in zip(centers, ("NG", "UG", "FG")):
         x = center_x - trajectory_tile_size / 2
         out.extend((

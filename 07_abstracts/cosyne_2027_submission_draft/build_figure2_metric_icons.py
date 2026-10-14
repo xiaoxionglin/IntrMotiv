@@ -1,6 +1,6 @@
-"""Build four small, data-free icons for Figure 2's metric labels.
+"""Build five small, data-free icons for Figure 2's metric labels.
 
-Coverage and edges are 10 by 30 mm; overlap and reliability are 10 by 20 mm.
+Coverage and edges are 10 by 30 mm; the other icons are 10 by 20 mm.
 The larger contact sheet is only a preview.
 """
 
@@ -45,6 +45,31 @@ def comparison_link() -> str:
     """Point toward the higher statistic, matching an upward plot axis."""
     return (
         f'<path d="M 14.17,52.7 V 32.2 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7" '
+        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+    )
+
+
+def path_efficiency_icon() -> str:
+    """Show segment displacement divided by traveled length at fixed endpoints."""
+    return (
+        f'<rect x="2.52" y="4.0" width="23.3" height="17.5" rx="1.1" '
+        f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>'
+        f'<rect x="2.52" y="35.3" width="23.3" height="17.5" rx="1.1" '
+        f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>'
+        f'<path d="M 5.5,17.5 L 22.7,8.0" fill="none" '
+        f'stroke="{INK}" stroke-width="1.3"/>'
+        f'<path d="M 5.5,48.8 L 22.7,39.3" fill="none" '
+        f'stroke="{MUTED}" stroke-width="0.7" stroke-dasharray="1.6 1.5"/>'
+        f'<path d="M 5.5,48.8 C 8,46 5,39.5 11,39.2 '
+        f'C 17,38.9 10,50 17,49.8 C 23,49.6 19,42.5 22.7,39.3" '
+        f'fill="none" stroke="{INK}" stroke-width="1.3"/>'
+        f'<circle cx="5.5" cy="17.5" r="1.35" fill="white" '
+        f'stroke="{INK}" stroke-width="0.8"/>'
+        f'<circle cx="22.7" cy="8.0" r="1.35" fill="{INK}"/>'
+        f'<circle cx="5.5" cy="48.8" r="1.35" fill="white" '
+        f'stroke="{INK}" stroke-width="0.8"/>'
+        f'<circle cx="22.7" cy="39.3" r="1.35" fill="{INK}"/>'
+        f'<path d="M 14.17,33.0 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5" '
         f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
 
@@ -174,6 +199,7 @@ def reliability_icon() -> str:
 
 
 ICONS = {
+    "path_efficiency": path_efficiency_icon,
     "overlap": overlap_icon,
     "coverage": coverage_icon,
     "edges": edges_icon,
@@ -203,27 +229,27 @@ def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        write_and_export(path, svg_document(factory(), 20 if name in ('overlap', 'reliability') else 30))
+        write_and_export(path, svg_document(factory(), 30 if name in ('coverage', 'edges') else 20))
 
     # Enlarged inspection sheet; use standalone files for physical dimensions.
-    locations = (("overlap", 13), ("coverage", 115), ("edges", 217),
-                 ("reliability", 319))
+    locations = (("path_efficiency", 15), ("overlap", 108),
+                 ("coverage", 201), ("edges", 294), ("reliability", 387))
     sheet_parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="147mm" height="70mm" '
-        'viewBox="0 0 417 198"><rect width="417" height="198" fill="white"/>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="170mm" height="70mm" '
+        'viewBox="0 0 480 198"><rect width="480" height="198" fill="white"/>',
         '<style>text.preview-label{font:11px Arial,sans-serif;fill:#27343c}</style>',
     ]
     for name, x in locations:
-        top = 34 if name in ('overlap', 'reliability') else 8
+        top = 34 if name in ('path_efficiency', 'overlap', 'reliability') else 8
         sheet_parts.append(f'<g transform="translate({x},{top}) scale(1.9)">'
                            f'{ICONS[name]()}')
         sheet_parts.append('</g>')
         sheet_parts.append(f'<text class="preview-label" x="{x+27}" y="185" text-anchor="middle">'
-                           f'{"Map overlap" if name == "overlap" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
+                           f'{"Path efficiency" if name == "path_efficiency" else "Map overlap" if name == "overlap" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
                            '</text>')
     sheet_parts.append('</svg>\n')
     sheet = HERE / "Figure2_metric_icons_preview.svg"
-    write_and_export(sheet, ''.join(sheet_parts), png_width=1600)
+    write_and_export(sheet, ''.join(sheet_parts), png_width=1800)
 
 
 if __name__ == "__main__":

@@ -117,7 +117,7 @@ for metric in ("path_efficiency", "visited_cell_fraction",
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_behavior_{metric}.{extension}"
         LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
-for name in ("overlap", "coverage", "edges", "reliability"):
+for name in ("path_efficiency", "overlap", "coverage", "edges", "reliability"):
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_metric_icon_{name}.{extension}"
         LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
@@ -201,7 +201,7 @@ def build_compact() -> None:
                          "See `FIGURE2_STORY_NOTES.md` and "
                          "`FIGURE2_STORY_PEAKS_NOTES.md`. An E-free layout with "
                          "metric icons is `figures/Figure2_story_icons.pdf` and "
-                         "`FIGURE2_STORY_ICONS_NOTES.md`. Four tiny metric icons "
+                         "`FIGURE2_STORY_ICONS_NOTES.md`. Five tiny metric icons "
                          "and their preview are in `figures/Figure2_metric_icon_*.pdf` "
                          "and `FIGURE2_METRIC_ICONS_NOTES.md`. The earlier taller trial is "
                          "also included. A matching five-seed mean intrinsic-"
