@@ -1,0 +1,104 @@
+{
+  "schema": "cosyne27-figure2-story-icon-variant/v1",
+  "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
+  "parent_story_source_sha256": "5e06fb02af3a2190bc3b496a07f9c749cb8a42cae17558ff242f280ca55f15c7",
+  "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
+  "icon_source_sha256": "a30ba3e76e292704e2c1860a9cea1925cca0271f6a0a11980a5ecf7d79d3b72e",
+  "physical_size_points": [
+    540,
+    230
+  ],
+  "removed_panel": "E",
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+  "trajectory_shift_points": 34,
+  "path_metric_shift_points": 33,
+  "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
+  "behavior_layout_shift_points": 40,
+  "behavior_information_shift_points": 10,
+  "behavior_reliability_shift_points": 43,
+  "result_group_shifts_points": {
+    "dg_information": 1,
+    "map_overlap": 17,
+    "peak_coverage": 33,
+    "graph_edges": 49
+  },
+  "result_icon_size_points": {
+    "overlap": [
+      28.34645669291339,
+      56.69291338582678
+    ],
+    "coverage_and_edges": [
+      19.0,
+      57
+    ]
+  },
+  "result_icon_positions_points": {
+    "push": {
+      "overlap": [
+        178,
+        100.5
+      ],
+      "coverage": [
+        295,
+        100.5
+      ],
+      "edges": [
+        411,
+        100.5
+      ]
+    },
+    "pull": {
+      "overlap": [
+        178,
+        165.5
+      ],
+      "coverage": [
+        295,
+        165.5
+      ],
+      "edges": [
+        411,
+        165.5
+      ]
+    }
+  },
+  "reliability_icon_size_points": [
+    28.34645669291339,
+    56.69291338582678
+  ],
+  "reliability_icon_position_points": [
+    404,
+    24.5
+  ],
+  "path_efficiency_icon_size_points": [
+    28.34645669291339,
+    56.69291338582678
+  ],
+  "path_efficiency_icon_position_points": [
+    4,
+    27
+  ],
+  "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
+  "icons": {
+    "path_efficiency": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_path_efficiency.svg",
+      "sha256": "36345eae5e89d93aa6e1291001780c54c5733e7a06170bcf703c0e120233584a"
+    },
+    "overlap": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
+      "sha256": "c0f769b64bfd4d7a67a68b4d534f27a49939484ac7e377f1f055def7118add0a"
+    },
+    "coverage": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",
+      "sha256": "0d7f5608033340ae3e598ed03e67866e2a76f02ffdb5999bf66cb25f035b650c"
+    },
+    "edges": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_edges.svg",
+      "sha256": "2cfe106dea3e3d296e329ec0f63adff4cacfae1445137a63295f3f38c3d5fb89"
+    },
+    "reliability": {
+      "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_reliability.svg",
+      "sha256": "2797dc0a8a3d82ff4f9c6cd936eeeff9e730139c14d3e3b31cf3a612bf1ca74c"
+    }
+  }
+}

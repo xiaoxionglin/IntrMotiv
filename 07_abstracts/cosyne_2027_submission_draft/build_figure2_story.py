@@ -371,30 +371,30 @@ def credit_schematic(y: int, crossed: str, name: str,
                      elbow_arrows: bool = False) -> str:
     """Compact the DG/TS/Policy motif while retaining both directed arrows."""
     if elbow_arrows:
-        # The lower TS box leaves a narrow column for the result plots. The
-        # crossed connection stays visible on the vertical leg of its arrow.
-        cross_x = 25 if crossed == "push" else 51
+        # The two arrows rise from the lower TS box into the bottom edges of
+        # DG and policy. A cross marks the disabled connection on its stem.
+        cross_x = 22 if crossed == "push" else 55
         return "\n".join((
             f'<g id="{name}-schematic">',
             f'<rect x="4" y="{y}" width="19" height="21" rx="4" '
             'fill="#c58c8c" stroke="#933333" stroke-width="0.9"/>',
-            f'<rect x="29" y="{y+12}" width="19" height="21" rx="4" '
+            f'<rect x="29" y="{y+20}" width="19" height="21" rx="4" '
             'fill="#edf4f2" stroke="#257873" stroke-width="0.9"/>',
             f'<rect x="53" y="{y}" width="22" height="21" rx="4" '
             'fill="#abc9e0" stroke="#16639a" stroke-width="0.9"/>',
             f'<text x="13.5" y="{y+14}" text-anchor="middle" class="mini-label">DG</text>',
-            f'<text x="38.5" y="{y+26}" text-anchor="middle" class="mini-label">TS</text>',
+            f'<text x="38.5" y="{y+34}" text-anchor="middle" class="mini-label">TS</text>',
             f'<text x="64" y="{y+14}" text-anchor="middle" class="mini-label">Pol.</text>',
-            f'<path d="M 29,{y+22.5} H 25 V {y+10.5} H 23" '
+            f'<path d="M 29,{y+30.5} H 13.5 V {y+21}" '
             'fill="none" stroke="#933333" stroke-width="1.2"/>',
-            f'<path d="M 26,{y+8} L 23,{y+10.5} L 26,{y+13}" '
+            f'<path d="M 11,{y+24.5} L 13.5,{y+21} L 16,{y+24.5}" '
             'fill="none" stroke="#933333" stroke-width="1"/>',
-            f'<path d="M 48,{y+22.5} H 51 V {y+10.5} H 53" '
+            f'<path d="M 48,{y+30.5} H 64 V {y+21}" '
             'fill="none" stroke="#16639a" stroke-width="1.2"/>',
-            f'<path d="M 50,{y+8} L 53,{y+10.5} L 50,{y+13}" '
+            f'<path d="M 61.5,{y+24.5} L 64,{y+21} L 66.5,{y+24.5}" '
             'fill="none" stroke="#16639a" stroke-width="1"/>',
-            f'<path d="M {cross_x-4},{y+15} L {cross_x+4},{y+25} '
-            f'M {cross_x-4},{y+25} L {cross_x+4},{y+15}" '
+            f'<path d="M {cross_x-3.5},{y+26.5} L {cross_x+3.5},{y+34.5} '
+            f'M {cross_x-3.5},{y+34.5} L {cross_x+3.5},{y+26.5}" '
             'stroke="#171717" stroke-width="1.7" fill="none"/>',
             '</g>',
         ))
@@ -428,8 +428,15 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   behavior: dict[str, dict[str, list[float]]],
                   *, peak_panel: str | None = None,
                   trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
+                  trajectory_shift: float = 0,
+                  path_metric_shift: float = 0,
                   elbow_arrows: bool = False,
-                  paired_peak_layout: bool = False) -> str:
+                  paired_peak_layout: bool = False,
+                  show_panel_e: bool = True,
+                  behavior_layout_shift: float = 0,
+                  information_shift: float = 0,
+                  reliability_shift: float = 0,
+                  extra_overlay: str = '') -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
                   '.peak-label{font:700 9px Arial,sans-serif}'
                   if peak_panel is not None else '')
@@ -442,7 +449,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.box-label{font:9px Arial,sans-serif;fill:#171717}'
            '.black-box{fill:#f4f4f4;stroke:#171717;stroke-width:1}'
            '.black-arrow{fill:none;stroke:#26323a;stroke-width:1}'
-           '.poster-stat-title{font:700 9px Arial,sans-serif;fill:#25313a}'
+           '.poster-stat-title{font:9px Arial,sans-serif;fill:#25313a}'
            '.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}'
@@ -455,13 +462,17 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="6" y="94" class="story-letter">C</text>',
            '<text x="23" y="94" class="story-heading">Push ablation</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
-           '<text x="23" y="159" class="story-heading">Pull ablation</text>',
-           f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
-           (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
-            'class="peak-heading">Peak spread</text>'
-            if peak_panel is not None else
-            '<text x="486" y="12" class="story-heading">Fields</text>')]
-    centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+           '<text x="23" y="159" class="story-heading">Pull ablation</text>']
+    if show_panel_e:
+        out.extend((
+            f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
+            (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
+             'class="peak-heading">Peak spread</text>'
+             if peak_panel is not None else
+             '<text x="486" y="12" class="story-heading">Fields</text>'),
+        ))
+    base_centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
+    centers = tuple(center + trajectory_shift for center in base_centers)
     for center_x, family in zip(centers, ("NG", "UG", "FG")):
         x = center_x - trajectory_tile_size / 2
         out.extend((
@@ -475,8 +486,12 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
             f'height="{trajectory_tile_size}" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
-    out.append(poster_dot_metric(rows))
-    behavior_shift = -34 if paired_peak_layout else 0
+    if path_metric_shift:
+        out.append(f'<g transform="translate({path_metric_shift:g},0)">'
+                   f'{poster_dot_metric(rows)}</g>')
+    else:
+        out.append(poster_dot_metric(rows))
+    behavior_shift = (-34 if paired_peak_layout else 0) + behavior_layout_shift
     out.extend((
         f'<text x="{231 + behavior_shift}" y="12" class="story-letter">B</text>',
         f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Behavior ablation</text>',
@@ -486,11 +501,12 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     else:
         out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
-        out.append(behavior_card(metric, behavior[metric], x + behavior_shift))
+        metric_shift = reliability_shift if metric == 'dg_reliability' else information_shift
+        out.append(behavior_card(metric, behavior[metric], x + behavior_shift + metric_shift))
     # Keep B's metric names on the y axes, as in the push and pull rows.
-    for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
+    for metric, x, measure in (("dg_information", 296, "Δ spatial info"),
                                ("dg_reliability", 386, "Δ reliability")):
-        x += behavior_shift
+        x += behavior_shift + (reliability_shift if metric == 'dg_reliability' else information_shift)
         y_center = 30 + RESULT_AXIS_HEIGHT / 2
         out.append(f'<text id="behavior-{metric}-ylabel" '
                    f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
@@ -498,7 +514,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                    f'class="behavior-y-label">{measure}</text>')
     out.append(credit_schematic(105, "push", "push", elbow_arrows))
     out.append(credit_schematic(170, "pull", "pull", elbow_arrows))
-    if peak_panel is None:
+    if show_panel_e and peak_panel is None:
         for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
             out.extend((
                 f'<image x="487" y="{y}" width="40" height="40" '
@@ -508,8 +524,10 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                 f'<text x="507" y="{y+49}" text-anchor="middle" '
                 f'class="field-label">DG {unit}</text>',
             ))
-    else:
+    elif show_panel_e:
         out.append(peak_panel)
+    if extra_overlay:
+        out.append(extra_overlay)
     out.append('</g>')
     return "\n".join(out)
 
@@ -557,6 +575,31 @@ def layout_base(extra_plot_shift: float = 0,
     for group in ("g699", "g701", "g702", "compact-map-examples",
                   "component_behavior_dg_information", "component_behavior_readout_reliability"):
         svg = hide_group(svg, group)
+    # These are display names; the stored metric remains pairwise map cosine.
+    # The source SVG has path-converted per-letter text, so replace only the
+    # two y-label groups rather than altering statistical plot geometry.
+    for prefix, label_index in (("push", 7), ("pull", 6)):
+        pattern = (rf'<g\s+id="{prefix}_map_overlap_text_{label_index}"><g\s+'
+                   r'transform="(rotate\([^"]+\))"[^>]*><text[^>]*>.*?</text></g></g>')
+        def new_label(match: re.Match[str]) -> str:
+            return (f'<g id="{prefix}_map_overlap_text_{label_index}">'
+                    f'<g transform="{match.group(1)}"><text x="-6" y="-0.703125" '
+                    'style="font-size:10px;font-family:Arial">Δ overlap</text></g></g>')
+        svg, count = re.subn(pattern, new_label, svg, count=1, flags=re.DOTALL)
+        if count != 1:
+            raise ValueError(f"Could not rename {prefix} overlap label")
+    for prefix, label_index in (("push", 7), ("pull", 6)):
+        pattern = (rf'<g\s+id="{prefix}_dg_information_text_{label_index}"><g\s+'
+                   r'transform="(rotate\([^"]+\))"[^>]*><text[^>]*>.*?</text></g></g>')
+        def new_information_label(match: re.Match[str]) -> str:
+            return (f'<g id="{prefix}_dg_information_text_{label_index}" '
+                    'transform="translate(0,-8)">'
+                    f'<g transform="{match.group(1)}"><text x="-6" y="-0.703125" '
+                    'style="font-size:9px;font-family:Arial">Δ spatial info</text></g></g>')
+        svg, count = re.subn(pattern, new_information_label, svg, count=1,
+                             flags=re.DOTALL)
+        if count != 1:
+            raise ValueError(f"Could not rename {prefix} DG spatial-information label")
     for prefix in ("push", "pull"):
         for metric, metric_shift in zip(
                 ("dg_information", "map_overlap", "peak_coverage", "graph_edges"),

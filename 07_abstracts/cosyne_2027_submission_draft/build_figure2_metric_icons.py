@@ -1,7 +1,7 @@
-"""Build three small, data-free icons for Figure 2's metric labels.
+"""Build five small, data-free icons for Figure 2's metric labels.
 
-Each standalone SVG/PDF is exactly 10 by 30 mm. The larger contact sheet is
-only a preview; the manuscript can use the individual vector assets.
+Coverage and edges are 10 by 30 mm; the other icons are 10 by 20 mm.
+The larger contact sheet is only a preview.
 """
 
 from __future__ import annotations
@@ -16,12 +16,17 @@ HEIGHT_PT = 30 * 72 / 25.4
 INK = "#27343c"
 MUTED = "#919ba2"
 ACCENT = "#555f66"
+# DG neuron colors reproduce the blue, red, and yellow circles in Figure 1.
+# Purple is the fourth identity for the four-unit coverage and graph examples.
+DG_COLORS = ("#4364a6", "#a73e30", "#c3b058", "#8864a8")
+BLUE, RED, YELLOW, PURPLE = DG_COLORS
 
 
-def svg_document(body: str) -> str:
+def svg_document(body: str, height_mm: float = 30) -> str:
+    height_pt = height_mm * 72 / 25.4
     return (
-        '<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="30mm" '
-        f'viewBox="0 0 {WIDTH_PT:.6f} {HEIGHT_PT:.6f}">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="{height_mm:g}mm" '
+        f'viewBox="0 0 {WIDTH_PT:.6f} {height_pt:.6f}">'
         '<g stroke-linecap="round" stroke-linejoin="round">'
         f'{body}</g></svg>\n'
     )
@@ -37,45 +42,90 @@ def frames() -> str:
 
 
 def comparison_link() -> str:
-    """A two-headed link means comparison, never a result direction."""
+    """Point toward the higher statistic, matching an upward plot axis."""
     return (
-        f'<path d="M 14.17,32.2 V 52.7 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7 '
-        f'M 11.8,50.2 L 14.17,52.7 L 16.54,50.2" '
+        f'<path d="M 14.17,52.7 V 32.2 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7" '
         f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
 
 
-def cosine_icon() -> str:
-    """Two pairs of DG place fields: one similar, one spatially different."""
-    fields = (
-        ("similar-a", 4.10, 10.30, 8.35, 14.70),
-        ("similar-b", 15.10, 10.30, 19.35, 14.70),
-        ("different-a", 4.10, 63.00, 6.90, 65.80),
-        ("different-b", 15.10, 63.00, 21.45, 69.35),
+def path_efficiency_icon() -> str:
+    """Show segment displacement divided by traveled length at fixed endpoints."""
+    return (
+        f'<rect x="2.52" y="4.0" width="23.3" height="17.5" rx="1.1" '
+        f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>'
+        f'<rect x="2.52" y="35.3" width="23.3" height="17.5" rx="1.1" '
+        f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>'
+        f'<path d="M 5.5,17.5 L 22.7,8.0" fill="none" '
+        f'stroke="{INK}" stroke-width="1.3"/>'
+        f'<path d="M 5.5,48.8 L 22.7,39.3" fill="none" '
+        f'stroke="{MUTED}" stroke-width="0.7" stroke-dasharray="1.6 1.5"/>'
+        f'<path d="M 5.5,48.8 C 8,46 5,39.5 11,39.2 '
+        f'C 17,38.9 10,50 17,49.8 C 23,49.6 19,42.5 22.7,39.3" '
+        f'fill="none" stroke="{INK}" stroke-width="1.3"/>'
+        f'<circle cx="5.5" cy="17.5" r="1.35" fill="white" '
+        f'stroke="{INK}" stroke-width="0.8"/>'
+        f'<circle cx="22.7" cy="8.0" r="1.35" fill="{INK}"/>'
+        f'<circle cx="5.5" cy="48.8" r="1.35" fill="white" '
+        f'stroke="{INK}" stroke-width="0.8"/>'
+        f'<circle cx="22.7" cy="39.3" r="1.35" fill="{INK}"/>'
+        f'<path d="M 14.17,33.0 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5" '
+        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
-    gradient = (
-        '<defs><radialGradient id="cosine-rate">'
-        f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
-        f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
-        f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        '</radialGradient>'
-        + ''.join(
-            f'<clipPath id="cosine-{name}-clip"><rect x="{x}" y="{y}" '
-            'width="9.2" height="9.2"/></clipPath>'
-            for name, x, y, _, _ in fields
-        )
-        + '</defs>'
+
+
+def paired_map_icon(kind: str) -> str:
+    """Show high/low map similarity with explicit neuron and time identities."""
+    if kind not in {"overlap", "reliability"}:
+        raise ValueError(kind)
+    # Rows are high then low. Columns represent different units for overlap,
+    # or the same unit observed in two episode-disjoint time halves.
+    colors = ((RED, YELLOW), (RED, YELLOW)) if kind == "overlap" else (
+        (RED, RED), (RED, RED))
+    centers = (((8.35, 9.1), (19.35, 9.1)),
+               ((6.9, 46.6), (21.45, 50.15)))
+    cards = ((4.10, 4.5), (15.10, 4.5),
+             (4.10, 42.0), (15.10, 42.0))
+    definitions = []
+    for color_name, color in (("red", RED), ("yellow", YELLOW)):
+        definitions.append(
+            f'<radialGradient id="map-{kind}-{color_name}">'
+            f'<stop offset="0" stop-color="{color}" stop-opacity="0.75"/>'
+            f'<stop offset="0.58" stop-color="{color}" stop-opacity="0.28"/>'
+            f'<stop offset="1" stop-color="{color}" stop-opacity="0"/>'
+            '</radialGradient>')
+    definitions.extend(
+        f'<clipPath id="{kind}-field-{index}"><rect x="{x}" y="{y}" '
+        'width="9.2" height="9.2"/></clipPath>'
+        for index, (x, y) in enumerate(cards)
     )
-    patches = ''.join(
-        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="white"/>'
-        f'<g clip-path="url(#cosine-{name}-clip)">'
-        f'<circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#cosine-rate)"/>'
-        '</g>'
-        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="none" '
-        f'stroke="{MUTED}" stroke-width="0.47"/>'
-        for name, x, y, cx, cy in fields
+    out = ['<defs>' + ''.join(definitions) + '</defs>']
+    for index, (x, y) in enumerate(cards):
+        row, column = divmod(index, 2)
+        color = colors[row][column]
+        gradient = "red" if color == RED else "yellow"
+        cx, cy = centers[row][column]
+        out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
+                   f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
+        out.append(f'<g clip-path="url(#{kind}-field-{index})">'
+                   f'<circle cx="{cx}" cy="{cy}" r="4.0" '
+                   f'fill="url(#map-{kind}-{gradient})"/></g>')
+        # A colored DG-circle is a neuron identity, not a peak marker.
+        out.append(f'<circle cx="{x+1.55:.2f}" cy="{y+11.5:.2f}" r="1.1" '
+                   f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
+        marker = ("t1", "t2")[column] if kind == "reliability" else ("1", "2")[column]
+        out.append(f'<text x="{x+3.25:.2f}" y="{y+12.65:.2f}" '
+                   f'font-family="DejaVu Sans" font-size="3.5" fill="{INK}">{marker}</text>')
+    out.append(
+        f'<path d="M 14.17,37.3 V 20.0 M 11.8,22.5 L 14.17,20.0 L 16.54,22.5" '
+        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
-    return gradient + frames() + patches + comparison_link()
+    return ''.join(out)
+
+
+def overlap_icon() -> str:
+    """Compare distinct red and yellow DG neurons within each row."""
+    return paired_map_icon("overlap")
 
 
 def coverage_icon() -> str:
@@ -90,17 +140,17 @@ def coverage_icon() -> str:
         '<clipPath id="coverage-bottom"><rect x="2.52" y="57.2" width="23.3" height="23.3"/></clipPath>'
         '</defs>'
     )
-    clustered = ((11.3, 14.0), (13.8, 16.8), (16.0, 13.0), (17.0, 18.9))
-    dispersed = ((7.0, 63.0), (21.0, 64.2), (8.1, 75.8), (20.7, 76.1))
+    dispersed = ((7.0, 10.3), (21.0, 11.5), (8.1, 23.1), (20.7, 23.4))
+    clustered = ((11.3, 66.7), (13.8, 69.5), (16.0, 65.7), (17.0, 71.6))
     def draw_peaks(points: tuple[tuple[float, float], ...], clip_id: str) -> str:
         return (f'<g clip-path="url(#{clip_id})">' + ''.join(
             f'<circle cx="{x}" cy="{y}" r="5.1" fill="url(#coverage-blur)"/>'
-            f'<circle cx="{x}" cy="{y}" r="1.15" fill="{INK}" '
-            'stroke="white" stroke-width="0.35"/>'
-            for x, y in points
+            f'<circle cx="{x}" cy="{y}" r="1.45" fill="{DG_COLORS[index]}" '
+            f'stroke="{INK}" stroke-width="0.38"/>'
+            for index, (x, y) in enumerate(points)
         ) + '</g>')
 
-    peaks = draw_peaks(clustered, 'coverage-top') + draw_peaks(dispersed, 'coverage-bottom')
+    peaks = draw_peaks(dispersed, 'coverage-top') + draw_peaks(clustered, 'coverage-bottom')
     return gradient + frames() + peaks + comparison_link()
 
 
@@ -126,9 +176,9 @@ def graph_arrows(edges: tuple[tuple[int, int], ...], y_offset: float) -> str:
             f'stroke="{INK}" stroke-width="1.05"/>'
         )
     circles = ''.join(
-        f'<circle cx="{x}" cy="{y+y_offset}" r="2.35" fill="white" '
+        f'<circle cx="{x}" cy="{y+y_offset}" r="2.35" fill="{DG_COLORS[index]}" '
         f'stroke="{INK}" stroke-width="0.95"/>'
-        for x, y in nodes
+        for index, (x, y) in enumerate(nodes)
     )
     return ''.join(paths) + circles
 
@@ -137,16 +187,23 @@ def edges_icon() -> str:
     """Two stored directed graphs with different reliable-edge counts."""
     return (
         frames()
-        + graph_arrows(((0, 1), (1, 3)), 0)
-        + graph_arrows(((0, 1), (0, 2), (1, 3), (2, 3)), 52.7)
+        + graph_arrows(((0, 1), (0, 2), (1, 3), (2, 3)), 0)
+        + graph_arrows(((0, 1), (1, 3)), 52.7)
         + comparison_link()
     )
 
 
+def reliability_icon() -> str:
+    """A single DG field compared across two episode-disjoint halves."""
+    return paired_map_icon("reliability")
+
+
 ICONS = {
-    "cosine": cosine_icon,
+    "path_efficiency": path_efficiency_icon,
+    "overlap": overlap_icon,
     "coverage": coverage_icon,
     "edges": edges_icon,
+    "reliability": reliability_icon,
 }
 
 
@@ -172,25 +229,27 @@ def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        write_and_export(path, svg_document(factory()))
+        write_and_export(path, svg_document(factory(), 30 if name in ('coverage', 'edges') else 20))
 
-    # Enlarged inspection sheet; standalone icons retain their 10 × 30 mm size.
-    locations = (("cosine", 13), ("coverage", 116), ("edges", 219))
+    # Enlarged inspection sheet; use standalone files for physical dimensions.
+    locations = (("path_efficiency", 15), ("overlap", 108),
+                 ("coverage", 201), ("edges", 294), ("reliability", 387))
     sheet_parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="110mm" height="70mm" '
-        'viewBox="0 0 312 198"><rect width="312" height="198" fill="white"/>',
-        '<style>text{font:11px Arial,sans-serif;fill:#27343c}</style>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="170mm" height="70mm" '
+        'viewBox="0 0 480 198"><rect width="480" height="198" fill="white"/>',
+        '<style>text.preview-label{font:11px Arial,sans-serif;fill:#27343c}</style>',
     ]
     for name, x in locations:
-        sheet_parts.append(f'<g transform="translate({x},8) scale(1.9)">'
+        top = 34 if name in ('path_efficiency', 'overlap', 'reliability') else 8
+        sheet_parts.append(f'<g transform="translate({x},{top}) scale(1.9)">'
                            f'{ICONS[name]()}')
         sheet_parts.append('</g>')
-        sheet_parts.append(f'<text x="{x+27}" y="185" text-anchor="middle">'
-                           f'{"Map cosine" if name == "cosine" else "Peak coverage" if name == "coverage" else "Reliable edges"}'
+        sheet_parts.append(f'<text class="preview-label" x="{x+27}" y="185" text-anchor="middle">'
+                           f'{"Path efficiency" if name == "path_efficiency" else "Map overlap" if name == "overlap" else "Peak coverage" if name == "coverage" else "Reliable edges" if name == "edges" else "Reliability"}'
                            '</text>')
     sheet_parts.append('</svg>\n')
     sheet = HERE / "Figure2_metric_icons_preview.svg"
-    write_and_export(sheet, ''.join(sheet_parts), png_width=1600)
+    write_and_export(sheet, ''.join(sheet_parts), png_width=1800)
 
 
 if __name__ == "__main__":
