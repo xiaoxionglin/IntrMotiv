@@ -2442,6 +2442,14 @@ For each finding, record:
   compact layouts, measure group bounds first, move complete SVG groups, and
   leave non-data icon proposals on a separate taller trial. Check the outermost
   headings and bottom tick labels after export; both clipped on the first pass.
+  A later [NG/UG/FG icon gallery](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/goal_policy_icon_options/README.md)
+  reused the existing DG palette and vector export helper. Its 53-mm strips
+  show that goal selection and pull eligibility need separate visual cues:
+  FG changes the selector while retaining UG's goal-matching pull rule.
+  Editable SVG groups and a width-matched preview keep the candidates easy
+  to inspect without altering the selected figure. Reuse this pattern when
+  placing an icon; acceptance is that FG never appears to make all frontier
+  events eligible for pull and that the icon remains legible at final width.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
