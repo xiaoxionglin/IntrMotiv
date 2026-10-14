@@ -53,6 +53,22 @@ PALETTES = (
         dg_fourth="#C477A5",
     ),
     Palette(
+        name="slate_ng_violet_rose",
+        description="Option A with the two highlighted DG identities reassigned to violet and rose",
+        ng="#586674", ug="#D55E00", fg="#009E73",
+        push="#9D3349", pull="#175E91",
+        dg_blue="#C7922F", dg_red="#735DA8", dg_yellow="#C477A5",
+        dg_fourth="#3E9C9C",
+    ),
+    Palette(
+        name="slate_ng_tuned_dg",
+        description="Violet and rose highlighted DG identities; quieter taupe and cyan for the other two",
+        ng="#586674", ug="#D55E00", fg="#009E73",
+        push="#9D3349", pull="#175E91",
+        dg_blue="#81705C", dg_red="#735DA8", dg_yellow="#C477A5",
+        dg_fourth="#4D9EAF",
+    ),
+    Palette(
         name="purple_pull",
         description="NG/UG/FG stay categorical; umber push and purple pull; cyan, rose, and ochre DG identities",
         ng="#276FA6", ug="#C85F24", fg="#198E71",
@@ -171,14 +187,18 @@ def export(svg: Path) -> None:
                    stdout=subprocess.DEVNULL)
 
 
-def comparison_sheet(figure: str) -> None:
+def comparison_sheet(figure: str, *, focused: bool = False) -> None:
     if not FONT.is_file():
         raise FileNotFoundError(f"Scalable font required: {FONT}")
     variants = [("Current", SOURCES[figure].with_suffix(".png"))]
-    labels = {"slate_ng": "A · Slate NG", "purple_pull": "B · Purple pull",
+    labels = {"slate_ng": "A · Slate NG",
+              "slate_ng_violet_rose": "A2 · Violet + rose DG",
+              "slate_ng_tuned_dg": "A3 · Tuned remaining DG colors",
+              "purple_pull": "B · Purple pull",
               "role_neutral": "C · Neutral mechanisms"}
+    selected = (PALETTES[:3] if focused else PALETTES)
     variants.extend((labels[palette.name], HERE / f"{palette.name}_{figure}.png")
-                    for palette in PALETTES)
+                    for palette in selected)
     header = 75
     gap = 22
     loaded: list[tuple[str, Image.Image]] = []
@@ -198,7 +218,8 @@ def comparison_sheet(figure: str) -> None:
         top += header
         sheet.paste(image, (0, top))
         top += image.height + gap
-    sheet.save(HERE / f"comparison_{figure}.png", optimize=True)
+    suffix = "_A_refinements" if focused else ""
+    sheet.save(HERE / f"comparison_{figure}{suffix}.png", optimize=True)
 
 
 def palette_key() -> None:
@@ -219,7 +240,10 @@ def palette_key() -> None:
     for index, (_, label) in enumerate(columns):
         draw.text((left + index * column_width + 10, 25), label,
                   font=label_font, fill="#23313B")
-    labels = {"slate_ng": "A · Slate NG", "purple_pull": "B · Purple pull",
+    labels = {"slate_ng": "A · Slate NG",
+              "slate_ng_violet_rose": "A2 · Violet + rose",
+              "slate_ng_tuned_dg": "A3 · Tuned DG",
+              "purple_pull": "B · Purple pull",
               "role_neutral": "C · Neutral"}
     choices = [("Current", BASELINE)] + [(labels[p.name], p) for p in PALETTES]
     for row, (name, palette) in enumerate(choices):
@@ -263,6 +287,7 @@ def main() -> None:
                                                  "figures": records}
     for figure in SOURCES:
         comparison_sheet(figure)
+        comparison_sheet(figure, focused=True)
     palette_key()
     (HERE / "manifest.json").write_text(json.dumps(provenance, indent=2) + "\n")
 

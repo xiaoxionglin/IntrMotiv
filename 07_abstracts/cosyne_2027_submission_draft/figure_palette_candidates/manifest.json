@@ -75,6 +75,132 @@
         }
       }
     },
+    "slate_ng_violet_rose": {
+      "colors": {
+        "name": "slate_ng_violet_rose",
+        "description": "Option A with the two highlighted DG identities reassigned to violet and rose",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#9D3349",
+        "pull": "#175E91",
+        "dg_blue": "#C7922F",
+        "dg_red": "#735DA8",
+        "dg_yellow": "#C477A5",
+        "dg_fourth": "#3E9C9C",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "bd8526c0873c39679376a8e9eea9b1bd5f259141f90cf2dd2c35619afd5f7677"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "35fe527bb4ad8a73efe20ce74cb5a8b6c4ade358df9dba0de6481e2a2b78b15a"
+        }
+      }
+    },
+    "slate_ng_tuned_dg": {
+      "colors": {
+        "name": "slate_ng_tuned_dg",
+        "description": "Violet and rose highlighted DG identities; quieter taupe and cyan for the other two",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#9D3349",
+        "pull": "#175E91",
+        "dg_blue": "#81705C",
+        "dg_red": "#735DA8",
+        "dg_yellow": "#C477A5",
+        "dg_fourth": "#4D9EAF",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "3e5ab220cdc5a73e7aed57c404225dae2d725cfa5e2613d7c9b61a3f9de52447"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "3b8633f0406087d0ad5dc7598348075cb00d80cb0916846e0cfc9cdd6d942747"
+        }
+      }
+    },
     "purple_pull": {
       "colors": {
         "name": "purple_pull",
