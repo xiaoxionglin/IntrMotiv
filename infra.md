@@ -2471,6 +2471,15 @@ For each finding, record:
   small multiplication node; the two-input version also draws $j$ from the
   event. Acceptance: at 53 mm, the path remains easy to trace, the comparator
   is visibly a modulation, and the caption explains NG's always-open mask.
+  The [7.5-inch integrated trial](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/06_architecture_v3_goal_gate_header_README.md)
+  reuses that vector side gate and the existing course renderer, with both
+  curves in B and three fields in C. The NG/UG/FG key fits vertically to the
+  right of the icon. Its first render exposed an overlap
+  between the vertical reward label and a shared x-axis label. Separate short
+  x-axis labels and a lower reward-label anchor cleared the collision without
+  shrinking the architecture or field tiles. For similar compact figures,
+  inspect the final-width PDF after SVG composition; acceptance is distinct
+  legend, icon, axes, and field heading with no clipped or touching labels.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
