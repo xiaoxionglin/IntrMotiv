@@ -41,6 +41,7 @@ COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
 # Match the plotting rectangles in the existing push and pull SVG components.
 RESULT_AXIS_WIDTH = 49.68
 RESULT_AXIS_HEIGHT = 47.52
+TRAJECTORY_TILE_SIZE = 46
 FIELD_UNITS = (4, 7, 12, 15)
 RUNS = {
     "NG": "COS27_C01_TEMPORAL_S99",
@@ -416,14 +417,17 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
            '<text x="486" y="12" class="story-heading">Fields</text>']
-    for x, family in zip((68, 121, 174), ("NG", "UG", "FG")):
+    for center_x, family in zip((93, 146, 199), ("NG", "UG", "FG")):
+        x = center_x - TRAJECTORY_TILE_SIZE / 2
         out.extend((
-            f'<text x="{x+25}" y="26" text-anchor="middle" class="story-label" '
+            f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
             f'fill="{COLORS[family]}">{family}</text>',
-            f'<image x="{x}" y="30" width="50" height="50" '
+            f'<image x="{x:g}" y="32" width="{TRAJECTORY_TILE_SIZE}" '
+            f'height="{TRAJECTORY_TILE_SIZE}" '
             'preserveAspectRatio="none" '
             f'xlink:href="{trajectory_uri(ROOT / selected[family]["local_path"], selected[family]["sha256"])}"/>',
-            f'<rect x="{x}" y="30" width="50" height="50" '
+            f'<rect x="{x:g}" y="32" width="{TRAJECTORY_TILE_SIZE}" '
+            f'height="{TRAJECTORY_TILE_SIZE}" '
             'fill="none" stroke="#5c6870" stroke-width="0.6"/>',
         ))
     out.append(poster_dot_metric(rows))
