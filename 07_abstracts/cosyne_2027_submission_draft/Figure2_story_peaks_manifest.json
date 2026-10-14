@@ -20,7 +20,8 @@
     100,
     2000
   ],
-  "rendered_map_marks": "DG dominant peak coordinates only; no spatial-bin grid or density shading",
+  "rendered_map_marks": "DG dominant peak coordinates over smooth grayscale Gaussian blurs; no spatial-bin grid",
+  "gaussian_blur_display": "shared SVG radial kernel, sigma 100 DMLab units, radius 3 sigma, center opacity 0.26; overlapping blurs are illustrative rather than the masked normalized density used for the number",
   "shared_visited_mask": "06_experiments/results/cosyne_2027_snapshot_peak_spread/common_visited_mask.json",
   "shared_visited_mask_sha256": "8c60a0accece3cfe582d98e7f08bcd29f2f9087cc0512d76b147d3d918e6a205",
   "derived_peak_spread_table": "06_experiments/results/cosyne_2027_snapshot_peak_spread/per_snapshot_cutoff_spread.csv",

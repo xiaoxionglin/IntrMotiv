@@ -49,6 +49,7 @@ TARGET_STEPS = 100_000_000
 MAP_LEFTS = {"Temporal": 445.0, "Control": 493.0}
 MAP_SIZE = 43.0
 MAP_TOPS = {"NG": 41.0, "UG": 105.0, "FG": 169.0}
+BLUR_RADIUS = MAP_SIZE * 3 * 100 / 1900  # three canonical Gaussian sigmas
 
 
 def peak_analysis():
@@ -104,8 +105,16 @@ def map_inputs() -> tuple[dict[str, dict], list[dict[str, object]]]:
 
 
 def peak_panel(maps: dict[str, dict]) -> str:
-    """Draw same-seed peak locations without a spatial-bin grid."""
-    items = ['<g id="peak-spread-panel" aria-label="Terminal DG peak distributions: temporal DG credit versus constant-credit control">']
+    """Draw Gaussian peak blurs and dots, without rendering spatial bins."""
+    items = [
+        '<g id="peak-spread-panel" aria-label="Terminal DG peak distributions: temporal DG credit versus constant-credit control">',
+        '<defs><radialGradient id="peak-gaussian-blur">'
+        '<stop offset="0" stop-color="#555" stop-opacity="0.26"/>'
+        '<stop offset="0.3333" stop-color="#555" stop-opacity="0.158"/>'
+        '<stop offset="0.6667" stop-color="#555" stop-opacity="0.035"/>'
+        '<stop offset="1" stop-color="#555" stop-opacity="0"/>'
+        '</radialGradient></defs>',
+    ]
     for credit, left in MAP_LEFTS.items():
         items.append(f'<text x="{left+MAP_SIZE/2:g}" y="28" text-anchor="middle" '
                      f'class="peak-label" fill="#25313a">{credit}</text>')
@@ -115,14 +124,24 @@ def peak_panel(maps: dict[str, dict]) -> str:
                      f'fill="{COLORS[family]}">{family}</text>')
         for credit, left in MAP_LEFTS.items():
             source = maps[family][credit]
+            clip_id = f'peak-clip-{family}-{credit.lower()}'
             items.append(f'<g id="peak-map-{family}-{credit.lower()}">')
             items.append(f'<rect x="{left:g}" y="{top:g}" width="{MAP_SIZE:g}" '
                          f'height="{MAP_SIZE:g}" fill="white"/>')
+            items.append(f'<clipPath id="{clip_id}"><rect x="{left:g}" y="{top:g}" '
+                         f'width="{MAP_SIZE:g}" height="{MAP_SIZE:g}"/></clipPath>')
+            items.append(f'<g clip-path="url(#{clip_id})">')
+            for peak_x, peak_y in source["xy"]:
+                x = left + (peak_x - 100) * MAP_SIZE / 1900
+                y = top + MAP_SIZE - (peak_y - 100) * MAP_SIZE / 1900
+                items.append(f'<circle cx="{x:.3f}" cy="{y:.3f}" r="{BLUR_RADIUS:.3f}" '
+                             'fill="url(#peak-gaussian-blur)"/>')
             for peak_x, peak_y in source["xy"]:
                 x = left + (peak_x - 100) * MAP_SIZE / 1900
                 y = top + MAP_SIZE - (peak_y - 100) * MAP_SIZE / 1900
                 items.append(f'<circle cx="{x:.3f}" cy="{y:.3f}" r="1.3" '
                              f'fill="{COLORS[family]}" stroke="white" stroke-width="0.35"/>')
+            items.append('</g>')
             items.append(f'<rect x="{left:g}" y="{top:g}" width="{MAP_SIZE:g}" '
                          f'height="{MAP_SIZE:g}" fill="none" stroke="#5c6870" '
                          'stroke-width="0.6"/>')
@@ -166,7 +185,8 @@ def build() -> None:
         "active_fraction_cutoff": CUTOFF,
         "gaussian_sigma_dmlab_units": 100,
         "map_world_bounds_dmlab_units": [100, 2000, 100, 2000],
-        "rendered_map_marks": "DG dominant peak coordinates only; no spatial-bin grid or density shading",
+        "rendered_map_marks": "DG dominant peak coordinates over smooth grayscale Gaussian blurs; no spatial-bin grid",
+        "gaussian_blur_display": "shared SVG radial kernel, sigma 100 DMLab units, radius 3 sigma, center opacity 0.26; overlapping blurs are illustrative rather than the masked normalized density used for the number",
         "shared_visited_mask": str(MASK_PATH.relative_to(ROOT)),
         "shared_visited_mask_sha256": sha256(MASK_PATH),
         "derived_peak_spread_table": str(SPREAD_TABLE.relative_to(ROOT)),
