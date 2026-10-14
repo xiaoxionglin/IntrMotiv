@@ -2237,6 +2237,17 @@ For each finding, record:
     before promoting one mapping. The exact-replacement renderer retains the
     original layout and numeric data, and the expanded Overleaf package carries
     both options.
+  - **14 October opposing-hue follow-up:** The author instead prioritized
+    opposing DG identity hues and a strong push/pull distinction. Three more
+    hash-recorded palettes compare RGB DG with magenta/teal or orange/violet
+    mechanism pairs against CMY DG with the previous red/blue mechanisms.
+    Direct two-page vector PDFs let the figures be reviewed without rebuilding
+    the Overleaf ZIP. Re-exporting all palette variants had changed unchanged
+    Inkscape PDF bytes, so the renderer now skips export when its SVG and PDF/PNG
+    outputs already exist. A second render left the review-PDF SHA-256 hashes
+    unchanged; the preexisting individual PDFs were restored to their original
+    bytes. All five review PDFs have two pages; the figures remain 540 pt wide,
+    with page heights of 136.8 and 231 pt.
   The submission-specific [grouped renderer](07_abstracts/cosyne_2027_submission_draft/render_submission_panels.py)
   now places cached seed-level contrasts into one final-width figure with
   9–10-point Arial text. It uses hash-verified lightweight peak coordinates for

@@ -84,6 +84,54 @@ PALETTES = (
         dg_blue="#B58C22", dg_red="#8B6CA8", dg_yellow="#BD5C89",
         dg_fourth="#75838C", pull_dashed=True,
     ),
+    Palette(
+        name="rgb_magenta_teal",
+        description="Opposing red, green, and blue DG IDs; magenta push and teal pull",
+        ng="#586674", ug="#D55E00", fg="#009E73",
+        push="#A5387B", pull="#0B8293",
+        dg_blue="#315BC4", dg_red="#D8493B", dg_yellow="#359B51",
+        dg_fourth="#B29924",
+    ),
+    Palette(
+        name="rgb_orange_violet",
+        description="Opposing red, green, and blue DG IDs; orange push and violet pull",
+        ng="#586674", ug="#D55E00", fg="#009E73",
+        push="#BF5828", pull="#6952A6",
+        dg_blue="#2F67C8", dg_red="#CB3C54", dg_yellow="#2D9F5B",
+        dg_fourth="#25A4A4",
+    ),
+    Palette(
+        name="cmy_red_blue",
+        description="Cyan, magenta, and yellow DG IDs; retain A's red push and blue pull",
+        ng="#586674", ug="#D55E00", fg="#009E73",
+        push="#9D3349", pull="#175E91",
+        dg_blue="#26A7B8", dg_red="#BE4AA1", dg_yellow="#B8A12E",
+        dg_fourth="#3E9A5C",
+    ),
+)
+PALETTE_LABELS = {
+    "slate_ng": "A · Slate NG",
+    "slate_ng_violet_rose": "A2 · Violet + rose DG",
+    "slate_ng_tuned_dg": "A3 · Tuned remaining DG colors",
+    "purple_pull": "B · Purple pull",
+    "role_neutral": "C · Neutral mechanisms",
+    "rgb_magenta_teal": "D · RGB DG / magenta–teal",
+    "rgb_orange_violet": "E · RGB DG / orange–violet",
+    "cmy_red_blue": "F · CMY DG / red–blue",
+}
+PALETTE_KEY_LABELS = {
+    "slate_ng": "A · Slate NG",
+    "slate_ng_violet_rose": "A2 · Violet/rose",
+    "slate_ng_tuned_dg": "A3 · Tuned DG",
+    "purple_pull": "B · Purple pull",
+    "role_neutral": "C · Neutral",
+    "rgb_magenta_teal": "D · RGB/M–T",
+    "rgb_orange_violet": "E · RGB/O–V",
+    "cmy_red_blue": "F · CMY/R–B",
+}
+REVIEW_PALETTE_NAMES = (
+    "slate_ng_violet_rose", "slate_ng_tuned_dg",
+    "rgb_magenta_teal", "rgb_orange_violet", "cmy_red_blue",
 )
 BASELINE = Palette(
     name="current", description="Current source palette",
@@ -187,17 +235,20 @@ def export(svg: Path) -> None:
                    stdout=subprocess.DEVNULL)
 
 
-def comparison_sheet(figure: str, *, focused: bool = False) -> None:
+def comparison_sheet(figure: str, group: str) -> None:
     if not FONT.is_file():
         raise FileNotFoundError(f"Scalable font required: {FONT}")
     variants = [("Current", SOURCES[figure].with_suffix(".png"))]
-    labels = {"slate_ng": "A · Slate NG",
-              "slate_ng_violet_rose": "A2 · Violet + rose DG",
-              "slate_ng_tuned_dg": "A3 · Tuned remaining DG colors",
-              "purple_pull": "B · Purple pull",
-              "role_neutral": "C · Neutral mechanisms"}
-    selected = (PALETTES[:3] if focused else PALETTES)
-    variants.extend((labels[palette.name], HERE / f"{palette.name}_{figure}.png")
+    selected_names = {
+        "all": {palette.name for palette in PALETTES[:5]},
+        "A_refinements": {palette.name for palette in PALETTES[:3]},
+        "opponent_dg": {"slate_ng_violet_rose", "slate_ng_tuned_dg", "rgb_magenta_teal",
+                        "rgb_orange_violet", "cmy_red_blue"},
+    }[group]
+    selected = (palette for palette in PALETTES
+                if palette.name in selected_names)
+    variants.extend((PALETTE_LABELS[palette.name],
+                     HERE / f"{palette.name}_{figure}.png")
                     for palette in selected)
     header = 75
     gap = 22
@@ -218,7 +269,7 @@ def comparison_sheet(figure: str, *, focused: bool = False) -> None:
         top += header
         sheet.paste(image, (0, top))
         top += image.height + gap
-    suffix = "_A_refinements" if focused else ""
+    suffix = "" if group == "all" else f"_{group}"
     sheet.save(HERE / f"comparison_{figure}{suffix}.png", optimize=True)
 
 
@@ -240,12 +291,8 @@ def palette_key() -> None:
     for index, (_, label) in enumerate(columns):
         draw.text((left + index * column_width + 10, 25), label,
                   font=label_font, fill="#23313B")
-    labels = {"slate_ng": "A · Slate NG",
-              "slate_ng_violet_rose": "A2 · Violet + rose",
-              "slate_ng_tuned_dg": "A3 · Tuned DG",
-              "purple_pull": "B · Purple pull",
-              "role_neutral": "C · Neutral"}
-    choices = [("Current", BASELINE)] + [(labels[p.name], p) for p in PALETTES]
+    choices = [("Current", BASELINE)] + [(PALETTE_KEY_LABELS[p.name], p)
+                                       for p in PALETTES]
     for row, (name, palette) in enumerate(choices):
         top = 100 + row * row_height
         draw.text((18, top + 20), name, font=title_font, fill="#23313B")
@@ -266,6 +313,17 @@ def palette_key() -> None:
     sheet.save(HERE / "palette_key.png", optimize=True)
 
 
+def paired_pdf(name: str) -> None:
+    """Combine the unchanged-size vector figures into a flip-through PDF."""
+    inputs = [HERE / f"{name}_{figure}.pdf" for figure in SOURCES]
+    output = HERE / f"review_{name}.pdf"
+    if output.exists() and output.stat().st_mtime_ns >= max(
+            path.stat().st_mtime_ns for path in inputs):
+        return
+    subprocess.run(["pdfunite", *(str(path) for path in inputs), str(output)],
+                   check=True, stdout=subprocess.DEVNULL)
+
+
 def main() -> None:
     HERE.mkdir(parents=True, exist_ok=True)
     provenance = {
@@ -280,14 +338,20 @@ def main() -> None:
         records = {}
         for figure, source in SOURCES.items():
             target = HERE / f"{palette.name}_{figure}.svg"
+            previous_svg = target.read_bytes() if target.exists() else None
             records[figure] = {"replacements": recolor(source, target, palette),
                                "svg_sha256": sha256(target.read_bytes()).hexdigest()}
-            export(target)
+            if (previous_svg != target.read_bytes() or
+                    not target.with_suffix(".pdf").exists() or
+                    not target.with_suffix(".png").exists()):
+                export(target)
         provenance["palettes"][palette.name] = {"colors": asdict(palette),
                                                  "figures": records}
+    for name in REVIEW_PALETTE_NAMES:
+        paired_pdf(name)
     for figure in SOURCES:
-        comparison_sheet(figure)
-        comparison_sheet(figure, focused=True)
+        for group in ("all", "A_refinements", "opponent_dg"):
+            comparison_sheet(figure, group)
     palette_key()
     (HERE / "manifest.json").write_text(json.dumps(provenance, indent=2) + "\n")
 

@@ -326,6 +326,195 @@
           "svg_sha256": "1208ddb93741d7f9de4eaa36dafdbb585c2acc1bdbb8579a81f05da567214412"
         }
       }
+    },
+    "rgb_magenta_teal": {
+      "colors": {
+        "name": "rgb_magenta_teal",
+        "description": "Opposing red, green, and blue DG IDs; magenta push and teal pull",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#A5387B",
+        "pull": "#0B8293",
+        "dg_blue": "#315BC4",
+        "dg_red": "#D8493B",
+        "dg_yellow": "#359B51",
+        "dg_fourth": "#B29924",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "03c15cb75d5d65a33fd67ebbc6204dc7a5fc2eb1183157a5aa2e32158556e228"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "6a720d249d7ec7ff224d5ada14f7a8a713eb1b1b470a02901d0d6a56f5286969"
+        }
+      }
+    },
+    "rgb_orange_violet": {
+      "colors": {
+        "name": "rgb_orange_violet",
+        "description": "Opposing red, green, and blue DG IDs; orange push and violet pull",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#BF5828",
+        "pull": "#6952A6",
+        "dg_blue": "#2F67C8",
+        "dg_red": "#CB3C54",
+        "dg_yellow": "#2D9F5B",
+        "dg_fourth": "#25A4A4",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "8db9c32729326a330a5c45a57fd62561f4f4eacee3b0e206a87dcf38562d3bee"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "5ac6111281eef004ea49cb77f3782ae72411903489e07c7b053bdf21fa351d18"
+        }
+      }
+    },
+    "cmy_red_blue": {
+      "colors": {
+        "name": "cmy_red_blue",
+        "description": "Cyan, magenta, and yellow DG IDs; retain A's red push and blue pull",
+        "ng": "#586674",
+        "ug": "#D55E00",
+        "fg": "#009E73",
+        "push": "#9D3349",
+        "pull": "#175E91",
+        "dg_blue": "#26A7B8",
+        "dg_red": "#BE4AA1",
+        "dg_yellow": "#B8A12E",
+        "dg_fourth": "#3E9A5C",
+        "pull_dashed": false
+      },
+      "figures": {
+        "figure1": {
+          "replacements": {
+            "#0072b2": 5,
+            "#d55e00": 5,
+            "#009e73": 5,
+            "#ae453e": 2,
+            "#933333": 2,
+            "#861b1b": 1,
+            "#236d9d": 5,
+            "#136199": 2,
+            "#136299": 1,
+            "#16639a": 1,
+            "#4364a6": 5,
+            "#4264a6": 1,
+            "#4364a5": 1,
+            "#4164a5": 1,
+            "#3178c6": 6,
+            "#a73e30": 15,
+            "#a83d2f": 1,
+            "#a73e2f": 1,
+            "#a83c2f": 1,
+            "#ed805a": 4,
+            "#c3b058": 16,
+            "#c3b158": 1
+          },
+          "svg_sha256": "e2414709887725efcc7247005972d8cebc14e323c8a5bc316a397dfe53a447fd"
+        },
+        "figure2": {
+          "replacements": {
+            "#0072b2": 97,
+            "#d55e00": 192,
+            "#009e73": 144,
+            "#ae453e": 2,
+            "#933333": 12,
+            "#c58c8c": 2,
+            "#236d9d": 2,
+            "#16639a": 10,
+            "#abc9e0": 2,
+            "#4364a6": 8,
+            "#a73e30": 27,
+            "#c3b058": 23,
+            "#8864a8": 8
+          },
+          "svg_sha256": "22cd99b9e2e4ecad9cbffb3e8a23606af5df14f835088e367737dbb437c81979"
+        }
+      }
     }
   }
 }
