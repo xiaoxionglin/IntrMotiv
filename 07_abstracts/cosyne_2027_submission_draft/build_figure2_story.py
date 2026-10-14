@@ -429,7 +429,10 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   *, peak_panel: str | None = None,
                   trajectory_tile_size: int = TRAJECTORY_TILE_SIZE,
                   elbow_arrows: bool = False,
-                  paired_peak_layout: bool = False) -> str:
+                  paired_peak_layout: bool = False,
+                  show_panel_e: bool = True,
+                  reliability_shift: float = 0,
+                  extra_overlay: str = '') -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
                   '.peak-label{font:700 9px Arial,sans-serif}'
                   if peak_panel is not None else '')
@@ -455,12 +458,15 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="6" y="94" class="story-letter">C</text>',
            '<text x="23" y="94" class="story-heading">Push ablation</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
-           '<text x="23" y="159" class="story-heading">Pull ablation</text>',
-           f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
-           (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
-            'class="peak-heading">Peak spread</text>'
-            if peak_panel is not None else
-            '<text x="486" y="12" class="story-heading">Fields</text>')]
+           '<text x="23" y="159" class="story-heading">Pull ablation</text>']
+    if show_panel_e:
+        out.extend((
+            f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
+            (f'<text id="peak-spread-heading" x="{454 if paired_peak_layout else 483}" y="12" '
+             'class="peak-heading">Peak spread</text>'
+             if peak_panel is not None else
+             '<text x="486" y="12" class="story-heading">Fields</text>'),
+        ))
     centers = (95, 136, 177) if paired_peak_layout else (97, 150, 203)
     for center_x, family in zip(centers, ("NG", "UG", "FG")):
         x = center_x - trajectory_tile_size / 2
@@ -486,11 +492,12 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     else:
         out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
-        out.append(behavior_card(metric, behavior[metric], x + behavior_shift))
+        metric_shift = reliability_shift if metric == 'dg_reliability' else 0
+        out.append(behavior_card(metric, behavior[metric], x + behavior_shift + metric_shift))
     # Keep B's metric names on the y axes, as in the push and pull rows.
     for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
                                ("dg_reliability", 386, "Δ reliability")):
-        x += behavior_shift
+        x += behavior_shift + (reliability_shift if metric == 'dg_reliability' else 0)
         y_center = 30 + RESULT_AXIS_HEIGHT / 2
         out.append(f'<text id="behavior-{metric}-ylabel" '
                    f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
@@ -498,7 +505,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                    f'class="behavior-y-label">{measure}</text>')
     out.append(credit_schematic(105, "push", "push", elbow_arrows))
     out.append(credit_schematic(170, "pull", "pull", elbow_arrows))
-    if peak_panel is None:
+    if show_panel_e and peak_panel is None:
         for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
             out.extend((
                 f'<image x="487" y="{y}" width="40" height="40" '
@@ -508,8 +515,10 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                 f'<text x="507" y="{y+49}" text-anchor="middle" '
                 f'class="field-label">DG {unit}</text>',
             ))
-    else:
+    elif show_panel_e:
         out.append(peak_panel)
+    if extra_overlay:
+        out.append(extra_overlay)
     out.append('</g>')
     return "\n".join(out)
 
