@@ -1,6 +1,6 @@
 # Standalone Figure 2 trajectory candidates
 
-These assets remain separate from Figure 2 and both Overleaf ZIPs. NG, UG, and FG mean no-goal, uniform-goal, and frontier-goal architecture. The three candidate paths come from comparable 100,000-observation online-spatial windows near the 100M-frame checkpoint. The [current Figure 2 story](../../Figure2_story_README.md) instead uses an independent 10,001-observation frozen-policy UG path and FG seed 17; its composite is unchanged. This candidate uses the same NG seed 99 and UG seed 123 runs as before, and **FG temporal-credit seed 8**, selected by full-window occupancy uniformity among five comparable FG seeds.
+These assets remain separate from Figure 2 and both Overleaf ZIPs. NG, UG, and FG mean no-goal, uniform-goal, and frontier-goal architecture. The three candidate paths come from comparable 100,000-observation online-spatial windows near the 100M-frame checkpoint. The [current Figure 2 story](../../Figure2_story_README.md) instead uses an independent 10,001-observation frozen-policy UG path and FG seed 17; its composite is unchanged. This visual trial uses the same NG seed 99 and UG seed 123 runs as before, and **FG temporal-credit seed 123**, requested after the seed-8 candidate looked unattractive. The occupancy comparison below keeps the quantitative tradeoff visible.
 
 | Candidate | Three-run comparison | Interchangeable 38 pt square panels |
 | --- | --- | --- |
@@ -13,15 +13,15 @@ The path uses a **Viridis sequential gradient along every observed line segment*
 
 ## Exact fragment selection and interpretation
 
-The source is the pinned 100,000-observation online-spatial snapshot from frames 99,207,936–100,007,936 for NG `COS27_C01_TEMPORAL_S99`, UG `COS27_C05_TEMPORAL_TEMPORAL_S123`, and FG `COS27_C15_TEMPORAL_S8`. This is an online evaluation window, not the full training trajectory or the separate 10k frozen probe. A change in `segment_id` or the preceding `done` closes a fragment, matching the canonical renderer; fragments of one observation are ineligible. Most eligible fragments contain 64 observations.
+The source is the pinned 100,000-observation online-spatial snapshot from frames 99,207,936–100,007,936 for NG `COS27_C01_TEMPORAL_S99`, UG `COS27_C05_TEMPORAL_TEMPORAL_S123`, and FG `COS27_C15_TEMPORAL_S123`. This is an online evaluation window, not the full training trajectory or the separate 10k frozen probe. A change in `segment_id` or the preceding `done` closes a fragment, matching the canonical renderer; fragments of one observation are ineligible. Most eligible fragments contain 64 observations.
 
-For each architecture, the renderer makes a uniform random permutation of eligible fragment indices without replacement, using NumPy seeds **2027, 2028, and 2029** for NG, UG, and FG. It takes the first 65 eligible fragments in each permutation. There is no fragment choice based on map coverage, path shape, goal hits, or figure appearance. Every chosen fragment is plotted in full, with no joins across fragments. Blank areas mean only that the **sampled fragments** do not pass through them; they are not evidence that the complete 100k window left those areas unvisited. Equal fragment counts do not imply equal observation counts:
+For each architecture, the renderer makes a uniform random permutation of eligible fragment indices without replacement, using NumPy seeds **2027, 2028, and 2029** for NG, UG, and FG. It takes the first 65 eligible fragments in each permutation. Within a selected seed, there is no fragment choice based on map coverage, path shape, goal hits, or figure appearance. Every chosen fragment is plotted in full, with no joins across fragments. Blank areas mean only that the **sampled fragments** do not pass through them; they are not evidence that the complete 100k window left those areas unvisited. Equal fragment counts do not imply equal observation counts:
 
 | Architecture | Selected fragments | Plotted observations |
 | --- | ---: | ---: |
 | NG, seed 99 | 65 | 3,864 |
 | UG, seed 123 | 65 | 4,000 |
-| FG, seed 8 | 65 | 3,752 |
+| FG, seed 123 | 65 | 3,810 |
 
 These are **legibility trials**, not new estimates of path efficiency or coverage. The [manifest](manifest.json) gives each original snapshot SHA-256, every chosen source-fragment ordinal and starting row, exact observation totals, seed-screen scores, the shared bounds, color normalization, panel geometry, font, software versions, and output hashes. The lightweight [selected-fragment archive](selected_fragments.npz) contains the chosen x/y paths, original-row starts and offsets, run identities and source hashes, and seed-screen scores, not the complete source NPZs. The renderer checks those cached identities and hashes before plotting, preventing a later seed edit from relabeling stale coordinates. [Editable renderer](render_trajectory_candidates.py) regenerates every SVG/PDF/PNG locally with:
 
@@ -37,13 +37,13 @@ All five comparable C15 temporal DG-credit/temporal worker-credit runs have the 
 
 | FG seed | Full-window visited bins | Full-window effective bins | Uniformity | Sampled visited bins | Sampled effective bins |
 | ---: | ---: | ---: | ---: | ---: | ---: |
-| **8, selected candidate** | **318** | **136.37** | **0.429** | **249** | **101.54** |
+| 8, highest uniformity | 318 | 136.37 | 0.429 | 249 | 101.54 |
 | 17, prior Figure 2A example | 315 | 18.10 | 0.057 | 110 | 15.54 |
 | 41 | 317 | 29.54 | 0.093 | 174 | 25.14 |
 | 99 | 318 | 126.59 | 0.398 | 257 | 95.46 |
-| 123 | 318 | 39.58 | 0.124 | 211 | 32.18 |
+| **123, displayed candidate** | **318** | **39.58** | **0.124** | **211** | **32.18** |
 
-**Selection criterion:** maximize full-window effective bins divided by visited bins across these five FG seeds, then visually inspect the 65-fragment candidate at the common bounds and final 38 pt size. Seed 8 ranks first (0.429), ahead of seed 99 (0.398), and its sampled fragments visit 249 bins. At final size, the seed-8 paths remain visible across multiple arena regions. The former seed 17 scores 0.057 and its sampled fragments visit 110 bins. Path efficiency and other Figure 2A outcomes were not used to select the seed. Exact source paths and full SHA-256 hashes for **all five** seeds are in the manifest.
+**Trial basis:** the author requested a seed-123 visual alternative to seed 8 at the same 38 pt size and world bounds. This is an illustrative path trial, not a final scientific selection or a claim that seed 123 is the most uniformly occupied run. Seed 8 ranks first on full-window uniformity (0.429), seed 99 ranks second (0.398), and seed 123 scores 0.124. Seed 123 is still more even than the former seed 17 (0.057), and its 65 sampled fragments visit 211 bins versus 110 for seed 17. Path efficiency and other Figure 2A outcomes were not used to choose this trial. Exact source paths and full SHA-256 hashes for **all five** seeds are in the manifest.
 
 ## Verified goal-hit example and its limit
 

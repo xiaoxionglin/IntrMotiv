@@ -32,7 +32,7 @@ HIT_INPUTS = HERE / "verified_hit_episode_inputs.npz"
 MANIFEST = HERE / "manifest.json"
 FAMILIES = ("NG", "UG", "FG")
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
-FG_SEED = 8
+FG_SEED = 123
 FG_CANDIDATES = {
     8: ("cosyne27_c15_encoder_s3_20261010", "66de1d84bd71075c549ab4e6683b4b9cc90aed653e7c936b8c31a07756cf35e3"),
     17: ("cosyne27_c15_encoder_s2_20261010", "bf977d531dfa1486af0442d10af69d8da0636b481d45ea7c5bdbf532279499b6"),
@@ -135,8 +135,8 @@ def prepare(raw_root: Path) -> None:
         sampled_xy = np.concatenate([pose[part, :2] for _, part in picked])
         screening.append((seed, occupancy_metrics(pose[:, :2]),
                           occupancy_metrics(sampled_xy)))
-    if max(screening, key=lambda row: row[1][2])[0] != FG_SEED:
-        raise ValueError("Selected FG seed is not the highest full-window uniformity")
+    if FG_SEED not in {row[0] for row in screening}:
+        raise ValueError("Selected FG seed is absent from the comparison screen")
     fragments["fg_screen_seeds"] = np.array([row[0] for row in screening], dtype=np.int32)
     fragments["fg_screen_source_hashes"] = np.array(
         [FG_CANDIDATES[row[0]][1] for row in screening])
@@ -404,8 +404,8 @@ def render() -> None:
         "schema": "cosyne27/standalone-trajectory-candidates/v2",
         "current_main_checked": "a49c677277e9812b19389afb3615b29120b01142",
         "selection": "All canonical non-singleton contiguous fragments (segment_id changes or previous done splits a fragment); take the first 65 positions in a uniform random permutation without replacement, using independent fixed NumPy seeds 2027, 2028, 2029 for NG, UG, FG. No fragment selection by spatial coverage or hit count; no paths are joined across fragments.",
-        "fg_seed_choice": "Seed 8 maximizes full-window effective bins / visited bins among the five comparable C15 temporal-credit seeds. Its 65-fragment preview was visually inspected at common bounds and 38 pt final size. Path efficiency and other Figure 2A outcomes were not used.",
-        "fg_selection_rule": "Maximize full_window.effective_fraction_of_visited across seeds 8, 17, 41, 99, 123; inspect the selected 65-fragment candidate at common world bounds and final panel size.",
+        "fg_seed_choice": "Seed 123 is an author-requested visual trial after the seed-8 candidate looked unattractive. It is not a final scientific selection or the highest-uniformity run. Its full-window occupancy uniformity is below seeds 8 and 99, but above the original seed 17. Path efficiency and other Figure 2A outcomes were not used.",
+        "fg_selection_rule": "Author-requested visual comparison at common world bounds and 38 pt panel size; disclose full-window and sampled-fragment occupancy scores for all five C15 temporal-credit seeds.",
         "fg_seed_screen_method": "For each of five complete 100000-observation C15 snapshots, histogram x/y into fixed 19x19 bins across [100,2000] on each axis; visited bins have positive count; effective bins = exp(-sum(p_i log p_i)); uniformity = effective bins / visited bins. The sampled-65 score uses the exact fixed-seed fragment set. Larger uniformity is more even occupancy.",
         "fg_seed_screen": fg_screen,
         "source_window_env_frames": [99207936, 100007936],
