@@ -32,22 +32,24 @@ HIT_INPUTS = HERE / "verified_hit_episode_inputs.npz"
 MANIFEST = HERE / "manifest.json"
 FAMILIES = ("NG", "UG", "FG")
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
-RUNS = {
-    "NG": ("COS27_C01_TEMPORAL_S99", "245224fb0aadae446ececc8d7612323523f7d259786eb496f5276d3b2be3ddde"),
-    "UG": ("COS27_C05_TEMPORAL_TEMPORAL_S123", "03096201542cf4e9681a6560fd4d0a058eec7af4987a81be5f5aea7675a67b33"),
-    "FG": ("COS27_C15_TEMPORAL_S123", "38f1504d0b918c2d3c5261cee4bac482b89a27c4d99cbe77d355869d842ad9a6"),
-}
-COHORTS = {
-    "NG": "cosyne27_c01_temporal_s3_20261010",
-    "UG": "cosyne27_c05_pushpull_s3_20261010",
-    "FG": "cosyne27_c15_encoder_s3_20261010",
-}
+FG_SEED = 8
 FG_CANDIDATES = {
     8: ("cosyne27_c15_encoder_s3_20261010", "66de1d84bd71075c549ab4e6683b4b9cc90aed653e7c936b8c31a07756cf35e3"),
     17: ("cosyne27_c15_encoder_s2_20261010", "bf977d531dfa1486af0442d10af69d8da0636b481d45ea7c5bdbf532279499b6"),
     41: ("cosyne27_c15_encoder_s2_20261010", "714852a4aa7e3a6485e9e1c0819e7be90abce4cbc1c977cee9b344c9d2d437e0"),
     99: ("cosyne27_c15_encoder_s3_20261010", "1c3458c6682da7c4e0fe93e7c9f5d4c20ef08f9bf5f2402e8d3174ea53c2bfc0"),
     123: ("cosyne27_c15_encoder_s3_20261010", "38f1504d0b918c2d3c5261cee4bac482b89a27c4d99cbe77d355869d842ad9a6"),
+}
+SEEDS = {"NG": 99, "UG": 123, "FG": FG_SEED}
+RUNS = {
+    "NG": ("COS27_C01_TEMPORAL_S99", "245224fb0aadae446ececc8d7612323523f7d259786eb496f5276d3b2be3ddde"),
+    "UG": ("COS27_C05_TEMPORAL_TEMPORAL_S123", "03096201542cf4e9681a6560fd4d0a058eec7af4987a81be5f5aea7675a67b33"),
+    "FG": (f"COS27_C15_TEMPORAL_S{FG_SEED}", FG_CANDIDATES[FG_SEED][1]),
+}
+COHORTS = {
+    "NG": "cosyne27_c01_temporal_s3_20261010",
+    "UG": "cosyne27_c05_pushpull_s3_20261010",
+    "FG": FG_CANDIDATES[FG_SEED][0],
 }
 ONLINE_ROOT = ("/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/"
                "train_dir/analysis/online_spatial")
@@ -133,7 +135,11 @@ def prepare(raw_root: Path) -> None:
         sampled_xy = np.concatenate([pose[part, :2] for _, part in picked])
         screening.append((seed, occupancy_metrics(pose[:, :2]),
                           occupancy_metrics(sampled_xy)))
+    if max(screening, key=lambda row: row[1][2])[0] != FG_SEED:
+        raise ValueError("Selected FG seed is not the highest full-window uniformity")
     fragments["fg_screen_seeds"] = np.array([row[0] for row in screening], dtype=np.int32)
+    fragments["fg_screen_source_hashes"] = np.array(
+        [FG_CANDIDATES[row[0]][1] for row in screening])
     for name, position in (("full", 1), ("sample", 2)):
         fragments[f"fg_screen_{name}_visited"] = np.array(
             [row[position][0] for row in screening], dtype=np.int32)
@@ -142,7 +148,7 @@ def prepare(raw_root: Path) -> None:
         fragments[f"fg_screen_{name}_uniformity"] = np.array(
             [row[position][2] for row in screening], dtype=np.float64)
     for family_index, (family, (run_name, expected_hash)) in enumerate(RUNS.items()):
-        source = (raw_root / "C15_candidates" / "S123.npz" if family == "FG"
+        source = (raw_root / "C15_candidates" / f"S{FG_SEED}.npz" if family == "FG"
                   else raw_root / family / "online_spatial.npz")
         pose, segment_id, dones = read_snapshot(source, expected_hash, run_name)
         all_slices, eligible, picked = select_slices(segment_id, dones, 2027 + family_index)
@@ -154,6 +160,8 @@ def prepare(raw_root: Path) -> None:
         fragments[f"start_rows_{family}"] = np.array([part.start for _, part in picked], dtype=np.int32)
         fragments[f"total_segments_{family}"] = np.array(len(all_slices), dtype=np.int32)
         fragments[f"eligible_segments_{family}"] = np.array(len(eligible), dtype=np.int32)
+        fragments[f"run_name_{family}"] = np.array(run_name)
+        fragments[f"source_hash_{family}"] = np.array(expected_hash)
     np.savez_compressed(INPUTS, **fragments)
 
     verified: dict[str, np.ndarray] = {}
@@ -265,7 +273,7 @@ def render_fragment_variants(payload: np.lib.npyio.NpzFile) -> list[str]:
                                PANEL_PT / width_pt, PANEL_PT / height_pt])
             draw_gradient_path(ax, segment_coordinates(payload, family, count))
             fig.text((x_pt + PANEL_PT / 2) / width_pt, 117 / height_pt,
-                     f"{family} · seed {dict(NG=99, UG=123, FG=123)[family]}",
+                     f"{family} · seed {SEEDS[family]}",
                      ha="center", va="center", fontsize=12)
         color_axis = fig.add_axes([50 / width_pt, 39 / height_pt,
                                    170 / width_pt, 6 / height_pt])
@@ -342,6 +350,13 @@ def render_verified_hits(payload: np.lib.npyio.NpzFile) -> list[str]:
 def render() -> None:
     font = configure_style()
     with np.load(INPUTS, allow_pickle=False) as fragments:
+        for family, (run_name, source_hash) in RUNS.items():
+            if (str(fragments[f"run_name_{family}"]) != run_name or
+                    str(fragments[f"source_hash_{family}"]) != source_hash):
+                raise ValueError(f"Cached {family} fragments do not match selected source")
+        for index, seed in enumerate(fragments["fg_screen_seeds"]):
+            if str(fragments["fg_screen_source_hashes"][index]) != FG_CANDIDATES[int(seed)][1]:
+                raise ValueError(f"Cached FG seed {int(seed)} screen has stale source hash")
         outputs = render_fragment_variants(fragments)
         selection = {
             family: {
@@ -389,7 +404,8 @@ def render() -> None:
         "schema": "cosyne27/standalone-trajectory-candidates/v2",
         "current_main_checked": "a49c677277e9812b19389afb3615b29120b01142",
         "selection": "All canonical non-singleton contiguous fragments (segment_id changes or previous done splits a fragment); take the first 65 positions in a uniform random permutation without replacement, using independent fixed NumPy seeds 2027, 2028, 2029 for NG, UG, FG. No fragment selection by spatial coverage or hit count; no paths are joined across fragments.",
-        "fg_seed_choice": "Seed 123 selected at the author's direction. Its full-window occupancy is more even than the prior seed 17, although seeds 8 and 99 rank higher by this metric. All five comparable C15 temporal-credit snapshots were screened; path efficiency was not used.",
+        "fg_seed_choice": "Seed 8 maximizes full-window effective bins / visited bins among the five comparable C15 temporal-credit seeds. Its 65-fragment preview was visually inspected at common bounds and 38 pt final size. Path efficiency and other Figure 2A outcomes were not used.",
+        "fg_selection_rule": "Maximize full_window.effective_fraction_of_visited across seeds 8, 17, 41, 99, 123; inspect the selected 65-fragment candidate at common world bounds and final panel size.",
         "fg_seed_screen_method": "For each of five complete 100000-observation C15 snapshots, histogram x/y into fixed 19x19 bins across [100,2000] on each axis; visited bins have positive count; effective bins = exp(-sum(p_i log p_i)); uniformity = effective bins / visited bins. The sampled-65 score uses the exact fixed-seed fragment set. Larger uniformity is more even occupancy.",
         "fg_seed_screen": fg_screen,
         "source_window_env_frames": [99207936, 100007936],
