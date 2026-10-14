@@ -145,7 +145,8 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
         "dg_reliability": (-0.05, 0.55, (0.0, 0.25, 0.5)),
     }
     minimum, maximum, ticks = specs[metric]
-    left, top = x + 25, 30
+    # Reserve space for the vertical metric name and its numeric tick labels.
+    left, top = x + 35, 30
     right, bottom = left + RESULT_AXIS_WIDTH, top + RESULT_AXIS_HEIGHT
 
     def scale(value: float) -> float:
@@ -155,11 +156,12 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
 
     out = [f'<g id="behavior-{metric}" aria-label="{metric}, learned minus random actions">',
            f'<path d="M {left},{top} V {bottom} H {right}" class="behavior-axis"/>']
-    for tick in ticks:
+    for tick_index, tick in enumerate(ticks):
         ty = scale(tick)
         out.extend((
             f'<path d="M {left-2},{ty:.3f} H {left}" class="behavior-axis"/>',
-            f'<text x="{left-3}" y="{ty+3:.3f}" text-anchor="end" '
+            f'<text id="behavior-{metric}-ytick-{tick_index}" '
+            f'x="{left-3}" y="{ty+3:.3f}" text-anchor="end" '
             f'class="behavior-tick">{tick:g}</text>',
         ))
     if minimum < 0 < maximum:
@@ -244,7 +246,7 @@ def metric_card(metric: str, rows: dict[str, list[dict[str, str]]],
 
 def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
     """Draw A's compact seed dots and black mean bars as on the Bernstein poster."""
-    left, top, bottom = 22, 36, 69
+    left, top, bottom = 35, 36, 69
     minimum, maximum = 0.0, 0.5
 
     def scale(value: float) -> float:
@@ -253,25 +255,30 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
         return bottom - (value - minimum) * (bottom - top) / (maximum - minimum)
 
     out = ['<g id="panel-a-path-efficiency" aria-label="Path efficiency, five seeds per design">',
-           '<text x="7" y="29" class="poster-stat-title">Path efficiency</text>',
-           f'<path d="M {left},{top} V {bottom} H 64" stroke="#171717" '
+           '<text id="panel-a-path-efficiency-ylabel" x="9" y="52.5" '
+           'text-anchor="middle" transform="rotate(-90 9 52.5)" '
+           'class="poster-stat-title">Path efficiency</text>',
+           f'<path d="M {left},{top} V {bottom} H 71" stroke="#171717" '
            'stroke-width="0.7" fill="none"/>']
-    for tick in (0.0, 0.25, 0.5):
+    for tick_index, tick in enumerate((0.0, 0.25, 0.5)):
         ty = scale(tick)
         out.extend((
             f'<path d="M {left-2},{ty:g} H {left}" stroke="#171717" stroke-width="0.7"/>',
-            f'<text x="{left-4}" y="{ty+3:g}" text-anchor="end" '
+            f'<text id="panel-a-path-efficiency-ytick-{tick_index}" '
+            f'x="{left-4}" y="{ty+3:g}" text-anchor="end" '
             f'class="poster-stat-tick">{tick:g}</text>',
         ))
-    for family, cx in (("NG", 29), ("UG", 44), ("FG", 59)):
+    for family, cx in (("NG", 39), ("UG", 53), ("FG", 67)):
         values = [float(row["path_efficiency"]) for row in rows[family]]
         for value, jitter in zip(values, (-3.8, -1.9, 0, 1.9, 3.8)):
             out.append(f'<circle cx="{cx+jitter:g}" cy="{scale(value):g}" r="1.55" '
                        f'fill="{COLORS[family]}"/>')
         mean_y = scale(sum(values) / len(values))
         out.extend((
-            f'<path d="M {cx-5},{mean_y:g} H {cx+5}" stroke="#171717" stroke-width="1"/>',
-            f'<text x="{cx}" y="80" text-anchor="middle" class="poster-stat-tick">{family}</text>',
+            f'<path d="M {cx-4},{mean_y:g} H {cx+4}" stroke="#171717" stroke-width="1"/>',
+            f'<text id="panel-a-path-efficiency-category-{family}" '
+            f'x="{cx}" y="80" text-anchor="middle" '
+            f'class="poster-stat-tick">{family}</text>',
         ))
     out.append('</g>')
     return "\n".join(out)
@@ -417,7 +424,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="23" y="159" class="story-heading">Pull ablation</text>',
            '<text x="469" y="12" class="story-letter">E</text>',
            '<text x="486" y="12" class="story-heading">Fields</text>']
-    for center_x, family in zip((93, 146, 199), ("NG", "UG", "FG")):
+    for center_x, family in zip((97, 150, 203), ("NG", "UG", "FG")):
         x = center_x - TRAJECTORY_TILE_SIZE / 2
         out.extend((
             f'<text x="{center_x}" y="26" text-anchor="middle" class="story-label" '
@@ -435,9 +442,11 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
         out.append(behavior_card(metric, behavior[metric], x))
     # Keep B's metric names on the y axes, as in the push and pull rows.
-    for x, measure in ((296, "Δ info (bits/step)"), (386, "Δ reliability")):
+    for metric, x, measure in (("dg_information", 296, "Δ info (bits/step)"),
+                               ("dg_reliability", 386, "Δ reliability")):
         y_center = 30 + RESULT_AXIS_HEIGHT / 2
-        out.append(f'<text x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
+        out.append(f'<text id="behavior-{metric}-ylabel" '
+                   f'x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
                    f'transform="rotate(-90 {x+6} {y_center:.3f})" '
                    f'class="behavior-y-label">{measure}</text>')
     out.append(credit_schematic(105, "push", "push"))
