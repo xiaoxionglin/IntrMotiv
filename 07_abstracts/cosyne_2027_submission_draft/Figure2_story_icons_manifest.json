@@ -1,7 +1,7 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "1ab3dffad49b5cd12c5ad70b233e9447abe9edb930bfa0ec374bead2e027993e",
+  "parent_story_source_sha256": "5e06fb02af3a2190bc3b496a07f9c749cb8a42cae17558ff242f280ca55f15c7",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
   "icon_source_sha256": "a30ba3e76e292704e2c1860a9cea1925cca0271f6a0a11980a5ecf7d79d3b72e",
   "physical_size_points": [
@@ -9,8 +9,10 @@
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square and shifted right; C/D components redistributed horizontally",
-  "trajectory_shift_points": 30,
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+  "trajectory_shift_points": 34,
+  "path_metric_shift_points": 33,
+  "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
   "behavior_layout_shift_points": 40,
   "behavior_information_shift_points": 10,
   "behavior_reliability_shift_points": 43,
@@ -73,7 +75,7 @@
     56.69291338582678
   ],
   "path_efficiency_icon_position_points": [
-    74,
+    4,
     27
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",

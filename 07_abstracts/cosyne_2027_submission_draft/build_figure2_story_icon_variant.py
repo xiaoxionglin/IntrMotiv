@@ -1,4 +1,4 @@
-"""Build the E-free Figure 2 story with metric icons beside B, C, and D.
+"""Build the E-free Figure 2 story with metric icons beside A–D.
 
 This variant reuses all quantitative panels from the story figure. Its eight
 schematic icons are purely explanatory and remain editable vector content.
@@ -30,7 +30,7 @@ RESULT_POSITIONS = {
              "edges": (411, 165.5)},
 }
 RELIABILITY_POSITION = (404, 24.5)
-PATH_EFFICIENCY_POSITION = (74, 27)
+PATH_EFFICIENCY_POSITION = (4, 27)
 
 
 def unique_icon(name: str, instance: str) -> str:
@@ -74,7 +74,8 @@ def build() -> None:
     svg = svg.replace(old_name, 'sodipodi:docname="Figure2_story_icons.svg"', 1)
     overlay = story_overlay(
         terminal_rows(), selected_trajectories(), behavior_differences(),
-        trajectory_tile_size=38, trajectory_shift=30,
+        trajectory_tile_size=38, trajectory_shift=34,
+        path_metric_shift=33,
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
         information_shift=10, reliability_shift=43,
@@ -93,8 +94,10 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square and shifted right; C/D components redistributed horizontally",
-        "trajectory_shift_points": 30,
+        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square; C/D components redistributed horizontally",
+        "trajectory_shift_points": 34,
+        "path_metric_shift_points": 33,
+        "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
         "behavior_layout_shift_points": 40,
         "behavior_information_shift_points": 10,
         "behavior_reliability_shift_points": 43,
