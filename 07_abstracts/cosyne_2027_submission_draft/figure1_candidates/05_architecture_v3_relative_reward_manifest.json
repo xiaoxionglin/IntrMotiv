@@ -64,13 +64,13 @@
     "07_abstracts/cosyne_2027_submission_draft/figure1_candidates/full_seed_atlases/terminal_seed_metrics.csv": "b7b044ef5b7c03f59cefe8d77cb1a7b9e2beb1bc1e7d8fe02ff967fcad875c70"
   },
   "reward_display": {
-    "transformation": "five-seed mean and SEM at each training point divided by the median of the 99 five-seed means for that condition",
+    "transformation": "five-seed mean and SEM at each training point divided by the arithmetic mean of the 99 five-seed means for that condition",
     "normalizer_by_family": {
-      "C01": 2.588987703,
-      "C05": 0.04529907072,
-      "C15": 1.496737293
+      "C01": 2.561000150111111,
+      "C05": 0.04377573994525254,
+      "C15": 1.457085876927172
     },
-    "unit": "fold of own-condition median",
+    "unit": "fold of own-condition mean",
     "reference_line": 1,
     "normalizer_uncertainty": "treated as a descriptive fixed scaling constant"
   },

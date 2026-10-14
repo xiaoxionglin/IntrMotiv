@@ -2427,8 +2427,9 @@ For each finding, record:
   since transparent CA3 circles appear lighter over the page background.
   The reward curves in that compact right column span different raw scales.
   A separate [relative-reward variant](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/05_architecture_v3_relative_reward_README.md)
-  divides each condition's plotted five-seed mean and SEM by the median of
-  its own 99 means, recording the factors in the manifest. This makes the
+  divides each condition's plotted five-seed mean and SEM by the arithmetic
+  mean of its own 99 training-point means, recording the factors in the
+  manifest. This makes the
   time courses inspectable on one axis without an absolute-scale comparison;
   label the denominator, the one-fold reference, and the descriptive treatment
   of its uncertainty whenever reusing this view.

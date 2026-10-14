@@ -107,15 +107,15 @@ def inline_architecture(composite_svg: Path) -> None:
 
 
 def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
-           relative_to_median: bool = False) -> dict[str, float]:
-    """Plot means and SEM, optionally scaled by each condition's own median.
+           relative_to_mean: bool = False, thin_lines: bool = False) -> dict[str, float]:
+    """Plot means and SEM, optionally scaled by each condition's own mean.
 
-    The denominator is the median of the 99 plotted five-seed means. Scaling
+    The denominator is the mean of the 99 plotted five-seed means. Scaling
     the mean and SEM by the same positive constant preserves the original
     uncertainty bands and the within-condition trajectory.
     """
     normalizers = {}
-    if relative_to_median:
+    if relative_to_mean:
         ax.axhline(1, color="#70777B", lw=0.7, ls=(0, (2, 2)), zorder=0)
     for family, worker, label in FAMILIES:
         rows = table[(table.family == family) &
@@ -127,7 +127,7 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
         x = rows.env_steps.to_numpy() / 1e6
         mean = rows["mean"].to_numpy()
         sem = rows["sem"].to_numpy()
-        denominator = float(np.median(mean)) if relative_to_median else 1.0
+        denominator = float(np.mean(mean)) if relative_to_mean else 1.0
         if not np.isfinite(denominator) or denominator <= 0:
             raise ValueError(f"Invalid reward normalization: {family}")
         normalizers[family] = denominator
@@ -135,18 +135,20 @@ def course(ax: plt.Axes, table: pd.DataFrame, metric: str, *, log: bool,
         sem = sem / denominator
         if log and np.any(mean - sem <= 0):
             raise ValueError(f"Log course has nonpositive uncertainty bound: {family}")
-        ax.plot(x, mean, color=COLOR[family], lw=1.15, label=label)
+        ax.plot(x, mean, color=COLOR[family], lw=0.7 if thin_lines else 1.15,
+                label=label)
         ax.fill_between(x, mean - sem, mean + sem,
-                        color=COLOR[family], alpha=0.17, linewidth=0)
+                        color=COLOR[family], alpha=0.12 if thin_lines else 0.17,
+                        linewidth=0)
     ax.set_xlim(0, 100)
     ax.set_xticks((0, 100))
     ax.tick_params(axis="both", labelsize=8, length=2, width=0.6, pad=1)
     ax.grid(axis="y", color="#E6E8E9", linewidth=0.5)
     ax.spines[["top", "right"]].set_visible(False)
-    if relative_to_median:
+    if relative_to_mean:
         ax.set_ylim(0, 2)
         ax.set_yticks((0, 1, 2))
-        ax.set_ylabel("fold", fontsize=8)
+        ax.set_ylabel("Intrinsic reward\n/ own mean", fontsize=8)
     elif log:
         ax.set_yscale("log")
         ax.set_ylim(0.01, 5)
@@ -219,25 +221,37 @@ def main(*, relative_reward: bool = False) -> None:
     fig.text(0.035 / SIZE_IN[0], 1.86 / 1.9, "A", va="top",
              fontsize=9.5, fontweight="bold", color="#20272C")
 
-    fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
-             fontsize=9.5, fontweight="bold", color="#20272C")
-    ax_info = fig.add_axes([5.70 / SIZE_IN[0], 0.99 / 1.9,
-                            0.60 / SIZE_IN[0], 0.47 / 1.9])
-    course(ax_info, online, "spatial_information", log=False)
-    for x, family, label in ((5.64, "C01", "NG"), (5.97, "C05", "UG"),
-                             (6.30, "C15", "FG")):
-        fig.text(x / SIZE_IN[0], 1.62 / 1.9, label, va="top", fontsize=8,
+    if relative_reward:
+        fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B", va="top",
+                 fontsize=9.5, fontweight="bold", color="#20272C")
+    else:
+        fig.text(5.52 / SIZE_IN[0], 1.84 / 1.9, "B  DG info", va="top",
+                 fontsize=9.5, fontweight="bold", color="#20272C")
+    course_height = 0.69 if relative_reward else 0.47
+    info_left = 5.85 if relative_reward else 5.70
+    info_width = 0.52 if relative_reward else 0.60
+    ax_info = fig.add_axes([info_left / SIZE_IN[0], 0.99 / 1.9,
+                            info_width / SIZE_IN[0], course_height / 1.9])
+    course(ax_info, online, "spatial_information", log=False,
+           thin_lines=relative_reward)
+    if relative_reward:
+        ax_info.set_ylabel("Spatial info", fontsize=8)
+    legend = ((5.82, 6.10, 6.37), 1.84) if relative_reward else (
+        (5.64, 5.97, 6.30), 1.62)
+    for x, (family, label) in zip(legend[0], (("C01", "NG"),
+                                          ("C05", "UG"), ("C15", "FG"))):
+        fig.text(x / SIZE_IN[0], legend[1] / 1.9, label, va="top", fontsize=8,
                  fontweight="bold", color=COLOR[family])
 
-    reward_heading = ("C  Reward\n÷ own median" if relative_reward else
-                      "C  Intrinsic\nreward (log)")
+    reward_heading = "C" if relative_reward else "C  Intrinsic\nreward (log)"
     fig.text(6.67 / SIZE_IN[0], 1.84 / 1.9,
-             reward_heading, va="top", fontsize=8.2 if relative_reward else 8.8,
+             reward_heading, va="top", fontsize=9.5 if relative_reward else 8.8,
              linespacing=0.9, fontweight="bold", color="#20272C")
     ax_reward = fig.add_axes([6.88 / SIZE_IN[0], 0.99 / 1.9,
-                              0.56 / SIZE_IN[0], 0.47 / 1.9])
+                              0.56 / SIZE_IN[0], course_height / 1.9])
     reward_normalizers = course(ax_reward, reward, "intrinsic_mean", log=True,
-                                relative_to_median=relative_reward)
+                                relative_to_mean=relative_reward,
+                                thin_lines=relative_reward)
     fig.text(6.49 / SIZE_IN[0], 0.81 / 1.9, "Training frames (M)",
              ha="center", va="center", fontsize=8, color="#20272C")
 
@@ -290,9 +304,9 @@ def main(*, relative_reward: bool = False) -> None:
     }
     if relative_reward:
         manifest["reward_display"] = {
-            "transformation": "five-seed mean and SEM at each training point divided by the median of the 99 five-seed means for that condition",
+            "transformation": "five-seed mean and SEM at each training point divided by the arithmetic mean of the 99 five-seed means for that condition",
             "normalizer_by_family": reward_normalizers,
-            "unit": "fold of own-condition median",
+            "unit": "fold of own-condition mean",
             "reference_line": 1,
             "normalizer_uncertainty": "treated as a descriptive fixed scaling constant",
         }
@@ -304,5 +318,5 @@ def main(*, relative_reward: bool = False) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--relative-reward", action="store_true",
-                        help="Save a separate version with reward curves divided by each condition's own median")
+                        help="Save a separate version with reward curves divided by each condition's own mean")
     main(relative_reward=parser.parse_args().relative_reward)
