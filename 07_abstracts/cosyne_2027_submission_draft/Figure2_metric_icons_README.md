@@ -6,7 +6,7 @@ The three individual vector icons are **10 × 30 mm** each, including their tran
 
 | Icon | SVG | PDF | What it depicts |
 | --- | --- | --- | --- |
-| Map cosine | [SVG](Figure2_metric_icon_cosine.svg) | [PDF](Figure2_metric_icon_cosine.pdf) | Two DG spatial rate maps. The plotted value is the mean pairwise cosine of active units' maps; greater cosine means more similar spatial patterns. |
+| Map cosine | [SVG](Figure2_metric_icon_cosine.svg) | [PDF](Figure2_metric_icon_cosine.pdf) | Two **pairs** of DG place fields: similar fields above and different fields below. The plotted value is the mean pairwise cosine of active units' maps; greater cosine means more similar spatial patterns. |
 | Peak coverage | [SVG](Figure2_metric_icon_coverage.svg) | [PDF](Figure2_metric_icon_coverage.pdf) | Equal numbers of clustered and dispersed dominant DG peaks with Gaussian blur. The plotted value is the effective visited-area fraction of eligible peak density, not a count of peaks. |
 | Reliable edges | [SVG](Figure2_metric_icon_edges.svg) | [PDF](Figure2_metric_icon_edges.pdf) | Two directed stored graphs with different counts of reliable edges. The plotted value counts stored reliable directed edges, not executed goal arrivals. |
 

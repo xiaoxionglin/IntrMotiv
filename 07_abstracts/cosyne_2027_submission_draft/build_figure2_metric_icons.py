@@ -46,21 +46,34 @@ def comparison_link() -> str:
 
 
 def cosine_icon() -> str:
-    """Two spatial rate maps whose distributed patterns enter a cosine."""
+    """Two pairs of DG place fields: one similar, one spatially different."""
+    fields = (
+        ("similar-a", 4.10, 10.30, 8.35, 14.70),
+        ("similar-b", 15.10, 10.30, 19.35, 14.70),
+        ("different-a", 4.10, 63.00, 6.90, 65.80),
+        ("different-b", 15.10, 63.00, 21.45, 69.35),
+    )
     gradient = (
         '<defs><radialGradient id="cosine-rate">'
         f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.67"/>'
         f'<stop offset="0.58" stop-color="{ACCENT}" stop-opacity="0.22"/>'
         f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
-        '</radialGradient></defs>'
+        '</radialGradient>'
+        + ''.join(
+            f'<clipPath id="cosine-{name}-clip"><rect x="{x}" y="{y}" '
+            'width="9.2" height="9.2"/></clipPath>'
+            for name, x, y, _, _ in fields
+        )
+        + '</defs>'
     )
     patches = ''.join(
-        f'<ellipse cx="{x}" cy="{y}" rx="{rx}" ry="{ry}" '
-        'fill="url(#cosine-rate)"/>'
-        for x, y, rx, ry in (
-            (10.2, 12.8, 7.2, 6.6), (18.9, 21.2, 5.9, 5.2),
-            (11.4, 65.8, 7.2, 6.6), (18.1, 73.4, 5.9, 5.2),
-        )
+        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="white"/>'
+        f'<g clip-path="url(#cosine-{name}-clip)">'
+        f'<circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#cosine-rate)"/>'
+        '</g>'
+        f'<rect x="{x}" y="{y}" width="9.2" height="9.2" fill="none" '
+        f'stroke="{MUTED}" stroke-width="0.47"/>'
+        for name, x, y, cx, cy in fields
     )
     return gradient + frames() + patches + comparison_link()
 
@@ -146,11 +159,20 @@ def export(svg_path: Path, png_width: int = 400) -> None:
         subprocess.run(command, capture_output=True, text=True, check=True)
 
 
+def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
+    """Keep stable exports when the editable source has not changed."""
+    if (path.is_file() and path.read_text() == svg
+            and path.with_suffix('.pdf').is_file()
+            and path.with_suffix('.png').is_file()):
+        return
+    path.write_text(svg)
+    export(path, png_width=png_width)
+
+
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        path.write_text(svg_document(factory()))
-        export(path)
+        write_and_export(path, svg_document(factory()))
 
     # Enlarged inspection sheet; standalone icons retain their 10 × 30 mm size.
     locations = (("cosine", 13), ("coverage", 116), ("edges", 219))
@@ -168,8 +190,7 @@ def build() -> None:
                            '</text>')
     sheet_parts.append('</svg>\n')
     sheet = HERE / "Figure2_metric_icons_preview.svg"
-    sheet.write_text(''.join(sheet_parts))
-    export(sheet, png_width=1600)
+    write_and_export(sheet, ''.join(sheet_parts), png_width=1600)
 
 
 if __name__ == "__main__":
