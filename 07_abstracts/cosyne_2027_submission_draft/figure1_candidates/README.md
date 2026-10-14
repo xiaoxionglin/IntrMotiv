@@ -1,5 +1,7 @@
 # Experimental Figure 1: spatial results at right
 
+[NG, UG, and FG icon candidates](goal_policy_icon_options/README.md) · [comparison preview](goal_policy_icon_options/overview.png). Three compact, editable vector designs show policy goal conditioning and which DG events are eligible for pull. These are separate experiments and are not inserted into Figure 1.
+
 [Figure 1 v3 with DG information, log intrinsic reward, and three C15 seed-123 fields](04_architecture_v3_dg_reward_fields_README.md) · [PDF](04_architecture_v3_dg_reward_fields.pdf) · [SVG](04_architecture_v3_dg_reward_fields.svg) · [PNG](04_architecture_v3_dg_reward_fields.png). This newer candidate keeps the v3 artwork at its original size and places every addition to its right within the 7.5-inch submission width.
 
 [Figure 1 v3 with intrinsic reward relative to each architecture's own mean](05_architecture_v3_relative_reward_README.md) · [PDF](05_architecture_v3_relative_reward.pdf) · [SVG](05_architecture_v3_relative_reward.svg) · [PNG](05_architecture_v3_relative_reward.png). This variant has taller, thinner-lined training plots with vertical axis labels, and its C curves show within-architecture reward dynamics rather than absolute reward scale.
