@@ -18,6 +18,9 @@ import matplotlib
 matplotlib.use("Agg")
 from matplotlib import font_manager
 import matplotlib.pyplot as plt
+from matplotlib.cm import ScalarMappable
+from matplotlib.collections import LineCollection
+from matplotlib.colors import Normalize
 from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
@@ -32,12 +35,19 @@ COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
 RUNS = {
     "NG": ("COS27_C01_TEMPORAL_S99", "245224fb0aadae446ececc8d7612323523f7d259786eb496f5276d3b2be3ddde"),
     "UG": ("COS27_C05_TEMPORAL_TEMPORAL_S123", "03096201542cf4e9681a6560fd4d0a058eec7af4987a81be5f5aea7675a67b33"),
-    "FG": ("COS27_C15_TEMPORAL_S17", "bf977d531dfa1486af0442d10af69d8da0636b481d45ea7c5bdbf532279499b6"),
+    "FG": ("COS27_C15_TEMPORAL_S123", "38f1504d0b918c2d3c5261cee4bac482b89a27c4d99cbe77d355869d842ad9a6"),
 }
 COHORTS = {
     "NG": "cosyne27_c01_temporal_s3_20261010",
     "UG": "cosyne27_c05_pushpull_s3_20261010",
-    "FG": "cosyne27_c15_encoder_s2_20261010",
+    "FG": "cosyne27_c15_encoder_s3_20261010",
+}
+FG_CANDIDATES = {
+    8: ("cosyne27_c15_encoder_s3_20261010", "66de1d84bd71075c549ab4e6683b4b9cc90aed653e7c936b8c31a07756cf35e3"),
+    17: ("cosyne27_c15_encoder_s2_20261010", "bf977d531dfa1486af0442d10af69d8da0636b481d45ea7c5bdbf532279499b6"),
+    41: ("cosyne27_c15_encoder_s2_20261010", "714852a4aa7e3a6485e9e1c0819e7be90abce4cbc1c977cee9b344c9d2d437e0"),
+    99: ("cosyne27_c15_encoder_s3_20261010", "1c3458c6682da7c4e0fe93e7c9f5d4c20ef08f9bf5f2402e8d3174ea53c2bfc0"),
+    123: ("cosyne27_c15_encoder_s3_20261010", "38f1504d0b918c2d3c5261cee4bac482b89a27c4d99cbe77d355869d842ad9a6"),
 }
 ONLINE_ROOT = ("/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/"
                "train_dir/analysis/online_spatial")
@@ -48,8 +58,10 @@ HIT_SOURCES = {
     "C15": ("c15_seed99_pose_events.csv", "da1745c40a98721932546135315ddc0fa3f8ede353713e71a403153fd3eb8c22", 12, 1),
 }
 ARCHIVE_COUNT = 65
-VARIANTS = {"09_fragments": 9, "33_fragments": 33, "65_fragments": 65}
+VARIANTS = {"65_fragments": ARCHIVE_COUNT}
 BOUNDS = (100.0, 2000.0, 100.0, 2000.0)
+STEP_NORM = Normalize(vmin=0, vmax=99999)
+PANEL_PT = 38
 
 
 def sha256(path: Path) -> str:
@@ -68,34 +80,72 @@ def contiguous_slices(segment_id: np.ndarray, dones: np.ndarray) -> list[slice]:
     return [slice(int(start), int(end)) for start, end in zip(starts, ends)]
 
 
+def occupancy_metrics(xy: np.ndarray) -> tuple[int, float, float]:
+    """N_eff/visited for equal 19-by-19 world bins; larger means more even use."""
+    counts = np.histogram2d(xy[:, 0], xy[:, 1], bins=19,
+                            range=((100, 2000), (100, 2000)))[0].ravel()
+    visited = counts[counts > 0]
+    probabilities = visited / visited.sum()
+    effective_bins = float(np.exp(-np.sum(probabilities * np.log(probabilities))))
+    return len(visited), effective_bins, effective_bins / len(visited)
+
+
+def read_snapshot(source: Path, expected_hash: str, run_name: str
+                  ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    if sha256(source) != expected_hash:
+        raise ValueError(f"Online-spatial snapshot hash mismatch: {source}")
+    with np.load(source, allow_pickle=False) as payload:
+        pose = np.asarray(payload["pose"], dtype=np.float32)
+        segment_id = np.asarray(payload["segment_id"])
+        dones = np.asarray(payload["dones"])
+        bounds = tuple(np.asarray(payload["bounds"], dtype=float))
+        window = (int(payload["window_start_env_steps"]),
+                  int(payload["window_end_env_steps"]))
+        recorded_run = str(payload["run_name"])
+    if (pose.shape != (100000, 3) or segment_id.shape != (len(pose),) or
+            dones.shape != (len(pose),) or bounds != BOUNDS or
+            recorded_run != run_name or window != (99207936, 100007936)):
+        raise ValueError(f"Unexpected snapshot contract: {source}")
+    return pose, segment_id, dones
+
+
+def select_slices(segment_id: np.ndarray, dones: np.ndarray, rng_seed: int
+                  ) -> tuple[list[slice], list[tuple[int, slice]], list[tuple[int, slice]]]:
+    all_slices = contiguous_slices(segment_id, dones)
+    eligible = [(ordinal, part) for ordinal, part in enumerate(all_slices)
+                if part.stop - part.start > 1]
+    # Independent fixed permutations avoid aliasing with parallel actor order.
+    chosen = np.random.default_rng(rng_seed).permutation(len(eligible))[:ARCHIVE_COUNT]
+    if len(np.unique(chosen)) != ARCHIVE_COUNT:
+        raise ValueError("Repeated selected fragment")
+    return all_slices, eligible, [eligible[index] for index in chosen]
+
+
 def prepare(raw_root: Path) -> None:
     """Hash-check full sources, then archive only the selected plot coordinates."""
     fragments: dict[str, np.ndarray] = {}
+    screening = []
+    for seed, (_, source_hash) in FG_CANDIDATES.items():
+        source = raw_root / "C15_candidates" / f"S{seed}.npz"
+        pose, segment_id, dones = read_snapshot(
+            source, source_hash, f"COS27_C15_TEMPORAL_S{seed}")
+        _, _, picked = select_slices(segment_id, dones, 2029)
+        sampled_xy = np.concatenate([pose[part, :2] for _, part in picked])
+        screening.append((seed, occupancy_metrics(pose[:, :2]),
+                          occupancy_metrics(sampled_xy)))
+    fragments["fg_screen_seeds"] = np.array([row[0] for row in screening], dtype=np.int32)
+    for name, position in (("full", 1), ("sample", 2)):
+        fragments[f"fg_screen_{name}_visited"] = np.array(
+            [row[position][0] for row in screening], dtype=np.int32)
+        fragments[f"fg_screen_{name}_effective"] = np.array(
+            [row[position][1] for row in screening], dtype=np.float64)
+        fragments[f"fg_screen_{name}_uniformity"] = np.array(
+            [row[position][2] for row in screening], dtype=np.float64)
     for family_index, (family, (run_name, expected_hash)) in enumerate(RUNS.items()):
-        source = raw_root / family / "online_spatial.npz"
-        if sha256(source) != expected_hash:
-            raise ValueError(f"Online-spatial snapshot hash mismatch: {source}")
-        with np.load(source, allow_pickle=False) as payload:
-            pose = np.asarray(payload["pose"], dtype=np.float32)
-            segment_id = np.asarray(payload["segment_id"])
-            dones = np.asarray(payload["dones"])
-            bounds = tuple(np.asarray(payload["bounds"], dtype=float))
-            window = (int(payload["window_start_env_steps"]),
-                      int(payload["window_end_env_steps"]))
-            recorded_run = str(payload["run_name"])
-        if (pose.shape != (100000, 3) or segment_id.shape != (len(pose),) or
-                dones.shape != (len(pose),) or bounds != BOUNDS or
-                recorded_run != run_name or window != (99207936, 100007936)):
-            raise ValueError(f"Unexpected {family} snapshot contract")
-        all_slices = contiguous_slices(segment_id, dones)
-        eligible = [(ordinal, part) for ordinal, part in enumerate(all_slices)
-                    if part.stop - part.start > 1]
-        # Random sampling avoids periodic aliasing with the parallel actor order.
-        # The first 9 and 33 draws form nested, predeclared smaller candidates.
-        chosen = np.random.default_rng(2027 + family_index).permutation(len(eligible))[:ARCHIVE_COUNT]
-        if len(np.unique(chosen)) != ARCHIVE_COUNT:
-            raise ValueError(f"Repeated selected fragment for {family}")
-        picked = [eligible[index] for index in chosen]
+        source = (raw_root / "C15_candidates" / "S123.npz" if family == "FG"
+                  else raw_root / family / "online_spatial.npz")
+        pose, segment_id, dones = read_snapshot(source, expected_hash, run_name)
+        all_slices, eligible, picked = select_slices(segment_id, dones, 2027 + family_index)
         positions = [pose[part, :2] for _, part in picked]
         offsets = np.r_[0, np.cumsum([len(part) for part in positions])]
         fragments[f"xy_{family}"] = np.concatenate(positions).astype(np.float32)
@@ -156,11 +206,34 @@ def save(fig: plt.Figure, stem: str) -> list[str]:
     return outputs
 
 
-def segment_coordinates(payload: np.lib.npyio.NpzFile, family: str, count: int) -> list[np.ndarray]:
+def segment_coordinates(payload: np.lib.npyio.NpzFile, family: str, count: int
+                        ) -> list[tuple[np.ndarray, np.ndarray]]:
     points = payload[f"xy_{family}"]
     offsets = payload[f"offsets_{family}"]
-    return [points[int(offsets[index]):int(offsets[index + 1])]
+    starts = payload[f"start_rows_{family}"]
+    return [(points[int(offsets[index]):int(offsets[index + 1])],
+             int(starts[index]) + np.arange(int(offsets[index + 1] - offsets[index])))
             for index in range(count)]
+
+
+def draw_gradient_path(ax: plt.Axes,
+                       paths: list[tuple[np.ndarray, np.ndarray]]) -> None:
+    """Color every within-fragment decision step by its original 100k row."""
+    segments = np.concatenate([
+        np.stack((xy[:-1], xy[1:]), axis=1) for xy, _ in paths])
+    steps = np.concatenate([rows[:-1] + .5 for _, rows in paths])
+    if len(segments) != len(steps) or steps.min() < 0 or steps.max() > 99999:
+        raise ValueError("Invalid original-window step indices")
+    lines = LineCollection(segments, cmap="viridis", norm=STEP_NORM,
+                           linewidths=.55, alpha=1.0, capstyle="round")
+    lines.set_array(steps)
+    ax.add_collection(lines)
+    ax.set_xlim(BOUNDS[0], BOUNDS[1])
+    ax.set_ylim(BOUNDS[2], BOUNDS[3])
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_axis_off()
+    ax.add_patch(plt.Rectangle((100, 100), 1900, 1900, fill=False,
+                               edgecolor="#606970", linewidth=.4))
 
 
 def draw_path(ax: plt.Axes, paths: list[np.ndarray], color: str) -> None:
@@ -181,26 +254,34 @@ def draw_path(ax: plt.Axes, paths: list[np.ndarray], color: str) -> None:
 def render_fragment_variants(payload: np.lib.npyio.NpzFile) -> list[str]:
     outputs = []
     for stem, count in VARIANTS.items():
-        fig = plt.figure(figsize=(7.5, 3.15))
-        fig.text(.075, .97, f"Trajectory fragments · {count} per architecture",
-                 ha="left", va="top", fontsize=14, fontweight="bold")
-        fig.text(.075, .89, "100k observations near the 100M checkpoint · fixed 100–2000 world extent",
-                 ha="left", va="top", fontsize=12)
+        width_pt, height_pt = 270, 140
+        fig = plt.figure(figsize=(width_pt / 72, height_pt / 72))
+        fig.text(10 / width_pt, 136 / height_pt,
+                 f"Trajectory fragments · {count} per architecture",
+                 ha="left", va="top", fontsize=12, fontweight="bold")
         for index, family in enumerate(FAMILIES):
-            ax = fig.add_axes([.075 + index * .305, .18, .245, .59])
-            draw_path(ax, segment_coordinates(payload, family, count), COLORS[family])
-            ax.set_title(f"{family} · seed {dict(NG=99, UG=123, FG=17)[family]}", pad=6)
-            ax.set_xlabel("x (DMLab units)", labelpad=0)
-            if index == 0:
-                ax.set_ylabel("y (DMLab units)", labelpad=0)
-            else:
-                ax.set_yticklabels([])
+            x_pt = 26 + index * 90
+            ax = fig.add_axes([x_pt / width_pt, 72 / height_pt,
+                               PANEL_PT / width_pt, PANEL_PT / height_pt])
+            draw_gradient_path(ax, segment_coordinates(payload, family, count))
+            fig.text((x_pt + PANEL_PT / 2) / width_pt, 117 / height_pt,
+                     f"{family} · seed {dict(NG=99, UG=123, FG=123)[family]}",
+                     ha="center", va="center", fontsize=12)
+        color_axis = fig.add_axes([50 / width_pt, 39 / height_pt,
+                                   170 / width_pt, 6 / height_pt])
+        colorbar = fig.colorbar(ScalarMappable(norm=STEP_NORM, cmap="viridis"),
+                                cax=color_axis, orientation="horizontal")
+        colorbar.set_ticks([0, 50000, 99999])
+        colorbar.set_ticklabels(["0", "50,000", "99,999"])
+        colorbar.ax.tick_params(labelsize=12, length=2, width=.5, pad=1)
+        colorbar.outline.set_linewidth(.4)
+        fig.text(227 / width_pt, 42 / height_pt, "step", ha="left", va="center",
+                 fontsize=12)
         outputs.extend(save(fig, stem))
         for family in FAMILIES:
-            tile = plt.figure(figsize=(2.2, 2.2))
-            ax = tile.add_axes([.03, .03, .94, .94])
-            draw_path(ax, segment_coordinates(payload, family, count), COLORS[family])
-            ax.set_axis_off()
+            tile = plt.figure(figsize=(PANEL_PT / 72, PANEL_PT / 72))
+            ax = tile.add_axes([0, 0, 1, 1])
+            draw_gradient_path(ax, segment_coordinates(payload, family, count))
             outputs.extend(save(tile, f"{family}_{stem}_tile"))
     return outputs
 
@@ -279,16 +360,45 @@ def render() -> None:
             }
             for family in FAMILIES
         }
+        fg_screen = {
+            str(int(seed)): {
+                "run_name": f"COS27_C15_TEMPORAL_S{int(seed)}",
+                "source_npz_path": (
+                    f"{ONLINE_ROOT}/{FG_CANDIDATES[int(seed)][0]}/"
+                    f"COS27_C15_TEMPORAL_S{int(seed)}/policy_00/"
+                    "snapshot_target_000100000000_actual_000100007936.npz"),
+                "source_npz_sha256": FG_CANDIDATES[int(seed)][1],
+                "full_window": {
+                    "visited_bins": int(fragments["fg_screen_full_visited"][index]),
+                    "effective_bins": float(fragments["fg_screen_full_effective"][index]),
+                    "effective_fraction_of_visited": float(
+                        fragments["fg_screen_full_uniformity"][index]),
+                },
+                "sampled_65_fragments": {
+                    "visited_bins": int(fragments["fg_screen_sample_visited"][index]),
+                    "effective_bins": float(fragments["fg_screen_sample_effective"][index]),
+                    "effective_fraction_of_visited": float(
+                        fragments["fg_screen_sample_uniformity"][index]),
+                },
+            }
+            for index, seed in enumerate(fragments["fg_screen_seeds"])
+        }
     with np.load(HIT_INPUTS, allow_pickle=False) as hits:
         outputs.extend(render_verified_hits(hits))
     manifest = {
-        "schema": "cosyne27/standalone-trajectory-candidates/v1",
-        "current_main_checked": "b5ef23351152755714dfd478c326b146329ce68b",
-        "selection": "All canonical non-singleton contiguous fragments (segment_id changes or previous done splits a fragment); take the first 65 positions in a uniform random permutation without replacement, using independent fixed NumPy seeds 2027, 2028, 2029 for NG, UG, FG. The 9- and 33-fragment variants use the first 9 and 33 draws, so sets are nested. No selection by spatial coverage or hit count; no paths are joined across fragments.",
+        "schema": "cosyne27/standalone-trajectory-candidates/v2",
+        "current_main_checked": "a49c677277e9812b19389afb3615b29120b01142",
+        "selection": "All canonical non-singleton contiguous fragments (segment_id changes or previous done splits a fragment); take the first 65 positions in a uniform random permutation without replacement, using independent fixed NumPy seeds 2027, 2028, 2029 for NG, UG, FG. No fragment selection by spatial coverage or hit count; no paths are joined across fragments.",
+        "fg_seed_choice": "Seed 123 selected at the author's direction. Its full-window occupancy is more even than the prior seed 17, although seeds 8 and 99 rank higher by this metric. All five comparable C15 temporal-credit snapshots were screened; path efficiency was not used.",
+        "fg_seed_screen_method": "For each of five complete 100000-observation C15 snapshots, histogram x/y into fixed 19x19 bins across [100,2000] on each axis; visited bins have positive count; effective bins = exp(-sum(p_i log p_i)); uniformity = effective bins / visited bins. The sampled-65 score uses the exact fixed-seed fragment set. Larger uniformity is more even occupancy.",
+        "fg_seed_screen": fg_screen,
         "source_window_env_frames": [99207936, 100007936],
         "source_window_observations": 100000,
+        "step_color": "Viridis sequential color, with shared normalization 0 to 99999 across NG/UG/FG. Each within-fragment line segment uses the midpoint of its two original observation row indices in the 100000-observation source window; later rows are brighter. The colorbar label is step. Sampling order does not set the color.",
         "bounds_xy_dmlab": list(BOUNDS),
-        "variants": {name: {"count_per_run": count} for name, count in VARIANTS.items()},
+        "variants": {name: {"count_per_run": count, "panel_square_points": PANEL_PT,
+                            "sheet_points": [270, 140], "tile_points": [PANEL_PT, PANEL_PT]}
+                     for name, count in VARIANTS.items()},
         "selected_inputs": selection,
         "selected_fragment_archive_sha256": sha256(INPUTS),
         "verified_hit_archive_sha256": sha256(HIT_INPUTS),
