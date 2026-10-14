@@ -235,7 +235,8 @@ def render_verified_hits(payload: np.lib.npyio.NpzFile) -> list[str]:
                    facecolor="none", edgecolor="#505B63", linewidth=.75, zorder=4)
         ax.scatter(xy[hit, 0], xy[hit, 1], s=64, marker="*",
                    facecolor="#B31942", edgecolor="white", linewidth=.4, zorder=5)
-        ax.set_title(f"{family} seed 99 · {int(hit.sum())} hits", pad=5)
+        hit_count = int(hit.sum())
+        ax.set_title(f"{family} seed 99 · {hit_count} {'hit' if hit_count == 1 else 'hits'}", pad=5)
         ax.set_xlabel("x (DMLab units)", labelpad=0)
         if index == 0:
             ax.set_ylabel("y (DMLab units)", labelpad=0)
