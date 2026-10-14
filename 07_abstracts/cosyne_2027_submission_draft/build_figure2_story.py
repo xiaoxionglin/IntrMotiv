@@ -462,9 +462,9 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '<text x="6" y="12" class="story-letter">A</text>',
            '<text x="23" y="12" class="story-heading">Exploration</text>',
            '<text x="6" y="94" class="story-letter">C</text>',
-           '<text x="23" y="94" class="story-heading">Push ablation</text>',
+           '<text x="23" y="94" class="story-heading">Push TS control</text>',
            '<text x="6" y="159" class="story-letter">D</text>',
-           '<text x="23" y="159" class="story-heading">Pull ablation</text>']
+           '<text x="23" y="159" class="story-heading">Pull TS control</text>']
     if show_panel_e:
         out.extend((
             f'<text x="{440 if paired_peak_layout else 469}" y="12" class="story-letter">E</text>',
@@ -501,7 +501,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     behavior_shift = (-34 if paired_peak_layout else 0) + behavior_layout_shift
     out.extend((
         f'<text x="{231 + behavior_shift}" y="12" class="story-letter">B</text>',
-        f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Behavior ablation</text>',
+        f'<text x="{248 + behavior_shift}" y="12" class="story-heading">Random policy control</text>',
     ))
     if behavior_shift:
         out.append(f'<g transform="translate({behavior_shift},0)">{behavior_schematic()}</g>')

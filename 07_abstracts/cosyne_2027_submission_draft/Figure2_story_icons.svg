@@ -4230,9 +4230,9 @@
 <text x="6" y="12" class="story-letter">A</text>
 <text x="23" y="12" class="story-heading">Exploration</text>
 <text x="6" y="94" class="story-letter">C</text>
-<text x="23" y="94" class="story-heading">Push ablation</text>
+<text x="23" y="94" class="story-heading">Push TS control</text>
 <text x="6" y="159" class="story-letter">D</text>
-<text x="23" y="159" class="story-heading">Pull ablation</text>
+<text x="23" y="159" class="story-heading">Pull TS control</text>
 <text x="129" y="26" text-anchor="middle" class="story-label" fill="#0072B2">NG</text>
 <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" version="1.1" id="figure2a-NG-trajectory" x="110" y="32">
  <defs>
@@ -15816,7 +15816,7 @@
 <text id="panel-a-path-efficiency-category-FG" x="67" y="80" text-anchor="middle" class="poster-stat-tick">FG</text>
 </g></g>
 <text x="237" y="12" class="story-letter">B</text>
-<text x="254" y="12" class="story-heading">Behavior ablation</text>
+<text x="254" y="12" class="story-heading">Random policy control</text>
 <g transform="translate(6,0)"><g id="behavior-ablation-schematic">
 <rect x="232" y="39" width="17" height="18" rx="3" class="black-box"/>
 <rect x="254" y="39" width="16" height="18" rx="3" class="black-box"/>
