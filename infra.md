@@ -101,6 +101,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   metrics can be added without re-fetching unrelated histories or rejecting
   harmless catalog additions. Acceptance: a cached render reproduces all
   five-seed mean/SEM reward curves and labels their producer metric and unit.
+- **14 October log-axis follow-up:** The shared linear reward axis placed UG
+  near zero relative to NG and FG. A log-y candidate now uses the same
+  arithmetic means and SEM bands, after checking that every plotted lower
+  band is positive (minimum 0.0131). The raw zero at frame zero remains outside
+  both variants' 1–99M grid. For future log candidates, assert positivity and
+  printed limits before export, preserve the linear view for absolute
+  differences, and state that the axis transform does not change aggregation.
 - **Acceptance:** A StudySpec collection exports each requested W&B metric with
   run URL, exact identity, and source fingerprint; a cached render regenerates
   the same seed curves and SEM bands with no W&B access. See the

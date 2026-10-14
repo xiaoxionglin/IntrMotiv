@@ -18,6 +18,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import LogFormatterMathtext, NullLocator
 import numpy as np
 import pandas as pd
 
@@ -196,43 +197,68 @@ def render() -> None:
         raise ValueError("Each plotted point needs five independent training seeds")
 
     font = compact.style()
+
+    def draw_course(ax: plt.Axes) -> tuple[float, float]:
+        """Keep marks, labels, and seed summaries identical across scales."""
+        plotted = {}
+        for family in FAMILIES:
+            rows = summary[summary.family == family].sort_values("env_steps")
+            x = rows.env_steps.to_numpy(float) / 1e6
+            mean = rows["mean"].to_numpy(float)
+            sem = rows["sem"].to_numpy(float)
+            plotted[family] = (mean, sem)
+            ax.plot(x, mean, lw=1.25, color=compact.COLORS[family], label=LABELS[family])
+            ax.fill_between(x, mean - sem, mean + sem, color=compact.COLORS[family],
+                            alpha=0.16, linewidth=0)
+        for family in FAMILIES:
+            ax.text(102, plotted[family][0][-1], LABELS[family], color=compact.COLORS[family],
+                    va="center", fontsize=10)
+        ax.set(xlim=(0, 135), xlabel="Steps (M)", ylabel="Mean intrinsic reward")
+        ax.set_xticks((0, 50, 100))
+        ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
+        return (min(float(np.min(mean - sem)) for mean, sem in plotted.values()),
+                max(float(np.max(mean + sem)) for mean, sem in plotted.values()))
+
+    def export_course(fig: plt.Figure, name: str) -> None:
+        stem = OUTPUT / name
+        fig.savefig(stem.with_suffix(".svg"), dpi=300, metadata={"Date": None})
+        svg_path = stem.with_suffix(".svg")
+        svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n")
+        fig.savefig(stem.with_suffix(".pdf"), dpi=300,
+                    metadata={"CreationDate": None, "ModDate": None})
+        fig.savefig(stem.with_suffix(".png"), dpi=300)
+        plt.close(fig)
+
+    linear_name = "01b_online_intrinsic_reward_course"
     fig, ax = plt.subplots(figsize=(1.9, 1.9))
     fig.subplots_adjust(left=0.30, right=0.98, bottom=0.27, top=0.95)
-    plotted = {}
-    for family in FAMILIES:
-        rows = summary[summary.family == family].sort_values("env_steps")
-        x = rows.env_steps.to_numpy(float) / 1e6
-        mean = rows["mean"].to_numpy(float)
-        sem = rows["sem"].to_numpy(float)
-        plotted[family] = (mean, sem)
-        ax.plot(x, mean, lw=1.25, color=compact.COLORS[family], label=LABELS[family])
-        ax.fill_between(x, mean - sem, mean + sem, color=compact.COLORS[family],
-                        alpha=0.16, linewidth=0)
-    low = min(float(np.min(mean - sem)) for mean, sem in plotted.values())
-    high = max(float(np.max(mean + sem)) for mean, sem in plotted.values())
+    low, high = draw_course(ax)
     # Intrinsic reward is signed in general; preserve negative values if this
-    # cohort contains any instead of silently clipping the training course.
+    # cohort contains any instead of silently clipping the linear course.
     y_bottom = min(0.0, low * 1.06) if low < 0 else 0.0
     y_top = max(0.1, high * 1.06)
-    for family in FAMILIES:
-        ax.text(102, plotted[family][0][-1], LABELS[family], color=compact.COLORS[family],
-                va="center", fontsize=10)
-    ax.set(xlim=(0, 135), ylim=(y_bottom, y_top), xlabel="Steps (M)",
-           ylabel="Mean intrinsic reward")
-    ax.set_xticks((0, 50, 100))
-    ax.tick_params(axis="both", length=2.5, width=0.6, pad=2)
-    name = "01b_online_intrinsic_reward_course"
-    stem = OUTPUT / name
-    fig.savefig(stem.with_suffix(".svg"), dpi=300, metadata={"Date": None})
-    svg_path = stem.with_suffix(".svg")
-    svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n")
-    fig.savefig(stem.with_suffix(".pdf"), dpi=300,
-                metadata={"CreationDate": None, "ModDate": None})
-    fig.savefig(stem.with_suffix(".png"), dpi=300)
-    plt.close(fig)
+    ax.set_ylim(y_bottom, y_top)
+    export_course(fig, linear_name)
+
+    log_name = "01c_online_intrinsic_reward_course_log"
+    if low <= 0:
+        raise ValueError("A log-y course would hide a nonpositive mean or SEM bound")
+    fig, ax = plt.subplots(figsize=(1.9, 1.9))
+    fig.subplots_adjust(left=0.30, right=0.98, bottom=0.27, top=0.95)
+    draw_course(ax)
+    log_limits = (0.01, 5.0)
+    if low < log_limits[0] or high > log_limits[1]:
+        raise ValueError("Log-y axis would clip an uncertainty band")
+    ax.set_yscale("log")
+    ax.set_ylim(*log_limits)
+    ax.set_yticks((0.01, 0.1, 1.0))
+    ax.yaxis.set_major_formatter(LogFormatterMathtext())
+    ax.yaxis.set_minor_locator(NullLocator())
+    export_course(fig, log_name)
     (OUTPUT / "render_manifest.json").write_text(json.dumps({
-        "schema": "intrmotiv/cosyne-intrinsic-reward-course-figure/v1",
-        "figure": name, "physical_size_inches": [1.9, 1.9], "font": font,
+        "schema": "intrmotiv/cosyne-intrinsic-reward-course-figure/v2",
+        "figures": {"linear": linear_name, "log_y": log_name},
+        "physical_size_inches": [1.9, 1.9], "font": font,
         "comparison_figure": "06_experiments/results/cosyne_2027_compact_figures/01_online_spatial_course.svg",
         "metric_tag": METRIC_TAG,
         "aggregation": "W&B logged per-update mean over valid transitions, including zero-reward transitions; plotted mean and SEM across five training seeds at each interpolated 1M-step point",
@@ -244,6 +270,9 @@ def render() -> None:
             max(row["reward_sum_over_mean_max"] for row in manifest["rows"]),
         ],
         "rendered_y_limits": [y_bottom, y_top],
+        "log_y_limits": list(log_limits),
+        "minimum_mean_minus_sem": low,
+        "log_axis_note": "Log transformation applies only to the display axis; arithmetic seed means and additive SEM bands are unchanged. Zero and negative values cannot appear on this variant.",
     }, indent=2) + "\n")
 
 

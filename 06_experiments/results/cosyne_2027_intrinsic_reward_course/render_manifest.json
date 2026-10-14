@@ -1,6 +1,9 @@
 {
-  "schema": "intrmotiv/cosyne-intrinsic-reward-course-figure/v1",
-  "figure": "01b_online_intrinsic_reward_course",
+  "schema": "intrmotiv/cosyne-intrinsic-reward-course-figure/v2",
+  "figures": {
+    "linear": "01b_online_intrinsic_reward_course",
+    "log_y": "01c_online_intrinsic_reward_course_log"
+  },
   "physical_size_inches": [
     1.9,
     1.9
@@ -23,5 +26,11 @@
   "rendered_y_limits": [
     0.0,
     3.087819657317714
-  ]
+  ],
+  "log_y_limits": [
+    0.01,
+    5.0
+  ],
+  "minimum_mean_minus_sem": 0.013108436407459526,
+  "log_axis_note": "Log transformation applies only to the display axis; arithmetic seed means and additive SEM bands are unchanged. Zero and negative values cannot appear on this variant."
 }

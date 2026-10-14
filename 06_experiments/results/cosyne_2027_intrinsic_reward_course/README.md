@@ -1,8 +1,10 @@
 # Mean intrinsic reward during COSYNE training
 
-[Editable SVG](01b_online_intrinsic_reward_course.svg) · [Print PDF](01b_online_intrinsic_reward_course.pdf) · [PNG preview](01b_online_intrinsic_reward_course.png) · [Seed-level course](interpolated_by_seed.csv) · [Mean and SEM](arm_summaries.csv) · [Collection provenance](collection_manifest.json) · [Render provenance](render_manifest.json)
+[Linear SVG](01b_online_intrinsic_reward_course.svg) · [Linear PDF](01b_online_intrinsic_reward_course.pdf) · [Log-y SVG](01c_online_intrinsic_reward_course_log.svg) · [Log-y PDF](01c_online_intrinsic_reward_course_log.pdf) · [Log-y preview](01c_online_intrinsic_reward_course_log.png) · [Seed-level course](interpolated_by_seed.csv) · [Mean and SEM](arm_summaries.csv) · [Collection provenance](collection_manifest.json) · [Render provenance](render_manifest.json)
 
-This is a **selectable figure candidate**, not a replacement for the current Figure 2. It matches the 1.9 × 1.9-inch physical size, Arial typography, axis placement, line width, translucent one-SEM bands, right-end labels, and architecture colors of the existing [online DG spatial course](../cosyne_2027_compact_figures/01_online_spatial_course.svg). NG/C01 is blue, UG/C05 orange, and FG/C15 green. The figure uses one linear vertical scale for all three designs; UG is close to zero on that common scale.
+These are **selectable figure candidates**, not replacements for the current Figure 2. Both match the 1.9 × 1.9-inch physical size, Arial typography, axis placement, line width, translucent one-SEM bands, right-end labels, and architecture colors of the existing [online DG spatial course](../cosyne_2027_compact_figures/01_online_spatial_course.svg). NG/C01 is blue, UG/C05 orange, and FG/C15 green. The original version uses a shared **linear** vertical scale, on which UG is close to zero. The added version uses a shared **logarithmic vertical axis** from 0.01 to 5 intrinsic-reward units per decision. This makes UG's trend visible and shows FG's early rise followed by a roughly level later course.
+
+The log version changes only the display axis. Both versions plot the same arithmetic five-seed means and additive ±1 SEM bands; neither takes logarithms before averaging. Every plotted mean-minus-SEM bound is positive (minimum 0.0131), so the log version hides no value on the shared 1–99M-frame grid. The raw histories contain zero at frame zero, which is outside the plotted range of **both** variants. On a log axis, equal vertical distances represent equal multiplicative ratios rather than equal reward differences. The linear version remains the appropriate view for comparing absolute reward-unit differences.
 
 ## Measured quantity and cohort
 
@@ -20,4 +22,4 @@ To rerender without W&B access, run from the repository root:
 MPLCONFIGDIR=/tmp/cosyne_intrinsic_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python 06_experiments/cosyne_2027/plot_intrinsic_reward_course.py
 ```
 
-Add `--collect` only when intentionally refreshing the pinned W&B histories. The renderer verifies history hashes and complete five-seed coverage before exporting the SVG, PDF, and PNG.
+Add `--collect` only when intentionally refreshing the pinned W&B histories. The renderer verifies history hashes and complete five-seed coverage before exporting both editable SVGs, PDFs, and PNGs. It rejects a log-y render if any mean or SEM bound is nonpositive or outside its printed range.

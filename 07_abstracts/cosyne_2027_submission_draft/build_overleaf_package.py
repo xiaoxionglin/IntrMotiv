@@ -63,6 +63,12 @@ LAYOUT_TRIAL_ASSETS = {
         RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01b_online_intrinsic_reward_course.pdf"),
     "figures/01b_online_intrinsic_reward_course.png": (
         RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01b_online_intrinsic_reward_course.png"),
+    "figures/01c_online_intrinsic_reward_course_log.svg": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01c_online_intrinsic_reward_course_log.svg"),
+    "figures/01c_online_intrinsic_reward_course_log.pdf": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01c_online_intrinsic_reward_course_log.pdf"),
+    "figures/01c_online_intrinsic_reward_course_log.png": (
+        RESULTS_DIR / "cosyne_2027_intrinsic_reward_course/01c_online_intrinsic_reward_course_log.png"),
     "data/fresh_behavior_decoder1_absolute.csv": (
         DRAFT_DIR / "data/fresh_behavior_decoder1_absolute.csv"),
     "data/fresh_behavior_training_seeds.csv": (
@@ -172,7 +178,8 @@ def build_compact() -> None:
                          "`FIGURE2_STORY_NOTES.md`. The earlier taller trial is "
                          "also included. A matching five-seed mean intrinsic-"
                          "reward training course is available at "
-                         "`figures/01b_online_intrinsic_reward_course.pdf`; "
+                         "`figures/01b_online_intrinsic_reward_course.pdf`, with "
+                         "a log-y variant at `figures/01c_online_intrinsic_reward_course_log.pdf`; "
                          "see `FIGURE2_INTRINSIC_REWARD_NOTES.md`.\n\nThe expanded candidate "
                          "library is in the repository's full archive.\n")
         assets[index.name] = index
@@ -267,6 +274,8 @@ def build_full() -> None:
                             "", "## Mean intrinsic reward course", "",
                             "- `figures/01b_online_intrinsic_reward_course.pdf`",
                             "- `figures/01b_online_intrinsic_reward_course.svg`",
+                            "- `figures/01c_online_intrinsic_reward_course_log.pdf`",
+                            "- `figures/01c_online_intrinsic_reward_course_log.svg`",
                             "- `FIGURE2_INTRINSIC_REWARD_NOTES.md`",
                             "", "## Earlier Figure 2 layout trial", "",
                             "- `figures/Figure2_fiddle_with_fields.pdf`",
