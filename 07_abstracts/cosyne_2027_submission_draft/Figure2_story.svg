@@ -4394,7 +4394,7 @@
 </g>
 </g>
 <g id="story-overlay">
-<style>.story-heading{font:700 12px Arial,sans-serif;fill:#25313a}.story-letter{font:700 13px Arial,sans-serif;fill:#25313a}.story-label{font:10px Arial,sans-serif;fill:#25313a}.field-label{font:9px Arial,sans-serif;fill:#25313a}.mini-label{font:9px Arial,sans-serif;fill:#25313a}.box-label{font:9px Arial,sans-serif;fill:#171717}.black-box{fill:#f4f4f4;stroke:#171717;stroke-width:1}.black-arrow{fill:none;stroke:#26323a;stroke-width:1}.poster-stat-title{font:700 9px Arial,sans-serif;fill:#25313a}.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}.behavior-title{font:700 10px Arial,sans-serif;fill:#25313a}.behavior-unit{font:9px Arial,sans-serif;fill:#25313a}.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}</style>
+<style>.story-heading{font:700 12px Arial,sans-serif;fill:#25313a}.story-letter{font:700 13px Arial,sans-serif;fill:#25313a}.story-label{font:10px Arial,sans-serif;fill:#25313a}.field-label{font:9px Arial,sans-serif;fill:#25313a}.mini-label{font:9px Arial,sans-serif;fill:#25313a}.box-label{font:9px Arial,sans-serif;fill:#171717}.black-box{fill:#f4f4f4;stroke:#171717;stroke-width:1}.black-arrow{fill:none;stroke:#26323a;stroke-width:1}.poster-stat-title{font:700 9px Arial,sans-serif;fill:#25313a}.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}.behavior-y-label{font:10px Arial,sans-serif;fill:#25313a}.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}</style>
 <text x="6" y="12" class="story-letter">A</text>
 <text x="23" y="12" class="story-heading">Exploration</text>
 <text x="231" y="12" class="story-letter">B</text>
@@ -4578,10 +4578,8 @@
 <path d="M 453.000,59.210 H 459.000" stroke="#009E73" stroke-width="0.9"/>
 <text x="456.000" y="82" text-anchor="middle" class="behavior-tick">FG</text>
 </g>
-<text x="338" y="25" text-anchor="middle" class="behavior-title">DG</text>
-<text x="338" y="35" text-anchor="middle" class="behavior-unit">Info · bit/step</text>
-<text x="428" y="25" text-anchor="middle" class="behavior-title">DG</text>
-<text x="428" y="35" text-anchor="middle" class="behavior-unit">Reliability</text>
+<text x="302" y="57" text-anchor="middle" transform="rotate(-90 302 57)" class="behavior-y-label">Δ info (bits/step)</text>
+<text x="392" y="57" text-anchor="middle" transform="rotate(-90 392 57)" class="behavior-y-label">Δ reliability</text>
 <g id="push-schematic">
 <rect x="4" y="105" width="19" height="21" rx="4" fill="#c58c8c" stroke="#933333" stroke-width="0.9"/>
 <rect x="32" y="105" width="19" height="21" rx="4" fill="#edf4f2" stroke="#257873" stroke-width="0.9"/>

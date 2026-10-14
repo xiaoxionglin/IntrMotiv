@@ -397,8 +397,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
            '.poster-stat-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.metric-title{font:700 10px Arial,sans-serif;fill:#25313a}'
            '.metric-note,.metric-tick,.metric-category{font:9px Arial,sans-serif;fill:#25313a}'
-           '.behavior-title{font:700 10px Arial,sans-serif;fill:#25313a}'
-           '.behavior-unit{font:9px Arial,sans-serif;fill:#25313a}'
+           '.behavior-y-label{font:10px Arial,sans-serif;fill:#25313a}'
            '.behavior-tick{font:9px Arial,sans-serif;fill:#25313a}'
            '.behavior-axis{stroke:#25313a;stroke-width:0.65;fill:none}'
            '</style>',
@@ -426,10 +425,10 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
     out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
         out.append(behavior_card(metric, behavior[metric], x))
-    # Layer and unit labels are SVG text added after the quantitative marks.
-    for x, measure in ((296, "Info · bit/step"), (386, "Reliability")):
-        out.extend((f'<text x="{x+42}" y="25" text-anchor="middle" class="behavior-title">DG</text>',
-                    f'<text x="{x+42}" y="35" text-anchor="middle" class="behavior-unit">{measure}</text>'))
+    # Keep B's metric names on the y axes, as in the push and pull rows.
+    for x, measure in ((296, "Δ info (bits/step)"), (386, "Δ reliability")):
+        out.append(f'<text x="{x+6}" y="57" text-anchor="middle" '
+                   f'transform="rotate(-90 {x+6} 57)" class="behavior-y-label">{measure}</text>')
     out.append(credit_schematic(105, "push", "push"))
     out.append(credit_schematic(170, "pull", "pull"))
     for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
