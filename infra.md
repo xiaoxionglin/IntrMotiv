@@ -2458,6 +2458,13 @@ For each finding, record:
   delivery. For reuse, keep condition definitions in the caption when the
   compact diagram shows the goal-conditioned circuit. Acceptance: the $j=g$
   test and NG's open gate are both stated, and the icon has no clipped text.
+  The next layout check against the original [architecture v3 artwork](07_abstracts/cosyne_2027_submission_draft/architecture_v3.svg)
+  revealed that a straight pull-output arrow loses its readout-over-event
+  arrangement. Two elbow variants restore the blue upward return from a
+  teal-framed $\Delta_{i\to j}$ toward the blue policy wedge, while keeping
+  the goal selector connected to both. One uses the original colored event
+  cue. Acceptance: both the SVG and a 53-mm render retain that arrow shape,
+  the architecture frame styles, and a legible $j=g$ gate.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
