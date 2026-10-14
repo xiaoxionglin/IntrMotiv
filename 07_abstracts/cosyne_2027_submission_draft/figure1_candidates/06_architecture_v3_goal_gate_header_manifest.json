@@ -9,7 +9,9 @@
   "architecture": "source v3 SVG elements inlined as vectors; original embedded scene and maze images preserved",
   "architecture_arrangement": {
     "vis_encoder_heading_shift_mm": 3.8,
-    "push_legend_typo_corrected": true
+    "push_legend_typo_corrected": true,
+    "readout_heading": "Policy",
+    "three_temporal_symbols": "TS"
   },
   "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
   "courses": "arithmetic five-seed mean \u00b1 SEM, same verified runs, 1\u201399M frames",
@@ -91,7 +93,7 @@
   "reward_axis_scale": "linear display axis of within-condition fold change",
   "panel_layout": {
     "B": "spatial-information and relative-reward courses share one panel; side-gate icon occupies its top row with the NG/UG/FG legend stacked at its right",
-    "C": "three C15 seed-123 DG response maps",
-    "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide"
+    "C": "three C15 seed-123 DG response maps; panel letter only, no heading",
+    "icon": "05_side_gate.svg inlined as native vectors at 1.23 inches wide, with TS and Pol. labels"
   }
 }

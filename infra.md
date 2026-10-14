@@ -2479,7 +2479,14 @@ For each finding, record:
   x-axis labels and a lower reward-label anchor cleared the collision without
   shrinking the architecture or field tiles. For similar compact figures,
   inspect the final-width PDF after SVG composition; acceptance is distinct
-  legend, icon, axes, and field heading with no clipped or touching labels.
+  legend, icon, axes, and field maps with no clipped or touching labels.
+  The later terminology pass replaced the architecture's three path-based
+  delta glyphs with editable TS text and changed Readout to Policy only in
+  this candidate; the icon likewise displays TS and Pol. The first TS render
+  touched the adjacent event circles, so its text anchors moved left while
+  the shorter Policy heading was recentered over its wedge. Keep these
+  substitutions scoped to the selected layout and verify the exported PDF
+  rather than regenerating earlier candidates with altered labels.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
