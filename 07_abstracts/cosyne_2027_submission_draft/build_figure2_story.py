@@ -38,6 +38,9 @@ DG_INFORMATION = HERE / "figure2_candidates/08_focused_canvas/fresh_behavior_dg_
 DG_RELIABILITY = HERE / "data/fresh_behavior_dg_reliability.csv"
 
 COLORS = {"NG": "#0072B2", "UG": "#D55E00", "FG": "#009E73"}
+# Match the plotting rectangles in the existing push and pull SVG components.
+RESULT_AXIS_WIDTH = 49.68
+RESULT_AXIS_HEIGHT = 47.52
 FIELD_UNITS = (4, 7, 12, 15)
 RUNS = {
     "NG": "COS27_C01_TEMPORAL_S99",
@@ -141,7 +144,8 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
         "dg_reliability": (-0.05, 0.55, (0.0, 0.25, 0.5)),
     }
     minimum, maximum, ticks = specs[metric]
-    left, right, top, bottom = x + 25, x + 80, 41, 72
+    left, top = x + 25, 30
+    right, bottom = left + RESULT_AXIS_WIDTH, top + RESULT_AXIS_HEIGHT
 
     def scale(value: float) -> float:
         if not minimum <= value <= maximum:
@@ -161,7 +165,7 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
         out.append(f'<path d="M {left},{scale(0):.3f} H {right}" '
                    'stroke="#879096" stroke-width="0.55"/>')
     for index, family in enumerate(("NG", "UG", "FG")):
-        cx = left + 9 + index * 18
+        cx = left + RESULT_AXIS_WIDTH * (index + 0.5) / 3
         values = samples[family]
         color = COLORS[family]
         for dot_index, value in enumerate(values):
@@ -178,7 +182,8 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
             f'<rect x="{cx-3:.3f}" y="{scale(q3):.3f}" width="6" '
             f'height="{scale(q1)-scale(q3):.3f}" fill="white" stroke="{color}" stroke-width="0.9"/>',
             f'<path d="M {cx-3:.3f},{scale(median):.3f} H {cx+3:.3f}" stroke="{color}" stroke-width="0.9"/>',
-            f'<text x="{cx:.3f}" y="82" text-anchor="middle" class="behavior-tick">{family}</text>',
+            f'<text x="{cx:.3f}" y="{bottom+9:.3f}" text-anchor="middle" '
+            f'class="behavior-tick">{family}</text>',
         ))
     out.append('</g>')
     return "\n".join(out)
@@ -427,8 +432,10 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
         out.append(behavior_card(metric, behavior[metric], x))
     # Keep B's metric names on the y axes, as in the push and pull rows.
     for x, measure in ((296, "Δ info (bits/step)"), (386, "Δ reliability")):
-        out.append(f'<text x="{x+6}" y="57" text-anchor="middle" '
-                   f'transform="rotate(-90 {x+6} 57)" class="behavior-y-label">{measure}</text>')
+        y_center = 30 + RESULT_AXIS_HEIGHT / 2
+        out.append(f'<text x="{x+6}" y="{y_center:.3f}" text-anchor="middle" '
+                   f'transform="rotate(-90 {x+6} {y_center:.3f})" '
+                   f'class="behavior-y-label">{measure}</text>')
     out.append(credit_schematic(105, "push", "push"))
     out.append(credit_schematic(170, "pull", "pull"))
     for y, unit in zip((20, 72, 124, 176), FIELD_UNITS):
