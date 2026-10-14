@@ -2450,6 +2450,14 @@ For each finding, record:
   to inspect without altering the selected figure. Reuse this pattern when
   placing an icon; acceptance is that FG never appears to make all frontier
   events eligible for pull and that the icon remains legible at final width.
+  The [simpler selector trials](07_abstracts/cosyne_2027_submission_draft/figure1_candidates/goal_policy_icon_options/simple/README.md)
+  made the shared mechanism clearer by showing one selected goal feeding
+  both the policy and a destination gate for $\Delta_{i\to j}$, while moving
+  NG/UG/FG mode descriptions out of the 53-mm icon. The first render's mode
+  text and gate label collided; a width-matched preview exposed this before
+  delivery. For reuse, keep condition definitions in the caption when the
+  compact diagram shows the goal-conditioned circuit. Acceptance: the $j=g$
+  test and NG's open gate are both stated, and the icon has no clipped text.
 
 ### COSYNE Overleaf package omitted figure choices — 2026-10-12
 
