@@ -1,0 +1,101 @@
+{
+  "source": "Figure2.svg",
+  "source_sha256": "c4b7dd75226ddfe1cc1e9d1523ad7271ac45f43c6b6a3032c046bbc27819e13a",
+  "output_svg_sha256": "fef7aaf4d83a840368c5928faefcf886cbac4f4fa45242544314c8154937a14f",
+  "selected_figure_unchanged": true,
+  "canvas_width_pt": 540,
+  "arrangement": "panel B-D icons between their own y labels and numeric tick labels; panel A unchanged",
+  "source_data_unchanged": true,
+  "placements": [
+    {
+      "panel": "B",
+      "metric": "dg_information",
+      "icon_id": "behavior-spatial-information-icon",
+      "icon_width_pt": 12.0,
+      "plot_shift_pt": 8.0,
+      "target_icon_left_pt": 320.857,
+      "target_label_right_pt": 318.857
+    },
+    {
+      "panel": "B",
+      "metric": "dg_reliability",
+      "icon_id": "behavior-reliability-icon",
+      "icon_width_pt": 18.0,
+      "plot_shift_pt": 8.0,
+      "target_icon_left_pt": 419.857,
+      "target_label_right_pt": 417.857
+    },
+    {
+      "panel": "C",
+      "metric": "dg_information",
+      "icon_id": "push-spatial-information-icon",
+      "icon_width_pt": 12.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 93.429,
+      "target_label_right_pt": 91.429
+    },
+    {
+      "panel": "C",
+      "metric": "map_overlap",
+      "icon_id": "push-overlap-icon",
+      "icon_width_pt": 18.0,
+      "plot_shift_pt": 16.0,
+      "target_icon_left_pt": 199.369,
+      "target_label_right_pt": 197.369
+    },
+    {
+      "panel": "C",
+      "metric": "peak_coverage",
+      "icon_id": "push-coverage-icon",
+      "icon_width_pt": 14.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 319.31,
+      "target_label_right_pt": 317.31
+    },
+    {
+      "panel": "C",
+      "metric": "graph_edges",
+      "icon_id": "push-edges-icon",
+      "icon_width_pt": 14.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 434.299,
+      "target_label_right_pt": 432.299
+    },
+    {
+      "panel": "D",
+      "metric": "dg_information",
+      "icon_id": "pull-spatial-information-icon",
+      "icon_width_pt": 12.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 92.739,
+      "target_label_right_pt": 90.739
+    },
+    {
+      "panel": "D",
+      "metric": "map_overlap",
+      "icon_id": "pull-overlap-icon",
+      "icon_width_pt": 18.0,
+      "plot_shift_pt": 16.0,
+      "target_icon_left_pt": 200.72,
+      "target_label_right_pt": 198.72
+    },
+    {
+      "panel": "D",
+      "metric": "peak_coverage",
+      "icon_id": "pull-coverage-icon",
+      "icon_width_pt": 14.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 317.139,
+      "target_label_right_pt": 315.139
+    },
+    {
+      "panel": "D",
+      "metric": "graph_edges",
+      "icon_id": "pull-edges-icon",
+      "icon_width_pt": 14.0,
+      "plot_shift_pt": 10.0,
+      "target_icon_left_pt": 433.609,
+      "target_label_right_pt": 431.609
+    }
+  ]
+}

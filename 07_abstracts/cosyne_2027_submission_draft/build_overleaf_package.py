@@ -63,6 +63,11 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_story_icons.png": DRAFT_DIR / "Figure2_story_icons.png",
     "FIGURE2_STORY_ICONS_NOTES.md": DRAFT_DIR / "Figure2_story_icons_README.md",
     "FIGURE2_STORY_ICONS_SOURCES.json": DRAFT_DIR / "Figure2_story_icons_manifest.json",
+    "figures/Figure2_yaxis_icons_trial.svg": DRAFT_DIR / "Figure2_yaxis_icons_trial.svg",
+    "figures/Figure2_yaxis_icons_trial.pdf": DRAFT_DIR / "Figure2_yaxis_icons_trial.pdf",
+    "figures/Figure2_yaxis_icons_trial.png": DRAFT_DIR / "Figure2_yaxis_icons_trial.png",
+    "FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md": DRAFT_DIR / "Figure2_yaxis_icons_trial_README.md",
+    "FIGURE2_YAXIS_ICONS_TRIAL_PLACEMENTS.json": DRAFT_DIR / "Figure2_yaxis_icons_trial_manifest.json",
     "FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md": (
         DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails/README.md"),
     "data/Figure2_trajectory_fragments_manifest.json": (
@@ -252,7 +257,9 @@ def build_compact() -> None:
                          "See `FIGURE2_STORY_NOTES.md` and "
                          "`FIGURE2_STORY_PEAKS_NOTES.md`. An E-free layout with "
                          "metric icons is `figures/Figure2_story_icons.pdf` and "
-                         "`FIGURE2_STORY_ICONS_NOTES.md`. Its three 65-fragment "
+                         "`FIGURE2_STORY_ICONS_NOTES.md`. A y-axis-gutter icon "
+                         "trial is `figures/Figure2_yaxis_icons_trial.pdf` with "
+                         "`FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md`. Its three 65-fragment "
                          "trajectory tiles are separate editable SVGs under "
                          "`figures/trajectory_examples/`; see "
                          "`FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`. Five tiny metric icons "
@@ -361,6 +368,9 @@ def build_full() -> None:
                             "- `figures/Figure2_story_peaks.svg`",
                             "- `figures/Figure2_story_icons.pdf`",
                             "- `figures/Figure2_story_icons.svg`",
+                            "- `figures/Figure2_yaxis_icons_trial.pdf`",
+                            "- `figures/Figure2_yaxis_icons_trial.svg`",
+                            "- `FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md`",
                             "- `figures/Figure2_behavior_candidate_stats.pdf`",
                             "- `FIGURE2_STORY_NOTES.md`",
                             "- `FIGURE2_STORY_PEAKS_NOTES.md`",
