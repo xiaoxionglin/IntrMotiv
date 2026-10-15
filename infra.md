@@ -1975,6 +1975,7 @@ For each finding, record:
 - **Impact:** An upload archive could silently reintroduce deleted historical figures and make the selected submission hard to identify.
 - **Improvement/status:** Completed for the COSYNE draft. The [asset index](07_abstracts/cosyne_2027_submission_draft/README.md) names selected figures, evidence-bearing variants, and reusable source material; the [package builder](07_abstracts/cosyne_2027_submission_draft/build_overleaf_package.py) now includes the retained set and both ZIPs were rebuilt.
 - **Acceptance:** Both package modes finish, `main.tex` references are present in each ZIP, and the removed historical composite and palette exports are absent. Future figure selection should update the index and package manifest together.
+- **Reusable-asset follow-up:** The cleanup preserved 69 separate loose-canvas SVG cards and labels, 17 focused plot cards, standalone metric/goal icons, trajectory fragments, and both 40-run field-atlas scales. The [reusable asset index](07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md) now links these parts by topic with their source tables and protocol boundaries, and the root/abstract indexes expose it. Acceptance: every local asset link resolves and future figure work can locate a vector component and its provenance without opening an assembled COSYNE figure.
 
 ### Record partial training completions without changing study definitions — completed locally, 2026-10-12
 

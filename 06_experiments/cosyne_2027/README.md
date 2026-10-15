@@ -4,6 +4,8 @@ This is the entry point for the [original two-page abstract outline](../../99_in
 
 **Current-stage architecture figure (2026-10-12):** [editable SVG](architecture_current_stage.svg) · [PNG preview](architecture_current_stage.png).
 
+For later papers or presentations, the [reusable visual asset index](../../07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md) links standalone COSYNE plot cards, icons, fields, trajectories, graphs, and source tables; use this evidence index to check each visual's scientific scope.
+
 ## Scientific questions in outline order
 
 | Outline bullets | Question report | Main evidence and current status |

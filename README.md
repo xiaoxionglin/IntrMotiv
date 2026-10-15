@@ -12,6 +12,7 @@ Start with the [research notes index](00_index/README.md) for the scientific ide
 | A proposed study or poster | [Plans index](05_plans/README.md) |
 | A validated run matrix, launcher, or test | [Run code index](hpc_runs/README.md) |
 | Experiment notes, scripts, inputs, and figures | [Experiment index](06_experiments/README.md) for six topic folders; study inputs remain under `06_experiments/data/` and outputs under `06_experiments/results/` |
+| Reusable IntrMotiv visuals for papers or slides | [COSYNE visual asset index](07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md) for individual plots, icons, maps, trajectories, and figure source tables |
 | Literature, abstract drafts, or a handoff bundle | [Literature](08_literature/README.md), [abstract drafts](07_abstracts/README.md), or `exports/` |
 | Unresolved idea or infrastructure issue | `99_inbox/` or [infrastructure tracker](infra.md) |
 

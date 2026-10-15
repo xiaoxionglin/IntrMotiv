@@ -1,5 +1,7 @@
 # COSYNE 2027 submission assets
 
+For later papers and talks, start with the [reusable visual asset index](REUSABLE_ASSETS.md). It links individual plot cards, icons, fields, trajectories, graphs, and the lightweight tables needed to revise them.
+
 ## Selected submission
 
 - [Figure 1 PDF](Figure1.pdf) · [editable SVG](Figure1.svg): architecture, learning course, and example DG fields. Its author-edited source is documented in [Figure 1 source notes](figure1_candidates/06_architecture_v3_goal_gate_header_README.md).
