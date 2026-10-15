@@ -9,7 +9,7 @@
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 29 points square and display 65 complete fragments; icons follow their plots",
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
   "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0\u201363 within each fragment",
   "trajectory_tiles": {
     "NG": {
@@ -30,12 +30,12 @@
     "sha256": "70535691e7f3c9a9330921d85fc50aa167e29514af42453898ddac2f88f0ae83"
   },
   "trajectory_centers_points": [
-    149,
-    180,
-    211
+    129,
+    171,
+    213
   ],
-  "trajectory_tile_size_points": 29,
-  "path_metric_shift_points": 28,
+  "trajectory_tile_size_points": 39,
+  "path_metric_shift_points": 1,
   "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
   "behavior_layout_shift_points": 40,
   "behavior_information_shift_points": 10,
@@ -99,7 +99,7 @@
     56.69291338582678
   ],
   "path_efficiency_icon_position_points": [
-    100.5,
+    74.5,
     27
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",

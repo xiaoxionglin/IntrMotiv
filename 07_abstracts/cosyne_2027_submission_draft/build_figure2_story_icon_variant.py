@@ -33,9 +33,9 @@ RESULT_POSITIONS = {
              "edges": (511, 165.5)},
 }
 RELIABILITY_POSITION = (505.5, 24.5)
-PATH_EFFICIENCY_POSITION = (100.5, 27)
-TRAJECTORY_CENTERS = (149, 180, 211)
-TRAJECTORY_SIZE = 29
+PATH_EFFICIENCY_POSITION = (74.5, 27)
+TRAJECTORY_CENTERS = (129, 171, 213)
+TRAJECTORY_SIZE = 39
 TRAJECTORY_CANDIDATES = HERE / "figure2_candidates/09_trajectory_thumbnails"
 TRAJECTORY_TILES = {
     family: TRAJECTORY_CANDIDATES / f"{family}_65_fragments_tile.svg"
@@ -76,10 +76,10 @@ def trajectory_tile(family: str, x: float, y: float, size: int) -> str:
 
 def trajectory_step_scale() -> str:
     """Show the local 0–63 step colors used independently in each fragment."""
-    x0, y0, width, height = 170, 75, 50, 4
+    x0, y0, width, height = 170, 78, 50, 4
     parts = ['<g id="figure2a-step-scale" aria-label="Step within each trajectory fragment">',
-             '<text x="137" y="79.5" class="mini-label">step</text>',
-             '<text x="163" y="79.5" class="mini-label">0</text>']
+             '<text x="137" y="82.5" class="mini-label">step</text>',
+             '<text x="163" y="82.5" class="mini-label">0</text>']
     cmap = colormaps["viridis"]
     for step in range(64):
         rgb = cmap(step / 63)[:3]
@@ -87,7 +87,7 @@ def trajectory_step_scale() -> str:
         parts.append(f'<rect x="{x0 + step * width / 64:.5f}" y="{y0}" '
                      f'width="{width / 64 + .01:.5f}" height="{height}" '
                      f'fill="{color}" stroke="none"/>')
-    parts.append('<text x="223" y="79.5" class="mini-label">63</text></g>')
+    parts.append('<text x="223" y="82.5" class="mini-label">63</text></g>')
     return "\n".join(parts)
 
 
@@ -134,7 +134,7 @@ def build() -> None:
         terminal_rows(), selected_trajectories(), behavior_differences(),
         trajectory_tile_size=TRAJECTORY_SIZE,
         trajectory_centers=TRAJECTORY_CENTERS,
-        path_metric_shift=28,
+        path_metric_shift=1,
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
         information_shift=10, reliability_shift=25,
@@ -154,7 +154,7 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 29 points square and display 65 complete fragments; icons follow their plots",
+        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
         "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0–63 within each fragment",
         "trajectory_tiles": {family: {
             "path": str(path.relative_to(ROOT)), "sha256": sha256(path),
@@ -165,7 +165,7 @@ def build() -> None:
         },
         "trajectory_centers_points": TRAJECTORY_CENTERS,
         "trajectory_tile_size_points": TRAJECTORY_SIZE,
-        "path_metric_shift_points": 28,
+        "path_metric_shift_points": 1,
         "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
         "behavior_layout_shift_points": 40,
         "behavior_information_shift_points": 10,
