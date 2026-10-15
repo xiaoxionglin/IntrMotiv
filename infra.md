@@ -2600,6 +2600,11 @@ For each finding, record:
   one low-activity C05 peak per snapshot that the area calculation excluded at
   its 0.25% activity cutoff. Recomputing both measures on identical peak sets
   changes the C05 mean spacing difference from +67.2 to +8.3 DMLab units.
+  The completed five-seed C01 flat-policy study reopened ten more 100M-frame
+  NPZs and reused that exporter through a thin
+  [NG adapter](06_experiments/reward_credit/results/cosyne27_c01_flat_policy_reward_20261015/collect_ng_peak_inputs.py).
+  Its [30-arm provenance](06_experiments/reward_credit/results/cosyne27_c01_flat_policy_reward_20261015/figure2d_shared_mask_provenance.json)
+  verified that adding NG leaves the pooled 318-bin UG/FG mask unchanged.
 - **Impact:** The comparison now measures spatial peak coverage directly;
   distinct-bin counts alone could have missed clustering. The 53 KB summary
   regenerates the figures without another remote NPZ read, while raw NPZs
@@ -2612,6 +2617,10 @@ For each finding, record:
   collection export of eligible peak coordinates and shared-mask provenance
   remains proposed for future studies; do not copy this cohort adapter into
   another study. Follow the [reusable telemetry policy](04_implementation/reusable_place_field_telemetry.md).
+  C01 is a second use of the same remote export contract; promote eligible
+  peaks, activity, occupied-bin masks, and NPZ hashes into the canonical
+  spatial collector when that contract is next revised, then retire the thin
+  cohort adapters.
 - **Acceptance:** All 20 declared seed/arm snapshots have pinned paths and
   SHA-256 hashes, the archived inputs regenerate the five paired values per
   family, and an independent direct-NPZ calculation agrees with the archived

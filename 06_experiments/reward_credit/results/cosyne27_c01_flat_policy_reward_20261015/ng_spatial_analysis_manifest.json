@@ -1,0 +1,41 @@
+{
+  "batch_name": "cosyne27_c01_flat_reward_s5_20261015",
+  "complete": true,
+  "condition_summary_rows": 10,
+  "cue_assignment_rows": 0,
+  "expected_runs": 10,
+  "expected_snapshots": 50,
+  "expected_targets": [
+    5000000,
+    25000000,
+    50000000,
+    75000000,
+    100000000
+  ],
+  "figures": [],
+  "graph_edge_rows": 0,
+  "group_by": [
+    "condition"
+  ],
+  "include_details": true,
+  "missing": [],
+  "observed_snapshots": 50,
+  "per_field_rows": 15047,
+  "per_snapshot_rows": 50,
+  "per_unit_rows": 800,
+  "policies": [
+    0
+  ],
+  "schema": "intrmotiv/study/v1",
+  "seed_summary_rows": 50,
+  "selected_plot_runs": [],
+  "selected_plot_targets": [],
+  "snapshot_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c01_flat_reward_s5_20261015",
+  "snapshot_schema": "intrmotiv/online-spatial/v1",
+  "study_id": "cosyne27_c01_flat_reward_s5_20261015",
+  "study_sha256": "3fa42875e5f79d8dc6281658f89642e1be8143f1cab093b753060f5cf89f07d4",
+  "study_spec": "hpc_runs/studies/cosyne27_c01_flat_reward_s5_20261015.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

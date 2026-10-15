@@ -1,0 +1,24 @@
+{
+  "field_min_active_bins": 3,
+  "field_min_active_observations": 20,
+  "gaussian_sigma_dmlab_units": 100.0,
+  "graph_edges_for_ng": "inapplicable: no commanded DG goals or goal graph",
+  "input_sha256": {
+    "high_credit_peak_snapshot_inputs.json": "e7ecef0a06dd853e1f0a0e78bd4403b2f7350bf53e16584defbb2eb0a7a50835",
+    "high_credit_representation_pairs.csv": "5f29b4f68f5dc1eec3936bd16f8efc1bcc6b0b4ccfafa7df321c94f0de3b3d90",
+    "ng_peak_snapshot_inputs.json": "9ebe28f70dbb7fc47fed56469db07533b9a354b6b87101c12e0f0abea9eb965d",
+    "ng_spatial_analysis_manifest.json": "8b3ff5d13d2e9e7c837902f9066952212b0bcbf25a91c0862bc41a52debe192e",
+    "ng_spatial_per_snapshot.csv": "ca784207f28ef72d09ff7a9564a6bd8e2f17a38c9634085d76a647e72818cdf3"
+  },
+  "ng_study_schema": "intrmotiv/study/v1",
+  "ng_study_sha256": "3fa42875e5f79d8dc6281658f89642e1be8143f1cab093b753060f5cf89f07d4",
+  "ng_workflow_version": "1.14.1",
+  "peak_activity_cutoff_fraction": 0.0025,
+  "peak_area_definition": "exp(Shannon entropy of equal-mass eligible-peak Gaussian density) / shared_mask_bins",
+  "protocol": "own-policy 100000-decision terminal snapshots at 100M frames; matched training seeds, different observations",
+  "schema": "intrmotiv/figure2d-shared-mask-source/v1",
+  "shared_mask_bins": 318,
+  "shared_mask_definition": "union of occupied bins across all 30 terminal UG, FG, and NG snapshots",
+  "shared_mask_sha256": "fc9481bbb296fae9facc6890267a828266e5d0554493ee98d471e4cc7a454e5a",
+  "ug_fg_source_commit": "a26852f"
+}
