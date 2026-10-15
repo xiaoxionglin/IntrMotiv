@@ -1,0 +1,19 @@
+{
+  "schema": "intrmotiv/figure2-spatial-information-icons/v1",
+  "type": "data-free illustration; no measured result direction",
+  "size_mm": [
+    10,
+    20
+  ],
+  "selected_palette": "priority_rgb_orange_violet",
+  "single_dg_identity_color": "#CB3C54",
+  "example_order": "upper: higher raw spatial information; lower: lower",
+  "controlled_assumptions": [
+    "equal spatial occupancy",
+    "equal total activation"
+  ],
+  "reference_sha256": {
+    "Figure2.svg": "261065c8a0115d82095a988631da51fc503607ea72db5516e19d3cd7c9f9ca52",
+    "figure_palette_candidates/manifest.json": "3132bb49d279197a85cf60c93097112a63e69095e744adb5fd71940b601623a1"
+  }
+}
