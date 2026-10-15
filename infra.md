@@ -2584,6 +2584,15 @@ For each finding, record:
   Figure 2 PDF was copied to the active manuscript path. Acceptance: both
   ZIPs contain byte-identical active Figure 2 and standalone Figure 2 PDFs,
   and the reference check passes with the current `main.tex`.
+- **15 October archive-size follow-up:** Adding one editable Figure 2 trial
+  left the compact ZIP at about 21 MB and raised the full historical ZIP to
+  53.7 MB. The remote accepted the push but warned that the full archive
+  exceeds its recommended 50 MB file size. Repeatedly committing expanded
+  archives will increase repository weight. Status: recorded for a focused
+  package cleanup; retain the current compact upload. Acceptance: either
+  reduce the tracked full archive below 50 MB while keeping its indexed
+  choices, or store historical bulk archives outside Git with a verified
+  retrieval path and keep the active compact ZIP in the repository.
 
 ### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
 
