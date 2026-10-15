@@ -2,9 +2,9 @@
   "schema": "intrmotiv/figure2-layout/v1",
   "source": "figure_palette_candidates/priority_rgb_orange_violet_figure2.svg",
   "source_sha256": "a6c4ae2418a700086764046cd0e40fff29f0deb4fbe8ae2d483c3a315603fa2d",
-  "output_svg_sha256": "20d4f2c819e56e8e4e5c71108c91db825ff99882fe7ed4eef87d0aa67158b735",
-  "output_pdf_sha256": "8f6af99d9de18059613d7d2162fbe1ae4b7a28985dc4b392c9f5c65036612a8d",
-  "output_png_sha256": "911465e5f72d2d1d9d639d8af7b450372c16fd55c58592e23c2bc5803d05154b",
+  "output_svg_sha256": "ab89f1be60da897c011bc1a47f419e4ec8a9422813e8153f8462e0e5eb2bce3e",
+  "output_pdf_sha256": "42e8018fa7c17c60af85a7b3f00827b121e795c58bb97e711c4df1d550de9daf",
+  "output_png_sha256": "4d821e0565d93690d193ebab4946fed8c772b17155023708449038089d274d68",
   "canvas_width_pt": 540,
   "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
   "behavior_panel_shift_pt": 15.128,
@@ -17,7 +17,8 @@
       "icon_width_pt": 23.85,
       "plot_shift_pt": 24.0,
       "target_icon_left_pt": 13.007,
-      "target_label_right_pt": 11.007
+      "target_label_right_pt": 11.007,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "B",
@@ -26,7 +27,8 @@
       "icon_width_pt": 12.0,
       "plot_shift_pt": 23.12844999999993,
       "target_icon_left_pt": 335.985,
-      "target_label_right_pt": 333.985
+      "target_label_right_pt": 333.985,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "B",
@@ -35,7 +37,8 @@
       "icon_width_pt": 20.750025,
       "plot_shift_pt": 25.87847499999993,
       "target_icon_left_pt": 434.985,
-      "target_label_right_pt": 432.985
+      "target_label_right_pt": 432.985,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "C",
@@ -44,7 +47,8 @@
       "icon_width_pt": 12.0,
       "plot_shift_pt": 10.0,
       "target_icon_left_pt": 93.429,
-      "target_label_right_pt": 91.429
+      "target_label_right_pt": 91.429,
+      "label_vertical_shift_pt": 2.0
     },
     {
       "panel": "C",
@@ -53,7 +57,8 @@
       "icon_width_pt": 27.464025,
       "plot_shift_pt": 25.464025,
       "target_icon_left_pt": 199.369,
-      "target_label_right_pt": 197.369
+      "target_label_right_pt": 197.369,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "C",
@@ -62,7 +67,8 @@
       "icon_width_pt": 14.0,
       "plot_shift_pt": 19.464025,
       "target_icon_left_pt": 328.774,
-      "target_label_right_pt": 326.774
+      "target_label_right_pt": 326.774,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "C",
@@ -71,7 +77,8 @@
       "icon_width_pt": 14.0,
       "plot_shift_pt": 19.464025,
       "target_icon_left_pt": 443.763,
-      "target_label_right_pt": 441.763
+      "target_label_right_pt": 441.763,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "D",
@@ -80,7 +87,8 @@
       "icon_width_pt": 12.0,
       "plot_shift_pt": 10.0,
       "target_icon_left_pt": 92.739,
-      "target_label_right_pt": 90.739
+      "target_label_right_pt": 90.739,
+      "label_vertical_shift_pt": 2.0
     },
     {
       "panel": "D",
@@ -89,7 +97,8 @@
       "icon_width_pt": 27.464025,
       "plot_shift_pt": 25.464025,
       "target_icon_left_pt": 200.72,
-      "target_label_right_pt": 198.72
+      "target_label_right_pt": 198.72,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "D",
@@ -98,7 +107,8 @@
       "icon_width_pt": 14.0,
       "plot_shift_pt": 19.464025,
       "target_icon_left_pt": 326.603,
-      "target_label_right_pt": 324.603
+      "target_label_right_pt": 324.603,
+      "label_vertical_shift_pt": 0.0
     },
     {
       "panel": "D",
@@ -107,7 +117,8 @@
       "icon_width_pt": 14.0,
       "plot_shift_pt": 19.464025,
       "target_icon_left_pt": 443.074,
-      "target_label_right_pt": 441.074
+      "target_label_right_pt": 441.074,
+      "label_vertical_shift_pt": 0.0
     }
   ]
 }

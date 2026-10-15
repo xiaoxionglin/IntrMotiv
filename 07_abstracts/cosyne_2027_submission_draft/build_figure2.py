@@ -32,6 +32,7 @@ PLOT_SHIFTS = {"dg_information": 10.0, "map_overlap": 16.0,
 PATH_EFFICIENCY_SHIFT = 24.0
 BEHAVIOR_SHIFT = 8.0
 ICON_WIDTHS = {"spatial": 12.0, "coverage": 14.0, "edges": 14.0}
+CD_SPATIAL_LABEL_DOWN_PT = 2.0
 
 
 def query_boxes(path: Path) -> dict[str, tuple[float, float, float, float]]:
@@ -46,13 +47,16 @@ def query_boxes(path: Path) -> dict[str, tuple[float, float, float, float]]:
     }
 
 
-def move_element(svg: str, identifier: str, shift_x: float, *, tag: str = "g") -> str:
+def move_element(
+    svg: str, identifier: str, shift_x: float, *, shift_y: float = 0.0,
+    tag: str = "g",
+) -> str:
     """Translate one existing SVG group or text without changing descendants."""
     pattern = rf'<{tag}\s+id="{re.escape(identifier)}"[^>]*>'
 
     def replace(match: re.Match[str]) -> str:
         opening = match.group(0)
-        translation = f"translate({shift_x:.6f},0)"
+        translation = f"translate({shift_x:.6f},{shift_y:.6f})"
         if 'transform="' in opening:
             return opening.replace('transform="', f'transform="{translation} ', 1)
         return opening[:-1] + f' transform="{translation}">'
@@ -209,14 +213,19 @@ def build() -> None:
         icon_left = tick_left - ICON_TICK_GAP - icon_width
         label_right = boxes[label_id][0] + boxes[label_id][2] + label_shift_with_plot
         target_label_right = icon_left - LABEL_ICON_GAP
+        label_shift_y = (CD_SPATIAL_LABEL_DOWN_PT
+                         if panel in ("C", "D") and metric == "dg_information"
+                         else 0.0)
         svg = move_element(svg, label_id, target_label_right - label_right,
+                           shift_y=label_shift_y,
                            tag="text" if panel in ("A", "B") else "g")
         svg = place_icon(svg, icon_id, boxes[icon_id], icon_left,
                          axis_center_y, icon_width)
         records.append({"panel": panel, "metric": metric, "icon_id": icon_id,
                         "icon_width_pt": icon_width, "plot_shift_pt": plot_shift,
                         "target_icon_left_pt": round(icon_left, 3),
-                        "target_label_right_pt": round(target_label_right, 3)})
+                        "target_label_right_pt": round(target_label_right, 3),
+                        "label_vertical_shift_pt": label_shift_y})
 
     OUTPUT.write_text(svg)
     for extension in ("pdf", "png"):
