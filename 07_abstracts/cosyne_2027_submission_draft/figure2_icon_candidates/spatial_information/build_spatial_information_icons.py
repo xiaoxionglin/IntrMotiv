@@ -138,61 +138,53 @@ def position_profile(dg_red: str, *, id_prefix: str = "") -> str:
     return "".join(parts)
 
 
-def occupancy_and_dg_map(dg_red: str, *, id_prefix: str = "field") -> str:
-    """Pair occupancy and one DG rate map using the overlap icon's card style.
+def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
+    """One DG map per row in the overlap and reliability icons' soft style.
 
-    The left visit card is identical in both rows. Only the right DG map
-    changes from a localized field to a uniform rate. The bottom opacity
-    approximates the top gradient's spatial mean on the same square support.
+    The upper field is narrow. The lower map has a broad weak field rather
+    than a perfectly uniform fill. The SVG opacities give approximately equal
+    mean activity on the two equal-area maps.
     """
-    gradient_id = f"{id_prefix}-localized-dg"
+    narrow_id = f"{id_prefix}-narrow-dg"
+    broad_id = f"{id_prefix}-broad-dg"
     parts = [
         '<defs>',
-        f'<radialGradient id="{gradient_id}">',
-        f'<stop offset="0" stop-color="{dg_red}" stop-opacity="0.78"/>',
-        f'<stop offset="0.58" stop-color="{dg_red}" stop-opacity="0.26"/>',
+        f'<radialGradient id="{narrow_id}">',
+        f'<stop offset="0" stop-color="{dg_red}" stop-opacity="0.85"/>',
+        f'<stop offset="0.5" stop-color="{dg_red}" stop-opacity="0.35"/>',
+        f'<stop offset="1" stop-color="{dg_red}" stop-opacity="0"/>',
+        '</radialGradient>',
+        f'<radialGradient id="{broad_id}">',
+        f'<stop offset="0" stop-color="{dg_red}" stop-opacity="0.20"/>',
+        f'<stop offset="0.6" stop-color="{dg_red}" stop-opacity="0.08"/>',
         f'<stop offset="1" stop-color="{dg_red}" stop-opacity="0"/>',
         '</radialGradient></defs>',
     ]
-    card_size = 9.2
-    for row, y in enumerate((4.5, 36.5)):
-        # Nine equal occupancy marks keep the spatial support visibly fixed.
+    card_size = 14.5
+    card_x = (PAGE_WIDTH - card_size) / 2
+    for row, y in enumerate((2.3, 35.0)):
+        baseline_opacity = 0.05 if row == 0 else 0.07
         parts.append(
-            f'<rect x="4.1" y="{y}" width="{card_size}" '
-            f'height="{card_size}" fill="white" '
-            f'stroke="{MUTED}" stroke-width="0.55"/>'
+            f'<rect x="{card_x:.2f}" y="{y}" width="{card_size}" '
+            f'height="{card_size}" fill="{dg_red}" '
+            f'fill-opacity="{baseline_opacity:g}"/>'
         )
-        for r in range(3):
-            for c in range(3):
-                parts.append(
-                    f'<circle cx="{5.65 + c * 3.05:.2f}" '
-                    f'cy="{y + 1.55 + r * 3.05:.2f}" r="0.62" '
-                    f'fill="{GRID}"/>'
-                )
         parts.append(
-            f'<rect x="15.1" y="{y}" width="{card_size}" '
-            f'height="{card_size}" fill="white" '
-            f'stroke="{MUTED}" stroke-width="0.55"/>'
+            f'<circle cx="{PAGE_WIDTH / 2:.2f}" cy="{y + card_size / 2:.2f}" '
+            f'r="{4.0 if row == 0 else 6.5}" '
+            f'fill="url(#{narrow_id if row == 0 else broad_id})"/>'
         )
-        if row == 0:
-            parts.append(
-                f'<circle cx="19.7" cy="{y + 4.6:.2f}" r="4.0" '
-                f'fill="url(#{gradient_id})"/>'
-            )
-        else:
-            parts.append(
-                f'<rect x="15.1" y="{y}" width="{card_size}" '
-                f'height="{card_size}" fill="{dg_red}" fill-opacity="0.17"/>'
-            )
         parts.extend((
-            f'<text x="8.7" y="{y + 16.7:.2f}" text-anchor="middle" '
-            f'font-family="DejaVu Sans" font-size="5.7" fill="{INK}">occ</text>',
-            f'<text x="19.7" y="{y + 16.7:.2f}" text-anchor="middle" '
-            f'font-family="DejaVu Sans" font-size="6.5" fill="{INK}">DG</text>',
+            f'<rect x="{card_x:.2f}" y="{y}" width="{card_size}" '
+            f'height="{card_size}" fill="none" '
+            f'stroke="{MUTED}" stroke-width="0.6"/>',
+            f'<circle cx="{card_x + card_size + 2.0:.2f}" '
+            f'cy="{y + 2.7:.2f}" r="1.25" fill="{dg_red}" '
+            f'stroke="{INK}" stroke-width="0.35"/>',
         ))
     parts.append(
-        f'<path d="M 14.17,37.3 V 25.0 M 11.8,27.5 L 14.17,25.0 '
-        f'L 16.54,27.5" fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+        f'<path d="M 14.17,31.5 V 25.2 M 11.8,27.6 L 14.17,25.2 '
+        f'L 16.54,27.6" fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
     )
     return "".join(parts)
 
@@ -201,7 +193,7 @@ CANDIDATES = (
     ("01_rate_map", "Rate map", rate_map),
     ("02_dg_events", "DG events", dg_events),
     ("03_position_profile", "Position profile", position_profile),
-    ("04_occupancy_and_dg_map", "Occupancy + DG", occupancy_and_dg_map),
+    ("04_soft_dg_maps", "Soft DG maps", soft_dg_maps),
 )
 
 
