@@ -143,7 +143,7 @@ def position_profile(dg_red: str, *, id_prefix: str = "") -> str:
 NOISE_SEED = 23
 NOISE_GRID_SIZE = 32
 NOISE_MEAN_OPACITY = 0.106
-NOISE_AMPLITUDE = 0.075
+NOISE_AMPLITUDE = 0.095
 
 
 def perlin_grid(size: int, periods: int, seed: int) -> np.ndarray:
