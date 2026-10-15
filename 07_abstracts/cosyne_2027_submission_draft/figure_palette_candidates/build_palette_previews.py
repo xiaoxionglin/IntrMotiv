@@ -108,6 +108,30 @@ PALETTES = (
         dg_blue="#26A7B8", dg_red="#BE4AA1", dg_yellow="#B8A12E",
         dg_fourth="#3E9A5C",
     ),
+    Palette(
+        name="priority_rgb_magenta_teal",
+        description="Muted NG/UG/FG; opposing blue, red, green DG IDs; magenta push and teal pull",
+        ng="#59636B", ug="#827870", fg="#71867C",
+        push="#A5387B", pull="#0B8293",
+        dg_blue="#315BC4", dg_red="#D8493B", dg_yellow="#359B51",
+        dg_fourth="#B29924",
+    ),
+    Palette(
+        name="priority_rgb_orange_violet",
+        description="Muted NG/UG/FG; opposing blue, red, green DG IDs; orange push and violet pull",
+        ng="#59636B", ug="#827870", fg="#71867C",
+        push="#BF5828", pull="#6952A6",
+        dg_blue="#2F67C8", dg_red="#CB3C54", dg_yellow="#2D9F5B",
+        dg_fourth="#25A4A4",
+    ),
+    Palette(
+        name="priority_rgb_amber_violet",
+        description="Muted NG/UG/FG; opposing blue, red, green DG IDs; amber push and violet pull",
+        ng="#59636B", ug="#827870", fg="#71867C",
+        push="#AD6B19", pull="#7046AD",
+        dg_blue="#265FC7", dg_red="#D43E3E", dg_yellow="#299C5F",
+        dg_fourth="#27A4B3",
+    ),
 )
 PALETTE_LABELS = {
     "slate_ng": "A · Slate NG",
@@ -118,6 +142,9 @@ PALETTE_LABELS = {
     "rgb_magenta_teal": "D · RGB DG / magenta–teal",
     "rgb_orange_violet": "E · RGB DG / orange–violet",
     "cmy_red_blue": "F · CMY DG / red–blue",
+    "priority_rgb_magenta_teal": "G · Muted groups / magenta–teal",
+    "priority_rgb_orange_violet": "H · Muted groups / orange–violet",
+    "priority_rgb_amber_violet": "I · Muted groups / amber–violet",
 }
 PALETTE_KEY_LABELS = {
     "slate_ng": "A · Slate NG",
@@ -128,10 +155,15 @@ PALETTE_KEY_LABELS = {
     "rgb_magenta_teal": "D · RGB/M–T",
     "rgb_orange_violet": "E · RGB/O–V",
     "cmy_red_blue": "F · CMY/R–B",
+    "priority_rgb_magenta_teal": "G · RGB/M–T",
+    "priority_rgb_orange_violet": "H · RGB/O–V",
+    "priority_rgb_amber_violet": "I · RGB/A–V",
 }
 REVIEW_PALETTE_NAMES = (
     "slate_ng_violet_rose", "slate_ng_tuned_dg",
     "rgb_magenta_teal", "rgb_orange_violet", "cmy_red_blue",
+    "priority_rgb_magenta_teal", "priority_rgb_orange_violet",
+    "priority_rgb_amber_violet",
 )
 BASELINE = Palette(
     name="current", description="Current source palette",
@@ -244,6 +276,8 @@ def comparison_sheet(figure: str, group: str) -> None:
         "A_refinements": {palette.name for palette in PALETTES[:3]},
         "opponent_dg": {"slate_ng_violet_rose", "slate_ng_tuned_dg", "rgb_magenta_teal",
                         "rgb_orange_violet", "cmy_red_blue"},
+        "role_first": {"priority_rgb_magenta_teal", "priority_rgb_orange_violet",
+                       "priority_rgb_amber_violet"},
     }[group]
     selected = (palette for palette in PALETTES
                 if palette.name in selected_names)
@@ -273,7 +307,8 @@ def comparison_sheet(figure: str, group: str) -> None:
     sheet.save(HERE / f"comparison_{figure}{suffix}.png", optimize=True)
 
 
-def palette_key() -> None:
+def palette_key(selected_names: tuple[str, ...] | None = None,
+                filename: str = "palette_key.png") -> None:
     """Make role assignments explicit beside the full-figure comparisons."""
     if not FONT.is_file():
         raise FileNotFoundError(f"Scalable font required: {FONT}")
@@ -282,8 +317,10 @@ def palette_key() -> None:
                ("dg_blue", "DG 1"), ("dg_red", "DG 2"),
                ("dg_yellow", "DG 3"), ("dg_fourth", "DG 4"))
     left, column_width, row_height = 330, 205, 145
+    selected = [palette for palette in PALETTES
+                if selected_names is None or palette.name in selected_names]
     sheet = Image.new("RGB", (left + len(columns) * column_width + 25,
-                              110 + (1 + len(PALETTES)) * row_height), "white")
+                              110 + (1 + len(selected)) * row_height), "white")
     draw = ImageDraw.Draw(sheet)
     title_font = ImageFont.truetype(str(FONT), 40)
     label_font = ImageFont.truetype(str(FONT), 34)
@@ -292,7 +329,7 @@ def palette_key() -> None:
         draw.text((left + index * column_width + 10, 25), label,
                   font=label_font, fill="#23313B")
     choices = [("Current", BASELINE)] + [(PALETTE_KEY_LABELS[p.name], p)
-                                       for p in PALETTES]
+                                       for p in selected]
     for row, (name, palette) in enumerate(choices):
         top = 100 + row * row_height
         draw.text((18, top + 20), name, font=title_font, fill="#23313B")
@@ -310,7 +347,7 @@ def palette_key() -> None:
                               (x + 116, top + 48)), fill="white")
             draw.text((x, top + 83), color.upper(), font=code_font,
                       fill="#23313B")
-    sheet.save(HERE / "palette_key.png", optimize=True)
+    sheet.save(HERE / filename, optimize=True)
 
 
 def paired_pdf(name: str) -> None:
@@ -350,9 +387,11 @@ def main() -> None:
     for name in REVIEW_PALETTE_NAMES:
         paired_pdf(name)
     for figure in SOURCES:
-        for group in ("all", "A_refinements", "opponent_dg"):
+        for group in ("all", "A_refinements", "opponent_dg", "role_first"):
             comparison_sheet(figure, group)
     palette_key()
+    palette_key(("priority_rgb_magenta_teal", "priority_rgb_orange_violet",
+                 "priority_rgb_amber_violet"), "palette_key_role_first.png")
     (HERE / "manifest.json").write_text(json.dumps(provenance, indent=2) + "\n")
 
 

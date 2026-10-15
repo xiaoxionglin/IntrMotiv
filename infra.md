@@ -2248,6 +2248,14 @@ For each finding, record:
     unchanged; the preexisting individual PDFs were restored to their original
     bytes. All five review PDFs have two pages; the figures remain 540 pt wide,
     with page heights of 136.8 and 231 pt.
+  - **15 October role-priority correction:** D–F kept UG orange and FG green,
+    although architecture-group contrast was less important than push/pull and
+    DG identity contrast. G–I now hold NG/UG/FG to one muted slate/taupe/sage
+    assignment and vary the process and unit hues first. The same exact-color
+    renderer and hash manifest produce direct, two-page PDF comparisons from
+    unchanged figure sources. Before promoting a candidate, inspect the
+    full-size figures and verify that all three group colors changed in both
+    sources; a palette key alone does not prove that the actual panels changed.
   The submission-specific [grouped renderer](07_abstracts/cosyne_2027_submission_draft/render_submission_panels.py)
   now places cached seed-level contrasts into one final-width figure with
   9–10-point Arial text. It uses hash-verified lightweight peak coordinates for
