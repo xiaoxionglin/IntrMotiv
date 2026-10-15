@@ -3,7 +3,7 @@
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
   "parent_story_source_sha256": "baa6f25a3388a66bf57c3071084d8a86a644466bedee6a6c7c6e812ba2ff19f0",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "5a46b2bf6bbd6603ef66910aaeb4c0b4d4c03bd414035bc051c3b3464088618e",
+  "icon_source_sha256": "a1afdc369c2657a50e6d8e70c466322bbba8149e4738a9272535d720efb56937",
   "physical_size_points": [
     540,
     230
@@ -249,11 +249,11 @@
   "result_icon_positions_points": {
     "push": {
       "overlap": [
-        280,
+        279,
         100.5
       ],
       "coverage": [
-        404,
+        401.5,
         100.5
       ],
       "edges": [
@@ -263,11 +263,11 @@
     },
     "pull": {
       "overlap": [
-        280,
+        279,
         165.5
       ],
       "coverage": [
-        404,
+        401.5,
         165.5
       ],
       "edges": [
@@ -276,6 +276,24 @@
       ]
     }
   },
+  "spatial_information_icon_positions_points": {
+    "behavior": [
+      396,
+      35
+    ],
+    "push": [
+      171,
+      106
+    ],
+    "pull": [
+      171,
+      171
+    ]
+  },
+  "spatial_information_icon_scale": 0.6702777777777778,
+  "spatial_information_icon_amplitude": 0.3,
+  "spatial_information_icon_baseline_opacity": 0.1,
+  "graph_edge_ng_category": "N/A in C and D; no NG graph edges, box, dots, or numeric zero",
   "reliability_icon_size_points": [
     28.34645669291339,
     56.69291338582678
@@ -296,23 +314,23 @@
   "icons": {
     "path_efficiency": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_path_efficiency.svg",
-      "sha256": "36345eae5e89d93aa6e1291001780c54c5733e7a06170bcf703c0e120233584a"
+      "sha256": "5addbc1b718b9ff71653f96c984cc210bf03f3cef9af9642563be1c5e45f253c"
     },
     "overlap": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
-      "sha256": "340ae39f12d7fb41140bfa8924308b01108e3545139a235a2501f431938e091f"
+      "sha256": "bdba857b08d16aad1b7dc13db2b138069ad3f4e61c2cd825f2212aafd29cf7ee"
     },
     "coverage": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",
-      "sha256": "4a8cbdd3d407d1dfec3fe98ccc6c892ab6fb0e600e7ddce444f960622a183745"
+      "sha256": "51088a88b32a756886a3b1c1b5aca27f88fb8492d0657dd1329d3bf95ac9da9f"
     },
     "edges": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_edges.svg",
-      "sha256": "2cfe106dea3e3d296e329ec0f63adff4cacfae1445137a63295f3f38c3d5fb89"
+      "sha256": "48ea802fd7d643d169f60fbcb008799ef7f74506e9670968a878f78d2b19f5f0"
     },
     "reliability": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_reliability.svg",
-      "sha256": "e381ee345947a86cf4b2417a9df7d8ee177641050bedc99c563f56ce0e661027"
+      "sha256": "62f8bc8f6b9e9cf8d2e5b5ca04d400292c7971414d226f39117c9a4040e07236"
     }
   }
 }

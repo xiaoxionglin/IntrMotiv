@@ -2,9 +2,9 @@
 
 [Comparison preview](comparison.png) · [editable comparison](comparison.svg) · [comparison PDF](comparison.pdf) · [builder](build_spatial_information_icons.py) · [manifest](manifest.json)
 
-For the Perlin option, see the [seven contrast levels](perlin_strength_variants/README.md), especially the [stronger comparison](perlin_strength_variants/stronger_comparison.png). The current icon corresponds to level 03.
+For the Perlin option, see the [seven contrast levels](perlin_strength_variants/README.md), especially the [stronger comparison](perlin_strength_variants/stronger_comparison.png). The original candidate icon corresponds to level 03. Figure 2B–D use the selected [0.300-amplitude variant](perlin_strength_variants/07_very_high.svg), with the same additive 0.1 lower-map tint.
 
-Five separate **10 × 20 mm** vector icons are available for visual comparison. The comparison sheet shows each icon enlarged and at its actual page size. None has been added to Figure 2 or the Overleaf package.
+Five separate **10 × 20 mm** vector icons are available for visual comparison. The comparison sheet shows each icon enlarged and at its actual page size. The selected stronger Perlin variant is embedded beside the spatial-information plots in Figure 2B–D and included as a standalone SVG/PDF/PNG in the Overleaf package.
 
 Each icon depicts **one DG unit** in the selected Figure 2 palette; red denotes that unit. The upper example is more spatially selective and the arrow points up, as in the existing metric icons. All examples assume equal spatial occupancy. The first four candidates also hold total DG activity approximately equal; the Perlin candidate has an added 0.1 lower-map tint and does not. The drawings are schematic: they encode no measured values, architecture ranking, or intervention effect.
 

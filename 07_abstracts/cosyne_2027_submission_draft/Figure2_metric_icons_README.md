@@ -2,7 +2,7 @@
 
 [Enlarged preview](Figure2_metric_icons_preview.png) · [editable preview](Figure2_metric_icons_preview.svg) · [builder](build_figure2_metric_icons.py)
 
-Path efficiency and reliability are **10 × 20 mm**, map overlap is **10.5 × 20 mm**, and peak coverage and reliable edges are **10 × 30 mm**, including transparent margins. The upper example in each icon has the higher value of that statistic, and the arrow points up to match the plot's y-axis direction. The icons contain no measured data or claim that either intervention increases a statistic. Colored circles identify units in the coverage and graph icons; the overlap maps use their field colors and DG 1/DG 2 labels, and reliability uses the same red-colored field twice.
+Path efficiency and reliability are **10 × 20 mm**, map overlap is **10.5 × 20 mm**, and peak coverage and reliable edges are **10 × 30 mm**, including transparent margins. The upper example in each icon has the higher value of that statistic, and the arrow points up to match the plot's y-axis direction. These comparison arrows share one length, head, and stroke at their final Figure 2 display size; they are centered in the gap between examples. The icons contain no measured data or claim that either intervention increases a statistic. Colored circles identify units in the coverage and graph icons; the overlap maps use their field colors and DG 1/DG 2 labels, and reliability uses the same red-colored field twice.
 
 | Icon | SVG | PDF | What it depicts |
 | --- | --- | --- | --- |

@@ -1,7 +1,8 @@
 """Render data-free, print-size DG spatial-information icon candidates.
 
-Each 10 × 20 mm icon compares one DG unit under equal spatial occupancy and
-equal total activation. The upper example has greater location specificity.
+Each 10 × 20 mm icon compares one DG unit under equal spatial occupancy.
+The first four approximately match total activation; the tinted Perlin map
+does not. The upper example has greater location specificity.
 Nothing here represents a measured condition or a temporal-credit effect.
 """
 
@@ -24,7 +25,9 @@ SELECTED_FIGURE = FIGURE_DIR / "Figure2.svg"
 # Reuse the existing icon export and SVG wrapper so page size and PDF/PNG
 # settings stay in sync with the other Figure 2 metric icons.
 sys.path.insert(0, str(FIGURE_DIR))
-from build_figure2_metric_icons import INK, MUTED, svg_document, write_and_export  # noqa: E402
+from build_figure2_metric_icons import (  # noqa: E402
+    INK, MUTED, comparison_arrow, svg_document, write_and_export,
+)
 
 
 PAGE_WIDTH = 10 * 72 / 25.4
@@ -58,10 +61,9 @@ def common_elements(dg_red: str) -> str:
             f'<circle cx="25.45" cy="{y + 2.6:.2f}" r="1.35" '
             f'fill="{dg_red}" stroke="{INK}" stroke-width="0.35"/>'
         )
-    parts.append(
-        f'<path d="M 14.15,32.8 V 25.0 M 11.8,27.4 L 14.15,25.0 '
-        f'L 16.5,27.4" fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
-    )
+    # The icon is displayed at 2/3 source size beside each spatial-info plot.
+    # Match its final arrow length, head, and stroke to the other metric icons.
+    parts.append(comparison_arrow(14.17, 22.35, 34.35, scale=1.5))
     return "".join(parts)
 
 
@@ -148,6 +150,7 @@ NOISE_GRID_SIZE = 32
 NOISE_MEAN_OPACITY = 0.059
 NOISE_BASELINE_OPACITY = 0.10
 NOISE_AMPLITUDE = 0.095
+SELECTED_FIGURE_AMPLITUDE = 0.300
 STRENGTH_LEVELS = (
     ("01_subtle", "Subtle", 0.045),
     ("02_medium", "Medium", 0.070),
@@ -157,7 +160,7 @@ STRENGTH_LEVELS = (
 STRONGER_LEVELS = (
     ("05_high", "High", 0.140),
     ("06_higher", "Higher", 0.200),
-    ("07_very_high", "Very high", 0.280),
+    ("07_very_high", "Very high", SELECTED_FIGURE_AMPLITUDE),
 )
 
 
@@ -270,10 +273,7 @@ def single_dg_maps(
             f'height="{card_size}" fill="none" '
             f'stroke="{MUTED}" stroke-width="0.6"/>',
         ))
-    parts.append(
-        f'<path d="M 14.17,31.5 V 25.2 M 11.8,27.6 L 14.17,25.2 '
-        f'L 16.54,27.6" fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
-    )
+    parts.append(comparison_arrow(14.17, 19.9, 31.9, scale=1.5))
     return "".join(parts)
 
 
@@ -398,6 +398,7 @@ def build() -> None:
             "additive_baseline_opacity": NOISE_BASELINE_OPACITY,
             "lower_mean_opacity": NOISE_MEAN_OPACITY + NOISE_BASELINE_OPACITY,
             "opacity_amplitude": NOISE_AMPLITUDE,
+            "selected_figure_amplitude": SELECTED_FIGURE_AMPLITUDE,
             "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
             "upper_map_background": "white",
             "rendering": "opaque vector SVG rectangles sampled from 2D gradient noise",
@@ -435,6 +436,7 @@ def build() -> None:
         "mean_opacity": NOISE_MEAN_OPACITY,
         "additive_baseline_opacity": NOISE_BASELINE_OPACITY,
         "lower_mean_opacity": NOISE_MEAN_OPACITY + NOISE_BASELINE_OPACITY,
+        "selected_figure_amplitude": SELECTED_FIGURE_AMPLITUDE,
         "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
         "fixed_features": ["upper DG field", "lower noise pattern", "lower mean tint"],
         "levels": [

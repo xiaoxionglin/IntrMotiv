@@ -12,6 +12,7 @@
   "mean_opacity": 0.059,
   "additive_baseline_opacity": 0.1,
   "lower_mean_opacity": 0.159,
+  "selected_figure_amplitude": 0.3,
   "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
   "fixed_features": [
     "upper DG field",
@@ -52,11 +53,11 @@
     {
       "stem": "07_very_high",
       "label": "Very high",
-      "opacity_amplitude": 0.28
+      "opacity_amplitude": 0.3
     }
   ],
   "current_reference": "../05_perlin_dg_maps.svg",
   "reference_sha256": {
-    "figure_palette_candidates/manifest.json": "3132bb49d279197a85cf60c93097112a63e69095e744adb5fd71940b601623a1"
+    "figure_palette_candidates/manifest.json": "3eafd4d52bbc2ff9f0e5add7019f6a42837714dccc6d90532b780887c669c827"
   }
 }

@@ -12,6 +12,6 @@ These seven **10 × 20 mm** icons vary only the contrast of the lower Perlin fie
 | Strong | 0.110 | [SVG](04_strong.svg) | [PDF](04_strong.pdf) |
 | High | 0.140 | [SVG](05_high.svg) | [PDF](05_high.pdf) |
 | Higher | 0.200 | [SVG](06_higher.svg) | [PDF](06_higher.pdf) |
-| Very high | 0.280 | [SVG](07_very_high.svg) | [PDF](07_very_high.pdf) |
+| Very high (selected for Figure 2) | 0.300 | [SVG](07_very_high.svg) | [PDF](07_very_high.pdf) |
 
 Each comparison shows its icons enlarged and at actual page size. The stronger comparison includes **Current** as a reference. All PDFs contain vector artwork. Rebuild from the parent directory with `/home/xiaoxiong/miniforge3/envs/SF_git/bin/python build_spatial_information_icons.py`.

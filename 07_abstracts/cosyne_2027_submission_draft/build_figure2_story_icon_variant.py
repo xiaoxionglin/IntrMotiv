@@ -13,7 +13,10 @@ import xml.etree.ElementTree as ET
 
 from matplotlib import colormaps
 
-from build_figure2_metric_icons import HEIGHT_PT, ICONS, WIDTH_PT, OVERLAP_WIDTH_PT
+from build_figure2_metric_icons import HEIGHT_PT, ICONS, RED, WIDTH_PT, OVERLAP_WIDTH_PT
+from figure2_icon_candidates.spatial_information.build_spatial_information_icons import (
+    SELECTED_FIGURE_AMPLITUDE, perlin_dg_maps,
+)
 from build_figure2_story import (
     HERE, ROOT, behavior_differences, box_summary, export, layout_base,
     selected_trajectories, sha256, story_overlay, terminal_rows,
@@ -27,10 +30,13 @@ ICON_SOURCE = HERE / "build_figure2_metric_icons.py"
 STORY_SOURCE = HERE / "build_figure2_story.py"
 SCALE_RESULTS = 57 / HEIGHT_PT
 RESULT_ICON_WIDTH = WIDTH_PT * SCALE_RESULTS
+SPATIAL_ICON_POSITIONS = {
+    "behavior": (396, 35), "push": (171, 106), "pull": (171, 171),
+}
 RESULT_POSITIONS = {
-    "push": {"overlap": (280, 100.5), "coverage": (404, 100.5),
+    "push": {"overlap": (279, 100.5), "coverage": (401.5, 100.5),
              "edges": (511, 100.5)},
-    "pull": {"overlap": (280, 165.5), "coverage": (404, 165.5),
+    "pull": {"overlap": (279, 165.5), "coverage": (401.5, 165.5),
              "edges": (511, 165.5)},
 }
 RELIABILITY_POSITION = (505.5, 24.5)
@@ -103,6 +109,106 @@ def unique_icon(name: str, instance: str) -> str:
     return body
 
 
+def spatial_icon_group(row: str, dg_red: str = RED) -> str:
+    """Embed the selected single-DG map at the same scale in B, C, and D."""
+    x, y = SPATIAL_ICON_POSITIONS[row]
+    identifier = f"{row}-spatial-information-icon"
+    return (
+        f'<g id="{identifier}" '
+        f'aria-label="Spatial-information schematic for panel {row}" '
+        f'transform="translate({x:g},{y:g}) scale({SCALE_RESULTS:.8f})">'
+        f'{perlin_dg_maps(dg_red, id_prefix=identifier, amplitude=SELECTED_FIGURE_AMPLITUDE)}'
+        '</g>'
+    )
+
+
+def add_ng_na_to_edge_panels(svg: str) -> str:
+    """Give the two edge plots an explicit, data-free NG category.
+
+    The existing UG and FG SVG groups move horizontally within their original
+    axes. Their y coordinates, paths, points, boxes, and axis limits stay intact.
+    """
+    # Match the centers and box widths of the other three-category plots.
+    ng_x, ug_x, fg_x = 74.668966, 91.8, 108.931034
+    original_centers = (78.726318, 104.873690)
+    box_width_scale = 4.79669 / 7.32127
+    for row in ("push", "pull"):
+        prefix = f"{row}_graph_edges"
+        for index, (old_x, new_x) in enumerate(zip(original_centers, (ug_x, fg_x)), 1):
+            shift = new_x - old_x
+            # Tick text and markers retain their original size. The marker
+            # positions are remapped separately to reduce their horizontal jitter.
+            identifier = f"{prefix}_xtick_{index}"
+            svg, count = re.subn(
+                rf'(<g\s+id="{identifier}")',
+                rf'\1 transform="translate({shift:.6f},0)"',
+                svg, count=1,
+            )
+            if count != 1:
+                raise ValueError(f"Expected one editable edge group: {identifier}")
+            identifier = f"{prefix}_PathCollection_{index}"
+            next_identifier = (f"{prefix}_PathCollection_2" if index == 1
+                               else f"{prefix}_patch_5")
+            pattern = (rf'(<g\s+id="{identifier}">)(.*?)'
+                       rf'(?=<g\s+id="{next_identifier}")')
+            def remap_markers(match: re.Match[str]) -> str:
+                body, count = re.subn(
+                    r'(<use\b[^>]*\bx=")([0-9.]+)(")',
+                    lambda point: (point.group(1) +
+                                   f"{new_x + box_width_scale * (float(point.group(2)) - old_x):.6f}" +
+                                   point.group(3)),
+                    match.group(2),
+                )
+                if count != 5:
+                    raise ValueError(f"Expected five paired edge markers: {identifier}")
+                return match.group(1) + body
+            svg, count = re.subn(pattern, remap_markers, svg, count=1, flags=re.DOTALL)
+            if count != 1:
+                raise ValueError(f"Expected one edge marker group: {identifier}")
+            box_groups = (("patch_5", 7, 8, 9, 10, 15) if index == 1 else
+                          ("patch_6", 11, 12, 13, 14, 16))
+            for part in box_groups:
+                suffix = f"line2d_{part}" if isinstance(part, int) else part
+                identifier = f"{prefix}_{suffix}"
+                offset = new_x - box_width_scale * old_x
+                transform = f"matrix({box_width_scale:.8f},0,0,1,{offset:.8f},0)"
+                svg, count = re.subn(
+                    rf'(<g\s+id="{identifier}")',
+                    rf'\1 transform="{transform}"',
+                    svg, count=1,
+                )
+                if count != 1:
+                    raise ValueError(f"Expected one editable edge group: {identifier}")
+        tick = (
+            f'<g id="{prefix}_xtick_ng">'
+            f'<use xlink:href="#{prefix}_m42f7a95ef7" '
+            f'x="{ng_x:.6f}" y="106.56" '
+            'style="stroke:#000000;stroke-width:0.8"/>'
+            f'<text x="{ng_x:.6f}" y="115.28625" '
+            'style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text>'
+            '</g>'
+        )
+        svg, count = re.subn(
+            rf'(<g\s+id="{prefix}_matplotlib\.axis_1">)',
+            lambda match: match.group(1) + tick, svg, count=1)
+        if count != 1:
+            raise ValueError(f"Expected one x-axis group for {prefix}")
+        unavailable = (
+            f'<g id="{prefix}_ng_unavailable" aria-label="NG: not applicable; no graph edges">'
+            f'<rect x="{ng_x-7:.6f}" y="77.9" width="14" height="9.5" '
+            'fill="white" stroke="none"/>'
+            f'<text x="{ng_x:.6f}" y="85.2" '
+            'style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">'
+            'N/A</text></g>'
+        )
+        svg, count = re.subn(
+            rf'(?=<g\s+id="{prefix}_PathCollection_1"[^>]*>)',
+            unavailable, svg, count=1)
+        if count != 1:
+            raise ValueError(f"Expected one data group for {prefix}")
+    return svg
+
+
 def icon_overlay() -> str:
     parts = ['<g id="figure2-metric-icon-overlay" '
              'aria-label="Schematic metric icons; upper example has higher raw metric value">']
@@ -115,6 +221,8 @@ def icon_overlay() -> str:
                 f'{unique_icon(metric, f"{row}-{metric}")}</g>'
             )
     x, y = RELIABILITY_POSITION
+    for row in SPATIAL_ICON_POSITIONS:
+        parts.append(spatial_icon_group(row))
     parts.append(f'<g id="behavior-reliability-icon" transform="translate({x:g},{y:g})">'
                  f'{unique_icon("reliability", "behavior")}</g>')
     x, y = PATH_EFFICIENCY_POSITION
@@ -125,8 +233,43 @@ def icon_overlay() -> str:
     return '\n'.join(parts)
 
 
+def align_y_label_spacing(svg: str) -> str:
+    """Keep visible B–D y labels the same distance from their axes.
+
+    The source edge labels sit closer to the axis than the other C/D labels,
+    while the two new B labels sit farther away. These small translations
+    change only the labels and leave every plot rectangle in place.
+    """
+    for row in ("push", "pull"):
+        identifier = f"{row}_graph_edges_text_6"
+        svg, count = re.subn(
+            rf'(<g\s+id="{identifier}")',
+            r'\1 transform="translate(-6.5,0)"', svg, count=1,
+        )
+        if count != 1:
+            raise ValueError(f"Expected one edge ylabel: {identifier}")
+    # This source overlap label alone has a closer baseline in the pull row.
+    svg, count = re.subn(
+        r'(<g\s+id="pull_map_overlap_text_6")',
+        r'\1 transform="translate(-4.5,0)"', svg, count=1,
+    )
+    if count != 1:
+        raise ValueError("Expected one pull overlap ylabel")
+    for metric in ("dg_information", "dg_reliability"):
+        identifier = f"behavior-{metric}-ylabel"
+        svg, count = re.subn(
+            rf'(<text id="{identifier}"[^>]*>.*?</text>)',
+            r'<g transform="translate(4.5,0)">\1</g>',
+            svg, count=1, flags=re.DOTALL,
+        )
+        if count != 1:
+            raise ValueError(f"Expected one behavior ylabel: {identifier}")
+    return svg
+
+
 def build() -> None:
     svg = layout_base(extra_plot_shift=1, metric_extra_shifts=(0, 6, 28, 40))
+    svg = add_ng_na_to_edge_panels(svg)
     svg, imported_box_summaries = apply_tukey_whiskers(svg)
     old_name = 'sodipodi:docname="Figure2_story.svg"'
     if svg.count(old_name) != 1:
@@ -148,6 +291,7 @@ def build() -> None:
     svg, count = re.subn(r'</svg>\s*$', overlay + '\n</svg>\n', svg)
     if count != 1:
         raise ValueError("Could not append the Figure 2 icon overlay")
+    svg = align_y_label_spacing(svg)
     export(svg, OUTPUT)
 
     MANIFEST.write_text(json.dumps({
@@ -197,6 +341,11 @@ def build() -> None:
             "coverage_and_edges": [RESULT_ICON_WIDTH, 57],
         },
         "result_icon_positions_points": RESULT_POSITIONS,
+        "spatial_information_icon_positions_points": SPATIAL_ICON_POSITIONS,
+        "spatial_information_icon_scale": SCALE_RESULTS,
+        "spatial_information_icon_amplitude": SELECTED_FIGURE_AMPLITUDE,
+        "spatial_information_icon_baseline_opacity": 0.1,
+        "graph_edge_ng_category": "N/A in C and D; no NG graph edges, box, dots, or numeric zero",
         "reliability_icon_size_points": [WIDTH_PT, 20 * 72 / 25.4],
         "reliability_icon_position_points": RELIABILITY_POSITION,
         "path_efficiency_icon_size_points": [WIDTH_PT, 20 * 72 / 25.4],
