@@ -1,0 +1,35 @@
+{
+  "schema": "intrmotiv/flat-policy-reward-qualification/v2",
+  "job_id": 8381988,
+  "status": "COMPLETED",
+  "exit_code": "0:0",
+  "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_qconst_v2_20261015/COS27_C01_G999_Q2C_CONSTANT_S99_/00_COS27_C01_G999_Q2C_CONSTANT_S99/.summary/0/events.out.tfevents.1792026068.n3111",
+  "event_file_sha256": "bb6e1e317d6d20c30287219ae982a0e193e5e47e9fca9438328d7f784cf63c16",
+  "window_frames": [
+    0,
+    2000000
+  ],
+  "logged_blocks": 61,
+  "last_logged_step": 1998848,
+  "constant": 6.737295044413974,
+  "max_abs_mean_minus_constant_times_nonzero_fraction": 2.176978866064161e-07,
+  "positive_reward_blocks": 48,
+  "zero_reward_blocks": 13,
+  "negative_reward_blocks": 0,
+  "eligible_decisions": 16693,
+  "valid_decisions": 124928,
+  "encoder_applied_events": 15298.0,
+  "finite_loss_tags": [
+    "train/loss",
+    "train/value_loss",
+    "intrmotiv/decoder/loss",
+    "intrmotiv/encoder/loss"
+  ],
+  "checkpoint_2m": [
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_qconst_v2_20261015/COS27_C01_G999_Q2C_CONSTANT_S99_/00_COS27_C01_G999_Q2C_CONSTANT_S99/checkpoint_p0/milestones/checkpoint_000000124_2031616.pth"
+  ],
+  "spatial_snapshots": [
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c01_flat_reward_qconst_v2_20261015/COS27_C01_G999_Q2C_CONSTANT_S99/policy_00/snapshot_target_000001000000_actual_000001015808.npz",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial/cosyne27_c01_flat_reward_qconst_v2_20261015/COS27_C01_G999_Q2C_CONSTANT_S99/policy_00/snapshot_target_000002000000_actual_000002031616.npz"
+  ]
+}
