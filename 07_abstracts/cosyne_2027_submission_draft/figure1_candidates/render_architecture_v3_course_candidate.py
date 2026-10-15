@@ -289,7 +289,10 @@ def field_tiles() -> dict[int, Image.Image]:
             if (len(peak_x) != 100 or
                     set(zip(peak_x // 10, peak_y // 10)) != {PEAK_CELLS_XY[unit]}):
                 raise ValueError(f"Peak cell changed for DG {unit}")
-            tiles[unit] = tile
+            # The archived atlas draws increasing world y downward in its
+            # raster. The architecture maze and trajectory panels show world
+            # y upward, so align the field presentation here.
+            tiles[unit] = tile.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
         return tiles
 
 

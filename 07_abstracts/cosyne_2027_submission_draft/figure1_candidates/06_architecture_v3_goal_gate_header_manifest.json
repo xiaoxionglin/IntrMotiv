@@ -14,7 +14,7 @@
     "three_temporal_symbols": "TS"
   },
   "panel_a_label": "vector letter preceding the shifted Vis. Encoder heading",
-  "courses": "arithmetic five-seed mean ± SEM, same verified runs, 1–99M frames",
+  "courses": "arithmetic five-seed mean \u00b1 SEM, same verified runs, 1\u201399M frames",
   "reward_metric": "intrmotiv/reward/intrinsic_mean over 2048 valid transitions per update, zeros included",
   "fields": {
     "condition": "COS27_C15_TEMPORAL",
@@ -23,7 +23,7 @@
     "probe_decisions": 10001,
     "visited_bins": 307,
     "total_bins": 361,
-    "source_scale": "per-unit visited-bin min–max; gray unvisited",
+    "source_scale": "per-unit visited-bin min\u2013max; gray unvisited",
     "units": {
       "1": {
         "spatial_information_bits": 0.167605260195476,
@@ -55,7 +55,8 @@
           3
         ]
       }
-    }
+    },
+    "display_orientation": "world x right and y up, aligned with the architecture maze and Figure 2 trajectories; source atlas tiles are vertically flipped only for Figure 1 display"
   },
   "source_sha256": {
     "07_abstracts/cosyne_2027_submission_draft/architecture_v3.svg": "31f7fde40c461c46bde048336ae85845392f3e9069d80edc063c07f7779bfcb6",
@@ -99,12 +100,12 @@
   "layout_source": "Author-edited SVG; source_sha256 records inputs to the preceding generated composition, not a way to reconstruct manual edits.",
   "author_base": {
     "canonical_file": "06_architecture_v3_goal_gate_header.svg",
-    "committed_on_main": "66f48e4",
-    "svg_sha256": "879e0fd4c2f355597c6e0765bb5a3c9accfd1e85c95560be18d83aa731161ea0",
+    "svg_sha256": "2964623e9b3120350342b6626405073c8a219da2d6c7bfd3ad4aea480ceae9a3",
     "derived_exports": {
-      "pdf": "c92db61aaeca2b0fb6305dc996bf69f4cfc57c004fddeb72f13f89ac6b7e0aa3",
-      "png": "2ddf3b250bfecc44a899f0e40cca49604fa996bab050ca532f2eb3f2abf7cc6f"
+      "pdf": "3fa31892e91bddbf051b73274a8b8f0c357faeaf5c3ce87e9fef187ab08f9c38",
+      "png": "e74d1dd3f02b0be0497cfac88a725efe533303f47f20f2d38d79bef4d8b198d0"
     },
-    "export_method": "Inkscape SVG export; PDF at source page size and PNG at 2250 px width"
+    "export_method": "Inkscape SVG export; PDF at source page size and PNG at 2250 px width",
+    "initial_layout_commit": "66f48e4"
   }
 }

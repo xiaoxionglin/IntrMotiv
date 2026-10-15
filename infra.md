@@ -2433,6 +2433,16 @@ For each finding, record:
   scales and the full metrics table; regenerate from NPZs rather than
   recoloring a clipped PNG. Acceptance is 40 paired atlases, 640 scale rows,
   verified source hashes, and no atlas omitted by the index generator.
+  A later Figure 1 orientation audit found a presentation mismatch: the atlas
+  raster puts increasing world $y$ downward, while the maze plan and Figure 2
+  trajectories put it upward. Across all 40 atlases, vertically flipping the
+  occupancy mask improved alignment with the maze wall pattern; the selected
+  C15 seed-123 correlation rose from -0.04 to 0.42. The three Figure 1 fields
+  are now vertically flipped at composition, leaving numerical maps and
+  trajectories unchanged. Future figure composers should declare the world
+  coordinate direction and compare occupancy against a known maze image before
+  embedding fields. Acceptance is matching field, trajectory, and maze
+  orientation in the rendered PDF.
   An author-supplied Figure 2 SVG crop clipped the tops of two vertical axis
   labels. A separate layout trial extends its viewBox upward instead of
   rescaling the plots, and embeds three exact crops from the indexed C15
