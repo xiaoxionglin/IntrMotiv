@@ -144,8 +144,9 @@ def position_profile(dg_red: str, *, id_prefix: str = "") -> str:
 NOISE_SEED = 23
 NOISE_GRID_SIZE = 32
 # Area-mean opacity of the upper 4 pt radial field in its 14.5 pt square,
-# after removing the former pink background behind that field.
+# before adding the requested 0.1 lower-map background tint.
 NOISE_MEAN_OPACITY = 0.059
+NOISE_BASELINE_OPACITY = 0.10
 NOISE_AMPLITUDE = 0.095
 STRENGTH_LEVELS = (
     ("01_subtle", "Subtle", 0.045),
@@ -191,16 +192,18 @@ def perlin_map_cells(
              + 0.35 * perlin_grid(NOISE_GRID_SIZE, 4, NOISE_SEED + 1))
     noise -= noise.mean()
     noise /= np.max(np.abs(noise))
-    # Find an offset after clipping so stronger trials can contain white cells
-    # without changing the map-average activity relative to the upper field.
+    # Hold the spatially varying component's mean fixed across strength levels.
+    # A separate 0.1 tint keeps even its zero-contrast cells visibly colored.
     lower_offset, upper_offset = -1 - amplitude, 1 + amplitude
+    contrast_ceiling = 1 - NOISE_BASELINE_OPACITY
     for _ in range(48):
         offset = (lower_offset + upper_offset) / 2
-        if np.clip(offset + amplitude * noise, 0, 1).mean() < NOISE_MEAN_OPACITY:
+        if np.clip(offset + amplitude * noise, 0, contrast_ceiling).mean() < NOISE_MEAN_OPACITY:
             lower_offset = offset
         else:
             upper_offset = offset
-    opacity = np.clip((lower_offset + upper_offset) / 2 + amplitude * noise, 0, 1)
+    opacity = NOISE_BASELINE_OPACITY + np.clip(
+        (lower_offset + upper_offset) / 2 + amplitude * noise, 0, contrast_ceiling)
     step = side / NOISE_GRID_SIZE
     red, green, blue = (int(dg_red[index:index + 2], 16) for index in (1, 3, 5))
 
@@ -312,7 +315,7 @@ def comparison_sheet(dg_red: str) -> str:
         '</text>',
         f'<text x="{width_pt / 2:.2f}" y="30" text-anchor="middle" '
         f'font-family="Arial" font-size="12" fill="{MUTED}">'
-        'Equal occupancy and total activity; top is more selective'
+        'Equal occupancy; top is more spatially selective'
         '</text>',
     ]
     for index, (_, label, factory) in enumerate(CANDIDATES):
@@ -348,7 +351,7 @@ def strength_comparison_sheet(
         f'{title}</text>',
         f'<text x="{width_pt / 2:.2f}" y="30" text-anchor="middle" '
         f'font-family="Arial" font-size="12" fill="{MUTED}">'
-        'Same upper field, noise pattern, and mean lower-map tint</text>',
+        'Same upper field, noise pattern, and 0.1 lower-map tint</text>',
     ]
     for index, (stem, label, amplitude) in enumerate(levels):
         center_x = 57.0 + index * 113.0
@@ -384,15 +387,18 @@ def build() -> None:
         "selected_palette": selected_palette,
         "single_dg_identity_color": dg_red,
         "example_order": "upper: higher raw spatial information; lower: lower",
-        "controlled_assumptions": ["equal spatial occupancy", "equal total activation"],
+        "controlled_assumptions": ["equal spatial occupancy"],
+        "equal_total_activation_candidates": [stem for stem, _, _ in CANDIDATES[:4]],
         "perlin_variant": {
             "seed": NOISE_SEED,
             "grid_size": NOISE_GRID_SIZE,
             "octave_periods": [2, 4],
             "octave_weights": [1.0, 0.35],
             "mean_opacity": NOISE_MEAN_OPACITY,
+            "additive_baseline_opacity": NOISE_BASELINE_OPACITY,
+            "lower_mean_opacity": NOISE_MEAN_OPACITY + NOISE_BASELINE_OPACITY,
             "opacity_amplitude": NOISE_AMPLITUDE,
-            "contrast_method": "clip and solve offset to preserve mean opacity",
+            "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
             "upper_map_background": "white",
             "rendering": "opaque vector SVG rectangles sampled from 2D gradient noise",
         },
@@ -427,7 +433,9 @@ def build() -> None:
         "seed": NOISE_SEED,
         "grid_size": NOISE_GRID_SIZE,
         "mean_opacity": NOISE_MEAN_OPACITY,
-        "contrast_method": "clip and solve offset to preserve mean opacity",
+        "additive_baseline_opacity": NOISE_BASELINE_OPACITY,
+        "lower_mean_opacity": NOISE_MEAN_OPACITY + NOISE_BASELINE_OPACITY,
+        "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
         "fixed_features": ["upper DG field", "lower noise pattern", "lower mean tint"],
         "levels": [
             {"stem": stem, "label": label, "opacity_amplitude": amplitude}

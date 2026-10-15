@@ -2,7 +2,7 @@
 
 [Original range](comparison.png) · [stronger range](stronger_comparison.png) · [editable stronger comparison](stronger_comparison.svg) · [print stronger comparison](stronger_comparison.pdf) · [manifest](manifest.json)
 
-These seven **10 × 20 mm** icons vary only the contrast of the lower Perlin field. They share the same upper field on a white background, DG red, noise seed, spatial pattern, and mean lower-map tint. The numbers below are rendering amplitudes, not measured spatial-information values. White cells at higher strengths are clipped, then the opacity offset is adjusted to retain the same mean tint. **Current** matches the existing [Perlin DG map candidate](../05_perlin_dg_maps.svg).
+These seven **10 × 20 mm** icons vary only the contrast of the lower Perlin field. They share the same upper field on a white background, DG red, noise seed, spatial pattern, and mean lower-map tint. Every lower-map cell gets a uniform **0.1 red-opacity tint**, so the background never becomes white. The numbers below are rendering amplitudes, not measured spatial-information values. At higher strengths, the spatially varying component is clipped and offset to retain its mean; the added tint makes the lower map's overall mean higher than the upper map's. **Current** matches the existing [Perlin DG map candidate](../05_perlin_dg_maps.svg).
 
 | Level | Amplitude | Editable SVG | Print PDF |
 | --- | ---: | --- | --- |

@@ -10,7 +10,9 @@
   "seed": 23,
   "grid_size": 32,
   "mean_opacity": 0.059,
-  "contrast_method": "clip and solve offset to preserve mean opacity",
+  "additive_baseline_opacity": 0.1,
+  "lower_mean_opacity": 0.159,
+  "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
   "fixed_features": [
     "upper DG field",
     "lower noise pattern",
