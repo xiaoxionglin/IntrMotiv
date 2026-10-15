@@ -12,21 +12,22 @@ import subprocess
 
 HERE = Path(__file__).resolve().parent
 WIDTH_PT = 10 * 72 / 25.4
+OVERLAP_WIDTH_PT = 10.5 * 72 / 25.4
 HEIGHT_PT = 30 * 72 / 25.4
 INK = "#27343c"
 MUTED = "#919ba2"
-ACCENT = "#555f66"
 # DG neuron colors reproduce the blue, red, and yellow circles in Figure 1.
 # Purple is the fourth identity for the four-unit coverage and graph examples.
 DG_COLORS = ("#4364a6", "#a73e30", "#c3b058", "#8864a8")
 BLUE, RED, YELLOW, PURPLE = DG_COLORS
 
 
-def svg_document(body: str, height_mm: float = 30) -> str:
+def svg_document(body: str, height_mm: float = 30, width_mm: float = 10) -> str:
     height_pt = height_mm * 72 / 25.4
+    width_pt = width_mm * 72 / 25.4
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="10mm" height="{height_mm:g}mm" '
-        f'viewBox="0 0 {WIDTH_PT:.6f} {height_pt:.6f}">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width_mm:g}mm" '
+        f'height="{height_mm:g}mm" viewBox="0 0 {width_pt:.6f} {height_pt:.6f}">'
         '<g stroke-linecap="round" stroke-linejoin="round">'
         f'{body}</g></svg>\n'
     )
@@ -78,19 +79,19 @@ def paired_map_icon(kind: str) -> str:
     """Show high/low map similarity with explicit neuron and time identities."""
     if kind not in {"overlap", "reliability"}:
         raise ValueError(kind)
-    # Overlap stacks the two DG units so the full unit labels fit at print size.
-    # Reliability keeps the two time halves side by side and needs no unit dots.
+    # Both comparisons show their paired maps horizontally. The overlap icon
+    # is slightly wider so its full DG labels fit at print size.
     if kind == "overlap":
-        cards = ((1.5, 3.5), (1.5, 13.7), (1.5, 34.5), (1.5, 44.7))
-        centers = ((5.7, 7.7), (5.7, 17.9),
-                   (4.1, 37.4), (7.5, 50.3))
-        card_size = 8.4
+        cards = ((3.0, 4.5), (18.5, 4.5),
+                 (3.0, 36.5), (18.5, 36.5))
+        centers = ((7.6, 9.1), (23.1, 9.1),
+                   (5.8, 40.0), (25.6, 43.0))
     else:
         cards = ((4.10, 4.5), (15.10, 4.5),
                  (4.10, 36.5), (15.10, 36.5))
         centers = ((8.35, 9.1), (19.35, 9.1),
                    (6.9, 41.1), (21.45, 44.65))
-        card_size = 9.2
+    card_size = 9.2
     definitions = []
     for color_name, color in (("red", RED), ("yellow", YELLOW)):
         definitions.append(
@@ -106,7 +107,7 @@ def paired_map_icon(kind: str) -> str:
     )
     out = ['<defs>' + ''.join(definitions) + '</defs>']
     for index, (x, y) in enumerate(cards):
-        row, column = divmod(index, 2)
+        _, column = divmod(index, 2)
         color = (RED, YELLOW)[column] if kind == "overlap" else RED
         gradient = "red" if color == RED else "yellow"
         cx, cy = centers[index]
@@ -116,17 +117,17 @@ def paired_map_icon(kind: str) -> str:
                    f'<circle cx="{cx}" cy="{cy}" r="4.0" '
                    f'fill="url(#map-{kind}-{gradient})"/></g>')
         if kind == "overlap":
-            # The colored dot denotes identity; the blurred map shows its field.
-            out.append(f'<circle cx="11.0" cy="{y+4.2:.2f}" r="1.05" '
+            # Colored corner dots denote the two identities, not field peaks.
+            out.append(f'<circle cx="{x+1.4:.2f}" cy="{y+1.4:.2f}" r="0.8" '
                        f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
-            out.append(f'<text x="12.4" y="{y+6.35:.2f}" '
-                       f'font-family="DejaVu Sans" font-size="6.3" '
+            out.append(f'<text x="{x+card_size/2:.2f}" y="{y+16.7:.2f}" '
+                       f'text-anchor="middle" font-family="DejaVu Sans" font-size="5.2" '
                        f'fill="{INK}">DG {column+1}</text>')
         else:
             out.append(f'<text x="{x+card_size/2:.2f}" y="{y+16.7:.2f}" '
                        f'text-anchor="middle" font-family="DejaVu Sans" '
                        f'font-size="7.5" fill="{INK}">T{column+1}</text>')
-    arrow = ("M 14.17,31.9 V 26.0 M 11.8,28.5 L 14.17,26.0 L 16.54,28.5"
+    arrow = ("M 15.59,33.3 V 25.0 M 13.22,27.5 L 15.59,25.0 L 17.96,27.5"
              if kind == "overlap" else
              "M 14.17,37.3 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5")
     out.append(f'<path d="{arrow}" fill="none" stroke="{MUTED}" stroke-width="1.05"/>')
@@ -248,7 +249,9 @@ def write_and_export(path: Path, svg: str, png_width: int = 400) -> None:
 def build() -> None:
     for name, factory in ICONS.items():
         path = HERE / f"Figure2_metric_icon_{name}.svg"
-        write_and_export(path, svg_document(factory(), 30 if name in ('coverage', 'edges') else 20))
+        write_and_export(path, svg_document(
+            factory(), 30 if name in ('coverage', 'edges') else 20,
+            10.5 if name == 'overlap' else 10))
 
     # Enlarged inspection sheet; use standalone files for physical dimensions.
     locations = (("path_efficiency", 15), ("overlap", 108),
