@@ -1,0 +1,22 @@
+{
+  "batch_name": "cosyne27_c01_flat_reward_qtemp_20261015",
+  "commands_match_study": true,
+  "expected_runs": 1,
+  "job_ids": [
+    "8381905"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cosyne27_c01_flat_reward_qtemp_20261015/20261015T003110Z/jobs.tsv",
+  "rows": 1,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 1
+  },
+  "study_id": "cosyne27_c01_flat_reward_qtemp_20261015",
+  "study_sha256": "1e2bee3f3f33104a4ae205da2dd09146c3c3424d89ce713bd56fb89c65741008",
+  "study_spec": "hpc_runs/studies/cosyne27_c01_flat_reward_qtemp_20261015.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

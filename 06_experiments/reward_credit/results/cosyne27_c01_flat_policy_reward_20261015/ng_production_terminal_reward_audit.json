@@ -1,0 +1,197 @@
+{
+  "constant": 6.737295044413974,
+  "runs": [
+    {
+      "aligned_blocks": 305,
+      "arm": "TEMPORAL",
+      "conditional_block_mean_max": 6.879811837567295,
+      "conditional_block_mean_min": 6.811865050464925,
+      "eligible_fraction_mean": 0.3162925845286885,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_TEMPORAL_S8_/00_COS27_C01_G999_FR_TEMPORAL_S8/.summary/0/events.out.tfevents.1792027261.n3111",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 0.05170409048482272,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_TEMPORAL_S8",
+      "seed": 8,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "TEMPORAL",
+      "conditional_block_mean_max": 6.884291063018837,
+      "conditional_block_mean_min": 6.838487972508591,
+      "eligible_fraction_mean": 0.3344006147540984,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_TEMPORAL_S17_/00_COS27_C01_G999_FR_TEMPORAL_S17/.summary/0/events.out.tfevents.1792027271.n3121",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 0.05722236555160176,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_TEMPORAL_S17",
+      "seed": 17,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "TEMPORAL",
+      "conditional_block_mean_max": 6.878381406627415,
+      "conditional_block_mean_min": 6.84259789227719,
+      "eligible_fraction_mean": 0.3758276767418033,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_TEMPORAL_S41_/00_COS27_C01_G999_FR_TEMPORAL_S41/.summary/0/events.out.tfevents.1792027271.n3122",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 0.05704077534801222,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_TEMPORAL_S41",
+      "seed": 41,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "TEMPORAL",
+      "conditional_block_mean_max": 6.890262751159196,
+      "conditional_block_mean_min": 6.842553104914672,
+      "eligible_fraction_mean": 0.30863857581967213,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_TEMPORAL_S99_/00_COS27_C01_G999_FR_TEMPORAL_S99/.summary/0/events.out.tfevents.1792027266.n3114",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 0.05028907450099096,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_TEMPORAL_S99",
+      "seed": 99,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "TEMPORAL",
+      "conditional_block_mean_max": 6.876580600080819,
+      "conditional_block_mean_min": 6.834146426529834,
+      "eligible_fraction_mean": 0.3385950307377049,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_TEMPORAL_S123_/00_COS27_C01_G999_FR_TEMPORAL_S123/.summary/0/events.out.tfevents.1792027276.n3117",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 0.0518989178491176,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_TEMPORAL_S123",
+      "seed": 123,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "CONSTANT",
+      "conditional_block_mean_max": 6.737296388101983,
+      "conditional_block_mean_min": 6.737294751544331,
+      "eligible_fraction_mean": 0.31401927510245903,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_CONSTANT_S8_/00_COS27_C01_G999_FR_CONSTANT_S8/.summary/0/events.out.tfevents.1792027276.n3123",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 4.6320494817564395e-07,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_CONSTANT_S8",
+      "seed": 8,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "CONSTANT",
+      "conditional_block_mean_max": 6.737296371274331,
+      "conditional_block_mean_min": 6.737294708029197,
+      "eligible_fraction_mean": 0.3447537781762295,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_CONSTANT_S17_/00_COS27_C01_G999_FR_CONSTANT_S17/.summary/0/events.out.tfevents.1792027278.n3201",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 5.325582095316861e-07,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_CONSTANT_S17",
+      "seed": 17,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "CONSTANT",
+      "conditional_block_mean_max": 6.737296811995968,
+      "conditional_block_mean_min": 6.7372947090003406,
+      "eligible_fraction_mean": 0.3403720543032787,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_CONSTANT_S41_/00_COS27_C01_G999_FR_CONSTANT_S41/.summary/0/events.out.tfevents.1792027278.n3202",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 5.886186129622217e-07,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_CONSTANT_S41",
+      "seed": 41,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "CONSTANT",
+      "conditional_block_mean_max": 6.737296268857759,
+      "conditional_block_mean_min": 6.737294773159898,
+      "eligible_fraction_mean": 0.3086577868852459,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_CONSTANT_S99_/00_COS27_C01_G999_FR_CONSTANT_S99/.summary/0/events.out.tfevents.1792027275.n3124",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 4.019939532362571e-07,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_CONSTANT_S99",
+      "seed": 99,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    },
+    {
+      "aligned_blocks": 305,
+      "arm": "CONSTANT",
+      "conditional_block_mean_max": 6.737296388101983,
+      "conditional_block_mean_min": 6.737294837445965,
+      "eligible_fraction_mean": 0.3123607197745902,
+      "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_s5_20261015/COS27_C01_G999_FR_CONSTANT_S123_/00_COS27_C01_G999_FR_CONSTANT_S123/.summary/0/events.out.tfevents.1792027276.n3127",
+      "last_step": 99975168,
+      "max_abs_mean_minus_calibrated_constant_times_nonzero_fraction": 4.6320494817564395e-07,
+      "positive_blocks": 305,
+      "reward_sum_vs_mean_2048_max_abs": 0.0,
+      "run_name": "COS27_C01_G999_FR_CONSTANT_S123",
+      "seed": 123,
+      "window_frames": [
+        90000000,
+        100000000
+      ],
+      "zero_blocks": 0
+    }
+  ],
+  "schema": "intrmotiv/ng-production-terminal-reward-audit/v1",
+  "study_sha256": "3fa42875e5f79d8dc6281658f89642e1be8143f1cab093b753060f5cf89f07d4"
+}

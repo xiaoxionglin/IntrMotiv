@@ -1,0 +1,91 @@
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_params.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_params.py
+@@ -44,6 +44,14 @@
+     p.add_argument("--controller_preflight", type=str2bool, default=False)
+     p.add_argument("--controller_cache_visual", type=str2bool, default=True)
+     p.add_argument("--decoder_reward_gate", choices=["none", "ca3_absent"], default="none")
++    p.add_argument(
++        "--flat_policy_reward_mode", choices=["temporal", "constant"], default="temporal",
++        help="For non-goal flat policy only: original dense temporal reward or a fixed reward per decision.",
++    )
++    p.add_argument(
++        "--flat_policy_reward_constant", type=float, default=0.0,
++        help="Fixed reward per decision in post-scale reward units; used only in constant mode.",
++    )
+     p.add_argument("--dg_ca3_reentry_inhibition", choices=["none", "trace_subtractive", "hard"], default="none")
+     p.add_argument("--intrinsic_goal_mode", choices=["none", "ca3_absent_target"], default="none")
+     p.add_argument("--intrinsic_goal_horizon", type=int, default=64)
+--- a/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
++++ b/sf_working_directories/IntrMotiv/dmlab/custom_learner.py
+@@ -208,6 +208,17 @@
+         credit = ablation_distance_weight(encoder_base, encoder_credit_mode, encoder_credit_constant)
+         encoder_reward = credit * reward_scale
+     return decoder_reward, encoder_reward
++
++
++def flat_policy_reward(decoder_reward: Tensor, mode: str, constant: float) -> Tensor:
++    """Replace only the flat policy reward; leave DG encoder credit untouched."""
++    if mode == "temporal":
++        return decoder_reward
++    if mode == "constant":
++        if not math.isfinite(constant) or constant < 0.0:
++            raise ValueError("flat_policy_reward_constant must be finite and nonnegative")
++        return torch.full_like(decoder_reward, constant)
++    raise ValueError(f"Unknown flat_policy_reward_mode: {mode}")
+ 
+ 
+ def ablation_distance_weight(distance: Tensor, mode: str, constant: float) -> Tensor:
+@@ -4112,6 +4123,17 @@
+             self.cfg.encoder_reward_method,
+             getattr(self.cfg, "encoder_interval_credit_mode", "temporal"),
+             float(getattr(self.cfg, "encoder_interval_credit_constant", 0.0)),
++        )
++        flat_reward_mode = getattr(self.cfg, "flat_policy_reward_mode", "temporal")
++        if flat_reward_mode != "temporal" and (
++            getattr(self.cfg, "hrl_controllable_graph", False)
++            or getattr(self.cfg, "intrinsic_goal_mode", "none") != "none"
++        ):
++            raise ValueError("flat policy reward control requires a non-goal C01 run")
++        decoder_reward = flat_policy_reward(
++            decoder_reward,
++            flat_reward_mode,
++            float(getattr(self.cfg, "flat_policy_reward_constant", 0.0)),
+         )
+         from .ca3_memory import absent_event_gate
+ 
+--- /dev/null
++++ b/sf_working_directories/IntrMotiv/tests/test_flat_policy_reward_timing.py
+@@ -0,0 +1,33 @@
++"""The C01 flat policy reward intervention must leave encoder credit intact."""
++
++import pytest
++import torch
++
++from sf_working_directories.IntrMotiv.dmlab.custom_learner import (
++    flat_policy_reward,
++    legacy_reward_streams,
++)
++
++
++def test_constant_changes_only_flat_policy_reward():
++    distance = torch.tensor([[71.0, 68.0, 64.0, 70.0, 71.0]])
++    temporal_policy, encoder = legacy_reward_streams(
++        distance, 71.0, 0.1, "encourage", "temporal"
++    )
++
++    assert flat_policy_reward(temporal_policy, "temporal", 0.0) is temporal_policy
++    constant_policy = flat_policy_reward(temporal_policy, "constant", 0.4)
++    assert torch.equal(constant_policy, torch.full_like(temporal_policy, 0.4))
++    assert not torch.equal(constant_policy, temporal_policy)
++    assert torch.equal(encoder, distance[:, 1:-1] * 0.1)
++
++
++@pytest.mark.parametrize("constant", [-1.0, float("nan"), float("inf")])
++def test_invalid_constant_is_rejected(constant):
++    with pytest.raises(ValueError, match="finite and nonnegative"):
++        flat_policy_reward(torch.ones(1, 2), "constant", constant)
++
++
++def test_unknown_mode_is_rejected():
++    with pytest.raises(ValueError, match="Unknown flat_policy_reward_mode"):
++        flat_policy_reward(torch.ones(1, 2), "other", 1.0)

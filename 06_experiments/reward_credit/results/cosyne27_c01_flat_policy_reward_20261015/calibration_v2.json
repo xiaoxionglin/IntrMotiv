@@ -1,0 +1,27 @@
+{
+  "schema": "intrmotiv/flat-policy-reward-calibration/v2",
+  "study_id": "cosyne27_c01_flat_reward_qtemp_v2_20261015",
+  "study_sha256": "4bebab29ed6bb39db3fe761eb0ed2912bbb002c00500749e02f61191d47a3ef1",
+  "study_schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "run_name": "COS27_C01_G999_Q2_TEMPORAL_S99",
+  "job_id": 8381923,
+  "event_file": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c01_flat_reward_qtemp_v2_20261015/COS27_C01_G999_Q2_TEMPORAL_S99_/00_COS27_C01_G999_Q2_TEMPORAL_S99/.summary/0/events.out.tfevents.1792024751.n3111",
+  "event_file_sha256": "f81e7a39e2c817aa233fbc388b4f47af229b671c56db735347696e88ee90e4e4",
+  "window_frames": [
+    0,
+    2000000
+  ],
+  "first_logged_step": 32768,
+  "last_logged_step": 1998848,
+  "logged_blocks": 61,
+  "valid_decisions_per_block": 2048,
+  "valid_decisions_total": 124928,
+  "reward_eligible_decisions": 16214,
+  "reward_eligible_fraction": 0.12978675717213115,
+  "unconditional_reward_mean": 0.8744116759263589,
+  "reward_mean_min": 0.0,
+  "reward_mean_max": 1.5389647483825684,
+  "flat_policy_reward_constant": 6.737295044413974,
+  "constant_unit": "post-scale intrinsic reward per reward-eligible policy decision"
+}
