@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 import sys
 
+import numpy as np
+
 
 HERE = Path(__file__).resolve().parent
 FIGURE_DIR = HERE.parents[1]
@@ -138,13 +140,66 @@ def position_profile(dg_red: str, *, id_prefix: str = "") -> str:
     return "".join(parts)
 
 
-def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
-    """One DG map per row in the overlap and reliability icons' soft style.
+NOISE_SEED = 23
+NOISE_GRID_SIZE = 32
+NOISE_MEAN_OPACITY = 0.106
+NOISE_AMPLITUDE = 0.075
 
-    The upper field is narrow. The lower map has a broad weak field rather
-    than a perfectly uniform fill. The SVG opacities give approximately equal
-    mean activity on the two equal-area maps.
-    """
+
+def perlin_grid(size: int, periods: int, seed: int) -> np.ndarray:
+    """Sample seeded 2D gradient (Perlin) noise on a square cell grid."""
+    rng = np.random.default_rng(seed)
+    angles = rng.uniform(0.0, 2.0 * np.pi, size=(periods + 1, periods + 1))
+    gradients = np.stack((np.cos(angles), np.sin(angles)), axis=-1)
+    coordinates = (np.arange(size) + 0.5) * periods / size
+    x, y = np.meshgrid(coordinates, coordinates)
+    ix, iy = np.floor(x).astype(int), np.floor(y).astype(int)
+    tx, ty = x - ix, y - iy
+
+    def corner(dx: int, dy: int) -> np.ndarray:
+        gradient = gradients[iy + dy, ix + dx]
+        return gradient[..., 0] * (tx - dx) + gradient[..., 1] * (ty - dy)
+
+    def fade(t: np.ndarray) -> np.ndarray:
+        return t * t * t * (t * (t * 6 - 15) + 10)
+
+    u, v = fade(tx), fade(ty)
+    low = corner(0, 0) * (1 - u) + corner(1, 0) * u
+    high = corner(0, 1) * (1 - u) + corner(1, 1) * u
+    return low * (1 - v) + high * v
+
+
+def perlin_map_cells(dg_red: str, x: float, y: float, side: float) -> str:
+    """Use small vector cells to keep the procedural map editable in SVG/PDF."""
+    noise = (perlin_grid(NOISE_GRID_SIZE, 2, NOISE_SEED)
+             + 0.35 * perlin_grid(NOISE_GRID_SIZE, 4, NOISE_SEED + 1))
+    noise -= noise.mean()
+    noise /= np.max(np.abs(noise))
+    opacity = NOISE_MEAN_OPACITY + NOISE_AMPLITUDE * noise
+    step = side / NOISE_GRID_SIZE
+    red, green, blue = (int(dg_red[index:index + 2], 16) for index in (1, 3, 5))
+
+    def blended_color(alpha: float) -> str:
+        """Flatten translucent red against the card's white background."""
+        channels = (red, green, blue)
+        return "#" + "".join(
+            f"{round(255 * (1 - alpha) + channel * alpha):02X}"
+            for channel in channels
+        )
+
+    return "".join(
+        f'<rect x="{x + col * step:.4f}" y="{y + row * step:.4f}" '
+        f'width="{step + 0.02:.4f}" height="{step + 0.02:.4f}" '
+        f'fill="{blended_color(opacity[row, col])}"/>'
+        for row in range(NOISE_GRID_SIZE)
+        for col in range(NOISE_GRID_SIZE)
+    )
+
+
+def single_dg_maps(dg_red: str, *, id_prefix: str, bottom_style: str) -> str:
+    """One DG map per row with a narrow upper field and selected lower field."""
+    if bottom_style not in {"broad", "perlin"}:
+        raise ValueError(bottom_style)
     narrow_id = f"{id_prefix}-narrow-dg"
     broad_id = f"{id_prefix}-broad-dg"
     parts = [
@@ -163,24 +218,23 @@ def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
     card_size = 14.5
     card_x = (PAGE_WIDTH - card_size) / 2
     for row, y in enumerate((2.3, 35.0)):
-        baseline_opacity = 0.05 if row == 0 else 0.07
-        parts.append(
-            f'<rect x="{card_x:.2f}" y="{y}" width="{card_size}" '
-            f'height="{card_size}" fill="{dg_red}" '
-            f'fill-opacity="{baseline_opacity:g}"/>'
-        )
-        parts.append(
-            f'<circle cx="{PAGE_WIDTH / 2:.2f}" cy="{y + card_size / 2:.2f}" '
-            f'r="{4.0 if row == 0 else 6.5}" '
-            f'fill="url(#{narrow_id if row == 0 else broad_id})"/>'
-        )
+        if row == 1 and bottom_style == "perlin":
+            parts.append(perlin_map_cells(dg_red, card_x, y, card_size))
+        else:
+            baseline_opacity = 0.05 if row == 0 else 0.07
+            parts.extend((
+                f'<rect x="{card_x:.2f}" y="{y}" width="{card_size}" '
+                f'height="{card_size}" fill="{dg_red}" '
+                f'fill-opacity="{baseline_opacity:g}"/>',
+                f'<circle cx="{PAGE_WIDTH / 2:.2f}" '
+                f'cy="{y + card_size / 2:.2f}" '
+                f'r="{4.0 if row == 0 else 6.5}" '
+                f'fill="url(#{narrow_id if row == 0 else broad_id})"/>',
+            ))
         parts.extend((
             f'<rect x="{card_x:.2f}" y="{y}" width="{card_size}" '
             f'height="{card_size}" fill="none" '
             f'stroke="{MUTED}" stroke-width="0.6"/>',
-            f'<circle cx="{card_x + card_size + 2.0:.2f}" '
-            f'cy="{y + 2.7:.2f}" r="1.25" fill="{dg_red}" '
-            f'stroke="{INK}" stroke-width="0.35"/>',
         ))
     parts.append(
         f'<path d="M 14.17,31.5 V 25.2 M 11.8,27.6 L 14.17,25.2 '
@@ -189,20 +243,31 @@ def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
     return "".join(parts)
 
 
+def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
+    """Localized field above and a weak broad field below."""
+    return single_dg_maps(dg_red, id_prefix=id_prefix, bottom_style="broad")
+
+
+def perlin_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
+    """Localized field above and low-contrast Perlin texture below."""
+    return single_dg_maps(dg_red, id_prefix=id_prefix, bottom_style="perlin")
+
+
 CANDIDATES = (
     ("01_rate_map", "Rate map", rate_map),
     ("02_dg_events", "DG events", dg_events),
     ("03_position_profile", "Position profile", position_profile),
     ("04_soft_dg_maps", "Soft DG maps", soft_dg_maps),
+    ("05_perlin_dg_maps", "Perlin DG maps", perlin_dg_maps),
 )
 
 
 def comparison_sheet(dg_red: str) -> str:
     """Show enlarged vectors and true-size copies of every candidate."""
-    width_pt = 160 * 72 / 25.4
+    width_pt = 200 * 72 / 25.4
     height_pt = 76 * 72 / 25.4
     parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="160mm" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="200mm" '
         f'height="76mm" viewBox="0 0 {width_pt:.4f} {height_pt:.4f}">',
         '<rect width="100%" height="100%" fill="white"/>',
         f'<text x="{width_pt / 2:.2f}" y="15" text-anchor="middle" '
@@ -246,6 +311,15 @@ def build() -> None:
         "single_dg_identity_color": dg_red,
         "example_order": "upper: higher raw spatial information; lower: lower",
         "controlled_assumptions": ["equal spatial occupancy", "equal total activation"],
+        "perlin_variant": {
+            "seed": NOISE_SEED,
+            "grid_size": NOISE_GRID_SIZE,
+            "octave_periods": [2, 4],
+            "octave_weights": [1.0, 0.35],
+            "mean_opacity": NOISE_MEAN_OPACITY,
+            "opacity_amplitude": NOISE_AMPLITUDE,
+            "rendering": "opaque vector SVG rectangles sampled from 2D gradient noise",
+        },
         "reference_sha256": {
             str(SELECTED_FIGURE.relative_to(FIGURE_DIR)): sha256(SELECTED_FIGURE),
             str(PALETTE_MANIFEST.relative_to(FIGURE_DIR)): sha256(PALETTE_MANIFEST),

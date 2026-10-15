@@ -12,6 +12,21 @@
     "equal spatial occupancy",
     "equal total activation"
   ],
+  "perlin_variant": {
+    "seed": 23,
+    "grid_size": 32,
+    "octave_periods": [
+      2,
+      4
+    ],
+    "octave_weights": [
+      1.0,
+      0.35
+    ],
+    "mean_opacity": 0.106,
+    "opacity_amplitude": 0.075,
+    "rendering": "opaque vector SVG rectangles sampled from 2D gradient noise"
+  },
   "reference_sha256": {
     "Figure2.svg": "261065c8a0115d82095a988631da51fc503607ea72db5516e19d3cd7c9f9ca52",
     "figure_palette_candidates/manifest.json": "3132bb49d279197a85cf60c93097112a63e69095e744adb5fd71940b601623a1"
