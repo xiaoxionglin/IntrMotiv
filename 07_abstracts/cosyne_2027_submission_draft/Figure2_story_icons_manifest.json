@@ -9,7 +9,7 @@
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
+  "quantitative_panels": "D representation plots add five NG paired differences from the audited shared-mask source; existing UG/FG values and y scales remain unchanged. B\u2013D statistical plot dimensions are retained; A trajectory tiles are 39 points square and display 65 complete fragments",
   "boxplot_whisker_rule": "lowest and highest observed values within Q1 - 1.5 IQR and Q3 + 1.5 IQR; all observations remain as dots",
   "imported_box_source": {
     "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/plotted_seed_differences.csv",
@@ -186,8 +186,52 @@
       "outlier_count": 1,
       "whisker_low": 11.0,
       "whisker_high": 19.0
+    },
+    {
+      "arm": "pull",
+      "metric": "dg_information",
+      "family": "C01",
+      "sample_count": 5,
+      "positive_count": 1,
+      "outlier_count": 1,
+      "whisker_low": -0.0065884441137314,
+      "whisker_high": 0.00392103940248489,
+      "mean_delta": -0.009946613013744342
+    },
+    {
+      "arm": "pull",
+      "metric": "map_overlap",
+      "family": "C01",
+      "sample_count": 5,
+      "positive_count": 4,
+      "outlier_count": 2,
+      "whisker_low": 0.0198402681587804,
+      "whisker_high": 0.028277406395474,
+      "mean_delta": 0.04144849382958728
+    },
+    {
+      "arm": "pull",
+      "metric": "peak_coverage",
+      "family": "C01",
+      "sample_count": 5,
+      "positive_count": 2,
+      "outlier_count": 0,
+      "whisker_low": -0.10075200337766,
+      "whisker_high": 0.0423115430193559,
+      "mean_delta": -0.02585686218676807
     }
   ],
+  "pull_shared_mask_source": {
+    "path": "06_experiments/reward_credit/results/cosyne27_c01_flat_policy_reward_20261015/figure2d_shared_mask_pairs.csv",
+    "sha256": "1f8644a774e18ceb9890c80498f96599565368e6756da9f8d31b80e00b1d8395",
+    "shared_mask_sha256": "fc9481bbb296fae9facc6890267a828266e5d0554493ee98d471e4cc7a454e5a",
+    "shared_mask_bins": 318,
+    "sample_count_per_family": 5,
+    "interventions": {
+      "NG": "temporal versus calibrated constant flat-policy reward",
+      "UG/FG": "temporal versus constant worker-hit reward with temporal DG credit fixed"
+    }
+  },
   "behavior_box_outlier_counts": {
     "dg_information": {
       "NG": 0,

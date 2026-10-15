@@ -66,6 +66,12 @@ FIGURE_OPTION_ASSETS = {
     "figures/Figure2_story_icons.png": DRAFT_DIR / "Figure2_story_icons.png",
     "FIGURE2_STORY_ICONS_NOTES.md": DRAFT_DIR / "Figure2_story_icons_README.md",
     "FIGURE2_STORY_ICONS_SOURCES.json": DRAFT_DIR / "Figure2_story_icons_manifest.json",
+    "data/Figure2D_shared_mask_pairs.csv": (
+        REPO_ROOT / "06_experiments/reward_credit/results/"
+        "cosyne27_c01_flat_policy_reward_20261015/figure2d_shared_mask_pairs.csv"),
+    "data/Figure2D_shared_mask_provenance.json": (
+        REPO_ROOT / "06_experiments/reward_credit/results/"
+        "cosyne27_c01_flat_policy_reward_20261015/figure2d_shared_mask_provenance.json"),
     "FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md": (
         DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails/README.md"),
     "data/Figure2_trajectory_fragments_manifest.json": (
