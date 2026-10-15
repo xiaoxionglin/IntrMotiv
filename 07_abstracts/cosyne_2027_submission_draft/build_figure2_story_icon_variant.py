@@ -22,6 +22,10 @@ from build_figure2_story import (
     selected_trajectories, sha256, story_overlay, terminal_rows,
 )
 from figure2_whisker_transform import DIFFERENCES, apply_tukey_whiskers
+from figure2_three_category_pull import (
+    PAIRS, PAIRS_SHA256, SHARED_MASK_SHA256,
+    add_ng_na_to_edge_panels, add_ng_pull_representation,
+)
 
 
 OUTPUT = HERE / "Figure2_story_icons.svg"
@@ -122,93 +126,6 @@ def spatial_icon_group(row: str, dg_red: str = RED) -> str:
     )
 
 
-def add_ng_na_to_edge_panels(svg: str) -> str:
-    """Give the two edge plots an explicit, data-free NG category.
-
-    The existing UG and FG SVG groups move horizontally within their original
-    axes. Their y coordinates, paths, points, boxes, and axis limits stay intact.
-    """
-    # Match the centers and box widths of the other three-category plots.
-    ng_x, ug_x, fg_x = 74.668966, 91.8, 108.931034
-    original_centers = (78.726318, 104.873690)
-    box_width_scale = 4.79669 / 7.32127
-    for row in ("push", "pull"):
-        prefix = f"{row}_graph_edges"
-        for index, (old_x, new_x) in enumerate(zip(original_centers, (ug_x, fg_x)), 1):
-            shift = new_x - old_x
-            # Tick text and markers retain their original size. The marker
-            # positions are remapped separately to reduce their horizontal jitter.
-            identifier = f"{prefix}_xtick_{index}"
-            svg, count = re.subn(
-                rf'(<g\s+id="{identifier}")',
-                rf'\1 transform="translate({shift:.6f},0)"',
-                svg, count=1,
-            )
-            if count != 1:
-                raise ValueError(f"Expected one editable edge group: {identifier}")
-            identifier = f"{prefix}_PathCollection_{index}"
-            next_identifier = (f"{prefix}_PathCollection_2" if index == 1
-                               else f"{prefix}_patch_5")
-            pattern = (rf'(<g\s+id="{identifier}">)(.*?)'
-                       rf'(?=<g\s+id="{next_identifier}")')
-            def remap_markers(match: re.Match[str]) -> str:
-                body, count = re.subn(
-                    r'(<use\b[^>]*\bx=")([0-9.]+)(")',
-                    lambda point: (point.group(1) +
-                                   f"{new_x + box_width_scale * (float(point.group(2)) - old_x):.6f}" +
-                                   point.group(3)),
-                    match.group(2),
-                )
-                if count != 5:
-                    raise ValueError(f"Expected five paired edge markers: {identifier}")
-                return match.group(1) + body
-            svg, count = re.subn(pattern, remap_markers, svg, count=1, flags=re.DOTALL)
-            if count != 1:
-                raise ValueError(f"Expected one edge marker group: {identifier}")
-            box_groups = (("patch_5", 7, 8, 9, 10, 15) if index == 1 else
-                          ("patch_6", 11, 12, 13, 14, 16))
-            for part in box_groups:
-                suffix = f"line2d_{part}" if isinstance(part, int) else part
-                identifier = f"{prefix}_{suffix}"
-                offset = new_x - box_width_scale * old_x
-                transform = f"matrix({box_width_scale:.8f},0,0,1,{offset:.8f},0)"
-                svg, count = re.subn(
-                    rf'(<g\s+id="{identifier}")',
-                    rf'\1 transform="{transform}"',
-                    svg, count=1,
-                )
-                if count != 1:
-                    raise ValueError(f"Expected one editable edge group: {identifier}")
-        tick = (
-            f'<g id="{prefix}_xtick_ng">'
-            f'<use xlink:href="#{prefix}_m42f7a95ef7" '
-            f'x="{ng_x:.6f}" y="106.56" '
-            'style="stroke:#000000;stroke-width:0.8"/>'
-            f'<text x="{ng_x:.6f}" y="115.28625" '
-            'style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text>'
-            '</g>'
-        )
-        svg, count = re.subn(
-            rf'(<g\s+id="{prefix}_matplotlib\.axis_1">)',
-            lambda match: match.group(1) + tick, svg, count=1)
-        if count != 1:
-            raise ValueError(f"Expected one x-axis group for {prefix}")
-        unavailable = (
-            f'<g id="{prefix}_ng_unavailable" aria-label="NG: not applicable; no graph edges">'
-            f'<rect x="{ng_x-7:.6f}" y="77.9" width="14" height="9.5" '
-            'fill="white" stroke="none"/>'
-            f'<text x="{ng_x:.6f}" y="85.2" '
-            'style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">'
-            'N/A</text></g>'
-        )
-        svg, count = re.subn(
-            rf'(?=<g\s+id="{prefix}_PathCollection_1"[^>]*>)',
-            unavailable, svg, count=1)
-        if count != 1:
-            raise ValueError(f"Expected one data group for {prefix}")
-    return svg
-
-
 def icon_overlay() -> str:
     parts = ['<g id="figure2-metric-icon-overlay" '
              'aria-label="Schematic metric icons; upper example has higher raw metric value">']
@@ -271,6 +188,8 @@ def build() -> None:
     svg = layout_base(extra_plot_shift=1, metric_extra_shifts=(0, 6, 28, 40))
     svg = add_ng_na_to_edge_panels(svg)
     svg, imported_box_summaries = apply_tukey_whiskers(svg)
+    svg, ng_box_summaries = add_ng_pull_representation(svg)
+    imported_box_summaries.extend(ng_box_summaries)
     old_name = 'sodipodi:docname="Figure2_story.svg"'
     if svg.count(old_name) != 1:
         raise ValueError("Could not identify the story canvas document name")
@@ -302,13 +221,24 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
+        "quantitative_panels": "D representation plots add five NG paired differences from the audited shared-mask source; existing UG/FG values and y scales remain unchanged. B–D statistical plot dimensions are retained; A trajectory tiles are 39 points square and display 65 complete fragments",
         "boxplot_whisker_rule": "lowest and highest observed values within Q1 - 1.5 IQR and Q3 + 1.5 IQR; all observations remain as dots",
         "imported_box_source": {
             "path": str(DIFFERENCES.relative_to(ROOT)),
             "sha256": sha256(DIFFERENCES),
         },
         "imported_box_summaries": imported_box_summaries,
+        "pull_shared_mask_source": {
+            "path": str(PAIRS.relative_to(ROOT)),
+            "sha256": PAIRS_SHA256,
+            "shared_mask_sha256": SHARED_MASK_SHA256,
+            "shared_mask_bins": 318,
+            "sample_count_per_family": 5,
+            "interventions": {
+                "NG": "temporal versus calibrated constant flat-policy reward",
+                "UG/FG": "temporal versus constant worker-hit reward with temporal DG credit fixed",
+            },
+        },
         "behavior_box_outlier_counts": {
             metric: {
                 family: sum(value < summary[0] or value > summary[4]

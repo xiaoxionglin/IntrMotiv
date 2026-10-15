@@ -1400,7 +1400,7 @@
              clip-path="url(#push_graph_edges_p5433cd0806)"
              style="fill:none;stroke:#7d858a;stroke-width:0.7;stroke-linecap:square"
              id="path431" /></g><g
-           id="push_graph_edges_matplotlib.axis_1"><g id="push_graph_edges_xtick_ng"><use xlink:href="#push_graph_edges_m42f7a95ef7" x="74.668966" y="106.56" style="stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
+           id="push_graph_edges_matplotlib.axis_1"><g id="push_graph_edges_xtick_ng"><path d="M 74.668966,106.56 V 108.56" style="fill:none;stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
              id="push_graph_edges_xtick_1" transform="translate(13.073682,0)"><g
                id="push_graph_edges_line2d_2"><defs
                  id="defs431"><path
@@ -1506,7 +1506,7 @@
                    x="31.865234"
                    y="-0.703125"
                    style="font-size:10px;font-family:Arial"
-                   id="tspan441">s</tspan></text></g></g></g><g id="push_graph_edges_ng_unavailable" aria-label="NG: not applicable; no graph edges"><rect x="67.668966" y="77.9" width="14" height="9.5" fill="white" stroke="none"/><text x="74.668966" y="85.2" style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">N/A</text></g><g
+                   id="tspan441">s</tspan></text></g></g></g><g id="push_graph_edges_ng_unavailable" aria-label="NG: no goal graph"><rect x="67.668966" y="77.9" width="14" height="9.5" fill="white" stroke="none"/><text x="74.668966" y="85.2" style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">N/A</text></g><g
            id="push_graph_edges_PathCollection_1"><defs
              id="defs441"><path
                id="push_graph_edges_C0_0_327ad88038"
@@ -1677,8 +1677,8 @@
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#7d858a;stroke-width:0.7;stroke-linecap:square"
              id="path466" /></g><g
-           id="pull_dg_information_matplotlib.axis_1"><g
-             id="pull_dg_information_xtick_1"><g
+           id="pull_dg_information_matplotlib.axis_1"><g id="pull_dg_information_xtick_ng"><path d="M 74.668966,106.56 V 108.56" style="fill:none;stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
+             id="pull_dg_information_xtick_1" transform="translate(13.073682,0)"><g
                id="pull_dg_information_line2d_2"><defs
                  id="defs466"><path
                    id="pull_dg_information_m42f7a95ef7"
@@ -1695,7 +1695,7 @@
                  x="78.726318"
                  y="115.28625"
                  id="text466">UG</text></g></g><g
-             id="pull_dg_information_xtick_2"><g
+             id="pull_dg_information_xtick_2" transform="translate(4.057344,0)"><g
                id="pull_dg_information_line2d_3"><g
                  id="g467"><use
                    xlink:href="#pull_dg_information_m42f7a95ef7"
@@ -1751,7 +1751,7 @@
                  style="font-size:9px;font-family:Arial;text-anchor:end"
                  x="63.959999"
                  y="66.617264"
-                 id="text470">0.08</text></g></g><g id="pull_dg_information_text_6" transform="translate(0,-8)"><g transform="rotate(-90,74.734375,31.515625)"><text x="-6" y="-0.703125" style="font-size:9px;font-family:Arial">Δ spatial info</text></g></g></g><g
+                 id="text470">0.08</text></g></g><g id="pull_dg_information_text_6" transform="translate(0,-8)"><g transform="rotate(-90,74.734375,31.515625)"><text x="-6" y="-0.703125" style="font-size:9px;font-family:Arial">Δ spatial info</text></g></g></g><g id="pull_dg_information_ng_points" aria-label="NG paired seed differences"><circle id="pull_dg_information_ng_seed_8" cx="73.469966" cy="84.068851" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_dg_information_ng_seed_17" cx="74.069466" cy="92.678963" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_dg_information_ng_seed_41" cx="74.668966" cy="84.368536" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_dg_information_ng_seed_99" cx="75.268466" cy="82.857271" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_dg_information_ng_seed_123" cx="75.867966" cy="81.866508" r="1.936492" fill="#0072B2" fill-opacity="0.7"/></g><g
            id="pull_dg_information_PathCollection_1"><defs
              id="defs480"><path
                id="pull_dg_information_C0_0_327ad88038"
@@ -1759,35 +1759,35 @@
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g481"><use
                xlink:href="#pull_dg_information_C0_0_327ad88038"
-               x="76.896004"
+               x="90.600830"
                y="85.552269"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use480" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g482"><use
                xlink:href="#pull_dg_information_C0_0_327ad88038"
-               x="77.811157"
+               x="91.200412"
                y="72.240883"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use481" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g483"><use
                xlink:href="#pull_dg_information_C0_0_327ad88038"
-               x="78.726318"
+               x="91.800000"
                y="77.811852"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use482" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g484"><use
                xlink:href="#pull_dg_information_C0_0_327ad88038"
-               x="79.641472"
+               x="92.399583"
                y="77.591347"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use483" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g485"><use
                xlink:href="#pull_dg_information_C0_0_327ad88038"
-               x="80.556633"
+               x="92.999171"
                y="103.82655"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use484" /></g></g><g
@@ -1798,35 +1798,35 @@
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g486"><use
                xlink:href="#pull_dg_information_C1_0_327ad88038"
-               x="103.04337"
+               x="107.731860"
                y="89.94017"
                style="fill:#009E73;fill-opacity:0.7"
                id="use485" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g487"><use
                xlink:href="#pull_dg_information_C1_0_327ad88038"
-               x="103.95853"
+               x="108.331447"
                y="80.063194"
                style="fill:#009E73;fill-opacity:0.7"
                id="use486" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g488"><use
                xlink:href="#pull_dg_information_C1_0_327ad88038"
-               x="104.87369"
+               x="108.931034"
                y="87.460655"
                style="fill:#009E73;fill-opacity:0.7"
                id="use487" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g489"><use
                xlink:href="#pull_dg_information_C1_0_327ad88038"
-               x="105.78884"
+               x="109.530615"
                y="84.363899"
                style="fill:#009E73;fill-opacity:0.7"
                id="use488" /></g><g
              clip-path="url(#pull_dg_information_p5433cd0806)"
              id="g490"><use
                xlink:href="#pull_dg_information_C1_0_327ad88038"
-               x="106.704"
+               x="110.130202"
                y="92.685814"
                style="fill:#009E73;fill-opacity:0.7"
                id="use489" /></g></g><g
@@ -1837,63 +1837,63 @@
            id="pull_dg_information_patch_4"><path
              d="m 66.96,106.56 h 49.68"
              style="fill:none;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:miter"
-             id="path491" /></g><g
-           id="pull_dg_information_patch_5"><path
+             id="path491" /></g><g id="pull_dg_information_ng_box" aria-label="NG Tukey box and whiskers"><path d="M 74.668966,84.368536 V 84.368536 M 74.668966,82.857271 V 81.866508 M 73.469793,84.368536 H 75.868139 M 73.469793,81.866508 H 75.868139" fill="none" stroke="#0072B2" stroke-width="1"/><rect x="72.270621" y="82.857271" width="4.796690" height="1.511264" fill="white" stroke="#0072B2" stroke-width="1"/><path d="M 72.270621,84.068851 H 77.067311" fill="none" stroke="#0072B2" stroke-width="1.2"/></g><g
+           id="pull_dg_information_patch_5" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,85.552269 h 7.321263 v -7.960922 h -7.321263 z"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:#ffffff;stroke:#D55E00;stroke-linejoin:miter"
              id="path492" /></g><g
-           id="pull_dg_information_line2d_7"><path
+           id="pull_dg_information_line2d_7" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 78.726316,85.552269 V 85.552270"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path493" /></g><g
-           id="pull_dg_information_line2d_8"><path
+           id="pull_dg_information_line2d_8" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 78.726316,77.591347 V 72.240886"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path494" /></g><g
-           id="pull_dg_information_line2d_9"><path
+           id="pull_dg_information_line2d_9" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 76.896000,85.552270 H 80.556632"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path495" /></g><g
-           id="pull_dg_information_line2d_10"><path
+           id="pull_dg_information_line2d_10" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 76.896,72.240886 h 3.660632"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path496" /></g><g
-           id="pull_dg_information_patch_6"><path
+           id="pull_dg_information_patch_6" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,89.94017 h 7.32127 v -5.576272 h -7.32127 z"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:#ffffff;stroke:#009E73;stroke-linejoin:miter"
              id="path497" /></g><g
-           id="pull_dg_information_line2d_11"><path
+           id="pull_dg_information_line2d_11" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 104.87368,89.94017 v 2.745646"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path498" /></g><g
-           id="pull_dg_information_line2d_12"><path
+           id="pull_dg_information_line2d_12" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 104.87368,84.363898 V 80.063191"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path499" /></g><g
-           id="pull_dg_information_line2d_13"><path
+           id="pull_dg_information_line2d_13" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.04337,92.685816 H 106.704"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path500" /></g><g
-           id="pull_dg_information_line2d_14"><path
+           id="pull_dg_information_line2d_14" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.04337,80.063191 H 106.704"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path501" /></g><g
-           id="pull_dg_information_line2d_15"><path
+           id="pull_dg_information_line2d_15" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,77.811853 h 7.321263"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-width:1.2"
              id="path502" /></g><g
-           id="pull_dg_information_line2d_16"><path
+           id="pull_dg_information_line2d_16" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,87.460656 h 7.32127"
              clip-path="url(#pull_dg_information_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-width:1.2"
@@ -1922,8 +1922,8 @@
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#7d858a;stroke-width:0.7;stroke-linecap:square"
              id="path505" /></g><g
-           id="pull_map_overlap_matplotlib.axis_1"><g
-             id="pull_map_overlap_xtick_1"><g
+           id="pull_map_overlap_matplotlib.axis_1"><g id="pull_map_overlap_xtick_ng"><path d="M 74.668966,106.56 V 108.56" style="fill:none;stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
+             id="pull_map_overlap_xtick_1" transform="translate(13.073682,0)"><g
                id="pull_map_overlap_line2d_2"><defs
                  id="defs505"><path
                    id="pull_map_overlap_m42f7a95ef7"
@@ -1940,7 +1940,7 @@
                  x="78.726318"
                  y="115.28625"
                  id="text505">UG</text></g></g><g
-             id="pull_map_overlap_xtick_2"><g
+             id="pull_map_overlap_xtick_2" transform="translate(4.057344,0)"><g
                id="pull_map_overlap_line2d_3"><g
                  id="g506"><use
                    xlink:href="#pull_map_overlap_m42f7a95ef7"
@@ -1996,7 +1996,7 @@
                  style="font-size:9px;font-family:Arial;text-anchor:end"
                  x="63.959999"
                  y="65.816635"
-                 id="text509">0.2</text></g></g><g id="pull_map_overlap_text_6" transform="translate(-4.5,0)"><g transform="rotate(-90,74.89,27.21)"><text x="-6" y="-0.703125" style="font-size:10px;font-family:Arial">Δ overlap</text></g></g></g><g
+                 id="text509">0.2</text></g></g><g id="pull_map_overlap_text_6" transform="translate(-4.5,0)"><g transform="rotate(-90,74.89,27.21)"><text x="-6" y="-0.703125" style="font-size:10px;font-family:Arial">Δ overlap</text></g></g></g><g id="pull_map_overlap_ng_points" aria-label="NG paired seed differences"><circle id="pull_map_overlap_ng_seed_8" cx="73.469966" cy="80.731323" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_map_overlap_ng_seed_17" cx="74.069466" cy="68.902888" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_map_overlap_ng_seed_41" cx="74.668966" cy="79.993966" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_map_overlap_ng_seed_99" cx="75.268466" cy="80.831204" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_map_overlap_ng_seed_123" cx="75.867966" cy="82.975449" r="1.936492" fill="#0072B2" fill-opacity="0.7"/></g><g
            id="pull_map_overlap_PathCollection_1"><defs
              id="defs516"><path
                id="pull_map_overlap_C0_0_327ad88038"
@@ -2004,35 +2004,35 @@
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g517"><use
                xlink:href="#pull_map_overlap_C0_0_327ad88038"
-               x="76.896004"
+               x="90.600830"
                y="86.648766"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use516" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g518"><use
                xlink:href="#pull_map_overlap_C0_0_327ad88038"
-               x="77.811157"
+               x="91.200412"
                y="84.113495"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use517" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g519"><use
                xlink:href="#pull_map_overlap_C0_0_327ad88038"
-               x="78.726318"
+               x="91.800000"
                y="82.092361"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use518" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g520"><use
                xlink:href="#pull_map_overlap_C0_0_327ad88038"
-               x="79.641472"
+               x="92.399583"
                y="90.215569"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use519" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g521"><use
                xlink:href="#pull_map_overlap_C0_0_327ad88038"
-               x="80.556633"
+               x="92.999171"
                y="61.773453"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use520" /></g></g><g
@@ -2043,35 +2043,35 @@
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g522"><use
                xlink:href="#pull_map_overlap_C1_0_327ad88038"
-               x="103.04337"
+               x="107.731860"
                y="89.242363"
                style="fill:#009E73;fill-opacity:0.7"
                id="use521" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g523"><use
                xlink:href="#pull_map_overlap_C1_0_327ad88038"
-               x="103.95853"
+               x="108.331447"
                y="86.437401"
                style="fill:#009E73;fill-opacity:0.7"
                id="use522" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g524"><use
                xlink:href="#pull_map_overlap_C1_0_327ad88038"
-               x="104.87369"
+               x="108.931034"
                y="72.389671"
                style="fill:#009E73;fill-opacity:0.7"
                id="use523" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g525"><use
                xlink:href="#pull_map_overlap_C1_0_327ad88038"
-               x="105.78884"
+               x="109.530615"
                y="75.333168"
                style="fill:#009E73;fill-opacity:0.7"
                id="use524" /></g><g
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              id="g526"><use
                xlink:href="#pull_map_overlap_C1_0_327ad88038"
-               x="106.704"
+               x="110.130202"
                y="81.924828"
                style="fill:#009E73;fill-opacity:0.7"
                id="use525" /></g></g><g
@@ -2082,63 +2082,63 @@
            id="pull_map_overlap_patch_4"><path
              d="m 66.96,106.56 h 49.68"
              style="fill:none;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:miter"
-             id="path527" /></g><g
-           id="pull_map_overlap_patch_5"><path
+             id="path527" /></g><g id="pull_map_overlap_ng_box" aria-label="NG Tukey box and whiskers"><path d="M 74.668966,80.831204 V 80.831204 M 74.668966,79.993966 V 79.993966 M 73.469793,80.831204 H 75.868139 M 73.469793,79.993966 H 75.868139" fill="none" stroke="#0072B2" stroke-width="1"/><rect x="72.270621" y="79.993966" width="4.796690" height="0.837238" fill="white" stroke="#0072B2" stroke-width="1"/><path d="M 72.270621,80.731323 H 77.067311" fill="none" stroke="#0072B2" stroke-width="1.2"/></g><g
+           id="pull_map_overlap_patch_5" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,86.648765 h 7.321263 v -4.556402 h -7.321263 z"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:#ffffff;stroke:#D55E00;stroke-linejoin:miter"
              id="path528" /></g><g
-           id="pull_map_overlap_line2d_7"><path
+           id="pull_map_overlap_line2d_7" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 78.726316,86.648765 v 3.566804"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path529" /></g><g
-           id="pull_map_overlap_line2d_8"><path
+           id="pull_map_overlap_line2d_8" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 78.726316,82.092363 V 82.092363"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path530" /></g><g
-           id="pull_map_overlap_line2d_9"><path
+           id="pull_map_overlap_line2d_9" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 76.896,90.215569 h 3.660632"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path531" /></g><g
-           id="pull_map_overlap_line2d_10"><path
+           id="pull_map_overlap_line2d_10" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 76.896000,82.092363 H 80.556632"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path532" /></g><g
-           id="pull_map_overlap_patch_6"><path
+           id="pull_map_overlap_patch_6" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,86.437403 h 7.32127 V 75.333166 h -7.32127 z"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:#ffffff;stroke:#009E73;stroke-linejoin:miter"
              id="path533" /></g><g
-           id="pull_map_overlap_line2d_11"><path
+           id="pull_map_overlap_line2d_11" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 104.87368,86.437403 v 2.804958"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path534" /></g><g
-           id="pull_map_overlap_line2d_12"><path
+           id="pull_map_overlap_line2d_12" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 104.87368,75.333166 V 72.389668"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path535" /></g><g
-           id="pull_map_overlap_line2d_13"><path
+           id="pull_map_overlap_line2d_13" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.04337,89.242361 H 106.704"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path536" /></g><g
-           id="pull_map_overlap_line2d_14"><path
+           id="pull_map_overlap_line2d_14" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.04337,72.389668 H 106.704"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path537" /></g><g
-           id="pull_map_overlap_line2d_15"><path
+           id="pull_map_overlap_line2d_15" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,84.113497 h 7.321263"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-width:1.2"
              id="path538" /></g><g
-           id="pull_map_overlap_line2d_16"><path
+           id="pull_map_overlap_line2d_16" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,81.924825 h 7.32127"
              clip-path="url(#pull_map_overlap_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-width:1.2"
@@ -2167,8 +2167,8 @@
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#7d858a;stroke-width:0.7;stroke-linecap:square"
              id="path541" /></g><g
-           id="pull_peak_coverage_matplotlib.axis_1"><g
-             id="pull_peak_coverage_xtick_1"><g
+           id="pull_peak_coverage_matplotlib.axis_1"><g id="pull_peak_coverage_xtick_ng"><path d="M 74.668966,106.56 V 108.56" style="fill:none;stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
+             id="pull_peak_coverage_xtick_1" transform="translate(13.073682,0)"><g
                id="pull_peak_coverage_line2d_2"><defs
                  id="defs541"><path
                    id="pull_peak_coverage_m42f7a95ef7"
@@ -2185,7 +2185,7 @@
                  x="78.726318"
                  y="115.28625"
                  id="text541">UG</text></g></g><g
-             id="pull_peak_coverage_xtick_2"><g
+             id="pull_peak_coverage_xtick_2" transform="translate(4.057344,0)"><g
                id="pull_peak_coverage_line2d_3"><g
                  id="g542"><use
                    xlink:href="#pull_peak_coverage_m42f7a95ef7"
@@ -2254,7 +2254,7 @@
                    x="10.737638"
                    y="-0.703125"
                    style="font-size:10px;font-family:Arial"
-                   id="tspan546"> coverage</tspan></text></g></g></g><g
+                   id="tspan546"> coverage</tspan></text></g></g></g><g id="pull_peak_coverage_ng_points" aria-label="NG paired seed differences"><circle id="pull_peak_coverage_ng_seed_8" cx="73.469966" cy="84.754677" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_peak_coverage_ng_seed_17" cx="74.069466" cy="89.189912" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_peak_coverage_ng_seed_41" cx="74.668966" cy="78.190103" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_peak_coverage_ng_seed_99" cx="75.268466" cy="93.777071" r="1.936492" fill="#0072B2" fill-opacity="0.7"/><circle id="pull_peak_coverage_ng_seed_123" cx="75.867966" cy="82.173955" r="1.936492" fill="#0072B2" fill-opacity="0.7"/></g><g
            id="pull_peak_coverage_PathCollection_1"><defs
              id="defs559"><path
                id="pull_peak_coverage_C0_0_327ad88038"
@@ -2262,35 +2262,35 @@
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g560"><use
                xlink:href="#pull_peak_coverage_C0_0_327ad88038"
-               x="76.896004"
+               x="90.600830"
                y="78.915398"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use559" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g561"><use
                xlink:href="#pull_peak_coverage_C0_0_327ad88038"
-               x="77.811157"
+               x="91.200412"
                y="73.300049"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use560" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g562"><use
                xlink:href="#pull_peak_coverage_C0_0_327ad88038"
-               x="78.726318"
+               x="91.800000"
                y="89.896935"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use561" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g563"><use
                xlink:href="#pull_peak_coverage_C0_0_327ad88038"
-               x="79.641472"
+               x="92.399583"
                y="80.740814"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use562" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g564"><use
                xlink:href="#pull_peak_coverage_C0_0_327ad88038"
-               x="80.556633"
+               x="92.999171"
                y="92.193314"
                style="fill:#D55E00;fill-opacity:0.7"
                id="use563" /></g></g><g
@@ -2301,35 +2301,35 @@
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g565"><use
                xlink:href="#pull_peak_coverage_C1_0_327ad88038"
-               x="103.04337"
+               x="107.731860"
                y="85.730156"
                style="fill:#009E73;fill-opacity:0.7"
                id="use564" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g566"><use
                xlink:href="#pull_peak_coverage_C1_0_327ad88038"
-               x="103.95853"
+               x="108.331447"
                y="90.462227"
                style="fill:#009E73;fill-opacity:0.7"
                id="use565" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g567"><use
                xlink:href="#pull_peak_coverage_C1_0_327ad88038"
-               x="104.87369"
+               x="108.931034"
                y="61.773453"
                style="fill:#009E73;fill-opacity:0.7"
                id="use566" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g568"><use
                xlink:href="#pull_peak_coverage_C1_0_327ad88038"
-               x="105.78884"
+               x="109.530615"
                y="87.693741"
                style="fill:#009E73;fill-opacity:0.7"
                id="use567" /></g><g
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              id="g569"><use
                xlink:href="#pull_peak_coverage_C1_0_327ad88038"
-               x="106.704"
+               x="110.130202"
                y="85.89035"
                style="fill:#009E73;fill-opacity:0.7"
                id="use568" /></g></g><g
@@ -2340,63 +2340,63 @@
            id="pull_peak_coverage_patch_4"><path
              d="m 66.96,106.56 h 49.68"
              style="fill:none;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:miter"
-             id="path570" /></g><g
-           id="pull_peak_coverage_patch_5"><path
+             id="path570" /></g><g id="pull_peak_coverage_ng_box" aria-label="NG Tukey box and whiskers"><path d="M 74.668966,89.189912 V 93.777071 M 74.668966,82.173955 V 78.190103 M 73.469793,93.777071 H 75.868139 M 73.469793,78.190103 H 75.868139" fill="none" stroke="#0072B2" stroke-width="1"/><rect x="72.270621" y="82.173955" width="4.796690" height="7.015957" fill="white" stroke="#0072B2" stroke-width="1"/><path d="M 72.270621,84.754677 H 77.067311" fill="none" stroke="#0072B2" stroke-width="1.2"/></g><g
+           id="pull_peak_coverage_patch_5" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,89.896936 h 7.321263 V 78.915394 h -7.321263 z"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:#ffffff;stroke:#D55E00;stroke-linejoin:miter"
              id="path571" /></g><g
-           id="pull_peak_coverage_line2d_7"><path
+           id="pull_peak_coverage_line2d_7" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 78.726316,89.896936 V 92.19331"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path572" /></g><g
-           id="pull_peak_coverage_line2d_8"><path
+           id="pull_peak_coverage_line2d_8" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="M 78.726316,78.915394 V 73.300051"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path573" /></g><g
-           id="pull_peak_coverage_line2d_9"><path
+           id="pull_peak_coverage_line2d_9" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 76.896,92.19331 h 3.660632"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path574" /></g><g
-           id="pull_peak_coverage_line2d_10"><path
+           id="pull_peak_coverage_line2d_10" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 76.896,73.300051 h 3.660632"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-linecap:square"
              id="path575" /></g><g
-           id="pull_peak_coverage_patch_6"><path
+           id="pull_peak_coverage_patch_6" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,87.693744 h 7.32127 v -1.963585 h -7.32127 z"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:#ffffff;stroke:#009E73;stroke-linejoin:miter"
              id="path576" /></g><g
-           id="pull_peak_coverage_line2d_11"><path
+           id="pull_peak_coverage_line2d_11" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 104.87368,87.693744 v 2.768483"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path577" /></g><g
-           id="pull_peak_coverage_line2d_12"><path
+           id="pull_peak_coverage_line2d_12" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 104.873680,85.730159 V 85.730159"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path578" /></g><g
-           id="pull_peak_coverage_line2d_13"><path
+           id="pull_peak_coverage_line2d_13" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.04337,90.462227 H 106.704"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path579" /></g><g
-           id="pull_peak_coverage_line2d_14"><path
+           id="pull_peak_coverage_line2d_14" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="M 103.043370,85.730159 H 106.704000"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-linecap:square"
              id="path580" /></g><g
-           id="pull_peak_coverage_line2d_15"><path
+           id="pull_peak_coverage_line2d_15" transform="matrix(0.65517185,0,0,1,40.22073270,0)"><path
              d="m 75.065684,80.740818 h 7.321263"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#D55E00;stroke-width:1.2"
              id="path581" /></g><g
-           id="pull_peak_coverage_line2d_16"><path
+           id="pull_peak_coverage_line2d_16" transform="matrix(0.65517185,0,0,1,40.22074465,0)"><path
              d="m 101.21305,85.890354 h 7.32127"
              clip-path="url(#pull_peak_coverage_p5433cd0806)"
              style="fill:none;stroke:#009E73;stroke-width:1.2"
@@ -2425,7 +2425,7 @@
              clip-path="url(#pull_graph_edges_p5433cd0806)"
              style="fill:none;stroke:#7d858a;stroke-width:0.7;stroke-linecap:square"
              id="path665" /></g><g
-           id="pull_graph_edges_matplotlib.axis_1"><g id="pull_graph_edges_xtick_ng"><use xlink:href="#pull_graph_edges_m42f7a95ef7" x="74.668966" y="106.56" style="stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
+           id="pull_graph_edges_matplotlib.axis_1"><g id="pull_graph_edges_xtick_ng"><path d="M 74.668966,106.56 V 108.56" style="fill:none;stroke:#000000;stroke-width:0.8"/><text x="74.668966" y="115.28625" style="font-size:9px;font-family:Arial;text-anchor:middle">NG</text></g><g
              id="pull_graph_edges_xtick_1" transform="translate(13.073682,0)"><g
                id="pull_graph_edges_line2d_2"><defs
                  id="defs665"><path
@@ -2531,7 +2531,7 @@
                    x="31.865234"
                    y="-0.703125"
                    style="font-size:10px;font-family:Arial"
-                   id="tspan675">s</tspan></text></g></g></g><g id="pull_graph_edges_ng_unavailable" aria-label="NG: not applicable; no graph edges"><rect x="67.668966" y="77.9" width="14" height="9.5" fill="white" stroke="none"/><text x="74.668966" y="85.2" style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">N/A</text></g><g
+                   id="tspan675">s</tspan></text></g></g></g><g id="pull_graph_edges_ng_unavailable" aria-label="NG: no goal graph"><rect x="67.668966" y="77.9" width="14" height="9.5" fill="white" stroke="none"/><text x="74.668966" y="85.2" style="font-size:7px;font-family:Arial;text-anchor:middle;fill:#68757d">N/A</text></g><g
            id="pull_graph_edges_PathCollection_1"><defs
              id="defs675"><path
                id="pull_graph_edges_C0_0_327ad88038"
