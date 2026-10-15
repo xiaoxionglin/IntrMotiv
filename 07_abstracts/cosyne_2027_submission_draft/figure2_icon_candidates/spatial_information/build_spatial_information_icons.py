@@ -1,4 +1,4 @@
-"""Render three data-free, print-size DG spatial-information icon candidates.
+"""Render data-free, print-size DG spatial-information icon candidates.
 
 Each 10 × 20 mm icon compares one DG unit under equal spatial occupancy and
 equal total activation. The upper example has greater location specificity.
@@ -62,7 +62,7 @@ def common_elements(dg_red: str) -> str:
     return "".join(parts)
 
 
-def rate_map(dg_red: str) -> str:
+def rate_map(dg_red: str, *, id_prefix: str = "") -> str:
     """One localized high-rate patch versus a spatially uniform low rate.
 
     Four fully colored cells above and sixteen quarter-opacity cells below
@@ -90,7 +90,7 @@ def rate_map(dg_red: str) -> str:
     return "".join(parts)
 
 
-def dg_events(dg_red: str) -> str:
+def dg_events(dg_red: str, *, id_prefix: str = "") -> str:
     """Nine events from the same unit in one bin versus across nine bins."""
     parts = [common_elements(dg_red)]
     for y in FRAME_TOPS:
@@ -115,7 +115,7 @@ def dg_events(dg_red: str) -> str:
     return "".join(parts)
 
 
-def position_profile(dg_red: str) -> str:
+def position_profile(dg_red: str, *, id_prefix: str = "") -> str:
     """Four position-bin response bars with equal sum in both examples."""
     parts = [common_elements(dg_red)]
     profiles = ((0.05, 0.05, 0.05, 0.85), (0.25, 0.25, 0.25, 0.25))
@@ -138,19 +138,79 @@ def position_profile(dg_red: str) -> str:
     return "".join(parts)
 
 
+def occupancy_and_dg_map(dg_red: str, *, id_prefix: str = "field") -> str:
+    """Pair occupancy and one DG rate map using the overlap icon's card style.
+
+    The left visit card is identical in both rows. Only the right DG map
+    changes from a localized field to a uniform rate. The bottom opacity
+    approximates the top gradient's spatial mean on the same square support.
+    """
+    gradient_id = f"{id_prefix}-localized-dg"
+    parts = [
+        '<defs>',
+        f'<radialGradient id="{gradient_id}">',
+        f'<stop offset="0" stop-color="{dg_red}" stop-opacity="0.78"/>',
+        f'<stop offset="0.58" stop-color="{dg_red}" stop-opacity="0.26"/>',
+        f'<stop offset="1" stop-color="{dg_red}" stop-opacity="0"/>',
+        '</radialGradient></defs>',
+    ]
+    card_size = 9.2
+    for row, y in enumerate((4.5, 36.5)):
+        # Nine equal occupancy marks keep the spatial support visibly fixed.
+        parts.append(
+            f'<rect x="4.1" y="{y}" width="{card_size}" '
+            f'height="{card_size}" fill="white" '
+            f'stroke="{MUTED}" stroke-width="0.55"/>'
+        )
+        for r in range(3):
+            for c in range(3):
+                parts.append(
+                    f'<circle cx="{5.65 + c * 3.05:.2f}" '
+                    f'cy="{y + 1.55 + r * 3.05:.2f}" r="0.62" '
+                    f'fill="{GRID}"/>'
+                )
+        parts.append(
+            f'<rect x="15.1" y="{y}" width="{card_size}" '
+            f'height="{card_size}" fill="white" '
+            f'stroke="{MUTED}" stroke-width="0.55"/>'
+        )
+        if row == 0:
+            parts.append(
+                f'<circle cx="19.7" cy="{y + 4.6:.2f}" r="4.0" '
+                f'fill="url(#{gradient_id})"/>'
+            )
+        else:
+            parts.append(
+                f'<rect x="15.1" y="{y}" width="{card_size}" '
+                f'height="{card_size}" fill="{dg_red}" fill-opacity="0.17"/>'
+            )
+        parts.extend((
+            f'<text x="8.7" y="{y + 16.7:.2f}" text-anchor="middle" '
+            f'font-family="DejaVu Sans" font-size="5.7" fill="{INK}">occ</text>',
+            f'<text x="19.7" y="{y + 16.7:.2f}" text-anchor="middle" '
+            f'font-family="DejaVu Sans" font-size="6.5" fill="{INK}">DG</text>',
+        ))
+    parts.append(
+        f'<path d="M 14.17,37.3 V 25.0 M 11.8,27.5 L 14.17,25.0 '
+        f'L 16.54,27.5" fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+    )
+    return "".join(parts)
+
+
 CANDIDATES = (
     ("01_rate_map", "Rate map", rate_map),
     ("02_dg_events", "DG events", dg_events),
     ("03_position_profile", "Position profile", position_profile),
+    ("04_occupancy_and_dg_map", "Occupancy + DG", occupancy_and_dg_map),
 )
 
 
 def comparison_sheet(dg_red: str) -> str:
     """Show enlarged vectors and true-size copies of every candidate."""
-    width_pt = 120 * 72 / 25.4
+    width_pt = 160 * 72 / 25.4
     height_pt = 76 * 72 / 25.4
     parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="120mm" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="160mm" '
         f'height="76mm" viewBox="0 0 {width_pt:.4f} {height_pt:.4f}">',
         '<rect width="100%" height="100%" fill="white"/>',
         f'<text x="{width_pt / 2:.2f}" y="15" text-anchor="middle" '
@@ -164,14 +224,15 @@ def comparison_sheet(dg_red: str) -> str:
     ]
     for index, (_, label, factory) in enumerate(CANDIDATES):
         center_x = 57.0 + index * 113.0
-        body = factory(dg_red)
+        enlarged_body = factory(dg_red, id_prefix=f"{index}-enlarged")
+        actual_body = factory(dg_red, id_prefix=f"{index}-actual")
         parts.extend((
             f'<text x="{center_x:.2f}" y="46" text-anchor="middle" '
             f'font-family="Arial" font-size="12" fill="{INK}">{label}</text>',
             f'<g transform="translate({center_x - PAGE_WIDTH * 0.7:.2f},52) '
-            f'scale(1.4)">{body}</g>',
+            f'scale(1.4)">{enlarged_body}</g>',
             f'<g transform="translate({center_x - PAGE_WIDTH / 2:.2f},139)">'
-            f'{body}</g>',
+            f'{actual_body}</g>',
             f'<text x="{center_x:.2f}" y="209" text-anchor="middle" '
             f'font-family="Arial" font-size="12" fill="{MUTED}">10 × 20 mm</text>',
         ))
@@ -182,7 +243,8 @@ def comparison_sheet(dg_red: str) -> str:
 def build() -> None:
     selected_palette, dg_red = selected_dg_red()
     for stem, _, factory in CANDIDATES:
-        write_and_export(HERE / f"{stem}.svg", svg_document(factory(dg_red), 20))
+        write_and_export(HERE / f"{stem}.svg", svg_document(
+            factory(dg_red, id_prefix=stem), 20))
     write_and_export(HERE / "comparison.svg", comparison_sheet(dg_red), png_width=2200)
     manifest = {
         "schema": "intrmotiv/figure2-spatial-information-icons/v1",
