@@ -2572,6 +2572,14 @@ For each finding, record:
   PDF/SVG pairs and compiles with its own `main.tex`; both rendered pages match
   the source draft. The dated full backup remains historical and is not
   presented as current figure content.
+- **15 October active-path follow-up:** The manuscript now includes
+  `figures/Figure1.pdf` and `figures/Figure2.pdf`, while the compact builder
+  still indexed only the standalone `Figure1.pdf` and `Figure2.pdf` paths.
+  Its reference check correctly stopped packaging. The builder now includes
+  the active figure paths and documents them in its asset index; the selected
+  Figure 2 PDF was copied to the active manuscript path. Acceptance: both
+  ZIPs contain byte-identical active Figure 2 and standalone Figure 2 PDFs,
+  and the reference check passes with the current `main.tex`.
 
 ### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
 

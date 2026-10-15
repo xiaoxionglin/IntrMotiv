@@ -221,11 +221,16 @@ def build_compact() -> None:
         assets.update(CURRENT_STANDALONE_ASSETS)
         assets.update({f"figures/{name}": DRAFT_DIR / "figures" / name
                        for name in pdf_names + svg_names})
+        assets.update({f"figures/Figure{number}.pdf":
+                       DRAFT_DIR / "figures" / f"Figure{number}.pdf"
+                       for number in (1, 2)})
         assets.update(LAYOUT_TRIAL_ASSETS)
         index = temp_dir / "FIGURE_OPTIONS.md"
         index.write_text("# Figures in this compact Overleaf project\n\n"
-                         "`main.tex` uses `Figure1.pdf` and `Figure2.pdf` at the project root; "
-                         "each has a matching SVG source. Earlier composite PDFs remain "
+                         "`main.tex` uses `figures/Figure1.pdf` and "
+                         "`figures/Figure2.pdf`. Selected standalone PDFs and their "
+                         "matching SVG sources also remain at the project root. "
+                         "Earlier composite PDFs remain "
                          "available as options:\n\n"
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
                          + "\n\nThe compact editable Figure 2 layout trial is at "
@@ -321,8 +326,9 @@ def build_full() -> None:
         index_lines = [
             "# Figure options for the COSYNE draft",
             "",
-            "`main.tex` uses `Figure1.pdf` and `Figure2.pdf` at the project root,",
-            "each with a matching SVG. Earlier PDFs in `figures/` are options.",
+            "`main.tex` uses `figures/Figure1.pdf` and `figures/Figure2.pdf`.",
+            "Selected standalone PDFs and matching SVGs are also at the project root.",
+            "Earlier PDFs in `figures/` are options.",
             "Additional options are in `figures/candidates/`, organized",
             "by the source analysis folder. Every candidate PDF has a matching SVG;",
             "the PNG-only files are place-field, graph, and trajectory examples.",
