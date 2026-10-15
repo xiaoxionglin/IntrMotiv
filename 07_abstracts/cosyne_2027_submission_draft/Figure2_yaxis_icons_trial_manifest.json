@@ -1,12 +1,21 @@
 {
   "source": "Figure2.svg",
   "source_sha256": "c4b7dd75226ddfe1cc1e9d1523ad7271ac45f43c6b6a3032c046bbc27819e13a",
-  "output_svg_sha256": "fef7aaf4d83a840368c5928faefcf886cbac4f4fa45242544314c8154937a14f",
+  "output_svg_sha256": "f0f7efce3f77096cf2328c6d7d496888e365fec115b9221b29c3f4c33d5e974e",
   "selected_figure_unchanged": true,
   "canvas_width_pt": 540,
-  "arrangement": "panel B-D icons between their own y labels and numeric tick labels; panel A unchanged",
+  "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
   "source_data_unchanged": true,
   "placements": [
+    {
+      "panel": "A",
+      "metric": "path_efficiency",
+      "icon_id": "exploration-path-efficiency-icon",
+      "icon_width_pt": 23.85,
+      "plot_shift_pt": 24.0,
+      "target_icon_left_pt": 13.007,
+      "target_label_right_pt": 11.007
+    },
     {
       "panel": "B",
       "metric": "dg_information",
@@ -20,8 +29,8 @@
       "panel": "B",
       "metric": "dg_reliability",
       "icon_id": "behavior-reliability-icon",
-      "icon_width_pt": 18.0,
-      "plot_shift_pt": 8.0,
+      "icon_width_pt": 20.750025,
+      "plot_shift_pt": 10.750025,
       "target_icon_left_pt": 419.857,
       "target_label_right_pt": 417.857
     },
@@ -38,8 +47,8 @@
       "panel": "C",
       "metric": "map_overlap",
       "icon_id": "push-overlap-icon",
-      "icon_width_pt": 18.0,
-      "plot_shift_pt": 16.0,
+      "icon_width_pt": 27.464025,
+      "plot_shift_pt": 25.464025,
       "target_icon_left_pt": 199.369,
       "target_label_right_pt": 197.369
     },
@@ -48,18 +57,18 @@
       "metric": "peak_coverage",
       "icon_id": "push-coverage-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 10.0,
-      "target_icon_left_pt": 319.31,
-      "target_label_right_pt": 317.31
+      "plot_shift_pt": 19.464025,
+      "target_icon_left_pt": 328.774,
+      "target_label_right_pt": 326.774
     },
     {
       "panel": "C",
       "metric": "graph_edges",
       "icon_id": "push-edges-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 10.0,
-      "target_icon_left_pt": 434.299,
-      "target_label_right_pt": 432.299
+      "plot_shift_pt": 19.464025,
+      "target_icon_left_pt": 443.763,
+      "target_label_right_pt": 441.763
     },
     {
       "panel": "D",
@@ -74,8 +83,8 @@
       "panel": "D",
       "metric": "map_overlap",
       "icon_id": "pull-overlap-icon",
-      "icon_width_pt": 18.0,
-      "plot_shift_pt": 16.0,
+      "icon_width_pt": 27.464025,
+      "plot_shift_pt": 25.464025,
       "target_icon_left_pt": 200.72,
       "target_label_right_pt": 198.72
     },
@@ -84,18 +93,18 @@
       "metric": "peak_coverage",
       "icon_id": "pull-coverage-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 10.0,
-      "target_icon_left_pt": 317.139,
-      "target_label_right_pt": 315.139
+      "plot_shift_pt": 19.464025,
+      "target_icon_left_pt": 326.603,
+      "target_label_right_pt": 324.603
     },
     {
       "panel": "D",
       "metric": "graph_edges",
       "icon_id": "pull-edges-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 10.0,
-      "target_icon_left_pt": 433.609,
-      "target_label_right_pt": 431.609
+      "plot_shift_pt": 19.464025,
+      "target_icon_left_pt": 443.074,
+      "target_label_right_pt": 441.074
     }
   ]
 }

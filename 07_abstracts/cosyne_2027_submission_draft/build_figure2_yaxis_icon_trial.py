@@ -1,4 +1,4 @@
-"""Place Figure 2B–D metric icons inside their own y-axis gutters.
+"""Place Figure 2A–D metric icons inside their own y-axis gutters.
 
 This is an exploratory layout. It starts from the selected Figure2.svg and
 changes only horizontal plot/label/icon positions and icon scale. All plotted
@@ -25,13 +25,13 @@ SVG_PT_PER_INKSCAPE_PX = 540 / (7.5 * 96)
 LABEL_ICON_GAP = 2.0
 ICON_TICK_GAP = 2.0
 
-# The first and last columns move equally; overlap needs 6 pt more room for
-# its two-map icon. These shifts retain the original 7.5-inch canvas and data.
+# The two-map icon needs more room than the smaller trial icon. Shift that
+# column and the columns after it equally, preserving their mutual spacing.
 PLOT_SHIFTS = {"dg_information": 10.0, "map_overlap": 16.0,
                "peak_coverage": 10.0, "graph_edges": 10.0}
+PATH_EFFICIENCY_SHIFT = 24.0
 BEHAVIOR_SHIFT = 8.0
-ICON_WIDTHS = {"spatial": 12.0, "reliability": 18.0,
-               "overlap": 18.0, "coverage": 14.0, "edges": 14.0}
+ICON_WIDTHS = {"spatial": 12.0, "coverage": 14.0, "edges": 14.0}
 
 
 def query_boxes(path: Path) -> dict[str, tuple[float, float, float, float]]:
@@ -123,10 +123,20 @@ def build() -> None:
     root = ET.fromstring(svg)
     boxes = query_boxes(SOURCE)
     records = []
+    overlap_extra = boxes["push-overlap-icon"][2] - 18.0
+    reliability_extra = boxes["behavior-reliability-icon"][2] - 18.0
+    plot_shifts = {
+        metric: shift + (overlap_extra if metric != "dg_information" else 0.0)
+        for metric, shift in PLOT_SHIFTS.items()
+    }
 
     specs = [
         # panel, metric, icon, plot group, y label, numeric tick labels,
         # plot shift, target icon artwork width in SVG points.
+        ("A", "path_efficiency", "exploration-path-efficiency-icon",
+         "panel-a-path-efficiency", "panel-a-path-efficiency-ylabel",
+         [f"panel-a-path-efficiency-ytick-{i}" for i in range(3)],
+         PATH_EFFICIENCY_SHIFT, boxes["exploration-path-efficiency-icon"][2]),
         ("B", "dg_information", "behavior-spatial-information-icon",
          "behavior-dg_information", "behavior-dg_information-ylabel",
          [f"behavior-dg_information-ytick-{i}" for i in range(3)],
@@ -134,7 +144,8 @@ def build() -> None:
         ("B", "dg_reliability", "behavior-reliability-icon",
          "behavior-dg_reliability", "behavior-dg_reliability-ylabel",
          [f"behavior-dg_reliability-ytick-{i}" for i in range(3)],
-         BEHAVIOR_SHIFT, ICON_WIDTHS["reliability"]),
+         BEHAVIOR_SHIFT + reliability_extra,
+         boxes["behavior-reliability-icon"][2]),
     ]
     for row in ("push", "pull"):
         panel = "C" if row == "push" else "D"
@@ -149,7 +160,9 @@ def build() -> None:
             specs.append((
                 panel, metric, f"{row}-{icon_kind if icon_kind != 'spatial' else 'spatial-information'}-icon",
                 f"component_{prefix}", f"{prefix}_text_{label_index}",
-                tick_text_ids(root, prefix), PLOT_SHIFTS[metric], ICON_WIDTHS[icon_kind],
+                tick_text_ids(root, prefix), plot_shifts[metric],
+                boxes[f"{row}-overlap-icon"][2] if icon_kind == "overlap"
+                else ICON_WIDTHS[icon_kind],
             ))
 
     for panel, metric, icon_id, plot_id, label_id, tick_ids, plot_shift, icon_width in specs:
@@ -160,14 +173,18 @@ def build() -> None:
             label_shift_with_plot = plot_shift
         else:
             svg = move_element(svg, plot_id, plot_shift)
-            axis_center_y = 30 + 47.52 / 2
-            label_shift_with_plot = 0.0
+            if panel == "A":
+                axis_center_y = (36 + 69) / 2
+                label_shift_with_plot = plot_shift
+            else:
+                axis_center_y = 30 + 47.52 / 2
+                label_shift_with_plot = 0.0
         tick_left = min(boxes[tick_id][0] for tick_id in tick_ids) + plot_shift
         icon_left = tick_left - ICON_TICK_GAP - icon_width
         label_right = boxes[label_id][0] + boxes[label_id][2] + label_shift_with_plot
         target_label_right = icon_left - LABEL_ICON_GAP
         svg = move_element(svg, label_id, target_label_right - label_right,
-                           tag="text" if panel == "B" else "g")
+                           tag="text" if panel in ("A", "B") else "g")
         svg = place_icon(svg, icon_id, boxes[icon_id], icon_left,
                          axis_center_y, icon_width)
         records.append({"panel": panel, "metric": metric, "icon_id": icon_id,
@@ -191,7 +208,7 @@ def build() -> None:
         "output_svg_sha256": hashlib.sha256(OUTPUT.read_bytes()).hexdigest(),
         "selected_figure_unchanged": True,
         "canvas_width_pt": 540,
-        "arrangement": "panel B-D icons between their own y labels and numeric tick labels; panel A unchanged",
+        "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
         "source_data_unchanged": True,
         "placements": records,
     }, indent=2) + "\n")
