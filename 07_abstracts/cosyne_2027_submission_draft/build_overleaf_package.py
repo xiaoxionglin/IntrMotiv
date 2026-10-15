@@ -1,7 +1,7 @@
 """Build the current Overleaf project or its expanded figure library.
 
-The default archive contains the current figure sources, PDFs, and the active
-Figure 2 layout trial. ``--full`` writes a separate archive with candidate
+The default archive contains the current figure sources, PDFs, and layout
+notes. ``--full`` writes a separate archive with candidate
 COSYNE plots; it never replaces the current upload package.
 """
 
@@ -25,7 +25,10 @@ CURRENT_STANDALONE_ASSETS = {
     for number in (1, 2)
     for extension in ("pdf", "svg")
 }
-LAYOUT_TRIAL_ASSETS = {
+CURRENT_STANDALONE_ASSETS["Figure2.png"] = DRAFT_DIR / "Figure2.png"
+FIGURE_OPTION_ASSETS = {
+    "FIGURE2_SELECTED_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_layout_README.md",
+    "FIGURE2_SELECTED_LAYOUT_PLACEMENTS.json": DRAFT_DIR / "Figure2_layout_manifest.json",
     "figures/Figure2_fiddle.svg": DRAFT_DIR / "Figure2_fiddle.svg",
     "figures/Figure2_tetris.svg": DRAFT_DIR / "Figure2_tetris.svg",
     "figures/Figure2_tetris.pdf": DRAFT_DIR / "Figure2_tetris.pdf",
@@ -63,11 +66,6 @@ LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_story_icons.png": DRAFT_DIR / "Figure2_story_icons.png",
     "FIGURE2_STORY_ICONS_NOTES.md": DRAFT_DIR / "Figure2_story_icons_README.md",
     "FIGURE2_STORY_ICONS_SOURCES.json": DRAFT_DIR / "Figure2_story_icons_manifest.json",
-    "figures/Figure2_yaxis_icons_trial.svg": DRAFT_DIR / "Figure2_yaxis_icons_trial.svg",
-    "figures/Figure2_yaxis_icons_trial.pdf": DRAFT_DIR / "Figure2_yaxis_icons_trial.pdf",
-    "figures/Figure2_yaxis_icons_trial.png": DRAFT_DIR / "Figure2_yaxis_icons_trial.png",
-    "FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md": DRAFT_DIR / "Figure2_yaxis_icons_trial_README.md",
-    "FIGURE2_YAXIS_ICONS_TRIAL_PLACEMENTS.json": DRAFT_DIR / "Figure2_yaxis_icons_trial_manifest.json",
     "FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md": (
         DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails/README.md"),
     "data/Figure2_trajectory_fragments_manifest.json": (
@@ -151,26 +149,26 @@ for metric in ("path_efficiency", "visited_cell_fraction",
                "stationary_step_fraction", "mean_physical_step_distance"):
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_behavior_{metric}.{extension}"
-        LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+        FIGURE_OPTION_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
 for name in ("path_efficiency", "overlap", "coverage", "edges", "reliability"):
     for extension in ("svg", "pdf", "png"):
         filename = f"Figure2_metric_icon_{name}.{extension}"
-        LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+        FIGURE_OPTION_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
 for extension in ("svg", "pdf", "png"):
-    LAYOUT_TRIAL_ASSETS[f"figures/Figure2_spatial_information_icon.{extension}"] = (
+    FIGURE_OPTION_ASSETS[f"figures/Figure2_spatial_information_icon.{extension}"] = (
         DRAFT_DIR / "figure2_icon_candidates/spatial_information/"
         "perlin_strength_variants" / f"07_very_high.{extension}")
 for extension in ("svg", "pdf", "png"):
     filename = f"Figure2_metric_icons_preview.{extension}"
-    LAYOUT_TRIAL_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
+    FIGURE_OPTION_ASSETS[f"figures/{filename}"] = DRAFT_DIR / filename
 for family in ("NG", "UG", "FG"):
     for extension in ("svg", "pdf", "png"):
         filename = f"{family}_65_fragments_tile.{extension}"
-        LAYOUT_TRIAL_ASSETS[f"figures/trajectory_examples/{filename}"] = (
+        FIGURE_OPTION_ASSETS[f"figures/trajectory_examples/{filename}"] = (
             DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails" / filename)
 for extension in ("svg", "pdf", "png"):
     filename = f"65_fragments.{extension}"
-    LAYOUT_TRIAL_ASSETS[f"figures/trajectory_examples/{filename}"] = (
+    FIGURE_OPTION_ASSETS[f"figures/trajectory_examples/{filename}"] = (
         DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails" / filename)
 
 CURRENT_SVG_SOURCES = {
@@ -217,10 +215,28 @@ def check_included_figures(assets: dict[str, Path]) -> None:
     missing = included.difference(assets)
     if missing:
         raise RuntimeError(f"main.tex references missing files: {sorted(missing)}")
+    selected_notes = {
+        "FIGURE2_SELECTED_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_layout_README.md",
+        "FIGURE2_SELECTED_LAYOUT_PLACEMENTS.json": DRAFT_DIR / "Figure2_layout_manifest.json",
+    }
+    for name, expected_path in selected_notes.items():
+        if assets.get(name) != expected_path:
+            raise RuntimeError(f"Selected Figure 2 asset was replaced: {name}")
+
+
+def sync_manuscript_figures() -> None:
+    """Keep the paths used by local main.tex identical to selected PDFs."""
+    for number in (1, 2):
+        source = DRAFT_DIR / f"Figure{number}.pdf"
+        destination = DRAFT_DIR / "figures" / source.name
+        content = source.read_bytes()
+        if not destination.exists() or destination.read_bytes() != content:
+            destination.write_bytes(content)
 
 
 def build_compact() -> None:
-    """Package current figures, active layout trial, and submission notes."""
+    """Package current figures, earlier layout options, and submission notes."""
+    sync_manuscript_figures()
     pdf_names = ("architecture.pdf", "results_sections.pdf")
     svg_names = ("architecture_uploaded.svg", "results_sections.svg")
     with tempfile.TemporaryDirectory(prefix=".cosyne_compact_", dir=DRAFT_DIR) as temp_name:
@@ -235,7 +251,7 @@ def build_compact() -> None:
         assets.update({f"figures/Figure{number}.pdf":
                        DRAFT_DIR / "figures" / f"Figure{number}.pdf"
                        for number in (1, 2)})
-        assets.update(LAYOUT_TRIAL_ASSETS)
+        assets.update(FIGURE_OPTION_ASSETS)
         index = temp_dir / "FIGURE_OPTIONS.md"
         index.write_text("# Figures in this compact Overleaf project\n\n"
                          "`main.tex` uses `figures/Figure1.pdf` and "
@@ -257,9 +273,9 @@ def build_compact() -> None:
                          "See `FIGURE2_STORY_NOTES.md` and "
                          "`FIGURE2_STORY_PEAKS_NOTES.md`. An E-free layout with "
                          "metric icons is `figures/Figure2_story_icons.pdf` and "
-                         "`FIGURE2_STORY_ICONS_NOTES.md`. A y-axis-gutter icon "
-                         "trial is `figures/Figure2_yaxis_icons_trial.pdf` with "
-                         "`FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md`. Its three 65-fragment "
+                         "`FIGURE2_STORY_ICONS_NOTES.md`. The selected y-axis-gutter "
+                         "layout is `figures/Figure2.pdf`, documented in "
+                         "`FIGURE2_SELECTED_LAYOUT_NOTES.md`. Its three 65-fragment "
                          "trajectory tiles are separate editable SVGs under "
                          "`figures/trajectory_examples/`; see "
                          "`FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`. Five tiny metric icons "
@@ -282,6 +298,7 @@ def build_compact() -> None:
 
 
 def build_full() -> None:
+    sync_manuscript_figures()
     current_pdfs = sorted((DRAFT_DIR / "figures").glob("*.pdf"))
     for svg_name in CURRENT_SVG_SOURCES:
         expected_pdf = DRAFT_DIR / "figures" / f"{Path(svg_name).stem.removesuffix('_uploaded')}.pdf"
@@ -317,7 +334,7 @@ def build_full() -> None:
             assets[f"figures/{png_path.name}"] = png_path
         for svg_name, source_path in CURRENT_SVG_SOURCES.items():
             assets[f"figures/{svg_name}"] = source_path
-        assets.update(LAYOUT_TRIAL_ASSETS)
+        assets.update(FIGURE_OPTION_ASSETS)
         assets.update(PALETTE_TRIAL_ASSETS)
 
         groups: dict[str, list[str]] = {}
@@ -368,9 +385,8 @@ def build_full() -> None:
                             "- `figures/Figure2_story_peaks.svg`",
                             "- `figures/Figure2_story_icons.pdf`",
                             "- `figures/Figure2_story_icons.svg`",
-                            "- `figures/Figure2_yaxis_icons_trial.pdf`",
-                            "- `figures/Figure2_yaxis_icons_trial.svg`",
-                            "- `FIGURE2_YAXIS_ICONS_TRIAL_NOTES.md`",
+                            "- `FIGURE2_SELECTED_LAYOUT_NOTES.md`",
+                            "- `FIGURE2_SELECTED_LAYOUT_PLACEMENTS.json`",
                             "- `figures/Figure2_behavior_candidate_stats.pdf`",
                             "- `FIGURE2_STORY_NOTES.md`",
                             "- `FIGURE2_STORY_PEAKS_NOTES.md`",

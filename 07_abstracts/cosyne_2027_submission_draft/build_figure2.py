@@ -1,8 +1,8 @@
-"""Place Figure 2A–D metric icons inside their own y-axis gutters.
+"""Build the selected Figure 2 with A–D metric icons in their y-axis gutters.
 
-This is an exploratory layout. It starts from the selected Figure2.svg and
-changes only horizontal plot/label/icon positions and icon scale. All plotted
-points, boxes, axes, and vertical coordinates retain their source values.
+The H-palette preview is the immutable layout input. This builder changes
+horizontal plot/label/icon positions and icon scale; plotted points, boxes,
+axes, and vertical coordinates retain their source values.
 """
 
 from __future__ import annotations
@@ -18,9 +18,9 @@ import xml.etree.ElementTree as ET
 
 
 HERE = Path(__file__).resolve().parent
-SOURCE = HERE / "Figure2.svg"
-OUTPUT = HERE / "Figure2_yaxis_icons_trial.svg"
-MANIFEST = HERE / "Figure2_yaxis_icons_trial_manifest.json"
+SOURCE = HERE / "figure_palette_candidates/priority_rgb_orange_violet_figure2.svg"
+OUTPUT = HERE / "Figure2.svg"
+MANIFEST = HERE / "Figure2_layout_manifest.json"
 SVG_PT_PER_INKSCAPE_PX = 540 / (7.5 * 96)
 LABEL_ICON_GAP = 2.0
 ICON_TICK_GAP = 2.0
@@ -218,9 +218,6 @@ def build() -> None:
                         "target_icon_left_pt": round(icon_left, 3),
                         "target_label_right_pt": round(target_label_right, 3)})
 
-    if svg.count('sodipodi:docname="Figure2.svg"') == 1:
-        svg = svg.replace('sodipodi:docname="Figure2.svg"',
-                          'sodipodi:docname="Figure2_yaxis_icons_trial.svg"', 1)
     OUTPUT.write_text(svg)
     for extension in ("pdf", "png"):
         command = ["inkscape", str(OUTPUT),
@@ -229,10 +226,12 @@ def build() -> None:
             command.append("--export-width=1800")
         subprocess.run(command, capture_output=True, text=True, check=True)
     MANIFEST.write_text(json.dumps({
+        "schema": "intrmotiv/figure2-layout/v1",
         "source": str(SOURCE.relative_to(HERE)),
         "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
         "output_svg_sha256": hashlib.sha256(OUTPUT.read_bytes()).hexdigest(),
-        "selected_figure_unchanged": True,
+        "output_pdf_sha256": hashlib.sha256(OUTPUT.with_suffix('.pdf').read_bytes()).hexdigest(),
+        "output_png_sha256": hashlib.sha256(OUTPUT.with_suffix('.png').read_bytes()).hexdigest(),
         "canvas_width_pt": 540,
         "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
         "behavior_panel_shift_pt": round(behavior_align_shift, 3),

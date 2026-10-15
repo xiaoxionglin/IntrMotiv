@@ -383,19 +383,15 @@ def paired_pdf(name: str) -> None:
 
 
 def publish_selected_figures() -> dict[str, dict[str, str]]:
-    """Expose the selected vector pair under stable submission-draft names."""
-    published = {}
-    for figure in SOURCES:
-        outputs = {}
-        for suffix in ("svg", "pdf"):
-            source = HERE / f"{SELECTED_PALETTE_NAME}_{figure}.{suffix}"
-            destination = DRAFT / f"{figure.capitalize()}.{suffix}"
-            content = source.read_bytes()
-            if not destination.exists() or destination.read_bytes() != content:
-                destination.write_bytes(content)
-            outputs[suffix] = str(destination.relative_to(DRAFT))
-        published[figure] = outputs
-    return published
+    """Keep the author's Figure 1 and build Figure 2 from the H preview."""
+    # The palette preview is the stable input for the selected gutter layout.
+    # Publishing it directly would silently restore the older icon placement.
+    # Figure 1 has subsequent author edits, so palette trials must not replace it.
+    from build_figure2 import build as build_selected_figure2  # noqa: PLC0415
+    build_selected_figure2()
+    return {figure: {suffix: f"{figure.capitalize()}.{suffix}"
+                     for suffix in ("svg", "pdf")}
+            for figure in SOURCES}
 
 
 def main() -> None:
@@ -427,6 +423,7 @@ def main() -> None:
     for name in REVIEW_PALETTE_NAMES:
         paired_pdf(name)
     provenance["published_figures"] = publish_selected_figures()
+    provenance["published_figure2_layout_manifest"] = "Figure2_layout_manifest.json"
     for figure in SOURCES:
         for group in ("all", "A_refinements", "opponent_dg", "role_first"):
             comparison_sheet(figure, group)
