@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Export decision-counted flat-reward calibration from the study workflow — 2026-10-15
+
+- **Evidence:** The C01 Figure 2 pull-row audit found 27 archived flat runs, but none varied the dense policy reward; existing `CONSTANT` labels varied encoder event credit. The pinned source's flat reward is a separate `legacy_reward_streams` output. The archived fresh C01 seed-99 history has only 14.6% nonzero decisions over 0–2M frames. The first constant-mode patch would have paid every decision, so its temporal-only qualification was cancelled before calibration. The [corrected qualification](06_experiments/reward_credit/cosyne27_c01_flat_policy_reward_timing_20261015.md) must freeze the fixed post-scale **reward-eligible** mean from exact `intrmotiv/reward/intrinsic_sum`, `intrmotiv/reward/intrinsic_mean`, and `intrmotiv/reward/intrinsic_nonzero_fraction` histories. The canonical collector exports window means but does not certify this denominator or emit a hash-bound calibration record.
+- **Impact:** A future flat-reward timing study could borrow a worker-hit constant, average over all decisions, pay previously zero decisions, or silently recalibrate after seeing outcomes, making the timing contrast invalid.
+- **Improvement/status:** Pending canonical integration. The study-specific [count-checked calibration reader](06_experiments/reward_credit/calibrate_dense_flat_reward.py) is staged for this qualification. When this pattern recurs, add an optional reward-calibration export to the [standardized workflow](04_implementation/standardized_study_workflow.md) using the same StudySpec identity, event hashes, selected frame window, and verified reward-eligible decision count; keep the constant pinned before rendering production commands.
+- **Acceptance:** One command emits a reproducible calibration JSON from a declared temporal reference, rejects mismatched sum/mean/nonzero steps or decision counts, and reproduces the constant used in the submitted StudySpec without reading terminal outcomes.
+
 ### Keep authorized paired source tables with cross-regimen figures — 2026-10-13
 
 - **Evidence:** The [worker-regimen box plots](06_experiments/reward_credit/results/cosyne27_worker_regimen_boxplots_20261013/README.md) could verify all high-credit rows and three original-C05 readouts from local artifacts. Original-C05 AUC and original-C15 source summaries remained on NEMO2; automatic approval review rejected copying five private summary CSVs into the worktree. The figure therefore carries a compact seed table and explicit source-status metadata, but those remote readouts were not independently reloaded in this task.
