@@ -165,6 +165,7 @@ REVIEW_PALETTE_NAMES = (
     "priority_rgb_magenta_teal", "priority_rgb_orange_violet",
     "priority_rgb_amber_violet",
 )
+SELECTED_PALETTE_NAME = "priority_rgb_orange_violet"
 BASELINE = Palette(
     name="current", description="Current source palette",
     ng="#0072B2", ug="#D55E00", fg="#009E73",
@@ -363,8 +364,11 @@ def paired_pdf(name: str) -> None:
 
 def main() -> None:
     HERE.mkdir(parents=True, exist_ok=True)
+    if SELECTED_PALETTE_NAME not in {palette.name for palette in PALETTES}:
+        raise ValueError(f"Unknown selected palette: {SELECTED_PALETTE_NAME}")
     provenance = {
         "schema": "cosyne27-color-palette-preview/v1",
+        "selected_palette": SELECTED_PALETTE_NAME,
         "sources": {name: {"path": str(path.relative_to(DRAFT)),
                            "sha256": sha256(path.read_bytes()).hexdigest()}
                     for name, path in SOURCES.items()},

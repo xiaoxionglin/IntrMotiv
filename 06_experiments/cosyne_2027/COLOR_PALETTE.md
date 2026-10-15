@@ -1,6 +1,8 @@
 # COSYNE 2027 color palette
 
-Architecture is the only **global quantitative color key**. Keep its three hues fixed across result figures. Encode other factors with position, marker shape, and line style whenever architectures also appear. See [figure standard](FIGURE_STANDARD.md) for size and typography.
+For the current abstract Figure 1 v3 and Figure 2 metric-icon candidates, the selected working palette is [H: orange push, violet pull](../../07_abstracts/cosyne_2027_submission_draft/figure_palette_candidates/README.md). Its NG/UG/FG colors are slate/olive/rose, and its illustrative DG unit colors are blue/red/green/cyan. The table below remains the convention for earlier study and diagnostic figures; the abstract figure sources and manuscript have not yet been switched to H.
+
+In the earlier study figures, architecture is the **global quantitative color key**. Keep its three hues fixed within those comparisons. Encode other factors with position, marker shape, and line style whenever architectures also appear. See [figure standard](FIGURE_STANDARD.md) for size and typography.
 
 ![Architecture, mechanism, landmark, condition, and neutral swatches](COLOR_PALETTE.svg)
 
@@ -16,4 +18,4 @@ Show the three landmark events' order by position and arrows as well as color.
 
 **Factorial panels:** When C01/C05/C15 are compared, architecture owns the hue; encode temporal versus constant or intact versus ablated with solid/filled versus dashed/open marks. In a single-architecture comparison, use charcoal versus gray for conditions and label the manipulation. For a $2\times2$ C05 plot, show one factor as a signed contrast and the other by position and marker shape; use line style for crossed learning curves. Do not reuse an architecture hue to mean a reward, behavior, or control condition.
 
-**Current adoption:** The architecture curves retain their established colors. The control-versus-own-policy [behavior candidate](02_behavior_expression.md#candidate-control-and-experimental-values) uses the neutral condition row. The compact architecture schematic still has the earlier red/blue push/pull arrows and needs a later revision to this rule; the three event hues are reserved for that DG-to-CA3 illustration. Archived diagnostic figures use earlier local palettes and are not the color key for the abstract.
+**Current adoption of this diagnostic convention:** The control-versus-own-policy [behavior candidate](02_behavior_expression.md#candidate-control-and-experimental-values) uses the neutral condition row. Earlier study plots retain their recorded colors. Use the selected H artwork linked above for the next abstract-figure revisions.
