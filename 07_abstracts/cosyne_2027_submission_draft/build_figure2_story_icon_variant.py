@@ -27,9 +27,9 @@ STORY_SOURCE = HERE / "build_figure2_story.py"
 SCALE_RESULTS = 57 / HEIGHT_PT
 RESULT_ICON_WIDTH = WIDTH_PT * SCALE_RESULTS
 RESULT_POSITIONS = {
-    "push": {"overlap": (178, 100.5), "coverage": (295, 100.5),
+    "push": {"overlap": (173, 100.5), "coverage": (295, 100.5),
              "edges": (411, 100.5)},
-    "pull": {"overlap": (178, 165.5), "coverage": (295, 165.5),
+    "pull": {"overlap": (173, 165.5), "coverage": (295, 165.5),
              "edges": (411, 165.5)},
 }
 RELIABILITY_POSITION = (404, 24.5)

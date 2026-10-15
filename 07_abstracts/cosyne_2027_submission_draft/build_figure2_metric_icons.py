@@ -78,14 +78,19 @@ def paired_map_icon(kind: str) -> str:
     """Show high/low map similarity with explicit neuron and time identities."""
     if kind not in {"overlap", "reliability"}:
         raise ValueError(kind)
-    # Rows are high then low. Columns represent different units for overlap,
-    # or the same unit observed in two episode-disjoint time halves.
-    colors = ((RED, YELLOW), (RED, YELLOW)) if kind == "overlap" else (
-        (RED, RED), (RED, RED))
-    centers = (((8.35, 9.1), (19.35, 9.1)),
-               ((6.9, 46.6), (21.45, 50.15)))
-    cards = ((4.10, 4.5), (15.10, 4.5),
-             (4.10, 42.0), (15.10, 42.0))
+    # Overlap stacks the two DG units so the full unit labels fit at print size.
+    # Reliability keeps the two time halves side by side and needs no unit dots.
+    if kind == "overlap":
+        cards = ((1.5, 3.5), (1.5, 13.7), (1.5, 34.5), (1.5, 44.7))
+        centers = ((5.7, 7.7), (5.7, 17.9),
+                   (4.1, 37.4), (7.5, 50.3))
+        card_size = 8.4
+    else:
+        cards = ((4.10, 4.5), (15.10, 4.5),
+                 (4.10, 36.5), (15.10, 36.5))
+        centers = ((8.35, 9.1), (19.35, 9.1),
+                   (6.9, 41.1), (21.45, 44.65))
+        card_size = 9.2
     definitions = []
     for color_name, color in (("red", RED), ("yellow", YELLOW)):
         definitions.append(
@@ -96,30 +101,35 @@ def paired_map_icon(kind: str) -> str:
             '</radialGradient>')
     definitions.extend(
         f'<clipPath id="{kind}-field-{index}"><rect x="{x}" y="{y}" '
-        'width="9.2" height="9.2"/></clipPath>'
+        f'width="{card_size}" height="{card_size}"/></clipPath>'
         for index, (x, y) in enumerate(cards)
     )
     out = ['<defs>' + ''.join(definitions) + '</defs>']
     for index, (x, y) in enumerate(cards):
         row, column = divmod(index, 2)
-        color = colors[row][column]
+        color = (RED, YELLOW)[column] if kind == "overlap" else RED
         gradient = "red" if color == RED else "yellow"
-        cx, cy = centers[row][column]
-        out.append(f'<rect x="{x}" y="{y}" width="9.2" height="9.2" '
+        cx, cy = centers[index]
+        out.append(f'<rect x="{x}" y="{y}" width="{card_size}" height="{card_size}" '
                    f'fill="white" stroke="{MUTED}" stroke-width="0.55"/>')
         out.append(f'<g clip-path="url(#{kind}-field-{index})">'
                    f'<circle cx="{cx}" cy="{cy}" r="4.0" '
                    f'fill="url(#map-{kind}-{gradient})"/></g>')
-        # A colored DG-circle is a neuron identity, not a peak marker.
-        out.append(f'<circle cx="{x+1.55:.2f}" cy="{y+11.5:.2f}" r="1.1" '
-                   f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
-        marker = ("t1", "t2")[column] if kind == "reliability" else ("1", "2")[column]
-        out.append(f'<text x="{x+3.25:.2f}" y="{y+12.65:.2f}" '
-                   f'font-family="DejaVu Sans" font-size="3.5" fill="{INK}">{marker}</text>')
-    out.append(
-        f'<path d="M 14.17,37.3 V 20.0 M 11.8,22.5 L 14.17,20.0 L 16.54,22.5" '
-        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
-    )
+        if kind == "overlap":
+            # The colored dot denotes identity; the blurred map shows its field.
+            out.append(f'<circle cx="11.0" cy="{y+4.2:.2f}" r="1.05" '
+                       f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
+            out.append(f'<text x="12.4" y="{y+6.35:.2f}" '
+                       f'font-family="DejaVu Sans" font-size="6.3" '
+                       f'fill="{INK}">DG {column+1}</text>')
+        else:
+            out.append(f'<text x="{x+card_size/2:.2f}" y="{y+16.7:.2f}" '
+                       f'text-anchor="middle" font-family="DejaVu Sans" '
+                       f'font-size="7.5" fill="{INK}">T{column+1}</text>')
+    arrow = ("M 14.17,31.9 V 26.0 M 11.8,28.5 L 14.17,26.0 L 16.54,28.5"
+             if kind == "overlap" else
+             "M 14.17,37.3 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5")
+    out.append(f'<path d="{arrow}" fill="none" stroke="{MUTED}" stroke-width="1.05"/>')
     return ''.join(out)
 
 
@@ -130,12 +140,16 @@ def overlap_icon() -> str:
 
 def coverage_icon() -> str:
     """The same number of peaks, clustered and spatially dispersed."""
-    gradient = (
-        '<defs><radialGradient id="coverage-blur">'
-        f'<stop offset="0" stop-color="{ACCENT}" stop-opacity="0.29"/>'
-        f'<stop offset="0.55" stop-color="{ACCENT}" stop-opacity="0.1"/>'
-        f'<stop offset="1" stop-color="{ACCENT}" stop-opacity="0"/>'
+    gradients = ''.join(
+        f'<radialGradient id="coverage-blur-{index}">'
+        f'<stop offset="0" stop-color="{color}" stop-opacity="0.28"/>'
+        f'<stop offset="0.55" stop-color="{color}" stop-opacity="0.13"/>'
+        f'<stop offset="1" stop-color="{color}" stop-opacity="0"/>'
         '</radialGradient>'
+        for index, color in enumerate(DG_COLORS)
+    )
+    gradient = (
+        '<defs>' + gradients +
         '<clipPath id="coverage-top"><rect x="2.52" y="4.5" width="23.3" height="23.3"/></clipPath>'
         '<clipPath id="coverage-bottom"><rect x="2.52" y="57.2" width="23.3" height="23.3"/></clipPath>'
         '</defs>'
@@ -143,12 +157,17 @@ def coverage_icon() -> str:
     dispersed = ((7.0, 10.3), (21.0, 11.5), (8.1, 23.1), (20.7, 23.4))
     clustered = ((11.3, 66.7), (13.8, 69.5), (16.0, 65.7), (17.0, 71.6))
     def draw_peaks(points: tuple[tuple[float, float], ...], clip_id: str) -> str:
-        return (f'<g clip-path="url(#{clip_id})">' + ''.join(
-            f'<circle cx="{x}" cy="{y}" r="5.1" fill="url(#coverage-blur)"/>'
+        blurs = ''.join(
+            f'<circle cx="{x}" cy="{y}" r="6.7" '
+            f'fill="url(#coverage-blur-{index})"/>'
+            for index, (x, y) in enumerate(points)
+        )
+        peaks = ''.join(
             f'<circle cx="{x}" cy="{y}" r="1.45" fill="{DG_COLORS[index]}" '
             f'stroke="{INK}" stroke-width="0.38"/>'
             for index, (x, y) in enumerate(points)
-        ) + '</g>')
+        )
+        return f'<g clip-path="url(#{clip_id})">{blurs}{peaks}</g>'
 
     peaks = draw_peaks(dispersed, 'coverage-top') + draw_peaks(clustered, 'coverage-bottom')
     return gradient + frames() + peaks + comparison_link()

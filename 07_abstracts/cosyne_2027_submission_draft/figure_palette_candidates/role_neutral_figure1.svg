@@ -3751,6 +3751,14 @@
            id="path45" />
       </g>
     </g>
+    <!-- Peak cells (x,y)=(2,4),(6,15),(17,3) in the 19-by-19 source maps;
+         displayed y is flipped to align with the maze orientation. -->
+    <g id="dg-field-peak-circles" fill="none" stroke="#8B6CA8"
+       stroke-width="1.15" pointer-events="none">
+      <circle cx="403.996" cy="125.072" r="2.55" id="dg4-peak" />
+      <circle cx="458.981" cy="102.562" r="2.55" id="dg1-peak" />
+      <circle cx="528.291" cy="127.118" r="2.55" id="dg11-peak" />
+    </g>
     <g
        id="text_12">
       <text
