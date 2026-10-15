@@ -1,15 +1,15 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "5968ed16bb2fc47759d0220aef6dba033018fc8423e7f6e1dec90e510241ae07",
+  "parent_story_source_sha256": "e0c61b52141a95772f04a8761558a79ec345463895e83df921980de4eed80b9d",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "c66f71fce8a6a5b4fea808a99c75266af0705411ba6da60822f3d87c08b1bccb",
+  "icon_source_sha256": "d1642461d409865775b10ef3ce2bd47565a47669970020346533c953347efaae",
   "physical_size_points": [
     540,
     230
   ],
   "removed_panel": "E",
-  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 38 points square and display 65 complete fragments; C/D components redistributed horizontally",
+  "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 29 points square and display 65 complete fragments; icons follow their plots",
   "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0\u201363 within each fragment",
   "trajectory_tiles": {
     "NG": {
@@ -29,12 +29,17 @@
     "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/manifest.json",
     "sha256": "70535691e7f3c9a9330921d85fc50aa167e29514af42453898ddac2f88f0ae83"
   },
-  "trajectory_shift_points": 34,
+  "trajectory_centers_points": [
+    149,
+    180,
+    211
+  ],
+  "trajectory_tile_size_points": 29,
   "path_metric_shift_points": 33,
   "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
   "behavior_layout_shift_points": 40,
   "behavior_information_shift_points": 10,
-  "behavior_reliability_shift_points": 43,
+  "behavior_reliability_shift_points": 29,
   "result_group_shifts_points": {
     "dg_information": 1,
     "map_overlap": 17,
@@ -43,7 +48,7 @@
   },
   "result_icon_size_points": {
     "overlap": [
-      28.34645669291339,
+      29.763779527559056,
       56.69291338582678
     ],
     "coverage_and_edges": [
@@ -54,29 +59,29 @@
   "result_icon_positions_points": {
     "push": {
       "overlap": [
-        178,
+        290,
         100.5
       ],
       "coverage": [
-        295,
+        408,
         100.5
       ],
       "edges": [
-        411,
+        519,
         100.5
       ]
     },
     "pull": {
       "overlap": [
-        178,
+        290,
         165.5
       ],
       "coverage": [
-        295,
+        408,
         165.5
       ],
       "edges": [
-        411,
+        519,
         165.5
       ]
     }
@@ -86,7 +91,7 @@
     56.69291338582678
   ],
   "reliability_icon_position_points": [
-    404,
+    509.5,
     24.5
   ],
   "path_efficiency_icon_size_points": [
@@ -94,7 +99,7 @@
     56.69291338582678
   ],
   "path_efficiency_icon_position_points": [
-    4,
+    105.5,
     27
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
@@ -105,7 +110,7 @@
     },
     "overlap": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
-      "sha256": "749cf9ee239ce8b2c0c826e0071c7703ab3f773b543e74cd16055683f87bf6d1"
+      "sha256": "aeec05776cb519a1a0f78dcf817f7675ff9e86cfa5cfed273992c8dd26365065"
     },
     "coverage": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",

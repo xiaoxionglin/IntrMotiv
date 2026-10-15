@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 
 from matplotlib import colormaps
 
-from build_figure2_metric_icons import HEIGHT_PT, ICONS, WIDTH_PT
+from build_figure2_metric_icons import HEIGHT_PT, ICONS, WIDTH_PT, OVERLAP_WIDTH_PT
 from build_figure2_story import (
     HERE, ROOT, behavior_differences, export, layout_base,
     selected_trajectories, sha256, story_overlay, terminal_rows,
@@ -27,13 +27,15 @@ STORY_SOURCE = HERE / "build_figure2_story.py"
 SCALE_RESULTS = 57 / HEIGHT_PT
 RESULT_ICON_WIDTH = WIDTH_PT * SCALE_RESULTS
 RESULT_POSITIONS = {
-    "push": {"overlap": (173, 100.5), "coverage": (295, 100.5),
-             "edges": (411, 100.5)},
-    "pull": {"overlap": (173, 165.5), "coverage": (295, 165.5),
-             "edges": (411, 165.5)},
+    "push": {"overlap": (290, 100.5), "coverage": (408, 100.5),
+             "edges": (519, 100.5)},
+    "pull": {"overlap": (290, 165.5), "coverage": (408, 165.5),
+             "edges": (519, 165.5)},
 }
-RELIABILITY_POSITION = (404, 24.5)
-PATH_EFFICIENCY_POSITION = (4, 27)
+RELIABILITY_POSITION = (509.5, 24.5)
+PATH_EFFICIENCY_POSITION = (105.5, 27)
+TRAJECTORY_CENTERS = (149, 180, 211)
+TRAJECTORY_SIZE = 29
 TRAJECTORY_CANDIDATES = HERE / "figure2_candidates/09_trajectory_thumbnails"
 TRAJECTORY_TILES = {
     family: TRAJECTORY_CANDIDATES / f"{family}_65_fragments_tile.svg"
@@ -74,10 +76,10 @@ def trajectory_tile(family: str, x: float, y: float, size: int) -> str:
 
 def trajectory_step_scale() -> str:
     """Show the local 0–63 step colors used independently in each fragment."""
-    x0, y0, width, height = 143, 75, 68, 4
+    x0, y0, width, height = 170, 75, 50, 4
     parts = ['<g id="figure2a-step-scale" aria-label="Step within each trajectory fragment">',
-             '<text x="110" y="79.5" class="mini-label">step</text>',
-             '<text x="136" y="79.5" class="mini-label">0</text>']
+             '<text x="137" y="79.5" class="mini-label">step</text>',
+             '<text x="163" y="79.5" class="mini-label">0</text>']
     cmap = colormaps["viridis"]
     for step in range(64):
         rgb = cmap(step / 63)[:3]
@@ -85,7 +87,7 @@ def trajectory_step_scale() -> str:
         parts.append(f'<rect x="{x0 + step * width / 64:.5f}" y="{y0}" '
                      f'width="{width / 64 + .01:.5f}" height="{height}" '
                      f'fill="{color}" stroke="none"/>')
-    parts.append('<text x="214" y="79.5" class="mini-label">63</text></g>')
+    parts.append('<text x="223" y="79.5" class="mini-label">63</text></g>')
     return "\n".join(parts)
 
 
@@ -130,11 +132,12 @@ def build() -> None:
     svg = svg.replace(old_name, 'sodipodi:docname="Figure2_story_icons.svg"', 1)
     overlay = story_overlay(
         terminal_rows(), selected_trajectories(), behavior_differences(),
-        trajectory_tile_size=38, trajectory_shift=34,
+        trajectory_tile_size=TRAJECTORY_SIZE,
+        trajectory_centers=TRAJECTORY_CENTERS,
         path_metric_shift=33,
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
-        information_shift=10, reliability_shift=43,
+        information_shift=10, reliability_shift=29,
         trajectory_renderer=trajectory_tile,
         extra_overlay=icon_overlay() + trajectory_step_scale(),
     )
@@ -151,7 +154,7 @@ def build() -> None:
         "icon_source_sha256": sha256(ICON_SOURCE),
         "physical_size_points": [540, 230],
         "removed_panel": "E",
-        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 38 points square and display 65 complete fragments; C/D components redistributed horizontally",
+        "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 29 points square and display 65 complete fragments; icons follow their plots",
         "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0–63 within each fragment",
         "trajectory_tiles": {family: {
             "path": str(path.relative_to(ROOT)), "sha256": sha256(path),
@@ -160,18 +163,19 @@ def build() -> None:
             "path": str((TRAJECTORY_CANDIDATES / "manifest.json").relative_to(ROOT)),
             "sha256": sha256(TRAJECTORY_CANDIDATES / "manifest.json"),
         },
-        "trajectory_shift_points": 34,
+        "trajectory_centers_points": TRAJECTORY_CENTERS,
+        "trajectory_tile_size_points": TRAJECTORY_SIZE,
         "path_metric_shift_points": 33,
         "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
         "behavior_layout_shift_points": 40,
         "behavior_information_shift_points": 10,
-        "behavior_reliability_shift_points": 43,
+        "behavior_reliability_shift_points": 29,
         "result_group_shifts_points": {
             "dg_information": 1, "map_overlap": 17,
             "peak_coverage": 33, "graph_edges": 49,
         },
         "result_icon_size_points": {
-            "overlap": [WIDTH_PT, 20 * 72 / 25.4],
+            "overlap": [OVERLAP_WIDTH_PT, 20 * 72 / 25.4],
             "coverage_and_edges": [RESULT_ICON_WIDTH, 57],
         },
         "result_icon_positions_points": RESULT_POSITIONS,
