@@ -3,7 +3,7 @@
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
   "parent_story_source_sha256": "e0c61b52141a95772f04a8761558a79ec345463895e83df921980de4eed80b9d",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
-  "icon_source_sha256": "d1642461d409865775b10ef3ce2bd47565a47669970020346533c953347efaae",
+  "icon_source_sha256": "5a46b2bf6bbd6603ef66910aaeb4c0b4d4c03bd414035bc051c3b3464088618e",
   "physical_size_points": [
     540,
     230
@@ -35,16 +35,16 @@
     211
   ],
   "trajectory_tile_size_points": 29,
-  "path_metric_shift_points": 33,
+  "path_metric_shift_points": 28,
   "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
   "behavior_layout_shift_points": 40,
   "behavior_information_shift_points": 10,
-  "behavior_reliability_shift_points": 29,
+  "behavior_reliability_shift_points": 25,
   "result_group_shifts_points": {
     "dg_information": 1,
-    "map_overlap": 17,
-    "peak_coverage": 33,
-    "graph_edges": 49
+    "map_overlap": 7,
+    "peak_coverage": 29,
+    "graph_edges": 41
   },
   "result_icon_size_points": {
     "overlap": [
@@ -59,29 +59,29 @@
   "result_icon_positions_points": {
     "push": {
       "overlap": [
-        290,
+        280,
         100.5
       ],
       "coverage": [
-        408,
+        404,
         100.5
       ],
       "edges": [
-        519,
+        511,
         100.5
       ]
     },
     "pull": {
       "overlap": [
-        290,
+        280,
         165.5
       ],
       "coverage": [
-        408,
+        404,
         165.5
       ],
       "edges": [
-        519,
+        511,
         165.5
       ]
     }
@@ -91,7 +91,7 @@
     56.69291338582678
   ],
   "reliability_icon_position_points": [
-    509.5,
+    505.5,
     24.5
   ],
   "path_efficiency_icon_size_points": [
@@ -99,7 +99,7 @@
     56.69291338582678
   ],
   "path_efficiency_icon_position_points": [
-    105.5,
+    100.5,
     27
   ],
   "icon_interpretation": "top is a higher raw metric value; upward arrow is a scale cue, not an observed condition effect",
@@ -110,7 +110,7 @@
     },
     "overlap": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_overlap.svg",
-      "sha256": "aeec05776cb519a1a0f78dcf817f7675ff9e86cfa5cfed273992c8dd26365065"
+      "sha256": "340ae39f12d7fb41140bfa8924308b01108e3545139a235a2501f431938e091f"
     },
     "coverage": {
       "path": "07_abstracts/cosyne_2027_submission_draft/Figure2_metric_icon_coverage.svg",

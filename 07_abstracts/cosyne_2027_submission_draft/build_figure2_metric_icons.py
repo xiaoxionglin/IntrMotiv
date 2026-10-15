@@ -117,9 +117,6 @@ def paired_map_icon(kind: str) -> str:
                    f'<circle cx="{cx}" cy="{cy}" r="4.0" '
                    f'fill="url(#map-{kind}-{gradient})"/></g>')
         if kind == "overlap":
-            # Colored corner dots denote the two identities, not field peaks.
-            out.append(f'<circle cx="{x+1.4:.2f}" cy="{y+1.4:.2f}" r="0.8" '
-                       f'fill="{color}" stroke="{INK}" stroke-width="0.27"/>')
             out.append(f'<text x="{x+card_size/2:.2f}" y="{y+16.7:.2f}" '
                        f'text-anchor="middle" font-family="DejaVu Sans" font-size="5.2" '
                        f'fill="{INK}">DG {column+1}</text>')

@@ -27,13 +27,13 @@ STORY_SOURCE = HERE / "build_figure2_story.py"
 SCALE_RESULTS = 57 / HEIGHT_PT
 RESULT_ICON_WIDTH = WIDTH_PT * SCALE_RESULTS
 RESULT_POSITIONS = {
-    "push": {"overlap": (290, 100.5), "coverage": (408, 100.5),
-             "edges": (519, 100.5)},
-    "pull": {"overlap": (290, 165.5), "coverage": (408, 165.5),
-             "edges": (519, 165.5)},
+    "push": {"overlap": (280, 100.5), "coverage": (404, 100.5),
+             "edges": (511, 100.5)},
+    "pull": {"overlap": (280, 165.5), "coverage": (404, 165.5),
+             "edges": (511, 165.5)},
 }
-RELIABILITY_POSITION = (509.5, 24.5)
-PATH_EFFICIENCY_POSITION = (105.5, 27)
+RELIABILITY_POSITION = (505.5, 24.5)
+PATH_EFFICIENCY_POSITION = (100.5, 27)
 TRAJECTORY_CENTERS = (149, 180, 211)
 TRAJECTORY_SIZE = 29
 TRAJECTORY_CANDIDATES = HERE / "figure2_candidates/09_trajectory_thumbnails"
@@ -125,7 +125,7 @@ def icon_overlay() -> str:
 
 
 def build() -> None:
-    svg = layout_base(extra_plot_shift=1, metric_extra_shifts=(0, 16, 32, 48))
+    svg = layout_base(extra_plot_shift=1, metric_extra_shifts=(0, 6, 28, 40))
     old_name = 'sodipodi:docname="Figure2_story.svg"'
     if svg.count(old_name) != 1:
         raise ValueError("Could not identify the story canvas document name")
@@ -134,10 +134,10 @@ def build() -> None:
         terminal_rows(), selected_trajectories(), behavior_differences(),
         trajectory_tile_size=TRAJECTORY_SIZE,
         trajectory_centers=TRAJECTORY_CENTERS,
-        path_metric_shift=33,
+        path_metric_shift=28,
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
-        information_shift=10, reliability_shift=29,
+        information_shift=10, reliability_shift=25,
         trajectory_renderer=trajectory_tile,
         extra_overlay=icon_overlay() + trajectory_step_scale(),
     )
@@ -165,14 +165,14 @@ def build() -> None:
         },
         "trajectory_centers_points": TRAJECTORY_CENTERS,
         "trajectory_tile_size_points": TRAJECTORY_SIZE,
-        "path_metric_shift_points": 33,
+        "path_metric_shift_points": 28,
         "ablation_schematic": "TS lowered; directed arrows terminate on the bottom edges of DG and policy",
         "behavior_layout_shift_points": 40,
         "behavior_information_shift_points": 10,
-        "behavior_reliability_shift_points": 29,
+        "behavior_reliability_shift_points": 25,
         "result_group_shifts_points": {
-            "dg_information": 1, "map_overlap": 17,
-            "peak_coverage": 33, "graph_edges": 49,
+            "dg_information": 1, "map_overlap": 7,
+            "peak_coverage": 29, "graph_edges": 41,
         },
         "result_icon_size_points": {
             "overlap": [OVERLAP_WIDTH_PT, 20 * 72 / 25.4],
