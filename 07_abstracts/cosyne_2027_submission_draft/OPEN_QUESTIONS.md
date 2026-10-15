@@ -1,6 +1,6 @@
 # COSYNE 2027 draft: checks for discussion
 
-This layout reproduces the author's current 12 October GitHub title and 312-word abstract verbatim in substance, including the new push--pull explanation and behavior-dependent spatial-coding conclusion. It preserves unresolved scientific claims in the second-page text and comments. The title and summary still require conference-length edits before submission.
+The numbered checks below were written for the earlier results composite and remain useful as historical analysis questions; their panel letters do not describe the selected Figure 1 and Figure 2 now used by `main.tex`. The title and summary still require conference-length edits before submission.
 
 ## Scientific claims to confirm
 
@@ -12,7 +12,7 @@ This layout reproduces the author's current 12 October GitHub title and 312-word
 
 ## Missing submission elements
 
-- The LaTeX summary is 312 words versus the official 300-word requirement; the title is 128 characters versus the 100-character maximum. Shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
+- The LaTeX summary still exceeds the official 300-word requirement, and the title still exceeds the 100-character maximum. Shorten only after author review. Select a few relevant prior works from [references.bib](../../08_literature/references.bib), then check the final COSYNE 2027 citation and format rules.
 - Finish commanded-target and physical-arrival contrasts before interpreting temporal-hit coverage as goal control or making a directional pull claim.
 - COSYNE 2027 specifies two pages (US Letter/A4), 12-point minimum body, 10-point captions/references permitted, margins at least 0.5 inch, and double-blind anonymity. The comprehensive review draft is currently three pages by the author's choice; shorten the title and summary and select what to condense before submission, then check the final PDF and its metadata.
 - Review panel priority at final submission size. The figure keeps all scientifically distinct plotted contrasts; the earlier full candidate library remains in the backed-up expanded ZIP.

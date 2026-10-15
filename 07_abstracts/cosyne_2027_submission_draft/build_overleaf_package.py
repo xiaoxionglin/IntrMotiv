@@ -20,6 +20,11 @@ REPO_ROOT = DRAFT_DIR.parents[1]
 RESULTS_DIR = REPO_ROOT / "06_experiments" / "results"
 ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources.zip"
 FULL_ARCHIVE_PATH = DRAFT_DIR / "cosyne_2027_overleaf_sources_full.zip"
+CURRENT_STANDALONE_ASSETS = {
+    f"Figure{number}.{extension}": DRAFT_DIR / f"Figure{number}.{extension}"
+    for number in (1, 2)
+    for extension in ("pdf", "svg")
+}
 LAYOUT_TRIAL_ASSETS = {
     "figures/Figure2_fiddle.svg": DRAFT_DIR / "Figure2_fiddle.svg",
     "figures/Figure2_tetris.svg": DRAFT_DIR / "Figure2_tetris.svg",
@@ -213,12 +218,15 @@ def build_compact() -> None:
             name: DRAFT_DIR / name for name in
             ("main.tex", "README.md", "OPEN_QUESTIONS.md", "PANEL_PROVENANCE.json")
         }
+        assets.update(CURRENT_STANDALONE_ASSETS)
         assets.update({f"figures/{name}": DRAFT_DIR / "figures" / name
                        for name in pdf_names + svg_names})
         assets.update(LAYOUT_TRIAL_ASSETS)
         index = temp_dir / "FIGURE_OPTIONS.md"
         index.write_text("# Figures in this compact Overleaf project\n\n"
-                         "The two PDFs below are used by `main.tex`; each has an SVG source.\n\n"
+                         "`main.tex` uses `Figure1.pdf` and `Figure2.pdf` at the project root; "
+                         "each has a matching SVG source. Earlier composite PDFs remain "
+                         "available as options:\n\n"
                          + "\n".join(f"- `figures/{name}`" for name in pdf_names)
                          + "\n\nThe compact editable Figure 2 layout trial is at "
                          "`figures/Figure2_tetris.svg`, with a PDF and preview "
@@ -279,6 +287,7 @@ def build_full() -> None:
             "PANEL_PROVENANCE.json": DRAFT_DIR / "PANEL_PROVENANCE.json",
             "references.bib": REPO_ROOT / "08_literature" / "references.bib",
         }
+        assets.update(CURRENT_STANDALONE_ASSETS)
         for data_path in sorted((DRAFT_DIR / "data").glob("*")):
             if data_path.is_file():
                 assets[f"data/{data_path.name}"] = data_path
@@ -312,8 +321,9 @@ def build_full() -> None:
         index_lines = [
             "# Figure options for the COSYNE draft",
             "",
-            "The PDFs in `figures/` are used by `main.tex`. Each has an SVG source",
-            "beside it. Additional options are in `figures/candidates/`, organized",
+            "`main.tex` uses `Figure1.pdf` and `Figure2.pdf` at the project root,",
+            "each with a matching SVG. Earlier PDFs in `figures/` are options.",
+            "Additional options are in `figures/candidates/`, organized",
             "by the source analysis folder. Every candidate PDF has a matching SVG;",
             "the PNG-only files are place-field, graph, and trajectory examples.",
             "Change an `\\includegraphics` path in `main.tex` to try an option.",
