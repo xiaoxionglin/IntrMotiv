@@ -1,10 +1,11 @@
 {
   "source": "Figure2.svg",
   "source_sha256": "c4b7dd75226ddfe1cc1e9d1523ad7271ac45f43c6b6a3032c046bbc27819e13a",
-  "output_svg_sha256": "f0f7efce3f77096cf2328c6d7d496888e365fec115b9221b29c3f4c33d5e974e",
+  "output_svg_sha256": "4c2f15310b53898d8521b344f5bfbed8539085e4bfe49f7047cea1cac7b675c3",
   "selected_figure_unchanged": true,
   "canvas_width_pt": 540,
   "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
+  "behavior_panel_shift_pt": 15.128,
   "source_data_unchanged": true,
   "placements": [
     {
@@ -21,18 +22,18 @@
       "metric": "dg_information",
       "icon_id": "behavior-spatial-information-icon",
       "icon_width_pt": 12.0,
-      "plot_shift_pt": 8.0,
-      "target_icon_left_pt": 320.857,
-      "target_label_right_pt": 318.857
+      "plot_shift_pt": 23.12844999999993,
+      "target_icon_left_pt": 335.985,
+      "target_label_right_pt": 333.985
     },
     {
       "panel": "B",
       "metric": "dg_reliability",
       "icon_id": "behavior-reliability-icon",
       "icon_width_pt": 20.750025,
-      "plot_shift_pt": 10.750025,
-      "target_icon_left_pt": 419.857,
-      "target_label_right_pt": 417.857
+      "plot_shift_pt": 25.87847499999993,
+      "target_icon_left_pt": 434.985,
+      "target_label_right_pt": 432.985
     },
     {
       "panel": "C",

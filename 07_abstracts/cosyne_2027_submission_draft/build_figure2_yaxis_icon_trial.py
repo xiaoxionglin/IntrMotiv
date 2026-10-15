@@ -63,6 +63,18 @@ def move_element(svg: str, identifier: str, shift_x: float, *, tag: str = "g") -
     return svg
 
 
+def move_behavior_heading(svg: str, shift_x: float) -> str:
+    """Move the two source B heading texts, which have no element IDs."""
+    for opening in ('<text x="237" y="12" class="story-letter">',
+                    '<text x="254" y="12" class="story-heading">'):
+        if svg.count(opening) != 1:
+            raise ValueError(f"Expected one B heading element: {opening}")
+        svg = svg.replace(
+            opening, opening[:-1] + f' transform="translate({shift_x:.6f},0)">', 1,
+        )
+    return svg
+
+
 def shift_component(svg: str, identifier: str, shift_x: float) -> str:
     """Move one imported Matplotlib plot without changing its local geometry."""
     pattern = (rf'(<g\s+id="{re.escape(identifier)}"[^>]*'
@@ -129,6 +141,20 @@ def build() -> None:
         metric: shift + (overlap_extra if metric != "dg_information" else 0.0)
         for metric, shift in PLOT_SHIFTS.items()
     }
+    # Align B's last plotted column with the rightmost C/D column. Translate
+    # the complete B panel so its schematic and title keep their spacing.
+    cd_right = max(
+        boxes[f"component_{row}_graph_edges"][0]
+        + boxes[f"component_{row}_graph_edges"][2]
+        + plot_shifts["graph_edges"]
+        for row in ("push", "pull")
+    )
+    behavior_right = (boxes["behavior-dg_reliability"][0]
+                      + boxes["behavior-dg_reliability"][2]
+                      + BEHAVIOR_SHIFT + reliability_extra)
+    behavior_align_shift = cd_right - behavior_right
+    svg = move_behavior_heading(svg, behavior_align_shift)
+    svg = move_element(svg, "behavior-ablation-schematic", behavior_align_shift)
 
     specs = [
         # panel, metric, icon, plot group, y label, numeric tick labels,
@@ -140,11 +166,11 @@ def build() -> None:
         ("B", "dg_information", "behavior-spatial-information-icon",
          "behavior-dg_information", "behavior-dg_information-ylabel",
          [f"behavior-dg_information-ytick-{i}" for i in range(3)],
-         BEHAVIOR_SHIFT, ICON_WIDTHS["spatial"]),
+         BEHAVIOR_SHIFT + behavior_align_shift, ICON_WIDTHS["spatial"]),
         ("B", "dg_reliability", "behavior-reliability-icon",
          "behavior-dg_reliability", "behavior-dg_reliability-ylabel",
          [f"behavior-dg_reliability-ytick-{i}" for i in range(3)],
-         BEHAVIOR_SHIFT + reliability_extra,
+         BEHAVIOR_SHIFT + reliability_extra + behavior_align_shift,
          boxes["behavior-reliability-icon"][2]),
     ]
     for row in ("push", "pull"):
@@ -209,6 +235,7 @@ def build() -> None:
         "selected_figure_unchanged": True,
         "canvas_width_pt": 540,
         "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
+        "behavior_panel_shift_pt": round(behavior_align_shift, 3),
         "source_data_unchanged": True,
         "placements": records,
     }, indent=2) + "\n")
