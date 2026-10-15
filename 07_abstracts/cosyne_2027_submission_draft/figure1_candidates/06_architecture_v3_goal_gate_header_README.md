@@ -2,7 +2,7 @@
 
 [SVG](06_architecture_v3_goal_gate_header.svg) · [Print PDF](06_architecture_v3_goal_gate_header.pdf) · [PNG preview](06_architecture_v3_goal_gate_header.png) · [Source manifest](06_architecture_v3_goal_gate_header_manifest.json) · [Previous candidate](05_architecture_v3_relative_reward_README.md)
 
-The current working color selection for this layout is [H: orange push, violet pull](../figure_palette_candidates/priority_rgb_orange_violet_figure1.pdf). Use its [editable SVG](../figure_palette_candidates/priority_rgb_orange_violet_figure1.svg) for color-consistent next revisions; this author-edited base remains the geometry source for comparing palettes.
+The newest standalone [Figure 1 PDF](../Figure1.pdf) and [editable SVG](../Figure1.svg) use the selected H colors: orange push and violet pull. This author-edited base remains the geometry source for comparing palettes.
 
 The SVG is the author-edited geometry base for Figure 1 revisions. Its PDF and PNG are direct exports from that SVG. This 7.5 × 1.9-inch layout keeps the original vector architecture at left. Its heading reads Policy, and its three temporal-separation symbols read TS, matching Figure 2's vocabulary. The side-gate schematic occupies the top of panel B, with NG/UG/FG stacked vertically to its right. The DG spatial-information and relative intrinsic-reward courses sit together below them. The three C15 DG examples have only a C panel letter; their description is in the caption. The schematic began with the editable [side-gate source](goal_policy_icon_options/simple/05_side_gate.svg), with TS and Pol. substituted during composition; the original source artwork and previous Figure 1 candidates remain available.
 

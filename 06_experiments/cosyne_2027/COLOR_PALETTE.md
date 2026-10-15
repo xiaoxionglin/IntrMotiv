@@ -1,6 +1,6 @@
 # COSYNE 2027 color palette
 
-For the current abstract Figure 1 v3 and Figure 2 metric-icon candidates, the selected working palette is [H: orange push, violet pull](../../07_abstracts/cosyne_2027_submission_draft/figure_palette_candidates/README.md). Its NG/UG/FG colors are slate/olive/rose, and its illustrative DG unit colors are blue/red/green/cyan. The table below remains the convention for earlier study and diagnostic figures; the abstract figure sources and manuscript have not yet been switched to H.
+The newest standalone abstract [Figure 1](../../07_abstracts/cosyne_2027_submission_draft/Figure1.pdf) and [Figure 2](../../07_abstracts/cosyne_2027_submission_draft/Figure2.pdf) use the selected [H palette: orange push, violet pull](../../07_abstracts/cosyne_2027_submission_draft/figure_palette_candidates/README.md). Their NG/UG/FG colors are slate/olive/rose, and their illustrative DG unit colors are blue/red/green/cyan. The table below remains the convention for earlier study and diagnostic figures; the manuscript still references its older figure layouts.
 
 In the earlier study figures, architecture is the **global quantitative color key**. Keep its three hues fixed within those comparisons. Encode other factors with position, marker shape, and line style whenever architectures also appear. See [figure standard](FIGURE_STANDARD.md) for size and typography.
 

@@ -362,6 +362,22 @@ def paired_pdf(name: str) -> None:
                    check=True, stdout=subprocess.DEVNULL)
 
 
+def publish_selected_figures() -> dict[str, dict[str, str]]:
+    """Expose the selected vector pair under stable submission-draft names."""
+    published = {}
+    for figure in SOURCES:
+        outputs = {}
+        for suffix in ("svg", "pdf"):
+            source = HERE / f"{SELECTED_PALETTE_NAME}_{figure}.{suffix}"
+            destination = DRAFT / f"{figure.capitalize()}.{suffix}"
+            content = source.read_bytes()
+            if not destination.exists() or destination.read_bytes() != content:
+                destination.write_bytes(content)
+            outputs[suffix] = str(destination.relative_to(DRAFT))
+        published[figure] = outputs
+    return published
+
+
 def main() -> None:
     HERE.mkdir(parents=True, exist_ok=True)
     if SELECTED_PALETTE_NAME not in {palette.name for palette in PALETTES}:
@@ -390,6 +406,7 @@ def main() -> None:
                                                  "figures": records}
     for name in REVIEW_PALETTE_NAMES:
         paired_pdf(name)
+    provenance["published_figures"] = publish_selected_figures()
     for figure in SOURCES:
         for group in ("all", "A_refinements", "opponent_dg", "role_first"):
             comparison_sheet(figure, group)
