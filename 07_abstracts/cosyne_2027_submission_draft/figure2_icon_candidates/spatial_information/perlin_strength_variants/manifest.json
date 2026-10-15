@@ -1,0 +1,44 @@
+{
+  "schema": "intrmotiv/figure2-perlin-strength-trials/v1",
+  "type": "data-free illustration; contrast-only comparison",
+  "size_mm": [
+    10,
+    20
+  ],
+  "selected_palette": "priority_rgb_orange_violet",
+  "single_dg_identity_color": "#CB3C54",
+  "seed": 23,
+  "grid_size": 32,
+  "mean_opacity": 0.106,
+  "fixed_features": [
+    "upper DG field",
+    "lower noise pattern",
+    "lower mean tint"
+  ],
+  "levels": [
+    {
+      "stem": "01_subtle",
+      "label": "Subtle",
+      "opacity_amplitude": 0.045
+    },
+    {
+      "stem": "02_medium",
+      "label": "Medium",
+      "opacity_amplitude": 0.07
+    },
+    {
+      "stem": "03_current",
+      "label": "Current",
+      "opacity_amplitude": 0.095
+    },
+    {
+      "stem": "04_strong",
+      "label": "Strong",
+      "opacity_amplitude": 0.11
+    }
+  ],
+  "current_reference": "../05_perlin_dg_maps.svg",
+  "reference_sha256": {
+    "figure_palette_candidates/manifest.json": "3132bb49d279197a85cf60c93097112a63e69095e744adb5fd71940b601623a1"
+  }
+}

@@ -2,6 +2,8 @@
 
 [Comparison preview](comparison.png) · [editable comparison](comparison.svg) · [comparison PDF](comparison.pdf) · [builder](build_spatial_information_icons.py) · [manifest](manifest.json)
 
+For the Perlin option, see the [four contrast levels](perlin_strength_variants/README.md) and their [comparison preview](perlin_strength_variants/comparison.png). The current icon corresponds to level 03.
+
 Five separate **10 × 20 mm** vector icons are available for visual comparison. The comparison sheet shows each icon enlarged and at its actual page size. None has been added to Figure 2 or the Overleaf package.
 
 Each icon depicts **one DG unit** in the selected Figure 2 palette; red denotes that unit. The upper example has higher raw spatial information and the arrow points up, as in the existing metric icons. Both examples assume equal spatial occupancy and equal total DG activity. The drawings are schematic: they encode no measured values, architecture ranking, or intervention effect.

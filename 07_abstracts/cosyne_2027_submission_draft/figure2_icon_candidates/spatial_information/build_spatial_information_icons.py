@@ -16,6 +16,7 @@ import numpy as np
 
 
 HERE = Path(__file__).resolve().parent
+STRENGTH_DIR = HERE / "perlin_strength_variants"
 FIGURE_DIR = HERE.parents[1]
 PALETTE_MANIFEST = FIGURE_DIR / "figure_palette_candidates" / "manifest.json"
 SELECTED_FIGURE = FIGURE_DIR / "Figure2.svg"
@@ -144,6 +145,12 @@ NOISE_SEED = 23
 NOISE_GRID_SIZE = 32
 NOISE_MEAN_OPACITY = 0.106
 NOISE_AMPLITUDE = 0.095
+STRENGTH_LEVELS = (
+    ("01_subtle", "Subtle", 0.045),
+    ("02_medium", "Medium", 0.070),
+    ("03_current", "Current", NOISE_AMPLITUDE),
+    ("04_strong", "Strong", 0.110),
+)
 
 
 def perlin_grid(size: int, periods: int, seed: int) -> np.ndarray:
@@ -169,13 +176,17 @@ def perlin_grid(size: int, periods: int, seed: int) -> np.ndarray:
     return low * (1 - v) + high * v
 
 
-def perlin_map_cells(dg_red: str, x: float, y: float, side: float) -> str:
+def perlin_map_cells(
+    dg_red: str, x: float, y: float, side: float, *, amplitude: float = NOISE_AMPLITUDE
+) -> str:
     """Use small vector cells to keep the procedural map editable in SVG/PDF."""
     noise = (perlin_grid(NOISE_GRID_SIZE, 2, NOISE_SEED)
              + 0.35 * perlin_grid(NOISE_GRID_SIZE, 4, NOISE_SEED + 1))
     noise -= noise.mean()
     noise /= np.max(np.abs(noise))
-    opacity = NOISE_MEAN_OPACITY + NOISE_AMPLITUDE * noise
+    opacity = NOISE_MEAN_OPACITY + amplitude * noise
+    if opacity.min() < 0 or opacity.max() > 1:
+        raise ValueError(f"Perlin opacity outside [0, 1] at amplitude {amplitude}")
     step = side / NOISE_GRID_SIZE
     red, green, blue = (int(dg_red[index:index + 2], 16) for index in (1, 3, 5))
 
@@ -196,7 +207,10 @@ def perlin_map_cells(dg_red: str, x: float, y: float, side: float) -> str:
     )
 
 
-def single_dg_maps(dg_red: str, *, id_prefix: str, bottom_style: str) -> str:
+def single_dg_maps(
+    dg_red: str, *, id_prefix: str, bottom_style: str,
+    perlin_amplitude: float = NOISE_AMPLITUDE,
+) -> str:
     """One DG map per row with a narrow upper field and selected lower field."""
     if bottom_style not in {"broad", "perlin"}:
         raise ValueError(bottom_style)
@@ -219,7 +233,8 @@ def single_dg_maps(dg_red: str, *, id_prefix: str, bottom_style: str) -> str:
     card_x = (PAGE_WIDTH - card_size) / 2
     for row, y in enumerate((2.3, 35.0)):
         if row == 1 and bottom_style == "perlin":
-            parts.append(perlin_map_cells(dg_red, card_x, y, card_size))
+            parts.append(perlin_map_cells(
+                dg_red, card_x, y, card_size, amplitude=perlin_amplitude))
         else:
             baseline_opacity = 0.05 if row == 0 else 0.07
             parts.extend((
@@ -248,9 +263,14 @@ def soft_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
     return single_dg_maps(dg_red, id_prefix=id_prefix, bottom_style="broad")
 
 
-def perlin_dg_maps(dg_red: str, *, id_prefix: str = "field") -> str:
+def perlin_dg_maps(
+    dg_red: str, *, id_prefix: str = "field",
+    amplitude: float = NOISE_AMPLITUDE,
+) -> str:
     """Localized field above and low-contrast Perlin texture below."""
-    return single_dg_maps(dg_red, id_prefix=id_prefix, bottom_style="perlin")
+    return single_dg_maps(
+        dg_red, id_prefix=id_prefix, bottom_style="perlin",
+        perlin_amplitude=amplitude)
 
 
 CANDIDATES = (
@@ -297,6 +317,42 @@ def comparison_sheet(dg_red: str) -> str:
     return "".join(parts)
 
 
+def strength_comparison_sheet(dg_red: str) -> str:
+    """Compare Perlin contrast levels enlarged and at their intended size."""
+    width_pt = 160 * 72 / 25.4
+    height_pt = 76 * 72 / 25.4
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="160mm" '
+        f'height="76mm" viewBox="0 0 {width_pt:.4f} {height_pt:.4f}">',
+        '<rect width="100%" height="100%" fill="white"/>',
+        f'<text x="{width_pt / 2:.2f}" y="15" text-anchor="middle" '
+        f'font-family="Arial" font-size="12" fill="{INK}">'
+        'Lower Perlin map: contrast levels</text>',
+        f'<text x="{width_pt / 2:.2f}" y="30" text-anchor="middle" '
+        f'font-family="Arial" font-size="12" fill="{MUTED}">'
+        'Same upper field, noise pattern, and mean lower-map tint</text>',
+    ]
+    for index, (stem, label, amplitude) in enumerate(STRENGTH_LEVELS):
+        center_x = 57.0 + index * 113.0
+        enlarged_body = perlin_dg_maps(
+            dg_red, id_prefix=f"{stem}-enlarged", amplitude=amplitude)
+        actual_body = perlin_dg_maps(
+            dg_red, id_prefix=f"{stem}-actual", amplitude=amplitude)
+        parts.extend((
+            f'<text x="{center_x:.2f}" y="46" text-anchor="middle" '
+            f'font-family="Arial" font-size="12" fill="{INK}">'
+            f'{label} ({amplitude:.3f})</text>',
+            f'<g transform="translate({center_x - PAGE_WIDTH * 0.7:.2f},52) '
+            f'scale(1.4)">{enlarged_body}</g>',
+            f'<g transform="translate({center_x - PAGE_WIDTH / 2:.2f},139)">'
+            f'{actual_body}</g>',
+            f'<text x="{center_x:.2f}" y="209" text-anchor="middle" '
+            f'font-family="Arial" font-size="12" fill="{MUTED}">10 × 20 mm</text>',
+        ))
+    parts.append('</svg>\n')
+    return "".join(parts)
+
+
 def build() -> None:
     selected_palette, dg_red = selected_dg_red()
     for stem, _, factory in CANDIDATES:
@@ -326,6 +382,35 @@ def build() -> None:
         },
     }
     (HERE / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+
+    STRENGTH_DIR.mkdir(parents=True, exist_ok=True)
+    for stem, _, amplitude in STRENGTH_LEVELS:
+        body = perlin_dg_maps(dg_red, id_prefix=stem, amplitude=amplitude)
+        write_and_export(STRENGTH_DIR / f"{stem}.svg", svg_document(body, 20))
+    write_and_export(
+        STRENGTH_DIR / "comparison.svg",
+        strength_comparison_sheet(dg_red), png_width=1800)
+    strength_manifest = {
+        "schema": "intrmotiv/figure2-perlin-strength-trials/v1",
+        "type": "data-free illustration; contrast-only comparison",
+        "size_mm": [10, 20],
+        "selected_palette": selected_palette,
+        "single_dg_identity_color": dg_red,
+        "seed": NOISE_SEED,
+        "grid_size": NOISE_GRID_SIZE,
+        "mean_opacity": NOISE_MEAN_OPACITY,
+        "fixed_features": ["upper DG field", "lower noise pattern", "lower mean tint"],
+        "levels": [
+            {"stem": stem, "label": label, "opacity_amplitude": amplitude}
+            for stem, label, amplitude in STRENGTH_LEVELS
+        ],
+        "current_reference": "../05_perlin_dg_maps.svg",
+        "reference_sha256": {
+            str(PALETTE_MANIFEST.relative_to(FIGURE_DIR)): sha256(PALETTE_MANIFEST),
+        },
+    }
+    (STRENGTH_DIR / "manifest.json").write_text(
+        json.dumps(strength_manifest, indent=2) + "\n")
 
 
 if __name__ == "__main__":
