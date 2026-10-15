@@ -5,8 +5,8 @@
    viewBox="0 0 540 136.8"
    version="1.1"
    id="svg66"
-   sodipodi:docname="06_architecture_v3_goal_gate_header.svg"
-   inkscape:version="1.4.2 (1:1.4.2+202505120737+ebf0e940d0)"
+   sodipodi:docname="Figure1.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -25,15 +25,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="288.14601"
-     inkscape:cy="-203.2932"
-     inkscape:window-width="2494"
-     inkscape:window-height="1371"
-     inkscape:window-x="1218"
-     inkscape:window-y="32"
+     inkscape:zoom="0.93212865"
+     inkscape:cx="268.20332"
+     inkscape:cy="111.03617"
+     inkscape:window-width="1512"
+     inkscape:window-height="854"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg66" />
+     inkscape:current-layer="figure_1" />
   <metadata
      id="metadata1">
     <rdf:RDF>
@@ -1261,12 +1261,12 @@
                id="text131-6-1-1-0-3-1-6-79-3-98"
                xml:space="preserve"
                transform="matrix(5.1396257,0,0,5.1449978,-3389.025,994.18991)"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.0687px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:99.9342;display:inline;fill:#183043;stroke-width:0.922389;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.07057836px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:99.9342;display:inline;fill:#183043;stroke-width:0.922389;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none"
                x="159.068221"
                y="159.81499"><tspan
                  x="159.06822"
                  y="159.81499"
-                 id="tspan20">Vis. Encoder</tspan></text>
+                 id="tspan1">Vis. Encoder</tspan></text>
             <text
                id="text131-6-1-1-0-3-1-6-7-1-1-5"
                xml:space="preserve"
@@ -1276,11 +1276,11 @@
                y="159.81499"><tspan
                  x="149.12737"
                  y="159.81499"
-                 id="tspan21">Layer 2
+                 id="tspan2">Layer 2
 </tspan><tspan
                  x="149.12737"
                  y="170.18649"
-                 id="tspan22">ResNet-18
+                 id="tspan3">ResNet-18
 </tspan></text>
             <g
                id="g5108-1-7"
@@ -1386,9 +1386,9 @@
                  transform="matrix(16.173123,0,0,16.173123,-4465.7336,1923.8875)"><tspan
                    x="94.141884"
                    y="13.22308"
-                   id="tspan24"><tspan
-                     dx="0 0 0.10054211 -0.10054226"
-                     id="tspan23">DG event</tspan></tspan></text>
+                   id="tspan5"><tspan
+                     dx="0 0 0.10054187 -0.1005419"
+                     id="tspan4">DG event</tspan></tspan></text>
             </g>
             <ellipse
                style="fill:#CB3C54;fill-opacity:1;stroke:#000000;stroke-width:4.51582;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -1413,7 +1413,7 @@
              y="159.81499"><tspan
                x="149.12737"
                y="159.81499"
-               id="tspan25">2×MLP (128)</tspan></text>
+               id="tspan6">2×MLP (128)</tspan></text>
           <text
              id="text131-6-1-1-7-5-2-3-3-1-95-8-4"
              xml:space="preserve"
@@ -1423,27 +1423,27 @@
              y="159.81499"><tspan
                x="149.12737"
                y="159.81499"
-               id="tspan26">Action(5)</tspan></text>
+               id="tspan7">Action(5)</tspan></text>
           <text
              id="text131-6-1-1-7-5-2-3-2-8-1-1-1-4-8"
              xml:space="preserve"
              transform="matrix(1.4447662,0,0,1.4462763,-2919.515,358.50062)"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.0687px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:85.7595;display:inline;fill:#183043;stroke-width:1.33403;stroke-linecap:butt;stroke-linejoin:round"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.07057848px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:85.7595;display:inline;fill:#183043;stroke-width:1.33403;stroke-linecap:butt;stroke-linejoin:round"
              x="155.427370"
              y="159.81499"><tspan
                x="155.42737"
                y="159.81499"
-               id="tspan27">Policy</tspan></text>
+               id="tspan8">Policy</tspan></text>
           <text
              id="text131-6-1-1-7-5-2-3-2-8-1-1-1-4-8-6"
              xml:space="preserve"
              transform="matrix(1.4447662,0,0,1.4462763,-2833.9296,358.48108)"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.0687px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:85.7595;display:inline;fill:#183043;stroke-width:1.33403;stroke-linecap:butt;stroke-linejoin:round"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.07057848px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;inline-size:85.7595;display:inline;fill:#183043;stroke-width:1.33403;stroke-linecap:butt;stroke-linejoin:round"
              x="149.12737"
              y="159.81499"><tspan
                x="149.12737"
                y="159.81499"
-               id="tspan28">Environment</tspan></text>
+               id="tspan9">Environment</tspan></text>
           <path
              style="fill:none;fill-opacity:1;stroke:#f8f8f8;stroke-width:6.27049;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.589686;filter:url(#filter5135-0-6)"
              d="m -1783.0714,645.45327 c -0.2281,-15.4294 15.8485,-26.9071 12.2556,-42.7874 -0.934,-11.3889 -3.5586,-22.693 -4.1331,-34.0469 4.213,-11.9855 19.2095,-4.1866 28.4157,-6.0302 9.0224,0.061 20.9321,-2.4705 27.2515,5.7232 6.8726,9.9498 3.9634,22.6624 4.8238,33.9775 0.08,17.1001 0.7558,21.9399 0.023,39.0156 4.0762,7.5807 10.4902,12.8399 16.9731,11.8465 14.1365,-1.8058 11.4775,19.1576 16.5486,27.1644 1.7185,7.8533 2.0138,10.1404 1.4672,19.6946 1.4958,6.2436 8.7015,3.8861 13.5776,3.8639"
@@ -1465,11 +1465,11 @@
              dy="0 0 0 0 0 0 -1.4917761"><tspan
                x="149.12737"
                y="159.81499"
-               id="tspan31">obs<tspan
+               id="tspan12">obs<tspan
    style="baseline-shift:sub"
-   id="tspan29">t+1</tspan> ← env( act<tspan
+   id="tspan10">t+1</tspan> ← env( act<tspan
    style="baseline-shift:sub"
-   id="tspan30">t</tspan> )</tspan></text>
+   id="tspan11">t</tspan> )</tspan></text>
           <rect
              style="fill:#ffffff;fill-opacity:1;stroke:#6952A6;stroke-width:1.60385;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.933333"
              id="rect5573-9-4-6-9-4"
@@ -1486,9 +1486,9 @@
              transform="matrix(0.28110339,0,0,0.28110339,-3082.1144,56.259585)"><tspan
                x="1380.741"
                y="2493.635"
-               id="tspan33"><tspan
-                 dx="0 0 0 0 0 0 0 0 0 0 1.6260798 -1.6260836 0 0 0 0 0 0 0 1.6260912 -1.6260836"
-                 id="tspan32">Trainable: temporal pull</tspan></tspan></text>
+               id="tspan14"><tspan
+                 dx="0 0 0 0 0 0 0 0 0 0 1.626076 -1.6260722 0 0 0 0 0 0 0 1.6260951 -1.6260874"
+                 id="tspan13">Trainable: temporal pull</tspan></tspan></text>
           <text
              xml:space="preserve"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:47.4321px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:-0.727453px;word-spacing:-1.62608px;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;inline-size:557.192;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.7055;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -1498,9 +1498,9 @@
              transform="matrix(0.28110339,0,0,0.28110339,-3184.9746,56.275855)"><tspan
                x="1087.7258"
                y="2493.635"
-               id="tspan35"><tspan
-                 dx="0 0 0 0 0 0 0 0 0 0 1.6260798 -1.6260836 0 0 0 0 0 0 0 1.6260912 -1.6260836"
-                 id="tspan34">Trainable: temporal push</tspan></tspan></text>
+               id="tspan16"><tspan
+                 dx="0 0 0 0 0 0 0 0 0 0 1.626076 -1.6260722 0 0 0 0 0 0 0 1.6260951 -1.6260874"
+                 id="tspan15">Trainable: temporal push</tspan></tspan></text>
           <rect
              style="fill:#ffffff;fill-opacity:1;stroke:#BF5828;stroke-width:1.49921;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
              id="rect5573-8-1-4-5"
@@ -1565,7 +1565,7 @@
                    y="159.81499"><tspan
                      x="149.12737"
                      y="159.81499"
-                     id="tspan36">Flatten</tspan></text>
+                     id="tspan17">Flatten</tspan></text>
                 <g
                    id="g5101-0-7-0-5-9-7"
                    transform="translate(234.95271,60.075169)"
@@ -1934,7 +1934,7 @@
                y="159.81499"><tspan
                  x="149.12737"
                  y="159.81499"
-                 id="tspan37">Sparsifier</tspan></text>
+                 id="tspan18">Sparsifier</tspan></text>
             <text
                xml:space="preserve"
                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.1147px;line-height:1;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;fill-opacity:0;stroke:#000000;stroke-width:2.3441;stroke-linecap:square;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -1956,7 +1956,7 @@
              text-anchor="middle"
              fill="#111111"
              id="text47-0-9-0-8-8-2"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0276px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">CA3</text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.00275426px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">CA3</text>
           <g
              transform="matrix(0.06835012,0,0,0.06835012,-2776.5676,612.58195)"
              id="g65-9"
@@ -2502,7 +2502,7 @@
              y="159.81499"><tspan
                x="149.12737"
                y="159.81499"
-               id="tspan38">Temporal separation</tspan></text>
+               id="tspan19">Temporal separation</tspan></text>
           <g
              id="g56-6-5-5-9-1"
              transform="matrix(4.4414185,0,0,4.4414185,-1473.5762,-189.44947)"
@@ -2730,7 +2730,7 @@
              text-anchor="middle"
              fill="#111111"
              id="text47-0-9-0-8-8-6-5"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0276px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">Push</text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.00275426px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">Push</text>
           <text
              x="-2678.6868"
              y="695.88531"
@@ -2740,7 +2740,7 @@
              text-anchor="middle"
              fill="#111111"
              id="text47-0-9-0-8-8-6-3-7"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0276px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">Pull</text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.00275426px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">Pull</text>
           <text
              x="-2904.6707"
              y="590.13983"
@@ -2750,7 +2750,7 @@
              text-anchor="middle"
              fill="#111111"
              id="text47-0-9-1-9-2-6-5"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.0276px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">DG</text>
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.00275426px;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#183043;stroke-width:0.319268;stroke-linecap:butt;stroke-linejoin:round">DG</text>
           <path
              style="fill:none;fill-opacity:1;stroke:#092e48;stroke-width:1.33333;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#ArrowWideRounded-6-0-2-9-9-2-9-5-9-13)"
              d="m -2789.6508,662.15754 c -0.1005,16.61183 -0.2248,2.91707 -0.2132,14.1191"
@@ -3753,11 +3753,27 @@
     </g>
     <!-- Peak cells (x,y)=(2,4),(6,15),(17,3) in the 19-by-19 source maps;
          displayed y is flipped to align with the maze orientation. -->
-    <g id="dg-field-peak-circles" fill="none" stroke="#CB3C54"
-       stroke-width="1.15" pointer-events="none">
-      <circle cx="403.996" cy="125.072" r="2.55" id="dg4-peak" />
-      <circle cx="458.981" cy="102.562" r="2.55" id="dg1-peak" />
-      <circle cx="528.291" cy="127.118" r="2.55" id="dg11-peak" />
+    <g
+       id="dg-field-peak-circles"
+       fill="none"
+       stroke="#CB3C54"
+       stroke-width="1.15"
+       pointer-events="none">
+      <circle
+         cx="403.996"
+         cy="125.072"
+         r="2.55"
+         id="dg4-peak" />
+      <circle
+         cx="458.981"
+         cy="102.562"
+         r="2.55"
+         id="dg1-peak" />
+      <circle
+         cx="528.291"
+         cy="127.118"
+         r="2.55"
+         id="dg11-peak" />
     </g>
     <g
        id="text_12">
