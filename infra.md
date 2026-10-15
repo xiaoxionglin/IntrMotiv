@@ -2250,8 +2250,9 @@ For each finding, record:
     with page heights of 136.8 and 231 pt.
   - **15 October role-priority correction:** D–F kept UG orange and FG green,
     although architecture-group contrast was less important than push/pull and
-    DG identity contrast. G–I now hold NG/UG/FG to one muted slate/taupe/sage
-    assignment and vary the process and unit hues first. The same exact-color
+    DG identity contrast. The first G–I trial made NG/UG/FG too neutral; the
+    revision retains slate NG and gives UG/FG secondary but distinct hues
+    chosen around each option's push/pull and DG identities. The exact-color
     renderer and hash manifest produce direct, two-page PDF comparisons from
     unchanged figure sources. Before promoting a candidate, inspect the
     full-size figures and verify that all three group colors changed in both
