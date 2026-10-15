@@ -1,7 +1,7 @@
 {
   "schema": "cosyne27-figure2-story-icon-variant/v1",
   "parent_story_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_story.py",
-  "parent_story_source_sha256": "e0c61b52141a95772f04a8761558a79ec345463895e83df921980de4eed80b9d",
+  "parent_story_source_sha256": "baa6f25a3388a66bf57c3071084d8a86a644466bedee6a6c7c6e812ba2ff19f0",
   "icon_source": "07_abstracts/cosyne_2027_submission_draft/build_figure2_metric_icons.py",
   "icon_source_sha256": "5a46b2bf6bbd6603ef66910aaeb4c0b4d4c03bd414035bc051c3b3464088618e",
   "physical_size_points": [
@@ -10,6 +10,196 @@
   ],
   "removed_panel": "E",
   "quantitative_panels": "A\u2013D data unchanged; B\u2013D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
+  "boxplot_whisker_rule": "lowest and highest observed values within Q1 - 1.5 IQR and Q3 + 1.5 IQR; all observations remain as dots",
+  "imported_box_source": {
+    "path": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/plotted_seed_differences.csv",
+    "sha256": "6caa54b475a46223572eb0e17d6cdfe4ff60c340ac93ab7b4d448b7bd8344b1e"
+  },
+  "imported_box_summaries": [
+    {
+      "arm": "push",
+      "metric": "dg_information",
+      "family": "C01",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": 0.02359353101,
+      "whisker_high": 0.08709891761
+    },
+    {
+      "arm": "push",
+      "metric": "dg_information",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": 0.03022930522,
+      "whisker_high": 0.05670177281
+    },
+    {
+      "arm": "push",
+      "metric": "dg_information",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.05461954454,
+      "whisker_high": 0.08667515214
+    },
+    {
+      "arm": "push",
+      "metric": "map_overlap",
+      "family": "C01",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.05208267881,
+      "whisker_high": -0.01807420908
+    },
+    {
+      "arm": "push",
+      "metric": "map_overlap",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.08726558209,
+      "whisker_high": -0.03119314768
+    },
+    {
+      "arm": "push",
+      "metric": "map_overlap",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": -0.05415967029,
+      "whisker_high": -0.02665025469
+    },
+    {
+      "arm": "push",
+      "metric": "peak_coverage",
+      "family": "C01",
+      "sample_count": 5,
+      "outlier_count": 2,
+      "whisker_low": 0.1072576705,
+      "whisker_high": 0.1252329797
+    },
+    {
+      "arm": "push",
+      "metric": "peak_coverage",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": 0.07624224259,
+      "whisker_high": 0.1337712357
+    },
+    {
+      "arm": "push",
+      "metric": "peak_coverage",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.03719039453,
+      "whisker_high": 0.08159208353
+    },
+    {
+      "arm": "push",
+      "metric": "graph_edges",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -9.0,
+      "whisker_high": 15.0
+    },
+    {
+      "arm": "push",
+      "metric": "graph_edges",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -82.0,
+      "whisker_high": 28.0
+    },
+    {
+      "arm": "pull",
+      "metric": "dg_information",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": -0.0115605965256691,
+      "whisker_high": 0.0443523749709129
+    },
+    {
+      "arm": "pull",
+      "metric": "dg_information",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.0415242612361907,
+      "whisker_high": 0.0114956572651862
+    },
+    {
+      "arm": "pull",
+      "metric": "map_overlap",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": -0.074729263607389,
+      "whisker_high": 0.00713110594801
+    },
+    {
+      "arm": "pull",
+      "metric": "map_overlap",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.0649219088548554,
+      "whisker_high": 0.1049085318822395
+    },
+    {
+      "arm": "pull",
+      "metric": "peak_coverage",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 0,
+      "whisker_low": -0.0862156618667273,
+      "whisker_high": 0.0871944351216144
+    },
+    {
+      "arm": "pull",
+      "metric": "peak_coverage",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": -0.0703270708863802,
+      "whisker_high": -0.0268942053332339
+    },
+    {
+      "arm": "pull",
+      "metric": "graph_edges",
+      "family": "C05",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": 0.0,
+      "whisker_high": 3.0
+    },
+    {
+      "arm": "pull",
+      "metric": "graph_edges",
+      "family": "C15",
+      "sample_count": 5,
+      "outlier_count": 1,
+      "whisker_low": 11.0,
+      "whisker_high": 19.0
+    }
+  ],
+  "behavior_box_outlier_counts": {
+    "dg_information": {
+      "NG": 0,
+      "UG": 0,
+      "FG": 1
+    },
+    "dg_reliability": {
+      "NG": 1,
+      "UG": 0,
+      "FG": 0
+    }
+  },
   "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0\u201363 within each fragment",
   "trajectory_tiles": {
     "NG": {

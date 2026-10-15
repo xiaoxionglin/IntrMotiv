@@ -15,9 +15,10 @@ from matplotlib import colormaps
 
 from build_figure2_metric_icons import HEIGHT_PT, ICONS, WIDTH_PT, OVERLAP_WIDTH_PT
 from build_figure2_story import (
-    HERE, ROOT, behavior_differences, export, layout_base,
+    HERE, ROOT, behavior_differences, box_summary, export, layout_base,
     selected_trajectories, sha256, story_overlay, terminal_rows,
 )
+from figure2_whisker_transform import DIFFERENCES, apply_tukey_whiskers
 
 
 OUTPUT = HERE / "Figure2_story_icons.svg"
@@ -126,18 +127,21 @@ def icon_overlay() -> str:
 
 def build() -> None:
     svg = layout_base(extra_plot_shift=1, metric_extra_shifts=(0, 6, 28, 40))
+    svg, imported_box_summaries = apply_tukey_whiskers(svg)
     old_name = 'sodipodi:docname="Figure2_story.svg"'
     if svg.count(old_name) != 1:
         raise ValueError("Could not identify the story canvas document name")
     svg = svg.replace(old_name, 'sodipodi:docname="Figure2_story_icons.svg"', 1)
+    behavior = behavior_differences()
     overlay = story_overlay(
-        terminal_rows(), selected_trajectories(), behavior_differences(),
+        terminal_rows(), selected_trajectories(), behavior,
         trajectory_tile_size=TRAJECTORY_SIZE,
         trajectory_centers=TRAJECTORY_CENTERS,
         path_metric_shift=1,
         elbow_arrows=True, paired_peak_layout=True,
         show_panel_e=False, behavior_layout_shift=40,
         information_shift=10, reliability_shift=25,
+        whisker_rule="tukey",
         trajectory_renderer=trajectory_tile,
         extra_overlay=icon_overlay() + trajectory_step_scale(),
     )
@@ -155,6 +159,20 @@ def build() -> None:
         "physical_size_points": [540, 230],
         "removed_panel": "E",
         "quantitative_panels": "A–D data unchanged; B–D statistical plot dimensions retained; A trajectory tiles are 39 points square and display 65 complete fragments; icons follow their plots",
+        "boxplot_whisker_rule": "lowest and highest observed values within Q1 - 1.5 IQR and Q3 + 1.5 IQR; all observations remain as dots",
+        "imported_box_source": {
+            "path": str(DIFFERENCES.relative_to(ROOT)),
+            "sha256": sha256(DIFFERENCES),
+        },
+        "imported_box_summaries": imported_box_summaries,
+        "behavior_box_outlier_counts": {
+            metric: {
+                family: sum(value < summary[0] or value > summary[4]
+                            for value in values)
+                for family, values in groups.items()
+                for summary in [box_summary(values, "tukey")]
+            } for metric, groups in behavior.items()
+        },
         "trajectory_source_protocol": "100M-frame checkpoint, 100k-observation own-policy online-spatial window; 65 sampled complete fragments per architecture; viridis maps local step 0–63 within each fragment",
         "trajectory_tiles": {family: {
             "path": str(path.relative_to(ROOT)), "sha256": sha256(path),
