@@ -4,7 +4,7 @@ These are the **unfiltered complete atlases for all 40 terminal networks** in th
 
 ## Architecture notes
 
-All three architectures share a fixed ImageNet-pretrained ResNet-18 trunk through layer 2, trainable DG projection with batch normalization, fixed CA3-like sequence memory, and learned readout. **C01** explores directly. **C05** navigates toward an internally detected DG target. **C15** adds frontier-based selection of DG targets. The [original diagram](../figures/architecture_v2.svg) shows the common modules.
+All three architectures share a fixed ImageNet-pretrained ResNet-18 trunk through layer 2, trainable DG projection with batch normalization, fixed CA3-like sequence memory, and learned readout. **C01** explores directly. **C05** navigates toward an internally detected DG target. **C15** adds frontier-based selection of DG targets. The [original diagram](../figures/architecture_uploaded.svg) shows the common modules.
 
 ## Select from every seed
 

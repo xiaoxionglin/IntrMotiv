@@ -1969,6 +1969,13 @@ For each finding, record:
 
 ## Completed Improvements
 
+### Keep COSYNE upload archives aligned with retained figure assets — 2026-10-16
+
+- **Evidence:** The compact Overleaf builder still packaged superseded Figure 2 composites and the expanded builder copied 10 palette trial families after the selected Figure 1/2 pair was established. Dated ZIP backups also duplicated earlier whole-figure versions.
+- **Impact:** An upload archive could silently reintroduce deleted historical figures and make the selected submission hard to identify.
+- **Improvement/status:** Completed for the COSYNE draft. The [asset index](07_abstracts/cosyne_2027_submission_draft/README.md) names selected figures, evidence-bearing variants, and reusable source material; the [package builder](07_abstracts/cosyne_2027_submission_draft/build_overleaf_package.py) now includes the retained set and both ZIPs were rebuilt.
+- **Acceptance:** Both package modes finish, `main.tex` references are present in each ZIP, and the removed historical composite and palette exports are absent. Future figure selection should update the index and package manifest together.
+
 ### Record partial training completions without changing study definitions — completed locally, 2026-10-12
 
 - **Evidence:** COSYNE job 8335154 reached its 100M checkpoint while 14 jobs in the same fresh cohort were still running. The [catalog builder](06_experiments/cosyne_2027/build_run_index.py) previously assigned one hardcoded status to every run in that cohort.

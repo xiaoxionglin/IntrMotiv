@@ -12,7 +12,7 @@ All three architectures share the fixed ImageNet-pretrained ResNet-18 trunk thro
 | **C05** | Uses an internally detected DG event as a navigation target. | [PNG](c05_eight_screened_fields.png) · [PDF](c05_eight_screened_fields.pdf) | `C05-1`–`C05-8` |
 | **C15** | Adds frontier-based selection of DG targets. | [PNG](c15_eight_screened_fields.png) · [PDF](c15_eight_screened_fields.pdf) | `C15-1`–`C15-8` |
 
-The [original architecture artwork](../../../figures/architecture_v2.svg) and [Figure 1 design notes](../../README.md) give the shared module diagram and longer explanation.
+The [original architecture artwork](../../../figures/architecture_uploaded.svg) and [Figure 1 design notes](../../README.md) give the shared module diagram and longer explanation.
 
 ## Exact unit index
 

@@ -1,47 +1,7 @@
-# Experimental Figure 1: spatial results at right
+# Figure 1 sources and evidence variants
 
-[NG, UG, and FG icon candidates](goal_policy_icon_options/README.md) · [comparison preview](goal_policy_icon_options/overview.png). Three compact, editable vector designs show policy goal conditioning and which DG events are eligible for pull. These are separate experiments and are not inserted into Figure 1.
+The selected [Figure 1](../Figure1.pdf) uses the [author-edited architecture base](06_architecture_v3_goal_gate_header.svg); its [notes](06_architecture_v3_goal_gate_header_README.md) and [manifest](06_architecture_v3_goal_gate_header_manifest.json) explain the source and field choices.
 
-[Figure 1 v3 with DG information, log intrinsic reward, and three C15 seed-123 fields](04_architecture_v3_dg_reward_fields_README.md) · [PDF](04_architecture_v3_dg_reward_fields.pdf) · [SVG](04_architecture_v3_dg_reward_fields.svg) · [PNG](04_architecture_v3_dg_reward_fields.png). This newer candidate keeps the v3 artwork at its original size and places every addition to its right within the 7.5-inch submission width.
+Two variants show different reward interpretations alongside DG fields: [absolute log reward](04_architecture_v3_dg_reward_fields.pdf) and [reward relative to each architecture's mean](05_architecture_v3_relative_reward.pdf). Their respective README and manifest files describe the plotted measurements. They remain review options, not replacements for the selected figure.
 
-[Figure 1 v3 with intrinsic reward relative to each architecture's own mean](05_architecture_v3_relative_reward_README.md) · [PDF](05_architecture_v3_relative_reward.pdf) · [SVG](05_architecture_v3_relative_reward.svg) · [PNG](05_architecture_v3_relative_reward.png). This variant has taller, thinner-lined training plots with vertical axis labels, and its C curves show within-architecture reward dynamics rather than absolute reward scale.
-
-[Figure 1 v3 author-edited base with the side gate in the B header](06_architecture_v3_goal_gate_header_README.md) · [PDF](06_architecture_v3_goal_gate_header.pdf) · [SVG](06_architecture_v3_goal_gate_header.svg) · [PNG](06_architecture_v3_goal_gate_header.png). This 7.5 × 1.9-inch SVG is the base for future edits; the PDF and PNG are direct exports. It combines both training curves in B, places NG/UG/FG vertically to the right of the side-gate schematic, and makes the three place fields C without a heading. It uses TS, Policy, and Pol. labels to match Figure 2.
-
-[All 16 DG maps from every terminal seed](full_place_field_atlases.md) · 40 unfiltered condition/seed atlases in shared and per-unit min–max scales, with architecture notes and unit metrics
-
-[Five alternative four-field sets](place_field_options/README.md) · [scrollable overview](place_field_options/all_five_overview.png)
-
-[Eight screened DG examples per architecture](place_field_options/eight_per_architecture/README.md) · [C01 sheet](place_field_options/eight_per_architecture/c01_eight_screened_fields.png) · [C05 sheet](place_field_options/eight_per_architecture/c05_eight_screened_fields.png) · [C15 sheet](place_field_options/eight_per_architecture/c15_eight_screened_fields.png)
-
-[Latest architecture-priority candidate PDF](03_architecture_priority_compact_results.pdf) · [SVG](03_architecture_priority_compact_results.svg) · [PNG preview](03_architecture_priority_compact_results.png)
-
-[Earlier original-art candidate PDF](02_original_architecture_spatial_right.pdf) · [SVG](02_original_architecture_spatial_right.svg) · [PNG preview](02_original_architecture_spatial_right.png)
-
-[Earlier simplified candidate PDF](01_architecture_spatial_right.pdf) · [SVG](01_architecture_spatial_right.svg) · [PNG preview](01_architecture_spatial_right.png)
-
-The earlier three layouts are **separate candidates** at 7.5 × 3.12 inches. The submitted architecture figure, Figure 2, `main.tex`, and the compact Overleaf ZIP are unchanged. Candidate 3 gives the author's original architecture artwork about 5.8 inches of width, compresses the spatial-emergence plot into a narrow top-right strip, and places all four archived DG maps in a tiny two-by-two grid beneath it. Candidate 2 uses the same art at about 4.5 inches wide with a wider plot and two larger maps. Candidate 1 retains a simplified-box comparison.
-
-The original art includes the egocentric scene, ResNet-18 wedge, DG sparsifier, CA3 sequence, readout, maze, feedback arrows, and temporal-separation inset. The adapter crops away the large formula rows and masks the observation-update formula above the diagram. Isolated symbols for the threshold, matrix links, and event interval remain in the artwork; no equation is displayed. Three prose lines beneath it state which modules are fixed or learned and identify the push and pull paths. In candidate 3, the diagram's explanatory word labels are redrawn at 10 pt in their original locations; its other added text is 11–12 pt. The original small mathematical and matrix symbols remain part of the artwork. The art is embedded at 600 dpi; plot lines, uncertainty bands, axes, and added text are vector in the PDF and SVG.
-
-## Suggested caption
-
-**Architecture and emergent spatial activity. A,** Egocentric RGB input passes through an ImageNet-pretrained ResNet-18 visual trunk fixed through layer 2. A trainable projection with batch normalization (BN) and thresholded rectification produces sparse dentate gyrus (DG) events. A fixed CA3-like memory retains their sequence. Its flattened state and egocentric depth feed a learned, two-layer readout multilayer perceptron (MLP) with 128 units per layer, which estimates value and selects among five actions. Temporal DG credit strengthens eligible event responses more after longer intervals between events (red push). Policy learning favors shorter transitions between internally detected events, or faster internally detected target hits in goal-conditioned variants (blue pull). Neither learning signal uses position labels, a map, physical distance, or a spatial reward.
-
-**B,** Online amplitude-weighted DG spatial-information score in bits per step over active units, computed on each policy's latest 10,000 observations and shown across millions of training environment frames. Each curve is the mean of five training seeds; the shaded band is plus or minus one standard error of that mean. C01 explores directly, C05 uses a DG target, and C15 adds frontier-based target choice. All three displayed groups use temporal DG credit; C05 and C15 also use temporal worker hit credit. The policy and network both change during training, so these curves describe emergence along the sampled trajectories and do not isolate a learning-signal intervention.
-
-**C,** Four illustrative, occupancy-corrected DG response maps from a separate archived C15 seed-99 model at 100,040,704 training frames, measured during one 10,001-decision policy evaluation. This probe visited 310 of 361 spatial bins (85.9%), compared with 220 of 361 (60.9%) in the previous C01 seed-8 example. The four displayed units are the top four by spatial-information score in that archived unit table: DG 7, 11, 1, and 0 score 0.217, 0.185, 0.176, and 0.167 bits, respectively. Candidate 2 shows only DG 7 and 0. Each tile uses its **own** response-amplitude color range, starting at zero, so colors cannot be compared as absolute amplitudes between units; white cells were unvisited. The maps contain multiple response hotspots and are illustrative spatial responses, not evidence that any unit has a single compact field. This archived model is separate from the networks in the current common-replay temporal-credit comparison and is not a representative estimate across training seeds.
-
-## Source and regeneration
-
-Panel A of candidates 2 and 3 crops the original [architecture v2 SVG](../figures/architecture_v2.svg) with exact export, crop, and formula-mask coordinates recorded in [candidate 3's manifest](03_architecture_priority_compact_results_manifest.json). Panel B reads the archived [online arm summary](../../../06_experiments/results/cosyne_2027_online_wandb/arm_summaries.csv). Panel C crops four tiles from the [C15 seed-99 per-unit-scale SVG](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/c15_seed99/place_fields_individual_scale.svg); the [probe table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/matched_terminal_per_run.csv) verifies occupancy and evaluation length, and the [unit table](../../../06_experiments/results/A0_poster_analysis_20260926/flat_goal_comparison/place_field_individual_scales.csv) verifies field identities, spatial-information scores, and color ranges. The [candidate 1 manifest](manifest.json) and [candidate 2 manifest](02_original_architecture_spatial_right_manifest.json) record their input hashes. The field tiles are raster crops in all candidates.
-
-From this directory, rebuild with:
-
-```bash
-MPLCONFIGDIR=/tmp/cosyne_figure1_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python render_architecture_with_fields.py
-MPLCONFIGDIR=/tmp/cosyne_figure1_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python render_original_architecture_candidate.py
-MPLCONFIGDIR=/tmp/cosyne_figure1_mpl /home/xiaoxiong/miniforge3/envs/SF_git/bin/python render_architecture_priority_candidate.py
-```
-
-This layout would require moving the Figure 2A spatial-emergence panel and the Figure 2C field examples out of Figure 2 if selected for the submission, then updating both captions and figure references. The present candidates do not make those changes.
+Reusable source assets include [all 16 DG maps from each of 40 terminal condition/seed combinations](full_place_field_atlases.md), shared-scale and min–max atlases, `terminal_seed_metrics.csv`, `terminal_unit_metrics.csv`, [screened field sets](place_field_options/README.md), and [goal-policy icon options](goal_policy_icon_options/README.md). The early whole-figure layouts 01–03 were removed; their source plots and field data remain here and in `06_experiments/results/`.

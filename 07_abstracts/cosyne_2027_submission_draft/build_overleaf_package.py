@@ -1,9 +1,4 @@
-"""Build the current Overleaf project or its expanded figure library.
-
-The default archive contains the current figure sources, PDFs, and layout
-notes. ``--full`` writes a separate archive with candidate
-COSYNE plots; it never replaces the current upload package.
-"""
+"""Build the selected Overleaf project or its expanded source-plot library."""
 
 from __future__ import annotations
 
@@ -29,24 +24,12 @@ CURRENT_STANDALONE_ASSETS["Figure2.png"] = DRAFT_DIR / "Figure2.png"
 FIGURE_OPTION_ASSETS = {
     "FIGURE2_SELECTED_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_layout_README.md",
     "FIGURE2_SELECTED_LAYOUT_PLACEMENTS.json": DRAFT_DIR / "Figure2_layout_manifest.json",
-    "figures/Figure2_fiddle.svg": DRAFT_DIR / "Figure2_fiddle.svg",
-    "figures/Figure2_tetris.svg": DRAFT_DIR / "Figure2_tetris.svg",
-    "figures/Figure2_tetris.pdf": DRAFT_DIR / "Figure2_tetris.pdf",
-    "figures/Figure2_tetris.png": DRAFT_DIR / "Figure2_tetris.png",
-    "figures/Figure2_tetris_sidebar.svg": DRAFT_DIR / "Figure2_tetris_sidebar.svg",
-    "figures/Figure2_tetris_sidebar.pdf": DRAFT_DIR / "Figure2_tetris_sidebar.pdf",
-    "figures/Figure2_tetris_sidebar.png": DRAFT_DIR / "Figure2_tetris_sidebar.png",
-    "FIGURE2_COMPACT_NOTES.md": DRAFT_DIR / "Figure2_tetris_README.md",
-    "figures/Figure2_fiddle_with_fields.svg": DRAFT_DIR / "Figure2_fiddle_with_fields.svg",
-    "figures/Figure2_fiddle_with_fields.pdf": DRAFT_DIR / "Figure2_fiddle_with_fields.pdf",
-    "figures/Figure2_fiddle_with_fields.png": DRAFT_DIR / "Figure2_fiddle_with_fields.png",
     "figures/c15_temporal_s123_atlas.png": (
         DRAFT_DIR / "figure1_candidates" / "full_seed_atlases" /
         "c15_temporal_s123.png"),
     "figures/c15_constant_s123_atlas.png": (
         DRAFT_DIR / "figure1_candidates" / "full_seed_atlases" /
         "c15_constant_s123.png"),
-    "FIGURE2_LAYOUT_NOTES.md": DRAFT_DIR / "Figure2_fiddle_with_fields_README.md",
     "figures/Figure2_story.svg": DRAFT_DIR / "Figure2_story.svg",
     "figures/Figure2_story.pdf": DRAFT_DIR / "Figure2_story.pdf",
     "figures/Figure2_story.png": DRAFT_DIR / "Figure2_story.png",
@@ -61,11 +44,6 @@ FIGURE_OPTION_ASSETS = {
     "FIGURE2_STORY_PEAKS_NOTES.md": DRAFT_DIR / "Figure2_story_peaks_README.md",
     "FIGURE2_STORY_PEAKS_SOURCES.json": DRAFT_DIR / "Figure2_story_peaks_manifest.json",
     "data/Figure2_story_peaks_data.csv": DRAFT_DIR / "Figure2_story_peaks_data.csv",
-    "figures/Figure2_story_icons.svg": DRAFT_DIR / "Figure2_story_icons.svg",
-    "figures/Figure2_story_icons.pdf": DRAFT_DIR / "Figure2_story_icons.pdf",
-    "figures/Figure2_story_icons.png": DRAFT_DIR / "Figure2_story_icons.png",
-    "FIGURE2_STORY_ICONS_NOTES.md": DRAFT_DIR / "Figure2_story_icons_README.md",
-    "FIGURE2_STORY_ICONS_SOURCES.json": DRAFT_DIR / "Figure2_story_icons_manifest.json",
     "data/Figure2D_shared_mask_pairs.csv": (
         REPO_ROOT / "06_experiments/reward_credit/results/"
         "cosyne27_c01_flat_policy_reward_20261015/figure2d_shared_mask_pairs.csv"),
@@ -133,24 +111,14 @@ FIGURE_OPTION_ASSETS = {
         "trajectories/COS27_C15_TEMPORAL_S17.png"),
 }
 PALETTE_TRIAL_DIR = DRAFT_DIR / "figure_palette_candidates"
-PALETTE_TRIAL_ASSETS = {
-    "FIGURE_PALETTE_TRIALS_NOTES.md": PALETTE_TRIAL_DIR / "README.md",
-    "data/Figure_palette_trials_manifest.json": PALETTE_TRIAL_DIR / "manifest.json",
-    "figures/palette_trials/palette_key.png": PALETTE_TRIAL_DIR / "palette_key.png",
-    "figures/palette_trials/comparison_figure1.png": PALETTE_TRIAL_DIR / "comparison_figure1.png",
-    "figures/palette_trials/comparison_figure2.png": PALETTE_TRIAL_DIR / "comparison_figure2.png",
-    "figures/palette_trials/comparison_figure1_A_refinements.png": (
-        PALETTE_TRIAL_DIR / "comparison_figure1_A_refinements.png"),
-    "figures/palette_trials/comparison_figure2_A_refinements.png": (
-        PALETTE_TRIAL_DIR / "comparison_figure2_A_refinements.png"),
+PALETTE_SOURCE_ASSETS = {
+    "FIGURE_PALETTE_NOTES.md": PALETTE_TRIAL_DIR / "README.md",
+    "data/Figure_palette_manifest.json": PALETTE_TRIAL_DIR / "manifest.json",
+    "sources/Figure1_selected_palette.svg":
+        PALETTE_TRIAL_DIR / "priority_rgb_orange_violet_figure1.svg",
+    "sources/Figure2_selected_palette.svg":
+        PALETTE_TRIAL_DIR / "priority_rgb_orange_violet_figure2.svg",
 }
-for palette_name in ("slate_ng", "slate_ng_violet_rose",
-                     "slate_ng_tuned_dg", "purple_pull", "role_neutral"):
-    for figure_name in ("figure1", "figure2"):
-        for extension in ("svg", "pdf"):
-            filename = f"{palette_name}_{figure_name}.{extension}"
-            PALETTE_TRIAL_ASSETS[f"figures/palette_trials/{filename}"] = (
-                PALETTE_TRIAL_DIR / filename)
 for metric in ("path_efficiency", "visited_cell_fraction",
                "stationary_step_fraction", "mean_physical_step_distance"):
     for extension in ("svg", "pdf", "png"):
@@ -178,8 +146,6 @@ for extension in ("svg", "pdf", "png"):
         DRAFT_DIR / "figure2_candidates/09_trajectory_thumbnails" / filename)
 
 CURRENT_SVG_SOURCES = {
-    "architecture_uploaded.svg": DRAFT_DIR / "figures" / "architecture_uploaded.svg",
-    "results_sections.svg": DRAFT_DIR / "figures" / "results_sections.svg",
     "online_spatial_course.svg": RESULTS_DIR / "cosyne_2027_compact_figures" / "01_online_spatial_course.svg",
     "c01_peak_density.svg": RESULTS_DIR / "cosyne_2027_checkpoint_fields" / "common_panel_analysis" / "figures" / "c01_seed99_common_peak_density.svg",
     "encoder_paired_decoder_1.svg": RESULTS_DIR / "cosyne_2027_temporal_credit_layers" / "encoder_paired_decoder_1.svg",
@@ -241,10 +207,8 @@ def sync_manuscript_figures() -> None:
 
 
 def build_compact() -> None:
-    """Package current figures, earlier layout options, and submission notes."""
+    """Package selected figures, distinct evidence variants, and source assets."""
     sync_manuscript_figures()
-    pdf_names = ("architecture.pdf", "results_sections.pdf")
-    svg_names = ("architecture_uploaded.svg", "results_sections.svg")
     with tempfile.TemporaryDirectory(prefix=".cosyne_compact_", dir=DRAFT_DIR) as temp_name:
         temp_dir = Path(temp_name)
         assets = {
@@ -252,55 +216,30 @@ def build_compact() -> None:
             ("main.tex", "README.md", "OPEN_QUESTIONS.md", "PANEL_PROVENANCE.json")
         }
         assets.update(CURRENT_STANDALONE_ASSETS)
-        assets.update({f"figures/{name}": DRAFT_DIR / "figures" / name
-                       for name in pdf_names + svg_names})
+        assets["sources/architecture_uploaded.svg"] = (
+            DRAFT_DIR / "figures" / "architecture_uploaded.svg")
         assets.update({f"figures/Figure{number}.pdf":
                        DRAFT_DIR / "figures" / f"Figure{number}.pdf"
                        for number in (1, 2)})
         assets.update(FIGURE_OPTION_ASSETS)
+        assets.update(PALETTE_SOURCE_ASSETS)
         index = temp_dir / "FIGURE_OPTIONS.md"
-        index.write_text("# Figures in this compact Overleaf project\n\n"
-                         "`main.tex` uses `figures/Figure1.pdf` and "
-                         "`figures/Figure2.pdf`. Selected standalone PDFs and their "
-                         "matching SVG sources also remain at the project root. "
-                         "Earlier composite PDFs remain "
-                         "available as options:\n\n"
-                         + "\n".join(f"- `figures/{name}`" for name in pdf_names)
-                         + "\n\nThe compact editable Figure 2 layout trial is at "
-                         "`figures/Figure2_tetris.svg`, with a PDF and preview "
-                         "beside it. A tighter option with two empty side slots "
-                         "is `figures/Figure2_tetris_sidebar.pdf`. "
-                         "Read `FIGURE2_COMPACT_NOTES.md` and the "
-                         "longer `FIGURE2_LAYOUT_NOTES.md` for its caption. "
-                         "A story layout with trajectories and swappable behavior "
-                         "statistics is `figures/Figure2_story.pdf`; a peak-map "
-                         "sidebar option with paired temporal/control peak maps "
-                         "is `figures/Figure2_story_peaks.pdf`. "
-                         "See `FIGURE2_STORY_NOTES.md` and "
-                         "`FIGURE2_STORY_PEAKS_NOTES.md`. An E-free layout with "
-                         "metric icons is `figures/Figure2_story_icons.pdf` and "
-                         "`FIGURE2_STORY_ICONS_NOTES.md`. The selected y-axis-gutter "
-                         "layout is `figures/Figure2.pdf`, documented in "
-                         "`FIGURE2_SELECTED_LAYOUT_NOTES.md`. Its three 65-fragment "
-                         "trajectory tiles are separate editable SVGs under "
-                         "`figures/trajectory_examples/`; see "
-                         "`FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`. Five tiny metric icons "
-                         "and their preview are in `figures/Figure2_metric_icon_*.pdf` "
-                         "and `FIGURE2_METRIC_ICONS_NOTES.md`; the selected spatial-"
-                         "information icon is `figures/Figure2_spatial_information_icon.pdf` "
-                         "with `FIGURE2_SPATIAL_INFO_ICON_NOTES.md`. The earlier taller trial is "
-                         "also included. A matching five-seed mean intrinsic-"
-                         "reward training course is available at "
-                         "`figures/01b_online_intrinsic_reward_course.pdf`, with "
-                         "a log-y variant at `figures/01c_online_intrinsic_reward_course_log.pdf`; "
-                         "see `FIGURE2_INTRINSIC_REWARD_NOTES.md`.\n\nThe expanded candidate "
-                         "library is in the repository's full archive.\n")
+        index.write_text(
+            "# Figures in this Overleaf project\n\n"
+            "`main.tex` uses `figures/Figure1.pdf` and `figures/Figure2.pdf`. "
+            "Matching editable SVGs are at the project root.\n\n"
+            "Distinct Figure 2 evidence variants are "
+            "`figures/Figure2_story.pdf` (response maps) and "
+            "`figures/Figure2_story_peaks.pdf` (paired peak maps). "
+            "Their notes and source manifests are included. Individual icons, "
+            "behavior plots, trajectory tiles, atlases, tables, and the selected "
+            "palette source remain available for later figure work.\n")
         assets[index.name] = index
         check_included_figures(assets)
         staged = temp_dir / ARCHIVE_PATH.name
         write_archive(assets, staged)
         staged.replace(ARCHIVE_PATH)
-    print(f"Packaged {len(pdf_names)} current PDFs and their SVG sources: {ARCHIVE_PATH}")
+    print(f"Packaged selected figures and retained assets: {ARCHIVE_PATH}")
 
 
 def build_full() -> None:
@@ -341,7 +280,7 @@ def build_full() -> None:
         for svg_name, source_path in CURRENT_SVG_SOURCES.items():
             assets[f"figures/{svg_name}"] = source_path
         assets.update(FIGURE_OPTION_ASSETS)
-        assets.update(PALETTE_TRIAL_ASSETS)
+        assets.update(PALETTE_SOURCE_ASSETS)
 
         groups: dict[str, list[str]] = {}
         for source_path in candidate_svgs:
@@ -365,68 +304,26 @@ def build_full() -> None:
             "# Figure options for the COSYNE draft",
             "",
             "`main.tex` uses `figures/Figure1.pdf` and `figures/Figure2.pdf`.",
-            "Selected standalone PDFs and matching SVGs are also at the project root.",
-            "Earlier PDFs in `figures/` are options.",
-            "Additional options are in `figures/candidates/`, organized",
-            "by the source analysis folder. Every candidate PDF has a matching SVG;",
-            "the PNG-only files are place-field, graph, and trajectory examples.",
-            "Change an `\\includegraphics` path in `main.tex` to try an option.",
-            "Candidates include exploratory and historical plots; check the linked",
-            "analysis before making a scientific claim from a replacement panel.",
+            "Editable SVGs and the two distinct Figure 2 evidence variants are",
+            "included with their source tables and manifests. The remaining",
+            "candidate library consists of individual analytical plots; consult",
+            "the linked analysis before substituting a panel.",
             "",
-            "## Current figure assets",
+            "## Selected and retained figure assets",
             "",
         ]
         index_lines.extend(f"- `figures/{pdf_path.name}`" for pdf_path in current_pdfs)
-        index_lines.extend(["", "## Compact Figure 2 layout trial", "",
-                            "- `figures/Figure2_tetris.pdf`",
-                            "- `figures/Figure2_tetris.svg`",
-                            "- `figures/Figure2_tetris_sidebar.pdf`",
-                            "- `figures/Figure2_tetris_sidebar.svg`",
-                            "- `FIGURE2_COMPACT_NOTES.md`",
-                            "", "## Figure 2 story layout and behavior-stat alternatives", "",
-                            "- `figures/Figure2_story.pdf`",
-                            "- `figures/Figure2_story.svg`",
-                            "- `figures/Figure2_story_peaks.pdf`",
-                            "- `figures/Figure2_story_peaks.svg`",
-                            "- `figures/Figure2_story_icons.pdf`",
-                            "- `figures/Figure2_story_icons.svg`",
-                            "- `FIGURE2_SELECTED_LAYOUT_NOTES.md`",
-                            "- `FIGURE2_SELECTED_LAYOUT_PLACEMENTS.json`",
-                            "- `figures/Figure2_behavior_candidate_stats.pdf`",
-                            "- `FIGURE2_STORY_NOTES.md`",
-                            "- `FIGURE2_STORY_PEAKS_NOTES.md`",
-                            "- `FIGURE2_STORY_ICONS_NOTES.md`",
-                            "- `figures/trajectory_examples/NG_65_fragments_tile.svg`",
-                            "- `figures/trajectory_examples/UG_65_fragments_tile.svg`",
-                            "- `figures/trajectory_examples/FG_65_fragments_tile.svg`",
-                            "- `FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`",
-                            "- `figures/Figure2_metric_icons_preview.pdf`",
-                            "- `FIGURE2_METRIC_ICONS_NOTES.md`",
-                            "- `figures/Figure2_spatial_information_icon.pdf`",
-                            "- `FIGURE2_SPATIAL_INFO_ICON_NOTES.md`",
-                            "", "## Figure 1 and Figure 2 palette trials", "",
-                            "- `FIGURE_PALETTE_TRIALS_NOTES.md`",
-                            "- `figures/palette_trials/comparison_figure1.png`",
-                            "- `figures/palette_trials/comparison_figure2.png`",
-                            "- `figures/palette_trials/comparison_figure1_A_refinements.png`",
-                            "- `figures/palette_trials/comparison_figure2_A_refinements.png`",
-                            "- `figures/palette_trials/palette_key.png`",
-                            "- `figures/palette_trials/slate_ng_figure1.pdf` and `slate_ng_figure2.pdf`",
-                            "- `figures/palette_trials/slate_ng_violet_rose_figure1.pdf` and `slate_ng_violet_rose_figure2.pdf`",
-                            "- `figures/palette_trials/slate_ng_tuned_dg_figure1.pdf` and `slate_ng_tuned_dg_figure2.pdf`",
-                            "- `figures/palette_trials/purple_pull_figure1.pdf` and `purple_pull_figure2.pdf`",
-                            "- `figures/palette_trials/role_neutral_figure1.pdf` and `role_neutral_figure2.pdf`",
-                            "", "## Mean intrinsic reward course", "",
-                            "- `figures/01b_online_intrinsic_reward_course.pdf`",
-                            "- `figures/01b_online_intrinsic_reward_course.svg`",
-                            "- `figures/01c_online_intrinsic_reward_course_log.pdf`",
-                            "- `figures/01c_online_intrinsic_reward_course_log.svg`",
-                            "- `FIGURE2_INTRINSIC_REWARD_NOTES.md`",
-                            "", "## Earlier Figure 2 layout trial", "",
-                            "- `figures/Figure2_fiddle_with_fields.pdf`",
-                            "- `figures/Figure2_fiddle_with_fields.svg`",
-                            "- `FIGURE2_LAYOUT_NOTES.md`"])
+        index_lines.extend([
+            "- `figures/Figure2_story.pdf` (DG response maps)",
+            "- `figures/Figure2_story_peaks.pdf` (paired peak maps)",
+            "- `sources/Figure1_selected_palette.svg`",
+            "- `sources/Figure2_selected_palette.svg`",
+            "- `FIGURE2_SELECTED_LAYOUT_NOTES.md`",
+            "- `FIGURE2_STORY_NOTES.md`",
+            "- `FIGURE2_STORY_PEAKS_NOTES.md`",
+            "- `FIGURE2_METRIC_ICONS_NOTES.md`",
+            "- `FIGURE2_TRAJECTORY_CANDIDATES_NOTES.md`",
+        ])
         for group, pdf_paths in sorted(groups.items()):
             index_lines.extend(["", f"## {group} ({len(pdf_paths)} plots)", ""])
             index_lines.extend(f"- `{path}`" for path in pdf_paths)
