@@ -9,7 +9,8 @@
   "single_dg_identity_color": "#CB3C54",
   "seed": 23,
   "grid_size": 32,
-  "mean_opacity": 0.106,
+  "mean_opacity": 0.059,
+  "contrast_method": "clip and solve offset to preserve mean opacity",
   "fixed_features": [
     "upper DG field",
     "lower noise pattern",
@@ -35,6 +36,21 @@
       "stem": "04_strong",
       "label": "Strong",
       "opacity_amplitude": 0.11
+    },
+    {
+      "stem": "05_high",
+      "label": "High",
+      "opacity_amplitude": 0.14
+    },
+    {
+      "stem": "06_higher",
+      "label": "Higher",
+      "opacity_amplitude": 0.2
+    },
+    {
+      "stem": "07_very_high",
+      "label": "Very high",
+      "opacity_amplitude": 0.28
     }
   ],
   "current_reference": "../05_perlin_dg_maps.svg",

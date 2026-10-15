@@ -2,7 +2,7 @@
 
 [Comparison preview](comparison.png) · [editable comparison](comparison.svg) · [comparison PDF](comparison.pdf) · [builder](build_spatial_information_icons.py) · [manifest](manifest.json)
 
-For the Perlin option, see the [four contrast levels](perlin_strength_variants/README.md) and their [comparison preview](perlin_strength_variants/comparison.png). The current icon corresponds to level 03.
+For the Perlin option, see the [seven contrast levels](perlin_strength_variants/README.md), especially the [stronger comparison](perlin_strength_variants/stronger_comparison.png). The current icon corresponds to level 03.
 
 Five separate **10 × 20 mm** vector icons are available for visual comparison. The comparison sheet shows each icon enlarged and at its actual page size. None has been added to Figure 2 or the Overleaf package.
 
@@ -14,7 +14,7 @@ Each icon depicts **one DG unit** in the selected Figure 2 palette; red denotes 
 | DG events | [SVG](02_dg_events.svg) | [PDF](02_dg_events.pdf) | Nine activations of the same unit cluster in one spatial bin above versus one activation in each of nine bins below. The identical 3 × 3 grids mark corresponding positions; equal occupancy is an explicit assumption. |
 | Position profile | [SVG](03_position_profile.svg) | [PDF](03_position_profile.pdf) | Four spatial-bin response bars: one strong bin above versus uniform responses below. The bar heights sum to the same value in both examples. |
 | Soft DG maps | [SVG](04_soft_dg_maps.svg) | [PDF](04_soft_dg_maps.pdf) | One DG map per row uses the soft-field style of the overlap and reliability icons. The upper map has a narrow, strong field. The lower map has a broad, weak spatial bias rather than perfectly uniform response. Both maps use the same DG red and have approximately equal map-average intensity; the icon is schematic rather than a measured rate map. |
-| Perlin DG maps | [SVG](05_perlin_dg_maps.svg) | [PDF](05_perlin_dg_maps.pdf) | The same upper field appears above a low-contrast, nonuniform lower map generated with seeded 2D gradient Perlin noise. The lower map's average tint is matched to the upper field, and its cells remain editable vector shapes. Seed 23 and the two noise scales are recorded in the manifest. |
+| Perlin DG maps | [SVG](05_perlin_dg_maps.svg) | [PDF](05_perlin_dg_maps.pdf) | A localized upper field on white appears above a nonuniform lower map generated with seeded 2D gradient Perlin noise. The lower map's average tint approximately matches the upper field, and its cells remain editable vector shapes. Seed 23 and the two noise scales are recorded in the manifest. |
 
 For the displayed bits-per-step statistic, a schematic unit rate $r_b$ at position $b$ contributes to $J=\sum_b p_b r_b\log_2(r_b/\bar r)$, where $p_b$ is occupancy and $\bar r=\sum_b p_b r_b$. With occupancy and total activity held equal, a more location-specific response has higher $J$. The candidate icons convey this within-unit relation. The selected Figure 2 box plots are **differences between conditions**; choosing an icon would not assert the direction of any observed difference.
 
