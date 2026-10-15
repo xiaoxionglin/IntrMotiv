@@ -42,12 +42,26 @@ def frames() -> str:
     )
 
 
-def comparison_link() -> str:
-    """Point toward the higher statistic, matching an upward plot axis."""
+def comparison_arrow(x: float, head_y: float, tail_y: float, *, scale: float = 1) -> str:
+    """Use one upward cue in every icon at its final Figure 2 display size.
+
+    Thirty-millimeter icons are reduced by 2/3 when embedded, so their arrow
+    geometry and stroke are enlarged by 3/2 in the editable source.
+    """
+    half_head = 2.37 * scale
+    head_depth = 2.5 * scale
     return (
-        f'<path d="M 14.17,52.7 V 32.2 M 11.8,34.7 L 14.17,32.2 L 16.54,34.7" '
-        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+        f'<path d="M {x:.2f},{tail_y:.2f} V {head_y:.2f} '
+        f'M {x-half_head:.2f},{head_y+head_depth:.2f} '
+        f'L {x:.2f},{head_y:.2f} '
+        f'L {x+half_head:.2f},{head_y+head_depth:.2f}" '
+        f'fill="none" stroke="{MUTED}" stroke-width="{1.05*scale:.3f}"/>'
     )
+
+
+def comparison_link() -> str:
+    """Center the 30-mm icon arrow between its upper and lower examples."""
+    return comparison_arrow(14.17, 36.5, 48.5, scale=1.5)
 
 
 def path_efficiency_icon() -> str:
@@ -70,8 +84,7 @@ def path_efficiency_icon() -> str:
         f'<circle cx="5.5" cy="48.8" r="1.35" fill="white" '
         f'stroke="{INK}" stroke-width="0.8"/>'
         f'<circle cx="22.7" cy="39.3" r="1.35" fill="{INK}"/>'
-        f'<path d="M 14.17,33.0 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5" '
-        f'fill="none" stroke="{MUTED}" stroke-width="1.05"/>'
+        + comparison_arrow(14.17, 25.0, 33.0)
     )
 
 
@@ -124,10 +137,7 @@ def paired_map_icon(kind: str) -> str:
             out.append(f'<text x="{x+card_size/2:.2f}" y="{y+16.7:.2f}" '
                        f'text-anchor="middle" font-family="DejaVu Sans" '
                        f'font-size="7.5" fill="{INK}">T{column+1}</text>')
-    arrow = ("M 15.59,33.3 V 25.0 M 13.22,27.5 L 15.59,25.0 L 17.96,27.5"
-             if kind == "overlap" else
-             "M 14.17,37.3 V 25.0 M 11.8,27.5 L 14.17,25.0 L 16.54,27.5")
-    out.append(f'<path d="{arrow}" fill="none" stroke="{MUTED}" stroke-width="1.05"/>')
+    out.append(comparison_arrow(15.59 if kind == "overlap" else 14.17, 25.0, 33.0))
     return ''.join(out)
 
 

@@ -13,12 +13,17 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
 
 HERE = Path(__file__).resolve().parent
 DRAFT = HERE.parent
+sys.path.insert(0, str(DRAFT))
+from figure2_icon_candidates.spatial_information.build_spatial_information_icons import (  # noqa: E402
+    SELECTED_FIGURE_AMPLITUDE, perlin_dg_maps,
+)
 SOURCES = {
     "figure1": DRAFT / "figure1_candidates/06_architecture_v3_goal_gate_header.svg",
     "figure2": DRAFT / "Figure2_story_icons.svg",
@@ -250,6 +255,21 @@ def recolor(source: Path, destination: Path, palette: Palette) -> dict[str, int]
         return match.group(0)
 
     result = re.sub(r"#[0-9a-fA-F]{6}\b", change, content)
+    if source == SOURCES["figure2"]:
+        # Perlin cells are preblended opaque vector colors. Regenerate just
+        # these three icon bodies in each palette's DG red; replacing the base
+        # color literal alone would leave their softly tinted cells unchanged.
+        for row in ("behavior", "push", "pull"):
+            identifier = f"{row}-spatial-information-icon"
+            pattern = rf'(<g id="{identifier}"[^>]*>).*?(</g>)'
+            body = perlin_dg_maps(
+                palette.dg_red, id_prefix=identifier,
+                amplitude=SELECTED_FIGURE_AMPLITUDE)
+            result, count = re.subn(
+                pattern, lambda match: match.group(1) + body + match.group(2),
+                result, count=1, flags=re.DOTALL)
+            if count != 1:
+                raise ValueError(f"Could not recolor {identifier}")
     required = ("#0072b2", "#d55e00", "#009e73", "#a73e30", "#4364a6",
                 "#c3b058", "#933333", "#236d9d")
     missing = [key for key in required if counts[key] == 0]
@@ -388,7 +408,7 @@ def main() -> None:
         "sources": {name: {"path": str(path.relative_to(DRAFT)),
                            "sha256": sha256(path.read_bytes()).hexdigest()}
                     for name, path in SOURCES.items()},
-        "scope": "Exact vector color substitutions only; geometry, data, Viridis trajectory colors, embedded images, and place fields unchanged",
+        "scope": "Vector color substitutions, including DG-red Perlin icon cells; geometry, data, Viridis trajectory colors, embedded images, and place fields unchanged",
         "palettes": {},
     }
     for palette in PALETTES:

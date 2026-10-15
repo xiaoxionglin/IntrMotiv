@@ -1,0 +1,44 @@
+{
+  "schema": "intrmotiv/figure2-spatial-information-icons/v1",
+  "type": "data-free illustration; no measured result direction",
+  "size_mm": [
+    10,
+    20
+  ],
+  "selected_palette": "priority_rgb_orange_violet",
+  "single_dg_identity_color": "#CB3C54",
+  "example_order": "upper: higher raw spatial information; lower: lower",
+  "controlled_assumptions": [
+    "equal spatial occupancy"
+  ],
+  "equal_total_activation_candidates": [
+    "01_rate_map",
+    "02_dg_events",
+    "03_position_profile",
+    "04_soft_dg_maps"
+  ],
+  "perlin_variant": {
+    "seed": 23,
+    "grid_size": 32,
+    "octave_periods": [
+      2,
+      4
+    ],
+    "octave_weights": [
+      1.0,
+      0.35
+    ],
+    "mean_opacity": 0.059,
+    "additive_baseline_opacity": 0.1,
+    "lower_mean_opacity": 0.159,
+    "opacity_amplitude": 0.095,
+    "selected_figure_amplitude": 0.3,
+    "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
+    "upper_map_background": "white",
+    "rendering": "opaque vector SVG rectangles sampled from 2D gradient noise"
+  },
+  "reference_sha256": {
+    "Figure2.svg": "c4b7dd75226ddfe1cc1e9d1523ad7271ac45f43c6b6a3032c046bbc27819e13a",
+    "figure_palette_candidates/manifest.json": "3eafd4d52bbc2ff9f0e5add7019f6a42837714dccc6d90532b780887c669c827"
+  }
+}

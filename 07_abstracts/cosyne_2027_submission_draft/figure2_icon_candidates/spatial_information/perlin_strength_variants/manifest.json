@@ -1,0 +1,63 @@
+{
+  "schema": "intrmotiv/figure2-perlin-strength-trials/v1",
+  "type": "data-free illustration; contrast-only comparison",
+  "size_mm": [
+    10,
+    20
+  ],
+  "selected_palette": "priority_rgb_orange_violet",
+  "single_dg_identity_color": "#CB3C54",
+  "seed": 23,
+  "grid_size": 32,
+  "mean_opacity": 0.059,
+  "additive_baseline_opacity": 0.1,
+  "lower_mean_opacity": 0.159,
+  "selected_figure_amplitude": 0.3,
+  "contrast_method": "clip and solve offset for fixed modulation mean, then add 0.1 baseline",
+  "fixed_features": [
+    "upper DG field",
+    "lower noise pattern",
+    "lower mean tint"
+  ],
+  "levels": [
+    {
+      "stem": "01_subtle",
+      "label": "Subtle",
+      "opacity_amplitude": 0.045
+    },
+    {
+      "stem": "02_medium",
+      "label": "Medium",
+      "opacity_amplitude": 0.07
+    },
+    {
+      "stem": "03_current",
+      "label": "Current",
+      "opacity_amplitude": 0.095
+    },
+    {
+      "stem": "04_strong",
+      "label": "Strong",
+      "opacity_amplitude": 0.11
+    },
+    {
+      "stem": "05_high",
+      "label": "High",
+      "opacity_amplitude": 0.14
+    },
+    {
+      "stem": "06_higher",
+      "label": "Higher",
+      "opacity_amplitude": 0.2
+    },
+    {
+      "stem": "07_very_high",
+      "label": "Very high",
+      "opacity_amplitude": 0.3
+    }
+  ],
+  "current_reference": "../05_perlin_dg_maps.svg",
+  "reference_sha256": {
+    "figure_palette_candidates/manifest.json": "3eafd4d52bbc2ff9f0e5add7019f6a42837714dccc6d90532b780887c669c827"
+  }
+}
