@@ -145,12 +145,24 @@ def build() -> None:
         metric: shift + (overlap_extra if metric != "dg_information" else 0.0)
         for metric, shift in PLOT_SHIFTS.items()
     }
+    # The imported C and D panels have slightly different column origins.
+    # Align their actual plotting rectangles, not their data-dependent group bounds.
+    pull_column_alignment = {
+        metric: (boxes[f"push_{metric}_patch_2"][0]
+                 - boxes[f"pull_{metric}_patch_2"][0])
+        for metric in PLOT_SHIFTS
+    }
+
+    def result_plot_shift(row: str, metric: str) -> float:
+        return plot_shifts[metric] + (pull_column_alignment[metric]
+                                      if row == "pull" else 0.0)
+
     # Align B's last plotted column with the rightmost C/D column. Translate
     # the complete B panel so its schematic and title keep their spacing.
     cd_right = max(
         boxes[f"component_{row}_graph_edges"][0]
         + boxes[f"component_{row}_graph_edges"][2]
-        + plot_shifts["graph_edges"]
+        + result_plot_shift(row, "graph_edges")
         for row in ("push", "pull")
     )
     behavior_right = (boxes["behavior-dg_reliability"][0]
@@ -190,10 +202,22 @@ def build() -> None:
             specs.append((
                 panel, metric, f"{row}-{icon_kind if icon_kind != 'spatial' else 'spatial-information'}-icon",
                 f"component_{prefix}", f"{prefix}_text_{label_index}",
-                tick_text_ids(root, prefix), plot_shifts[metric],
+                tick_text_ids(root, prefix), result_plot_shift(row, metric),
                 boxes[f"{row}-overlap-icon"][2] if icon_kind == "overlap"
                 else ICON_WIDTHS[icon_kind],
             ))
+
+    # Keep each C/D icon and its y label in one vertical column. The pull
+    # overlap ticks are shorter, so their own two-point gutter would place
+    # that icon five points farther right than the corresponding push icon.
+    shared_result_icon_left = {}
+    for panel, metric, _, _, _, tick_ids, plot_shift, icon_width in specs:
+        if panel in ("C", "D"):
+            candidate = (min(boxes[tick_id][0] for tick_id in tick_ids)
+                         + plot_shift - ICON_TICK_GAP - icon_width)
+            shared_result_icon_left[metric] = min(
+                shared_result_icon_left.get(metric, candidate), candidate,
+            )
 
     for panel, metric, icon_id, plot_id, label_id, tick_ids, plot_shift, icon_width in specs:
         if plot_id.startswith("component_"):
@@ -210,7 +234,8 @@ def build() -> None:
                 axis_center_y = 30 + 47.52 / 2
                 label_shift_with_plot = 0.0
         tick_left = min(boxes[tick_id][0] for tick_id in tick_ids) + plot_shift
-        icon_left = tick_left - ICON_TICK_GAP - icon_width
+        icon_left = (shared_result_icon_left[metric] if panel in ("C", "D")
+                     else tick_left - ICON_TICK_GAP - icon_width)
         label_right = boxes[label_id][0] + boxes[label_id][2] + label_shift_with_plot
         target_label_right = icon_left - LABEL_ICON_GAP
         label_shift_y = (CD_SPATIAL_LABEL_DOWN_PT
@@ -244,6 +269,10 @@ def build() -> None:
         "canvas_width_pt": 540,
         "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
         "behavior_panel_shift_pt": round(behavior_align_shift, 3),
+        "pull_column_alignment_offsets_pt": {
+            metric: round(offset, 3)
+            for metric, offset in pull_column_alignment.items()
+        },
         "source_data_unchanged": True,
         "placements": records,
     }, indent=2) + "\n")

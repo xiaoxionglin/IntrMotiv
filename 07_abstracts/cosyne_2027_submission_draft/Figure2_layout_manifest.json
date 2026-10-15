@@ -2,12 +2,18 @@
   "schema": "intrmotiv/figure2-layout/v1",
   "source": "figure_palette_candidates/priority_rgb_orange_violet_figure2.svg",
   "source_sha256": "a6c4ae2418a700086764046cd0e40fff29f0deb4fbe8ae2d483c3a315603fa2d",
-  "output_svg_sha256": "ab89f1be60da897c011bc1a47f419e4ec8a9422813e8153f8462e0e5eb2bce3e",
-  "output_pdf_sha256": "42e8018fa7c17c60af85a7b3f00827b121e795c58bb97e711c4df1d550de9daf",
-  "output_png_sha256": "4d821e0565d93690d193ebab4946fed8c772b17155023708449038089d274d68",
+  "output_svg_sha256": "ce7f4a0b811ca61cb84101ca5762ca927f10a7f92ef0487bd6c04ae441df3809",
+  "output_pdf_sha256": "ad0fa2837915f0aaf4c2545cb959d632fed176a063b4f6fad1e441c48652f3ba",
+  "output_png_sha256": "b3323ebf004a9aa5007cc6547ec6e915eac2f64918fe471412c87b34561e1790",
   "canvas_width_pt": 540,
   "arrangement": "panel A-D icons between their own y labels and numeric tick labels",
   "behavior_panel_shift_pt": 15.128,
+  "pull_column_alignment_offsets_pt": {
+    "dg_information": 0.689,
+    "map_overlap": 3.655,
+    "peak_coverage": 2.172,
+    "graph_edges": 0.688
+  },
   "source_data_unchanged": true,
   "placements": [
     {
@@ -76,8 +82,8 @@
       "icon_id": "push-edges-icon",
       "icon_width_pt": 14.0,
       "plot_shift_pt": 19.464025,
-      "target_icon_left_pt": 443.763,
-      "target_label_right_pt": 441.763,
+      "target_icon_left_pt": 443.762,
+      "target_label_right_pt": 441.762,
       "label_vertical_shift_pt": 0.0
     },
     {
@@ -85,9 +91,9 @@
       "metric": "dg_information",
       "icon_id": "pull-spatial-information-icon",
       "icon_width_pt": 12.0,
-      "plot_shift_pt": 10.0,
-      "target_icon_left_pt": 92.739,
-      "target_label_right_pt": 90.739,
+      "plot_shift_pt": 10.689249999999987,
+      "target_icon_left_pt": 93.429,
+      "target_label_right_pt": 91.429,
       "label_vertical_shift_pt": 2.0
     },
     {
@@ -95,9 +101,9 @@
       "metric": "map_overlap",
       "icon_id": "pull-overlap-icon",
       "icon_width_pt": 27.464025,
-      "plot_shift_pt": 25.464025,
-      "target_icon_left_pt": 200.72,
-      "target_label_right_pt": 198.72,
+      "plot_shift_pt": 29.118774999999978,
+      "target_icon_left_pt": 199.369,
+      "target_label_right_pt": 197.369,
       "label_vertical_shift_pt": 0.0
     },
     {
@@ -105,9 +111,9 @@
       "metric": "peak_coverage",
       "icon_id": "pull-coverage-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 19.464025,
-      "target_icon_left_pt": 326.603,
-      "target_label_right_pt": 324.603,
+      "plot_shift_pt": 21.636024999999968,
+      "target_icon_left_pt": 328.774,
+      "target_label_right_pt": 326.774,
       "label_vertical_shift_pt": 0.0
     },
     {
@@ -115,9 +121,9 @@
       "metric": "graph_edges",
       "icon_id": "pull-edges-icon",
       "icon_width_pt": 14.0,
-      "plot_shift_pt": 19.464025,
-      "target_icon_left_pt": 443.074,
-      "target_label_right_pt": 441.074,
+      "plot_shift_pt": 20.152524999999976,
+      "target_icon_left_pt": 443.762,
+      "target_label_right_pt": 441.762,
       "label_vertical_shift_pt": 0.0
     }
   ]
