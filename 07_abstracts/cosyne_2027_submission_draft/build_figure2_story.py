@@ -102,6 +102,20 @@ def percentile(values: list[float], fraction: float) -> float:
     return ordered[lower] + (ordered[min(lower + 1, len(ordered) - 1)] - ordered[lower]) * (position - lower)
 
 
+def box_summary(values: list[float], whisker_rule: str = "range") -> tuple[float, float, float, float, float]:
+    """Return whiskers, quartiles, and median using one declared convention."""
+    q1, median, q3 = (percentile(values, fraction) for fraction in (.25, .5, .75))
+    if whisker_rule == "range":
+        low, high = min(values), max(values)
+    elif whisker_rule == "tukey":
+        iqr = q3 - q1
+        low = min(value for value in values if value >= q1 - 1.5 * iqr)
+        high = max(value for value in values if value <= q3 + 1.5 * iqr)
+    else:
+        raise ValueError(f"Unknown whisker rule: {whisker_rule}")
+    return low, q1, median, q3, high
+
+
 def label(value: float) -> str:
     return f"{value:g}"
 
@@ -139,7 +153,8 @@ def behavior_differences() -> dict[str, dict[str, list[float]]]:
     return samples
 
 
-def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
+def behavior_card(metric: str, samples: dict[str, list[float]], x: int,
+                  whisker_rule: str = "range") -> str:
     """Draw an editable box/dot chart near the width of C and D's originals."""
     specs = {
         "dg_information": (-0.02, 0.12, (0.0, 0.05, 0.1)),
@@ -176,8 +191,7 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int) -> str:
             jitter = ((dot_index * 7) % 9 - 4) * 0.42
             out.append(f'<circle cx="{cx+jitter:.3f}" cy="{scale(value):.3f}" '
                        f'r="1.15" fill="{color}" fill-opacity="0.7"/>')
-        low, q1, median, q3, high = (min(values), percentile(values, .25),
-                                      percentile(values, .5), percentile(values, .75), max(values))
+        low, q1, median, q3, high = box_summary(values, whisker_rule)
         out.extend((
             f'<path d="M {cx:.3f},{scale(low):.3f} V {scale(high):.3f} '
             f'M {cx-2.5:.3f},{scale(low):.3f} H {cx+2.5:.3f} '
@@ -438,6 +452,7 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
                   behavior_layout_shift: float = 0,
                   information_shift: float = 0,
                   reliability_shift: float = 0,
+                  whisker_rule: str = "range",
                   trajectory_renderer: Callable[[str, float, float, int], str] | None = None,
                   extra_overlay: str = '') -> str:
     peak_style = ('.peak-heading{font:700 9px Arial,sans-serif;fill:#25313a}'
@@ -511,7 +526,8 @@ def story_overlay(rows: dict[str, list[dict[str, str]]],
         out.append(behavior_schematic())
     for metric, x in (("dg_information", 296), ("dg_reliability", 386)):
         metric_shift = reliability_shift if metric == 'dg_reliability' else information_shift
-        out.append(behavior_card(metric, behavior[metric], x + behavior_shift + metric_shift))
+        out.append(behavior_card(metric, behavior[metric],
+                                 x + behavior_shift + metric_shift, whisker_rule))
     # Keep B's metric names on the y axes, as in the push and pull rows.
     for metric, x, measure in (("dg_information", 296, "Δ spatial info"),
                                ("dg_reliability", 386, "Δ reliability")):
