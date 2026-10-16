@@ -120,6 +120,12 @@ def label(value: float) -> str:
     return f"{value:g}"
 
 
+def category_tick(identifier: str, center: float, baseline: float) -> str:
+    """Match the 2 pt, 0.8 pt x-axis ticks in the imported C/D plots."""
+    return (f'<path id="{identifier}" d="M {center:.3f},{baseline:.3f} v 2" '
+            'stroke="#000000" stroke-width="0.8" fill="none"/>')
+
+
 def behavior_differences() -> dict[str, dict[str, list[float]]]:
     """Join DG information and reliability on the same 38 frozen models."""
     def load(path: Path) -> dict[tuple[str, str, int], dict[str, str]]:
@@ -187,6 +193,7 @@ def behavior_card(metric: str, samples: dict[str, list[float]], x: int,
         cx = left + RESULT_AXIS_WIDTH * (index + 0.5) / 3
         values = samples[family]
         color = COLORS[family]
+        out.append(category_tick(f"behavior-{metric}-xtick-{family}", cx, bottom))
         for dot_index, value in enumerate(values):
             jitter = ((dot_index * 7) % 9 - 4) * 0.42
             out.append(f'<circle cx="{cx+jitter:.3f}" cy="{scale(value):.3f}" '
@@ -285,6 +292,7 @@ def poster_dot_metric(rows: dict[str, list[dict[str, str]]]) -> str:
         ))
     for family, cx in (("NG", 39), ("UG", 53), ("FG", 67)):
         values = [float(row["path_efficiency"]) for row in rows[family]]
+        out.append(category_tick(f"panel-a-path-efficiency-xtick-{family}", cx, bottom))
         for value, jitter in zip(values, (-3.8, -1.9, 0, 1.9, 3.8)):
             out.append(f'<circle cx="{cx+jitter:g}" cy="{scale(value):g}" r="1.55" '
                        f'fill="{COLORS[family]}"/>')

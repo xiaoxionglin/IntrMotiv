@@ -15793,6 +15793,7 @@
 <text id="panel-a-path-efficiency-ytick-1" x="31" y="55.5" text-anchor="end" class="poster-stat-tick">0.25</text>
 <path d="M 33,36 H 35" stroke="#171717" stroke-width="0.7"/>
 <text id="panel-a-path-efficiency-ytick-2" x="31" y="39" text-anchor="end" class="poster-stat-tick">0.5</text>
+<path id="panel-a-path-efficiency-xtick-NG" d="M 39.000,69.000 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="35.2" cy="65.934" r="1.55" fill="#0072B2"/>
 <circle cx="37.1" cy="65.2776" r="1.55" fill="#0072B2"/>
 <circle cx="39" cy="63.4225" r="1.55" fill="#0072B2"/>
@@ -15800,6 +15801,7 @@
 <circle cx="42.8" cy="65.6925" r="1.55" fill="#0072B2"/>
 <path d="M 35,64.6276 H 43" stroke="#171717" stroke-width="1"/>
 <text id="panel-a-path-efficiency-category-NG" x="39" y="80" text-anchor="middle" class="poster-stat-tick">NG</text>
+<path id="panel-a-path-efficiency-xtick-UG" d="M 53.000,69.000 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="49.2" cy="66.6468" r="1.55" fill="#D55E00"/>
 <circle cx="51.1" cy="61.605" r="1.55" fill="#D55E00"/>
 <circle cx="53" cy="48.3873" r="1.55" fill="#D55E00"/>
@@ -15807,6 +15809,7 @@
 <circle cx="56.8" cy="41.5046" r="1.55" fill="#D55E00"/>
 <path d="M 49,56.8622 H 57" stroke="#171717" stroke-width="1"/>
 <text id="panel-a-path-efficiency-category-UG" x="53" y="80" text-anchor="middle" class="poster-stat-tick">UG</text>
+<path id="panel-a-path-efficiency-xtick-FG" d="M 67.000,69.000 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="63.2" cy="60.7033" r="1.55" fill="#009E73"/>
 <circle cx="65.1" cy="57.4548" r="1.55" fill="#009E73"/>
 <circle cx="67" cy="58.083" r="1.55" fill="#009E73"/>
@@ -15839,6 +15842,7 @@
 <path d="M 345,36.789 H 347" class="behavior-axis"/>
 <text id="behavior-dg_information-ytick-2" x="344" y="39.789" text-anchor="end" class="behavior-tick">0.1</text>
 <path d="M 347,70.731 H 396.68" stroke="#879096" stroke-width="0.55"/>
+<path id="behavior-dg_information-xtick-NG" d="M 355.280,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="353.600" cy="46.356" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
 <circle cx="356.540" cy="56.695" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
 <circle cx="355.700" cy="49.520" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
@@ -15853,6 +15857,7 @@
 <rect x="352.280" y="46.327" width="6" height="9.455" fill="white" stroke="#0072B2" stroke-width="0.9"/>
 <path d="M 352.280,51.670 H 358.280" stroke="#0072B2" stroke-width="0.9"/>
 <text x="355.280" y="86.520" text-anchor="middle" class="behavior-tick">NG</text>
+<path id="behavior-dg_information-xtick-UG" d="M 371.840,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="370.160" cy="68.439" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
 <circle cx="373.100" cy="41.136" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
 <circle cx="372.260" cy="58.840" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
@@ -15877,6 +15882,7 @@
 <rect x="368.840" y="46.653" width="6" height="18.509" fill="white" stroke="#D55E00" stroke-width="0.9"/>
 <path d="M 368.840,54.009 H 374.840" stroke="#D55E00" stroke-width="0.9"/>
 <text x="371.840" y="86.520" text-anchor="middle" class="behavior-tick">UG</text>
+<path id="behavior-dg_information-xtick-FG" d="M 388.400,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="386.720" cy="65.842" r="1.15" fill="#009E73" fill-opacity="0.7"/>
 <circle cx="389.660" cy="63.880" r="1.15" fill="#009E73" fill-opacity="0.7"/>
 <circle cx="388.820" cy="64.408" r="1.15" fill="#009E73" fill-opacity="0.7"/>
@@ -15899,6 +15905,7 @@
 <path d="M 450,33.960 H 452" class="behavior-axis"/>
 <text id="behavior-dg_reliability-ytick-2" x="449" y="36.960" text-anchor="end" class="behavior-tick">0.5</text>
 <path d="M 452,73.560 H 501.68" stroke="#879096" stroke-width="0.55"/>
+<path id="behavior-dg_reliability-xtick-NG" d="M 460.280,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="458.600" cy="43.178" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
 <circle cx="461.540" cy="43.369" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
 <circle cx="460.700" cy="39.955" r="1.15" fill="#0072B2" fill-opacity="0.7"/>
@@ -15913,6 +15920,7 @@
 <rect x="457.280" y="42.077" width="6" height="6.415" fill="white" stroke="#0072B2" stroke-width="0.9"/>
 <path d="M 457.280,43.824 H 463.280" stroke="#0072B2" stroke-width="0.9"/>
 <text x="460.280" y="86.520" text-anchor="middle" class="behavior-tick">NG</text>
+<path id="behavior-dg_reliability-xtick-UG" d="M 476.840,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="475.160" cy="52.599" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
 <circle cx="478.100" cy="53.280" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
 <circle cx="477.260" cy="53.739" r="1.15" fill="#D55E00" fill-opacity="0.7"/>
@@ -15937,6 +15945,7 @@
 <rect x="473.840" y="50.267" width="6" height="15.710" fill="white" stroke="#D55E00" stroke-width="0.9"/>
 <path d="M 473.840,53.509 H 479.840" stroke="#D55E00" stroke-width="0.9"/>
 <text x="476.840" y="86.520" text-anchor="middle" class="behavior-tick">UG</text>
+<path id="behavior-dg_reliability-xtick-FG" d="M 493.400,77.520 v 2" stroke="#000000" stroke-width="0.8" fill="none"/>
 <circle cx="491.720" cy="55.884" r="1.15" fill="#009E73" fill-opacity="0.7"/>
 <circle cx="494.660" cy="65.579" r="1.15" fill="#009E73" fill-opacity="0.7"/>
 <circle cx="493.820" cy="59.945" r="1.15" fill="#009E73" fill-opacity="0.7"/>

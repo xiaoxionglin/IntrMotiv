@@ -2611,6 +2611,14 @@ For each finding, record:
   reduce the tracked full archive below 50 MB while keeping its indexed
   choices, or store historical bulk archives outside Git with a verified
   retrieval path and keep the active compact ZIP in the repository.
+- **16 October figure-refresh follow-up:** Regenerating the selected Figure 2
+  through the palette builder also produced 85 untracked auxiliary files for
+  discontinued palettes and intermediate renders. They had to be removed
+  before committing the selected figure. A selected-palette-only build mode
+  would make routine typography fixes faster and less error-prone. Status:
+  recorded; no workflow change made during the figure edit. Acceptance: the
+  selected build regenerates Figure 2 and its manifests without producing
+  unrelated palette files, while the full comparison mode remains available.
 
 ### Common-panel layer replay crosses occupancy-axis conventions — 2026-10-12
 
