@@ -1,5 +1,7 @@
 # Reusable IntrMotiv visual assets
 
+For the SAB 2026 30-minute presentation, use the [slide-size IntrMotiv asset set](../../05_plans/sab2026_intrmotiv_assets/README.md). It selects four enlarged, provenance-checked cards from the sources below and states where each fits in the published-to-ongoing talk sequence.
+
 This is the entry point for making later paper figures and presentation slides from the COSYNE work. It points to **standalone parts and source data**, not just assembled submission figures. The [submission README](README.md) indexes the selected Figure 1/2 and scientifically distinct whole-figure variants.
 
 Use the SVG for editable vector artwork, PDF for print placement, and PNG for quick review. Most small statistical cards were sized for a 7.5-inch abstract figure; check their text at the intended slide or page size before reuse. The source README and manifest beside each asset give its run identities, metric definitions, and source hashes. NG, UG, and FG mean no-goal C01, uniform-goal C05, and frontier-goal C15.

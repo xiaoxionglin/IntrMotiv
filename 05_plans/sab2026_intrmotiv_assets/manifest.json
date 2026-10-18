@@ -1,0 +1,119 @@
+{
+  "schema": "intrmotiv/sab2026-slide-assets/v1",
+  "source_table": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/plotted_seed_differences.csv",
+  "source_table_sha256": "6caa54b475a46223572eb0e17d6cdfe4ff60c340ac93ab7b4d448b7bd8344b1e",
+  "source_manifest": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/manifest.json",
+  "source_manifest_sha256": "d589950eae26de251a564a728f1084e948f895a40983f6d6c1d5f29fceb38b6d",
+  "palette_manifest": "07_abstracts/cosyne_2027_submission_draft/figure_palette_candidates/manifest.json",
+  "palette_manifest_sha256": "cc420f31379b2e10a8c0050954b9fea7aa608ef98542c1bbb580d75130c95da2",
+  "font": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "matplotlib": "3.10.8",
+  "canvas_inches": [
+    12.2,
+    5.5
+  ],
+  "preview_dpi": 180,
+  "cards": {
+    "01_frozen_behavior": {
+      "arm": "behavior",
+      "metrics": [
+        "dg_information",
+        "map_overlap"
+      ],
+      "families": [
+        "C01",
+        "C05",
+        "C15"
+      ],
+      "sample_counts": {
+        "dg_information/C01": 10,
+        "dg_information/C05": 20,
+        "dg_information/C15": 8,
+        "map_overlap/C01": 10,
+        "map_overlap/C05": 20,
+        "map_overlap/C15": 8
+      },
+      "svg_sha256": "7dab63f7e7e914ce0bf0adaf1fcf804d27dd574375796f716ce8da6457f026b9",
+      "png_sha256": "4d8a7d796115d26729334d2948d00d1119820edf4541c742d24ae70b677b2581"
+    },
+    "02_encoder_credit": {
+      "arm": "push",
+      "metrics": [
+        "dg_information",
+        "map_overlap"
+      ],
+      "families": [
+        "C01",
+        "C05",
+        "C15"
+      ],
+      "sample_counts": {
+        "dg_information/C01": 5,
+        "dg_information/C05": 5,
+        "dg_information/C15": 5,
+        "map_overlap/C01": 5,
+        "map_overlap/C05": 5,
+        "map_overlap/C15": 5
+      },
+      "svg_sha256": "46642673bca1a99ca4168582f1a343d273266deff3c86d73b14fb120baccb5de",
+      "png_sha256": "04804dedecadf10d9d5f4187f80b7f1ab6f49c002aea0a1ddae3304fbf356d96"
+    },
+    "03_graph_control_backup": {
+      "arm": "push",
+      "metrics": [
+        "graph_edges",
+        "hit_rate"
+      ],
+      "families": [
+        "C05",
+        "C15"
+      ],
+      "sample_counts": {
+        "graph_edges/C05": 5,
+        "graph_edges/C15": 5,
+        "hit_rate/C05": 5,
+        "hit_rate/C15": 5
+      },
+      "svg_sha256": "25d79894d8c08c5829938aa1e742fb7feb90c5ef4d35a98fe9f7ed0e75f21db7",
+      "png_sha256": "03c526eede770468964b3359e00a26db5fed536900a95ba227f2cf9b34b34a44"
+    },
+    "04_trajectory_examples": {
+      "input_npz": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/selected_fragments.npz",
+      "input_npz_sha256": "c4ff74a9d2b68016713e3d4d3507f3cc915ab972db42d43aff3b77e414a5191c",
+      "source_manifest": "07_abstracts/cosyne_2027_submission_draft/figure2_candidates/09_trajectory_thumbnails/manifest.json",
+      "source_manifest_sha256": "70535691e7f3c9a9330921d85fc50aa167e29514af42453898ddac2f88f0ae83",
+      "selection": {
+        "NG": {
+          "run_name": "COS27_C01_TEMPORAL_S99",
+          "source_npz_sha256": "245224fb0aadae446ececc8d7612323523f7d259786eb496f5276d3b2be3ddde",
+          "fragments": 65,
+          "observations": 3864
+        },
+        "UG": {
+          "run_name": "COS27_C05_TEMPORAL_TEMPORAL_S123",
+          "source_npz_sha256": "03096201542cf4e9681a6560fd4d0a058eec7af4987a81be5f5aea7675a67b33",
+          "fragments": 65,
+          "observations": 4000
+        },
+        "FG": {
+          "run_name": "COS27_C15_TEMPORAL_S123",
+          "source_npz_sha256": "38f1504d0b918c2d3c5261cee4bac482b89a27c4d99cbe77d355869d842ad9a6",
+          "fragments": 65,
+          "observations": 3810
+        }
+      },
+      "world_bounds_xy": [
+        100,
+        2000,
+        100,
+        2000
+      ],
+      "local_step_color_range": [
+        0,
+        63
+      ],
+      "svg_sha256": "8ee41e797e34cdac57bdc0e15c13d623a57a34a84dd7879c3219e01a9425a517",
+      "png_sha256": "e1e1654755583a2cd556853b526eb3318013c8529d8d0beb083f8ff3b697dace"
+    }
+  }
+}

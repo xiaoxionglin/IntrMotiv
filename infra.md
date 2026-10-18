@@ -6,6 +6,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 
 ## Open Improvements
 
+### Keep talk-card metadata tied to the canonical figure manifest — 2026-10-18
+
+- **Evidence:** The [SAB 2026 slide assets](05_plans/sab2026_intrmotiv_assets/README.md) could be regenerated from the focused COSYNE difference table and archived trajectory fragments without rerunning telemetry. Slide-size typography required new exports, while the same table mixes frozen-policy behavior contrasts, common-observation encoder contrasts, and policy-sampled graph/control diagnostics.
+- **Impact:** Reusing a small figure without its protocol can turn a behavior-sampling difference into a representation-intervention claim, or a stored graph edge into an executed-arrival claim. Repeating the full source audit for each talk is slow.
+- **Improvement/status:** The current card renderer checks source-manifest sample counts, selection identities, palette, and hashes; its index carries slide use and caveats. For future reusable figure exports, extend the canonical figure-component manifest with explicit contrast, observation-support, sample-unit, and status fields so slide adapters can validate those labels automatically. Keep the analysis definitions in the [focused source notes](07_abstracts/cosyne_2027_submission_draft/figure2_candidates/08_focused_canvas/README.md).
+- **Acceptance:** A slide adapter can select a metric by manifest key, render from local lightweight inputs, and fail if its stated comparison, sample unit, observation support, or published/ongoing status differs from the canonical metadata.
+
 ### Export decision-counted flat-reward calibration from the study workflow — 2026-10-15
 
 - **Evidence:** The C01 Figure 2 pull-row audit found 27 archived flat runs, but none varied the dense policy reward; existing `CONSTANT` labels varied encoder event credit. The pinned source's flat reward is a separate `legacy_reward_streams` output. The archived fresh C01 seed-99 history has only 14.6% nonzero decisions over 0–2M frames. The first constant-mode patch would have paid every decision, so its temporal-only qualification was cancelled before calibration. The [corrected qualification](06_experiments/reward_credit/cosyne27_c01_flat_policy_reward_timing_20261015.md) must freeze the fixed post-scale **reward-eligible** mean from exact `intrmotiv/reward/intrinsic_sum`, `intrmotiv/reward/intrinsic_mean`, and `intrmotiv/reward/intrinsic_nonzero_fraction` histories. The canonical collector exports window means but does not certify this denominator or emit a hash-bound calibration record.
