@@ -1,0 +1,55 @@
+# COSYNE and SAB collaboration lessons — draft for review
+
+**Status:** proposed working guidance, 21 October 2026. This note distills requests and corrections in the COSYNE 2027 and SAB 2026 chats, checked against the resulting figure and talk files. It is for review before any point is treated as a durable personal preference. Project-specific scientific conclusions remain in their source reports.
+
+## Standards stated in the chats
+
+| Area | Working standard | Example of the instruction or correction |
+| --- | --- | --- |
+| Scientific story | Identify the paper's most interesting and strongest results, then choose a talk frame that represents them. Challenge a proposed interpretation when the evidence does not support it. | In the SAB evaluator chat, you rejected a story that represented the paper only through a narrow “world model” lens and corrected an implied planning claim: “We didn't do anything about planning, right?” |
+| Claims and scope | Separate published findings, ongoing analyses, and planned work. State exactly what an intervention, metric, or control establishes and where it stops. | The SAB discussion treated counterfactual planning as an open question. The current [talk outline](../../SAB2026/talk/SAB_talk_outline_current.md) places the published mechanism before IntrMotiv, Lilly, and SimGaY extensions. |
+| Evidence organization | Organize analyses by ablation and scientific question. Show the factors, control arm, sample identity, metric definition, and protocol beside each conclusion. | The COSYNE field-analysis chat requested reports grouped by ablation/question; later questions about C05 and “T/C” exposed labels that did not make the changed factor or credit recipient clear. |
+| Figure readability | Keep plots, labels, and examples readable at the size at which the audience will see them. Make the canvas or slide larger, or split a view, when necessary. | In the COSYNE figure chats you requested all relevant elements on the canvas, equal-sized small bar plots, and an example for each statistic. SAB figure instructions set slide 21's authored COSYNE lettering as a reference and at most three visible font sizes per slide. |
+| Authorial control | Preserve handmade artwork, figure geometry, and slide structure when they carry meaning. Treat a requested move differently from permission to redraw or delete. | You allowed moving the GreenConf slides but said not to delete or change them without a strong reason. The [SAB figure handoff](../../SAB2026/talk/FIGURE_MAKER_HANDOFF.md) records a corrected training layout after an earlier remake broke the original three-metric stack. |
+| Work sequence | Settle a concise, sufficiently detailed narrative in text before changing the deck; use separate, reusable figure parts to implement it. | You requested several introduction and conclusion outlines “before making presentation changes,” commented on `outline.md`, and proposed separate presentation-maker and figure-maker responsibilities. |
+| Reuse and delivery | Keep raw and editable components with an index and their source data; remove redundant whole-figure history while retaining scientifically distinct alternatives. Push completed project changes. | Your COSYNE asset and chat-organization requests, the [visual asset index](../07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md), and the SAB instruction to “always push to main after making changes.” |
+
+## Lessons that transfer between a submission and a talk
+
+1. **Start from claims and their evidence.** For each planned panel or slide, write one sentence saying what it supports, the comparison behind it, and the main limitation. Keep strong negative or conditional results in the story. For *Lin et al. 2026*, the tested sequence advantage is conditional on the sparse-input regime; the dense comparison changes more than one input-processing component. For COSYNE, distinguish encoder push, worker pull, online training, common-observation replay, and own-policy probes.
+2. **Let the narrative determine the visual selection.** A short talk needs a small number of strong results with enough explanation, not a miniature version of every paper figure. Use a text outline first; then choose source plots, visual anchors, and backup slides. The SAB outline now gives the introduction one concrete phenomenon, a small set of distinct prior-work roles, the tested mechanism, and a synthesis before extensions.
+3. **Make figure components independently reusable.** Keep editable SVGs, print PDFs, preview PNGs, metric icons, selected examples, source tables or small arrays, and a manifest that links each plot to its data and meaning. The [COSYNE asset index](../07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md) and [SAB slide-asset library](../../SAB2026/talk/asset_library/README.md) are the browsing entry points. A selected example must remain labeled as an example rather than a group estimate.
+4. **Preserve meaning through a medium change.** Moving a paper plot into a talk may justify larger lettering, fewer time points, or splitting a figure across slides, but preserve the plotted values, axes, uncertainty, curve identities, and the author's meaningful grouping. Keep source artwork where possible. Review the exported PDF or slide at actual presentation size; SVG or PNG previews alone can miss clipping and downscaling.
+5. **Keep boundaries between projects visible.** Present published *Lin et al. 2026* results, newer IntrMotiv analyses, Lilly's work, and planned SimGaY tasks with distinct status labels. A workshop framing such as “world model” can motivate a question, but should not turn observed spatial tuning or population geometry into an untested planning or predictive-model claim.
+
+## Mistakes to catch earlier next time
+
+| Observed failure | Better check |
+| --- | --- |
+| A COSYNE card intended to show DG bits per step was populated from readout-layer bits per activation. Another metric swap changed a 38/38 directional count to 37/38. | Bind every card and prose count to the exact source table, layer, unit, cohort, and transformation. Recompute counts when a panel changes. See the [infrastructure tracker](../infra.md). |
+| “C05” appeared in comparisons with different factors and apparently opposite results; “T/C” was unclear about the credit recipient. | Name both arms, the one changed factor, credit recipient, regimen, measurement window, and metric in captions and report headings. Do not use a condition code as an explanation. |
+| Some figure variants mixed online windows, frozen-policy probes, common-observation maps, and own-policy trajectories without enough visible distinction. | Put protocol and sample identity into the figure source notes and caption. Do not use an illustrative trajectory as causal evidence for a matched representation contrast. |
+| A compact COSYNE SVG/PNG preview looked complete while its PDF clipped headings; small labels also became hard to read after figure assembly. | Inspect the *final* PDF or slide at intended size, including headings, legends, axis ticks, margins, and caption. Check the exported format itself. |
+| An early SAB training-plot remake rearranged the author's vertical metric stack and put metric names above panels. | Compare the revised SVG with the author source before handoff. Preserve semantic arrangement unless the user approves a change to it. |
+| A world-model-centered SAB story suggested planning or predictive functions that the paper did not test and underplayed the paper's wider evidence. | Draft the talk thesis against the full paper first; put speculative functions in the outlook and label them as open. Use the user's corrections as claim boundaries. |
+| Slides or figure packages proliferated as historical versions. | Keep a selected output, separate reusable components, and only whole-figure variants that answer a different scientific or presentation question. Index the reason for each retained variant; Git history can recover superseded layouts. |
+
+## A compact workflow for the next paper, conference figure, or talk
+
+1. Read the current project index, the user's edited source, and the canonical results before drafting. For a talk, note audience, time, protected artwork, and which work is published versus ongoing.
+2. Make a short claim map: question, result, supporting analysis, control, limitation, and candidate visual. Review the story as text before making substantial slide changes.
+3. Select or build standalone visuals from verified sources. Record run or paper identity, layer, unit, sample size, protocol, scale, and source hash where applicable. Preserve source values and meaningful layout.
+4. Assemble at final viewing size. Check scientific wording, source-to-panel agreement, typography, overlap, crop, PDF/slide export, and talk timing. Use backup slides for controls that matter in discussion but interrupt the main path.
+5. Deliver the selected artifact with an asset index and brief provenance. Keep components and meaningful variants, remove redundant presentation history, then commit and verify the push.
+
+## Points for your review
+
+- **Likely preference, inferred from repeated corrections:** You want the assistant to make concrete, reviewable decisions and to ask only when your scientific intent cannot be inferred. Please adjust if this overstates your preference.
+- **Likely standard, inferred from both projects:** Visual polish matters only when it preserves the scientific comparison and your authored design. Please clarify where you would prefer a more radical redraw.
+- **Scope limit:** This synthesis uses the accessible COSYNE and SAB Codex chat requests and corrections plus their saved project files. It is not a complete audit of every archived ChatGPT exchange. Any personal-profile update should wait until you confirm which points are durable beyond these two projects.
+
+## Source trail
+
+COSYNE chats consulted by title: **“Refine COSYNE submission plan,” “COSYNE 2027 offline field analyses,” “Extend COSYNE behavior-expression analysis…,” “COSYNE temporal credit effects across…,” “figures; COSYNE 2027,”** and **“figures; COSYNE 2027 (2).”** The [submission README](../07_abstracts/cosyne_2027_submission_draft/README.md), [asset index](../07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md), and [infrastructure tracker](../infra.md) provide the saved outputs and correction record.
+
+SAB chat requests were read from **“SAB talk scientific evaluator”;** the **“SAB presentation maker”** and **“SAB figure maker”** work is represented here by its saved outputs: the [current talk outline](../../SAB2026/talk/SAB_talk_outline_current.md), [figure-maker handoff](../../SAB2026/talk/FIGURE_MAKER_HANDOFF.md), and [GreenConf talk path](../../SAB2026/talk/GREENCONF_STYLED_V2_TALK_PATH.md).

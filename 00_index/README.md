@@ -30,4 +30,5 @@ The 10 September boss briefing remains a useful historical reading sequence: [sc
 
 - [Global CA3-state credit assignment](../99_inbox/global_ca3_state_credit_assignment.md)
 - [Repository organization decisions](repository_organization_20261002.md)
+- [COSYNE and SAB collaboration lessons (draft for review)](COSYNE_SAB_collaboration_lessons.md)
 - [Infrastructure improvements](../infra.md)
