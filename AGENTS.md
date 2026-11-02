@@ -41,15 +41,10 @@
 
 ## Markdown Math Formatting
 
-- For any `.md` file written or edited in this GitHub/Obsidian repository, use
-  `$...$` for inline math and `$$...$$` for display equations.
-- Inline math must open and close with single-dollar delimiters on the **same
-  line as the math content**. Never put a single `$` by itself on a line.
-- For display math, use paired `$$` delimiters, typically on their own lines.
-  Do not use `\[...\]` display delimiters in repository Markdown.
-- Before committing a Markdown file with equations, check that there are no
-  lines whose trimmed content is exactly `$`.
-- In chat, use `\(...\)` or `\[...\]` as math delimiters.
+- Use `\(...\)` for inline math and `\[...\]` for display math in new or revised Markdown equations and in chat.
+- Keep inline math on one physical line. Put display delimiters on separate lines, with the equation between them.
+- Existing dollar-delimited equations may remain until edited; do not mass-convert unrelated notes or change code examples.
+- Obsidian vaults under Projects use the LaTeX Delimiter Renderer plugin to render these delimiters without rewriting note source. Install and enable it in newly created vaults too; plugin installation is per vault.
 
 ## Figure Readability
 

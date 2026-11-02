@@ -4,6 +4,12 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+## Markdown math rendering across viewers — 2026-11-02
+
+- **Evidence:** The user confirmed that LaTeX Delimiter Renderer 1.0.4 works in GeoMem. Its checksum-verified release was installed and enabled in all seven active/configured Obsidian vault directories under Projects, including the Projects root; archived GeoMem material was excluded.
+- **Resolution:** Future equations use backslash delimiters, as specified in [AGENTS.md](AGENTS.md#markdown-math-formatting). Keep one Markdown source; no manual delimiter conversion or parallel PDF is required for this compatibility issue. Install the plugin per new vault, preserve other enabled plugins, and reload already-open vaults.
+- **Validation:** Release hashes and enabled-plugin configurations were checked. GeoMem visual rendering was confirmed by the user; other vaults still require reload and visual confirmation. Do not claim plugin binaries or rendering state synchronize automatically to other hosts.
+
 ## Open Improvements
 
 ### Export decision-counted flat-reward calibration from the study workflow — 2026-10-15
