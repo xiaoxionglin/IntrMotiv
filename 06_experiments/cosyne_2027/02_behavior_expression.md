@@ -1,6 +1,6 @@
 # 3. Does behavior change expression of a learned code?
 
-[Outline](../../99_inbox/cosyne%202027%20abstract%20-%20evidence-linked%20draft.md) · [Question index](README.md) · [Detailed frozen-policy analysis](online_and_behavior_analysis_20261011.md#other-own-policy-versus-random-policy-readouts)
+[Outline](../../07_abstracts/cosyne_2027_submission_draft/drafts/evidence_linked_draft.md) · [Question index](README.md) · [Detailed frozen-policy analysis](online_and_behavior_analysis_20261011.md#other-own-policy-versus-random-policy-readouts)
 
 ![Decoder-1 information under own and random policies beside the paired difference](../results/cosyne_2027_compact_figures/02_behavior_info_values_and_delta.png)
 

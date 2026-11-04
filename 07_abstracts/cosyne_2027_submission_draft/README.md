@@ -11,6 +11,17 @@ For later papers and talks, start with the [reusable visual asset index](REUSABL
 
 The manuscript remains a draft. [Open questions](OPEN_QUESTIONS.md) records claim and length checks, and [panel provenance](PANEL_PROVENANCE.json) records source hashes. The selected palette is orange push, violet pull, blue/red/green/cyan DG identities, and slate/olive/rose NG/UG/FG; its [manifest](figure_palette_candidates/manifest.json) and retained [Figure 2 palette source](figure_palette_candidates/priority_rgb_orange_violet_figure2.svg) document the transformation.
 
+## Earlier writing drafts
+
+These working notes retain their original wording, comments, and evidence status. Read [main.tex](main.tex) for the manuscript source and the [evidence index](../../06_experiments/cosyne_2027/README.md) for the underlying analyses.
+
+| Draft | Role |
+| --- | --- |
+| [Original outline](drafts/outline.md) | Initial research question and proposed result sequence |
+| [Evidence-linked draft](drafts/evidence_linked_draft.md) | Narrative bullets, source links, analysis updates, and author comments |
+| [12 October prose draft](drafts/prose_draft_20261012.md) | Dated abstract text and qualifications |
+| [Discussion notes](drafts/discussion_notes.md) | Working result paragraphs and comments, formerly `99_inbox/Untitled.md` |
+
 ## Distinct figure variants retained
 
 | Asset | Reason to retain |

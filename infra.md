@@ -783,6 +783,19 @@ use this log for the infrastructure needed to resolve them.
   without duplicating task status or moving provenance-pinned material.
   For future navigation work, extend the nearest existing index and check its
   local paths and section links before creating another overview.
+- **Structural follow-up, 4 November:** Four COSYNE writing notes had remained
+  in `99_inbox/`, including a substantive `Untitled.md`, despite having a known
+  submission home. They now live in
+  [the submission's writing drafts](07_abstracts/cosyne_2027_submission_draft/README.md#earlier-writing-drafts)
+  with descriptive names; their evidence links and the five incoming
+  experiment-report links were rebased. The inbox retains the unresolved CA3
+  idea. Preserve the distinct drafts and author comments rather than merging
+  them into the current manuscript. The duplicate `layout_versions/input_layout.svg`
+  and `layout_versions/revised/input_layout.svg` under the September poster
+  remain separate: each is a manifest-pinned source, and the renderer writes
+  the revised copy when a new attachment is supplied. Deduplicating them through
+  a shared writable link could overwrite the earlier source. Pinned study,
+  data, asset, and packaging copies also retain their paths and bytes.
 - **Acceptance:** Every newly moved file has a working index path, all local
   links in changed Markdown resolve, and the tracked tree contains no
   `.DS_Store` or empty placeholder files. Future study updates link their

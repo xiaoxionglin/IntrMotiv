@@ -1,6 +1,6 @@
 # 6–7. Worker hit bonus, exploration, and goal control
 
-[Outline](../../99_inbox/cosyne%202027%20abstract%20-%20evidence-linked%20draft.md) · [Question index](README.md) · [Full checkpoint provenance](checkpoint_fields_20261011.md)
+[Outline](../../07_abstracts/cosyne_2027_submission_draft/drafts/evidence_linked_draft.md) · [Question index](README.md) · [Full checkpoint provenance](checkpoint_fields_20261011.md)
 
 ## Conclusion at the available evidence boundary
 
