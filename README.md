@@ -18,6 +18,27 @@ Start with the [research notes index](00_index/README.md) for the scientific ide
 
 The numbered folders hold research material; `hpc_runs/` holds runnable study definitions and analysis tools. The Sample Factory training implementation lives in the separate `SF_hipposlam` repository. See [the standardized workflow](04_implementation/standardized_study_workflow.md) before defining a study or launching training.
 
+## Folder map
+
+Use the purpose links above to resume work; use this map when browsing or placing a file. The numbers group material by role, not by priority or freshness.
+
+| Folder | What belongs here |
+| --- | --- |
+| [`00_index/`](00_index/README.md) | Scientific reading routes and organization decisions |
+| [`01_project_context/`](01_project_context/) | Project background, source reports, and interface assessments |
+| [`02_algorithm/`](02_algorithm/) | Core formulations and model hypotheses |
+| [`03_transition_distance/`](03_transition_distance/) | Transition-distance theory and reward design |
+| [`04_implementation/`](04_implementation/) | Architecture, metric definitions, and reusable workflow documentation |
+| [`05_plans/`](05_plans/README.md) | Proposed studies and poster plans |
+| [`06_experiments/`](06_experiments/README.md) | Result owners, experiment records, analysis scripts, inputs, and outputs |
+| [`07_abstracts/`](07_abstracts/README.md) | Abstract drafts, submission packages, and their figure assets |
+| [`08_literature/`](08_literature/README.md) | Prior-work notes and source papers |
+| [`99_inbox/`](99_inbox/) | Unresolved ideas awaiting a subject home |
+| [`hpc_runs/`](hpc_runs/README.md) | Declarative studies, launch helpers, and reusable analysis code |
+| [`assets/`](assets/) and [`exports/`](exports/) | Shared visual material and portable handoff bundles |
+
+For a study's current evidence, follow its owner in the [experiment status map](06_experiments/README.md#report-status-and-ownership). A dated filename records provenance; it does not establish which report is authoritative.
+
 ## Organization rules
 
 - Give one study one result owner in `06_experiments/README.md`. Put dated snapshots and launch records next to it, with a forward link to the owner.

@@ -4,6 +4,29 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+## Find an issue by problem
+
+This is a dated issue log. The links below are shortcuts into existing entries;
+read each entry's status and remaining acceptance criteria before starting work.
+Some entries under **Open Improvements** contain completed fixes and later
+follow-ups, so the section name alone does not establish their current status.
+
+| Problem | Start here |
+| --- | --- |
+| Finding the right file or current report | [Repository navigation](#repository-navigation-and-duplicate-provenance--2026-10-02); [result ownership and freshness](#result-reports-need-a-stable-owner-and-freshness-check--2026-10-02) |
+| Reviewing or launching a study | [Output-path audit](#audit-declared-output-root-against-generated-training-directories--2026-10-09); [explicit submission mode](#canonical-launcher-submission-mode-must-be-explicit--documented-2026-09-22) |
+| Collecting results or recovering a stalled collection | [Analysis availability](#validate-analysis-availability-before-a-batch-collection--2026-10-10); [bounded collection and recovery](#bounded-progress-and-recovery-for-canonical-online-collection--open) |
+| Missing place-field, trajectory, graph, or control evidence | [Analysis completeness](#complete-spatial-and-control-analyses-must-ship-with-study-results--2026-10-07); [evaluation-environment provenance](#record-the-evaluation-environment-in-historical-field-manifests--2026-10-09) |
+| Rebuilding a figure from the correct measurements | [Paired source tables](#keep-authorized-paired-source-tables-with-cross-regimen-figures--2026-10-13); [field arrays and occupancy metadata](#keep-figure-ready-field-arrays-with-occupancy-metadata--2026-10-12) |
+| Figure readability or export layout | [Final-size result panels](#size-compact-result-panels-for-the-final-conference-page--2026-10-12); [COSYNE evidence-plot rendering](#cosyne-evidence-plots-need-a-final-size-rendering-path--2026-10-11) |
+| Historical configurations or pinned references breaking | [Archived configuration compatibility](#reload-archived-configs-through-a-versioned-compatibility-layer--2026-10-09); [immutable study references](#keep-immutable-study-references-valid-when-reorganizing-reports--2026-10-09) |
+| Markdown display or previously completed work | [Math rendering](#markdown-math-rendering-across-viewers--2026-11-02); [completed improvements](#completed-improvements) |
+
+For routine study work, begin with the [latest workflow entry](hpc_runs/intrmotiv_study/LATEST.md)
+and [standardized workflow](04_implementation/standardized_study_workflow.md).
+Scientific evidence gaps belong in the [open-analysis register](06_experiments/open_analyses.md);
+use this log for the infrastructure needed to resolve them.
+
 ## Markdown math rendering across viewers — 2026-11-02
 
 - **Evidence:** The user confirmed that LaTeX Delimiter Renderer 1.0.4 works in GeoMem. Its checksum-verified release was installed and enabled in all seven active/configured Obsidian vault directories under Projects, including the Projects root; archived GeoMem material was excluded.
@@ -753,6 +776,13 @@ keep implementation guidance in the canonical workflow documents linked below.
   then verify every feature tip is an ancestor of `main` and every new report
   has a catalogue entry. The dated NEMO2 release record is indexed separately
   from the later G500 production report.
+- **Navigation follow-up, 4 November:** The root README now maps each numbered
+  folder to its role, while this log has a [problem-based entry table](#find-an-issue-by-problem).
+  Existing scientific indexes, result owners, file paths, and issue headings
+  remain authoritative. This makes folder browsing and issue lookup easier
+  without duplicating task status or moving provenance-pinned material.
+  For future navigation work, extend the nearest existing index and check its
+  local paths and section links before creating another overview.
 - **Acceptance:** Every newly moved file has a working index path, all local
   links in changed Markdown resolve, and the tracked tree contains no
   `.DS_Store` or empty placeholder files. Future study updates link their
