@@ -11,7 +11,7 @@ Start with the [research notes index](00_index/README.md) for the scientific ide
 | Model architecture and metric definitions | [Architecture reference](04_implementation/architecture/README.md) and [metric reference](04_implementation/IntrMotiv_metric_reference.md) |
 | A proposed study or poster | [Plans index](05_plans/README.md) |
 | A validated run matrix, launcher, or test | [Run code index](hpc_runs/README.md) |
-| Experiment notes, scripts, inputs, and figures | [Experiment index](06_experiments/README.md) for six topic folders; study inputs remain under `06_experiments/data/` and outputs under `06_experiments/results/` |
+| Experiment notes, scripts, inputs, and figures | [Experiment index](06_experiments/README.md) for topic folders and the shared or topic-local data and result bundles |
 | Reusable IntrMotiv visuals for papers or slides | [COSYNE visual asset index](07_abstracts/cosyne_2027_submission_draft/REUSABLE_ASSETS.md) for individual plots, icons, maps, trajectories, and figure source tables |
 | Literature, abstract drafts, or a handoff bundle | [Literature](08_literature/README.md), [abstract drafts](07_abstracts/README.md), or `exports/` |
 | Unresolved idea or infrastructure issue | `99_inbox/` or [infrastructure tracker](infra.md) |
@@ -35,7 +35,8 @@ Use the purpose links above to resume work; use this map when browsing or placin
 | [`08_literature/`](08_literature/README.md) | Prior-work notes and source papers |
 | [`99_inbox/`](99_inbox/) | Unresolved ideas awaiting a subject home |
 | [`hpc_runs/`](hpc_runs/README.md) | Declarative studies, launch helpers, and reusable analysis code |
-| [`assets/`](assets/) and [`exports/`](exports/) | Shared visual material and portable handoff bundles |
+| [`assets/`](assets/) | Shared visual material; study and submission assets also stay beside their owners |
+| [`exports/`](exports/) | Portable handoff bundles; use the originating project notes and source files when making revisions |
 
 For a study's current evidence, follow its owner in the [experiment status map](06_experiments/README.md#report-status-and-ownership). A dated filename records provenance; it does not establish which report is authoritative.
 

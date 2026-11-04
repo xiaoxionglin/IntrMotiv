@@ -10,18 +10,34 @@ The [standard study workflow](../04_implementation/standardized_study_workflow.m
 requires every training-study result to cover place fields, trajectories, graphs,
 and goal control, or explicitly document unavailable evidence and keep that component
 open. Scalar and coverage reports alone are interim.
-The [organization strategy](ORGANIZATION.md) explains the study-line grouping
-and the criteria used to merge overlapping notes. Study notes are physically
-grouped in `syntheses/`, `hrl_graph/`, `dg_representation/`, `controllers/`,
-`ca3_goals/`, and `environments_transfer/`. Only this index, the strategy,
-the open-analysis register, and two provenance-pinned reports remain as
-Markdown files at this folder's top level.
+The [dated organization strategy](ORGANIZATION.md) records the original
+study-line grouping and criteria for merging overlapping notes. Browse the
+current topic folders below; use the owner table for the report to read first.
 
-For a report, use the owner table below. Study inputs and collected tables are
-under `data/<study>/`; figures and analysis bundles are under
-`results/<study>/`. Analysis and rendering scripts remain at this folder's top
-level, generally named `analyze_*`, `plot_*`, or `render_*`. The validated run
-definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
+| Topic folder | What belongs here |
+| --- | --- |
+| [`syntheses/`](syntheses/) | Cross-study comparisons and dated briefings |
+| [`hrl_graph/`](hrl_graph/) | Early hierarchy, graph, and recruitment studies |
+| [`dg_representation/`](dg_representation/) | Representation formation, capacity, and field diagnostics |
+| [`controllers/`](controllers/) | Controller, replay, and navigation studies |
+| [`ca3_goals/`](ca3_goals/) | CA3 memory and contextual-goal studies |
+| [`dg_goal_control/`](dg_goal_control/) | Prescribed and episode-long DG-goal studies |
+| [`reward_credit/`](reward_credit/) | Encoder, worker, and value-credit interventions |
+| [`environments_transfer/`](environments_transfer/) | Environment, cue, reward, and transfer studies |
+| [`cosyne_2027/`](cosyne_2027/README.md) | Question-led evidence index, run catalogs, and figure conventions for COSYNE |
+
+Shared study inputs and collected tables live under `data/<study>/`; shared
+figures and analysis bundles live under `results/<study>/` or `assets/`.
+Some topics, including `reward_credit/` and `dg_goal_control/`, own local
+`results/` bundles. Follow the report's links for its actual inputs and outputs;
+do not relocate pinned bundles to make these layouts uniform. The dated
+[`easy_landmark_maze_20260923/`](easy_landmark_maze_20260923/) folder is a launch
+and provenance bundle, not another topic folder.
+
+Only this index, the strategy, the open-analysis register, and two
+provenance-pinned reports remain as Markdown files at this folder's top level.
+Study-specific analysis and rendering scripts live here or beside their topic.
+Validated run definitions and reusable tooling belong in [hpc_runs](../hpc_runs/README.md).
 
 ## Report status and ownership
 
@@ -36,11 +52,11 @@ definition and reusable tooling are in [hpc_runs](../hpc_runs/README.md).
 | Four prescribed DG goals | [[dg_goal_control/four_prescribed_dg_controller_20261007|Matched controller screen]] | Six 75M runs complete; oracle hits and action sensitivity remain low; frozen causal probe cancelled | Zero-initialized FiLM cohort supplies the paired finite-horizon baseline |
 | COSYNE push–pull ablation | [[controllers/push_pull_ablation_20261007|Temporal-distance ablation execution]] | C15 and CPU2048 intact-reference calibration jobs submitted; four-arm contrast pending | Separate W&B project and pinned runtime patch |
 | COSYNE C01 flat-policy reward timing | [[reward_credit/cosyne27_c01_flat_policy_reward_timing_20261015|Five-seed NG pull control]] | Ten 100M production runs complete; DG fields, paired shared-mask metrics, trajectories, occupancy, and inapplicable graph/control audited | Support-preserving constant calibrated in a separate 2M seed-99 run; own-policy terminal snapshots |
-| COSYNE 2027 submission evidence | [Run and evidence index](cosyne_2027/README.md); [checkpoint fields, trajectories, and graphs](cosyne_2027/checkpoint_fields_20261011.md) | 104 indexed training attempts, 54 frozen-policy probes; 38/40 fresh original runs verified at 100M, 190 retained trajectory and 140 directed-graph snapshots analyzed; matched-command jobs and two C15 replacements running at 11 October check | Links the September controls, corrected-core ablations, fresh factorial, and replacement lineage without moving bulk outputs |
+| COSYNE 2027 submission evidence | [Run and evidence index](cosyne_2027/README.md); [checkpoint fields, trajectories, and graphs](cosyne_2027/checkpoint_fields_20261011.md) | The question reports and dated catalogs in the evidence index own scope, completion status, and remaining analyses | The same index separates September controls, corrected-core ablations, fresh factorials, and replacement lineage |
 | Frozen-policy field expression | [[dg_representation/behavior_field_expression_20261007|Behavior and field expression]] | Complete 54-probe 50k matrix: decoder 1 is consistent across C01/C05/C15 in bits per activation; bits per step also favors own-policy DG in all three and CA3 in C01/C05, with metric-dependent layers reported | Historical 10k field probes remain separate |
 | DG capacity and goal conditioning | [[dg_representation/dg_capacity_goal_conditioning_interim_20260911|Capacity and goal conditioning]]; [selected exact endpoint](results/A0_poster_analysis_20260926/batch_summary.md#main-quantitative-findings) | Balanced 25M matrix, restricted 75M direct subset, and later selected endpoints; no matched-age F64 waypoint endpoint contrast | Interim remains the primary full-matrix report |
 | Navigation8 screen | [[controllers/navigation8_algorithm_screen_interim_20260916|Navigation8 screen]] | Complete three-seed 75M online snapshot; no shared exact saved terminal checkpoint for the selected seeds | Interim remains the primary result report |
-| Easy landmark maze | [[environments_transfer/easy_landmark_maze_qualification_analysis_20260924|Landmark maze qualification]] | 2M qualification; production effect has no matched report here | Qualification is not a production outcome |
+| Easy landmark maze | [[environments_transfer/easy_landmark_maze_production_analysis_20261006|Common-75M production analysis]] | Matched-age production comparison; the neutral cue effect has one training seed per family | [2M qualification](environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md) retains the earlier level and protocol check |
 | Directional/predictive recruitment | [[hrl_graph/directional_predictive_recruitment_interim_20260904|Directional/predictive diagnosis]] | Early graph and representation diagnosis with causal comparison unresolved | Retained separately from its implementation record |
 
 For code-level architecture definitions, use [[../04_implementation/architecture/README|Architecture Reference]]. For metric meanings and denominators, use [[../04_implementation/IntrMotiv_metric_reference|Metric Reference]] and [[../04_implementation/IntrMotiv_metrics_guidebook|Metrics Guidebook]].
@@ -54,6 +70,8 @@ outcome; `PLAN` proposes work; `RUN` records implementation or submission;
 `SYNTHESIS` compares lines; `ARTIFACT` belongs to a pinned output bundle.
 Dates identify evidence age. The [owner table](#report-status-and-ownership)
 above determines which findings are current.
+The COSYNE entry leads to its own question, source-analysis, and run-record
+index; maintain that detailed reading order there rather than duplicating it here.
 
 ### A. Cross-study syntheses and historical briefings
 
@@ -120,6 +138,7 @@ above determines which findings are current.
 | Study line or question | Files in reading order |
 | --- | --- |
 | Corrected-core encoder and worker reward ablation | [RESULT: cross-factor questions, common-panel fields, per-run peak maps, trajectories, and graphs](reward_credit/corrected_core_encoder_worker_ablation_20261010.md); [RESULT: first-wave worker bonus and launch provenance](reward_credit/corrected_core_distance_reward_ablation_20261009.md); [RUN: failed C15 diagnosis and recovery](reward_credit/corrected_core_c15_failed_run_recovery_20261010.md) |
+| COSYNE reward-timing studies | [RESULT: C01 flat-policy reward timing](reward_credit/cosyne27_c01_flat_policy_reward_timing_20261015.md); [INDEX: factorial, completion, and longer-credit records](cosyne_2027/README.md#run-cohorts-and-source-boundaries) |
 | Episode-long hit timing and value boundary | [RESULT: unified comparison with field, trajectory, graph and control evidence](dg_goal_control/episode_long_dg_comparison_20261009.md); [RUN: longer-credit controls](reward_credit/long_credit_dg_20261008.md); [RUN: source-DG hit bonus](reward_credit/source_distance_hit_dg_20261009.md); [RUN: goal-hit-terminal worker value](reward_credit/goal_value_stop_dg_20261009.md); [ARCHIVE: earlier ablation decision](reward_credit/distance_reward_ablation_decision_20261009.md) |
 
 The old `ca3_goals/results/corrected_core_hit_only_20261009` path is a compatibility link to the reward-credit results because submitted StudySpecs pin that provenance path. The current report and data live under `reward_credit/`.
@@ -129,7 +148,7 @@ The old `ca3_goals/results/corrected_core_hit_only_20261009` path is a compatibi
 | Study line or question | Files in reading order |
 | --- | --- |
 | Corridor geometry | [RESULT: 100M analysis](environments_transfer/corridor_geometry_analysis_20260921.md); [RUN: geometry and qualification](environments_transfer/corridor_geometry_20260919.md) |
-| Easy landmark maze | [RESULT: 2M qualification](environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md); [RUN: cue screen](environments_transfer/easy_landmark_maze_implementation_20260923.md) |
+| Easy landmark maze | [RESULT: common-75M production analysis](environments_transfer/easy_landmark_maze_production_analysis_20261006.md); [EARLIER RESULT: 2M qualification](environments_transfer/easy_landmark_maze_qualification_analysis_20260924.md); [RUN: cue screen](environments_transfer/easy_landmark_maze_implementation_20260923.md) |
 | Initial fixed-reward transfer | [RESULT: latest common step](environments_transfer/fixed_reward_transfer_latest_common_20260911.md); [RUN: implementation](environments_transfer/fixed_reward_transfer_implementation_20260910.md); [RUN: repeat-8 replacement](environments_transfer/fixed_reward_transfer_repeat8_launch_20260910.md); [PLAN: timing replan](environments_transfer/fixed_reward_transfer_timing_replan_20260910.md) |
 | DG-peak and five-cue transfer | [RESULT: five-cue campaign and controls](cued_reward5_transfer_20260925.md); [RUN: DG-peak execution](environments_transfer/fixed_reward_dg_peak_transfer_execution_20260924.md); [AUDIT: site candidates](environments_transfer/fixed_reward_site_candidate_audit_20260924.md) |
 
@@ -137,12 +156,16 @@ The old `ca3_goals/results/corrected_core_hit_only_20261009` path is a compatibi
 
 These files stay with their source tables and figures. They are indexed here
 for discovery, while the bundle manifests remain authoritative for replay.
+Copies under `source_inputs/` preserve the original bytes; they are historical
+inputs, not maintained reading copies, and their relative figures may live only
+beside the canonical report. Use the readable report link for browsing and the
+pinned copy when inspecting the bundle's exact source.
 
 | Bundle | Files |
 | --- | --- |
 | Study data | [ARTIFACT: CPU2048 atlas](data/cpu2048_analysis_20260917/atlas.md); [ARTIFACT: full-system request](data/intrmotiv_full_system_controller_20260912/request.md); [ARTIFACT: Navigation8 atlas](data/navigation8_algorithm_screen_interim_20260916/visual_atlas_75m.md) |
 | A0 poster overview | [ARTIFACT: summary](results/A0_poster_analysis_20260926/summary.md); [ARTIFACT: batch results](results/A0_poster_analysis_20260926/batch_summary.md); [ARTIFACT: cross-run scatter](results/A0_poster_analysis_20260926/cross_run_scatter/report.md); [ARTIFACT: flat/goal comparison](results/A0_poster_analysis_20260926/flat_goal_comparison/report.md) |
-| C15 variants | [ARTIFACT: report](results/A0_poster_analysis_20260926/c15_variants/report.md); [ARTIFACT: run index](results/A0_poster_analysis_20260926/c15_variants/run_index.md); [ARTIFACT: source index](results/A0_poster_analysis_20260926/c15_variants/source_index.md); [ARTIFACT: variant catalogue](results/A0_poster_analysis_20260926/c15_variants/variant_catalogue.md); [ARTIFACT: pinned corrected-core source](results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/corrected_core_reevaluation_20260901.md) |
+| C15 variants | [ARTIFACT: report](results/A0_poster_analysis_20260926/c15_variants/report.md); [ARTIFACT: run index](results/A0_poster_analysis_20260926/c15_variants/run_index.md); [ARTIFACT: source index](results/A0_poster_analysis_20260926/c15_variants/source_index.md); [ARTIFACT: variant catalogue](results/A0_poster_analysis_20260926/c15_variants/variant_catalogue.md); [PINNED INPUT: corrected-core source snapshot](results/A0_poster_analysis_20260926/c15_variants/source_inputs/06_experiments/corrected_core_reevaluation_20260901.md); [READABLE REPORT: corrected-core re-evaluation](corrected_core_reevaluation_20260901.md) |
 | Exemplar gallery | [ARTIFACT: run index](results/A0_poster_analysis_20260926/exemplar_gallery/run_index.md); [ARTIFACT: selection](results/A0_poster_analysis_20260926/exemplar_gallery/selection_summary.md); [ARTIFACT: historical screen](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension_screen.md); [ARTIFACT: extension report](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension/report.md); [ARTIFACT: extension run index](results/A0_poster_analysis_20260926/exemplar_gallery/historical_extension/run_index.md) |
 
 ## 1. Canonical factorization

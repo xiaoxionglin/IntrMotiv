@@ -10,5 +10,6 @@ Start with [LATEST](intrmotiv_study/LATEST.md) and the [standardized workflow](.
 | Host-specific preflight and launch helpers | [`hosts/`](hosts/) |
 | Shared off-policy and baseline support | [`intrmotiv_offpolicy/`](intrmotiv_offpolicy/README.md), [`offpolicy_goal_baselines/`](offpolicy_goal_baselines/README.md) |
 | Historical run adapters and focused tests | Top-level `*.py`, `test_*.py`, and `*.sh` files in this folder |
+| Pinned historical runtime sources | [`source_snapshots/`](source_snapshots/README.md) — archives, patches, and hashes for specific study versions; not a second maintained runtime checkout |
 
 Study-specific adapters at the top level are retained at their original paths because historical commands and reports refer to them. New repeated behavior belongs in `intrmotiv_study/`; a new study matrix belongs in `studies/`. Use the [experiment status map](../06_experiments/README.md) to find the result report before interpreting a study's outputs.

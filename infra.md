@@ -778,9 +778,13 @@ use this log for the infrastructure needed to resolve them.
   from the later G500 production report.
 - **Navigation follow-up, 4 November:** The root README now maps each numbered
   folder to its role, while this log has a [problem-based entry table](#find-an-issue-by-problem).
-  Existing scientific indexes, result owners, file paths, and issue headings
-  remain authoritative. This makes folder browsing and issue lookup easier
-  without duplicating task status or moving provenance-pinned material.
+  The experiment index maps all nine topic folders and shared versus topic-local
+  bundles, routes easy-landmark and C01 readers to their existing result owners,
+  and distinguishes the readable corrected-core report from its pinned input
+  copy. COSYNE completion details stay with its evidence index and reports.
+  The abstracts and run indexes separate editable sources, historical material,
+  and generated handoff copies. Existing scientific reports, pinned paths, and
+  issue headings remain authoritative.
   For future navigation work, extend the nearest existing index and check its
   local paths and section links before creating another overview.
 - **Structural follow-up, 4 November:** Four COSYNE writing notes had remained
