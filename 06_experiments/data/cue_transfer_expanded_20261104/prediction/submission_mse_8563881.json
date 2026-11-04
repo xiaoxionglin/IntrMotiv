@@ -1,0 +1,22 @@
+{
+  "job_id": "8563881",
+  "collector_job_id": "8563827",
+  "dependency": null,
+  "completed_collection_verified": "8563827|COMPLETED|0:0",
+  "expired_dependency_submission_rejection": "Slurm Job dependency problem; no job created; completion and dataset hash verified before independent submission",
+  "submitted_utc": "2026-11-04T02:42:22.905493+00:00",
+  "script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/helpers/cue_transfer_prediction_mse_fit_20261104.sbatch",
+  "script_sha256": "f8f525267993e513a8522605a389dcedd454c5fc6fd5f0f75fb186999708a6b0",
+  "dataset_sha256": "0ff5695c0b78b36c943d50b67902fe2c232a8a8be2d20b01c1c64d02e05e55f9",
+  "loss_mode": "elementwise_mse",
+  "release": {
+    "source_commit": "12a75e607ae863a63984f8082519da5f123ec18a",
+    "base_commit": "5a336e958ef2c5bfccc1fa32ece4dc5c977600ae",
+    "archive_sha256": "8dc2b6b2c628d2ec6f187b98ac4b3aedc91a53fbd69d58211d3c70396dc1a66a",
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_prediction_mse_20261104",
+    "test_returncode": 0,
+    "test_summary": [
+      "28 passed, 2 warnings in 3.45s"
+    ]
+  }
+}

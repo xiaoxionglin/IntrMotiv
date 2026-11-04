@@ -1,0 +1,1587 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.15.0",
+  "study_workflow_version": "1.15.0",
+  "study_id": "cue_transfer_expanded_qualification_20261104",
+  "study_spec": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/studies/cue_transfer_expanded_qualification_20261104.study.json",
+  "study_sha256": "ae88a15fda89774ccc463cdd44a1a8c013741f9c6866ddf61ff6160dd503513d",
+  "batch_name": "cue_transfer_expanded_qualification_20261104",
+  "training_mode": "sample_factory",
+  "expected_runs": 23,
+  "protocol": "local-source-model-tensor-contract-v1",
+  "passed": true,
+  "runtime_root": "/tmp/intrmotiv-cue-transfer-20261104",
+  "runtime_git_commit": "be7fcbab24c22872972696b6b5a38116258acc91",
+  "runtime_file_sha256": {
+    "custom_encoder.py": "7fa678b8be3db8f1fa218dcead82bc9715e584524de85b39e917dd31ee3632e2",
+    "custom_core.py": "ff4ef2c1a67a0452df33db0e9af51065b0dcb83d684e090bf3289f4a59f3e283",
+    "custom_actor_critic.py": "6e8066b6141626239ce8997517b82c57b55c351a5c0e73d5f9a85e6f1892cbe8",
+    "custom_learner.py": "94288bb4f8266d7d9ba3188bfe2d96e018bc40184fcd238bc0be1be7e9802d9f",
+    "custom_params.py": "791abb953a02b262817b946a4259bc3755928cf4574c7d6e8ed344f9fc4da536",
+    "train_hipposlam.py": "e682382bd1f9e1f38a1054e91734a581b63d8f2d5fb6bd0f5d0d7b2be44c9984"
+  },
+  "source_checkpoint": "/tmp/intrmotiv-cue-source-20261104/checkpoint_p0/checkpoint_000021868_179142656.pth",
+  "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+  "cached_resnet_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+  "python": "3.10.12",
+  "torch": "2.7.1",
+  "probe_script": "/tmp/intrmotiv-cue-source-20261104/local_expanded_model_contract.py",
+  "probe_script_sha256": "f5f6904657b5ca942dace72f58ccc9c3c93bb67dc8f91a6d4e731ce8eb5d3291",
+  "execution": "CPU; synthetic uint8-range RGBD pixels, all five integer cues; real model factories and transfer initialization; no DMLab rollout",
+  "overrides": "device=cpu; local source path only for scope dg/policy; experiment identity supplied from RunSpec",
+  "synthetic_batch_size": 100,
+  "coverage_finding": "The first 10-image probe passed 21/23 cells; both scratch PPO cells had zero DG gradients. The common batch was enlarged without changing the model, threshold, or optimizer.",
+  "limitations": [
+    "Synthetic cross-entropy/value loss checks model gradient routing, not PPO correctness or reward learning.",
+    "Intrinsic-credit loss, reward parity, and sustained DG/BN learning require real learner qualification.",
+    "Random frozen DG calibration uses the real projection with its learner-owned statistics context on synthetic input."
+  ],
+  "runs": [
+    {
+      "run_name": "CEQ_FRESH_FREE_BN_S42",
+      "passed": true,
+      "transfer_scope": "dg",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.000814941362477839,
+        0.0007204831927083433,
+        0.0009706619894132018,
+        0.0009812858188524842,
+        0.0007662642747163773
+      ],
+      "decoder_gradient_norm": 0.17338897725873412,
+      "action_head_gradient_norm": 0.03349303590952616,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "5b79d601ef1c92a7ad926e2007850e9f6c36ad054d93bf09a6f57201dca9a7b4",
+        "values": "c08d4132b8da7ab629964ef369c735f4e4ae69c722822978fde8b7364723df45",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.0809667110443115,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_PPO_S42",
+      "passed": true,
+      "transfer_scope": "dg",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0906742623872891,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.000814941362477839,
+        0.0007204831927083433,
+        0.0009706619894132018,
+        0.0009812858188524842,
+        0.0007662642747163773
+      ],
+      "decoder_gradient_norm": 0.17338897725873412,
+      "action_head_gradient_norm": 0.03349303590952616,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "5b79d601ef1c92a7ad926e2007850e9f6c36ad054d93bf09a6f57201dca9a7b4",
+        "values": "c08d4132b8da7ab629964ef369c735f4e4ae69c722822978fde8b7364723df45",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.0809667110443115,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_INTRINSIC_S42",
+      "passed": true,
+      "transfer_scope": "dg",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.000814941362477839,
+        0.0007204831927083433,
+        0.0009706619894132018,
+        0.0009812858188524842,
+        0.0007662642747163773
+      ],
+      "decoder_gradient_norm": 0.17338897725873412,
+      "action_head_gradient_norm": 0.03349303590952616,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "5b79d601ef1c92a7ad926e2007850e9f6c36ad054d93bf09a6f57201dca9a7b4",
+        "values": "c08d4132b8da7ab629964ef369c735f4e4ae69c722822978fde8b7364723df45",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.0809667110443115,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_JOINT_S42",
+      "passed": true,
+      "transfer_scope": "dg",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0906742623872891,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.000814941362477839,
+        0.0007204831927083433,
+        0.0009706619894132018,
+        0.0009812858188524842,
+        0.0007662642747163773
+      ],
+      "decoder_gradient_norm": 0.17338897725873412,
+      "action_head_gradient_norm": 0.03349303590952616,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "5b79d601ef1c92a7ad926e2007850e9f6c36ad054d93bf09a6f57201dca9a7b4",
+        "values": "c08d4132b8da7ab629964ef369c735f4e4ae69c722822978fde8b7364723df45",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.0809667110443115,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_BN_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.2480630725622177,
+        0.2422478348016739,
+        0.27703604102134705,
+        0.27074235677719116,
+        0.26570963859558105
+      ],
+      "decoder_gradient_norm": 10.580180159385396,
+      "action_head_gradient_norm": 8.526638202775068,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "34a82eb0b8dd385ced994c821abb6c6af01f414262a8bd0c9da3745679d3ab35",
+        "values": "c764f1e25a0b20c3e9f014ba8ed67fc2d14d9113eb6fb5049d69c65f8ee85916",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 6.70831823348999,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_PPO_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 3.649267326918573,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.2480630725622177,
+        0.2422478348016739,
+        0.27703604102134705,
+        0.27074235677719116,
+        0.26570963859558105
+      ],
+      "decoder_gradient_norm": 10.580180159385396,
+      "action_head_gradient_norm": 8.526638202775068,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "34a82eb0b8dd385ced994c821abb6c6af01f414262a8bd0c9da3745679d3ab35",
+        "values": "c764f1e25a0b20c3e9f014ba8ed67fc2d14d9113eb6fb5049d69c65f8ee85916",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 6.70831823348999,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_INTRINSIC_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.2480630725622177,
+        0.2422478348016739,
+        0.27703604102134705,
+        0.27074235677719116,
+        0.26570963859558105
+      ],
+      "decoder_gradient_norm": 10.580180159385396,
+      "action_head_gradient_norm": 8.526638202775068,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "34a82eb0b8dd385ced994c821abb6c6af01f414262a8bd0c9da3745679d3ab35",
+        "values": "c764f1e25a0b20c3e9f014ba8ed67fc2d14d9113eb6fb5049d69c65f8ee85916",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 6.70831823348999,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_JOINT_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 3.649267326918573,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.2480630725622177,
+        0.2422478348016739,
+        0.27703604102134705,
+        0.27074235677719116,
+        0.26570963859558105
+      ],
+      "decoder_gradient_norm": 10.580180159385396,
+      "action_head_gradient_norm": 8.526638202775068,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "34a82eb0b8dd385ced994c821abb6c6af01f414262a8bd0c9da3745679d3ab35",
+        "values": "c764f1e25a0b20c3e9f014ba8ed67fc2d14d9113eb6fb5049d69c65f8ee85916",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 6.70831823348999,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FRESH_SIMPLEX_PPO_S42",
+      "passed": true,
+      "transfer_scope": "dg",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0906742623872891,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        1.2693305507127661e-05,
+        1.100996905734064e-05,
+        1.5112440451048315e-05,
+        1.5319468730012886e-05,
+        1.1962428288825322e-05
+      ],
+      "decoder_gradient_norm": 0.17338897725873412,
+      "action_head_gradient_norm": 0.03349303590952616,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "5b79d601ef1c92a7ad926e2007850e9f6c36ad054d93bf09a6f57201dca9a7b4",
+        "values": "c08d4132b8da7ab629964ef369c735f4e4ae69c722822978fde8b7364723df45",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.0809667110443115,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SOURCE_SIMPLEX_PPO_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 3.649267326918573,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 52,
+      "cue_gradient_norm_per_row": [
+        0.003621804527938366,
+        0.003533454379066825,
+        0.003936794586479664,
+        0.004009921103715897,
+        0.0038588386960327625
+      ],
+      "decoder_gradient_norm": 10.580180159385396,
+      "action_head_gradient_norm": 8.526638202775068,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32803,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "11d020e9b0c219e42bc183f05b5b4c01fe2ed11dbb122546370c5ded4d0d4473",
+        "rnn": "913061b5c75e063282032dfd927b511443c9eb17eae7be697acbbf3b87b738fc",
+        "logits": "34a82eb0b8dd385ced994c821abb6c6af01f414262a8bd0c9da3745679d3ab35",
+        "values": "c764f1e25a0b20c3e9f014ba8ed67fc2d14d9113eb6fb5049d69c65f8ee85916",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 6.70831823348999,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_RANDOM_FROZEN_SIMPLEX_S42",
+      "passed": true,
+      "transfer_scope": "none",
+      "frozen_dg": true,
+      "calibrated_random_dg": true,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": true,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 38,
+      "cue_gradient_norm_per_row": [
+        1.3098221643303987e-05,
+        1.0202736120845657e-05,
+        1.4453946278081276e-05,
+        1.2407719623297453e-05,
+        1.1590614121814724e-05
+      ],
+      "decoder_gradient_norm": 0.14980811978488495,
+      "action_head_gradient_norm": 0.03274784896374663,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 0,
+      "bn_batches_after": 1,
+      "calibration_second_forward_unchanged": true,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "fe2babfbcbd4807af64c07d1fffbd0d9603f234694522cc6497147f2ba33607b",
+        "rnn": "c1239f5bcf1d27f440a20912bdb92fdcc9e12678f07e3a7cbb7ba9fd48e33d10",
+        "logits": "1da9ddc7674aa743585382c8060ddcb84ef93258cda190f6d3a01a67a65856e5",
+        "values": "729d071fe1515d7ebdda394b00f1e7e5d0522700bbf7847cd4a5337b98c5bfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.081693410873413,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_RANDOM_FROZEN_FREE_S42",
+      "passed": true,
+      "transfer_scope": "none",
+      "frozen_dg": true,
+      "calibrated_random_dg": true,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": true,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 38,
+      "cue_gradient_norm_per_row": [
+        0.0008383151143789291,
+        0.0006586541421711445,
+        0.000926413806155324,
+        0.0007993021281436086,
+        0.000742180272936821
+      ],
+      "decoder_gradient_norm": 0.14980811978488495,
+      "action_head_gradient_norm": 0.03274784896374663,
+      "dg_changed_tensors_after_synthetic_step": [
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 0,
+      "bn_batches_after": 1,
+      "calibration_second_forward_unchanged": true,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "fe2babfbcbd4807af64c07d1fffbd0d9603f234694522cc6497147f2ba33607b",
+        "rnn": "c1239f5bcf1d27f440a20912bdb92fdcc9e12678f07e3a7cbb7ba9fd48e33d10",
+        "logits": "1da9ddc7674aa743585382c8060ddcb84ef93258cda190f6d3a01a67a65856e5",
+        "values": "729d071fe1515d7ebdda394b00f1e7e5d0522700bbf7847cd4a5337b98c5bfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.081693410873413,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_RANDOM_PPO_SIMPLEX_S42",
+      "passed": true,
+      "transfer_scope": "none",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": true,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.07202392509333469,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 38,
+      "cue_gradient_norm_per_row": [
+        1.3098218914819881e-05,
+        1.0202736120845657e-05,
+        1.4453944459091872e-05,
+        1.2407720532792155e-05,
+        1.1590614121814724e-05
+      ],
+      "decoder_gradient_norm": 0.1498081131765315,
+      "action_head_gradient_norm": 0.032747848075021666,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 0,
+      "bn_batches_after": 1,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "b059977d6d91418d7740cb77be24d23872808e74565af7b7969e93f19fb8cacc",
+        "rnn": "44db96477e6448379fedb638a3efb3f420450888d0268389027674db34d9bd73",
+        "logits": "1385f77316ccfea54c70a3f04e4f10cb8ed45bae97b642d72f829918f9b955fb",
+        "values": "88a606edc0a70b8136b0fd3ce13f6ac1e23888daaadaf0dfc43e88410551e909",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.081693410873413,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_RANDOM_PPO_FREE_S42",
+      "passed": true,
+      "transfer_scope": "none",
+      "frozen_dg": false,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "joint",
+      "encoder_grad_coeff": 0.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": true,
+      "fresh_worker_preserved": true,
+      "synthetic_policy_dg_gradient_norm": 0.07202392509333469,
+      "synthetic_policy_dg_gradient_expected": true,
+      "dg_active_count": 38,
+      "cue_gradient_norm_per_row": [
+        0.0008383151143789291,
+        0.0006586541421711445,
+        0.0009264136897400022,
+        0.0007993021863512695,
+        0.000742180272936821
+      ],
+      "decoder_gradient_norm": 0.1498081131765315,
+      "action_head_gradient_norm": 0.032747848075021666,
+      "dg_changed_tensors_after_synthetic_step": [
+        "linear.weight",
+        "batchnorm1d.running_mean",
+        "batchnorm1d.running_var",
+        "batchnorm1d.num_batches_tracked"
+      ],
+      "bn_batches_before": 0,
+      "bn_batches_after": 1,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "b059977d6d91418d7740cb77be24d23872808e74565af7b7969e93f19fb8cacc",
+        "rnn": "44db96477e6448379fedb638a3efb3f420450888d0268389027674db34d9bd73",
+        "logits": "1385f77316ccfea54c70a3f04e4f10cb8ed45bae97b642d72f829918f9b955fb",
+        "values": "88a606edc0a70b8136b0fd3ce13f6ac1e23888daaadaf0dfc43e88410551e909",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 2.081693410873413,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FIXED_WORKER_SIMPLEX_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": true,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.004050656221807003,
+        0.00339868082664907,
+        0.003814847907051444,
+        0.0037902735639363527,
+        0.003716138657182455
+      ],
+      "decoder_gradient_norm": 0.0,
+      "action_head_gradient_norm": 0.0,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FIXED_WORKER_FREE_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": true,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 0.0,
+      "action_head_gradient_norm": 0.0,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_G999_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.999,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_L99_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.99,
+      "gae_lambda": 0.99,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_G999_L99_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0002,
+      "gamma": 0.999,
+      "gae_lambda": 0.99,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SIMPLEX_LR_LOW_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 5e-05,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.004050656221807003,
+        0.00339868082664907,
+        0.003814847907051444,
+        0.0037902735639363527,
+        0.003716138657182455
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_SIMPLEX_LR_HIGH_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": true,
+      "learning_rate": 0.0008,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.004050656221807003,
+        0.00339868082664907,
+        0.003814847907051444,
+        0.0037902735639363527,
+        0.003716138657182455
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FREE_LR_LOW_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 5e-05,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    },
+    {
+      "run_name": "CEQ_FREE_LR_HIGH_S42",
+      "passed": true,
+      "transfer_scope": "policy",
+      "frozen_dg": true,
+      "calibrated_random_dg": false,
+      "frozen_worker": false,
+      "ppo_dg_gradient": "stop",
+      "encoder_grad_coeff": 1.0,
+      "fixed_task_goal_mixture": false,
+      "learning_rate": 0.0008,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "loaded_tensor_names": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "fresh_critic_and_task_preserved": true,
+      "fresh_dg_preserved": false,
+      "fresh_worker_preserved": false,
+      "synthetic_policy_dg_gradient_norm": 0.0,
+      "synthetic_policy_dg_gradient_expected": false,
+      "dg_active_count": 193,
+      "cue_gradient_norm_per_row": [
+        0.26234033703804016,
+        0.21828880906105042,
+        0.24755950272083282,
+        0.24277089536190033,
+        0.24100501835346222
+      ],
+      "decoder_gradient_norm": 10.321918979407295,
+      "action_head_gradient_norm": 8.343504334165688,
+      "dg_changed_tensors_after_synthetic_step": [],
+      "bn_batches_before": 32802,
+      "bn_batches_after": 32802,
+      "calibration_second_forward_unchanged": null,
+      "trunk_parameters_and_buffers_unchanged": true,
+      "head_shape": [
+        100,
+        82
+      ],
+      "core_shape": [
+        100,
+        4621
+      ],
+      "rnn_shape": [
+        100,
+        4557
+      ],
+      "initial_tensor_sha256": {
+        "head": "1bdbbbae15eee1fcfbc04a30b384055caed0617ea4b73dcf8353bba6ad27d6c1",
+        "rnn": "c1343ad70d0cfef7274c34bb221f34c0cd4541d5e405ad043fd8f2669b8aa42c",
+        "logits": "6466c8058826ee1d23604573b47a714078c957f162c26a2177afd57a2de677f2",
+        "values": "98634470dc1f95d9bb51b1a1e52bfb0822025379ce9054e41158d0b5a5bbcfba",
+        "effective_cues": "748cd890f308e05de63f26cc666b66ecae4e0fa898e9f4ba1d7032e0a2ab2fc3"
+      },
+      "synthetic_loss": 7.045683860778809,
+      "intrinsic_objective_verified": false
+    }
+  ],
+  "passed_runs": 23
+}

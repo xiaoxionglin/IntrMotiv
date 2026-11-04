@@ -1,0 +1,240 @@
+{
+  "protocol": "bn-only-retained-row-constraint-diagnosis-v1",
+  "extract_sha256": "68a11e5f893ca270dfb49eea99511386f183687ddffb26f0146a736abc79c7ce",
+  "training_release_commit": "be7fcbab24c22872972696b6b5a38116258acc91",
+  "runs": [
+    {
+      "run_name": "CEQ_FRESH_FREE_BN_S42",
+      "checkpoints": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+          "frames": 1081344,
+          "train_step": 132,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/milestones/checkpoint_000000064_524288.pth",
+          "frames": 524288,
+          "train_step": 64,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/milestones/checkpoint_000000128_1048576.pth",
+          "frames": 1048576,
+          "train_step": 128,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        }
+      ]
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_BN_S42",
+      "checkpoints": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+          "frames": 1081344,
+          "train_step": 132,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/milestones/checkpoint_000000064_524288.pth",
+          "frames": 524288,
+          "train_step": 64,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/milestones/checkpoint_000000128_1048576.pth",
+          "frames": 1048576,
+          "train_step": 128,
+          "dg_mode": "bn_only",
+          "dg_weight_changed_tensors": [
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_bn_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var"
+          ],
+          "dg_changed_tensors": [
+            "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+            "encoder.DG_projection.batchnorm1d.running_mean",
+            "encoder.DG_projection.batchnorm1d.running_var",
+            "encoder.DG_projection.linear.weight"
+          ],
+          "dg_constraint": "unit_row_normalization_roundoff",
+          "dg_constraint_relative_bound": 4.76837158203125e-07,
+          "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+          "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+          "dg_initial_row_norm_range": [
+            0.9999999287560883,
+            1.000000082870851
+          ],
+          "dg_final_row_norm_range": [
+            0.9999999631115161,
+            1.000000082870851
+          ],
+          "dg_optimizer_moments_exactly_zero": true,
+          "dg_optimizer_weight_decay": 0,
+          "dg_optimizer_state_parameter_id": 30
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "causal_source": {
+    "file": "sf_working_directories/IntrMotiv/dmlab/custom_learner.py",
+    "function": "normalize_dg_projection_rows",
+    "operation": "parameter.div_(parameter.norm(dim=1, keepdim=True).clamp_min(1e-6))",
+    "post_optimizer_condition": "simultaneous or encoder phase and not transfer_freeze_dg",
+    "training_changed": false
+  },
+  "initial_optimizer_state_counts": {
+    "CEQ_FRESH_FREE_BN_S42": 0,
+    "CEQ_SOURCE_FREE_BN_S42": 0
+  },
+  "interpretation": "The source rows were already unit length. Both runs retained the same projection up to float32 re-normalization roundoff; only BatchNorm moments adapted. Learned DG checkpoints at steps64,128,132 share identical projection weights in both runs. CPU and CUDA reduction arithmetic are not assumed bitwise interchangeable."
+}

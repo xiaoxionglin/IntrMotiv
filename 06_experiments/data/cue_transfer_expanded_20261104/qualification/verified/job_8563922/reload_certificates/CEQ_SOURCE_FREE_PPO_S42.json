@@ -1,0 +1,14 @@
+{
+  "run": "00_CEQ_SOURCE_FREE_PPO_S42",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_SOURCE_FREE_PPO_S42/checkpoint_000000132_1081344.pth",
+  "checkpoint_sha256": "5e15bef585a5aa8d56670575a0c5b929de70f8b3d66b605b53549562514a5f96",
+  "frames": 1081344,
+  "train_step": 132,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cuda:0",
+  "job_id": "8563876"
+}

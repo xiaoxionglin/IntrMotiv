@@ -1,0 +1,25 @@
+{
+  "protocol": "retained-dg-row-normalization-cuda-replay-v1",
+  "job_id": "8563922",
+  "device": "NVIDIA H200",
+  "torch_version": "2.9.1+cu128",
+  "runs": [
+    {
+      "run_name": "CEQ_FRESH_FREE_BN_S42",
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "checkpoint_sha256": "8e5ad896c1f67c88a8f6903b76b27384074ebe4cc3d5e655b83213d52874e992",
+      "train_step": 132,
+      "exact": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_BN_S42",
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "checkpoint_sha256": "856712598d57924d4bb202a0c6c92aeb653fbf2e6fea76437d612301ced5353f",
+      "train_step": 132,
+      "exact": true,
+      "max_abs_error": 0.0
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,202 @@
+{
+  "verified_at_utc": "2026-11-04T02:40:31.118125+00:00",
+  "requested_training_job_ids": [
+    "8563805",
+    "8563806",
+    "8563807",
+    "8563808",
+    "8563809",
+    "8563810",
+    "8563811",
+    "8563812",
+    "8563813",
+    "8563814",
+    "8563815",
+    "8563816",
+    "8563841",
+    "8563842",
+    "8563843",
+    "8563844",
+    "8563845",
+    "8563846",
+    "8563847",
+    "8563848",
+    "8563849",
+    "8563850",
+    "8563851"
+  ],
+  "canonical_manifest_sha256": "30bc77e2d46f05a35848da669a4ed5eef28d9ed65d841a01386f1a0baea49385",
+  "canonical_audit": {
+    "batch_name": "cue_transfer_expanded_qualification_20261104",
+    "commands_match_study": true,
+    "expected_runs": 23,
+    "job_ids": [
+      "8563805",
+      "8563806",
+      "8563807",
+      "8563808",
+      "8563809",
+      "8563810",
+      "8563811",
+      "8563812",
+      "8563813",
+      "8563814",
+      "8563815",
+      "8563816",
+      "8563841",
+      "8563842",
+      "8563843",
+      "8563844",
+      "8563845",
+      "8563846",
+      "8563847",
+      "8563848",
+      "8563849",
+      "8563850",
+      "8563851"
+    ],
+    "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_expanded_qualification_20261104/submitted/jobs.tsv",
+    "rows": 23,
+    "schema": "intrmotiv/study/v1",
+    "status_counts": {
+      "submitted": 23
+    },
+    "study_id": "cue_transfer_expanded_qualification_20261104",
+    "study_sha256": "ae88a15fda89774ccc463cdd44a1a8c013741f9c6866ddf61ff6160dd503513d",
+    "study_spec": "hpc_runs/studies/cue_transfer_expanded_qualification_20261104.study.json",
+    "study_workflow_version": "1.15.0",
+    "submitted_complete": true,
+    "training_mode": "sample_factory",
+    "workflow_version": "1.15.0",
+    "workspace_paths_valid": true
+  },
+  "sacct_records": [
+    [
+      "8563805",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563806",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563807",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563808",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563809",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563810",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563811",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563812",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563813",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563814",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563815",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563816",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563841",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563842",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563843",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563844",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563845",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563846",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563847",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563848",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563849",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563850",
+      "COMPLETED",
+      "0:0"
+    ],
+    [
+      "8563851",
+      "COMPLETED",
+      "0:0"
+    ]
+  ],
+  "expired_dependency_diagnostic": {
+    "kind": "test-only reproduction after original nonzero submission",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "allocation failure: Job dependency problem\n"
+  },
+  "actual_dependency": null,
+  "reason": "All 23 prerequisite jobs independently verified COMPLETED with exit 0:0; expired Slurm dependency IDs omitted with parent authorization.",
+  "eligible_queue_before": {
+    "h200": 0,
+    "l40s": 12
+  }
+}

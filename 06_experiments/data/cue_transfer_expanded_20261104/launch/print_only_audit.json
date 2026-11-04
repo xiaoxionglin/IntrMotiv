@@ -1,0 +1,20 @@
+{
+  "batch_name": "cue_transfer_expanded_20261104",
+  "commands_match_study": true,
+  "expected_runs": 69,
+  "job_ids": [],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_expanded_20261104/review/jobs.tsv",
+  "rows": 69,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "generated": 69
+  },
+  "study_id": "cue_transfer_expanded_20261104",
+  "study_sha256": "247f24f90a9e6b85e2c5badbf68a60ce0628448c8b5ede37e6712cea6de17cde",
+  "study_spec": "hpc_runs/studies/cue_transfer_expanded_20261104.study.json",
+  "study_workflow_version": "1.15.0",
+  "submitted_complete": false,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.15.0",
+  "workspace_paths_valid": true
+}

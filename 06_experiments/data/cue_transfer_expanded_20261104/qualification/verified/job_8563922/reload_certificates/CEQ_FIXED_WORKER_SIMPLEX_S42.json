@@ -1,0 +1,33 @@
+{
+  "protocol": "learner-checkpoint-restore-v2",
+  "run": "00_CEQ_FIXED_WORKER_SIMPLEX_S42",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563922/reloads/CEQ_FIXED_WORKER_SIMPLEX_S42/checkpoint_000000132_1081344.pth",
+  "checkpoint_sha256": "fe404f39d5097bfc2974f895226f427bfd9c1c2485229a4b9c4b2b080bf47d56",
+  "frames": 1081344,
+  "train_step": 132,
+  "controller": "ppo",
+  "exact_restore": true,
+  "restoration_verified": true,
+  "restore_contract": "learner_init_scheduled_lr_v1",
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "optimizer_state_exact": true,
+  "optimizer_runtime_contract_exact": true,
+  "optimizer_lr_reset_verified": true,
+  "optimizer_lr_reset_applied": false,
+  "optimizer_lr_before_init": [
+    0.0002
+  ],
+  "optimizer_lr_after_init": [
+    0.0002
+  ],
+  "optimizer_scheduled_lr": 0.0002,
+  "counters_exact": true,
+  "device": "cuda:0",
+  "job_id": "8563922",
+  "timing_seconds": {
+    "environment_setup": 92.40894422300335,
+    "learner_init": 0.4084183259983547,
+    "total": 92.92630949700833
+  }
+}

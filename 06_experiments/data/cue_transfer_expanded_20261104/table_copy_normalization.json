@@ -1,0 +1,68 @@
+{
+  "scope": "Local Git table copies only; remote files and certificate hashes are unchanged.",
+  "files": {
+    "qualification/native/CTQ_D51_SOURCE_FREE__s42__f262144.csv": {
+      "remote_or_retrieved_raw_sha256": "699f39d0cdae29e0615d730db36ae503b099c67ca783500c940abacec830024f",
+      "local_sha256": "f4e5fff8eb841dbdbb73d30da5fec66d135e37fa04cd7c64a03d0ed8ae4c71b8",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/native/CTQ_D51_SOURCE_FREE__s42__f262144__shuffled_cue.csv": {
+      "remote_or_retrieved_raw_sha256": "b45b8db52b08958ce54fcf65527ade6ddb6187f07216d42e1eb261f45e4526a6",
+      "local_sha256": "6ad23797e2c935fc7048839b77b8b2380828d2ab1ed67ce36a46a373c27451b1",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/native/CTQ_D51_SOURCE_FREE__s42__f262144__zero_ca3.csv": {
+      "remote_or_retrieved_raw_sha256": "aea70dfbaac789d286052ba480eb5b83a6dacc96043fc6e2a0e1aba207b16132",
+      "local_sha256": "bf8a4a9eb09bf743ef32d7ea64898cd3c8c987dd7946af740d7120c463a5dc5a",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/native/CTQ_D51_SOURCE_FREE__s42__f262144__zero_depth.csv": {
+      "remote_or_retrieved_raw_sha256": "53e87c5f87f35c5bceb553cff9b9578d98be94c6af0a342dcedf0cc2fcc53204",
+      "local_sha256": "64633015d85c57272a34d4b63ae6879059eacd77a9a6d29d4170ae919d900da5",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/native/failed_job_8563826/CTQ_D51_SOURCE_FREE__s42__f262144.csv": {
+      "remote_or_retrieved_raw_sha256": "699f39d0cdae29e0615d730db36ae503b099c67ca783500c940abacec830024f",
+      "local_sha256": "f4e5fff8eb841dbdbb73d30da5fec66d135e37fa04cd7c64a03d0ed8ae4c71b8",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/native/failed_job_8563826/CTQ_D51_SOURCE_FREE__s42__f262144__shuffled_cue.csv": {
+      "remote_or_retrieved_raw_sha256": "b45b8db52b08958ce54fcf65527ade6ddb6187f07216d42e1eb261f45e4526a6",
+      "local_sha256": "6ad23797e2c935fc7048839b77b8b2380828d2ab1ed67ce36a46a373c27451b1",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 2
+    },
+    "qualification/submission/jobs.tsv": {
+      "remote_or_retrieved_raw_sha256": "30bc77e2d46f05a35848da669a4ed5eef28d9ed65d841a01386f1a0baea49385",
+      "local_sha256": "e731ab53bf22b60fecc2fdcaeb107cfc292da3da6d169556f86bbd1969291c5f",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 24
+    },
+    "qualification/verified/job_8563922/analysis_manifest.tsv": {
+      "remote_or_retrieved_raw_sha256": "387aae1572863b53ed3b0b8f5aa8d8150cf341210fd07466e84816d613e93f5b",
+      "local_sha256": "387aae1572863b53ed3b0b8f5aa8d8150cf341210fd07466e84816d613e93f5b",
+      "normalization": "none",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 47
+    },
+    "launch/production_jobs.tsv": {
+      "remote_or_retrieved_raw_sha256": "498c794733cac5a1513e03c40f7f8456b3e8214fcc7e545cdd5ccfcc5a1b6cae",
+      "local_sha256": "1e491aa900e9d67f694c22a8c155dab99528a9f3e079fa3c7c3984dc023cf08f",
+      "normalization": "CRLF to LF",
+      "parsed_table_unchanged": true,
+      "rows_including_header": 70
+    }
+  }
+}

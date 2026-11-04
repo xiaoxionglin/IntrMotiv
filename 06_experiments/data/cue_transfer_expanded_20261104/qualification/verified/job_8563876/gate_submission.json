@@ -1,0 +1,42 @@
+{
+  "verified_at_utc": "2026-11-04T02:40:31.118125+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--export=ALL,INTRMOTIV_QUALIFICATION_JOB_IDS=8563805:8563806:8563807:8563808:8563809:8563810:8563811:8563812:8563813:8563814:8563815:8563816:8563841:8563842:8563843:8563844:8563845:8563846:8563847:8563848:8563849:8563850:8563851",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/cue_transfer_expanded_qualification_gate_20261104.sbatch"
+  ],
+  "returncode": 0,
+  "stdout": "8563876\n",
+  "stderr": "",
+  "proof": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/gate_accounting_prerequisite_proof.json",
+  "training_job_ids": [
+    "8563805",
+    "8563806",
+    "8563807",
+    "8563808",
+    "8563809",
+    "8563810",
+    "8563811",
+    "8563812",
+    "8563813",
+    "8563814",
+    "8563815",
+    "8563816",
+    "8563841",
+    "8563842",
+    "8563843",
+    "8563844",
+    "8563845",
+    "8563846",
+    "8563847",
+    "8563848",
+    "8563849",
+    "8563850",
+    "8563851"
+  ],
+  "actual_dependency": null,
+  "gate_script_sha256": "67ff778a1fa26a5b77d0438fb81390f2f7efa0f1447bf633be82061ba3df72fb",
+  "runtime_commit": "be7fcbab24c22872972696b6b5a38116258acc91",
+  "job_id": "8563876"
+}

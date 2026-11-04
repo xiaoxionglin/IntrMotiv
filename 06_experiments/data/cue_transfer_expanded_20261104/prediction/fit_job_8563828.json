@@ -1,0 +1,20 @@
+{
+  "job_id": "8563828",
+  "collection": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/collect_8563827",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104",
+  "imported_fitter": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104/sf_working_directories/IntrMotiv/evaluation/offline_ca3_prediction.py",
+  "fitter_sha256": "cfa0aa27858f65404b02fd50bc9683682b85af0b5422323360e56771ed562026",
+  "dataset_sha256": "0ff5695c0b78b36c943d50b67902fe2c232a8a8be2d20b01c1c64d02e05e55f9",
+  "torch_version": "2.9.1+cu128",
+  "gpu": "NVIDIA H200",
+  "horizons": [
+    1,
+    16
+  ],
+  "seeds": [
+    13,
+    29,
+    47
+  ],
+  "epochs": 20
+}

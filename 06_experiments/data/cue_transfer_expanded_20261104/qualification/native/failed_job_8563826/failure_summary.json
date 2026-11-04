@@ -1,0 +1,26 @@
+{
+  "passed": false,
+  "job_id": "8563826",
+  "slurm_state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:12:58",
+  "runtime_commit": "5a336e958ef2c5bfccc1fa32ece4dc5c977600ae",
+  "completed_protocols": [
+    "correct",
+    "shuffled_cue"
+  ],
+  "failure_stage": "zero_ca3 validation before any masked policy decision",
+  "error": "Worker depth mask requires exactly ten bypass features",
+  "cause": "D51 bypass contains ten depth features and three fixed-map identity features; evaluator assumed the entire bypass was depth",
+  "retry_scope": [
+    "zero_ca3",
+    "zero_depth"
+  ],
+  "remote_raw_file_sha256": {
+    "CTQ_D51_SOURCE_FREE__s42__f262144.csv": "699f39d0cdae29e0615d730db36ae503b099c67ca783500c940abacec830024f",
+    "CTQ_D51_SOURCE_FREE__s42__f262144__shuffled_cue.csv": "b45b8db52b08958ce54fcf65527ade6ddb6187f07216d42e1eb261f45e4526a6",
+    "slurm-8563826.err": "2b44e09997783d10287235e32507995b5961fe9cd319796868f08a3fc3dc4087",
+    "slurm-8563826.out": "0d340ba9f83f3ffd4858e7097f1dc6163779938b3d13d28a44b62eb706923db3"
+  },
+  "local_copy_note": "CSV line endings may be normalized from CRLF to LF for Git; remote raw hashes remain unchanged. See retrieval normalization metadata for local byte hashes."
+}

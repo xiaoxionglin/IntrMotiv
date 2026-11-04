@@ -1,0 +1,193 @@
+{
+  "head": "1cf646791dc07cebdaac838d2362606d4a5507d7",
+  "files": [
+    {
+      "file": "hpc_runs/cue_transfer_20261104.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/cue_transfer_positive_20261104.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/cue_transfer_qualification_20261104.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/__main__.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/analysis.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/checkpoint_reload.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/cli.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/direct.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/discovery.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/evaluation_preflight.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/export_geometry.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/field_concentration.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/geometry.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/runfiles.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/sample_factory.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/spatial.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/spatial_contract.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/submission.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/telemetry.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/tensorboard.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/test_direct.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/intrmotiv_study/transfer_audit.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/post_cue_transfer_20261104.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/test_cue_transfer_evaluation.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/test_intrmotiv_telemetry_targets.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "hpc_runs/test_spatial_target_declarations.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "hpc_runs/test_transfer_audit.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "sample_factory/launcher/run_slurm.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "sf_working_directories/IntrMotiv/evaluation/collect_ca3_prediction.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py",
+      "classification": "import_order_or_grouping_only"
+    },
+    {
+      "file": "sf_working_directories/IntrMotiv/evaluation/offline_ca3_prediction.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "sf_working_directories/IntrMotiv/tests/test_fixed_reward_heldout.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "sf_working_directories/IntrMotiv/tests/test_offline_ca3_prediction.py",
+      "classification": "identical_ast"
+    },
+    {
+      "file": "tests/test_launcher.py",
+      "classification": "identical_ast"
+    }
+  ],
+  "counts": {
+    "identical_ast": 16,
+    "import_order_or_grouping_only": 18
+  },
+  "notes": [
+    "Only additional grouping change is test_direct.py import json, sys split into two imports in the same order.",
+    "Frozen starter export unchanged."
+  ],
+  "patch_sha256": "1b7ef2712ee59c022e610644ff61ea45946169a44794e2ab1b1baa69f5048530",
+  "validation": {
+    "black_checked": 846,
+    "isort_checked": 846,
+    "flake8_checked": 757,
+    "remaining_hook_errors": 0,
+    "pytest_passed": 292,
+    "pytest_subtests_passed": 11,
+    "pytest_seconds": 11.5,
+    "diff_check": "passed",
+    "reverse_apply_check": "passed"
+  },
+  "vault_format_synced_files": [
+    "hpc_runs/cue_transfer_20261104.py",
+    "hpc_runs/cue_transfer_positive_20261104.py",
+    "hpc_runs/cue_transfer_qualification_20261104.py",
+    "hpc_runs/intrmotiv_study/__main__.py",
+    "hpc_runs/intrmotiv_study/analysis.py",
+    "hpc_runs/intrmotiv_study/checkpoint_reload.py",
+    "hpc_runs/intrmotiv_study/cli.py",
+    "hpc_runs/intrmotiv_study/direct.py",
+    "hpc_runs/intrmotiv_study/discovery.py",
+    "hpc_runs/intrmotiv_study/evaluation_preflight.py",
+    "hpc_runs/intrmotiv_study/export_geometry.py",
+    "hpc_runs/intrmotiv_study/field_concentration.py",
+    "hpc_runs/intrmotiv_study/geometry.py",
+    "hpc_runs/intrmotiv_study/runfiles.py",
+    "hpc_runs/intrmotiv_study/sample_factory.py",
+    "hpc_runs/intrmotiv_study/spatial.py",
+    "hpc_runs/intrmotiv_study/spatial_contract.py",
+    "hpc_runs/intrmotiv_study/submission.py",
+    "hpc_runs/intrmotiv_study/telemetry.py",
+    "hpc_runs/intrmotiv_study/tensorboard.py",
+    "hpc_runs/intrmotiv_study/test_direct.py",
+    "hpc_runs/post_cue_transfer_20261104.py",
+    "hpc_runs/test_cue_transfer_evaluation.py",
+    "hpc_runs/test_intrmotiv_telemetry_targets.py",
+    "hpc_runs/test_spatial_target_declarations.py"
+  ],
+  "vault_skipped_concurrent_audit_files": [
+    "hpc_runs/intrmotiv_study/transfer_audit.py",
+    "hpc_runs/test_transfer_audit.py"
+  ],
+  "vault_content_mismatch_skipped": []
+}

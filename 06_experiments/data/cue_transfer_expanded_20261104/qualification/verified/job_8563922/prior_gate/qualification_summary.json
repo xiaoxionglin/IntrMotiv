@@ -1,0 +1,180 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.15.0",
+  "study_workflow_version": "1.15.0",
+  "study_id": "cue_transfer_expanded_qualification_20261104",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_20261104/hpc_runs/studies/cue_transfer_expanded_qualification_20261104.study.json",
+  "study_sha256": "ae88a15fda89774ccc463cdd44a1a8c013741f9c6866ddf61ff6160dd503513d",
+  "batch_name": "cue_transfer_expanded_qualification_20261104",
+  "training_mode": "sample_factory",
+  "expected_runs": 23,
+  "protocol": "cue-transfer-expanded-qualification-gate-v1",
+  "job_id": "8563876",
+  "runtime_release": {
+    "runtime_commit": "be7fcbab24c22872972696b6b5a38116258acc91",
+    "parent_commit": "55de52b3e18c1d6020f6f7be5bb17daf3f31a1b4",
+    "archive_sha256": "dbc0818680bae3568066059b07fde2f85afa5dc8428a725c7b7c6d154757a458",
+    "source_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_20261104",
+    "scope": "training unchanged; explicit study controls, qualification audit and bounded launcher"
+  },
+  "dependency_training_jobs": [
+    "8563805",
+    "8563806",
+    "8563807",
+    "8563808",
+    "8563809",
+    "8563810",
+    "8563811",
+    "8563812",
+    "8563813",
+    "8563814",
+    "8563815",
+    "8563816",
+    "8563841",
+    "8563842",
+    "8563843",
+    "8563844",
+    "8563845",
+    "8563846",
+    "8563847",
+    "8563848",
+    "8563849",
+    "8563850",
+    "8563851"
+  ],
+  "batch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104",
+  "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876",
+  "gate_script_sha256": "67ff778a1fa26a5b77d0438fb81390f2f7efa0f1447bf633be82061ba3df72fb",
+  "required_frames": 1048576,
+  "required_runs": 23,
+  "passed": false,
+  "stage": "checkpoint_reloads",
+  "errors": [],
+  "reloads": [
+    {
+      "run_name": "CEQ_FRESH_FREE_BN_S42",
+      "verified": false,
+      "skipped": true,
+      "reason": "transfer audit did not pass or run discovery failed",
+      "audit_errors": [
+        "SpecError: BN-only adaptation changed DG projection weights"
+      ]
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_PPO_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_PPO_S42_/00_CEQ_FRESH_FREE_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_FRESH_FREE_PPO_S42/certificate.json",
+      "certificate_sha256": "75e9dbc589951d3fa22110b9a4b6be6be7f7730219e6040c5cfc0e4bd021964c"
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_INTRINSIC_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_INTRINSIC_S42_/00_CEQ_FRESH_FREE_INTRINSIC_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_FRESH_FREE_INTRINSIC_S42/certificate.json",
+      "certificate_sha256": "6292896eb7c83c7e1f9bfe460f06bf8c4545866324adc9568a0015af2d937534"
+    },
+    {
+      "run_name": "CEQ_FRESH_FREE_JOINT_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_JOINT_S42_/00_CEQ_FRESH_FREE_JOINT_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_FRESH_FREE_JOINT_S42/certificate.json",
+      "certificate_sha256": "44e0bdfe17b6b3b106fc0f819d1bb6ca575fb4d81edb0b329779c9b926cfeefa"
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_BN_S42",
+      "verified": false,
+      "skipped": true,
+      "reason": "transfer audit did not pass or run discovery failed",
+      "audit_errors": [
+        "SpecError: BN-only adaptation changed DG projection weights"
+      ]
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_PPO_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_PPO_S42_/00_CEQ_SOURCE_FREE_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_SOURCE_FREE_PPO_S42/certificate.json",
+      "certificate_sha256": "c54428e52b07a87617484d5efce895e90d102e2ad3434c0d6d07d5ff9021f4bd"
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_INTRINSIC_S42",
+      "verified": false,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_INTRINSIC_S42_/00_CEQ_SOURCE_FREE_INTRINSIC_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 1,
+      "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 137, in main\nAssertionError: exact-reload subprocess failed; see per-run log\n"
+    },
+    {
+      "run_name": "CEQ_SOURCE_FREE_JOINT_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_JOINT_S42_/00_CEQ_SOURCE_FREE_JOINT_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_SOURCE_FREE_JOINT_S42/certificate.json",
+      "certificate_sha256": "0ea5e51db0b2af4f2dc9182245e9f17f4345d8479717abf8157d280bfc499095"
+    },
+    {
+      "run_name": "CEQ_FRESH_SIMPLEX_PPO_S42",
+      "verified": false,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_SIMPLEX_PPO_S42_/00_CEQ_FRESH_SIMPLEX_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 1,
+      "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 137, in main\nAssertionError: exact-reload subprocess failed; see per-run log\n"
+    },
+    {
+      "run_name": "CEQ_SOURCE_SIMPLEX_PPO_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_SIMPLEX_PPO_S42_/00_CEQ_SOURCE_SIMPLEX_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_SOURCE_SIMPLEX_PPO_S42/certificate.json",
+      "certificate_sha256": "e056fc83c5be31962cca67d4e058c3aedd24b9c59f9c6c98a8c24fffc0f6a7d3"
+    },
+    {
+      "run_name": "CEQ_RANDOM_FROZEN_SIMPLEX_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_SIMPLEX_S42_/00_CEQ_RANDOM_FROZEN_SIMPLEX_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_RANDOM_FROZEN_SIMPLEX_S42/certificate.json",
+      "certificate_sha256": "e47168bb1ab335a6c7135eae81a22511a600ce5be016ca3aac357a8f6530f863"
+    },
+    {
+      "run_name": "CEQ_RANDOM_FROZEN_FREE_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_FREE_S42_/00_CEQ_RANDOM_FROZEN_FREE_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_RANDOM_FROZEN_FREE_S42/certificate.json",
+      "certificate_sha256": "404e4a0082905efc015da723d3fb96ac4829d7c84b4742e59dc75f89f51bf817"
+    },
+    {
+      "run_name": "CEQ_RANDOM_PPO_SIMPLEX_S42",
+      "verified": true,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_SIMPLEX_S42_/00_CEQ_RANDOM_PPO_SIMPLEX_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 0,
+      "certificate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_RANDOM_PPO_SIMPLEX_S42/certificate.json",
+      "certificate_sha256": "74731581920040b5079e9b1298e1561d6664f91baff117358bc19ce1c01656d2"
+    },
+    {
+      "run_name": "CEQ_RANDOM_PPO_FREE_S42",
+      "verified": false,
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_FREE_S42_/00_CEQ_RANDOM_PPO_FREE_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "exit_code": 1,
+      "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 137, in main\nAssertionError: exact-reload subprocess failed; see per-run log\n"
+    }
+  ],
+  "transfer_audit_exit_code": 1,
+  "transfer_audit": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/transfer_audit.json",
+  "transfer_audit_sha256": "3694f09be0e3fc4f360c732d9697e8c4bbaaf21225e2b59b7e72ea81028acbfb",
+  "audit_global_errors": [],
+  "audit_passed_runs": 21,
+  "audit_errors_by_run": {
+    "CEQ_FRESH_FREE_BN_S42": [
+      "SpecError: BN-only adaptation changed DG projection weights"
+    ],
+    "CEQ_SOURCE_FREE_BN_S42": [
+      "SpecError: BN-only adaptation changed DG projection weights"
+    ]
+  },
+  "audit_passed": false
+}

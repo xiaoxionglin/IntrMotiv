@@ -1,0 +1,13 @@
+{
+  "submitted_utc": "2026-11-04T02:25:18.440375+00:00",
+  "collector_job_id": "8563827",
+  "collector_script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/helpers/cue_transfer_prediction_collect_20261104.sbatch",
+  "collector_sha256": "d721710371c720806b14aae9f9195742deae3f56261b91ead68ed3de647dd26c",
+  "fitter_script": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/helpers/cue_transfer_prediction_fit_20261104.sbatch",
+  "fitter_sha256": "2db536e283d8d83782bc748aa2ff14b4ffdae3cfedc80d6a13426babd0ab10f1",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104",
+  "source_commit": "5a336e958ef2c5bfccc1fa32ece4dc5c977600ae",
+  "source_archive_sha256": "b70f8f6858f6150c5fd76957991b2f17db9dba479a4b01ad98f94fc483a08c61",
+  "fit_job_id": "8563828",
+  "fit_dependency": "afterok:8563827"
+}

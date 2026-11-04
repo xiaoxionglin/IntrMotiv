@@ -1,0 +1,40 @@
+{
+  "job_id": "8564016",
+  "dependency_type": "afterok",
+  "training_job_ids": [
+    "8563760",
+    "8563761",
+    "8563762",
+    "8563763",
+    "8563764",
+    "8563765",
+    "8563766",
+    "8563767",
+    "8563768",
+    "8563769",
+    "8563770",
+    "8563771"
+  ],
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterok:8563760:8563761:8563762:8563763:8563764:8563765:8563766:8563767:8563768:8563769:8563770:8563771",
+    "--output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_expanded_20261104/submitted/logs/post_parent_interventions-%j.out",
+    "--error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_expanded_20261104/submitted/logs/post_parent_interventions-%j.err",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_expanded_20261104/submitted/post_parent_interventions.sbatch"
+  ],
+  "submitted_at_utc": "2026-11-04T03:13:00.274503+00:00",
+  "evaluation_runtime_commit": "1cf646791dc07cebdaac838d2362606d4a5507d7",
+  "wrapper_sha256": "93c6dc998d7ba41f1e0618954f66b647acb0e1b469efe8e49b5e86ad47d984dc",
+  "field_jobs_to_dispatch": 0,
+  "heldout_jobs_to_dispatch": 12,
+  "heldout_protocols": [
+    "shuffled_cue",
+    "zero_ca3",
+    "zero_depth"
+  ],
+  "trials_per_protocol": 100,
+  "status": "dispatcher accepted; evaluator jobs await successful training",
+  "verified_dependency": "afterok:8563760(unfulfilled),afterok:8563761(unfulfilled),afterok:8563762(unfulfilled),afterok:8563763(unfulfilled),afterok:8563764(unfulfilled),afterok:8563765(unfulfilled),afterok:8563766(unfulfilled),afterok:8563767(unfulfilled),afterok:8563768(unfulfilled),afterok:8563769(unfulfilled),afterok:8563770(unfulfilled),afterok:8563771(unfulfilled)",
+  "dependency_verified_at_utc": "2026-11-04T03:13:00.286688+00:00"
+}

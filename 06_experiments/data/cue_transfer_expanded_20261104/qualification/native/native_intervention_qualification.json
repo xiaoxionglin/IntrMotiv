@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "claim": "one complete matched-reset execution trial per intervention; no performance inference",
+  "job_id": "8563886",
+  "runtime_source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_fix_20261104",
+  "runtime_commit": "1cf646791dc07cebdaac838d2362606d4a5507d7",
+  "runtime_archive_sha256": "14808f1f22fdfa4de17f1a40031ee3d44128f7c9d798bf4e6a4f4cd860938ea0",
+  "qualification_jobs": [
+    "8563826",
+    "8563886"
+  ],
+  "protocol_jobs": {
+    "correct": "8563826",
+    "shuffled_cue": "8563826",
+    "zero_ca3": "8563886",
+    "zero_depth": "8563886"
+  },
+  "reused_control_runtime_commit": "5a336e958ef2c5bfccc1fa32ece4dc5c977600ae",
+  "reused_control_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/native/job_8563826/results",
+  "csv_hash_scope": "NEMO2 raw file bytes; local Git copies may normalize CRLF to LF with separate retrieval metadata",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth",
+  "checkpoint_frames": 262144,
+  "checkpoint_sha256": "d3065da34da3e5932d0a1ddefea8b90eb847c84967363dd9f89114431886533e",
+  "protocols": [
+    "correct",
+    "shuffled_cue",
+    "zero_ca3",
+    "zero_depth"
+  ],
+  "trials_per_protocol": 1,
+  "seed_base": 61000,
+  "horizon_decisions": 1800,
+  "matched_reset_fields": {
+    "requested_seed": "61000",
+    "engine_seed": "1716284032",
+    "policy_seed": "78011",
+    "start_x": "650.0",
+    "start_y": "650.0",
+    "number_instruction": "4",
+    "reward_center_x": "650",
+    "reward_center_y": "1450",
+    "frameskip": "4"
+  },
+  "policy_cues": {
+    "correct": "4",
+    "shuffled_cue": "1",
+    "zero_ca3": "4",
+    "zero_depth": "4"
+  },
+  "terminal_pose_reporting_passed": true,
+  "terminal_position_limit": "terminated episodes have blank coordinates; autoreset poses are not terminal poses",
+  "ca3_intervention_limit": "all worker CA3 inputs are zeroed, including current DG; recurrent state still updates",
+  "csv_files": {
+    "correct": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/native/job_8563886/results/CTQ_D51_SOURCE_FREE__s42__f262144.csv",
+      "sha256": "699f39d0cdae29e0615d730db36ae503b099c67ca783500c940abacec830024f"
+    },
+    "shuffled_cue": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/native/job_8563886/results/CTQ_D51_SOURCE_FREE__s42__f262144__shuffled_cue.csv",
+      "sha256": "b45b8db52b08958ce54fcf65527ade6ddb6187f07216d42e1eb261f45e4526a6"
+    },
+    "zero_ca3": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/native/job_8563886/results/CTQ_D51_SOURCE_FREE__s42__f262144__zero_ca3.csv",
+      "sha256": "aea70dfbaac789d286052ba480eb5b83a6dacc96043fc6e2a0e1aba207b16132"
+    },
+    "zero_depth": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/native/job_8563886/results/CTQ_D51_SOURCE_FREE__s42__f262144__zero_depth.csv",
+      "sha256": "53e87c5f87f35c5bceb553cff9b9578d98be94c6af0a342dcedf0cc2fcc53204"
+    }
+  },
+  "runtime_files": {
+    "sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py": "886976e3a607378507cb201a2dedc9897021767e239f06b7e4777534cac14354",
+    "hpc_runs/run_cue_transfer_heldout_single.sh": "3bd71e8542629acdf54ed92a7e8628a8f0f560fa795369c6a9ae8650cbd724cd"
+  }
+}

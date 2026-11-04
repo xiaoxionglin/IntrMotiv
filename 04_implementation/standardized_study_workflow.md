@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.14.1** (exact run discovery with online-spatial artifacts; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.15.2** (transfer plasticity, row-normalization and scheduled-LR restoration qualification; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -147,11 +147,22 @@ then validate and regenerate print-only plans. Allocation does not migrate data.
 For shortened qualification runs that retain production identities, use
 `python -m hpc_runs.intrmotiv_study.checkpoint_reload` to certify an immutable
 copy of each final checkpoint through the real learner initialization path.
-For frozen-DG external-reward transfer, additionally run
+For external-reward transfer and declared scratch controls, additionally run
 `python -m hpc_runs.intrmotiv_study.transfer_audit STUDY BATCH_ROOT --output REPORT`.
 It uses the declared run identities and source-checkpoint SHA-256 to check the
-initial transfer, fresh critic, frozen DG/BatchNorm state, worker and cue-table
+initial transfer, fresh critic, declared DG/BatchNorm plasticity, worker and cue-table
 updates, checkpoint progress, and positive-batch external/PPO reward parity.
+Version 1.15 distinguishes frozen DG, once-calibrated random DG, BN-only
+adaptation, PPO-only, intrinsic-only, and joint DG learning. Declare
+`ppo_dg_gradient` and `encoder_grad_coeff` explicitly when unfreezing DG; the
+main intrinsic objective remains active unless its coefficient is zero.
+Observed gradient routes and changed/fixed tensors must agree with the treatment.
+Version 1.15.1 allows only machine-precision effects from the learner's retained
+unit-row projection in BN-only controls: already-unit rows, bounded elementwise
+and directional differences, fresh Adam state, exactly zero DG moments and no
+weight decay. Frozen-DG checks remain bitwise strict. Preserve failed earlier
+audits and identify the revised auditor version; do not change submitted studies
+to conceal the failure.
 An initial checkpoint and source config are required; terminal weights alone
 cannot establish initialization. This audit qualifies learning mechanics, not
 downstream task success. The [cue-transfer pilot](../06_experiments/environments_transfer/cue_conditioned_reward_transfer_20261104.md)
@@ -162,14 +173,18 @@ per-minibatch valid-decision count after generation filtering. A batch-level
 fresh-decision threshold can pass while one minibatch has no fresh data. A
 compute-node qualification should advance beyond any previous learner failure
 point; a `RUNNING` scheduler state alone is insufficient evidence of progress.
-The certificate binds exact model/buffer, optimizer and counter restoration to
+The certificate binds model/buffer, optimizer-state and counter restoration to
 its checkpoint SHA; DDQN also checks target, replay and publication state.
-If only an optimizer group's `lr` differs, inspect saved `curr_lr` and the
-last minibatch's invalid-sample scaling before declaring checkpoint corruption.
-The optimizer can contain a temporary effective rate below `curr_lr`; learner
-initialization must preserve that saved rate for exact restoration while fresh
-initialization applies the configured nominal rate. Certify both paths on
-compute nodes after any restore-path correction.
+Version 1.15.2 distinguishes raw dictionary equality from the pinned learner's
+actual initialization contract: it loads the optimizer and saved `curr_lr`, then
+conditionally reapplies `curr_lr` with group scales. A last minibatch's temporary
+valid-sample LR reduction can therefore disappear while Adam moments remain
+exact. The certificate reports raw equality as false in that case and requires
+the entire expected post-initialization optimizer state to match exactly.
+Unexpected LR, group, moment or counter differences fail. Check the versioned
+runtime implementation instead of changing training behavior merely to satisfy
+raw dictionary equality; this supersedes the earlier recommendation to preserve
+the temporary last-step LR at initialization.
 Use `evaluation_preflight` on Slurm for each controller family to check fresh-engine
 prefix equality, frozen state, privileged-input exclusion, and complete matched
 policy/random episodes. Evaluation must disable the training level cache's

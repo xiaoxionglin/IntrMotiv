@@ -1,0 +1,15 @@
+{
+  "prior_job_id": "8563876",
+  "intentional_replacement": true,
+  "accounting_state": "CANCELLED by 981359",
+  "exit_code": "0:0",
+  "recorded_utc": "2026-11-04T03:02:32.624410+00:00",
+  "prior_summary_sha256": "8d000cc3155ea67d9784c24a08ea078a4e01981a8926fbfd20a9944f631f21be",
+  "prior_completed_rows": 14,
+  "prior_verified_reload_runs": 9,
+  "interrupted_reload_logs": [
+    "reload_CEQ_FIXED_WORKER_SIMPLEX_S42.log"
+  ],
+  "replacement_runtime_commit": "d5fe0218fc012e12f82848f8f55cb5aa5fb1f650",
+  "reason": "Preserve serial-gate evidence and reuse validated certificates while qualifying outstanding rows with four independent evaluator subprocesses; training unchanged"
+}

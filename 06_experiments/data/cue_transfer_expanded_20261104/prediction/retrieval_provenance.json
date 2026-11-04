@@ -1,0 +1,26 @@
+{
+  "retrieved_utc": "2026-11-04T02:36:05.277788+00:00",
+  "accounting": "8563827|cue-prediction-collect|cpu|COMPLETED|0:0|00:08:44|4|16G|n3101\n8563828|cue-prediction-fit|h200|COMPLETED|0:0|00:00:59|4|24G|g4401\n",
+  "files": {
+    "submission_8563827.json": {
+      "source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/submission_8563827.json",
+      "sha256": "cd3af4baf82e4be1d21aef24b8e410655680cd01bbfcdae86d5707e0939c8233"
+    },
+    "collection_job_8563827.json": {
+      "source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/collect_8563827/job_provenance.json",
+      "sha256": "0a27ca5573647f66edb45aa1610004a76218e631b0d12d3c1bff88fc2e918196"
+    },
+    "trajectory_metadata.json": {
+      "source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/collect_8563827/trajectory.json",
+      "sha256": "40fc7948a1d9302cb86c44d70587a88d56f03d92875bdd7fee838639824bbe28"
+    },
+    "fit_job_8563828.json": {
+      "source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/fit_8563828/job_provenance.json",
+      "sha256": "4a8eeb64c1065d2d9a617f253b8461aa03dc74cedb3e6ac08933006912295184"
+    },
+    "fit_results_8563828.json": {
+      "source": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/prediction/fit_8563828/results/results.json",
+      "sha256": "2957e7e69179f5b2f2eb58d7ef299917cf2f965c1976e7bfa67ff716aac37e44"
+    }
+  }
+}

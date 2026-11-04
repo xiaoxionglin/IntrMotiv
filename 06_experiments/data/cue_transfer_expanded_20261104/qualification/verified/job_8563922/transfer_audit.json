@@ -1,0 +1,1209 @@
+{
+  "batch_name": "cue_transfer_expanded_qualification_20261104",
+  "expected_runs": 23,
+  "passed": true,
+  "passed_runs": 23,
+  "protocol": "external-reward-transfer-qualification-v2",
+  "runs": [
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_constraint": "unit_row_normalization_roundoff",
+      "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+      "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+      "dg_constraint_relative_bound": 4.76837158203125e-07,
+      "dg_final_row_norm_range": [
+        0.9999999631115161,
+        1.000000082870851
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.0
+      },
+      "dg_initial_row_norm_range": [
+        0.9999999287560883,
+        1.000000082870851
+      ],
+      "dg_mode": "bn_only",
+      "dg_optimizer_moments_exactly_zero": true,
+      "dg_optimizer_state_parameter_id": 30,
+      "dg_optimizer_weight_decay": 0,
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.1419668048620224,
+        0.12732866406440735,
+        0.27375295758247375,
+        0.09081527590751648,
+        0.16831274330615997
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 9,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42",
+      "run_name": "CEQ_FRESH_FREE_BN_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.1419668048620224,
+        0.12732866406440735,
+        0.27375295758247375,
+        0.09081527590751648,
+        0.16831274330615997
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_BN_S42_/00_CEQ_FRESH_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 1.291748046875
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.16609181463718414,
+        0.21579399704933167,
+        0.13725627958774567,
+        0.14252348244190216,
+        0.2283591777086258
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_PPO_S42_/00_CEQ_FRESH_FREE_PPO_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 8,
+      "required_frames": 1048576,
+      "reward_parity_batches": 27,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_PPO_S42_/00_CEQ_FRESH_FREE_PPO_S42",
+      "run_name": "CEQ_FRESH_FREE_PPO_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.16609181463718414,
+        0.21579399704933167,
+        0.13725627958774567,
+        0.14252348244190216,
+        0.2283591777086258
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_PPO_S42_/00_CEQ_FRESH_FREE_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.4172264635562897,
+        "ppo": 0.0
+      },
+      "dg_mode": "intrinsic_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.22350163757801056,
+        0.13677561283111572,
+        0.27340269088745117,
+        0.24148963391780853,
+        0.2813822627067566
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_INTRINSIC_S42_/00_CEQ_FRESH_FREE_INTRINSIC_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 7,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_INTRINSIC_S42_/00_CEQ_FRESH_FREE_INTRINSIC_S42",
+      "run_name": "CEQ_FRESH_FREE_INTRINSIC_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.22350163757801056,
+        0.13677561283111572,
+        0.27340269088745117,
+        0.24148963391780853,
+        0.2813822627067566
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_INTRINSIC_S42_/00_CEQ_FRESH_FREE_INTRINSIC_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.667650580406189,
+        "ppo": 0.8581245541572571
+      },
+      "dg_mode": "joint",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.10776086151599884,
+        0.28501421213150024,
+        0.269225150346756,
+        0.2741575241088867,
+        0.1917189359664917
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_JOINT_S42_/00_CEQ_FRESH_FREE_JOINT_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 8,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_JOINT_S42_/00_CEQ_FRESH_FREE_JOINT_S42",
+      "run_name": "CEQ_FRESH_FREE_JOINT_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.10776086151599884,
+        0.28501421213150024,
+        0.269225150346756,
+        0.2741575241088867,
+        0.1917189359664917
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_FREE_JOINT_S42_/00_CEQ_FRESH_FREE_JOINT_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_constraint": "unit_row_normalization_roundoff",
+      "dg_constraint_max_abs_delta": 1.4901161193847656e-08,
+      "dg_constraint_max_direction_residual": 4.416462501266594e-09,
+      "dg_constraint_relative_bound": 4.76837158203125e-07,
+      "dg_final_row_norm_range": [
+        0.9999999631115161,
+        1.000000082870851
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.0
+      },
+      "dg_initial_row_norm_range": [
+        0.9999999287560883,
+        1.000000082870851
+      ],
+      "dg_mode": "bn_only",
+      "dg_optimizer_moments_exactly_zero": true,
+      "dg_optimizer_state_parameter_id": 30,
+      "dg_optimizer_weight_decay": 0,
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.26682132482528687,
+        0.21708133816719055,
+        0.2716372609138489,
+        0.2706281244754791,
+        0.3416881561279297
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42",
+      "run_name": "CEQ_SOURCE_FREE_BN_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.26682132482528687,
+        0.21708133816719055,
+        0.2716372609138489,
+        0.2706281244754791,
+        0.3416881561279297
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_BN_S42_/00_CEQ_SOURCE_FREE_BN_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 1.9730993509292603
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.17697550356388092,
+        0.17867420613765717,
+        0.2084728479385376,
+        0.1991703063249588,
+        0.19472628831863403
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_PPO_S42_/00_CEQ_SOURCE_FREE_PPO_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_PPO_S42_/00_CEQ_SOURCE_FREE_PPO_S42",
+      "run_name": "CEQ_SOURCE_FREE_PPO_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.17697550356388092,
+        0.17867420613765717,
+        0.2084728479385376,
+        0.1991703063249588,
+        0.19472628831863403
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_PPO_S42_/00_CEQ_SOURCE_FREE_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.20321957767009735,
+        "ppo": 0.0
+      },
+      "dg_mode": "intrinsic_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.2764453887939453,
+        0.2730998992919922,
+        0.24709561467170715,
+        0.25262176990509033,
+        0.2589362561702728
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_INTRINSIC_S42_/00_CEQ_SOURCE_FREE_INTRINSIC_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1015808.0,
+      "passed": true,
+      "positive_reward_batches": 3,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_INTRINSIC_S42_/00_CEQ_SOURCE_FREE_INTRINSIC_S42",
+      "run_name": "CEQ_SOURCE_FREE_INTRINSIC_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.2764453887939453,
+        0.2730998992919922,
+        0.24709561467170715,
+        0.25262176990509033,
+        0.2589362561702728
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_INTRINSIC_S42_/00_CEQ_SOURCE_FREE_INTRINSIC_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.6817936301231384,
+        "ppo": 2.4058473110198975
+      },
+      "dg_mode": "joint",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.2292049527168274,
+        0.3153439462184906,
+        0.24077114462852478,
+        0.21284496784210205,
+        0.2502179443836212
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_JOINT_S42_/00_CEQ_SOURCE_FREE_JOINT_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1032192.0,
+      "passed": true,
+      "positive_reward_batches": 8,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_JOINT_S42_/00_CEQ_SOURCE_FREE_JOINT_S42",
+      "run_name": "CEQ_SOURCE_FREE_JOINT_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.2292049527168274,
+        0.3153439462184906,
+        0.24077114462852478,
+        0.21284496784210205,
+        0.2502179443836212
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_FREE_JOINT_S42_/00_CEQ_SOURCE_FREE_JOINT_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.9608218669891357
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.0016207173466682434,
+        0.0018802592530846596,
+        0.0022179968655109406,
+        0.0015663569793105125,
+        0.0013812398537993431
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_SIMPLEX_PPO_S42_/00_CEQ_FRESH_SIMPLEX_PPO_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 10,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_SIMPLEX_PPO_S42_/00_CEQ_FRESH_SIMPLEX_PPO_S42",
+      "run_name": "CEQ_FRESH_SIMPLEX_PPO_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.1035919189453125,
+        0.12039709091186523,
+        0.1419968605041504,
+        0.10007715225219727,
+        0.08831071853637695
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FRESH_SIMPLEX_PPO_S42_/00_CEQ_FRESH_SIMPLEX_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 2.448369026184082
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.003129878081381321,
+        0.004277522675693035,
+        0.005045314319431782,
+        0.00252448208630085,
+        0.0029752440750598907
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_SIMPLEX_PPO_S42_/00_CEQ_SOURCE_SIMPLEX_PPO_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1015808.0,
+      "passed": true,
+      "positive_reward_batches": 6,
+      "required_frames": 1048576,
+      "reward_parity_batches": 26,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_SIMPLEX_PPO_S42_/00_CEQ_SOURCE_SIMPLEX_PPO_S42",
+      "run_name": "CEQ_SOURCE_SIMPLEX_PPO_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.2044367790222168,
+        0.2737412452697754,
+        0.32326364517211914,
+        0.16305208206176758,
+        0.1902456283569336
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SOURCE_SIMPLEX_PPO_S42_/00_CEQ_SOURCE_SIMPLEX_PPO_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.0
+      },
+      "dg_mode": "calibrated_random_frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.001956051215529442,
+        0.0012672403827309608,
+        0.002949942834675312,
+        0.003785924054682255,
+        0.001570792868733406
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_SIMPLEX_S42_/00_CEQ_RANDOM_FROZEN_SIMPLEX_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 17,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_SIMPLEX_S42_/00_CEQ_RANDOM_FROZEN_SIMPLEX_S42",
+      "run_name": "CEQ_RANDOM_FROZEN_SIMPLEX_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": false,
+      "task_movement_l1_per_cue": [
+        0.12525701522827148,
+        0.08110475540161133,
+        0.18970537185668945,
+        0.24294519424438477,
+        0.10075998306274414
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_SIMPLEX_S42_/00_CEQ_RANDOM_FROZEN_SIMPLEX_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.0
+      },
+      "dg_mode": "calibrated_random_frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.11855223029851913,
+        0.12224899232387543,
+        0.41671222448349,
+        0.35359063744544983,
+        0.12533234059810638
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_FREE_S42_/00_CEQ_RANDOM_FROZEN_FREE_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1032192.0,
+      "passed": true,
+      "positive_reward_batches": 10,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_FREE_S42_/00_CEQ_RANDOM_FROZEN_FREE_S42",
+      "run_name": "CEQ_RANDOM_FROZEN_FREE_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": false,
+      "task_movement_l1_per_cue": [
+        0.11855223029851913,
+        0.12224899232387543,
+        0.41671222448349,
+        0.35359063744544983,
+        0.12533234059810638
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_FROZEN_FREE_S42_/00_CEQ_RANDOM_FROZEN_FREE_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 1.0595065355300903
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.0023289546370506287,
+        0.0035292254760861397,
+        0.004560270346701145,
+        0.004214094020426273,
+        0.002226090058684349
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_SIMPLEX_S42_/00_CEQ_RANDOM_PPO_SIMPLEX_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 10,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_SIMPLEX_S42_/00_CEQ_RANDOM_PPO_SIMPLEX_S42",
+      "run_name": "CEQ_RANDOM_PPO_SIMPLEX_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": false,
+      "task_movement_l1_per_cue": [
+        0.1494140625,
+        0.2271265983581543,
+        0.29297542572021484,
+        0.2710084915161133,
+        0.14334535598754883
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_SIMPLEX_S42_/00_CEQ_RANDOM_PPO_SIMPLEX_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var"
+      ],
+      "dg_changed_tensors": [
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.linear.weight"
+      ],
+      "dg_gradient_maxima": {
+        "encoder": 0.0,
+        "ppo": 0.5686909556388855
+      },
+      "dg_mode": "ppo_only",
+      "dg_weight_changed_tensors": [
+        "encoder.DG_projection.linear.weight"
+      ],
+      "effective_task_movement_l1_per_cue": [
+        0.11830265820026398,
+        0.122703418135643,
+        0.5006972551345825,
+        0.7586938142776489,
+        0.10824310034513474
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_FREE_S42_/00_CEQ_RANDOM_PPO_FREE_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 12,
+      "required_frames": 1048576,
+      "reward_parity_batches": 27,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_FREE_S42_/00_CEQ_RANDOM_PPO_FREE_S42",
+      "run_name": "CEQ_RANDOM_PPO_FREE_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": false,
+      "task_movement_l1_per_cue": [
+        0.11830265820026398,
+        0.122703418135643,
+        0.5006972551345825,
+        0.7586938142776489,
+        0.10824310034513474
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_RANDOM_PPO_FREE_S42_/00_CEQ_RANDOM_PPO_FREE_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.013626274652779102,
+        0.010720566846430302,
+        0.012969987466931343,
+        0.01478305459022522,
+        0.011423318646848202
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_SIMPLEX_S42_/00_CEQ_FIXED_WORKER_SIMPLEX_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_SIMPLEX_S42_/00_CEQ_FIXED_WORKER_SIMPLEX_S42",
+      "run_name": "CEQ_FIXED_WORKER_SIMPLEX_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.8722996711730957,
+        0.6915469169616699,
+        0.8389277458190918,
+        0.9445991516113281,
+        0.7334308624267578
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_SIMPLEX_S42_/00_CEQ_FIXED_WORKER_SIMPLEX_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": []
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.8045952320098877,
+        0.8662817478179932,
+        0.8941178321838379,
+        0.8205438256263733,
+        0.9264311790466309
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_FREE_S42_/00_CEQ_FIXED_WORKER_FREE_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_FREE_S42_/00_CEQ_FIXED_WORKER_FREE_S42",
+      "run_name": "CEQ_FIXED_WORKER_FREE_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.8045952320098877,
+        0.8662817478179932,
+        0.8941178321838379,
+        0.8205438256263733,
+        0.9264311790466309
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FIXED_WORKER_FREE_S42_/00_CEQ_FIXED_WORKER_FREE_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": []
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.1911190152168274,
+        0.2281632423400879,
+        0.22211678326129913,
+        0.1942211091518402,
+        0.20118701457977295
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_S42_/00_CEQ_G999_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1032192.0,
+      "passed": true,
+      "positive_reward_batches": 3,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_S42_/00_CEQ_G999_S42",
+      "run_name": "CEQ_G999_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.1911190152168274,
+        0.2281632423400879,
+        0.22211678326129913,
+        0.1942211091518402,
+        0.20118701457977295
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_S42_/00_CEQ_G999_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.2325906604528427,
+        0.19712111353874207,
+        0.23741145431995392,
+        0.1760534942150116,
+        0.241692453622818
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_L99_S42_/00_CEQ_L99_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1048576.0,
+      "passed": true,
+      "positive_reward_batches": 2,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_L99_S42_/00_CEQ_L99_S42",
+      "run_name": "CEQ_L99_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.2325906604528427,
+        0.19712111353874207,
+        0.23741145431995392,
+        0.1760534942150116,
+        0.241692453622818
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_L99_S42_/00_CEQ_L99_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.22214676439762115,
+        0.20702064037322998,
+        0.20763945579528809,
+        0.1786341369152069,
+        0.2092689424753189
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_L99_S42_/00_CEQ_G999_L99_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 6,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_L99_S42_/00_CEQ_G999_L99_S42",
+      "run_name": "CEQ_G999_L99_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.22214676439762115,
+        0.20702064037322998,
+        0.20763945579528809,
+        0.1786341369152069,
+        0.2092689424753189
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_G999_L99_S42_/00_CEQ_G999_L99_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.0022504450753331184,
+        0.0019867420196533203,
+        0.002187255769968033,
+        0.0016144290566444397,
+        0.0017020627856254578
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_LOW_S42_/00_CEQ_SIMPLEX_LR_LOW_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1032192.0,
+      "passed": true,
+      "positive_reward_batches": 7,
+      "required_frames": 1048576,
+      "reward_parity_batches": 29,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_LOW_S42_/00_CEQ_SIMPLEX_LR_LOW_S42",
+      "run_name": "CEQ_SIMPLEX_LR_LOW_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.14736509323120117,
+        0.1293792724609375,
+        0.14269781112670898,
+        0.10428190231323242,
+        0.10988140106201172
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_LOW_S42_/00_CEQ_SIMPLEX_LR_LOW_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.007323953323066235,
+        0.005967254750430584,
+        0.00573692936450243,
+        0.005786905996501446,
+        0.008147571235895157
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_HIGH_S42_/00_CEQ_SIMPLEX_LR_HIGH_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 1,
+      "required_frames": 1048576,
+      "reward_parity_batches": 30,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_HIGH_S42_/00_CEQ_SIMPLEX_LR_HIGH_S42",
+      "run_name": "CEQ_SIMPLEX_LR_HIGH_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.4688758850097656,
+        0.38324546813964844,
+        0.36701488494873047,
+        0.37063121795654297,
+        0.5196685791015625
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_SIMPLEX_LR_HIGH_S42_/00_CEQ_SIMPLEX_LR_HIGH_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.15291699767112732,
+        0.10403196513652802,
+        0.1372935175895691,
+        0.10188186168670654,
+        0.1390562504529953
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_LOW_S42_/00_CEQ_FREE_LR_LOW_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1064960.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_LOW_S42_/00_CEQ_FREE_LR_LOW_S42",
+      "run_name": "CEQ_FREE_LR_LOW_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.15291699767112732,
+        0.10403196513652802,
+        0.1372935175895691,
+        0.10188186168670654,
+        0.1390562504529953
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_LOW_S42_/00_CEQ_FREE_LR_LOW_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 1081344,
+      "dg_bn_changed_tensors": [],
+      "dg_changed_tensors": [],
+      "dg_gradient_maxima": {},
+      "dg_mode": "frozen",
+      "dg_weight_changed_tensors": [],
+      "effective_task_movement_l1_per_cue": [
+        0.41963252425193787,
+        0.2808247208595276,
+        0.4487510621547699,
+        0.3515683710575104,
+        0.46198609471321106
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_HIGH_S42_/00_CEQ_FREE_LR_HIGH_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 1032192.0,
+      "passed": true,
+      "positive_reward_batches": 4,
+      "required_frames": 1048576,
+      "reward_parity_batches": 28,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_HIGH_S42_/00_CEQ_FREE_LR_HIGH_S42",
+      "run_name": "CEQ_FREE_LR_HIGH_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "source_used_for_initialization": true,
+      "task_movement_l1_per_cue": [
+        0.41963252425193787,
+        0.2808247208595276,
+        0.4487510621547699,
+        0.3515683710575104,
+        0.46198609471321106
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_expanded_qualification_20261104/CEQ_FREE_LR_HIGH_S42_/00_CEQ_FREE_LR_HIGH_S42/checkpoint_p0/checkpoint_000000132_1081344.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    }
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cue_transfer_expanded_qualification_20261104",
+  "study_sha256": "ae88a15fda89774ccc463cdd44a1a8c013741f9c6866ddf61ff6160dd503513d",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_audit_v1152_20261104/hpc_runs/studies/cue_transfer_expanded_qualification_20261104.study.json",
+  "study_workflow_version": "1.15.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.15.2"
+}

@@ -1,0 +1,180 @@
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-11-04 03:25:19,822][784143] register_encoder_factory: <function make_hipposlam_encoder at 0x7f9290042a70>[0m
+[36m[2026-11-04 03:25:19,822][784143] register_model_core_factory: <function make_hipposlam_core at 0x7f929d6b9d80>[0m
+[36m[2026-11-04 03:25:19,822][784143] register_decoder_factory: <function make_hipposlam_decoder at 0x7f929d6bacb0>[0m
+[36m[2026-11-04 03:25:19,822][784143] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7f929d6ce050>[0m
+[36m[2026-11-04 03:25:19,822][784143] register_learner_factory: <function make_hipposlam_learner at 0x7f92900731c0>[0m
+[33m[2026-11-04 03:25:19,866][784143] Loading existing experiment configuration from /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/config.json[0m
+[36m[2026-11-04 03:25:19,867][784143] Overriding arg 'use_jit' with value False passed from command line[0m
+[36m[2026-11-04 03:25:19,867][784143] Overriding arg 'with_pos_obs' with value True passed from command line[0m
+[36m[2026-11-04 03:25:19,867][784143] Overriding arg 'device' with value 'cpu' passed from command line[0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'max_num_frames'=1800 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'max_num_episodes'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,867][784143] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,868][784143] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,868][784143] Adding new argument 'csv_folder_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:25:19,868][784143] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:25:19,868][784143] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:25:19,868][784143] True[0m
+[37m[1m[2026-11-04 03:25:19,868][784143] True[0m
+[37m[1m[2026-11-04 03:25:19,868][784143] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:27:21,991][784143] using eight-action navigation set![0m
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.[0m
+  logger.warn(
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.[0m
+  logger.warn(
+[36m[2026-11-04 03:27:21,999][784143] RunningMeanStd input shape: (1,)[0m
+[37m[1m[2026-11-04 03:27:22,010][784143] True[0m
+[37m[1m[2026-11-04 03:27:22,011][784143] using depth sensor True[0m
+[36m[2026-11-04 03:27:22,011][784143] Num input channels for depth encoder: 1[0m
+[36m[2026-11-04 03:27:22,011][784143] original obs space: Box(0, 255, (4, 72, 96), uint8)[0m
+[37m[1m[2026-11-04 03:27:22,165][784143] DMLab policy head output size: 3843[0m
+[37m[1m[2026-11-04 03:27:22,168][784143] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:27:22,168][784143] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:27:22,168][784143] using bypass, dim 13[0m
+[33m[2026-11-04 03:27:22,168][784143] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-11-04 03:27:22,169][784143] get out size called: 4621[0m
+[36m[2026-11-04 03:27:22,185][784143] get out size called: 4621[0m
+[37m[1m[2026-11-04 03:27:22,212][784143] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth[0m
+[36m[2026-11-04 03:27:22,223][784143] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:27:22,224][784143] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:27:22,224][784143] True[0m
+[37m[1m[2026-11-04 03:27:22,224][784143] True[0m
+[37m[1m[2026-11-04 03:27:22,224][784143] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:29:24,955][784143] using eight-action navigation set![0m
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-11-04 03:29:42,225][838034] register_encoder_factory: <function make_hipposlam_encoder at 0x7fc395b0b520>[0m
+[36m[2026-11-04 03:29:42,226][838034] register_model_core_factory: <function make_hipposlam_core at 0x7fc3a3385fc0>[0m
+[36m[2026-11-04 03:29:42,226][838034] register_decoder_factory: <function make_hipposlam_decoder at 0x7fc3a3386f80>[0m
+[36m[2026-11-04 03:29:42,226][838034] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7fc3a32fe440>[0m
+[36m[2026-11-04 03:29:42,226][838034] register_learner_factory: <function make_hipposlam_learner at 0x7fc395b8ff40>[0m
+[33m[2026-11-04 03:29:42,271][838034] Loading existing experiment configuration from /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/config.json[0m
+[36m[2026-11-04 03:29:42,271][838034] Overriding arg 'use_jit' with value False passed from command line[0m
+[36m[2026-11-04 03:29:42,271][838034] Overriding arg 'with_pos_obs' with value True passed from command line[0m
+[36m[2026-11-04 03:29:42,271][838034] Overriding arg 'device' with value 'cpu' passed from command line[0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'max_num_frames'=1800 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'max_num_episodes'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,271][838034] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Adding new argument 'csv_folder_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:29:42,272][838034] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:29:42,272][838034] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:29:42,272][838034] True[0m
+[37m[1m[2026-11-04 03:29:42,272][838034] True[0m
+[37m[1m[2026-11-04 03:29:42,272][838034] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:31:44,822][838034] using eight-action navigation set![0m
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.[0m
+  logger.warn(
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.[0m
+  logger.warn(
+[36m[2026-11-04 03:31:44,828][838034] RunningMeanStd input shape: (1,)[0m
+[37m[1m[2026-11-04 03:31:44,839][838034] True[0m
+[37m[1m[2026-11-04 03:31:44,839][838034] using depth sensor True[0m
+[36m[2026-11-04 03:31:44,839][838034] Num input channels for depth encoder: 1[0m
+[36m[2026-11-04 03:31:44,840][838034] original obs space: Box(0, 255, (4, 72, 96), uint8)[0m
+[37m[1m[2026-11-04 03:31:44,996][838034] DMLab policy head output size: 3843[0m
+[37m[1m[2026-11-04 03:31:44,999][838034] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:31:44,999][838034] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:31:44,999][838034] using bypass, dim 13[0m
+[33m[2026-11-04 03:31:44,999][838034] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-11-04 03:31:45,000][838034] get out size called: 4621[0m
+[36m[2026-11-04 03:31:45,015][838034] get out size called: 4621[0m
+[37m[1m[2026-11-04 03:31:45,041][838034] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth[0m
+[36m[2026-11-04 03:31:45,052][838034] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:31:45,053][838034] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:31:45,053][838034] True[0m
+[37m[1m[2026-11-04 03:31:45,053][838034] True[0m
+[37m[1m[2026-11-04 03:31:45,053][838034] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:33:47,755][838034] using eight-action navigation set![0m
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-11-04 03:34:03,764][948979] register_encoder_factory: <function make_hipposlam_encoder at 0x7ff063483520>[0m
+[36m[2026-11-04 03:34:03,764][948979] register_model_core_factory: <function make_hipposlam_core at 0x7ff070cfdfc0>[0m
+[36m[2026-11-04 03:34:03,764][948979] register_decoder_factory: <function make_hipposlam_decoder at 0x7ff070cfef80>[0m
+[36m[2026-11-04 03:34:03,764][948979] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7ff070c76440>[0m
+[36m[2026-11-04 03:34:03,764][948979] register_learner_factory: <function make_hipposlam_learner at 0x7ff063507f40>[0m
+[33m[2026-11-04 03:34:03,801][948979] Loading existing experiment configuration from /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/config.json[0m
+[36m[2026-11-04 03:34:03,801][948979] Overriding arg 'use_jit' with value False passed from command line[0m
+[36m[2026-11-04 03:34:03,801][948979] Overriding arg 'with_pos_obs' with value True passed from command line[0m
+[36m[2026-11-04 03:34:03,801][948979] Overriding arg 'device' with value 'cpu' passed from command line[0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'fps'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'no_render'=True that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'save_video'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,801][948979] Adding new argument 'video_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'max_num_frames'=1800 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'max_num_episodes'=1000000000.0 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'push_to_hub'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'hf_repository'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'policy_index'=0 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'eval_deterministic'=False that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'train_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'enjoy_script'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Adding new argument 'csv_folder_name'=None that is not in the saved config file![0m
+[36m[2026-11-04 03:34:03,802][948979] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:34:03,802][948979] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:34:03,802][948979] True[0m
+[37m[1m[2026-11-04 03:34:03,802][948979] True[0m
+[37m[1m[2026-11-04 03:34:03,802][948979] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:36:05,007][948979] using eight-action navigation set![0m
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.[0m
+  logger.warn(
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.[0m
+  logger.warn(
+[36m[2026-11-04 03:36:05,013][948979] RunningMeanStd input shape: (1,)[0m
+[37m[1m[2026-11-04 03:36:05,024][948979] True[0m
+[37m[1m[2026-11-04 03:36:05,024][948979] using depth sensor True[0m
+[36m[2026-11-04 03:36:05,024][948979] Num input channels for depth encoder: 1[0m
+[36m[2026-11-04 03:36:05,025][948979] original obs space: Box(0, 255, (4, 72, 96), uint8)[0m
+[37m[1m[2026-11-04 03:36:05,179][948979] DMLab policy head output size: 3843[0m
+[37m[1m[2026-11-04 03:36:05,182][948979] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:36:05,182][948979] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:36:05,182][948979] using bypass, dim 13[0m
+[33m[2026-11-04 03:36:05,182][948979] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-11-04 03:36:05,182][948979] get out size called: 4621[0m
+[36m[2026-11-04 03:36:05,198][948979] get out size called: 4621[0m
+[37m[1m[2026-11-04 03:36:05,224][948979] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth[0m
+[36m[2026-11-04 03:36:05,237][948979] Using GPU 0 for DMLab rendering![0m
+[36m[2026-11-04 03:36:05,237][948979] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:36:05,237][948979] True[0m
+[37m[1m[2026-11-04 03:36:05,237][948979] True[0m
+[37m[1m[2026-11-04 03:36:05,237][948979] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:38:08,528][948979] using eight-action navigation set![0m
+Traceback (most recent call last):
+  File "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py", line 259, in <module>
+    main()
+  File "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py", line 212, in main
+    row = evaluate_episode(
+  File "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py", line 128, in evaluate_episode
+    with torch.no_grad(), worker_input_intervention(actor, cfg, protocol):
+  File "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_20261104/sf_working_directories/IntrMotiv/evaluation/fixed_reward_heldout.py", line 89, in worker_input_intervention
+    raise ValueError("Worker depth mask requires exactly ten bypass features")
+ValueError: Worker depth mask requires exactly ten bypass features

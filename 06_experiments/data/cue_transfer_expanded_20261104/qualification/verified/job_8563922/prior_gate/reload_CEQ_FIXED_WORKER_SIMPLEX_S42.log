@@ -1,0 +1,11 @@
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-11-04 04:01:50,674][3767914] register_encoder_factory: <function make_hipposlam_encoder at 0x7fb249a4e170>[0m
+[36m[2026-11-04 04:01:50,674][3767914] register_model_core_factory: <function make_hipposlam_core at 0x7fb257135360>[0m
+[36m[2026-11-04 04:01:50,674][3767914] register_decoder_factory: <function make_hipposlam_decoder at 0x7fb257136320>[0m
+[36m[2026-11-04 04:01:50,674][3767914] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7fb2572bd7e0>[0m
+[36m[2026-11-04 04:01:50,674][3767914] register_learner_factory: <function make_hipposlam_learner at 0x7fb249a9b250>[0m
+[36m[2026-11-04 04:01:50,674][3767914] None level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 04:01:50,674][3767914] True[0m
+[37m[1m[2026-11-04 04:01:50,674][3767914] True[0m
+[37m[1m[2026-11-04 04:01:50,674][3767914] depth_sensor  dmlab env True[0m

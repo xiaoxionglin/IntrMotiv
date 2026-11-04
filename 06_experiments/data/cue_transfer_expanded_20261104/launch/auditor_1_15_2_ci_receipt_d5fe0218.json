@@ -1,0 +1,84 @@
+{
+  "schema": "intrmotiv/github-ci-receipt/v1",
+  "repository": "xiaoxionglin/SF_hipposlam",
+  "head_sha": "d5fe0218fc012e12f82848f8f55cb5aa5fb1f650",
+  "head_branch": "codex/cue-transfer-20261104",
+  "workflow": "pre-commit",
+  "workflow_path": ".github/workflows/pre-commit.yml",
+  "event": "push",
+  "run_id": 41764107224,
+  "run_url": "https://github.com/xiaoxionglin/SF_hipposlam/actions/runs/41764107224",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-11-04T02:58:09Z",
+  "updated_at": "2026-11-04T02:59:00Z",
+  "retrieved_at": "2026-11-04T03:01:49.591Z",
+  "source": "GitHub connector REST workflow run, job steps, and decoded job log",
+  "jobs": [
+    {
+      "id": 126358324265,
+      "name": "pre-commit",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41764107224,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install pre-commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run pre-commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    }
+  ],
+  "hook_log_lines": [
+    "2026-11-04T02:58:49.9773373Z black....................................................................Passed",
+    "2026-11-04T02:58:51.4999842Z isort (python)...........................................................Passed",
+    "2026-11-04T02:58:56.4298624Z flake8...................................................................Passed"
+  ],
+  "scope": "Pre-commit workflow only. Tests and coverage do not trigger on this branch push."
+}

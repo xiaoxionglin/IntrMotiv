@@ -1,0 +1,92 @@
+{
+  "schema": "intrmotiv/github-ci-receipt/v1",
+  "repository": "xiaoxionglin/SF_hipposlam",
+  "head_sha": "fbcba79aa413e6d884010473a1ecd0ed0e82896a",
+  "head_branch": "codex/cue-transfer-20261104",
+  "workflow": "pre-commit",
+  "workflow_path": ".github/workflows/pre-commit.yml",
+  "event": "push",
+  "run_id": 41765485664,
+  "run_url": "https://github.com/xiaoxionglin/SF_hipposlam/actions/runs/41765485664",
+  "run_attempt": 1,
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-11-04T03:10:52Z",
+  "updated_at": "2026-11-04T03:11:39Z",
+  "retrieved_at": "2026-11-04T03:12:27.271Z",
+  "source": "GitHub connector REST workflow run, job steps, decoded job log, and repository branches",
+  "jobs": [
+    {
+      "id": 126362738409,
+      "name": "pre-commit",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41765485664,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install pre-commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run pre-commit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    }
+  ],
+  "hook_log_lines": [
+    "2026-11-04T03:11:30.4383198Z black....................................................................Passed",
+    "2026-11-04T03:11:31.5854228Z isort (python)...........................................................Passed",
+    "2026-11-04T03:11:36.2278711Z flake8...................................................................Passed"
+  ],
+  "parity": {
+    "remote_branch": "codex/cue-transfer-20261104",
+    "remote_sha": "fbcba79aa413e6d884010473a1ecd0ed0e82896a",
+    "local_checkout": "/tmp/intrmotiv-cue-transfer-20261104",
+    "local_head": "fbcba79aa413e6d884010473a1ecd0ed0e82896a",
+    "local_worktree_clean": true,
+    "local_matches_remote": true
+  },
+  "scope": "Pre-commit workflow only. Tests and coverage do not trigger on this branch push. No tests rerun for docs-only changes."
+}

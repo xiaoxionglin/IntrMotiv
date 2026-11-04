@@ -1,0 +1,10 @@
+{
+  "purpose": "immutable heldout mask correction; training source unchanged",
+  "runtime_commit": "1cf646791dc07cebdaac838d2362606d4a5507d7",
+  "previous_analysis_commit": "5a336e958ef2c5bfccc1fa32ece4dc5c977600ae",
+  "archive_sha256": "14808f1f22fdfa4de17f1a40031ee3d44128f7c9d798bf4e6a4f4cd860938ea0",
+  "archive_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cue_expanded_analysis_fix_20261104.tar",
+  "source_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_expanded_analysis_fix_20261104",
+  "focused_heldout_tests_passed": 7,
+  "correction": "derive depth width from encoder metadata; preserve three fixed-map bypass features"
+}

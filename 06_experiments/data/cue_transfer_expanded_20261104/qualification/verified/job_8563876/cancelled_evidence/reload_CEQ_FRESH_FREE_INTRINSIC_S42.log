@@ -1,0 +1,116 @@
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[36m[2026-11-04 03:42:32,358][3736440] register_encoder_factory: <function make_hipposlam_encoder at 0x7f591bc8a170>[0m
+[36m[2026-11-04 03:42:32,358][3736440] register_model_core_factory: <function make_hipposlam_core at 0x7f592934d360>[0m
+[36m[2026-11-04 03:42:32,358][3736440] register_decoder_factory: <function make_hipposlam_decoder at 0x7f592934e320>[0m
+[36m[2026-11-04 03:42:32,358][3736440] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7f59294d97e0>[0m
+[36m[2026-11-04 03:42:32,358][3736440] register_learner_factory: <function make_hipposlam_learner at 0x7f591bcd7250>[0m
+[36m[2026-11-04 03:42:32,358][3736440] None level openfield_map2_cued_reward5 task id 0[0m
+[37m[1m[2026-11-04 03:42:32,358][3736440] True[0m
+[37m[1m[2026-11-04 03:42:32,358][3736440] True[0m
+[37m[1m[2026-11-04 03:42:32,358][3736440] depth_sensor  dmlab env True[0m
+[37m[1m[2026-11-04 03:44:12,525][3736440] using eight-action navigation set![0m
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.[0m
+  logger.warn(
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: [33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.[0m
+  logger.warn(
+[37m[1m[2026-11-04 03:44:12,545][3736440] Setting fixed seed 42[0m
+[36m[2026-11-04 03:44:12,552][3736440] Using GPUs [0] for process 0 (actually maps to GPUs [0])[0m
+[36m[2026-11-04 03:44:12,552][3736440] Initializing actor-critic model on device cuda:0[0m
+[36m[2026-11-04 03:44:12,552][3736440] RunningMeanStd input shape: (1,)[0m
+[37m[1m[2026-11-04 03:44:12,569][3736440] True[0m
+[37m[1m[2026-11-04 03:44:12,569][3736440] using depth sensor True[0m
+[36m[2026-11-04 03:44:12,569][3736440] Num input channels for depth encoder: 1[0m
+[36m[2026-11-04 03:44:12,569][3736440] original obs space: Box(0, 255, (4, 72, 96), uint8)[0m
+[37m[1m[2026-11-04 03:44:13,288][3736440] DMLab policy head output size: 3843[0m
+[37m[1m[2026-11-04 03:44:13,290][3736440] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:44:13,290][3736440] denpth_sensor True[0m
+[37m[1m[2026-11-04 03:44:13,290][3736440] using bypass, dim 13[0m
+[33m[2026-11-04 03:44:13,290][3736440] USING SIMPLESEQUENCEWITHBYPASSCORE[0m
+[36m[2026-11-04 03:44:13,291][3736440] get out size called: 4621[0m
+[36m[2026-11-04 03:44:13,330][3736440] get out size called: 4621[0m
+[36m[2026-11-04 03:44:13,343][3736440] Created Actor Critic model with architecture:[0m
+[36m[2026-11-04 03:44:13,343][3736440] IntrMotivActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer()
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): HipposlamEncoder(
+    (depth_encoder): DepthEncoder(
+      (downsample): Upsample(size=(1, 10), mode='nearest')
+    )
+    (basic_encoder): ResNet18Layer2(
+      (features): Sequential(
+        (0): Sequential(
+          (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        )
+        (1): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (2): Sequential(
+          (0): BasicBlock(
+            (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (downsample): Sequential(
+              (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+              (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            )
+          )
+          (1): BasicBlock(
+            (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (relu): ReLU(inplace=True)
+            (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+            (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+      )
+      (downsample): AvgPool2d(kernel_size=3, stride=2, padding=1)
+    )
+    (DG_projection): DGProjection_batchnorm_relu(
+      (linear): Linear(in_features=3843, out_features=64, bias=False)
+      (batchnorm1d): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=True)
+      (activation): ReLU()
+    )
+  )
+  (core): SimpleSequenceWithBypassCore()
+  (decoder): TargetFiLMDecoder(
+    (state_layer): Sequential(
+      (0): Linear(in_features=4557, out_features=128, bias=True)
+      (1): ReLU()
+    )
+    (output_layer): Sequential(
+      (0): Linear(in_features=128, out_features=128, bias=True)
+      (1): ReLU()
+    )
+  )
+  (critic_linear): Linear(in_features=128, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationDefault(
+    (distribution_linear): Linear(in_features=128, out_features=8, bias=True)
+  )
+)[0m
+[36m[2026-11-04 03:44:13,345][3736440] Using optimizer <class 'torch.optim.adam.Adam'>[0m
+[33m[2026-11-04 03:44:13,347][3736440] Loading state from checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_FRESH_FREE_INTRINSIC_S42/learner/00_CEQ_FRESH_FREE_INTRINSIC_S42/checkpoint_p0/checkpoint_000000132_1081344.pth...[0m
+[36m[2026-11-04 03:44:13,366][3736440] Loading model from checkpoint[0m
+[37m[1m[2026-11-04 03:44:13,367][3736440] Loaded experiment state at self.train_step=132, self.env_steps=1081344[0m
+[37m[1m[2026-11-04 03:44:13,368][3736440] Trying to register forward hooks, but no hooks are implemented. Continuing without forward hooks.[0m
+[37m[1m[2026-11-04 03:44:13,368][3736440] Trying to register backward hooks, but no hooks are implemented. Continuing without backward hooks.[0m
+[36m[2026-11-04 03:44:13,368][3736440] Initialized policy 0 weights for model version 132[0m
+{"run": "00_CEQ_FRESH_FREE_INTRINSIC_S42", "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/qualification/job_8563876/reloads/CEQ_FRESH_FREE_INTRINSIC_S42/checkpoint_000000132_1081344.pth", "checkpoint_sha256": "26e6c06eb081920ad873f3d51f2cdade9ef754210062550c71325ddc3613a891", "frames": 1081344, "train_step": 132, "controller": "ppo", "exact_restore": true, "model_and_buffers_exact": true, "optimizer_exact": true, "counters_exact": true, "device": "cuda:0", "job_id": "8563876"}
