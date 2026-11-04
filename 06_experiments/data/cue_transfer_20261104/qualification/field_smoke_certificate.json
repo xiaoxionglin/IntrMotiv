@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "job_id": "8563754",
+  "artifact": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/qualification/field_smoke_8563742/raw/CTQ_D51_SOURCE_FREE_S42__00_CTQ_D51_SOURCE_FREE_S42__CTQ_D51_SOURCE_FREE__s42__f262144/place_fields.npz",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth",
+  "requested_frame_limit": 10000,
+  "decisions": 10001,
+  "inclusive_endpoint": true,
+  "trajectory_rows": 10001,
+  "dg_units": 64,
+  "pre_threshold_maps_present": true,
+  "worker_maps_present": false,
+  "visited_cells": 177,
+  "scope": "evaluator execution and artifact contract, not learned task performance"
+}

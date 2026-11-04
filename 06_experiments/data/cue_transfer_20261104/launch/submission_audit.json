@@ -1,0 +1,33 @@
+{
+  "batch_name": "cue_transfer_20261104",
+  "commands_match_study": true,
+  "expected_runs": 12,
+  "job_ids": [
+    "8563760",
+    "8563761",
+    "8563762",
+    "8563763",
+    "8563764",
+    "8563765",
+    "8563766",
+    "8563767",
+    "8563768",
+    "8563769",
+    "8563770",
+    "8563771"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_20261104/submitted/jobs.tsv",
+  "rows": 12,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 12
+  },
+  "study_id": "cue_transfer_20261104",
+  "study_sha256": "06e57d73b85023442d5f432dc1d2f841364b6d530b9c4e5f2b76773fc5af89f9",
+  "study_spec": "hpc_runs/studies/cue_transfer_20261104.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}

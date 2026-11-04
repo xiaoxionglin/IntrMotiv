@@ -1,0 +1,14 @@
+{
+  "run": "00_CTQ_D51_SOURCE_FREE_S42",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/qualification/job_8563732/reloads/CTQ_D51_SOURCE_FREE_S42/checkpoint_000000132_1081344.pth",
+  "checkpoint_sha256": "d9930095bcdd5b2adf9f9ae7ca039942aec6e5fdcc4adca4e97d41d53f9a53d4",
+  "frames": 1081344,
+  "train_step": 132,
+  "controller": "ppo",
+  "exact_restore": true,
+  "model_and_buffers_exact": true,
+  "optimizer_exact": true,
+  "counters_exact": true,
+  "device": "cuda:0",
+  "job_id": "8563732"
+}

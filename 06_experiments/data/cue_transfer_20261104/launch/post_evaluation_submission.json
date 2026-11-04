@@ -1,0 +1,31 @@
+{
+  "job_id": "8563772",
+  "dependency_type": "afterok",
+  "training_job_ids": [
+    "8563760",
+    "8563761",
+    "8563762",
+    "8563763",
+    "8563764",
+    "8563765",
+    "8563766",
+    "8563767",
+    "8563768",
+    "8563769",
+    "8563770",
+    "8563771"
+  ],
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterok:8563760:8563761:8563762:8563763:8563764:8563765:8563766:8563767:8563768:8563769:8563770:8563771",
+    "--output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_20261104/submitted/logs/post-evaluation-%j.out",
+    "--error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_20261104/submitted/logs/post-evaluation-%j.err",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_20261104/submitted/post_evaluation.sbatch"
+  ],
+  "submitted_at_utc": "2026-11-04T02:01:49.229263+00:00",
+  "evaluation_runtime_commit": "920f807124759abbdb6667e179f9c9e66747006b",
+  "field_jobs_to_dispatch": 28,
+  "heldout_jobs_to_dispatch": 12,
+  "status": "dispatcher accepted; evaluator jobs will be submitted only after all training jobs succeed"
+}

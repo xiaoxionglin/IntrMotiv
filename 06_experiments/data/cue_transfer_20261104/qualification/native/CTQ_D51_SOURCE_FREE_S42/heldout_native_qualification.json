@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "protocol": "two complete heldout trials repeated from identical engine and policy seeds",
+  "seeds": [
+    61000,
+    61001
+  ],
+  "episode_results_repeat_exactly": true,
+  "claim": "native evaluator execution and matched-reset reproducibility only",
+  "terminal_pose_reporting_checked": true,
+  "terminal_position_limit": "terminated episodes have blank coordinates; the autoreset pose is never reported as terminal"
+}

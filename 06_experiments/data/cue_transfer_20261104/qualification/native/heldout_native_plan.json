@@ -1,0 +1,25 @@
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.14.1",
+  "study_workflow_version": "1.14.1",
+  "study_id": "cue_transfer_qualification_20261104",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_analysis_20261104/hpc_runs/studies/cue_transfer_qualification_20261104.study.json",
+  "study_sha256": "2d6cecc51d40001c544a1dfac6f5cf1aa1d4f0e7eae728849fdf674074d94879",
+  "batch_name": "cue_transfer_qualification_20261104",
+  "training_mode": "sample_factory",
+  "expected_runs": 4,
+  "target_frames": 262144,
+  "rows": [
+    {
+      "run_name": "CTQ_D51_SOURCE_FREE_S42",
+      "actual_frames": 262144,
+      "command": [
+        "bash",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/qualification/helpers/qualify_heldout_native.sh",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42/checkpoint_p0/milestones/checkpoint_000000032_262144.pth",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/qualification/native_8563742/CTQ_D51_SOURCE_FREE_S42"
+      ]
+    }
+  ]
+}
