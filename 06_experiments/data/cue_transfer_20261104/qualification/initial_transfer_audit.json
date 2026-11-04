@@ -1,0 +1,135 @@
+{
+  "batch_name": "cue_transfer_qualification_20261104",
+  "expected_runs": 4,
+  "passed": false,
+  "passed_runs": 3,
+  "protocol": "frozen-dg-transfer-qualification-v1",
+  "runs": [
+    {
+      "checkpoint_frames": 294912,
+      "effective_task_movement_l1_per_cue": [
+        0.0009219301864504814,
+        0.0008462471887469292,
+        0.0008423281833529472,
+        0.0007309494540095329,
+        0.000851859338581562
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_SIMPLEX_S42_/00_CTQ_D51_FRESH_SIMPLEX_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 262144.0,
+      "passed": true,
+      "positive_reward_batches": 2,
+      "required_frames": 262144,
+      "reward_parity_batches": 12,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_SIMPLEX_S42_/00_CTQ_D51_FRESH_SIMPLEX_S42",
+      "run_name": "CTQ_D51_FRESH_SIMPLEX_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "task_movement_l1_per_cue": [
+        0.05931520462036133,
+        0.05418872833251953,
+        0.05372190475463867,
+        0.046779632568359375,
+        0.0542140007019043
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_SIMPLEX_S42_/00_CTQ_D51_FRESH_SIMPLEX_S42/checkpoint_p0/checkpoint_000000036_294912.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 294912,
+      "effective_task_movement_l1_per_cue": [
+        0.06781323999166489,
+        0.08672946691513062,
+        0.06759117543697357,
+        0.07131142169237137,
+        0.08918973803520203
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_FREE_S42_/00_CTQ_D51_FRESH_FREE_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 262144.0,
+      "passed": true,
+      "positive_reward_batches": 3,
+      "required_frames": 262144,
+      "reward_parity_batches": 12,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_FREE_S42_/00_CTQ_D51_FRESH_FREE_S42",
+      "run_name": "CTQ_D51_FRESH_FREE_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "task_movement_l1_per_cue": [
+        0.06781323999166489,
+        0.08672946691513062,
+        0.06759117543697357,
+        0.07131142169237137,
+        0.08918973803520203
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_FRESH_FREE_S42_/00_CTQ_D51_FRESH_FREE_S42/checkpoint_p0/checkpoint_000000036_294912.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "checkpoint_frames": 294912,
+      "effective_task_movement_l1_per_cue": [
+        0.002093571238219738,
+        0.0020605921745300293,
+        0.002160279080271721,
+        0.0020083049312233925,
+        0.002824234776198864
+      ],
+      "errors": [],
+      "initial_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_SIMPLEX_S42_/00_CTQ_D51_SOURCE_SIMPLEX_S42/checkpoint_p0/initial_000000000_0.pth",
+      "max_logged_frames": 278528.0,
+      "passed": true,
+      "positive_reward_batches": 2,
+      "required_frames": 262144,
+      "reward_parity_batches": 12,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_SIMPLEX_S42_/00_CTQ_D51_SOURCE_SIMPLEX_S42",
+      "run_name": "CTQ_D51_SOURCE_SIMPLEX_S42",
+      "source_checkpoint_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+      "task_movement_l1_per_cue": [
+        0.13414430618286133,
+        0.13193368911743164,
+        0.13943815231323242,
+        0.1294703483581543,
+        0.18117570877075195
+      ],
+      "terminal_checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_SIMPLEX_S42_/00_CTQ_D51_SOURCE_SIMPLEX_S42/checkpoint_p0/checkpoint_000000036_294912.pth",
+      "worker_changed_tensors": [
+        "action_parameterization.distribution_linear.bias",
+        "action_parameterization.distribution_linear.weight",
+        "decoder.output_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.state_layer.0.weight",
+        "decoder.target_modulation"
+      ]
+    },
+    {
+      "errors": [
+        "SpecError: positive external reward batches 0 < 1"
+      ],
+      "passed": false,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cue_transfer_qualification_20261104/CTQ_D51_SOURCE_FREE_S42_/00_CTQ_D51_SOURCE_FREE_S42",
+      "run_name": "CTQ_D51_SOURCE_FREE_S42"
+    }
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cue_transfer_qualification_20261104",
+  "study_sha256": "2d6cecc51d40001c544a1dfac6f5cf1aa1d4f0e7eae728849fdf674074d94879",
+  "study_spec": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cue_transfer_20261104/hpc_runs/studies/cue_transfer_qualification_20261104.study.json",
+  "study_workflow_version": "1.14.1",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1"
+}

@@ -147,6 +147,16 @@ then validate and regenerate print-only plans. Allocation does not migrate data.
 For shortened qualification runs that retain production identities, use
 `python -m hpc_runs.intrmotiv_study.checkpoint_reload` to certify an immutable
 copy of each final checkpoint through the real learner initialization path.
+For frozen-DG external-reward transfer, additionally run
+`python -m hpc_runs.intrmotiv_study.transfer_audit STUDY BATCH_ROOT --output REPORT`.
+It uses the declared run identities and source-checkpoint SHA-256 to check the
+initial transfer, fresh critic, frozen DG/BatchNorm state, worker and cue-table
+updates, checkpoint progress, and positive-batch external/PPO reward parity.
+An initial checkpoint and source config are required; terminal weights alone
+cannot establish initialization. This audit qualifies learning mechanics, not
+downstream task success. The [cue-transfer pilot](../06_experiments/environments_transfer/cue_conditioned_reward_transfer_20261104.md)
+also matches effective cue inputs and initial policies before comparing task
+parameterizations, preserving the source action timing and depth preprocessing.
 For DG recruitment with fixed, unshuffled PPO minibatches, test the actual
 per-minibatch valid-decision count after generation filtering. A batch-level
 fresh-decision threshold can pass while one minibatch has no fresh data. A

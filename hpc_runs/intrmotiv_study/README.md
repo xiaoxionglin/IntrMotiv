@@ -26,6 +26,7 @@ different-major implementation is rejected.
 | `spec.py` | Validate a study, expand its Cartesian product, render names and arguments, and compute its SHA-256 fingerprint. |
 | `study.schema.json` | Provide an editor- and tooling-friendly description of the v1 JSON structure. |
 | `sample_factory.py` | Convert a complete study into Sample Factory `Experiment` and `RunDescription` objects. |
+| `transfer_audit.py` | Qualify frozen-DG external-reward transfer using initial/terminal tensors, source hashes, and positive-batch reward parity. |
 | `discovery.py` | Resolve every declared run directory exactly once in a single batch-tree scan. |
 | `submission.py` | Audit a generated `jobs.tsv`, commands, job IDs, and workspace paths against the study. |
 | `tensorboard.py` | Locate expected run directories and collect terminal or fixed-window metrics with bounded parallel loading. |

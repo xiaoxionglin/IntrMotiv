@@ -1,0 +1,203 @@
+{
+  "source_sha256": "2cbc50fca8658f938775496956502d24a52ed8e437037f0bf7fe0e32574ae694",
+  "study_file_sha256": "4d1b3f59c2c2541c67c5610f708cc8ff06c3b58790184d68d11abf43a66906fd",
+  "runtime": "/tmp/intrmotiv-cue-transfer-20261104/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py",
+  "observation_protocol": "synthetic uint8 RGBD and all five cues; CPU tensor execution only, no DMLab rollout",
+  "conditions": {
+    "FRESH_SIMPLEX": {
+      "scope": "dg",
+      "loaded_tensor_count": 4,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.linear.weight",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked"
+      ],
+      "fresh_critic_preserved": true,
+      "fresh_task_binding_preserved": true,
+      "dg_parameters_frozen": true,
+      "dg_buffers_unchanged_after_forward_backward_step": true,
+      "initial_effective_cue_min": 0.015135166235268116,
+      "initial_effective_cue_max": 0.015991060063242912,
+      "cue_gradient_norm": 0.00020669025252573192,
+      "cue_row_gradient_norms": [
+        0.0001014180961647071,
+        9.687478450359777e-05,
+        7.46489386074245e-05,
+        9.591067646397278e-05,
+        9.099001908907667e-05
+      ],
+      "worker_film_gradient_norm": 0.012736666016280651,
+      "head_shape": [
+        10,
+        82
+      ],
+      "core_shape": [
+        10,
+        4621
+      ],
+      "rnn_shape": [
+        10,
+        4557
+      ],
+      "synthetic_loss": 2.070491075515747,
+      "task_binding_changed_after_step": true
+    },
+    "FRESH_FREE": {
+      "scope": "dg",
+      "loaded_tensor_count": 4,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.linear.weight",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked"
+      ],
+      "fresh_critic_preserved": true,
+      "fresh_task_binding_preserved": true,
+      "dg_parameters_frozen": true,
+      "dg_buffers_unchanged_after_forward_backward_step": true,
+      "initial_effective_cue_min": 0.015135166235268116,
+      "initial_effective_cue_max": 0.015991060063242912,
+      "cue_gradient_norm": 0.013376399874687195,
+      "cue_row_gradient_norms": [
+        0.006563548464328051,
+        0.0062277186661958694,
+        0.004805476404726505,
+        0.006336655933409929,
+        0.005815291311591864
+      ],
+      "worker_film_gradient_norm": 0.012736666016280651,
+      "head_shape": [
+        10,
+        82
+      ],
+      "core_shape": [
+        10,
+        4621
+      ],
+      "rnn_shape": [
+        10,
+        4557
+      ],
+      "synthetic_loss": 2.070491075515747,
+      "task_binding_changed_after_step": true
+    },
+    "SOURCE_SIMPLEX": {
+      "scope": "policy",
+      "loaded_tensor_count": 11,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.linear.weight",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "decoder.target_modulation",
+        "decoder.state_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.output_layer.0.bias",
+        "action_parameterization.distribution_linear.weight",
+        "action_parameterization.distribution_linear.bias"
+      ],
+      "fresh_critic_preserved": true,
+      "fresh_task_binding_preserved": true,
+      "dg_parameters_frozen": true,
+      "dg_buffers_unchanged_after_forward_backward_step": true,
+      "initial_effective_cue_min": 0.015135166235268116,
+      "initial_effective_cue_max": 0.015991060063242912,
+      "cue_gradient_norm": 0.009447362273931503,
+      "cue_row_gradient_norms": [
+        0.006013621110469103,
+        0.002935201395303011,
+        0.0024582608602941036,
+        0.0038550947792828083,
+        0.0048547713086009026
+      ],
+      "worker_film_gradient_norm": 0.1954260766506195,
+      "head_shape": [
+        10,
+        82
+      ],
+      "core_shape": [
+        10,
+        4621
+      ],
+      "rnn_shape": [
+        10,
+        4557
+      ],
+      "synthetic_loss": 6.941496849060059,
+      "task_binding_changed_after_step": true
+    },
+    "SOURCE_FREE": {
+      "scope": "policy",
+      "loaded_tensor_count": 11,
+      "loaded_tensor_names": [
+        "encoder.DG_projection.linear.weight",
+        "encoder.DG_projection.batchnorm1d.running_mean",
+        "encoder.DG_projection.batchnorm1d.running_var",
+        "encoder.DG_projection.batchnorm1d.num_batches_tracked",
+        "decoder.target_modulation",
+        "decoder.state_layer.0.weight",
+        "decoder.state_layer.0.bias",
+        "decoder.output_layer.0.weight",
+        "decoder.output_layer.0.bias",
+        "action_parameterization.distribution_linear.weight",
+        "action_parameterization.distribution_linear.bias"
+      ],
+      "fresh_critic_preserved": true,
+      "fresh_task_binding_preserved": true,
+      "dg_parameters_frozen": true,
+      "dg_buffers_unchanged_after_forward_backward_step": true,
+      "initial_effective_cue_min": 0.015135166235268116,
+      "initial_effective_cue_max": 0.015991060063242912,
+      "cue_gradient_norm": 0.6134297847747803,
+      "cue_row_gradient_norms": [
+        0.385486364364624,
+        0.19108280539512634,
+        0.15772180259227753,
+        0.24711482226848602,
+        0.32440996170043945
+      ],
+      "worker_film_gradient_norm": 0.1954260766506195,
+      "head_shape": [
+        10,
+        82
+      ],
+      "core_shape": [
+        10,
+        4621
+      ],
+      "rnn_shape": [
+        10,
+        4557
+      ],
+      "synthetic_loss": 6.941496849060059,
+      "task_binding_changed_after_step": true
+    }
+  },
+  "paired_checks": {
+    "FRESH": {
+      "bit_identical_initial_outputs": true,
+      "max_abs_differences": {
+        "head": 0.0,
+        "rnn": 0.0,
+        "logits": 0.0,
+        "values": 0.0,
+        "conditions": 0.0
+      },
+      "all_non_task_parameter_tensors_equal": true
+    },
+    "SOURCE": {
+      "bit_identical_initial_outputs": true,
+      "max_abs_differences": {
+        "head": 0.0,
+        "rnn": 0.0,
+        "logits": 0.0,
+        "values": 0.0,
+        "conditions": 0.0
+      },
+      "all_non_task_parameter_tensors_equal": true
+    }
+  },
+  "status": "passed"
+}

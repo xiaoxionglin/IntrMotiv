@@ -1,0 +1,25 @@
+{
+  "batch_name": "cue_transfer_qualification_20261104",
+  "commands_match_study": true,
+  "expected_runs": 4,
+  "job_ids": [
+    "8563708",
+    "8563709",
+    "8563710",
+    "8563711"
+  ],
+  "jobs_tsv": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/_slurm/cue_transfer_qualification_20261104/submitted/jobs.tsv",
+  "rows": 4,
+  "schema": "intrmotiv/study/v1",
+  "status_counts": {
+    "submitted": 4
+  },
+  "study_id": "cue_transfer_qualification_20261104",
+  "study_sha256": "2d6cecc51d40001c544a1dfac6f5cf1aa1d4f0e7eae728849fdf674074d94879",
+  "study_spec": "hpc_runs/studies/cue_transfer_qualification_20261104.study.json",
+  "study_workflow_version": "1.14.1",
+  "submitted_complete": true,
+  "training_mode": "sample_factory",
+  "workflow_version": "1.14.1",
+  "workspace_paths_valid": true
+}
