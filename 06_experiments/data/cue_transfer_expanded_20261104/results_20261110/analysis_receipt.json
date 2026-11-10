@@ -1,0 +1,95 @@
+{
+  "completed_at_utc": "2026-11-10T23:01:58.764131+00:00",
+  "schema": "intrmotiv/study/v1",
+  "studies": {
+    "cue_transfer_20261104": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.15.2",
+      "study_workflow_version": "1.14.1",
+      "study_id": "cue_transfer_20261104",
+      "study_spec": "hpc_runs/studies/cue_transfer_20261104.study.json",
+      "study_sha256": "06e57d73b85023442d5f432dc1d2f841364b6d530b9c4e5f2b76773fc5af89f9",
+      "batch_name": "cue_transfer_20261104",
+      "training_mode": "sample_factory",
+      "expected_runs": 12
+    },
+    "cue_transfer_expanded_20261104": {
+      "schema": "intrmotiv/study/v1",
+      "workflow_version": "1.15.2",
+      "study_workflow_version": "1.15.0",
+      "study_id": "cue_transfer_expanded_20261104",
+      "study_spec": "hpc_runs/studies/cue_transfer_expanded_20261104.study.json",
+      "study_sha256": "247f24f90a9e6b85e2c5badbf68a60ce0628448c8b5ede37e6712cea6de17cde",
+      "batch_name": "cue_transfer_expanded_20261104",
+      "training_mode": "sample_factory",
+      "expected_runs": 69
+    }
+  },
+  "analysis_jobs": {
+    "8755633": "failed: fixed logging window ended beyond recorded events; no training failure",
+    "8755665": "completed canonical history/field collection and initial aggregation",
+    "8755676": "completed all81 final checkpoint-content audits",
+    "8755701": "completed AUC integrating every native reward event"
+  },
+  "audits": {
+    "cue_transfer_20261104": {
+      "passed_runs": 12,
+      "workflow_version": "1.15.2",
+      "study_sha256": "06e57d73b85023442d5f432dc1d2f841364b6d530b9c4e5f2b76773fc5af89f9"
+    },
+    "cue_transfer_expanded_20261104": {
+      "passed_runs": 69,
+      "workflow_version": "1.15.2",
+      "study_sha256": "247f24f90a9e6b85e2c5badbf68a60ce0628448c8b5ede37e6712cea6de17cde"
+    }
+  },
+  "matched_protocol_files": 324,
+  "common_reset_panel": 100,
+  "recorded_trials": 32400,
+  "field_and_trajectory_rows": 189,
+  "canonical_collector_and_field_release": "1cf646791dc07cebdaac838d2362606d4a5507d7",
+  "checkpoint_auditor_release": "d5fe0218fc012e12f82848f8f55cb5aa5fb1f650",
+  "executed_adapter_sha256": "fb5846593f283a0b0cc9f31d7c8b47d41985e85a629d027a975241abd83b1fb8",
+  "source_sha256": {
+    "hpc_runs/analyze_cue_transfer_results.py": "f1843a04b127a762ba7eb4d042c2a0cca7c6911d4f06fbce1eb2ad03cd4125cd",
+    "hpc_runs/plot_cue_transfer_results.py": "d6ad24b63a482d6071e2f39ab68361ecc15366c367a08fc4fd6b9fb9b94433f6",
+    "hpc_runs/test_cue_reward_auc.py": "cbe5a4fb46b89727e9b346004e5374589d78078abe5945abf4a32cbd62e44de5"
+  },
+  "input_sha256": {
+    "paired_intervention_deltas.csv": "f988de6470ba2bac90dc65f5a1e1a2aef000f17ba0f4a5565b03dfc81966ee32",
+    "declared_contrast_summary.csv": "01c4f6a853ff13345431c5ee22689f5bbb9e286722bfd9ae75b98f7b64d35816",
+    "heldout_condition_summary.csv": "23d6e16b00014178356c58a5efe615139244b89161436b97a7868322edf29c6e",
+    "declared_paired_contrasts.csv": "8513a8f734d446b8c9984fb4b26783c17fd51f47d9ea32a4dca6887ffffcbbfc",
+    "heldout_per_cue.csv": "091666341ec9c1150656251cf50d790436ae83c32aba67eb523675ae76aed1ac",
+    "matched_reset_audit.csv": "32c1d2e1adc4c0593f636af1bef6b87bd06503678b6337a12ffb0877b9d50ec6",
+    "reward_auc_condition_summary.csv": "12766ebf5a8961fb304546f3929d95e0ef06a1f1f51befd7beb2c1a64c674b0a",
+    "field_metrics.csv": "95f2c89dd18bd5435750f9f458cb2c3246427d15997e5b8708996ed3b08d4931",
+    "heldout_per_run.csv": "e25c9e457022991f62482885d1c276dd5414ceef110d5253cc6d1d08b91a5ef3",
+    "reward_auc_per_run.csv": "1203c3b62168412d89b831ddb7d402d1c6ce8f645b3934dba3c90682308ca105",
+    "trajectory_inventory.csv": "a5e465fd94e036960d61142fe53b11d28153df46dcd2ca1ef0771f12e4a60829",
+    "reward_curves.csv": "d95f47d68c6223ff2565d68441bdf1d39964c601a8c282bbc9093d643ac5ec6f"
+  },
+  "python": "3.10.12 | packaged by conda-forge | (main, Jun 23 2023, 22:40:32) [GCC 12.3.0]",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "checks": "3 sparse-AUC tests passed; Flake8 passed; field/cue/reset/curve dimensions and independent cue-weight recomputation passed; report file links resolve; figures visually checked at report size",
+  "source_note": "Final canonical adapter additionally compacts repeated metadata in the CSV copies; scientific calculations match the executed adapter. See compact_copy_manifest.json.",
+  "figure_sha256": {
+    "figures/maps_and_paths_4.pdf": "ce639facc6e4e949535f39007f64472d6aeadef46852bbc306a3b3efde6e16e4",
+    "figures/maps_and_paths_2.pdf": "0ead38babd95ac3ab696fa2c37418fbdb841c3d3d7eb32d6da47cfa99c69f3b9",
+    "figures/maps_and_paths_2.png": "7347c68059219085b0fcb246dcfae21332b1499b211e9604eb4cc5248f8286f3",
+    "figures/heldout_success.pdf": "101588e0620d5da78baf4e109e6a69f8ade84695f91d33253078cf3ea7a98140",
+    "figures/reward_learning_curves.pdf": "dde109b7f2a2be48812a350c5351f6f5e27787076c085e343c4d74432f704ed9",
+    "figures/adaptation_recipe_curves.pdf": "32c5f0e50a2c02138156011fbf2b5faa3cc79e52fef868a4f1de0a1eb4faed56",
+    "figures/heldout_interventions.pdf": "10797ac65c0441d75a11f5c237be4c0962a3826c8ec3fd7c36b7b40ac14d4bbf",
+    "figures/maps_and_paths_1.png": "a1e038ea47ac9beec065ee93cc5d5e7bf7347b00773a1cdb96a51f9f9d0dec21",
+    "figures/maps_and_paths_4.png": "d50eeb8eb725dc76a7b8f903d9c43eadb055dded9b5b72ff232091bb73c4f8c4",
+    "figures/heldout_success.png": "0237eb24e779d4b0432e780c8acd15a561028d81e3b166013a1b727a6c925100",
+    "figures/maps_and_paths_1.pdf": "8a7d30036b23cda18dbe8ae154490dfd5d0872ad60d2ae90ae902fc2ab3b45cb",
+    "figures/reward_learning_curves.png": "65c089d5d485e34ddf6c65dd10c4bfa1d2ff5a45e47065e5e72d3e5370f52334",
+    "figures/adaptation_recipe_curves.png": "edce18338cf1753798ae2486e47fd86250824cd76ba719aa0d6bff0a79e236cf",
+    "figures/heldout_interventions.png": "b106eb7ef3184053c74bbc4045f423606725d1aa1ab14129436b1144d1e11ec8",
+    "figures/maps_and_paths_3.pdf": "59ebfb4ebfb83d7021f503195087cd23b4320ddd9e853a1d724885f39c6d4ebd",
+    "figures/maps_and_paths_3.png": "db32a1ece2f837abb06b39d5e4b8b7360fd11da7d4fbd12aeeccd32c1cbf1b69"
+  },
+  "map_orientation": "Stored x,y histograms are transposed to image y,x, matching canonical summarize_place_fields."
+}

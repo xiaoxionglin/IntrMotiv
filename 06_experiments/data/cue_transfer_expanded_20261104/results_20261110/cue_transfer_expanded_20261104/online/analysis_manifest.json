@@ -1,0 +1,55 @@
+{
+  "batch_name": "cue_transfer_expanded_20261104",
+  "collection": {
+    "exported_histories": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/results_20261110/cue_transfer_expanded_20261104/online/histories",
+    "loader_backend": "thread",
+    "mode": "fixed",
+    "scalar_size_guidance": 0,
+    "step_tag": "train/env_steps",
+    "windows": [
+      [
+        20000000,
+        24000000
+      ]
+    ]
+  },
+  "contrast_group_by": [],
+  "contrasts": [
+    "FRESH_PPO_minus_BN",
+    "FRESH_INTRINSIC_minus_BN",
+    "FRESH_JOINT_minus_PPO",
+    "FRESH_JOINT_minus_INTRINSIC",
+    "FRESH_FREE_minus_SIMPLEX_PPO",
+    "SOURCE_PPO_minus_BN",
+    "SOURCE_INTRINSIC_minus_BN",
+    "SOURCE_JOINT_minus_PPO",
+    "SOURCE_JOINT_minus_INTRINSIC",
+    "SOURCE_FREE_minus_SIMPLEX_PPO",
+    "SOURCE_minus_FRESH_FREE_PPO",
+    "RANDOM_PPO_minus_FROZEN_FREE",
+    "SOURCE_minus_FRESH_SIMPLEX_PPO",
+    "RANDOM_PPO_minus_FROZEN_SIMPLEX"
+  ],
+  "expected_runs": 69,
+  "group_by": [
+    "variant"
+  ],
+  "input_rows": 69,
+  "metrics": [
+    "environment_reward_mean",
+    "environment_reward_nonzero_fraction",
+    "policy_loss",
+    "value_loss",
+    "ppo_dg_gradient_norm"
+  ],
+  "replicate_by": [
+    "seed"
+  ],
+  "schema": "intrmotiv/study/v1",
+  "study_id": "cue_transfer_expanded_20261104",
+  "study_sha256": "247f24f90a9e6b85e2c5badbf68a60ce0628448c8b5ede37e6712cea6de17cde",
+  "study_spec": "hpc_runs/studies/cue_transfer_expanded_20261104.study.json",
+  "study_workflow_version": "1.15.0",
+  "training_mode": "sample_factory",
+  "workflow_version": "1.15.0"
+}

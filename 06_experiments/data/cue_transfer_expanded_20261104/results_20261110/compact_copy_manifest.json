@@ -1,0 +1,54 @@
+{
+  "heldout_per_cue.csv": {
+    "remote_full_copy_sha256": "7e488c5f6c29d9a6d5a4a5db6e4a489a66436886ce9c51f7331daa8da7e06011",
+    "local_sha256": "091666341ec9c1150656251cf50d790436ae83c32aba67eb523675ae76aed1ac",
+    "kept_columns": [
+      "study",
+      "condition",
+      "seed",
+      "protocol",
+      "cue",
+      "n",
+      "successes",
+      "success_rate",
+      "censored_mean_decisions"
+    ],
+    "rows": 1620,
+    "retained_values_unchanged": true,
+    "omitted_columns": "Repeated design metadata remains in heldout_per_run.csv and canonical StudySpecs."
+  },
+  "matched_reset_audit.csv": {
+    "remote_full_copy_sha256": "1b6c3f08edb1a7e3e9801b40fcfa8bfdb58597ba34615e63a5a9dc66ba8e6e8b",
+    "local_sha256": "32c1d2e1adc4c0593f636af1bef6b87bd06503678b6337a12ffb0877b9d50ec6",
+    "kept_columns": [
+      "study",
+      "condition",
+      "seed",
+      "protocol",
+      "matches_common_resets"
+    ],
+    "rows": 324,
+    "retained_values_unchanged": true,
+    "omitted_columns": "Repeated design metadata remains in heldout_per_run.csv and canonical StudySpecs."
+  },
+  "reward_curves.csv": {
+    "remote_full_copy_sha256": "10adf37e15af413dfc600031999c580c5a1756519b4f6ac56ca90af2092f0a02",
+    "local_sha256": "d95f47d68c6223ff2565d68441bdf1d39964c601a8c282bbc9093d643ac5ec6f",
+    "kept_columns": [
+      "study",
+      "condition",
+      "seed",
+      "frames",
+      "reward_mean",
+      "reward_auc_mean_5000000",
+      "reward_auc_mean_10000000",
+      "reward_auc_mean_24000000",
+      "reward_auc_mean_25000000",
+      "first_reward_log_step",
+      "last_reward_log_step"
+    ],
+    "rows": 8181,
+    "retained_values_unchanged": true,
+    "omitted_columns": "Repeated design metadata remains in heldout_per_run.csv and canonical StudySpecs."
+  }
+}

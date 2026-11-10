@@ -1,8 +1,87 @@
 # Direct cue conditioning for external-reward transfer
 
-Design date: 2026-11-04. Status checked: **2026-11-10, 22:36 UTC**. All **81 production training jobs**, three evaluation dispatchers, **189 field jobs and 93 heldout jobs completed successfully**. The outputs contain 189 field archives with trajectory CSVs and 324 protocol CSVs of 100 trials each. Scientific performance and field metrics have not yet been compared; the record below distinguishes current execution status from historical launch snapshots.
+Design date: 2026-11-04. Status checked: **2026-11-10, 22:36 UTC**. All **81 production training jobs**, three evaluation dispatchers, **189 field jobs and 93 heldout jobs completed successfully**. The outputs contain 189 field archives with trajectory CSVs and 324 protocol CSVs of 100 trials each. Reward curves, matched-reset interventions, place fields and trajectories are now analyzed below; graphs are inapplicable. All 81 final checkpoints pass the declared transfer/plasticity and external-reward audit. Historical launch snapshots are retained separately.
 
-## Decision and hypothesis
+## Results and decision — 11 November
+
+The [analysis receipt](../data/cue_transfer_expanded_20261104/results_20261110/analysis_receipt.json) binds both StudySpec fingerprints, releases, source/table hashes, all 81 passing final-checkpoint audits, 324 matched protocol files, and the focused calculation checks. Final checkpoint audits use workflow 1.15.2; collection and field postprocessing use the qualified evaluator release.
+
+**The most useful small change is an unrestricted cue vector with a trainable worker. The strongest tested downstream baseline is a fresh worker and random DG trained by PPO, with the same frozen visual trunk. Source pretraining is not the leading solution in this batch.**
+
+The 27 conditions each have three downstream seeds. [All seed/protocol outcomes](../data/cue_transfer_expanded_20261104/results_20261110/heldout_per_run.csv) and [all cue denominators](../data/cue_transfer_expanded_20261104/results_20261110/heldout_per_cue.csv) are retained. Every terminal evaluation uses the same 25,001,984-frame milestone. All 324 protocol files match the common 100-reset panel in requested/engine/policy seeds, start coordinates, true cue and reward center; the [reset audit](../data/cue_transfer_expanded_20261104/results_20261110/matched_reset_audit.csv) verifies this explicitly. Cue counts are 16, 18, 21, 30 and 15; success is averaged within cue, then equally over the five cues, then over the three seeds. Each failure is censored at 1,800 decisions (120 seconds). Success follows the evaluator's positive-total-external-reward definition; blank post-reset terminal coordinates cannot establish a terminal position.
+
+### Adaptation and executed control
+
+| Condition | Correct cue (%) | Shuffled cue (%) | Zero CA3 (%) | Zero depth (%) |
+| --- | ---: | ---: | ---: | ---: |
+| fresh simplex | 41.5 | 42.9 | 30.1 | 41.5 |
+| fresh free | 50.3 | 41.7 | 23.9 | 54.1 |
+| source simplex | 36.8 | 39.4 | 39.6 | 35.3 |
+| source free | 58.6 | 54.6 | 25.4 | 55.0 |
+| random frozen free | 62.6 | 53.2 | 41.8 | 60.5 |
+| random ppo free | 77.1 | 64.1 | 49.1 | 74.5 |
+| source free intrinsic | 29.3 | 30.0 | 33.5 | 26.5 |
+| source free joint | 37.3 | 46.8 | 11.4 | 40.9 |
+| fixed worker free | 15.1 | 14.6 | 61.0 | 15.2 |
+| fixed worker simplex | 14.2 | 14.0 | 70.5 | 12.7 |
+
+The remaining conditions are visible in the [complete intervention comparison](../data/cue_transfer_expanded_20261104/results_20261110/figures/heldout_interventions.png) and [three-seed outcome plot](../data/cue_transfer_expanded_20261104/results_20261110/figures/heldout_success.png). Points are individual downstream seeds; black marks are their arithmetic means. No population-significance claim is made from three seeds or from selecting the best of 27 conditions.
+
+- **Free cues help the frozen-source-DG baseline in all three seeds.** With a transferred, trainable worker, free minus simplex is +21.8 percentage points (seed effects +17.8, +38.1, +9.5). With a fresh worker it is +8.8 points (+7.1, +15.5, +3.6). The transferred worker helps under free cues (+8.3 points), but not under the original simplex setting (−4.7 points). This supports fixing the conditioning interface before adding hierarchy. It does not isolate geometry from gradient scaling: raising global LR to 0.0008 lifts the transferred simplex arm to 66.5%, while its shuffled-cue score is even higher at 72.2%.
+- **Task-driven learning beats the current source-reuse route at this endpoint.** Random DG + fresh worker + PPO + free cues scores 78.1%, 77.1% and 76.2% in the three seeds: mean 77.1%, sample SD 0.94 points. It beats transferred-worker/frozen-source-DG/free-cue control by +18.5 points and frozen-random-DG/free-cue control by +14.6 points, with positive paired effects in all three seeds. Its horizon-censored mean time is 50.0 seconds versus 78.3 seconds for the transferred-worker/free-cue baseline. “Random” concerns DG and worker initialization; the ImageNet visual trunk remains pretrained and frozen.
+- **Freezing the worker is strongly limiting.** Cue-table/critic adaptation alone gives 14–15% success. Zeroing CA3 raises these arms to 61.0% and 70.5%. The intervention causally identifies harmful dependence on that input in these frozen policies; an incompatible retained representation-to-action mapping is a plausible mechanism. It does not distinguish current sensory content from memory history, or establish a general benefit from removing memory.
+- **Most success survives the wrong task cue.** The leading arm falls from 77.1% to 64.1% with a shuffled cue (positive correct-cue advantage in all three seeds), to 49.1% with zero CA3 and to 74.5% with zero depth. It uses task cues and CA3, but substantial search/locomotion success remains after cue replacement. A shuffled cue still supplies a cue vector, so this is not a no-cue baseline. The source/free baseline's cue advantage is only 4.0 points; several other arms show no positive cue advantage. High reward alone therefore overstates reliable cue-specific navigation.
+- **Additional intrinsic learning and longer credit are not general fixes.** With the transferred worker/free cue, source-DG intrinsic-only reaches 29.3%, joint 37.3%, PPO-only 54.0% and BN-only 42.2%, versus 58.6% with frozen DG. With a fresh worker, intrinsic-only instead reaches 64.9%; its effect depends on the control package. Gamma 0.999, lambda 0.99, and both give 54.4%, 60.3% and 41.9%, respectively. The lambda-only difference from 58.6% is small and uncertain.
+
+[Declared paired contrasts](../data/cue_transfer_expanded_20261104/results_20261110/declared_paired_contrasts.csv) reuse canonical StudySpec contrast definitions. [Intervention differences](../data/cue_transfer_expanded_20261104/results_20261110/paired_intervention_deltas.csv) retain each paired seed. These are descriptive contrasts rather than a corrected multiple-testing discovery claim.
+
+### Learning speed and reward AUC
+
+[Original reward curves](../data/cue_transfer_expanded_20261104/results_20261110/figures/reward_learning_curves.png), [adaptation recipe curves](../data/cue_transfer_expanded_20261104/results_20261110/figures/adaptation_recipe_curves.png) and [all seed-level AUCs](../data/cue_transfer_expanded_20261104/results_20261110/reward_auc_per_run.csv) use the logged external-reward mean, not heldout success. The table reports normalized AUC (integral divided by window width), multiplied by 10,000 for readability. Each run integrates every native event step after averaging duplicate steps. The plot shows preceding-250k-frame bin means; AUC is not computed from those plot bins. This preserves sparse reward spikes. Three focused regression tests cover spike retention, partial-window integration and endpoint holds.
+
+| Condition | 0–5M | 0–10M | 0–25M |
+| --- | ---: | ---: | ---: |
+| fresh simplex | 1.204 | 1.321 | 1.471 |
+| fresh free | 1.079 | 1.255 | 1.956 |
+| source simplex | 0.777 | 0.790 | 0.962 |
+| source free | 0.733 | 0.856 | 1.435 |
+| random ppo free | 1.585 | 2.117 | 3.397 |
+| fresh free joint | 1.937 | 2.048 | 2.623 |
+| simplex lr high | 1.147 | 1.845 | 2.671 |
+
+The winning PPO-random/free arm has **2.37×** the full-budget reward AUC of transferred-worker/source-DG/free, with seed ratios 4.05×, 1.67× and 2.17×. It is also 1.74× the fresh-worker/source-DG/free mean. Free cues improve full-budget AUC by 49.1% with transferred workers and 32.9% with fresh workers, relative to their simplex controls. However, the transferred-worker/free mean AUC is **26.6% lower** than the fresh-worker/free mean, and worse in two of three seeds. Thus its higher terminal heldout success does not establish faster adaptation. The fresh-worker/joint-DG arm leads this selected set at 0–5M, but does not retain the best endpoint or full-budget reward.
+
+The first reward logs occur at 16,384 frames; the last logs range from 24,952,832 to 25,018,368. Nearest endpoint values are held outside each run's logged support for the nominal 0–25M integral. All runs also supply a fully supported 0–24M sensitivity AUC, which retains the same leading condition. The canonical collector correctly rejected an unsupported fixed 20–25M logging window; the terminal-window summaries use the common 20–24M interval instead. Saved evaluation checkpoints still share the exact 25,001,984-frame age. These are distinct clocks and are retained as such.
+
+### Place fields and trajectories
+
+The canonical manifest postprocessor reconstructs all 189 checkpoint rows from NPZs; each sweep's shared raw summary CSV was overwritten to one row by independent workers. [Complete field metrics](../data/cue_transfer_expanded_20261104/results_20261110/field_metrics.csv) include the five seed-42 checkpoints and terminal replicas for all conditions. Each probe contains 10,001 occupancy/trajectory samples, following the evaluator's inclusive frame limit.
+
+The following are arithmetic means of the three terminal seeds. Silent units use a denominator of 64 DG rows. Cosine and peak bins use active units on each probe's visited support. Mono-field fractions use only eligible units (at least 20 active observations and three active bins); the dominant component must retain at least 80% of mass at each of the 30/50/70%-of-peak thresholds. SI is the active-unit mean in bits. Visited bins are raw counts on the 19×19 grid, not a fraction of accessible floor area.
+
+| Condition | Silent /64 | Active cosine | Active peak bins | Eligible units | Mono fraction | Active SI (bits) | Visited bins |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| source free | 2.667 | 0.088 | 39.333 | 34.000 | 0.067 | 0.050 | 288.667 |
+| random frozen free | 0.000 | 0.077 | 50.000 | 58.667 | 0.107 | 0.008 | 282.000 |
+| random ppo free | 29.667 | 0.047 | 30.667 | 28.667 | 0.371 | 0.040 | 292.000 |
+| source free intrinsic | 0.000 | 0.154 | 47.667 | 64.000 | 0.089 | 0.115 | 229.667 |
+| source free joint | 1.000 | 0.144 | 46.333 | 62.667 | 0.054 | 0.097 | 259.000 |
+
+**Better reward does not require activating every DG unit or maximizing spatial information.** The winning PPO-random arm has about 30 silent units and 0.040-bit active-unit SI; the source-intrinsic arm has no silent units and 0.115 bits, yet much worse reward success. The winning arm has lower active-map similarity and a larger mono-field fraction among a smaller eligible population. These are associations under different policy-driven occupancy, not evidence that one field metric caused control gains. Pre-threshold summaries are retained: mean all-unit cosine is 0.015 for the winning arm and 0.128 for source/free; pre-threshold peak diversity also remains available in the CSV.
+
+For the winning arm's seed-42 checkpoint course, silent units increase 4→17→18→29→28, while eligible mono-field fraction increases from 0.087 at 1M to 0.448 at 25M. These changing-policy probes do not establish fixed-trajectory representational drift. Even frozen source DG shows changing measured maps and SI as its policy and visited support change.
+
+The [trajectory summary](../data/cue_transfer_expanded_20261104/results_20261110/trajectory_inventory.csv) preserves reset segment counts and sums path length only within segments. Terminal winning-arm probes visit 274–312 bins versus 257–306 for source/free. Frozen-worker probes visit only about 127/167 bins on average despite traversing substantial distance: movement alone does not imply broad coverage or reward-directed control. Representative seed-42 examples were selected by named treatment, not by best seed: [fresh-worker cue interfaces](../data/cue_transfer_expanded_20261104/results_20261110/figures/maps_and_paths_1.png), [transferred-worker cue interfaces](../data/cue_transfer_expanded_20261104/results_20261110/figures/maps_and_paths_2.png), [BN/PPO adaptation](../data/cue_transfer_expanded_20261104/results_20261110/figures/maps_and_paths_3.png), and [joint/random-frozen controls](../data/cue_transfer_expanded_20261104/results_20261110/figures/maps_and_paths_4.png). Paths do not connect separate reset segments. Each map displays the maximum-SI active unit for that run, with its matching pre-threshold view; this selected unit is illustrative, not the population mean. White map bins are unvisited; color scales are shown separately, so cross-panel amplitude comparisons require the retained arrays and metrics.
+
+### Graphs and the world-model claim
+
+Graph analysis is **inapplicable**: graph selection, recruitment and transfer were disabled in all these conditions. Neither the reward results nor CA3 masking demonstrate planning or counterfactual rollout accuracy.
+
+The separate [prediction experiment below](#route-to-a-world-model) used a 60k-decision dataset from an early source/free checkpoint, not the winning PPO-random model. Its corrected full-vector loss beat persistence by about 41%, but action conditioning improved over state-only prediction by only 1.35% on that sparse DG target. Three fitting seeds share the same collected dataset. This establishes a modest predictive signal, with no demonstrated downstream planning benefit or recursive world model.
+
+**Next decision:** use free task vectors and trainable workers as the simple default; retain PPO-random-DG/free as the leading tested downstream baseline and frozen-source-DG/free as the minimal reuse comparison. Avoid treating continuing intrinsic learning, larger credit horizons or prettier place maps as established improvements. For a world-model extension, freeze a chosen representation and test action-conditioned next-DG prediction against state-only, persistence and all-zero predictors before adding recursive imagination. Replicate the selected recipe on fresh downstream seeds and independent source checkpoints before making a general pretraining claim.
+
+## Original decision and hypothesis
 
 Reuse the pretrained DG–CA3 representation and worker, but give each downstream reward cue a directly learned conditioning vector. Train the worker and a fresh value head on external reward. The first experiment keeps DG, its BatchNorm statistics, and the visual trunk fixed so the result measures adaptation of the control interface and worker.
 
@@ -323,10 +402,9 @@ verifies `COMPLETED/0:0` for all 81 training jobs, all three dispatchers and all
 282 child evaluation jobs, using the canonical submission manifests and Slurm
 accounting. All 189 field NPZs and their 189 trajectory CSVs are present. The
 324 heldout protocol CSVs each contain 100 trial rows, for 32,400 recorded
-trials. This check establishes execution and output coverage; it does not yet
+trials. This check establishes execution and output coverage; it alone does not
 establish checkpoint-content validity, reset matching across conditions,
-adaptation gains, place-field quality, or a learned planning model. The full
-scientific analysis remains to be completed under the standard workflow.
+adaptation gains, place-field quality, or a learned planning model. The scientific analysis is now reported in the results section above, with matched-reset and final-checkpoint audits.
 
 The [added-run submission audit](../data/cue_transfer_expanded_20261104/launch/submission_audit.json)
 verifies all 69 commands against the unchanged expanded StudySpec, with valid
@@ -368,3 +446,5 @@ learner evidence remains the release gate. Bounded submission waves reuse the
 canonical manifest and resumer to respect partition quotas. Prediction models
 share one recorded dataset and episode split so differences cannot come from
 different collection policies.
+
+For result interpretation, reuse the exported event histories after a collector failure, integrate all native reward events before plotting bins, and distinguish nominal training budgets from last logged steps and exact saved evaluation ages. The final sparse-AUC helper has three regression tests. Rebuild overwritten shared place-field summaries from the canonical manifest/NPZs. Matched reset audits and final model-content audits, rather than scheduler success alone, support the comparisons above.

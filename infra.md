@@ -720,6 +720,7 @@ use this log for the infrastructure needed to resolve them.
   contained one data row. `place_fields.py` writes that CSV to the common raw
   directory from each independent job. The documented postprocessors recovered
   complete 30-row checkpoint tables and 480 unit rows from the NPZs.
+- **10 November recurrence:** Both cue-transfer sweeps again left one shared summary row, despite all 189 independent NPZs being present. The canonical manifest postprocessor recovered exactly 28 original and 161 expanded checkpoint rows. The [result report](06_experiments/environments_transfer/cue_conditioned_reward_transfer_20261104.md#place-fields-and-trajectories) uses those reconstructed tables.
 - **Impact:** The raw CSV looks like a completed batch summary but omits most
   jobs. A reader could wrongly conclude that only one evaluation succeeded.
 - **Improvement/status:** Pending. Make the worker write a row-local summary, or
