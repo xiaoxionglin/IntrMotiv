@@ -1,0 +1,2670 @@
+{
+  "checked_at_utc": "2026-11-10T22:36:10.810357+00:00",
+  "scope": "Execution accounting and artifact presence/row counts only; scientific performance and field metrics are not analyzed.",
+  "training": {
+    "expected_jobs": 81,
+    "states": {
+      "COMPLETED": 81
+    },
+    "all_completed_zero": true,
+    "jobs": [
+      {
+        "job_id": "8563760",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:32",
+        "end": "2026-11-04T07:56:42"
+      },
+      {
+        "job_id": "8563761",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:12",
+        "end": "2026-11-04T08:08:22"
+      },
+      {
+        "job_id": "8563762",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:27",
+        "end": "2026-11-04T08:19:12"
+      },
+      {
+        "job_id": "8563763",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:51",
+        "end": "2026-11-04T08:30:13"
+      },
+      {
+        "job_id": "8563764",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:46",
+        "end": "2026-11-04T08:39:58"
+      },
+      {
+        "job_id": "8563765",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:14",
+        "end": "2026-11-04T08:52:27"
+      },
+      {
+        "job_id": "8563766",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:36",
+        "end": "2026-11-04T09:00:34"
+      },
+      {
+        "job_id": "8563767",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:04",
+        "end": "2026-11-04T09:12:31"
+      },
+      {
+        "job_id": "8563768",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:41",
+        "end": "2026-11-04T09:21:15"
+      },
+      {
+        "job_id": "8563769",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:08",
+        "end": "2026-11-04T09:33:39"
+      },
+      {
+        "job_id": "8563770",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:02",
+        "end": "2026-11-04T09:43:17"
+      },
+      {
+        "job_id": "8563771",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:34",
+        "end": "2026-11-04T09:42:44"
+      },
+      {
+        "job_id": "8563937",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:56",
+        "end": "2026-11-04T09:57:35"
+      },
+      {
+        "job_id": "8563938",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:55",
+        "end": "2026-11-04T10:05:40"
+      },
+      {
+        "job_id": "8563939",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:19",
+        "end": "2026-11-04T10:05:36"
+      },
+      {
+        "job_id": "8563940",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:53",
+        "end": "2026-11-04T10:21:28"
+      },
+      {
+        "job_id": "8563949",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:09",
+        "end": "2026-11-04T10:28:45"
+      },
+      {
+        "job_id": "8563950",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:42",
+        "end": "2026-11-04T10:26:22"
+      },
+      {
+        "job_id": "8563951",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:30",
+        "end": "2026-11-05T06:46:02"
+      },
+      {
+        "job_id": "8563952",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:10",
+        "end": "2026-11-05T07:01:54"
+      },
+      {
+        "job_id": "8563953",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:45",
+        "end": "2026-11-05T07:27:50"
+      },
+      {
+        "job_id": "8563954",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:24:44",
+        "end": "2026-11-05T07:29:49"
+      },
+      {
+        "job_id": "8563955",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:42",
+        "end": "2026-11-05T07:52:08"
+      },
+      {
+        "job_id": "8563956",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:41",
+        "end": "2026-11-05T07:52:07"
+      },
+      {
+        "job_id": "8563957",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:37",
+        "end": "2026-11-05T07:51:03"
+      },
+      {
+        "job_id": "8563958",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:48",
+        "end": "2026-11-05T08:16:40"
+      },
+      {
+        "job_id": "8563959",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:32",
+        "end": "2026-11-05T08:17:24"
+      },
+      {
+        "job_id": "8563960",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:46",
+        "end": "2026-11-05T08:18:38"
+      },
+      {
+        "job_id": "8563961",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:36",
+        "end": "2026-11-05T08:42:54"
+      },
+      {
+        "job_id": "8563962",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:47",
+        "end": "2026-11-05T08:43:05"
+      },
+      {
+        "job_id": "8563963",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:41",
+        "end": "2026-11-05T08:41:59"
+      },
+      {
+        "job_id": "8563964",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:56",
+        "end": "2026-11-05T09:07:40"
+      },
+      {
+        "job_id": "8563965",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:24",
+        "end": "2026-11-05T09:08:08"
+      },
+      {
+        "job_id": "8563966",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:58",
+        "end": "2026-11-05T09:07:42"
+      },
+      {
+        "job_id": "8563967",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:08",
+        "end": "2026-11-05T09:33:18"
+      },
+      {
+        "job_id": "8563968",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:30",
+        "end": "2026-11-05T09:33:40"
+      },
+      {
+        "job_id": "8563969",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:09",
+        "end": "2026-11-05T09:35:19"
+      },
+      {
+        "job_id": "8563970",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:14",
+        "end": "2026-11-05T21:05:49"
+      },
+      {
+        "job_id": "8563971",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:07",
+        "end": "2026-11-05T21:28:42"
+      },
+      {
+        "job_id": "8563972",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:43",
+        "end": "2026-11-05T22:09:18"
+      },
+      {
+        "job_id": "8563973",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:32",
+        "end": "2026-11-05T22:34:08"
+      },
+      {
+        "job_id": "8563974",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:49",
+        "end": "2026-11-05T22:59:25"
+      },
+      {
+        "job_id": "8563975",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:54",
+        "end": "2026-11-05T23:24:31"
+      },
+      {
+        "job_id": "8563976",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:29",
+        "end": "2026-11-05T23:50:06"
+      },
+      {
+        "job_id": "8563977",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:06",
+        "end": "2026-11-06T00:14:43"
+      },
+      {
+        "job_id": "8563978",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:04",
+        "end": "2026-11-06T00:39:41"
+      },
+      {
+        "job_id": "8563979",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:47",
+        "end": "2026-11-06T01:00:24"
+      },
+      {
+        "job_id": "8563980",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:05",
+        "end": "2026-11-06T01:04:42"
+      },
+      {
+        "job_id": "8563981",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:11",
+        "end": "2026-11-06T01:24:49"
+      },
+      {
+        "job_id": "8563982",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:03",
+        "end": "2026-11-06T01:25:41"
+      },
+      {
+        "job_id": "8563983",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:34",
+        "end": "2026-11-06T01:30:12"
+      },
+      {
+        "job_id": "8563984",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:32",
+        "end": "2026-11-06T01:51:10"
+      },
+      {
+        "job_id": "8563985",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:23:04",
+        "end": "2026-11-06T01:50:42"
+      },
+      {
+        "job_id": "8563986",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:48",
+        "end": "2026-11-06T01:55:26"
+      },
+      {
+        "job_id": "8563987",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:19:34",
+        "end": "2026-11-06T02:12:12"
+      },
+      {
+        "job_id": "8563988",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:19:47",
+        "end": "2026-11-06T02:12:25"
+      },
+      {
+        "job_id": "8563989",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:04",
+        "end": "2026-11-06T02:17:42"
+      },
+      {
+        "job_id": "8563990",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:19:37",
+        "end": "2026-11-06T02:32:15"
+      },
+      {
+        "job_id": "8563991",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:19:52",
+        "end": "2026-11-06T02:32:30"
+      },
+      {
+        "job_id": "8563992",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:10",
+        "end": "2026-11-06T02:42:48"
+      },
+      {
+        "job_id": "8563993",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:12",
+        "end": "2026-11-06T02:54:50"
+      },
+      {
+        "job_id": "8563994",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:44",
+        "end": "2026-11-06T02:53:22"
+      },
+      {
+        "job_id": "8563995",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:39",
+        "end": "2026-11-06T03:08:17"
+      },
+      {
+        "job_id": "8563996",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:10",
+        "end": "2026-11-06T03:18:48"
+      },
+      {
+        "job_id": "8563997",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:58",
+        "end": "2026-11-06T03:18:36"
+      },
+      {
+        "job_id": "8563998",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:06",
+        "end": "2026-11-06T03:33:44"
+      },
+      {
+        "job_id": "8563999",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:20",
+        "end": "2026-11-06T03:43:59"
+      },
+      {
+        "job_id": "8564000",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:06",
+        "end": "2026-11-06T03:42:45"
+      },
+      {
+        "job_id": "8564001",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:46",
+        "end": "2026-11-06T03:58:25"
+      },
+      {
+        "job_id": "8564002",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:05",
+        "end": "2026-11-06T04:07:44"
+      },
+      {
+        "job_id": "8564003",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:44",
+        "end": "2026-11-06T04:08:23"
+      },
+      {
+        "job_id": "8564004",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:15",
+        "end": "2026-11-06T04:23:54"
+      },
+      {
+        "job_id": "8564005",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:55",
+        "end": "2026-11-06T04:35:34"
+      },
+      {
+        "job_id": "8564006",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:22",
+        "end": "2026-11-06T04:35:01"
+      },
+      {
+        "job_id": "8564007",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:51",
+        "end": "2026-11-06T04:49:30"
+      },
+      {
+        "job_id": "8564008",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:19:44",
+        "end": "2026-11-06T04:57:23"
+      },
+      {
+        "job_id": "8564009",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:52",
+        "end": "2026-11-06T04:58:31"
+      },
+      {
+        "job_id": "8564010",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:20:51",
+        "end": "2026-11-06T05:13:30"
+      },
+      {
+        "job_id": "8564011",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:22:39",
+        "end": "2026-11-06T05:20:18"
+      },
+      {
+        "job_id": "8564012",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:32",
+        "end": "2026-11-06T05:24:11"
+      },
+      {
+        "job_id": "8564013",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:21:46",
+        "end": "2026-11-06T05:39:25"
+      }
+    ]
+  },
+  "dispatchers": {
+    "expected_jobs": 3,
+    "states": {
+      "COMPLETED": 3
+    },
+    "all_completed_zero": true,
+    "jobs": [
+      {
+        "job_id": "8563772",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:00:42",
+        "end": "2026-11-04T09:43:59"
+      },
+      {
+        "job_id": "8564015",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:03:59",
+        "end": "2026-11-06T05:43:24"
+      },
+      {
+        "job_id": "8564016",
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed": "00:00:14",
+        "end": "2026-11-04T09:43:31"
+      }
+    ]
+  },
+  "evaluations": [
+    {
+      "study": "cue_transfer_20261104",
+      "sub": "frozen",
+      "kind": "fields",
+      "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/frozen/fields/submission_manifest_20261104T084320Z.tsv",
+      "expected_jobs": 28,
+      "states": {
+        "COMPLETED": 28
+      },
+      "all_completed_zero": true,
+      "jobs": [
+        {
+          "job_id": "8565001",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:02",
+          "end": "2026-11-04T09:47:31"
+        },
+        {
+          "job_id": "8565003",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-04T09:47:07"
+        },
+        {
+          "job_id": "8565005",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:01",
+          "end": "2026-11-04T09:47:30"
+        },
+        {
+          "job_id": "8565007",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-04T09:46:59"
+        },
+        {
+          "job_id": "8565009",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-04T09:46:59"
+        },
+        {
+          "job_id": "8565011",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:34",
+          "end": "2026-11-04T09:48:03"
+        },
+        {
+          "job_id": "8565013",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-04T09:47:02"
+        },
+        {
+          "job_id": "8565015",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-04T09:46:51"
+        },
+        {
+          "job_id": "8565017",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-04T09:47:01"
+        },
+        {
+          "job_id": "8565019",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-04T09:47:02"
+        },
+        {
+          "job_id": "8565021",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-04T09:46:59"
+        },
+        {
+          "job_id": "8565023",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-04T09:47:16"
+        },
+        {
+          "job_id": "8565024",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-04T09:47:20"
+        },
+        {
+          "job_id": "8565025",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-04T09:47:23"
+        },
+        {
+          "job_id": "8565026",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:20",
+          "end": "2026-11-04T09:47:08"
+        },
+        {
+          "job_id": "8565027",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-04T09:47:10"
+        },
+        {
+          "job_id": "8565028",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:16",
+          "end": "2026-11-04T09:47:04"
+        },
+        {
+          "job_id": "8565029",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:21",
+          "end": "2026-11-04T09:47:09"
+        },
+        {
+          "job_id": "8565030",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-04T09:47:11"
+        },
+        {
+          "job_id": "8565031",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:11",
+          "end": "2026-11-04T09:46:59"
+        },
+        {
+          "job_id": "8565032",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:14",
+          "end": "2026-11-04T09:47:02"
+        },
+        {
+          "job_id": "8565033",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-04T09:47:10"
+        },
+        {
+          "job_id": "8565034",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-04T09:47:14"
+        },
+        {
+          "job_id": "8565035",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-04T09:47:13"
+        },
+        {
+          "job_id": "8565036",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:29",
+          "end": "2026-11-04T09:47:17"
+        },
+        {
+          "job_id": "8565037",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-04T09:47:21"
+        },
+        {
+          "job_id": "8565038",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-04T09:47:26"
+        },
+        {
+          "job_id": "8565039",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-04T09:47:20"
+        }
+      ],
+      "npz_count": 28,
+      "pose_csv_count": 28
+    },
+    {
+      "study": "cue_transfer_20261104",
+      "sub": "frozen",
+      "kind": "heldout",
+      "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_20261104/frozen/heldout/submission_manifest_20261104T084347Z.tsv",
+      "expected_jobs": 12,
+      "states": {
+        "COMPLETED": 12
+      },
+      "all_completed_zero": true,
+      "jobs": [
+        {
+          "job_id": "8565040",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:21:05",
+          "end": "2026-11-04T10:04:53"
+        },
+        {
+          "job_id": "8565041",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:25:13",
+          "end": "2026-11-04T10:09:12"
+        },
+        {
+          "job_id": "8565042",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:20:05",
+          "end": "2026-11-04T10:04:04"
+        },
+        {
+          "job_id": "8565043",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:20:26",
+          "end": "2026-11-04T10:04:25"
+        },
+        {
+          "job_id": "8565044",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:22:55",
+          "end": "2026-11-04T10:06:54"
+        },
+        {
+          "job_id": "8565045",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:20:34",
+          "end": "2026-11-04T10:04:33"
+        },
+        {
+          "job_id": "8565046",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:29:23",
+          "end": "2026-11-04T10:13:22"
+        },
+        {
+          "job_id": "8565047",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:23:06",
+          "end": "2026-11-04T10:07:05"
+        },
+        {
+          "job_id": "8565048",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:20:48",
+          "end": "2026-11-04T10:04:47"
+        },
+        {
+          "job_id": "8565049",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:19:29",
+          "end": "2026-11-04T10:03:28"
+        },
+        {
+          "job_id": "8565050",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:19:14",
+          "end": "2026-11-04T10:03:13"
+        },
+        {
+          "job_id": "8565051",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:19:07",
+          "end": "2026-11-04T10:03:06"
+        }
+      ],
+      "protocol_csv_count": 12,
+      "trial_row_counts": {
+        "100": 12
+      },
+      "incomplete_trial_files": {}
+    },
+    {
+      "study": "cue_transfer_expanded_20261104",
+      "sub": "frozen",
+      "kind": "fields",
+      "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/frozen/fields/submission_manifest_20261106T043931Z.tsv",
+      "expected_jobs": 161,
+      "states": {
+        "COMPLETED": 161
+      },
+      "all_completed_zero": true,
+      "jobs": [
+        {
+          "job_id": "8637010",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:57",
+          "end": "2026-11-06T05:44:35"
+        },
+        {
+          "job_id": "8637011",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:05:21",
+          "end": "2026-11-06T05:44:59"
+        },
+        {
+          "job_id": "8637012",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:43:12"
+        },
+        {
+          "job_id": "8637013",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:13",
+          "end": "2026-11-06T05:43:51"
+        },
+        {
+          "job_id": "8637014",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-06T05:43:11"
+        },
+        {
+          "job_id": "8637015",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:45",
+          "end": "2026-11-06T05:43:23"
+        },
+        {
+          "job_id": "8637016",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:43:21"
+        },
+        {
+          "job_id": "8637017",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:43:23"
+        },
+        {
+          "job_id": "8637018",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:43:33"
+        },
+        {
+          "job_id": "8637019",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:43:34"
+        },
+        {
+          "job_id": "8637020",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:39",
+          "end": "2026-11-06T05:43:38"
+        },
+        {
+          "job_id": "8637021",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:54",
+          "end": "2026-11-06T05:43:53"
+        },
+        {
+          "job_id": "8637022",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:43:43"
+        },
+        {
+          "job_id": "8637023",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-06T05:43:29"
+        },
+        {
+          "job_id": "8637024",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:39",
+          "end": "2026-11-06T05:43:38"
+        },
+        {
+          "job_id": "8637025",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-06T05:43:29"
+        },
+        {
+          "job_id": "8637026",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:53",
+          "end": "2026-11-06T05:44:52"
+        },
+        {
+          "job_id": "8637027",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-06T05:43:25"
+        },
+        {
+          "job_id": "8637028",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-06T05:43:31"
+        },
+        {
+          "job_id": "8637029",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:43:39"
+        },
+        {
+          "job_id": "8637030",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:57",
+          "end": "2026-11-06T05:43:56"
+        },
+        {
+          "job_id": "8637031",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:37",
+          "end": "2026-11-06T05:43:36"
+        },
+        {
+          "job_id": "8637032",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:45",
+          "end": "2026-11-06T05:43:44"
+        },
+        {
+          "job_id": "8637033",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:43:43"
+        },
+        {
+          "job_id": "8637034",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:53",
+          "end": "2026-11-06T05:43:52"
+        },
+        {
+          "job_id": "8637035",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:43:42"
+        },
+        {
+          "job_id": "8637036",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-06T05:43:31"
+        },
+        {
+          "job_id": "8637037",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:29",
+          "end": "2026-11-06T05:43:28"
+        },
+        {
+          "job_id": "8637038",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:43:52"
+        },
+        {
+          "job_id": "8637039",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:43:42"
+        },
+        {
+          "job_id": "8637040",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:18",
+          "end": "2026-11-06T05:43:36"
+        },
+        {
+          "job_id": "8637041",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-06T05:43:51"
+        },
+        {
+          "job_id": "8637045",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:21",
+          "end": "2026-11-06T05:43:39"
+        },
+        {
+          "job_id": "8637046",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:44:01"
+        },
+        {
+          "job_id": "8637047",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:43:59"
+        },
+        {
+          "job_id": "8637048",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-06T05:43:44"
+        },
+        {
+          "job_id": "8637049",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:43:42"
+        },
+        {
+          "job_id": "8637050",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-06T05:43:46"
+        },
+        {
+          "job_id": "8637051",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:43:56"
+        },
+        {
+          "job_id": "8637052",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:52",
+          "end": "2026-11-06T05:44:10"
+        },
+        {
+          "job_id": "8637053",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:42",
+          "end": "2026-11-06T05:44:00"
+        },
+        {
+          "job_id": "8637054",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-06T05:43:46"
+        },
+        {
+          "job_id": "8637055",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-06T05:43:46"
+        },
+        {
+          "job_id": "8637056",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:43:56"
+        },
+        {
+          "job_id": "8637057",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:43:53"
+        },
+        {
+          "job_id": "8637058",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:27",
+          "end": "2026-11-06T05:43:45"
+        },
+        {
+          "job_id": "8637059",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-06T05:43:50"
+        },
+        {
+          "job_id": "8637060",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:44:06"
+        },
+        {
+          "job_id": "8637061",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:39",
+          "end": "2026-11-06T05:44:07"
+        },
+        {
+          "job_id": "8637062",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:44:06"
+        },
+        {
+          "job_id": "8637063",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:44:06"
+        },
+        {
+          "job_id": "8637064",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-06T05:43:59"
+        },
+        {
+          "job_id": "8637065",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:27",
+          "end": "2026-11-06T05:43:55"
+        },
+        {
+          "job_id": "8637066",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:42",
+          "end": "2026-11-06T05:44:10"
+        },
+        {
+          "job_id": "8637067",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:44:12"
+        },
+        {
+          "job_id": "8637068",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:42",
+          "end": "2026-11-06T05:44:10"
+        },
+        {
+          "job_id": "8637069",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-06T05:43:56"
+        },
+        {
+          "job_id": "8637070",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:44:11"
+        },
+        {
+          "job_id": "8637071",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-06T05:43:57"
+        },
+        {
+          "job_id": "8637072",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:46",
+          "end": "2026-11-06T05:44:19"
+        },
+        {
+          "job_id": "8637073",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:45",
+          "end": "2026-11-06T05:44:18"
+        },
+        {
+          "job_id": "8637074",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:44:18"
+        },
+        {
+          "job_id": "8637075",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:44:18"
+        },
+        {
+          "job_id": "8637076",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:44:13"
+        },
+        {
+          "job_id": "8637077",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:36",
+          "end": "2026-11-06T05:44:14"
+        },
+        {
+          "job_id": "8637078",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:44:12"
+        },
+        {
+          "job_id": "8637079",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:44:23"
+        },
+        {
+          "job_id": "8637080",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:37",
+          "end": "2026-11-06T05:44:35"
+        },
+        {
+          "job_id": "8637081",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:50",
+          "end": "2026-11-06T05:44:48"
+        },
+        {
+          "job_id": "8637082",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:44:39"
+        },
+        {
+          "job_id": "8637083",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-06T05:44:28"
+        },
+        {
+          "job_id": "8637084",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:27",
+          "end": "2026-11-06T05:44:25"
+        },
+        {
+          "job_id": "8637085",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:44:38"
+        },
+        {
+          "job_id": "8637086",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:39",
+          "end": "2026-11-06T05:44:37"
+        },
+        {
+          "job_id": "8637087",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:44:41"
+        },
+        {
+          "job_id": "8637088",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:44:38"
+        },
+        {
+          "job_id": "8637089",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:44:33"
+        },
+        {
+          "job_id": "8637090",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:04:10",
+          "end": "2026-11-06T05:45:08"
+        },
+        {
+          "job_id": "8637091",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:44:23"
+        },
+        {
+          "job_id": "8637092",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:44:39"
+        },
+        {
+          "job_id": "8637093",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:44:42"
+        },
+        {
+          "job_id": "8637094",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:49",
+          "end": "2026-11-06T05:44:47"
+        },
+        {
+          "job_id": "8637095",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:46",
+          "end": "2026-11-06T05:44:44"
+        },
+        {
+          "job_id": "8637096",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:44:39"
+        },
+        {
+          "job_id": "8637097",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-06T05:44:31"
+        },
+        {
+          "job_id": "8637098",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:44:36"
+        },
+        {
+          "job_id": "8637099",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:44:43"
+        },
+        {
+          "job_id": "8637100",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:44:52"
+        },
+        {
+          "job_id": "8637101",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:48",
+          "end": "2026-11-06T05:44:57"
+        },
+        {
+          "job_id": "8637102",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:44:44"
+        },
+        {
+          "job_id": "8637103",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:44:50"
+        },
+        {
+          "job_id": "8637104",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:44:43"
+        },
+        {
+          "job_id": "8637105",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:38",
+          "end": "2026-11-06T05:44:47"
+        },
+        {
+          "job_id": "8637106",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:39",
+          "end": "2026-11-06T05:44:48"
+        },
+        {
+          "job_id": "8637107",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:52",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637108",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:51",
+          "end": "2026-11-06T05:45:00"
+        },
+        {
+          "job_id": "8637109",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:55",
+          "end": "2026-11-06T05:45:04"
+        },
+        {
+          "job_id": "8637110",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:36",
+          "end": "2026-11-06T05:44:54"
+        },
+        {
+          "job_id": "8637111",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:44:52"
+        },
+        {
+          "job_id": "8637112",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:44:53"
+        },
+        {
+          "job_id": "8637113",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:44:42"
+        },
+        {
+          "job_id": "8637114",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-06T05:44:44"
+        },
+        {
+          "job_id": "8637115",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:44:43"
+        },
+        {
+          "job_id": "8637116",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:44:42"
+        },
+        {
+          "job_id": "8637117",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-06T05:44:40"
+        },
+        {
+          "job_id": "8637118",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637119",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:21",
+          "end": "2026-11-06T05:44:59"
+        },
+        {
+          "job_id": "8637120",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:20",
+          "end": "2026-11-06T05:44:58"
+        },
+        {
+          "job_id": "8637121",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637122",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637123",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637124",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:20",
+          "end": "2026-11-06T05:44:58"
+        },
+        {
+          "job_id": "8637125",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:45:02"
+        },
+        {
+          "job_id": "8637126",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:27",
+          "end": "2026-11-06T05:45:05"
+        },
+        {
+          "job_id": "8637127",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:41",
+          "end": "2026-11-06T05:45:19"
+        },
+        {
+          "job_id": "8637128",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:40",
+          "end": "2026-11-06T05:45:18"
+        },
+        {
+          "job_id": "8637129",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:45:21"
+        },
+        {
+          "job_id": "8637130",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:27",
+          "end": "2026-11-06T05:45:05"
+        },
+        {
+          "job_id": "8637131",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:21",
+          "end": "2026-11-06T05:44:59"
+        },
+        {
+          "job_id": "8637134",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:18",
+          "end": "2026-11-06T05:44:56"
+        },
+        {
+          "job_id": "8637135",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:01"
+        },
+        {
+          "job_id": "8637136",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-06T05:45:08"
+        },
+        {
+          "job_id": "8637137",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:42",
+          "end": "2026-11-06T05:45:20"
+        },
+        {
+          "job_id": "8637138",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:49",
+          "end": "2026-11-06T05:45:27"
+        },
+        {
+          "job_id": "8637139",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:45:13"
+        },
+        {
+          "job_id": "8637140",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:28",
+          "end": "2026-11-06T05:45:16"
+        },
+        {
+          "job_id": "8637141",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:45:23"
+        },
+        {
+          "job_id": "8637142",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-06T05:45:19"
+        },
+        {
+          "job_id": "8637143",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:46",
+          "end": "2026-11-06T05:45:34"
+        },
+        {
+          "job_id": "8637144",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:47",
+          "end": "2026-11-06T05:45:35"
+        },
+        {
+          "job_id": "8637145",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:45:22"
+        },
+        {
+          "job_id": "8637146",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:45:12"
+        },
+        {
+          "job_id": "8637147",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:45:13"
+        },
+        {
+          "job_id": "8637148",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:45:12"
+        },
+        {
+          "job_id": "8637149",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:23",
+          "end": "2026-11-06T05:45:11"
+        },
+        {
+          "job_id": "8637150",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:21",
+          "end": "2026-11-06T05:45:11"
+        },
+        {
+          "job_id": "8637151",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:22",
+          "end": "2026-11-06T05:45:12"
+        },
+        {
+          "job_id": "8637152",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:45:23"
+        },
+        {
+          "job_id": "8637153",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:18",
+          "end": "2026-11-06T05:45:16"
+        },
+        {
+          "job_id": "8637154",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:29",
+          "end": "2026-11-06T05:45:27"
+        },
+        {
+          "job_id": "8637155",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:24",
+          "end": "2026-11-06T05:45:22"
+        },
+        {
+          "job_id": "8637156",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:25",
+          "end": "2026-11-06T05:45:23"
+        },
+        {
+          "job_id": "8637157",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-06T05:45:31"
+        },
+        {
+          "job_id": "8637158",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-06T05:45:29"
+        },
+        {
+          "job_id": "8637159",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:48",
+          "end": "2026-11-06T05:46:07"
+        },
+        {
+          "job_id": "8637160",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:46:03"
+        },
+        {
+          "job_id": "8637161",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:46:03"
+        },
+        {
+          "job_id": "8637162",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-06T05:45:50"
+        },
+        {
+          "job_id": "8637163",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-06T05:45:51"
+        },
+        {
+          "job_id": "8637164",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:35",
+          "end": "2026-11-06T05:45:54"
+        },
+        {
+          "job_id": "8637165",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:30",
+          "end": "2026-11-06T05:45:49"
+        },
+        {
+          "job_id": "8637166",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:26",
+          "end": "2026-11-06T05:45:45"
+        },
+        {
+          "job_id": "8637167",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:32",
+          "end": "2026-11-06T05:45:51"
+        },
+        {
+          "job_id": "8637168",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:33",
+          "end": "2026-11-06T05:45:52"
+        },
+        {
+          "job_id": "8637169",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:36",
+          "end": "2026-11-06T05:45:55"
+        },
+        {
+          "job_id": "8637170",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:44",
+          "end": "2026-11-06T05:46:03"
+        },
+        {
+          "job_id": "8637171",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:43",
+          "end": "2026-11-06T05:46:02"
+        },
+        {
+          "job_id": "8637172",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:47",
+          "end": "2026-11-06T05:46:06"
+        },
+        {
+          "job_id": "8637173",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:37",
+          "end": "2026-11-06T05:45:56"
+        },
+        {
+          "job_id": "8637174",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:34",
+          "end": "2026-11-06T05:45:53"
+        },
+        {
+          "job_id": "8637175",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "00:03:31",
+          "end": "2026-11-06T05:45:50"
+        }
+      ],
+      "npz_count": 161,
+      "pose_csv_count": 161
+    },
+    {
+      "study": "cue_transfer_expanded_20261104",
+      "sub": "frozen",
+      "kind": "heldout",
+      "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/frozen/heldout/submission_manifest_20261106T044214Z.tsv",
+      "expected_jobs": 69,
+      "states": {
+        "COMPLETED": 69
+      },
+      "all_completed_zero": true,
+      "jobs": [
+        {
+          "job_id": "8637176",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:20:04",
+          "end": "2026-11-06T07:02:23"
+        },
+        {
+          "job_id": "8637177",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:14:40",
+          "end": "2026-11-06T06:56:59"
+        },
+        {
+          "job_id": "8637178",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:29:31",
+          "end": "2026-11-06T07:11:50"
+        },
+        {
+          "job_id": "8637179",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:12:00",
+          "end": "2026-11-06T06:54:19"
+        },
+        {
+          "job_id": "8637180",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:23:11",
+          "end": "2026-11-06T07:05:30"
+        },
+        {
+          "job_id": "8637181",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:33:22",
+          "end": "2026-11-06T07:16:00"
+        },
+        {
+          "job_id": "8637182",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:20:48",
+          "end": "2026-11-06T07:03:26"
+        },
+        {
+          "job_id": "8637183",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:19:49",
+          "end": "2026-11-06T07:02:27"
+        },
+        {
+          "job_id": "8637184",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:20:00",
+          "end": "2026-11-06T07:02:38"
+        },
+        {
+          "job_id": "8637185",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:10:28",
+          "end": "2026-11-06T06:53:06"
+        },
+        {
+          "job_id": "8637186",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:22:01",
+          "end": "2026-11-06T07:04:39"
+        },
+        {
+          "job_id": "8637187",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:18:43",
+          "end": "2026-11-06T07:01:21"
+        },
+        {
+          "job_id": "8637188",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:24:12",
+          "end": "2026-11-06T07:06:50"
+        },
+        {
+          "job_id": "8637189",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:28:51",
+          "end": "2026-11-06T07:11:29"
+        },
+        {
+          "job_id": "8637190",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:20:45",
+          "end": "2026-11-06T07:03:23"
+        },
+        {
+          "job_id": "8637191",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:14:39",
+          "end": "2026-11-06T06:57:17"
+        },
+        {
+          "job_id": "8637192",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:35:34",
+          "end": "2026-11-06T07:18:12"
+        },
+        {
+          "job_id": "8637195",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:21:13",
+          "end": "2026-11-06T07:03:51"
+        },
+        {
+          "job_id": "8637196",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:37:09",
+          "end": "2026-11-06T07:19:47"
+        },
+        {
+          "job_id": "8637197",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:30:25",
+          "end": "2026-11-06T07:13:03"
+        },
+        {
+          "job_id": "8637198",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:24:26",
+          "end": "2026-11-06T07:07:04"
+        },
+        {
+          "job_id": "8637199",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:28:38",
+          "end": "2026-11-06T07:11:16"
+        },
+        {
+          "job_id": "8637200",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:28:27",
+          "end": "2026-11-06T07:11:05"
+        },
+        {
+          "job_id": "8637201",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:29:23",
+          "end": "2026-11-06T07:12:02"
+        },
+        {
+          "job_id": "8637202",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:09:20",
+          "end": "2026-11-06T06:51:59"
+        },
+        {
+          "job_id": "8637203",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:12:15",
+          "end": "2026-11-06T06:55:03"
+        },
+        {
+          "job_id": "8637204",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:30:00",
+          "end": "2026-11-06T07:12:48"
+        },
+        {
+          "job_id": "8637205",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:26:00",
+          "end": "2026-11-06T07:08:48"
+        },
+        {
+          "job_id": "8637206",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:23:05",
+          "end": "2026-11-06T07:05:53"
+        },
+        {
+          "job_id": "8637207",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:17:26",
+          "end": "2026-11-06T07:00:14"
+        },
+        {
+          "job_id": "8637208",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:32:02",
+          "end": "2026-11-06T07:14:50"
+        },
+        {
+          "job_id": "8637209",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:25:20",
+          "end": "2026-11-06T07:08:08"
+        },
+        {
+          "job_id": "8637210",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:21:55",
+          "end": "2026-11-06T07:04:43"
+        },
+        {
+          "job_id": "8637211",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:24:05",
+          "end": "2026-11-06T07:06:53"
+        },
+        {
+          "job_id": "8637212",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:18:37",
+          "end": "2026-11-06T07:01:27"
+        },
+        {
+          "job_id": "8637213",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:19:02",
+          "end": "2026-11-06T07:01:52"
+        },
+        {
+          "job_id": "8637214",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:12:55",
+          "end": "2026-11-06T06:55:54"
+        },
+        {
+          "job_id": "8637215",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:12:10",
+          "end": "2026-11-06T06:55:09"
+        },
+        {
+          "job_id": "8637216",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:14:21",
+          "end": "2026-11-06T06:57:20"
+        },
+        {
+          "job_id": "8637217",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:10:44",
+          "end": "2026-11-06T06:53:43"
+        },
+        {
+          "job_id": "8637218",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:07:59",
+          "end": "2026-11-06T06:50:58"
+        },
+        {
+          "job_id": "8637219",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:09:36",
+          "end": "2026-11-06T06:52:35"
+        },
+        {
+          "job_id": "8637220",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:28:19",
+          "end": "2026-11-06T07:11:18"
+        },
+        {
+          "job_id": "8637221",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:26:40",
+          "end": "2026-11-06T07:09:39"
+        },
+        {
+          "job_id": "8637222",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:25:45",
+          "end": "2026-11-06T07:08:56"
+        },
+        {
+          "job_id": "8637223",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:36:23",
+          "end": "2026-11-06T07:19:34"
+        },
+        {
+          "job_id": "8637225",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:29:04",
+          "end": "2026-11-06T07:12:15"
+        },
+        {
+          "job_id": "8637226",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:30:44",
+          "end": "2026-11-06T07:13:55"
+        },
+        {
+          "job_id": "8637227",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:14:26",
+          "end": "2026-11-06T06:57:37"
+        },
+        {
+          "job_id": "8637228",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:27:44",
+          "end": "2026-11-06T07:10:55"
+        },
+        {
+          "job_id": "8637229",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:27:29",
+          "end": "2026-11-06T07:10:40"
+        },
+        {
+          "job_id": "8637230",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:15:19",
+          "end": "2026-11-06T06:58:30"
+        },
+        {
+          "job_id": "8637231",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:22:54",
+          "end": "2026-11-06T07:06:05"
+        },
+        {
+          "job_id": "8637232",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:22:18",
+          "end": "2026-11-06T07:05:29"
+        },
+        {
+          "job_id": "8637233",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:20:51",
+          "end": "2026-11-06T07:04:02"
+        },
+        {
+          "job_id": "8637234",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:33:31",
+          "end": "2026-11-06T07:16:42"
+        },
+        {
+          "job_id": "8637235",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:18:01",
+          "end": "2026-11-06T07:01:14"
+        },
+        {
+          "job_id": "8637236",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:24:20",
+          "end": "2026-11-06T07:07:33"
+        },
+        {
+          "job_id": "8637237",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:24:55",
+          "end": "2026-11-06T07:08:11"
+        },
+        {
+          "job_id": "8637238",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:18:33",
+          "end": "2026-11-06T07:01:49"
+        },
+        {
+          "job_id": "8637239",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:11:31",
+          "end": "2026-11-06T06:54:47"
+        },
+        {
+          "job_id": "8637240",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:16:00",
+          "end": "2026-11-06T06:59:19"
+        },
+        {
+          "job_id": "8637241",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:27:34",
+          "end": "2026-11-06T07:10:53"
+        },
+        {
+          "job_id": "8637242",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:28:18",
+          "end": "2026-11-06T07:11:39"
+        },
+        {
+          "job_id": "8637243",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:26:20",
+          "end": "2026-11-06T07:09:41"
+        },
+        {
+          "job_id": "8637244",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:21:52",
+          "end": "2026-11-06T07:05:13"
+        },
+        {
+          "job_id": "8637245",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:15:04",
+          "end": "2026-11-06T06:58:27"
+        },
+        {
+          "job_id": "8637246",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:27:42",
+          "end": "2026-11-06T07:11:05"
+        },
+        {
+          "job_id": "8637247",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:22:22",
+          "end": "2026-11-06T07:05:47"
+        }
+      ],
+      "protocol_csv_count": 276,
+      "trial_row_counts": {
+        "100": 276
+      },
+      "incomplete_trial_files": {}
+    },
+    {
+      "study": "cue_transfer_expanded_20261104",
+      "sub": "parent_interventions",
+      "kind": "heldout",
+      "manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cue_transfer_expanded_20261104/parent_interventions/heldout/submission_manifest_20261104T084320Z.tsv",
+      "expected_jobs": 12,
+      "states": {
+        "COMPLETED": 12
+      },
+      "all_completed_zero": true,
+      "jobs": [
+        {
+          "job_id": "8565000",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:15:02",
+          "end": "2026-11-04T10:58:31"
+        },
+        {
+          "job_id": "8565002",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:27:04",
+          "end": "2026-11-04T11:10:33"
+        },
+        {
+          "job_id": "8565004",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:19:48",
+          "end": "2026-11-04T11:03:17"
+        },
+        {
+          "job_id": "8565006",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:13:03",
+          "end": "2026-11-04T10:56:32"
+        },
+        {
+          "job_id": "8565008",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:25:02",
+          "end": "2026-11-04T11:08:31"
+        },
+        {
+          "job_id": "8565010",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:22:29",
+          "end": "2026-11-04T11:05:58"
+        },
+        {
+          "job_id": "8565012",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:57:43",
+          "end": "2026-11-04T11:41:12"
+        },
+        {
+          "job_id": "8565014",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:42:36",
+          "end": "2026-11-04T11:26:05"
+        },
+        {
+          "job_id": "8565016",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:17:46",
+          "end": "2026-11-04T11:01:15"
+        },
+        {
+          "job_id": "8565018",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:35:24",
+          "end": "2026-11-04T11:18:55"
+        },
+        {
+          "job_id": "8565020",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:17:43",
+          "end": "2026-11-04T11:01:14"
+        },
+        {
+          "job_id": "8565022",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "elapsed": "01:51:35",
+          "end": "2026-11-04T11:35:06"
+        }
+      ],
+      "protocol_csv_count": 36,
+      "trial_row_counts": {
+        "100": 36
+      },
+      "incomplete_trial_files": {}
+    }
+  ]
+}

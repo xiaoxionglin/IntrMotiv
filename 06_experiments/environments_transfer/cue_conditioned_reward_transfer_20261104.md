@@ -1,6 +1,6 @@
 # Direct cue conditioning for external-reward transfer
 
-Date: 2026-11-04. Status: **81 production jobs accepted and pending on L40S at 03:13 UTC** (27 conditions, three seeds each). All 23 added configurations passed compute-node qualification. Three dependent evaluation dispatchers are scheduled. No production result is available yet.
+Design date: 2026-11-04. Status checked: **2026-11-10, 22:36 UTC**. All **81 production training jobs**, three evaluation dispatchers, **189 field jobs and 93 heldout jobs completed successfully**. The outputs contain 189 field archives with trajectory CSVs and 324 protocol CSVs of 100 trials each. Scientific performance and field metrics have not yet been compared; the record below distinguishes current execution status from historical launch snapshots.
 
 ## Decision and hypothesis
 
@@ -137,11 +137,11 @@ Use the [standard study workflow](../../04_implementation/standardized_study_wor
 
 ### Deferred evaluation ownership
 
-The [post-training dispatcher](../../hpc_runs/post_cue_transfer_20261104.py), Slurm job `8563772`, is scheduled with an `afterok` dependency on all twelve production jobs. It reuses canonical checkpoint discovery, manifest rendering, and ordinary-job submission for 28 field rollouts: five milestones for seed 42 in each cell, plus terminal checkpoints for seeds 1234 and 9999. Before submitting, it rejects incomplete panels, reused milestone checkpoints, checkpoints earlier than their targets, and unequal actual saved ages. Actual frames remain in the manifests and evaluation audit; the nominal 25M label does not replace them.
+The [post-training dispatcher](../../hpc_runs/post_cue_transfer_20261104.py), Slurm job `8563772`, was submitted with an `afterok` dependency on all twelve production jobs. It reuses canonical checkpoint discovery, manifest rendering, and ordinary-job submission for 28 field rollouts: five milestones for seed 42 in each cell, plus terminal checkpoints for seeds 1234 and 9999. Before submitting, it rejects incomplete panels, reused milestone checkpoints, checkpoints earlier than their targets, and unequal actual saved ages. Actual frames remain in the manifests and evaluation audit; the nominal 25M label does not replace them.
 
 The field evaluator retains its documented inclusive limit: `max_num_frames=10000` produces 10,001 decisions and occupancy samples. Report recorded sample counts.
 
-The same dispatcher derives twelve terminal rows for the [heldout runner](../../hpc_runs/run_cue_transfer_heldout_single.sh), which retains the existing physical-reward protocol. The isolated evaluator now leaves terminal coordinates blank with `terminal_pose_valid=false` when the batched environment has already reset; success and latency are unchanged. True terminal-position claims remain unsupported by this path. Each run receives 100 stochastic-policy trials using requested reset seeds 61000–61099 and a 1,800-decision horizon. Validate identical realized starts, cues, reward centers, and engine seeds across compared cells before computing equal-cue-weighted contrasts. The dispatcher records both print-only plans before optional submission; its existence is not evidence that evaluation has run. These twelve original jobs remain correct-cue-only. The expanded release adds an intervention-only dispatcher for the original runs, without duplicating their standard evaluations. The 69 new runs will receive 161 field rollouts and 69 heldout jobs, each running all four protocols. At completion, every one of the 81 production runs will have the same correct-cue and three intervention protocols. Protocol settings and a manifest hash are persisted so a later single-row retry cannot silently change the test.
+The same dispatcher derives twelve terminal rows for the [heldout runner](../../hpc_runs/run_cue_transfer_heldout_single.sh), which retains the existing physical-reward protocol. The isolated evaluator now leaves terminal coordinates blank with `terminal_pose_valid=false` when the batched environment has already reset; success and latency are unchanged. True terminal-position claims remain unsupported by this path. Each run receives 100 stochastic-policy trials using requested reset seeds 61000–61099 and a 1,800-decision horizon. Validate identical realized starts, cues, reward centers, and engine seeds across compared cells before computing equal-cue-weighted contrasts. The dispatcher records both print-only plans before optional submission; its existence is not evidence that evaluation has run. These twelve original jobs remain correct-cue-only. The expanded release adds an intervention-only dispatcher for the original runs, without duplicating their standard evaluations. The 69 new runs received 161 field rollouts and 69 heldout jobs, each running all four protocols. The completed execution panel covers every one of the 81 production runs with the same correct-cue and three intervention protocols. Protocol settings and a manifest hash are persisted so a later single-row retry cannot silently change the test.
 
 ## Route to a world model
 
@@ -318,6 +318,16 @@ distinguishes LF Git copies from raw remote byte hashes.
 
 ### Accepted 81-run production batch
 
+The [10 November execution check](../data/cue_transfer_expanded_20261104/status/execution_status_20261110.json)
+verifies `COMPLETED/0:0` for all 81 training jobs, all three dispatchers and all
+282 child evaluation jobs, using the canonical submission manifests and Slurm
+accounting. All 189 field NPZs and their 189 trajectory CSVs are present. The
+324 heldout protocol CSVs each contain 100 trial rows, for 32,400 recorded
+trials. This check establishes execution and output coverage; it does not yet
+establish checkpoint-content validity, reset matching across conditions,
+adaptation gains, place-field quality, or a learned planning model. The full
+scientific analysis remains to be completed under the standard workflow.
+
 The [added-run submission audit](../data/cue_transfer_expanded_20261104/launch/submission_audit.json)
 verifies all 69 commands against the unchanged expanded StudySpec, with valid
 workspace output paths. The [job manifest](../data/cue_transfer_expanded_20261104/launch/production_jobs.tsv)
@@ -329,13 +339,14 @@ shows all 81 pending for priority and all three evaluation dispatchers pending
 on dependencies. None had started training at that snapshot.
 
 Dispatcher [8564015](../data/cue_transfer_expanded_20261104/launch/post_expanded_evaluation_submission.json)
-depends on all 69 new jobs and will submit 161 field rollouts plus 69 heldout
+depended on all 69 new jobs and submitted 161 field rollouts plus 69 heldout
 jobs with four protocols each. Dispatcher [8564016](../data/cue_transfer_expanded_20261104/launch/post_parent_interventions_submission.json)
-depends on the original twelve jobs and adds only their three missing
+depended on the original twelve jobs and added only their three missing
 intervention protocols. Original dispatcher `8563772` retains its 28 field and
 twelve correct-cue heldout jobs. The dependency sets were verified with
-`scontrol`. These are scheduled dispatchers; the evaluator jobs have not yet
-been submitted. The full planned panel is **189 field rollouts and 93 heldout
+`scontrol`. At launch only the dispatchers were scheduled; the 10 November
+check above confirms that their evaluator jobs subsequently completed. The
+full execution panel is **189 field rollouts and 93 heldout
 jobs covering 324 protocol evaluations**, with 100 trials per protocol. Graph
 analysis remains inapplicable because these conditions use no graph.
 
