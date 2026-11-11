@@ -1,0 +1,11 @@
+{
+  "source": "hpc_runs/summarize_ca3_action_transport.py",
+  "source_sha256": "6c6c5c5914bf493151db5029e6ad4a4d354ae8b7da881d14110287dd78cc1fd8",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "plot": "Per-length endpoint metrics; individual optimizer seeds and unweighted seed means. No CIs.",
+  "inputs": {
+    "06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence/metrics.csv": "969c355ec717fe05c442fa8a5d838565d84a7419db29c33e7a0d0c09970b50e2",
+    "06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence/predictions.npz": "9ac4b4b4e0805e8d58d03e08504c9b0aa28726d89355b4224ef54024fe53a787",
+    "06_experiments/ca3_goals/parallel_action_register_probe_20261111/age_matched/dataset.json": "4e80cc1998268a87bed597199c0f787abf7224adfe20c45216d2756584e3a648"
+  }
+}

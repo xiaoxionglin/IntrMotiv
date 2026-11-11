@@ -4,6 +4,8 @@
 
 This is a synthetic supervised readout probe, not a result from a trained IntrMotiv agent. It tests the architectural claim from the discussion: whether two aligned histories contain a usable landmark-relative action association without mixing DG channels or attaching action tags to every landmark trace.
 
+**Learned-recurrence follow-up:** the [matched low-rank comparison](low_rank_recurrence/README.md) is now complete. Shared rank-2 factors did not resolve longer-word prediction; per-action rank-2 factors with a linear readout reached 100% endpoint accuracy on the same held-out 7–9-action words in all three fit seeds. This is a different architecture and does not change the parallel-register results below.
+
 ## What was held fixed and what was learned
 
 The original CA3 update is unchanged, using the existing pure [state adapters](../../../exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py):
@@ -74,7 +76,7 @@ The figure shows individual fit seeds and their mean; no confidence intervals or
 
 **Not tested:** learned action-dependent tags, goal-conditioned worker behavior, reward transfer, future DG generation, predicted bypass inputs, recursive model rollout, or DMLab intervention accuracy. There are no empirical place fields, trajectories, learned graphs or goal-control results in this diagnostic; these are outside its synthetic readout scope. A model that decodes endpoint displacement from a complete history is not yet an internally rolled-out world model.
 
-The next discriminating comparison is a shared action-composition mechanism versus this parallel-register baseline under the same word split and endpoint objective. If per-trace tags are tested, their transforms must be learned with matched supervision; the perfect known-dynamics interpreter must not be presented as a fair learned-tag result. Integrating parallel registers into the live worker can remain a separate decision.
+The [shared action-composition comparison](low_rank_recurrence/README.md) has now been run with learned transforms under the same word split and endpoint supervision. It includes shared-factor rank controls and per-action factors, reusing the saved parallel predictions. Its perfect learned linear-readout result is distinct from the known-dynamics interpreter above. Moving either architecture into the live worker or future-DG objective remains a separate experiment.
 
 ## Reproduce and verify
 

@@ -1,0 +1,115 @@
+{
+  "parent_and_source_hashes": true,
+  "baseline_predictions_identical": true,
+  "independent_endpoint_metrics": true,
+  "checkpoints": [
+    {
+      "model": "shared_r1_mlp64__seed8",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r1_mlp64__seed99",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r1_mlp64__seed123",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r2_mlp64__seed8",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r2_mlp64__seed99",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r2_mlp64__seed123",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r4_mlp64__seed8",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r4_mlp64__seed99",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "shared_r4_mlp64__seed123",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_mlp64__seed8",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_mlp64__seed99",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_mlp64__seed123",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_linear__seed8",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_linear__seed99",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    },
+    {
+      "model": "per_action_r2_linear__seed123",
+      "checkpoint_replay": true,
+      "full_reference_matches": true,
+      "original_ca3_exact": true
+    }
+  ],
+  "weight_sha256": {
+    "shared_r1_mlp64__seed8.pt": "4eb59575ca41420d9b611acd2f194de72044a462c06106fecaa9fc1415560c44",
+    "shared_r1_mlp64__seed99.pt": "e2b464cf40e435909ea34c3f661d2fdfd0c127ac10d80afd35c77a134f335121",
+    "shared_r1_mlp64__seed123.pt": "5f365a01cc1a5207b5698d6b5efa6d76543b9fdeff1cffeac48a8a4b0f948433",
+    "shared_r2_mlp64__seed8.pt": "2a210233e7d293ff4733e5544ec908adf3d101e0d128b0890223fec333b8efa2",
+    "shared_r2_mlp64__seed99.pt": "fd00cf90382202d91079541bb236335abe52f8f19779e13a54658ee8de041414",
+    "shared_r2_mlp64__seed123.pt": "7257e3a7086a57d5a8735ed5ff9b4b2016eaa2a1b59a4e9d27e17a2b19a73a5f",
+    "shared_r4_mlp64__seed8.pt": "0c7adcc63c12d18b6fa6f21f564cfea32f2ef09b75d1ab4b3f1ea2ab21e4c49e",
+    "shared_r4_mlp64__seed99.pt": "c971482f8f3643ca7ed45d0ecab9496cdcd7fcab1e9bb8aa7be2f1c38ec97a7b",
+    "shared_r4_mlp64__seed123.pt": "334e0c93a41ed6003f481558cca5d402e16407af2bdfc14d27c7865607bceaf1",
+    "per_action_r2_mlp64__seed8.pt": "ed3f60ffca7d4f7ae88341e6759557175a423ccec06bbcf0a9de9f94fa703b0b",
+    "per_action_r2_mlp64__seed99.pt": "16b79619affd7068f4d8aa10bfc4c2eed43badadbdaec3462eab73f8e709070a",
+    "per_action_r2_mlp64__seed123.pt": "4e94aa8b245a91c92d68756ed80c7e5992bd94608424f30e129b039e4e8180ea",
+    "per_action_r2_linear__seed8.pt": "2c779e304e3eefccb77a7691f4edd4d3ad54f2f5adedb6224bea0d5598b8ac0f",
+    "per_action_r2_linear__seed99.pt": "4e016211e298712ec6be5cb22bae1f8c6ed9082374b40abe658fc87e091b2dd7",
+    "per_action_r2_linear__seed123.pt": "6f0653dd54bdfb230c5525342adf19e7c3b1c6e39320dfb47890b799b6440609"
+  },
+  "audit_source_sha256": "4267805a1bd7f8cc844618ccd5839acddd5e67a37a722e0a0cb399305b1d5b92"
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "intrmotiv/synthetic-transport-comparison/v1",
+  "parent_directory": "06_experiments/ca3_goals/parallel_action_register_probe_20261111/age_matched",
+  "expected_parent_dataset_sha256": "f4c119554f8359569bf46f28d7b16c7fbf1d69a50944551878b317a0712d0496",
+  "tag_dim": 4,
+  "variants": [
+    {"id": "shared_r1_mlp64", "mode": "shared", "rank": 1, "hidden": 64},
+    {"id": "shared_r2_mlp64", "mode": "shared", "rank": 2, "hidden": 64},
+    {"id": "shared_r4_mlp64", "mode": "shared", "rank": 4, "hidden": 64},
+    {"id": "per_action_r2_mlp64", "mode": "per_action", "rank": 2, "hidden": 64},
+    {"id": "per_action_r2_linear", "mode": "per_action", "rank": 2, "hidden": 0}
+  ],
+  "baseline_models": ["parallel_mlp64", "parallel_mlp128", "unordered_mlp64"],
+  "supervision": "Endpoint displacement only; inherit parent split, fit seeds, Adam settings, budget and validation selection",
+  "output_directory": "06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence"
+}
