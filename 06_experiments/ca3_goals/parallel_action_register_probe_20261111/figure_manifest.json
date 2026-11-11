@@ -1,0 +1,10 @@
+{
+  "source": "hpc_runs/summarize_parallel_action_register_probe.py",
+  "source_sha256": "efdc448d91ad1f54f3c20bf1970478ec61cc9fab3423dfb79512c26cc0e9c8c6",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "inputs": {
+    "metrics.csv": "781bc84b3dacac7c4254a5e8f031a7213663f2337e06d8302332b732a94d1240",
+    "age_matched/metrics.csv": "ca79250c8cd95d0b0d31fc5c494463647cd826f40f0536af2e2a537d185af94b"
+  },
+  "transformation": "Unweighted mean across three optimizer seeds; each seed also plotted. No confidence intervals."
+}

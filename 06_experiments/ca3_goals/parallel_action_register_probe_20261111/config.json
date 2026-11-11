@@ -1,0 +1,34 @@
+{
+  "dg_count": 16,
+  "repeat": 8,
+  "expanded": 71,
+  "steps": 12,
+  "train_min_length": 2,
+  "train_max_length": 6,
+  "longer_lengths": [
+    7,
+    8,
+    9
+  ],
+  "longer_words_per_length": 240,
+  "holdout_fraction": 0.15,
+  "split_seed": 20261111,
+  "fit_seeds": [
+    8,
+    99,
+    123
+  ],
+  "models": [
+    "landmark_only_mlp64",
+    "action_only_mlp64",
+    "unordered_mlp64",
+    "parallel_linear",
+    "parallel_mlp64",
+    "parallel_mlp128"
+  ],
+  "epochs": 300,
+  "validation_every": 10,
+  "batch_size": 256,
+  "learning_rate": 0.001,
+  "target_scale": 4.0
+}

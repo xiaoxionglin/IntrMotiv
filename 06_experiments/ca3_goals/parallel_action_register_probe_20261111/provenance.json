@@ -1,0 +1,12 @@
+{
+  "schema": "intrmotiv/synthetic-readout-probe/v1",
+  "torch": "2.7.1",
+  "numpy": "1.26.4",
+  "python": "3.10.12 | packaged by conda-forge | (main, Jun 23 2023, 22:40:32) [GCC 12.3.0]",
+  "config_sha256": "abef26c3fcff7b7635641be8cab6b0648b26b38100d7208c8a623d887658256d",
+  "sources": {
+    "hpc_runs/parallel_action_register_probe.py": "d6d647b96ef4ac7517b438df6e0c74a042181abc713eb0893d4e59fa52dfc3bd",
+    "exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0"
+  },
+  "scope": "Offline supervised readout only; no DMLab, learned dynamics, recursive rollout or policy test."
+}

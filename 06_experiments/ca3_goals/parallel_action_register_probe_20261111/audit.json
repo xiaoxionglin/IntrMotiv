@@ -1,0 +1,18 @@
+{
+  "disjoint_word_splits": true,
+  "oracle_exact": true,
+  "matched_histories_and_counts_exact": true,
+  "matched_pair_counts": {
+    "train": 10000,
+    "validation": 1176,
+    "unseen_words": 1448,
+    "longer_words": 10000
+  },
+  "word_counts": {
+    "train": 765,
+    "validation": 162,
+    "unseen_words": 162,
+    "longer_words": 720
+  },
+  "dataset_sha256": "01c0b1584474e7d534087a67bf1389c7d6f388aa58688b5967f9c22b610b576b"
+}
