@@ -82,9 +82,25 @@ The rank-2 shared-factor suggestion permitted noncommuting action maps, but that
 
 The linear-readout result is especially useful: accurate composition can be carried by the recurrent transition, with a very small output map. In this task, allowing a larger nonlinear head did not provide the same longer-word accuracy at the same training budget. This supports testing the simpler linear readout before adding decoder complexity. It is not a universal claim that nonlinear heads are worse.
 
-Learned linear-readout transitions have maximum action spectral radii near one (1.000001–1.000335 across fits). Their maximum pairwise commutator norms are 1.65–1.78. The weaker shared rank-2 fits are also noncommuting, so noncommutativity is not a sufficient performance criterion. These diagnostics describe learned latent operators; they do not identify a unique physical coordinate basis or prove generalization to arbitrary word lengths.
+Learned linear-readout transitions have maximum action spectral radii near one (1.000001–1.000335 across fits). Their maximum pairwise commutator norms are 1.65–1.78. The weaker shared rank-2 fits are also noncommuting, so noncommutativity is not a sufficient performance criterion. These scalar diagnostics alone do not identify a physical interpretation. The weight inspection below recovers one kinematic coordinate system, without claiming a unique raw basis or arbitrary-length generalization.
 
 The comparison matches supervision, data and update budget, not every resource: a full four-tag-channel CA3 uses more state than a scalar CA3 plus the three-channel action register. The exact pooled implementation avoids that expansion in this bounded test. Recurrent fits took about 6–8 seconds each locally versus about 1.4 seconds for the saved MLP-64 baseline; these are run logs, not a production throughput benchmark.
+
+## Recovered kinematics: inspected 12 November 2026
+
+The saved per-action rank-2 / linear-readout weights admit a well-conditioned coordinate change to **position and heading in a landmark-relative frame**. The [step-by-step robotics explanation](../../../../02_algorithm/ca3_action_transport_kinematics.md) derives body versus fixed frames, the $(x,y,\cos\theta,\sin\theta)$ lift, planar pose composition and the rank distinction. This post-hoc inspection uses the saved checkpoints; no training or target fitting is performed.
+
+With $C$ the scaled east-anchor tag readout, construct $Q=[C;C(T_F-I)]$. The heading coordinates are the predicted position increment caused by a forward command. Transform each saved operator by $QT_aQ^{-1}$ and compare it with the analytic four-dimensional forward/left/right motion matrix.
+
+| Fit seed | Condition number of $Q$ | Forward matrix error | Left matrix error | Right matrix error |
+| --- | ---: | ---: | ---: | ---: |
+| 8 | 2.298 | $2.31\times10^{-6}$ | $2.95\times10^{-6}$ | $2.63\times10^{-6}$ |
+| 99 | 1.829 | $1.76\times10^{-6}$ | $2.91\times10^{-6}$ | $3.45\times10^{-6}$ |
+| 123 | 2.173 | $1.72\times10^{-6}$ | $3.11\times10^{-6}$ | $3.33\times10^{-6}$ |
+
+Errors are Frobenius norms. The forward matrix's upper blocks follow by construction; its lower blocks and all left/right blocks independently validate the interpretation. Other landmark readouts match rotations of the east-anchor readout within $5.3\times10^{-7}$, consistent with the task's four initial-heading labels. This reveals a landmark-relative kinematic realization, not a discovery of a globally unique physical basis or a four-degree-of-freedom pose.
+
+All maps, singular values, initial offsets, readout rotations and checkpoint hashes are saved in [weight_inspection.json](weight_inspection.json). The [constructed-path figure](kinematics_paths.png) compares analytic motion with recovered seed-99 tag trajectories for forward–left–forward versus left–forward–forward. It illustrates the mechanism and is not an additional held-out performance test; [SVG](kinematics_paths.svg), [PDF](kinematics_paths.pdf) and [figure provenance](kinematics_figure_manifest.json) are retained.
 
 ## Boundaries and next step
 
@@ -104,8 +120,11 @@ The single declarative [synthetic specification](../../../../hpc_runs/studies/ca
 /home/xiaoxiong/miniforge3/envs/SF_git/bin/python -m pytest -q hpc_runs/test_ca3_action_transport.py hpc_runs/test_parallel_action_register_probe.py exports/intrmotiv_prediction_starter/tests/test_handoff_contracts.py
 /home/xiaoxiong/miniforge3/envs/SF_git/bin/python hpc_runs/audit_ca3_action_transport.py --directory 06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence
 MPLCONFIGDIR=/tmp/intrmotiv-matplotlib /home/xiaoxiong/miniforge3/envs/SF_git/bin/python hpc_runs/summarize_ca3_action_transport.py --directory 06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence
+MPLCONFIGDIR=/tmp/intrmotiv-matplotlib /home/xiaoxiong/miniforge3/envs/SF_git/bin/python hpc_runs/inspect_ca3_action_transport.py --directory 06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence
 ```
 
 **29 focused tests passed.** The [checkpoint audit](replay_audit.json) reloads all 15 new checkpoints, reproduces every saved prediction, independently recomputes endpoint metrics, and checks full temporal CA3 execution on a held-out longer-word subset for every checkpoint. It verifies the original scalar channel exactly and full-reference versus pooled-head predictions numerically. Parent/source hashes and exact baseline identity pass. Full dataset split/matching audits are in [audit.json](audit.json); source and parent fingerprints are in [provenance.json](provenance.json). Learned matrices, training traces and checkpoint selection are saved in [fit records](fit_records.json), with reusable weights under [weights/](weights/).
+
+The 12 November inspection adds five focused tests, for **34 passing tests** when included with the original suite: known-basis recovery, detection of an incorrect turn operator, rejection of unidentified coordinates, the analytic rank-2 motion example, and an order-sensitive per-action rank-one counterexample. Run `hpc_runs/test_ca3_kinematic_inspection.py` alongside the three test paths above. A bad turn is detected even though coordinates are chosen from the forward map, guarding against a circular interpretation.
 
 Reusable experience: inherit the immutable parent split and predictions, derive factual inputs from its registers, test temporal invariants before fitting, and compare both the proposed restricted factorization and a similarly sized relaxation. Rerender from saved predictions. Per-length summaries must tolerate lengths with no matched pairs and normalize JSON-loaded count tuples; neither presentation issue requires refitting. Retain accurate endpoint error alongside order sensitivity so amplified trajectories cannot masquerade as successful composition.

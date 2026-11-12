@@ -3,6 +3,8 @@
 Status: architectural proposal, not implemented in the current IntrMotiv HRL
 code.
 
+The offline action-conditioned recurrence prototype is now covered by the [learned low-rank comparison](../06_experiments/ca3_goals/parallel_action_register_probe_20261111/low_rank_recurrence/README.md) and the [robotics/kinematics interpretation](ca3_action_transport_kinematics.md). It preserves the scalar CA3 trace and adds learned action tags. These synthetic endpoint results do not enable the proposal in the live HRL runtime or establish future-DG generation.
+
 ## Motivation
 
 The current CA3-like sequence core is a backward-looking shift register. It
