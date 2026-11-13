@@ -86,3 +86,11 @@ At minimum evaluate free-space versus wall/contact transitions, long DG-silent g
 - Finish with a coherent report separating demonstrated results, hypotheses and limitations. Update existing infra findings instead of duplicating them. Run appropriate focused tests and `git diff --check`; commit and push task changes and verify the remote. Preserve editable, legible, render-checked scientific figures.
 
 The first progress update in the new chat should confirm Astra/xhigh, that this handoff and linked artifacts were read, and the concrete implementation/qualification work underway. Model selection or a queued prompt alone is not evidence that the 80 runs have started.
+
+## Delivery receipt — 13 November 2026
+
+- Receiving chat: [IntrMotiv: action-conditioned CA3 — 80-run DMLab study](codex://threads/01a1d53f-5f86-7a52-bd4d-d4b86df57260).
+- Verified persisted turn metadata: `model=gpt-6-astra`, `effort=xhigh`. The receiving chat acknowledged this handoff and read the linked scientific and runtime contracts.
+- Execution is underway in isolated project/runtime checkouts. The execution stream records implementation edits and a successful focused `hpc_runs/test_intrmotiv_study.py` run followed by `git diff --check`. This is local qualification progress, not a claim that the final model or production matrix has passed qualification.
+- Exactly 80 production cells remain authorized. No production submission receipt exists at delivery. Remote qualification/submission awaits a confirmed manual `ssh nemo2` login with OTP, as required by the saved access failure and project policy; independent local work continues.
+- Delivery used the supported persistent Codex CLI because the app tool inventory lacked a create-thread operation. App title/read operations confirmed the receiving chat. Its app status snapshot reported `notLoaded`/`interrupted` while its CLI writer was still executing; the active process and advancing execution stream supplied the progress evidence. A resume attempt was rejected as an active-writer conflict and created no duplicate execution. A follow-up was delivered using `codex queue` to the existing thread.

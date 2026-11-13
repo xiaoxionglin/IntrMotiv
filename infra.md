@@ -4,6 +4,30 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+### Verify receipt and active execution when handing work to another chat — 2026-11-13
+
+- **Evidence:** The exposed app tools lacked thread creation. The supported
+  persistent `codex exec` CLI created the [CA3 study chat](codex://threads/01a1d53f-5f86-7a52-bd4d-d4b86df57260),
+  whose saved turn metadata confirmed `gpt-6-astra` and `xhigh`. App title/read
+  operations verified receipt. A later app status snapshot reported
+  `notLoaded`/`interrupted` even though the CLI writer and its implementation
+  stream were active; an attempted resume was rejected as an active-writer
+  conflict without creating another execution.
+- **Impact:** A status snapshot alone can misclassify a CLI-owned chat and
+  encourage unnecessary resumes. A queued message alone does not establish
+  that implementation or job submission has begun.
+- **Improvement/status:** Documented and used: verify the chat ID, actual model
+  metadata, recipient acknowledgement and advancing execution stream. Send
+  follow-ups with `codex queue` to the existing thread. Keep remote access
+  prerequisites and actual Slurm receipts separate from chat delivery. The
+  [durable handoff](05_plans/ca3_action_transport_dmlab_handoff_20261113.md)
+  records scientific scope and delivery; use the
+  [canonical study workflow](04_implementation/standardized_study_workflow.md)
+  for the experiment itself.
+- **Acceptance:** One receiving chat is linked, the requested model/effort is
+  verified, substantive execution is observed, no duplicate writer starts,
+  and the user-facing status distinguishes local work from submitted jobs.
+
 ## Find an issue by problem
 
 This is a dated issue log. The links below are shortcuts into existing entries;
