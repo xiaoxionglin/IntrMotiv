@@ -103,7 +103,7 @@ class StudySpecTests(unittest.TestCase):
         self.assertIn("--seed=8", runs[0].args)
         self.assertEqual(self.study.raw["schema"], SCHEMA_ID)
         self.assertEqual(self.study.declared_workflow_version, "1.0.0")
-        self.assertEqual(WORKFLOW_VERSION, "1.15.2")
+        self.assertEqual(WORKFLOW_VERSION, "1.15.3")
         self.assertEqual(len(self.study.fingerprint), 64)
 
     def test_machine_readable_schema_is_valid_json(self):
@@ -269,6 +269,12 @@ class StudySpecTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "not a complete Sample Factory"):
             build_run_description(self.study)
 
+    def test_workspace_rejects_parent_traversal(self):
+        raw = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
+        raw["training"]["output_root"] = raw["training"]["workspace_root"] + "/../../home/cache"
+        with self.assertRaisesRegex(SpecError, "parent traversal"):
+            StudySpec.from_mapping(raw)
+
 
 class AnalysisTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -421,6 +427,34 @@ class SubmissionAuditTests(unittest.TestCase):
             self._write_jobs(path, remove_first_arg=True)
             with self.assertRaisesRegex(SpecError, "missing study arguments"):
                 audit_submission(self.study, path, require_submitted=True)
+
+    def test_submission_audit_rejects_escaping_write_paths(self):
+        for flag in (
+            "--dmlab_level_cache_path", "--wandb_dir",
+            "--online_spatial_workspace_root", "--online_spatial_output_root",
+        ):
+            for destination in ("/home/fr/fr_xl1014/cache", self.study.workspace_root + "/../../../home/cache"):
+                with self.subTest(flag=flag, destination=destination), tempfile.TemporaryDirectory() as directory:
+                    path = Path(directory) / "jobs.tsv"
+                    self._write_jobs(path)
+                    with path.open(newline="") as handle:
+                        reader = csv.DictReader(handle, delimiter="\t")
+                        fields, rows = reader.fieldnames, list(reader)
+                    rows[0]["command"] += f" {flag}={destination}"
+                    with path.open("w", newline="") as handle:
+                        writer = csv.DictWriter(handle, fieldnames=fields, delimiter="\t")
+                        writer.writeheader()
+                        writer.writerows(rows)
+                    with self.assertRaisesRegex(SpecError, "outside the workspace"):
+                        audit_submission(self.study, path)
+
+    def test_submission_audit_rejects_log_path_traversal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "jobs.tsv"
+            self._write_jobs(path)
+            path.write_text(path.read_text().replace("/study/", "/../../../home/"))
+            with self.assertRaisesRegex(SpecError, "outside the workspace"):
+                audit_submission(self.study, path)
 
 
 class TensorBoardPrimitiveTests(unittest.TestCase):

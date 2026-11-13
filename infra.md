@@ -1331,6 +1331,12 @@ use this log for the infrastructure needed to resolve them.
   10,001-observation panel, with identical occupancy verified in the
   [common-panel certificate](06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/occupancy_certificate.json).
   New-panel recording still needs the canonical path fix and a smoke job.
+- **13 November 2026 canonical-source fix:** The action-transport runtime
+  branch replaces the retired prefix with the existing manifest submitter's
+  environment-aware, resolved workspace validator. A focused test saves in
+  the declared workspace and rejects symlink escape and accidental overwrite.
+  The new common-panel predictor reuses this collector instead of introducing
+  another recorder. Native Slurm panel-save qualification remains pending.
 - **Acceptance:** A panel save under a declared active workspace succeeds and
   a path outside it fails; a print-only manifest can read an immutable
   checkpoint in an older allocation while every writable path remains in the
@@ -1351,6 +1357,14 @@ use this log for the infrastructure needed to resolve them.
   `train_dir/runtime/dmlab_cache`, preserving saved and explicit paths. The
   parser and NEMO2 focused tests pass. A single pre-submission check covering
   all bulk output paths, including temporary files, remains open.
+- **13 November 2026 extension:** Preparing the 80-run action-transport study
+  exposed that lexical prefix containment accepted a workspace path containing
+  `../../../home`, and submission auditing omitted explicit cache/W&B/spatial
+  roots. Workflow 1.15.3 rejects parent traversal and audits those writable
+  arguments; read-only source checkpoints remain allowed in historical
+  allocations. Focused negative tests cover the escapes. Remote symlink
+  resolution and generated environment/temp paths remain release gates; the
+  desktop audit does not claim those were checked on NEMO2.
 - **Acceptance:** A fresh parsed NEMO configuration places training output,
   level cache, spatial telemetry, and temporary files under the same allocated
   workspace; a legacy saved configuration loads unchanged. See the
@@ -2303,6 +2317,16 @@ For each finding, record:
   and production training commands remain unchanged. The seed-99 partial
   manifest then rendered 30 declared 5M/10M/25M rows and passed evaluator
   print-only review.
+- **13 November 2026 source reconciliation:** The desktop runtime retained
+  explicit `legacy`/`training` discovery options and a `render-graph` CLI that
+  were absent from the vault package. Blind version-based copying would drop
+  those capabilities. Workflow 1.15.3 unifies them with the canonical
+  training-only default and newer scheduled-LR checkpoint audit. Explicit
+  legacy discovery remains available; numerical outputs and StudySpec hashes
+  are unchanged by the selector. The combined workflow/matrix/reuse suite
+  passes 51 tests plus 14 subtests in the isolated runtime. Compare source
+  hashes and inspect differences before mirroring, then run the same tests on
+  NEMO2 before release.
 - **Acceptance criteria:** Online-spatial artifact folders sharing a run name
   do not count as a second run; genuine duplicate run payloads still fail;
   `render-telemetry` and milestone-specific adapters resolve the exact

@@ -80,7 +80,7 @@ def certify(run_dir, checkpoint, output):
     from sample_factory.utils.attr_dict import AttrDict
     from sf_working_directories.IntrMotiv.dmlab.custom_learner import make_hipposlam_learner
     from sf_working_directories.IntrMotiv.dmlab.train_hipposlam import register_dmlab_components
-    from sf_working_directories.IntrMotiv.evaluation.place_fields import load_checkpoint_dict
+    from sf_shared.checkpoints import load_checkpoint_dict
 
     started = time.monotonic()
     output.mkdir(parents=True, exist_ok=False)

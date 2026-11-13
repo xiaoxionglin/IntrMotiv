@@ -1,0 +1,87 @@
+{
+  "schema": "intrmotiv/action-resource-audit/v1",
+  "study_sha256": "7ffacbbb1229821e835f505099cc46f4fe99a66d919fe26ba150d213be6aa63e",
+  "scope": "all eight parser rows; counts exclude shared encoder and actor/value heads; compute qualification remains separate",
+  "conditions": [
+    {
+      "condition": "ACT80_BASE",
+      "rnn_size": 1252,
+      "core_state_size": 1252,
+      "worker_input": 1165,
+      "extra_state": 0,
+      "transport_parameters": 0,
+      "prediction_parameters": 0,
+      "worker_parameters": 167808
+    },
+    {
+      "condition": "ACT80_SCALAR",
+      "rnn_size": 1252,
+      "core_state_size": 1252,
+      "worker_input": 1165,
+      "extra_state": 0,
+      "transport_parameters": 0,
+      "prediction_parameters": 33495,
+      "worker_parameters": 167808
+    },
+    {
+      "condition": "ACT80_PAR_LINEAR",
+      "rnn_size": 1607,
+      "core_state_size": 1607,
+      "worker_input": 1520,
+      "extra_state": 355,
+      "transport_parameters": 0,
+      "prediction_parameters": 43790,
+      "worker_parameters": 213248
+    },
+    {
+      "condition": "ACT80_PAR_MLP",
+      "rnn_size": 1607,
+      "core_state_size": 1607,
+      "worker_input": 1520,
+      "extra_state": 355,
+      "transport_parameters": 0,
+      "prediction_parameters": 98525,
+      "worker_parameters": 213248
+    },
+    {
+      "condition": "ACT80_TAG_R1",
+      "rnn_size": 5796,
+      "core_state_size": 5796,
+      "worker_input": 1229,
+      "extra_state": 4544,
+      "transport_parameters": 40,
+      "prediction_parameters": 35351,
+      "worker_parameters": 176000
+    },
+    {
+      "condition": "ACT80_TAG_R2",
+      "rnn_size": 5796,
+      "core_state_size": 5796,
+      "worker_input": 1229,
+      "extra_state": 4544,
+      "transport_parameters": 80,
+      "prediction_parameters": 35351,
+      "worker_parameters": 176000
+    },
+    {
+      "condition": "ACT80_TAG_R2_MLP",
+      "rnn_size": 5796,
+      "core_state_size": 5796,
+      "worker_input": 1229,
+      "extra_state": 4544,
+      "transport_parameters": 80,
+      "prediction_parameters": 79901,
+      "worker_parameters": 176000
+    },
+    {
+      "condition": "ACT80_SHARED_R1",
+      "rnn_size": 5796,
+      "core_state_size": 5796,
+      "worker_input": 1229,
+      "extra_state": 4544,
+      "transport_parameters": 13,
+      "prediction_parameters": 35351,
+      "worker_parameters": 176000
+    }
+  ]
+}

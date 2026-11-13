@@ -1,0 +1,32 @@
+{
+  "ca3_action_transport_80_20261113": {
+    "schema": "intrmotiv/study/v1",
+    "workflow_version": "1.15.3",
+    "study_workflow_version": "1.15.3",
+    "study_id": "ca3_action_transport_80_20261113",
+    "study_spec": "hpc_runs/studies/ca3_action_transport_80_20261113.study.json",
+    "study_sha256": "7ffacbbb1229821e835f505099cc46f4fe99a66d919fe26ba150d213be6aa63e",
+    "batch_name": "intrmotiv_ca3_action_transport_80_20261113",
+    "training_mode": "sample_factory",
+    "expected_runs": 80,
+    "adapter_experiments": 80,
+    "unique_names": 80,
+    "command_sha256": "8f3d60861d821cb6c20139e176d48359aac75d285d47c4f06914078a86c49b5e",
+    "status": "validated_and_actual_sample_factory_commands_expanded_not_submitted"
+  },
+  "ca3_action_transport_qualification_20261113": {
+    "schema": "intrmotiv/study/v1",
+    "workflow_version": "1.15.3",
+    "study_workflow_version": "1.15.3",
+    "study_id": "ca3_action_transport_qualification_20261113",
+    "study_spec": "hpc_runs/studies/ca3_action_transport_qualification_20261113.study.json",
+    "study_sha256": "4f908120eee94b572b7a6bc1674c2cc849512c26e8aa20276fb4129f1b2406f3",
+    "batch_name": "intrmotiv_ca3_action_transport_qualification_20261113",
+    "training_mode": "sample_factory",
+    "expected_runs": 8,
+    "adapter_experiments": 8,
+    "unique_names": 8,
+    "command_sha256": "b915386adfcadda9cd031ab805108f20fc0dbb573b92d55a3f364587697de685",
+    "status": "validated_and_actual_sample_factory_commands_expanded_not_submitted"
+  }
+}

@@ -21,6 +21,15 @@ REQUIRED_COLUMNS = {
     "command",
 }
 
+# Writable command paths only. Source checkpoints may legitimately be read
+# from historical allocations and must not be subjected to this write audit.
+WRITABLE_PATH_FLAGS = (
+    "--dmlab_level_cache_path",
+    "--wandb_dir",
+    "--online_spatial_workspace_root",
+    "--online_spatial_output_root",
+)
+
 
 def _normalized_experiment(name: str) -> str:
     return name.removeprefix("00_")
@@ -28,8 +37,11 @@ def _normalized_experiment(name: str) -> str:
 
 def _under_workspace(value: str, workspace_root: str) -> bool:
     path = PurePosixPath(value)
+    root = PurePosixPath(workspace_root)
+    if ".." in path.parts or ".." in root.parts:
+        return False
     try:
-        path.relative_to(PurePosixPath(workspace_root))
+        path.relative_to(root)
         return path.is_absolute()
     except ValueError:
         return False
@@ -82,6 +94,9 @@ def audit_submission(
         train_dir = flags.get("--train_dir")
         if train_dir is None or not _under_workspace(train_dir, study.workspace_root):
             raise SpecError(f"{run_name} command has no workspace --train_dir")
+        for flag in WRITABLE_PATH_FLAGS:
+            if flag in flags and not _under_workspace(flags[flag], study.workspace_root):
+                raise SpecError(f"{run_name} {flag} is outside the workspace: {flags[flag]}")
         submitted_tokens = set(shlex.split(row["command"]))
         missing_args = [arg for arg in run.args if arg not in submitted_tokens]
         if missing_args:
@@ -103,4 +118,5 @@ def audit_submission(
         "submitted_complete": len(job_ids) == study.expected_runs and all(row["status"] == "submitted" for row in rows),
         "commands_match_study": True,
         "workspace_paths_valid": True,
+        "workspace_path_scope": "lexical command/log paths; remote symlinks and job environment require release preflight",
     }

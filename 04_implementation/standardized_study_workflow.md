@@ -2,7 +2,7 @@
 
 ## Status
 
-Current implementation: **1.15.2** (transfer plasticity, row-normalization and scheduled-LR restoration qualification; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
+Current implementation: **1.15.3** (explicit writable-path audit, plus transfer plasticity and checkpoint restoration qualification; deployment evidence in `hpc_runs/intrmotiv_study/LATEST.md`); study schema:
 **`intrmotiv/study/v1`**. Canonical code: `hpc_runs/intrmotiv_study/`.
 Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
 
@@ -388,6 +388,19 @@ python -m hpc_runs.intrmotiv_study audit-submission \
 The audit requires the exact run matrix, study arguments in every generated
 command, matching `--experiment` names, unique job IDs, and workspace-only
 training and Slurm paths.
+
+Version 1.15.3 additionally checks explicit DMLab cache, W&B and spatial
+workspace arguments and rejects parent traversal in writable paths. These
+checks are lexical; before remote submission, resolve symlinks and verify
+every generated script's temporary/cache/log environment on that host.
+Read-only checkpoint paths may remain in historical allocations.
+
+When synchronizing, compare file hashes and inspect code differences as well
+as version strings. The November action-memory preparation found runtime-only
+graph-export/discovery options beside older checkpoint restoration logic.
+Release 1.15.3 reconciles those options with canonical scheduled-LR auditing;
+the default excludes generated analysis directories, with explicit `legacy`
+discovery retained for historical diagnostics.
 
 For a shortened training preflight, validate all coupled cadence constraints,
 not only the shortened frame target. Also check that the spatial artifact window, measured in observations,

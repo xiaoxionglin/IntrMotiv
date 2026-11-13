@@ -1,0 +1,32 @@
+{
+  "workflow_version": "1.15.3",
+  "scope": "desktop canonical and isolated runtime bytes match; NEMO2 not checked",
+  "files": {
+    "LATEST.md": "e7f928657ba1c6e9093caef2341fe4034cef6d9b67388364dc701bc986126406",
+    "README.md": "41951fb62d556b73ec2ef819deecacd4aa68c75957ad75bf7ab0cb3449987e1e",
+    "__init__.py": "057aa49f9717353e793dae6b5753efc51e4b0382d0a22b980d6648cb2cb53dfc",
+    "__main__.py": "3129adff95e0f38b87ab34cddfc27082c7892bcaec267ff5d40f160fdf55b44a",
+    "analysis.py": "198574a7baaaa0285d817fd31d0daab37676ad27dee74ee9d058acc57cd90af2",
+    "checkpoint_reload.py": "225509deb90f118ed6b5f2c53bc1c0bdf2c20f814eb75070c47e537f263a5653",
+    "cli.py": "bb300a805a92124b744bd65943fd81a36cdd5f7725da7e6e22c4c8ad6db93396",
+    "direct.py": "e3d70ad79fed46788ce3900e06b536bad8abd688970fc7a8a3dd5a580625725d",
+    "discovery.py": "e10152bd1d7bb0b6c34a703b2990f49e625d382c592766f1c936346c7eab8cdb",
+    "evaluation_preflight.py": "34f784b66a8ee08c5b03fc968c2d468e696bcacc534520722ca71d2e16789c06",
+    "export_geometry.py": "b3677f1863fe60ed39d1741360fdf897eadf2c7620fcf02bfe4ae7cf5180f888",
+    "field_concentration.py": "591272d9a0523913a14b6e41cf5ba175f8928b59625b630c85943f14e0b4f73e",
+    "geometry.py": "92682e8d6b3bfb34ff2ebd22f5596d96d52733e3977f20b26d89e3bef7ad92ae",
+    "render_geometry.py": "c4a351a2628eadb9092ebfef775323169bc84a113fe28d679da19f73e0648903",
+    "runfiles.py": "52a7e2c93407127b85c35e3d341f9c4d2c42c77233945550d05a924baa8bb58c",
+    "sample_factory.py": "dca74ba6478d969a3848781e83e8d338a4b5f6ac9c141a425bc4457448f85507",
+    "spatial.py": "b09f5eff046b53f02e48a0e04eeb727c0fa798eaab550b45c6524ecbd417a4d7",
+    "spatial_contract.py": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+    "spec.py": "38e8f734d34964b55371f3f8b7ddf22bf8ee6845de6dce22e166670c8f617e0d",
+    "study.schema.json": "30a7553e9d0b11fc3ca63567907415dfadeb2ef28f7745906ff250389d3fb349",
+    "submission.py": "7d5757b3a0a6b6f3c2210bbc2001c951e15c3615b260907abc8a59c76098131c",
+    "telemetry.py": "7f2a6c5cc3b290b1b0c0896c6d214001c13fc13f0f250d0fe85198b808e38188",
+    "tensorboard.py": "928bb9525e18aed6d64caa421a12c586109fd462848b2e261a1e185fdd46739d",
+    "test_direct.py": "5040dacb54f6897f6c5da039935ad04b9078484435de6eb31aeb5d00acce6514",
+    "transfer_audit.py": "8360e48bba99cc71c1f4b0b984b580093e4964a38de7709c05e19780fa60a9ce",
+    "version.py": "a6edee27ea2fee9e29a5e57c47b5d5c10a45922a082fe0e22b3d0d49c655b30a"
+  }
+}

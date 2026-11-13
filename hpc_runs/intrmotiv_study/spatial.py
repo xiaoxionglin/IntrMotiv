@@ -511,8 +511,14 @@ def _figure_runtime():
 def _save_figure(fig, stem: Path, plt, formats: Sequence[str] = ("png", "pdf")) -> list[Path]:
     stem.parent.mkdir(parents=True, exist_ok=True)
     outputs = [stem.with_suffix("." + format_name) for format_name in formats]
-    for destination in outputs:
-        fig.savefig(destination, dpi=100, bbox_inches="tight", facecolor="white")
+    if tuple(formats) == ("png", "pdf"):
+        # Preserve the original save calls, including PDF's configured DPI.
+        fig.savefig(outputs[0], dpi=100, bbox_inches="tight", facecolor="white")
+        fig.savefig(outputs[1], bbox_inches="tight", facecolor="white")
+    else:
+        for destination in outputs:
+            options = {"dpi": 100} if destination.suffix == ".png" else {}
+            fig.savefig(destination, bbox_inches="tight", facecolor="white", **options)
     plt.close(fig)
     return outputs
 
@@ -760,11 +766,17 @@ def render_graph_outcomes(
     figure_scale: float = 1.0,
     formats: Sequence[str] = ("png", "pdf"),
 ) -> list[Path]:
-    """All attempted directed edges; fixed 0–1 scale, with optional SVG export.
+    """All attempted directed edges; optional labels and exports, fixed 0–1 scale.
 
-    The caller supplies the label when plotting stored graph evidence rather
-    than prospective rollout outcomes.
+    Supply the ratio label explicitly when the matrices represent stored graph
+    evidence rather than prospective rollout outcomes.
     """
+    if not math.isfinite(figure_scale) or figure_scale <= 0:
+        raise ValueError("figure_scale must be finite and positive")
+    if isinstance(formats, str) or not formats or any(name not in ("png", "pdf", "svg") for name in formats):
+        raise ValueError("formats must be a nonempty sequence of png, pdf or svg")
+    if len(set(formats)) != len(formats):
+        raise ValueError("formats must not contain duplicates")
     plt = _figure_runtime()
     attempts, successes = np.asarray(attempts), np.asarray(successes)
     if attempts.ndim != 2 or attempts.shape[0] != attempts.shape[1] or successes.shape != attempts.shape:

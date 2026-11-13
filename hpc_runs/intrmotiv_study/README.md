@@ -8,7 +8,7 @@ The synchronized NEMO2 runtime copy is
 Keep its version and file contents aligned with this canonical copy before
 using new workflow features on the cluster.
 
-Current implementation version: `1.15.2`; current schema:
+Current implementation version: `1.15.3`; current schema:
 `intrmotiv/study/v1`.
 
 The version constants in `version.py` are authoritative. Do not copy this
@@ -18,6 +18,12 @@ keep existing study files valid whenever possible.
 A study records the workflow version it was authored against. Compatible
 newer implementations can still load it; a study authored for a newer or
 different-major implementation is rejected.
+
+Analysis also supports `--run-discovery-mode=legacy` when explicitly needed.
+The canonical default is `training`, excluding artifact folders beneath
+`analysis/` while retaining real duplicate detection. `render-graph` exports
+specified NPZ matrices with an explicit evidence label and optional SVG format;
+it never infers prospective success from stored graph confidence.
 
 ## Included components
 

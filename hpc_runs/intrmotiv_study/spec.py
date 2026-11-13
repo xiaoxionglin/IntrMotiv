@@ -76,6 +76,8 @@ def _workspace_path(path: str, root: str, where: str) -> None:
     workspace = PurePosixPath(root)
     if not candidate.is_absolute() or not workspace.is_absolute():
         raise SpecError(f"{where} and workspace_root must be absolute")
+    if ".." in candidate.parts or ".." in workspace.parts:
+        raise SpecError(f"{where} and workspace_root must not contain parent traversal")
     try:
         candidate.relative_to(workspace)
     except ValueError as error:

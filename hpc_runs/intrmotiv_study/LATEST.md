@@ -1,6 +1,6 @@
 # Latest Standardized Workflow
 
-- Implementation: `1.15.2` (certify retained DG row-normalization and the learner's scheduled-LR restore contract)
+- Implementation: `1.15.3` (audit explicit writable cache/log paths and reject parent traversal)
 - Study schema: `intrmotiv/study/v1`
 - Canonical package: `hpc_runs/intrmotiv_study/`
 - NEMO2 verified 1.14.0 source: `/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_merge_20260926/global_defaults_v114/hpc_runs/intrmotiv_study/`
@@ -10,6 +10,24 @@
 - NEMO2 active checkout: `/home/fr/fr_xl1014/SF_git_XXL/SF_hipposlam/` (still workflow 1.10.1 while jobs use it)
 - Canonical guide: `04_implementation/standardized_study_workflow.md`
 - Reference study: `hpc_runs/studies/graph_stabilized_recruitment.study.json`
+
+## 1.15.3 writable path audit
+
+Submission audit now checks explicit DMLab cache, W&B, and online spatial
+workspace paths as well as training and Slurm paths. Study output paths and
+audited write paths reject parent traversal (`..`). Source checkpoint paths
+remain read-only inputs and may point to historical allocations. These are
+lexical checks: the release preflight must still resolve remote symlinks and
+inspect generated job environment/cache/temp paths. This release has not yet
+been qualified on NEMO2; synchronize and run focused tests before use.
+
+The release also reconciles runtime-only graph-export and explicit discovery
+options into canonical source. `render-graph` retains explicit matrix keys,
+evidence labels, SVG export and input validation. `--run-discovery-mode=legacy`
+remains available; the canonical default is `training`, which excludes
+generated `analysis/` folders while rejecting genuine duplicate run payloads.
+Study fingerprints remain unchanged by these analysis options. The combined
+local workflow, matrix and reuse-options suite passes 51 tests plus 14 subtests.
 
 ## 1.15.2 checkpoint restoration semantics
 

@@ -1,0 +1,86 @@
+/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[2026-11-13 15:38:52,445][00009] register_encoder_factory: <function make_hipposlam_encoder at 0x7c293f2ebf40>
+[2026-11-13 15:38:52,445][00009] register_model_core_factory: <function make_hipposlam_core at 0x7c295960b640>
+[2026-11-13 15:38:52,445][00009] register_decoder_factory: <function make_hipposlam_decoder at 0x7c294d6076d0>
+[2026-11-13 15:38:52,445][00009] register_actor_critic_factory: <function make_hipposlam_actor_critic at 0x7c2959715120>
+[2026-11-13 15:38:52,445][00009] register_learner_factory: <function make_hipposlam_learner at 0x7c29594160e0>
+[2026-11-13 15:38:52,446][00009] None level openfield_map2_fixed_loc3_fixedlength_noreward task id 0
+[2026-11-13 15:38:52,446][00009] True
+[2026-11-13 15:38:52,446][00009] True
+[2026-11-13 15:38:52,446][00009] depth_sensor  dmlab env True
+[2026-11-13 15:39:06,710][00009] using reduced action set!
+Map number:	3
+[2026-11-13 15:39:07,744][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:39:07,750][00009] True
+[2026-11-13 15:39:07,750][00009] using depth sensor True
+[2026-11-13 15:39:07,750][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:39:07,750][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:39:07,861][00009] DMLab policy head output size: 3843
+[2026-11-13 15:39:07,862][00009] denpth_sensor True
+[2026-11-13 15:39:07,862][00009] denpth_sensor True
+[2026-11-13 15:39:07,862][00009] using bypass, dim 13
+[2026-11-13 15:39:07,863][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:39:07,864][00009] get out size called: 1229
+[2026-11-13 15:39:07,896][00009] get out size called: 1229
+[2026-11-13 15:39:07,899][00009] Froze DG weights and normalization statistics for transfer
+{
+  "schema": "intrmotiv/study/v1",
+  "workflow_version": "1.15.3",
+  "study_workflow_version": "1.15.3",
+  "study_id": "ca3_action_transport_80_20261113",
+  "study_spec": "/tmp/intrmotiv-ca3-action-80-20261113/hpc_runs/studies/ca3_action_transport_80_20261113.study.json",
+  "study_sha256": "7ffacbbb1229821e835f505099cc46f4fe99a66d919fe26ba150d213be6aa63e",
+  "batch_name": "intrmotiv_ca3_action_transport_80_20261113",
+  "training_mode": "sample_factory",
+  "expected_runs": 80,
+  "analysis_schema": "intrmotiv/action-native-preflight/v1",
+  "run_name": "ACT80_TAG_R2_S99",
+  "decisions": 80,
+  "native_previous_action_alignment": true,
+  "native_reset_seeds": [
+    739930753
+  ],
+  "source_provenance": {},
+  "dg_source": "once_calibrated_random_local_fixture",
+  "declared_source_checkpoint_loaded": false,
+  "encoder_weight_and_buffer_equality_after_update": true,
+  "frozen_bn_batch_invariance_max_error": 0.0,
+  "dg_active_fraction": 0.012345679104328156,
+  "loss": 1.1566760540008545,
+  "transport_gradient_norms": {
+    "transport.factor_a": 0.019331932067871094,
+    "transport.factor_b": 0.08449891954660416
+  },
+  "transport_parameters_changed": {
+    "transport.factor_a": true,
+    "transport.factor_b": true
+  },
+  "predictor_gradient_norms": {
+    "network.weight": 3.3471486568450928,
+    "network.bias": 0.3237626850605011
+  },
+  "predictor_parameters_changed": {
+    "network.weight": true,
+    "network.bias": true
+  },
+  "prediction_stats": {
+    "ca3_action_memory_loss": 1.1566760540008545,
+    "ca3_action_memory_dg_loss": 0.18821442127227783,
+    "ca3_action_memory_active_loss": 0.18653950095176697,
+    "ca3_action_memory_zero_loss": 0.016749192029237747,
+    "ca3_action_memory_bypass_loss": 0.9684615731239319,
+    "ca3_action_memory_valid_targets": 80.0,
+    "ca3_action_memory_active_fraction": 0.012500000186264515,
+    "ca3_action_memory_zero_baseline": 0.14814607799053192,
+    "ca3_action_memory_persistence_baseline": 0.1456177681684494,
+    "ca3_action_memory_frequency_baseline": 0.13931997120380402,
+    "ca3_action_memory_state_shuffle_delta": 0.016778886318206787,
+    "ca3_action_memory_action_shuffle_delta": -0.0020645856857299805,
+    "ca3_action_memory_action_shuffle_changed_fraction": 1.0,
+    "ca3_action_memory_action_support_min": 16.0,
+    "ca3_action_memory_replay_max_error": 0.0
+  },
+  "source_script_sha256": "c9c7e30cfb9dfc16f3bf7e928a74448ab5027645022aeb8b6ca12b63255f2e2f",
+  "qualification_scope": "native observations and one actual learner auxiliary update; no production run or control result"
+}

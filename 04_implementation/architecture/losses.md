@@ -289,6 +289,43 @@ The positive weight is clipped class balancing. The input CA3/DG labels are
 detached, so this trains the predictor head only. It is diagnostic/shadow
 modeling: current managers do not consume its output. Default-off.
 
+### 5.6 Causal action-memory sensory prediction
+
+Opt-in `ca3_action_memory` predicts the next DG vector and changing worker
+bypass. Candidate action $a_t$ advances scalar memory and tags before the
+head predicts $u_{t+1}$; target observation injection happens afterwards.
+The full age register expires old contributions even during repeated events.
+For elementwise Smooth L1 $\ell$, the auxiliary is
+
+$$
+\mathcal L_{action}=c_{aux}\left[
+c_{active}\,\operatorname{mean}_{(t,i)\in\mathcal A}\ell(\hat u_{t+1,i},u_{t+1,i})
++c_{zero}\,\operatorname{mean}_{(t,i)\in\mathcal Z}\ell(\hat u_{t+1,i},u_{t+1,i})
++c_{bypass}\,\operatorname{mean}_{t,j}\ell(\hat b_{t+1,j},b_{t+1,j})\right].
+$$
+
+Both observations must be valid, and the action must not terminate the source
+episode. $\mathcal A$ contains positive target DG coordinates; $\mathcal Z$
+contains zeros. Empty strata contribute differentiable zero. The first study
+declares $c_{aux}=1$, $c_{active}=1$, $c_{zero}=0.1$ and $c_{bypass}=1$.
+The auxiliary is independent of `encoder_grad_coeff`; disabling DG learning
+must not silently disable action-memory learning.
+
+DG and bypass targets, scalar source states and initial numerical behavior
+memory are detached. Interior tag transitions are recomputed under current
+parameters and retain gradients within the learner sequence; episode/invalid
+gaps cut this chain. This is an explicit change from a head trained only on
+detached source state. PPO consumes detached memory features, so the auxiliary
+updates maps and prediction head while PPO updates the worker. The initial
+comparison freezes the DG projection and BN and keeps the visual trunk fixed.
+
+`intrmotiv/ca3_action_memory/` logs DG active/zero loss, bypass loss, valid
+targets, action support, shuffle sensitivity and zero/persistence/minibatch
+frequency baselines. Minibatch frequency is an online diagnostic, not a heldout
+baseline. Replay discrepancy can reflect actor parameter lag; exact equality
+is required only in a same-weights qualification. None of these scalars
+certifies counterfactual prediction or executed goal control.
+
 ## 6. Structural Updates, Not Gradient Losses
 
 ### 6.1 Orthogonal DG recruitment
@@ -369,4 +406,5 @@ inputs already stored in a rollout.
 | Global punishment / row repulsion / CA3 exclusion | off | Anti-collapse ablations. |
 | Path scatter | off | Requires topological manager + action integration. |
 | CA3 predictor | off | Head-only shadow predictor; no manager control. |
+| Causal action-memory auxiliary | off | Explicit finite action memory, detached worker features, replay gradients into maps; native qualification required. |
 | Orthogonal recruitment | off | One non-gradient row replacement per rollout by default. |

@@ -105,6 +105,34 @@ Action integration is an egomotion cue and local edge-length estimate. It is
 not the main algorithmic claim and must be compared to the topological,
 non-coordinate condition. Debug DMLab positions are telemetry only.
 
+### Finite action-conditioned CA3 (opt-in, November 2026)
+
+`ca3_action_memory=off` preserves the original core. `scalar` adds a causal
+sensory auxiliary; `parallel` additionally stores an expiring chronological
+action register of width $EA$, where $E=R+L-1$ and $A$ is the action count.
+`per_action` and `shared` store full $F\times E\times K$ tag arrays beside
+scalar CA3. The worker reads the per-landmark tag sum over ages divided by $R$;
+the full register, not its pooled summary, governs overlap and expiry.
+The per-action map is $T_a=I+B_aA_a$. Shared rank 1 is a commuting control;
+per-action rank 1 need not commute. Commutation discards action order within
+DG-silent intervals; interleaved DG injections can still preserve event timing.
+
+Extra recurrent state sits immediately before the original behavior-goal
+descriptor; all scalar, graph and reward offsets retain their meaning. The
+executed previous action is appended to the encoder head as metadata and
+removed before the original sensory core. Reset uses the action-count sentinel.
+Worker memory features are detached and appended before the original target-ID
+condition. This changes the state available to the worker without introducing
+a new goal vocabulary, manager or reward. The predictive auxiliary alone
+trains the maps through causal replay; see the
+[loss contract](losses.md#56-causal-action-memory-sensory-prediction).
+
+Rank, tag width and linear/MLP head are explicit experimental factors. Keep
+DG identities/BN fixed for the first comparison. State size, head parameter
+count and replay compute differ across variants and must be reported. Local
+tests are implementation evidence; native qualification and production results
+are tracked in the [execution record](../../06_experiments/ca3_goals/ca3_action_transport_dmlab_20261113/README.md).
+
 ## 7. Update Schedules And Training Scope
 
 | Choice | Meaning | Interpretation requirement |

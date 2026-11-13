@@ -7,7 +7,18 @@ from pathlib import Path
 from .spec import SpecError, StudySpec
 
 
-def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Path]:
+def discover_run_directories(
+    study: StudySpec, batch_root: Path, *, run_discovery_mode: str = "training"
+) -> dict[str, Path]:
+    """Resolve exact run names, optionally excluding generated analysis trees.
+
+    Training mode is the canonical default. Legacy mode preserves historical
+    discovery, including ambiguity errors
+    caused by artifact directories named after a run. Training mode excludes
+    paths below analysis/ while retaining all other duplicate checks.
+    """
+    if run_discovery_mode not in ("legacy", "training"):
+        raise SpecError("run_discovery_mode must be legacy or training")
     expected = {run.name for run in study.expand_runs()}
     accepted_names = {
         candidate: run_name
@@ -20,10 +31,7 @@ def discover_run_directories(study: StudySpec, batch_root: Path) -> dict[str, Pa
     }
     found: dict[str, list[Path]] = {run_name: [] for run_name in expected}
     for path in batch_root.rglob("*"):
-        # Online spatial snapshots live below each launcher's analysis/
-        # directory and may reuse the exact run name as an artifact folder.
-        # They are not Sample Factory run directories.
-        if "analysis" in path.relative_to(batch_root).parts:
+        if run_discovery_mode == "training" and "analysis" in path.relative_to(batch_root).parts:
             continue
         if path.is_dir() and path.name in accepted_names:
             found[accepted_names[path.name]].append(path)

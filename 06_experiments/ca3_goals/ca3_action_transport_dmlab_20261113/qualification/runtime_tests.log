@@ -1,0 +1,1596 @@
+.....[2026-11-13 15:38:40,664][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,665][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,682][00009] get out size called: 17
+.[2026-11-13 15:38:40,683][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,683][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,701][00009] get out size called: 37
+.[2026-11-13 15:38:40,702][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,702][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,721][00009] get out size called: 29
+.[2026-11-13 15:38:40,722][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,722][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,741][00009] get out size called: 29
+.[2026-11-13 15:38:40,741][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,745][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,748][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,753][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,759][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,766][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,773][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,779][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+..[2026-11-13 15:38:40,789][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,807][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,821][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,836][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,851][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:40,852][00009] register_encoder_factory: <function make_hipposlam_encoder at 0x7502b2270af0>
+[2026-11-13 15:38:40,852][00009] register_model_core_factory: <function make_hipposlam_core at 0x7502d436d7e0>
+[2026-11-13 15:38:40,852][00009] register_decoder_factory: <function make_hipposlam_decoder at 0x7502b20e3eb0>
+[2026-11-13 15:38:40,867][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:38:40,873][00009] True
+[2026-11-13 15:38:40,873][00009] using depth sensor True
+[2026-11-13 15:38:40,873][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:40,873][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:38:40,945][00009] DMLab policy head output size: 3843
+[2026-11-13 15:38:40,945][00009] denpth_sensor True
+[2026-11-13 15:38:40,946][00009] denpth_sensor True
+[2026-11-13 15:38:40,946][00009] using bypass, dim 13
+[2026-11-13 15:38:40,946][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:40,946][00009] get out size called: 28
+[2026-11-13 15:38:40,978][00009] get out size called: 28
+[2026-11-13 15:38:40,979][00009] Froze DG weights and normalization statistics for transfer
+[2026-11-13 15:38:40,998][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:38:41,002][00009] True
+[2026-11-13 15:38:41,002][00009] using depth sensor True
+[2026-11-13 15:38:41,002][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:41,002][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:38:41,073][00009] DMLab policy head output size: 3843
+[2026-11-13 15:38:41,074][00009] denpth_sensor True
+[2026-11-13 15:38:41,074][00009] denpth_sensor True
+[2026-11-13 15:38:41,074][00009] using bypass, dim 13
+[2026-11-13 15:38:41,074][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,075][00009] get out size called: 28
+[2026-11-13 15:38:41,085][00009] get out size called: 28
+[2026-11-13 15:38:41,086][00009] Froze DG weights and normalization statistics for transfer
+[2026-11-13 15:38:41,103][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:38:41,108][00009] True
+[2026-11-13 15:38:41,108][00009] using depth sensor True
+[2026-11-13 15:38:41,108][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:41,109][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:38:41,178][00009] DMLab policy head output size: 3843
+[2026-11-13 15:38:41,178][00009] denpth_sensor True
+[2026-11-13 15:38:41,178][00009] denpth_sensor True
+[2026-11-13 15:38:41,178][00009] using bypass, dim 13
+[2026-11-13 15:38:41,178][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,179][00009] get out size called: 40
+[2026-11-13 15:38:41,188][00009] get out size called: 40
+[2026-11-13 15:38:41,189][00009] Froze DG weights and normalization statistics for transfer
+........s......[2026-11-13 15:38:41,254][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,257][00009] get out size called: 17
+[2026-11-13 15:38:41,258][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:41,258][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:41,259][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:41,260][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,260][00009] get out size called: 28
+.[2026-11-13 15:38:41,261][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,263][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+........................[2026-11-13 15:38:41,495][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,498][00009] get out size called: 16
+.[2026-11-13 15:38:41,498][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,500][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.........[2026-11-13 15:38:41,512][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,513][00009] get out size called: 17
+.[2026-11-13 15:38:41,532][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,532][00009] get out size called: 17
+.[2026-11-13 15:38:41,552][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,552][00009] get out size called: 17
+.[2026-11-13 15:38:41,553][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,554][00009] get out size called: 17
+.[2026-11-13 15:38:41,554][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,555][00009] get out size called: 28
+.[2026-11-13 15:38:41,584][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,584][00009] get out size called: 28
+.................[2026-11-13 15:38:41,629][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,630][00009] get out size called: 17
+[2026-11-13 15:38:41,630][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,630][00009] get out size called: 1154
+.[2026-11-13 15:38:41,635][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,635][00009] get out size called: 17
+[2026-11-13 15:38:41,636][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,636][00009] get out size called: 4610
+.....[2026-11-13 15:38:41,644][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,644][00009] get out size called: 17
+.[2026-11-13 15:38:41,658][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,658][00009] get out size called: 17
+.[2026-11-13 15:38:41,672][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,673][00009] get out size called: 17
+.[2026-11-13 15:38:41,677][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,677][00009] get out size called: 17
+........[2026-11-13 15:38:41,698][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,699][00009] get out size called: 28
+.[2026-11-13 15:38:41,705][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,705][00009] get out size called: 28
+.[2026-11-13 15:38:41,711][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,712][00009] get out size called: 28
+.[2026-11-13 15:38:41,713][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,713][00009] get out size called: 28
+.s.[2026-11-13 15:38:41,716][00009] test finished initialization!
+.[2026-11-13 15:38:41,718][00009] test finished initialization!
+............[2026-11-13 15:38:41,726][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,727][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+....................[2026-11-13 15:38:41,770][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,771][00009] get out size called: 28
+[2026-11-13 15:38:41,777][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,778][00009] get out size called: 28
+[2026-11-13 15:38:41,780][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,780][00009] get out size called: 28
+.[2026-11-13 15:38:41,790][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,790][00009] get out size called: 28
+[2026-11-13 15:38:41,797][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,797][00009] get out size called: 28
+[2026-11-13 15:38:41,799][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,800][00009] get out size called: 28
+.[2026-11-13 15:38:41,808][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,809][00009] get out size called: 28
+[2026-11-13 15:38:41,815][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,815][00009] get out size called: 28
+[2026-11-13 15:38:41,818][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,819][00009] get out size called: 28
+.[2026-11-13 15:38:41,824][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,824][00009] get out size called: 28
+[2026-11-13 15:38:41,830][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,831][00009] get out size called: 28
+[2026-11-13 15:38:41,833][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,834][00009] get out size called: 28
+.[2026-11-13 15:38:41,839][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,840][00009] get out size called: 28
+[2026-11-13 15:38:41,846][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,846][00009] get out size called: 28
+[2026-11-13 15:38:41,849][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,849][00009] get out size called: 28
+.[2026-11-13 15:38:41,852][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,853][00009] get out size called: 28
+[2026-11-13 15:38:41,859][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,859][00009] get out size called: 28
+[2026-11-13 15:38:41,862][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,862][00009] get out size called: 28
+.[2026-11-13 15:38:41,866][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,866][00009] get out size called: 28
+[2026-11-13 15:38:41,872][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,873][00009] get out size called: 28
+[2026-11-13 15:38:41,875][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,876][00009] get out size called: 28
+.[2026-11-13 15:38:41,879][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,879][00009] get out size called: 28
+[2026-11-13 15:38:41,885][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,886][00009] get out size called: 28
+[2026-11-13 15:38:41,888][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,889][00009] get out size called: 28
+.[2026-11-13 15:38:41,894][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,894][00009] get out size called: 28
+[2026-11-13 15:38:41,900][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,901][00009] get out size called: 28
+[2026-11-13 15:38:41,903][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,904][00009] get out size called: 28
+.[2026-11-13 15:38:41,907][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,908][00009] get out size called: 28
+[2026-11-13 15:38:41,914][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,914][00009] get out size called: 28
+[2026-11-13 15:38:41,917][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,917][00009] get out size called: 28
+.[2026-11-13 15:38:41,922][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,923][00009] get out size called: 28
+[2026-11-13 15:38:41,929][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,929][00009] get out size called: 28
+[2026-11-13 15:38:41,932][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,932][00009] get out size called: 28
+.[2026-11-13 15:38:41,936][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,936][00009] get out size called: 28
+.[2026-11-13 15:38:41,952][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,952][00009] get out size called: 28
+.[2026-11-13 15:38:41,969][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,970][00009] get out size called: 28
+..[2026-11-13 15:38:41,981][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:41,981][00009] get out size called: 28
+.[2026-11-13 15:38:42,000][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,000][00009] get out size called: 28
+.[2026-11-13 15:38:42,020][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,021][00009] get out size called: 28
+.[2026-11-13 15:38:42,036][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,037][00009] get out size called: 28
+.[2026-11-13 15:38:42,054][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,054][00009] get out size called: 28
+.[2026-11-13 15:38:42,071][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,071][00009] get out size called: 28
+.[2026-11-13 15:38:42,089][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,089][00009] get out size called: 28
+.[2026-11-13 15:38:42,096][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,096][00009] get out size called: 28
+.......................s[2026-11-13 15:38:42,148][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:42,171][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_geometry_snapshot_preserv0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000005000000.npz
+.....[2026-11-13 15:38:42,212][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+...[2026-11-13 15:38:42,221][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,221][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,222][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,223][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,223][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,224][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,225][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,226][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,227][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,227][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,228][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,228][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,228][00009] Num input channels for depth encoder: 1
+..[2026-11-13 15:38:42,246][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:42,246][00009] Loading existing experiment configuration from /tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0/depth_default_migration/config.json
+[2026-11-13 15:38:42,246][00009] Adding new argument 'help'=False that is not in the saved config file!
+[2026-11-13 15:38:42,246][00009] Adding new argument 'algo'='APPO' that is not in the saved config file!
+[2026-11-13 15:38:42,246][00009] Adding new argument 'env'='openfield_map2_fixed_loc3_fixedlength_noreward' that is not in the saved config file!
+[2026-11-13 15:38:42,246][00009] Adding new argument 'experiment'='depth_default_migration' that is not in the saved config file!
+[2026-11-13 15:38:42,246][00009] Adding new argument 'train_dir'='/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0' that is not in the saved config file!
+[2026-11-13 15:38:42,246][00009] Adding new argument 'restart_behavior'='resume' that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'device'='gpu' that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'seed'=None that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_policies'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'async_rl'=True that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'serial_mode'=False that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'batched_sampling'=False that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_batches_to_accumulate'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'worker_num_splits'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'policy_workers_per_policy'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'max_policy_lag'=1000 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_workers'=12 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_envs_per_worker'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'batch_size'=1024 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_batches_per_epoch'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'num_epochs'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'rollout'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'recurrence'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'shuffle_minibatches'=False that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'gamma'=0.99 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'reward_scale'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'reward_clip'=1000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'value_bootstrap'=False that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'normalize_returns'=True that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'exploration_loss_coeff'=0.003 that is not in the saved config file!
+[2026-11-13 15:38:42,247][00009] Adding new argument 'value_loss_coeff'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'kl_loss_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'exploration_loss'='entropy' that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'gae_lambda'=0.95 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'ppo_clip_ratio'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'ppo_clip_value'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'with_vtrace'=False that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'vtrace_rho'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'vtrace_c'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'optimizer'='adam' that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'adam_eps'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'adam_beta1'=0.9 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'adam_beta2'=0.999 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'max_grad_norm'=4.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'learning_rate'=0.0001 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'preserve_loaded_optimizer_lr'=False that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'lr_schedule'='constant' that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'lr_schedule_kl_threshold'=0.008 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'lr_adaptive_min'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'lr_adaptive_max'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'obs_subtract_mean'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'obs_scale'=255.0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'normalize_input'=False that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'normalize_input_keys'=['obs'] that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'decorrelate_experience_max_seconds'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,248][00009] Adding new argument 'decorrelate_envs_on_one_worker'=True that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'actor_worker_gpus'=[] that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'set_workers_cpu_affinity'=True that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'force_envs_single_thread'=False that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'default_niceness'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'log_to_file'=True that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'experiment_summaries_interval'=10 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'flush_summaries_interval'=30 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'stats_avg'=100 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'summaries_use_frameskip'=True that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'heartbeat_interval'=20 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'heartbeat_reporting_interval'=180 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'train_for_env_steps'=10000000000 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'train_for_seconds'=10000000000 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'save_every_sec'=120 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'keep_checkpoints'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'load_checkpoint_kind'='latest' that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'save_milestones_sec'=-1 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'save_best_every_sec'=5 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'save_best_metric'='reward' that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'save_best_after'=100000 that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'benchmark'=False that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'encoder_mlp_layers'=[512, 512] that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'encoder_conv_architecture'='layer2_resnet18' that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'encoder_conv_mlp_layers'=[512] that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'use_rnn'=True that is not in the saved config file!
+[2026-11-13 15:38:42,249][00009] Adding new argument 'rnn_size'=3533 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'rnn_type'='lstm' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'rnn_num_layers'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'decoder_mlp_layers'=[128, 128] that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'nonlinearity'='relu' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'policy_initialization'='orthogonal' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'policy_init_gain'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'actor_critic_share_weights'=True that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'adaptive_stddev'=True that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'continuous_tanh_scale'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'initial_stddev'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'use_env_info_cache'=False that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'env_gpu_actions'=False that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'env_gpu_observations'=True that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'env_frameskip'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'env_framestack'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'pixel_format'='CHW' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'use_record_episode_statistics'=False that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'episode_counter'=False that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'with_wandb'=False that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'wandb_user'=None that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'wandb_project'='sample_factory' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'wandb_group'=None that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'wandb_job_type'='SF' that is not in the saved config file!
+[2026-11-13 15:38:42,250][00009] Adding new argument 'wandb_tags'=[] that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'wandb_dir'='/tmp/intrmotiv-ca3-action-runtime/wandb' that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'with_pbt'=False that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_mix_policies_in_one_env'=True that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_period_env_steps'=5000000 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_start_mutation'=20000000 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_replace_fraction'=0.3 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_mutation_rate'=0.15 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_replace_reward_gap'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_replace_reward_gap_absolute'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_optimize_gamma'=False that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_target_objective'='true_objective' that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_perturb_min'=1.1 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'pbt_perturb_max'=1.5 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'recover_empty_ppo_minibatches'=False that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'study_id'=None that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'study_condition'=None that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'study_base'=None that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_learning'='ppo' that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_replay_state'='reconstruct' that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_her'=False that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_epsilon'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_target_updates'=100 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_replay_capacity'=200000 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_td_positions'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,251][00009] Adding new argument 'controller_decisions_per_update'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_learning_starts'=16384 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_her_positions'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_her_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_epsilon_decay_decisions'=250000 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_preflight'=False that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'controller_cache_visual'=True that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'decoder_reward_gate'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'dg_ca3_reentry_inhibition'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_mode'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_reward_max'=6.4 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_controller'='shared' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_reference_checkpoint'=None that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'intrinsic_goal_initialize_live_from_reference'=False that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'Hippo_n_feature'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'Hippo_R'=8 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'Hippo_L'=48 that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'simple_sequence'=False that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'core_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'encoder_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'layer2_lstm_baseline'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'encoder_load_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'transfer_model_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'transfer_scope'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'transfer_freeze_dg'=False that is not in the saved config file!
+[2026-11-13 15:38:42,252][00009] Adding new argument 'transfer_calibrate_frozen_dg'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'transfer_freeze_worker'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'transfer_graph'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'dmlab_runfiles_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'fixed_task_conditioning'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'fixed_task_goal_mixture'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'fixed_task_target_id'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'fixed_task_goal_init'='nominated' that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'shared_dg_projection'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_lr'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_temperature'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_batch_q'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_softmax'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_detect'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_novelty'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'head_l1_coef'=None that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'fix_encoder_when_load'=True that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'dmlab_reduced_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'dmlab_navigation_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'with_number_instruction'=True that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'number_instruction_coef'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'reward_instruction_count'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'DG_BN_intercept'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'with_pos_obs'=False that is not in the saved config file!
+[2026-11-13 15:38:42,253][00009] Adding new argument 'use_jit'=True that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'refractory'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'rec_distances'=None that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'masked_distance_matrix'=False that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'distance_learning'=True that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'normalize_advantage'=True that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'advantage_reward_source'=None that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_controllable_graph'=False that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_graph_memory'='episode' that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_target_timing'='delayed' that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_persistent_fast_weights'=False that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_fast_weight_half_life_options'=10000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_edge_confidence_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_timeout_margin_ratio'=0.2 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_timeout_margin_steps'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_bootstrap_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_exploration_mode'=False that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_manager_exploration_probability'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_exploration_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_manager_mode'='visit_direct' that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_passive_edge_confidence_threshold'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_passive_min_displacement'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_passive_max_path_length'=64.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_frontier_uncertainty_weight'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_edge_exploration'=False that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_edge_reliability_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,254][00009] Adding new argument 'hrl_edge_connectivity_weight'=0.25 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_behavior_mode_condition'=False that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_goal_conditioning'='legacy' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_exploration_policy'='shared' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_exploration_decoder_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_action_path_integration'=False that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_motion_policy_input'=False that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'dg_path_scatter_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'dg_path_scatter_min_displacement'=8.0 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'dg_path_scatter_min_straightness'=0.8 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'dg_path_scatter_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_landmark_geometry'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_geometry_neighbors'=3 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_geometry_max_distance'=32.0 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_geometry_update_steps'=5 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_geometry_learning_rate'=0.05 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_min_target_visits'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_worker_reward_mode'='hit' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_target_hit_reward'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_distance_bonus_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_control_outcome'='target_hit' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_direct_target_selection'='frontier' that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_empirical_her'=False that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_empirical_her_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'hrl_empirical_her_coeff'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,255][00009] Adding new argument 'ca3_predictor_shadow'=False that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_mode'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory_tag_dim'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory_rank'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory_hidden_size'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_action_memory_bypass_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_dim'=16 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_horizon'=16 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_action_conditioning'=True that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_active_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_zero_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_var_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_cov_coeff'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_state_readout_lr_scale'=0.2 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_worker_goal_mode'='target_id' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_worker_decoder'='film' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_graph_anchor_mode'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_graph_anchor_ema_alpha'=0.05 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_graph_anchor_ema_min_confirmations'=8 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_graph_anchor_ema_margin'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_context_candidate_mode'='exclusive' that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_graph_contextual_hits'=False that is not in the saved config file!
+[2026-11-13 15:38:42,256][00009] Adding new argument 'ca3_context_similarity_space'='probe' that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_context_calibration_capacity'=512 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_context_calibration_min_pairs'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_context_calibration_interval'=32768 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_context_calibration_quantile'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_predictor_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_predictor_horizon'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'ca3_predictor_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'exploration_coverage_telemetry'=False that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'exploration_coverage_grid_size'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'exploration_window_steps'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_telemetry'=True that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_window_observations'=100000 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_scalar_window_observations'=10000 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_scalar_interval_frames'=1000000 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_snapshot_interval_frames'=25000000 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_snapshot_max_frames'=100000000 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_snapshot_targets'='auto' that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_grid_grain'=19 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_x_min'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_x_max'=2000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_y_min'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_y_max'=2000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_stationary_distance'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_max_segment_jump_distance'=250.0 that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_workspace_root'='/work/classic/fr_xl1014-corridor-geometry' that is not in the saved config file!
+[2026-11-13 15:38:42,257][00009] Adding new argument 'online_spatial_output_root'='' that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'hrl_pbt_max_silent_fraction'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'encoder_population_usage_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'encoder_usage_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'encoder_density_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'encoder_collision_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'encoder_target_density'=0.03 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_global_punishment_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_global_punishment_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_row_repulsion_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_ca3_temporal_exclusion_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_orthogonal_recruitment'=False that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_orthogonal_recruitment_mode'='legacy' that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_victim_rule'='incident' that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_connectivity_threshold'=0.25 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_redundancy_max_steps'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_passive_half_life_events'=5000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_attempt_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_pred_min_context_attempts'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_pred_half_life_options'=5000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_endpoint_gate'='silent' that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_batchnorm_semantics'='legacy_batch' that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_reset_goal_adapter'=False that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_forced_preflight_row'=-1 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_recruitment_forced_preflight_after_updates'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_orthogonal_recruitment_margin'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,258][00009] Adding new argument 'dg_orthogonal_recruitment_residual_eps'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_orthogonal_recruitment_max_per_rollout'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'use_internal'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'use_external'=True that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'extra_encoder_losses'=True that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'double_value'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'reset_critic'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'reset_decoder'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'encoder_grad_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'iterative_update'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'save_initial_checkpoint'=False that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_goal_input'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'ppo_dg_gradient'='stop' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_context_feedback'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_context_history'='ca3' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_context_gradient'='direct' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_transition_prediction'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_transition_prediction_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'dg_transition_prediction_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'iterative_initial_encoder_steps'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'iterative_decoder_steps'=512 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'iterative_encoder_steps'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'iterative_start_phase'='decoder' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'metric'=None that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'encoder_reward_method'=None that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'encoder_reward_recipient'='arrival' that is not in the saved config file!
+[2026-11-13 15:38:42,259][00009] Adding new argument 'encoder_reward_require_local_predecessor'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'load_model_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'encoder_batch_loss'=True that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'encoder_batch_loss_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'encoder_multi_activation_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'encoder_unused_sequence_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'extra_decoder_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_map_seed'=1001 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_wall_removal_probability'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_map_rows'=21 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_map_cols'=21 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_cue_layout_seed'=20260923 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_landmark_cues'='rich' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_geometry_manifest'='' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'res_w'=96 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'res_h'=72 that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_throughput_benchmark'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_renderer'='software' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_gpus'=[0] that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab30_dataset'='~/datasets/brady_konkle_oliva2008' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_with_instructions'=True that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_extended_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_use_level_cache'=True that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_level_cache_path'='/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0/runtime/dmlab_cache' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'dmlab_one_task_per_worker'=False that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'command_line'='--env=openfield_map2_fixed_loc3_fixedlength_noreward --experiment=depth_default_migration --train_dir=/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0 --depth_sensor=True --normalize_input=False --encoder_conv_architecture=layer2_resnet18' that is not in the saved config file!
+[2026-11-13 15:38:42,260][00009] Adding new argument 'cli_args'={'env': 'openfield_map2_fixed_loc3_fixedlength_noreward', 'experiment': 'depth_default_migration', 'train_dir': '/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0', 'normalize_input': False, 'encoder_conv_architecture': 'layer2_resnet18', 'depth_sensor': True, 'rnn_size': 3533} that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'git_hash'='206ee8330f048b910c19ea9b82e6215a58a63c8d' that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'git_repo_name'='git@github.com:xiaoxionglin/SF_hipposlam.git' that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'extra_policy_output_shapes'=(('dg_activity', [64]),) that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'wandb_step_metric_namespaces'=('intrmotiv',) that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'head_l1_size'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Adding new argument 'rnn_persistent_state_size'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,261][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:42,287][00009] Loading existing experiment configuration from /tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0/depth_default_migration/config.json
+[2026-11-13 15:38:42,288][00009] Overriding arg 'depth_sensor_inverse' with value True passed from command line
+[2026-11-13 15:38:42,288][00009] Adding new argument 'help'=False that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'algo'='APPO' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'env'='openfield_map2_fixed_loc3_fixedlength_noreward' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'experiment'='depth_default_migration' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'train_dir'='/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'restart_behavior'='resume' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'device'='gpu' that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'seed'=None that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_policies'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'async_rl'=True that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'serial_mode'=False that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'batched_sampling'=False that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_batches_to_accumulate'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'worker_num_splits'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'policy_workers_per_policy'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'max_policy_lag'=1000 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_workers'=12 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_envs_per_worker'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'batch_size'=1024 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_batches_per_epoch'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,288][00009] Adding new argument 'num_epochs'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'rollout'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'recurrence'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'shuffle_minibatches'=False that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'gamma'=0.99 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'reward_scale'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'reward_clip'=1000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'value_bootstrap'=False that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'normalize_returns'=True that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'exploration_loss_coeff'=0.003 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'value_loss_coeff'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'kl_loss_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'exploration_loss'='entropy' that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'gae_lambda'=0.95 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'ppo_clip_ratio'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'ppo_clip_value'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'with_vtrace'=False that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'vtrace_rho'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'vtrace_c'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'optimizer'='adam' that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'adam_eps'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'adam_beta1'=0.9 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'adam_beta2'=0.999 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'max_grad_norm'=4.0 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'learning_rate'=0.0001 that is not in the saved config file!
+[2026-11-13 15:38:42,289][00009] Adding new argument 'preserve_loaded_optimizer_lr'=False that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'lr_schedule'='constant' that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'lr_schedule_kl_threshold'=0.008 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'lr_adaptive_min'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'lr_adaptive_max'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'obs_subtract_mean'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'obs_scale'=255.0 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'normalize_input'=False that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'normalize_input_keys'=['obs'] that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'decorrelate_experience_max_seconds'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'decorrelate_envs_on_one_worker'=True that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'actor_worker_gpus'=[] that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'set_workers_cpu_affinity'=True that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'force_envs_single_thread'=False that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'default_niceness'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'log_to_file'=True that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'experiment_summaries_interval'=10 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'flush_summaries_interval'=30 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'stats_avg'=100 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'summaries_use_frameskip'=True that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'heartbeat_interval'=20 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'heartbeat_reporting_interval'=180 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'train_for_env_steps'=10000000000 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'train_for_seconds'=10000000000 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'save_every_sec'=120 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'keep_checkpoints'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,290][00009] Adding new argument 'load_checkpoint_kind'='latest' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'save_milestones_sec'=-1 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'save_best_every_sec'=5 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'save_best_metric'='reward' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'save_best_after'=100000 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'benchmark'=False that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'encoder_mlp_layers'=[512, 512] that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'encoder_conv_architecture'='layer2_resnet18' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'encoder_conv_mlp_layers'=[512] that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'use_rnn'=True that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'rnn_size'=3533 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'rnn_type'='lstm' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'rnn_num_layers'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'decoder_mlp_layers'=[128, 128] that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'nonlinearity'='relu' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'policy_initialization'='orthogonal' that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'policy_init_gain'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'actor_critic_share_weights'=True that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'adaptive_stddev'=True that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'continuous_tanh_scale'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'initial_stddev'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'use_env_info_cache'=False that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'env_gpu_actions'=False that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'env_gpu_observations'=True that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'env_frameskip'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'env_framestack'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,291][00009] Adding new argument 'pixel_format'='CHW' that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'use_record_episode_statistics'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'episode_counter'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'with_wandb'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_user'=None that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_project'='sample_factory' that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_group'=None that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_job_type'='SF' that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_tags'=[] that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'wandb_dir'='/tmp/intrmotiv-ca3-action-runtime/wandb' that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'with_pbt'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_mix_policies_in_one_env'=True that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_period_env_steps'=5000000 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_start_mutation'=20000000 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_replace_fraction'=0.3 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_mutation_rate'=0.15 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_replace_reward_gap'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_replace_reward_gap_absolute'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_optimize_gamma'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_target_objective'='true_objective' that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_perturb_min'=1.1 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'pbt_perturb_max'=1.5 that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'recover_empty_ppo_minibatches'=False that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'study_id'=None that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'study_condition'=None that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'study_base'=None that is not in the saved config file!
+[2026-11-13 15:38:42,292][00009] Adding new argument 'controller_learning'='ppo' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_replay_state'='reconstruct' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_her'=False that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_epsilon'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_target_updates'=100 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_replay_capacity'=200000 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_td_positions'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_decisions_per_update'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_learning_starts'=16384 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_her_positions'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_her_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_epsilon_decay_decisions'=250000 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_preflight'=False that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'controller_cache_visual'=True that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'decoder_reward_gate'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'dg_ca3_reentry_inhibition'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_mode'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_reward_max'=6.4 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_controller'='shared' that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_reference_checkpoint'=None that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'intrinsic_goal_initialize_live_from_reference'=False that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'Hippo_n_feature'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'Hippo_R'=8 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'Hippo_L'=48 that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'simple_sequence'=False that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'core_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,293][00009] Adding new argument 'encoder_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'layer2_lstm_baseline'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'encoder_load_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_model_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_scope'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_freeze_dg'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_calibrate_frozen_dg'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_freeze_worker'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'transfer_graph'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'dmlab_runfiles_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'fixed_task_conditioning'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'fixed_task_goal_mixture'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'fixed_task_target_id'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'fixed_task_goal_init'='nominated' that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'shared_dg_projection'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_lr'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_temperature'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_batch_q'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_softmax'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_name'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_detect'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'DG_novelty'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'head_l1_coef'=None that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'fix_encoder_when_load'=True that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'dmlab_reduced_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'dmlab_navigation_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,294][00009] Adding new argument 'with_number_instruction'=True that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'number_instruction_coef'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'reward_instruction_count'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'DG_BN_intercept'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'with_pos_obs'=False that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'use_jit'=True that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'refractory'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'rec_distances'=None that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'masked_distance_matrix'=False that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'distance_learning'=True that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'normalize_advantage'=True that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'advantage_reward_source'=None that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_controllable_graph'=False that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_graph_memory'='episode' that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_target_timing'='delayed' that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_persistent_fast_weights'=False that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_fast_weight_half_life_options'=10000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_edge_confidence_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_timeout_margin_ratio'=0.2 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_timeout_margin_steps'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_bootstrap_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_exploration_mode'=False that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_manager_exploration_probability'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_exploration_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_manager_mode'='visit_direct' that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_passive_edge_confidence_threshold'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,295][00009] Adding new argument 'hrl_passive_min_displacement'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_passive_max_path_length'=64.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_frontier_uncertainty_weight'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_edge_exploration'=False that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_edge_reliability_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_edge_connectivity_weight'=0.25 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_behavior_mode_condition'=False that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_goal_conditioning'='legacy' that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_exploration_policy'='shared' that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_exploration_decoder_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_action_path_integration'=False that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_motion_policy_input'=False that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'dg_path_scatter_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'dg_path_scatter_min_displacement'=8.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'dg_path_scatter_min_straightness'=0.8 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'dg_path_scatter_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_landmark_geometry'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_geometry_neighbors'=3 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_geometry_max_distance'=32.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_geometry_update_steps'=5 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_geometry_learning_rate'=0.05 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_min_target_visits'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_worker_reward_mode'='hit' that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_target_hit_reward'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_distance_bonus_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_control_outcome'='target_hit' that is not in the saved config file!
+[2026-11-13 15:38:42,296][00009] Adding new argument 'hrl_direct_target_selection'='frontier' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'hrl_empirical_her'=False that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'hrl_empirical_her_horizon'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'hrl_empirical_her_coeff'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_predictor_shadow'=False that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_mode'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory_tag_dim'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory_rank'=2 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory_hidden_size'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_action_memory_bypass_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_dim'=16 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_horizon'=16 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_action_conditioning'=True that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_active_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_zero_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_var_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_cov_coeff'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_state_readout_lr_scale'=0.2 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_worker_goal_mode'='target_id' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_worker_decoder'='film' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_graph_anchor_mode'='off' that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_graph_anchor_ema_alpha'=0.05 that is not in the saved config file!
+[2026-11-13 15:38:42,297][00009] Adding new argument 'ca3_graph_anchor_ema_min_confirmations'=8 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_graph_anchor_ema_margin'=0.01 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_candidate_mode'='exclusive' that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_graph_contextual_hits'=False that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_similarity_space'='probe' that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_calibration_capacity'=512 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_calibration_min_pairs'=256 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_calibration_interval'=32768 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_context_calibration_quantile'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_predictor_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_predictor_horizon'=32 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'ca3_predictor_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'exploration_coverage_telemetry'=False that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'exploration_coverage_grid_size'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'exploration_window_steps'=0 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_telemetry'=True that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_window_observations'=100000 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_scalar_window_observations'=10000 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_scalar_interval_frames'=1000000 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_snapshot_interval_frames'=25000000 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_snapshot_max_frames'=100000000 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_snapshot_targets'='auto' that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_grid_grain'=19 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_x_min'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_x_max'=2000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_y_min'=100.0 that is not in the saved config file!
+[2026-11-13 15:38:42,298][00009] Adding new argument 'online_spatial_y_max'=2000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'online_spatial_stationary_distance'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'online_spatial_max_segment_jump_distance'=250.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'online_spatial_workspace_root'='/work/classic/fr_xl1014-corridor-geometry' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'online_spatial_output_root'='' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'hrl_pbt_max_silent_fraction'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'encoder_population_usage_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'encoder_usage_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'encoder_density_loss_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'encoder_collision_loss_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'encoder_target_density'=0.03 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_global_punishment_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_global_punishment_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_row_repulsion_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_ca3_temporal_exclusion_coeff'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_orthogonal_recruitment'=False that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_orthogonal_recruitment_mode'='legacy' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_victim_rule'='incident' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_connectivity_threshold'=0.25 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_redundancy_max_steps'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_passive_half_life_events'=5000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_attempt_threshold'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_pred_min_context_attempts'=2.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_pred_half_life_options'=5000.0 that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_endpoint_gate'='silent' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_batchnorm_semantics'='legacy_batch' that is not in the saved config file!
+[2026-11-13 15:38:42,299][00009] Adding new argument 'dg_recruitment_reset_goal_adapter'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_recruitment_forced_preflight_row'=-1 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_recruitment_forced_preflight_after_updates'=4 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_orthogonal_recruitment_margin'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_orthogonal_recruitment_residual_eps'=1e-06 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_orthogonal_recruitment_max_per_rollout'=1 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'use_internal'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'use_external'=True that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'extra_encoder_losses'=True that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'double_value'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'reset_critic'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'reset_decoder'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'encoder_grad_coeff'=1.0 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'iterative_update'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'save_initial_checkpoint'=False that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_goal_input'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'ppo_dg_gradient'='stop' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_context_feedback'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_context_history'='ca3' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_context_gradient'='direct' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_transition_prediction'='none' that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_transition_prediction_hidden_size'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'dg_transition_prediction_coeff'=0.1 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'iterative_initial_encoder_steps'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'iterative_decoder_steps'=512 that is not in the saved config file!
+[2026-11-13 15:38:42,300][00009] Adding new argument 'iterative_encoder_steps'=128 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'iterative_start_phase'='decoder' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'metric'=None that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_reward_method'=None that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_reward_recipient'='arrival' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_reward_require_local_predecessor'=False that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'load_model_path'=None that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_batch_loss'=True that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_batch_loss_temperature'=0.5 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_multi_activation_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'encoder_unused_sequence_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'extra_decoder_loss'=False that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_map_seed'=1001 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_wall_removal_probability'=0.0 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_map_rows'=21 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_map_cols'=21 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_cue_layout_seed'=20260923 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_landmark_cues'='rich' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_geometry_manifest'='' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'res_w'=96 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'res_h'=72 that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_throughput_benchmark'=False that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_renderer'='software' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_gpus'=[0] that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab30_dataset'='~/datasets/brady_konkle_oliva2008' that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_with_instructions'=True that is not in the saved config file!
+[2026-11-13 15:38:42,301][00009] Adding new argument 'dmlab_extended_action_set'=False that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'dmlab_use_level_cache'=True that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'dmlab_level_cache_path'='/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0/runtime/dmlab_cache' that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'dmlab_one_task_per_worker'=False that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'command_line'='--env=openfield_map2_fixed_loc3_fixedlength_noreward --experiment=depth_default_migration --train_dir=/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0 --depth_sensor=True --normalize_input=False --encoder_conv_architecture=layer2_resnet18 --depth_sensor_inverse=True' that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'cli_args'={'env': 'openfield_map2_fixed_loc3_fixedlength_noreward', 'experiment': 'depth_default_migration', 'train_dir': '/tmp/pytest-of-xiaoxiong/pytest-53/test_fresh_inverse_default_pre0', 'normalize_input': False, 'encoder_conv_architecture': 'layer2_resnet18', 'depth_sensor': True, 'depth_sensor_inverse': True, 'rnn_size': 3533} that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'git_hash'='206ee8330f048b910c19ea9b82e6215a58a63c8d' that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'git_repo_name'='git@github.com:xiaoxionglin/SF_hipposlam.git' that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'extra_policy_output_shapes'=(('dg_activity', [64]),) that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'wandb_step_metric_namespaces'=('intrmotiv',) that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'head_l1_size'=64 that is not in the saved config file!
+[2026-11-13 15:38:42,302][00009] Adding new argument 'rnn_persistent_state_size'=0 that is not in the saved config file!
+.[2026-11-13 15:38:42,303][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,303][00009] Num input channels for depth encoder: 1
+.[2026-11-13 15:38:42,304][00009] Num input channels for depth encoder: 1
+..........................[2026-11-13 15:38:42,433][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:42,448][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_online_snapshot_uses_nati0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000005000000.npz
+.s....[2026-11-13 15:38:42,462][00009] Skipped 4 PPO minibatches with fewer than two valid decisions
+.[2026-11-13 15:38:42,463][00009] Skipped 4 PPO minibatches with fewer than two valid decisions
+...[2026-11-13 15:38:42,465][00009] Skipped 3 PPO minibatches with fewer than two valid decisions
+.[2026-11-13 15:38:42,467][00009] Skipped 3 PPO minibatches with fewer than two valid decisions
+.[2026-11-13 15:38:42,468][00009] Skipped 2 PPO minibatches with fewer than two valid decisions
+.[2026-11-13 15:38:42,469][00009] Early stopping after 2 epochs (2 sgd steps), loss delta 0.0000000
+[2026-11-13 15:38:42,469][00009] Skipped 2 PPO minibatches with fewer than two valid decisions
+.....[2026-11-13 15:38:42,475][00009] Skipped 1 PPO minibatches with fewer than two valid decisions
+.......................[2026-11-13 15:38:42,495][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,495][00009] get out size called: 17
+.[2026-11-13 15:38:42,497][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,498][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,499][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,499][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,499][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,500][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,500][00009] get out size called: 17
+[2026-11-13 15:38:42,501][00009] get out size called: 17
+[2026-11-13 15:38:42,502][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,502][00009] get out size called: 17
+.[2026-11-13 15:38:42,503][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,503][00009] get out size called: 17
+.[2026-11-13 15:38:42,505][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,505][00009] get out size called: 17
+.[2026-11-13 15:38:42,509][00009] Initialized 4 dg transfer tensors from source.pth
+.[2026-11-13 15:38:42,511][00009] Initialized 8 policy transfer tensors from source.pth
+[2026-11-13 15:38:42,511][00009] Froze DG weights and normalization statistics for transfer
+.[2026-11-13 15:38:42,512][00009] Initialized 18 task_general transfer tensors from source.pth
+...[2026-11-13 15:38:42,515][00009] Froze DG weights and normalization statistics for transfer
+.[2026-11-13 15:38:42,516][00009] Initialized 2 graph evidence buffers from source.pth
+[2026-11-13 15:38:42,516][00009] Initialized 10 policy transfer tensors from source.pth
+.[2026-11-13 15:38:42,517][00009] Initialized 2 graph evidence buffers from source.pth
+[2026-11-13 15:38:42,517][00009] Initialized 10 policy transfer tensors from source.pth
+......[2026-11-13 15:38:42,522][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,528][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,551][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,557][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:42,560][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,563][00009] get out size called: 82
+[2026-11-13 15:38:42,563][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,566][00009] get out size called: 162
+[2026-11-13 15:38:42,566][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,571][00009] get out size called: 322
+.[2026-11-13 15:38:42,572][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.......................[2026-11-13 15:38:42,600][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:42,600][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.........[2026-11-13 15:38:42,607][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+............[2026-11-13 15:38:42,616][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+...................[2026-11-13 15:38:42,641][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+................[2026-11-13 15:38:42,679][00009] register_encoder_factory: <function make_hipposlam_encoder at 0x7502b2270af0>
+[2026-11-13 15:38:42,679][00009] register_model_core_factory: <function make_hipposlam_core at 0x7502d436d7e0>
+[2026-11-13 15:38:42,679][00009] register_decoder_factory: <function make_hipposlam_decoder at 0x7502b20e3eb0>
+[2026-11-13 15:38:42,680][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:38:42,685][00009] True
+[2026-11-13 15:38:42,685][00009] using depth sensor True
+[2026-11-13 15:38:42,685][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:42,685][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:38:42,754][00009] DMLab policy head output size: 3843
+[2026-11-13 15:38:42,756][00009] denpth_sensor True
+[2026-11-13 15:38:42,756][00009] denpth_sensor True
+[2026-11-13 15:38:42,756][00009] using bypass, dim 13
+[2026-11-13 15:38:42,757][00009] get out size called: {self.core_output_size}
+.[2026-11-13 15:38:42,833][00009] register_encoder_factory: <function make_hipposlam_encoder at 0x7502b2270af0>
+[2026-11-13 15:38:42,833][00009] register_model_core_factory: <function make_hipposlam_core at 0x7502d436d7e0>
+[2026-11-13 15:38:42,833][00009] register_decoder_factory: <function make_hipposlam_decoder at 0x7502b20e3eb0>
+[2026-11-13 15:38:42,834][00009] RunningMeanStd input shape: (1,)
+[2026-11-13 15:38:42,840][00009] True
+[2026-11-13 15:38:42,840][00009] using depth sensor True
+[2026-11-13 15:38:42,840][00009] Num input channels for depth encoder: 1
+[2026-11-13 15:38:42,840][00009] original obs space: Box(0, 255, (4, 72, 96), uint8)
+[2026-11-13 15:38:42,905][00009] DMLab policy head output size: 3843
+[2026-11-13 15:38:42,907][00009] denpth_sensor True
+[2026-11-13 15:38:42,907][00009] denpth_sensor True
+[2026-11-13 15:38:42,907][00009] using bypass, dim 13
+[2026-11-13 15:38:42,908][00009] get out size called: {self.core_output_size}
+..[2026-11-13 15:38:43,013][00009] get out size called: {self.core_output_size}
+......................[2026-11-13 15:38:43,079][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+.[2026-11-13 15:38:43,080][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+.[2026-11-13 15:38:43,082][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+.[2026-11-13 15:38:43,083][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:43,093][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_one_and_twenty_five_milli0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000025000128.npz
+[2026-11-13 15:38:43,100][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_one_and_twenty_five_milli0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000025000000_actual_000025000128.npz
+[2026-11-13 15:38:43,107][00009] Online spatial telemetry policy 0 resumes at 25000000 frames; snapshot window=4, scalar window=4, next scalar=26000000, next snapshot=50000000
+[2026-11-13 15:38:43,115][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_one_and_twenty_five_milli0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000050000000_actual_000050000000.npz
+[2026-11-13 15:38:43,117][00009] Online spatial telemetry policy 1 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:43,124][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_one_and_twenty_five_milli0/analysis/online_spatial/train_dir/run/policy_01/snapshot_target_000005000000_actual_000025000000.npz
+[2026-11-13 15:38:43,131][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_one_and_twenty_five_milli0/analysis/online_spatial/train_dir/run/policy_01/snapshot_target_000025000000_actual_000025000000.npz
+.[2026-11-13 15:38:43,133][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=2, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:43,141][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_snapshot_uses_full_window0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000005000000.npz
+.[2026-11-13 15:38:43,146][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:43,154][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_graph_buffers_diagnostics0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000005000000.npz
+.[2026-11-13 15:38:43,163][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+[2026-11-13 15:38:43,171][00009] Wrote online spatial snapshot /tmp/pytest-of-xiaoxiong/pytest-53/test_passive_recruitment_buffe0/analysis/online_spatial/train_dir/run/policy_00/snapshot_target_000005000000_actual_000005000000.npz
+.[2026-11-13 15:38:43,176][00009] Online spatial telemetry policy 0 resumes at 0 frames; snapshot window=4, scalar window=4, next scalar=1000000, next snapshot=5000000
+...............................[2026-11-13 15:38:43,210][00009] False
+[2026-11-13 15:38:43,210][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,210][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,211][00009] denpth_sensor False
+[2026-11-13 15:38:43,211][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,214][00009] False
+[2026-11-13 15:38:43,214][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,214][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,214][00009] denpth_sensor False
+[2026-11-13 15:38:43,214][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,218][00009] False
+[2026-11-13 15:38:43,218][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,218][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,218][00009] denpth_sensor False
+[2026-11-13 15:38:43,218][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,222][00009] False
+[2026-11-13 15:38:43,222][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,223][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,223][00009] denpth_sensor False
+[2026-11-13 15:38:43,223][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,226][00009] False
+[2026-11-13 15:38:43,227][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,227][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,227][00009] denpth_sensor False
+[2026-11-13 15:38:43,227][00009] using bypass, dim 8
+[2026-11-13 15:38:43,231][00009] False
+[2026-11-13 15:38:43,231][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,232][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,232][00009] denpth_sensor False
+[2026-11-13 15:38:43,232][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,239][00009] False
+[2026-11-13 15:38:43,239][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,239][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,239][00009] denpth_sensor False
+[2026-11-13 15:38:43,239][00009] using bypass, dim 8
+[2026-11-13 15:38:43,242][00009] False
+[2026-11-13 15:38:43,242][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,242][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,243][00009] denpth_sensor False
+[2026-11-13 15:38:43,243][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,249][00009] False
+[2026-11-13 15:38:43,249][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,249][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,249][00009] denpth_sensor False
+[2026-11-13 15:38:43,249][00009] using bypass, dim 8
+[2026-11-13 15:38:43,252][00009] False
+[2026-11-13 15:38:43,252][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,252][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,253][00009] denpth_sensor False
+[2026-11-13 15:38:43,253][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,259][00009] False
+[2026-11-13 15:38:43,260][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,260][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,260][00009] denpth_sensor False
+[2026-11-13 15:38:43,260][00009] using bypass, dim 8
+[2026-11-13 15:38:43,263][00009] False
+[2026-11-13 15:38:43,263][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,264][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,264][00009] denpth_sensor False
+[2026-11-13 15:38:43,264][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,270][00009] False
+[2026-11-13 15:38:43,271][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,271][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,271][00009] denpth_sensor False
+[2026-11-13 15:38:43,271][00009] using bypass, dim 8
+[2026-11-13 15:38:43,274][00009] False
+[2026-11-13 15:38:43,274][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,274][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,275][00009] denpth_sensor False
+[2026-11-13 15:38:43,275][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,281][00009] False
+[2026-11-13 15:38:43,281][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,282][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,282][00009] denpth_sensor False
+[2026-11-13 15:38:43,282][00009] using bypass, dim 8
+[2026-11-13 15:38:43,285][00009] False
+[2026-11-13 15:38:43,285][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,285][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,285][00009] denpth_sensor False
+[2026-11-13 15:38:43,285][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,291][00009] False
+[2026-11-13 15:38:43,292][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,292][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,292][00009] denpth_sensor False
+[2026-11-13 15:38:43,292][00009] using bypass, dim 8
+[2026-11-13 15:38:43,295][00009] False
+[2026-11-13 15:38:43,295][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,295][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,295][00009] denpth_sensor False
+[2026-11-13 15:38:43,296][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,302][00009] False
+[2026-11-13 15:38:43,302][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,302][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,302][00009] denpth_sensor False
+[2026-11-13 15:38:43,302][00009] using bypass, dim 8
+[2026-11-13 15:38:43,306][00009] False
+[2026-11-13 15:38:43,306][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,306][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,306][00009] denpth_sensor False
+[2026-11-13 15:38:43,306][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,312][00009] False
+[2026-11-13 15:38:43,313][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,313][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,313][00009] denpth_sensor False
+[2026-11-13 15:38:43,313][00009] using bypass, dim 8
+[2026-11-13 15:38:43,316][00009] False
+[2026-11-13 15:38:43,316][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,316][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,317][00009] denpth_sensor False
+[2026-11-13 15:38:43,317][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,323][00009] False
+[2026-11-13 15:38:43,323][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,323][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,323][00009] denpth_sensor False
+[2026-11-13 15:38:43,323][00009] using bypass, dim 8
+[2026-11-13 15:38:43,326][00009] False
+[2026-11-13 15:38:43,326][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,326][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,327][00009] denpth_sensor False
+[2026-11-13 15:38:43,327][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,333][00009] False
+[2026-11-13 15:38:43,333][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,334][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,334][00009] denpth_sensor False
+[2026-11-13 15:38:43,334][00009] using bypass, dim 8
+[2026-11-13 15:38:43,337][00009] False
+[2026-11-13 15:38:43,337][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,337][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,337][00009] denpth_sensor False
+[2026-11-13 15:38:43,337][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,343][00009] False
+[2026-11-13 15:38:43,344][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,344][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,344][00009] denpth_sensor False
+[2026-11-13 15:38:43,344][00009] using bypass, dim 8
+[2026-11-13 15:38:43,347][00009] False
+[2026-11-13 15:38:43,347][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,347][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,347][00009] denpth_sensor False
+[2026-11-13 15:38:43,348][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,354][00009] False
+[2026-11-13 15:38:43,354][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,354][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,355][00009] denpth_sensor False
+[2026-11-13 15:38:43,355][00009] using bypass, dim 8
+[2026-11-13 15:38:43,359][00009] False
+[2026-11-13 15:38:43,359][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,359][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,361][00009] denpth_sensor False
+[2026-11-13 15:38:43,361][00009] using bypass, dim 8
+[2026-11-13 15:38:43,365][00009] False
+[2026-11-13 15:38:43,365][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,366][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,367][00009] denpth_sensor False
+[2026-11-13 15:38:43,367][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,372][00009] False
+[2026-11-13 15:38:43,373][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,373][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,373][00009] denpth_sensor False
+[2026-11-13 15:38:43,373][00009] using bypass, dim 8
+[2026-11-13 15:38:43,376][00009] False
+[2026-11-13 15:38:43,377][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,377][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,378][00009] denpth_sensor False
+[2026-11-13 15:38:43,378][00009] using bypass, dim 8
+[2026-11-13 15:38:43,382][00009] False
+[2026-11-13 15:38:43,382][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,383][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,384][00009] denpth_sensor False
+[2026-11-13 15:38:43,384][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,390][00009] False
+[2026-11-13 15:38:43,390][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,390][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,390][00009] denpth_sensor False
+[2026-11-13 15:38:43,390][00009] using bypass, dim 8
+[2026-11-13 15:38:43,393][00009] False
+[2026-11-13 15:38:43,394][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,394][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,395][00009] denpth_sensor False
+[2026-11-13 15:38:43,395][00009] using bypass, dim 8
+[2026-11-13 15:38:43,400][00009] False
+[2026-11-13 15:38:43,400][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,400][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,402][00009] denpth_sensor False
+[2026-11-13 15:38:43,402][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,407][00009] False
+[2026-11-13 15:38:43,407][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,408][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,408][00009] denpth_sensor False
+[2026-11-13 15:38:43,408][00009] using bypass, dim 8
+[2026-11-13 15:38:43,411][00009] False
+[2026-11-13 15:38:43,411][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,412][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,413][00009] denpth_sensor False
+[2026-11-13 15:38:43,413][00009] using bypass, dim 8
+[2026-11-13 15:38:43,418][00009] False
+[2026-11-13 15:38:43,418][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,419][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,420][00009] denpth_sensor False
+[2026-11-13 15:38:43,420][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,426][00009] False
+[2026-11-13 15:38:43,426][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,426][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,426][00009] denpth_sensor False
+[2026-11-13 15:38:43,426][00009] using bypass, dim 8
+{
+  "checkpoint": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu0/checkpoint.pth",
+  "feature_centered_rms": 1.3347795009613037,
+  "feature_count": 5,
+  "feature_dimension": 8,
+  "feature_mean_norm": 1.443933129310608,
+  "intercept": -0.2,
+  "learning_rate": 0.0002,
+  "modes": {
+    "input_centered_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 1.341104507446289e-07,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8425458073616028,
+      "gradient_common_direction_norm": 0.08395881950855255,
+      "gradient_cosine_with_legacy": 0.5451589226722717,
+      "gradient_mean_row_to_feature_mean_cosine": -0.3898780643939972,
+      "gradient_norm": 0.5622634291648865,
+      "gradient_row_pair_cosine_mean": 0.0185842365026474,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "legacy_batch": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.38033151626586914,
+      "gradient_common_direction_norm": 0.023839585483074188,
+      "gradient_cosine_with_legacy": 1.0,
+      "gradient_mean_row_to_feature_mean_cosine": 0.011560139246284962,
+      "gradient_norm": 0.09824251383543015,
+      "gradient_row_pair_cosine_mean": 0.07754537463188171,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_current": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 0.8999999761581421,
+      "forward_max_abs_difference_from_legacy": 1.3825594186782837,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.07437800616025925,
+      "gradient_cosine_with_legacy": 0.5159229636192322,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.332421213388443,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.12000701576471329,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_poststep_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.26709917187690735,
+      "gradient_cosine_with_legacy": 0.3638139069080353,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.8696494698524475,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    }
+  },
+  "reference_credit_event_count": 11,
+  "run_dir": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu0"
+}
+.[2026-11-13 15:38:43,435][00009] False
+[2026-11-13 15:38:43,435][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,435][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,435][00009] denpth_sensor False
+[2026-11-13 15:38:43,436][00009] using bypass, dim 8
+{
+  "checkpoint": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu1/checkpoint.pth",
+  "feature_centered_rms": 1.3347795009613037,
+  "feature_count": 5,
+  "feature_dimension": 8,
+  "feature_mean_norm": 1.443933129310608,
+  "intercept": -0.2,
+  "learning_rate": 0.0002,
+  "modes": {
+    "input_centered_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 1.341104507446289e-07,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8425458073616028,
+      "gradient_common_direction_norm": 0.08395881950855255,
+      "gradient_cosine_with_legacy": 0.5451589226722717,
+      "gradient_mean_row_to_feature_mean_cosine": -0.3898780643939972,
+      "gradient_norm": 0.5622634291648865,
+      "gradient_row_pair_cosine_mean": 0.0185842365026474,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "legacy_batch": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.38033151626586914,
+      "gradient_common_direction_norm": 0.023839585483074188,
+      "gradient_cosine_with_legacy": 1.0,
+      "gradient_mean_row_to_feature_mean_cosine": 0.011560139246284962,
+      "gradient_norm": 0.09824251383543015,
+      "gradient_row_pair_cosine_mean": 0.07754537463188171,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_current": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 0.8999999761581421,
+      "forward_max_abs_difference_from_legacy": 1.3825594186782837,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.07437800616025925,
+      "gradient_cosine_with_legacy": 0.5159229636192322,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.332421213388443,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.12000701576471329,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_poststep_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.26709917187690735,
+      "gradient_cosine_with_legacy": 0.3638139069080353,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.8696494698524475,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    }
+  },
+  "reference_credit_event_count": 11,
+  "run_dir": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu1"
+}
+.[2026-11-13 15:38:43,444][00009] False
+[2026-11-13 15:38:43,444][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,444][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,445][00009] denpth_sensor False
+[2026-11-13 15:38:43,445][00009] using bypass, dim 8
+{
+  "checkpoint": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu2/checkpoint.pth",
+  "feature_centered_rms": 1.3347795009613037,
+  "feature_count": 5,
+  "feature_dimension": 8,
+  "feature_mean_norm": 1.443933129310608,
+  "intercept": -0.2,
+  "learning_rate": 0.0002,
+  "modes": {
+    "input_centered_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 1.341104507446289e-07,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8425458073616028,
+      "gradient_common_direction_norm": 0.08395881950855255,
+      "gradient_cosine_with_legacy": 0.5451589226722717,
+      "gradient_mean_row_to_feature_mean_cosine": -0.3898780643939972,
+      "gradient_norm": 0.5622634291648865,
+      "gradient_row_pair_cosine_mean": 0.0185842365026474,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "legacy_batch": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.38033151626586914,
+      "gradient_common_direction_norm": 0.023839585483074188,
+      "gradient_cosine_with_legacy": 1.0,
+      "gradient_mean_row_to_feature_mean_cosine": 0.011560139246284962,
+      "gradient_norm": 0.09824251383543015,
+      "gradient_row_pair_cosine_mean": 0.07754537463188171,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_current": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 0.8999999761581421,
+      "forward_max_abs_difference_from_legacy": 1.3825594186782837,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.07437800616025925,
+      "gradient_cosine_with_legacy": 0.5159229636192322,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.332421213388443,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.12000701576471329,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_poststep_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.26709917187690735,
+      "gradient_cosine_with_legacy": 0.3638139069080353,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.8696494698524475,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    }
+  },
+  "reference_credit_event_count": 11,
+  "run_dir": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu2"
+}
+.[2026-11-13 15:38:43,453][00009] False
+[2026-11-13 15:38:43,453][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,453][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,454][00009] denpth_sensor False
+[2026-11-13 15:38:43,454][00009] using bypass, dim 8
+{
+  "checkpoint": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu3/checkpoint.pth",
+  "feature_centered_rms": 1.3347795009613037,
+  "feature_count": 5,
+  "feature_dimension": 8,
+  "feature_mean_norm": 1.443933129310608,
+  "intercept": -0.2,
+  "learning_rate": 0.0002,
+  "modes": {
+    "input_centered_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 1.341104507446289e-07,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8425458073616028,
+      "gradient_common_direction_norm": 0.08395881950855255,
+      "gradient_cosine_with_legacy": 0.5451589226722717,
+      "gradient_mean_row_to_feature_mean_cosine": -0.3898780643939972,
+      "gradient_norm": 0.5622634291648865,
+      "gradient_row_pair_cosine_mean": 0.0185842365026474,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "legacy_batch": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.38033151626586914,
+      "gradient_common_direction_norm": 0.023839585483074188,
+      "gradient_cosine_with_legacy": 1.0,
+      "gradient_mean_row_to_feature_mean_cosine": 0.011560139246284962,
+      "gradient_norm": 0.09824251383543015,
+      "gradient_row_pair_cosine_mean": 0.07754537463188171,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_current": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 0.8999999761581421,
+      "forward_max_abs_difference_from_legacy": 1.3825594186782837,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.07437800616025925,
+      "gradient_cosine_with_legacy": 0.5159229636192322,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.332421213388443,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.12000701576471329,
+      "one_step_active_mask_change_fraction": 0.0
+    },
+    "running_poststep_atomic": {
+      "active_fraction": 0.550000011920929,
+      "active_mask_agreement_with_legacy": 1.0,
+      "forward_max_abs_difference_from_legacy": 0.0,
+      "gradient_abs_row_to_feature_mean_cosine": 0.8928940892219543,
+      "gradient_common_direction_norm": 0.26709917187690735,
+      "gradient_cosine_with_legacy": 0.3638139069080353,
+      "gradient_mean_row_to_feature_mean_cosine": -0.5366939306259155,
+      "gradient_norm": 0.8696494698524475,
+      "gradient_row_pair_cosine_mean": 0.07222183048725128,
+      "loss": -0.181146040558815,
+      "one_step_active_mask_change_fraction": 0.0
+    }
+  },
+  "reference_credit_event_count": 11,
+  "run_dir": "/tmp/pytest-of-xiaoxiong/pytest-53/test_normalization_audit_captu3"
+}
+.[2026-11-13 15:38:43,464][00009] False
+[2026-11-13 15:38:43,464][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,464][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,465][00009] denpth_sensor False
+[2026-11-13 15:38:43,465][00009] using bypass, dim 8
+.[2026-11-13 15:38:43,469][00009] False
+[2026-11-13 15:38:43,469][00009] original obs space: Box(0, 255, (3, 2, 2), uint8)
+[2026-11-13 15:38:43,469][00009] DMLab policy head output size: 8
+[2026-11-13 15:38:43,470][00009] denpth_sensor False
+[2026-11-13 15:38:43,470][00009] using bypass, dim 8
+...........[2026-11-13 15:38:43,498][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:43,499][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+[2026-11-13 15:38:43,500][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.........................................[2026-11-13 15:38:43,576][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.....[2026-11-13 15:38:43,605][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+.[2026-11-13 15:38:43,610][00009] USING SIMPLESEQUENCEWITHBYPASSCORE
+...........s.s.s.s.s.s.s.s.sERROR:2026-11-13 15:38:43 9:9 DeviceProperties.cpp:47] gpuGetDeviceCount failed with code 100
+..ss..................
+=============================== warnings summary ===============================
+../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24
+  /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../../home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26
+  /home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+sf_working_directories/IntrMotiv/tests/test_ca3_action_memory.py: 24 warnings
+sf_working_directories/IntrMotiv/tests/test_ca3_memory.py: 7 warnings
+sf_working_directories/IntrMotiv/tests/test_contextual_dg.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_actor_memory.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_batched_events.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_decoder_only.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_history.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_padded_transport.py: 4 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_q.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_stored_replay.py: 33 warnings
+sf_working_directories/IntrMotiv/tests/test_controller_transition.py: 11 warnings
+sf_working_directories/IntrMotiv/tests/test_cued_reward_transfer.py: 1 warning
+sf_working_directories/IntrMotiv/tests/test_fixed_reward_transfer.py: 10 warnings
+sf_working_directories/IntrMotiv/tests/test_goal_conditioned_dg.py: 8 warnings
+sf_working_directories/IntrMotiv/tests/test_graph_stabilized_recruitment.py: 2 warnings
+sf_working_directories/IntrMotiv/tests/test_hrl_controllable_graph.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_source_credit_retirement.py: 3 warnings
+sf_working_directories/IntrMotiv/tests/test_topological_frontier.py: 3 warnings
+  /tmp/intrmotiv-ca3-action-runtime/sf_working_directories/IntrMotiv/dmlab/custom_core.py:475: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+576 passed, 15 skipped, 130 warnings in 5.97s
