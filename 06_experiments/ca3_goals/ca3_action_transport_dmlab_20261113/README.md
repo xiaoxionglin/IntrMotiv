@@ -5,7 +5,7 @@
 
 This is the execution/result owner for the
 [authorized handoff](../../../05_plans/ca3_action_transport_dmlab_handoff_20261113.md).
-The originating handoff remains unchanged. GPT-6-Astra with `xhigh` reasoning
+This execution has not edited the originating handoff. GPT-6-Astra with `xhigh` reasoning
 owns runtime implementation; the execution coordinator owns the canonical
 study, audit, common-panel diagnostics and this record.
 
@@ -106,6 +106,16 @@ The project worktree is `/tmp/intrmotiv-ca3-action-80-20261113`, branch
 The clean runtime mirror was `master` at `206ee833`; runtime changes are
 isolated at `/tmp/intrmotiv-ca3-action-runtime`, branch
 `codex/ca3-action-transport-20261113`. Preserve the original checkouts.
+
+The [runtime branch](https://github.com/xiaoxionglin/SF_hipposlam/tree/codex/ca3-action-transport-20261113)
+was committed and pushed at
+`78478e17f3f7b1562471aaf7768ed864aee352c4`; `git ls-remote` matched that SHA.
+The [project branch](https://github.com/xiaoxionglin/IntrMotiv/tree/codex/ca3-action-transport-80-20261113)
+contains the studies and this durable execution record. Both isolated working
+trees were clean after their implementation commits. The original runtime
+mirror remained clean at `206ee8330f048b910c19ea9b82e6215a58a63c8d`.
+The originating chat added its delivery receipt independently on project main;
+this branch does not overwrite that receipt.
 
 [Study validation](study_validation.json) binds candidate production fingerprint
 `7ffacbbb1229821e835f505099cc46f4fe99a66d919fe26ba150d213be6aa63e`
