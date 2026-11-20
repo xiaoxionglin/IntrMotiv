@@ -44,7 +44,6 @@
 - Use `\(...\)` for inline math and `\[...\]` for display math in new or revised Markdown equations and in chat.
 - Keep inline math on one physical line. Put display delimiters on separate lines, with the equation between them.
 - Existing dollar-delimited equations may remain until edited; do not mass-convert unrelated notes or change code examples.
-- Obsidian vaults under Projects use the LaTeX Delimiter Renderer plugin to render these delimiters without rewriting note source. Install and enable it in newly created vaults too; plugin installation is per vault.
 
 ## Figure Readability
 
