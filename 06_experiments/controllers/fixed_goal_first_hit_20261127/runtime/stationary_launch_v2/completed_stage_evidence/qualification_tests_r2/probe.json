@@ -1,0 +1,37 @@
+{
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "exact_native_engine_files": {
+    "hpc_runs/first_hit_control/dmlab_evaluate.py": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+    "hpc_runs/first_hit_control/detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+    "hpc_runs/first_hit_control/runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+    "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+    "canonical_callback_overlay": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+    "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+    "sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "1803ada43d59d9c94f645bf7b826e87558aa68db63f2e700a4dc9c4634376a38",
+    "sf_working_directories/IntrMotiv/dmlab/custom_core.py": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+    "sf_working_directories/IntrMotiv/dmlab/custom_decoder.py": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+    "sf_working_directories/IntrMotiv/dmlab/controller_q.py": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9"
+  },
+  "retained_start_receipt": [
+    {
+      "source": 2,
+      "repeat": 0,
+      "seed": 31003,
+      "prefix_sha256": "73979eff71b6f55688df0fe65e37474e870978cd0cb53a9bc67d3ee81b6e7e5e",
+      "prefix_length": 20,
+      "full_signature_sha256": "06c8cdc78c3659b8f26247c3a87568793cd294c878fa2dc14218a35b8048a00e"
+    }
+  ],
+  "source_first_imports": true,
+  "native_environment_created": false,
+  "rendered_stages": [
+    "runfiles",
+    "qualification_fit",
+    "fit",
+    "qualification_evaluate",
+    "evaluation_sources_00",
+    "evaluation_sources_01",
+    "evaluation_sources_02",
+    "evaluation_sources_03"
+  ]
+}

@@ -1,0 +1,1082 @@
+....................................................................................ssssssss..EEEEEEE...........EEE.EFF.FF......{"update": 1, "training_mse": 0.32743310928344727, "prediction_min": -0.058793805539608, "prediction_max": 0.05545709654688835, "usable_goal_labels": 12}
+{"update": 3, "training_mse": 0.3156103193759918, "prediction_min": -0.06920219957828522, "prediction_max": 0.05686037242412567, "usable_goal_labels": 36}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_actual_legacy_fit_reload_0/fit", "reload_exact": true, "fit_seconds": 0.014390613068826497}
+.{"update": 1, "training_mse": 0.3387562334537506, "prediction_min": -0.05523577332496643, "prediction_max": 0.0660271942615509, "usable_goal_labels": 12}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_restore_rejects_changed_a0/fit", "reload_exact": true, "fit_seconds": 0.005732803023420274}
+..................F...........................................EEEEEEEE.......F...{"update": 1, "training_mse": 0.2997978627681732, "prediction_min": 0.041867196559906006, "prediction_max": 0.0871688574552536, "usable_goal_labels": 12}
+{"update": 3, "training_mse": 0.28289440274238586, "prediction_min": 0.04380505532026291, "prediction_max": 0.08862165361642838, "usable_goal_labels": 36}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_original_source_initializ0/fit", "reload_exact": true, "fit_seconds": 0.00949905498418957}
+......{"update": 1, "training_mse": 0.2997978627681732, "prediction_min": 0.041867196559906006, "prediction_max": 0.0871688574552536, "usable_goal_labels": 12}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_restore_arithmetic_archiv0/fit", "reload_exact": true, "fit_seconds": 0.00535567500628531}
+..............{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_file_entry_verifies_hash_0/report", "rows": 6, "train_goals_without_positive": []}
+...........................................................
+==================================== ERRORS ====================================
+_ ERROR at setup of NeuralFirstHitTests.test_actual_deadline_head_is_affine_before_zero_boundary _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_alternative_command_stops_before_original_target _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_goal_permutation_changes_only_goal_modulation_row _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_recorded_successor_uses_exact_ca3_and_physical_terminal _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_replay_td_updates_ignore_latent_node_labels _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_scripted_legacy_decoder_has_independent_trainable_target_path _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of NeuralFirstHitTests.test_sparse_history_disambiguates_identical_current_dg _
+
+cls = <class 'test_first_hit_neural.NeuralFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.factories = runtime_factories(RUNTIME_ROOT)[:2]
+
+hpc_runs/test_first_hit_neural.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/runtime_adapter.py:63: in runtime_factories
+    root = Path(source_root).resolve(strict=True)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1077: in resolve
+    s = self._accessor.realpath(self, strict=strict)
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:396: in realpath
+    path, ok = _joinrealpath(filename[:0], filename, strict, {})
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/home', rest = 'SFgit/SF_hipposlam', strict = True, seen = {}
+
+    def _joinrealpath(path, rest, strict, seen):
+        if isinstance(path, bytes):
+            sep = b'/'
+            curdir = b'.'
+            pardir = b'..'
+        else:
+            sep = '/'
+            curdir = '.'
+            pardir = '..'
+    
+        if isabs(rest):
+            rest = rest[1:]
+            path = sep
+    
+        while rest:
+            name, _, rest = rest.partition(sep)
+            if not name or name == curdir:
+                # current dir
+                continue
+            if name == pardir:
+                # parent dir
+                if path:
+                    path, name = split(path)
+                    if name == pardir:
+                        path = join(path, pardir, pardir)
+                else:
+                    path = pardir
+                continue
+            newpath = join(path, name)
+            try:
+>               st = os.lstat(newpath)
+E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError
+_ ERROR at setup of test_canonical_steps_preserve_wall_selfloops_and_replay_cuts _
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_canonical_steps_preserve_0')
+
+    @pytest.fixture
+    def environment(tmp_path):
+        archived = tmp_path / "environment.py"
+>       archived.write_bytes(ENVIRONMENT.read_bytes())
+
+hpc_runs/test_first_hit_projected_grid.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of test_latent_node_id_permutation_cannot_change_projected_updates _
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_latent_node_id_permutatio0')
+
+    @pytest.fixture
+    def environment(tmp_path):
+        archived = tmp_path / "environment.py"
+>       archived.write_bytes(ENVIRONMENT.read_bytes())
+
+hpc_runs/test_first_hit_projected_grid.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of test_paired_actual_initialization_batches_and_masks_are_identical _
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_paired_actual_initializat0')
+
+    @pytest.fixture
+    def environment(tmp_path):
+        archived = tmp_path / "environment.py"
+>       archived.write_bytes(ENVIRONMENT.read_bytes())
+
+hpc_runs/test_first_hit_projected_grid.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_____ ERROR at setup of test_all_queries_and_competing_first_denominators ______
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_all_queries_and_competing0')
+
+    @pytest.fixture
+    def environment(tmp_path):
+        archived = tmp_path / "environment.py"
+>       archived.write_bytes(ENVIRONMENT.read_bytes())
+
+hpc_runs/test_first_hit_projected_grid.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_competing_first_removes_goalblind_own_stop_artifact _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_discounted_same_goal_double_q_terminal_success_precedence _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_exact_original_classes_raw_outputs_and_no_added_head _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_factual_action_all_goals_and_initial_command_mask _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_full_goal_denominator_and_terminal_sparse_memoryless_bound _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_remaining_is_not_a_model_input_and_ca3_is_immutable _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_shortest_oracle_has_terminal_success_and_failure _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_ ERROR at setup of StationaryFirstHitTests.test_updates_ignore_latent_state_ids_and_scripted_target_is_trainable _
+
+cls = <class 'test_first_hit_stationary.StationaryFirstHitTests'>
+
+    @classmethod
+    def setUpClass(cls):
+        torch.set_num_threads(1)
+>       cls.decoder, cls.action, _ = original_classes()
+
+hpc_runs/test_first_hit_stationary.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+=================================== FAILURES ===================================
+______________ test_protocol_is_saved_before_dataset_construction ______________
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_protocol_is_saved_before_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1ca9aa1e70>
+
+    def test_protocol_is_saved_before_dataset_construction(tmp_path, monkeypatch):
+        from hpc_runs.first_hit_control import projected_grid as module
+        output = tmp_path / "prospective_order_fixture"
+        def stop_before_data(environment, config, seed):
+            manifest = json.loads((output / "pre_data_manifest.json").read_text())
+            assert manifest["data_status"] == "not_constructed"
+            assert (output / "source_snapshot/manifest.json").is_file()
+            assert not list(output.glob("*.npz"))
+            raise RuntimeError("deliberate fixture stop before data")
+        monkeypatch.setattr(module, "collect_replay", stop_before_data)
+        with pytest.raises(RuntimeError, match="deliberate fixture"):
+>           prepare(output)
+
+hpc_runs/test_first_hit_projected_grid.py:145: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/projected_grid.py:168: in prepare
+    if digest(DESIGN) != DESIGN_SHA or digest(ENVIRONMENT) != ENVIRONMENT_SHA:
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+____________ test_protocol_reference_source_and_exact_old_settings _____________
+
+    def test_protocol_reference_source_and_exact_old_settings():
+>       protocol, old, matched = validate_reference()
+
+hpc_runs/test_first_hit_projected_regression.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/projected_regression.py:73: in validate_reference
+    if digest(PROTOCOL) != PROTOCOL_SHA:
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+_____________ test_reconstructed_rng_masks_match_observed_new_fit ______________
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_reconstructed_rng_masks_m0')
+
+    def test_reconstructed_rng_masks_match_observed_new_fit(tmp_path):
+        torch.set_num_threads(1)
+        config = replace(regression_config(), updates=3, batch_size=8)
+        data = dict(ca3=np.zeros((12, 2, 8), np.float32),
+                    successor_ca3=np.zeros((12, 2, 8), np.float32),
+                    successor_dg=np.zeros((12, 2), np.float32),
+                    action=np.arange(12) % 3, terminated=np.zeros(12, bool))
+        data["ca3"][:6, 0, 0] = 1
+        data["successor_dg"][1::2, 1] = 1
+        goals, seed = (0, 1), 99
+>       decoder, action, _ = original_classes()
+
+hpc_runs/test_first_hit_projected_regression.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_readout.py:50: in original_classes
+    spec = importlib.util.spec_from_file_location(f"stationary_original_{name}_{digest(path)[:12]}", path)
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+________ test_preparation_archives_before_fitting_and_refuses_overwrite ________
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_preparation_archives_befo0')
+
+    def test_preparation_archives_before_fitting_and_refuses_overwrite(tmp_path):
+        output = tmp_path / "prepared"
+>       result = prepare(output)
+
+hpc_runs/test_first_hit_projected_regression.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/projected_regression.py:104: in prepare
+    protocol, old, matched = validate_reference()
+hpc_runs/first_hit_control/projected_regression.py:73: in validate_reference
+    if digest(PROTOCOL) != PROTOCOL_SHA:
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+____________________ test_signature_dtype_and_native_guard _____________________
+
+    def test_signature_dtype_and_native_guard():
+        signature = dict(obs=torch.tensor([1]), __state=torch.ones(1), __position=torch.zeros(3), __rotation=torch.zeros(3))
+        assert signature_hash(signature) != signature_hash(dict(signature, __state=torch.ones(1, dtype=torch.float64)))
+        with pytest.raises(ValueError, match="full recurrent"):
+            signature_hash(dict(obs=torch.tensor([1])))
+        with pytest.raises(RuntimeError, match="allocated NEMO"):
+>           run_on_nemo(SimpleNamespace())
+
+hpc_runs/test_first_hit_reused_control.py:266: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = namespace()
+
+    def run_on_nemo(args):
+        """Only an allocated NEMO job may instantiate engines; never local smoke."""
+        import importlib.util
+        import os
+        import sys
+    
+        if not os.environ.get("SLURM_JOB_ID"):
+            raise RuntimeError("Candidate native evaluation requires an allocated NEMO Slurm job")
+        workspace = Path(os.environ.get("INTRMOTIV_WORKSPACE_ROOT", "/work/classic/fr_xl1014-corridor-geometry")).resolve()
+        if not str(workspace).startswith("/work/"):
+            raise ValueError("Native outputs must be in the allocated /work workspace")
+>       source_root, output = args.source_root.resolve(strict=True), args.output.resolve()
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'source_root'
+
+hpc_runs/first_hit_control/reused_control.py:379: AttributeError
+_________ test_archive_is_prepared_without_restoring_or_running_models _________
+
+tmp_path = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/tmp/test_archive_is_prepared_witho0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f1c98b01180>
+
+    def test_archive_is_prepared_without_restoring_or_running_models(tmp_path, monkeypatch):
+        from hpc_runs.first_hit_control import stationary_cycle_audit as module
+        def forbidden(*args, **kwargs):
+            raise AssertionError("No actual policy construction/rollout is allowed during preparation")
+        monkeypatch.setattr(module, "StationaryReadout", forbidden)
+        monkeypatch.setattr(module, "audit_query", forbidden)
+>       result = prepare(tmp_path / "audit")
+
+hpc_runs/test_first_hit_stationary_cycle_audit.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+hpc_runs/first_hit_control/stationary_cycle_audit.py:140: in prepare
+    protocol, old, sources = validate_protocol()
+hpc_runs/first_hit_control/stationary_cycle_audit.py:129: in validate_protocol
+    if digest(ROOT / relative) != expected:
+hpc_runs/first_hit_control/neural.py:323: in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1126: in read_bytes
+    with self.open(mode='rb') as f:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return self._accessor.open(self, mode, buffering, encoding, errors,
+                                   newline)
+E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json'
+
+/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError
+=============================== warnings summary ===============================
+../SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:24
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+hpc_runs/test_first_hit_legacy_adapter.py: 1 warning
+hpc_runs/test_first_hit_replay_cli.py: 3 warnings
+hpc_runs/test_first_hit_runtime_eligibility.py: 10 warnings
+hpc_runs/test_first_hit_stationary_replay_cli.py: 9 warnings
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py:475: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
+
+hpc_runs/test_first_hit_replay_cli.py::test_actual_legacy_fit_reload_and_tamper_rejection
+hpc_runs/test_first_hit_replay_cli.py::test_restore_rejects_changed_arithmetic_and_corrupt_archive
+hpc_runs/test_first_hit_replay_fit.py::test_fit_changes_only_readout_and_keeps_replay_immutable
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_original_source_initialization_reload_clock_invariance_and_input_preservation
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_scripted_original_modules_are_leaf_trainable_and_targets_construct_fresh
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_restore_arithmetic_archive_and_objective_are_bound
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_fit_default_hook_is_numerically_identical_and_records_native_batch_stream
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML
+    warnings.warn("Can't initialize NVML")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests/results.xml -
+=========================== short test summary info ============================
+FAILED hpc_runs/test_first_hit_projected_grid.py::test_protocol_is_saved_before_dataset_construction
+FAILED hpc_runs/test_first_hit_projected_regression.py::test_protocol_reference_source_and_exact_old_settings
+FAILED hpc_runs/test_first_hit_projected_regression.py::test_reconstructed_rng_masks_match_observed_new_fit
+FAILED hpc_runs/test_first_hit_projected_regression.py::test_preparation_archives_before_fitting_and_refuses_overwrite
+FAILED hpc_runs/test_first_hit_reused_control.py::test_signature_dtype_and_native_guard
+FAILED hpc_runs/test_first_hit_stationary_cycle_audit.py::test_archive_is_prepared_without_restoring_or_running_models
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_actual_deadline_head_is_affine_before_zero_boundary
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_alternative_command_stops_before_original_target
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_goal_permutation_changes_only_goal_modulation_row
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_recorded_successor_uses_exact_ca3_and_physical_terminal
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_replay_td_updates_ignore_latent_node_labels
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_scripted_legacy_decoder_has_independent_trainable_target_path
+ERROR hpc_runs/test_first_hit_neural.py::NeuralFirstHitTests::test_sparse_history_disambiguates_identical_current_dg
+ERROR hpc_runs/test_first_hit_projected_grid.py::test_canonical_steps_preserve_wall_selfloops_and_replay_cuts
+ERROR hpc_runs/test_first_hit_projected_grid.py::test_latent_node_id_permutation_cannot_change_projected_updates
+ERROR hpc_runs/test_first_hit_projected_grid.py::test_paired_actual_initialization_batches_and_masks_are_identical
+ERROR hpc_runs/test_first_hit_projected_grid.py::test_all_queries_and_competing_first_denominators
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_competing_first_removes_goalblind_own_stop_artifact
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_discounted_same_goal_double_q_terminal_success_precedence
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_exact_original_classes_raw_outputs_and_no_added_head
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_factual_action_all_goals_and_initial_command_mask
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_full_goal_denominator_and_terminal_sparse_memoryless_bound
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_remaining_is_not_a_model_input_and_ca3_is_immutable
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_shortest_oracle_has_terminal_success_and_failure
+ERROR hpc_runs/test_first_hit_stationary.py::StationaryFirstHitTests::test_updates_ignore_latent_state_ids_and_scripted_target_is_trainable
+6 failed, 256 passed, 8 skipped, 32 warnings, 19 errors in 20.78s

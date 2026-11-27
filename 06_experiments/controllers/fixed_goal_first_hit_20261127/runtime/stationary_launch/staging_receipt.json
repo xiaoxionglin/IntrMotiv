@@ -1,0 +1,30 @@
+{
+  "schema": "intrmotiv/stationary-release-staging/v1",
+  "staged_utc": "2026-11-27T11:25:26.644024+00:00",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1",
+  "launch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1",
+  "source_file_count": 1437,
+  "overlay_file_count": 109,
+  "model_files_unchanged": 112,
+  "protected_engine_files_unchanged": 420,
+  "archive_sha256": "45b7d8100ef5a29fd2166b59ddedce79f68c9ecd33f6080db8fb9204de022c76",
+  "base_tree_sha256": "df7fe619aacb95435471f30991060d423e42794a30a92209896431a7b147c6ae",
+  "manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+  "launch_files_sha256": {
+    "release_manifest.json": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+    "verify_release.py": "84c393fff8ff1883ee38873461c8a70cae62eb51046ca43072b4e3a66556f510",
+    "qualification_probe.py": "dc4a845d27b95af94e9f37d0ff7f3a7a1af58461fe2bb51bac5459fadf97b498",
+    "qualification.sbatch": "e1ae2e3ce8f5fc0794078f82b38a2870bb51622e37ed5a5eb8cb417a9b7e98e9",
+    "rendered_plan.json": "35bc49093b9eb585a4635b3cdd0088990f293177d44b07eef797a5a31c295311",
+    "candidate_bundle.json": "ea4edc542afb75add0d6fa846dd83fb88f9e0b37f34cfd0dbe62f34575c5bce0"
+  },
+  "qualification_input_files_verified": 8,
+  "original_r3_unchanged": true,
+  "syntax_checked": true,
+  "workspace_fsync": true,
+  "workspace_available_bytes": 1345311399936,
+  "native_environment_created": false,
+  "jobs_submitted": []
+}

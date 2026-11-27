@@ -1,0 +1,260 @@
+{
+  "schema": "intrmotiv/stationary-main-launch-plan/v1",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "source_manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "qualification_job_id": "8950995",
+  "qualification_gate_sha256": "b9fd25c9eda2b99002f2ed5ff37d83a0d839043b7a3fb42032e6ff0e39e90db7",
+  "jobs": [
+    {
+      "logical_job": "main_fit",
+      "stage_id": "fit",
+      "script_filename": "main_fit.sbatch",
+      "script_sha256": "4795ed988c7e1715f217610343cb4f9fb528dbdc0aef9d73c5b131c0fd89dde6",
+      "script_text": "#!/bin/bash\n# Fixed stationary comparison; original main and reused source controls remain immutable.\n#SBATCH --job-name=fh_stationary_main_fit\n#SBATCH --partition=cpu\n#SBATCH --time=02:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=16G\n#SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\n#SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_%j.out\n#SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_%j.err\nset -euo pipefail\n: \"${SLURM_JOB_ID:?Run only as the reviewed ordinary Slurm compute job}\"\nworkspace=/work/classic/fr_xl1014-corridor-geometry\nsource_release=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\noutput_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1\nlaunch=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2\nsource_manifest=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json\npython=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python\nexport INTRMOTIV_WORKSPACE_ROOT=$workspace\nexport INTRMOTIV_RUNTIME_SOURCE=$source_release INTRMOTIV_RUNTIME_ROOT=$source_release\nexport PYTHONPATH=$source_release:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1\nexport PYTHONDONTWRITEBYTECODE=1\nexport OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1\nexport TMPDIR=$workspace/tmp/fh_stationary_${SLURM_JOB_ID}\nexport TMP=$TMPDIR TEMP=$TMPDIR\nexport XDG_CACHE_HOME=$output_root/cache MPLCONFIGDIR=$output_root/matplotlib\nexport DMLAB_CACHE_DIR=$output_root/dmlab_cache\nexport WANDB_DIR=$output_root/wandb WANDB_CACHE_DIR=$output_root/wandb_cache WANDB_DATA_DIR=$output_root/wandb_data WANDB_MODE=disabled\nexport TORCH_HOME=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch\nfor path in \"$source_release\" \"$output_root\" \"$launch\" \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\" \"$TORCH_HOME\"; do\n [[ \"$(readlink -m \"$path\")\" == \"$workspace\"/* ]] || exit 2\ndone\nmkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\"\ntest -s \"$TORCH_HOME/hub/checkpoints/resnet18-f37072fd.pth\"\ntest ! -e /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit\nmkdir -p \"$output_root/main_job_checks\"\ncd \"$source_release\"\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/main_fit_source_before.json\"\n\"$python\" \"$launch/qualification_gate.py\" \"$output_root\" > \"$output_root/main_job_checks/main_fit_qualification_gate.json\"\n# Exact canonical stage: fit\n/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.stationary_replay_cli --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --replay /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit --seed 99 --updates 30000 --batch-size 128 --horizon 256 --learning-rate 0.0003 --gamma 0.99 --threads 4 --device cpu --analysis-plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/main_fit_source_after.json\"\n",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 16,
+        "hours": 2
+      },
+      "depends_on_job_ids": [
+        "8950995"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.stationary_replay_cli",
+        "--source-root",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+        "--replay",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit",
+        "--seed",
+        "99",
+        "--updates",
+        "30000",
+        "--batch-size",
+        "128",
+        "--horizon",
+        "256",
+        "--learning-rate",
+        "0.0003",
+        "--gamma",
+        "0.99",
+        "--threads",
+        "4",
+        "--device",
+        "cpu",
+        "--analysis-plan",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json"
+      ],
+      "submission_command_template": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:8950995",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2/main_fit.sbatch"
+      ]
+    },
+    {
+      "logical_job": "evaluate_00",
+      "stage_id": "evaluation_sources_00",
+      "script_filename": "evaluate_00.sbatch",
+      "script_sha256": "7c1f7c57debcc3b00456a78a112e11402f5b747702e347e2da964489cd974a77",
+      "script_text": "#!/bin/bash\n# Fixed stationary comparison; original main and reused source controls remain immutable.\n#SBATCH --job-name=fh_stationary_evaluate_00\n#SBATCH --partition=cpu\n#SBATCH --time=08:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\n#SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_00_%j.out\n#SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_00_%j.err\nset -euo pipefail\n: \"${SLURM_JOB_ID:?Run only as the reviewed ordinary Slurm compute job}\"\nworkspace=/work/classic/fr_xl1014-corridor-geometry\nsource_release=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\noutput_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1\nlaunch=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2\nsource_manifest=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json\npython=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python\nexport INTRMOTIV_WORKSPACE_ROOT=$workspace\nexport INTRMOTIV_RUNTIME_SOURCE=$source_release INTRMOTIV_RUNTIME_ROOT=$source_release\nexport PYTHONPATH=$source_release:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1\nexport PYTHONDONTWRITEBYTECODE=1\nexport OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1\nexport TMPDIR=$workspace/tmp/fh_stationary_${SLURM_JOB_ID}\nexport TMP=$TMPDIR TEMP=$TMPDIR\nexport XDG_CACHE_HOME=$output_root/cache MPLCONFIGDIR=$output_root/matplotlib\nexport DMLAB_CACHE_DIR=$output_root/dmlab_cache\nexport WANDB_DIR=$output_root/wandb WANDB_CACHE_DIR=$output_root/wandb_cache WANDB_DATA_DIR=$output_root/wandb_data WANDB_MODE=disabled\nexport TORCH_HOME=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch\nfor path in \"$source_release\" \"$output_root\" \"$launch\" \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\" \"$TORCH_HOME\"; do\n [[ \"$(readlink -m \"$path\")\" == \"$workspace\"/* ]] || exit 2\ndone\nmkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\"\ntest -s \"$TORCH_HOME/hub/checkpoints/resnet18-f37072fd.pth\"\ntest ! -e /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00\nmkdir -p \"$output_root/main_job_checks\"\ncd \"$source_release\"\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_00_source_before.json\"\n\"$python\" \"$launch/qualification_gate.py\" \"$output_root\" > \"$output_root/main_job_checks/evaluate_00_qualification_gate.json\"\n# Exact canonical stage: evaluation_sources_00\n/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.reused_control --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --run-dir /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99 --checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth --checkpoint-sha256 f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38 --runfiles /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles --plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json --fitted /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit --baseline /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_00 --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00 --decision-cap 350000\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_00_source_after.json\"\n",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "depends_on_job_ids": [
+        "<actual_main_fit_job_id>",
+        "8950234"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.reused_control",
+        "--source-root",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+        "--run-dir",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+        "--checkpoint",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "--checkpoint-sha256",
+        "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+        "--runfiles",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles",
+        "--plan",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "--fitted",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit",
+        "--baseline",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_00",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+        "--decision-cap",
+        "350000"
+      ],
+      "submission_command_template": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:<actual_main_fit_job_id>:8950234",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2/evaluate_00.sbatch"
+      ]
+    },
+    {
+      "logical_job": "evaluate_01",
+      "stage_id": "evaluation_sources_01",
+      "script_filename": "evaluate_01.sbatch",
+      "script_sha256": "dabdb6ec5014f73d5eedc1feaf37d5ef19c3b0c6b1f64939fa65f825d23364a5",
+      "script_text": "#!/bin/bash\n# Fixed stationary comparison; original main and reused source controls remain immutable.\n#SBATCH --job-name=fh_stationary_evaluate_01\n#SBATCH --partition=cpu\n#SBATCH --time=08:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\n#SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_01_%j.out\n#SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_01_%j.err\nset -euo pipefail\n: \"${SLURM_JOB_ID:?Run only as the reviewed ordinary Slurm compute job}\"\nworkspace=/work/classic/fr_xl1014-corridor-geometry\nsource_release=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\noutput_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1\nlaunch=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2\nsource_manifest=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json\npython=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python\nexport INTRMOTIV_WORKSPACE_ROOT=$workspace\nexport INTRMOTIV_RUNTIME_SOURCE=$source_release INTRMOTIV_RUNTIME_ROOT=$source_release\nexport PYTHONPATH=$source_release:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1\nexport PYTHONDONTWRITEBYTECODE=1\nexport OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1\nexport TMPDIR=$workspace/tmp/fh_stationary_${SLURM_JOB_ID}\nexport TMP=$TMPDIR TEMP=$TMPDIR\nexport XDG_CACHE_HOME=$output_root/cache MPLCONFIGDIR=$output_root/matplotlib\nexport DMLAB_CACHE_DIR=$output_root/dmlab_cache\nexport WANDB_DIR=$output_root/wandb WANDB_CACHE_DIR=$output_root/wandb_cache WANDB_DATA_DIR=$output_root/wandb_data WANDB_MODE=disabled\nexport TORCH_HOME=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch\nfor path in \"$source_release\" \"$output_root\" \"$launch\" \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\" \"$TORCH_HOME\"; do\n [[ \"$(readlink -m \"$path\")\" == \"$workspace\"/* ]] || exit 2\ndone\nmkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\"\ntest -s \"$TORCH_HOME/hub/checkpoints/resnet18-f37072fd.pth\"\ntest ! -e /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01\nmkdir -p \"$output_root/main_job_checks\"\ncd \"$source_release\"\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_01_source_before.json\"\n\"$python\" \"$launch/qualification_gate.py\" \"$output_root\" > \"$output_root/main_job_checks/evaluate_01_qualification_gate.json\"\n# Exact canonical stage: evaluation_sources_01\n/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.reused_control --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --run-dir /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99 --checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth --checkpoint-sha256 f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38 --runfiles /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles --plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json --fitted /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit --baseline /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_01 --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01 --decision-cap 350000\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_01_source_after.json\"\n",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "depends_on_job_ids": [
+        "<actual_main_fit_job_id>",
+        "8950235"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.reused_control",
+        "--source-root",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+        "--run-dir",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+        "--checkpoint",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "--checkpoint-sha256",
+        "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+        "--runfiles",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles",
+        "--plan",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "--fitted",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit",
+        "--baseline",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_01",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+        "--decision-cap",
+        "350000"
+      ],
+      "submission_command_template": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:<actual_main_fit_job_id>:8950235",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2/evaluate_01.sbatch"
+      ]
+    },
+    {
+      "logical_job": "evaluate_02",
+      "stage_id": "evaluation_sources_02",
+      "script_filename": "evaluate_02.sbatch",
+      "script_sha256": "4e38b28f85405dfb818612ce5be40e7801268d3c82a8bc7e3f713134e9090afd",
+      "script_text": "#!/bin/bash\n# Fixed stationary comparison; original main and reused source controls remain immutable.\n#SBATCH --job-name=fh_stationary_evaluate_02\n#SBATCH --partition=cpu\n#SBATCH --time=08:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\n#SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_02_%j.out\n#SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_02_%j.err\nset -euo pipefail\n: \"${SLURM_JOB_ID:?Run only as the reviewed ordinary Slurm compute job}\"\nworkspace=/work/classic/fr_xl1014-corridor-geometry\nsource_release=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\noutput_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1\nlaunch=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2\nsource_manifest=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json\npython=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python\nexport INTRMOTIV_WORKSPACE_ROOT=$workspace\nexport INTRMOTIV_RUNTIME_SOURCE=$source_release INTRMOTIV_RUNTIME_ROOT=$source_release\nexport PYTHONPATH=$source_release:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1\nexport PYTHONDONTWRITEBYTECODE=1\nexport OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1\nexport TMPDIR=$workspace/tmp/fh_stationary_${SLURM_JOB_ID}\nexport TMP=$TMPDIR TEMP=$TMPDIR\nexport XDG_CACHE_HOME=$output_root/cache MPLCONFIGDIR=$output_root/matplotlib\nexport DMLAB_CACHE_DIR=$output_root/dmlab_cache\nexport WANDB_DIR=$output_root/wandb WANDB_CACHE_DIR=$output_root/wandb_cache WANDB_DATA_DIR=$output_root/wandb_data WANDB_MODE=disabled\nexport TORCH_HOME=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch\nfor path in \"$source_release\" \"$output_root\" \"$launch\" \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\" \"$TORCH_HOME\"; do\n [[ \"$(readlink -m \"$path\")\" == \"$workspace\"/* ]] || exit 2\ndone\nmkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\"\ntest -s \"$TORCH_HOME/hub/checkpoints/resnet18-f37072fd.pth\"\ntest ! -e /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02\nmkdir -p \"$output_root/main_job_checks\"\ncd \"$source_release\"\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_02_source_before.json\"\n\"$python\" \"$launch/qualification_gate.py\" \"$output_root\" > \"$output_root/main_job_checks/evaluate_02_qualification_gate.json\"\n# Exact canonical stage: evaluation_sources_02\n/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.reused_control --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --run-dir /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99 --checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth --checkpoint-sha256 f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38 --runfiles /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles --plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json --fitted /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit --baseline /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_02 --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02 --decision-cap 350000\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_02_source_after.json\"\n",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "depends_on_job_ids": [
+        "<actual_main_fit_job_id>",
+        "8950236"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.reused_control",
+        "--source-root",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+        "--run-dir",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+        "--checkpoint",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "--checkpoint-sha256",
+        "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+        "--runfiles",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles",
+        "--plan",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "--fitted",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit",
+        "--baseline",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_02",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+        "--decision-cap",
+        "350000"
+      ],
+      "submission_command_template": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:<actual_main_fit_job_id>:8950236",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2/evaluate_02.sbatch"
+      ]
+    },
+    {
+      "logical_job": "evaluate_03",
+      "stage_id": "evaluation_sources_03",
+      "script_filename": "evaluate_03.sbatch",
+      "script_sha256": "f7786d1b89c7a6125fdda065ec70d326a89cb0dcf4fca2c26eb1896f6febd4ce",
+      "script_text": "#!/bin/bash\n# Fixed stationary comparison; original main and reused source controls remain immutable.\n#SBATCH --job-name=fh_stationary_evaluate_03\n#SBATCH --partition=cpu\n#SBATCH --time=08:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=4\n#SBATCH --mem=8G\n#SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\n#SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_03_%j.out\n#SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_03_%j.err\nset -euo pipefail\n: \"${SLURM_JOB_ID:?Run only as the reviewed ordinary Slurm compute job}\"\nworkspace=/work/classic/fr_xl1014-corridor-geometry\nsource_release=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1\noutput_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1\nlaunch=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2\nsource_manifest=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json\npython=/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python\nexport INTRMOTIV_WORKSPACE_ROOT=$workspace\nexport INTRMOTIV_RUNTIME_SOURCE=$source_release INTRMOTIV_RUNTIME_ROOT=$source_release\nexport PYTHONPATH=$source_release:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1\nexport PYTHONDONTWRITEBYTECODE=1\nexport OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1\nexport TMPDIR=$workspace/tmp/fh_stationary_${SLURM_JOB_ID}\nexport TMP=$TMPDIR TEMP=$TMPDIR\nexport XDG_CACHE_HOME=$output_root/cache MPLCONFIGDIR=$output_root/matplotlib\nexport DMLAB_CACHE_DIR=$output_root/dmlab_cache\nexport WANDB_DIR=$output_root/wandb WANDB_CACHE_DIR=$output_root/wandb_cache WANDB_DATA_DIR=$output_root/wandb_data WANDB_MODE=disabled\nexport TORCH_HOME=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch\nfor path in \"$source_release\" \"$output_root\" \"$launch\" \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\" \"$TORCH_HOME\"; do\n [[ \"$(readlink -m \"$path\")\" == \"$workspace\"/* ]] || exit 2\ndone\nmkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$MPLCONFIGDIR\" \"$DMLAB_CACHE_DIR\" \"$WANDB_DIR\" \"$WANDB_CACHE_DIR\" \"$WANDB_DATA_DIR\"\ntest -s \"$TORCH_HOME/hub/checkpoints/resnet18-f37072fd.pth\"\ntest ! -e /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03\nmkdir -p \"$output_root/main_job_checks\"\ncd \"$source_release\"\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_03_source_before.json\"\n\"$python\" \"$launch/qualification_gate.py\" \"$output_root\" > \"$output_root/main_job_checks/evaluate_03_qualification_gate.json\"\n# Exact canonical stage: evaluation_sources_03\n/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.reused_control --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --run-dir /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99 --checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth --checkpoint-sha256 f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38 --runfiles /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles --plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json --fitted /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit --baseline /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_03 --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03 --decision-cap 350000\n\"$python\" \"$launch/verify_release.py\" \"$source_manifest\" 8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067 > \"$output_root/main_job_checks/evaluate_03_source_after.json\"\n",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "depends_on_job_ids": [
+        "<actual_main_fit_job_id>",
+        "8950237"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.reused_control",
+        "--source-root",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+        "--run-dir",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+        "--checkpoint",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "--checkpoint-sha256",
+        "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+        "--runfiles",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles",
+        "--plan",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "--fitted",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit",
+        "--baseline",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_03",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03",
+        "--decision-cap",
+        "350000"
+      ],
+      "submission_command_template": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:<actual_main_fit_job_id>:8950237",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2/evaluate_03.sbatch"
+      ]
+    }
+  ],
+  "jobs_submitted": false,
+  "gates": [
+    "Completed reviewed qualification",
+    "Parent review of concrete full-launch bundle",
+    "Each candidate shard depends on actual full-fit job and corresponding completed original shard"
+  ]
+}

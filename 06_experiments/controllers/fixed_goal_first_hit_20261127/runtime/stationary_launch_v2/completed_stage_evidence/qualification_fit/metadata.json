@@ -1,0 +1,436 @@
+{
+  "schema": "intrmotiv/fitted-first-hit-readout/v1",
+  "kind": "stationary_projected_first_hit",
+  "gamma": 0.99,
+  "bootstrap_projection": [
+    0.0,
+    1.0
+  ],
+  "fit": {
+    "schema": "intrmotiv/frozen-first-hit-fit/v1",
+    "config": {
+      "seed": 99,
+      "updates": 100,
+      "batch_size": 64,
+      "horizon": 64,
+      "learning_rate": 0.0003,
+      "target_update_period": 100,
+      "holdout_fraction": 0.1,
+      "log_every": 100
+    },
+    "transitions": 5000,
+    "training_transitions": 4100,
+    "holdout_transitions": 900,
+    "certified_training_successors": 4100,
+    "updates_without_usable_labels": 0,
+    "goal_labels_seen": 99460,
+    "enumerated_goal_labels": 102400,
+    "masked_goal_labels": 2940,
+    "usable_labels_by_goal": [
+      5631,
+      6266,
+      6291,
+      6288,
+      6394,
+      6255,
+      6255,
+      6242,
+      6312,
+      6194,
+      6261,
+      6135,
+      6250,
+      6263,
+      6283,
+      6140
+    ],
+    "batch_provenance": {
+      "factual_indices_sha256": "b84f8869b364bfd0f428f04b2199e5053c5b58636bc14f15f1b1288b77528a6c",
+      "consumed_deadlines_sha256": "babf96296a578411242c5667a0363927ac4b639b970a47b138ea45e35d703ed8",
+      "usable_masks_sha256": "d7702bf6a38c1c04bdec0ae2341c698f723659103fee1ad367c7b24cbfee6584",
+      "index_encoding": "C-order little-endian int64; concatenated update batches",
+      "mask_encoding": "C-order numpy bool [batch,goal]; concatenated update batches",
+      "train_indices_sha256": "53a9a98955638ed36dd632589067460cd9ba4190c7968c89e37156d4235bb903",
+      "holdout_indices_sha256": "1227ffb5bb6f93f86cb920f1c01e4cea108f97044322266d2e8d889f936425d5"
+    },
+    "trainable_parameters": 166405,
+    "initial_readout_sha256": "78e652cbc1296d654cb0b17eebab3c282cf2c311179d92fffbafe39aa012cef8",
+    "final_readout_sha256": "713eef4f29176490ff7ec65d3cd41ad4806c0061a80f42c663ee6adedb55bf32",
+    "seconds": 2.4268249860033393,
+    "trace": [
+      {
+        "update": 1,
+        "training_mse": 17.279218673706055,
+        "prediction_min": -3.030090570449829,
+        "prediction_max": 12.960148811340332,
+        "usable_goal_labels": 992
+      },
+      {
+        "update": 100,
+        "training_mse": 0.26831328868865967,
+        "prediction_min": -0.23191280663013458,
+        "prediction_max": 1.322218894958496,
+        "usable_goal_labels": 99460
+      }
+    ],
+    "holdout_diagnostic": {
+      "sampled_transitions": 900,
+      "usable_labels": 13996,
+      "td_mse": 0.0832105353474617
+    },
+    "interpretation": "Offline fitting diagnostics only; executed matched-goal control is required"
+  },
+  "input_files": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/replay.npz": "05d1e9df8993f0a8d22a035264a433cda66fa9c1ada65325633d50863226aa7b",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/decoder_state.pt": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/metadata.json": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6"
+  },
+  "analysis_plan": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+    "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+    "phase": "qualification",
+    "analysis_id": "stationary_projected_c05_s99_20261127",
+    "schema": "intrmotiv/reused-replay-control-plan/v1",
+    "workflow_version": "1.15.2",
+    "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "declared_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "canonical_workflow_version": "1.15.2"
+  },
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+  "protocol_sha256": "57fb46c8cd4e71fc31ccfd01bcb1ea98cf80af3b055c40c89cba4590c586a8da",
+  "checkpoint_sha256": "cf275b3446258f4e7fcae545d6211823a82b49143b622866773d25fc4a2963fb",
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_runtime_adapter.py",
+        "snapshot_path": "sources/0000/stationary_runtime_adapter.py",
+        "expected_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+        "snapshot_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_replay_cli.py",
+        "snapshot_path": "sources/0001/stationary_replay_cli.py",
+        "expected_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+        "snapshot_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py",
+        "snapshot_path": "sources/0002/replay_fit.py",
+        "expected_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+        "snapshot_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/eligibility.py",
+        "snapshot_path": "sources/0003/eligibility.py",
+        "expected_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+        "snapshot_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0004/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/detectors.py",
+        "snapshot_path": "sources/0005/detectors.py",
+        "expected_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "snapshot_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0006/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0007/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_cli.py",
+        "snapshot_path": "sources/0008/replay_cli.py",
+        "expected_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "snapshot_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/legacy_runtime_adapter.py",
+        "snapshot_path": "sources/0009/legacy_runtime_adapter.py",
+        "expected_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+        "snapshot_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_plan.py",
+        "snapshot_path": "sources/0010/reused_plan.py",
+        "expected_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+        "snapshot_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/analysis_plan.py",
+        "snapshot_path": "sources/0011/analysis_plan.py",
+        "expected_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "snapshot_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py",
+        "snapshot_path": "sources/0012/custom_core.py",
+        "expected_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "snapshot_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0013/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0014/action_parameterization.py",
+        "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/action_distributions.py",
+        "snapshot_path": "sources/0015/action_distributions.py",
+        "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/model_utils.py",
+        "snapshot_path": "sources/0016/model_utils.py",
+        "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/decoder.py",
+        "snapshot_path": "sources/0017/decoder.py",
+        "expected_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/torch_utils.py",
+        "snapshot_path": "sources/0018/torch_utils.py",
+        "expected_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "snapshot_path": "sources/0019/stationary_projected_c05_s99_20261127.analysis.json",
+        "expected_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+        "snapshot_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "source_snapshot_manifest_sha256": "a9094c9a9619c222ce45232f419a7706c4c6ab6bf47ee90321018c63618645fd",
+  "source_initialization": {
+    "verified": true,
+    "decoder_class": "MlpDecoderJit",
+    "action_head_class": "ActionParameterizationDefault",
+    "decoder_state_sha256": "bb117bbb4c456dafde1132b2bdf2f6688fd49812bbf9d2bbec696f62c29b48e8",
+    "action_head_state_sha256": "4a0cc5e34ce7a16fe16aa83b302ec793746353933b8819ae8f796c242cc9b62e",
+    "action_head_class_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+    "action_distributions_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+    "trainable_parameters": 166405
+  },
+  "initialization_sha256": "a66a105385b82034cc36e8f8199701568ae1d5a4effe7310fc3743566b2b1597",
+  "primary_detector": "winner",
+  "goal_positive_observations": {
+    "winner": [
+      550,
+      133,
+      86,
+      106,
+      2,
+      125,
+      112,
+      130,
+      89,
+      158,
+      104,
+      184,
+      121,
+      111,
+      86,
+      205
+    ],
+    "exclusive": [
+      540,
+      132,
+      85,
+      106,
+      0,
+      124,
+      112,
+      127,
+      86,
+      143,
+      104,
+      172,
+      120,
+      108,
+      76,
+      192
+    ]
+  },
+  "current_winner_rows_by_goal": {
+    "all_replay": [
+      549,
+      131,
+      86,
+      106,
+      8,
+      125,
+      112,
+      130,
+      89,
+      158,
+      104,
+      184,
+      120,
+      111,
+      86,
+      205
+    ],
+    "train": [
+      480,
+      91,
+      72,
+      78,
+      7,
+      97,
+      91,
+      102,
+      74,
+      146,
+      85,
+      160,
+      92,
+      91,
+      68,
+      166
+    ],
+    "holdout": [
+      69,
+      40,
+      14,
+      28,
+      1,
+      28,
+      21,
+      28,
+      15,
+      12,
+      19,
+      24,
+      28,
+      20,
+      18,
+      39
+    ]
+  },
+  "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "collection_evaluation_overrides": {
+    "dmlab_use_level_cache": false,
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/cache",
+    "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+    "online_spatial_telemetry": false,
+    "with_wandb": false,
+    "transfer_freeze_dg": true
+  },
+  "source_run": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+  "layout": {
+    "width": 1165,
+    "goal_start": 1149,
+    "goals": 16
+  },
+  "replay_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay",
+  "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1"
+}

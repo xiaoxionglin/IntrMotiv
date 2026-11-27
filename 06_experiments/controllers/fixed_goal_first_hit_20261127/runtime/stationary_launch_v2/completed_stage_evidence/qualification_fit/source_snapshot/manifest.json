@@ -1,0 +1,125 @@
+{
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "bytes": 5873,
+      "sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+      "snapshot_path": "sources/0000/stationary_runtime_adapter.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_runtime_adapter.py"
+    },
+    {
+      "bytes": 19654,
+      "sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+      "snapshot_path": "sources/0001/stationary_replay_cli.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_replay_cli.py"
+    },
+    {
+      "bytes": 11883,
+      "sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+      "snapshot_path": "sources/0002/replay_fit.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py"
+    },
+    {
+      "bytes": 9106,
+      "sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+      "snapshot_path": "sources/0003/eligibility.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/eligibility.py"
+    },
+    {
+      "bytes": 8637,
+      "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "snapshot_path": "sources/0004/runtime_adapter.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py"
+    },
+    {
+      "bytes": 1124,
+      "sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+      "snapshot_path": "sources/0005/detectors.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/detectors.py"
+    },
+    {
+      "bytes": 5491,
+      "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "snapshot_path": "sources/0006/targets.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/targets.py"
+    },
+    {
+      "bytes": 4523,
+      "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0007/provenance.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/provenance.py"
+    },
+    {
+      "bytes": 12165,
+      "sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+      "snapshot_path": "sources/0008/replay_cli.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_cli.py"
+    },
+    {
+      "bytes": 2828,
+      "sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+      "snapshot_path": "sources/0009/legacy_runtime_adapter.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/legacy_runtime_adapter.py"
+    },
+    {
+      "bytes": 13619,
+      "sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+      "snapshot_path": "sources/0010/reused_plan.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_plan.py"
+    },
+    {
+      "bytes": 26379,
+      "sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+      "snapshot_path": "sources/0011/analysis_plan.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/analysis_plan.py"
+    },
+    {
+      "bytes": 111744,
+      "sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+      "snapshot_path": "sources/0012/custom_core.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py"
+    },
+    {
+      "bytes": 1105,
+      "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+      "snapshot_path": "sources/0013/custom_decoder.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py"
+    },
+    {
+      "bytes": 3176,
+      "sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+      "snapshot_path": "sources/0014/action_parameterization.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py"
+    },
+    {
+      "bytes": 12169,
+      "sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+      "snapshot_path": "sources/0015/action_distributions.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/action_distributions.py"
+    },
+    {
+      "bytes": 1980,
+      "sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+      "snapshot_path": "sources/0016/model_utils.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/model_utils.py"
+    },
+    {
+      "bytes": 1286,
+      "sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+      "snapshot_path": "sources/0017/decoder.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/decoder.py"
+    },
+    {
+      "bytes": 1741,
+      "sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+      "snapshot_path": "sources/0018/torch_utils.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/torch_utils.py"
+    },
+    {
+      "bytes": 15819,
+      "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+      "snapshot_path": "sources/0019/stationary_projected_c05_s99_20261127.analysis.json",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json"
+    }
+  ]
+}

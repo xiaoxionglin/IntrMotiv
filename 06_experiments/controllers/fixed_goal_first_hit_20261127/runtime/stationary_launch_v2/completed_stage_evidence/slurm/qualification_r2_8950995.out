@@ -1,0 +1,46 @@
+{"source_files_unchanged": 1437, "qualification_input_files_unchanged": 8, "native_model_files_unchanged": 112}
+.....................................................................................................{"update": 1, "training_mse": 0.3540373146533966, "prediction_min": -0.15603259205818176, "prediction_max": 0.14104920625686646, "usable_goal_labels": 12}
+{"update": 3, "training_mse": 0.31198737025260925, "prediction_min": -0.15200980007648468, "prediction_max": 0.14368191361427307, "usable_goal_labels": 36}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/tmp/test_actual_legacy_fit_reload_0/fit", "reload_exact": true, "fit_seconds": 0.01266384101472795}
+.{"update": 1, "training_mse": 0.3387562334537506, "prediction_min": -0.05523577332496643, "prediction_max": 0.0660271942615509, "usable_goal_labels": 12}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/tmp/test_restore_rejects_changed_a0/fit", "reload_exact": true, "fit_seconds": 0.00513267598580569}
+.................................................................{"update": 1, "training_mse": 0.2997978627681732, "prediction_min": 0.041867196559906006, "prediction_max": 0.0871688574552536, "usable_goal_labels": 12}
+{"update": 3, "training_mse": 0.28289440274238586, "prediction_min": 0.04380505532026291, "prediction_max": 0.08862165361642838, "usable_goal_labels": 36}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/tmp/test_original_source_initializ0/fit", "reload_exact": true, "fit_seconds": 0.009520965977571905}
+......{"update": 1, "training_mse": 0.2997978627681732, "prediction_min": 0.041867196559906006, "prediction_max": 0.0871688574552536, "usable_goal_labels": 12}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/tmp/test_restore_arithmetic_archiv0/fit", "reload_exact": true, "fit_seconds": 0.005033646943047643}
+..............{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/tmp/test_file_entry_verifies_hash_0/report", "rows": 6, "train_goals_without_positive": []}
+...........................................................
+=============================== warnings summary ===============================
+../SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:24
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:24: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+
+../SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    import pkg_resources
+
+hpc_runs/test_first_hit_legacy_adapter.py: 1 warning
+hpc_runs/test_first_hit_replay_cli.py: 3 warnings
+hpc_runs/test_first_hit_runtime_eligibility.py: 10 warnings
+hpc_runs/test_first_hit_stationary_replay_cli.py: 9 warnings
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py:475: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    log.warn("USING SIMPLESEQUENCEWITHBYPASSCORE")
+
+hpc_runs/test_first_hit_replay_cli.py::test_actual_legacy_fit_reload_and_tamper_rejection
+hpc_runs/test_first_hit_replay_cli.py::test_restore_rejects_changed_arithmetic_and_corrupt_archive
+hpc_runs/test_first_hit_replay_fit.py::test_fit_changes_only_readout_and_keeps_replay_immutable
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_original_source_initialization_reload_clock_invariance_and_input_preservation
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_scripted_original_modules_are_leaf_trainable_and_targets_construct_fresh
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_restore_arithmetic_archive_and_objective_are_bound
+hpc_runs/test_first_hit_stationary_replay_cli.py::test_fit_default_hook_is_numerically_identical_and_records_native_batch_stream
+  /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML
+    warnings.warn("Can't initialize NVML")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/results.xml -
+246 passed, 32 warnings in 15.58s
+/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/runfiles
+{"update": 1, "training_mse": 17.279218673706055, "prediction_min": -3.030090570449829, "prediction_max": 12.960148811340332, "usable_goal_labels": 992}
+{"update": 100, "training_mse": 0.26831328868865967, "prediction_min": -0.23191280663013458, "prediction_max": 1.322218894958496, "usable_goal_labels": 99460}
+{"output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit", "reload_exact": true, "fit_seconds": 2.4268249860033393}

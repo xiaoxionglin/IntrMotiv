@@ -1,0 +1,19 @@
+{
+  "schema": "intrmotiv/stationary-qualification-submission/v1",
+  "submitted_utc": "2026-11-27T11:27:05.599264+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/qualification.sbatch"
+  ],
+  "job_id": "8950976",
+  "script_sha256": "e1ae2e3ce8f5fc0794078f82b38a2870bb51622e37ed5a5eb8cb417a9b7e98e9",
+  "manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "sbatch_stdout": "8950976\n",
+  "sbatch_stderr": "",
+  "scheduler_receipt": "JobId=8950976 JobName=fh_stationary_q1 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:27:05 EligibleTime=2026-11-27T12:27:05 AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:27:05 Scheduler=Main Partition=cpu AllocNode:Sid=login1:766333 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=16G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=16G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/qualification.sbatch SubmitLine=sbatch --parsable /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/qualification.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/qualification_8950976.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/qualification_8950976.out TresPerTask=cpu=4\n",
+  "scheduler_check_returncode": 0,
+  "no_automatic_retries": true
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "intrmotiv/reused-assets-renderer-correction/v1",
+  "created_utc": "2026-11-27T11:40:04.680056+00:00",
+  "source_release_unchanged": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "production_source_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "plan_unchanged_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "renderer_sha256": "34f576aa6f8a1e69b81801c63f1c9eb8b9d9338e4bd5d22ffd177e4a5ccebd86",
+  "native_code_changed": false,
+  "model_objective_or_budget_changed": false,
+  "new_collection": false,
+  "tests": {
+    "passed": 46,
+    "failed": 0,
+    "seconds": 1.75,
+    "command": "/home/xiaoxiong/miniforge3/envs/SF_git/bin/python -m pytest -q hpc_runs/test_first_hit_reused_plan.py hpc_runs/test_first_hit_reused_control.py hpc_runs/test_first_hit_dmlab_evaluate.py"
+  },
+  "completed_stages_reused": "246 tests, cached-start probe, and100-update qualification fit from failed job8950995; no rerun",
+  "correction": "Render phase-specific original runfiles paths from declared replay roots and omit redundant asset construction. Native configuration guard remains unchanged."
+}

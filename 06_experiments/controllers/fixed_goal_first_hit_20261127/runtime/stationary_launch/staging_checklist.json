@@ -1,0 +1,56 @@
+{
+  "schema": "intrmotiv/stationary-deployment-checklist/v1",
+  "phase": "staged-awaiting-root-review",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "source_baseline": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+  "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1",
+  "plan_file_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "repository_artifacts_sha256": {
+    "hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json": "e15578b497bbd5d7853fe041e34687bfcc1b0f17bbeac4e939bc28f7f6ac2a30",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_launch/source_release.json": "9458f464f83e2e4483160b84ace393634b68ad7fbd8d418732414b91786c7b4e",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/qualification_protocol.json": "84713af0554afe27503c4592f22c05bcf8c0a32d75189f6f9cac15c99430f310",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/results.json": "edfe2acb6d3a114afe0e2a732026ae695fdce353dbe3eb26415f7f8579de0eaa",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/results.json": "b00c51fc487de68fd4ac03c267c23b235bfcb3b1569363221e73f0af11a392b0",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_cycle_audit_protocol.json": "c7d4664b2864276bd5496154efabf30cd695ad8b0f08d458024a9be3096ce301",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_cycle_audit_r1/results.json": "328a3e13a75beec6ec9647593511f9c411e205c143fdee6acd165b0983ddef30",
+    "hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+    "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json": "38c2dea231c07e0cbae1a9de7fb7bc6e392a98fdf1650c1fe605146f21258228"
+  },
+  "committed_overlay_selection": [
+    "hpc_runs/first_hit_control/",
+    "hpc_runs/intrmotiv_study/",
+    "hpc_runs/test_first_hit_*.py",
+    "hpc_runs/test_intrmotiv_study.py (existing fixture closure inherited from r3; verify before tests)",
+    "all exact repository_artifacts_sha256 references"
+  ],
+  "base_copy_requirements": [
+    "All unchanged r3 baseline source including sf_shared and canonical evaluator",
+    "Original donor model directory: 112 Python files byte identical",
+    "Original action_parameterization and action_distributions/model_utils/decoder/torch_utils source bytes",
+    "Original dmlab_evaluate.py, detectors.py, native source/prefix callback semantics match baseline source_snapshot"
+  ],
+  "qualification_order": [
+    "Archive only the root-approved frozen commit; never the mutable working tree",
+    "Copy r3 into a fresh candidate source; overlay committed selected files; hash every file; fsync",
+    "Render exact commands through reused_plan; record plan/file/source/script hashes",
+    "Review ordinary allocated CPU4 RAM16GB 1h qualification script before submission",
+    "In compute allocation: focused pure tests, source-first actual imports, canonical validate/render/runfiles",
+    "Fit 100 updates on qualified 5k replay; do not pool with main or reuse qualification weights later",
+    "Run only source2 seed31003 retained20-action prefix commands0/1 H64 candidate paths (cap4096)",
+    "Verify complete denominator, exactly zero collection/discovery/source-policy action trials, all start/frozen/source/config/checkpoint checks and durable completed-block journal",
+    "After success, parent separately reviews full fit and four candidate shard scripts with fit+original-shard dependencies"
+  ],
+  "source_first_environment": [
+    "INTRMOTIV_RUNTIME_SOURCE=<new-source>",
+    "INTRMOTIV_RUNTIME_ROOT=<new-source>",
+    "PYTHONPATH=<new-source>:<torch-overlay>:<terminal-binding>",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "All caches/temp/logs/artifacts under allocated /work workspace"
+  ],
+  "new_releases_staged": true,
+  "jobs_submitted": false,
+  "changes_to_original_main_jobs": false,
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb"
+}

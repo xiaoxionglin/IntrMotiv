@@ -1,0 +1,34 @@
+{
+  "schema": "intrmotiv/stationary-partial-qualification/v1",
+  "job_id": "8950995",
+  "job_state": "FAILED",
+  "exit_code": "1:0",
+  "passed_stages": [
+    "246 pure tests",
+    "source-first canonical import and retained20-prefix probe",
+    "100-update original-head fit and exact reload"
+  ],
+  "failed_stage": "native entry effective configuration guard",
+  "native_environment_created": false,
+  "native_output_exists": false,
+  "exception": "Evaluation overrides differ from frozen replay collection",
+  "cause": "Runfiles absolute path changed; guard permits only cache path relocation",
+  "source_integrity_after_failed_job": {
+    "source_files_unchanged": 1437,
+    "qualification_input_files_unchanged": 8,
+    "native_model_files_unchanged": 112
+  },
+  "files_sha256": {
+    "qualification_tests_r2/pytest.txt": "8b0794e19a6e8617c8ff3fe0585a21202d10521819d16b535e26178eb7c8118f",
+    "qualification_tests_r2/results.xml": "d2d722e2e0674c545333a9de7e7920a749f7a513c6d87194733c693a3e9786d2",
+    "qualification_tests_r2/source_before.json": "baee2b21c7f96e2fe2aa15db3197dd09fa3437fd014d0d5b02f7927867f1a069",
+    "qualification_tests_r2/probe.json": "e4696280426a2580787ae8a14de7db746f1b74eca73be1a364a898347a17a330",
+    "qualification_tests_r2/validation.json": "25f8832d20ef59f4a7dc98c3555662863ae8bbf8a1e23ff19aa49a989f64f186",
+    "qualification_fit/metadata.json": "12e18b9c82492dbd61c03094b8eae39287d536da7e6f51087880ae8959c656b1",
+    "qualification_fit/source_snapshot/manifest.json": "a9094c9a9619c222ce45232f419a7706c4c6ab6bf47ee90321018c63618645fd",
+    "runfiles/provenance.json": "cad0398c22c105e627445c3cfbde3261799bba2a501f1c8a2e5cffdaf79dce46",
+    "slurm/qualification_r2_8950995.out": "4deacfcf5a6aee61173a3ffeb1b652b2704356e40fa96375d6645fbbf0695663",
+    "slurm/qualification_r2_8950995.err": "d82b126976a2556d193a6d1a50e55e85eeb539418d9848f6fa5b1fbfc8bedbbe"
+  },
+  "automatic_retry": false
+}

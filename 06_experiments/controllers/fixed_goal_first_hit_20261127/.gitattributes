@@ -4,3 +4,6 @@
 **/source_snapshot/** -text -whitespace
 *.csv -text whitespace=cr-at-eol
 *.svg -text -whitespace
+# Captured pytest/JUnit failure traces contain upstream diagnostic whitespace.
+runtime/**/pytest.txt -text -whitespace
+runtime/**/results.xml -text -whitespace

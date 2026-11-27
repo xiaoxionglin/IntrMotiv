@@ -26,7 +26,8 @@ def test_real_parent_study_and_complete_reused_query_budget():
     rendered = render_commands(plan, check)
     stages = {stage["stage_id"]: stage for stage in rendered["stages"]}
     assert rendered["print_only"] and not rendered["jobs_submitted"]
-    assert len(stages) == 8
+    assert len(stages) == 7
+    assert "runfiles" not in stages
     assert sum(stage["native_environment"] for stage in stages.values()) == 5
     assert all("collector" not in stage["argv"][2] for stage in stages.values())
     for index in range(4):
@@ -34,6 +35,11 @@ def test_real_parent_study_and_complete_reused_query_budget():
         assert f"completed_main_shard_{index:02d}" in stage["depends_on"]
         assert "--baseline" in stage["argv"] and "--plan" in stage["argv"]
         assert "--discovery-episodes" not in stage["argv"]
+        assert stage["argv"][stage["argv"].index("--runfiles") + 1] == str(
+            Path(plan["replay"]["directory"]).parent / "runfiles")
+    qualification = stages["qualification_evaluate"]["argv"]
+    assert qualification[qualification.index("--runfiles") + 1] == str(
+        Path(plan["qualification"]["replay"]).parent / "runfiles")
     assert "reviewed_native_qualification" in stages["fit"]["depends_on"]
     assert "--analysis-plan" in stages["fit"]["argv"]
 

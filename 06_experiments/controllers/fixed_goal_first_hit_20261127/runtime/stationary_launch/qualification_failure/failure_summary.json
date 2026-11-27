@@ -1,0 +1,556 @@
+{
+  "schema": "intrmotiv/stationary-qualification-test-failure/v1",
+  "job_id": "8950976",
+  "fit_output_exists": false,
+  "native_output_exists": false,
+  "tests": [
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_actual_deadline_head_is_affine_before_zero_boundary",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_alternative_command_stops_before_original_target",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_goal_permutation_changes_only_goal_modulation_row",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_recorded_successor_uses_exact_ca3_and_physical_terminal",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_replay_td_updates_ignore_latent_node_labels",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_scripted_legacy_decoder_has_independent_trainable_target_path",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_neural.NeuralFirstHitTests::test_sparse_history_disambiguates_identical_current_dg",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'\"",
+      "trace_tail": [
+        "                    path, name = split(path)",
+        "                    if name == pardir:",
+        "                        path = join(path, pardir, pardir)",
+        "                else:",
+        "                    path = pardir",
+        "                continue",
+        "            newpath = join(path, name)",
+        "            try:",
+        ">               st = os.lstat(newpath)",
+        "E               FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/posixpath.py:431: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_grid::test_canonical_steps_preserve_wall_selfloops_and_replay_cuts",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_grid::test_latent_node_id_permutation_cannot_change_projected_updates",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_grid::test_paired_actual_initialization_batches_and_masks_are_identical",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_grid::test_all_queries_and_competing_first_denominators",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_grid::test_protocol_is_saved_before_dataset_construction",
+      "kind": "failure",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_regression::test_protocol_reference_source_and_exact_old_settings",
+      "kind": "failure",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_regression::test_reconstructed_rng_masks_match_observed_new_fit",
+      "kind": "failure",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_projected_regression::test_preparation_archives_before_fitting_and_refuses_overwrite",
+      "kind": "failure",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_regression_protocol.json'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_reused_control::test_signature_dtype_and_native_guard",
+      "kind": "failure",
+      "message": "AttributeError: 'types.SimpleNamespace' object has no attribute 'source_root'",
+      "trace_tail": [
+        "        import os",
+        "        import sys",
+        "    ",
+        "        if not os.environ.get(\"SLURM_JOB_ID\"):",
+        "            raise RuntimeError(\"Candidate native evaluation requires an allocated NEMO Slurm job\")",
+        "        workspace = Path(os.environ.get(\"INTRMOTIV_WORKSPACE_ROOT\", \"/work/classic/fr_xl1014-corridor-geometry\")).resolve()",
+        "        if not str(workspace).startswith(\"/work/\"):",
+        "            raise ValueError(\"Native outputs must be in the allocated /work workspace\")",
+        ">       source_root, output = args.source_root.resolve(strict=True), args.output.resolve()",
+        "E       AttributeError: 'types.SimpleNamespace' object has no attribute 'source_root'",
+        "",
+        "hpc_runs/first_hit_control/reused_control.py:379: AttributeError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_competing_first_removes_goalblind_own_stop_artifact",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_discounted_same_goal_double_q_terminal_success_precedence",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_exact_original_classes_raw_outputs_and_no_added_head",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_factual_action_all_goals_and_initial_command_mask",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_full_goal_denominator_and_terminal_sparse_memoryless_bound",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_remaining_is_not_a_model_input_and_ca3_is_immutable",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_shortest_oracle_has_terminal_success_and_failure",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary.StationaryFirstHitTests::test_updates_ignore_latent_state_ids_and_scripted_target_is_trainable",
+      "kind": "error",
+      "message": "failed on setup with \"FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'\"",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_stationary_cycle_audit::test_archive_is_prepared_without_restoring_or_running_models",
+      "kind": "failure",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json'",
+      "trace_tail": [
+        "             errors=None, newline=None):",
+        "        \"\"\"",
+        "        Open the file pointed by this path and return a file object, as",
+        "        the built-in open() function does.",
+        "        \"\"\"",
+        "        if \"b\" not in mode:",
+        "            encoding = io.text_encoding(encoding)",
+        ">       return self._accessor.open(self, mode, buffering, encoding, errors,",
+        "                                   newline)",
+        "E       FileNotFoundError: [Errno 2] No such file or directory: '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json'",
+        "",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/pathlib.py:1119: FileNotFoundError"
+      ]
+    }
+  ],
+  "skips": [
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_alternation_initial_history_is_observationally_ambiguous",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:88: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_conditional_actions_are_not_diluted_by_behavior_policy",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:32: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_delayed_cue_expires_from_finite_ca3",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:76: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_event_and_reset_labels_are_never_agent_actions",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:59: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_invalid_outcome_probability_is_rejected",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:64: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_sensory_goal_identity_does_not_reveal_latent_node",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:51: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_terminal_outgoing_edge_is_rejected",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:70: GeoMem source not present"
+      ]
+    },
+    {
+      "test": "hpc_runs.test_first_hit_geomem.FirstHitGeoMemTests::test_unavailable_actions_stay_zero_and_masked",
+      "kind": "skipped",
+      "message": "GeoMem source not present",
+      "trace_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/test_first_hit_geomem.py:43: GeoMem source not present"
+      ]
+    }
+  ],
+  "files_sha256": {
+    "qualification_tests/pytest.txt": "f3cb6c5ff7219b7f36789dc681a14f4a702fcb8474cde27a7f0b3e863cf7e9b7",
+    "qualification_tests/results.xml": "d317d4c384c98978a69e01efa05202c3c2b9a900f2670efc45e635bab2e55cb2",
+    "qualification_tests/source_before.json": "baee2b21c7f96e2fe2aa15db3197dd09fa3437fd014d0d5b02f7927867f1a069",
+    "slurm/qualification_8950976.err": "b06ed491f6e271117a002e0f1a5ce2898dfca58e770b0712dc510266e4b1f0e7"
+  },
+  "retry_submitted": false
+}

@@ -158,9 +158,12 @@ def render_commands(plan, validation):
         argv = [python, "-m", "hpc_runs.first_hit_control." + module, *map(str, argv)]
         stages.append(dict(stage_id=name, argv=argv, shell_display=shlex.join(argv),
             depends_on=dependencies, output=str(destination), native_environment=native))
-    stages.append(dict(stage_id="runfiles", argv=[python, "-m", "hpc_runs.intrmotiv_study.runfiles",
-        "--source", release, "--output", str(output / "runfiles")], depends_on=[],
-        output=str(output / "runfiles"), native_environment=False))
+    # The strict replay/config contract includes the original runfiles path.
+    # Reusing replay therefore also reuses its phase-specific native assets;
+    # rebuilding equivalent files under the new output would violate that
+    # contract before any environment is created.
+    qualification_assets = PurePosixPath(plan["qualification"]["replay"]).parent / "runfiles"
+    main_assets = PurePosixPath(plan["replay"]["directory"]).parent / "runfiles"
     for name, replay, settings, horizon, dependencies in (
         ("qualification_fit", plan["qualification"]["replay"], plan["qualification"], 64, ["certified_qualification_replay"]),
         ("fit", plan["replay"]["directory"], fit, fit["horizon"], ["reviewed_native_qualification", "certified_main_replay"])):
@@ -171,22 +174,24 @@ def render_commands(plan, validation):
             "--analysis-plan", plan_path],
             dependencies, output / name)
     common = ["--source-root", release, "--run-dir", donor["run_dir"], "--checkpoint", donor["checkpoint"],
-              "--checkpoint-sha256", donor["checkpoint_sha256"], "--runfiles", output / "runfiles", "--plan", plan_path]
+              "--checkpoint-sha256", donor["checkpoint_sha256"], "--plan", plan_path]
     stage("qualification_evaluate", "reused_control", common + ["--fitted", output / "qualification_fit",
         "--baseline", plan["qualification"]["source_evaluation"], "--output", output / "qualification_evaluation",
-        "--decision-cap", plan["qualification"]["decision_cap"]], ["runfiles", "qualification_fit", "completed_nonempty_prefix_baseline"],
+        "--runfiles", qualification_assets, "--decision-cap", plan["qualification"]["decision_cap"]],
+        ["certified_qualification_assets", "qualification_fit", "completed_nonempty_prefix_baseline"],
         output / "qualification_evaluation", True)
     for index, sources in enumerate(plan["evaluation"]["source_shards"]):
         name = f"evaluation_sources_{index:02d}"
         stage(name, "reused_control", common + ["--fitted", output / "fit", "--baseline",
             PurePosixPath(plan["parent_analysis"]["output"]) / name, "--output", output / name,
-            "--decision-cap", plan["evaluation"]["decision_cap_per_shard"]],
-            ["runfiles", "fit", f"completed_main_shard_{index:02d}"], output / name, True)
+            "--runfiles", main_assets, "--decision-cap", plan["evaluation"]["decision_cap_per_shard"]],
+            ["certified_main_assets", "fit", f"completed_main_shard_{index:02d}"], output / name, True)
     return dict(schema="intrmotiv/reused-control-rendered-plan/v1", print_only=True,
         jobs_submitted=False, validation=validation, working_directory=release, stages=stages,
         launcher_requirements=["Ordinary allocated Slurm jobs; all caches/logs/temp/data in declared workspace",
             "Review exact immutable source release and print-only arguments before submission",
             "Candidate evaluations depend on successful fit and completed corresponding original shard",
+            "Reuse each replay phase's original runfiles path; the native configuration guard verifies it against fitted metadata",
             "No original-policy execution, discovery, collection, or unreviewed automatic retries"])
 
 

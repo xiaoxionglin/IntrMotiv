@@ -257,11 +257,14 @@ def test_old_summary_hash_and_candidate_donor_mismatch_rejected(artifacts):
         read_reused_shard(directory)
 
 
-def test_signature_dtype_and_native_guard():
+def test_signature_dtype_and_native_guard(monkeypatch):
     signature = dict(obs=torch.tensor([1]), __state=torch.ones(1), __position=torch.zeros(3), __rotation=torch.zeros(3))
     assert signature_hash(signature) != signature_hash(dict(signature, __state=torch.ones(1, dtype=torch.float64)))
     with pytest.raises(ValueError, match="full recurrent"):
         signature_hash(dict(obs=torch.tensor([1])))
+    # Exercise allocation absence even when this pure unit test itself runs
+    # inside an allocated qualification job.
+    monkeypatch.delenv("SLURM_JOB_ID", raising=False)
     with pytest.raises(RuntimeError, match="allocated NEMO"):
         run_on_nemo(SimpleNamespace())
     plan = {"runtime": {"source_release": "fixed_release"}}

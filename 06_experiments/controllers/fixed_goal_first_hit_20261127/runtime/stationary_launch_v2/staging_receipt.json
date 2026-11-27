@@ -1,0 +1,27 @@
+{
+  "schema": "intrmotiv/stationary-qualification-launch-staging/v2",
+  "staged_utc": "2026-11-27T11:33:45.932411+00:00",
+  "launch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v2",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "source_manifest": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json",
+    "sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067"
+  },
+  "files_sha256": {
+    "qualification.sbatch": "cf7c25787093081b9a5cf888fb40cb90c3452966a3a51512999b41d9cfbf916e",
+    "verify_release.py": "84c393fff8ff1883ee38873461c8a70cae62eb51046ca43072b4e3a66556f510",
+    "qualification_probe.py": "dc4a845d27b95af94e9f37d0ff7f3a7a1af58461fe2bb51bac5459fadf97b498",
+    "launch_manifest.json": "3c3afac3ebda39bfd591ef7e5fd15af979beff67921e87ed9918e4de39777f6a"
+  },
+  "source_integrity_after_failed_job": {
+    "source_files_unchanged": 1437,
+    "qualification_input_files_unchanged": 8,
+    "native_model_files_unchanged": 112
+  },
+  "source_or_plan_changed": false,
+  "expected_tests": 246,
+  "old_launch_and_failed_outputs_preserved": true,
+  "workspace_fsync": true,
+  "syntax_checked": true,
+  "jobs_submitted": []
+}
