@@ -1,0 +1,143 @@
+{
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "bytes": 32426,
+      "sha256": "38d7538dca5e4eb025465513ec6198747f836bb0600b3a2f4ac100c03704872d",
+      "snapshot_path": "sources/0000/reused_control.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_control.py"
+    },
+    {
+      "bytes": 13619,
+      "sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+      "snapshot_path": "sources/0001/reused_plan.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_plan.py"
+    },
+    {
+      "bytes": 37270,
+      "sha256": "36c9b09d59df54c7ee4249362a2784d4df00c2bb02104b36879b1ca2a39d1dbc",
+      "snapshot_path": "sources/0002/aggregate_evaluation.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/aggregate_evaluation.py"
+    },
+    {
+      "bytes": 34372,
+      "sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+      "snapshot_path": "sources/0003/dmlab_evaluate.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/dmlab_evaluate.py"
+    },
+    {
+      "bytes": 1124,
+      "sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+      "snapshot_path": "sources/0004/detectors.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/detectors.py"
+    },
+    {
+      "bytes": 8637,
+      "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "snapshot_path": "sources/0005/runtime_adapter.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py"
+    },
+    {
+      "bytes": 19654,
+      "sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+      "snapshot_path": "sources/0006/stationary_replay_cli.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_replay_cli.py"
+    },
+    {
+      "bytes": 5873,
+      "sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+      "snapshot_path": "sources/0007/stationary_runtime_adapter.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_runtime_adapter.py"
+    },
+    {
+      "bytes": 12165,
+      "sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+      "snapshot_path": "sources/0008/replay_cli.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_cli.py"
+    },
+    {
+      "bytes": 11883,
+      "sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+      "snapshot_path": "sources/0009/replay_fit.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py"
+    },
+    {
+      "bytes": 9106,
+      "sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+      "snapshot_path": "sources/0010/eligibility.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/eligibility.py"
+    },
+    {
+      "bytes": 4523,
+      "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0011/provenance.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/provenance.py"
+    },
+    {
+      "bytes": 5491,
+      "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "snapshot_path": "sources/0012/targets.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/targets.py"
+    },
+    {
+      "bytes": 5824,
+      "sha256": "a3eb7251c2104fa79b88084e05a2ebf62992ab5a9faf452be1c475cf79b3f2d1",
+      "snapshot_path": "sources/0013/block_journal.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/block_journal.py"
+    },
+    {
+      "bytes": 15819,
+      "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+      "snapshot_path": "sources/0014/stationary_projected_c05_s99_20261127.analysis.json",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json"
+    },
+    {
+      "bytes": 38008,
+      "sha256": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+      "snapshot_path": "sources/0015/canonical_target_control_with_callback.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/canonical_target_control_with_callback.py"
+    },
+    {
+      "bytes": 37543,
+      "sha256": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+      "snapshot_path": "sources/0016/target_control_interventions.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py"
+    },
+    {
+      "bytes": 36702,
+      "sha256": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+      "snapshot_path": "sources/0017/place_fields.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/evaluation/place_fields.py"
+    },
+    {
+      "bytes": 27187,
+      "sha256": "1803ada43d59d9c94f645bf7b826e87558aa68db63f2e700a4dc9c4634376a38",
+      "snapshot_path": "sources/0018/custom_actor_critic.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py"
+    },
+    {
+      "bytes": 111744,
+      "sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+      "snapshot_path": "sources/0019/custom_core.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py"
+    },
+    {
+      "bytes": 1105,
+      "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+      "snapshot_path": "sources/0020/custom_decoder.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py"
+    },
+    {
+      "bytes": 3566,
+      "sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+      "snapshot_path": "sources/0021/controller_q.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/controller_q.py"
+    },
+    {
+      "bytes": 3176,
+      "sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+      "snapshot_path": "sources/0022/action_parameterization.py",
+      "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py"
+    }
+  ]
+}

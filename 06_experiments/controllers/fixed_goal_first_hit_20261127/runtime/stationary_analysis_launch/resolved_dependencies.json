@@ -1,0 +1,59 @@
+{
+  "schema": "intrmotiv/resolved-pure-analysis-dependencies/v1",
+  "template_bundle_sha256": "14448c7f1218ba86ed4edc47e35e26d8a39a42528b0db38c5ae8923d75be46b8",
+  "template_script_sha256": "ae83856b8e214ae02389ada3987e4b0b86230e1cb428147d075543a635d1c4dc",
+  "resolved_script_sha256": "fad8a825512f5ccaa53aa09996d0c99582c2cc2ef994d2e59a2d060d3c1ba955",
+  "candidate_submission_receipt": "stationary_launch_v3/main_submission_verified_dependencies.json",
+  "candidate_submission_receipt_sha256": "d47d9ef62b9d446acd9dfb9e7aa476e51a80ad0f1ec665a7ab2176803f806013",
+  "candidate_bundle_sha256": "b3c8a23328d6454c02ee765e016ba835dc6f463e4bd7a42d8a718b9326c100c7",
+  "jobs": [
+    {
+      "stage_id": "evaluation_sources_00",
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+      "source_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "job_id": "8951060"
+    },
+    {
+      "stage_id": "evaluation_sources_01",
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+      "source_ids": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "job_id": "8951061"
+    },
+    {
+      "stage_id": "evaluation_sources_02",
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+      "source_ids": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "job_id": "8951062"
+    },
+    {
+      "stage_id": "evaluation_sources_03",
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03",
+      "source_ids": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "job_id": "8951063"
+    }
+  ],
+  "dependency": "afterok:8951060:8951061:8951062:8951063",
+  "source_or_analysis_command_changed": false,
+  "ready_for_root_review": true,
+  "jobs_submitted": false
+}

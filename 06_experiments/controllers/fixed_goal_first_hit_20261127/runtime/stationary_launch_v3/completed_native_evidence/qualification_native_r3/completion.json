@@ -1,0 +1,74 @@
+{
+  "completed_test_count": 246,
+  "prior_job_id": "8950995",
+  "prior_job_state": "FAILED",
+  "prior_successful_stages": [
+    "pure tests",
+    "source/prefix probe",
+    "100-update copied-readout fit"
+  ],
+  "input_files_unchanged": 6,
+  "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "original_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+  "new_training_updates": 0,
+  "new_collection_decisions": 0,
+  "native_completed": true,
+  "new_candidate_paths": 2,
+  "source_control_rerun": false,
+  "discovery_decisions": 0,
+  "native_receipt": {
+    "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation",
+    "schema": "intrmotiv/reused-control-evaluation/v1",
+    "summary_sha256": "0528a3b700fc96ca2b1bb5fa463cd1c895cef2c33932dc92886bf651d81dcea0",
+    "pre_run_manifest_sha256": "e77000615594fb839fd2853d31203b057d58564dcfe32466dadde58b1b1471e0",
+    "trials_sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+    "candidate_trials_file": "candidate_trials.jsonl",
+    "imported_control": {
+      "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+      "summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+      "pre_run_manifest_sha256": "7b78f5914f35e8f54c4455ddccbaee98a4a19f3720d073984b6b9fb35c12e9dc",
+      "trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+      "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+      "archived_sources_manifest_sha256": "90addeb4cb82b8b881a4b8cfca11a5ab0a0e5f8c1458d67200aba571da380cf4",
+      "source_ids": [
+        2
+      ],
+      "trial_rows": 8,
+      "trial_sources": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+          "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+          "policies": [
+            "source",
+            "first_hit"
+          ],
+          "cohort": "original_joint_evaluation"
+        }
+      ]
+    },
+    "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+    "source_ids": [
+      2
+    ],
+    "trial_rows": 8,
+    "archived_sources_manifest_sha256": "725c6121b3303f66fadf497622d733bf824a4ef89b432ea74c7bbb57783f3ae1",
+    "trial_sources": [
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+        "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+        "policies": [
+          "source"
+        ],
+        "cohort": "imported_source_control"
+      },
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/candidate_trials.jsonl",
+        "sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+        "policies": [
+          "first_hit"
+        ],
+        "cohort": "new_stationary_candidate"
+      }
+    ]
+  }
+}

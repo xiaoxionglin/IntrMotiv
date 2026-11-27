@@ -1,0 +1,18 @@
+--- analyze.sbatch
++++ analyze_resolved.sbatch
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-# LOCAL REVIEW TEMPLATE ONLY: dependency tokens are intentionally unresolved.
++# Dependency IDs resolved from the actual four candidate evaluation submissions.
+ # Pure analysis of explicit imported-source/new-candidate cohorts. No actors or engines.
+ #SBATCH --job-name=fh_stationary_analysis
+ #SBATCH --partition=cpu
+@@ -10,7 +10,7 @@
+ #SBATCH --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1
+ #SBATCH --output=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/stationary_analysis_%j.out
+ #SBATCH --error=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/stationary_analysis_%j.err
+-#SBATCH --dependency=afterok:__EVALUATION_SOURCES_00_JOB_ID__:__EVALUATION_SOURCES_01_JOB_ID__:__EVALUATION_SOURCES_02_JOB_ID__:__EVALUATION_SOURCES_03_JOB_ID__
++#SBATCH --dependency=afterok:8951060:8951061:8951062:8951063
+ set -euo pipefail
+ : "${SLURM_JOB_ID:?Use the reviewed ordinary Slurm compute job}"
+ workspace=/work/classic/fr_xl1014-corridor-geometry

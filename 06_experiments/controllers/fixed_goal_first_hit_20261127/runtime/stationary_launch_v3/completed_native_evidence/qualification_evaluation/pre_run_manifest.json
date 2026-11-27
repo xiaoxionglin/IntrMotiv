@@ -1,0 +1,1166 @@
+{
+  "schema": "intrmotiv/reused-control-prerun/v1",
+  "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "source_snapshot": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "sources": [
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_control.py",
+        "snapshot_path": "sources/0000/reused_control.py",
+        "sha256": "38d7538dca5e4eb025465513ec6198747f836bb0600b3a2f4ac100c03704872d",
+        "bytes": 32426
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_plan.py",
+        "snapshot_path": "sources/0001/reused_plan.py",
+        "sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+        "bytes": 13619
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/aggregate_evaluation.py",
+        "snapshot_path": "sources/0002/aggregate_evaluation.py",
+        "sha256": "36c9b09d59df54c7ee4249362a2784d4df00c2bb02104b36879b1ca2a39d1dbc",
+        "bytes": 37270
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0003/dmlab_evaluate.py",
+        "sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "bytes": 34372
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/detectors.py",
+        "snapshot_path": "sources/0004/detectors.py",
+        "sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "bytes": 1124
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0005/runtime_adapter.py",
+        "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "bytes": 8637
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_replay_cli.py",
+        "snapshot_path": "sources/0006/stationary_replay_cli.py",
+        "sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+        "bytes": 19654
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_runtime_adapter.py",
+        "snapshot_path": "sources/0007/stationary_runtime_adapter.py",
+        "sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+        "bytes": 5873
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_cli.py",
+        "snapshot_path": "sources/0008/replay_cli.py",
+        "sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "bytes": 12165
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py",
+        "snapshot_path": "sources/0009/replay_fit.py",
+        "sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+        "bytes": 11883
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/eligibility.py",
+        "snapshot_path": "sources/0010/eligibility.py",
+        "sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+        "bytes": 9106
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0011/provenance.py",
+        "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "bytes": 4523
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0012/targets.py",
+        "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "bytes": 5491
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/block_journal.py",
+        "snapshot_path": "sources/0013/block_journal.py",
+        "sha256": "a3eb7251c2104fa79b88084e05a2ebf62992ab5a9faf452be1c475cf79b3f2d1",
+        "bytes": 5824
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+        "snapshot_path": "sources/0014/stationary_projected_c05_s99_20261127.analysis.json",
+        "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+        "bytes": 15819
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/canonical_target_control_with_callback.py",
+        "snapshot_path": "sources/0015/canonical_target_control_with_callback.py",
+        "sha256": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+        "bytes": 38008
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py",
+        "snapshot_path": "sources/0016/target_control_interventions.py",
+        "sha256": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+        "bytes": 37543
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/evaluation/place_fields.py",
+        "snapshot_path": "sources/0017/place_fields.py",
+        "sha256": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+        "bytes": 36702
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py",
+        "snapshot_path": "sources/0018/custom_actor_critic.py",
+        "sha256": "1803ada43d59d9c94f645bf7b826e87558aa68db63f2e700a4dc9c4634376a38",
+        "bytes": 27187
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py",
+        "snapshot_path": "sources/0019/custom_core.py",
+        "sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "bytes": 111744
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0020/custom_decoder.py",
+        "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "bytes": 1105
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/controller_q.py",
+        "snapshot_path": "sources/0021/controller_q.py",
+        "sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "bytes": 3566
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0022/action_parameterization.py",
+        "sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "bytes": 3176
+      }
+    ]
+  },
+  "imported_control": {
+    "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+    "summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+    "pre_run_manifest_sha256": "7b78f5914f35e8f54c4455ddccbaee98a4a19f3720d073984b6b9fb35c12e9dc",
+    "trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+    "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+    "archived_sources_manifest_sha256": "90addeb4cb82b8b881a4b8cfca11a5ab0a0e5f8c1458d67200aba571da380cf4",
+    "source_ids": [
+      2
+    ],
+    "trial_rows": 8,
+    "trial_sources": [
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+        "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+        "policies": [
+          "source",
+          "first_hit"
+        ],
+        "cohort": "original_joint_evaluation"
+      }
+    ]
+  },
+  "imported_control_identity": {
+    "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+    "fitted_checkpoint_sha256": "063a857cd01f91c2cd0eada29a03e5ff63db481ee20c710a75422f1d988c3800",
+    "fitted_metadata_sha256": "279fd6736006e3e9e86860567190a58c3d494bc7a674cd7d7e92c60ce9621c16",
+    "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+    "sources": {
+      "hpc_runs/first_hit_control/dmlab_evaluate.py": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+      "hpc_runs/first_hit_control/detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+      "hpc_runs/first_hit_control/targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "hpc_runs/first_hit_control/runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "hpc_runs/first_hit_control/legacy_runtime_adapter.py": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+      "hpc_runs/first_hit_control/eligibility.py": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+      "hpc_runs/first_hit_control/replay_cli.py": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+      "hpc_runs/first_hit_control/provenance.py": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+      "canonical_callback_overlay": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+      "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+      "sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "1803ada43d59d9c94f645bf7b826e87558aa68db63f2e700a4dc9c4634376a38",
+      "sf_working_directories/IntrMotiv/dmlab/custom_core.py": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+      "sf_working_directories/IntrMotiv/dmlab/custom_decoder.py": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+      "sf_working_directories/IntrMotiv/dmlab/controller_q.py": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9"
+    },
+    "canonical_source_sha256": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+    "callback_source_sha256": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+    "frozen_state": {
+      "actor": "0092566c1881681915a51073dd90be8ee1550e38ed7beddac3202990e248685e",
+      "graph": "b14b816ca36685d81dfedb87ff98cccced075e10d07b51a7febc78d848135c48",
+      "readout": "d5eac7f213db1466f57b249b446641d7c236dc49030585c0adfedccef8080e7f",
+      "q": "83a94f53efae214a77fc8a17bfdf6edaceb6e2ac7f6a254424442fe83768fe17"
+    },
+    "config": {
+      "horizon": 64,
+      "discovery_episodes": 8,
+      "prefix_cap": 256,
+      "repeats": 1,
+      "max_sources": 1,
+      "discovery_seed": 31000,
+      "phase": "preflight",
+      "preflight_targets": [
+        0,
+        1
+      ]
+    },
+    "overrides": {
+      "dmlab_use_level_cache": false,
+      "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+      "online_spatial_telemetry": false,
+      "with_wandb": false,
+      "transfer_freeze_dg": true
+    },
+    "goal_vocabulary": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "observed_targets": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "detector": "winner",
+    "action_protocol": "deterministic argmax source logits versus deterministic argmax first-hit Q",
+    "command_protocol": "Stop on own winner including t=0; alternative arrivals score only through own-hit stop",
+    "terminal_protocol": "Uncertified terminal successor is censored; autoreset observations never score"
+  },
+  "fitted_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit",
+  "fitted_metadata": {
+    "schema": "intrmotiv/fitted-first-hit-readout/v1",
+    "kind": "stationary_projected_first_hit",
+    "gamma": 0.99,
+    "bootstrap_projection": [
+      0.0,
+      1.0
+    ],
+    "fit": {
+      "schema": "intrmotiv/frozen-first-hit-fit/v1",
+      "config": {
+        "seed": 99,
+        "updates": 100,
+        "batch_size": 64,
+        "horizon": 64,
+        "learning_rate": 0.0003,
+        "target_update_period": 100,
+        "holdout_fraction": 0.1,
+        "log_every": 100
+      },
+      "transitions": 5000,
+      "training_transitions": 4100,
+      "holdout_transitions": 900,
+      "certified_training_successors": 4100,
+      "updates_without_usable_labels": 0,
+      "goal_labels_seen": 99460,
+      "enumerated_goal_labels": 102400,
+      "masked_goal_labels": 2940,
+      "usable_labels_by_goal": [
+        5631,
+        6266,
+        6291,
+        6288,
+        6394,
+        6255,
+        6255,
+        6242,
+        6312,
+        6194,
+        6261,
+        6135,
+        6250,
+        6263,
+        6283,
+        6140
+      ],
+      "batch_provenance": {
+        "factual_indices_sha256": "b84f8869b364bfd0f428f04b2199e5053c5b58636bc14f15f1b1288b77528a6c",
+        "consumed_deadlines_sha256": "babf96296a578411242c5667a0363927ac4b639b970a47b138ea45e35d703ed8",
+        "usable_masks_sha256": "d7702bf6a38c1c04bdec0ae2341c698f723659103fee1ad367c7b24cbfee6584",
+        "index_encoding": "C-order little-endian int64; concatenated update batches",
+        "mask_encoding": "C-order numpy bool [batch,goal]; concatenated update batches",
+        "train_indices_sha256": "53a9a98955638ed36dd632589067460cd9ba4190c7968c89e37156d4235bb903",
+        "holdout_indices_sha256": "1227ffb5bb6f93f86cb920f1c01e4cea108f97044322266d2e8d889f936425d5"
+      },
+      "trainable_parameters": 166405,
+      "initial_readout_sha256": "78e652cbc1296d654cb0b17eebab3c282cf2c311179d92fffbafe39aa012cef8",
+      "final_readout_sha256": "713eef4f29176490ff7ec65d3cd41ad4806c0061a80f42c663ee6adedb55bf32",
+      "seconds": 2.4268249860033393,
+      "trace": [
+        {
+          "update": 1,
+          "training_mse": 17.279218673706055,
+          "prediction_min": -3.030090570449829,
+          "prediction_max": 12.960148811340332,
+          "usable_goal_labels": 992
+        },
+        {
+          "update": 100,
+          "training_mse": 0.26831328868865967,
+          "prediction_min": -0.23191280663013458,
+          "prediction_max": 1.322218894958496,
+          "usable_goal_labels": 99460
+        }
+      ],
+      "holdout_diagnostic": {
+        "sampled_transitions": 900,
+        "usable_labels": 13996,
+        "td_mse": 0.0832105353474617
+      },
+      "interpretation": "Offline fitting diagnostics only; executed matched-goal control is required"
+    },
+    "input_files": {
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/replay.npz": "05d1e9df8993f0a8d22a035264a433cda66fa9c1ada65325633d50863226aa7b",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/decoder_state.pt": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/metadata.json": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6"
+    },
+    "analysis_plan": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+      "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+      "phase": "qualification",
+      "analysis_id": "stationary_projected_c05_s99_20261127",
+      "schema": "intrmotiv/reused-replay-control-plan/v1",
+      "workflow_version": "1.15.2",
+      "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+      "declared_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+      "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+      "canonical_workflow_version": "1.15.2"
+    },
+    "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "protocol_sha256": "57fb46c8cd4e71fc31ccfd01bcb1ea98cf80af3b055c40c89cba4590c586a8da",
+    "checkpoint_sha256": "cf275b3446258f4e7fcae545d6211823a82b49143b622866773d25fc4a2963fb",
+    "source_audit": {
+      "schema": "intrmotiv/source-snapshot/v1",
+      "archive_valid": true,
+      "current_sources_unchanged": true,
+      "sources": [
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_runtime_adapter.py",
+          "snapshot_path": "sources/0000/stationary_runtime_adapter.py",
+          "expected_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+          "snapshot_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "9462a4f2e46a17688c72ab6677d67d555fbeb4efc86922f8169551130b549584",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/stationary_replay_cli.py",
+          "snapshot_path": "sources/0001/stationary_replay_cli.py",
+          "expected_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+          "snapshot_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "1f95b8c552d06f64b245344027eea51ef5815d852b06b4f86069e858f494bc1b",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py",
+          "snapshot_path": "sources/0002/replay_fit.py",
+          "expected_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+          "snapshot_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/eligibility.py",
+          "snapshot_path": "sources/0003/eligibility.py",
+          "expected_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+          "snapshot_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "fdd297a62f6b40194d1d81686427e40db0afdeb14be7a0cde5044c117e4aa51d",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py",
+          "snapshot_path": "sources/0004/runtime_adapter.py",
+          "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+          "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/detectors.py",
+          "snapshot_path": "sources/0005/detectors.py",
+          "expected_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+          "snapshot_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/targets.py",
+          "snapshot_path": "sources/0006/targets.py",
+          "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+          "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/provenance.py",
+          "snapshot_path": "sources/0007/provenance.py",
+          "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+          "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_cli.py",
+          "snapshot_path": "sources/0008/replay_cli.py",
+          "expected_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+          "snapshot_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/legacy_runtime_adapter.py",
+          "snapshot_path": "sources/0009/legacy_runtime_adapter.py",
+          "expected_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+          "snapshot_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "5c6bca4a6f16c8d2cb42fb9c9968fae5da5e8456dcbea50a3814320cf639041e",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/reused_plan.py",
+          "snapshot_path": "sources/0010/reused_plan.py",
+          "expected_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+          "snapshot_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "a6b21ac6c4ab80cbc9301c82cc0d94d7bc389ea8acf3244aa9dcf8e3d97b01d6",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/analysis_plan.py",
+          "snapshot_path": "sources/0011/analysis_plan.py",
+          "expected_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+          "snapshot_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_core.py",
+          "snapshot_path": "sources/0012/custom_core.py",
+          "expected_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+          "snapshot_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+          "snapshot_path": "sources/0013/custom_decoder.py",
+          "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+          "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py",
+          "snapshot_path": "sources/0014/action_parameterization.py",
+          "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+          "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/action_distributions.py",
+          "snapshot_path": "sources/0015/action_distributions.py",
+          "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+          "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/model_utils.py",
+          "snapshot_path": "sources/0016/model_utils.py",
+          "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+          "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/decoder.py",
+          "snapshot_path": "sources/0017/decoder.py",
+          "expected_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+          "snapshot_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/algo/utils/torch_utils.py",
+          "snapshot_path": "sources/0018/torch_utils.py",
+          "expected_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+          "snapshot_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+          "current_matches_snapshot": true
+        },
+        {
+          "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+          "snapshot_path": "sources/0019/stationary_projected_c05_s99_20261127.analysis.json",
+          "expected_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+          "snapshot_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+          "snapshot_valid": true,
+          "current_exists": true,
+          "current_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+          "current_matches_snapshot": true
+        }
+      ]
+    },
+    "source_snapshot_manifest_sha256": "a9094c9a9619c222ce45232f419a7706c4c6ab6bf47ee90321018c63618645fd",
+    "source_initialization": {
+      "verified": true,
+      "decoder_class": "MlpDecoderJit",
+      "action_head_class": "ActionParameterizationDefault",
+      "decoder_state_sha256": "bb117bbb4c456dafde1132b2bdf2f6688fd49812bbf9d2bbec696f62c29b48e8",
+      "action_head_state_sha256": "4a0cc5e34ce7a16fe16aa83b302ec793746353933b8819ae8f796c242cc9b62e",
+      "action_head_class_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+      "action_distributions_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+      "trainable_parameters": 166405
+    },
+    "initialization_sha256": "a66a105385b82034cc36e8f8199701568ae1d5a4effe7310fc3743566b2b1597",
+    "primary_detector": "winner",
+    "goal_positive_observations": {
+      "winner": [
+        550,
+        133,
+        86,
+        106,
+        2,
+        125,
+        112,
+        130,
+        89,
+        158,
+        104,
+        184,
+        121,
+        111,
+        86,
+        205
+      ],
+      "exclusive": [
+        540,
+        132,
+        85,
+        106,
+        0,
+        124,
+        112,
+        127,
+        86,
+        143,
+        104,
+        172,
+        120,
+        108,
+        76,
+        192
+      ]
+    },
+    "current_winner_rows_by_goal": {
+      "all_replay": [
+        549,
+        131,
+        86,
+        106,
+        8,
+        125,
+        112,
+        130,
+        89,
+        158,
+        104,
+        184,
+        120,
+        111,
+        86,
+        205
+      ],
+      "train": [
+        480,
+        91,
+        72,
+        78,
+        7,
+        97,
+        91,
+        102,
+        74,
+        146,
+        85,
+        160,
+        92,
+        91,
+        68,
+        166
+      ],
+      "holdout": [
+        69,
+        40,
+        14,
+        28,
+        1,
+        28,
+        21,
+        28,
+        15,
+        12,
+        19,
+        24,
+        28,
+        20,
+        18,
+        39
+      ]
+    },
+    "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+    "collection_evaluation_overrides": {
+      "dmlab_use_level_cache": false,
+      "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/cache",
+      "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+      "online_spatial_telemetry": false,
+      "with_wandb": false,
+      "transfer_freeze_dg": true
+    },
+    "source_run": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+    "layout": {
+      "width": 1165,
+      "goal_start": 1149,
+      "goals": 16
+    },
+    "replay_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay",
+    "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1"
+  },
+  "original_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "evaluation_overrides": {
+    "dmlab_use_level_cache": false,
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/cache",
+    "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+    "online_spatial_telemetry": false,
+    "with_wandb": false,
+    "transfer_freeze_dg": true
+  },
+  "engine_identity": {
+    "hpc_runs/first_hit_control/dmlab_evaluate.py": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+    "hpc_runs/first_hit_control/detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+    "hpc_runs/first_hit_control/runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+    "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+    "canonical_callback_overlay": "0686d7b9d9252b7cfced78086ea03e99dfb4cf509e57308db3426c5e870a935f",
+    "sf_working_directories/IntrMotiv/evaluation/place_fields.py": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+    "sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "1803ada43d59d9c94f645bf7b826e87558aa68db63f2e700a4dc9c4634376a38",
+    "sf_working_directories/IntrMotiv/dmlab/custom_core.py": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+    "sf_working_directories/IntrMotiv/dmlab/custom_decoder.py": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+    "sf_working_directories/IntrMotiv/dmlab/controller_q.py": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9"
+  },
+  "analysis_plan": {
+    "schema": "intrmotiv/reused-replay-control-plan/v1",
+    "analysis_version": "1.0.0",
+    "workflow_version": "1.15.2",
+    "analysis_id": "stationary_projected_c05_s99_20261127",
+    "declared_utc": "2026-11-27T10:57:55.829611+00:00",
+    "status": "prospective native followup; before implementation, fitting or native execution",
+    "contract": {
+      "kind": "artifact_dependency_graph",
+      "reason_for_separate_schema": "One existing validated donor, existing frozen replay and completed baseline starts/trials feed a new readout and candidate-only evaluations. These are dependent analysis artifacts, not new Sample Factory pretraining RunSpecs. Reuse canonical StudySpec donor identity and the existing first-hit analysis package.",
+      "comparison": "Complete minimal stationary design versus original pretrained worker; finite-horizon results remain a separate design comparison, not an isolated one-factor ablation."
+    },
+    "donor_study": {
+      "path": "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json",
+      "sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+      "declared_workflow_version": "1.14.1"
+    },
+    "donor": {
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "seed": 99,
+      "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+      "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+      "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd"
+    },
+    "source_interface": {
+      "goal_count": 16,
+      "action_count": 5,
+      "action_repeat": 8,
+      "primary_detector": "winner",
+      "secondary_detector": "exclusive",
+      "environment": "openfield_map2_fixed_loc3_fixedlength_noreward"
+    },
+    "parent_analysis": {
+      "path": "hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json",
+      "sha256": "e15578b497bbd5d7853fe041e34687bfcc1b0f17bbeac4e939bc28f7f6ac2a30",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+      "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "release_record": {
+        "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_launch/source_release.json",
+        "sha256": "9458f464f83e2e4483160b84ace393634b68ad7fbd8d418732414b91786c7b4e"
+      }
+    },
+    "local_evidence": {
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/results.json": "edfe2acb6d3a114afe0e2a732026ae695fdce353dbe3eb26415f7f8579de0eaa",
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/results.json": "b00c51fc487de68fd4ac03c267c23b235bfcb3b1569363221e73f0af11a392b0",
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_cycle_audit_protocol.json": "c7d4664b2864276bd5496154efabf30cd695ad8b0f08d458024a9be3096ce301",
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_cycle_audit_r1/results.json": "328a3e13a75beec6ec9647593511f9c411e205c143fdee6acd165b0983ddef30"
+    },
+    "scope_review": {
+      "original_H6_gate": "FAILED and retained; projected fork arrivals40/42,41/42,40/42. Do not relabel this test.",
+      "exact_eventual_audit": "All 138 noninitial fork/history queries hit with fixed projected weights, maximum 8 decisions, zero exact cycles and zero unknown caps; raw134/138 withfour proven cycles. Post-hoc diagnostic, not independent validation.",
+      "prospective_grid": "All 240 noninitial queries in each of three projected seeds pass fixedH16 on separate GeoMem grid.",
+      "reason_to_advance": "User goal is reaching every reachable learned DG landmark, without a requested shortest-path or six-step requirement. Complete fixed-policy reaching on tested graphs and independently declared grid gate support a native test at the unchanged previously fixed H256. This new decision is recorded transparently after the cycle diagnostic and does not change old gates or budgets.",
+      "qualification_limit": "One donor/fitseed 99; no general POMDP sufficiency or transfer across new visual fields claimed."
+    },
+    "runtime": {
+      "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
+      "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+      "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1",
+      "python": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+      "dependency_roots": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1"
+      ],
+      "torch_cache": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch"
+    },
+    "replay": {
+      "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+      "dataset_sha256": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+      "decoder_state_sha256": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+      "metadata_sha256": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3",
+      "new_collection_decisions": 0,
+      "qualification_replay_not_pooled": true
+    },
+    "model": {
+      "decoder": "actual MlpDecoderJit, original [128,128] ReLU",
+      "head": "actual ActionParameterizationDefault, raw five-action outputs",
+      "initialization": "Copy BOTH pretrained decoder and action_parameterization state dictionaries from certified decoder_state.pt, independently for qualification and fullfit. No qualification-trained weights enter fullfit.",
+      "trainable_parameters": 166405,
+      "added_inference_parameters": 0,
+      "goal_input": "Replace certified existing 16-goal slice only; preserve1165-wide full core and physical bypass",
+      "clock": "No neural clock. remaining argument may exist only as evaluator interface compatibility and must have no effect on stationary outputs.",
+      "frozen": "All visual trunk, DG, BN, CA3,original actor,graph and evaluation weights."
+    },
+    "objective": {
+      "gamma": 0.99,
+      "target": "y + gamma*(1-y)*(1-physical_done)*clip(Qtarget(next,argmax Qonline(next)),0,1)",
+      "projection_order": "clip BEFORE gamma",
+      "action_selection": "Raw original-head argmax; no actor clipping, sigmoid, action mask or graph filter",
+      "goals": "Every16detector identity on each factual action, failures retained",
+      "current_goal_mask": "Exclude only the current positive-argmax winner; derive current DG from certified CA3[0:1136].reshape(N,16,71)[:,:,0], using canonical winner detector. Do not mask all active DG or usebehavior source_goal.",
+      "termination": "Hit takes precedence overtrue physical failure. Unknown successor remainsunusable; live bootstrap requires successor_core_valid. Truncation is not failure."
+    },
+    "fit": {
+      "seed": 99,
+      "updates": 30000,
+      "batch_size": 128,
+      "horizon": 256,
+      "learning_rate": 0.0003,
+      "target_update_period": 100,
+      "holdout_fraction": 0.1,
+      "threads": 4,
+      "device": "cpu",
+      "selection": "Exactly 30000 updates; finalweights only; whole-episode holdout diagnostic; no result-based tuning"
+    },
+    "batch_matching": "Reuse native episode_split(seed 99,.1), actual row sampler and its unused deadline RNG draw to match main factual batches; report row/mask hashes and differing usable label counts. Do not substitute toy seed+10000 sampling.",
+    "qualification": {
+      "new_collection_decisions": 0,
+      "replay": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay",
+      "updates": 100,
+      "batch_size": 64,
+      "horizon_external_only": 64,
+      "learning_rate": 0.0003,
+      "seed": 99,
+      "native_panel": "Reuse completed nonempty-prefix probe source 2, seed 31003,20-action prefix,commands 0 and 1; exact signatures and all frozenhashes; two candidate paths, original source paths by verified reference. No efficacy gate on100-update weights.",
+      "requirements": [
+        "Focused tests on allocated node",
+        "Exact original decoder/head snapshot reload and old-source compatibility",
+        "Certified current winner/terminal/missing masks",
+        "Clock-invariant outputs",
+        "Exact full physical/recurrent prefix equality and frozen detector/model/graph",
+        "No engine outside Slurm; no local native execution"
+      ],
+      "replay_dataset_sha256": "05d1e9df8993f0a8d22a035264a433cda66fa9c1ada65325633d50863226aa7b",
+      "replay_metadata_sha256": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6",
+      "source_evaluation": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+      "source_trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+      "source_summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+      "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+      "decision_cap": 4096,
+      "decision_cap_reason": "Resource guard for the fixed two candidate paths: 2*(20 prefix +64 deadline)=168 maximum advanced decisions; no discovery or extra queries."
+    },
+    "evaluation": {
+      "source_shards": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ],
+      "repeats": 3,
+      "discovery_episodes": 0,
+      "prefix_cap": 512,
+      "discovery_seed": 41000,
+      "decision_cap_per_shard": 350000,
+      "policy_count": 1,
+      "targets": "All source-graph, replay and independent-discovery winner identities; no passive-edge filter. Every capacity identity remains in the final denominator table as observed, unobserved, issued or unassessed.",
+      "stop": "Own winner hit is absorbing including t0. Alternative arrivals count only before that command's own stop; unresolved physical terminals remain censored.",
+      "primary_command_selectivity": "Competing-target FIRST: P(g before c within H | command g) minus P(g before c within H | command c), from identical starts with distinct g,c both absent initially. Other landmarks may be crossed. Preserve declared pairs with explicit missing/terminal identification bounds; first observed g or c resolves the event even if a later terminal is unknown.",
+      "secondary_stopped_task_lift": "Own-command arrival minus alternative-command arrival under each command's own stop describes the complete task-and-stop interface. It is confounded by command-dependent termination and does not demonstrate command-dependent navigation.",
+      "selectivity_interpretation": "Positive competing-target FIRST establishes command-dependent ordering under matched physical/recurrent starts and common dynamics. Zero does not alone refute goal reaching, particularly when landmark order is unavoidable. Do not require positivity for every ordered pair or select favorable competitors after outcomes.",
+      "capability_gate": "All declared identities observed and issued, no missing source-history cells, and per-goal success lower bound at least0.90. Report aggregate competing-target FIRST selectivity with its full pair matrix and identification bounds as separate navigation evidence where routing choice exists; no positive-every-pair requirement. Otherwise report partial capability. These tests do not establish success for untested histories.",
+      "command_contrast_addendum": {
+        "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/command_contrast_addendum.md",
+        "sha256": "b9c172008a40f3a0cf4e4da3ab9b65ee9ea345ae5a12a84e567b2e924b263951"
+      },
+      "independent_jobs": true,
+      "horizon": 256,
+      "original_control": "Reuse original actor paths by immutable hash from completed main shards. Do not rerun original control or invent fresh-control provenance.",
+      "start_source": "After each main shard completes, validate summary, source archive, trials, matched_starts.pt; reuse all original declaredsource/repeat/command cells without outcome selection. Previously unissued ormissing blocks remain missing.",
+      "candidate": "Execute only stationary projected raw-head policy from exact retained seed/prefix/signatures; all 16targets and old H256; cap 350000 per shard unchanged.",
+      "dependency": "Candidate fit qualification/full fit plus completed corresponding main shard; source controller outcomes do notselect starts orcandidate weights.",
+      "original_discovery": {
+        "discovery_episodes": 96,
+        "prefix_cap": 512,
+        "discovery_seed": 41000
+      },
+      "analysis_policy_count": 2
+    },
+    "analysis": {
+      "schema": "Explicit reused-control result provenance; never fabricatejointtwo-policyfreshshard",
+      "reuse": "Existing own-arrival bounds, all competingFIRST, source-cluster bootstrap, trace,field and graph reducers after certifying imported control and new candidate contracts",
+      "required": {
+        "evidence_design": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_protocol_draft.json",
+        "place_fields": "Reuse compatible exact-donor policy and common-panel artifacts, with byte/config audits; do not repeat a checkpoint sweep by default.",
+        "trajectories": "Record actual per-decision pose as telemetry only, actions, command, remaining deadline and reset/terminal segmentation.",
+        "graphs": "Separate source graph evidence, replay exposure and executed directed source-target outcomes; retain missing and unattempted pairs.",
+        "control": "Report all declared goal/source rows, initial satisfaction, failures, censor bounds, competing-target FIRST as primary command-selectivity contrast, stopped-task lift as a secondary termination-confounded description, first-hit latency and paired source versus fitted policies."
+      },
+      "missing": "Retain all capacity,source history and commanddenominators; no complete-case inflation; H256 failures/censoring do notprove eventual nonarrival in DMLab."
+    },
+    "execution_gates": [
+      "Validate parent StudySpec and pins using canonical workflow1.15.2",
+      "Archive new protocol/code before fitting and candidate outcomes",
+      "Stage separate immutable source; donor model bytes unchanged; no edits to r3 or running jobs",
+      "Review print-only arguments, workspace paths and actual source hashes",
+      "Pass allocated native integration qualification before full fit/evaluation submission",
+      "Full fit and everycandidate evaluator checked frozen; no automatic retry/resubmit after unexpected failure without root review"
+    ],
+    "budget_boundary": "One qualification fit100 updates, one full fit30000 updates, four candidate-only evaluation jobs, pure analysis. No new exploration, extra fit seeds, hyperparameter sweep or altered main jobs."
+  },
+  "plan_validation": {
+    "donor_run_spec": {
+      "name": "COS27_C05_TEMPORAL_TEMPORAL_S99",
+      "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+      "batch": "cosyne27_c05_pushpull_s3_20261010",
+      "base": "C05",
+      "seed": 99,
+      "factors": {
+        "encoder_credit": "TEMPORAL",
+        "worker_bonus": "TEMPORAL"
+      },
+      "factor_labels": {
+        "encoder_credit": "temporal event credit",
+        "worker_bonus": "temporal hit bonus"
+      },
+      "metadata": {
+        "program": "cosyne27_staged_push_pull",
+        "stage": "pushpull_s3",
+        "source_base_commit": "cdf9ffe9026dc483e9c31dae7a1365af67c28642",
+        "source_patch_sha256": "1c280baf97d6a348c161333d8edd9359d6938d51db2dae17aababdac8aa6df56",
+        "source_reload_patch_sha256": "63e5cabbe26d7456039519e0f57fb6097cfee1c65943cc9ef6343a0bab620974",
+        "source_release_manifest_sha256": "e47b1e4d67ee58d20ad44a87f786eedf9372b085c48eb514b97ea55cf683a2f0",
+        "worker_hit_constant": 59.15435296037923,
+        "encoder_reference_study_id": "cosyne27_c05_reference_calibration_20261010",
+        "encoder_constant_distance_units": 4.32839327775102,
+        "worker_reference_study_id": "cosyne27_c05_reference_calibration_20261010",
+        "family": "C05",
+        "base_family": "C05",
+        "has_commanded_goals": true,
+        "encoder_credit_encoder_credit": "temporal",
+        "encoder_credit_ppo_dg_gradient": "stop",
+        "worker_bonus_worker_bonus": "temporal"
+      },
+      "args": [
+        "--wandb_project=SF_IntrMotiv_PushPullAblation",
+        "--wandb_group=cosyne27_c05_pushpull_20261010",
+        "--wandb_dir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/wandb",
+        "--dmlab_level_cache_path=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/runtime/dmlab_cache",
+        "--checkpoint_frame_targets=5000000,25000000,50000000,75000000,100000000",
+        "--online_spatial_telemetry=True",
+        "--online_spatial_snapshot_targets=5000000,25000000,50000000,75000000,100000000",
+        "--online_spatial_snapshot_max_frames=100000000",
+        "--online_spatial_snapshot_interval=5000000",
+        "--depth_sensor_inverse=False",
+        "--dg_batchnorm_semantics=legacy_batch",
+        "--encoder_reward_recipient=arrival",
+        "--encoder_reward_require_local_predecessor=False",
+        "--hrl_control_outcome=target_hit",
+        "--online_spatial_workspace_root=/work/classic/fr_xl1014-corridor-geometry",
+        "--online_spatial_output_root=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/online_spatial",
+        "--env=openfield_map2_fixed_loc3_fixedlength_noreward",
+        "--train_for_env_steps=100000000",
+        "--algo=APPO",
+        "--gamma=0.99",
+        "--learning_rate=0.0002",
+        "--exploration_loss_coeff=0.005",
+        "--value_loss_coeff=0.3",
+        "--ppo_clip_ratio=0.25",
+        "--num_workers=32",
+        "--num_envs_per_worker=2",
+        "--worker_num_splits=2",
+        "--num_epochs=1",
+        "--rollout=64",
+        "--recurrence=64",
+        "--batch_size=2048",
+        "--num_batches_per_epoch=2",
+        "--decorrelate_experience_max_seconds=120",
+        "--max_grad_norm=0.0",
+        "--dmlab_renderer=software",
+        "--dmlab_extended_action_set=False",
+        "--dmlab_reduced_action_set=True",
+        "--dmlab_one_task_per_worker=True",
+        "--dmlab_use_level_cache=True",
+        "--set_workers_cpu_affinity=True",
+        "--force_envs_single_thread=True",
+        "--num_policies=1",
+        "--with_pbt=False",
+        "--max_policy_lag=35",
+        "--use_record_episode_statistics=True",
+        "--keep_checkpoints=8",
+        "--save_every_sec=300",
+        "--save_best_every_sec=300",
+        "--save_best_after=1200",
+        "--save_best_metric=z_00_openfield_map2_fixed_loc3_fixedlength_noreward_coverage_auc",
+        "--env_frameskip=8",
+        "--core_name=BypassSS",
+        "--DG_name=batchnorm_relu",
+        "--Hippo_n_feature=16",
+        "--Hippo_R=8",
+        "--Hippo_L=64",
+        "--depth_sensor=True",
+        "--normalize_input=False",
+        "--encoder_conv_architecture=layer2_resnet18",
+        "--use_rnn=True",
+        "--rnn_type=gru",
+        "--rnn_size=0",
+        "--nonlinearity=relu",
+        "--with_wandb=True",
+        "--wandb_user=xiaoxionglin-bernstein-center-freiburg",
+        "--benchmark=False",
+        "--with_number_instruction=True",
+        "--number_instruction_coef=9",
+        "--device=cpu",
+        "--rec_distances=True",
+        "--distance_learning=True",
+        "--masked_distance_matrix=False",
+        "--normalize_advantage=True",
+        "--advantage_reward_source=internal",
+        "--extra_encoder_losses=True",
+        "--metric=sum",
+        "--reward_scale=0.1",
+        "--double_value=False",
+        "--reset_critic=False",
+        "--reset_decoder=False",
+        "--encoder_grad_coeff=1",
+        "--encoder_batch_loss=True",
+        "--encoder_multi_activation_loss=True",
+        "--encoder_unused_sequence_loss=False",
+        "--extra_decoder_loss=False",
+        "--encoder_population_usage_loss=False",
+        "--encoder_density_loss_coeff=0.0",
+        "--encoder_collision_loss_coeff=0.0",
+        "--encoder_reward_method=encourage",
+        "--dg_global_punishment_temperature=0.5",
+        "--iterative_update=False",
+        "--ca3_predictor_shadow=False",
+        "--exploration_coverage_telemetry=True",
+        "--exploration_coverage_grid_size=100",
+        "--DG_BN_intercept=2.43",
+        "--encoder_batch_loss_temperature=0.5",
+        "--dg_global_punishment_coeff=0.01",
+        "--dg_row_repulsion_coeff=1.0",
+        "--dg_ca3_temporal_exclusion_coeff=0.0",
+        "--dg_orthogonal_recruitment=False",
+        "--dg_orthogonal_recruitment_margin=0.5",
+        "--dg_orthogonal_recruitment_residual_eps=1e-6",
+        "--dg_orthogonal_recruitment_max_per_rollout=1",
+        "--iterative_initial_encoder_steps=128",
+        "--iterative_decoder_steps=512",
+        "--iterative_encoder_steps=128",
+        "--iterative_start_phase=decoder",
+        "--hrl_controllable_graph=True",
+        "--hrl_graph_memory=policy_buffer",
+        "--hrl_persistent_fast_weights=False",
+        "--hrl_fast_weight_half_life_options=10000",
+        "--hrl_target_timing=immediate",
+        "--hrl_manager_mode=visit_direct",
+        "--hrl_worker_reward_mode=hit_distance",
+        "--hrl_target_hit_reward=1.0",
+        "--hrl_min_target_visits=1",
+        "--hrl_edge_confidence_threshold=0.5",
+        "--hrl_exploration_mode=False",
+        "--hrl_manager_exploration_probability=0.0",
+        "--hrl_exploration_horizon=64",
+        "--hrl_empirical_her=False",
+        "--hrl_empirical_her_horizon=64",
+        "--hrl_empirical_her_coeff=0.5",
+        "--hrl_timeout_margin_ratio=0.20",
+        "--hrl_timeout_margin_steps=2",
+        "--hrl_bootstrap_horizon=64",
+        "--encoder_interval_credit_constant=4.32839327775",
+        "--hrl_distance_bonus_coeff=0.1",
+        "--hrl_distance_bonus_constant=59.1543529604",
+        "--encoder_interval_credit_mode=temporal",
+        "--ppo_dg_gradient=stop",
+        "--hrl_distance_bonus_mode=temporal",
+        "--study_id=cosyne27_c05_pushpull_s3_20261010",
+        "--study_condition=COS27_C05_TEMPORAL_TEMPORAL",
+        "--study_base=C05",
+        "--wandb_tags=COS27_C05_TEMPORAL_TEMPORAL",
+        "--seed=99"
+      ]
+    },
+    "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "canonical_workflow_version": "1.15.2",
+    "parent_effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+    "budgets": {
+      "new_collection_decisions": 0,
+      "new_discovery_decisions": 0,
+      "full_fit_transition_draws": 3840000,
+      "maximum_full_fit_goal_labels": 61440000,
+      "new_candidate_trials": 768,
+      "new_noninitial_trials": 720,
+      "worst_case_candidate_decisions_per_shard": [
+        147456,
+        147456,
+        147456,
+        147456
+      ]
+    },
+    "original_h6_gate_passed": false,
+    "preserved_failed_gate": "Original H6 regression; new advancement decision uses complete fixed-policy reaching and separate grid test",
+    "execution_gates": "Static validation only. Remote bytes, completed baseline artifacts, allocated qualification, and frozen execution remain required.",
+    "schema": "intrmotiv/reused-replay-control-plan/v1",
+    "source_plan": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+    "source_file_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+    "declared_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532"
+  },
+  "declared_plan_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "evaluation_config": {
+    "horizon": 64,
+    "discovery_episodes": 0,
+    "prefix_cap": 256,
+    "repeats": 1,
+    "max_sources": 1,
+    "discovery_seed": 31000,
+    "phase": "preflight",
+    "preflight_targets": [
+      0,
+      1
+    ],
+    "focus_sources": [
+      2
+    ]
+  },
+  "decision_cap": 4096,
+  "matched_start_signatures": [
+    {
+      "source": 2,
+      "repeat": 0,
+      "seed": 31003,
+      "prefix_sha256": "73979eff71b6f55688df0fe65e37474e870978cd0cb53a9bc67d3ee81b6e7e5e",
+      "prefix_length": 20,
+      "full_signature_sha256": "06c8cdc78c3659b8f26247c3a87568793cd294c878fa2dc14218a35b8048a00e"
+    }
+  ],
+  "cohorts": {
+    "source": "Imported original source-policy rows only, by immutable reference",
+    "first_hit": "New stationary candidate-only trajectories; no discovery or original control rerun"
+  }
+}

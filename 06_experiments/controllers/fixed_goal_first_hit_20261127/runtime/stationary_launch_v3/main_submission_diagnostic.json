@@ -1,0 +1,84 @@
+{
+  "checked_utc": "2026-11-27T11:52:49.210461+00:00",
+  "diagnostics": [
+    {
+      "command": [
+        "scontrol",
+        "show",
+        "job",
+        "8951028",
+        "-o"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "slurm_load_jobs error: Invalid job id specified\n"
+    },
+    {
+      "command": [
+        "sacct",
+        "-j",
+        "8951028",
+        "--format=JobID,State,ExitCode",
+        "--parsable2",
+        "--noheader"
+      ],
+      "returncode": 0,
+      "stdout": "8951028|COMPLETED|0:0\n8951028.batch|COMPLETED|0:0\n8951028.extern|COMPLETED|0:0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "squeue",
+        "-u",
+        "fr_xl1014",
+        "-n",
+        "fh_stationary_main_fit",
+        "-h",
+        "-o",
+        "%i|%j|%T|%E"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "sbatch",
+        "--test-only",
+        "--dependency=afterok:8951028",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_fit.sbatch"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "allocation failure: Job dependency problem\n"
+    }
+  ],
+  "cache_settings": [
+    "MinJobAge               = 300 sec"
+  ],
+  "submission_receipt": {
+    "schema": "intrmotiv/stationary-main-submissions/v1",
+    "started_utc": "2026-11-27T11:51:42.249401+00:00",
+    "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+    "renderer_commit": "2c4fc49225383165e4e8b140ebcc3c0b88503ddb",
+    "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "source_manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+    "main_bundle_sha256": "b3c8a23328d6454c02ee765e016ba835dc6f463e4bd7a42d8a718b9326c100c7",
+    "qualification": {
+      "prior_stage_job_id": "8950995",
+      "prior_stage_job_state": "FAILED",
+      "prior_successful_stages": [
+        "246 pure tests",
+        "exact source/prefix probe",
+        "100-update fit and exact reload"
+      ],
+      "native_continuation_job_id": "8951028",
+      "continuation_manifest_sha256": "2e91bdf82ab9976cdb4e38bf2f9d9970b1a398e06f10aa4a33af9ad945f798b9"
+    },
+    "jobs": [],
+    "complete": false,
+    "no_automatic_retries": true,
+    "qualification_accounting": "8951028|COMPLETED|0:0\n8951028.batch|COMPLETED|0:0\n8951028.extern|COMPLETED|0:0\n",
+    "submission_failure": "CalledProcessError(1, ['sbatch', '--parsable', '--dependency=afterok:8951028', '/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_fit.sbatch'])"
+  }
+}

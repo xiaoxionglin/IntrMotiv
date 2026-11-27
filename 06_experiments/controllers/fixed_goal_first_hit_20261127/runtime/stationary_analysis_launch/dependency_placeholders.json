@@ -1,0 +1,57 @@
+{
+  "schema": "intrmotiv/pending-analysis-dependencies/v1",
+  "ready_for_submission": false,
+  "jobs": [
+    {
+      "stage_id": "evaluation_sources_00",
+      "source_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+      "job_id": null,
+      "placeholder": "__EVALUATION_SOURCES_00_JOB_ID__"
+    },
+    {
+      "stage_id": "evaluation_sources_01",
+      "source_ids": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+      "job_id": null,
+      "placeholder": "__EVALUATION_SOURCES_01_JOB_ID__"
+    },
+    {
+      "stage_id": "evaluation_sources_02",
+      "source_ids": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+      "job_id": null,
+      "placeholder": "__EVALUATION_SOURCES_02_JOB_ID__"
+    },
+    {
+      "stage_id": "evaluation_sources_03",
+      "source_ids": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03",
+      "job_id": null,
+      "placeholder": "__EVALUATION_SOURCES_03_JOB_ID__"
+    }
+  ],
+  "candidate_manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_launch_bundle.json",
+  "dependency_template": "afterok:__EVALUATION_SOURCES_00_JOB_ID__:__EVALUATION_SOURCES_01_JOB_ID__:__EVALUATION_SOURCES_02_JOB_ID__:__EVALUATION_SOURCES_03_JOB_ID__",
+  "instruction": "Resolve every job ID from the actual candidate evaluation submission receipt after root review. Preserve this unsubmitted template; no invented IDs, no automatic submission or resume."
+}

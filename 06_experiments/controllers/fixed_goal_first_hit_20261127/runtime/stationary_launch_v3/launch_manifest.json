@@ -1,0 +1,77 @@
+{
+  "schema": "intrmotiv/stationary-native-continuation-launch/v1",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "renderer_commit": "2c4fc49225383165e4e8b140ebcc3c0b88503ddb",
+  "renderer_sha256": "34f576aa6f8a1e69b81801c63f1c9eb8b9d9338e4bd5d22ffd177e4a5ccebd86",
+  "source_manifest": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json",
+    "sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067"
+  },
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "launch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3",
+  "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1",
+  "completed_stage_inputs_sha256": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/results.xml": "d2d722e2e0674c545333a9de7e7920a749f7a513c6d87194733c693a3e9786d2",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/source_before.json": "baee2b21c7f96e2fe2aa15db3197dd09fa3437fd014d0d5b02f7927867f1a069",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_tests_r2/probe.json": "e4696280426a2580787ae8a14de7db746f1b74eca73be1a364a898347a17a330",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit/metadata.json": "12e18b9c82492dbd61c03094b8eae39287d536da7e6f51087880ae8959c656b1",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit/source_snapshot/manifest.json": "a9094c9a9619c222ce45232f419a7706c4c6ab6bf47ee90321018c63618645fd",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit/adapter.pt": "cf275b3446258f4e7fcae545d6211823a82b49143b622866773d25fc4a2963fb"
+  },
+  "completed_stage_job_id": "8950995",
+  "completed_stage_job_state": "FAILED",
+  "prior_passed_stages": [
+    "246 pure tests",
+    "exact source/prefix probe",
+    "100-update fit and exact reload"
+  ],
+  "canonical_native_stage": {
+    "stage_id": "qualification_evaluate",
+    "argv": [
+      "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+      "-m",
+      "hpc_runs.first_hit_control.reused_control",
+      "--source-root",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+      "--run-dir",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+      "--checkpoint",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+      "--checkpoint-sha256",
+      "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "--plan",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+      "--fitted",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit",
+      "--baseline",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+      "--output",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation",
+      "--runfiles",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles",
+      "--decision-cap",
+      "4096"
+    ],
+    "shell_display": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.reused_control --source-root /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 --run-dir /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99 --checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth --checkpoint-sha256 f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38 --plan /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json --fitted /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_fit --baseline /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation --runfiles /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles --decision-cap 4096",
+    "depends_on": [
+      "certified_qualification_assets",
+      "qualification_fit",
+      "completed_nonempty_prefix_baseline"
+    ],
+    "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation",
+    "native_environment": true
+  },
+  "checks_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_native_r3",
+  "resources": {
+    "cpus": 4,
+    "memory_gb": 16,
+    "hours": 1
+  },
+  "source_or_plan_changed": false,
+  "new_training_updates": 0,
+  "new_collection_decisions": 0,
+  "new_source_control_paths": 0,
+  "new_candidate_paths": 2,
+  "jobs_submitted": false
+}

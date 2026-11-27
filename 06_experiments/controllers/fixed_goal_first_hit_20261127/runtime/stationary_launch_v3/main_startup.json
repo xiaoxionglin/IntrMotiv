@@ -1,0 +1,156 @@
+{
+  "checked_utc": "2026-11-27T11:56:21.102530+00:00",
+  "jobs": [
+    {
+      "job_id": "8951059",
+      "logical_job": "main_fit",
+      "scheduler": {
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "RunTime": "00:01:36",
+        "StartTime": "2026-11-27T12:54:45",
+        "NodeList": "n3111",
+        "ExitCode": "0:0"
+      },
+      "out_tail": [
+        "{\"update\": 1400, \"training_mse\": 0.003233319614082575, \"prediction_min\": 0.7093476057052612, \"prediction_max\": 1.2339742183685303, \"usable_goal_labels\": 2784053}",
+        "{\"update\": 1500, \"training_mse\": 0.001988260541111231, \"prediction_min\": 0.7043083906173706, \"prediction_max\": 1.1070188283920288, \"usable_goal_labels\": 2982897}",
+        "{\"update\": 1600, \"training_mse\": 0.001819355646148324, \"prediction_min\": 0.7258928418159485, \"prediction_max\": 1.1251989603042603, \"usable_goal_labels\": 3181832}",
+        "{\"update\": 1700, \"training_mse\": 0.0019377528224140406, \"prediction_min\": 0.755961537361145, \"prediction_max\": 1.115462064743042, \"usable_goal_labels\": 3380660}",
+        "{\"update\": 1800, \"training_mse\": 0.002023571403697133, \"prediction_min\": 0.7681158185005188, \"prediction_max\": 1.1485366821289062, \"usable_goal_labels\": 3579540}",
+        "{\"update\": 1900, \"training_mse\": 0.0020503418054431677, \"prediction_min\": 0.7309028506278992, \"prediction_max\": 1.0671358108520508, \"usable_goal_labels\": 3778377}"
+      ],
+      "err_tail": [
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.",
+        "  import pkg_resources",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML",
+        "  warnings.warn(\"Can't initialize NVML\")"
+      ]
+    },
+    {
+      "job_id": "8951060",
+      "logical_job": "evaluate_00",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8951059(unfulfilled),afterok:8950234(unfulfilled)",
+        "RunTime": "00:00:00",
+        "StartTime": "Unknown",
+        "NodeList": "",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "job_id": "8951061",
+      "logical_job": "evaluate_01",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8951059(unfulfilled),afterok:8950235(unfulfilled)",
+        "RunTime": "00:00:00",
+        "StartTime": "Unknown",
+        "NodeList": "",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "job_id": "8951062",
+      "logical_job": "evaluate_02",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8951059(unfulfilled),afterok:8950236(unfulfilled)",
+        "RunTime": "00:00:00",
+        "StartTime": "Unknown",
+        "NodeList": "",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "job_id": "8951063",
+      "logical_job": "evaluate_03",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8951059(unfulfilled),afterok:8950237(unfulfilled)",
+        "RunTime": "00:00:00",
+        "StartTime": "Unknown",
+        "NodeList": "",
+        "ExitCode": "0:0"
+      }
+    }
+  ],
+  "startup_checks": {
+    "main_fit_source_before.json": {
+      "source_files_unchanged": 1437,
+      "qualification_input_files_unchanged": 8,
+      "native_model_files_unchanged": 112
+    },
+    "main_fit_qualification_gate.json": {
+      "qualified": true,
+      "scope": "plumbing only; no efficacy decision",
+      "prior_stage_job_id": "8950995",
+      "prior_stage_job_state": "FAILED",
+      "native_continuation_job_id": "8951028",
+      "prior_tests": 246,
+      "new_candidate_paths": 2,
+      "retained_prefix_length": 20,
+      "source_checks": {
+        "source_files_unchanged": 1437,
+        "qualification_input_files_unchanged": 8,
+        "native_model_files_unchanged": 112
+      },
+      "native_receipt": {
+        "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation",
+        "schema": "intrmotiv/reused-control-evaluation/v1",
+        "summary_sha256": "0528a3b700fc96ca2b1bb5fa463cd1c895cef2c33932dc92886bf651d81dcea0",
+        "pre_run_manifest_sha256": "e77000615594fb839fd2853d31203b057d58564dcfe32466dadde58b1b1471e0",
+        "trials_sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+        "candidate_trials_file": "candidate_trials.jsonl",
+        "imported_control": {
+          "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+          "summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+          "pre_run_manifest_sha256": "7b78f5914f35e8f54c4455ddccbaee98a4a19f3720d073984b6b9fb35c12e9dc",
+          "trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+          "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+          "archived_sources_manifest_sha256": "90addeb4cb82b8b881a4b8cfca11a5ab0a0e5f8c1458d67200aba571da380cf4",
+          "source_ids": [
+            2
+          ],
+          "trial_rows": 8,
+          "trial_sources": [
+            {
+              "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+              "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+              "policies": [
+                "source",
+                "first_hit"
+              ],
+              "cohort": "original_joint_evaluation"
+            }
+          ]
+        },
+        "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+        "source_ids": [
+          2
+        ],
+        "trial_rows": 8,
+        "archived_sources_manifest_sha256": "725c6121b3303f66fadf497622d733bf824a4ef89b432ea74c7bbb57783f3ae1",
+        "trial_sources": [
+          {
+            "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+            "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+            "policies": [
+              "source"
+            ],
+            "cohort": "imported_source_control"
+          },
+          {
+            "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/candidate_trials.jsonl",
+            "sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+            "policies": [
+              "first_hit"
+            ],
+            "cohort": "new_stationary_candidate"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "intrmotiv/stationary-main-launch-staging/v2",
+  "staged_utc": "2026-11-27T11:45:03.386446+00:00",
+  "launch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3",
+  "files_sha256": {
+    "qualification_gate.py": "014a75e49299ccb4e6eb2e11d40d5378739b08dc4307be0fc3e14b72d29760f9",
+    "main_fit.sbatch": "b969fcc8fa723779d76a98114506aa01aebdb9e70f1b7bb45d62776c1181fea9",
+    "evaluate_00.sbatch": "9ab49aff1f2f8fa4d5677d541992bfc5af444363f6794b85f043d4ae30aa176c",
+    "evaluate_01.sbatch": "b7b245673edffc63251a1711729adc78071618228a6fe5b133a98902dae0e6aa",
+    "evaluate_02.sbatch": "388c861d2401193114ceb20a0c0b330a3c205653feee089969c3edb08b974ff4",
+    "evaluate_03.sbatch": "1dff1f98e42f147c0772b4e04bf275da3d6dc7234d510c80e1a3c6c01353382a",
+    "main_launch_bundle.json": "b3c8a23328d6454c02ee765e016ba835dc6f463e4bd7a42d8a718b9326c100c7"
+  },
+  "source_or_plan_changed": false,
+  "workspace_fsync": true,
+  "jobs_submitted": []
+}

@@ -1,0 +1,119 @@
+{
+  "schema": "intrmotiv/pure-analysis-local-bundle/v1",
+  "created_utc": "2026-11-27T11:37:58.264326+00:00",
+  "status": "local_review_only_dependencies_unresolved",
+  "source_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+  "source_manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+  "source_inventory_files": 1437,
+  "plan_source_file_sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "launch_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/analysis_launch_v1",
+  "candidate_manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_launch_bundle.json",
+  "evaluation_shards": [
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03"
+  ],
+  "original_control": "Imported original source rows by certified receipt; old finite-head candidate rows excluded",
+  "field_audit": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/analysis_launch_v1/field_reuse_audit.json",
+    "sha256": "292e90a402fba6c072bf040b884ace07d866a4ef0d9253519cf6d4c39488e7dc",
+    "source_release_contains_audit": false,
+    "copy_in_separate_bundle_only": true
+  },
+  "field_npz": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+    "sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7"
+  },
+  "outputs": {
+    "aggregate": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1",
+    "trace": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/trace_analysis_v1",
+    "figures": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/figures_v1"
+  },
+  "resources": {
+    "cpus": 2,
+    "memory_gb": 8,
+    "hours": 1
+  },
+  "dependencies": {
+    "schema": "intrmotiv/pending-analysis-dependencies/v1",
+    "ready_for_submission": false,
+    "jobs": [
+      {
+        "stage_id": "evaluation_sources_00",
+        "source_ids": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+        "job_id": null,
+        "placeholder": "__EVALUATION_SOURCES_00_JOB_ID__"
+      },
+      {
+        "stage_id": "evaluation_sources_01",
+        "source_ids": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+        "job_id": null,
+        "placeholder": "__EVALUATION_SOURCES_01_JOB_ID__"
+      },
+      {
+        "stage_id": "evaluation_sources_02",
+        "source_ids": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+        "job_id": null,
+        "placeholder": "__EVALUATION_SOURCES_02_JOB_ID__"
+      },
+      {
+        "stage_id": "evaluation_sources_03",
+        "source_ids": [
+          12,
+          13,
+          14,
+          15
+        ],
+        "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03",
+        "job_id": null,
+        "placeholder": "__EVALUATION_SOURCES_03_JOB_ID__"
+      }
+    ],
+    "candidate_manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_launch_bundle.json",
+    "dependency_template": "afterok:__EVALUATION_SOURCES_00_JOB_ID__:__EVALUATION_SOURCES_01_JOB_ID__:__EVALUATION_SOURCES_02_JOB_ID__:__EVALUATION_SOURCES_03_JOB_ID__",
+    "instruction": "Resolve every job ID from the actual candidate evaluation submission receipt after root review. Preserve this unsubmitted template; no invented IDs, no automatic submission or resume."
+  },
+  "native_environment_execution": false,
+  "training": false,
+  "new_discovery": false,
+  "source_control_rerun": false,
+  "jobs_submitted": false,
+  "remotely_staged": false,
+  "source_or_plan_modified": false,
+  "launch_files_sha256": {
+    "README.md": "3138789c313fa24b71d60b405eabdcf49f21ed8b628858800095225ca34e4011",
+    "analyze.sbatch": "ae83856b8e214ae02389ada3987e4b0b86230e1cb428147d075543a635d1c4dc",
+    "commands.json": "9e8ea512f63bfa1c585397d3fbace2b3043ccb6b8b30bb1ab218d7b8b03f1e79",
+    "dependency_placeholders.json": "a101e9566fe6c636b4902cd31a38089c8f92e505dd9323d228e5c811d9f08453",
+    "field_reuse_audit.json": "292e90a402fba6c072bf040b884ace07d866a4ef0d9253519cf6d4c39488e7dc",
+    "source_manifest.json": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+    "validation.json": "7e0449ea3dd60d445962bcc7d709fd90e08420918c08ae033ddd57ddfb3cf078",
+    "verify_release.py": "84c393fff8ff1883ee38873461c8a70cae62eb51046ca43072b4e3a66556f510"
+  },
+  "validation": {
+    "bash_syntax": "passed",
+    "canonical_command_mapping": "three exact structured argv match the shell commands",
+    "static_verification_sha256": "7e0449ea3dd60d445962bcc7d709fd90e08420918c08ae033ddd57ddfb3cf078"
+  }
+}

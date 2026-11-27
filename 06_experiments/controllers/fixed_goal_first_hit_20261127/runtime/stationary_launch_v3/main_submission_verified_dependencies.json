@@ -1,0 +1,200 @@
+{
+  "schema": "intrmotiv/stationary-main-submissions/v1",
+  "started_utc": "2026-11-27T11:54:33.066041+00:00",
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "renderer_commit": "2c4fc49225383165e4e8b140ebcc3c0b88503ddb",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "source_manifest_sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067",
+  "main_bundle_sha256": "b3c8a23328d6454c02ee765e016ba835dc6f463e4bd7a42d8a718b9326c100c7",
+  "qualification": {
+    "prior_stage_job_id": "8950995",
+    "prior_stage_job_state": "FAILED",
+    "prior_successful_stages": [
+      "246 pure tests",
+      "exact source/prefix probe",
+      "100-update fit and exact reload"
+    ],
+    "native_continuation_job_id": "8951028",
+    "continuation_manifest_sha256": "2e91bdf82ab9976cdb4e38bf2f9d9970b1a398e06f10aa4a33af9ad945f798b9"
+  },
+  "jobs": [
+    {
+      "logical_job": "main_fit",
+      "job_id": "8951059",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_fit.sbatch"
+      ],
+      "script_sha256": "b969fcc8fa723779d76a98114506aa01aebdb9e70f1b7bb45d62776c1181fea9",
+      "depends_on_job_ids": [],
+      "submitted_utc": "2026-11-27T11:54:36.020381+00:00",
+      "sbatch_stdout": "8951059\n",
+      "sbatch_stderr": "",
+      "scheduler_receipt": "JobId=8951059 JobName=fh_stationary_main_fit UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=02:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:54:36 EligibleTime=2026-11-27T12:54:36 AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:54:36 Scheduler=Main Partition=cpu AllocNode:Sid=login1:919407 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=16G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=16G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_fit.sbatch SubmitLine=sbatch --parsable /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_fit.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_8951059.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_8951059.out TresPerTask=cpu=4\n",
+      "scheduler_check_returncode": 0
+    },
+    {
+      "logical_job": "evaluate_00",
+      "job_id": "8951060",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:8951059:8950234",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_00.sbatch"
+      ],
+      "script_sha256": "9ab49aff1f2f8fa4d5677d541992bfc5af444363f6794b85f043d4ae30aa176c",
+      "depends_on_job_ids": [
+        "8951059",
+        "8950234"
+      ],
+      "submitted_utc": "2026-11-27T11:54:36.044339+00:00",
+      "sbatch_stdout": "8951060\n",
+      "sbatch_stderr": "",
+      "scheduler_receipt": "JobId=8951060 JobName=fh_stationary_evaluate_00 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:8951059(unfulfilled),afterok:8950234(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=08:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:54:36 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:54:36 Scheduler=Main Partition=cpu AllocNode:Sid=login1:919407 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=8G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=8G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_00.sbatch SubmitLine=sbatch --parsable --dependency=afterok:8951059:8950234 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_00.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_00_8951060.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_00_8951060.out TresPerTask=cpu=4\n",
+      "scheduler_check_returncode": 0
+    },
+    {
+      "logical_job": "evaluate_01",
+      "job_id": "8951061",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:8951059:8950235",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_01.sbatch"
+      ],
+      "script_sha256": "b7b245673edffc63251a1711729adc78071618228a6fe5b133a98902dae0e6aa",
+      "depends_on_job_ids": [
+        "8951059",
+        "8950235"
+      ],
+      "submitted_utc": "2026-11-27T11:54:36.066098+00:00",
+      "sbatch_stdout": "8951061\n",
+      "sbatch_stderr": "",
+      "scheduler_receipt": "JobId=8951061 JobName=fh_stationary_evaluate_01 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:8951059(unfulfilled),afterok:8950235(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=08:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:54:36 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:54:36 Scheduler=Main Partition=cpu AllocNode:Sid=login1:919407 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=8G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=8G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_01.sbatch SubmitLine=sbatch --parsable --dependency=afterok:8951059:8950235 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_01.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_01_8951061.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_01_8951061.out TresPerTask=cpu=4\n",
+      "scheduler_check_returncode": 0
+    },
+    {
+      "logical_job": "evaluate_02",
+      "job_id": "8951062",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:8951059:8950236",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_02.sbatch"
+      ],
+      "script_sha256": "388c861d2401193114ceb20a0c0b330a3c205653feee089969c3edb08b974ff4",
+      "depends_on_job_ids": [
+        "8951059",
+        "8950236"
+      ],
+      "submitted_utc": "2026-11-27T11:54:36.087613+00:00",
+      "sbatch_stdout": "8951062\n",
+      "sbatch_stderr": "",
+      "scheduler_receipt": "JobId=8951062 JobName=fh_stationary_evaluate_02 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:8951059(unfulfilled),afterok:8950236(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=08:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:54:36 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:54:36 Scheduler=Main Partition=cpu AllocNode:Sid=login1:919407 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=8G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=8G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_02.sbatch SubmitLine=sbatch --parsable --dependency=afterok:8951059:8950236 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_02.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_02_8951062.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_02_8951062.out TresPerTask=cpu=4\n",
+      "scheduler_check_returncode": 0
+    },
+    {
+      "logical_job": "evaluate_03",
+      "job_id": "8951063",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--dependency=afterok:8951059:8950237",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_03.sbatch"
+      ],
+      "script_sha256": "1dff1f98e42f147c0772b4e04bf275da3d6dc7234d510c80e1a3c6c01353382a",
+      "depends_on_job_ids": [
+        "8951059",
+        "8950237"
+      ],
+      "submitted_utc": "2026-11-27T11:54:36.109248+00:00",
+      "sbatch_stdout": "8951063\n",
+      "sbatch_stderr": "",
+      "scheduler_receipt": "JobId=8951063 JobName=fh_stationary_evaluate_03 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=Dependency Dependency=afterok:8951059(unfulfilled),afterok:8950237(unfulfilled) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=08:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:54:36 EligibleTime=Unknown AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:54:36 Scheduler=Main Partition=cpu AllocNode:Sid=login1:919407 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=8G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=8G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_03.sbatch SubmitLine=sbatch --parsable --dependency=afterok:8951059:8950237 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/evaluate_03.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_03_8951063.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/evaluate_03_8951063.out TresPerTask=cpu=4\n",
+      "scheduler_check_returncode": 0
+    }
+  ],
+  "complete": true,
+  "no_automatic_retries": true,
+  "qualification_accounting": "8951028|COMPLETED|0:0\n8951028.batch|COMPLETED|0:0\n8951028.extern|COMPLETED|0:0\n",
+  "composite_qualification_gate": {
+    "qualified": true,
+    "scope": "plumbing only; no efficacy decision",
+    "prior_stage_job_id": "8950995",
+    "prior_stage_job_state": "FAILED",
+    "native_continuation_job_id": "8951028",
+    "prior_tests": 246,
+    "new_candidate_paths": 2,
+    "retained_prefix_length": 20,
+    "source_checks": {
+      "source_files_unchanged": 1437,
+      "qualification_input_files_unchanged": 8,
+      "native_model_files_unchanged": 112
+    },
+    "native_receipt": {
+      "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation",
+      "schema": "intrmotiv/reused-control-evaluation/v1",
+      "summary_sha256": "0528a3b700fc96ca2b1bb5fa463cd1c895cef2c33932dc92886bf651d81dcea0",
+      "pre_run_manifest_sha256": "e77000615594fb839fd2853d31203b057d58564dcfe32466dadde58b1b1471e0",
+      "trials_sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+      "candidate_trials_file": "candidate_trials.jsonl",
+      "imported_control": {
+        "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+        "summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+        "pre_run_manifest_sha256": "7b78f5914f35e8f54c4455ddccbaee98a4a19f3720d073984b6b9fb35c12e9dc",
+        "trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+        "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+        "archived_sources_manifest_sha256": "90addeb4cb82b8b881a4b8cfca11a5ab0a0e5f8c1458d67200aba571da380cf4",
+        "source_ids": [
+          2
+        ],
+        "trial_rows": 8,
+        "trial_sources": [
+          {
+            "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+            "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+            "policies": [
+              "source",
+              "first_hit"
+            ],
+            "cohort": "original_joint_evaluation"
+          }
+        ]
+      },
+      "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+      "source_ids": [
+        2
+      ],
+      "trial_rows": 8,
+      "archived_sources_manifest_sha256": "725c6121b3303f66fadf497622d733bf824a4ef89b432ea74c7bbb57783f3ae1",
+      "trial_sources": [
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl",
+          "sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+          "policies": [
+            "source"
+          ],
+          "cohort": "imported_source_control"
+        },
+        {
+          "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/candidate_trials.jsonl",
+          "sha256": "06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c",
+          "policies": [
+            "first_hit"
+          ],
+          "cohort": "new_stationary_candidate"
+        }
+      ]
+    }
+  },
+  "satisfied_expired_dependency": {
+    "job_id": "8951028",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "scheduler_min_job_age_seconds": 300,
+    "omitted_from_new_scheduler_edge": true
+  },
+  "prior_rejected_no_job_submission_receipt": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/main_submission.json",
+  "finished_utc": "2026-11-27T11:54:36.111201+00:00"
+}

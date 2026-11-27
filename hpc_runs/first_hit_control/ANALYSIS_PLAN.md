@@ -29,6 +29,8 @@ The bundle contains the effective protocol, rendered command JSON, source-releas
 
 Scripts require a Slurm allocation, verify source-release and donor identities before native imports, check resolved workspace paths, use short workspace temporary paths, and refuse existing stage outputs. Walltime overrides may reduce the reviewed reservation without changing scientific argv. A partial run requires a separately reviewed recovery; these scripts do not overwrite or silently resume artifacts.
 
+Completed jobs can leave Slurm's dependency cache after `MinJobAge` even while accounting retains them. For an already completed prerequisite, verify `sacct` reports `COMPLETED` with exit `0:0` and validate its completed artifact gates. Retain that logical dependency and its evidence in the receipt; omit an expired scheduler ID when submitting the next job. Keep active prerequisite IDs in `afterok`. Always capture stdout, stderr and return code for rejected submissions as well as successful ones, and confirm that a rejection produced no job before a corrected submission.
+
 ## Reusing completed controls
 
 Validate and print the dependent follow-up stages before staging a new immutable source release:

@@ -1,0 +1,30 @@
+{
+  "schema": "intrmotiv/stationary-native-continuation-staging/v1",
+  "staged_utc": "2026-11-27T11:42:15.226803+00:00",
+  "launch_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3",
+  "files_sha256": {
+    "launch_manifest.json": "2e91bdf82ab9976cdb4e38bf2f9d9970b1a398e06f10aa4a33af9ad945f798b9",
+    "qualification.sbatch": "cca1f5db8bf416f206042289ac91cf42c0a8c65d863e35b61407558e30a4e43a",
+    "completed_stage_guard.py": "b9494f6ef6cae60b3055a82cd63968161f302e682cc564aadd405417f496442e",
+    "verify_release.py": "84c393fff8ff1883ee38873461c8a70cae62eb51046ca43072b4e3a66556f510",
+    "rendered_plan.json": "e269e08168eb899cddac36804fd24e71c566d199848643edebdb9c3824316413",
+    "renderer_reused_plan.py": "34f576aa6f8a1e69b81801c63f1c9eb8b9d9338e4bd5d22ffd177e4a5ccebd86"
+  },
+  "candidate_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "renderer_commit": "2c4fc49225383165e4e8b140ebcc3c0b88503ddb",
+  "source_manifest": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v1/release_manifest.json",
+    "sha256": "8a6a791418c65e494a9c037ae49510272bcb426965eaf9102ea581da70fc7067"
+  },
+  "source_integrity": {
+    "source_files_unchanged": 1437,
+    "qualification_input_files_unchanged": 8,
+    "native_model_files_unchanged": 112
+  },
+  "prior_successful_stage_inputs_unchanged": 6,
+  "source_or_plan_changed": false,
+  "new_training_updates": 0,
+  "syntax_checked": true,
+  "workspace_fsync": true,
+  "jobs_submitted": []
+}

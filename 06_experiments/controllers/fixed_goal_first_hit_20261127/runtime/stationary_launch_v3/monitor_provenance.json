@@ -1,0 +1,22 @@
+{
+  "schema": "intrmotiv/read-only-stationary-monitor/v1",
+  "started_utc": "2026-11-27T12:01:04.813567+00:00",
+  "interval_seconds": 300,
+  "maximum_checks": 12,
+  "unified_exec_session_id": 84991,
+  "source_files": {
+    "monitor_stationary.py": {
+      "path": "/tmp/intrmotiv-first-hit-stationary-20261127/monitor_stationary.py",
+      "sha256": "b4ea138117f5efa2e38ed1f1282aec5b0c9956acccfbf622a5813ff424f672fb"
+    },
+    "supervise_stationary_readonly.py": {
+      "path": "/tmp/intrmotiv-first-hit-stationary-20261127/supervise_stationary_readonly.py",
+      "sha256": "501ba638b760464cdb51a774966d592701741c60c430cc4aef6e4647e598ce13"
+    }
+  },
+  "submitted_job_source": "main_submission_verified_dependencies.json",
+  "scientific_source_mutated": false,
+  "stop_on_transport_or_job_failure": true,
+  "no_submissions_or_retries": true,
+  "partial_journals_are_diagnostic_only": true
+}

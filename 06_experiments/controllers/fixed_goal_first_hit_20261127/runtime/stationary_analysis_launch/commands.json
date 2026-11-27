@@ -1,0 +1,74 @@
+{
+  "schema": "intrmotiv/pure-analysis-command-map/v1",
+  "source_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+  "commands": [
+    {
+      "stage_id": "aggregate",
+      "depends_on": [
+        "evaluation_sources_00",
+        "evaluation_sources_01",
+        "evaluation_sources_02",
+        "evaluation_sources_03"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.aggregate_evaluation",
+        "--shards",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1"
+      ],
+      "native_environment": false,
+      "learning": false,
+      "shell_display": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.aggregate_evaluation --shards /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_00 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_01 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_02 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/evaluation_sources_03 --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1"
+    },
+    {
+      "stage_id": "traces",
+      "depends_on": [
+        "aggregate"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.trace_analysis",
+        "--aggregate",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1/aggregate.json",
+        "--field-audit",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/analysis_launch_v1/field_reuse_audit.json",
+        "--field-npz",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/trace_analysis_v1"
+      ],
+      "native_environment": false,
+      "learning": false,
+      "shell_display": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.trace_analysis --aggregate /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1/aggregate.json --field-audit /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/analysis_launch_v1/field_reuse_audit.json --field-npz /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/trace_analysis_v1"
+    },
+    {
+      "stage_id": "figures",
+      "depends_on": [
+        "aggregate",
+        "traces"
+      ],
+      "argv": [
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-m",
+        "hpc_runs.first_hit_control.plot_evaluation",
+        "--aggregate",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1/aggregate.json",
+        "--traces",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/trace_analysis_v1/summary.json",
+        "--output",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/figures_v1"
+      ],
+      "native_environment": false,
+      "learning": false,
+      "shell_display": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -m hpc_runs.first_hit_control.plot_evaluation --aggregate /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/aggregate_v1/aggregate.json --traces /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/trace_analysis_v1/summary.json --output /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/figures_v1"
+    }
+  ]
+}

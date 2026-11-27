@@ -1,0 +1,169 @@
+{
+  "checked_utc": "2026-11-27T11:46:00.357097+00:00",
+  "job_id": "8951028",
+  "scheduler": "JobId=8951028 JobName=fh_stationary_native_q3 UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=COMPLETED Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:01:39 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-11-27T12:43:31 EligibleTime=2026-11-27T12:43:31 AccrueTime=2026-11-27T12:43:31 StartTime=2026-11-27T12:43:32 EndTime=2026-11-27T12:45:11 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T12:43:32 Scheduler=Backfill Partition=cpu AllocNode:Sid=login1:858757 ReqNodeList=(null) ExcNodeList=(null) NodeList=n3115 BatchHost=n3115 NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=16G,node=1,billing=2 AllocTRES=cpu=4,mem=16G,node=1,billing=2 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=16G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/qualification.sbatch SubmitLine=sbatch --parsable /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/launch_v3/qualification.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/qualification_native_r3_8951028.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/qualification_native_r3_8951028.out TresPerTask=cpu=4\n",
+  "scheduler_stderr": "",
+  "accounting": "8951028|COMPLETED|00:01:39|0:0|\n8951028.batch|COMPLETED|00:01:39|0:0|3447352K\n8951028.extern|COMPLETED|00:01:39|0:0|\n",
+  "files": {
+    "slurm/qualification_native_r3_8951028.out": {
+      "bytes": 129,
+      "tail": [
+        "Map number:\t3",
+        "Map number:\t3",
+        "{\"schema\": \"intrmotiv/reused-control-evaluation/v1\", \"decisions\": 69, \"source_control_rerun\": false}"
+      ]
+    },
+    "slurm/qualification_native_r3_8951028.err": {
+      "bytes": 7340,
+      "tail": [
+        "\u001b[36m[2026-11-27 12:43:46,328][1923833] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:43:46,328][1923833] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:43:46,328][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:43:46,329][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:43:46,329][1923833] depth_sensor  dmlab env True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,052][1923833] using reduced action set!\u001b[0m",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: \u001b[33mWARN: env.num_agents to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.num_agents` for environment variables or `env.get_wrapper_attr('num_agents')` that will search the reminding wrappers.\u001b[0m",
+        "  logger.warn(",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/gymnasium/core.py:311: UserWarning: \u001b[33mWARN: env.is_multiagent to get variables from other wrappers is deprecated and will be removed in v1.0, to get this variable you can do `env.unwrapped.is_multiagent` for environment variables or `env.get_wrapper_attr('is_multiagent')` that will search the reminding wrappers.\u001b[0m",
+        "  logger.warn(",
+        "\u001b[36m[2026-11-27 12:44:12,062][1923833] RunningMeanStd input shape: (1,)\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,071][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,071][1923833] using depth sensor True\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,071][1923833] Num input channels for depth encoder: 1\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,071][1923833] original obs space: Box(0, 255, (4, 72, 96), uint8)\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,281][1923833] DMLab policy head output size: 3843\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,282][1923833] denpth_sensor True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,283][1923833] denpth_sensor True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,283][1923833] using bypass, dim 13\u001b[0m",
+        "\u001b[33m[2026-11-27 12:44:12,283][1923833] USING SIMPLESEQUENCEWITHBYPASSCORE\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,283][1923833] get out size called: 1165\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,314][1923833] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,316][1923833] get out size called: 1165\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,328][1923833] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:12,328][1923833] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,328][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,328][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:12,328][1923833] depth_sensor  dmlab env True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:38,175][1923833] using reduced action set!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:40,642][1923833] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:44:40,642][1923833] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:40,642][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:40,642][1923833] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:44:40,642][1923833] depth_sensor  dmlab env True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:45:06,401][1923833] using reduced action set!\u001b[0m"
+      ]
+    },
+    "qualification_native_r3/prerequisites.json": {
+      "bytes": 565,
+      "tail": [
+        "{",
+        "  \"completed_test_count\": 246,",
+        "  \"prior_job_id\": \"8950995\",",
+        "  \"prior_job_state\": \"FAILED\",",
+        "  \"prior_successful_stages\": [",
+        "    \"pure tests\",",
+        "    \"source/prefix probe\",",
+        "    \"100-update copied-readout fit\"",
+        "  ],",
+        "  \"input_files_unchanged\": 6,",
+        "  \"source_config_sha256\": \"a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd\",",
+        "  \"original_runfiles_path\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/runfiles\",",
+        "  \"new_training_updates\": 0,",
+        "  \"new_collection_decisions\": 0",
+        "}"
+      ]
+    },
+    "qualification_native_r3/source_before.json": {
+      "bytes": 112,
+      "tail": [
+        "{\"source_files_unchanged\": 1437, \"qualification_input_files_unchanged\": 8, \"native_model_files_unchanged\": 112}"
+      ]
+    },
+    "qualification_native_r3/source_after.json": {
+      "bytes": 112,
+      "tail": [
+        "{\"source_files_unchanged\": 1437, \"qualification_input_files_unchanged\": 8, \"native_model_files_unchanged\": 112}"
+      ]
+    },
+    "qualification_native_r3/completion.json": {
+      "bytes": 3586,
+      "tail": [
+        "          \"sha256\": \"b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248\",",
+        "          \"policies\": [",
+        "            \"source\",",
+        "            \"first_hit\"",
+        "          ],",
+        "          \"cohort\": \"original_joint_evaluation\"",
+        "        }",
+        "      ]",
+        "    },",
+        "    \"matched_starts_sha256\": \"392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c\",",
+        "    \"source_ids\": [",
+        "      2",
+        "    ],",
+        "    \"trial_rows\": 8,",
+        "    \"archived_sources_manifest_sha256\": \"725c6121b3303f66fadf497622d733bf824a4ef89b432ea74c7bbb57783f3ae1\",",
+        "    \"trial_sources\": [",
+        "      {",
+        "        \"path\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix/trials.jsonl\",",
+        "        \"sha256\": \"b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248\",",
+        "        \"policies\": [",
+        "          \"source\"",
+        "        ],",
+        "        \"cohort\": \"imported_source_control\"",
+        "      },",
+        "      {",
+        "        \"path\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/qualification_evaluation/candidate_trials.jsonl\",",
+        "        \"sha256\": \"06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c\",",
+        "        \"policies\": [",
+        "          \"first_hit\"",
+        "        ],",
+        "        \"cohort\": \"new_stationary_candidate\"",
+        "      }",
+        "    ]",
+        "  }",
+        "}"
+      ]
+    },
+    "qualification_evaluation/summary.json": {
+      "bytes": 43515,
+      "tail": [
+        "        \"expected_sha256\": \"6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991\",",
+        "        \"snapshot_sha256\": \"6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991\",",
+        "        \"snapshot_valid\": true,",
+        "        \"current_exists\": true,",
+        "        \"current_sha256\": \"6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991\",",
+        "        \"current_matches_snapshot\": true",
+        "      },",
+        "      {",
+        "        \"source_path\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sf_working_directories/IntrMotiv/dmlab/controller_q.py\",",
+        "        \"snapshot_path\": \"sources/0021/controller_q.py\",",
+        "        \"expected_sha256\": \"60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9\",",
+        "        \"snapshot_sha256\": \"60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9\",",
+        "        \"snapshot_valid\": true,",
+        "        \"current_exists\": true,",
+        "        \"current_sha256\": \"60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9\",",
+        "        \"current_matches_snapshot\": true",
+        "      },",
+        "      {",
+        "        \"source_path\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/sample_factory/model/action_parameterization.py\",",
+        "        \"snapshot_path\": \"sources/0022/action_parameterization.py\",",
+        "        \"expected_sha256\": \"523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a\",",
+        "        \"snapshot_sha256\": \"523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a\",",
+        "        \"snapshot_valid\": true,",
+        "        \"current_exists\": true,",
+        "        \"current_sha256\": \"523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a\",",
+        "        \"current_matches_snapshot\": true",
+        "      }",
+        "    ]",
+        "  },",
+        "  \"checkpoint_unchanged\": true,",
+        "  \"source_configuration_unchanged\": true,",
+        "  \"fitted_checkpoint_unchanged\": true,",
+        "  \"restored_readout_sha256\": \"713eef4f29176490ff7ec65d3cd41ad4806c0061a80f42c663ee6adedb55bf32\",",
+        "  \"trials_sha256\": \"06be9a584b5d89085e09e05b9bf12bdab629efadb22ab4f5e1bfd01f01ca1a5c\"",
+        "}"
+      ]
+    }
+  }
+}
