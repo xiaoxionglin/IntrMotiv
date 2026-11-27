@@ -502,7 +502,7 @@ Each rollout writes `raw/<label>/place_fields.npz`. Current analysis expects:
 | --- | --- |
 | `occupancy` | Decision count in each position cell; shape follows the archived geometry (19 x 19 for corridor v1, 9 x 9 for the native landmark v2 map). |
 | `rate_maps` | Occupancy-corrected post-threshold DG activity per cell and unit. |
-| `spatial_information` | Occupancy-corrected information in bits per DG unit. |
+| `spatial_information` | Per-unit amplitude-weighted spatial score, $\sum_i p_i r_i\log_2(r_i/\bar r)$; not normalized bits per activation. |
 | `active_fraction` | Post-threshold duty cycle per DG unit. |
 | `pre_threshold_rate_maps` | Occupancy-corrected continuous DG logits per cell and unit. |
 | `pre_threshold_mean`, `pre_threshold_std` | Per-unit rollout logit moments. |

@@ -1,0 +1,393 @@
+{
+  "schema": "intrmotiv/first-hit-main-progress/v1",
+  "checked_utc": "2026-11-27T10:20:09.234427+00:00",
+  "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+  "jobs": [
+    {
+      "logical_job": "collect_fit",
+      "job_id": "8950233",
+      "scheduler": {
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "NodeList": "n3105",
+        "StartTime": "2026-11-27T10:49:03",
+        "RunTime": "00:31:06",
+        "ExitCode": "0:0"
+      },
+      "out_bytes": 28494,
+      "collection_progress": {
+        "decisions": 100000,
+        "total": 100000
+      },
+      "fit_progress": {
+        "update": 13200,
+        "training_mse": 0.026037054136395454,
+        "prediction_min": 0.744873046875,
+        "prediction_max": 4.182651996612549,
+        "usable_goal_labels": 27033600
+      },
+      "engine_initialization_lines": 126,
+      "err_bytes": 7279,
+      "stderr_tail": [
+        "\u001b[36m[2026-11-27 10:50:05,604][1691028] get out size called: 1165\u001b[0m",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.",
+        "  import pkg_resources",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML",
+        "  warnings.warn(\"Can't initialize NVML\")"
+      ]
+    },
+    {
+      "logical_job": "evaluate_00",
+      "job_id": "8950234",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8950233(unfulfilled)",
+        "NodeList": "",
+        "StartTime": "Unknown",
+        "RunTime": "00:00:00",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "logical_job": "evaluate_01",
+      "job_id": "8950235",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8950233(unfulfilled)",
+        "NodeList": "",
+        "StartTime": "Unknown",
+        "RunTime": "00:00:00",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "logical_job": "evaluate_02",
+      "job_id": "8950236",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8950233(unfulfilled)",
+        "NodeList": "",
+        "StartTime": "Unknown",
+        "RunTime": "00:00:00",
+        "ExitCode": "0:0"
+      }
+    },
+    {
+      "logical_job": "evaluate_03",
+      "job_id": "8950237",
+      "scheduler": {
+        "JobState": "PENDING",
+        "Dependency": "afterok:8950233(unfulfilled)",
+        "NodeList": "",
+        "StartTime": "Unknown",
+        "RunTime": "00:00:00",
+        "ExitCode": "0:0"
+      }
+    }
+  ],
+  "accounting": "8950233|RUNNING|0:0|00:31:06|00:00:00|\n8950233.batch|RUNNING|0:0|00:31:06|00:00:00|\n8950233.extern|RUNNING|0:0|00:31:06|00:00:00|\n8950234|PENDING|0:0|00:00:00|00:00:00|\n8950235|PENDING|0:0|00:00:00|00:00:00|\n8950236|PENDING|0:0|00:00:00|00:00:00|\n8950237|PENDING|0:0|00:00:00|00:00:00|\n",
+  "stages": {
+    "replay": {
+      "schema": "intrmotiv/frozen-first-hit-replay/v1",
+      "decisions": 100000,
+      "completed_episodes": 111,
+      "native_reward_zero_every_step": true,
+      "native_reward_nonzero_count": 0,
+      "model_unchanged": true,
+      "model_sha256_before": "7e19ae8aba95c5ffe535eb453119896a4fb19becf11d86a3c1ed40b3c262c388",
+      "model_sha256_after": "7e19ae8aba95c5ffe535eb453119896a4fb19becf11d86a3c1ed40b3c262c388",
+      "missing_terminal_successors": 0,
+      "action_counts": [
+        4685,
+        6258,
+        4541,
+        80066,
+        4450
+      ],
+      "layout": {
+        "width": 1165,
+        "goal_start": 1149,
+        "goals": 16
+      },
+      "dataset_sha256": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+      "decoder_state_sha256": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+      "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd"
+    },
+    "support": {
+      "schema": "intrmotiv/frozen-replay-exposure/v1",
+      "split": {
+        "seed": 99,
+        "holdout_fraction": 0.1,
+        "method": "Canonical replay_fit.episode_split, whole episodes",
+        "holdout_available": true
+      },
+      "panels": {
+        "all": {
+          "rows": 100000,
+          "episodes": 112,
+          "action_counts": [
+            4685,
+            6258,
+            4541,
+            80066,
+            4450
+          ],
+          "successor_positive_counts": {
+            "winner": [
+              9996,
+              2404,
+              2253,
+              2711,
+              90,
+              2970,
+              2551,
+              2268,
+              2081,
+              2707,
+              2034,
+              4179,
+              2137,
+              2416,
+              2021,
+              3440
+            ],
+            "exclusive": [
+              9768,
+              2396,
+              2191,
+              2699,
+              64,
+              2908,
+              2535,
+              2231,
+              2059,
+              2457,
+              2027,
+              3969,
+              2108,
+              2380,
+              1896,
+              3246
+            ]
+          },
+          "successor_positive_episode_counts": {
+            "winner": [
+              112,
+              112,
+              112,
+              112,
+              55,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              111,
+              111
+            ],
+            "exclusive": [
+              112,
+              112,
+              112,
+              112,
+              44,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              112,
+              111,
+              111
+            ]
+          },
+          "goals_without_winner_positive": []
+        },
+        "train": {
+          "rows": 90100,
+          "episodes": 101,
+          "action_counts": [
+            4223,
+            5647,
+            4086,
+            72152,
+            3992
+          ],
+          "successor_positive_counts": {
+            "winner": [
+              9010,
+              2150,
+              2048,
+              2447,
+              75,
+              2705,
+              2302,
+              2047,
+              1857,
+              2453,
+              1845,
+              3791,
+              1906,
+              2153,
+              1788,
+              3121
+            ],
+            "exclusive": [
+              8805,
+              2143,
+              1991,
+              2436,
+              55,
+              2651,
+              2286,
+              2011,
+              1835,
+              2228,
+              1838,
+              3604,
+              1878,
+              2118,
+              1680,
+              2941
+            ]
+          },
+          "successor_positive_episode_counts": {
+            "winner": [
+              101,
+              101,
+              101,
+              101,
+              47,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              100,
+              100
+            ],
+            "exclusive": [
+              101,
+              101,
+              101,
+              101,
+              38,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              101,
+              100,
+              100
+            ]
+          },
+          "goals_without_winner_positive": []
+        },
+        "holdout": {
+          "rows": 9900,
+          "episodes": 11,
+          "action_counts": [
+            462,
+            611,
+            455,
+            7914,
+            458
+          ],
+          "successor_positive_counts": {
+            "winner": [
+              986,
+              254,
+              205,
+              264,
+              15,
+              265,
+              249,
+              221,
+              224,
+              254,
+              189,
+              388,
+              231,
+              263,
+              233,
+              319
+            ],
+            "exclusive": [
+              963,
+              253,
+              200,
+              263,
+              9,
+              257,
+              249,
+              220,
+              224,
+              229,
+              189,
+              365,
+              230,
+              262,
+              216,
+              305
+            ]
+          },
+          "successor_positive_episode_counts": {
+            "winner": [
+              11,
+              11,
+              11,
+              11,
+              8,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11
+            ],
+            "exclusive": [
+              11,
+              11,
+              11,
+              11,
+              6,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11,
+              11
+            ]
+          },
+          "goals_without_winner_positive": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "intrmotiv/original-action-head-source-audit/v1",
+  "method": "Read-only SSH metadata and source hashes; torch.load weights_only=True on an existing replay snapshot; no model inference or native environment execution",
+  "snapshot_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/decoder_state.pt",
+  "snapshot_sha256": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+  "metadata": {
+    "action_head_class": "ActionParameterizationDefault",
+    "decoder_class": "MlpDecoderJit",
+    "decoder_config": {"decoder_mlp_layers": [128, 128], "nonlinearity": "relu", "use_jit": false},
+    "layout": {"width": 1165, "goal_start": 1149, "goals": 16},
+    "action_count": 5
+  },
+  "head_state": {
+    "distribution_linear.weight": {"shape": [5, 128], "dtype": "torch.float32", "sha256": "bb09e4eb40cd7383a3552fa84229850fe97181109468f1f8428b32efcf329b77"},
+    "distribution_linear.bias": {"shape": [5], "dtype": "torch.float32", "sha256": "47edd2023aefd541d0663a4b5f8ddf98d2707d20ac4a909f4c1ca0ec9533ce75"}
+  },
+  "source_files": {
+    "sample_factory/model/action_parameterization.py": {"donor_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a", "r3_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a"},
+    "sample_factory/model/actor_critic.py": {"donor_sha256": "66b18192aa741da7f33b1032ff2e90bcf71aabf6c90e3ce7254ec5436b0b9e5b", "r3_sha256": "66b18192aa741da7f33b1032ff2e90bcf71aabf6c90e3ce7254ec5436b0b9e5b"},
+    "sf_working_directories/IntrMotiv/dmlab/custom_decoder.py": {"donor_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991", "r3_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991"}
+  },
+  "scope": "Certifies source module identity and original five-output shape. Local graph fits instantiate these classes with toy dimensions and fresh weights; they do not transfer this checkpoint. The snapshot loader disables JIT, whereas matching previous toy experiments retains use_jit=true."
+}

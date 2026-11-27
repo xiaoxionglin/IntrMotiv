@@ -1,0 +1,107 @@
+{
+  "schema": "intrmotiv/frozen-first-hit-replay/v1",
+  "source_run": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+  "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+  "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "evaluation_overrides": {
+    "dmlab_use_level_cache": false,
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/cache",
+    "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+    "online_spatial_telemetry": false,
+    "with_wandb": false,
+    "transfer_freeze_dg": true
+  },
+  "original_use_jit": true,
+  "evaluation_use_jit": false,
+  "eligibility": {
+    "schema": "intrmotiv/slice-only-relabel-eligibility/v1",
+    "structural_eligibility": true,
+    "input_kind": "canonical_core_output",
+    "core_class": "SimpleSequenceWithBypassCore",
+    "decoder_class": "MlpDecoderJit",
+    "hrl_goal_conditioning": "legacy",
+    "layout": {
+      "width": 1165,
+      "goal_start": 1149,
+      "goals": 16
+    },
+    "half_open_slices": {
+      "canonical_ca3": [
+        0,
+        1136
+      ],
+      "physical_bypass": [
+        1136,
+        1149
+      ],
+      "goal": [
+        1149,
+        1165
+      ]
+    },
+    "effective_flags": {
+      "dg_goal_input": "none",
+      "hrl_landmark_geometry": "none",
+      "hrl_behavior_mode_condition": false,
+      "hrl_motion_policy_input": false,
+      "hrl_action_path_integration": false,
+      "ca3_state_readout_mode": "off",
+      "ca3_worker_goal_mode": "target_id",
+      "dg_context_feedback": "none",
+      "dg_orthogonal_recruitment": false
+    },
+    "source_sha256": {
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_core.py": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991"
+    },
+    "remaining_gates": [
+      "Frozen source DG weights and BatchNorm buffers",
+      "Actual actor/replay state parity",
+      "Genuine terminal successor transport"
+    ],
+    "unsupported_state_note": "GoalConditionedDGCore splits worker memory at canonical_state_size-behavior_goal_state_size; that goal-written worker block is not canonical scalar CA3. The controller_worker_state cache alone does not certify its meaning."
+  },
+  "model_sha256_before": "7e19ae8aba95c5ffe535eb453119896a4fb19becf11d86a3c1ed40b3c262c388",
+  "model_sha256_after": "7e19ae8aba95c5ffe535eb453119896a4fb19becf11d86a3c1ed40b3c262c388",
+  "model_unchanged": true,
+  "decisions": 100000,
+  "completed_episodes": 111,
+  "observation_core_encodes": 100001,
+  "terminal_cloned_core_encodes": 111,
+  "missing_terminal_successors": 0,
+  "reset_observations_used_as_successors": 0,
+  "native_reward_sum": 0.0,
+  "native_reward_abs_sum": 0.0,
+  "native_reward_nonzero_count": 0,
+  "native_reward_zero_every_step": true,
+  "native_reward_decisions": 100000,
+  "wrapped_reward_sum": 0.0,
+  "native_reward_capture": "Immediately below DmlabRewardShapingWrapper, one raw scalar per decision",
+  "seed": 73002,
+  "random_action_probability": 0.2,
+  "random_actions": 20036,
+  "action_count": 5,
+  "action_counts": [
+    4685,
+    6258,
+    4541,
+    80066,
+    4450
+  ],
+  "primary_detector": "winner",
+  "secondary_detector": "exclusive",
+  "goal_sampling": "none; label every goal after collection",
+  "env": "openfield_map2_fixed_loc3_fixedlength_noreward",
+  "frameskip": 8,
+  "decoder_class": "MlpDecoderJit",
+  "layout": {
+    "width": 1165,
+    "goal_start": 1149,
+    "goals": 16
+  },
+  "dataset_sha256": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+  "decoder_state_sha256": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+  "collector_sha256": "7ccee9bb5ccb16f27a9ebef66bff543ce2e7cfcd76a6c79be542c15ab3a31c59",
+  "scope": "Frozen factual reward-free replay; no goal-control claim"
+}

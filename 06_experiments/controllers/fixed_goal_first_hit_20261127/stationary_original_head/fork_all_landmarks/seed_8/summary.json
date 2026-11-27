@@ -1,0 +1,149 @@
+{
+  "environment": "fork_all_landmarks",
+  "seed": 8,
+  "updates": 2500,
+  "training_seconds": 17.097427122294903,
+  "parameters": 25091,
+  "action_head_parameters": 387,
+  "enumerated_goal_labels": 4480000,
+  "used_noninitial_goal_labels": 3840000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.0953550860285759
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.042284395545721054
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.03468303009867668
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.0005264250212348998
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.0006576812011189759
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 8.651226380607113e-05
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 7.867176464060321e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 3.217344419681467e-05
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 2.612655225675553e-05
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 1.7703439880278893e-05
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.3431541447062045e-05
+    }
+  ],
+  "n_nontrivial_pairs": 42,
+  "initially_satisfied_queries": 7,
+  "declared_queries": 49,
+  "first_hit_success": 0.9285714285714286,
+  "worst_pair_success": 0,
+  "all_pair_gate_passed": false,
+  "shortest_success_fraction": 0.7619047619047619,
+  "mean_decisions_nontrivial_queries": 3.0714285714285716,
+  "mean_shortest_distance": 2.6666666666666665,
+  "n_competing_comparisons": 210,
+  "competing_first_contrast": 0.2857142857142857,
+  "memoryless_competing_first_contrast": 0.3047619047619048,
+  "per_goal": {
+    "0": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "1": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.8333333333333334
+    },
+    "2": {
+      "queries": 6,
+      "success": 0.6666666666666666,
+      "shortest_success": 0.6666666666666666
+    },
+    "3": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.8333333333333334
+    },
+    "4": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "5": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "6": {
+      "queries": 6,
+      "success": 0.8333333333333334,
+      "shortest_success": 0.3333333333333333
+    }
+  },
+  "per_route_success": {
+    "first_hit": 0.9285714285714286,
+    "shuffled_goal": 0.21428571428571427,
+    "continuing_main": 0.47619047619047616,
+    "memoryless": 0.9047619047619048
+  },
+  "source_head_state_keys": [
+    "distribution_linear.weight",
+    "distribution_linear.bias"
+  ],
+  "positive_successor_exposures": [
+    554,
+    558,
+    627,
+    562,
+    624,
+    593,
+    578
+  ],
+  "initial_goal_rows_masked_per_goal": [
+    555,
+    562,
+    623,
+    571,
+    614,
+    598,
+    573
+  ],
+  "sampled_initial_goal_labels_omitted": 640000,
+  "maximum_start_query_absolute_calibration_error": 0.052256951332092294,
+  "checkpoint_sha256": "e631085e90e09201af53cb1cb34fad43f427849ee3e5d75e55c635dccc6a5caa",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "finite_horizon_comparison": {
+    "success": 1.0,
+    "mean_decisions_nontrivial_queries": 3.4285714285714284,
+    "shortest_success_fraction": 0.5,
+    "competing_first_contrast": 0.3333333333333333
+  },
+  "route_aliases": {
+    "continuing_main": "same stationary network with goal input zeroed; no continuing training"
+  }
+}

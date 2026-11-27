@@ -662,6 +662,16 @@ use this log for the infrastructure needed to resolve them.
   activity reused all 54 frozen traces through the adapter's pair-only mode.
   The 720 previous normalized rows were byte-for-byte unchanged, while the
   ten-visit map-only sensitivity rows reproduced all 144 full-length pairs.
+- **27 November metric-label follow-up:** The first-hit report inherited a
+  misleading bits label from the legacy `spatial_information` name. The
+  canonical formula retains activity amplitude; the telemetry document's
+  introductory warning was correct but its raw-contract table still said
+  bits per unit. Both display labels are corrected. Extend the existing
+  metric-metadata improvement to include formula, normalization and spatial
+  support, with a gain-scaling check: multiplying DG activity by $c$ must
+  multiply this score by $c$. Accept bits-per-activation labels only for an
+  explicitly normalized metric. This avoids repeating native evaluation to
+  resolve a display-unit ambiguity.
 - **Impact:** A future policy-sampling study could duplicate the thin adapter
   or mix incompatible decision counts and spatial-score denominators.
 - **Improvement/status:** The [current adapter](hpc_runs/behavior_field_probe.py)

@@ -1,0 +1,98 @@
+{
+  "schema": "intrmotiv/existing-field-preview-retrieval/v1",
+  "retrieved_utc": "2026-11-27T10:11:35.025802+00:00",
+  "source_audit_sha256": "292e90a402fba6c072bf040b884ace07d866a4ef0d9253519cf6d4c39488e7dc",
+  "native_execution": false,
+  "remote_mutations": false,
+  "files": {
+    "common_panel_place_fields.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png",
+      "bytes": 32660,
+      "sha256": "78a6c79e8fcbc59bb34f50ece01339a1e4b420f361b52cf55c615436be6bff0d",
+      "local_path": "/tmp/first_hit_field_preview/common_panel_place_fields.png",
+      "local_sha256": "78a6c79e8fcbc59bb34f50ece01339a1e4b420f361b52cf55c615436be6bff0d",
+      "transfer_hash_match": true
+    },
+    "common_panel_pre_threshold.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png",
+      "bytes": 47948,
+      "sha256": "c0e84135bc03f6806c35effe9bbb48095d3d38ca64013a7ecdd3d7f5b98287e3",
+      "local_path": "/tmp/first_hit_field_preview/common_panel_pre_threshold.png",
+      "local_sha256": "c0e84135bc03f6806c35effe9bbb48095d3d38ca64013a7ecdd3d7f5b98287e3",
+      "transfer_hash_match": true
+    },
+    "source_policy_place_fields.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png",
+      "bytes": 32285,
+      "sha256": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
+      "local_path": "/tmp/first_hit_field_preview/source_policy_place_fields.png",
+      "local_sha256": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
+      "transfer_hash_match": true
+    },
+    "source_policy_trajectory_grid.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png",
+      "bytes": 32285,
+      "sha256": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
+      "local_path": "/tmp/first_hit_field_preview/source_policy_trajectory_grid.png",
+      "local_sha256": "7bea422be1c5acb11edd51cee806699aa3c7837dd52bcc15c92e1560502bc0bc",
+      "transfer_hash_match": true
+    },
+    "common_panel_place_fields.npz": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+      "bytes": 77821,
+      "sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+      "local_path": "/tmp/first_hit_field_preview/common_panel_place_fields.npz",
+      "local_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+      "transfer_hash_match": true
+    },
+    "trajectory_fixed_flat.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/trajectory_fixed_flat.png",
+      "bytes": 16013,
+      "sha256": "2a4657355d3859abb94540cae00e6f5d96fb4f2b35e66a19fa13c8688431169c",
+      "local_path": "/tmp/first_hit_field_preview/trajectory_fixed_flat.png",
+      "local_sha256": "2a4657355d3859abb94540cae00e6f5d96fb4f2b35e66a19fa13c8688431169c",
+      "transfer_hash_match": true
+    },
+    "trajectory_global_hrl.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/trajectory_global_hrl.png",
+      "bytes": 15936,
+      "sha256": "a941ffb56643bdf53f708e4011022294ad7934e56f01a7bc85646750fd1c3c3a",
+      "local_path": "/tmp/first_hit_field_preview/trajectory_global_hrl.png",
+      "local_sha256": "a941ffb56643bdf53f708e4011022294ad7934e56f01a7bc85646750fd1c3c3a",
+      "transfer_hash_match": true
+    },
+    "trajectory_long_flat.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/trajectory_long_flat.png",
+      "bytes": 15672,
+      "sha256": "b84e79d16ca395c99a4f682174d1a3e0fb84c9a40b6635ae563a2fdfdbcd4f34",
+      "local_path": "/tmp/first_hit_field_preview/trajectory_long_flat.png",
+      "local_sha256": "b84e79d16ca395c99a4f682174d1a3e0fb84c9a40b6635ae563a2fdfdbcd4f34",
+      "transfer_hash_match": true
+    },
+    "trajectory_stream_long_hrl.png": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/trajectory_stream_long_hrl.png",
+      "bytes": 15962,
+      "sha256": "35c37d088fdbbe4ab0de5c1cd0f6bb7555704ed5e1e42c4128c409ce1295bbb7",
+      "local_path": "/tmp/first_hit_field_preview/trajectory_stream_long_hrl.png",
+      "local_sha256": "35c37d088fdbbe4ab0de5c1cd0f6bb7555704ed5e1e42c4128c409ce1295bbb7",
+      "transfer_hash_match": true
+    }
+  },
+  "common_panel_matches_previous_audit": true,
+  "source_policy_trajectory_grid_is_duplicate_field_grid": true,
+  "visual_inspection": {
+    "all_16_common_panel_fields_inspected": true,
+    "pre_threshold_panel_inspected": true,
+    "source_policy_field_panel_inspected": true,
+    "common_panel_notes": "All sixteen maps are visible. Active regions are scattered/multifield; gray unvisited bins differ from zero-rate visited bins. This is archived fixed-panel representational evidence, not command-conditioned control. Labels are small in the 4x4 overview and should be enlarged in new report figures.",
+    "trajectory_lookup": "The per_checkpoint_grids target PNG is byte-identical to the source-policy field grid. The only four trajectory_*.png in this bounded directory are empty field-metric-versus-checkpoint plots for unrelated family labels, not physical agent paths. No usable source-policy physical trajectory PNG was found in the audited directory.",
+    "empty_metric_figures": [
+      "trajectory_fixed_flat.png",
+      "trajectory_global_hrl.png",
+      "trajectory_long_flat.png",
+      "trajectory_stream_long_hrl.png"
+    ],
+    "native_environment_runs": 0,
+    "new_renders": 0
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "environment": "sparse_context",
+  "seed": 123,
+  "updates": 2500,
+  "training_seconds": 6.055307837203145,
+  "parameters": 21635,
+  "action_head_parameters": 387,
+  "enumerated_goal_labels": 1280000,
+  "used_noninitial_goal_labels": 1280000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.2103573977947235
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.0003286288701929152
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.0010516534093767405
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 1.0898822438321076e-05
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 6.599388143513352e-05
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 1.6055894036526297e-07
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 1.4912825463397894e-07
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 4.135832121221483e-09
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 2.451525347169081e-07
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 2.717502611826461e-10
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.8469748300220523e-11
+    }
+  ],
+  "n_nontrivial_pairs": 4,
+  "initially_satisfied_queries": 0,
+  "declared_queries": 4,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "all_pair_gate_passed": true,
+  "shortest_success_fraction": 0.75,
+  "mean_decisions_nontrivial_queries": 2.25,
+  "mean_shortest_distance": 1.0,
+  "n_competing_comparisons": 4,
+  "competing_first_contrast": 1.0,
+  "memoryless_competing_first_contrast": 0.0,
+  "per_goal": {
+    "4": {
+      "queries": 2,
+      "success": 1.0,
+      "shortest_success": 0.5
+    },
+    "5": {
+      "queries": 2,
+      "success": 1.0,
+      "shortest_success": 1.0
+    }
+  },
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.0,
+    "continuing_main": 0.25,
+    "memoryless": 0.0
+  },
+  "source_head_state_keys": [
+    "distribution_linear.weight",
+    "distribution_linear.bias"
+  ],
+  "positive_successor_exposures": [
+    821,
+    817
+  ],
+  "initial_goal_rows_masked_per_goal": [
+    0,
+    0
+  ],
+  "sampled_initial_goal_labels_omitted": 0,
+  "maximum_start_query_absolute_calibration_error": 0.0971725082397461,
+  "checkpoint_sha256": "e8f13e7458eccc48ca720a9af06018689c479a57c2d67cbeaa07c1df90065a1e",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "finite_horizon_comparison": {
+    "success": 1.0,
+    "mean_decisions_nontrivial_queries": 3.0,
+    "shortest_success_fraction": 0.0,
+    "competing_first_contrast": 1.0
+  },
+  "route_aliases": {
+    "continuing_main": "same stationary network with goal input zeroed; no continuing training"
+  }
+}

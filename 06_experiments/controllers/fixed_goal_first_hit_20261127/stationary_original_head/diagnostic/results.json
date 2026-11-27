@@ -1,0 +1,1266 @@
+{
+  "schema": "intrmotiv/stationary-saved-path-audit-results/v1",
+  "runs": [
+    {
+      "environment": "fork_all_landmarks",
+      "seed": 8,
+      "failed_paths": 3,
+      "final_recorded_minibatch_td_mse": 1.3431541447062045e-05,
+      "paths": [
+        {
+          "start": 4,
+          "goal": 2,
+          "recorded_path": [
+            4,
+            6,
+            4,
+            4,
+            6,
+            6,
+            4
+          ],
+          "recorded_actions": [
+            1,
+            1,
+            2,
+            1,
+            0,
+            1
+          ],
+          "recorded_prefix": [
+            4
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 4,
+            "requested_goal": 2,
+            "chosen_action": 1,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              0.9967591762542725,
+              1.029215931892395,
+              1.0247142314910889
+            ],
+            "oracle_values": [
+              1.0,
+              0.9801,
+              0.99
+            ],
+            "predicted_chosen_minus_best_shortest": 0.03245675563812256,
+            "oracle_shortest_minus_chosen": 0.01990000000000003,
+            "final_network_self_backup_label": 1.017940925359726,
+            "final_network_self_backup_residual": 0.011275006532668996,
+            "shortest_remaining_decisions": 1,
+            "chosen_best_total_remaining_decisions": 3,
+            "chosen_successor_is_self_loop": false,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": false,
+            "full_ca3_exact_replay_rows": 11,
+            "full_ca3_exact_factual_action_rows": 2,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 3
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              4
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 5,
+          "goal": 6,
+          "recorded_path": [
+            5,
+            3,
+            1,
+            0,
+            0,
+            2,
+            4
+          ],
+          "recorded_actions": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1
+          ],
+          "recorded_prefix": [
+            5
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 1,
+          "first_wrong_ranking": {
+            "step": 3,
+            "state": 0,
+            "requested_goal": 6,
+            "chosen_action": 2,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              0.9454469084739685,
+              0.9579651355743408,
+              0.9582822322845459
+            ],
+            "oracle_values": [
+              0.96059601,
+              0.9801,
+              0.970299
+            ],
+            "predicted_chosen_minus_best_shortest": 0.0003170967102050781,
+            "oracle_shortest_minus_chosen": 0.009800999999999949,
+            "final_network_self_backup_label": 0.9591762685775757,
+            "final_network_self_backup_residual": -0.0008940362930297541,
+            "shortest_remaining_decisions": 3,
+            "chosen_best_total_remaining_decisions": 4,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 1,
+            "full_ca3_exact_factual_action_rows": 0,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 1
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              0
+            ],
+            "current_dg": [
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 6,
+          "goal": 2,
+          "recorded_path": [
+            6,
+            4,
+            4,
+            6,
+            6,
+            4,
+            4
+          ],
+          "recorded_actions": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            2
+          ],
+          "recorded_prefix": [
+            6
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 1,
+            "state": 4,
+            "requested_goal": 2,
+            "chosen_action": 2,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              0.9955138564109802,
+              1.018593430519104,
+              1.0277149677276611
+            ],
+            "oracle_values": [
+              1.0,
+              0.9801,
+              0.99
+            ],
+            "predicted_chosen_minus_best_shortest": 0.03220111131668091,
+            "oracle_shortest_minus_chosen": 0.010000000000000009,
+            "final_network_self_backup_label": 1.0147391188144683,
+            "final_network_self_backup_residual": 0.012975848913192811,
+            "shortest_remaining_decisions": 1,
+            "chosen_best_total_remaining_decisions": 2,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 2,
+            "full_ca3_exact_factual_action_rows": 1,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 0
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              4
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        }
+      ]
+    },
+    {
+      "environment": "fork_all_landmarks",
+      "seed": 99,
+      "failed_paths": 8,
+      "final_recorded_minibatch_td_mse": 1.2908127246191725e-05,
+      "paths": [
+        {
+          "start": 0,
+          "goal": 6,
+          "recorded_path": [
+            0,
+            2,
+            2,
+            0,
+            2,
+            2,
+            0
+          ],
+          "recorded_actions": [
+            1,
+            2,
+            0,
+            1,
+            2,
+            0
+          ],
+          "recorded_prefix": [
+            0
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 1,
+            "state": 2,
+            "requested_goal": 6,
+            "chosen_action": 2,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              1.0071415901184082,
+              0.9962364435195923,
+              1.0104955434799194
+            ],
+            "oracle_values": [
+              0.970299,
+              0.99,
+              0.9801
+            ],
+            "predicted_chosen_minus_best_shortest": 0.014259099960327148,
+            "oracle_shortest_minus_chosen": 0.00990000000000002,
+            "final_network_self_backup_label": 0.9925700604915619,
+            "final_network_self_backup_residual": 0.0179254829883575,
+            "shortest_remaining_decisions": 2,
+            "chosen_best_total_remaining_decisions": 3,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 7,
+            "full_ca3_exact_factual_action_rows": 1,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 2
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 1,
+          "goal": 6,
+          "recorded_path": [
+            1,
+            0,
+            2,
+            0,
+            1,
+            3,
+            3
+          ],
+          "recorded_actions": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            2
+          ],
+          "recorded_prefix": [
+            1
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 2,
+            "state": 2,
+            "requested_goal": 6,
+            "chosen_action": 0,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              1.0074882507324219,
+              0.9977313876152039,
+              1.0031778812408447
+            ],
+            "oracle_values": [
+              0.970299,
+              0.99,
+              0.9801
+            ],
+            "predicted_chosen_minus_best_shortest": 0.009756863117218018,
+            "oracle_shortest_minus_chosen": 0.01970099999999997,
+            "final_network_self_backup_label": 0.9976694655418396,
+            "final_network_self_backup_residual": 0.009818785190582324,
+            "shortest_remaining_decisions": 2,
+            "chosen_best_total_remaining_decisions": 4,
+            "chosen_successor_is_self_loop": false,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 0,
+            "full_ca3_exact_factual_action_rows": 0,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 0
+            },
+            "latent_states_sharing_exact_replay_ca3": [],
+            "current_dg": [
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 2,
+          "goal": 5,
+          "recorded_path": [
+            2,
+            2,
+            2,
+            2,
+            0,
+            1,
+            3
+          ],
+          "recorded_actions": [
+            2,
+            2,
+            2,
+            0,
+            0,
+            0
+          ],
+          "recorded_prefix": [
+            2
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 3,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 2,
+            "requested_goal": 5,
+            "chosen_action": 2,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              0.9609929323196411,
+              0.9564229846000671,
+              0.9702005386352539
+            ],
+            "oracle_values": [
+              0.970299,
+              0.9509900498999999,
+              0.96059601
+            ],
+            "predicted_chosen_minus_best_shortest": 0.009207606315612793,
+            "oracle_shortest_minus_chosen": 0.009702990000000078,
+            "final_network_self_backup_label": 0.9682873141765594,
+            "final_network_self_backup_residual": 0.0019132244586944624,
+            "shortest_remaining_decisions": 4,
+            "chosen_best_total_remaining_decisions": 5,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 11,
+            "full_ca3_exact_factual_action_rows": 3,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 2
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 2,
+          "goal": 6,
+          "recorded_path": [
+            2,
+            2,
+            0,
+            2,
+            2,
+            0,
+            1
+          ],
+          "recorded_actions": [
+            2,
+            0,
+            1,
+            2,
+            0,
+            0
+          ],
+          "recorded_prefix": [
+            2
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 5,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 2,
+            "requested_goal": 6,
+            "chosen_action": 2,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              0.9880666732788086,
+              0.9960563778877258,
+              1.0004637241363525
+            ],
+            "oracle_values": [
+              0.970299,
+              0.99,
+              0.9801
+            ],
+            "predicted_chosen_minus_best_shortest": 0.004407346248626709,
+            "oracle_shortest_minus_chosen": 0.00990000000000002,
+            "final_network_self_backup_label": 0.9900841462612152,
+            "final_network_self_backup_residual": 0.010379577875137325,
+            "shortest_remaining_decisions": 2,
+            "chosen_best_total_remaining_decisions": 3,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 11,
+            "full_ca3_exact_factual_action_rows": 3,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 6
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 3,
+          "goal": 6,
+          "recorded_path": [
+            3,
+            5,
+            5,
+            3,
+            5,
+            3,
+            3
+          ],
+          "recorded_actions": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            2
+          ],
+          "recorded_prefix": [
+            3
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 3,
+            "requested_goal": 6,
+            "chosen_action": 0,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              1.0024265050888062,
+              1.0009431838989258,
+              0.9931575059890747
+            ],
+            "oracle_values": [
+              0.941480149401,
+              0.96059601,
+              0.9509900498999999
+            ],
+            "predicted_chosen_minus_best_shortest": 0.001483321189880371,
+            "oracle_shortest_minus_chosen": 0.019115860598999945,
+            "final_network_self_backup_label": 0.997144525051117,
+            "final_network_self_backup_residual": 0.0052819800376892045,
+            "shortest_remaining_decisions": 5,
+            "chosen_best_total_remaining_decisions": 7,
+            "chosen_successor_is_self_loop": false,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": false,
+            "full_ca3_exact_replay_rows": 22,
+            "full_ca3_exact_factual_action_rows": 8,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 7
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              3
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 4,
+          "goal": 5,
+          "recorded_path": [
+            4,
+            2,
+            2,
+            2,
+            0,
+            1,
+            3
+          ],
+          "recorded_actions": [
+            0,
+            2,
+            2,
+            0,
+            0,
+            0
+          ],
+          "recorded_prefix": [
+            4
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 2,
+          "first_wrong_ranking": {
+            "step": 1,
+            "state": 2,
+            "requested_goal": 5,
+            "chosen_action": 2,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              0.9575858116149902,
+              0.9551230072975159,
+              0.9664150476455688
+            ],
+            "oracle_values": [
+              0.970299,
+              0.9509900498999999,
+              0.96059601
+            ],
+            "predicted_chosen_minus_best_shortest": 0.008829236030578613,
+            "oracle_shortest_minus_chosen": 0.009702990000000078,
+            "final_network_self_backup_label": 0.9607071876525879,
+            "final_network_self_backup_residual": 0.005707859992980957,
+            "shortest_remaining_decisions": 4,
+            "chosen_best_total_remaining_decisions": 5,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 8,
+            "full_ca3_exact_factual_action_rows": 0,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 3
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 5,
+          "goal": 6,
+          "recorded_path": [
+            5,
+            3,
+            5,
+            5,
+            5,
+            3,
+            3
+          ],
+          "recorded_actions": [
+            0,
+            0,
+            1,
+            1,
+            0,
+            2
+          ],
+          "recorded_prefix": [
+            5
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 4,
+          "first_wrong_ranking": {
+            "step": 1,
+            "state": 3,
+            "requested_goal": 6,
+            "chosen_action": 0,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              0.9906610250473022,
+              0.9885572791099548,
+              0.9803016185760498
+            ],
+            "oracle_values": [
+              0.941480149401,
+              0.96059601,
+              0.9509900498999999
+            ],
+            "predicted_chosen_minus_best_shortest": 0.002103745937347412,
+            "oracle_shortest_minus_chosen": 0.019115860598999945,
+            "final_network_self_backup_label": 0.9989658844470978,
+            "final_network_self_backup_residual": -0.008304859399795528,
+            "shortest_remaining_decisions": 5,
+            "chosen_best_total_remaining_decisions": 7,
+            "chosen_successor_is_self_loop": false,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 5,
+            "full_ca3_exact_factual_action_rows": 2,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 2
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              3
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        },
+        {
+          "start": 6,
+          "goal": 5,
+          "recorded_path": [
+            6,
+            4,
+            4,
+            2,
+            0,
+            1,
+            3
+          ],
+          "recorded_actions": [
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "recorded_prefix": [
+            6
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 1,
+          "first_wrong_ranking": {
+            "step": 1,
+            "state": 4,
+            "requested_goal": 5,
+            "chosen_action": 2,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              0.9513591527938843,
+              0.9277628064155579,
+              0.9525214433670044
+            ],
+            "oracle_values": [
+              0.96059601,
+              0.941480149401,
+              0.9509900498999999
+            ],
+            "predicted_chosen_minus_best_shortest": 0.0011622905731201172,
+            "oracle_shortest_minus_chosen": 0.009605960100000033,
+            "final_network_self_backup_label": 0.948949134349823,
+            "final_network_self_backup_residual": 0.0035723090171814187,
+            "shortest_remaining_decisions": 5,
+            "chosen_best_total_remaining_decisions": 6,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 11,
+            "full_ca3_exact_factual_action_rows": 4,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 6
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              4
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        }
+      ]
+    },
+    {
+      "environment": "fork_all_landmarks",
+      "seed": 123,
+      "failed_paths": 1,
+      "final_recorded_minibatch_td_mse": 1.5049875401018653e-05,
+      "paths": [
+        {
+          "start": 5,
+          "goal": 6,
+          "recorded_path": [
+            5,
+            3,
+            1,
+            0,
+            2,
+            4,
+            4
+          ],
+          "recorded_actions": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "recorded_prefix": [
+            5
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 1,
+          "first_wrong_ranking": {
+            "step": 5,
+            "state": 4,
+            "requested_goal": 6,
+            "chosen_action": 2,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              0.9642583131790161,
+              0.9661184549331665,
+              0.9774988889694214
+            ],
+            "oracle_values": [
+              0.9801,
+              1.0,
+              0.99
+            ],
+            "predicted_chosen_minus_best_shortest": 0.011380434036254883,
+            "oracle_shortest_minus_chosen": 0.010000000000000009,
+            "final_network_self_backup_label": 0.9781545549631119,
+            "final_network_self_backup_residual": -0.0006556659936904907,
+            "shortest_remaining_decisions": 1,
+            "chosen_best_total_remaining_decisions": 2,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 0,
+            "full_ca3_exact_factual_action_rows": 0,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 0
+            },
+            "latent_states_sharing_exact_replay_ca3": [],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        }
+      ]
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "failed_paths": 1,
+      "final_recorded_minibatch_td_mse": 1.478601632243226e-07,
+      "paths": [
+        {
+          "start": 2,
+          "goal": 5,
+          "recorded_path": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "recorded_actions": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "recorded_prefix": [
+            0,
+            2
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 6,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 2,
+            "requested_goal": 5,
+            "chosen_action": 2,
+            "shortest_actions": [
+              1
+            ],
+            "predicted_values": [
+              -0.0002778768539428711,
+              1.0006495714187622,
+              1.0571857690811157
+            ],
+            "oracle_values": [
+              0.0,
+              1.0,
+              0.99
+            ],
+            "predicted_chosen_minus_best_shortest": 0.056536197662353516,
+            "oracle_shortest_minus_chosen": 0.010000000000000009,
+            "final_network_self_backup_label": 1.0569559943675995,
+            "final_network_self_backup_residual": 0.000229774713516262,
+            "shortest_remaining_decisions": 1,
+            "chosen_best_total_remaining_decisions": 2,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 834,
+            "full_ca3_exact_factual_action_rows": 288,
+            "full_ca3_exact_shortest_action_rows": {
+              "1": 271
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        }
+      ]
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "failed_paths": 1,
+      "final_recorded_minibatch_td_mse": 1.1772530172926565e-10,
+      "paths": [
+        {
+          "start": 2,
+          "goal": 4,
+          "recorded_path": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "recorded_actions": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "recorded_prefix": [
+            0,
+            2
+          ],
+          "path_repeats_latent_state": true,
+          "strict_wrong_ranking_steps": 6,
+          "first_wrong_ranking": {
+            "step": 0,
+            "state": 2,
+            "requested_goal": 4,
+            "chosen_action": 2,
+            "shortest_actions": [
+              0
+            ],
+            "predicted_values": [
+              1.000006914138794,
+              -9.045004844665527e-06,
+              1.010705828666687
+            ],
+            "oracle_values": [
+              1.0,
+              0.0,
+              0.99
+            ],
+            "predicted_chosen_minus_best_shortest": 0.010698914527893066,
+            "oracle_shortest_minus_chosen": 0.010000000000000009,
+            "final_network_self_backup_label": 1.013869332075119,
+            "final_network_self_backup_residual": -0.003163503408432078,
+            "shortest_remaining_decisions": 1,
+            "chosen_best_total_remaining_decisions": 2,
+            "chosen_successor_is_self_loop": true,
+            "current_latent_state_previously_seen_in_path": false,
+            "chosen_successor_already_in_path": true,
+            "full_ca3_exact_replay_rows": 826,
+            "full_ca3_exact_factual_action_rows": 278,
+            "full_ca3_exact_shortest_action_rows": {
+              "0": 274
+            },
+            "latent_states_sharing_exact_replay_ca3": [
+              2
+            ],
+            "current_dg": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "all_recorded_actions_reproduced": true,
+          "model_unchanged": true
+        }
+      ]
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "failed_paths": 0,
+      "final_recorded_minibatch_td_mse": 1.8469748300220523e-11,
+      "paths": []
+    }
+  ],
+  "failed_paths": 14,
+  "protocol_sha256": "f0da62635a3a231fdcceebab55ce5ca9b94b585a1f5bd2c396d5cba255876dba",
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_readout.py",
+        "snapshot_path": "sources/0000/stationary_readout.py",
+        "expected_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0001/neural.py",
+        "expected_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0002/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0003/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0004/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0005/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py",
+        "snapshot_path": "sources/0006/aggregate_evaluation.py",
+        "expected_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0007/dmlab_evaluate.py",
+        "expected_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0008/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0009/action_parameterization.py",
+        "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0010/state.py",
+        "expected_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/minimal_stationary_head_design.md",
+        "snapshot_path": "sources/0011/minimal_stationary_head_design.md",
+        "expected_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "snapshot_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_action_head_audit.json",
+        "snapshot_path": "sources/0012/stationary_action_head_audit.json",
+        "expected_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/pre_run_manifest.json",
+        "snapshot_path": "sources/0013/pre_run_manifest.json",
+        "expected_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "snapshot_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/action_distributions.py",
+        "snapshot_path": "sources/0014/action_distributions.py",
+        "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/model_utils.py",
+        "snapshot_path": "sources/0015/model_utils.py",
+        "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_stationary.py",
+        "snapshot_path": "sources/0016/test_first_hit_stationary.py",
+        "expected_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "snapshot_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_diagnose.py",
+        "snapshot_path": "sources/0017/stationary_diagnose.py",
+        "expected_sha256": "9e17f315a6d3882072217df78ce678b93aaad349857ea548958e788c80d68c1d",
+        "snapshot_sha256": "9e17f315a6d3882072217df78ce678b93aaad349857ea548958e788c80d68c1d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9e17f315a6d3882072217df78ce678b93aaad349857ea548958e788c80d68c1d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_stationary_diagnose.py",
+        "snapshot_path": "sources/0018/test_first_hit_stationary_diagnose.py",
+        "expected_sha256": "40229283acb97197e54866f44781f04026f4d22f81d40b46cdaefc896f59c626",
+        "snapshot_sha256": "40229283acb97197e54866f44781f04026f4d22f81d40b46cdaefc896f59c626",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "40229283acb97197e54866f44781f04026f4d22f81d40b46cdaefc896f59c626",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "inputs_unchanged": true
+}

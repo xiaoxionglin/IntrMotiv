@@ -1,0 +1,325 @@
+{
+  "schema": "intrmotiv/stationary-final-residual-results/v1",
+  "protocol_sha256": "4af66bdc9853a1653d73d9fe7cd7f692bd60519f357b326e10b967fadc4ff142",
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_readout.py",
+        "snapshot_path": "sources/0000/stationary_readout.py",
+        "expected_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0001/neural.py",
+        "expected_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0002/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0003/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0004/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0005/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py",
+        "snapshot_path": "sources/0006/aggregate_evaluation.py",
+        "expected_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0007/dmlab_evaluate.py",
+        "expected_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0008/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0009/action_parameterization.py",
+        "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0010/state.py",
+        "expected_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/minimal_stationary_head_design.md",
+        "snapshot_path": "sources/0011/minimal_stationary_head_design.md",
+        "expected_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "snapshot_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "dca22976dd83869f6bb3343357a811911c42a9458e63d57d3b1a5f1ea45eee2f",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_action_head_audit.json",
+        "snapshot_path": "sources/0012/stationary_action_head_audit.json",
+        "expected_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/pre_run_manifest.json",
+        "snapshot_path": "sources/0013/pre_run_manifest.json",
+        "expected_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "snapshot_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/action_distributions.py",
+        "snapshot_path": "sources/0014/action_distributions.py",
+        "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/model_utils.py",
+        "snapshot_path": "sources/0015/model_utils.py",
+        "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_stationary.py",
+        "snapshot_path": "sources/0016/test_first_hit_stationary.py",
+        "expected_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "snapshot_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "41c2c1c849fbfc1188fbf4b4665509d36fc8a2171b2feb19514687645c05c176",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_residual.py",
+        "snapshot_path": "sources/0017/stationary_residual.py",
+        "expected_sha256": "c5bddacf08d1c874ec14986194b34de893b0d94ad78cf6e552a698af6754325b",
+        "snapshot_sha256": "c5bddacf08d1c874ec14986194b34de893b0d94ad78cf6e552a698af6754325b",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c5bddacf08d1c874ec14986194b34de893b0d94ad78cf6e552a698af6754325b",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_stationary_residual.py",
+        "snapshot_path": "sources/0018/test_first_hit_stationary_residual.py",
+        "expected_sha256": "dedf6cb1f248c2a637c6d064cfd39822527c14887fcaf71ea93e8b05c902e994",
+        "snapshot_sha256": "dedf6cb1f248c2a637c6d064cfd39822527c14887fcaf71ea93e8b05c902e994",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "dedf6cb1f248c2a637c6d064cfd39822527c14887fcaf71ea93e8b05c902e994",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "inputs_unchanged": true,
+  "model_unchanged": true,
+  "replay_rows": 4096,
+  "goal_ids": [
+    2,
+    3
+  ],
+  "complete_replay": {
+    "labels": 8192,
+    "omitted_labels": 0,
+    "mse": 1.4888276646075687e-06,
+    "rmse": 0.0012201752597916287,
+    "mean_residual": -0.0004664464340748964,
+    "maximum_absolute_residual": 0.0033111572265625,
+    "prediction_min": -0.00015458464622497559,
+    "prediction_max": 1.0644704103469849,
+    "factual_predictions_above_one": 938,
+    "target_min": 0.0,
+    "target_max": 1.0677815675735474
+  },
+  "per_goal": {
+    "2": {
+      "labels": 4096,
+      "omitted_labels": 0,
+      "mse": 2.96688696626809e-06,
+      "rmse": 0.0017224653744758094,
+      "mean_residual": -0.0009542865518596955,
+      "maximum_absolute_residual": 0.0033111572265625,
+      "prediction_min": -0.00015458464622497559,
+      "prediction_max": 1.0644704103469849,
+      "factual_predictions_above_one": 867,
+      "target_min": 0.0,
+      "target_max": 1.0677815675735474
+    },
+    "3": {
+      "labels": 4096,
+      "omitted_labels": 0,
+      "mse": 1.0768362947047392e-08,
+      "rmse": 0.00010377072297641272,
+      "mean_residual": 2.139368370990269e-05,
+      "maximum_absolute_residual": 0.000573277473449707,
+      "prediction_min": -1.1458992958068848e-05,
+      "prediction_max": 1.0217366218566895,
+      "factual_predictions_above_one": 71,
+      "target_min": 0.0,
+      "target_max": 1.0214787721633911
+    }
+  },
+  "same_last_sample_indices_with_final_weights": {
+    "labels": 512,
+    "omitted_labels": 0,
+    "mse": 1.3412514782390299e-06,
+    "rmse": 0.0011581241203942822,
+    "mean_residual": -0.00041697712731547654,
+    "maximum_absolute_residual": 0.003163456916809082,
+    "prediction_min": -9.074807167053223e-06,
+    "prediction_max": 1.0509612560272217,
+    "factual_predictions_above_one": 61,
+    "target_min": 0.0,
+    "target_max": 1.0538257360458374
+  },
+  "recorded_last_stale_target_minibatch_mse": 1.1772530172926565e-10,
+  "historical_target_weights_available": false,
+  "witness": {
+    "start": 2,
+    "physical_goal": 4,
+    "detector_goal": 2,
+    "chosen_action": 2,
+    "full_ca3_matching_rows": 826,
+    "exact_input_action_counts": {
+      "0": 274,
+      "1": 274,
+      "2": 278
+    },
+    "current_q": [
+      1.000006914138794,
+      -9.045004844665527e-06,
+      1.010705828666687
+    ],
+    "actual_successor_q": [
+      1.0000022649765015,
+      1.6689300537109375e-06,
+      1.0241104364395142
+    ],
+    "current_ca3_nonzero": [
+      [
+        0,
+        1
+      ]
+    ],
+    "successor_ca3_nonzero": [
+      [
+        0,
+        2
+      ]
+    ],
+    "physical_state_unchanged": true,
+    "full_ca3_unchanged": false,
+    "final_target": 1.013869285583496,
+    "final_prediction": 1.010705828666687,
+    "actual_fresh_residual": -0.003163456916809082,
+    "squared_actual_fresh_residual": 1.0007459664507223e-05,
+    "invalid_same_physical_node_shortcut_residual": 0.01010705828666688,
+    "matching_wait_residuals": {
+      "labels": 278,
+      "omitted_labels": 0,
+      "mse": 1.0007459664507223e-05,
+      "rmse": 0.003163456916809082,
+      "mean_residual": -0.003163456916809082,
+      "maximum_absolute_residual": 0.003163456916809082,
+      "prediction_min": 1.010705828666687,
+      "prediction_max": 1.010705828666687,
+      "factual_predictions_above_one": 278,
+      "target_min": 1.013869285583496,
+      "target_max": 1.013869285583496
+    }
+  },
+  "target_generation_diagnostic": {
+    "refreshes": 25,
+    "gamma": 0.99,
+    "exact_contraction_factor_after_25_backups": 0.7778213593991467,
+    "finite_horizon": 6,
+    "interpretation": "25 neural target refreshes are not 25 exact Bellman backups. The exact stationary contraction bound would retain up to gamma^25 of initial sup error; finite-H6 exact backups have an acyclic time boundary. Neither fact certifies neural convergence or explains failure uniquely."
+  }
+}
