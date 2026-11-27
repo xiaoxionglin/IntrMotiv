@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/bounded-monitor-handoff/v1",
-  "updated_utc": "2026-11-27T12:26:35.898123+00:00",
+  "updated_utc": "2026-11-27T12:36:57.667225+00:00",
   "period_seconds": 300,
   "checks_per_invocation": 12,
   "read_only": true,
@@ -25,7 +25,7 @@
     }
   },
   "active_sessions": {
-    "original": 63783,
+    "original": 84574,
     "stationary": 84991
   },
   "resume_rule": "Poll existing unified exec sessions first. Renew a supervisor only after its previous invocation finishes; it waits until the previous receipt plus300 seconds. Do not run parallel duplicate monitors.",
@@ -39,5 +39,20 @@
     "sha256": "6abe39a642cc60c8b85e73a467fd9d80394dea269c7cb59857975fa211ec0c22",
     "argv": "python3 - original|stationary 00|01|02|03|analysis < retrieve_completed.py",
     "scope": "Completed lightweight summaries, manifests, contrast tables and PNGs only; failure logs are bounded. No raw arrays/trials or native execution."
-  }
+  },
+  "session_owner_agent": "/root/dmlab_preflight_audit",
+  "session_scope_note": "Unified exec process handles are agent-scoped: root got Unknown process id, while the owning agent successfully polled both live handles. Ask the owner to poll or confirm exit; do not start a duplicate based on another agent lookup failure.",
+  "renewals": [
+    {
+      "cohort": "original",
+      "renewed_utc": "2026-11-27T12:36:57.667225+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 63783,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T12:36:19.928610+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 84574,
+      "next_check_not_before_previous_plus_seconds": 300
+    }
+  ]
 }

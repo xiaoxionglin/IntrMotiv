@@ -12,6 +12,25 @@ A [prospective smaller-candidate audit](runtime/minimal_stationary_head_design.m
 
 Reward-free means the exploration transitions contain no external task reward. Goal labels are generated from frozen DG events. Offline control fitting uses this data; goal evaluation freezes learning. Fitting a new controller is not claimed to transfer the original worker policy. The representation and goal-command interface are retained. Synthetic DG cues in the small tests are controlled stand-ins, not learned DMLab place fields.
 
+### Exact minimal candidate
+
+Let $z_t$ denote the existing CA3 state and retained bypass inputs, and let $g$ be a fixed requested DG winner. The original decoder and action head receive $(z_t,g)$ and produce one raw value per action. For each recorded factual action $a_t$, train every eligible goal with the following target, using an online readout $q_\theta$ and its periodically copied target $q_{\bar\theta}$:
+
+$$
+y_t^g=
+\begin{cases}
+1, & \text{the genuine successor has DG winner }g,\\
+0, & \text{a known physical terminal occurs without hitting }g,\\
+\gamma\,\operatorname{clip}_{[0,1]}q_{\bar\theta}(z_{t+1},g,a^*), & \text{otherwise},
+\end{cases}
+\qquad
+a^*=\arg\max_a q_\theta(z_{t+1},g,a),\quad \gamma=0.99.
+$$
+
+Already-satisfied current goals are excluded from regression. Unknown successors are not converted into failures, and a live bootstrap requires a valid successor core. All-goal labels retain failed factual transitions; they do not select only successful futures. At execution, keep $g$ fixed, choose the raw-value argmax, and stop at its first detected arrival. There is no inference-time clipping, added head, clock input or extra memory. The native experiment fits a copy of the original readout while retaining the frozen donor actor as a comparison.
+
+Exact optimal first-arrival values lie in $[0,1]$. Projecting the bootstrap to that range preserves the optimal Bellman fixed point and yields a $\gamma$-contractive exact operator. On a finite deterministic graph with a sufficient state and supported actions, its greedy policy follows a shortest route: for a noninitial goal at distance $d$, the optimal state value is $\max_a q^*(z,g,a)=\gamma^{d-1}$. This is an exact-control statement. It does not prove convergence of the implemented shared neural, stale-target updates, adequate native action coverage, or sufficiently accurate action rankings. Those are the reasons for the local ablations and full matched native tests.
+
 ## Why this differs from previous attempts
 
 The audited clean desktop runtime is `/home/xiaoxiong/SFgit/SF_hipposlam` at `206ee8330f048b910c19ea9b82e6215a58a63c8d`. Its optional DDQN implementation in `controller_q.py` declares that hindsight values never choose actions. Main replay keeps behavior and successor manager commands; virtual-goal replay rewrites both commands but trains only the auxiliary. In DDQN mode, acting uses the main continuing-return head. The actual native C05 donor uses PPO, so unused auxiliary-Q routing is not an established failure mechanism for that donor. This code audit motivates the proposed control contract without demonstrating that it will solve DMLab navigation.

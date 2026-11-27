@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/first-hit-main-progress/v2",
-  "checked_utc": "2026-11-27T12:31:14.578736+00:00",
+  "checked_utc": "2026-11-27T12:56:31.343574+00:00",
   "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
   "jobs": [
     {
@@ -55,12 +55,12 @@
         "Dependency": "(null)",
         "NodeList": "n3101",
         "StartTime": "2026-11-27T11:29:37",
-        "RunTime": "02:01:37",
+        "RunTime": "02:26:54",
         "ExitCode": "0:0",
         "StateSource": null
       },
-      "out_bytes": 5427,
-      "engine_initialization_lines": 287,
+      "out_bytes": 6183,
+      "engine_initialization_lines": 341,
       "stdout_tail": [
         "Map number:\t3",
         "Map number:\t3",
@@ -71,15 +71,15 @@
         "Map number:\t3",
         "Map number:\t3"
       ],
-      "err_bytes": 126489,
+      "err_bytes": 152787,
       "stderr_tail": [
-        "\u001b[36m[2026-11-27 13:30:50,943][121116] Using GPU 0 for DMLab rendering!\u001b[0m",
-        "\u001b[36m[2026-11-27 13:30:50,943][121116] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:50,943][121116] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:50,943][121116] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:50,943][121116] depth_sensor  dmlab env True\u001b[0m"
+        "\u001b[36m[2026-11-27 13:56:31,124][121116] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 13:56:31,125][121116] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:31,125][121116] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:31,125][121116] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:31,125][121116] depth_sensor  dmlab env True\u001b[0m"
       ],
-      "live_resource_statistics": "8950234.batch|5694148K|04:07:06"
+      "live_resource_statistics": "8950234.batch|6887792K|04:59:16"
     },
     {
       "logical_job": "evaluate_01",
@@ -89,15 +89,15 @@
         "Dependency": "(null)",
         "NodeList": "n3102",
         "StartTime": "2026-11-27T11:29:37",
-        "RunTime": "02:01:37",
+        "RunTime": "02:26:54",
         "ExitCode": "0:0",
         "StateSource": null
       },
-      "out_bytes": 3739,
-      "engine_initialization_lines": 245,
+      "out_bytes": 4427,
+      "engine_initialization_lines": 291,
       "stdout_tail": [
         "Map number:\t3",
-        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t84.266666666667",
         "Map number:\t3",
         "Map number:\t3",
         "Map number:\t3",
@@ -105,15 +105,15 @@
         "Map number:\t3",
         "Map number:\t3"
       ],
-      "err_bytes": 121692,
+      "err_bytes": 144021,
       "stderr_tail": [
-        "\u001b[36m[2026-11-27 13:30:43,237][106639] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:43,237][106639] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:43,237][106639] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:30:43,237][106639] depth_sensor  dmlab env True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:10,060][106639] using reduced action set!\u001b[0m"
+        "\u001b[36m[2026-11-27 13:56:07,814][106639] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 13:56:07,814][106639] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:07,814][106639] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:07,814][106639] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:07,814][106639] depth_sensor  dmlab env True\u001b[0m"
       ],
-      "live_resource_statistics": "8950235.batch|8072612K|04:06:12"
+      "live_resource_statistics": "8950235.batch|8375044K|04:55:47"
     },
     {
       "logical_job": "evaluate_02",
@@ -123,12 +123,12 @@
         "Dependency": "(null)",
         "NodeList": "n3105",
         "StartTime": "2026-11-27T11:29:37",
-        "RunTime": "02:01:37",
+        "RunTime": "02:26:54",
         "ExitCode": "0:0",
         "StateSource": null
       },
-      "out_bytes": 6735,
-      "engine_initialization_lines": 305,
+      "out_bytes": 7449,
+      "engine_initialization_lines": 356,
       "stdout_tail": [
         "Map number:\t3",
         "Map number:\t3",
@@ -139,15 +139,15 @@
         "Map number:\t3",
         "Map number:\t3"
       ],
-      "err_bytes": 121113,
+      "err_bytes": 146256,
       "stderr_tail": [
-        "\u001b[36m[2026-11-27 13:31:10,688][1696266] Using GPU 0 for DMLab rendering!\u001b[0m",
-        "\u001b[36m[2026-11-27 13:31:10,688][1696266] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:10,688][1696266] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:10,688][1696266] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:10,688][1696266] depth_sensor  dmlab env True\u001b[0m"
+        "\u001b[36m[2026-11-27 13:56:27,062][1696266] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 13:56:27,063][1696266] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:27,063][1696266] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:27,063][1696266] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:27,063][1696266] depth_sensor  dmlab env True\u001b[0m"
       ],
-      "live_resource_statistics": "8950236.batch|5141240K|03:59:14"
+      "live_resource_statistics": "8950236.batch|5601656K|04:50:23"
     },
     {
       "logical_job": "evaluate_03",
@@ -157,34 +157,34 @@
         "Dependency": "(null)",
         "NodeList": "n3105",
         "StartTime": "2026-11-27T11:29:37",
-        "RunTime": "02:01:37",
+        "RunTime": "02:26:54",
         "ExitCode": "0:0",
         "StateSource": null
       },
-      "out_bytes": 4756,
-      "engine_initialization_lines": 254,
+      "out_bytes": 5607,
+      "engine_initialization_lines": 303,
       "stdout_tail": [
-        "api:pickup:    \t10\t; Time: \t12.7",
         "Map number:\t3",
         "Map number:\t3",
-        "api:pickup:    \t10\t; Time: \t12.7",
         "Map number:\t3",
         "Map number:\t3",
-        "api:pickup:    \t10\t; Time: \t12.7",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
         "Map number:\t3"
       ],
-      "err_bytes": 114704,
+      "err_bytes": 136396,
       "stderr_tail": [
-        "\u001b[36m[2026-11-27 13:31:07,056][1696265] Using GPU 0 for DMLab rendering!\u001b[0m",
-        "\u001b[36m[2026-11-27 13:31:07,057][1696265] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:07,057][1696265] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:07,057][1696265] True\u001b[0m",
-        "\u001b[37m\u001b[1m[2026-11-27 13:31:07,057][1696265] depth_sensor  dmlab env True\u001b[0m"
+        "\u001b[36m[2026-11-27 13:56:13,778][1696265] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 13:56:13,778][1696265] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:13,778][1696265] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:13,779][1696265] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 13:56:13,779][1696265] depth_sensor  dmlab env True\u001b[0m"
       ],
-      "live_resource_statistics": "8950237.batch|4931552K|03:46:57"
+      "live_resource_statistics": "8950237.batch|5144556K|04:33:11"
     }
   ],
-  "accounting": "8950233|COMPLETED|0:0|00:40:33|01:28:38|\n8950233.batch|COMPLETED|0:0|00:40:33|01:28:38|4425208K\n8950233.extern|COMPLETED|0:0|00:40:33|00:00:00|\n8950234|RUNNING|0:0|02:01:37|00:04.449|\n8950234.batch|RUNNING|0:0|02:01:37|00:00:00|\n8950234.extern|RUNNING|0:0|02:01:37|00:00:00|\n8950234.0|COMPLETED|0:0|00:00:04|00:02.222|10104K\n8950234.1|COMPLETED|0:0|00:00:04|00:02.227|10512K\n8950235|RUNNING|0:0|02:01:37|00:04.932|\n8950235.batch|RUNNING|0:0|02:01:37|00:00:00|\n8950235.extern|RUNNING|0:0|02:01:37|00:00:00|\n8950235.0|COMPLETED|0:0|00:00:04|00:02.624|10256K\n8950235.1|COMPLETED|0:0|00:00:04|00:02.308|10432K\n8950236|RUNNING|0:0|02:01:37|00:02.424|\n8950236.batch|RUNNING|0:0|02:01:37|00:00:00|\n8950236.extern|RUNNING|0:0|02:01:37|00:00:00|\n8950236.0|COMPLETED|0:0|00:00:03|00:01.182|10260K\n8950236.1|COMPLETED|0:0|00:00:03|00:01.242|10256K\n8950237|RUNNING|0:0|02:01:37|00:02.439|\n8950237.batch|RUNNING|0:0|02:01:37|00:00:00|\n8950237.extern|RUNNING|0:0|02:01:37|00:00:00|\n8950237.0|COMPLETED|0:0|00:00:03|00:01.192|10140K\n8950237.1|COMPLETED|0:0|00:00:03|00:01.247|10460K\n",
+  "accounting": "8950233|COMPLETED|0:0|00:40:33|01:28:38|\n8950233.batch|COMPLETED|0:0|00:40:33|01:28:38|4425208K\n8950233.extern|COMPLETED|0:0|00:40:33|00:00:00|\n8950234|RUNNING|0:0|02:26:54|00:04.449|\n8950234.batch|RUNNING|0:0|02:26:54|00:00:00|\n8950234.extern|RUNNING|0:0|02:26:54|00:00:00|\n8950234.0|COMPLETED|0:0|00:00:04|00:02.222|10104K\n8950234.1|COMPLETED|0:0|00:00:04|00:02.227|10512K\n8950235|RUNNING|0:0|02:26:54|00:04.932|\n8950235.batch|RUNNING|0:0|02:26:54|00:00:00|\n8950235.extern|RUNNING|0:0|02:26:54|00:00:00|\n8950235.0|COMPLETED|0:0|00:00:04|00:02.624|10256K\n8950235.1|COMPLETED|0:0|00:00:04|00:02.308|10432K\n8950236|RUNNING|0:0|02:26:54|00:02.424|\n8950236.batch|RUNNING|0:0|02:26:54|00:00:00|\n8950236.extern|RUNNING|0:0|02:26:54|00:00:00|\n8950236.0|COMPLETED|0:0|00:00:03|00:01.182|10260K\n8950236.1|COMPLETED|0:0|00:00:03|00:01.242|10256K\n8950237|RUNNING|0:0|02:26:54|00:02.439|\n8950237.batch|RUNNING|0:0|02:26:54|00:00:00|\n8950237.extern|RUNNING|0:0|02:26:54|00:00:00|\n8950237.0|COMPLETED|0:0|00:00:03|00:01.192|10140K\n8950237.1|COMPLETED|0:0|00:00:03|00:01.247|10460K\n",
   "stages": {
     "replay": {
       "schema": "intrmotiv/frozen-first-hit-replay/v1",
