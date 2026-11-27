@@ -1,8 +1,10 @@
 import numpy as np
 import pytest
 import torch
+import json
+from types import SimpleNamespace
 
-from hpc_runs.first_hit_control.collector import PendingReplay, RewardAudit, encode_terminal_core
+from hpc_runs.first_hit_control.collector import PendingReplay, RewardAudit, encode_terminal_core, readout_snapshot
 
 
 def test_pending_pair_has_exact_one_step_successor_and_keeps_negative_goals():
@@ -57,3 +59,23 @@ def test_terminal_detector_uses_actual_core_on_cloned_pre_reset_state():
     result = encode_terminal_core(Actor(), torch.ones(1, 3), state)
     assert torch.equal(state, torch.ones(1, 3))
     assert torch.equal(result, torch.full((1, 3), 6.))
+
+
+def test_numpy_discrete_action_count_roundtrips_json_and_safe_torch_snapshot(tmp_path):
+    from gymnasium.spaces import Discrete
+
+    actor = SimpleNamespace(decoder=torch.nn.Linear(7, 4), action_parameterization=torch.nn.Linear(4, 5),
+                            action_space=Discrete(5))
+    assert isinstance(actor.action_space.n, np.integer)
+    cfg = SimpleNamespace(decoder_mlp_layers=[4], nonlinearity="relu", use_jit=False)
+    snapshot = readout_snapshot(actor, cfg, {"layout": {"width": 7, "goal_start": 5, "goals": 2}})
+    assert type(snapshot["action_count"]) is int
+    # Exercise both real transport boundaries, not just the scalar conversion.
+    metadata = {k: v for k, v in snapshot.items() if not k.endswith("state_dict")}
+    assert json.loads(json.dumps(metadata))["action_count"] == 5
+    path = tmp_path / "decoder_state.pt"
+    torch.save(snapshot, path)
+    restored = torch.load(path, weights_only=True)
+    assert restored["action_count"] == 5
+    for name, value in actor.decoder.state_dict().items():
+        assert torch.equal(restored["decoder_state_dict"][name], value)

@@ -65,6 +65,8 @@ The first NEMO qualification uses 5,000 frozen factual decisions, 100 fit update
 
 The pipeline preserves full actor state, executed actions, genuine successors, terminal validity, native per-step zero reward and source hashes. The saved readout binds checkpoint, configuration, detector semantics, source arithmetic and weights; relocation is accepted only with identical module bytes. Compare original and new controllers from identical physical and recurrent starts, with the same goals and deadlines. Before efficacy results, the larger budget is fixed at 100,000 new reward-free decisions (seed 73002, 20% uniform action mixture), 30,000 Adam updates, batch 128, learning rate 0.0003, horizon 256, and target refresh every 100 updates. A whole-episode 10% holdout is diagnostic only; use final weights without selection. This permits 300 target generations and at most 61.44M goal labels, but does not establish action support, convergence or calibrated probabilities.
 
+Corrected qualification `8950150` loaded the exact checkpoint and collected all 5,000 decisions. It passed the frozen-state, zero-native-reward and complete-transition checks, then failed while serializing a NumPy action-count integer into JSON. The saved replay lacks its completed certificate and is excluded from fitting. Normalize that count at the snapshot and metadata boundary, then repeat the unchanged bounded qualification; no control results exist from this job.
+
 Keep the separate [80-run action-transport study](../../../05_plans/ca3_action_transport_dmlab_handoff_20261113.md) independent. Its most recent inspected chat record (13 November) reports local qualification and **0/80 production jobs submitted**. It is not a receipt for this experiment or a reason to duplicate that matrix.
 
 New training studies must use schema `intrmotiv/study/v1`, the canonical workflow (currently `1.15.2`), and a generated SHA-256. Do not create a nominal production StudySpec before the selected controller is qualified and the actual source checkpoint/config are pinned. All remote outputs go under `/work/classic/fr_xl1014-corridor-geometry`; synchronize and test a release-specific workflow before use. Follow [the standard workflow](../../../04_implementation/standardized_study_workflow.md).
@@ -73,12 +75,14 @@ New training studies must use schema `intrmotiv/study/v1`, the canonical workflo
 
 | Component | Required result | Current status |
 | --- | --- | --- |
-| Place fields | Frozen 10k-decision checkpoint maps, pre-threshold activity, silent units, information and peak diversity, with complete unit/occupancy denominators | Requires genuine checkpoint and manifest evaluation |
+| Place fields | Frozen 10k-decision checkpoint maps, pre-threshold activity, silent units, information and peak diversity, with complete unit/occupancy denominators | Exact-checkpoint common-panel and source-policy artifacts audited and reusable |
 | Trajectories | Matched-command paths, occupancy, first requested-hit latency, failures and censoring | Requires executed frozen interventions |
 | Graphs | Stored support distinguished from prospectively executed command outcomes; unattempted edges retained | Requires frozen checkpoint and replay support audit |
 | Goal control | Every eligible DG identity, identical-start alternative commands, fixed deadlines, detector versus physical arrival, worst-goal success and complete denominator | Open; primary completion gate |
 
 The current evaluator's headline lift filters censored trials. The new analysis must retain them explicitly, report success per issued trial and censoring separately, and preserve missing starts rather than silently dropping them. First-distinct landmark outcomes remain secondary: routes to arbitrary requested goals can legitimately pass other landmarks. In DMLab an unobserved landmark or action is not thereby proved unreachable; it remains outside the identified support, with that denominator reported. Only the finite systems have an exhaustive reachability oracle.
+
+The [field reuse audit](runtime/field_reuse_audit.json) verifies the donor checkpoint/configuration, shared observation panel, and existing field NPZ bytes. Both 10k-decision panels have all 16 DG units active and 16 distinct peak bins, but none qualifies as a single field under the saved component criteria. The common panel visits 242/361 bins, with active-map cosine 0.0253 and mean spatial information 0.0949 bits; the source-policy panel visits 190/361, with cosine 0.0515 and information 0.2000 bits. These continuous post-inhibition maps are distinct from winner-event maps. Their half-peak components can describe physical endpoints secondarily, but cannot establish an exact winner footprint without per-step DG. New command trials therefore record processed DG and pose together; pose remains telemetry only. No repeated native field sweep is needed for the unchanged representation.
 
 ## Reuse and next action
 

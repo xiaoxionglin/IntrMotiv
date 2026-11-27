@@ -1,0 +1,17 @@
+{
+  "schema": "intrmotiv/first-hit-slurm-submission/v1",
+  "submitted_utc": "2026-11-27T09:11:51.276861+00:00",
+  "job_id": "8950150",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r2/qualification_r2.sbatch"
+  ],
+  "script_sha256": "e980c5c32b86ecaa273f6034bfa230d6257714caf430a2bc56502182de756591",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2",
+  "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r2",
+  "stdout": "8950150\n",
+  "stderr": "",
+  "kind": "One ordinary bounded qualification job; not efficacy evidence"
+}

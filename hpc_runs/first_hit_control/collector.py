@@ -164,6 +164,23 @@ def encode_terminal_core(actor, normalized_observation, pre_reset_state):
     return core
 
 
+def readout_snapshot(actor, cfg, certificate):
+    """Save tensor readout state with portable, weights-only-safe metadata.
+
+    Gymnasium Discrete.n is a NumPy scalar even though it represents an action
+    count. Normalize that boundary explicitly before JSON or safe torch.save
+    transport; retaining it would require an unnecessary pickle allowlist.
+    """
+    action_count = int(actor.action_space.n)
+    return {
+        "decoder_state_dict": {k: v.detach().cpu().clone() for k, v in actor.decoder.state_dict().items()},
+        "action_head_state_dict": {k: v.detach().cpu().clone() for k, v in actor.action_parameterization.state_dict().items()},
+        "decoder_class": type(actor.decoder).__name__, "action_head_class": type(actor.action_parameterization).__name__,
+        "decoder_config": {key: getattr(cfg, key) for key in ("decoder_mlp_layers", "nonlinearity", "use_jit")},
+        "layout": certificate["layout"], "action_count": action_count,
+    }
+
+
 def collect(args):
     # No native environment is imported or run by module-level tests.
     if not os.environ.get("SLURM_JOB_ID"):
@@ -294,13 +311,9 @@ def collect(args):
     dataset = output / "replay.npz"
     np.savez_compressed(dataset, **replay.data)
     decoder_path = output / "decoder_state.pt"
-    torch.save({
-        "decoder_state_dict": {k: v.detach().cpu().clone() for k, v in actor.decoder.state_dict().items()},
-        "action_head_state_dict": {k: v.detach().cpu().clone() for k, v in actor.action_parameterization.state_dict().items()},
-        "decoder_class": type(actor.decoder).__name__, "action_head_class": type(actor.action_parameterization).__name__,
-        "decoder_config": {key: getattr(cfg, key) for key in ("decoder_mlp_layers", "nonlinearity", "use_jit")},
-        "layout": certificate["layout"], "action_count": actor.action_space.n,
-    }, decoder_path)
+    snapshot = readout_snapshot(actor, cfg, certificate)
+    action_count = snapshot["action_count"]
+    torch.save(snapshot, decoder_path)
     metadata = dict(
         schema="intrmotiv/frozen-first-hit-replay/v1", source_run=str(args.run_dir), checkpoint=str(checkpoint),
         checkpoint_sha256=args.checkpoint_sha256, source_config_sha256=file_hash(source_config),
@@ -315,8 +328,8 @@ def collect(args):
         native_reward_decisions=rewards.steps, wrapped_reward_sum=rewards.wrapped_sum,
         native_reward_capture="Immediately below DmlabRewardShapingWrapper, one raw scalar per decision",
         seed=args.seed, random_action_probability=args.random_action_probability,
-        random_actions=int(replay.data["random_action"].sum()), action_count=actor.action_space.n,
-        action_counts=np.bincount(replay.data["action"], minlength=actor.action_space.n).tolist(),
+        random_actions=int(replay.data["random_action"].sum()), action_count=action_count,
+        action_counts=np.bincount(replay.data["action"], minlength=action_count).tolist(),
         primary_detector="winner", secondary_detector="exclusive", goal_sampling="none; label every goal after collection",
         env=cfg.env, frameskip=cfg.env_frameskip, decoder_class=type(actor.decoder).__name__,
         layout=certificate["layout"], dataset_sha256=file_hash(dataset), decoder_state_sha256=file_hash(decoder_path),

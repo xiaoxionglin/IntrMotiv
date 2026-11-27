@@ -1,0 +1,696 @@
+{
+  "schema": "intrmotiv/frozen-field-reuse-audit/v1",
+  "checked_utc": "2026-11-27T09:10:30.079256+00:00",
+  "status": "existing_representation_artifacts_reusable_without_native_rerun",
+  "scope": "read-only file hashes, NPZ headers and small metadata; no model/environment import or run",
+  "ssh": {
+    "successful_read_only_calls": 4,
+    "authentication_failures": 0,
+    "remote_mutations": 0,
+    "native_environment_or_model_execution": false
+  },
+  "verification_checks": {
+    "checkpoint": true,
+    "common_panel_fields": true,
+    "common_panel_observations": true,
+    "source_config": true,
+    "common_checkpoint_pointer_matches": true,
+    "source_policy_checkpoint_pointer_matches": true,
+    "common_panel_pointer_matches": true,
+    "historical_replay_receipt_local_remote_equal": true,
+    "common_DG_BN_intercept_matches_source_config": true,
+    "common_Hippo_n_feature_matches_source_config": true,
+    "common_Hippo_R_matches_source_config": true,
+    "common_Hippo_L_matches_source_config": true,
+    "source_policy_DG_BN_intercept_matches_source_config": true,
+    "source_policy_Hippo_n_feature_matches_source_config": true,
+    "source_policy_Hippo_R_matches_source_config": true,
+    "source_policy_Hippo_L_matches_source_config": true,
+    "donor_r2_encoder_source_bytes_equal": true
+  },
+  "all_recorded_checks_passed": true,
+  "artifacts": {
+    "checkpoint": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+      "exists": true,
+      "sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "bytes": 5571004,
+      "expected_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "matches_expected": true
+    },
+    "common_panel_fields": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+      "exists": true,
+      "sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+      "bytes": 77821,
+      "expected_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+      "matches_expected": true,
+      "array_headers": {
+        "occupancy": {
+          "bytes_uncompressed": 2888,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19
+          ]
+        },
+        "rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_rate_maps": {
+          "bytes_uncompressed": 23104,
+          "dtype": "float32",
+          "fortran_order": true,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_smoothed_rate_maps": {
+          "bytes_uncompressed": 23104,
+          "dtype": "float32",
+          "fortran_order": true,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_field_component_labels": {
+          "bytes_uncompressed": 34656,
+          "dtype": "int16",
+          "fortran_order": false,
+          "shape": [
+            3,
+            19,
+            19,
+            16
+          ]
+        },
+        "raw_dg_rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "pre_threshold_rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        }
+      },
+      "saved_metadata": {
+        "DG_BN_intercept": 2.43,
+        "Hippo_n_feature": 16,
+        "Hippo_R": 8,
+        "Hippo_L": 64,
+        "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "observation_panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+        "panel_goal": -1,
+        "pose_alignment": "observation_time",
+        "post_inhibition_field_threshold_fractions": [
+          0.30000001192092896,
+          0.5,
+          0.699999988079071
+        ],
+        "post_inhibition_field_min_active_observations": 20,
+        "post_inhibition_field_min_active_bins": 3,
+        "post_inhibition_field_mono_mass_fraction": 0.800000011920929,
+        "post_inhibition_field_eligible": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "post_inhibition_field_mono": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    },
+    "common_panel_observations": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+      "exists": true,
+      "sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+      "bytes": 116079549,
+      "expected_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+      "matches_expected": true,
+      "array_headers": {
+        "obs_obs": {
+          "bytes_uncompressed": 276507648,
+          "dtype": "uint8",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1,
+            4,
+            72,
+            96
+          ]
+        },
+        "obs_pos": {
+          "bytes_uncompressed": 240024,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1,
+            3
+          ]
+        },
+        "obs_rot": {
+          "bytes_uncompressed": 240024,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1,
+            3
+          ]
+        },
+        "obs_telemetry_pose": {
+          "bytes_uncompressed": 120012,
+          "dtype": "float32",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1,
+            3
+          ]
+        },
+        "actions": {
+          "bytes_uncompressed": 80008,
+          "dtype": "int64",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1,
+            1
+          ]
+        },
+        "dones": {
+          "bytes_uncompressed": 10001,
+          "dtype": "bool",
+          "fortran_order": false,
+          "shape": [
+            10001,
+            1
+          ]
+        }
+      },
+      "saved_metadata": {}
+    },
+    "source_config": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/config.json",
+      "exists": true,
+      "sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "bytes": 22950,
+      "expected_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "matches_expected": true
+    },
+    "source_policy_fields": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+      "exists": true,
+      "sha256": "876eff7e7e557475be7a35ad81b02203bae514bf326719217bc85d9275985059",
+      "bytes": 78157,
+      "array_headers": {
+        "occupancy": {
+          "bytes_uncompressed": 2888,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19
+          ]
+        },
+        "rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_rate_maps": {
+          "bytes_uncompressed": 23104,
+          "dtype": "float32",
+          "fortran_order": true,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_smoothed_rate_maps": {
+          "bytes_uncompressed": 23104,
+          "dtype": "float32",
+          "fortran_order": true,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "post_inhibition_field_component_labels": {
+          "bytes_uncompressed": 34656,
+          "dtype": "int16",
+          "fortran_order": false,
+          "shape": [
+            3,
+            19,
+            19,
+            16
+          ]
+        },
+        "raw_dg_rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        },
+        "pre_threshold_rate_maps": {
+          "bytes_uncompressed": 46208,
+          "dtype": "float64",
+          "fortran_order": false,
+          "shape": [
+            19,
+            19,
+            16
+          ]
+        }
+      },
+      "saved_metadata": {
+        "DG_BN_intercept": 2.43,
+        "Hippo_n_feature": 16,
+        "Hippo_R": 8,
+        "Hippo_L": 64,
+        "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "observation_panel": "",
+        "pose_alignment": "observation_time",
+        "post_inhibition_field_threshold_fractions": [
+          0.30000001192092896,
+          0.5,
+          0.699999988079071
+        ],
+        "post_inhibition_field_min_active_observations": 20,
+        "post_inhibition_field_min_active_bins": 3,
+        "post_inhibition_field_mono_mass_fraction": 0.800000011920929,
+        "post_inhibition_field_eligible": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "post_inhibition_field_mono": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    }
+  },
+  "source_config_semantics": {
+    "env": "openfield_map2_fixed_loc3_fixedlength_noreward",
+    "env_frameskip": 8,
+    "dmlab_reduced_action_set": true,
+    "dmlab_extended_action_set": false,
+    "normalize_input": false,
+    "obs_scale": 255.0,
+    "obs_subtract_mean": 0.0,
+    "pixel_format": "CHW",
+    "res_w": 96,
+    "res_h": 72,
+    "depth_sensor": true,
+    "depth_sensor_inverse": false,
+    "DG_name": "batchnorm_relu",
+    "DG_BN_intercept": 2.43,
+    "dg_batchnorm_semantics": "legacy_batch",
+    "dg_ca3_reentry_inhibition": "none",
+    "dg_context_feedback": "none",
+    "encoder_conv_architecture": "layer2_resnet18",
+    "Hippo_n_feature": 16,
+    "Hippo_R": 8,
+    "Hippo_L": 64,
+    "hrl_goal_conditioning": "legacy",
+    "transfer_freeze_dg": false
+  },
+  "normalization_compatibility": {
+    "historical_frozen_replay_receipt": {
+      "local_path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.json",
+      "local_sha256": "cc2764ebc424eaa4ff1ac01dfbcc7375f131075519c60f5e0124c66efaac52c5",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_common_panel_layers_20261012/output/raw/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.json",
+      "remote_sha256": "cc2764ebc424eaa4ff1ac01dfbcc7375f131075519c60f5e0124c66efaac52c5",
+      "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "frozen_model_sha256": "dedc873202d168f528a328085ec7ce83ca25bdb631df233ce9f01cef99d60af9",
+      "dg_max_unit_score_absolute_error": 1.8266285428669704e-09
+    },
+    "source_encoder_sha256": "f141a8e707f6b2d6572d3e37aa2ae324f3c75ca9082363c522494797ecf9d18b",
+    "freeze_override_source_level_equivalence": "Source class constructs nn.BatchNorm1d(affine=False,momentum=0.1). With actor.eval(), legacy_batch uses its running moments; transfer_freeze_dg=True explicitly calls F.batch_norm(training=False, weight=None,bias=None,same eps and moments). Thus the new freeze flag preserves evaluation normalization for this saved legacy_batch source; no training calibration branch is invoked.",
+    "source_evidence": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cosyne27_push_pull_20261010/sf_working_directories/IntrMotiv/dmlab/custom_encoder.py",
+      "file_sha256": "f141a8e707f6b2d6572d3e37aa2ae324f3c75ca9082363c522494797ecf9d18b",
+      "methods": {
+        "__init__": {
+          "first_line": 266,
+          "last_line": 316,
+          "sha256": "7ab3ecd3002fd82d8ee823135205cdb4750d9df2cd6a455ebada20cbfd3a4a5e"
+        },
+        "preactivation": {
+          "first_line": 460,
+          "last_line": 501,
+          "sha256": "562c4c366a53bda253fa8760492c72c5cc26fcef796e074e198eef854117b6ca"
+        }
+      }
+    },
+    "limits": "The older NPZ does not embed a full evaluation-config hash. This audit verifies current donor config bytes, saved architecture/threshold values, panel shape, unchanged encoder source, and a historical exact-checkpoint frozen replay receipt. It does not rerun forward inference or certify a new controller."
+  },
+  "mapping_contract": {
+    "pose_alignment": "observation_time",
+    "saved_map_axes": [
+      "x_bin",
+      "y_bin",
+      "DG_identity"
+    ],
+    "shape": [
+      19,
+      19,
+      16
+    ],
+    "world_bounds": {
+      "x": [
+        100.0,
+        2000.0
+      ],
+      "y": [
+        100.0,
+        2000.0
+      ]
+    },
+    "bin_width_world_units": 100.0,
+    "world_to_bin": "Use canonical SpatialBounds binning: include finite coordinates inside closed bounds, floor normalized coordinate times19, clamp the upper boundary to index18. Do not treat [y,x] plotting arrays as the stored [x,y] archive.",
+    "display": "Canonical plots transpose each stored rate map for image row/column orientation; saved dominant/secondary peak coordinates are explicitly [x,y].",
+    "existing_component_masks": {
+      "array": "post_inhibition_field_component_labels",
+      "axes": [
+        "threshold",
+        "x_bin",
+        "y_bin",
+        "DG_identity"
+      ],
+      "shape": [
+        3,
+        19,
+        19,
+        16
+      ],
+      "threshold_fractions": [
+        0.3,
+        0.5,
+        0.7
+      ],
+      "recommended_secondary_threshold_index": 1,
+      "rule": "Use all positive component labels at the prespecified0.5 threshold; retain every component and field overlap, and treat unvisited bins as unmapped. Labels are based on canonical occupancy-aware smoothed continuous activity, not winner probability.",
+      "eligibility_min_active_observations": 20,
+      "eligibility_min_active_bins": 3,
+      "mono_dominant_mass_fraction": 0.8
+    },
+    "common_panel_field_eligible_count": 16,
+    "common_panel_monofield_count": 0,
+    "source_policy_field_eligible_count": 15,
+    "source_policy_monofield_count": 0,
+    "winner_footprint_caveat": "These are continuous DG/post-inhibition amplitude maps. Primary control uses the processed-DG argmax winner. A half-peak amplitude footprint is a separately labeled physical descriptor, not the exact primary winner target set. Archived pose.csv lacks per-step DG and the aggregate field NPZ lacks raw activations, so exact winner-event maps cannot be reconstructed from these aggregates alone. New r2 DG/pose trajectories permit winner grounding on their observed support.",
+    "reachability_caveat": "Common-panel support is242/361 grid bins. All16 units are field-eligible but all16 are nonmonofield under the saved rule; do not rename a DG identity a unique physical point or infer universal reachability."
+  },
+  "pose_artifacts": {
+    "common_panel": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/pose.csv",
+      "sha256": "a53d935773b00236d19ec5d8e28ddb4686b029b4545fcefccbbe3e648d2c8a43",
+      "columns": [
+        "frame",
+        "agent",
+        "x",
+        "y",
+        "z",
+        "rot_x",
+        "rot_y",
+        "rot_z",
+        "num_traj"
+      ],
+      "first_row": {
+        "frame": "0",
+        "agent": "0",
+        "x": "750.0",
+        "y": "1850.0",
+        "z": "25.125",
+        "rot_x": "0.0",
+        "rot_y": "-13.4912109375",
+        "rot_z": "0.0",
+        "num_traj": "0"
+      },
+      "rows": 10001
+    },
+    "c05_pushpull_s3": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/pose.csv",
+      "sha256": "5ade9da47c167cc3454e45d1b1ca0d012bced48b16221297ea5d0fd76a8955fe",
+      "columns": [
+        "frame",
+        "agent",
+        "x",
+        "y",
+        "z",
+        "rot_x",
+        "rot_y",
+        "rot_z",
+        "num_traj"
+      ],
+      "first_row": {
+        "frame": "0",
+        "agent": "0",
+        "x": "750.0",
+        "y": "1850.0",
+        "z": "25.125",
+        "rot_x": "0.0",
+        "rot_y": "-13.4912109375",
+        "rot_z": "0.0",
+        "num_traj": "0"
+      },
+      "rows": 10001
+    }
+  },
+  "accessible_plot_paths": [
+    {
+      "bytes": 32660,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png"
+    },
+    {
+      "bytes": 47948,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png"
+    },
+    {
+      "bytes": 32285,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png"
+    },
+    {
+      "bytes": 42483,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png"
+    },
+    {
+      "bytes": 41409,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f75005952.png"
+    },
+    {
+      "bytes": 50224,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f5013504.png"
+    },
+    {
+      "bytes": 40008,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f50003968.png"
+    },
+    {
+      "bytes": 38891,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f5013504.png"
+    },
+    {
+      "bytes": 34768,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f25001984.png"
+    },
+    {
+      "bytes": 46372,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/pre_threshold_logits_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f25001984.png"
+    },
+    {
+      "bytes": 31239,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f75005952.png"
+    },
+    {
+      "bytes": 31068,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/summary/place_fields_COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f50003968.png"
+    },
+    {
+      "bytes": 31239,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f75005952.png"
+    },
+    {
+      "bytes": 32285,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.png"
+    },
+    {
+      "bytes": 31068,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f50003968.png"
+    },
+    {
+      "bytes": 34768,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f25001984.png"
+    },
+    {
+      "bytes": 38891,
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/per_checkpoint_grids/COS27_C05_TEMPORAL_TEMPORAL__s99__f5013504.png"
+    }
+  ],
+  "additional_existing_artifacts": {
+    "trajectories": [
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/trajectories/field_evolution_COS27_C05_TEMPORAL_TEMPORAL.png",
+        "bytes": 541625
+      }
+    ],
+    "stability": [
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/stability/COS27_C05_TEMPORAL_TEMPORAL/rate_map_stability_summary.csv",
+        "bytes": 607
+      },
+      {
+        "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/c05_pushpull_s3/stability/COS27_C05_TEMPORAL_TEMPORAL/per_unit_rate_map_stability.csv",
+        "bytes": 13087
+      }
+    ]
+  },
+  "source_geometry_evidence": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cosyne27_push_pull_20261010/sf_working_directories/IntrMotiv/evaluation/place_fields.py": {
+      "sha256": "dbe0a7c068c0a5f9f2149a06382c07dabc6486b91deaf4114a46bb6fc16df1ac",
+      "constants": {
+        "XBOUND": [
+          100.0,
+          2000.0
+        ],
+        "YBOUND": [
+          100.0,
+          2000.0
+        ]
+      }
+    },
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2/sf_working_directories/IntrMotiv/evaluation/place_fields.py": {
+      "sha256": "69d0ee1b28e49bb17d369e5e292a91c3dadcbf9ee7ece13c333ab58809d74c49",
+      "constants": {
+        "XBOUND": [
+          100.0,
+          2000.0
+        ],
+        "YBOUND": [
+          100.0,
+          2000.0
+        ]
+      }
+    }
+  },
+  "graph_and_behavior_separation": {
+    "frozen_probe_graph_arrays": [
+      "control_attempts",
+      "control_edge_confidence",
+      "control_tctrl"
+    ],
+    "stored_graph_scope": "These arrays are frozen pretrained graph buffers, not learned first-hit reachability or new matched-trial success. Existing online directed-edge and trajectory tables remain training-window history.",
+    "old_behavior_scope": "Source-policy pose.csv is a frozen stochastic-policy trajectory; common-panel pose.csv is the fixed shared recorded trajectory. Neither supplies new source-versus-first-hit control evidence.",
+    "new_requirement": "Use r2 matched-start trajectory rows and detector events for new policy paths, stop timing, physical footprint intersections, and complete attempted/missing source-target matrices."
+  },
+  "reuse_decision": {
+    "reuse_common_panel_fields": true,
+    "reuse_source_policy_fields_as_archived_context": true,
+    "schedule_new_native_field_rollout": false,
+    "plot_readability_inspected_this_audit": false,
+    "reason": "Exact common-panel data identities match; current source-policy artifact and canonical plots are available. No missing field artifact justifies a new native rollout. Canonical postprocessors may render existing arrays/pose files as needed without rerunning DMLab."
+  },
+  "audit_input_receipts": {
+    "intrmotiv_field_reuse_remote.py": "babc57d9d685740479a0b4bde6df05fb5ad196a209c2f93bf8f0e335fe7f3f9e",
+    "intrmotiv_field_reuse_remote.json": "c5714acd8155fe0f424dd67a9fd700d34ef8176d5e4c4a8195132e9f8685fd9f",
+    "intrmotiv_field_reuse_followup.py": "29fd5a6b3512041d73f9537fe4a549a3f802607d87ad515af9685fbb3b051061",
+    "intrmotiv_field_reuse_followup.json": "fb21ed30b020916fd6c936adff58eb589fb6285a26b1f7b12fab268b7f5cc277",
+    "intrmotiv_field_reuse_bn.json": "b9d75c2c3ccd6e00aaab6c87e84675b819b24a2e70ada85c5e5db66119432a74",
+    "intrmotiv_field_reuse_plots.json": "da2c8bd3bdc6ba82a9994ed84577aec873e7d3ee0532f2e86dc3c11b3f77fd96"
+  }
+}

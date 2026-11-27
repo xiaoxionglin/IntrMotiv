@@ -4,6 +4,13 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+### Normalize metadata at replay transport boundaries — 2026-11-27
+
+- **Evidence:** Qualification `8950150` completed 5,000 factual decisions and the frozen/reward-free checks, then failed because Gymnasium's `Discrete.n` is a NumPy integer. JSON rejected it; leaving the same scalar in a tensor checkpoint also conflicts with safe `weights_only=True` loading.
+- **Impact:** Durable replay arrays without their completed certificate cannot be treated as qualified training data. The failed payload is retained without inventing a replacement certificate.
+- **Improvement/status:** `collector.readout_snapshot` converts the action count once to a Python integer and shares it across JSON and tensor-snapshot metadata. A regression uses actual `Discrete.n`, JSON serialization and safe tensor reload. The unchanged bounded qualification is repeated in a fresh release.
+- **Acceptance:** Both real transport formats round-trip, the completed certificate binds the replay and source, and the subsequent fit/evaluation consume that same payload. See the [analysis adapter](hpc_runs/first_hit_control/ANALYSIS_PLAN.md).
+
 ### Check evaluator import dependencies in isolated releases — 2026-11-27
 
 - **Evidence:** First-hit qualification job `8949867` failed before loading a model because the October donor source did not include `sf_shared.checkpoints`, required by the current canonical `place_fields.py`. The preceding 98 source/module checks passed because they tested callback syntax and model helpers without importing the actual evaluator entry points.

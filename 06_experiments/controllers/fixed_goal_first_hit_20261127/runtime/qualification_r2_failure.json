@@ -1,0 +1,50 @@
+{
+  "schema": "intrmotiv/first-hit-qualification-failure/v1",
+  "job_id": "8950150",
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:01:31",
+  "accounting": [
+    "8950150|FAILED|1:0|00:01:31|01:58.065||n3101",
+    "8950150.batch|FAILED|1:0|00:01:31|01:58.065|982436K|n3101",
+    "8950150.extern|COMPLETED|0:0|00:01:31|00:00:00||n3101"
+  ],
+  "stage": "Metadata JSON serialization after5000decisioncollection and runtimegates, beforesupport/fit/evaluation",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/runpy.py\", line 196, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/runpy.py\", line 86, in _run_code\n    exec(code, run_globals)\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2/hpc_runs/first_hit_control/collector.py\", line 345, in <module>\n    main()\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2/hpc_runs/first_hit_control/collector.py\", line 341, in main\n    collect(args)\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r2/hpc_runs/first_hit_control/collector.py\", line 325, in collect\n    (output / \"metadata.json\").write_text(json.dumps(metadata, indent=2) + \"\\n\")\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/__init__.py\", line 238, in dumps\n    **kw).encode(obj)\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/encoder.py\", line 201, in encode\n    chunks = list(chunks)\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/encoder.py\", line 431, in _iterencode\n    yield from _iterencode_dict(o, _current_indent_level)\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/encoder.py\", line 405, in _iterencode_dict\n    yield from chunks\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/encoder.py\", line 438, in _iterencode\n    o = _default(o)\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/json/encoder.py\", line 179, in default\n    raise TypeError(f'Object of type {o.__class__.__name__} '\nTypeError: Object of type int64 is not JSON serializable\n",
+  "log_sha256": "6709b8aa385dcbb1aab4aac9cebac0dbe95decdb9205f29b8eee1a735d9da245",
+  "completed_decisions_from_log": 5000,
+  "collection_milestones": [
+    "Collected 1000/5000 factual decisions",
+    "Collected 2000/5000 factual decisions",
+    "Collected 3000/5000 factual decisions",
+    "Collected 4000/5000 factual decisions",
+    "Collected 5000/5000 factual decisions"
+  ],
+  "partial_files": {
+    "replay.npz": "Saved but uncertified; must not train or attach a retrospective certificate",
+    "decoder_state.pt": "Saved but contains unsafe NumPy action_count; preserve unchanged"
+  },
+  "evidence_limit": "Traceback control flow reached serialization after runtime checks; before/after model hash values were not durably written, so no valid frozen replay certificate exists",
+  "root_cause": "gymnasium.spaces.Discrete.n is numpy.int64; written raw into both JSON and torch snapshot metadata",
+  "remedy": "Normalize action_count to Python int once in readout_snapshot; regression exercises JSON and torch weights_only roundtrips",
+  "source_model_layout": {
+    "width": 1165,
+    "ca3": [
+      0,
+      1136
+    ],
+    "physical_bypass": [
+      1136,
+      1149
+    ],
+    "goal": [
+      1149,
+      1165
+    ],
+    "evidence": "Runtime initialization logs; no completed metadata certificate"
+  },
+  "original_release_preserved": true,
+  "resubmitted": false,
+  "fitting_updates": 0,
+  "goal_control_trials": 0
+}

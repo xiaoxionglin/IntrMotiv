@@ -723,6 +723,20 @@ core.
 
 ## Current boundaries
 
+### Frozen replay and dependent readout analysis (2026-11-27)
+
+The [first-hit analysis adapter](../hpc_runs/first_hit_control/ANALYSIS_PLAN.md)
+binds an existing validated donor StudySpec and RunSpec to a versioned analysis
+sidecar under `hpc_runs/studies/`. Its collection, exposure, copied-readout fit,
+diagnostic and evaluation stages depend on shared immutable artifacts. They
+cannot be represented truthfully as independent Cartesian Sample Factory
+training runs. The adapter renders those existing commands and their artifact
+dependencies; it preserves canonical donor identities, runfiles, source
+qualification and place-field contracts. Static validation is not a runtime
+qualification or submission receipt. Reuse exact-checkpoint field artifacts
+when their bytes and input semantics are verified instead of repeating a
+checkpoint sweep for a changed readout.
+
 ### Direct GPU workstation profiling (2026-09-14)
 
 G500 uses ordinary processes, not Slurm. The resource profiler under
