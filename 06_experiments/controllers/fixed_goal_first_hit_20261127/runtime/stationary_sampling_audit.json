@@ -1,0 +1,141 @@
+{
+  "schema": "intrmotiv/reconstructed-sampler-audit/v1",
+  "checked_utc": "2026-11-27T12:23:22.683818+00:00",
+  "original_hash_status": "reconstructed after completion; not observed during original fitting",
+  "stationary_hash_status": "observed by the actual completed stationary fit",
+  "original_source_commit": "10cd0e574cb3943e244d8f5847aef7aecff87dfa",
+  "stationary_source_commit": "bb487bff2d1683bceae8173ad5d340b42b39adcb",
+  "original_sampler_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/replay_fit.py",
+  "original_sampler_sha256": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+  "stationary_sampler_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/first_hit_control/replay_fit.py",
+  "stationary_sampler_sha256": "18c80fe74a75f42c4ecb75208774975d2afa93b504093e2c044593d9e674505e",
+  "dataset_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/replay.npz",
+  "dataset_sha256": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+  "loaded_members_only": [
+    "episode_id",
+    "successor_valid"
+  ],
+  "numpy_version": "1.26.4",
+  "original_fit_metadata_sha256": "e441d73a2f305d7ebc839800b18c9cd4e0cd8fa95b9e1b89042a1c2ca1761ca0",
+  "stationary_fit_metadata_sha256": "aa394c4e28d13f02759b704d7e72ae63117ac561b64365835a63e84b52e40d8e",
+  "config": {
+    "seed": 99,
+    "updates": 30000,
+    "batch_size": 128,
+    "horizon": 256,
+    "learning_rate": 0.0003,
+    "target_update_period": 100,
+    "holdout_fraction": 0.1,
+    "log_every": 100
+  },
+  "total_factual_draws": 3840000,
+  "train_rows": 90100,
+  "holdout_rows": 9900,
+  "certified_training_rows": 90100,
+  "original_reconstructed": {
+    "factual_indices_sha256": "f54b5aa33947d66c26b8f21f47f3d606bc01543796b520de770ee4756a1d8191",
+    "consumed_deadlines_sha256": "9a47ac86500f07f3f1693e57fc74248611bde43765ef1e48b77188b43bec9577",
+    "train_indices_sha256": "f024e2f02992c37628beb793411d5b4f171b3f500e906363104413a1d2f5c17f",
+    "holdout_indices_sha256": "6d90cab6c41fc11f1a9fdf21bd02e941563aa66d79c6567136c89282077d192e"
+  },
+  "stationary_observed": {
+    "factual_indices_sha256": "f54b5aa33947d66c26b8f21f47f3d606bc01543796b520de770ee4756a1d8191",
+    "consumed_deadlines_sha256": "9a47ac86500f07f3f1693e57fc74248611bde43765ef1e48b77188b43bec9577",
+    "train_indices_sha256": "f024e2f02992c37628beb793411d5b4f171b3f500e906363104413a1d2f5c17f",
+    "holdout_indices_sha256": "6d90cab6c41fc11f1a9fdf21bd02e941563aa66d79c6567136c89282077d192e"
+  },
+  "all_four_hashes_match": true,
+  "hash_comparisons": {
+    "factual_indices_sha256": true,
+    "consumed_deadlines_sha256": true,
+    "train_indices_sha256": true,
+    "holdout_indices_sha256": true
+  },
+  "boundary_samples": {
+    "1": {
+      "first_eight_rows": [
+        95331,
+        50093,
+        74564,
+        55414,
+        16021,
+        50623,
+        93867,
+        96593
+      ],
+      "first_eight_deadlines": [
+        74,
+        160,
+        195,
+        100,
+        60,
+        66,
+        95,
+        102
+      ]
+    },
+    "30000": {
+      "first_eight_rows": [
+        7719,
+        72290,
+        9515,
+        20478,
+        25959,
+        91634,
+        8868,
+        77262
+      ],
+      "first_eight_deadlines": [
+        51,
+        66,
+        253,
+        106,
+        6,
+        158,
+        39,
+        185
+      ]
+    }
+  },
+  "index_encoding": "C-order little-endian int64; concatenated update batches",
+  "usable_masks_compared": false,
+  "usable_masks_note": "The stationary objective masks the current winner; goal-label masks are intentionally different.",
+  "scope": "NumPy sampling only; no model, environment, refit, or native execution; no efficacy claim.",
+  "source_audit": {
+    "archive_valid": true,
+    "current_sources_unchanged": true
+  },
+  "accounting": {
+    "command": [
+      "sacct",
+      "-j",
+      "8951059",
+      "--format=JobID,State,ExitCode,Elapsed,MaxRSS",
+      "--parsable2",
+      "--noheader"
+    ],
+    "stdout": "8951059|COMPLETED|0:0|00:20:53|\n8951059.batch|COMPLETED|0:0|00:20:53|2863080K\n8951059.extern|COMPLETED|0:0|00:20:53|\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "seconds": 0.46442038798704743,
+  "audit_script_sha256": "cd76b8c0d7c5f598a8e59d655e9a95b14c39e14ff4a2d0de5d95477b249d5929",
+  "execution_argv": [
+    "ssh",
+    "-F",
+    "/dev/null",
+    "-o",
+    "IdentityAgent=none",
+    "-o",
+    "IdentitiesOnly=yes",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "-i",
+    "/home/xiaoxiong/.ssh/id_ed25519_NEMO2_v2",
+    "fr_xl1014@nemo2-login.nemo.uni-freiburg.de",
+    "env PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/fr/fr_xl1014/.conda/envs/SFgit/bin/python -"
+  ],
+  "stdin": "Exact bytes of runtime/stationary_sampling_audit.py"
+}

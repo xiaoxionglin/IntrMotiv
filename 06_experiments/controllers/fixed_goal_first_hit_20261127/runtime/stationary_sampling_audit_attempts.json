@@ -1,0 +1,18 @@
+{
+  "attempts": [
+    {
+      "script_sha256": "9216292e733fa99427b3ecafaba766da8f2b2735643337aed40cdc1580a32e7d",
+      "status": "read-only audit assertion before sampler execution",
+      "cause": "ast.unparse renders a tuple assignment target with parentheses; expected string omitted them",
+      "remote_writes": false,
+      "model_environment_or_training_execution": false
+    },
+    {
+      "script_sha256": "cd76b8c0d7c5f598a8e59d655e9a95b14c39e14ff4a2d0de5d95477b249d5929",
+      "status": "passed",
+      "remote_writes": false,
+      "model_environment_or_training_execution": false,
+      "audit": "stationary_sampling_audit.json"
+    }
+  ]
+}

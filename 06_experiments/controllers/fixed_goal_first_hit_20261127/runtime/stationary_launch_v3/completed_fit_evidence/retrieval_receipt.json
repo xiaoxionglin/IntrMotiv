@@ -1,0 +1,83 @@
+{
+  "schema": "intrmotiv/stationary-fit-completion/v1",
+  "retrieved_utc": "2026-11-27T12:23:47.323511+00:00",
+  "job_id": "8951059",
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "all_retrieved_files_hash_verified": true,
+  "files": [
+    {
+      "relative_path": "fit/metadata.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit/metadata.json",
+      "sha256": "aa394c4e28d13f02759b704d7e72ae63117ac561b64365835a63e84b52e40d8e",
+      "bytes": 85951
+    },
+    {
+      "relative_path": "fit/protocol.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit/protocol.json",
+      "sha256": "0a95fd1a7c2dca9d857438b998d5816f95553c86022bca5472e14688f604e316",
+      "bytes": 2304
+    },
+    {
+      "relative_path": "fit/initialization.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit/initialization.json",
+      "sha256": "a66a105385b82034cc36e8f8199701568ae1d5a4effe7310fc3743566b2b1597",
+      "bytes": 540
+    },
+    {
+      "relative_path": "fit/source_snapshot/manifest.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit/source_snapshot/manifest.json",
+      "sha256": "a9094c9a9619c222ce45232f419a7706c4c6ab6bf47ee90321018c63618645fd",
+      "bytes": 6829
+    },
+    {
+      "relative_path": "main_job_checks/main_fit_source_before.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/main_job_checks/main_fit_source_before.json",
+      "sha256": "baee2b21c7f96e2fe2aa15db3197dd09fa3437fd014d0d5b02f7927867f1a069",
+      "bytes": 112
+    },
+    {
+      "relative_path": "main_job_checks/main_fit_source_after.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/main_job_checks/main_fit_source_after.json",
+      "sha256": "baee2b21c7f96e2fe2aa15db3197dd09fa3437fd014d0d5b02f7927867f1a069",
+      "bytes": 112
+    },
+    {
+      "relative_path": "main_job_checks/main_fit_qualification_gate.json",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/main_job_checks/main_fit_qualification_gate.json",
+      "sha256": "db5275baa8588b3564a4487cd9c85fee092e88583be67f3e25e5d4eac9e82a66",
+      "bytes": 3323
+    },
+    {
+      "relative_path": "slurm/main_fit_8951059.out",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_8951059.out",
+      "sha256": "17c64ac90e8d32467793f5210444b444b29d7f63e3e651953954eec6b1dbd4d1",
+      "bytes": 49581
+    },
+    {
+      "relative_path": "slurm/main_fit_8951059.err",
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/slurm/main_fit_8951059.err",
+      "sha256": "2ed0d21130e9a5764fce1b0a9ea46debf92d86925e181061b13663121429d1fb",
+      "bytes": 592
+    }
+  ],
+  "metadata_sha256": "aa394c4e28d13f02759b704d7e72ae63117ac561b64365835a63e84b52e40d8e",
+  "readout_sha256": "eaf1c8f80555b0b0fbc03c129904ef7382c62a11c33689e6eac3407a2af0b770",
+  "checkpoint_sha256": "9b6e60c899712704e133d7e5d8667970f3112391795d262344506d88adb57484",
+  "updates": 30000,
+  "fit_seconds": 1238.0839356080396,
+  "source_audit": {
+    "archive_valid": true,
+    "current_sources_unchanged": true
+  },
+  "sampling_audit": "../../stationary_sampling_audit.json",
+  "sampling_all_four_hashes_match": true,
+  "interpretation": "Completed fitting and sampling/source verification; native efficacy evaluation remains pending.",
+  "before_after_source_gate_equal": true,
+  "source_file_counts": {
+    "source_files_unchanged": 1437,
+    "qualification_input_files_unchanged": 8,
+    "native_model_files_unchanged": 112
+  },
+  "qualification_gate_passed": true
+}

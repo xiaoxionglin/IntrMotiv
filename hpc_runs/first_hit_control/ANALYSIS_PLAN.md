@@ -31,6 +31,8 @@ Scripts require a Slurm allocation, verify source-release and donor identities b
 
 Completed jobs can leave Slurm's dependency cache after `MinJobAge` even while accounting retains them. For an already completed prerequisite, verify `sacct` reports `COMPLETED` with exit `0:0` and validate its completed artifact gates. Retain that logical dependency and its evidence in the receipt; omit an expired scheduler ID when submitting the next job. Keep active prerequisite IDs in `afterok`. Always capture stdout, stderr and return code for rejected submissions as well as successful ones, and confirm that a rejection produced no job before a corrected submission.
 
+Read-only monitors also need that accounting fallback for completed analysis jobs. Save monitor source hashes, active process/session identifiers, the last receipt time and the bounded renewal rule together. Resume an existing monitor before starting another; renew only after it exits and after the declared polling interval. The current study's [monitor handoff](../../06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/monitoring/handoff.json) records those details. A monitor never submits, resumes or reruns native work, and process progress alone does not certify a completed scientific result.
+
 ## Reusing completed controls
 
 Validate and print the dependent follow-up stages before staging a new immutable source release:

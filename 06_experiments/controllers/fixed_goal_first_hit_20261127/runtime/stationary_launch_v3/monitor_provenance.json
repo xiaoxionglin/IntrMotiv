@@ -18,5 +18,11 @@
   "scientific_source_mutated": false,
   "stop_on_transport_or_job_failure": true,
   "no_submissions_or_retries": true,
-  "partial_journals_are_diagnostic_only": true
+  "partial_journals_are_diagnostic_only": true,
+  "supervisor_renewal_fix": {
+    "updated_utc": "2026-11-27T12:26:35.898123+00:00",
+    "sha256": "3089266ea1f4467c755ef1c3fa248c5bdf258fb39a74930fbe1438811d2a9f3e",
+    "source_copy": "runtime/monitoring/stationary_supervisor.py",
+    "note": "Current already-running invocation unchanged; subsequent renewal observes latest progress timestamp."
+  }
 }

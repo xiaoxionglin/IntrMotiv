@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/stationary-progress/v1",
-  "checked_utc": "2026-11-27T12:06:26.726304+00:00",
+  "checked_utc": "2026-11-27T12:31:41.294894+00:00",
   "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
   "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
   "jobs": [
@@ -8,25 +8,25 @@
       "job_id": "8951059",
       "logical_job": "main_fit",
       "scheduler": {
-        "JobState": "RUNNING",
-        "Dependency": "(null)",
-        "RunTime": "00:11:41",
+        "JobState": "COMPLETED",
+        "Dependency": null,
+        "RunTime": "00:20:53",
         "ExitCode": "0:0",
-        "NodeList": "n3111",
-        "StateSource": null
+        "NodeList": null,
+        "StateSource": "sacct"
       },
-      "out_bytes": 26952,
+      "out_bytes": 49581,
       "fit_progress": {
-        "update": 16400,
-        "training_mse": 0.0011363475350663066,
-        "prediction_min": 0.54996258020401,
-        "prediction_max": 1.168786883354187,
-        "usable_goal_labels": 32614825
+        "update": 30000,
+        "training_mse": 0.0013099458301439881,
+        "prediction_min": 0.31187161803245544,
+        "prediction_max": 1.0726007223129272,
+        "usable_goal_labels": 59659986
       },
       "engine_initialization_lines": 0,
       "out_tail": [
-        "{\"update\": 16300, \"training_mse\": 0.0010315156541764736, \"prediction_min\": 0.5633698105812073, \"prediction_max\": 1.0507583618164062, \"usable_goal_labels\": 32415966}",
-        "{\"update\": 16400, \"training_mse\": 0.0011363475350663066, \"prediction_min\": 0.54996258020401, \"prediction_max\": 1.168786883354187, \"usable_goal_labels\": 32614825}"
+        "{\"update\": 30000, \"training_mse\": 0.0013099458301439881, \"prediction_min\": 0.31187161803245544, \"prediction_max\": 1.0726007223129272, \"usable_goal_labels\": 59659986}",
+        "{\"output\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit\", \"reload_exact\": true, \"fit_seconds\": 1238.0839356080396}"
       ],
       "err_bytes": 592,
       "err_tail": [
@@ -39,7 +39,7 @@
       "logical_job": "evaluate_00",
       "scheduler": {
         "JobState": "PENDING",
-        "Dependency": "afterok:8951059(unfulfilled),afterok:8950234(unfulfilled)",
+        "Dependency": "afterok:8950234(unfulfilled)",
         "RunTime": "00:00:00",
         "ExitCode": "0:0",
         "NodeList": "",
@@ -51,7 +51,7 @@
       "logical_job": "evaluate_01",
       "scheduler": {
         "JobState": "PENDING",
-        "Dependency": "afterok:8951059(unfulfilled),afterok:8950235(unfulfilled)",
+        "Dependency": "afterok:8950235(unfulfilled)",
         "RunTime": "00:00:00",
         "ExitCode": "0:0",
         "NodeList": "",
@@ -63,7 +63,7 @@
       "logical_job": "evaluate_02",
       "scheduler": {
         "JobState": "PENDING",
-        "Dependency": "afterok:8951059(unfulfilled),afterok:8950236(unfulfilled)",
+        "Dependency": "afterok:8950236(unfulfilled)",
         "RunTime": "00:00:00",
         "ExitCode": "0:0",
         "NodeList": "",
@@ -75,7 +75,7 @@
       "logical_job": "evaluate_03",
       "scheduler": {
         "JobState": "PENDING",
-        "Dependency": "afterok:8951059(unfulfilled),afterok:8950237(unfulfilled)",
+        "Dependency": "afterok:8950237(unfulfilled)",
         "RunTime": "00:00:00",
         "ExitCode": "0:0",
         "NodeList": "",
@@ -83,7 +83,30 @@
       }
     }
   ],
-  "stages": {},
+  "stages": {
+    "main_fit": {
+      "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1/fit/metadata.json",
+      "sha256": "aa394c4e28d13f02759b704d7e72ae63117ac561b64365835a63e84b52e40d8e",
+      "schema": "intrmotiv/fitted-first-hit-readout/v1",
+      "checkpoint_sha256": "9b6e60c899712704e133d7e5d8667970f3112391795d262344506d88adb57484",
+      "readout_sha256": "eaf1c8f80555b0b0fbc03c129904ef7382c62a11c33689e6eac3407a2af0b770",
+      "fit_config": {
+        "seed": 99,
+        "updates": 30000,
+        "batch_size": 128,
+        "horizon": 256,
+        "learning_rate": 0.0003,
+        "target_update_period": 100,
+        "holdout_fraction": 0.1,
+        "log_every": 100
+      },
+      "seconds": 1238.0839356080396,
+      "source_audit": {
+        "archive_valid": true,
+        "current_sources_unchanged": true
+      }
+    }
+  },
   "partial_journals_are_diagnostic_only": true,
   "analysis_job": {
     "job_id": "8951341",

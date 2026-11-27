@@ -1,0 +1,42 @@
+{
+  "schema": "intrmotiv/stationary-first-hit-fit-protocol/v1",
+  "kind": "stationary_projected_first_hit",
+  "fit_config": {
+    "seed": 99,
+    "updates": 30000,
+    "batch_size": 128,
+    "horizon": 256,
+    "learning_rate": 0.0003,
+    "target_update_period": 100,
+    "holdout_fraction": 0.1,
+    "log_every": 100
+  },
+  "gamma": 0.99,
+  "bootstrap_projection": [
+    0.0,
+    1.0
+  ],
+  "projection_order": "clip before gamma",
+  "analysis_plan": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1/hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json",
+    "sha256": "39b36005bd9cb952e235b5af50f3a17d1238beef675aac58a1aeb6b62718c8a9",
+    "phase": "full",
+    "analysis_id": "stationary_projected_c05_s99_20261127",
+    "schema": "intrmotiv/reused-replay-control-plan/v1",
+    "workflow_version": "1.15.2",
+    "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "declared_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
+    "donor_study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "canonical_workflow_version": "1.15.2"
+  },
+  "input_files": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/replay.npz": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/decoder_state.pt": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/metadata.json": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3"
+  },
+  "device": "cpu",
+  "initialization": "Both original pretrained decoder and action head; no added neural parameters",
+  "current_goal_mask": "Canonical winner from certified CA3 slot zero; not all positive units or source_goal",
+  "sampling": "Shared native episode split and factual sampler; consume unused deadline draws; fixed updates",
+  "selection": "Final weights only; whole-episode holdout is diagnostic"
+}

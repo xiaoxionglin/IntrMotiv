@@ -1,0 +1,43 @@
+{
+  "schema": "intrmotiv/bounded-monitor-handoff/v1",
+  "updated_utc": "2026-11-27T12:26:35.898123+00:00",
+  "period_seconds": 300,
+  "checks_per_invocation": 12,
+  "read_only": true,
+  "stop_on_auth_transport_or_job_failure": true,
+  "no_submissions_retries_or_native_execution": true,
+  "sources": {
+    "original_monitor.py": {
+      "executed_path": "/tmp/intrmotiv-first-hit-qualification-20261127/monitor_main_jobs.py",
+      "sha256": "938dcbd0fb6ca663747975f7597273e903faac55f2aecf0d907100bc28e01c0b"
+    },
+    "original_supervisor.py": {
+      "executed_path": "/tmp/intrmotiv-first-hit-qualification-20261127/supervise_main_readonly.py",
+      "sha256": "0d16d6ad073a18dc9a2d79f5a8315b1ee7b4b7ccc310f2a3af6465bd2444e645"
+    },
+    "stationary_monitor.py": {
+      "executed_path": "/tmp/intrmotiv-first-hit-stationary-20261127/monitor_stationary.py",
+      "sha256": "b4ea138117f5efa2e38ed1f1282aec5b0c9956acccfbf622a5813ff424f672fb"
+    },
+    "stationary_supervisor.py": {
+      "executed_path": "/tmp/intrmotiv-first-hit-stationary-20261127/supervise_stationary_readonly.py",
+      "sha256": "3089266ea1f4467c755ef1c3fa248c5bdf258fb39a74930fbe1438811d2a9f3e"
+    }
+  },
+  "active_sessions": {
+    "original": 63783,
+    "stationary": 84991
+  },
+  "resume_rule": "Poll existing unified exec sessions first. Renew a supervisor only after its previous invocation finishes; it waits until the previous receipt plus300 seconds. Do not run parallel duplicate monitors.",
+  "status_paths": [
+    "runtime/main_progress_latest.json",
+    "runtime/stationary_launch_v3/progress_latest.json"
+  ],
+  "change_note": "Original analysis state now falls back to accounting when its completed ID leaves the short scheduler cache; stationary renewal starts from latest check instead of old startup. Scientific sources unchanged.",
+  "completed_stage_retrieval": {
+    "script": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/monitoring/retrieve_completed.py",
+    "sha256": "6abe39a642cc60c8b85e73a467fd9d80394dea269c7cb59857975fa211ec0c22",
+    "argv": "python3 - original|stationary 00|01|02|03|analysis < retrieve_completed.py",
+    "scope": "Completed lightweight summaries, manifests, contrast tables and PNGs only; failure logs are bounded. No raw arrays/trials or native execution."
+  }
+}
