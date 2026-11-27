@@ -1,0 +1,1004 @@
+{
+  "edges": [
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 0,
+      "target": 1
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 1,
+      "target": 2
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 2,
+      "target": 3
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 2,
+      "target": 4
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 5,
+      "target": 6
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 6,
+      "target": 7
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 7,
+      "target": 8
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 7,
+      "target": 9
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 10,
+      "target": 11
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 11,
+      "target": 12
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 12,
+      "target": 13
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 12,
+      "target": 14
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 15,
+      "target": 16
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 16,
+      "target": 17
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 17,
+      "target": 18
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 17,
+      "target": 19
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 20,
+      "target": 21
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 21,
+      "target": 22
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 22,
+      "target": 23
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 22,
+      "target": 24
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 25,
+      "target": 26
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 26,
+      "target": 27
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 27,
+      "target": 28
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 27,
+      "target": 29
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 30,
+      "target": 31
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 31,
+      "target": 32
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 32,
+      "target": 33
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 32,
+      "target": 34
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 35,
+      "target": 36
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 36,
+      "target": 37
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 37,
+      "target": 38
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 37,
+      "target": 39
+    }
+  ],
+  "metadata": {
+    "abstraction": "Binary modalities; rule shown initially then hidden; no evidence noise.",
+    "delay": 2,
+    "representation": "finite symbolic task abstraction"
+  },
+  "name": "Context-dependent choice",
+  "nodes": [
+    {
+      "id": 0,
+      "initial": true,
+      "label": "(0, 0, 0, 0)",
+      "observation": "rule 0; A=0,B=0",
+      "pos": [
+        0,
+        0
+      ],
+      "state": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 1,
+      "initial": false,
+      "label": "(0, 0, 0, 1)",
+      "observation": "A=0,B=0",
+      "pos": [
+        1,
+        0
+      ],
+      "state": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 2,
+      "initial": false,
+      "label": "(0, 0, 0, 2)",
+      "observation": "A=0,B=0",
+      "pos": [
+        2,
+        0
+      ],
+      "state": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 3,
+      "initial": false,
+      "label": "(0, 0, 0, 3, 0)",
+      "observation": "reward",
+      "pos": [
+        3,
+        0.0
+      ],
+      "state": [
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 4,
+      "initial": false,
+      "label": "(0, 0, 0, 3, 1)",
+      "observation": "error",
+      "pos": [
+        3,
+        0.35
+      ],
+      "state": [
+        0,
+        0,
+        0,
+        3,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 5,
+      "initial": true,
+      "label": "(0, 0, 1, 0)",
+      "observation": "rule 0; A=0,B=1",
+      "pos": [
+        0,
+        1
+      ],
+      "state": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 6,
+      "initial": false,
+      "label": "(0, 0, 1, 1)",
+      "observation": "A=0,B=1",
+      "pos": [
+        1,
+        1
+      ],
+      "state": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 7,
+      "initial": false,
+      "label": "(0, 0, 1, 2)",
+      "observation": "A=0,B=1",
+      "pos": [
+        2,
+        1
+      ],
+      "state": [
+        0,
+        0,
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 8,
+      "initial": false,
+      "label": "(0, 0, 1, 3, 0)",
+      "observation": "reward",
+      "pos": [
+        3,
+        1.0
+      ],
+      "state": [
+        0,
+        0,
+        1,
+        3,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 9,
+      "initial": false,
+      "label": "(0, 0, 1, 3, 1)",
+      "observation": "error",
+      "pos": [
+        3,
+        1.35
+      ],
+      "state": [
+        0,
+        0,
+        1,
+        3,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 10,
+      "initial": true,
+      "label": "(0, 1, 0, 0)",
+      "observation": "rule 0; A=1,B=0",
+      "pos": [
+        0,
+        2
+      ],
+      "state": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 11,
+      "initial": false,
+      "label": "(0, 1, 0, 1)",
+      "observation": "A=1,B=0",
+      "pos": [
+        1,
+        2
+      ],
+      "state": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 12,
+      "initial": false,
+      "label": "(0, 1, 0, 2)",
+      "observation": "A=1,B=0",
+      "pos": [
+        2,
+        2
+      ],
+      "state": [
+        0,
+        1,
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 13,
+      "initial": false,
+      "label": "(0, 1, 0, 3, 0)",
+      "observation": "error",
+      "pos": [
+        3,
+        2.0
+      ],
+      "state": [
+        0,
+        1,
+        0,
+        3,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 14,
+      "initial": false,
+      "label": "(0, 1, 0, 3, 1)",
+      "observation": "reward",
+      "pos": [
+        3,
+        2.35
+      ],
+      "state": [
+        0,
+        1,
+        0,
+        3,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 15,
+      "initial": true,
+      "label": "(0, 1, 1, 0)",
+      "observation": "rule 0; A=1,B=1",
+      "pos": [
+        0,
+        3
+      ],
+      "state": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 16,
+      "initial": false,
+      "label": "(0, 1, 1, 1)",
+      "observation": "A=1,B=1",
+      "pos": [
+        1,
+        3
+      ],
+      "state": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 17,
+      "initial": false,
+      "label": "(0, 1, 1, 2)",
+      "observation": "A=1,B=1",
+      "pos": [
+        2,
+        3
+      ],
+      "state": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 18,
+      "initial": false,
+      "label": "(0, 1, 1, 3, 0)",
+      "observation": "error",
+      "pos": [
+        3,
+        3.0
+      ],
+      "state": [
+        0,
+        1,
+        1,
+        3,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 19,
+      "initial": false,
+      "label": "(0, 1, 1, 3, 1)",
+      "observation": "reward",
+      "pos": [
+        3,
+        3.35
+      ],
+      "state": [
+        0,
+        1,
+        1,
+        3,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 20,
+      "initial": true,
+      "label": "(1, 0, 0, 0)",
+      "observation": "rule 1; A=0,B=0",
+      "pos": [
+        0,
+        4
+      ],
+      "state": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 21,
+      "initial": false,
+      "label": "(1, 0, 0, 1)",
+      "observation": "A=0,B=0",
+      "pos": [
+        1,
+        4
+      ],
+      "state": [
+        1,
+        0,
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 22,
+      "initial": false,
+      "label": "(1, 0, 0, 2)",
+      "observation": "A=0,B=0",
+      "pos": [
+        2,
+        4
+      ],
+      "state": [
+        1,
+        0,
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 23,
+      "initial": false,
+      "label": "(1, 0, 0, 3, 0)",
+      "observation": "reward",
+      "pos": [
+        3,
+        4.0
+      ],
+      "state": [
+        1,
+        0,
+        0,
+        3,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 24,
+      "initial": false,
+      "label": "(1, 0, 0, 3, 1)",
+      "observation": "error",
+      "pos": [
+        3,
+        4.35
+      ],
+      "state": [
+        1,
+        0,
+        0,
+        3,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 25,
+      "initial": true,
+      "label": "(1, 0, 1, 0)",
+      "observation": "rule 1; A=0,B=1",
+      "pos": [
+        0,
+        5
+      ],
+      "state": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 26,
+      "initial": false,
+      "label": "(1, 0, 1, 1)",
+      "observation": "A=0,B=1",
+      "pos": [
+        1,
+        5
+      ],
+      "state": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 27,
+      "initial": false,
+      "label": "(1, 0, 1, 2)",
+      "observation": "A=0,B=1",
+      "pos": [
+        2,
+        5
+      ],
+      "state": [
+        1,
+        0,
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 28,
+      "initial": false,
+      "label": "(1, 0, 1, 3, 0)",
+      "observation": "error",
+      "pos": [
+        3,
+        5.0
+      ],
+      "state": [
+        1,
+        0,
+        1,
+        3,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 29,
+      "initial": false,
+      "label": "(1, 0, 1, 3, 1)",
+      "observation": "reward",
+      "pos": [
+        3,
+        5.35
+      ],
+      "state": [
+        1,
+        0,
+        1,
+        3,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 30,
+      "initial": true,
+      "label": "(1, 1, 0, 0)",
+      "observation": "rule 1; A=1,B=0",
+      "pos": [
+        0,
+        6
+      ],
+      "state": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 31,
+      "initial": false,
+      "label": "(1, 1, 0, 1)",
+      "observation": "A=1,B=0",
+      "pos": [
+        1,
+        6
+      ],
+      "state": [
+        1,
+        1,
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 32,
+      "initial": false,
+      "label": "(1, 1, 0, 2)",
+      "observation": "A=1,B=0",
+      "pos": [
+        2,
+        6
+      ],
+      "state": [
+        1,
+        1,
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 33,
+      "initial": false,
+      "label": "(1, 1, 0, 3, 0)",
+      "observation": "reward",
+      "pos": [
+        3,
+        6.0
+      ],
+      "state": [
+        1,
+        1,
+        0,
+        3,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 34,
+      "initial": false,
+      "label": "(1, 1, 0, 3, 1)",
+      "observation": "error",
+      "pos": [
+        3,
+        6.35
+      ],
+      "state": [
+        1,
+        1,
+        0,
+        3,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 35,
+      "initial": true,
+      "label": "(1, 1, 1, 0)",
+      "observation": "rule 1; A=1,B=1",
+      "pos": [
+        0,
+        7
+      ],
+      "state": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 36,
+      "initial": false,
+      "label": "(1, 1, 1, 1)",
+      "observation": "A=1,B=1",
+      "pos": [
+        1,
+        7
+      ],
+      "state": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 37,
+      "initial": false,
+      "label": "(1, 1, 1, 2)",
+      "observation": "A=1,B=1",
+      "pos": [
+        2,
+        7
+      ],
+      "state": [
+        1,
+        1,
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 38,
+      "initial": false,
+      "label": "(1, 1, 1, 3, 0)",
+      "observation": "error",
+      "pos": [
+        3,
+        7.0
+      ],
+      "state": [
+        1,
+        1,
+        1,
+        3,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 39,
+      "initial": false,
+      "label": "(1, 1, 1, 3, 1)",
+      "observation": "reward",
+      "pos": [
+        3,
+        7.35
+      ],
+      "state": [
+        1,
+        1,
+        1,
+        3,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    }
+  ]
+}

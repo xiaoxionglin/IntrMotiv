@@ -1,0 +1,93 @@
+{
+  "environment": "fork_all_landmarks",
+  "seed": 99,
+  "training_seconds": 28.783390232827514,
+  "parameters": 25865,
+  "updates": 2500,
+  "regression_action_targets_first_hit": 4480000,
+  "regression_action_targets_continuing": 640000,
+  "replay_transitions": 4096,
+  "supported_state_actions": 21,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.13658516108989716,
+      "continuing_mse": 0.022657664492726326
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.028052063658833504,
+      "continuing_mse": 0.0002044946886599064
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.02253495343029499,
+      "continuing_mse": 0.0038700478617101908
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.020578835159540176,
+      "continuing_mse": 0.00023563657305203378
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.02137252688407898,
+      "continuing_mse": 0.0015597818419337273
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 0.021542014554142952,
+      "continuing_mse": 0.0001275644899578765
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 0.023621171712875366,
+      "continuing_mse": 0.0008235962013714015
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 0.021981041878461838,
+      "continuing_mse": 0.00013774468970950693
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 0.021193990483880043,
+      "continuing_mse": 0.0003431139048188925
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 0.021301623433828354,
+      "continuing_mse": 0.00016205638530664146
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 0.021721916273236275,
+      "continuing_mse": 8.854335465002805e-05
+    }
+  ],
+  "n_nontrivial_pairs": 42,
+  "n_lift_pairs": 35,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "per_goal_success": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0
+  },
+  "paired_command_lift": 0.7428571428571429,
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.21428571428571427,
+    "memoryless": 1.0,
+    "continuing_main": 0.14285714285714285
+  },
+  "maximum_absolute_calibration_error": 0.5409123301506042,
+  "pair_gate_passed": true,
+  "checkpoint_sha256": "fca372ab200b239eb46c3080d7c934e271dd1c8dbce2f32112c7c66a7f4eebd1",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true
+}

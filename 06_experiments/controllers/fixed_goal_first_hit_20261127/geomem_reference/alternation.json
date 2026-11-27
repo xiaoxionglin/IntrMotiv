@@ -1,0 +1,432 @@
+{
+  "edges": [
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 0,
+      "target": 1
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 1,
+      "target": 0
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 1,
+      "target": 2
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 2,
+      "target": 1
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 2,
+      "target": 3
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 3,
+      "target": 2
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 3,
+      "target": 4
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 4,
+      "target": 3
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 4,
+      "target": 5
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 4,
+      "target": 6
+    },
+    {
+      "action": "reset",
+      "kind": "reset",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 5,
+      "target": 0
+    },
+    {
+      "action": "reset",
+      "kind": "reset",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 6,
+      "target": 7
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 7,
+      "target": 8
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 8,
+      "target": 7
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 8,
+      "target": 9
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 9,
+      "target": 8
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 9,
+      "target": 10
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 10,
+      "target": 9
+    },
+    {
+      "action": "forward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 10,
+      "target": 11
+    },
+    {
+      "action": "backward",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 11,
+      "target": 10
+    },
+    {
+      "action": "choose_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 11,
+      "target": 12
+    },
+    {
+      "action": "choose_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 11,
+      "target": 13
+    },
+    {
+      "action": "reset",
+      "kind": "reset",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 12,
+      "target": 0
+    },
+    {
+      "action": "reset",
+      "kind": "reset",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 13,
+      "target": 7
+    }
+  ],
+  "metadata": {
+    "abstraction": "Corridor plus left/right choice; last rewarded side persists across reset.",
+    "length": 4,
+    "representation": "finite symbolic task abstraction"
+  },
+  "name": "Delayed alternation",
+  "nodes": [
+    {
+      "id": 0,
+      "initial": true,
+      "label": "(0, 0)",
+      "observation": "corridor 0",
+      "pos": [
+        0,
+        0
+      ],
+      "state": [
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 1,
+      "initial": false,
+      "label": "(0, 1)",
+      "observation": "corridor 1",
+      "pos": [
+        1,
+        0
+      ],
+      "state": [
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 2,
+      "initial": false,
+      "label": "(0, 2)",
+      "observation": "corridor 2",
+      "pos": [
+        2,
+        0
+      ],
+      "state": [
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 3,
+      "initial": false,
+      "label": "(0, 3)",
+      "observation": "corridor 3",
+      "pos": [
+        3,
+        0
+      ],
+      "state": [
+        0,
+        3
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 4,
+      "initial": false,
+      "label": "(0, 4)",
+      "observation": "corridor 4",
+      "pos": [
+        4,
+        0
+      ],
+      "state": [
+        0,
+        4
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 5,
+      "initial": false,
+      "label": "('outcome', 0, 0)",
+      "observation": "side 0; reward 0",
+      "pos": [
+        5,
+        0.0
+      ],
+      "state": [
+        "outcome",
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 6,
+      "initial": false,
+      "label": "('outcome', 0, 1)",
+      "observation": "side 1; reward 1",
+      "pos": [
+        5,
+        0.5
+      ],
+      "state": [
+        "outcome",
+        0,
+        1
+      ],
+      "success": true,
+      "terminal": false
+    },
+    {
+      "id": 7,
+      "initial": true,
+      "label": "(1, 0)",
+      "observation": "corridor 0",
+      "pos": [
+        0,
+        2
+      ],
+      "state": [
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 8,
+      "initial": false,
+      "label": "(1, 1)",
+      "observation": "corridor 1",
+      "pos": [
+        1,
+        2
+      ],
+      "state": [
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 9,
+      "initial": false,
+      "label": "(1, 2)",
+      "observation": "corridor 2",
+      "pos": [
+        2,
+        2
+      ],
+      "state": [
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 10,
+      "initial": false,
+      "label": "(1, 3)",
+      "observation": "corridor 3",
+      "pos": [
+        3,
+        2
+      ],
+      "state": [
+        1,
+        3
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 11,
+      "initial": false,
+      "label": "(1, 4)",
+      "observation": "corridor 4",
+      "pos": [
+        4,
+        2
+      ],
+      "state": [
+        1,
+        4
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 12,
+      "initial": false,
+      "label": "('outcome', 1, 0)",
+      "observation": "side 0; reward 1",
+      "pos": [
+        5,
+        2.0
+      ],
+      "state": [
+        "outcome",
+        1,
+        0
+      ],
+      "success": true,
+      "terminal": false
+    },
+    {
+      "id": 13,
+      "initial": false,
+      "label": "('outcome', 1, 1)",
+      "observation": "side 1; reward 0",
+      "pos": [
+        5,
+        2.5
+      ],
+      "state": [
+        "outcome",
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    }
+  ]
+}

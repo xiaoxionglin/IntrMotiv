@@ -4,6 +4,21 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+### Archive source bytes before concurrent scientific runs — 2026-11-27
+
+- **Evidence:** During the [first-hit graph study](06_experiments/controllers/fixed_goal_first_hit_20261127/README.md), concurrent finite-evaluator reporting and runtime-adapter docstring edits changed two pre-run hashes while a neural fit was executing. Exact originals were recovered; used finite functions were AST-equivalent and the adapter difference was a docstring. Reconstruction was avoidable work.
+- **Impact:** A source hash without retained bytes cannot reproduce the precise run after subsequent edits. A valid archive also does not, alone, prove which module was imported.
+- **Improvement/status:** Implemented the small `hpc_runs/first_hit_control/provenance.py` helper with six focused tests. It snapshots exact bytes before training, refuses overwrite, detects tampering, and reports archive validity separately from live-file drift. The all-goal extension used it before optimization and completed with all hashes intact. Retain import identity/source checks as well; use [the standard workflow](04_implementation/standardized_study_workflow.md) for actual study releases.
+- **Restore follow-up:** The fitted controller now binds its source checkpoint, original configuration, evaluation overrides and source-archive manifest. Reload checks the archived and active decoder, Q-head, core, adapter, detector and layout-validation bytes as well as tensor equality. Model-only tests accept identical files relocated to a new root and reject changed Q-head source or corrupted archives. The complete local first-hit suite passes 89 tests before NEMO qualification.
+- **Acceptance:** A run retains all declared dependency bytes, detects both archive corruption and working-copy changes, and certifies loaded source identity before interpreting results.
+
+### Reconstruct TorchScript target modules instead of copying trainable parameters — 2026-11-27
+
+- **Evidence:** The first legacy-decoder graph qualification failed before its first optimizer update because a deep-copied trainable `MlpDecoderJit` exposed nonleaf parameters. Freezing the copied target raised an error. The failed pre-run manifest is preserved with the [successful unchanged-budget retry](06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/results.json).
+- **Impact:** A normal Python-module target-copy recipe is unsafe for this scripted runtime and can block a valid controller comparison before any learning occurs.
+- **Improvement/status:** The toy trainer reconstructs the target through the identical factory under a saved random stream, loads its state dictionary, then freezes it. The replay fitter accepts an explicit target factory and rejects an unsafe deep copy. A focused regression covers the actual scripted decoder.
+- **Acceptance:** Online and target state dictionaries initially match exactly, target parameters are leaves and frozen, source parameters stay trainable, and construction does not perturb the intended random sequence. Keep this within the [source and checkpoint qualification workflow](04_implementation/standardized_study_workflow.md).
+
 ### Verify receipt and active execution when handing work to another chat — 2026-11-13
 
 - **Evidence:** The exposed app tools lacked thread creation. The supported
@@ -563,6 +578,7 @@ use this log for the infrastructure needed to resolve them.
 - **Impact:** Every observed prospective outcome can be a success by construction. Posterior edge reliability, reliable-edge count and the derived grounded-controllability summary can imply control without accounting for failed or censored commands.
 - **Improvement/status:** Pending. Preserve the existing historical metric contract, but add issued-command and explicit terminal-censor counts to the graph outcome stream. Report physical target arrival within bounded windows with full trial denominators and episode censoring; use matched-start executed alternatives for causal control. Keep the [canonical intervention protocol](04_implementation/reusable_place_field_telemetry.md#target-control-intervention-protocol) as the execution path.
 - **Acceptance:** A test with a commanded goal that ends at an episode boundary without a hit records an issued and censored command; prospective hit fraction is never reported as an unconditional success rate when censoring is omitted. Fixed-window arrival reports hits, failures and censoring separately.
+- **27 November evaluator audit:** Desktop runtime `206ee833` also filters censored actual and alternative trials from `evaluation/target_control_interventions.py`'s headline paired lift. This is a conditional statistic, distinct from arrival per issued command. The [fixed-goal first-hit study](06_experiments/controllers/fixed_goal_first_hit_20261127/README.md) will preserve issued, successful, failed, censored and missing-start denominators. Pending canonical improvement: publish the unconditional fixed-window result alongside the legacy conditional statistic and add a regression with unequal censoring across commands. Historical results and metric names remain unchanged.
 
 ### Check spatial snapshot feasibility in short qualification studies — 2026-10-08
 

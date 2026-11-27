@@ -1,0 +1,36 @@
+{
+  "name": "post_audit_successor_witness",
+  "reason": "Original fork was nondiscriminating: fixed-policy successor greedy also achieved perfect success. This separate analytic diagnostic was designed after that result.",
+  "transition": [
+    {
+      "s": 0,
+      "a": 0,
+      "success": 0.75,
+      "failure": 0.25
+    },
+    {
+      "s": 0,
+      "a": 1,
+      "successor": 1
+    },
+    {
+      "s": 1,
+      "a": 0,
+      "successor": 2
+    },
+    {
+      "s": 1,
+      "a": 1,
+      "successor": 3
+    }
+  ],
+  "physical_terminal_states": [
+    2,
+    3
+  ],
+  "goal": 2,
+  "start": 0,
+  "horizon": 2,
+  "uniform_behavior_action_probability": 0.5,
+  "claim": "Exact-model counterexample, not a sampled training result or part of original prospective nine-dataset suite."
+}

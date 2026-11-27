@@ -1,0 +1,35 @@
+[
+  {
+    "all_outcomes_policy_true_success_h2": 1.0,
+    "empirical_risky_success": 0.07,
+    "positive_only_estimated_risky_success": 1.0,
+    "positive_only_policy_true_success_h2": 0.1,
+    "risky_successes": 7,
+    "risky_trials": 100,
+    "seed": 8,
+    "selection": "one-step hit-only subset; illustration of outcome-conditioning bias, not a full HER implementation",
+    "true_risky_success": 0.1
+  },
+  {
+    "all_outcomes_policy_true_success_h2": 1.0,
+    "empirical_risky_success": 0.06,
+    "positive_only_estimated_risky_success": 1.0,
+    "positive_only_policy_true_success_h2": 0.1,
+    "risky_successes": 6,
+    "risky_trials": 100,
+    "seed": 99,
+    "selection": "one-step hit-only subset; illustration of outcome-conditioning bias, not a full HER implementation",
+    "true_risky_success": 0.1
+  },
+  {
+    "all_outcomes_policy_true_success_h2": 1.0,
+    "empirical_risky_success": 0.11,
+    "positive_only_estimated_risky_success": 1.0,
+    "positive_only_policy_true_success_h2": 0.1,
+    "risky_successes": 11,
+    "risky_trials": 100,
+    "seed": 123,
+    "selection": "one-step hit-only subset; illustration of outcome-conditioning bias, not a full HER implementation",
+    "true_risky_success": 0.1
+  }
+]

@@ -1,0 +1,555 @@
+{
+  "edges": [
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 0,
+      "target": 1
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 1,
+      "target": 2
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 2,
+      "target": 3
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 3,
+      "target": 4
+    },
+    {
+      "action": "present_0",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 4,
+      "target": 5
+    },
+    {
+      "action": "present_1",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 4,
+      "target": 8
+    },
+    {
+      "action": "response_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 5,
+      "target": 6
+    },
+    {
+      "action": "response_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 5,
+      "target": 7
+    },
+    {
+      "action": "response_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 8,
+      "target": 9
+    },
+    {
+      "action": "response_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 8,
+      "target": 10
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 11,
+      "target": 12
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 12,
+      "target": 13
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 13,
+      "target": 14
+    },
+    {
+      "action": "tick",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 14,
+      "target": 15
+    },
+    {
+      "action": "present_0",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 15,
+      "target": 16
+    },
+    {
+      "action": "present_1",
+      "kind": "event",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 15,
+      "target": 19
+    },
+    {
+      "action": "response_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 16,
+      "target": 17
+    },
+    {
+      "action": "response_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 16,
+      "target": 18
+    },
+    {
+      "action": "response_0",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 0.0,
+      "source": 19,
+      "target": 20
+    },
+    {
+      "action": "response_1",
+      "kind": "action",
+      "probability": 1.0,
+      "reward": 1.0,
+      "source": 19,
+      "target": 21
+    }
+  ],
+  "metadata": {
+    "abstraction": "Two object identities; fixed delay; no rendered movement.",
+    "delay": 4,
+    "observation": "sample visible only at onset; probe at choice",
+    "representation": "finite symbolic task abstraction"
+  },
+  "name": "Delayed match-to-sample",
+  "nodes": [
+    {
+      "id": 0,
+      "initial": true,
+      "label": "('delay', 0, 0)",
+      "observation": "sample 0",
+      "pos": [
+        0,
+        0
+      ],
+      "state": [
+        "delay",
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 1,
+      "initial": false,
+      "label": "('delay', 0, 1)",
+      "observation": "blank",
+      "pos": [
+        1,
+        0
+      ],
+      "state": [
+        "delay",
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 2,
+      "initial": false,
+      "label": "('delay', 0, 2)",
+      "observation": "blank",
+      "pos": [
+        2,
+        0
+      ],
+      "state": [
+        "delay",
+        0,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 3,
+      "initial": false,
+      "label": "('delay', 0, 3)",
+      "observation": "blank",
+      "pos": [
+        3,
+        0
+      ],
+      "state": [
+        "delay",
+        0,
+        3
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 4,
+      "initial": false,
+      "label": "('delay', 0, 4)",
+      "observation": "blank",
+      "pos": [
+        4,
+        0
+      ],
+      "state": [
+        "delay",
+        0,
+        4
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 5,
+      "initial": false,
+      "label": "('probe', 0, 0)",
+      "observation": "probe 0",
+      "pos": [
+        5,
+        -0.5
+      ],
+      "state": [
+        "probe",
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 6,
+      "initial": false,
+      "label": "('outcome', 0, 0, 0)",
+      "observation": "error",
+      "pos": [
+        6,
+        -0.7
+      ],
+      "state": [
+        "outcome",
+        0,
+        0,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 7,
+      "initial": false,
+      "label": "('outcome', 0, 0, 1)",
+      "observation": "reward",
+      "pos": [
+        6,
+        -0.24999999999999994
+      ],
+      "state": [
+        "outcome",
+        0,
+        0,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 8,
+      "initial": false,
+      "label": "('probe', 0, 1)",
+      "observation": "probe 1",
+      "pos": [
+        5,
+        0.5
+      ],
+      "state": [
+        "probe",
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 9,
+      "initial": false,
+      "label": "('outcome', 0, 1, 0)",
+      "observation": "reward",
+      "pos": [
+        6,
+        0.30000000000000004
+      ],
+      "state": [
+        "outcome",
+        0,
+        1,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 10,
+      "initial": false,
+      "label": "('outcome', 0, 1, 1)",
+      "observation": "error",
+      "pos": [
+        6,
+        0.75
+      ],
+      "state": [
+        "outcome",
+        0,
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 11,
+      "initial": true,
+      "label": "('delay', 1, 0)",
+      "observation": "sample 1",
+      "pos": [
+        0,
+        4
+      ],
+      "state": [
+        "delay",
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 12,
+      "initial": false,
+      "label": "('delay', 1, 1)",
+      "observation": "blank",
+      "pos": [
+        1,
+        4
+      ],
+      "state": [
+        "delay",
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 13,
+      "initial": false,
+      "label": "('delay', 1, 2)",
+      "observation": "blank",
+      "pos": [
+        2,
+        4
+      ],
+      "state": [
+        "delay",
+        1,
+        2
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 14,
+      "initial": false,
+      "label": "('delay', 1, 3)",
+      "observation": "blank",
+      "pos": [
+        3,
+        4
+      ],
+      "state": [
+        "delay",
+        1,
+        3
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 15,
+      "initial": false,
+      "label": "('delay', 1, 4)",
+      "observation": "blank",
+      "pos": [
+        4,
+        4
+      ],
+      "state": [
+        "delay",
+        1,
+        4
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 16,
+      "initial": false,
+      "label": "('probe', 1, 0)",
+      "observation": "probe 0",
+      "pos": [
+        5,
+        3.5
+      ],
+      "state": [
+        "probe",
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 17,
+      "initial": false,
+      "label": "('outcome', 1, 0, 0)",
+      "observation": "reward",
+      "pos": [
+        6,
+        3.3
+      ],
+      "state": [
+        "outcome",
+        1,
+        0,
+        0
+      ],
+      "success": true,
+      "terminal": true
+    },
+    {
+      "id": 18,
+      "initial": false,
+      "label": "('outcome', 1, 0, 1)",
+      "observation": "error",
+      "pos": [
+        6,
+        3.75
+      ],
+      "state": [
+        "outcome",
+        1,
+        0,
+        1
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 19,
+      "initial": false,
+      "label": "('probe', 1, 1)",
+      "observation": "probe 1",
+      "pos": [
+        5,
+        4.5
+      ],
+      "state": [
+        "probe",
+        1,
+        1
+      ],
+      "success": false,
+      "terminal": false
+    },
+    {
+      "id": 20,
+      "initial": false,
+      "label": "('outcome', 1, 1, 0)",
+      "observation": "error",
+      "pos": [
+        6,
+        4.3
+      ],
+      "state": [
+        "outcome",
+        1,
+        1,
+        0
+      ],
+      "success": false,
+      "terminal": true
+    },
+    {
+      "id": 21,
+      "initial": false,
+      "label": "('outcome', 1, 1, 1)",
+      "observation": "reward",
+      "pos": [
+        6,
+        4.75
+      ],
+      "state": [
+        "outcome",
+        1,
+        1,
+        1
+      ],
+      "success": true,
+      "terminal": true
+    }
+  ]
+}

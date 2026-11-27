@@ -1,0 +1,20 @@
+{
+  "schema": "intrmotiv/first-hit-adapter-qualification/v1",
+  "runtime_source": "/home/xiaoxiong/SFgit/SF_hipposlam",
+  "runtime_commit": "206ee8330f048b910c19ea9b82e6215a58a63c8d",
+  "test_command": "PYTHONDONTWRITEBYTECODE=1 /home/xiaoxiong/miniforge3/envs/SF_git/bin/python -m pytest -q hpc_runs/test_first_hit_runtime_adapter.py",
+  "test_result": {
+    "passed": 13,
+    "failed": 0,
+    "observed_elapsed_seconds": 1.7
+  },
+  "files": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_runtime_adapter.py": "fad9c4c58d7dba4c55046eb3622c0a510d0f06ae50b83700036644ca89717184",
+    "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+    "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/controller_q.py": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9"
+  },
+  "scope": "actual decoder/head API and backup boundary qualification; no learned DMLab controller or pretrained checkpoint tested",
+  "expressiveness_limit": "Unmodified hindsight head is affine in positive remaining horizon at fixed state/goal; cannot represent the deterministic two-step arrival curve Q1=0,Q2=1,Q3=1. A focused actual-source test verifies this limitation."
+}

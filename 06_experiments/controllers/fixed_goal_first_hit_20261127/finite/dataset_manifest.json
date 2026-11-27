@@ -1,0 +1,116 @@
+[
+  {
+    "dataset": "fork_cycle_complete_s8",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "849fe086175e4686de15344211f5ec2c3569f2fdb2303df501364f551e1ea7c9",
+    "omitted_pairs": [],
+    "payload_sha256": "01c4af5fb86c0e2d3e31f2495be516bcf110a4c7689fbedf8abfc296d460d11e",
+    "required_nonterminal_pairs": 21,
+    "rows": 2100,
+    "support_pairs": 21
+  },
+  {
+    "dataset": "fork_cycle_missing_hub_right_s8",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "71072364751e049e9d0904b8fa57d41b9808110e8eb58b8ac26139465a6741d4",
+    "omitted_pairs": [
+      [
+        0,
+        1
+      ]
+    ],
+    "payload_sha256": "28c0c508ba8dbf9bd64ecc18dda3b7183dd231c47f12a1e603892c71e5025895",
+    "required_nonterminal_pairs": 21,
+    "rows": 2000,
+    "support_pairs": 20
+  },
+  {
+    "dataset": "fork_cycle_complete_s99",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "98c67646c0659e828863ab8dae9e3bbc35ef19e36d87a358253e626443fd32de",
+    "omitted_pairs": [],
+    "payload_sha256": "0a3155a5e762e2e9134d129200f3148bf4625adf0a17eba9a09f59715a432bb0",
+    "required_nonterminal_pairs": 21,
+    "rows": 2100,
+    "support_pairs": 21
+  },
+  {
+    "dataset": "fork_cycle_missing_hub_right_s99",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "49b8df2a4a6dd331423489d3ec416272be57c82b1d436e13165a4359af0b238c",
+    "omitted_pairs": [
+      [
+        0,
+        1
+      ]
+    ],
+    "payload_sha256": "f345ea3b84ad27754e4cb78528276dafd28150ff249f68667af01680b2bc6b4a",
+    "required_nonterminal_pairs": 21,
+    "rows": 2000,
+    "support_pairs": 20
+  },
+  {
+    "dataset": "fork_cycle_complete_s123",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "adeb50d42be6727c0e2743e5aa3ef67fd766d12c9b5447ee26fcd48c11bdb137",
+    "omitted_pairs": [],
+    "payload_sha256": "e4c50fc9c35120c14112f6ed3c8a21988496a709b764527104bbd5e20663b0a9",
+    "required_nonterminal_pairs": 21,
+    "rows": 2100,
+    "support_pairs": 21
+  },
+  {
+    "dataset": "fork_cycle_missing_hub_right_s123",
+    "environment_sha256": "ed680a3a33242a236d2dee1b8065cd73e2901872d1648bbb722187917371f172",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "8306ec68d986d066161a718f4d9626907ee730f6580ae26df27a70d68343cdee",
+    "omitted_pairs": [
+      [
+        0,
+        1
+      ]
+    ],
+    "payload_sha256": "f210cb3db1d694ede52089e6166c6228dca064aa8825cb7d88718579419dd815",
+    "required_nonterminal_pairs": 21,
+    "rows": 2000,
+    "support_pairs": 20
+  },
+  {
+    "dataset": "stochastic_risky_safe_complete_s8",
+    "environment_sha256": "f723cb09d1a3b16baa0c8ecf7419915e967e03589d271ed39afa4251dd72be39",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "29581ad86a580026f6706ecf44247161aeb0b498e5c0bbd3f94bec227f47657e",
+    "omitted_pairs": [],
+    "payload_sha256": "c2bd2c9bf46a5fa78c9af56299f19a2368f74084ba63cafe37a86db660ccccb0",
+    "required_nonterminal_pairs": 4,
+    "rows": 400,
+    "support_pairs": 4
+  },
+  {
+    "dataset": "stochastic_risky_safe_complete_s99",
+    "environment_sha256": "f723cb09d1a3b16baa0c8ecf7419915e967e03589d271ed39afa4251dd72be39",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "c57df5c4b355c862b8dcadc10979d34f461d1bcd3ecfa7752b3f2b216bf4ab37",
+    "omitted_pairs": [],
+    "payload_sha256": "718a1e0d62bed465fca08b584b2d224f7a602a648933a58ef8f004ad61f6b767",
+    "required_nonterminal_pairs": 4,
+    "rows": 400,
+    "support_pairs": 4
+  },
+  {
+    "dataset": "stochastic_risky_safe_complete_s123",
+    "environment_sha256": "f723cb09d1a3b16baa0c8ecf7419915e967e03589d271ed39afa4251dd72be39",
+    "max_actions_per_episode": 1,
+    "npz_sha256": "d413abb0e312e1349f631a23119d68639ebd50f2d58d52f7baf4af79c82a5b4a",
+    "omitted_pairs": [],
+    "payload_sha256": "f234fcd54f84fb4a687bc39f7a613d24326c83ec10760f2bdf336e0224125fe5",
+    "required_nonterminal_pairs": 4,
+    "rows": 400,
+    "support_pairs": 4
+  }
+]

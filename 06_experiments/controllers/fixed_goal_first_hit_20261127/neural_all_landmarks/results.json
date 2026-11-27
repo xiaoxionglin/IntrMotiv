@@ -1,0 +1,400 @@
+{
+  "schema": "intrmotiv/first-hit-all-landmarks-results/v1",
+  "pre_run_manifest_sha256": "811a9b90e545ca827e2ec2cbb092187e3642adba090f68c3444286d725ea6a13",
+  "runs": [
+    {
+      "seed": 8,
+      "training_seconds": 28.76135926414281,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 4480000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.14825280010700226,
+          "continuing_mse": 0.030558625236153603
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.032631393522024155,
+          "continuing_mse": 0.0003098591114394367
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.02499527856707573,
+          "continuing_mse": 0.0041010440327227116
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.022674988955259323,
+          "continuing_mse": 0.00018654385348781943
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.023176949471235275,
+          "continuing_mse": 0.0014873483451083302
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.022183438763022423,
+          "continuing_mse": 0.0001584514247952029
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.020652150735259056,
+          "continuing_mse": 0.0008070156327448785
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.02278442308306694,
+          "continuing_mse": 6.49347566650249e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.025463193655014038,
+          "continuing_mse": 0.0003375333035364747
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.018689503893256187,
+          "continuing_mse": 0.00010454159928485751
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.022081943228840828,
+          "continuing_mse": 7.44249191484414e-05
+        }
+      ],
+      "n_nontrivial_pairs": 42,
+      "already_at_goal_pairs_excluded": 7,
+      "n_lift_pairs": 35,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "per_goal_success": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0
+      },
+      "paired_command_lift": 0.7428571428571429,
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.21428571428571427,
+        "memoryless": 1.0,
+        "continuing_main": 0.16666666666666666
+      },
+      "maximum_absolute_calibration_error": 0.6141276061534882,
+      "pair_gate_passed": true,
+      "checkpoint_sha256": "e20dbac6f9342de2f4fb9f2b7911ab6df4e34a70f4412efadcd6fd579447bad8",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true
+    },
+    {
+      "seed": 99,
+      "training_seconds": 25.75760171888396,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 4480000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.1430509090423584,
+          "continuing_mse": 0.02966989576816559
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.027160733938217163,
+          "continuing_mse": 0.00021565461065620184
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.02251465618610382,
+          "continuing_mse": 0.004596792161464691
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.020115047693252563,
+          "continuing_mse": 0.00017010164447128773
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.020595412701368332,
+          "continuing_mse": 0.0018331878818571568
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.021836351603269577,
+          "continuing_mse": 0.0001926832483150065
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.023007309064269066,
+          "continuing_mse": 0.0008890809258446097
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.020876316353678703,
+          "continuing_mse": 0.00011081175762228668
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.021083464846014977,
+          "continuing_mse": 0.0004679958219639957
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.02132350020110607,
+          "continuing_mse": 0.0001293164968956262
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.02249945141375065,
+          "continuing_mse": 0.00014700817700941116
+        }
+      ],
+      "n_nontrivial_pairs": 42,
+      "already_at_goal_pairs_excluded": 7,
+      "n_lift_pairs": 35,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "per_goal_success": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0
+      },
+      "paired_command_lift": 0.7428571428571429,
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.21428571428571427,
+        "memoryless": 1.0,
+        "continuing_main": 0.2619047619047619
+      },
+      "maximum_absolute_calibration_error": 0.5608668923377991,
+      "pair_gate_passed": true,
+      "checkpoint_sha256": "73b0c62a5ad0a027f83dc9607b033f7dfe96f419352c5d0d09268f0df48e6c53",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true
+    },
+    {
+      "seed": 123,
+      "training_seconds": 26.28798012295738,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 4480000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.14554379880428314,
+          "continuing_mse": 0.025773219764232635
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.030068645253777504,
+          "continuing_mse": 0.00029447150882333517
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.026431266218423843,
+          "continuing_mse": 0.004492242820560932
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.02150665409862995,
+          "continuing_mse": 0.00024490803480148315
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.022282343357801437,
+          "continuing_mse": 0.0015389809850603342
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.020240280777215958,
+          "continuing_mse": 0.000115527021989692
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.022314121946692467,
+          "continuing_mse": 0.000743764394428581
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.020662305876612663,
+          "continuing_mse": 0.0002486698213033378
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.021338265389204025,
+          "continuing_mse": 0.0005004229606129229
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.02204979956150055,
+          "continuing_mse": 0.00039872946217656136
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.019941067323088646,
+          "continuing_mse": 0.00014800371718592942
+        }
+      ],
+      "n_nontrivial_pairs": 42,
+      "already_at_goal_pairs_excluded": 7,
+      "n_lift_pairs": 35,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "per_goal_success": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0
+      },
+      "paired_command_lift": 0.7428571428571429,
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.21428571428571427,
+        "memoryless": 1.0,
+        "continuing_main": 0.19047619047619047
+      },
+      "maximum_absolute_calibration_error": 0.5668947100639343,
+      "pair_gate_passed": true,
+      "checkpoint_sha256": "adf7e36b8057781562f0c5ee6e5a07d32286aeff1b5087a5ab9df7f0c00dd0ec",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true
+    }
+  ],
+  "all_pair_gates_passed": true,
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/all_landmarks.py",
+        "snapshot_path": "sources/0000/all_landmarks.py",
+        "expected_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "snapshot_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0001/neural.py",
+        "expected_sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+        "snapshot_sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0002/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0003/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0004/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0005/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0006/state.py",
+        "expected_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md",
+        "snapshot_path": "sources/0007/fixed_goal_first_hit_control.md",
+        "expected_sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+        "snapshot_sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py",
+        "snapshot_path": "sources/0008/custom_actor_critic.py",
+        "expected_sha256": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+        "snapshot_sha256": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/controller_q.py",
+        "snapshot_path": "sources/0009/controller_q.py",
+        "expected_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "snapshot_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "datasets_unchanged": true,
+  "limitations": [
+    "Synthetic frozen one-hot DG identities make current observations sufficient; sparse-history evidence is from the separate two-target toy.",
+    "No learned DMLab visual representation or production control is tested.",
+    "The main-head negative also removes goal input and is not a routing-only causal comparison.",
+    "Success at deadline6 does not establish calibrated success probabilities at every deadline."
+  ]
+}

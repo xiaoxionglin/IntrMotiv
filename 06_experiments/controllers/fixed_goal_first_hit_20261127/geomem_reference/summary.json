@@ -1,0 +1,62 @@
+[
+  {
+    "distinct_observed_prefix_pairs": 2,
+    "document_sha256": "49031f7ff75cdfa6196c6727a8a735caaca449cb48eb416b517025462029d5ad",
+    "edge_kinds": {
+      "action": 8,
+      "event": 12
+    },
+    "edges": 20,
+    "graph": "delayed_match",
+    "initial_distribution_assumption": "uniform over exported initial states",
+    "nodes": 22,
+    "observation_classes_including_action_mask": 7,
+    "opposing_action_alias_pairs": 2,
+    "process_sha256": "ed4eb4e8c27acdc63fb7d1299e72802d3508f9ea630dc55b95edde8fa845fe52",
+    "pure_control_adapter_accepted": false,
+    "raw_sensory_classes": 7,
+    "rejection": "Explicit scheduler required for non-control edge kinds: ['event']",
+    "reset_semantics": "exported reset edges preserve neural memory; terminal paths stop",
+    "witness_sha256": "1b8c94ff9f8980729bbe0707a81108cb4c4952bac8b4a9f7364922cf93124956"
+  },
+  {
+    "distinct_observed_prefix_pairs": 2,
+    "document_sha256": "97cda6a9a8f21eced2743ac7c6782ff94edb5ae8e9bb462ba17585c4638bc036",
+    "edge_kinds": {
+      "action": 16,
+      "event": 16
+    },
+    "edges": 32,
+    "graph": "context_decision",
+    "initial_distribution_assumption": "uniform over exported initial states",
+    "nodes": 40,
+    "observation_classes_including_action_mask": 18,
+    "opposing_action_alias_pairs": 2,
+    "process_sha256": "935402f0267702d73f36fd5683081ee971714d7e73ada608069112cfaa7352c5",
+    "pure_control_adapter_accepted": false,
+    "raw_sensory_classes": 14,
+    "rejection": "Explicit scheduler required for non-control edge kinds: ['event']",
+    "reset_semantics": "exported reset edges preserve neural memory; terminal paths stop",
+    "witness_sha256": "b191f99981767d58ad5e03c59e47d97dceb3bada5ae91efb803848e89903b176"
+  },
+  {
+    "distinct_observed_prefix_pairs": 0,
+    "document_sha256": "b509b5e4eb54f303555b7e39ffb6f6b26cf67f380512c79ef2bee26c3d840e75",
+    "edge_kinds": {
+      "action": 20,
+      "reset": 4
+    },
+    "edges": 24,
+    "graph": "alternation",
+    "initial_distribution_assumption": "uniform over exported initial states",
+    "nodes": 14,
+    "observation_classes_including_action_mask": 9,
+    "opposing_action_alias_pairs": 1,
+    "process_sha256": "1cb6649425eca70590d269ab510a37727a122f8c55b3d6f5ea73bc9676cdef3e",
+    "pure_control_adapter_accepted": false,
+    "raw_sensory_classes": 9,
+    "rejection": "Explicit scheduler required for non-control edge kinds: ['reset']",
+    "reset_semantics": "exported reset edges preserve neural memory; terminal paths stop",
+    "witness_sha256": "30736dc93d8278330bc3e5ddea85d38966232574716fc28fe1740a92b3697ac5"
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "schema": "intrmotiv/slice-only-relabel-eligibility/v1",
+  "structural_eligibility": true,
+  "input_kind": "canonical_core_output",
+  "core_class": "SimpleSequenceWithBypassCore",
+  "decoder_class": "TargetFiLMDecoder",
+  "layout": {
+    "width": 1162,
+    "goal_start": 1146,
+    "goals": 16
+  },
+  "half_open_slices": {
+    "canonical_ca3": [
+      0,
+      1136
+    ],
+    "physical_bypass": [
+      1136,
+      1146
+    ],
+    "goal": [
+      1146,
+      1162
+    ]
+  },
+  "effective_flags": {
+    "dg_goal_input": "none",
+    "hrl_landmark_geometry": "none",
+    "hrl_behavior_mode_condition": false,
+    "hrl_motion_policy_input": false,
+    "hrl_action_path_integration": false,
+    "ca3_state_readout_mode": "off",
+    "ca3_worker_goal_mode": "target_id",
+    "dg_context_feedback": "none",
+    "dg_orthogonal_recruitment": false
+  },
+  "source_sha256": {
+    "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_core.py": "0584bc234b49dabe17d7f77c4af86efcee16fbd821d00f2c97ea721a6918f6e2",
+    "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/eligibility.py": "471c23151ff00c7483481380b100f383589a3f63774185e97c60d920b5e32b52",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_runtime_eligibility.py": "04ade763b458f0908d7e4d3c19311c53f58126bf5b92a05b06fd1f078831d4e8"
+  },
+  "remaining_gates": [
+    "Frozen source DG weights and BatchNorm buffers",
+    "Actual actor/replay state parity",
+    "Genuine terminal successor transport"
+  ],
+  "unsupported_state_note": "GoalConditionedDGCore splits worker memory at canonical_state_size-behavior_goal_state_size; that goal-written worker block is not canonical scalar CA3. The controller_worker_state cache alone does not certify its meaning.",
+  "qualification": {
+    "tests_passed": 10,
+    "tests_failed": 0,
+    "actual_core_input_width": 26,
+    "fixture_config": {
+      "Hippo_R": 8,
+      "Hippo_L": 64,
+      "Hippo_n_feature": 16,
+      "hrl_controllable_graph": true,
+      "hrl_graph_memory": "policy_buffer",
+      "hrl_target_timing": "immediate",
+      "hrl_manager_mode": "visit_direct",
+      "hrl_goal_conditioning": "target_id_film",
+      "dg_goal_input": "none"
+    },
+    "checkpoint": null,
+    "scope": "Real source core/decoder construction and structural rejection tests; no pretrained checkpoint or reconstructed actor history"
+  }
+}

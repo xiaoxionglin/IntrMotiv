@@ -1,0 +1,14 @@
+{
+  "design_sha256": "e253482ee6614e166f61f7e9971687cc9a4431ef57e1558494da2716e98de345",
+  "finite_source_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+  "optimal_start_q": [
+    0.75,
+    1.0
+  ],
+  "fixed_policy_start_q": [
+    0.75,
+    0.5
+  ],
+  "optimal_policy_success": 1.0,
+  "fixed_policy_greedy_success": 0.75
+}

@@ -1,0 +1,154 @@
+[
+  {
+    "equal_context_memoryless_success_upper_bound": 0.5,
+    "finite_ca3_comparisons": [
+      {
+        "memory_length": 1,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 2,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 4,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 8,
+        "repeat": 1,
+        "same_ca3": false
+      },
+      {
+        "memory_length": 6,
+        "repeat": 1,
+        "same_ca3": false
+      }
+    ],
+    "left_correct_actions": [
+      "response_1"
+    ],
+    "left_node": 5,
+    "observation_id_including_action_availability": 2,
+    "prefix_nodes": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    ],
+    "prefix_observation_ids": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    ],
+    "prefixes_observably_distinct": true,
+    "right_correct_actions": [
+      "response_0"
+    ],
+    "right_node": 16
+  },
+  {
+    "equal_context_memoryless_success_upper_bound": 0.5,
+    "finite_ca3_comparisons": [
+      {
+        "memory_length": 1,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 2,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 4,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 8,
+        "repeat": 1,
+        "same_ca3": false
+      },
+      {
+        "memory_length": 6,
+        "repeat": 1,
+        "same_ca3": false
+      }
+    ],
+    "left_correct_actions": [
+      "response_0"
+    ],
+    "left_node": 8,
+    "observation_id_including_action_availability": 3,
+    "prefix_nodes": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        8
+      ],
+      [
+        11,
+        12,
+        13,
+        14,
+        15,
+        19
+      ]
+    ],
+    "prefix_observation_ids": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
+    ],
+    "prefixes_observably_distinct": true,
+    "right_correct_actions": [
+      "response_1"
+    ],
+    "right_node": 19
+  }
+]

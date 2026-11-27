@@ -1,0 +1,65 @@
+{
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "bytes": 7565,
+      "sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+      "snapshot_path": "sources/0000/all_landmarks.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/all_landmarks.py"
+    },
+    {
+      "bytes": 26263,
+      "sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+      "snapshot_path": "sources/0001/neural.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py"
+    },
+    {
+      "bytes": 28317,
+      "sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+      "snapshot_path": "sources/0002/finite.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py"
+    },
+    {
+      "bytes": 8637,
+      "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "snapshot_path": "sources/0003/runtime_adapter.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py"
+    },
+    {
+      "bytes": 5491,
+      "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "snapshot_path": "sources/0004/targets.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py"
+    },
+    {
+      "bytes": 4523,
+      "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0005/provenance.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py"
+    },
+    {
+      "bytes": 3186,
+      "sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+      "snapshot_path": "sources/0006/state.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py"
+    },
+    {
+      "bytes": 11160,
+      "sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+      "snapshot_path": "sources/0007/fixed_goal_first_hit_control.md",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md"
+    },
+    {
+      "bytes": 30324,
+      "sha256": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+      "snapshot_path": "sources/0008/custom_actor_critic.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py"
+    },
+    {
+      "bytes": 3566,
+      "sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+      "snapshot_path": "sources/0009/controller_q.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/controller_q.py"
+    }
+  ]
+}

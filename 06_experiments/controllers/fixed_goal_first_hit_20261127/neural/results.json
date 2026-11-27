@@ -1,0 +1,1010 @@
+{
+  "schema": "intrmotiv/first-hit-neural-results/v1",
+  "pre_run_manifest_sha256": "701c26411f20ffb85faef0a6fce53d5c509aeeb9dff94bcf9fa093af01688f58",
+  "all_pair_gates_passed": true,
+  "runs": [
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 8,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.795570053160191,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.45103025436401367,
+          "continuing_mse": 0.8415977358818054
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.0508863739669323,
+          "continuing_mse": 0.00032479336368851364
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.0527171790599823,
+          "continuing_mse": 0.00032227186602540314
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.048920888453722,
+          "continuing_mse": 0.0001926469849422574
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.052865833044052124,
+          "continuing_mse": 0.000329538102960214
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.053505029529333115,
+          "continuing_mse": 0.0002070055197691545
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.05044957622885704,
+          "continuing_mse": 0.0002471845073159784
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.04981960356235504,
+          "continuing_mse": 0.00015855774108786136
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04899553954601288,
+          "continuing_mse": 0.0001687378971837461
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.053935106843709946,
+          "continuing_mse": 0.0002468343882355839
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.05160284414887428,
+          "continuing_mse": 0.0001401603949489072
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.5357462763786316,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 8,
+      "method": "replay_td",
+      "training_seconds": 10.83300663297996,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.18557104468345642,
+          "continuing_mse": 0.016375167295336723
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.021074486896395683,
+          "continuing_mse": 0.0002878607774619013
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.02195735089480877,
+          "continuing_mse": 0.0039357892237603664
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.014858529902994633,
+          "continuing_mse": 0.00013119819050189108
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.015155672095716,
+          "continuing_mse": 0.0017493345076218247
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.014601845294237137,
+          "continuing_mse": 0.00013481681526172906
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.012473246082663536,
+          "continuing_mse": 0.000629227957688272
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.01616181805729866,
+          "continuing_mse": 0.00013006015797145665
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.018745988607406616,
+          "continuing_mse": 0.00027671566931530833
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.015302649699151516,
+          "continuing_mse": 0.00014286434452515095
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.01833498477935791,
+          "continuing_mse": 0.00017489037418272346
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.5505573749542236,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 99,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.539815787225962,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.506781280040741,
+          "continuing_mse": 0.784929096698761
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.053432807326316833,
+          "continuing_mse": 0.00039634082349948585
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.04945351555943489,
+          "continuing_mse": 0.0003488346410449594
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.05231447145342827,
+          "continuing_mse": 0.0001805008650990203
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.051495566964149475,
+          "continuing_mse": 0.0001744254695950076
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.055552080273628235,
+          "continuing_mse": 0.00019034634169656783
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.054696738719940186,
+          "continuing_mse": 0.00015132887347135693
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.051059309393167496,
+          "continuing_mse": 0.00029417715268209577
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04824085533618927,
+          "continuing_mse": 0.0001700850116321817
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.050580352544784546,
+          "continuing_mse": 0.0002727351675275713
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.04828948155045509,
+          "continuing_mse": 0.00011471318430267274
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.5136693120002747,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 99,
+      "method": "replay_td",
+      "training_seconds": 11.108229820150882,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.1472586691379547,
+          "continuing_mse": 0.013790279626846313
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.016759976744651794,
+          "continuing_mse": 0.0003351595369167626
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.022113151848316193,
+          "continuing_mse": 0.00398053927347064
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.01554260216653347,
+          "continuing_mse": 0.00030977086862549186
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.017879579216241837,
+          "continuing_mse": 0.0014955488732084632
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.019386641681194305,
+          "continuing_mse": 0.0002186736383009702
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.015878798440098763,
+          "continuing_mse": 0.000574437843170017
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.011881436221301556,
+          "continuing_mse": 0.00017231068341061473
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.013387506827712059,
+          "continuing_mse": 0.0003564667422324419
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.014504453167319298,
+          "continuing_mse": 0.00021432535140775144
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.016257286071777344,
+          "continuing_mse": 0.0002216312859673053
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.522070586681366,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 123,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.515753201209009,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.4709291458129883,
+          "continuing_mse": 0.730660617351532
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.05359141156077385,
+          "continuing_mse": 0.00041579021490179
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.058827903121709824,
+          "continuing_mse": 0.00032949273008853197
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.049592524766922,
+          "continuing_mse": 0.00030156984576024115
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.050433915108442307,
+          "continuing_mse": 0.00026507495203986764
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.053689103573560715,
+          "continuing_mse": 0.000156076843268238
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.05324123799800873,
+          "continuing_mse": 0.0002168391365557909
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.05417874455451965,
+          "continuing_mse": 0.0002697774616535753
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.05029207095503807,
+          "continuing_mse": 0.00014278163143899292
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.051793381571769714,
+          "continuing_mse": 0.00022910763800609857
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.05299696698784828,
+          "continuing_mse": 0.000134921123390086
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.5379739701747894,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "fork_cycle",
+      "role": "distinct_dg_positive_control",
+      "seed": 123,
+      "method": "replay_td",
+      "training_seconds": 10.834868338890374,
+      "parameters": 26761,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 21,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.1485348790884018,
+          "continuing_mse": 0.01160369347780943
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.012063421308994293,
+          "continuing_mse": 0.00024055197718553245
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.0196306761354208,
+          "continuing_mse": 0.003873438574373722
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.011713913641870022,
+          "continuing_mse": 0.00020729901734739542
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.012682335451245308,
+          "continuing_mse": 0.0018043050076812506
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.011043352074921131,
+          "continuing_mse": 0.00015701429219916463
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.013947302475571632,
+          "continuing_mse": 0.0009276541532017291
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.014290383085608482,
+          "continuing_mse": 0.00013856370060238987
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.012854218482971191,
+          "continuing_mse": 0.0009216794278472662
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.012237048707902431,
+          "continuing_mse": 0.0001432981516700238
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.013332134112715721,
+          "continuing_mse": 5.8904166508000344e-05
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.4166666666666667,
+        "memoryless": 1.0
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 10,
+      "n_nontrivial_pairs": 12,
+      "initial_goal_trials_excluded": 2,
+      "maximum_absolute_calibration_error": 0.5798304080963135,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 8,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.328294957056642,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.6782896518707275,
+          "continuing_mse": 0.007697148714214563
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.0540010891854763,
+          "continuing_mse": 3.948533958464395e-06
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.04498528316617012,
+          "continuing_mse": 1.2214812159072608e-05
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.050295233726501465,
+          "continuing_mse": 7.621168606419815e-06
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.049837466329336166,
+          "continuing_mse": 8.896902727428824e-06
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.051600705832242966,
+          "continuing_mse": 4.681654900196008e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.045044269412755966,
+          "continuing_mse": 6.760126780136488e-06
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.05237339064478874,
+          "continuing_mse": 8.720224286662415e-06
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.05106878653168678,
+          "continuing_mse": 1.1996537068625912e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.04110013321042061,
+          "continuing_mse": 1.3068041880615056e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.049064721912145615,
+          "continuing_mse": 6.52337757856003e-06
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.4630555808544159,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 8,
+      "method": "replay_td",
+      "training_seconds": 10.369916887022555,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.2288280725479126,
+          "continuing_mse": 0.007271741982549429
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.03887871280312538,
+          "continuing_mse": 8.347579569090158e-05
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.04775067791342735,
+          "continuing_mse": 1.3406095604295842e-05
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.050149984657764435,
+          "continuing_mse": 6.247110377444187e-06
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0505603663623333,
+          "continuing_mse": 6.4989353631972335e-06
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.04517856612801552,
+          "continuing_mse": 9.881803634925745e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.041858043521642685,
+          "continuing_mse": 3.0108192731859162e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.05075480788946152,
+          "continuing_mse": 4.471870397537714e-06
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04730504751205444,
+          "continuing_mse": 5.576657713390887e-06
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.03673117980360985,
+          "continuing_mse": 6.3414504438696895e-06
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.05069474130868912,
+          "continuing_mse": 8.71710290084593e-06
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.48773181438446045,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 99,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.646410977002233,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.7204351425170898,
+          "continuing_mse": 0.011273305863142014
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.047488268464803696,
+          "continuing_mse": 6.233459771465277e-06
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.046609628945589066,
+          "continuing_mse": 5.783832875749795e-06
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.044509727507829666,
+          "continuing_mse": 2.8892336558783427e-06
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.05015018209815025,
+          "continuing_mse": 7.332002041948726e-06
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.046158317476511,
+          "continuing_mse": 9.811296877160203e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.04899411275982857,
+          "continuing_mse": 1.022649394144537e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.046684518456459045,
+          "continuing_mse": 3.3218832413695054e-06
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04566173255443573,
+          "continuing_mse": 5.934263754170388e-06
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.04458627477288246,
+          "continuing_mse": 5.182698714634171e-06
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.053008172661066055,
+          "continuing_mse": 6.123002094682306e-06
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.4978048801422119,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 99,
+      "method": "replay_td",
+      "training_seconds": 11.020081758964807,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.2462126463651657,
+          "continuing_mse": 0.005612485576421022
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.03520228713750839,
+          "continuing_mse": 0.00012934196274727583
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.04420489817857742,
+          "continuing_mse": 2.360595499339979e-05
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.04075382277369499,
+          "continuing_mse": 1.4426324923988432e-05
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.04953007027506828,
+          "continuing_mse": 5.7971114983956795e-06
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.04464349150657654,
+          "continuing_mse": 3.3324422474834137e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.04670523479580879,
+          "continuing_mse": 4.903974968328839e-06
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.046260107308626175,
+          "continuing_mse": 1.2440279533620924e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04450542852282524,
+          "continuing_mse": 1.0937060324067716e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.04261788725852966,
+          "continuing_mse": 7.794425982865505e-06
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.04618128389120102,
+          "continuing_mse": 5.343951215763809e-06
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.49833667278289795,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 123,
+      "method": "empirical_value_distillation",
+      "training_seconds": 4.888196505140513,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1920000,
+      "regression_action_targets_continuing": 1920000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.6393303275108337,
+          "continuing_mse": 0.011937402188777924
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.05739020183682442,
+          "continuing_mse": 7.564585303043714e-06
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.05334974452853203,
+          "continuing_mse": 8.720747246115934e-06
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.0509488582611084,
+          "continuing_mse": 7.4422600846446585e-06
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.04322604462504387,
+          "continuing_mse": 1.1043705853808206e-05
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.05228818580508232,
+          "continuing_mse": 9.899317774397787e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.0490325391292572,
+          "continuing_mse": 2.107300861098338e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.045507851988077164,
+          "continuing_mse": 0.00010228544851997867
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04874437674880028,
+          "continuing_mse": 1.1603202437981963e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.04209264740347862,
+          "continuing_mse": 9.421121831110213e-06
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.04495955631136894,
+          "continuing_mse": 1.632907697057817e-05
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.48024696111679077,
+      "pair_gate_passed": true
+    },
+    {
+      "environment": "sparse_context",
+      "role": "history_required_sparse_dg",
+      "seed": 123,
+      "method": "replay_td",
+      "training_seconds": 10.40645022271201,
+      "parameters": 22921,
+      "updates": 2500,
+      "regression_action_targets_first_hit": 1280000,
+      "regression_action_targets_continuing": 640000,
+      "replay_transitions": 4096,
+      "supported_state_actions": 12,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.20306724309921265,
+          "continuing_mse": 0.005505501292645931
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.05018625780940056,
+          "continuing_mse": 3.097998342127539e-05
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.05393704026937485,
+          "continuing_mse": 9.167936696030665e-06
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.049905214458703995,
+          "continuing_mse": 1.2713633623206988e-05
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.042144205421209335,
+          "continuing_mse": 1.1752580576285254e-05
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.05076546221971512,
+          "continuing_mse": 7.09546930011129e-06
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 0.04799436777830124,
+          "continuing_mse": 1.4747411114512943e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 0.04596780240535736,
+          "continuing_mse": 7.95451251178747e-06
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 0.04690975695848465,
+          "continuing_mse": 6.106145519879647e-06
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 0.04474378377199173,
+          "continuing_mse": 1.1927450032089837e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 0.043332070112228394,
+          "continuing_mse": 3.2797913718241034e-06
+        }
+      ],
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.0,
+        "continuing_main": 0.5,
+        "memoryless": 0.5
+      },
+      "worst_pair_success": 1,
+      "paired_command_lift": 1.0,
+      "n_lift_pairs": 4,
+      "n_nontrivial_pairs": 4,
+      "initial_goal_trials_excluded": 0,
+      "maximum_absolute_calibration_error": 0.45099759101867676,
+      "pair_gate_passed": true
+    }
+  ],
+  "limitations": [
+    "Synthetic DG identities are fixed, not learned image representations.",
+    "Empirical-value distillation uses hidden state indices to look up upper-bound targets; replay_td uses only factual stored transitions and learned bootstrap values.",
+    "All observed state-goal combinations receive synthetic labels; this is not held-out-goal generalization.",
+    "Existing deadline head is affine in remaining time at fixed state/goal; arbitrary finite-horizon values are not exactly representable.",
+    "Continuing-main control uses a declared synthetic goal-independent reward, not historical IntrMotiv bonus reconstruction."
+  ]
+}

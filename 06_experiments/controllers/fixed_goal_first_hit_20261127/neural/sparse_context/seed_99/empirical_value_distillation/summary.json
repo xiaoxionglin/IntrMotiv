@@ -1,0 +1,83 @@
+{
+  "environment": "sparse_context",
+  "role": "history_required_sparse_dg",
+  "seed": 99,
+  "method": "empirical_value_distillation",
+  "training_seconds": 4.646410977002233,
+  "parameters": 22921,
+  "updates": 2500,
+  "regression_action_targets_first_hit": 1920000,
+  "regression_action_targets_continuing": 1920000,
+  "replay_transitions": 4096,
+  "supported_state_actions": 12,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.7204351425170898,
+      "continuing_mse": 0.011273305863142014
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.047488268464803696,
+      "continuing_mse": 6.233459771465277e-06
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.046609628945589066,
+      "continuing_mse": 5.783832875749795e-06
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.044509727507829666,
+      "continuing_mse": 2.8892336558783427e-06
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.05015018209815025,
+      "continuing_mse": 7.332002041948726e-06
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 0.046158317476511,
+      "continuing_mse": 9.811296877160203e-06
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 0.04899411275982857,
+      "continuing_mse": 1.022649394144537e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 0.046684518456459045,
+      "continuing_mse": 3.3218832413695054e-06
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 0.04566173255443573,
+      "continuing_mse": 5.934263754170388e-06
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 0.04458627477288246,
+      "continuing_mse": 5.182698714634171e-06
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 0.053008172661066055,
+      "continuing_mse": 6.123002094682306e-06
+    }
+  ],
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.0,
+    "continuing_main": 0.5,
+    "memoryless": 0.5
+  },
+  "worst_pair_success": 1,
+  "paired_command_lift": 1.0,
+  "n_lift_pairs": 4,
+  "n_nontrivial_pairs": 4,
+  "initial_goal_trials_excluded": 0,
+  "maximum_absolute_calibration_error": 0.4978048801422119,
+  "pair_gate_passed": true
+}

@@ -1,0 +1,47 @@
+{
+  "archive_valid": true,
+  "current_sources_unchanged": true,
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "current_exists": true,
+      "current_matches_snapshot": true,
+      "current_sha256": "796b31cf16d0809b2f288769710cc81cdf3799306fe81db856c197d68f3d917c",
+      "expected_sha256": "796b31cf16d0809b2f288769710cc81cdf3799306fe81db856c197d68f3d917c",
+      "snapshot_path": "sources/0000/task_graphs.py",
+      "snapshot_sha256": "796b31cf16d0809b2f288769710cc81cdf3799306fe81db856c197d68f3d917c",
+      "snapshot_valid": true,
+      "source_path": "/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/task_graphs.py"
+    },
+    {
+      "current_exists": true,
+      "current_matches_snapshot": true,
+      "current_sha256": "9ba7800fd68799476b963ef53196ce96b090e65245fd559bcec4df7c6f7b905f",
+      "expected_sha256": "9ba7800fd68799476b963ef53196ce96b090e65245fd559bcec4df7c6f7b905f",
+      "snapshot_path": "sources/0001/graph_process.py",
+      "snapshot_sha256": "9ba7800fd68799476b963ef53196ce96b090e65245fd559bcec4df7c6f7b905f",
+      "snapshot_valid": true,
+      "source_path": "/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/graph_process.py"
+    },
+    {
+      "current_exists": true,
+      "current_matches_snapshot": true,
+      "current_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+      "expected_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+      "snapshot_path": "sources/0002/geomem_tasks.py",
+      "snapshot_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+      "snapshot_valid": true,
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/geomem_tasks.py"
+    },
+    {
+      "current_exists": true,
+      "current_matches_snapshot": true,
+      "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0003/provenance.py",
+      "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_valid": true,
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py"
+    }
+  ]
+}

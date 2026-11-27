@@ -1,0 +1,83 @@
+{
+  "environment": "sparse_context",
+  "role": "history_required_sparse_dg",
+  "seed": 8,
+  "method": "replay_td",
+  "training_seconds": 10.369916887022555,
+  "parameters": 22921,
+  "updates": 2500,
+  "regression_action_targets_first_hit": 1280000,
+  "regression_action_targets_continuing": 640000,
+  "replay_transitions": 4096,
+  "supported_state_actions": 12,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.2288280725479126,
+      "continuing_mse": 0.007271741982549429
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.03887871280312538,
+      "continuing_mse": 8.347579569090158e-05
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.04775067791342735,
+      "continuing_mse": 1.3406095604295842e-05
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.050149984657764435,
+      "continuing_mse": 6.247110377444187e-06
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.0505603663623333,
+      "continuing_mse": 6.4989353631972335e-06
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 0.04517856612801552,
+      "continuing_mse": 9.881803634925745e-06
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 0.041858043521642685,
+      "continuing_mse": 3.0108192731859162e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 0.05075480788946152,
+      "continuing_mse": 4.471870397537714e-06
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 0.04730504751205444,
+      "continuing_mse": 5.576657713390887e-06
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 0.03673117980360985,
+      "continuing_mse": 6.3414504438696895e-06
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 0.05069474130868912,
+      "continuing_mse": 8.71710290084593e-06
+    }
+  ],
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.0,
+    "continuing_main": 0.5,
+    "memoryless": 0.5
+  },
+  "worst_pair_success": 1,
+  "paired_command_lift": 1.0,
+  "n_lift_pairs": 4,
+  "n_nontrivial_pairs": 4,
+  "initial_goal_trials_excluded": 0,
+  "maximum_absolute_calibration_error": 0.48773181438446045,
+  "pair_gate_passed": true
+}

@@ -1,0 +1,22 @@
+{
+  "constructors": [
+    {
+      "delay": 4,
+      "name": "delayed_match"
+    },
+    {
+      "delay": 2,
+      "name": "context_decision"
+    },
+    {
+      "length": 4,
+      "name": "alternation"
+    }
+  ],
+  "geomem_git_head": "b60fc27bd177ee8bfffc54bdfa37f171627aa17a",
+  "goal_semantics": "source-task correctness labels used ONLY for information-limit diagnostics",
+  "native_dmlab": false,
+  "package_installation": false,
+  "schema": "intrmotiv/geomem-reference-audit/v1",
+  "training": false
+}

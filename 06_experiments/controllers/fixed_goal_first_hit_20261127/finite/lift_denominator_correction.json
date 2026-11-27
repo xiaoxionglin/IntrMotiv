@@ -1,0 +1,42 @@
+{
+  "correction": "Exclude alternative commands already satisfied at the initial state from primary command-lift denominator. Their stopped trials remain in command_trials.csv. Primary own-goal successes unchanged.",
+  "prior_artifacts_sha256": {
+    "command_trials.csv": "ff01efbc7da8c2485cb3147e54bc16ac187fda19ae276c94ac2a805540e44970",
+    "per_pair.csv": "8d1856c36773d36e6f0931b256372db6e2eed23f4645bf2053c2c107f70db5ae",
+    "provenance.json": "a7007c2bf31ba6eab99f66fe01ac5a695dedb10b3abc36d3e2b2b37fe56f99ac",
+    "summary.csv": "05a1530cdfa40443d6bfbe71a896ca055f2cd44a8a15c811d0dc0ba766257458"
+  },
+  "prior_provenance": {
+    "config": {
+      "collection": "independent stratified one-step resets",
+      "continuing_manager": "retarget to goal zero after EVERY decision; repeated hit reward",
+      "horizons": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "method": "empirical tabular finite-horizon dynamic programming",
+      "no_policy_or_representation_learning_at_evaluation": true,
+      "samples_per_action": 100,
+      "seeds": [
+        8,
+        99,
+        123
+      ]
+    },
+    "config_sha256": "0946e4abddeb4bf20228bdde64b73d1718d3ee1200574c658862a7b534a6553b",
+    "datasets": 9,
+    "git_head": "621867cced9a2e582d14aa68d08f1a9a7523a878",
+    "oracle_max_error": 0.0,
+    "per_pair_rows": 1392,
+    "schema": "intrmotiv/first-hit-finite/v1",
+    "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+    "source_sha256": "44d1e44251e21fe2d75cb491837178b1198531c5c7043da6826832ed781be7bd",
+    "source_sha256_after": "44d1e44251e21fe2d75cb491837178b1198531c5c7043da6826832ed781be7bd",
+    "summary_rows": 144,
+    "theory_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md",
+    "theory_sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+    "theory_sha256_after": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "best_shared_mean_success": 0.5,
+  "contexts": [
+    0,
+    1
+  ],
+  "interpretation": "Exact information boundary, not a neural representation-learning result",
+  "one_bit_context_oracle_success": [
+    1.0,
+    1.0
+  ],
+  "shared_deterministic_policy_enumeration": [
+    {
+      "context_success": [
+        1.0,
+        0.0
+      ],
+      "mean_success": 0.5,
+      "shared_action": 0
+    },
+    {
+      "context_success": [
+        0.0,
+        1.0
+      ],
+      "mean_success": 0.5,
+      "shared_action": 1
+    }
+  ],
+  "shared_observation_codes": [
+    0,
+    0,
+    1,
+    2
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "intrmotiv/first-hit-legacy-readout/v1",
+  "config": {
+    "seeds": [
+      8,
+      99,
+      123
+    ],
+    "horizon": 6,
+    "memory_length": 8,
+    "repeat": 1,
+    "hidden_size": 128,
+    "transitions": 4096,
+    "episode_limit": 32,
+    "updates": 2500,
+    "batch_size": 256,
+    "learning_rate": 0.003,
+    "continuing_discount": 0.9,
+    "pair_success_gate": 0.9,
+    "methods": [
+      "replay_td"
+    ],
+    "target_update_period": 100
+  },
+  "decoder_settings": {
+    "decoder_mlp_layers": [
+      128,
+      128
+    ],
+    "nonlinearity": "relu",
+    "use_jit": true
+  },
+  "donor_metadata": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy/donor_architecture.json",
+  "donor_metadata_sha256": "5f0ad337498932be7f3b77773b82387b505c01e77933655acaa31c3f16030227",
+  "source_snapshot": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/legacy_readout.py",
+        "snapshot_path": "sources/0000/legacy_readout.py",
+        "sha256": "47ae12f1d043b03a852c251a9f04e091ce8426d2ee80090d7bc538314b32094f",
+        "bytes": 8657
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0001/neural.py",
+        "sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+        "bytes": 26263
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0002/finite.py",
+        "sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "bytes": 28317
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0003/runtime_adapter.py",
+        "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "bytes": 8637
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0004/targets.py",
+        "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "bytes": 5491
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0005/provenance.py",
+        "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "bytes": 4523
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0006/state.py",
+        "sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "bytes": 3186
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md",
+        "snapshot_path": "sources/0007/fixed_goal_first_hit_control.md",
+        "sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+        "bytes": 11160
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0008/custom_decoder.py",
+        "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "bytes": 1105
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy/donor_architecture.json",
+        "snapshot_path": "sources/0009/donor_architecture.json",
+        "sha256": "5f0ad337498932be7f3b77773b82387b505c01e77933655acaa31c3f16030227",
+        "bytes": 719
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py",
+        "snapshot_path": "sources/0010/custom_actor_critic.py",
+        "sha256": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+        "bytes": 30324
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/controller_q.py",
+        "snapshot_path": "sources/0011/controller_q.py",
+        "sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "bytes": 3566
+      }
+    ]
+  },
+  "datasets": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_8/reward_free_trajectories.npz": "d025edfef2ea91880af12646cf73a2948e3c49a925096e954ddf22409c54b0d6",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_99/reward_free_trajectories.npz": "ceed616ce9f51a6c311fb75866442d46ccce07c7bbc017b0775cf26247c752c0",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_123/reward_free_trajectories.npz": "3cdbd1b91b59383924070339a9d3e7b84c432c6e38b8e1ee5dfa61b527b25258",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_8/reward_free_trajectories.npz": "65f74994e4ed0b50adc89dde398e16a133e5fbb182741ed4e277a0af95d27c74",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_99/reward_free_trajectories.npz": "54a0670cf23781c1dd4aefab839f9c06a6b15c0f0fe77fa1b4567e155afa7d96",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_123/reward_free_trajectories.npz": "e8a4d07515d71e944e03bd56042ac07ff0ba559abd20e878b0b41850c1bebd3f"
+  },
+  "runtime_class": "Actual MlpDecoderJit; full existing state plus target onehot; no FiLM",
+  "primary_gate": "Every declared nontrivial pair success>=.9 in each seed, frozen evaluation",
+  "scope": "All7 fixed DG targets on fork graph;2 target DGs+2 history cues on sparse context task",
+  "limits": "Fresh readout weights with donor architecture, not transfer of pretrained decoder weights; parameter counts differ from FiLM, no efficiency claim"
+}

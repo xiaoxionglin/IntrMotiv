@@ -1,0 +1,94 @@
+[
+  {
+    "equal_context_memoryless_success_upper_bound": 0.5,
+    "finite_ca3_comparisons": [
+      {
+        "memory_length": 1,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 2,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 4,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 8,
+        "repeat": 1,
+        "same_ca3": true
+      },
+      {
+        "memory_length": 5,
+        "repeat": 1,
+        "same_ca3": true
+      }
+    ],
+    "left_correct_actions": [
+      "choose_1"
+    ],
+    "left_node": 4,
+    "observation_id_including_action_availability": 4,
+    "observed_previous_outcome_prefixes": [
+      [
+        12,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    ],
+    "prefix_nodes": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    ],
+    "prefix_observation_ids": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "prefixes_observably_distinct": false,
+    "reset_memory_boundary": "Previous public outcome is informative only if memory persists across the exported reset. A physical reset that clears memory restores the initial ambiguity.",
+    "reset_preserving_memory_can_distinguish": true,
+    "right_correct_actions": [
+      "choose_0"
+    ],
+    "right_node": 11
+  }
+]

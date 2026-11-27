@@ -1,0 +1,8 @@
+{
+  "status": "failed_before_first_optimizer_update",
+  "failure": "RuntimeError: you can only change requires_grad flags of leaf variables",
+  "location": "neural.train_readout: copy.deepcopy of TorchScript target followed by requires_grad_(False)",
+  "training_updates_completed": 0,
+  "scientific_results": false,
+  "resolution": "Recreate target with same runtime factory under torch.random.fork_rng, load source weights, then freeze; new run will use new preregistered source archive"
+}

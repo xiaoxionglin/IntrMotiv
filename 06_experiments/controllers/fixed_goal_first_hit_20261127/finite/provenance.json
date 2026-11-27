@@ -1,0 +1,34 @@
+{
+  "config": {
+    "collection": "independent stratified one-step resets",
+    "continuing_manager": "retarget to goal zero after EVERY decision; repeated hit reward",
+    "evaluation_protocol": "stop at commanded hit; exclude initially-satisfied alternatives from primary lift",
+    "horizons": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "method": "empirical tabular finite-horizon dynamic programming",
+    "no_policy_or_representation_learning_at_evaluation": true,
+    "samples_per_action": 100,
+    "seeds": [
+      8,
+      99,
+      123
+    ]
+  },
+  "config_sha256": "d2fd04ec41d13af387f00930eea4952b881df73329197ab734ff05781dfe06e1",
+  "datasets": 9,
+  "git_head": "621867cced9a2e582d14aa68d08f1a9a7523a878",
+  "oracle_max_error": 0.0,
+  "per_pair_rows": 1392,
+  "schema": "intrmotiv/first-hit-finite/v1",
+  "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+  "source_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+  "source_sha256_after": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+  "summary_rows": 144,
+  "theory_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md",
+  "theory_sha256": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b",
+  "theory_sha256_after": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b"
+}

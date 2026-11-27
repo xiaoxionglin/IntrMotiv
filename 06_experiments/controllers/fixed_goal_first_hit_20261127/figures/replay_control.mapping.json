@@ -1,0 +1,181 @@
+{
+  "source": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/results.json",
+  "source_sha256": "525b129090de2572529ca6f1a4bcd1d250a8ef521ddcc00044dac2d58d6fbf94",
+  "script_sha256": "48468c72ff272576519a1c14f69657d009b63690da22483e1cab34c46a8164a5",
+  "font": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "font_sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+  "matplotlib_version": "3.10.8",
+  "rows": [
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "route": "memoryless",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "route": "continuing_main",
+      "success_fraction": 0.4166666666666667,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "route": "memoryless",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "route": "continuing_main",
+      "success_fraction": 0.4166666666666667,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "route": "memoryless",
+      "success_fraction": 1.0,
+      "pairs": 12
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "route": "continuing_main",
+      "success_fraction": 0.4166666666666667,
+      "pairs": 12
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "route": "memoryless",
+      "success_fraction": 0.5,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "route": "continuing_main",
+      "success_fraction": 0.5,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "route": "memoryless",
+      "success_fraction": 0.5,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "route": "continuing_main",
+      "success_fraction": 0.5,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "route": "first_hit",
+      "success_fraction": 1.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "route": "shuffled_goal",
+      "success_fraction": 0.0,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "route": "memoryless",
+      "success_fraction": 0.5,
+      "pairs": 4
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "route": "continuing_main",
+      "success_fraction": 0.5,
+      "pairs": 4
+    }
+  ],
+  "transformation": "success fraction shown as percent; horizontal seed offsets only",
+  "uncertainty": "Individual fit/data seeds; no error bars or independence claim for repeated graph tasks",
+  "scope": "Factual replay-TD, synthetic frozen DG, two eligible goal identities per environment. Goal-blind control also removes goal input; not routing-only."
+}

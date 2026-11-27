@@ -1,0 +1,167 @@
+{
+  "schema": "intrmotiv/first-hit-neural-audit/v1",
+  "saved_checkpoint_replays": [
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "afa5c95dc46a02a870de7ab74991c3d23ad50072d5b84bc2311576e15b2d5b1b",
+      "state_sha256_before": "e58227a56b2d9609c70c2753c6924d2867f53d3d6816beca5c6705453d3c9ce6",
+      "state_sha256_after": "e58227a56b2d9609c70c2753c6924d2867f53d3d6816beca5c6705453d3c9ce6",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 8,
+      "method": "replay_td",
+      "checkpoint_sha256": "e42f2db0714d3a0cd739f06c4b540ee305a8ae855b9576432e9fb3f6da16c36a",
+      "state_sha256_before": "2c07c6521bbc97c649b406e689bea701c9f368e07598e8656aa816ba58940bab",
+      "state_sha256_after": "2c07c6521bbc97c649b406e689bea701c9f368e07598e8656aa816ba58940bab",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "997c4926acafed96543baea9d9c6aeaf7747c12986e7d45166f60ba1f08abea0",
+      "state_sha256_before": "9bb63a1fdf1d4662b56a92c64b26239c5548c598da216a5b33a2ff1edfecf245",
+      "state_sha256_after": "9bb63a1fdf1d4662b56a92c64b26239c5548c598da216a5b33a2ff1edfecf245",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 99,
+      "method": "replay_td",
+      "checkpoint_sha256": "9e7d3fc18a4d96569d7829cc81ae89201105384da9287700615868386758a9ff",
+      "state_sha256_before": "a8526cda845e8073d098ae46c10918917eef508435ad88910f5ce0c774fe40b0",
+      "state_sha256_after": "a8526cda845e8073d098ae46c10918917eef508435ad88910f5ce0c774fe40b0",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "20da370bcd494413f575b68015427085b1d2da2838d7ad669d54bf7d33ba1857",
+      "state_sha256_before": "8ed02612330c62bb1cf2bafbf25fc2bc1b804ef93fade32e63b45a47561234a2",
+      "state_sha256_after": "8ed02612330c62bb1cf2bafbf25fc2bc1b804ef93fade32e63b45a47561234a2",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "fork_cycle",
+      "seed": 123,
+      "method": "replay_td",
+      "checkpoint_sha256": "66fd8cff8733bc3ce6b843aa22df7bbb0cd62a60b076abe6a4c082fce8ad6c30",
+      "state_sha256_before": "e5f84717cd2c4529ed6e2285232af509965874e08b87e903dd02847e729a85de",
+      "state_sha256_after": "e5f84717cd2c4529ed6e2285232af509965874e08b87e903dd02847e729a85de",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "e119b90d62c8251e7b1d45456ce0a900bbc24097cfa4443ff07b97f02fe9e69a",
+      "state_sha256_before": "0c9e042129b6a306061b8c4a187f2f8e19a4ea3c8693dd01cfb1ed9bb15af150",
+      "state_sha256_after": "0c9e042129b6a306061b8c4a187f2f8e19a4ea3c8693dd01cfb1ed9bb15af150",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 8,
+      "method": "replay_td",
+      "checkpoint_sha256": "5148c3634a460d9086f69239e9041625d0106e5f7fe6017ead5e2a5f1461427d",
+      "state_sha256_before": "0f770ed5ce270294d23ffdc670e06872f60edc7e239032b38588d8846867f829",
+      "state_sha256_after": "0f770ed5ce270294d23ffdc670e06872f60edc7e239032b38588d8846867f829",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "938da103764220656ae62a1eb35463c4dea818b7b96346a7ead500ae01b4ea9f",
+      "state_sha256_before": "b4dbe43d0fe6201bd2a39ee8d8eade35179108683c9a31bbd6fc4bde41950341",
+      "state_sha256_after": "b4dbe43d0fe6201bd2a39ee8d8eade35179108683c9a31bbd6fc4bde41950341",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 99,
+      "method": "replay_td",
+      "checkpoint_sha256": "641fa53eb95f6651131412271913d95a4d5882f0e2d08073c09dce90b439ca9f",
+      "state_sha256_before": "36a8f02e38f8b49211d2f7b3f6736504abbb578e3a41919eb10312fe4dfa724e",
+      "state_sha256_after": "36a8f02e38f8b49211d2f7b3f6736504abbb578e3a41919eb10312fe4dfa724e",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "method": "empirical_value_distillation",
+      "checkpoint_sha256": "e6aca3e20dd81c98ec6691a46714fa851063d59776ca02c0c0d2ab8cd884683e",
+      "state_sha256_before": "389334dbb5ac215364088614dcec84c3bf40e4179cbe185f32b893e44a088cd5",
+      "state_sha256_after": "389334dbb5ac215364088614dcec84c3bf40e4179cbe185f32b893e44a088cd5",
+      "saved_trials_exactly_reproduced": true
+    },
+    {
+      "environment": "sparse_context",
+      "seed": 123,
+      "method": "replay_td",
+      "checkpoint_sha256": "fec3c975e1643efb04137e03151c77272370e19222ebcbcc5ea8ac1193c07c1a",
+      "state_sha256_before": "d91ad75591795879f85fea80b1ace15873e379b855aa3e57abff41cd0cd61581",
+      "state_sha256_after": "d91ad75591795879f85fea80b1ace15873e379b855aa3e57abff41cd0cd61581",
+      "saved_trials_exactly_reproduced": true
+    }
+  ],
+  "dataset_checks": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_8/reward_free_trajectories.npz": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_99/reward_free_trajectories.npz": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_123/reward_free_trajectories.npz": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_8/reward_free_trajectories.npz": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_99/reward_free_trajectories.npz": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_123/reward_free_trajectories.npz": true
+  },
+  "exact_archived_source_checks": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py": true,
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md": true
+  },
+  "source_drift_receipt": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py": {
+      "pre_run_sha256": "8bfefc644c13578c2b23b7bb7a8c5a10e04eedf9dc1683b65618d77774e286c9",
+      "current_sha256": "a3892e752189ba7479bcfa24434e4536a276000399f012ca3164a22d9d4e9294",
+      "exact_archived_source": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/source_snapshot/8bfefc644c13_neural.py"
+    },
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py": {
+      "pre_run_sha256": "44d1e44251e21fe2d75cb491837178b1198531c5c7043da6826832ed781be7bd",
+      "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+      "exact_archived_source": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/source_snapshot/44d1e44251e2_finite.py"
+    },
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py": {
+      "pre_run_sha256": "69d4b488cf45dfd07747eb173dc43f7bd8a7875cbcd0f2e5d3d603d053a068b3",
+      "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "exact_archived_source": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/source_snapshot/69d4b488cf45_runtime_adapter.py"
+    }
+  },
+  "sparse_context_expired_cue_rows": {
+    "8": {
+      "expired_cue_rows": 1,
+      "blank_state_rows": 2476
+    },
+    "99": {
+      "expired_cue_rows": 0,
+      "blank_state_rows": 2473
+    },
+    "123": {
+      "expired_cue_rows": 0,
+      "blank_state_rows": 2458
+    }
+  },
+  "all_passed": true,
+  "clarifications": [
+    "Original manifest claim text predates adding replay_td; methods and recorded code identify actual TD versus distillation.",
+    "Continuing-main negative removes the command AND changes the objective; it is not a routing-only causal contrast.",
+    "Distillation and TD have identical optimizer steps but different label/action supervision counts, recorded per run.",
+    "Primary sparse starts have fresh cues and H6<E8. Expired-cue replay observations can be irreducibly aliased; no universal memory sufficiency is claimed."
+  ]
+}
