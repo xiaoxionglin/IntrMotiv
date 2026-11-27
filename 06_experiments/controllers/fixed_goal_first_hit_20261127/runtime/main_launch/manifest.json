@@ -1,0 +1,409 @@
+{
+  "schema": "intrmotiv/frozen-readout-slurm-bundle/v1",
+  "print_only": true,
+  "jobs_submitted": false,
+  "qualification_gate": "Actual integration qualification must pass and be reviewed before submission",
+  "source_release_record": {
+    "schema": "intrmotiv/first-hit-committed-overlay/v1",
+    "candidate_commit": "10cd0e574cb3943e244d8f5847aef7aecff87dfa",
+    "archive_sha256": "9d54907ddca6e686488e755775877ea4b0bbfa455fe304e52d6aff42dfcc1823",
+    "baseline_tree_sha256": "0b6010c806ba2fb98c482240e61e50c6566f745756f6fab2c9df13d5d6e64ba8",
+    "unchanged_donor_files": 1317,
+    "unchanged_donor_model_files": 112,
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+    "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3",
+    "workflow_analysis_version": "1.15.2",
+    "historical_study_declared_version": "1.14.1",
+    "jobs_submitted": false,
+    "native_executed": false,
+    "overlay_files": 73
+  },
+  "remote_launch_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch",
+  "directories_before_submission": [
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm"
+  ],
+  "jobs": [
+    {
+      "job_id": "collect_fit",
+      "depends_on_jobs": [],
+      "dependency_kind": null,
+      "script_name": "collect_fit.sbatch",
+      "script_sha256": "09a9b487fbb679acfef17eeb1d6aa104c01e9b8b78996af53e735f170eea8bbb",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 16,
+        "hours": 4
+      },
+      "stages": [
+        {
+          "stage_id": "runfiles",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.intrmotiv_study.runfiles",
+            "--source",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles"
+          ],
+          "argv_sha256": "40a3be19c11dd6c108393dadbe865af945e39064dbbf61d4ef7b595300029ff4"
+        },
+        {
+          "stage_id": "collect",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.collector",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--run-dir",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+            "--checkpoint",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+            "--checkpoint-sha256",
+            "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+            "--runfiles",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+            "--config-sha256",
+            "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+            "--decisions",
+            "100000",
+            "--seed",
+            "73002",
+            "--random-action-probability",
+            "0.2"
+          ],
+          "argv_sha256": "5787a37076e0dc7dbfa8a55b5754d4c6610a28157d0ac9b79463ea95d64e2435"
+        },
+        {
+          "stage_id": "support",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.support_analysis",
+            "--replay",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/exposure",
+            "--split-seed",
+            "99",
+            "--holdout-fraction",
+            "0.1"
+          ],
+          "argv_sha256": "7fa484b3a3d45e8592ed9c79b0f988c0768000d840419f176e11747c6d9d127e"
+        },
+        {
+          "stage_id": "fit",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.replay_cli",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--replay",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--updates",
+            "30000",
+            "--batch-size",
+            "128",
+            "--horizon",
+            "256",
+            "--learning-rate",
+            "0.0003",
+            "--seed",
+            "99",
+            "--threads",
+            "4",
+            "--device",
+            "cpu"
+          ],
+          "argv_sha256": "bb7a329cd63765ba8709aa098b2038699d925fa0efc170850ec130c85623fd55"
+        },
+        {
+          "stage_id": "fit_diagnostics",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.fit_diagnostics",
+            "--replay",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+            "--fitted",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit_diagnostics",
+            "--samples-per-bin",
+            "1024",
+            "--threads",
+            "4"
+          ],
+          "argv_sha256": "f24dcd196cd6772616d8e1be63ac93259317d2358d470b61a364159aeb34598d"
+        }
+      ]
+    },
+    {
+      "job_id": "evaluate_00",
+      "depends_on_jobs": [
+        "collect_fit"
+      ],
+      "dependency_kind": "afterok",
+      "script_name": "evaluate_00.sbatch",
+      "script_sha256": "57fe41cfa1af525be62313a0ee553e7999537dbd3ff9a38ecc208c9dc29c6f79",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "stages": [
+        {
+          "stage_id": "evaluate_00",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.dmlab_evaluate",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--run-dir",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+            "--checkpoint",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+            "--checkpoint-sha256",
+            "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+            "--runfiles",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+            "--fitted",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_00",
+            "--phase",
+            "full",
+            "--sources",
+            "0",
+            "1",
+            "2",
+            "3",
+            "--horizon",
+            "256",
+            "--discovery-episodes",
+            "96",
+            "--prefix-cap",
+            "512",
+            "--repeats",
+            "3",
+            "--max-sources",
+            "4",
+            "--discovery-seed",
+            "41000",
+            "--decision-cap",
+            "350000"
+          ],
+          "argv_sha256": "1f9b83218cdc99bc65157bfbf4c2c191c14586296076f5aea74c9c20eb7023d9"
+        }
+      ]
+    },
+    {
+      "job_id": "evaluate_01",
+      "depends_on_jobs": [
+        "collect_fit"
+      ],
+      "dependency_kind": "afterok",
+      "script_name": "evaluate_01.sbatch",
+      "script_sha256": "ff0f6a05b3762f8d71139c672c09e6acc5479ca95dc3e49539bff48160c24520",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "stages": [
+        {
+          "stage_id": "evaluate_01",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.dmlab_evaluate",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--run-dir",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+            "--checkpoint",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+            "--checkpoint-sha256",
+            "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+            "--runfiles",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+            "--fitted",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_01",
+            "--phase",
+            "full",
+            "--sources",
+            "4",
+            "5",
+            "6",
+            "7",
+            "--horizon",
+            "256",
+            "--discovery-episodes",
+            "96",
+            "--prefix-cap",
+            "512",
+            "--repeats",
+            "3",
+            "--max-sources",
+            "4",
+            "--discovery-seed",
+            "41000",
+            "--decision-cap",
+            "350000"
+          ],
+          "argv_sha256": "a1dca50d3735c42e5110a678bf6b049be65f4d32cfad59d8d70b87ab422d6cdc"
+        }
+      ]
+    },
+    {
+      "job_id": "evaluate_02",
+      "depends_on_jobs": [
+        "collect_fit"
+      ],
+      "dependency_kind": "afterok",
+      "script_name": "evaluate_02.sbatch",
+      "script_sha256": "7466f392a6e559bc0aba718df27a6047d9ff80d868968f0575036a5c35a98026",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "stages": [
+        {
+          "stage_id": "evaluate_02",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.dmlab_evaluate",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--run-dir",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+            "--checkpoint",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+            "--checkpoint-sha256",
+            "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+            "--runfiles",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+            "--fitted",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_02",
+            "--phase",
+            "full",
+            "--sources",
+            "8",
+            "9",
+            "10",
+            "11",
+            "--horizon",
+            "256",
+            "--discovery-episodes",
+            "96",
+            "--prefix-cap",
+            "512",
+            "--repeats",
+            "3",
+            "--max-sources",
+            "4",
+            "--discovery-seed",
+            "41000",
+            "--decision-cap",
+            "350000"
+          ],
+          "argv_sha256": "7d2f421cdb61b5c7d2a85fd1b040d7f3cf9d01a35304b1d744c4aa59b94bae7b"
+        }
+      ]
+    },
+    {
+      "job_id": "evaluate_03",
+      "depends_on_jobs": [
+        "collect_fit"
+      ],
+      "dependency_kind": "afterok",
+      "script_name": "evaluate_03.sbatch",
+      "script_sha256": "b87da93c31d70242cb4ca0366ce8aba7b65880f6f852580f3594844af5906038",
+      "resources": {
+        "partition": "cpu",
+        "cpus": 4,
+        "memory_gb": 8,
+        "hours": 8
+      },
+      "stages": [
+        {
+          "stage_id": "evaluate_03",
+          "argv": [
+            "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+            "-m",
+            "hpc_runs.first_hit_control.dmlab_evaluate",
+            "--source-root",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+            "--run-dir",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+            "--checkpoint",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+            "--checkpoint-sha256",
+            "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+            "--runfiles",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+            "--fitted",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit",
+            "--output",
+            "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/evaluation_sources_03",
+            "--phase",
+            "full",
+            "--sources",
+            "12",
+            "13",
+            "14",
+            "15",
+            "--horizon",
+            "256",
+            "--discovery-episodes",
+            "96",
+            "--prefix-cap",
+            "512",
+            "--repeats",
+            "3",
+            "--max-sources",
+            "4",
+            "--discovery-seed",
+            "41000",
+            "--decision-cap",
+            "350000"
+          ],
+          "argv_sha256": "9f23633e54ecef0384f030a2d79bc081dc33da63d90e412670cc532c12215186"
+        }
+      ]
+    }
+  ],
+  "artifacts_sha256": {
+    "collect_fit.sbatch": "09a9b487fbb679acfef17eeb1d6aa104c01e9b8b78996af53e735f170eea8bbb",
+    "evaluate_00.sbatch": "57fe41cfa1af525be62313a0ee553e7999537dbd3ff9a38ecc208c9dc29c6f79",
+    "evaluate_01.sbatch": "ff0f6a05b3762f8d71139c672c09e6acc5479ca95dc3e49539bff48160c24520",
+    "evaluate_02.sbatch": "7466f392a6e559bc0aba718df27a6047d9ff80d868968f0575036a5c35a98026",
+    "evaluate_03.sbatch": "b87da93c31d70242cb4ca0366ce8aba7b65880f6f852580f3594844af5906038",
+    "protocol.json": "82a346926d57664a9accea8cc0d475cfd36094d7cdee821cbbcb9f53b83491fe",
+    "rendered_plan.json": "5effc875c2978b2a7589015705530e5a25e9b49deeb0bd66d0b916bd2253c49d",
+    "source_release.json": "9458f464f83e2e4483160b84ace393634b68ad7fbd8d418732414b91786c7b4e"
+  },
+  "rendered_plan_sha256": "5effc875c2978b2a7589015705530e5a25e9b49deeb0bd66d0b916bd2253c49d",
+  "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+  "generator_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69"
+}

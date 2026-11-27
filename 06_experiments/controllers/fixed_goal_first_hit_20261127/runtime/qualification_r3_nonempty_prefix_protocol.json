@@ -1,0 +1,39 @@
+{
+  "schema": "intrmotiv/first-hit-nonempty-prefix-probe/v1",
+  "status": "print_only_not_submitted",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+  "reused_fit_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/fit",
+  "fitted_checkpoint_sha256": "063a857cd01f91c2cd0eada29a03e5ff63db481ee20c710a75422f1d988c3800",
+  "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "original_qualification_job": "8950182",
+  "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+  "evaluation": {
+    "phase": "preflight",
+    "targets": [
+      0,
+      1
+    ],
+    "sources": [
+      2
+    ],
+    "max_sources": 1,
+    "horizon": 64,
+    "discovery_episodes": 8,
+    "prefix_cap": 256,
+    "repeats": 1,
+    "decision_cap": 10000,
+    "discovery_seed": 31000
+  },
+  "rationale": "Initial-spawn native source4 produced an empty prefix. A retained source2 must require a nonempty prefix under this discovery protocol.",
+  "gates": [
+    "All requested starts issued and exact_start_verified",
+    "Every retained prefix nonempty",
+    "Actor/graph/readout/Q/source/checkpoint/config unchanged",
+    "Complete declared/censored denominator"
+  ],
+  "no_recollection": true,
+  "no_refit": true,
+  "no_source_change": true,
+  "script_sha256": "5c497fcfd1ae6747435d40e0c5f786afae55f57150e8b5b402c27664d00c57c0"
+}

@@ -78,7 +78,14 @@
     "policy_count": 2,
     "targets": "All source-graph, replay and independent-discovery winner identities; no passive-edge filter. Every capacity identity remains in the final denominator table as observed, unobserved, issued or unassessed.",
     "stop": "Own winner hit is absorbing including t0. Alternative arrivals count only before that command's own stop; unresolved physical terminals remain censored.",
-    "capability_gate": "All declared identities observed and issued, no missing source-history cells, per-goal success lower bound at least0.90 and positive informative command lift. Otherwise report partial capability. This does not establish success for untested histories.",
+    "primary_command_selectivity": "Competing-target FIRST: P(g before c within H | command g) minus P(g before c within H | command c), from identical starts with distinct g,c both absent initially. Other landmarks may be crossed. Preserve declared pairs with explicit missing/terminal identification bounds; first observed g or c resolves the event even if a later terminal is unknown.",
+    "secondary_stopped_task_lift": "Own-command arrival minus alternative-command arrival under each command's own stop describes the complete task-and-stop interface. It is confounded by command-dependent termination and does not demonstrate command-dependent navigation.",
+    "selectivity_interpretation": "Positive competing-target FIRST establishes command-dependent ordering under matched physical/recurrent starts and common dynamics. Zero does not alone refute goal reaching, particularly when landmark order is unavoidable. Do not require positivity for every ordered pair or select favorable competitors after outcomes.",
+    "capability_gate": "All declared identities observed and issued, no missing source-history cells, and per-goal success lower bound at least0.90. Report aggregate competing-target FIRST selectivity with its full pair matrix and identification bounds as separate navigation evidence where routing choice exists; no positive-every-pair requirement. Otherwise report partial capability. These tests do not establish success for untested histories.",
+    "command_contrast_addendum": {
+      "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/command_contrast_addendum.md",
+      "sha256": "b9c172008a40f3a0cf4e4da3ab9b65ee9ea345ae5a12a84e567b2e924b263951"
+    },
     "independent_jobs": true
   },
   "required_before_execution": [
@@ -93,6 +100,6 @@
     "place_fields": "Reuse compatible exact-donor policy and common-panel artifacts, with byte/config audits; do not repeat a checkpoint sweep by default.",
     "trajectories": "Record actual per-decision pose as telemetry only, actions, command, remaining deadline and reset/terminal segmentation.",
     "graphs": "Separate source graph evidence, replay exposure and executed directed source-target outcomes; retain missing and unattempted pairs.",
-    "control": "Report all declared goal/source rows, initial satisfaction, failures, censor bounds, command lift, first-hit latency and paired source versus fitted policies."
+    "control": "Report all declared goal/source rows, initial satisfaction, failures, censor bounds, competing-target FIRST as primary command-selectivity contrast, stopped-task lift as a secondary termination-confounded description, first-hit latency and paired source versus fitted policies."
   }
 }

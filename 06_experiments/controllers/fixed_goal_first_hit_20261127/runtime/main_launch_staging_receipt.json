@@ -1,0 +1,25 @@
+{
+  "schema": "intrmotiv/first-hit-main-launch-stage/v1",
+  "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+  "launch_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch",
+  "files_sha256": {
+    "evaluate_02.sbatch": "7466f392a6e559bc0aba718df27a6047d9ff80d868968f0575036a5c35a98026",
+    "rendered_plan.json": "5effc875c2978b2a7589015705530e5a25e9b49deeb0bd66d0b916bd2253c49d",
+    "manifest.json": "a364f792ac1946784ac8b35fb57419766aa4688234ed6511406b990f61c4a59d",
+    "protocol.json": "82a346926d57664a9accea8cc0d475cfd36094d7cdee821cbbcb9f53b83491fe",
+    "evaluate_00.sbatch": "57fe41cfa1af525be62313a0ee553e7999537dbd3ff9a38ecc208c9dc29c6f79",
+    "source_release.json": "9458f464f83e2e4483160b84ace393634b68ad7fbd8d418732414b91786c7b4e",
+    "collect_fit.sbatch": "09a9b487fbb679acfef17eeb1d6aa104c01e9b8b78996af53e735f170eea8bbb",
+    "evaluate_03.sbatch": "b87da93c31d70242cb4ca0366ce8aba7b65880f6f852580f3594844af5906038",
+    "evaluate_01.sbatch": "ff0f6a05b3762f8d71139c672c09e6acc5479ca95dc3e49539bff48160c24520"
+  },
+  "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+  "runtime_files_verified": 73,
+  "donor_model_files_verified": 112,
+  "script_syntax_passed": 5,
+  "files_fsynced": true,
+  "slurm_directory_exists": true,
+  "main_jobs_submitted": false,
+  "gate": "Await nonempty-prefix probe and explicit root release review before any main submission"
+}

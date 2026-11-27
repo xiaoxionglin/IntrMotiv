@@ -220,6 +220,15 @@ The completed analysis must include:
 | Graphs | Complete available directed-edge support and outcomes, including attempted versus unattempted edges, reliability/connectivity or reachability, and their checkpoint and paired-condition changes. Use consistent scales for representative graph maps. Keep stored confidence, prospective hits, and matched-start intervention success as distinct quantities. |
 | Control | For goal-conditioned policies, execute alternative commands from matched starts with frozen checkpoints and a common observation budget. Report commanded versus alternative-command physical arrivals when goals have spatial targets, detector hits separately, action changes, time to arrival or hit, failures and episode censoring, goal exposure, and source/goal coverage. Compare paired seeds and checkpoint ages. Retrospective goal-label shuffles, online hit rates, and graph-edge confidence are not substitutes for executed command interventions. |
 
+When trials stop at their own requested goal, ordinary own-versus-alternative
+arrival lift can be positive for a command-blind action policy solely because
+the stop times differ. Report that as a task-and-stop contrast. For navigation
+selectivity, a compatible matched diagnostic compares reaching $g$ before $c$
+under commands $g$ and $c$, excluding initially satisfied competitors and
+retaining missing/terminal identification bounds. Third landmarks may be
+crossed; zero contrast need not imply failure when order is unavoidable. See
+the [prospective first-hit contrast derivation](../06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/command_contrast_addendum.md).
+
 Use the StudySpec to select conditions, seeds, and checkpoint ages. Apply the
 canonical `collect-spatial` and manifest-driven place-field postprocessors
 described below and in the [telemetry guide](reusable_place_field_telemetry.md);

@@ -1,0 +1,59 @@
+{
+  "schema": "intrmotiv/first-hit-native-qualification-verification/v1",
+  "job_id": "8950182",
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed": "00:06:06",
+  "checks": {
+    "replay_model_frozen": true,
+    "native_reward_zero_every_step": true,
+    "complete_replay": true,
+    "evaluation_all_modules_frozen": true,
+    "evaluation_source_archive_and_live_files_match": true,
+    "donor_checkpoint_and_config_unchanged": true,
+    "all_issued_starts_verified": true,
+    "requested_own_rows_complete_uncensored": true,
+    "fit_source_unchanged": true
+  },
+  "decisions_collected": 5000,
+  "fit_updates": 100,
+  "evaluation_decisions": 1216,
+  "actual_action_trials": 4,
+  "cross_scored_rows": 8,
+  "retained_source": 4,
+  "requested_targets": [
+    0,
+    1
+  ],
+  "prefix_lengths": [
+    0
+  ],
+  "caveats": [
+    "Only the initial-spawn prefix was tested in native evaluation; nonempty recurrent-prefix reconstruction remains a runtime gate for full panels",
+    "Two targets and100fit updates qualify integration only; they do not establish improved or arbitrary subgoal control"
+  ],
+  "outcomes": {
+    "source": {
+      "issued_nontrivial_own_rows": 2,
+      "successful_nontrivial_own_rows": 1,
+      "missing_nontrivial_own_rows": 0,
+      "censored_nontrivial_own_rows": 0
+    },
+    "first_hit": {
+      "issued_nontrivial_own_rows": 2,
+      "successful_nontrivial_own_rows": 1,
+      "missing_nontrivial_own_rows": 0,
+      "censored_nontrivial_own_rows": 0
+    }
+  },
+  "local_artifacts": {
+    "qualification_r3_results/submission.json": "1a1ded103abc55e108e649de0c59df2cc554cf2db1883d1899224828d5b8da57",
+    "qualification_r3_results/replay/metadata.json": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6",
+    "qualification_r3_results/support/exposure.json": "27263e9e421370a8484b4249778094ae4c975b383660b56bb5cc765769dbc1cf",
+    "qualification_r3_results/evaluation/trials.jsonl": "a56bb439e6ddae4b7bb1c00d3ebb132596d713bf47387edd01c8e39d411c69e2",
+    "qualification_r3_results/evaluation/summary.json": "3fc085e4e3d07f02552404ad2bd7540a2e39e29aa75fa90b14b231d64a9ca48a",
+    "qualification_r3_results/fit_diagnostics/residuals.json": "82d42717f4068b143712f1f24f3884b09d2b449da207905a9509e136c1eaa6c8",
+    "qualification_r3_results/fit/metadata.json": "b4fd6f8cc7c230836dfd0601b6d2d975ee3eb8dc91dbb7c9c5909d3f8436d696"
+  },
+  "accounting": "8950182|COMPLETED|0:0|00:06:06|11:16.921|\n8950182.batch|COMPLETED|0:0|00:06:06|11:16.921|981332K\n8950182.extern|COMPLETED|0:0|00:06:06|00:00:00|\n"
+}

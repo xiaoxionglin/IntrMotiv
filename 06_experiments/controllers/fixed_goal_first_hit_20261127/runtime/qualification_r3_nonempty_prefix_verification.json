@@ -1,0 +1,39 @@
+{
+  "schema": "intrmotiv/first-hit-nonempty-prefix-verification/v1",
+  "job_id": "8950203",
+  "state": "COMPLETED",
+  "exit_code": "0:0",
+  "elapsed": "00:06:20",
+  "checks": {
+    "all_requested_rows_issued": true,
+    "all_starts_exact": true,
+    "all_prefixes_nonempty": true,
+    "source_two_only": true,
+    "no_requested_own_missing_or_censored": true,
+    "model_graph_readout_q_frozen": true,
+    "source_archive_and_live_match": true,
+    "checkpoint_and_config_unchanged": true
+  },
+  "prefix_lengths": [
+    20
+  ],
+  "prefix_seeds": [
+    31003
+  ],
+  "actual_action_trials": 4,
+  "cross_scored_rows": 8,
+  "evaluation_decisions": 2331,
+  "source_panel": [
+    2
+  ],
+  "requested_targets": [
+    0,
+    1
+  ],
+  "scientific_scope": "Native nonempty recurrent-prefix and frozen-acting integration gate only; same100-update readout, no efficacy claim",
+  "artifacts_sha256": {
+    "qualification_r3_results/evaluation_nonempty_prefix/trials.jsonl": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+    "qualification_r3_results/evaluation_nonempty_prefix/summary.json": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba"
+  },
+  "accounting": "8950203|COMPLETED|0:0|00:06:20|12:55.892|\n8950203.batch|COMPLETED|0:0|00:06:20|12:55.892|975860K\n8950203.extern|COMPLETED|0:0|00:06:20|00:00:00|\n"
+}

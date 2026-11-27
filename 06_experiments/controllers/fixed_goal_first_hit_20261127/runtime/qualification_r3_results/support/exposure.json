@@ -1,0 +1,769 @@
+{
+  "schema": "intrmotiv/frozen-replay-exposure/v1",
+  "interpretation": "Coarse DG/action exposure diagnostic; not a Markov-state/action coverage certificate",
+  "limitations": [
+    "DG identities pool distinct physical and recurrent states",
+    "Observed visits do not prove control or reachability from every start",
+    "Missing successors are unknown, not certified failures or silent DG",
+    "No result here establishes frozen-memory sufficiency"
+  ],
+  "split": {
+    "seed": 99,
+    "holdout_fraction": 0.1,
+    "method": "Canonical replay_fit.episode_split, whole episodes",
+    "holdout_available": true
+  },
+  "layout": {
+    "width": 1165,
+    "goal_start": 1149,
+    "goals": 16
+  },
+  "expanded_length": 71,
+  "declared_goal_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "action_ids": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "current_detector": "Actual scalar CA3[:, goal, 0]; positive argmax, first-index tie break",
+  "action_matrix_axes": [
+    "current_dg_winner",
+    "executed_action"
+  ],
+  "successor_detectors": [
+    "winner",
+    "exclusive"
+  ],
+  "primary_detector": "winner",
+  "panels": {
+    "all": {
+      "rows": 5000,
+      "episodes": 6,
+      "episode_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "action_counts": [
+        216,
+        348,
+        243,
+        3990,
+        203
+      ],
+      "physical_terminal_rows": 5,
+      "unknown_terminal_successor_rows": 0,
+      "unknown_successor_rows": 0,
+      "certified_successor_rows": 5000,
+      "certified_silent_successor_rows": 2698,
+      "certified_multi_active_successor_rows": 75,
+      "successor_positive_counts": {
+        "winner": [
+          550,
+          133,
+          86,
+          106,
+          2,
+          125,
+          112,
+          130,
+          89,
+          158,
+          104,
+          184,
+          121,
+          111,
+          86,
+          205
+        ],
+        "exclusive": [
+          540,
+          132,
+          85,
+          106,
+          0,
+          124,
+          112,
+          127,
+          86,
+          143,
+          104,
+          172,
+          120,
+          108,
+          76,
+          192
+        ]
+      },
+      "successor_positive_episode_counts": {
+        "winner": [
+          6,
+          6,
+          6,
+          6,
+          2,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "exclusive": [
+          6,
+          6,
+          6,
+          6,
+          0,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      },
+      "goals_without_winner_positive": [],
+      "current_dg_winner_action_counts": [
+        [
+          24,
+          41,
+          24,
+          441,
+          19
+        ],
+        [
+          4,
+          5,
+          4,
+          111,
+          7
+        ],
+        [
+          5,
+          9,
+          10,
+          57,
+          5
+        ],
+        [
+          6,
+          2,
+          4,
+          90,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          1
+        ],
+        [
+          3,
+          9,
+          6,
+          102,
+          5
+        ],
+        [
+          2,
+          5,
+          5,
+          97,
+          3
+        ],
+        [
+          2,
+          8,
+          3,
+          112,
+          5
+        ],
+        [
+          4,
+          2,
+          5,
+          75,
+          3
+        ],
+        [
+          4,
+          10,
+          7,
+          131,
+          6
+        ],
+        [
+          5,
+          6,
+          5,
+          83,
+          5
+        ],
+        [
+          20,
+          12,
+          5,
+          133,
+          14
+        ],
+        [
+          5,
+          6,
+          3,
+          99,
+          7
+        ],
+        [
+          3,
+          10,
+          6,
+          85,
+          7
+        ],
+        [
+          5,
+          4,
+          6,
+          70,
+          1
+        ],
+        [
+          10,
+          20,
+          11,
+          157,
+          7
+        ]
+      ],
+      "current_dg_silent_action_counts": [
+        114,
+        199,
+        139,
+        2140,
+        104
+      ],
+      "current_dg_unknown_action_counts": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "current_dg_silent_rows": 2696,
+      "current_dg_unknown_rows": 0,
+      "current_dg_multi_active_rows": 75
+    },
+    "train": {
+      "rows": 4100,
+      "episodes": 5,
+      "episode_ids": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "action_counts": [
+        179,
+        288,
+        187,
+        3283,
+        163
+      ],
+      "physical_terminal_rows": 4,
+      "unknown_terminal_successor_rows": 0,
+      "unknown_successor_rows": 0,
+      "certified_successor_rows": 4100,
+      "certified_silent_successor_rows": 2202,
+      "certified_multi_active_successor_rows": 62,
+      "successor_positive_counts": {
+        "winner": [
+          481,
+          92,
+          72,
+          78,
+          2,
+          97,
+          91,
+          102,
+          74,
+          146,
+          85,
+          160,
+          93,
+          91,
+          68,
+          166
+        ],
+        "exclusive": [
+          471,
+          91,
+          72,
+          78,
+          0,
+          96,
+          91,
+          100,
+          71,
+          133,
+          85,
+          151,
+          92,
+          89,
+          61,
+          155
+        ]
+      },
+      "successor_positive_episode_counts": {
+        "winner": [
+          5,
+          5,
+          5,
+          5,
+          2,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "exclusive": [
+          5,
+          5,
+          5,
+          5,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "goals_without_winner_positive": [],
+      "current_dg_winner_action_counts": [
+        [
+          21,
+          36,
+          21,
+          385,
+          17
+        ],
+        [
+          2,
+          2,
+          3,
+          81,
+          3
+        ],
+        [
+          5,
+          7,
+          9,
+          46,
+          5
+        ],
+        [
+          5,
+          1,
+          4,
+          65,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          6,
+          1
+        ],
+        [
+          3,
+          7,
+          3,
+          81,
+          3
+        ],
+        [
+          2,
+          5,
+          3,
+          79,
+          2
+        ],
+        [
+          2,
+          8,
+          3,
+          86,
+          3
+        ],
+        [
+          3,
+          2,
+          3,
+          63,
+          3
+        ],
+        [
+          4,
+          10,
+          7,
+          120,
+          5
+        ],
+        [
+          3,
+          6,
+          3,
+          68,
+          5
+        ],
+        [
+          16,
+          10,
+          5,
+          118,
+          11
+        ],
+        [
+          3,
+          6,
+          2,
+          77,
+          4
+        ],
+        [
+          2,
+          10,
+          5,
+          67,
+          7
+        ],
+        [
+          3,
+          4,
+          4,
+          56,
+          1
+        ],
+        [
+          6,
+          18,
+          6,
+          129,
+          7
+        ]
+      ],
+      "current_dg_silent_action_counts": [
+        99,
+        156,
+        106,
+        1756,
+        83
+      ],
+      "current_dg_unknown_action_counts": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "current_dg_silent_rows": 2200,
+      "current_dg_unknown_rows": 0,
+      "current_dg_multi_active_rows": 62
+    },
+    "holdout": {
+      "rows": 900,
+      "episodes": 1,
+      "episode_ids": [
+        0
+      ],
+      "action_counts": [
+        37,
+        60,
+        56,
+        707,
+        40
+      ],
+      "physical_terminal_rows": 1,
+      "unknown_terminal_successor_rows": 0,
+      "unknown_successor_rows": 0,
+      "certified_successor_rows": 900,
+      "certified_silent_successor_rows": 496,
+      "certified_multi_active_successor_rows": 13,
+      "successor_positive_counts": {
+        "winner": [
+          69,
+          41,
+          14,
+          28,
+          0,
+          28,
+          21,
+          28,
+          15,
+          12,
+          19,
+          24,
+          28,
+          20,
+          18,
+          39
+        ],
+        "exclusive": [
+          69,
+          41,
+          13,
+          28,
+          0,
+          28,
+          21,
+          27,
+          15,
+          10,
+          19,
+          21,
+          28,
+          19,
+          15,
+          37
+        ]
+      },
+      "successor_positive_episode_counts": {
+        "winner": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "exclusive": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "goals_without_winner_positive": [
+        4
+      ],
+      "current_dg_winner_action_counts": [
+        [
+          3,
+          5,
+          3,
+          56,
+          2
+        ],
+        [
+          2,
+          3,
+          1,
+          30,
+          4
+        ],
+        [
+          0,
+          2,
+          1,
+          11,
+          0
+        ],
+        [
+          1,
+          1,
+          0,
+          25,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          2,
+          3,
+          21,
+          2
+        ],
+        [
+          0,
+          0,
+          2,
+          18,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          26,
+          2
+        ],
+        [
+          1,
+          0,
+          2,
+          12,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          11,
+          1
+        ],
+        [
+          2,
+          0,
+          2,
+          15,
+          0
+        ],
+        [
+          4,
+          2,
+          0,
+          15,
+          3
+        ],
+        [
+          2,
+          0,
+          1,
+          22,
+          3
+        ],
+        [
+          1,
+          0,
+          1,
+          18,
+          0
+        ],
+        [
+          2,
+          0,
+          2,
+          14,
+          0
+        ],
+        [
+          4,
+          2,
+          5,
+          28,
+          0
+        ]
+      ],
+      "current_dg_silent_action_counts": [
+        15,
+        43,
+        33,
+        384,
+        21
+      ],
+      "current_dg_unknown_action_counts": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "current_dg_silent_rows": 496,
+      "current_dg_unknown_rows": 0,
+      "current_dg_multi_active_rows": 13
+    }
+  },
+  "provenance": {
+    "input_files": {
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/metadata.json": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay/replay.npz": "05d1e9df8993f0a8d22a035264a433cda66fa9c1ada65325633d50863226aa7b"
+    },
+    "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+    "analysis_source_sha256": {
+      "support_analysis.py": "aa1c8657cfc1b93f9e389ab26b7e32b0caad42bd7dda9612ac5962ed66dc432c",
+      "replay_fit.py": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+      "detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+      "targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418"
+    }
+  }
+}

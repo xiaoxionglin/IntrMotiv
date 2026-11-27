@@ -1,0 +1,2332 @@
+{
+  "schema": "intrmotiv/toy-competing-first-reanalysis/v1",
+  "analyzed_utc": "2026-11-27T09:43:44.645865+00:00",
+  "designation": "Post-audit reanalysis of saved trajectories; not an originally preregistered toy metric",
+  "no_new_training": true,
+  "no_environment_execution": true,
+  "no_policy_replay": true,
+  "definition": "P(g before c within H | command g) minus P(g before c within H | command c), distinct g,c neither initially satisfied",
+  "observation_contract": "All seven fork states are distinct DG identities; saved decision-time state paths are complete",
+  "excluded_routes": "shuffled_goal: stored goal labels identify evaluated targets, not actual issued commands",
+  "classifier_check": "Independent scan-to-first-competing-state oracle agrees with aggregate_evaluation.first_before_interval for every outcome",
+  "limitations": [
+    "Same previously collected trajectories and fitted policies; no new independent evidence or tuning",
+    "Continuing main is a synthetic goal-blind negative, not a routing-only historical-policy control",
+    "Zero individual pair contrast can reflect unavoidable landmark order, even with perfect goal arrival",
+    "This fully observed fork does not test general partial-observation memory sufficiency"
+  ],
+  "input_files": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/pre_run_manifest.json": "811a9b90e545ca827e2ec2cbb092187e3642adba090f68c3444286d725ea6a13",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_8/trials.csv": "bae5e6a22577a0f3328c24dd8227ce56bc82a26d89b7ace4ce65d4840c8617e4",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_99/trials.csv": "c1ae59cf33942c8a124974ed9334274f0f5534b2d26bd28cbdbdcc0562ba1858",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_123/trials.csv": "eabee0a53ee6a39dd7d282fd6d79181594dcd41e6130b93c9041c376c7f916ba",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/pre_run_manifest.json": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_8/trials.csv": "4d5d73dad82ad76563d0fd530eb150cc5734c7c88cb9f2dc1c9e978715be3634",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_99/trials.csv": "3e6c55d89529ce85b3ab0b92390af7eb38e41815116c38ad94f46730e4b278cf",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_123/trials.csv": "099e5cfe0bbfeb3fcda1a0f366446dcb19eded60e7f3f46a7d5f4688f1da3ac1"
+  },
+  "analysis_sources": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/toy_competing_first.py": "4ceb744c0e4cb8a4a917055640134fdc19ab12d0f7b680b6f7ef6b091401d043",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7"
+  },
+  "suites": {
+    "film": {
+      "results": [
+        {
+          "seed": 8,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 7,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 4,
+              "stopped_task_lift_mean": 0.01904761904761905,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_8/trials.csv",
+          "source_csv_sha256": "bae5e6a22577a0f3328c24dd8227ce56bc82a26d89b7ace4ce65d4840c8617e4"
+        },
+        {
+          "seed": 99,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 168,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 11,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 10,
+              "stopped_task_lift_mean": 0.047619047619047616,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 168,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_99/trials.csv",
+          "source_csv_sha256": "c1ae59cf33942c8a124974ed9334274f0f5534b2d26bd28cbdbdcc0562ba1858"
+        },
+        {
+          "seed": 123,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 8,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 4,
+              "stopped_task_lift_mean": 0.01904761904761905,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_all_landmarks/seed_123/trials.csv",
+          "source_csv_sha256": "eabee0a53ee6a39dd7d282fd6d79181594dcd41e6130b93c9041c376c7f916ba"
+        }
+      ],
+      "totals": {
+        "first_hit": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 210,
+          "competing_FIRST_mean": 0.3333333333333333,
+          "stopped_task_lift_mean": 0.6666666666666666
+        },
+        "continuing_main": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 0,
+          "competing_FIRST_mean": 0.0,
+          "stopped_task_lift_mean": 0.02857142857142857
+        },
+        "memoryless": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 210,
+          "competing_FIRST_mean": 0.3333333333333333,
+          "stopped_task_lift_mean": 0.6666666666666666
+        }
+      }
+    },
+    "legacy": {
+      "results": [
+        {
+          "seed": 8,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 164,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 4,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 0,
+              "stopped_task_lift_mean": 0.0,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 164,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_8/trials.csv",
+          "source_csv_sha256": "4d5d73dad82ad76563d0fd530eb150cc5734c7c88cb9f2dc1c9e978715be3634"
+        },
+        {
+          "seed": 99,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 6,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 1,
+              "stopped_task_lift_mean": 0.004761904761904762,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_99/trials.csv",
+          "source_csv_sha256": "3e6c55d89529ce85b3ab0b92390af7eb38e41815116c38ad94f46730e4b278cf"
+        },
+        {
+          "seed": 123,
+          "horizon": 6,
+          "goals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "saved_rows_analyzed": 126,
+          "other_route_rows_excluded": 42,
+          "routes": {
+            "first_hit": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            },
+            "continuing_main": {
+              "own_command_paths": 42,
+              "own_command_successes": 10,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 0,
+              "competing_FIRST_mean": 0.0,
+              "difference_counts": {
+                "-1": 0,
+                "0": 210,
+                "1": 0
+              },
+              "stopped_task_lift_numerator": 5,
+              "stopped_task_lift_mean": 0.023809523809523808,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 0,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 0
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 0
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true,
+              "goalblind_null_check": true
+            },
+            "memoryless": {
+              "own_command_paths": 42,
+              "own_command_successes": 42,
+              "declared_competing_pairs": 210,
+              "identified_competing_pairs": 210,
+              "competing_FIRST_numerator": 70,
+              "competing_FIRST_mean": 0.3333333333333333,
+              "difference_counts": {
+                "-1": 0,
+                "0": 140,
+                "1": 70
+              },
+              "stopped_task_lift_numerator": 140,
+              "stopped_task_lift_mean": 0.6666666666666666,
+              "stopped_task_lift_interpretation": "Secondary; can be positive solely because each command stops at its own hit",
+              "different_prefix_pairs": 170,
+              "per_goal": {
+                "0": {
+                  "comparisons": 30,
+                  "numerator": 6
+                },
+                "1": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "2": {
+                  "comparisons": 30,
+                  "numerator": 7
+                },
+                "3": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "4": {
+                  "comparisons": 30,
+                  "numerator": 10
+                },
+                "5": {
+                  "comparisons": 30,
+                  "numerator": 15
+                },
+                "6": {
+                  "comparisons": 30,
+                  "numerator": 15
+                }
+              },
+              "ordered_goal_competitor_matrix": [
+                [
+                  null,
+                  0.0,
+                  0.0,
+                  0.2,
+                  0.2,
+                  0.4,
+                  0.4
+                ],
+                [
+                  0.0,
+                  null,
+                  0.2,
+                  0.0,
+                  0.4,
+                  0.2,
+                  0.6
+                ],
+                [
+                  0.0,
+                  0.2,
+                  null,
+                  0.4,
+                  0.0,
+                  0.6,
+                  0.2
+                ],
+                [
+                  0.2,
+                  0.0,
+                  0.4,
+                  null,
+                  0.6,
+                  0.0,
+                  0.8
+                ],
+                [
+                  0.2,
+                  0.4,
+                  0.0,
+                  0.6,
+                  null,
+                  0.8,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.2,
+                  0.6,
+                  0.0,
+                  0.8,
+                  null,
+                  1.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.2,
+                  0.8,
+                  0.0,
+                  1.0,
+                  null
+                ]
+              ],
+              "matrix_axes": [
+                "goal",
+                "competitor"
+              ],
+              "matrix_comparisons_per_nondiagonal_cell": 5,
+              "classifier_oracle_agreement": true
+            }
+          },
+          "source_csv": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/fork_all_landmarks/seed_123/trials.csv",
+          "source_csv_sha256": "099e5cfe0bbfeb3fcda1a0f366446dcb19eded60e7f3f46a7d5f4688f1da3ac1"
+        }
+      ],
+      "totals": {
+        "first_hit": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 210,
+          "competing_FIRST_mean": 0.3333333333333333,
+          "stopped_task_lift_mean": 0.6666666666666666
+        },
+        "continuing_main": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 0,
+          "competing_FIRST_mean": 0.0,
+          "stopped_task_lift_mean": 0.009523809523809525
+        },
+        "memoryless": {
+          "seeds": 3,
+          "comparisons": 630,
+          "numerator": 210,
+          "competing_FIRST_mean": 0.3333333333333333,
+          "stopped_task_lift_mean": 0.6666666666666666
+        }
+      }
+    }
+  }
+}

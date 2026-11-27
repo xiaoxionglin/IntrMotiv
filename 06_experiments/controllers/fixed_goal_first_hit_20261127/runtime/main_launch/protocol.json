@@ -1,0 +1,130 @@
+{
+  "schema": "intrmotiv/frozen-readout-analysis-plan/v1",
+  "analysis_version": "1.0.0",
+  "workflow_version": "1.15.2",
+  "analysis_id": "fixed_goal_first_hit_c05_s99_20261127",
+  "description": "Frozen reward-free replay, offline first-hit readout fitting, and matched all-observed-DG command evaluation for one existing C05 seed-99 donor.",
+  "contract": {
+    "kind": "artifact_dependency_graph",
+    "reason_for_separate_schema": "The canonical intrmotiv/study/v1 contract expands bases/factors/seeds into independent Cartesian Sample Factory training RunSpecs. This analysis instead collects one frozen replay artifact, fits one copied readout from it, and evaluates four disjoint source panels consuming the same fitted weights and replay identity. These dependent artifacts are not new Sample Factory runs. Canonical StudySpec validation, fingerprinting and RunSpec selection remain authoritative for the donor.",
+    "execution": "Print-only argv and dependency rendering. This module never submits jobs or launches an environment.",
+    "scope": "One pretrained donor and one fit initialization; no training-seed replication or universal frozen-memory sufficiency claim."
+  },
+  "donor_study": {
+    "path": "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json",
+    "sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "declared_workflow_version": "1.14.1"
+  },
+  "donor": {
+    "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+    "seed": 99,
+    "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+    "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd"
+  },
+  "qualification_protocol": {
+    "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/qualification_protocol.json",
+    "sha256": "84713af0554afe27503c4592f22c05bcf8c0a32d75189f6f9cac15c99430f310"
+  },
+  "runtime": {
+    "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+    "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+    "python": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+    "dependency_roots": [
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1"
+    ],
+    "torch_cache": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch"
+  },
+  "source_interface": {
+    "goal_count": 16,
+    "action_count": 5,
+    "action_repeat": 8,
+    "primary_detector": "winner",
+    "secondary_detector": "exclusive",
+    "environment": "openfield_map2_fixed_loc3_fixedlength_noreward"
+  },
+  "collection": {
+    "decisions": 100000,
+    "seed": 73002,
+    "random_action_probability": 0.2,
+    "reuse_qualification_data": false
+  },
+  "fit": {
+    "seed": 99,
+    "updates": 30000,
+    "batch_size": 128,
+    "horizon": 256,
+    "learning_rate": 0.0003,
+    "target_update_period": 100,
+    "holdout_fraction": 0.1,
+    "threads": 4,
+    "device": "cpu",
+    "selection": "Final weights after exactly the declared updates; holdout and residual diagnostics never select checkpoints or hyperparameters."
+  },
+  "fit_diagnostics": {
+    "samples_per_bin": 1024,
+    "selection": "Frozen final-model factual Bellman residual only; no fitting, selection, or efficacy-based tuning."
+  },
+  "evaluation": {
+    "source_shards": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11
+      ],
+      [
+        12,
+        13,
+        14,
+        15
+      ]
+    ],
+    "repeats": 3,
+    "discovery_episodes": 96,
+    "prefix_cap": 512,
+    "discovery_seed": 41000,
+    "decision_cap_per_shard": 350000,
+    "policy_count": 2,
+    "targets": "All source-graph, replay and independent-discovery winner identities; no passive-edge filter. Every capacity identity remains in the final denominator table as observed, unobserved, issued or unassessed.",
+    "stop": "Own winner hit is absorbing including t0. Alternative arrivals count only before that command's own stop; unresolved physical terminals remain censored.",
+    "primary_command_selectivity": "Competing-target FIRST: P(g before c within H | command g) minus P(g before c within H | command c), from identical starts with distinct g,c both absent initially. Other landmarks may be crossed. Preserve declared pairs with explicit missing/terminal identification bounds; first observed g or c resolves the event even if a later terminal is unknown.",
+    "secondary_stopped_task_lift": "Own-command arrival minus alternative-command arrival under each command's own stop describes the complete task-and-stop interface. It is confounded by command-dependent termination and does not demonstrate command-dependent navigation.",
+    "selectivity_interpretation": "Positive competing-target FIRST establishes command-dependent ordering under matched physical/recurrent starts and common dynamics. Zero does not alone refute goal reaching, particularly when landmark order is unavoidable. Do not require positivity for every ordered pair or select favorable competitors after outcomes.",
+    "capability_gate": "All declared identities observed and issued, no missing source-history cells, and per-goal success lower bound at least0.90. Report aggregate competing-target FIRST selectivity with its full pair matrix and identification bounds as separate navigation evidence where routing choice exists; no positive-every-pair requirement. Otherwise report partial capability. These tests do not establish success for untested histories.",
+    "command_contrast_addendum": {
+      "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/command_contrast_addendum.md",
+      "sha256": "b9c172008a40f3a0cf4e4da3ab9b65ee9ea345ae5a12a84e567b2e924b263951"
+    },
+    "independent_jobs": true
+  },
+  "required_before_execution": [
+    "Review completed integration qualification, genuine terminal transport and frozen source hashes; queue state is insufficient.",
+    "Stage and hash a fresh immutable source release and run focused tests there; validate and print this effective plan again after source-release changes.",
+    "Verify donor checkpoint/config bytes, runtime assets, cache/output paths and available workspace storage on NEMO.",
+    "Use ordinary allocated Slurm jobs; reserve resources from qualification timing without changing scientific budgets after efficacy outcomes.",
+    "Require all source DG/BN and graph buffers frozen and every native collection reward zero. Keep unknown successor rows explicit."
+  ],
+  "completion": {
+    "evidence_design": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_protocol_draft.json",
+    "place_fields": "Reuse compatible exact-donor policy and common-panel artifacts, with byte/config audits; do not repeat a checkpoint sweep by default.",
+    "trajectories": "Record actual per-decision pose as telemetry only, actions, command, remaining deadline and reset/terminal segmentation.",
+    "graphs": "Separate source graph evidence, replay exposure and executed directed source-target outcomes; retain missing and unattempted pairs.",
+    "control": "Report all declared goal/source rows, initial satisfaction, failures, censor bounds, competing-target FIRST as primary command-selectivity contrast, stopped-task lift as a secondary termination-confounded description, first-hit latency and paired source versus fitted policies."
+  }
+}
