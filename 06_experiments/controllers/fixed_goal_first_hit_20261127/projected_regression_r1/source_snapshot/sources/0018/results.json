@@ -1,0 +1,1338 @@
+{
+  "schema": "intrmotiv/projected-grid-results/v1",
+  "runs": [
+    {
+      "condition": "unprojected",
+      "seed": 8,
+      "updates": 2500,
+      "training_seconds": 52.06672322610393,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.06186387687921524
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.012115913443267345
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.06999418139457703
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.0009174049482680857
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0005377103807404637
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 9.79042670223862e-05
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 5.6934608437586576e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 3.138843385386281e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 2.5313716832897626e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 1.836046612879727e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 1.3917034266341943e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "all_pair_gate_passed": true,
+      "shortest_success_fraction": 0.7416666666666667,
+      "mean_decisions_nontrivial_queries": 3.1416666666666666,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.7488095238095238,
+      "memoryless_competing_first_contrast": 0.4961309523809524,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "3": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.3333333333333333
+        },
+        "4": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 1.0
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "14": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        }
+      },
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.20416666666666666,
+        "continuing_main": 0.13333333333333333,
+        "memoryless": 0.6791666666666667
+      },
+      "initial_parameter_sha256": "c4cbbfcde9699f3b67e4fdebecd85394a402c68df6383d3c704ed4dba38413dd",
+      "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+      "usable_masks_sha256": "d921943c39433573a5928abe84d019e7a59ceeef3af3743815381769e3d0fe99",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 1.0,
+      "maximum_fresh_start_value_error": 0.044418847465515165,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "59e5fb7b4f2e2b90d30f3a1d9911d41d644b3db6396bcb89d7e9d055d8166910",
+      "dataset_sha256": "29dc9116503cc3b0525ac64e6ee8d31403d46f3506602880bd5ce7e570115c70",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 1.5052519302116707e-05,
+        "maximum_absolute_residual": 0.030177831649780273,
+        "prediction_min": 0.9297683238983154,
+        "prediction_max": 1.0145375728607178,
+        "target_min": 0.9345959424972534,
+        "target_max": 1.0063766241073608,
+        "predictions_above_one": 1433,
+        "predictions_below_zero": 0
+      }
+    },
+    {
+      "condition": "projected",
+      "seed": 8,
+      "updates": 2500,
+      "training_seconds": 50.35442016413435,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.061863865703344345
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.021306343376636505
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.0288186464458704
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.00047045605606399477
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0002689346729312092
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 7.414512219838798e-05
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 4.9188241973752156e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 3.526746149873361e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 2.606213638500776e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 1.8732191165327094e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 1.6672382116666995e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "all_pair_gate_passed": true,
+      "shortest_success_fraction": 0.7875,
+      "mean_decisions_nontrivial_queries": 3.0375,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.756547619047619,
+      "memoryless_competing_first_contrast": 0.6092261904761904,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "3": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "4": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "14": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        }
+      },
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.225,
+        "continuing_main": 0.0875,
+        "memoryless": 0.7958333333333333
+      },
+      "initial_parameter_sha256": "c4cbbfcde9699f3b67e4fdebecd85394a402c68df6383d3c704ed4dba38413dd",
+      "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+      "usable_masks_sha256": "d921943c39433573a5928abe84d019e7a59ceeef3af3743815381769e3d0fe99",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 1.0,
+      "maximum_fresh_start_value_error": 0.04007291793823242,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "bf97caf6720436ae4fc9963ab8d30067122d7d7bf0e0a4ad9e164b3a52deb073",
+      "dataset_sha256": "29dc9116503cc3b0525ac64e6ee8d31403d46f3506602880bd5ce7e570115c70",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 1.863196121121291e-05,
+        "maximum_absolute_residual": 0.027697622776031494,
+        "prediction_min": 0.9291136264801025,
+        "prediction_max": 1.0165256261825562,
+        "target_min": 0.9344123005867004,
+        "target_max": 1.0,
+        "predictions_above_one": 1571,
+        "predictions_below_zero": 0
+      }
+    },
+    {
+      "condition": "unprojected",
+      "seed": 99,
+      "updates": 2500,
+      "training_seconds": 70.18929393868893,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.057027701288461685
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.026431063190102577
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.042109258472919464
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.0011579153360798955
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0008868155418895185
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.00013268009934108704
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 9.861738362815231e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 4.740441727335565e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 4.5168460928834975e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 2.783730269584339e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 2.2849033484817483e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 0.9166666666666666,
+      "worst_pair_success": 0,
+      "all_pair_gate_passed": false,
+      "shortest_success_fraction": 0.6,
+      "mean_decisions_nontrivial_queries": 4.541666666666667,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.6413690476190477,
+      "memoryless_competing_first_contrast": 0.28273809523809523,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 0.6,
+          "shortest_success": 0.3333333333333333
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "3": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "4": {
+          "queries": 15,
+          "success": 0.06666666666666667,
+          "shortest_success": 0.06666666666666667
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4666666666666667
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "14": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4666666666666667
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        }
+      },
+      "per_route_success": {
+        "first_hit": 0.9166666666666666,
+        "shuffled_goal": 0.2708333333333333,
+        "continuing_main": 0.125,
+        "memoryless": 0.425
+      },
+      "initial_parameter_sha256": "7a2a834c4f5b67a3dcf265f47a08fc3f192135cadd68322167db64007f422c52",
+      "batch_rows_sha256": "332740ab49a6d04e37207943e4740aa66e91b2f3d4e22f315ba1974a6d9a9fbd",
+      "usable_masks_sha256": "db99b9162ef4fb2787849832e70eb1ead06fced48e7561a2a1406fd344eeec45",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 0.06666666666666667,
+      "maximum_fresh_start_value_error": 0.09072883436035162,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "1b8f7a35d9e71cedc48ec9d73c7c6a5dbf52728897c6822429cfce6e5669a186",
+      "dataset_sha256": "d7ee8492e81f2319bdd449d962ba7c13d1b8975a5b17afdffd3b37ebf9149191",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 3.0844319553580135e-05,
+        "maximum_absolute_residual": 0.0343051552772522,
+        "prediction_min": 0.9316294193267822,
+        "prediction_max": 1.0513248443603516,
+        "target_min": 0.9322869777679443,
+        "target_max": 1.032713770866394,
+        "predictions_above_one": 4651,
+        "predictions_below_zero": 0
+      }
+    },
+    {
+      "condition": "projected",
+      "seed": 99,
+      "updates": 2500,
+      "training_seconds": 70.2754815351218,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.05786816030740738
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.024256091564893723
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.034330617636442184
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.0005895389476791024
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0003064500051550567
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 7.928654667921364e-05
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 5.4120944696478546e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 3.1988442060537636e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 3.07338050333783e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 2.063120700768195e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 1.8789491150528193e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "all_pair_gate_passed": true,
+      "shortest_success_fraction": 0.7166666666666667,
+      "mean_decisions_nontrivial_queries": 3.2333333333333334,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.7476190476190476,
+      "memoryless_competing_first_contrast": 0.4669642857142857,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "3": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "4": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "14": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        }
+      },
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.24166666666666667,
+        "continuing_main": 0.125,
+        "memoryless": 0.6166666666666667
+      },
+      "initial_parameter_sha256": "7a2a834c4f5b67a3dcf265f47a08fc3f192135cadd68322167db64007f422c52",
+      "batch_rows_sha256": "332740ab49a6d04e37207943e4740aa66e91b2f3d4e22f315ba1974a6d9a9fbd",
+      "usable_masks_sha256": "db99b9162ef4fb2787849832e70eb1ead06fced48e7561a2a1406fd344eeec45",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 1.0,
+      "maximum_fresh_start_value_error": 0.03624938419509882,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "e715723ccefa7f60df7c00e7cfffa20f37d5514ef29407ef39d8ffe7e562bd8f",
+      "dataset_sha256": "d7ee8492e81f2319bdd449d962ba7c13d1b8975a5b17afdffd3b37ebf9149191",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 2.0191915609757416e-05,
+        "maximum_absolute_residual": 0.04072010517120361,
+        "prediction_min": 0.917514979839325,
+        "prediction_max": 1.0147285461425781,
+        "target_min": 0.9360951781272888,
+        "target_max": 1.0,
+        "predictions_above_one": 1259,
+        "predictions_below_zero": 0
+      }
+    },
+    {
+      "condition": "unprojected",
+      "seed": 123,
+      "updates": 2500,
+      "training_seconds": 74.00637455377728,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.057797420769929886
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.018913570791482925
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.04877327010035515
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.0009083595359697938
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0007341451710090041
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 0.00010266848403261974
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 7.315995026146993e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 3.996740633738227e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 3.287236177129671e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 2.182462230848614e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 1.535480623715557e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 0.9791666666666666,
+      "worst_pair_success": 0,
+      "all_pair_gate_passed": false,
+      "shortest_success_fraction": 0.6958333333333333,
+      "mean_decisions_nontrivial_queries": 3.4458333333333333,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.7282738095238095,
+      "memoryless_competing_first_contrast": 0.4589285714285714,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "3": {
+          "queries": 15,
+          "success": 0.9333333333333333,
+          "shortest_success": 0.4
+        },
+        "4": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "14": {
+          "queries": 15,
+          "success": 0.7333333333333333,
+          "shortest_success": 0.6666666666666666
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4666666666666667
+        }
+      },
+      "per_route_success": {
+        "first_hit": 0.9791666666666666,
+        "shuffled_goal": 0.19583333333333333,
+        "continuing_main": 0.1625,
+        "memoryless": 0.6083333333333333
+      },
+      "initial_parameter_sha256": "2f5fe46f47d49f0d179d2d44c9119f328f370c0bc24c7c07315f8eea58c5a8f3",
+      "batch_rows_sha256": "16e382ce3d30e369a77c61799b0498c8ffbe5f1ca2faa1eb39b0f38e8b7292ce",
+      "usable_masks_sha256": "3a295d99af746e5a266ae646d2a3e0fdcfe0607a0d2696b69eaac06d147be71c",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 0.7333333333333333,
+      "maximum_fresh_start_value_error": 0.05801172563385015,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "215377b587ed465287f985d70954b550201aa00c8c8b085b42c900c052babbd5",
+      "dataset_sha256": "e75d4c81fca3081b1a6ec5bbd428a922ed2b92e453d97571efeef1840f9ff950",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 1.9249768229201436e-05,
+        "maximum_absolute_residual": 0.029848754405975342,
+        "prediction_min": 0.9230557084083557,
+        "prediction_max": 1.0234379768371582,
+        "target_min": 0.9325453042984009,
+        "target_max": 1.0152508020401,
+        "predictions_above_one": 2060,
+        "predictions_below_zero": 0
+      }
+    },
+    {
+      "condition": "projected",
+      "seed": 123,
+      "updates": 2500,
+      "training_seconds": 73.49664699099958,
+      "parameters": 35588,
+      "action_head_parameters": 516,
+      "enumerated_goal_labels": 10240000,
+      "used_noninitial_goal_labels": 9600000,
+      "continuing_loss_labels": 0,
+      "replay_transitions": 4096,
+      "training_trace": [
+        {
+          "update": 1,
+          "first_hit_mse": 0.0577985979616642
+        },
+        {
+          "update": 251,
+          "first_hit_mse": 0.02167331427335739
+        },
+        {
+          "update": 501,
+          "first_hit_mse": 0.029667088761925697
+        },
+        {
+          "update": 751,
+          "first_hit_mse": 0.00044039153726771474
+        },
+        {
+          "update": 1001,
+          "first_hit_mse": 0.0001957734057214111
+        },
+        {
+          "update": 1251,
+          "first_hit_mse": 7.529085996793583e-05
+        },
+        {
+          "update": 1501,
+          "first_hit_mse": 5.288284955895506e-05
+        },
+        {
+          "update": 1751,
+          "first_hit_mse": 3.279829252278432e-05
+        },
+        {
+          "update": 2001,
+          "first_hit_mse": 2.5443076083320193e-05
+        },
+        {
+          "update": 2251,
+          "first_hit_mse": 1.8253494999953546e-05
+        },
+        {
+          "update": 2500,
+          "first_hit_mse": 1.3857678823114838e-05
+        }
+      ],
+      "n_nontrivial_pairs": 240,
+      "initially_satisfied_queries": 16,
+      "declared_queries": 256,
+      "first_hit_success": 1.0,
+      "worst_pair_success": 1,
+      "all_pair_gate_passed": true,
+      "shortest_success_fraction": 0.7291666666666666,
+      "mean_decisions_nontrivial_queries": 3.1666666666666665,
+      "mean_shortest_distance": 2.6666666666666665,
+      "n_competing_comparisons": 3360,
+      "competing_first_contrast": 0.7392857142857143,
+      "memoryless_competing_first_contrast": 0.5401785714285714,
+      "per_goal": {
+        "0": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "1": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "2": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.4666666666666667
+        },
+        "3": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6666666666666666
+        },
+        "4": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "5": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.7333333333333333
+        },
+        "6": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "7": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "8": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "9": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "10": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "11": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.6
+        },
+        "12": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8666666666666667
+        },
+        "13": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.9333333333333333
+        },
+        "14": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.8
+        },
+        "15": {
+          "queries": 15,
+          "success": 1.0,
+          "shortest_success": 0.5333333333333333
+        }
+      },
+      "per_route_success": {
+        "first_hit": 1.0,
+        "shuffled_goal": 0.17916666666666667,
+        "continuing_main": 0.2,
+        "memoryless": 0.7125
+      },
+      "initial_parameter_sha256": "2f5fe46f47d49f0d179d2d44c9119f328f370c0bc24c7c07315f8eea58c5a8f3",
+      "batch_rows_sha256": "16e382ce3d30e369a77c61799b0498c8ffbe5f1ca2faa1eb39b0f38e8b7292ce",
+      "usable_masks_sha256": "3a295d99af746e5a266ae646d2a3e0fdcfe0607a0d2696b69eaac06d147be71c",
+      "actual_batch_calls": 2500,
+      "worst_goal_success": 1.0,
+      "maximum_fresh_start_value_error": 0.038384253238678,
+      "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+      "checkpoint_sha256": "bbc9b630ae4afcfd026f27d3f8d6b09065e093a2456d3331daadc479d7d217f4",
+      "dataset_sha256": "e75d4c81fca3081b1a6ec5bbd428a922ed2b92e453d97571efeef1840f9ff950",
+      "evaluation_state_hash_unchanged": true,
+      "saved_checkpoint_trials_exactly_reproduced": true,
+      "own_operator_fresh_residual": {
+        "labels": 61440,
+        "mse": 1.7870328520075418e-05,
+        "maximum_absolute_residual": 0.027509689331054688,
+        "prediction_min": 0.9288238286972046,
+        "prediction_max": 1.0236587524414062,
+        "target_min": 0.926379919052124,
+        "target_max": 1.0,
+        "predictions_above_one": 1220,
+        "predictions_below_zero": 0
+      }
+    }
+  ],
+  "paired_checks": [
+    {
+      "seed": 8,
+      "matched_keys": [
+        "initial_parameter_sha256",
+        "batch_rows_sha256",
+        "usable_masks_sha256",
+        "used_noninitial_goal_labels",
+        "dataset_sha256"
+      ],
+      "all_equal": true,
+      "projected_minus_unprojected_success": 0.0
+    },
+    {
+      "seed": 99,
+      "matched_keys": [
+        "initial_parameter_sha256",
+        "batch_rows_sha256",
+        "usable_masks_sha256",
+        "used_noninitial_goal_labels",
+        "dataset_sha256"
+      ],
+      "all_equal": true,
+      "projected_minus_unprojected_success": 0.08333333333333337
+    },
+    {
+      "seed": 123,
+      "matched_keys": [
+        "initial_parameter_sha256",
+        "batch_rows_sha256",
+        "usable_masks_sha256",
+        "used_noninitial_goal_labels",
+        "dataset_sha256"
+      ],
+      "all_equal": true,
+      "projected_minus_unprojected_success": 0.02083333333333337
+    }
+  ],
+  "pre_data_manifest_sha256": "148077c913554b94d3cd42310a6bfdf498837057dae9155850b52e0c48262636",
+  "prepared_sha256": "146a9637d743cda5be6541e0522c8399a0418b2df7fe07389600d5153fecb9fc",
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/projected_grid.py",
+        "snapshot_path": "sources/0000/projected_grid.py",
+        "expected_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "snapshot_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_readout.py",
+        "snapshot_path": "sources/0001/stationary_readout.py",
+        "expected_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0002/neural.py",
+        "expected_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0003/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0004/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0005/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0006/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py",
+        "snapshot_path": "sources/0007/aggregate_evaluation.py",
+        "expected_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0008/dmlab_evaluate.py",
+        "expected_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py",
+        "snapshot_path": "sources/0009/environment.py",
+        "expected_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "snapshot_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md",
+        "snapshot_path": "sources/0010/projected_bootstrap_design.md",
+        "expected_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "snapshot_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0011/state.py",
+        "expected_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_projected_grid.py",
+        "snapshot_path": "sources/0012/test_first_hit_projected_grid.py",
+        "expected_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "snapshot_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_action_head_audit.json",
+        "snapshot_path": "sources/0013/stationary_action_head_audit.json",
+        "expected_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0014/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0015/action_parameterization.py",
+        "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/model_utils.py",
+        "snapshot_path": "sources/0016/model_utils.py",
+        "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/decoder.py",
+        "snapshot_path": "sources/0017/decoder.py",
+        "expected_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/action_distributions.py",
+        "snapshot_path": "sources/0018/action_distributions.py",
+        "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/torch_utils.py",
+        "snapshot_path": "sources/0019/torch_utils.py",
+        "expected_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "datasets_unchanged": true,
+  "all_pair_gate_by_condition": {
+    "unprojected": false,
+    "projected": true
+  },
+  "interpretation": "Six fixed fits only; fresh separately-trained fully observed graph; syntheticDG; no policy transfer, hidden-topology generalization or DMLab claim"
+}

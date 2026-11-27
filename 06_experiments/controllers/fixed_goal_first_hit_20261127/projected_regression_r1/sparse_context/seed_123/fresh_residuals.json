@@ -1,0 +1,82 @@
+{
+  "unprojected": {
+    "operator": "unprojected",
+    "same_final_model_on_both_sides": true,
+    "scope": "all cached factual replay; current-goal labels omitted",
+    "overall": {
+      "labels": 8192,
+      "mse": 1.7529018805362284e-05,
+      "maximum_absolute_residual": 0.21869021654129028,
+      "prediction_min": -0.000819966197013855,
+      "prediction_max": 1.0001856088638306,
+      "target_min": 0.0,
+      "target_max": 1.2087000608444214,
+      "predictions_above_one": 717,
+      "predictions_below_zero": 639
+    },
+    "per_goal": {
+      "2": {
+        "labels": 4096,
+        "mse": 3.502885010675527e-05,
+        "maximum_absolute_residual": 0.21869021654129028,
+        "prediction_min": -4.357472062110901e-05,
+        "prediction_max": 1.0001856088638306,
+        "target_min": 0.0,
+        "target_max": 1.2087000608444214,
+        "predictions_above_one": 286,
+        "predictions_below_zero": 135
+      },
+      "3": {
+        "labels": 4096,
+        "mse": 2.918754127279044e-08,
+        "maximum_absolute_residual": 0.0031691789627075195,
+        "prediction_min": -0.000819966197013855,
+        "prediction_max": 1.0000137090682983,
+        "target_min": 0.0,
+        "target_max": 1.0,
+        "predictions_above_one": 431,
+        "predictions_below_zero": 504
+      }
+    }
+  },
+  "projected": {
+    "operator": "projected",
+    "same_final_model_on_both_sides": true,
+    "scope": "all cached factual replay; current-goal labels omitted",
+    "overall": {
+      "labels": 8192,
+      "mse": 1.590867704237553e-08,
+      "maximum_absolute_residual": 0.0031691789627075195,
+      "prediction_min": -0.000819966197013855,
+      "prediction_max": 1.0001856088638306,
+      "target_min": 0.0,
+      "target_max": 1.0,
+      "predictions_above_one": 717,
+      "predictions_below_zero": 639
+    },
+    "per_goal": {
+      "2": {
+        "labels": 4096,
+        "mse": 3.7147523945790795e-10,
+        "maximum_absolute_residual": 0.0009811632335186005,
+        "prediction_min": -4.357472062110901e-05,
+        "prediction_max": 1.0001856088638306,
+        "target_min": 0.0,
+        "target_max": 1.0,
+        "predictions_above_one": 286,
+        "predictions_below_zero": 135
+      },
+      "3": {
+        "labels": 4096,
+        "mse": 3.1445878789782e-08,
+        "maximum_absolute_residual": 0.0031691789627075195,
+        "prediction_min": -0.000819966197013855,
+        "prediction_max": 1.0000137090682983,
+        "target_min": 0.0,
+        "target_max": 1.0,
+        "predictions_above_one": 431,
+        "predictions_below_zero": 504
+      }
+    }
+  }
+}

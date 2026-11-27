@@ -1,0 +1,53 @@
+{
+  "schema": "intrmotiv/first-hit-neural/v1",
+  "config": {
+    "seeds": [
+      8,
+      99,
+      123
+    ],
+    "horizon": 6,
+    "memory_length": 8,
+    "repeat": 1,
+    "hidden_size": 128,
+    "transitions": 4096,
+    "episode_limit": 32,
+    "updates": 2500,
+    "batch_size": 256,
+    "learning_rate": 0.003,
+    "continuing_discount": 0.9,
+    "pair_success_gate": 0.9,
+    "methods": [
+      "empirical_value_distillation",
+      "replay_td"
+    ],
+    "target_update_period": 100
+  },
+  "runtime": {
+    "source_root": "/home/xiaoxiong/SFgit/SF_hipposlam",
+    "files": {
+      "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_actor_critic.py": "97cc4a8757346d9160d771c8c030bbc59f98169a69190eab800c23801cb7f470",
+      "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/controller_q.py": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9"
+    }
+  },
+  "source_sha256": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py": "8bfefc644c13578c2b23b7bb7a8c5a10e04eedf9dc1683b65618d77774e286c9",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py": "44d1e44251e21fe2d75cb491837178b1198531c5c7043da6826832ed781be7bd",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py": "69d4b488cf45dfd07747eb173dc43f7bd8a7875cbcd0f2e5d3d603d053a068b3",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/02_algorithm/fixed_goal_first_hit_control.md": "c6848738660547dbc56c721aa840dc473c631f743fec837e8b03d4e59a65558b"
+  },
+  "claim": "Supervised empirical finite-horizon value approximation with actual runtime FiLM/heads; not online TD convergence or DMLab proof",
+  "controls": "Same trained decoder and data; first-hit auxiliary deployed versus independently trained continuing main with zero command; shuffled command and memoryless interventions",
+  "evaluation_updates": 0,
+  "neural_input": "Exact CA3 from synthetic frozen DG observations plus original target onehot and deadline; no physical node IDs",
+  "datasets": {
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_8/reward_free_trajectories.npz": "d025edfef2ea91880af12646cf73a2948e3c49a925096e954ddf22409c54b0d6",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_99/reward_free_trajectories.npz": "ceed616ce9f51a6c311fb75866442d46ccce07c7bbc017b0775cf26247c752c0",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/fork_cycle/seed_123/reward_free_trajectories.npz": "3cdbd1b91b59383924070339a9d3e7b84c432c6e38b8e1ee5dfa61b527b25258",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_8/reward_free_trajectories.npz": "65f74994e4ed0b50adc89dde398e16a133e5fbb182741ed4e277a0af95d27c74",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_99/reward_free_trajectories.npz": "54a0670cf23781c1dd4aefab839f9c06a6b15c0f0fe77fa1b4567e155afa7d96",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/neural/sparse_context/seed_123/reward_free_trajectories.npz": "e8a4d07515d71e944e03bd56042ac07ff0ba559abd20e878b0b41850c1bebd3f"
+  }
+}

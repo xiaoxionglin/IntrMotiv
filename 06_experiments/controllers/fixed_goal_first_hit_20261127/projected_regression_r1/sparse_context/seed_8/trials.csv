@@ -1,0 +1,17 @@
+environment,seed,route,start,goal,success,decisions,start_at_commanded_goal,prefix,states,actions,first_distinct_goal,shortest_distance,shortest_success
+sparse_context,8,first_hit,2,4,1,1,0,"[0, 2]","[2, 4]",[0],4,1,1
+sparse_context,8,first_hit,2,5,1,1,0,"[0, 2]","[2, 5]",[1],5,1,1
+sparse_context,8,first_hit,3,4,1,1,0,"[1, 3]","[3, 4]",[1],4,1,1
+sparse_context,8,first_hit,3,5,1,1,0,"[1, 3]","[3, 5]",[0],5,1,1
+sparse_context,8,shuffled_goal,2,4,0,1,0,"[0, 2]","[2, 5]",[1],5,1,0
+sparse_context,8,shuffled_goal,2,5,0,1,0,"[0, 2]","[2, 4]",[0],4,1,0
+sparse_context,8,shuffled_goal,3,4,0,1,0,"[1, 3]","[3, 5]",[0],5,1,0
+sparse_context,8,shuffled_goal,3,5,0,1,0,"[1, 3]","[3, 4]",[1],4,1,0
+sparse_context,8,continuing_main,2,4,0,6,0,"[0, 2]","[2, 2, 2, 2, 2, 2, 2]","[2, 2, 2, 2, 2, 2]",-1,1,0
+sparse_context,8,continuing_main,2,5,0,6,0,"[0, 2]","[2, 2, 2, 2, 2, 2, 2]","[2, 2, 2, 2, 2, 2]",-1,1,0
+sparse_context,8,continuing_main,3,4,0,6,0,"[1, 3]","[3, 3, 3, 3, 3, 3, 3]","[2, 2, 2, 2, 2, 2]",-1,1,0
+sparse_context,8,continuing_main,3,5,0,6,0,"[1, 3]","[3, 3, 3, 3, 3, 3, 3]","[2, 2, 2, 2, 2, 2]",-1,1,0
+sparse_context,8,memoryless,2,4,0,1,0,"[0, 2]","[2, 5]",[1],5,1,0
+sparse_context,8,memoryless,2,5,0,6,0,"[0, 2]","[2, 2, 2, 2, 2, 2, 2]","[2, 2, 2, 2, 2, 2]",-1,1,0
+sparse_context,8,memoryless,3,4,1,1,0,"[1, 3]","[3, 4]",[1],4,1,1
+sparse_context,8,memoryless,3,5,0,6,0,"[1, 3]","[3, 3, 3, 3, 3, 3, 3]","[2, 2, 2, 2, 2, 2]",-1,1,0

@@ -1,0 +1,47 @@
+{
+  "schema": "intrmotiv/projected-stationary-regression-protocol/v1",
+  "created_utc": "2026-11-27T10:36:36.563488+00:00",
+  "status": "declared_before_implementation_or_fits",
+  "purpose": "Explicitly post-hoc regression on the previously failed fork and sparse-history tasks, after fresh GeoMem grid gate passed. Not independent validation or selection on these queries.",
+  "inputs": {
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/results.json": "edfe2acb6d3a114afe0e2a732026ae695fdce353dbe3eb26415f7f8579de0eaa",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json": "509a79b55315e700ff91b5acf917fe05da6fb7d8e1b95feea728500b04f6f25a",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/pre_run_manifest.json": "7200ffd7206020d0602aaf0b3d817bfe0c53682f347ceae05ee17e411a629203",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/neural/pre_run_manifest.json": "701c26411f20ffb85faef0a6fce53d5c509aeeb9dff94bcf9fa093af01688f58",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/neural_legacy_r1/pre_run_manifest.json": "236c40e8c4ba8ba215968ee23a219d1b70142161b490a8f851c6c3547e989ea6"
+  },
+  "conditions": {
+    "new_fits": "projected stationary target only; reuse projected_batch without changes",
+    "reference": "six previously completed unprojected stationary original-head fits; do not rerun or overwrite"
+  },
+  "experiments": [
+    "fork_all_landmarks",
+    "sparse_context"
+  ],
+  "seeds": [
+    8,
+    99,
+    123
+  ],
+  "new_fit_count": 6,
+  "fixed_settings": {
+    "gamma": 0.99,
+    "updates": 2500,
+    "batch_size": 256,
+    "learning_rate": 0.003,
+    "target_update_period": 100,
+    "horizon_external_evaluation_only": 6,
+    "CA3_length": 8,
+    "CA3_repeat": 1,
+    "decoder": "actual MlpDecoderJit [128,128], ReLU, use_jit=True",
+    "head": "actual ActionParameterizationDefault raw logits",
+    "new_inference_parameters": 0
+  },
+  "data": "Reuse exact six original 4096-transition factual reward-free replay files; no new data or oracle targets",
+  "matching": "Same config, source classes, seeds, RNG consumption and masks as stationary_readout.fit_stationary; archive actual initial weights and sampled row/mask hashes for new fits. Old initial/batch equality is code-and-seed reconstruction unless independently archived, not a measured historical hash.",
+  "evaluation": "Frozen final weights; every 42 fork or four sparse noninitial queries; initial-goal cases separate; exact same starts, memory/goal ablations, cyclic command and all competing FIRST; saved-weight replay verification",
+  "gate": "All six new fits must pass every noninitial query; three grid passes alone do not qualify the memory-dependent design. Report every failure with no tuning, rerun or extra fit.",
+  "diagnostics": "Fresh full factual-replay residuals, raw and target ranges, all initial-goal masks and label counts, per-goal success, shortest arrivals, all competing FIRST, compute, immutable source/data/checkpoint hashes",
+  "authorization_boundary": "Local graph and tensor work only. No DMLab execution or installation locally; no native submission. Root reviews results before any native candidate preparation."
+}

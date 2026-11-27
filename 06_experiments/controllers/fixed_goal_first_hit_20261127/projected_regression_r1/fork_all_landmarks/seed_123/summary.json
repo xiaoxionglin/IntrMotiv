@@ -1,0 +1,188 @@
+{
+  "environment": "fork_all_landmarks",
+  "seed": 123,
+  "condition": "projected_posthoc",
+  "updates": 2500,
+  "training_seconds": 20.22422096086666,
+  "parameters": 25091,
+  "action_head_parameters": 387,
+  "enumerated_goal_labels": 4480000,
+  "used_noninitial_goal_labels": 3840000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.08590640872716904
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.012024600058794022
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.0458972342312336
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.0003872300439979881
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.00012136266013840213
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 3.939740781788714e-05
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 3.554348586476408e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 2.277293970109895e-05
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 1.7992850189330056e-05
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 1.3479419976647478e-05
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.0106989975611214e-05
+    }
+  ],
+  "n_nontrivial_pairs": 42,
+  "initially_satisfied_queries": 7,
+  "declared_queries": 49,
+  "first_hit_success": 0.9523809523809523,
+  "worst_pair_success": 0,
+  "all_pair_gate_passed": false,
+  "shortest_success_fraction": 0.8809523809523809,
+  "mean_decisions_nontrivial_queries": 2.857142857142857,
+  "mean_shortest_distance": 2.6666666666666665,
+  "n_competing_comparisons": 210,
+  "competing_first_contrast": 0.319047619047619,
+  "memoryless_competing_first_contrast": 0.35714285714285715,
+  "per_goal": {
+    "0": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.8333333333333334
+    },
+    "1": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.8333333333333334
+    },
+    "2": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "3": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "4": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 0.8333333333333334
+    },
+    "5": {
+      "queries": 6,
+      "success": 0.6666666666666666,
+      "shortest_success": 0.6666666666666666
+    },
+    "6": {
+      "queries": 6,
+      "success": 1.0,
+      "shortest_success": 1.0
+    }
+  },
+  "per_route_success": {
+    "first_hit": 0.9523809523809523,
+    "shuffled_goal": 0.23809523809523808,
+    "continuing_main": 0.35714285714285715,
+    "memoryless": 0.9285714285714286
+  },
+  "initial_parameter_sha256": "87f5aa8a65946808e0b6af79f734263125dde60131789e4e9cc788e562eb7adc",
+  "batch_rows_sha256": "16e382ce3d30e369a77c61799b0498c8ffbe5f1ca2faa1eb39b0f38e8b7292ce",
+  "usable_masks_sha256": "bcee3f675e9df18f4283fee90b2140a4d3fc5affade92ca5f98762345bb7fc49",
+  "actual_batch_calls": 2500,
+  "worst_goal_success": 0.6666666666666666,
+  "maximum_start_query_absolute_calibration_error": 0.02008640215301516,
+  "reference_unprojected": {
+    "first_hit_success": 0.9761904761904762,
+    "shortest_success_fraction": 0.9285714285714286,
+    "competing_first_contrast": 0.3333333333333333,
+    "per_goal": {
+      "0": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 1.0
+      },
+      "1": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 1.0
+      },
+      "2": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 0.8333333333333334
+      },
+      "3": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 0.8333333333333334
+      },
+      "4": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 1.0
+      },
+      "5": {
+        "queries": 6,
+        "success": 1.0,
+        "shortest_success": 1.0
+      },
+      "6": {
+        "queries": 6,
+        "success": 0.8333333333333334,
+        "shortest_success": 0.8333333333333334
+      }
+    },
+    "checkpoint_sha256": "08f973633c56dea0dc53126d57c7732f31342c19860a6c87062a5ed967ebe026",
+    "used_noninitial_goal_labels": 3840000
+  },
+  "historical_initial_match": "reconstructed from code/config/seed, not observed historical hash",
+  "historical_batch_match": "reconstructed RNG consumption/current-goal mask, not observed historical hash",
+  "reconstructed_initial_parameter_sha256": "87f5aa8a65946808e0b6af79f734263125dde60131789e4e9cc788e562eb7adc",
+  "reconstructed_sampling": {
+    "batch_rows_sha256": "16e382ce3d30e369a77c61799b0498c8ffbe5f1ca2faa1eb39b0f38e8b7292ce",
+    "usable_masks_sha256": "bcee3f675e9df18f4283fee90b2140a4d3fc5affade92ca5f98762345bb7fc49"
+  },
+  "reconstruction_matches_new_observed": true,
+  "checkpoint_sha256": "0629fc5695dd62a78dd032f08f18ea586990634cc2a668a47528bd1a7867c00f",
+  "initial_checkpoint_sha256": "35a39928d7a7c20808dd1ba89075340e857ec83a3c37c59a60ad895ec8581c68",
+  "dataset_sha256": "3cdbd1b91b59383924070339a9d3e7b84c432c6e38b8e1ee5dfa61b527b25258",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "own_operator_fresh_residual": {
+    "labels": 24576,
+    "mse": 1.3202068657847121e-05,
+    "maximum_absolute_residual": 0.022464275360107422,
+    "prediction_min": 0.9139761328697205,
+    "prediction_max": 1.0147018432617188,
+    "target_min": 0.9195731282234192,
+    "target_max": 1.0,
+    "predictions_above_one": 1114,
+    "predictions_below_zero": 0
+  }
+}

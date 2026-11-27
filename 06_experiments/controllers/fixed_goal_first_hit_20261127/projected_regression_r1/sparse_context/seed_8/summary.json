@@ -1,0 +1,138 @@
+{
+  "environment": "sparse_context",
+  "seed": 8,
+  "condition": "projected_posthoc",
+  "updates": 2500,
+  "training_seconds": 6.1268551158718765,
+  "parameters": 21635,
+  "action_head_parameters": 387,
+  "enumerated_goal_labels": 1280000,
+  "used_noninitial_goal_labels": 1280000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.17240720987319946
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.0010334865655750036
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.0006528354133479297
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 1.9810784124274505e-06
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 7.499542107325397e-07
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 1.1900557410626789e-06
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 0.00014281766198109835
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 6.056130814613425e-07
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 3.2288362206145393e-08
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 2.0351134821794403e-07
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 3.791215874571208e-08
+    }
+  ],
+  "n_nontrivial_pairs": 4,
+  "initially_satisfied_queries": 0,
+  "declared_queries": 4,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "all_pair_gate_passed": true,
+  "shortest_success_fraction": 1.0,
+  "mean_decisions_nontrivial_queries": 1.0,
+  "mean_shortest_distance": 1.0,
+  "n_competing_comparisons": 4,
+  "competing_first_contrast": 1.0,
+  "memoryless_competing_first_contrast": 0.0,
+  "per_goal": {
+    "4": {
+      "queries": 2,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "5": {
+      "queries": 2,
+      "success": 1.0,
+      "shortest_success": 1.0
+    }
+  },
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.0,
+    "continuing_main": 0.0,
+    "memoryless": 0.25
+  },
+  "initial_parameter_sha256": "77b30c8a09bad26a089a9d21c576ff211a3c6bed097044026dbb70a205050306",
+  "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+  "usable_masks_sha256": "3e5ac4e3f9a3a7864d28e810b3fb9904d208e2f88bf523583c969c8b9467bfd3",
+  "actual_batch_calls": 2500,
+  "worst_goal_success": 1.0,
+  "maximum_start_query_absolute_calibration_error": 0.00023448467254638672,
+  "reference_unprojected": {
+    "first_hit_success": 0.75,
+    "shortest_success_fraction": 0.5,
+    "competing_first_contrast": 0.75,
+    "per_goal": {
+      "4": {
+        "queries": 2,
+        "success": 1.0,
+        "shortest_success": 1.0
+      },
+      "5": {
+        "queries": 2,
+        "success": 0.5,
+        "shortest_success": 0.0
+      }
+    },
+    "checkpoint_sha256": "5dc80315c33ffacfd3512d0d1f6ccf2e38be25c0a32446754b10900f5bbe00d8",
+    "used_noninitial_goal_labels": 1280000
+  },
+  "historical_initial_match": "reconstructed from code/config/seed, not observed historical hash",
+  "historical_batch_match": "reconstructed RNG consumption/current-goal mask, not observed historical hash",
+  "reconstructed_initial_parameter_sha256": "77b30c8a09bad26a089a9d21c576ff211a3c6bed097044026dbb70a205050306",
+  "reconstructed_sampling": {
+    "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+    "usable_masks_sha256": "3e5ac4e3f9a3a7864d28e810b3fb9904d208e2f88bf523583c969c8b9467bfd3"
+  },
+  "reconstruction_matches_new_observed": true,
+  "checkpoint_sha256": "a069c307b137c32a8fcd86d5731ea373acf020a5d88f303e8934a119fc366d1d",
+  "initial_checkpoint_sha256": "08407b0bdf33c2bae8b880af6e09506a17c544dede524fba52a2631549ca100e",
+  "dataset_sha256": "65f74994e4ed0b50adc89dde398e16a133e5fbb182741ed4e277a0af95d27c74",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "own_operator_fresh_residual": {
+    "labels": 8192,
+    "mse": 2.0515176402113866e-06,
+    "maximum_absolute_residual": 0.1048886775970459,
+    "prediction_min": -0.002409607172012329,
+    "prediction_max": 1.0270270109176636,
+    "target_min": 0.0,
+    "target_max": 1.0,
+    "predictions_above_one": 565,
+    "predictions_below_zero": 1008
+  }
+}

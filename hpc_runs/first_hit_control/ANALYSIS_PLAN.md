@@ -20,7 +20,7 @@ Use ordinary allocated Slurm jobs and the existing canonical runfiles builder. A
 `render-slurm` adds reviewable shell artifacts without submitting anything:
 
 ```bash
-python -m hpc_runs.first_hit_control.analysis_plan render-slurm hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json --release-receipt 06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/remote_release_r2_qualification.json --output-directory NEW_DIRECTORY
+python -m hpc_runs.first_hit_control.analysis_plan render-slurm hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json --release-receipt 06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/remote_release_r3_qualification.json --output-directory NEW_DIRECTORY
 ```
 
 The bundle contains the effective protocol, rendered command JSON, source-release record, one sequential collection/support/fit/diagnostics script, four evaluation scripts, and a manifest mapping exact argv and SHA-256 values to every script. The evaluator jobs require `afterok` dependencies on the actual collection/fitting job ID. Create the manifest's remote launch/log directories and upload the bundle before submission; the renderer does neither. Review the completed integration qualification first. The staged runtime remains unchanged and does not need to contain this local renderer.
@@ -32,6 +32,7 @@ After all four evaluations complete, use the model-free analysis adapters:
 ```bash
 python -m hpc_runs.first_hit_control.aggregate_evaluation --shards SOURCE_SHARD_0 SOURCE_SHARD_1 SOURCE_SHARD_2 SOURCE_SHARD_3 --output NEW_AGGREGATE_DIRECTORY
 python -m hpc_runs.first_hit_control.trace_analysis --aggregate NEW_AGGREGATE_DIRECTORY/aggregate.json --output NEW_TRACE_DIRECTORY --field-audit FIELD_REUSE_AUDIT.json --field-npz EXACT_COMMON_PANEL/place_fields.npz
+python -m hpc_runs.first_hit_control.plot_evaluation --aggregate NEW_AGGREGATE_DIRECTORY/aggregate.json --traces NEW_TRACE_DIRECTORY/summary.json --output NEW_FIGURE_DIRECTORY
 ```
 
 The aggregator verifies complete disjoint source coverage, immutable trial and
@@ -52,3 +53,19 @@ descriptor with explicit unmapped positions, not a replacement goal detector.
 Historical field arrays use `[x,y,unit]`; canonical output maps use
 `[unit,y,x]`, with orientation checks in the focused tests. Keep new analysis
 sources separate from the immutable running native release.
+
+The renderer verifies the aggregate/trace bindings, retains all goal identities
+and unknown intervals, and selects physical examples by source/goal indices
+without using outcomes. Inspect the actual completed-data PNGs at the intended
+1000-pixel width; passing synthetic layout checks does not certify those final
+figures. The figure mapping records the scalable font and output/source hashes.
+The separate analysis release can be qualified against saved native probe
+traces, then submitted as one ordinary CPU job with `afterok` dependencies on
+every evaluation shard. It requires no new native rollout.
+
+For fit interpretation, distinguish a minibatch loss against an older target
+from a fresh final-model Bellman residual, value-range validity and executed
+control. Even a small mean fresh residual is not a uniform error bound. At a
+one-step deadline the target is the observed arrival label, so report that
+boundary separately from the bootstrapped horizons. Preserve failed designs;
+new target or output parameterizations require a separately fixed protocol.

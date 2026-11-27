@@ -1,0 +1,6 @@
+# Preserve the exact bytes bound by experiment hashes. Captured source may
+# contain upstream whitespace; CSV uses its writer's CRLF and Matplotlib SVG
+# paths contain legal trailing spaces. Active Python and reports remain linted.
+**/source_snapshot/** -text -whitespace
+*.csv -text whitespace=cr-at-eol
+*.svg -text -whitespace
