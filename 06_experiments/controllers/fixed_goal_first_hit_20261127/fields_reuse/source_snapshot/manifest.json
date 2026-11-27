@@ -1,0 +1,41 @@
+{
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "bytes": 16366,
+      "sha256": "007a1ed1825c61640fd1620cb40ebd97bd7b6c794d511713c03b6d52d7bda815",
+      "snapshot_path": "sources/0000/field_reuse.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/field_reuse.py"
+    },
+    {
+      "bytes": 9712,
+      "sha256": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+      "snapshot_path": "sources/0001/analyze_place_field_manifest.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/analyze_place_field_manifest.py"
+    },
+    {
+      "bytes": 50882,
+      "sha256": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+      "snapshot_path": "sources/0002/spatial_contract.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/intrmotiv_study/spatial_contract.py"
+    },
+    {
+      "bytes": 46143,
+      "sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+      "snapshot_path": "sources/0003/hrl_controllable_graph_cdf9ffe.py",
+      "source_path": "/tmp/first_hit_field_preview/hrl_controllable_graph_cdf9ffe.py"
+    },
+    {
+      "bytes": 4523,
+      "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0004/provenance.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py"
+    },
+    {
+      "bytes": 1520,
+      "sha256": "1f6079e3bd056908f364098e34039ae11ca828c74ecf6b5d0fbc81736825279f",
+      "snapshot_path": "sources/0005/test_first_hit_field_reuse.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_field_reuse.py"
+    }
+  ]
+}

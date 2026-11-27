@@ -1,0 +1,128 @@
+{
+  "schema": "intrmotiv/saved-field-reuse-results/v1",
+  "field_summary": {
+    "units": 16,
+    "active_units": 16,
+    "silent_units": 0,
+    "field_eligible_units": 16,
+    "mono_field_units": 0,
+    "mono_fraction_all_units": 0.0,
+    "mono_fraction_eligible_units": 0.0,
+    "observation_samples": 10001,
+    "visited_bins": 242,
+    "total_bins": 361,
+    "active_only_map_cosine": 0.025270255282521248,
+    "unique_active_peak_bins": 16,
+    "active_peak_bin_entropy": 1.0,
+    "mean_pairwise_peak_distance_bins": 9.964805775750646,
+    "mean_amplitude_weighted_spatial_score": 0.09487377852201462,
+    "saved_field_criteria": {
+      "min_active_observations": 20,
+      "min_active_bins": 3,
+      "thresholds": [
+        0.30000001192092896,
+        0.5,
+        0.699999988079071
+      ],
+      "mono_mass_fraction": 0.800000011920929
+    }
+  },
+  "stored_graph_summary": {
+    "graph_reliable_edge_count": 15,
+    "graph_reliable_edge_density": 0.0625,
+    "graph_largest_weak_component_size": 10,
+    "graph_largest_strong_component_size": 1,
+    "graph_reachable_pair_fraction": 0.06666667014360428,
+    "graph_mean_reachable_shortest_path_hops": 1.0625,
+    "graph_reliable_global_efficiency": 0.06458333134651184,
+    "graph_directed_reciprocity": 0.0,
+    "complete_entries": 256,
+    "off_diagonal_entries": 240,
+    "maximum_stored_success_mass": 1061.5028076171875,
+    "maximum_stored_attempt_mass": 3156.194091796875,
+    "maximum_stored_elapsed_decisions": 53.0,
+    "prospective_evidence_available": false,
+    "interpretation": "Frozen pretrained policy-graph buffers, not new first-hit reachability or current executed success",
+    "canonical_analysis_thresholds": {
+      "success_mass": 0.5,
+      "smoothed_success_ratio": 0.5
+    },
+    "semantics": {
+      "control_attempts": "Exponentially decayed mass of completed directed option attempts",
+      "control_edge_confidence": "Exponentially decayed successful-option mass; values greater than one are expected; not a probability",
+      "control_tctrl": "Success-mass-weighted mean option completion time in decisions; zero means no stored successful timing",
+      "stored_smoothed_success_ratio": "Canonical (success_mass+1)/(attempt_mass+2); descriptive stored estimate, not an independently validated control probability"
+    }
+  },
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/field_reuse.py",
+        "snapshot_path": "sources/0000/field_reuse.py",
+        "expected_sha256": "007a1ed1825c61640fd1620cb40ebd97bd7b6c794d511713c03b6d52d7bda815",
+        "snapshot_sha256": "007a1ed1825c61640fd1620cb40ebd97bd7b6c794d511713c03b6d52d7bda815",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "007a1ed1825c61640fd1620cb40ebd97bd7b6c794d511713c03b6d52d7bda815",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/analyze_place_field_manifest.py",
+        "snapshot_path": "sources/0001/analyze_place_field_manifest.py",
+        "expected_sha256": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+        "snapshot_sha256": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/intrmotiv_study/spatial_contract.py",
+        "snapshot_path": "sources/0002/spatial_contract.py",
+        "expected_sha256": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+        "snapshot_sha256": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/tmp/first_hit_field_preview/hrl_controllable_graph_cdf9ffe.py",
+        "snapshot_path": "sources/0003/hrl_controllable_graph_cdf9ffe.py",
+        "expected_sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+        "snapshot_sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0004/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_field_reuse.py",
+        "snapshot_path": "sources/0005/test_first_hit_field_reuse.py",
+        "expected_sha256": "1f6079e3bd056908f364098e34039ae11ca828c74ecf6b5d0fbc81736825279f",
+        "snapshot_sha256": "1f6079e3bd056908f364098e34039ae11ca828c74ecf6b5d0fbc81736825279f",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "1f6079e3bd056908f364098e34039ae11ca828c74ecf6b5d0fbc81736825279f",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "protocol_sha256": "57e5ffdfe5422a1da4c2749e02ed9a6e7b3ff75af891b9c0541d8bc49be75e3a",
+  "outputs": {},
+  "visual_qa": "Passed: see visual_qa.json for per-export hashes and manual inspection receipt",
+  "visual_qa_receipt_sha256": "25d16e5b717b09523122c5d9094d24d75ffc93d09137cb57ae9345a33771e57d"
+}

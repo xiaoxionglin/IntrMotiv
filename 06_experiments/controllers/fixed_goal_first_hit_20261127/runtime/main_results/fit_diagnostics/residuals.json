@@ -1,0 +1,1828 @@
+{
+  "schema": "intrmotiv/final-first-hit-residual/v1",
+  "panels": {
+    "train": [
+      {
+        "deadlines": [
+          1,
+          1
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.743952214717865,
+          "prediction_min": 0.4923064112663269,
+          "prediction_max": 2.786017656326294,
+          "outside_unit_interval": 0.1343994140625
+        },
+        "immediate_hit": {
+          "labels": 481,
+          "mse": 0.055544380098581314,
+          "prediction_min": 0.5620177388191223,
+          "prediction_max": 1.7725021839141846,
+          "outside_unit_interval": 0.06444906444906445
+        },
+        "not_immediate_hit": {
+          "labels": 15903,
+          "mse": 0.7647737264633179,
+          "prediction_min": 0.4923064112663269,
+          "prediction_max": 2.786017656326294,
+          "outside_unit_interval": 0.13651512293277998
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.5405024290084839,
+            "prediction_min": 0.5025213360786438,
+            "prediction_max": 1.378212571144104,
+            "outside_unit_interval": 0.033203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6789737343788147,
+            "prediction_min": 0.5283189415931702,
+            "prediction_max": 1.7056405544281006,
+            "outside_unit_interval": 0.0791015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6607764959335327,
+            "prediction_min": 0.5545099973678589,
+            "prediction_max": 1.5081032514572144,
+            "outside_unit_interval": 0.0517578125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6694498062133789,
+            "prediction_min": 0.5256662368774414,
+            "prediction_max": 1.6962798833847046,
+            "outside_unit_interval": 0.068359375
+          },
+          {
+            "labels": 1024,
+            "mse": 1.7933316230773926,
+            "prediction_min": 0.8119555711746216,
+            "prediction_max": 2.786017656326294,
+            "outside_unit_interval": 0.96875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6218850612640381,
+            "prediction_min": 0.4923064112663269,
+            "prediction_max": 1.6449995040893555,
+            "outside_unit_interval": 0.052734375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6910547018051147,
+            "prediction_min": 0.5121759176254272,
+            "prediction_max": 1.6858878135681152,
+            "outside_unit_interval": 0.083984375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6867599487304688,
+            "prediction_min": 0.523563802242279,
+            "prediction_max": 1.728913426399231,
+            "outside_unit_interval": 0.0791015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6994513869285583,
+            "prediction_min": 0.541962742805481,
+            "prediction_max": 1.6880555152893066,
+            "outside_unit_interval": 0.08203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6921314001083374,
+            "prediction_min": 0.5242601633071899,
+            "prediction_max": 1.70206880569458,
+            "outside_unit_interval": 0.09375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7321726679801941,
+            "prediction_min": 0.5278838276863098,
+            "prediction_max": 1.8082787990570068,
+            "outside_unit_interval": 0.1123046875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6126325130462646,
+            "prediction_min": 0.49895036220550537,
+            "prediction_max": 1.5515882968902588,
+            "outside_unit_interval": 0.0556640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7256779670715332,
+            "prediction_min": 0.5230726003646851,
+            "prediction_max": 1.8138186931610107,
+            "outside_unit_interval": 0.111328125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6676427125930786,
+            "prediction_min": 0.5342404842376709,
+            "prediction_max": 1.6416608095169067,
+            "outside_unit_interval": 0.06640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7528468370437622,
+            "prediction_min": 0.5405962467193604,
+            "prediction_max": 1.7725021839141846,
+            "outside_unit_interval": 0.125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6779465079307556,
+            "prediction_min": 0.506828248500824,
+            "prediction_max": 1.7368643283843994,
+            "outside_unit_interval": 0.0869140625
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 816,
+            "mse": 0.773780345916748,
+            "prediction_min": 0.5586742162704468,
+            "prediction_max": 2.58140230178833,
+            "outside_unit_interval": 0.13480392156862744
+          },
+          {
+            "labels": 992,
+            "mse": 0.7550644278526306,
+            "prediction_min": 0.5315038561820984,
+            "prediction_max": 2.328550338745117,
+            "outside_unit_interval": 0.17338709677419356
+          },
+          {
+            "labels": 784,
+            "mse": 0.7447271347045898,
+            "prediction_min": 0.5544235706329346,
+            "prediction_max": 2.49164080619812,
+            "outside_unit_interval": 0.12372448979591837
+          },
+          {
+            "labels": 13040,
+            "mse": 0.7390092015266418,
+            "prediction_min": 0.4923064112663269,
+            "prediction_max": 2.4263522624969482,
+            "outside_unit_interval": 0.13067484662576687
+          },
+          {
+            "labels": 752,
+            "mse": 0.7818329334259033,
+            "prediction_min": 0.5813853740692139,
+            "prediction_max": 2.786017656326294,
+            "outside_unit_interval": 0.15824468085106383
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          2,
+          4
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.004397979471832514,
+          "prediction_min": 0.5019798874855042,
+          "prediction_max": 3.129246234893799,
+          "outside_unit_interval": 0.1405029296875
+        },
+        "immediate_hit": {
+          "labels": 450,
+          "mse": 0.057116128504276276,
+          "prediction_min": 0.5341928601264954,
+          "prediction_max": 1.9059849977493286,
+          "outside_unit_interval": 0.06888888888888889
+        },
+        "not_immediate_hit": {
+          "labels": 15934,
+          "mse": 0.002909140195697546,
+          "prediction_min": 0.5019798874855042,
+          "prediction_max": 3.129246234893799,
+          "outside_unit_interval": 0.14252541734655455
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.009353097528219223,
+            "prediction_min": 0.5019798874855042,
+            "prediction_max": 1.5388671159744263,
+            "outside_unit_interval": 0.04296875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003058033064007759,
+            "prediction_min": 0.5911186933517456,
+            "prediction_max": 2.0378973484039307,
+            "outside_unit_interval": 0.0830078125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0032616532407701015,
+            "prediction_min": 0.5404415130615234,
+            "prediction_max": 1.8383268117904663,
+            "outside_unit_interval": 0.060546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0031095196027308702,
+            "prediction_min": 0.5713186860084534,
+            "prediction_max": 1.9805585145950317,
+            "outside_unit_interval": 0.076171875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.008896518498659134,
+            "prediction_min": 0.8999969363212585,
+            "prediction_max": 3.129246234893799,
+            "outside_unit_interval": 0.95703125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004129868932068348,
+            "prediction_min": 0.5581664443016052,
+            "prediction_max": 1.9988188743591309,
+            "outside_unit_interval": 0.056640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003263002261519432,
+            "prediction_min": 0.5902228951454163,
+            "prediction_max": 2.0677947998046875,
+            "outside_unit_interval": 0.0908203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003395762061700225,
+            "prediction_min": 0.60065096616745,
+            "prediction_max": 2.063023090362549,
+            "outside_unit_interval": 0.08203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0034357248805463314,
+            "prediction_min": 0.6051021814346313,
+            "prediction_max": 2.0420427322387695,
+            "outside_unit_interval": 0.0966796875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.005856208503246307,
+            "prediction_min": 0.5875325202941895,
+            "prediction_max": 1.9575049877166748,
+            "outside_unit_interval": 0.09765625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003747725859284401,
+            "prediction_min": 0.5887848138809204,
+            "prediction_max": 2.2702813148498535,
+            "outside_unit_interval": 0.119140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0052294000051915646,
+            "prediction_min": 0.5475516319274902,
+            "prediction_max": 1.8199247121810913,
+            "outside_unit_interval": 0.0595703125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00336423865519464,
+            "prediction_min": 0.5947437882423401,
+            "prediction_max": 2.238905429840088,
+            "outside_unit_interval": 0.1142578125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0033176273573189974,
+            "prediction_min": 0.5684845447540283,
+            "prediction_max": 2.008662462234497,
+            "outside_unit_interval": 0.0712890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0030776159837841988,
+            "prediction_min": 0.6048317551612854,
+            "prediction_max": 2.188366651535034,
+            "outside_unit_interval": 0.1455078125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0038716760464012623,
+            "prediction_min": 0.5721591711044312,
+            "prediction_max": 2.13069224357605,
+            "outside_unit_interval": 0.0947265625
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 800,
+            "mse": 0.003676834749057889,
+            "prediction_min": 0.5341928601264954,
+            "prediction_max": 2.437269687652588,
+            "outside_unit_interval": 0.12125
+          },
+          {
+            "labels": 1040,
+            "mse": 0.0024080516304820776,
+            "prediction_min": 0.6016883850097656,
+            "prediction_max": 2.1573565006256104,
+            "outside_unit_interval": 0.1201923076923077
+          },
+          {
+            "labels": 688,
+            "mse": 0.002996117575094104,
+            "prediction_min": 0.5665812492370605,
+            "prediction_max": 1.9783120155334473,
+            "outside_unit_interval": 0.12354651162790697
+          },
+          {
+            "labels": 13104,
+            "mse": 0.004743898753076792,
+            "prediction_min": 0.5019798874855042,
+            "prediction_max": 3.129246234893799,
+            "outside_unit_interval": 0.14293345543345543
+          },
+          {
+            "labels": 752,
+            "mse": 0.003171919845044613,
+            "prediction_min": 0.542965292930603,
+            "prediction_max": 1.981574296951294,
+            "outside_unit_interval": 0.1622340425531915
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          5,
+          16
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.003338939044624567,
+          "prediction_min": 0.5490562319755554,
+          "prediction_max": 2.7422711849212646,
+          "outside_unit_interval": 0.17138671875
+        },
+        "immediate_hit": {
+          "labels": 490,
+          "mse": 0.04327317699790001,
+          "prediction_min": 0.5783733129501343,
+          "prediction_max": 1.7196497917175293,
+          "outside_unit_interval": 0.08979591836734693
+        },
+        "not_immediate_hit": {
+          "labels": 15894,
+          "mse": 0.002107796724885702,
+          "prediction_min": 0.5490562319755554,
+          "prediction_max": 2.7422711849212646,
+          "outside_unit_interval": 0.17390210142192022
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.0072018904611468315,
+            "prediction_min": 0.5490562319755554,
+            "prediction_max": 1.3573124408721924,
+            "outside_unit_interval": 0.0419921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00263748480938375,
+            "prediction_min": 0.6307170391082764,
+            "prediction_max": 1.5980740785598755,
+            "outside_unit_interval": 0.115234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0020140656270086765,
+            "prediction_min": 0.6076083779335022,
+            "prediction_max": 1.4760044813156128,
+            "outside_unit_interval": 0.080078125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0028818289283663034,
+            "prediction_min": 0.6189798712730408,
+            "prediction_max": 1.5908395051956177,
+            "outside_unit_interval": 0.095703125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.006713357754051685,
+            "prediction_min": 0.891265332698822,
+            "prediction_max": 2.7422711849212646,
+            "outside_unit_interval": 0.9912109375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003251858754083514,
+            "prediction_min": 0.598234236240387,
+            "prediction_max": 1.5360742807388306,
+            "outside_unit_interval": 0.0751953125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002602251712232828,
+            "prediction_min": 0.6363911032676697,
+            "prediction_max": 1.6174606084823608,
+            "outside_unit_interval": 0.1201171875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0025894788559526205,
+            "prediction_min": 0.6341820955276489,
+            "prediction_max": 1.5865085124969482,
+            "outside_unit_interval": 0.119140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002131772693246603,
+            "prediction_min": 0.6398316025733948,
+            "prediction_max": 1.6053446531295776,
+            "outside_unit_interval": 0.1357421875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00319875031709671,
+            "prediction_min": 0.630006730556488,
+            "prediction_max": 1.6683785915374756,
+            "outside_unit_interval": 0.1416015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002966540865600109,
+            "prediction_min": 0.6278352737426758,
+            "prediction_max": 1.7876719236373901,
+            "outside_unit_interval": 0.1591796875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003648989601060748,
+            "prediction_min": 0.5809231400489807,
+            "prediction_max": 1.5232571363449097,
+            "outside_unit_interval": 0.0751953125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002705599647015333,
+            "prediction_min": 0.6400973200798035,
+            "prediction_max": 1.7886091470718384,
+            "outside_unit_interval": 0.1640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00215478939935565,
+            "prediction_min": 0.611253559589386,
+            "prediction_max": 1.5835884809494019,
+            "outside_unit_interval": 0.0908203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0029771544504910707,
+            "prediction_min": 0.6434453725814819,
+            "prediction_max": 1.7196497917175293,
+            "outside_unit_interval": 0.2021484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003747210605069995,
+            "prediction_min": 0.6138112545013428,
+            "prediction_max": 1.6990047693252563,
+            "outside_unit_interval": 0.134765625
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 1008,
+            "mse": 0.0036383685655891895,
+            "prediction_min": 0.6149170398712158,
+            "prediction_max": 2.2675609588623047,
+            "outside_unit_interval": 0.16468253968253968
+          },
+          {
+            "labels": 944,
+            "mse": 0.003362279385328293,
+            "prediction_min": 0.5783733129501343,
+            "prediction_max": 1.7929002046585083,
+            "outside_unit_interval": 0.15466101694915255
+          },
+          {
+            "labels": 640,
+            "mse": 0.0035640939604490995,
+            "prediction_min": 0.5864681601524353,
+            "prediction_max": 2.217420816421509,
+            "outside_unit_interval": 0.1296875
+          },
+          {
+            "labels": 13120,
+            "mse": 0.0033352705650031567,
+            "prediction_min": 0.5490562319755554,
+            "prediction_max": 2.7422711849212646,
+            "outside_unit_interval": 0.17583841463414634
+          },
+          {
+            "labels": 672,
+            "mse": 0.0027141908649355173,
+            "prediction_min": 0.5720872282981873,
+            "prediction_max": 2.2070083618164062,
+            "outside_unit_interval": 0.15773809523809523
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          17,
+          64
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.0043114894069731236,
+          "prediction_min": 0.5799951553344727,
+          "prediction_max": 3.336853504180908,
+          "outside_unit_interval": 0.36767578125
+        },
+        "immediate_hit": {
+          "labels": 486,
+          "mse": 0.03274717926979065,
+          "prediction_min": 0.6201810240745544,
+          "prediction_max": 2.002472162246704,
+          "outside_unit_interval": 0.26337448559670784
+        },
+        "not_immediate_hit": {
+          "labels": 15898,
+          "mse": 0.003442213637754321,
+          "prediction_min": 0.5799951553344727,
+          "prediction_max": 3.336853504180908,
+          "outside_unit_interval": 0.37086425965530256
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.006048333365470171,
+            "prediction_min": 0.5799951553344727,
+            "prediction_max": 1.8334330320358276,
+            "outside_unit_interval": 0.115234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0035137010272592306,
+            "prediction_min": 0.6581987142562866,
+            "prediction_max": 1.9483777284622192,
+            "outside_unit_interval": 0.3310546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002218616893514991,
+            "prediction_min": 0.6376416087150574,
+            "prediction_max": 1.7191165685653687,
+            "outside_unit_interval": 0.2294921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003266579005867243,
+            "prediction_min": 0.6551605463027954,
+            "prediction_max": 1.9141037464141846,
+            "outside_unit_interval": 0.2890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.012000862509012222,
+            "prediction_min": 0.9332181811332703,
+            "prediction_max": 3.336853504180908,
+            "outside_unit_interval": 0.998046875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003815966658294201,
+            "prediction_min": 0.6258293390274048,
+            "prediction_max": 1.9184401035308838,
+            "outside_unit_interval": 0.2275390625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003783123567700386,
+            "prediction_min": 0.6701428294181824,
+            "prediction_max": 1.961972713470459,
+            "outside_unit_interval": 0.3525390625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003581542056053877,
+            "prediction_min": 0.6701355576515198,
+            "prediction_max": 1.9680678844451904,
+            "outside_unit_interval": 0.33203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0039410097524523735,
+            "prediction_min": 0.6631416082382202,
+            "prediction_max": 1.9694384336471558,
+            "outside_unit_interval": 0.3701171875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0036670055706053972,
+            "prediction_min": 0.6605222225189209,
+            "prediction_max": 2.0361812114715576,
+            "outside_unit_interval": 0.3701171875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004123453050851822,
+            "prediction_min": 0.6974866986274719,
+            "prediction_max": 2.152329921722412,
+            "outside_unit_interval": 0.4638671875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0036116314586251974,
+            "prediction_min": 0.6173479557037354,
+            "prediction_max": 1.9504739046096802,
+            "outside_unit_interval": 0.2021484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004348399583250284,
+            "prediction_min": 0.7055750489234924,
+            "prediction_max": 2.147211790084839,
+            "outside_unit_interval": 0.4716796875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0029280201997607946,
+            "prediction_min": 0.643099844455719,
+            "prediction_max": 1.9019570350646973,
+            "outside_unit_interval": 0.2822265625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0038496656343340874,
+            "prediction_min": 0.70313560962677,
+            "prediction_max": 2.0678749084472656,
+            "outside_unit_interval": 0.4990234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00428592087700963,
+            "prediction_min": 0.6529957056045532,
+            "prediction_max": 2.0278656482696533,
+            "outside_unit_interval": 0.3486328125
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 608,
+            "mse": 0.0030250796116888523,
+            "prediction_min": 0.6513463258743286,
+            "prediction_max": 3.336853504180908,
+            "outside_unit_interval": 0.4144736842105263
+          },
+          {
+            "labels": 1056,
+            "mse": 0.0024633435532450676,
+            "prediction_min": 0.5960522890090942,
+            "prediction_max": 2.6515960693359375,
+            "outside_unit_interval": 0.2689393939393939
+          },
+          {
+            "labels": 800,
+            "mse": 0.003135916544124484,
+            "prediction_min": 0.6265150904655457,
+            "prediction_max": 3.1499226093292236,
+            "outside_unit_interval": 0.3875
+          },
+          {
+            "labels": 13168,
+            "mse": 0.004514443688094616,
+            "prediction_min": 0.6063821315765381,
+            "prediction_max": 3.2802681922912598,
+            "outside_unit_interval": 0.37773390036452004
+          },
+          {
+            "labels": 752,
+            "mse": 0.005643588490784168,
+            "prediction_min": 0.5799951553344727,
+            "prediction_max": 2.609304666519165,
+            "outside_unit_interval": 0.2712765957446808
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          65,
+          256
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.0177919901907444,
+          "prediction_min": 0.6730481386184692,
+          "prediction_max": 5.921233177185059,
+          "outside_unit_interval": 0.9002685546875
+        },
+        "immediate_hit": {
+          "labels": 497,
+          "mse": 0.14201053977012634,
+          "prediction_min": 0.7736685276031494,
+          "prediction_max": 2.5425963401794434,
+          "outside_unit_interval": 0.8229376257545271
+        },
+        "not_immediate_hit": {
+          "labels": 15887,
+          "mse": 0.013906005769968033,
+          "prediction_min": 0.6730481386184692,
+          "prediction_max": 5.921233177185059,
+          "outside_unit_interval": 0.9026877321080128
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.011621769517660141,
+            "prediction_min": 0.6730481386184692,
+            "prediction_max": 2.4784975051879883,
+            "outside_unit_interval": 0.6669921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01594039611518383,
+            "prediction_min": 0.7850441932678223,
+            "prediction_max": 3.139431953430176,
+            "outside_unit_interval": 0.9140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.013547899201512337,
+            "prediction_min": 0.7128599882125854,
+            "prediction_max": 2.5425963401794434,
+            "outside_unit_interval": 0.86328125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0108001958578825,
+            "prediction_min": 0.7696918845176697,
+            "prediction_max": 3.0069878101348877,
+            "outside_unit_interval": 0.8935546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.048251923173666,
+            "prediction_min": 1.256379246711731,
+            "prediction_max": 5.921233177185059,
+            "outside_unit_interval": 1.0
+          },
+          {
+            "labels": 1024,
+            "mse": 0.014366257935762405,
+            "prediction_min": 0.7388623952865601,
+            "prediction_max": 3.107600688934326,
+            "outside_unit_interval": 0.8583984375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.015077723190188408,
+            "prediction_min": 0.7890796661376953,
+            "prediction_max": 3.318028450012207,
+            "outside_unit_interval": 0.927734375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.014411386102437973,
+            "prediction_min": 0.7946571111679077,
+            "prediction_max": 3.226257562637329,
+            "outside_unit_interval": 0.9189453125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.015324695967137814,
+            "prediction_min": 0.7937954664230347,
+            "prediction_max": 3.158071994781494,
+            "outside_unit_interval": 0.9306640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01832140050828457,
+            "prediction_min": 0.8231969475746155,
+            "prediction_max": 3.3246960639953613,
+            "outside_unit_interval": 0.9248046875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.021988162770867348,
+            "prediction_min": 0.8529313802719116,
+            "prediction_max": 3.616734504699707,
+            "outside_unit_interval": 0.9638671875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.014424560591578484,
+            "prediction_min": 0.7181739807128906,
+            "prediction_max": 3.0468852519989014,
+            "outside_unit_interval": 0.8134765625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.021745994687080383,
+            "prediction_min": 0.8505065441131592,
+            "prediction_max": 3.5409412384033203,
+            "outside_unit_interval": 0.9599609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.014470853842794895,
+            "prediction_min": 0.7599050998687744,
+            "prediction_max": 2.948774814605713,
+            "outside_unit_interval": 0.89453125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.017385149374604225,
+            "prediction_min": 0.863373339176178,
+            "prediction_max": 3.6079444885253906,
+            "outside_unit_interval": 0.966796875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01699347048997879,
+            "prediction_min": 0.801384687423706,
+            "prediction_max": 3.44610857963562,
+            "outside_unit_interval": 0.9072265625
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 688,
+            "mse": 0.03686533868312836,
+            "prediction_min": 0.7521048188209534,
+            "prediction_max": 5.480103969573975,
+            "outside_unit_interval": 0.9302325581395349
+          },
+          {
+            "labels": 992,
+            "mse": 0.010704605840146542,
+            "prediction_min": 0.817224383354187,
+            "prediction_max": 5.188891887664795,
+            "outside_unit_interval": 0.8991935483870968
+          },
+          {
+            "labels": 800,
+            "mse": 0.006832214538007975,
+            "prediction_min": 0.7316288948059082,
+            "prediction_max": 4.515427112579346,
+            "outside_unit_interval": 0.90125
+          },
+          {
+            "labels": 13168,
+            "mse": 0.01815979927778244,
+            "prediction_min": 0.6730481386184692,
+            "prediction_max": 5.921233177185059,
+            "outside_unit_interval": 0.8959599027946537
+          },
+          {
+            "labels": 736,
+            "mse": 0.01484733261168003,
+            "prediction_min": 0.8579957485198975,
+            "prediction_max": 4.7460432052612305,
+            "outside_unit_interval": 0.9497282608695652
+          }
+        ]
+      }
+    ],
+    "holdout": [
+      {
+        "deadlines": [
+          1,
+          1
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.7254878878593445,
+          "prediction_min": 0.49673187732696533,
+          "prediction_max": 2.8858275413513184,
+          "outside_unit_interval": 0.1141357421875
+        },
+        "immediate_hit": {
+          "labels": 485,
+          "mse": 0.05462008714675903,
+          "prediction_min": 0.49673187732696533,
+          "prediction_max": 1.4124958515167236,
+          "outside_unit_interval": 0.04742268041237113
+        },
+        "not_immediate_hit": {
+          "labels": 15899,
+          "mse": 0.7459527254104614,
+          "prediction_min": 0.518243134021759,
+          "prediction_max": 2.8858275413513184,
+          "outside_unit_interval": 0.11617082835398453
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.5180131196975708,
+            "prediction_min": 0.49673187732696533,
+            "prediction_max": 1.3334802389144897,
+            "outside_unit_interval": 0.0244140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6736482977867126,
+            "prediction_min": 0.5698521733283997,
+            "prediction_max": 1.8003630638122559,
+            "outside_unit_interval": 0.060546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6554457545280457,
+            "prediction_min": 0.5599638223648071,
+            "prediction_max": 1.4225082397460938,
+            "outside_unit_interval": 0.0439453125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6612606644630432,
+            "prediction_min": 0.5739109516143799,
+            "prediction_max": 1.7559456825256348,
+            "outside_unit_interval": 0.0576171875
+          },
+          {
+            "labels": 1024,
+            "mse": 1.7091094255447388,
+            "prediction_min": 0.8473238945007324,
+            "prediction_max": 2.8858275413513184,
+            "outside_unit_interval": 0.962890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6115025281906128,
+            "prediction_min": 0.5499697327613831,
+            "prediction_max": 1.737429141998291,
+            "outside_unit_interval": 0.0419921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6806705594062805,
+            "prediction_min": 0.5786484479904175,
+            "prediction_max": 1.7916131019592285,
+            "outside_unit_interval": 0.0625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6694596409797668,
+            "prediction_min": 0.5731076598167419,
+            "prediction_max": 1.7779393196105957,
+            "outside_unit_interval": 0.060546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6902210712432861,
+            "prediction_min": 0.5803048610687256,
+            "prediction_max": 1.7374095916748047,
+            "outside_unit_interval": 0.0634765625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6761138439178467,
+            "prediction_min": 0.5820805430412292,
+            "prediction_max": 1.5763158798217773,
+            "outside_unit_interval": 0.0595703125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7132037281990051,
+            "prediction_min": 0.593845546245575,
+            "prediction_max": 2.008361339569092,
+            "outside_unit_interval": 0.0791015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.5924400687217712,
+            "prediction_min": 0.5438547134399414,
+            "prediction_max": 1.4852018356323242,
+            "outside_unit_interval": 0.0361328125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7168589234352112,
+            "prediction_min": 0.6038068532943726,
+            "prediction_max": 1.9848331212997437,
+            "outside_unit_interval": 0.0771484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6549814343452454,
+            "prediction_min": 0.5721376538276672,
+            "prediction_max": 1.6565799713134766,
+            "outside_unit_interval": 0.0556640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.7310292720794678,
+            "prediction_min": 0.5973373055458069,
+            "prediction_max": 1.8634345531463623,
+            "outside_unit_interval": 0.0849609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.6538475155830383,
+            "prediction_min": 0.5665456652641296,
+            "prediction_max": 1.7828912734985352,
+            "outside_unit_interval": 0.0556640625
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 832,
+            "mse": 0.742324709892273,
+            "prediction_min": 0.5248082876205444,
+            "prediction_max": 2.7095398902893066,
+            "outside_unit_interval": 0.14423076923076922
+          },
+          {
+            "labels": 1072,
+            "mse": 0.7538259625434875,
+            "prediction_min": 0.6100136041641235,
+            "prediction_max": 2.218416929244995,
+            "outside_unit_interval": 0.15764925373134328
+          },
+          {
+            "labels": 864,
+            "mse": 0.7233879566192627,
+            "prediction_min": 0.49673187732696533,
+            "prediction_max": 1.931519627571106,
+            "outside_unit_interval": 0.12731481481481483
+          },
+          {
+            "labels": 12816,
+            "mse": 0.7255208492279053,
+            "prediction_min": 0.518243134021759,
+            "prediction_max": 2.8858275413513184,
+            "outside_unit_interval": 0.11040886392009988
+          },
+          {
+            "labels": 800,
+            "mse": 0.6717437505722046,
+            "prediction_min": 0.5765862464904785,
+            "prediction_max": 1.736063838005066,
+            "outside_unit_interval": 0.07
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          2,
+          4
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.00433939415961504,
+          "prediction_min": 0.47268354892730713,
+          "prediction_max": 2.2523601055145264,
+          "outside_unit_interval": 0.1070556640625
+        },
+        "immediate_hit": {
+          "labels": 506,
+          "mse": 0.05475443974137306,
+          "prediction_min": 0.5769568085670471,
+          "prediction_max": 1.5547980070114136,
+          "outside_unit_interval": 0.043478260869565216
+        },
+        "not_immediate_hit": {
+          "labels": 15878,
+          "mse": 0.0027327677235007286,
+          "prediction_min": 0.47268354892730713,
+          "prediction_max": 2.2523601055145264,
+          "outside_unit_interval": 0.10908174833102406
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.010575376451015472,
+            "prediction_min": 0.47268354892730713,
+            "prediction_max": 1.4206382036209106,
+            "outside_unit_interval": 0.015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004047163296490908,
+            "prediction_min": 0.5504077076911926,
+            "prediction_max": 1.5434422492980957,
+            "outside_unit_interval": 0.0478515625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0030217296443879604,
+            "prediction_min": 0.5325283408164978,
+            "prediction_max": 1.4797422885894775,
+            "outside_unit_interval": 0.03515625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00326252868399024,
+            "prediction_min": 0.5417882204055786,
+            "prediction_max": 1.5587414503097534,
+            "outside_unit_interval": 0.04296875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.007958430796861649,
+            "prediction_min": 0.8778396844863892,
+            "prediction_max": 2.2523601055145264,
+            "outside_unit_interval": 0.9775390625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004223543219268322,
+            "prediction_min": 0.5464628338813782,
+            "prediction_max": 1.5510673522949219,
+            "outside_unit_interval": 0.0283203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003484993940219283,
+            "prediction_min": 0.5757609605789185,
+            "prediction_max": 1.5479447841644287,
+            "outside_unit_interval": 0.0546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003987163305282593,
+            "prediction_min": 0.5680221319198608,
+            "prediction_max": 1.5547980070114136,
+            "outside_unit_interval": 0.0478515625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0029706021305173635,
+            "prediction_min": 0.5613093376159668,
+            "prediction_max": 1.5610623359680176,
+            "outside_unit_interval": 0.0546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0033178909216076136,
+            "prediction_min": 0.5764227509498596,
+            "prediction_max": 1.5158206224441528,
+            "outside_unit_interval": 0.052734375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0036246536765247583,
+            "prediction_min": 0.6058536767959595,
+            "prediction_max": 1.5670832395553589,
+            "outside_unit_interval": 0.07421875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004695084877312183,
+            "prediction_min": 0.5031265020370483,
+            "prediction_max": 1.4797676801681519,
+            "outside_unit_interval": 0.0234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0036853894125670195,
+            "prediction_min": 0.6087933778762817,
+            "prediction_max": 1.567530870437622,
+            "outside_unit_interval": 0.0771484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003334409324452281,
+            "prediction_min": 0.5345255136489868,
+            "prediction_max": 1.5431495904922485,
+            "outside_unit_interval": 0.041015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0031294331420212984,
+            "prediction_min": 0.6106228232383728,
+            "prediction_max": 1.5558611154556274,
+            "outside_unit_interval": 0.0908203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004111911170184612,
+            "prediction_min": 0.5553481578826904,
+            "prediction_max": 1.5132607221603394,
+            "outside_unit_interval": 0.048828125
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 688,
+            "mse": 0.006625967100262642,
+            "prediction_min": 0.5309990644454956,
+            "prediction_max": 1.8702397346496582,
+            "outside_unit_interval": 0.13662790697674418
+          },
+          {
+            "labels": 912,
+            "mse": 0.0036559172440320253,
+            "prediction_min": 0.5782979726791382,
+            "prediction_max": 1.9823001623153687,
+            "outside_unit_interval": 0.11951754385964912
+          },
+          {
+            "labels": 736,
+            "mse": 0.0038129370659589767,
+            "prediction_min": 0.5277361273765564,
+            "prediction_max": 1.9444892406463623,
+            "outside_unit_interval": 0.07880434782608696
+          },
+          {
+            "labels": 13248,
+            "mse": 0.004364183638244867,
+            "prediction_min": 0.5031909942626953,
+            "prediction_max": 2.2523601055145264,
+            "outside_unit_interval": 0.10711050724637682
+          },
+          {
+            "labels": 800,
+            "mse": 0.003225926775485277,
+            "prediction_min": 0.47268354892730713,
+            "prediction_max": 1.877313494682312,
+            "outside_unit_interval": 0.0925
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          5,
+          16
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.0042425463907420635,
+          "prediction_min": 0.5327814221382141,
+          "prediction_max": 2.998905658721924,
+          "outside_unit_interval": 0.15283203125
+        },
+        "immediate_hit": {
+          "labels": 485,
+          "mse": 0.04474005103111267,
+          "prediction_min": 0.5815393328666687,
+          "prediction_max": 1.548744797706604,
+          "outside_unit_interval": 0.06804123711340206
+        },
+        "not_immediate_hit": {
+          "labels": 15899,
+          "mse": 0.003007167484611273,
+          "prediction_min": 0.5327814221382141,
+          "prediction_max": 2.998905658721924,
+          "outside_unit_interval": 0.15541857978489212
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.00856431107968092,
+            "prediction_min": 0.5327814221382141,
+            "prediction_max": 1.5123034715652466,
+            "outside_unit_interval": 0.041015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.002316135447472334,
+            "prediction_min": 0.6211386919021606,
+            "prediction_max": 1.6794497966766357,
+            "outside_unit_interval": 0.099609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0028502147179096937,
+            "prediction_min": 0.5998814105987549,
+            "prediction_max": 1.5215319395065308,
+            "outside_unit_interval": 0.0771484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.00363070797175169,
+            "prediction_min": 0.6171697378158569,
+            "prediction_max": 1.6334842443466187,
+            "outside_unit_interval": 0.087890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.009839992970228195,
+            "prediction_min": 0.9124595522880554,
+            "prediction_max": 2.998905658721924,
+            "outside_unit_interval": 0.982421875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004366908222436905,
+            "prediction_min": 0.5815393328666687,
+            "prediction_max": 1.7134714126586914,
+            "outside_unit_interval": 0.0654296875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003584608668461442,
+            "prediction_min": 0.6236715316772461,
+            "prediction_max": 1.735025405883789,
+            "outside_unit_interval": 0.1044921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003066075500100851,
+            "prediction_min": 0.6324396729469299,
+            "prediction_max": 1.7321453094482422,
+            "outside_unit_interval": 0.1005859375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0031804172322154045,
+            "prediction_min": 0.6414426565170288,
+            "prediction_max": 1.6746623516082764,
+            "outside_unit_interval": 0.1064453125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0035572326742112637,
+            "prediction_min": 0.6292241215705872,
+            "prediction_max": 1.7531676292419434,
+            "outside_unit_interval": 0.107421875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003993350081145763,
+            "prediction_min": 0.626469075679779,
+            "prediction_max": 2.039351224899292,
+            "outside_unit_interval": 0.12890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004037806298583746,
+            "prediction_min": 0.5756078362464905,
+            "prediction_max": 1.6364206075668335,
+            "outside_unit_interval": 0.060546875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0037448599468916655,
+            "prediction_min": 0.6300228238105774,
+            "prediction_max": 1.9642095565795898,
+            "outside_unit_interval": 0.1328125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0029626046307384968,
+            "prediction_min": 0.6056402921676636,
+            "prediction_max": 1.6319875717163086,
+            "outside_unit_interval": 0.0869140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003915042616426945,
+            "prediction_min": 0.6569955945014954,
+            "prediction_max": 1.8314918279647827,
+            "outside_unit_interval": 0.15625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004270475823432207,
+            "prediction_min": 0.6038332581520081,
+            "prediction_max": 1.7769426107406616,
+            "outside_unit_interval": 0.107421875
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 784,
+            "mse": 0.0036855151411145926,
+            "prediction_min": 0.5820553302764893,
+            "prediction_max": 2.2313079833984375,
+            "outside_unit_interval": 0.18622448979591838
+          },
+          {
+            "labels": 1120,
+            "mse": 0.004296442028135061,
+            "prediction_min": 0.5845357775688171,
+            "prediction_max": 2.712400436401367,
+            "outside_unit_interval": 0.1875
+          },
+          {
+            "labels": 720,
+            "mse": 0.0032051692251116037,
+            "prediction_min": 0.5588532090187073,
+            "prediction_max": 2.0828115940093994,
+            "outside_unit_interval": 0.10416666666666667
+          },
+          {
+            "labels": 12880,
+            "mse": 0.004443795420229435,
+            "prediction_min": 0.5327814221382141,
+            "prediction_max": 2.998905658721924,
+            "outside_unit_interval": 0.15108695652173912
+          },
+          {
+            "labels": 880,
+            "mse": 0.0025734170340001583,
+            "prediction_min": 0.6088221669197083,
+            "prediction_max": 1.8829199075698853,
+            "outside_unit_interval": 0.14431818181818182
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          17,
+          64
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.005345908924937248,
+          "prediction_min": 0.5735673904418945,
+          "prediction_max": 4.015514373779297,
+          "outside_unit_interval": 0.3245849609375
+        },
+        "immediate_hit": {
+          "labels": 490,
+          "mse": 0.02697582170367241,
+          "prediction_min": 0.604686439037323,
+          "prediction_max": 1.6300569772720337,
+          "outside_unit_interval": 0.20816326530612245
+        },
+        "not_immediate_hit": {
+          "labels": 15894,
+          "mse": 0.004679074976593256,
+          "prediction_min": 0.5735673904418945,
+          "prediction_max": 4.015514373779297,
+          "outside_unit_interval": 0.3281741537687178
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.005358152557164431,
+            "prediction_min": 0.5735673904418945,
+            "prediction_max": 1.5171812772750854,
+            "outside_unit_interval": 0.08203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004462732933461666,
+            "prediction_min": 0.6534916758537292,
+            "prediction_max": 2.3327717781066895,
+            "outside_unit_interval": 0.2900390625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0033120999578386545,
+            "prediction_min": 0.6294718384742737,
+            "prediction_max": 1.9044790267944336,
+            "outside_unit_interval": 0.201171875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004145112354308367,
+            "prediction_min": 0.6432415246963501,
+            "prediction_max": 2.2151286602020264,
+            "outside_unit_interval": 0.24609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.015122445300221443,
+            "prediction_min": 0.9256900548934937,
+            "prediction_max": 4.015514373779297,
+            "outside_unit_interval": 0.9990234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004911960568279028,
+            "prediction_min": 0.630060613155365,
+            "prediction_max": 2.215752124786377,
+            "outside_unit_interval": 0.177734375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004455927759408951,
+            "prediction_min": 0.6520966291427612,
+            "prediction_max": 2.288764476776123,
+            "outside_unit_interval": 0.3037109375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004874883219599724,
+            "prediction_min": 0.6634123921394348,
+            "prediction_max": 2.334131956100464,
+            "outside_unit_interval": 0.294921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004090264905244112,
+            "prediction_min": 0.6672173142433167,
+            "prediction_max": 2.2167305946350098,
+            "outside_unit_interval": 0.3203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004422093275934458,
+            "prediction_min": 0.6569098830223083,
+            "prediction_max": 1.9158406257629395,
+            "outside_unit_interval": 0.3232421875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.006260435096919537,
+            "prediction_min": 0.6880801320075989,
+            "prediction_max": 2.7387032508850098,
+            "outside_unit_interval": 0.3994140625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.004429309628903866,
+            "prediction_min": 0.6089063882827759,
+            "prediction_max": 1.7659105062484741,
+            "outside_unit_interval": 0.16015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0053513022139668465,
+            "prediction_min": 0.6969698071479797,
+            "prediction_max": 2.702867031097412,
+            "outside_unit_interval": 0.400390625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.003890814259648323,
+            "prediction_min": 0.6395344734191895,
+            "prediction_max": 2.1843457221984863,
+            "outside_unit_interval": 0.240234375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0053596762008965015,
+            "prediction_min": 0.6863541007041931,
+            "prediction_max": 2.467534303665161,
+            "outside_unit_interval": 0.4599609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.0050873346626758575,
+            "prediction_min": 0.6370525360107422,
+            "prediction_max": 2.2425432205200195,
+            "outside_unit_interval": 0.294921875
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 784,
+            "mse": 0.008147214539349079,
+            "prediction_min": 0.604686439037323,
+            "prediction_max": 2.4534988403320312,
+            "outside_unit_interval": 0.288265306122449
+          },
+          {
+            "labels": 1120,
+            "mse": 0.013645815663039684,
+            "prediction_min": 0.6240560412406921,
+            "prediction_max": 2.503744125366211,
+            "outside_unit_interval": 0.30357142857142855
+          },
+          {
+            "labels": 672,
+            "mse": 0.002584774512797594,
+            "prediction_min": 0.6179056167602539,
+            "prediction_max": 2.8441007137298584,
+            "outside_unit_interval": 0.30952380952380953
+          },
+          {
+            "labels": 13024,
+            "mse": 0.003460416104644537,
+            "prediction_min": 0.5735673904418945,
+            "prediction_max": 4.015514373779297,
+            "outside_unit_interval": 0.3306203931203931
+          },
+          {
+            "labels": 784,
+            "mse": 0.024376552551984787,
+            "prediction_min": 0.5765198469161987,
+            "prediction_max": 2.6344919204711914,
+            "outside_unit_interval": 0.30357142857142855
+          }
+        ]
+      },
+      {
+        "deadlines": [
+          65,
+          256
+        ],
+        "sampled_rows": 1024,
+        "missing": false,
+        "all": {
+          "labels": 16384,
+          "mse": 0.014365085400640965,
+          "prediction_min": 0.6662567853927612,
+          "prediction_max": 6.494516849517822,
+          "outside_unit_interval": 0.9031982421875
+        },
+        "immediate_hit": {
+          "labels": 463,
+          "mse": 0.18061308562755585,
+          "prediction_min": 0.6723962426185608,
+          "prediction_max": 3.866567611694336,
+          "outside_unit_interval": 0.8509719222462203
+        },
+        "not_immediate_hit": {
+          "labels": 15921,
+          "mse": 0.00953041110187769,
+          "prediction_min": 0.6662567853927612,
+          "prediction_max": 6.494516849517822,
+          "outside_unit_interval": 0.9047170403869104
+        },
+        "per_goal": [
+          {
+            "labels": 1024,
+            "mse": 0.007640068884938955,
+            "prediction_min": 0.6662567853927612,
+            "prediction_max": 2.586951732635498,
+            "outside_unit_interval": 0.66015625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.013010511174798012,
+            "prediction_min": 0.7606045007705688,
+            "prediction_max": 2.9398140907287598,
+            "outside_unit_interval": 0.9248046875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.007374566048383713,
+            "prediction_min": 0.7328302264213562,
+            "prediction_max": 2.6142525672912598,
+            "outside_unit_interval": 0.8544921875
+          },
+          {
+            "labels": 1024,
+            "mse": 0.012389646843075752,
+            "prediction_min": 0.7489979267120361,
+            "prediction_max": 2.8594329357147217,
+            "outside_unit_interval": 0.896484375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.04951047524809837,
+            "prediction_min": 1.3838391304016113,
+            "prediction_max": 6.494516849517822,
+            "outside_unit_interval": 1.0
+          },
+          {
+            "labels": 1024,
+            "mse": 0.013240093365311623,
+            "prediction_min": 0.7517474293708801,
+            "prediction_max": 2.912177085876465,
+            "outside_unit_interval": 0.861328125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01130015216767788,
+            "prediction_min": 0.7652385234832764,
+            "prediction_max": 3.042123317718506,
+            "outside_unit_interval": 0.9287109375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01249980553984642,
+            "prediction_min": 0.7657669186592102,
+            "prediction_max": 2.9621546268463135,
+            "outside_unit_interval": 0.923828125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.011058414354920387,
+            "prediction_min": 0.7699970602989197,
+            "prediction_max": 2.923205614089966,
+            "outside_unit_interval": 0.931640625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.010874677449464798,
+            "prediction_min": 0.7855137586593628,
+            "prediction_max": 3.1117422580718994,
+            "outside_unit_interval": 0.9267578125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.01482030563056469,
+            "prediction_min": 0.842749297618866,
+            "prediction_max": 3.4174182415008545,
+            "outside_unit_interval": 0.962890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.010303196497261524,
+            "prediction_min": 0.7101788520812988,
+            "prediction_max": 2.857947587966919,
+            "outside_unit_interval": 0.83203125
+          },
+          {
+            "labels": 1024,
+            "mse": 0.017051463946700096,
+            "prediction_min": 0.833202600479126,
+            "prediction_max": 3.303689956665039,
+            "outside_unit_interval": 0.962890625
+          },
+          {
+            "labels": 1024,
+            "mse": 0.010580149479210377,
+            "prediction_min": 0.7482215762138367,
+            "prediction_max": 2.8614532947540283,
+            "outside_unit_interval": 0.8974609375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.014514371752738953,
+            "prediction_min": 0.8342376947402954,
+            "prediction_max": 3.319385290145874,
+            "outside_unit_interval": 0.9677734375
+          },
+          {
+            "labels": 1024,
+            "mse": 0.013673444278538227,
+            "prediction_min": 0.7857726812362671,
+            "prediction_max": 3.2397210597991943,
+            "outside_unit_interval": 0.919921875
+          }
+        ],
+        "per_action": [
+          {
+            "labels": 768,
+            "mse": 0.012760276906192303,
+            "prediction_min": 0.7842203974723816,
+            "prediction_max": 4.4796671867370605,
+            "outside_unit_interval": 0.96484375
+          },
+          {
+            "labels": 1040,
+            "mse": 0.03925006091594696,
+            "prediction_min": 0.7022495269775391,
+            "prediction_max": 4.952924728393555,
+            "outside_unit_interval": 0.9019230769230769
+          },
+          {
+            "labels": 688,
+            "mse": 0.011008370667696,
+            "prediction_min": 0.6723962426185608,
+            "prediction_max": 4.979358196258545,
+            "outside_unit_interval": 0.8357558139534884
+          },
+          {
+            "labels": 13200,
+            "mse": 0.011770358309149742,
+            "prediction_min": 0.6662567853927612,
+            "prediction_max": 6.494516849517822,
+            "outside_unit_interval": 0.9031060606060606
+          },
+          {
+            "labels": 688,
+            "mse": 0.031678903847932816,
+            "prediction_min": 0.7715367078781128,
+            "prediction_max": 4.416074275970459,
+            "outside_unit_interval": 0.9055232558139535
+          }
+        ]
+      }
+    ]
+  },
+  "seed": 20261127,
+  "samples_per_bin": 1024,
+  "readout_unchanged": true,
+  "readout_sha256": "76d9cc1efdc5c3667cd15c6259ad34d754c95bbaa51ac0ba6bb18872747c91c4",
+  "primary_detector": "winner",
+  "interpretation": "Final-model self-bootstrapped factual Bellman residual; not calibration or control evidence",
+  "selection": "Diagnostic only; final update-count checkpoint selected before this computation",
+  "input_files": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/replay.npz": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/metadata.json": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/metadata.json": "e441d73a2f305d7ebc839800b18c9cd4e0cd8fa95b9e1b89042a1c2ca1761ca0",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/adapter.pt": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed"
+  },
+  "source_sha256": {
+    "fit_diagnostics.py": "54976e480597d4965591884f34e92e151546714b7e2fc3cdc1007c0a812ebcd5",
+    "replay_fit.py": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+    "targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+    "detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2"
+  }
+}

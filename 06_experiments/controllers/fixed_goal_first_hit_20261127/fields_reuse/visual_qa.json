@@ -1,0 +1,22 @@
+{
+  "schema": "intrmotiv/figure-visual-qa/v1",
+  "checked_utc": "2026-11-27T10:26:18.100786+00:00",
+  "status": "passed",
+  "method": "Manual inspection of all four full1000px-wide PNGs via image viewer; final PNGs verified byte-identical to inspected exports",
+  "files": {
+    "dg_00.png": "2a66f18e1da02f6877d3d35d3f6c380fa6afb4dd526723d26f632809fc293ed4",
+    "dg_04.png": "a5b560c4709c5179de0c29fdc55a491fbb4da2c74dd0091dea7263c0ec07b95f",
+    "dg_08.png": "087f02ae2b7b8751a2d1b5bc1ef63ef15dc3a99208579c5205693a686fff3771",
+    "dg_12.png": "5b72bb87267a904f3b828347b0fe474393ff701366820a7a7a19f934d7c65b52"
+  },
+  "checks": {
+    "minimum_font_30pt_at_100dpi": true,
+    "font_file_verified_scalable": true,
+    "no_clipped_or_overlapping_text": true,
+    "two_vertical_panels_per_figure": true,
+    "shared_scales_per_type_across_all16": true,
+    "historical_xy_transposed_once": true,
+    "unvisited_gray_mask_visible": true,
+    "colorbar_units_and_world_axes_explicit": true
+  }
+}

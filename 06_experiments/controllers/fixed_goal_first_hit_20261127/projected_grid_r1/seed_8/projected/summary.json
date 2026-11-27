@@ -1,0 +1,180 @@
+{
+  "condition": "projected",
+  "seed": 8,
+  "updates": 2500,
+  "training_seconds": 50.35442016413435,
+  "parameters": 35588,
+  "action_head_parameters": 516,
+  "enumerated_goal_labels": 10240000,
+  "used_noninitial_goal_labels": 9600000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.061863865703344345
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.021306343376636505
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.0288186464458704
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.00047045605606399477
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.0002689346729312092
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 7.414512219838798e-05
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 4.9188241973752156e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 3.526746149873361e-05
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 2.606213638500776e-05
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 1.8732191165327094e-05
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.6672382116666995e-05
+    }
+  ],
+  "n_nontrivial_pairs": 240,
+  "initially_satisfied_queries": 16,
+  "declared_queries": 256,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "all_pair_gate_passed": true,
+  "shortest_success_fraction": 0.7875,
+  "mean_decisions_nontrivial_queries": 3.0375,
+  "mean_shortest_distance": 2.6666666666666665,
+  "n_competing_comparisons": 3360,
+  "competing_first_contrast": 0.756547619047619,
+  "memoryless_competing_first_contrast": 0.6092261904761904,
+  "per_goal": {
+    "0": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.5333333333333333
+    },
+    "1": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.9333333333333333
+    },
+    "2": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "3": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "4": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "5": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.7333333333333333
+    },
+    "6": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "7": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.7333333333333333
+    },
+    "8": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "9": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.9333333333333333
+    },
+    "10": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.7333333333333333
+    },
+    "11": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "12": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "13": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "14": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "15": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    }
+  },
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.225,
+    "continuing_main": 0.0875,
+    "memoryless": 0.7958333333333333
+  },
+  "initial_parameter_sha256": "c4cbbfcde9699f3b67e4fdebecd85394a402c68df6383d3c704ed4dba38413dd",
+  "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+  "usable_masks_sha256": "d921943c39433573a5928abe84d019e7a59ceeef3af3743815381769e3d0fe99",
+  "actual_batch_calls": 2500,
+  "worst_goal_success": 1.0,
+  "maximum_fresh_start_value_error": 0.04007291793823242,
+  "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+  "checkpoint_sha256": "bf97caf6720436ae4fc9963ab8d30067122d7d7bf0e0a4ad9e164b3a52deb073",
+  "dataset_sha256": "29dc9116503cc3b0525ac64e6ee8d31403d46f3506602880bd5ce7e570115c70",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "own_operator_fresh_residual": {
+    "labels": 61440,
+    "mse": 1.863196121121291e-05,
+    "maximum_absolute_residual": 0.027697622776031494,
+    "prediction_min": 0.9291136264801025,
+    "prediction_max": 1.0165256261825562,
+    "target_min": 0.9344123005867004,
+    "target_max": 1.0,
+    "predictions_above_one": 1571,
+    "predictions_below_zero": 0
+  }
+}

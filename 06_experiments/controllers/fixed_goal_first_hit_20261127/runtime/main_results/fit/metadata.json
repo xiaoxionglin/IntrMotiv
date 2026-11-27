@@ -1,0 +1,2453 @@
+{
+  "schema": "intrmotiv/fitted-first-hit-readout/v1",
+  "fit": {
+    "schema": "intrmotiv/frozen-first-hit-fit/v1",
+    "config": {
+      "seed": 99,
+      "updates": 30000,
+      "batch_size": 128,
+      "horizon": 256,
+      "learning_rate": 0.0003,
+      "target_update_period": 100,
+      "holdout_fraction": 0.1,
+      "log_every": 100
+    },
+    "transitions": 100000,
+    "training_transitions": 90100,
+    "holdout_transitions": 9900,
+    "certified_training_successors": 90100,
+    "updates_without_usable_labels": 0,
+    "goal_labels_seen": 61440000,
+    "trainable_parameters": 167050,
+    "initial_readout_sha256": "58614e6f3735075c126f170e541f464ad13a4ddb7afa18ce3ec4513d21aebd9f",
+    "final_readout_sha256": "76d9cc1efdc5c3667cd15c6259ad34d754c95bbaa51ac0ba6bb18872747c91c4",
+    "seconds": 969.0610346189933,
+    "trace": [
+      {
+        "update": 1,
+        "training_mse": 0.11548034846782684,
+        "prediction_min": -0.6150627732276917,
+        "prediction_max": 0.8388108611106873,
+        "usable_goal_labels": 2048
+      },
+      {
+        "update": 100,
+        "training_mse": 0.08355006575584412,
+        "prediction_min": -0.5511160492897034,
+        "prediction_max": 0.9735975861549377,
+        "usable_goal_labels": 204800
+      },
+      {
+        "update": 200,
+        "training_mse": 0.022308560088276863,
+        "prediction_min": -0.03163379803299904,
+        "prediction_max": 0.9030212759971619,
+        "usable_goal_labels": 409600
+      },
+      {
+        "update": 300,
+        "training_mse": 0.018030423671007156,
+        "prediction_min": 0.027632158249616623,
+        "prediction_max": 0.8120746612548828,
+        "usable_goal_labels": 614400
+      },
+      {
+        "update": 400,
+        "training_mse": 0.015391074120998383,
+        "prediction_min": 0.10757982730865479,
+        "prediction_max": 1.1051496267318726,
+        "usable_goal_labels": 819200
+      },
+      {
+        "update": 500,
+        "training_mse": 0.012246372178196907,
+        "prediction_min": 0.17786787450313568,
+        "prediction_max": 1.2659590244293213,
+        "usable_goal_labels": 1024000
+      },
+      {
+        "update": 600,
+        "training_mse": 0.011627156287431717,
+        "prediction_min": 0.20053213834762573,
+        "prediction_max": 1.2441468238830566,
+        "usable_goal_labels": 1228800
+      },
+      {
+        "update": 700,
+        "training_mse": 0.009975678287446499,
+        "prediction_min": 0.20922043919563293,
+        "prediction_max": 1.0572487115859985,
+        "usable_goal_labels": 1433600
+      },
+      {
+        "update": 800,
+        "training_mse": 0.00892702303826809,
+        "prediction_min": 0.21856188774108887,
+        "prediction_max": 1.6492319107055664,
+        "usable_goal_labels": 1638400
+      },
+      {
+        "update": 900,
+        "training_mse": 0.010847282595932484,
+        "prediction_min": 0.28090038895606995,
+        "prediction_max": 1.3102442026138306,
+        "usable_goal_labels": 1843200
+      },
+      {
+        "update": 1000,
+        "training_mse": 0.012040959671139717,
+        "prediction_min": 0.30447614192962646,
+        "prediction_max": 1.4245996475219727,
+        "usable_goal_labels": 2048000
+      },
+      {
+        "update": 1100,
+        "training_mse": 0.006321088410913944,
+        "prediction_min": 0.2941104769706726,
+        "prediction_max": 1.379238486289978,
+        "usable_goal_labels": 2252800
+      },
+      {
+        "update": 1200,
+        "training_mse": 0.005378291942179203,
+        "prediction_min": 0.27548468112945557,
+        "prediction_max": 1.5419119596481323,
+        "usable_goal_labels": 2457600
+      },
+      {
+        "update": 1300,
+        "training_mse": 0.00985040608793497,
+        "prediction_min": 0.3265911638736725,
+        "prediction_max": 1.5533193349838257,
+        "usable_goal_labels": 2662400
+      },
+      {
+        "update": 1400,
+        "training_mse": 0.005527425091713667,
+        "prediction_min": 0.2862564027309418,
+        "prediction_max": 1.6554454565048218,
+        "usable_goal_labels": 2867200
+      },
+      {
+        "update": 1500,
+        "training_mse": 0.004243374802172184,
+        "prediction_min": 0.38669589161872864,
+        "prediction_max": 1.6894186735153198,
+        "usable_goal_labels": 3072000
+      },
+      {
+        "update": 1600,
+        "training_mse": 0.005536436568945646,
+        "prediction_min": 0.3712838590145111,
+        "prediction_max": 1.7108079195022583,
+        "usable_goal_labels": 3276800
+      },
+      {
+        "update": 1700,
+        "training_mse": 0.007130141835659742,
+        "prediction_min": 0.3940368592739105,
+        "prediction_max": 1.4093703031539917,
+        "usable_goal_labels": 3481600
+      },
+      {
+        "update": 1800,
+        "training_mse": 0.004468570463359356,
+        "prediction_min": 0.41124725341796875,
+        "prediction_max": 1.6490235328674316,
+        "usable_goal_labels": 3686400
+      },
+      {
+        "update": 1900,
+        "training_mse": 0.011024804785847664,
+        "prediction_min": 0.5050427913665771,
+        "prediction_max": 1.7137084007263184,
+        "usable_goal_labels": 3891200
+      },
+      {
+        "update": 2000,
+        "training_mse": 0.004205743782222271,
+        "prediction_min": 0.47835469245910645,
+        "prediction_max": 1.7863565683364868,
+        "usable_goal_labels": 4096000
+      },
+      {
+        "update": 2100,
+        "training_mse": 0.006924033630639315,
+        "prediction_min": 0.40970680117607117,
+        "prediction_max": 1.6700444221496582,
+        "usable_goal_labels": 4300800
+      },
+      {
+        "update": 2200,
+        "training_mse": 0.010339736938476562,
+        "prediction_min": 0.47943323850631714,
+        "prediction_max": 1.859434962272644,
+        "usable_goal_labels": 4505600
+      },
+      {
+        "update": 2300,
+        "training_mse": 0.004791534040123224,
+        "prediction_min": 0.4398491084575653,
+        "prediction_max": 1.8864511251449585,
+        "usable_goal_labels": 4710400
+      },
+      {
+        "update": 2400,
+        "training_mse": 0.006781935691833496,
+        "prediction_min": 0.4301261901855469,
+        "prediction_max": 1.9734699726104736,
+        "usable_goal_labels": 4915200
+      },
+      {
+        "update": 2500,
+        "training_mse": 0.006970992777496576,
+        "prediction_min": 0.47182947397232056,
+        "prediction_max": 1.3273818492889404,
+        "usable_goal_labels": 5120000
+      },
+      {
+        "update": 2600,
+        "training_mse": 0.00392313813790679,
+        "prediction_min": 0.4040142595767975,
+        "prediction_max": 1.7403712272644043,
+        "usable_goal_labels": 5324800
+      },
+      {
+        "update": 2700,
+        "training_mse": 0.012569382786750793,
+        "prediction_min": 0.5011512041091919,
+        "prediction_max": 1.7832540273666382,
+        "usable_goal_labels": 5529600
+      },
+      {
+        "update": 2800,
+        "training_mse": 0.004591428674757481,
+        "prediction_min": 0.4647638499736786,
+        "prediction_max": 1.920494556427002,
+        "usable_goal_labels": 5734400
+      },
+      {
+        "update": 2900,
+        "training_mse": 0.005550071131438017,
+        "prediction_min": 0.40949350595474243,
+        "prediction_max": 2.031114339828491,
+        "usable_goal_labels": 5939200
+      },
+      {
+        "update": 3000,
+        "training_mse": 0.006960402242839336,
+        "prediction_min": 0.4768560528755188,
+        "prediction_max": 2.121476173400879,
+        "usable_goal_labels": 6144000
+      },
+      {
+        "update": 3100,
+        "training_mse": 0.006480362266302109,
+        "prediction_min": 0.4943474233150482,
+        "prediction_max": 1.8787840604782104,
+        "usable_goal_labels": 6348800
+      },
+      {
+        "update": 3200,
+        "training_mse": 0.003716477658599615,
+        "prediction_min": 0.5393069982528687,
+        "prediction_max": 1.6183844804763794,
+        "usable_goal_labels": 6553600
+      },
+      {
+        "update": 3300,
+        "training_mse": 0.006811913568526506,
+        "prediction_min": 0.5414038896560669,
+        "prediction_max": 2.165642023086548,
+        "usable_goal_labels": 6758400
+      },
+      {
+        "update": 3400,
+        "training_mse": 0.007663446478545666,
+        "prediction_min": 0.4800366759300232,
+        "prediction_max": 2.0098769664764404,
+        "usable_goal_labels": 6963200
+      },
+      {
+        "update": 3500,
+        "training_mse": 0.004475748166441917,
+        "prediction_min": 0.47304823994636536,
+        "prediction_max": 2.134756326675415,
+        "usable_goal_labels": 7168000
+      },
+      {
+        "update": 3600,
+        "training_mse": 0.016096362844109535,
+        "prediction_min": 0.596188485622406,
+        "prediction_max": 2.1673436164855957,
+        "usable_goal_labels": 7372800
+      },
+      {
+        "update": 3700,
+        "training_mse": 0.002695302711799741,
+        "prediction_min": 0.49539801478385925,
+        "prediction_max": 2.2405498027801514,
+        "usable_goal_labels": 7577600
+      },
+      {
+        "update": 3800,
+        "training_mse": 0.004003525245934725,
+        "prediction_min": 0.551499605178833,
+        "prediction_max": 2.0667450428009033,
+        "usable_goal_labels": 7782400
+      },
+      {
+        "update": 3900,
+        "training_mse": 0.00724428566172719,
+        "prediction_min": 0.5184484124183655,
+        "prediction_max": 2.1514623165130615,
+        "usable_goal_labels": 7987200
+      },
+      {
+        "update": 4000,
+        "training_mse": 0.004592450801283121,
+        "prediction_min": 0.5124067068099976,
+        "prediction_max": 2.429070234298706,
+        "usable_goal_labels": 8192000
+      },
+      {
+        "update": 4100,
+        "training_mse": 0.004915803670883179,
+        "prediction_min": 0.5529804825782776,
+        "prediction_max": 2.6163787841796875,
+        "usable_goal_labels": 8396800
+      },
+      {
+        "update": 4200,
+        "training_mse": 0.009653756394982338,
+        "prediction_min": 0.5450732707977295,
+        "prediction_max": 2.0455245971679688,
+        "usable_goal_labels": 8601600
+      },
+      {
+        "update": 4300,
+        "training_mse": 0.006004212889820337,
+        "prediction_min": 0.5597774386405945,
+        "prediction_max": 2.345335006713867,
+        "usable_goal_labels": 8806400
+      },
+      {
+        "update": 4400,
+        "training_mse": 0.005726717412471771,
+        "prediction_min": 0.5938975214958191,
+        "prediction_max": 2.407748222351074,
+        "usable_goal_labels": 9011200
+      },
+      {
+        "update": 4500,
+        "training_mse": 0.013269064947962761,
+        "prediction_min": 0.5321401357650757,
+        "prediction_max": 2.0341010093688965,
+        "usable_goal_labels": 9216000
+      },
+      {
+        "update": 4600,
+        "training_mse": 0.007396569475531578,
+        "prediction_min": 0.48822611570358276,
+        "prediction_max": 2.3458216190338135,
+        "usable_goal_labels": 9420800
+      },
+      {
+        "update": 4700,
+        "training_mse": 0.0056327576749026775,
+        "prediction_min": 0.4960443675518036,
+        "prediction_max": 2.053367853164673,
+        "usable_goal_labels": 9625600
+      },
+      {
+        "update": 4800,
+        "training_mse": 0.006537732668220997,
+        "prediction_min": 0.5227253437042236,
+        "prediction_max": 2.5318939685821533,
+        "usable_goal_labels": 9830400
+      },
+      {
+        "update": 4900,
+        "training_mse": 0.004713824018836021,
+        "prediction_min": 0.5248196125030518,
+        "prediction_max": 2.047934055328369,
+        "usable_goal_labels": 10035200
+      },
+      {
+        "update": 5000,
+        "training_mse": 0.012696496210992336,
+        "prediction_min": 0.5967817902565002,
+        "prediction_max": 2.462275505065918,
+        "usable_goal_labels": 10240000
+      },
+      {
+        "update": 5100,
+        "training_mse": 0.0113228103145957,
+        "prediction_min": 0.6059742569923401,
+        "prediction_max": 2.1516549587249756,
+        "usable_goal_labels": 10444800
+      },
+      {
+        "update": 5200,
+        "training_mse": 0.00844946876168251,
+        "prediction_min": 0.5282062888145447,
+        "prediction_max": 2.3811845779418945,
+        "usable_goal_labels": 10649600
+      },
+      {
+        "update": 5300,
+        "training_mse": 0.013199442066252232,
+        "prediction_min": 0.537544310092926,
+        "prediction_max": 3.135133743286133,
+        "usable_goal_labels": 10854400
+      },
+      {
+        "update": 5400,
+        "training_mse": 0.008831317536532879,
+        "prediction_min": 0.5234034657478333,
+        "prediction_max": 3.442878484725952,
+        "usable_goal_labels": 11059200
+      },
+      {
+        "update": 5500,
+        "training_mse": 0.012178771197795868,
+        "prediction_min": 0.6302076578140259,
+        "prediction_max": 2.7958269119262695,
+        "usable_goal_labels": 11264000
+      },
+      {
+        "update": 5600,
+        "training_mse": 0.009492396377027035,
+        "prediction_min": 0.5428093075752258,
+        "prediction_max": 2.7743072509765625,
+        "usable_goal_labels": 11468800
+      },
+      {
+        "update": 5700,
+        "training_mse": 0.0076405624859035015,
+        "prediction_min": 0.6123820543289185,
+        "prediction_max": 2.533982276916504,
+        "usable_goal_labels": 11673600
+      },
+      {
+        "update": 5800,
+        "training_mse": 0.00711622042581439,
+        "prediction_min": 0.6304020881652832,
+        "prediction_max": 2.8023204803466797,
+        "usable_goal_labels": 11878400
+      },
+      {
+        "update": 5900,
+        "training_mse": 0.011235225014388561,
+        "prediction_min": 0.6428222060203552,
+        "prediction_max": 2.2275350093841553,
+        "usable_goal_labels": 12083200
+      },
+      {
+        "update": 6000,
+        "training_mse": 0.011680522933602333,
+        "prediction_min": 0.5723919868469238,
+        "prediction_max": 2.9287588596343994,
+        "usable_goal_labels": 12288000
+      },
+      {
+        "update": 6100,
+        "training_mse": 0.01849541999399662,
+        "prediction_min": 0.5843372344970703,
+        "prediction_max": 3.5179293155670166,
+        "usable_goal_labels": 12492800
+      },
+      {
+        "update": 6200,
+        "training_mse": 0.007558781187981367,
+        "prediction_min": 0.6202167868614197,
+        "prediction_max": 2.4888253211975098,
+        "usable_goal_labels": 12697600
+      },
+      {
+        "update": 6300,
+        "training_mse": 0.018384581431746483,
+        "prediction_min": 0.6022526025772095,
+        "prediction_max": 3.1835153102874756,
+        "usable_goal_labels": 12902400
+      },
+      {
+        "update": 6400,
+        "training_mse": 0.015870653092861176,
+        "prediction_min": 0.6260429620742798,
+        "prediction_max": 3.356455087661743,
+        "usable_goal_labels": 13107200
+      },
+      {
+        "update": 6500,
+        "training_mse": 0.03205226734280586,
+        "prediction_min": 0.6028878688812256,
+        "prediction_max": 3.7137563228607178,
+        "usable_goal_labels": 13312000
+      },
+      {
+        "update": 6600,
+        "training_mse": 0.02649308368563652,
+        "prediction_min": 0.6307384371757507,
+        "prediction_max": 2.4857969284057617,
+        "usable_goal_labels": 13516800
+      },
+      {
+        "update": 6700,
+        "training_mse": 0.05020460486412048,
+        "prediction_min": 0.6650091409683228,
+        "prediction_max": 2.9528889656066895,
+        "usable_goal_labels": 13721600
+      },
+      {
+        "update": 6800,
+        "training_mse": 0.04448891431093216,
+        "prediction_min": 0.5980620980262756,
+        "prediction_max": 4.248202323913574,
+        "usable_goal_labels": 13926400
+      },
+      {
+        "update": 6900,
+        "training_mse": 0.009763765148818493,
+        "prediction_min": 0.6399346590042114,
+        "prediction_max": 2.9276368618011475,
+        "usable_goal_labels": 14131200
+      },
+      {
+        "update": 7000,
+        "training_mse": 0.022026322782039642,
+        "prediction_min": 0.6048544645309448,
+        "prediction_max": 2.761479616165161,
+        "usable_goal_labels": 14336000
+      },
+      {
+        "update": 7100,
+        "training_mse": 0.02009003981947899,
+        "prediction_min": 0.6104216575622559,
+        "prediction_max": 4.064042568206787,
+        "usable_goal_labels": 14540800
+      },
+      {
+        "update": 7200,
+        "training_mse": 0.012331564910709858,
+        "prediction_min": 0.5258446335792542,
+        "prediction_max": 3.3923113346099854,
+        "usable_goal_labels": 14745600
+      },
+      {
+        "update": 7300,
+        "training_mse": 0.021316470578312874,
+        "prediction_min": 0.6228094100952148,
+        "prediction_max": 3.0542447566986084,
+        "usable_goal_labels": 14950400
+      },
+      {
+        "update": 7400,
+        "training_mse": 0.021490296348929405,
+        "prediction_min": 0.6123458743095398,
+        "prediction_max": 3.5011680126190186,
+        "usable_goal_labels": 15155200
+      },
+      {
+        "update": 7500,
+        "training_mse": 0.02498858980834484,
+        "prediction_min": 0.6225435733795166,
+        "prediction_max": 3.220736026763916,
+        "usable_goal_labels": 15360000
+      },
+      {
+        "update": 7600,
+        "training_mse": 0.018676137551665306,
+        "prediction_min": 0.6416494250297546,
+        "prediction_max": 3.6425867080688477,
+        "usable_goal_labels": 15564800
+      },
+      {
+        "update": 7700,
+        "training_mse": 0.024209899827837944,
+        "prediction_min": 0.571951150894165,
+        "prediction_max": 3.355034828186035,
+        "usable_goal_labels": 15769600
+      },
+      {
+        "update": 7800,
+        "training_mse": 0.02254103310406208,
+        "prediction_min": 0.5543569326400757,
+        "prediction_max": 4.197742938995361,
+        "usable_goal_labels": 15974400
+      },
+      {
+        "update": 7900,
+        "training_mse": 0.02109937183558941,
+        "prediction_min": 0.639594316482544,
+        "prediction_max": 4.40172815322876,
+        "usable_goal_labels": 16179200
+      },
+      {
+        "update": 8000,
+        "training_mse": 0.0447734072804451,
+        "prediction_min": 0.5688493251800537,
+        "prediction_max": 5.868520259857178,
+        "usable_goal_labels": 16384000
+      },
+      {
+        "update": 8100,
+        "training_mse": 0.01945364475250244,
+        "prediction_min": 0.5757845640182495,
+        "prediction_max": 3.1110846996307373,
+        "usable_goal_labels": 16588800
+      },
+      {
+        "update": 8200,
+        "training_mse": 0.01708480715751648,
+        "prediction_min": 0.5330015420913696,
+        "prediction_max": 3.2653517723083496,
+        "usable_goal_labels": 16793600
+      },
+      {
+        "update": 8300,
+        "training_mse": 0.016510622575879097,
+        "prediction_min": 0.6524341106414795,
+        "prediction_max": 3.100996732711792,
+        "usable_goal_labels": 16998400
+      },
+      {
+        "update": 8400,
+        "training_mse": 0.01897866651415825,
+        "prediction_min": 0.6438808441162109,
+        "prediction_max": 3.7864158153533936,
+        "usable_goal_labels": 17203200
+      },
+      {
+        "update": 8500,
+        "training_mse": 0.019583381712436676,
+        "prediction_min": 0.6084535121917725,
+        "prediction_max": 3.714527130126953,
+        "usable_goal_labels": 17408000
+      },
+      {
+        "update": 8600,
+        "training_mse": 0.041432492434978485,
+        "prediction_min": 0.597210705280304,
+        "prediction_max": 4.001762866973877,
+        "usable_goal_labels": 17612800
+      },
+      {
+        "update": 8700,
+        "training_mse": 0.020759155973792076,
+        "prediction_min": 0.6270933151245117,
+        "prediction_max": 2.7103240489959717,
+        "usable_goal_labels": 17817600
+      },
+      {
+        "update": 8800,
+        "training_mse": 0.021489111706614494,
+        "prediction_min": 0.598861575126648,
+        "prediction_max": 2.8748857975006104,
+        "usable_goal_labels": 18022400
+      },
+      {
+        "update": 8900,
+        "training_mse": 0.0155052924528718,
+        "prediction_min": 0.625120997428894,
+        "prediction_max": 4.058692932128906,
+        "usable_goal_labels": 18227200
+      },
+      {
+        "update": 9000,
+        "training_mse": 0.035820793360471725,
+        "prediction_min": 0.5922273397445679,
+        "prediction_max": 3.209291934967041,
+        "usable_goal_labels": 18432000
+      },
+      {
+        "update": 9100,
+        "training_mse": 0.027010466903448105,
+        "prediction_min": 0.6006255149841309,
+        "prediction_max": 4.68330717086792,
+        "usable_goal_labels": 18636800
+      },
+      {
+        "update": 9200,
+        "training_mse": 0.023961495608091354,
+        "prediction_min": 0.5596900582313538,
+        "prediction_max": 3.087312936782837,
+        "usable_goal_labels": 18841600
+      },
+      {
+        "update": 9300,
+        "training_mse": 0.03980382904410362,
+        "prediction_min": 0.5865438580513,
+        "prediction_max": 3.8642709255218506,
+        "usable_goal_labels": 19046400
+      },
+      {
+        "update": 9400,
+        "training_mse": 0.020929614081978798,
+        "prediction_min": 0.6454384326934814,
+        "prediction_max": 4.10786771774292,
+        "usable_goal_labels": 19251200
+      },
+      {
+        "update": 9500,
+        "training_mse": 0.02893063798546791,
+        "prediction_min": 0.595259428024292,
+        "prediction_max": 4.601272106170654,
+        "usable_goal_labels": 19456000
+      },
+      {
+        "update": 9600,
+        "training_mse": 0.024411968886852264,
+        "prediction_min": 0.7570552825927734,
+        "prediction_max": 4.157266139984131,
+        "usable_goal_labels": 19660800
+      },
+      {
+        "update": 9700,
+        "training_mse": 0.014038546942174435,
+        "prediction_min": 0.6620650291442871,
+        "prediction_max": 3.249405860900879,
+        "usable_goal_labels": 19865600
+      },
+      {
+        "update": 9800,
+        "training_mse": 0.025261331349611282,
+        "prediction_min": 0.5982333421707153,
+        "prediction_max": 3.513517141342163,
+        "usable_goal_labels": 20070400
+      },
+      {
+        "update": 9900,
+        "training_mse": 0.03336295858025551,
+        "prediction_min": 0.7601088285446167,
+        "prediction_max": 3.6934897899627686,
+        "usable_goal_labels": 20275200
+      },
+      {
+        "update": 10000,
+        "training_mse": 0.026154669001698494,
+        "prediction_min": 0.7640445232391357,
+        "prediction_max": 3.3372275829315186,
+        "usable_goal_labels": 20480000
+      },
+      {
+        "update": 10100,
+        "training_mse": 0.035896316170692444,
+        "prediction_min": 0.6690372824668884,
+        "prediction_max": 4.4150214195251465,
+        "usable_goal_labels": 20684800
+      },
+      {
+        "update": 10200,
+        "training_mse": 0.022984830662608147,
+        "prediction_min": 0.7702820897102356,
+        "prediction_max": 3.730854034423828,
+        "usable_goal_labels": 20889600
+      },
+      {
+        "update": 10300,
+        "training_mse": 0.030012767761945724,
+        "prediction_min": 0.7006747126579285,
+        "prediction_max": 4.561291694641113,
+        "usable_goal_labels": 21094400
+      },
+      {
+        "update": 10400,
+        "training_mse": 0.03384594991803169,
+        "prediction_min": 0.8140417337417603,
+        "prediction_max": 3.1917147636413574,
+        "usable_goal_labels": 21299200
+      },
+      {
+        "update": 10500,
+        "training_mse": 0.05400785431265831,
+        "prediction_min": 0.7089244723320007,
+        "prediction_max": 3.339846611022949,
+        "usable_goal_labels": 21504000
+      },
+      {
+        "update": 10600,
+        "training_mse": 0.03204365074634552,
+        "prediction_min": 0.7503473162651062,
+        "prediction_max": 3.984954357147217,
+        "usable_goal_labels": 21708800
+      },
+      {
+        "update": 10700,
+        "training_mse": 0.05050694942474365,
+        "prediction_min": 0.7113449573516846,
+        "prediction_max": 3.375061273574829,
+        "usable_goal_labels": 21913600
+      },
+      {
+        "update": 10800,
+        "training_mse": 0.023494958877563477,
+        "prediction_min": 0.6930556297302246,
+        "prediction_max": 3.4287195205688477,
+        "usable_goal_labels": 22118400
+      },
+      {
+        "update": 10900,
+        "training_mse": 0.02376726269721985,
+        "prediction_min": 0.6923006772994995,
+        "prediction_max": 3.565882444381714,
+        "usable_goal_labels": 22323200
+      },
+      {
+        "update": 11000,
+        "training_mse": 0.02347932569682598,
+        "prediction_min": 0.7328304052352905,
+        "prediction_max": 4.305251121520996,
+        "usable_goal_labels": 22528000
+      },
+      {
+        "update": 11100,
+        "training_mse": 0.01966102421283722,
+        "prediction_min": 0.7144416570663452,
+        "prediction_max": 2.9805946350097656,
+        "usable_goal_labels": 22732800
+      },
+      {
+        "update": 11200,
+        "training_mse": 0.023635147139430046,
+        "prediction_min": 0.7193214893341064,
+        "prediction_max": 5.273146629333496,
+        "usable_goal_labels": 22937600
+      },
+      {
+        "update": 11300,
+        "training_mse": 0.03385085240006447,
+        "prediction_min": 0.7193224430084229,
+        "prediction_max": 3.740870952606201,
+        "usable_goal_labels": 23142400
+      },
+      {
+        "update": 11400,
+        "training_mse": 0.03434567153453827,
+        "prediction_min": 0.7727711200714111,
+        "prediction_max": 3.7248120307922363,
+        "usable_goal_labels": 23347200
+      },
+      {
+        "update": 11500,
+        "training_mse": 0.022002510726451874,
+        "prediction_min": 0.8085516095161438,
+        "prediction_max": 3.0973737239837646,
+        "usable_goal_labels": 23552000
+      },
+      {
+        "update": 11600,
+        "training_mse": 0.023490803316235542,
+        "prediction_min": 0.7515071034431458,
+        "prediction_max": 4.424392223358154,
+        "usable_goal_labels": 23756800
+      },
+      {
+        "update": 11700,
+        "training_mse": 0.018667910248041153,
+        "prediction_min": 0.6743007898330688,
+        "prediction_max": 5.338235378265381,
+        "usable_goal_labels": 23961600
+      },
+      {
+        "update": 11800,
+        "training_mse": 0.017342250794172287,
+        "prediction_min": 0.7326075434684753,
+        "prediction_max": 3.7809886932373047,
+        "usable_goal_labels": 24166400
+      },
+      {
+        "update": 11900,
+        "training_mse": 0.02890450693666935,
+        "prediction_min": 0.7475426197052002,
+        "prediction_max": 3.8584272861480713,
+        "usable_goal_labels": 24371200
+      },
+      {
+        "update": 12000,
+        "training_mse": 0.027757417410612106,
+        "prediction_min": 0.7442057132720947,
+        "prediction_max": 4.372515678405762,
+        "usable_goal_labels": 24576000
+      },
+      {
+        "update": 12100,
+        "training_mse": 0.024715181440114975,
+        "prediction_min": 0.7778147459030151,
+        "prediction_max": 4.021166801452637,
+        "usable_goal_labels": 24780800
+      },
+      {
+        "update": 12200,
+        "training_mse": 0.018128851428627968,
+        "prediction_min": 0.8574055433273315,
+        "prediction_max": 5.527507305145264,
+        "usable_goal_labels": 24985600
+      },
+      {
+        "update": 12300,
+        "training_mse": 0.02485273778438568,
+        "prediction_min": 0.687446117401123,
+        "prediction_max": 3.9851725101470947,
+        "usable_goal_labels": 25190400
+      },
+      {
+        "update": 12400,
+        "training_mse": 0.01868341863155365,
+        "prediction_min": 0.8415330648422241,
+        "prediction_max": 3.208251476287842,
+        "usable_goal_labels": 25395200
+      },
+      {
+        "update": 12500,
+        "training_mse": 0.023548228666186333,
+        "prediction_min": 0.7639598846435547,
+        "prediction_max": 3.243699073791504,
+        "usable_goal_labels": 25600000
+      },
+      {
+        "update": 12600,
+        "training_mse": 0.030117154121398926,
+        "prediction_min": 0.7593317031860352,
+        "prediction_max": 3.5204036235809326,
+        "usable_goal_labels": 25804800
+      },
+      {
+        "update": 12700,
+        "training_mse": 0.017098018899559975,
+        "prediction_min": 0.6651692986488342,
+        "prediction_max": 3.6843903064727783,
+        "usable_goal_labels": 26009600
+      },
+      {
+        "update": 12800,
+        "training_mse": 0.019115667790174484,
+        "prediction_min": 0.735346794128418,
+        "prediction_max": 3.722161054611206,
+        "usable_goal_labels": 26214400
+      },
+      {
+        "update": 12900,
+        "training_mse": 0.02112846076488495,
+        "prediction_min": 0.6168233156204224,
+        "prediction_max": 3.4820072650909424,
+        "usable_goal_labels": 26419200
+      },
+      {
+        "update": 13000,
+        "training_mse": 0.04354560747742653,
+        "prediction_min": 0.755633533000946,
+        "prediction_max": 4.949248313903809,
+        "usable_goal_labels": 26624000
+      },
+      {
+        "update": 13100,
+        "training_mse": 0.025501111522316933,
+        "prediction_min": 0.6017419099807739,
+        "prediction_max": 3.799391746520996,
+        "usable_goal_labels": 26828800
+      },
+      {
+        "update": 13200,
+        "training_mse": 0.026037054136395454,
+        "prediction_min": 0.744873046875,
+        "prediction_max": 4.182651996612549,
+        "usable_goal_labels": 27033600
+      },
+      {
+        "update": 13300,
+        "training_mse": 0.032959792762994766,
+        "prediction_min": 0.7688319683074951,
+        "prediction_max": 4.665775299072266,
+        "usable_goal_labels": 27238400
+      },
+      {
+        "update": 13400,
+        "training_mse": 0.026625458151102066,
+        "prediction_min": 0.7509070634841919,
+        "prediction_max": 5.516029357910156,
+        "usable_goal_labels": 27443200
+      },
+      {
+        "update": 13500,
+        "training_mse": 0.0336989089846611,
+        "prediction_min": 0.8182970285415649,
+        "prediction_max": 3.9924871921539307,
+        "usable_goal_labels": 27648000
+      },
+      {
+        "update": 13600,
+        "training_mse": 0.020797062665224075,
+        "prediction_min": 0.7710293531417847,
+        "prediction_max": 4.548544883728027,
+        "usable_goal_labels": 27852800
+      },
+      {
+        "update": 13700,
+        "training_mse": 0.0174353439360857,
+        "prediction_min": 0.6659702062606812,
+        "prediction_max": 3.0927655696868896,
+        "usable_goal_labels": 28057600
+      },
+      {
+        "update": 13800,
+        "training_mse": 0.028185874223709106,
+        "prediction_min": 0.8038457632064819,
+        "prediction_max": 4.061739444732666,
+        "usable_goal_labels": 28262400
+      },
+      {
+        "update": 13900,
+        "training_mse": 0.027524422854185104,
+        "prediction_min": 0.8380594849586487,
+        "prediction_max": 4.685208320617676,
+        "usable_goal_labels": 28467200
+      },
+      {
+        "update": 14000,
+        "training_mse": 0.04556219279766083,
+        "prediction_min": 0.8005837798118591,
+        "prediction_max": 3.6727113723754883,
+        "usable_goal_labels": 28672000
+      },
+      {
+        "update": 14100,
+        "training_mse": 0.04971564561128616,
+        "prediction_min": 0.6419717669487,
+        "prediction_max": 4.892365455627441,
+        "usable_goal_labels": 28876800
+      },
+      {
+        "update": 14200,
+        "training_mse": 0.034872446209192276,
+        "prediction_min": 0.6173740029335022,
+        "prediction_max": 5.306570529937744,
+        "usable_goal_labels": 29081600
+      },
+      {
+        "update": 14300,
+        "training_mse": 0.028105761855840683,
+        "prediction_min": 0.659550666809082,
+        "prediction_max": 4.2373504638671875,
+        "usable_goal_labels": 29286400
+      },
+      {
+        "update": 14400,
+        "training_mse": 0.02120582014322281,
+        "prediction_min": 0.6854809522628784,
+        "prediction_max": 3.8613929748535156,
+        "usable_goal_labels": 29491200
+      },
+      {
+        "update": 14500,
+        "training_mse": 0.020351622253656387,
+        "prediction_min": 0.6207708120346069,
+        "prediction_max": 3.654477119445801,
+        "usable_goal_labels": 29696000
+      },
+      {
+        "update": 14600,
+        "training_mse": 0.028596866875886917,
+        "prediction_min": 0.5612582564353943,
+        "prediction_max": 3.805365562438965,
+        "usable_goal_labels": 29900800
+      },
+      {
+        "update": 14700,
+        "training_mse": 0.031314119696617126,
+        "prediction_min": 0.6830788254737854,
+        "prediction_max": 7.239290714263916,
+        "usable_goal_labels": 30105600
+      },
+      {
+        "update": 14800,
+        "training_mse": 0.0327288843691349,
+        "prediction_min": 0.6895555257797241,
+        "prediction_max": 3.7845191955566406,
+        "usable_goal_labels": 30310400
+      },
+      {
+        "update": 14900,
+        "training_mse": 0.023241354152560234,
+        "prediction_min": 0.6098318696022034,
+        "prediction_max": 4.098772048950195,
+        "usable_goal_labels": 30515200
+      },
+      {
+        "update": 15000,
+        "training_mse": 0.02190227061510086,
+        "prediction_min": 0.6595842242240906,
+        "prediction_max": 3.761430263519287,
+        "usable_goal_labels": 30720000
+      },
+      {
+        "update": 15100,
+        "training_mse": 0.02173599787056446,
+        "prediction_min": 0.7051486968994141,
+        "prediction_max": 3.762700319290161,
+        "usable_goal_labels": 30924800
+      },
+      {
+        "update": 15200,
+        "training_mse": 0.02107611857354641,
+        "prediction_min": 0.6664828062057495,
+        "prediction_max": 5.497837066650391,
+        "usable_goal_labels": 31129600
+      },
+      {
+        "update": 15300,
+        "training_mse": 0.0216064490377903,
+        "prediction_min": 0.6877922415733337,
+        "prediction_max": 4.826991558074951,
+        "usable_goal_labels": 31334400
+      },
+      {
+        "update": 15400,
+        "training_mse": 0.022660493850708008,
+        "prediction_min": 0.7199752330780029,
+        "prediction_max": 3.850113868713379,
+        "usable_goal_labels": 31539200
+      },
+      {
+        "update": 15500,
+        "training_mse": 0.038777194917201996,
+        "prediction_min": 0.7667349576950073,
+        "prediction_max": 4.403878688812256,
+        "usable_goal_labels": 31744000
+      },
+      {
+        "update": 15600,
+        "training_mse": 0.02642199955880642,
+        "prediction_min": 0.6751536130905151,
+        "prediction_max": 6.203658580780029,
+        "usable_goal_labels": 31948800
+      },
+      {
+        "update": 15700,
+        "training_mse": 0.06729056686162949,
+        "prediction_min": 0.7264013886451721,
+        "prediction_max": 5.874492168426514,
+        "usable_goal_labels": 32153600
+      },
+      {
+        "update": 15800,
+        "training_mse": 0.046010151505470276,
+        "prediction_min": 0.6725562810897827,
+        "prediction_max": 3.5668210983276367,
+        "usable_goal_labels": 32358400
+      },
+      {
+        "update": 15900,
+        "training_mse": 0.017698489129543304,
+        "prediction_min": 0.6945073008537292,
+        "prediction_max": 4.297085762023926,
+        "usable_goal_labels": 32563200
+      },
+      {
+        "update": 16000,
+        "training_mse": 0.023520518094301224,
+        "prediction_min": 0.6366760730743408,
+        "prediction_max": 4.273998737335205,
+        "usable_goal_labels": 32768000
+      },
+      {
+        "update": 16100,
+        "training_mse": 0.029402289539575577,
+        "prediction_min": 0.7244770526885986,
+        "prediction_max": 5.010689735412598,
+        "usable_goal_labels": 32972800
+      },
+      {
+        "update": 16200,
+        "training_mse": 0.016830476000905037,
+        "prediction_min": 0.6383011341094971,
+        "prediction_max": 4.016330718994141,
+        "usable_goal_labels": 33177600
+      },
+      {
+        "update": 16300,
+        "training_mse": 0.029486846178770065,
+        "prediction_min": 0.5941296815872192,
+        "prediction_max": 4.120652198791504,
+        "usable_goal_labels": 33382400
+      },
+      {
+        "update": 16400,
+        "training_mse": 0.04428941011428833,
+        "prediction_min": 0.6252961754798889,
+        "prediction_max": 4.456670761108398,
+        "usable_goal_labels": 33587200
+      },
+      {
+        "update": 16500,
+        "training_mse": 0.02974550612270832,
+        "prediction_min": 0.6896042227745056,
+        "prediction_max": 3.544964551925659,
+        "usable_goal_labels": 33792000
+      },
+      {
+        "update": 16600,
+        "training_mse": 0.01868361420929432,
+        "prediction_min": 0.7442137598991394,
+        "prediction_max": 4.2625412940979,
+        "usable_goal_labels": 33996800
+      },
+      {
+        "update": 16700,
+        "training_mse": 0.01723599247634411,
+        "prediction_min": 0.5991116762161255,
+        "prediction_max": 5.018799304962158,
+        "usable_goal_labels": 34201600
+      },
+      {
+        "update": 16800,
+        "training_mse": 0.016145484521985054,
+        "prediction_min": 0.632218062877655,
+        "prediction_max": 5.471023082733154,
+        "usable_goal_labels": 34406400
+      },
+      {
+        "update": 16900,
+        "training_mse": 0.07017486542463303,
+        "prediction_min": 0.6137254238128662,
+        "prediction_max": 3.451483726501465,
+        "usable_goal_labels": 34611200
+      },
+      {
+        "update": 17000,
+        "training_mse": 0.030744487419724464,
+        "prediction_min": 0.6358081698417664,
+        "prediction_max": 4.953593730926514,
+        "usable_goal_labels": 34816000
+      },
+      {
+        "update": 17100,
+        "training_mse": 0.034557901322841644,
+        "prediction_min": 0.6509743332862854,
+        "prediction_max": 5.951834678649902,
+        "usable_goal_labels": 35020800
+      },
+      {
+        "update": 17200,
+        "training_mse": 0.017263904213905334,
+        "prediction_min": 0.649594247341156,
+        "prediction_max": 4.318770408630371,
+        "usable_goal_labels": 35225600
+      },
+      {
+        "update": 17300,
+        "training_mse": 0.04333522543311119,
+        "prediction_min": 0.580459713935852,
+        "prediction_max": 7.290231704711914,
+        "usable_goal_labels": 35430400
+      },
+      {
+        "update": 17400,
+        "training_mse": 0.042099855840206146,
+        "prediction_min": 0.651003897190094,
+        "prediction_max": 4.683592319488525,
+        "usable_goal_labels": 35635200
+      },
+      {
+        "update": 17500,
+        "training_mse": 0.02204027585685253,
+        "prediction_min": 0.6657915711402893,
+        "prediction_max": 5.781872272491455,
+        "usable_goal_labels": 35840000
+      },
+      {
+        "update": 17600,
+        "training_mse": 0.059370722621679306,
+        "prediction_min": 0.6581705212593079,
+        "prediction_max": 9.172208786010742,
+        "usable_goal_labels": 36044800
+      },
+      {
+        "update": 17700,
+        "training_mse": 0.021853366866707802,
+        "prediction_min": 0.6508939266204834,
+        "prediction_max": 5.277109622955322,
+        "usable_goal_labels": 36249600
+      },
+      {
+        "update": 17800,
+        "training_mse": 0.030585376545786858,
+        "prediction_min": 0.6558893918991089,
+        "prediction_max": 4.794063091278076,
+        "usable_goal_labels": 36454400
+      },
+      {
+        "update": 17900,
+        "training_mse": 0.027643563225865364,
+        "prediction_min": 0.6580132842063904,
+        "prediction_max": 7.154755115509033,
+        "usable_goal_labels": 36659200
+      },
+      {
+        "update": 18000,
+        "training_mse": 0.02196049503982067,
+        "prediction_min": 0.4129289984703064,
+        "prediction_max": 6.780651569366455,
+        "usable_goal_labels": 36864000
+      },
+      {
+        "update": 18100,
+        "training_mse": 0.023519400507211685,
+        "prediction_min": 0.6503979563713074,
+        "prediction_max": 5.486997127532959,
+        "usable_goal_labels": 37068800
+      },
+      {
+        "update": 18200,
+        "training_mse": 0.03358129411935806,
+        "prediction_min": 0.6407157778739929,
+        "prediction_max": 4.992567539215088,
+        "usable_goal_labels": 37273600
+      },
+      {
+        "update": 18300,
+        "training_mse": 0.023663990199565887,
+        "prediction_min": 0.6794517040252686,
+        "prediction_max": 4.2585768699646,
+        "usable_goal_labels": 37478400
+      },
+      {
+        "update": 18400,
+        "training_mse": 0.03240441903471947,
+        "prediction_min": 0.69745272397995,
+        "prediction_max": 4.896607398986816,
+        "usable_goal_labels": 37683200
+      },
+      {
+        "update": 18500,
+        "training_mse": 0.020589010789990425,
+        "prediction_min": 0.6690301895141602,
+        "prediction_max": 7.339564800262451,
+        "usable_goal_labels": 37888000
+      },
+      {
+        "update": 18600,
+        "training_mse": 0.022059282287955284,
+        "prediction_min": 0.6647893190383911,
+        "prediction_max": 7.99783182144165,
+        "usable_goal_labels": 38092800
+      },
+      {
+        "update": 18700,
+        "training_mse": 0.03026159293949604,
+        "prediction_min": 0.5670406818389893,
+        "prediction_max": 5.6301140785217285,
+        "usable_goal_labels": 38297600
+      },
+      {
+        "update": 18800,
+        "training_mse": 0.030976660549640656,
+        "prediction_min": 0.616542637348175,
+        "prediction_max": 7.0270233154296875,
+        "usable_goal_labels": 38502400
+      },
+      {
+        "update": 18900,
+        "training_mse": 0.062317393720149994,
+        "prediction_min": 0.6108651161193848,
+        "prediction_max": 6.463077545166016,
+        "usable_goal_labels": 38707200
+      },
+      {
+        "update": 19000,
+        "training_mse": 0.04846787825226784,
+        "prediction_min": 0.5525066256523132,
+        "prediction_max": 7.164721965789795,
+        "usable_goal_labels": 38912000
+      },
+      {
+        "update": 19100,
+        "training_mse": 0.033759038895368576,
+        "prediction_min": 0.6555892825126648,
+        "prediction_max": 5.941511631011963,
+        "usable_goal_labels": 39116800
+      },
+      {
+        "update": 19200,
+        "training_mse": 0.03471212461590767,
+        "prediction_min": 0.6479212045669556,
+        "prediction_max": 6.355595588684082,
+        "usable_goal_labels": 39321600
+      },
+      {
+        "update": 19300,
+        "training_mse": 0.03403319790959358,
+        "prediction_min": 0.6065369844436646,
+        "prediction_max": 5.292825698852539,
+        "usable_goal_labels": 39526400
+      },
+      {
+        "update": 19400,
+        "training_mse": 0.021917307749390602,
+        "prediction_min": 0.6475480794906616,
+        "prediction_max": 4.337234973907471,
+        "usable_goal_labels": 39731200
+      },
+      {
+        "update": 19500,
+        "training_mse": 0.030982187017798424,
+        "prediction_min": 0.6525464057922363,
+        "prediction_max": 8.686934471130371,
+        "usable_goal_labels": 39936000
+      },
+      {
+        "update": 19600,
+        "training_mse": 0.022341158241033554,
+        "prediction_min": 0.606702983379364,
+        "prediction_max": 5.37175178527832,
+        "usable_goal_labels": 40140800
+      },
+      {
+        "update": 19700,
+        "training_mse": 0.027184423059225082,
+        "prediction_min": 0.609862208366394,
+        "prediction_max": 6.667751789093018,
+        "usable_goal_labels": 40345600
+      },
+      {
+        "update": 19800,
+        "training_mse": 0.01444524247199297,
+        "prediction_min": 0.586982011795044,
+        "prediction_max": 3.599195718765259,
+        "usable_goal_labels": 40550400
+      },
+      {
+        "update": 19900,
+        "training_mse": 0.04045470058917999,
+        "prediction_min": 0.5416182279586792,
+        "prediction_max": 5.548376083374023,
+        "usable_goal_labels": 40755200
+      },
+      {
+        "update": 20000,
+        "training_mse": 0.04553746432065964,
+        "prediction_min": 0.6219781637191772,
+        "prediction_max": 6.287639141082764,
+        "usable_goal_labels": 40960000
+      },
+      {
+        "update": 20100,
+        "training_mse": 0.029354751110076904,
+        "prediction_min": 0.5651212930679321,
+        "prediction_max": 4.7392778396606445,
+        "usable_goal_labels": 41164800
+      },
+      {
+        "update": 20200,
+        "training_mse": 0.02272138185799122,
+        "prediction_min": 0.6566733717918396,
+        "prediction_max": 4.723843574523926,
+        "usable_goal_labels": 41369600
+      },
+      {
+        "update": 20300,
+        "training_mse": 0.018330540508031845,
+        "prediction_min": 0.44959282875061035,
+        "prediction_max": 5.9457573890686035,
+        "usable_goal_labels": 41574400
+      },
+      {
+        "update": 20400,
+        "training_mse": 0.017855796962976456,
+        "prediction_min": 0.6325648427009583,
+        "prediction_max": 5.324934482574463,
+        "usable_goal_labels": 41779200
+      },
+      {
+        "update": 20500,
+        "training_mse": 0.01634366624057293,
+        "prediction_min": 0.5456977486610413,
+        "prediction_max": 4.074669361114502,
+        "usable_goal_labels": 41984000
+      },
+      {
+        "update": 20600,
+        "training_mse": 0.027773894369602203,
+        "prediction_min": 0.56290602684021,
+        "prediction_max": 7.05930757522583,
+        "usable_goal_labels": 42188800
+      },
+      {
+        "update": 20700,
+        "training_mse": 0.052755411714315414,
+        "prediction_min": 0.668218731880188,
+        "prediction_max": 7.423339366912842,
+        "usable_goal_labels": 42393600
+      },
+      {
+        "update": 20800,
+        "training_mse": 0.015199045650660992,
+        "prediction_min": 0.6004500985145569,
+        "prediction_max": 5.121616840362549,
+        "usable_goal_labels": 42598400
+      },
+      {
+        "update": 20900,
+        "training_mse": 0.028412731364369392,
+        "prediction_min": 0.5572304129600525,
+        "prediction_max": 4.4445695877075195,
+        "usable_goal_labels": 42803200
+      },
+      {
+        "update": 21000,
+        "training_mse": 0.03688613697886467,
+        "prediction_min": 0.6618214845657349,
+        "prediction_max": 4.973322868347168,
+        "usable_goal_labels": 43008000
+      },
+      {
+        "update": 21100,
+        "training_mse": 0.01897015981376171,
+        "prediction_min": 0.5757544636726379,
+        "prediction_max": 7.348702907562256,
+        "usable_goal_labels": 43212800
+      },
+      {
+        "update": 21200,
+        "training_mse": 0.025025732815265656,
+        "prediction_min": 0.669938862323761,
+        "prediction_max": 4.189998149871826,
+        "usable_goal_labels": 43417600
+      },
+      {
+        "update": 21300,
+        "training_mse": 0.03852830454707146,
+        "prediction_min": 0.6619857549667358,
+        "prediction_max": 5.55580472946167,
+        "usable_goal_labels": 43622400
+      },
+      {
+        "update": 21400,
+        "training_mse": 0.019869666546583176,
+        "prediction_min": 0.6779554486274719,
+        "prediction_max": 6.046390533447266,
+        "usable_goal_labels": 43827200
+      },
+      {
+        "update": 21500,
+        "training_mse": 0.016316208988428116,
+        "prediction_min": 0.6450817584991455,
+        "prediction_max": 5.157569408416748,
+        "usable_goal_labels": 44032000
+      },
+      {
+        "update": 21600,
+        "training_mse": 0.03932921215891838,
+        "prediction_min": 0.5563037395477295,
+        "prediction_max": 5.984755516052246,
+        "usable_goal_labels": 44236800
+      },
+      {
+        "update": 21700,
+        "training_mse": 0.015089052729308605,
+        "prediction_min": 0.6346666812896729,
+        "prediction_max": 5.678630352020264,
+        "usable_goal_labels": 44441600
+      },
+      {
+        "update": 21800,
+        "training_mse": 0.02936600148677826,
+        "prediction_min": 0.629031240940094,
+        "prediction_max": 4.452206134796143,
+        "usable_goal_labels": 44646400
+      },
+      {
+        "update": 21900,
+        "training_mse": 0.021121907979249954,
+        "prediction_min": 0.5976763963699341,
+        "prediction_max": 4.497586727142334,
+        "usable_goal_labels": 44851200
+      },
+      {
+        "update": 22000,
+        "training_mse": 0.033646151423454285,
+        "prediction_min": 0.6447153091430664,
+        "prediction_max": 6.865005016326904,
+        "usable_goal_labels": 45056000
+      },
+      {
+        "update": 22100,
+        "training_mse": 0.036864593625068665,
+        "prediction_min": 0.5804852247238159,
+        "prediction_max": 4.591928958892822,
+        "usable_goal_labels": 45260800
+      },
+      {
+        "update": 22200,
+        "training_mse": 0.026205549016594887,
+        "prediction_min": 0.656368613243103,
+        "prediction_max": 5.752570629119873,
+        "usable_goal_labels": 45465600
+      },
+      {
+        "update": 22300,
+        "training_mse": 0.015544920228421688,
+        "prediction_min": 0.524901807308197,
+        "prediction_max": 5.320103168487549,
+        "usable_goal_labels": 45670400
+      },
+      {
+        "update": 22400,
+        "training_mse": 0.02598758414387703,
+        "prediction_min": 0.585809588432312,
+        "prediction_max": 5.143456935882568,
+        "usable_goal_labels": 45875200
+      },
+      {
+        "update": 22500,
+        "training_mse": 0.03180413693189621,
+        "prediction_min": 0.592464029788971,
+        "prediction_max": 5.5549821853637695,
+        "usable_goal_labels": 46080000
+      },
+      {
+        "update": 22600,
+        "training_mse": 0.030069900676608086,
+        "prediction_min": 0.5617168545722961,
+        "prediction_max": 4.662094593048096,
+        "usable_goal_labels": 46284800
+      },
+      {
+        "update": 22700,
+        "training_mse": 0.024150831624865532,
+        "prediction_min": 0.5641703009605408,
+        "prediction_max": 6.352092266082764,
+        "usable_goal_labels": 46489600
+      },
+      {
+        "update": 22800,
+        "training_mse": 0.015618850477039814,
+        "prediction_min": 0.5953521132469177,
+        "prediction_max": 5.86040735244751,
+        "usable_goal_labels": 46694400
+      },
+      {
+        "update": 22900,
+        "training_mse": 0.012061288580298424,
+        "prediction_min": 0.6258907318115234,
+        "prediction_max": 6.66328763961792,
+        "usable_goal_labels": 46899200
+      },
+      {
+        "update": 23000,
+        "training_mse": 0.025242449715733528,
+        "prediction_min": 0.6504665613174438,
+        "prediction_max": 5.234931468963623,
+        "usable_goal_labels": 47104000
+      },
+      {
+        "update": 23100,
+        "training_mse": 0.017951009795069695,
+        "prediction_min": 0.5430116653442383,
+        "prediction_max": 4.621814250946045,
+        "usable_goal_labels": 47308800
+      },
+      {
+        "update": 23200,
+        "training_mse": 0.017391575500369072,
+        "prediction_min": 0.5787936449050903,
+        "prediction_max": 4.52014684677124,
+        "usable_goal_labels": 47513600
+      },
+      {
+        "update": 23300,
+        "training_mse": 0.019041337072849274,
+        "prediction_min": 0.5465257167816162,
+        "prediction_max": 7.250049591064453,
+        "usable_goal_labels": 47718400
+      },
+      {
+        "update": 23400,
+        "training_mse": 0.047897182404994965,
+        "prediction_min": 0.6355596780776978,
+        "prediction_max": 6.002082347869873,
+        "usable_goal_labels": 47923200
+      },
+      {
+        "update": 23500,
+        "training_mse": 0.018997617065906525,
+        "prediction_min": 0.6644836068153381,
+        "prediction_max": 6.379642486572266,
+        "usable_goal_labels": 48128000
+      },
+      {
+        "update": 23600,
+        "training_mse": 0.02362859807908535,
+        "prediction_min": 0.6174437999725342,
+        "prediction_max": 4.333285331726074,
+        "usable_goal_labels": 48332800
+      },
+      {
+        "update": 23700,
+        "training_mse": 0.018706224858760834,
+        "prediction_min": 0.6057007312774658,
+        "prediction_max": 4.948019027709961,
+        "usable_goal_labels": 48537600
+      },
+      {
+        "update": 23800,
+        "training_mse": 0.022355008870363235,
+        "prediction_min": 0.5782078504562378,
+        "prediction_max": 4.455559730529785,
+        "usable_goal_labels": 48742400
+      },
+      {
+        "update": 23900,
+        "training_mse": 0.023372530937194824,
+        "prediction_min": 0.6466024518013,
+        "prediction_max": 5.572425365447998,
+        "usable_goal_labels": 48947200
+      },
+      {
+        "update": 24000,
+        "training_mse": 0.026220863685011864,
+        "prediction_min": 0.5818709135055542,
+        "prediction_max": 5.533143043518066,
+        "usable_goal_labels": 49152000
+      },
+      {
+        "update": 24100,
+        "training_mse": 0.02020379714667797,
+        "prediction_min": 0.5650393962860107,
+        "prediction_max": 5.0699639320373535,
+        "usable_goal_labels": 49356800
+      },
+      {
+        "update": 24200,
+        "training_mse": 0.016340790316462517,
+        "prediction_min": 0.6517018675804138,
+        "prediction_max": 4.887833118438721,
+        "usable_goal_labels": 49561600
+      },
+      {
+        "update": 24300,
+        "training_mse": 0.018181800842285156,
+        "prediction_min": 0.6423524022102356,
+        "prediction_max": 6.1674933433532715,
+        "usable_goal_labels": 49766400
+      },
+      {
+        "update": 24400,
+        "training_mse": 0.018742626532912254,
+        "prediction_min": 0.616654634475708,
+        "prediction_max": 5.535943031311035,
+        "usable_goal_labels": 49971200
+      },
+      {
+        "update": 24500,
+        "training_mse": 0.02037443220615387,
+        "prediction_min": 0.6502628326416016,
+        "prediction_max": 6.526328086853027,
+        "usable_goal_labels": 50176000
+      },
+      {
+        "update": 24600,
+        "training_mse": 0.01232602447271347,
+        "prediction_min": 0.7012074589729309,
+        "prediction_max": 5.610195159912109,
+        "usable_goal_labels": 50380800
+      },
+      {
+        "update": 24700,
+        "training_mse": 0.019132882356643677,
+        "prediction_min": 0.6591318249702454,
+        "prediction_max": 6.019565582275391,
+        "usable_goal_labels": 50585600
+      },
+      {
+        "update": 24800,
+        "training_mse": 0.03507773578166962,
+        "prediction_min": 0.6389614939689636,
+        "prediction_max": 5.574426174163818,
+        "usable_goal_labels": 50790400
+      },
+      {
+        "update": 24900,
+        "training_mse": 0.01581747829914093,
+        "prediction_min": 0.6462579965591431,
+        "prediction_max": 5.0836591720581055,
+        "usable_goal_labels": 50995200
+      },
+      {
+        "update": 25000,
+        "training_mse": 0.027960434556007385,
+        "prediction_min": 0.6498222947120667,
+        "prediction_max": 5.007594585418701,
+        "usable_goal_labels": 51200000
+      },
+      {
+        "update": 25100,
+        "training_mse": 0.012523215264081955,
+        "prediction_min": 0.6801708340644836,
+        "prediction_max": 7.25606632232666,
+        "usable_goal_labels": 51404800
+      },
+      {
+        "update": 25200,
+        "training_mse": 0.03039427660405636,
+        "prediction_min": 0.6832724809646606,
+        "prediction_max": 4.745193004608154,
+        "usable_goal_labels": 51609600
+      },
+      {
+        "update": 25300,
+        "training_mse": 0.03373793512582779,
+        "prediction_min": 0.661620557308197,
+        "prediction_max": 5.400376319885254,
+        "usable_goal_labels": 51814400
+      },
+      {
+        "update": 25400,
+        "training_mse": 0.014790118671953678,
+        "prediction_min": 0.62356036901474,
+        "prediction_max": 4.815336227416992,
+        "usable_goal_labels": 52019200
+      },
+      {
+        "update": 25500,
+        "training_mse": 0.01900828257203102,
+        "prediction_min": 0.6313914060592651,
+        "prediction_max": 9.303518295288086,
+        "usable_goal_labels": 52224000
+      },
+      {
+        "update": 25600,
+        "training_mse": 0.017629798501729965,
+        "prediction_min": 0.5572161078453064,
+        "prediction_max": 6.083459377288818,
+        "usable_goal_labels": 52428800
+      },
+      {
+        "update": 25700,
+        "training_mse": 0.040723927319049835,
+        "prediction_min": 0.5736851096153259,
+        "prediction_max": 7.071745872497559,
+        "usable_goal_labels": 52633600
+      },
+      {
+        "update": 25800,
+        "training_mse": 0.031977519392967224,
+        "prediction_min": 0.5760658979415894,
+        "prediction_max": 7.078702926635742,
+        "usable_goal_labels": 52838400
+      },
+      {
+        "update": 25900,
+        "training_mse": 0.01277106162160635,
+        "prediction_min": 0.6746969819068909,
+        "prediction_max": 6.696866035461426,
+        "usable_goal_labels": 53043200
+      },
+      {
+        "update": 26000,
+        "training_mse": 0.022957343608140945,
+        "prediction_min": 0.6650415062904358,
+        "prediction_max": 5.213789939880371,
+        "usable_goal_labels": 53248000
+      },
+      {
+        "update": 26100,
+        "training_mse": 0.012796211987733841,
+        "prediction_min": 0.6687300205230713,
+        "prediction_max": 4.87784481048584,
+        "usable_goal_labels": 53452800
+      },
+      {
+        "update": 26200,
+        "training_mse": 0.020227398723363876,
+        "prediction_min": 0.6498281359672546,
+        "prediction_max": 6.771466255187988,
+        "usable_goal_labels": 53657600
+      },
+      {
+        "update": 26300,
+        "training_mse": 0.027189811691641808,
+        "prediction_min": 0.677521824836731,
+        "prediction_max": 5.590267181396484,
+        "usable_goal_labels": 53862400
+      },
+      {
+        "update": 26400,
+        "training_mse": 0.0223408043384552,
+        "prediction_min": 0.6159648895263672,
+        "prediction_max": 7.579131126403809,
+        "usable_goal_labels": 54067200
+      },
+      {
+        "update": 26500,
+        "training_mse": 0.00979696586728096,
+        "prediction_min": 0.6968759298324585,
+        "prediction_max": 6.568181037902832,
+        "usable_goal_labels": 54272000
+      },
+      {
+        "update": 26600,
+        "training_mse": 0.017678119242191315,
+        "prediction_min": 0.6078813672065735,
+        "prediction_max": 5.669591426849365,
+        "usable_goal_labels": 54476800
+      },
+      {
+        "update": 26700,
+        "training_mse": 0.037022870033979416,
+        "prediction_min": 0.5762313604354858,
+        "prediction_max": 5.786095142364502,
+        "usable_goal_labels": 54681600
+      },
+      {
+        "update": 26800,
+        "training_mse": 0.011510217562317848,
+        "prediction_min": 0.6868557929992676,
+        "prediction_max": 5.731307029724121,
+        "usable_goal_labels": 54886400
+      },
+      {
+        "update": 26900,
+        "training_mse": 0.032194171100854874,
+        "prediction_min": 0.623148500919342,
+        "prediction_max": 6.775246620178223,
+        "usable_goal_labels": 55091200
+      },
+      {
+        "update": 27000,
+        "training_mse": 0.019381113350391388,
+        "prediction_min": 0.6644327640533447,
+        "prediction_max": 5.65645170211792,
+        "usable_goal_labels": 55296000
+      },
+      {
+        "update": 27100,
+        "training_mse": 0.009336229413747787,
+        "prediction_min": 0.6047564744949341,
+        "prediction_max": 5.549622058868408,
+        "usable_goal_labels": 55500800
+      },
+      {
+        "update": 27200,
+        "training_mse": 0.014212321490049362,
+        "prediction_min": 0.6500664949417114,
+        "prediction_max": 5.729113578796387,
+        "usable_goal_labels": 55705600
+      },
+      {
+        "update": 27300,
+        "training_mse": 0.019286585971713066,
+        "prediction_min": 0.6470422148704529,
+        "prediction_max": 5.569904804229736,
+        "usable_goal_labels": 55910400
+      },
+      {
+        "update": 27400,
+        "training_mse": 0.012807671912014484,
+        "prediction_min": 0.6604493260383606,
+        "prediction_max": 6.016318321228027,
+        "usable_goal_labels": 56115200
+      },
+      {
+        "update": 27500,
+        "training_mse": 0.032641831785440445,
+        "prediction_min": 0.5856533646583557,
+        "prediction_max": 6.312311172485352,
+        "usable_goal_labels": 56320000
+      },
+      {
+        "update": 27600,
+        "training_mse": 0.013812756165862083,
+        "prediction_min": 0.5812116861343384,
+        "prediction_max": 6.17105770111084,
+        "usable_goal_labels": 56524800
+      },
+      {
+        "update": 27700,
+        "training_mse": 0.030303586274385452,
+        "prediction_min": 0.6980465650558472,
+        "prediction_max": 4.9358015060424805,
+        "usable_goal_labels": 56729600
+      },
+      {
+        "update": 27800,
+        "training_mse": 0.017576033249497414,
+        "prediction_min": 0.5273247361183167,
+        "prediction_max": 6.1202521324157715,
+        "usable_goal_labels": 56934400
+      },
+      {
+        "update": 27900,
+        "training_mse": 0.01110684871673584,
+        "prediction_min": 0.5546395778656006,
+        "prediction_max": 6.869785308837891,
+        "usable_goal_labels": 57139200
+      },
+      {
+        "update": 28000,
+        "training_mse": 0.008010468445718288,
+        "prediction_min": 0.5919796228408813,
+        "prediction_max": 5.979677677154541,
+        "usable_goal_labels": 57344000
+      },
+      {
+        "update": 28100,
+        "training_mse": 0.015036731958389282,
+        "prediction_min": 0.6517757177352905,
+        "prediction_max": 6.2735090255737305,
+        "usable_goal_labels": 57548800
+      },
+      {
+        "update": 28200,
+        "training_mse": 0.01931382529437542,
+        "prediction_min": 0.5559864044189453,
+        "prediction_max": 5.086184024810791,
+        "usable_goal_labels": 57753600
+      },
+      {
+        "update": 28300,
+        "training_mse": 0.018416868522763252,
+        "prediction_min": 0.6384668946266174,
+        "prediction_max": 6.581371307373047,
+        "usable_goal_labels": 57958400
+      },
+      {
+        "update": 28400,
+        "training_mse": 0.009243176318705082,
+        "prediction_min": 0.5862023830413818,
+        "prediction_max": 4.37267541885376,
+        "usable_goal_labels": 58163200
+      },
+      {
+        "update": 28500,
+        "training_mse": 0.013384073972702026,
+        "prediction_min": 0.593186616897583,
+        "prediction_max": 5.983585834503174,
+        "usable_goal_labels": 58368000
+      },
+      {
+        "update": 28600,
+        "training_mse": 0.008504383265972137,
+        "prediction_min": 0.6291671395301819,
+        "prediction_max": 5.842895030975342,
+        "usable_goal_labels": 58572800
+      },
+      {
+        "update": 28700,
+        "training_mse": 0.01624271459877491,
+        "prediction_min": 0.6642210483551025,
+        "prediction_max": 5.8931450843811035,
+        "usable_goal_labels": 58777600
+      },
+      {
+        "update": 28800,
+        "training_mse": 0.022870777174830437,
+        "prediction_min": 0.6630534529685974,
+        "prediction_max": 7.425293445587158,
+        "usable_goal_labels": 58982400
+      },
+      {
+        "update": 28900,
+        "training_mse": 0.02240855246782303,
+        "prediction_min": 0.6517193913459778,
+        "prediction_max": 5.018113613128662,
+        "usable_goal_labels": 59187200
+      },
+      {
+        "update": 29000,
+        "training_mse": 0.011339343152940273,
+        "prediction_min": 0.570920467376709,
+        "prediction_max": 4.6565165519714355,
+        "usable_goal_labels": 59392000
+      },
+      {
+        "update": 29100,
+        "training_mse": 0.012272213585674763,
+        "prediction_min": 0.5807839035987854,
+        "prediction_max": 6.130028247833252,
+        "usable_goal_labels": 59596800
+      },
+      {
+        "update": 29200,
+        "training_mse": 0.025007635354995728,
+        "prediction_min": 0.5805615186691284,
+        "prediction_max": 8.376351356506348,
+        "usable_goal_labels": 59801600
+      },
+      {
+        "update": 29300,
+        "training_mse": 0.01901298575103283,
+        "prediction_min": 0.5875108242034912,
+        "prediction_max": 5.471275806427002,
+        "usable_goal_labels": 60006400
+      },
+      {
+        "update": 29400,
+        "training_mse": 0.011854982003569603,
+        "prediction_min": 0.6689361333847046,
+        "prediction_max": 5.183553218841553,
+        "usable_goal_labels": 60211200
+      },
+      {
+        "update": 29500,
+        "training_mse": 0.012397876009345055,
+        "prediction_min": 0.6649529933929443,
+        "prediction_max": 5.12899112701416,
+        "usable_goal_labels": 60416000
+      },
+      {
+        "update": 29600,
+        "training_mse": 0.018389830365777016,
+        "prediction_min": 0.5791926383972168,
+        "prediction_max": 5.269942760467529,
+        "usable_goal_labels": 60620800
+      },
+      {
+        "update": 29700,
+        "training_mse": 0.012679360806941986,
+        "prediction_min": 0.6174604296684265,
+        "prediction_max": 6.3826141357421875,
+        "usable_goal_labels": 60825600
+      },
+      {
+        "update": 29800,
+        "training_mse": 0.01111912727355957,
+        "prediction_min": 0.6125192046165466,
+        "prediction_max": 6.817248821258545,
+        "usable_goal_labels": 61030400
+      },
+      {
+        "update": 29900,
+        "training_mse": 0.015744628384709358,
+        "prediction_min": 0.6250077486038208,
+        "prediction_max": 6.245423793792725,
+        "usable_goal_labels": 61235200
+      },
+      {
+        "update": 30000,
+        "training_mse": 0.009084140881896019,
+        "prediction_min": 0.6132869720458984,
+        "prediction_max": 6.0427045822143555,
+        "usable_goal_labels": 61440000
+      }
+    ],
+    "holdout_diagnostic": {
+      "sampled_transitions": 2048,
+      "usable_labels": 32768,
+      "td_mse": 0.014864524826407433
+    },
+    "interpretation": "Offline fitting diagnostics only; executed matched-goal control is required"
+  },
+  "input_files": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/replay.npz": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/decoder_state.pt": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/metadata.json": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3"
+  },
+  "protocol_sha256": "ea1c48fbc55bb43a939a8d114ab1d8f193d3e9a7bbba8facf33368e7d75411ee",
+  "checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0000/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/analysis_plan.py",
+        "snapshot_path": "sources/0001/analysis_plan.py",
+        "expected_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "snapshot_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ec13e7fcbf2081062125cb5dcecc352cbac19e5e872e71d24ef4e9eb4a4cda69",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/collector.py",
+        "snapshot_path": "sources/0002/collector.py",
+        "expected_sha256": "7ccee9bb5ccb16f27a9ebef66bff543ce2e7cfcd76a6c79be542c15ab3a31c59",
+        "snapshot_sha256": "7ccee9bb5ccb16f27a9ebef66bff543ce2e7cfcd76a6c79be542c15ab3a31c59",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "7ccee9bb5ccb16f27a9ebef66bff543ce2e7cfcd76a6c79be542c15ab3a31c59",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0003/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0004/dmlab_evaluate.py",
+        "expected_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/native_smoke.py",
+        "snapshot_path": "sources/0005/native_smoke.py",
+        "expected_sha256": "37b2978ae500d7941d73e62340e278031336f182adaad598bfa25d55306696ae",
+        "snapshot_sha256": "37b2978ae500d7941d73e62340e278031336f182adaad598bfa25d55306696ae",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "37b2978ae500d7941d73e62340e278031336f182adaad598bfa25d55306696ae",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0006/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/eligibility.py",
+        "snapshot_path": "sources/0007/eligibility.py",
+        "expected_sha256": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+        "snapshot_sha256": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/all_landmarks.py",
+        "snapshot_path": "sources/0008/all_landmarks.py",
+        "expected_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "snapshot_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "34b37aa6ca2bc65ce69bbf05629ac9f7b915c905f800ae8511742ab2731cf96d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/plot_results.py",
+        "snapshot_path": "sources/0009/plot_results.py",
+        "expected_sha256": "48468c72ff272576519a1c14f69657d009b63690da22483e1cab34c46a8164a5",
+        "snapshot_sha256": "48468c72ff272576519a1c14f69657d009b63690da22483e1cab34c46a8164a5",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "48468c72ff272576519a1c14f69657d009b63690da22483e1cab34c46a8164a5",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/legacy_runtime_adapter.py",
+        "snapshot_path": "sources/0010/legacy_runtime_adapter.py",
+        "expected_sha256": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+        "snapshot_sha256": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/detectors.py",
+        "snapshot_path": "sources/0011/detectors.py",
+        "expected_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "snapshot_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/replay_cli.py",
+        "snapshot_path": "sources/0012/replay_cli.py",
+        "expected_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "snapshot_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/__init__.py",
+        "snapshot_path": "sources/0013/__init__.py",
+        "expected_sha256": "21e61cf5e02ddac043a08bd5e5d0f87a65ee1a9df21ea302f389506832bf9ce1",
+        "snapshot_sha256": "21e61cf5e02ddac043a08bd5e5d0f87a65ee1a9df21ea302f389506832bf9ce1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "21e61cf5e02ddac043a08bd5e5d0f87a65ee1a9df21ea302f389506832bf9ce1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/replay_fit.py",
+        "snapshot_path": "sources/0014/replay_fit.py",
+        "expected_sha256": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+        "snapshot_sha256": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0015/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/geomem_tasks.py",
+        "snapshot_path": "sources/0016/geomem_tasks.py",
+        "expected_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+        "snapshot_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "4b2e3451a137f20eab2113962afdfb433e23d16a4f3223d132e1b461dedbf449",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0017/neural.py",
+        "expected_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/fit_diagnostics.py",
+        "snapshot_path": "sources/0018/fit_diagnostics.py",
+        "expected_sha256": "54976e480597d4965591884f34e92e151546714b7e2fc3cdc1007c0a812ebcd5",
+        "snapshot_sha256": "54976e480597d4965591884f34e92e151546714b7e2fc3cdc1007c0a812ebcd5",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "54976e480597d4965591884f34e92e151546714b7e2fc3cdc1007c0a812ebcd5",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/support_analysis.py",
+        "snapshot_path": "sources/0019/support_analysis.py",
+        "expected_sha256": "aa1c8657cfc1b93f9e389ab26b7e32b0caad42bd7dda9612ac5962ed66dc432c",
+        "snapshot_sha256": "aa1c8657cfc1b93f9e389ab26b7e32b0caad42bd7dda9612ac5962ed66dc432c",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "aa1c8657cfc1b93f9e389ab26b7e32b0caad42bd7dda9612ac5962ed66dc432c",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/hpc_runs/first_hit_control/legacy_readout.py",
+        "snapshot_path": "sources/0020/legacy_readout.py",
+        "expected_sha256": "47ae12f1d043b03a852c251a9f04e091ce8426d2ee80090d7bc538314b32094f",
+        "snapshot_sha256": "47ae12f1d043b03a852c251a9f04e091ce8426d2ee80090d7bc538314b32094f",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "47ae12f1d043b03a852c251a9f04e091ce8426d2ee80090d7bc538314b32094f",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0021/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/controller_q.py",
+        "snapshot_path": "sources/0022/controller_q.py",
+        "expected_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "snapshot_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_core.py",
+        "snapshot_path": "sources/0023/custom_core.py",
+        "expected_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "snapshot_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "current_matches_snapshot": true
+      }
+    ]
+  },
+  "source_snapshot_manifest_sha256": "53797f327c484f6f8fee2ceb080c08559ce6eb8db1e47f002476aa78312b9d62",
+  "primary_detector": "winner",
+  "goal_positive_observations": {
+    "winner": [
+      9996,
+      2404,
+      2253,
+      2711,
+      90,
+      2970,
+      2551,
+      2268,
+      2081,
+      2707,
+      2034,
+      4179,
+      2137,
+      2416,
+      2021,
+      3440
+    ],
+    "exclusive": [
+      9768,
+      2396,
+      2191,
+      2699,
+      64,
+      2908,
+      2535,
+      2231,
+      2059,
+      2457,
+      2027,
+      3969,
+      2108,
+      2380,
+      1896,
+      3246
+    ]
+  },
+  "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+  "source_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+  "collection_evaluation_overrides": {
+    "dmlab_use_level_cache": false,
+    "dmlab_level_cache_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/cache",
+    "dmlab_runfiles_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/runfiles",
+    "online_spatial_telemetry": false,
+    "with_wandb": false,
+    "transfer_freeze_dg": true
+  },
+  "source_run": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+  "layout": {
+    "width": 1165,
+    "goal_start": 1149,
+    "goals": 16
+  },
+  "replay_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+  "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3"
+}

@@ -1,20 +1,34 @@
 {
   "schema": "intrmotiv/completed-stage-metadata-retrieval/v1",
-  "checked_utc": "2026-11-27T10:20:09.234427+00:00",
+  "checked_utc": "2026-11-27T10:29:49.199013+00:00",
   "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
   "files": {
     "replay/metadata.json": {
       "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/metadata.json",
       "bytes": 4685,
       "sha256": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3",
-      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/replay/metadata.json",
+      "local_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/replay/metadata.json",
       "local_hash_match": true
     },
     "exposure/exposure.json": {
       "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/exposure/exposure.json",
       "bytes": 15788,
       "sha256": "8e0b9e24bd62ccaee904345655c8cdb9488c414699f13ee879a3164e57548b81",
-      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/exposure/exposure.json",
+      "local_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/exposure/exposure.json",
+      "local_hash_match": true
+    },
+    "fit/metadata.json": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/metadata.json",
+      "bytes": 84248,
+      "sha256": "e441d73a2f305d7ebc839800b18c9cd4e0cd8fa95b9e1b89042a1c2ca1761ca0",
+      "local_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/fit/metadata.json",
+      "local_hash_match": true
+    },
+    "fit_diagnostics/residuals.json": {
+      "remote_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit_diagnostics/residuals.json",
+      "bytes": 62388,
+      "sha256": "6db7798eaa346834c4a951582b3d9322af9488b3fb19e1e274cdfaf5b56a7baf",
+      "local_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_results/fit_diagnostics/residuals.json",
       "local_hash_match": true
     }
   }

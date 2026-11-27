@@ -1,0 +1,125 @@
+{
+  "schema": "intrmotiv/source-snapshot/v1",
+  "sources": [
+    {
+      "bytes": 19553,
+      "sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+      "snapshot_path": "sources/0000/projected_grid.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/projected_grid.py"
+    },
+    {
+      "bytes": 23701,
+      "sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+      "snapshot_path": "sources/0001/stationary_readout.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_readout.py"
+    },
+    {
+      "bytes": 26628,
+      "sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+      "snapshot_path": "sources/0002/neural.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py"
+    },
+    {
+      "bytes": 28317,
+      "sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+      "snapshot_path": "sources/0003/finite.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py"
+    },
+    {
+      "bytes": 8637,
+      "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "snapshot_path": "sources/0004/runtime_adapter.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py"
+    },
+    {
+      "bytes": 5491,
+      "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "snapshot_path": "sources/0005/targets.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py"
+    },
+    {
+      "bytes": 4523,
+      "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+      "snapshot_path": "sources/0006/provenance.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py"
+    },
+    {
+      "bytes": 30931,
+      "sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+      "snapshot_path": "sources/0007/aggregate_evaluation.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py"
+    },
+    {
+      "bytes": 34372,
+      "sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+      "snapshot_path": "sources/0008/dmlab_evaluate.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/dmlab_evaluate.py"
+    },
+    {
+      "bytes": 71564,
+      "sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+      "snapshot_path": "sources/0009/environment.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py"
+    },
+    {
+      "bytes": 13640,
+      "sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+      "snapshot_path": "sources/0010/projected_bootstrap_design.md",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md"
+    },
+    {
+      "bytes": 3186,
+      "sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+      "snapshot_path": "sources/0011/state.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py"
+    },
+    {
+      "bytes": 7044,
+      "sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+      "snapshot_path": "sources/0012/test_first_hit_projected_grid.py",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_projected_grid.py"
+    },
+    {
+      "bytes": 2118,
+      "sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+      "snapshot_path": "sources/0013/stationary_action_head_audit.json",
+      "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_action_head_audit.json"
+    },
+    {
+      "bytes": 1105,
+      "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+      "snapshot_path": "sources/0014/custom_decoder.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py"
+    },
+    {
+      "bytes": 3176,
+      "sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+      "snapshot_path": "sources/0015/action_parameterization.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/action_parameterization.py"
+    },
+    {
+      "bytes": 1980,
+      "sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+      "snapshot_path": "sources/0016/model_utils.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/model_utils.py"
+    },
+    {
+      "bytes": 1286,
+      "sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+      "snapshot_path": "sources/0017/decoder.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/decoder.py"
+    },
+    {
+      "bytes": 12169,
+      "sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+      "snapshot_path": "sources/0018/action_distributions.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/action_distributions.py"
+    },
+    {
+      "bytes": 1741,
+      "sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+      "snapshot_path": "sources/0019/torch_utils.py",
+      "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/torch_utils.py"
+    }
+  ]
+}

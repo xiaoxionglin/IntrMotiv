@@ -1,0 +1,390 @@
+{
+  "unprojected": {
+    "operator": "unprojected",
+    "same_final_model_on_both_sides": true,
+    "scope": "all cached factual replay; current-goal labels omitted",
+    "overall": {
+      "labels": 61440,
+      "mse": 2.17706856346922e-05,
+      "maximum_absolute_residual": 0.04072010517120361,
+      "prediction_min": 0.917514979839325,
+      "prediction_max": 1.0147285461425781,
+      "target_min": 0.9360951781272888,
+      "target_max": 1.0148661136627197,
+      "predictions_above_one": 1259,
+      "predictions_below_zero": 0
+    },
+    "per_goal": {
+      "0": {
+        "labels": 3819,
+        "mse": 2.239047535113059e-05,
+        "maximum_absolute_residual": 0.02692127227783203,
+        "prediction_min": 0.935192883014679,
+        "prediction_max": 1.0092445611953735,
+        "target_min": 0.9417456388473511,
+        "target_max": 1.0026054382324219,
+        "predictions_above_one": 60,
+        "predictions_below_zero": 0
+      },
+      "1": {
+        "labels": 3857,
+        "mse": 2.3294460334000178e-05,
+        "maximum_absolute_residual": 0.028439223766326904,
+        "prediction_min": 0.9411191344261169,
+        "prediction_max": 1.0099080801010132,
+        "target_min": 0.9415304064750671,
+        "target_max": 1.005746841430664,
+        "predictions_above_one": 51,
+        "predictions_below_zero": 0
+      },
+      "2": {
+        "labels": 3863,
+        "mse": 1.8819286196958274e-05,
+        "maximum_absolute_residual": 0.023026645183563232,
+        "prediction_min": 0.9404802322387695,
+        "prediction_max": 1.0082380771636963,
+        "target_min": 0.9443476796150208,
+        "target_max": 1.0016804933547974,
+        "predictions_above_one": 91,
+        "predictions_below_zero": 0
+      },
+      "3": {
+        "labels": 3876,
+        "mse": 1.7329506590613164e-05,
+        "maximum_absolute_residual": 0.01996380090713501,
+        "prediction_min": 0.9356536269187927,
+        "prediction_max": 1.0102752447128296,
+        "target_min": 0.9382739067077637,
+        "target_max": 1.00017249584198,
+        "predictions_above_one": 44,
+        "predictions_below_zero": 0
+      },
+      "4": {
+        "labels": 3846,
+        "mse": 2.2598584109800868e-05,
+        "maximum_absolute_residual": 0.02502143383026123,
+        "prediction_min": 0.941406786441803,
+        "prediction_max": 1.0101091861724854,
+        "target_min": 0.9410422444343567,
+        "target_max": 1.005212664604187,
+        "predictions_above_one": 71,
+        "predictions_below_zero": 0
+      },
+      "5": {
+        "labels": 3860,
+        "mse": 2.308682815055363e-05,
+        "maximum_absolute_residual": 0.02336364984512329,
+        "prediction_min": 0.9517893195152283,
+        "prediction_max": 1.0087966918945312,
+        "target_min": 0.9519296884536743,
+        "target_max": 1.0047787427902222,
+        "predictions_above_one": 96,
+        "predictions_below_zero": 0
+      },
+      "6": {
+        "labels": 3849,
+        "mse": 2.1498497517313808e-05,
+        "maximum_absolute_residual": 0.028483211994171143,
+        "prediction_min": 0.9389374852180481,
+        "prediction_max": 1.0087465047836304,
+        "target_min": 0.9524836540222168,
+        "target_max": 1.0004500150680542,
+        "predictions_above_one": 69,
+        "predictions_below_zero": 0
+      },
+      "7": {
+        "labels": 3874,
+        "mse": 2.0982408386771567e-05,
+        "maximum_absolute_residual": 0.035754382610321045,
+        "prediction_min": 0.9400079846382141,
+        "prediction_max": 1.0140126943588257,
+        "target_min": 0.9488782286643982,
+        "target_max": 1.0088677406311035,
+        "predictions_above_one": 84,
+        "predictions_below_zero": 0
+      },
+      "8": {
+        "labels": 3830,
+        "mse": 2.490314727765508e-05,
+        "maximum_absolute_residual": 0.04072010517120361,
+        "prediction_min": 0.917514979839325,
+        "prediction_max": 1.0089257955551147,
+        "target_min": 0.9408016204833984,
+        "target_max": 1.0028265714645386,
+        "predictions_above_one": 89,
+        "predictions_below_zero": 0
+      },
+      "9": {
+        "labels": 3842,
+        "mse": 2.17384185816627e-05,
+        "maximum_absolute_residual": 0.026334762573242188,
+        "prediction_min": 0.9484732747077942,
+        "prediction_max": 1.0086932182312012,
+        "target_min": 0.9484559893608093,
+        "target_max": 1.004320502281189,
+        "predictions_above_one": 96,
+        "predictions_below_zero": 0
+      },
+      "10": {
+        "labels": 3822,
+        "mse": 2.3230169972521253e-05,
+        "maximum_absolute_residual": 0.024557769298553467,
+        "prediction_min": 0.9504250884056091,
+        "prediction_max": 1.009401798248291,
+        "target_min": 0.9560026526451111,
+        "target_max": 1.0108718872070312,
+        "predictions_above_one": 126,
+        "predictions_below_zero": 0
+      },
+      "11": {
+        "labels": 3841,
+        "mse": 1.9245850126026198e-05,
+        "maximum_absolute_residual": 0.018865346908569336,
+        "prediction_min": 0.9501375555992126,
+        "prediction_max": 1.0094316005706787,
+        "target_min": 0.9535335898399353,
+        "target_max": 1.0006167888641357,
+        "predictions_above_one": 101,
+        "predictions_below_zero": 0
+      },
+      "12": {
+        "labels": 3796,
+        "mse": 2.2110154532128945e-05,
+        "maximum_absolute_residual": 0.02075803279876709,
+        "prediction_min": 0.9345470666885376,
+        "prediction_max": 1.008304238319397,
+        "target_min": 0.938360333442688,
+        "target_max": 1.0055725574493408,
+        "predictions_above_one": 53,
+        "predictions_below_zero": 0
+      },
+      "13": {
+        "labels": 3825,
+        "mse": 2.3830938516766764e-05,
+        "maximum_absolute_residual": 0.03128117322921753,
+        "prediction_min": 0.9409710764884949,
+        "prediction_max": 1.013373851776123,
+        "target_min": 0.94371098279953,
+        "target_max": 1.006835699081421,
+        "predictions_above_one": 71,
+        "predictions_below_zero": 0
+      },
+      "14": {
+        "labels": 3802,
+        "mse": 2.2949825506657362e-05,
+        "maximum_absolute_residual": 0.028325021266937256,
+        "prediction_min": 0.9384138584136963,
+        "prediction_max": 1.0147285461425781,
+        "target_min": 0.9444592595100403,
+        "target_max": 1.0148661136627197,
+        "predictions_above_one": 89,
+        "predictions_below_zero": 0
+      },
+      "15": {
+        "labels": 3838,
+        "mse": 2.041640800598543e-05,
+        "maximum_absolute_residual": 0.018922626972198486,
+        "prediction_min": 0.9371857047080994,
+        "prediction_max": 1.0110690593719482,
+        "target_min": 0.9360951781272888,
+        "target_max": 1.0060375928878784,
+        "predictions_above_one": 68,
+        "predictions_below_zero": 0
+      }
+    }
+  },
+  "projected": {
+    "operator": "projected",
+    "same_final_model_on_both_sides": true,
+    "scope": "all cached factual replay; current-goal labels omitted",
+    "overall": {
+      "labels": 61440,
+      "mse": 2.0191915609757416e-05,
+      "maximum_absolute_residual": 0.04072010517120361,
+      "prediction_min": 0.917514979839325,
+      "prediction_max": 1.0147285461425781,
+      "target_min": 0.9360951781272888,
+      "target_max": 1.0,
+      "predictions_above_one": 1259,
+      "predictions_below_zero": 0
+    },
+    "per_goal": {
+      "0": {
+        "labels": 3819,
+        "mse": 2.1424968508654274e-05,
+        "maximum_absolute_residual": 0.02692127227783203,
+        "prediction_min": 0.935192883014679,
+        "prediction_max": 1.0092445611953735,
+        "target_min": 0.9417456388473511,
+        "target_max": 1.0,
+        "predictions_above_one": 60,
+        "predictions_below_zero": 0
+      },
+      "1": {
+        "labels": 3857,
+        "mse": 2.2124229872133583e-05,
+        "maximum_absolute_residual": 0.028439223766326904,
+        "prediction_min": 0.9411191344261169,
+        "prediction_max": 1.0099080801010132,
+        "target_min": 0.9415304064750671,
+        "target_max": 1.0,
+        "predictions_above_one": 51,
+        "predictions_below_zero": 0
+      },
+      "2": {
+        "labels": 3863,
+        "mse": 1.7736112567945383e-05,
+        "maximum_absolute_residual": 0.023026645183563232,
+        "prediction_min": 0.9404802322387695,
+        "prediction_max": 1.0082380771636963,
+        "target_min": 0.9443476796150208,
+        "target_max": 1.0,
+        "predictions_above_one": 91,
+        "predictions_below_zero": 0
+      },
+      "3": {
+        "labels": 3876,
+        "mse": 1.683476693870034e-05,
+        "maximum_absolute_residual": 0.019216597080230713,
+        "prediction_min": 0.9356536269187927,
+        "prediction_max": 1.0102752447128296,
+        "target_min": 0.9382739067077637,
+        "target_max": 1.0,
+        "predictions_above_one": 44,
+        "predictions_below_zero": 0
+      },
+      "4": {
+        "labels": 3846,
+        "mse": 2.1072484742035158e-05,
+        "maximum_absolute_residual": 0.02502143383026123,
+        "prediction_min": 0.941406786441803,
+        "prediction_max": 1.0101091861724854,
+        "target_min": 0.9410422444343567,
+        "target_max": 1.0,
+        "predictions_above_one": 71,
+        "predictions_below_zero": 0
+      },
+      "5": {
+        "labels": 3860,
+        "mse": 2.0788049369002692e-05,
+        "maximum_absolute_residual": 0.02336364984512329,
+        "prediction_min": 0.9517893195152283,
+        "prediction_max": 1.0087966918945312,
+        "target_min": 0.9519296884536743,
+        "target_max": 1.0,
+        "predictions_above_one": 96,
+        "predictions_below_zero": 0
+      },
+      "6": {
+        "labels": 3849,
+        "mse": 2.0548632164718583e-05,
+        "maximum_absolute_residual": 0.028483211994171143,
+        "prediction_min": 0.9389374852180481,
+        "prediction_max": 1.0087465047836304,
+        "target_min": 0.9524836540222168,
+        "target_max": 1.0,
+        "predictions_above_one": 69,
+        "predictions_below_zero": 0
+      },
+      "7": {
+        "labels": 3874,
+        "mse": 1.9333445379743353e-05,
+        "maximum_absolute_residual": 0.0217168927192688,
+        "prediction_min": 0.9400079846382141,
+        "prediction_max": 1.0140126943588257,
+        "target_min": 0.9488782286643982,
+        "target_max": 1.0,
+        "predictions_above_one": 84,
+        "predictions_below_zero": 0
+      },
+      "8": {
+        "labels": 3830,
+        "mse": 2.2833870389149524e-05,
+        "maximum_absolute_residual": 0.04072010517120361,
+        "prediction_min": 0.917514979839325,
+        "prediction_max": 1.0089257955551147,
+        "target_min": 0.9408016204833984,
+        "target_max": 1.0,
+        "predictions_above_one": 89,
+        "predictions_below_zero": 0
+      },
+      "9": {
+        "labels": 3842,
+        "mse": 1.9722574506886303e-05,
+        "maximum_absolute_residual": 0.026334762573242188,
+        "prediction_min": 0.9484732747077942,
+        "prediction_max": 1.0086932182312012,
+        "target_min": 0.9484559893608093,
+        "target_max": 1.0,
+        "predictions_above_one": 96,
+        "predictions_below_zero": 0
+      },
+      "10": {
+        "labels": 3822,
+        "mse": 1.9677236196002923e-05,
+        "maximum_absolute_residual": 0.0221824049949646,
+        "prediction_min": 0.9504250884056091,
+        "prediction_max": 1.009401798248291,
+        "target_min": 0.9560026526451111,
+        "target_max": 1.0,
+        "predictions_above_one": 126,
+        "predictions_below_zero": 0
+      },
+      "11": {
+        "labels": 3841,
+        "mse": 1.8262142475578003e-05,
+        "maximum_absolute_residual": 0.01852118968963623,
+        "prediction_min": 0.9501375555992126,
+        "prediction_max": 1.0094316005706787,
+        "target_min": 0.9535335898399353,
+        "target_max": 1.0,
+        "predictions_above_one": 101,
+        "predictions_below_zero": 0
+      },
+      "12": {
+        "labels": 3796,
+        "mse": 2.135763679689262e-05,
+        "maximum_absolute_residual": 0.02075803279876709,
+        "prediction_min": 0.9345470666885376,
+        "prediction_max": 1.008304238319397,
+        "target_min": 0.938360333442688,
+        "target_max": 1.0,
+        "predictions_above_one": 53,
+        "predictions_below_zero": 0
+      },
+      "13": {
+        "labels": 3825,
+        "mse": 2.1491874576895498e-05,
+        "maximum_absolute_residual": 0.026043593883514404,
+        "prediction_min": 0.9409710764884949,
+        "prediction_max": 1.013373851776123,
+        "target_min": 0.94371098279953,
+        "target_max": 1.0,
+        "predictions_above_one": 71,
+        "predictions_below_zero": 0
+      },
+      "14": {
+        "labels": 3802,
+        "mse": 2.1388656023191288e-05,
+        "maximum_absolute_residual": 0.0233004093170166,
+        "prediction_min": 0.9384138584136963,
+        "prediction_max": 1.0147285461425781,
+        "target_min": 0.9444592595100403,
+        "target_max": 1.0,
+        "predictions_above_one": 89,
+        "predictions_below_zero": 0
+      },
+      "15": {
+        "labels": 3838,
+        "mse": 1.8555230781203136e-05,
+        "maximum_absolute_residual": 0.018922626972198486,
+        "prediction_min": 0.9371857047080994,
+        "prediction_max": 1.0110690593719482,
+        "target_min": 0.9360951781272888,
+        "target_max": 1.0,
+        "predictions_above_one": 68,
+        "predictions_below_zero": 0
+      }
+    }
+  }
+}

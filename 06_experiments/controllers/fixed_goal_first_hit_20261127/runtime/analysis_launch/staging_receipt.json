@@ -1,0 +1,24 @@
+{
+  "schema": "intrmotiv/pure-analysis-remote-staging/v1",
+  "checked_utc": "2026-11-27T10:27:46.261214+00:00",
+  "source_commit": "2325500c89a94acf297ee403b85cb5b8bbb1426e",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_analysis_20261127_r1",
+  "launch_directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/analysis_launch_v1",
+  "source_files_verified": 59,
+  "archive_sha256": "f31cc1ee51398635a01d55e0d02b8cc0b15b565e21b93f9f454a3143abffa5db",
+  "launch_files_sha256": {
+    "qualification_probe.py": "5bbe5b90f9dbb22fe699db2af3a1435ef025d5b34f34d674dcf8cee77d4112cd",
+    "verify_release.py": "1dd89f949a72890a15e70a788248acf3c4e5647b94df413a5d0255d48332677d",
+    "release_manifest.json": "31242fb5f293b96cf3e29ae4d9efa68cb45075722c59cb0c6ab28e20b0e91e72",
+    "qualify.sbatch": "9c339ebc8664affd446b7b9fd4987f50ae6facd68d48059ffaa52c6961aa985d",
+    "analyze.sbatch": "315b279edaf5df6c1613a038157956549b5b6ebcc99d2315bcf8d32e403b418e"
+  },
+  "runtime_release_receipt_sha256_unchanged": "a9c9f040f3df88407d993b05ca7faeceb2d076e43a1012306a0a7e18d35c5be2",
+  "donor_model_files_verified": 112,
+  "write_fsync_passed": true,
+  "workspace_available_bytes": 1345802776576,
+  "source_outputs_all_workspace": true,
+  "bash_syntax_passed": true,
+  "native_execution": false,
+  "jobs_submitted": []
+}

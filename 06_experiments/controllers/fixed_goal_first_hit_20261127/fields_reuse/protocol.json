@@ -1,0 +1,110 @@
+{
+  "schema": "intrmotiv/saved-field-reuse/v1",
+  "created_utc": "2026-11-27T10:25:24.242573+00:00",
+  "inputs": {
+    "/tmp/first_hit_field_preview/common_panel_place_fields.npz": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/field_reuse_audit.json": "292e90a402fba6c072bf040b884ace07d866a4ef0d9253519cf6d4c39488e7dc",
+    "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/donor_graph_source_hash.json": "dc18b8321a50e0daf55a69220e5823c2ddd4327067bb9ccbb5a041ab819024f0",
+    "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22"
+  },
+  "source_snapshot": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/field_reuse.py",
+        "snapshot_path": "sources/0000/field_reuse.py",
+        "sha256": "007a1ed1825c61640fd1620cb40ebd97bd7b6c794d511713c03b6d52d7bda815",
+        "bytes": 16366
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/analyze_place_field_manifest.py",
+        "snapshot_path": "sources/0001/analyze_place_field_manifest.py",
+        "sha256": "d3da234defe8ef8bfd0124555cc87ddf99527417f0ad82c058b3a05d69dbade1",
+        "bytes": 9712
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/intrmotiv_study/spatial_contract.py",
+        "snapshot_path": "sources/0002/spatial_contract.py",
+        "sha256": "b4c8b637e9cf94fda5f6afe1dd4ed952baa53fd81b4b0886e1757a300ca96dbc",
+        "bytes": 50882
+      },
+      {
+        "source_path": "/tmp/first_hit_field_preview/hrl_controllable_graph_cdf9ffe.py",
+        "snapshot_path": "sources/0003/hrl_controllable_graph_cdf9ffe.py",
+        "sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+        "bytes": 46143
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0004/provenance.py",
+        "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "bytes": 4523
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_field_reuse.py",
+        "snapshot_path": "sources/0005/test_first_hit_field_reuse.py",
+        "sha256": "1f6079e3bd056908f364098e34039ae11ca828c74ecf6b5d0fbc81736825279f",
+        "bytes": 1520
+      }
+    ]
+  },
+  "selected_units": [
+    0,
+    4,
+    8,
+    12
+  ],
+  "selection": "Indices0,4,8,12 fixed by parent before main control outcomes",
+  "bounds": [
+    100.0,
+    2000.0,
+    100.0,
+    2000.0
+  ],
+  "saved_map_axes": [
+    "x_bin",
+    "y_bin",
+    "unit"
+  ],
+  "displayed_map_axes": [
+    "y_bin",
+    "x_bin"
+  ],
+  "plotted_arrays": [
+    "post_inhibition_rate_maps",
+    "pre_threshold_rate_maps"
+  ],
+  "transform": "Occupancy-corrected saved means; transpose for display only; no additional smoothing or normalization; unvisited bins gray",
+  "shared_limits_across_all16": {
+    "post": [
+      0.0,
+      17.019636154174805
+    ],
+    "pre": [
+      -1.658902360095841,
+      18.2105349060148
+    ]
+  },
+  "prethreshold_color_center": 0,
+  "font_path": "/home/xiaoxiong/miniforge3/envs/SF_git/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+  "minimum_font_pt": 30,
+  "figure_inches": [
+    10,
+    19
+  ],
+  "dpi": 100,
+  "png_pixels": [
+    1000,
+    1900
+  ],
+  "graph_source_scope": "Archived source blob from donor Git commit cdf9ffe9026dc483e9c31dae7a1365af67c28642; byte hash independently confirmed against actual remote donor file",
+  "graph_source_receipt": {
+    "path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_cosyne27_push_pull_20261010/sf_working_directories/IntrMotiv/dmlab/hrl_controllable_graph.py",
+    "sha256": "d36dde771c78ecd5d19b91d91c17550b332412e823b2b1d01b3f916b53c58efe",
+    "bytes": 46143,
+    "checked_utc": "2026-11-27T10:24:37.008574+00:00"
+  },
+  "graph_missing_evidence": "No prospective arrays in saved NPZ; omitted rather than reported as zero",
+  "matplotlib_version": "3.10.8",
+  "numpy_version": "1.26.4"
+}

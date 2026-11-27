@@ -1,0 +1,16 @@
+{
+  "schema": "intrmotiv/pure-analysis-local-bundle/v1",
+  "source_commit": "2325500c89a94acf297ee403b85cb5b8bbb1426e",
+  "archive_sha256": "f31cc1ee51398635a01d55e0d02b8cc0b15b565e21b93f9f454a3143abffa5db",
+  "source_files": 59,
+  "manifest_sha256": "31242fb5f293b96cf3e29ae4d9efa68cb45075722c59cb0c6ab28e20b0e91e72",
+  "launch_files_sha256": {
+    "qualification_probe.py": "5bbe5b90f9dbb22fe699db2af3a1435ef025d5b34f34d674dcf8cee77d4112cd",
+    "verify_release.py": "1dd89f949a72890a15e70a788248acf3c4e5647b94df413a5d0255d48332677d",
+    "release_manifest.json": "31242fb5f293b96cf3e29ae4d9efa68cb45075722c59cb0c6ab28e20b0e91e72",
+    "qualify.sbatch": "9c339ebc8664affd446b7b9fd4987f50ae6facd68d48059ffaa52c6961aa985d",
+    "analyze.sbatch": "315b279edaf5df6c1613a038157956549b5b6ebcc99d2315bcf8d32e403b418e"
+  },
+  "stage_only": true,
+  "submission_authorized": false
+}

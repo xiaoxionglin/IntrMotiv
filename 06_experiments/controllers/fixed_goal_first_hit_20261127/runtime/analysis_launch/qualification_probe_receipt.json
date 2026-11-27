@@ -1,0 +1,34 @@
+{
+  "schema": "intrmotiv/pure-analysis-native-artifact-qualification/v1",
+  "native_execution": false,
+  "training": false,
+  "field_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+  "panels": {
+    "evaluation": {
+      "trials_sha256": "a56bb439e6ddae4b7bb1c00d3ebb132596d713bf47387edd01c8e39d411c69e2",
+      "issued_own_paths": 4,
+      "observed_samples": [
+        65,
+        28,
+        65,
+        38
+      ]
+    },
+    "evaluation_nonempty_prefix": {
+      "trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+      "issued_own_paths": 4,
+      "observed_samples": [
+        65,
+        12,
+        65,
+        65
+      ]
+    }
+  },
+  "font": {
+    "path": "/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf",
+    "sha256": "3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22",
+    "minimum_points": 30
+  },
+  "font_probe_sha256": "1902830b36e6f28a9bc8839795d0517738ed1df197f99352094ab7a10a74608e"
+}

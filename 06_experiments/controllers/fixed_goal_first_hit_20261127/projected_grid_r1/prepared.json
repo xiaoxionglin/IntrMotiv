@@ -1,0 +1,535 @@
+{
+  "schema": "intrmotiv/projected-grid-prepared/v1",
+  "created_utc": "2026-11-27T10:27:24.757128+00:00",
+  "pre_data_manifest_sha256": "148077c913554b94d3cd42310a6bfdf498837057dae9155850b52e0c48262636",
+  "datasets": {
+    "8": {
+      "path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/reward_free_seed_8.npz",
+      "sha256": "29dc9116503cc3b0525ac64e6ee8d31403d46f3506602880bd5ce7e570115c70",
+      "transitions": 4096,
+      "node_action_counts": [
+        [
+          75,
+          65,
+          62,
+          56
+        ],
+        [
+          59,
+          70,
+          75,
+          62
+        ],
+        [
+          43,
+          62,
+          51,
+          48
+        ],
+        [
+          60,
+          56,
+          47,
+          64
+        ],
+        [
+          59,
+          72,
+          89,
+          69
+        ],
+        [
+          66,
+          63,
+          62,
+          71
+        ],
+        [
+          63,
+          63,
+          61,
+          42
+        ],
+        [
+          47,
+          52,
+          59,
+          57
+        ],
+        [
+          89,
+          106,
+          92,
+          88
+        ],
+        [
+          63,
+          91,
+          62,
+          71
+        ],
+        [
+          64,
+          66,
+          46,
+          62
+        ],
+        [
+          47,
+          62,
+          56,
+          53
+        ],
+        [
+          63,
+          81,
+          82,
+          93
+        ],
+        [
+          51,
+          64,
+          65,
+          69
+        ],
+        [
+          50,
+          55,
+          62,
+          53
+        ],
+        [
+          67,
+          59,
+          72,
+          42
+        ]
+      ],
+      "node_action_pairs_covered": 64,
+      "physical_done_count": 0,
+      "collector_cut_count": 128,
+      "self_loop_rows": 1056
+    },
+    "99": {
+      "path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/reward_free_seed_99.npz",
+      "sha256": "d7ee8492e81f2319bdd449d962ba7c13d1b8975a5b17afdffd3b37ebf9149191",
+      "transitions": 4096,
+      "node_action_counts": [
+        [
+          70,
+          74,
+          62,
+          71
+        ],
+        [
+          66,
+          60,
+          62,
+          51
+        ],
+        [
+          52,
+          61,
+          55,
+          65
+        ],
+        [
+          52,
+          44,
+          63,
+          61
+        ],
+        [
+          63,
+          61,
+          64,
+          62
+        ],
+        [
+          61,
+          57,
+          59,
+          59
+        ],
+        [
+          56,
+          59,
+          68,
+          64
+        ],
+        [
+          44,
+          62,
+          61,
+          55
+        ],
+        [
+          53,
+          71,
+          68,
+          74
+        ],
+        [
+          75,
+          62,
+          60,
+          57
+        ],
+        [
+          58,
+          67,
+          84,
+          65
+        ],
+        [
+          68,
+          52,
+          72,
+          63
+        ],
+        [
+          76,
+          87,
+          70,
+          67
+        ],
+        [
+          60,
+          70,
+          68,
+          73
+        ],
+        [
+          69,
+          70,
+          75,
+          80
+        ],
+        [
+          56,
+          74,
+          65,
+          63
+        ]
+      ],
+      "node_action_pairs_covered": 64,
+      "physical_done_count": 0,
+      "collector_cut_count": 128,
+      "self_loop_rows": 1039
+    },
+    "123": {
+      "path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/reward_free_seed_123.npz",
+      "sha256": "e75d4c81fca3081b1a6ec5bbd428a922ed2b92e453d97571efeef1840f9ff950",
+      "transitions": 4096,
+      "node_action_counts": [
+        [
+          61,
+          63,
+          74,
+          82
+        ],
+        [
+          68,
+          70,
+          58,
+          63
+        ],
+        [
+          71,
+          70,
+          52,
+          81
+        ],
+        [
+          64,
+          59,
+          59,
+          58
+        ],
+        [
+          60,
+          43,
+          69,
+          59
+        ],
+        [
+          62,
+          50,
+          61,
+          55
+        ],
+        [
+          47,
+          59,
+          64,
+          69
+        ],
+        [
+          58,
+          58,
+          50,
+          46
+        ],
+        [
+          70,
+          73,
+          77,
+          60
+        ],
+        [
+          68,
+          71,
+          69,
+          56
+        ],
+        [
+          66,
+          65,
+          58,
+          65
+        ],
+        [
+          69,
+          66,
+          61,
+          45
+        ],
+        [
+          84,
+          77,
+          92,
+          68
+        ],
+        [
+          68,
+          83,
+          79,
+          69
+        ],
+        [
+          46,
+          67,
+          69,
+          61
+        ],
+        [
+          60,
+          48,
+          65,
+          58
+        ]
+      ],
+      "node_action_pairs_covered": 64,
+      "physical_done_count": 0,
+      "collector_cut_count": 128,
+      "self_loop_rows": 1096
+    }
+  },
+  "source_audit": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "archive_valid": true,
+    "current_sources_unchanged": true,
+    "sources": [
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/projected_grid.py",
+        "snapshot_path": "sources/0000/projected_grid.py",
+        "expected_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "snapshot_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "e912f0eb0f5a6d1e65ad797520cf5fb902dff82881b3cd6235307ac359877b46",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/stationary_readout.py",
+        "snapshot_path": "sources/0001/stationary_readout.py",
+        "expected_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "16e253895f57cfa01b868d61ac8135d65086d87bf1b7280af8d6a4c49fd9dee7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/neural.py",
+        "snapshot_path": "sources/0002/neural.py",
+        "expected_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "ba37c2fa432dc82bef50adf1f3ff7f4f314acfa48045059c235ac838fac46763",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/finite.py",
+        "snapshot_path": "sources/0003/finite.py",
+        "expected_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "5117df4106087cf5e46a89b81ff69dcf1e57f960ef50a189e4da84a77b022545",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0004/runtime_adapter.py",
+        "expected_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0005/targets.py",
+        "expected_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0006/provenance.py",
+        "expected_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/aggregate_evaluation.py",
+        "snapshot_path": "sources/0007/aggregate_evaluation.py",
+        "expected_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "00def943d512262676053baf55eab5c1169542abef0847fd1002b5597bab08f7",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/first_hit_control/dmlab_evaluate.py",
+        "snapshot_path": "sources/0008/dmlab_evaluate.py",
+        "expected_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "0c1c0d4cc267a9107cd67ee45e5cf76a7d498974c16ac66516b23b2bf1e011e1",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/geomem/geomem-env/src/geomem_env/environment.py",
+        "snapshot_path": "sources/0009/environment.py",
+        "expected_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "snapshot_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6354015e2960e9170c97f37851cce9124b6f49d97f2fde17301f84406b653015",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md",
+        "snapshot_path": "sources/0010/projected_bootstrap_design.md",
+        "expected_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "snapshot_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/exports/intrmotiv_prediction_starter/intrmotiv_transfer/state.py",
+        "snapshot_path": "sources/0011/state.py",
+        "expected_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "c7397a59bfbfa0ff245521f5776631caeb5031c3317052a0f3d586c4618027b0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/hpc_runs/test_first_hit_projected_grid.py",
+        "snapshot_path": "sources/0012/test_first_hit_projected_grid.py",
+        "expected_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "snapshot_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f68ee5187a1f85027efe026fc46709a8a4cd7d127bf24a932eae73f377acfdb0",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_action_head_audit.json",
+        "snapshot_path": "sources/0013/stationary_action_head_audit.json",
+        "expected_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "a3126c8ee363e276bd304c27d2c5c6828373fd97f74edf0d3cb611c3cb0b97d3",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0014/custom_decoder.py",
+        "expected_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/action_parameterization.py",
+        "snapshot_path": "sources/0015/action_parameterization.py",
+        "expected_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "523d54adc1ead65475d12657527bcb631dced6b4c963657b4af9239ff403967a",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/model_utils.py",
+        "snapshot_path": "sources/0016/model_utils.py",
+        "expected_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "cb1c17d3c4d9a84282be32375e649b6a47d7aba56b026c15839d1444a8ca658d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/model/decoder.py",
+        "snapshot_path": "sources/0017/decoder.py",
+        "expected_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "20233be9613603cde2482022a85da5bee2537052c8fee512266ccc616d7b5b4d",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/action_distributions.py",
+        "snapshot_path": "sources/0018/action_distributions.py",
+        "expected_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f096752ffb074957efbe17f81773c9605b3b0048fe05ef37de47b315f180d1b9",
+        "current_matches_snapshot": true
+      },
+      {
+        "source_path": "/home/xiaoxiong/SFgit/SF_hipposlam/sample_factory/algo/utils/torch_utils.py",
+        "snapshot_path": "sources/0019/torch_utils.py",
+        "expected_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "snapshot_valid": true,
+        "current_exists": true,
+        "current_sha256": "f21112cdc0c8caeb6f775720321d00dfe86363afded5a9d10aab22ea6adce528",
+        "current_matches_snapshot": true
+      }
+    ]
+  }
+}

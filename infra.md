@@ -33,6 +33,13 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Improvement/status:** The toy trainer reconstructs the target through the identical factory under a saved random stream, loads its state dictionary, then freezes it. The replay fitter accepts an explicit target factory and rejects an unsafe deep copy. A focused regression covers the actual scripted decoder.
 - **Acceptance:** Online and target state dictionaries initially match exactly, target parameters are leaves and frozen, source parameters stay trainable, and construction does not perturb the intended random sequence. Keep this within the [source and checkpoint qualification workflow](04_implementation/standardized_study_workflow.md).
 
+### Audit final Bellman residuals separately from lagged-target losses — 2026-11-27
+
+- **Evidence:** The stationary first-hit seed-99 sparse controller logged a last minibatch MSE of $1.18\times10^{-10}$ while ranking waiting above a directly available goal. A frozen [complete-replay audit](06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/final_replay_residual/results.json) gives fresh final-model MSE $1.49\times10^{-6}$; the same last-batch indices give $1.34\times10^{-6}$. Both actions have substantial exact-input support. Waiting preserves the physical node but shifts CA3, so its actual successor must be used.
+- **Impact:** A small lagged-target training loss can be mistaken for convergence or correct action ordering. Mean residuals also hide errors relative to a small action gap, and physical-state self-loop reasoning can use the wrong recurrent successor.
+- **Improvement/status:** Added a model-free residual adapter that reuses factual all-goal target construction, checks saved weights and input hashes, evaluates the final model against itself, and reports per-goal ranges and errors. It preserves the original logged loss; the old target weights were not saved and cannot be reconstructed without rerunning training. The main finite-horizon fit already has a separate frozen diagnostic stage in the [analysis workflow](hpc_runs/first_hit_control/ANALYSIS_PLAN.md).
+- **Acceptance:** Final weights remain unchanged; all factual labels and masks reconcile; stale training loss, fresh residual and executed control appear separately. No small sampled residual is presented as a uniform Bellman certificate or a substitute for matched-command trials.
+
 ### Verify receipt and active execution when handing work to another chat — 2026-11-13
 
 - **Evidence:** The exposed app tools lacked thread creation. The supported
@@ -779,13 +786,14 @@ use this log for the infrastructure needed to resolve them.
 - **Impact:** A valid new study can yield empty or misleading standard
   trajectory panels despite complete telemetry. This study used the canonical
   derived tables and a thin StudySpec-aware comparative renderer instead.
+- **27 November recurrence:** The exact C05 source-policy directory contains four empty historical-family `trajectory_*.png` metric charts. Its `trajectories/per_checkpoint_grids` image is byte-identical to the field grid, not a physical path. The [bounded retrieval and inspection receipt](06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/field_preview_retrieval.json) records both facts. Filenames and populated directories therefore cannot certify trajectory evidence. Reused field arrays supplied readable maps without another native sweep; the current first-hit evaluator records actual pose/DG/action paths for separate analysis.
 - **Improvement/status:** Pending. Let the standard plotter group by declared
   StudySpec factors or manifest families, without a fixed list of historical
   controller names. Keep metric definitions in the
   [telemetry workflow](04_implementation/reusable_place_field_telemetry.md).
 - **Acceptance:** A focused test renders nonempty panels for this C15 study
   and the four historical families, preserving their existing values and
-  checkpoint ordering.
+  checkpoint ordering. Reports distinguish checkpoint-metric trends from physical paths, verify that the intended cohort contributes rows, and expose an empty cohort instead of rendering an apparently complete evidence panel.
 
 ### Concurrent place-field jobs overwrite the shared raw summary — 2026-10-07
 

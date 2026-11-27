@@ -1,0 +1,30 @@
+{
+  "job_id": "8950568",
+  "scheduler": {
+    "JobState": "COMPLETED",
+    "ExitCode": "0:0",
+    "RunTime": "00:00:10",
+    "NodeList": "n3101"
+  },
+  "files": {
+    "analysis_qualification_v1/pytest.txt": {
+      "sha256": "4035fb324f7eca56c48f7c6bf30ac313465aa15e5409796b093d08a51987a5e6",
+      "text": "....................................                                     [100%]\n36 passed in 3.64s\n"
+    },
+    "analysis_qualification_v1/probe/qualification.json": {
+      "sha256": "917d3eda2f9448a08d571d36d0048b7979142ed5fb73002761de504fe93faef8",
+      "text": "{\n  \"schema\": \"intrmotiv/pure-analysis-native-artifact-qualification/v1\",\n  \"native_execution\": false,\n  \"training\": false,\n  \"field_sha256\": \"a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7\",\n  \"panels\": {\n    \"evaluation\": {\n      \"trials_sha256\": \"a56bb439e6ddae4b7bb1c00d3ebb132596d713bf47387edd01c8e39d411c69e2\",\n      \"issued_own_paths\": 4,\n      \"observed_samples\": [\n        65,\n        28,\n        65,\n        38\n      ]\n    },\n    \"evaluation_nonempty_prefix\": {\n      \"trials_sha256\": \"b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248\",\n      \"issued_own_paths\": 4,\n      \"observed_samples\": [\n        65,\n        12,\n        65,\n        65\n      ]\n    }\n  },\n  \"font\": {\n    \"path\": \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf\",\n    \"sha256\": \"3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22\",\n    \"minimum_points\": 30\n  },\n  \"font_probe_sha256\": \"1902830b36e6f28a9bc8839795d0517738ed1df197f99352094ab7a10a74608e\"\n}\n"
+    },
+    "slurm/fh_analysis_qual_8950568.out": {
+      "sha256": "b1494b7ec950dd7ed0eaadf7f7ced13a6cf7d187e7652b3506f24fae932687cf",
+      "text": "{\"source_commit\": \"2325500c89a94acf297ee403b85cb5b8bbb1426e\", \"source_files_verified\": 59, \"source_unchanged\": true}\n....................................                                     [100%]\n36 passed in 3.64s\n{\"schema\": \"intrmotiv/pure-analysis-native-artifact-qualification/v1\", \"native_execution\": false, \"training\": false, \"field_sha256\": \"a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7\", \"panels\": {\"evaluation\": {\"trials_sha256\": \"a56bb439e6ddae4b7bb1c00d3ebb132596d713bf47387edd01c8e39d411c69e2\", \"issued_own_paths\": 4, \"observed_samples\": [65, 28, 65, 38]}, \"evaluation_nonempty_prefix\": {\"trials_sha256\": \"b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248\", \"issued_own_paths\": 4, \"observed_samples\": [65, 12, 65, 65]}}, \"font\": {\"path\": \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf\", \"sha256\": \"3fdf69cabf06049ea70a00b5919340e2ce1e6d02b0cc3c4b44fb6801bd1e0d22\", \"minimum_points\": 30}, \"font_probe_sha256\": \"1902830b36e6f28a9bc8839795d0517738ed1df197f99352094ab7a10a74608e\"}\n{\"source_commit\": \"2325500c89a94acf297ee403b85cb5b8bbb1426e\", \"source_files_verified\": 59, \"source_unchanged\": true}\n"
+    },
+    "slurm/fh_analysis_qual_8950568.err": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text": ""
+    }
+  },
+  "font_probe": {
+    "sha256": "1902830b36e6f28a9bc8839795d0517738ed1df197f99352094ab7a10a74608e"
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "condition": "unprojected",
+  "seed": 8,
+  "updates": 2500,
+  "training_seconds": 52.06672322610393,
+  "parameters": 35588,
+  "action_head_parameters": 516,
+  "enumerated_goal_labels": 10240000,
+  "used_noninitial_goal_labels": 9600000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.06186387687921524
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.012115913443267345
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.06999418139457703
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.0009174049482680857
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.0005377103807404637
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 9.79042670223862e-05
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 5.6934608437586576e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 3.138843385386281e-05
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 2.5313716832897626e-05
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 1.836046612879727e-05
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.3917034266341943e-05
+    }
+  ],
+  "n_nontrivial_pairs": 240,
+  "initially_satisfied_queries": 16,
+  "declared_queries": 256,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "all_pair_gate_passed": true,
+  "shortest_success_fraction": 0.7416666666666667,
+  "mean_decisions_nontrivial_queries": 3.1416666666666666,
+  "mean_shortest_distance": 2.6666666666666665,
+  "n_competing_comparisons": 3360,
+  "competing_first_contrast": 0.7488095238095238,
+  "memoryless_competing_first_contrast": 0.4961309523809524,
+  "per_goal": {
+    "0": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "1": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "2": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.5333333333333333
+    },
+    "3": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.3333333333333333
+    },
+    "4": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "5": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "6": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6
+    },
+    "7": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "8": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "9": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "10": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "11": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 1.0
+    },
+    "12": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "13": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "14": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.9333333333333333
+    },
+    "15": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    }
+  },
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.20416666666666666,
+    "continuing_main": 0.13333333333333333,
+    "memoryless": 0.6791666666666667
+  },
+  "initial_parameter_sha256": "c4cbbfcde9699f3b67e4fdebecd85394a402c68df6383d3c704ed4dba38413dd",
+  "batch_rows_sha256": "5c07bbfaf659479db03a1801e2339ac6c1b38c23af04bd0f8b6d8c6c5e713941",
+  "usable_masks_sha256": "d921943c39433573a5928abe84d019e7a59ceeef3af3743815381769e3d0fe99",
+  "actual_batch_calls": 2500,
+  "worst_goal_success": 1.0,
+  "maximum_fresh_start_value_error": 0.044418847465515165,
+  "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+  "checkpoint_sha256": "59e5fb7b4f2e2b90d30f3a1d9911d41d644b3db6396bcb89d7e9d055d8166910",
+  "dataset_sha256": "29dc9116503cc3b0525ac64e6ee8d31403d46f3506602880bd5ce7e570115c70",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "own_operator_fresh_residual": {
+    "labels": 61440,
+    "mse": 1.5052519302116707e-05,
+    "maximum_absolute_residual": 0.030177831649780273,
+    "prediction_min": 0.9297683238983154,
+    "prediction_max": 1.0145375728607178,
+    "target_min": 0.9345959424972534,
+    "target_max": 1.0063766241073608,
+    "predictions_above_one": 1433,
+    "predictions_below_zero": 0
+  }
+}

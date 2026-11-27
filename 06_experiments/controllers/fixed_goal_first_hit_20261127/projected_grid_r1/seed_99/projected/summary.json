@@ -1,0 +1,180 @@
+{
+  "condition": "projected",
+  "seed": 99,
+  "updates": 2500,
+  "training_seconds": 70.2754815351218,
+  "parameters": 35588,
+  "action_head_parameters": 516,
+  "enumerated_goal_labels": 10240000,
+  "used_noninitial_goal_labels": 9600000,
+  "continuing_loss_labels": 0,
+  "replay_transitions": 4096,
+  "training_trace": [
+    {
+      "update": 1,
+      "first_hit_mse": 0.05786816030740738
+    },
+    {
+      "update": 251,
+      "first_hit_mse": 0.024256091564893723
+    },
+    {
+      "update": 501,
+      "first_hit_mse": 0.034330617636442184
+    },
+    {
+      "update": 751,
+      "first_hit_mse": 0.0005895389476791024
+    },
+    {
+      "update": 1001,
+      "first_hit_mse": 0.0003064500051550567
+    },
+    {
+      "update": 1251,
+      "first_hit_mse": 7.928654667921364e-05
+    },
+    {
+      "update": 1501,
+      "first_hit_mse": 5.4120944696478546e-05
+    },
+    {
+      "update": 1751,
+      "first_hit_mse": 3.1988442060537636e-05
+    },
+    {
+      "update": 2001,
+      "first_hit_mse": 3.07338050333783e-05
+    },
+    {
+      "update": 2251,
+      "first_hit_mse": 2.063120700768195e-05
+    },
+    {
+      "update": 2500,
+      "first_hit_mse": 1.8789491150528193e-05
+    }
+  ],
+  "n_nontrivial_pairs": 240,
+  "initially_satisfied_queries": 16,
+  "declared_queries": 256,
+  "first_hit_success": 1.0,
+  "worst_pair_success": 1,
+  "all_pair_gate_passed": true,
+  "shortest_success_fraction": 0.7166666666666667,
+  "mean_decisions_nontrivial_queries": 3.2333333333333334,
+  "mean_shortest_distance": 2.6666666666666665,
+  "n_competing_comparisons": 3360,
+  "competing_first_contrast": 0.7476190476190476,
+  "memoryless_competing_first_contrast": 0.4669642857142857,
+  "per_goal": {
+    "0": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6
+    },
+    "1": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6
+    },
+    "2": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "3": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "4": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.7333333333333333
+    },
+    "5": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.9333333333333333
+    },
+    "6": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "7": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "8": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.7333333333333333
+    },
+    "9": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.5333333333333333
+    },
+    "10": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "11": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6666666666666666
+    },
+    "12": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.6
+    },
+    "13": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    },
+    "14": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8666666666666667
+    },
+    "15": {
+      "queries": 15,
+      "success": 1.0,
+      "shortest_success": 0.8
+    }
+  },
+  "per_route_success": {
+    "first_hit": 1.0,
+    "shuffled_goal": 0.24166666666666667,
+    "continuing_main": 0.125,
+    "memoryless": 0.6166666666666667
+  },
+  "initial_parameter_sha256": "7a2a834c4f5b67a3dcf265f47a08fc3f192135cadd68322167db64007f422c52",
+  "batch_rows_sha256": "332740ab49a6d04e37207943e4740aa66e91b2f3d4e22f315ba1974a6d9a9fbd",
+  "usable_masks_sha256": "db99b9162ef4fb2787849832e70eb1ead06fced48e7561a2a1406fd344eeec45",
+  "actual_batch_calls": 2500,
+  "worst_goal_success": 1.0,
+  "maximum_fresh_start_value_error": 0.03624938419509882,
+  "maximum_value_error_scope": "960 action values on declared fresh-current-observation starts only; not all CA3 histories",
+  "checkpoint_sha256": "e715723ccefa7f60df7c00e7cfffa20f37d5514ef29407ef39d8ffe7e562bd8f",
+  "dataset_sha256": "d7ee8492e81f2319bdd449d962ba7c13d1b8975a5b17afdffd3b37ebf9149191",
+  "evaluation_state_hash_unchanged": true,
+  "saved_checkpoint_trials_exactly_reproduced": true,
+  "own_operator_fresh_residual": {
+    "labels": 61440,
+    "mse": 2.0191915609757416e-05,
+    "maximum_absolute_residual": 0.04072010517120361,
+    "prediction_min": 0.917514979839325,
+    "prediction_max": 1.0147285461425781,
+    "target_min": 0.9360951781272888,
+    "target_max": 1.0,
+    "predictions_above_one": 1259,
+    "predictions_below_zero": 0
+  }
+}
