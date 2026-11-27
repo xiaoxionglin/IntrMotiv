@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/stationary-progress/v1",
-  "checked_utc": "2026-11-27T12:56:55.885254+00:00",
+  "checked_utc": "2026-11-27T14:12:39.114920+00:00",
   "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
   "effective_plan_sha256": "c50738255608e644209c53c6d9e3b93471a830c2a379d200b6ef86f836c9a532",
   "jobs": [
@@ -108,6 +108,7 @@
     }
   },
   "partial_journals_are_diagnostic_only": true,
+  "progress_counter_semantics": "engine_initialization_lines is the count of stdout Map number: lines: a map-load log proxy only, not exact fresh-engine builds, completed trials, discovered goals, or a completion fraction.",
   "analysis_job": {
     "job_id": "8951341",
     "scheduler": {

@@ -3,7 +3,7 @@
   "started_utc": "2026-11-27T12:01:04.813567+00:00",
   "interval_seconds": 300,
   "maximum_checks": 12,
-  "unified_exec_session_id": 84991,
+  "unified_exec_session_id": 19641,
   "source_files": {
     "monitor_stationary.py": {
       "path": "/tmp/intrmotiv-first-hit-stationary-20261127/monitor_stationary.py",
@@ -24,5 +24,32 @@
     "sha256": "3089266ea1f4467c755ef1c3fa248c5bdf258fb39a74930fbe1438811d2a9f3e",
     "source_copy": "runtime/monitoring/stationary_supervisor.py",
     "note": "Current already-running invocation unchanged; subsequent renewal observes latest progress timestamp."
+  },
+  "renewals": [
+    {
+      "renewed_utc": "2026-11-27T12:57:11.147058+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 84991,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T12:56:55.885254+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 17141,
+      "next_check_not_before_previous_plus_seconds": 300
+    },
+    {
+      "renewed_utc": "2026-11-27T13:58:20.302522+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 17141,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T13:57:30.474099+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 19641,
+      "next_check_not_before_previous_plus_seconds": 300
+    }
+  ],
+  "progress_counter_annotation": {
+    "updated_utc": "2026-11-27T13:56:24.242846+00:00",
+    "sha256": "fa841db760fbff69196d5f6a6a0adda2991a1585f9a14a3523b321577888676a",
+    "semantics": "engine_initialization_lines counts stdout Map number: lines. It is only a map-load log proxy, not exact fresh-engine builds, trials, discovered goals, or a completion fraction. Historical field name is retained for receipt compatibility."
   }
 }

@@ -65,12 +65,14 @@
   "conditional_envelope": {
     "maximum_planned_engine_initializations_per_shard": 481,
     "assumed_forward_rss_growth_mib_per_engine": 3.5,
-    "basis": "Conservative rounding above approximately50\u201365MiB growth over roughly18\u201320 further fresh engines; one earlier engine count precedes its memory sample by39seconds.",
+    "basis": "The historical counter measured map-load log lines, not certified fresh-engine calls. It cannot support the recorded per-engine extrapolation.",
     "python_residency_by_final_engine_gib_upper_projection": 2.55,
     "allowance_future_trace_storage_gib": 0.75,
     "allowance_transient_map_compiler_gib": 0.5,
     "conditional_active_residency_envelope_gib": 3.8,
-    "limits": "Two discovery-phase samples do not prove a bound. File cache is separately reclaimable under the8GiB cgroup; future trial storage and allocator behavior can differ. This projection does not justify changing scientific jobs."
+    "limits": "The numerical values in this object are preserved historical estimates and must not be used as a current memory envelope or bound. The two measured discovery-phase samples remain valid; they do not establish later native allocation behavior. No resource change or new probe follows from this correction.",
+    "status": "withdrawn: engine-count denominator was not certified",
+    "historical_basis_claim": "Conservative rounding above approximately50\u201365MiB growth over roughly18\u201320 further fresh engines; one earlier engine count precedes its memory sample by39seconds."
   },
   "installed_slurm": "26.05.4",
   "running_job_memory_increase": "Installed scontrol man states MinMemoryNode allows reduction only for running jobs; no update attempted.",
@@ -80,5 +82,16 @@
     "resubmissions": 0,
     "native_environment_runs": 0
   },
-  "diagnostic_steps": 8
+  "diagnostic_steps": 8,
+  "assessment_revision_utc": "2026-11-27T13:57:04.586218+00:00",
+  "counter_semantics_correction": {
+    "legacy_measurement_field": "engines_at_second_sample",
+    "actual_counter": "stdout.count(\"Map number:\")",
+    "meaning": "Map-load log-line proxy, not an instrumented count of fresh() calls or completed trials.",
+    "evidence": "The saved original_monitor.py defines this counter directly; the 13:52:05 UTC receipt records485 such lines for still-running job8950234, exceeding the assumed481-engine endpoint.",
+    "unchanged": "Raw probe receipts and measured RSS/PSS, anonymous/shared pages, cgroup limits and OOM counters are preserved.",
+    "effect": "The per-engine growth rate and resulting numerical future-residency envelope are withdrawn; their original numbers remain below as historical values, not an active estimate.",
+    "counter_evidence_file": "monitoring/map_log_counter_snapshot_135205.json",
+    "counter_evidence_sha256": "5c0f556aa18c63cd0dbac4bc22cf06128de3809f0948fd483a72f5ade3d8b892"
+  }
 }

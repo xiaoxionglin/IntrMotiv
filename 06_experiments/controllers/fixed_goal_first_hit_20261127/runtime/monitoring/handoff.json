@@ -1,6 +1,6 @@
 {
   "schema": "intrmotiv/bounded-monitor-handoff/v1",
-  "updated_utc": "2026-11-27T12:36:57.667225+00:00",
+  "updated_utc": "2026-11-27T13:58:20.302522+00:00",
   "period_seconds": 300,
   "checks_per_invocation": 12,
   "read_only": true,
@@ -9,7 +9,7 @@
   "sources": {
     "original_monitor.py": {
       "executed_path": "/tmp/intrmotiv-first-hit-qualification-20261127/monitor_main_jobs.py",
-      "sha256": "938dcbd0fb6ca663747975f7597273e903faac55f2aecf0d907100bc28e01c0b"
+      "sha256": "5236066bad4455bb4e74d69c66f401899b5ce63b547e16b1be21f125d0019b9d"
     },
     "original_supervisor.py": {
       "executed_path": "/tmp/intrmotiv-first-hit-qualification-20261127/supervise_main_readonly.py",
@@ -17,7 +17,7 @@
     },
     "stationary_monitor.py": {
       "executed_path": "/tmp/intrmotiv-first-hit-stationary-20261127/monitor_stationary.py",
-      "sha256": "b4ea138117f5efa2e38ed1f1282aec5b0c9956acccfbf622a5813ff424f672fb"
+      "sha256": "fa841db760fbff69196d5f6a6a0adda2991a1585f9a14a3523b321577888676a"
     },
     "stationary_supervisor.py": {
       "executed_path": "/tmp/intrmotiv-first-hit-stationary-20261127/supervise_stationary_readonly.py",
@@ -25,8 +25,8 @@
     }
   },
   "active_sessions": {
-    "original": 84574,
-    "stationary": 84991
+    "original": 63623,
+    "stationary": 19641
   },
   "resume_rule": "Poll existing unified exec sessions first. Renew a supervisor only after its previous invocation finishes; it waits until the previous receipt plus300 seconds. Do not run parallel duplicate monitors.",
   "status_paths": [
@@ -53,6 +53,40 @@
       "new_maximum_checks": 12,
       "unified_exec_session_id": 84574,
       "next_check_not_before_previous_plus_seconds": 300
+    },
+    {
+      "cohort": "stationary",
+      "renewed_utc": "2026-11-27T12:57:11.147058+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 84991,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T12:56:55.885254+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 17141,
+      "next_check_not_before_previous_plus_seconds": 300
+    },
+    {
+      "cohort": "original",
+      "renewed_utc": "2026-11-27T13:40:12.361537+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 84574,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T13:36:56.219105+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 63623,
+      "next_check_not_before_previous_plus_seconds": 300
+    },
+    {
+      "cohort": "stationary",
+      "renewed_utc": "2026-11-27T13:58:20.302522+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 17141,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T13:57:30.474099+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 19641,
+      "next_check_not_before_previous_plus_seconds": 300
     }
-  ]
+  ],
+  "progress_counter_semantics": "engine_initialization_lines counts stdout Map number: lines. It is only a map-load log proxy, not exact fresh-engine builds, trials, discovered goals, or a completion fraction. Historical field name is retained for receipt compatibility."
 }

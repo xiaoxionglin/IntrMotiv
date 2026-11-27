@@ -29,6 +29,7 @@ def status(jid):
 result=dict(schema='intrmotiv/stationary-progress/v1',checked_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
             source_release=bundle['source_release'],effective_plan_sha256=bundle['effective_plan_sha256'],
             jobs=[],stages={},partial_journals_are_diagnostic_only=True)
+result['progress_counter_semantics']='engine_initialization_lines is the count of stdout Map number: lines: a map-load log proxy only, not exact fresh-engine builds, completed trials, discovered goals, or a completion fraction.'
 for job in submission['jobs']:
     jid,name=job['job_id'],job['logical_job']
     row=dict(job_id=jid,logical_job=name,scheduler=status(jid))

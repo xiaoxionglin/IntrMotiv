@@ -2119,6 +2119,13 @@ use this log for the infrastructure needed to resolve them.
   native allocation reclamation. Inspect the enforced limit and OOM counters
   before interpreting scheduler memory totals as a growing Python heap; this
   assessment made no resource changes, cancellations or resubmissions.
+- **Counter-semantics correction:** The monitor's historical
+  `engine_initialization_lines` field counts `Map number:` log lines, not
+  instrumented calls to `fresh()` or completed trials. The derived per-engine
+  memory projection is withdrawn in the assessment; its raw measurements and
+  original numbers remain preserved. Do not infer completion fractions or
+  allocation-growth rates from this proxy. The new evaluator's certified
+  complete-block journal supplies explicit trial progress instead.
 
 ### Slurm GPU resources must be visible in print-only artifacts — completed locally, 2026-09-22
 

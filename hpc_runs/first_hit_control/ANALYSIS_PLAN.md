@@ -33,6 +33,8 @@ Completed jobs can leave Slurm's dependency cache after `MinJobAge` even while a
 
 Read-only monitors also need that accounting fallback for completed analysis jobs. Save monitor source hashes, active process/session identifiers, the last receipt time and the bounded renewal rule together. Resume an existing monitor before starting another; renew only after it exits and after the declared polling interval. The current study's [monitor handoff](../../06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/monitoring/handoff.json) records those details. A monitor never submits, resumes or reruns native work, and process progress alone does not certify a completed scientific result.
 
+The historical `engine_initialization_lines` field counts `Map number:` stdout lines. It is a map-load log proxy, not a measured count of fresh engines or completed trials; do not derive a completion fraction or per-engine memory-growth estimate from it. Unified exec session handles are scoped to their owning agent. Ask that owner to poll a handle before concluding that another agent's missing-handle response means the process stopped.
+
 ## Reusing completed controls
 
 Validate and print the dependent follow-up stages before staging a new immutable source release:

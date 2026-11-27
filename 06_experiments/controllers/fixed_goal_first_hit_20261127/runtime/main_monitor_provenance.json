@@ -43,16 +43,31 @@
       "prior_last_check_utc": "2026-11-27T11:35:41.985387+00:00",
       "new_maximum_checks": 12,
       "unified_exec_session_id": 63783
+    },
+    {
+      "renewed_utc": "2026-11-27T12:36:57.667225+00:00",
+      "prior_invocation_completed_checks": 12,
+      "prior_session_id": 63783,
+      "prior_exit_code": 0,
+      "prior_last_check_utc": "2026-11-27T12:36:19.928610+00:00",
+      "new_maximum_checks": 12,
+      "unified_exec_session_id": 84574,
+      "next_check_not_before_previous_plus_seconds": 300
     }
   ],
   "supervisor_renewal": {
-    "renewed_utc": "2026-11-27T12:36:57.667225+00:00",
+    "renewed_utc": "2026-11-27T13:40:12.361537+00:00",
     "prior_invocation_completed_checks": 12,
-    "prior_session_id": 63783,
+    "prior_session_id": 84574,
     "prior_exit_code": 0,
-    "prior_last_check_utc": "2026-11-27T12:36:19.928610+00:00",
+    "prior_last_check_utc": "2026-11-27T13:36:56.219105+00:00",
     "new_maximum_checks": 12,
-    "unified_exec_session_id": 84574,
+    "unified_exec_session_id": 63623,
     "next_check_not_before_previous_plus_seconds": 300
+  },
+  "progress_counter_annotation": {
+    "updated_utc": "2026-11-27T13:56:24.242846+00:00",
+    "sha256": "5236066bad4455bb4e74d69c66f401899b5ce63b547e16b1be21f125d0019b9d",
+    "semantics": "engine_initialization_lines counts stdout Map number: lines. It is only a map-load log proxy, not exact fresh-engine builds, trials, discovered goals, or a completion fraction. Historical field name is retained for receipt compatibility."
   }
 }
