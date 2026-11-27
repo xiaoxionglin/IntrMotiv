@@ -1,0 +1,61 @@
+{
+  "condition": "projected_regression_r1",
+  "environment": "sparse_context",
+  "seed": 123,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_123/readout.pt",
+  "checkpoint_sha256": "cec29814c82d92c77ade9d74a103c51f0b2646ca345a42e3018480e95f06be39",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_123/trials.csv",
+  "traces_sha256": "a45cdae9d7e6465659cbbe1d9f302f18cd8d7b21f07c1551cc6a6e506e31f8f0",
+  "original_h6_success": 1.0,
+  "original_h6_gate": true,
+  "all": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "noninitial": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "initially_satisfied": {
+    "hit": 0,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 0,
+    "maximum_observed_hit_latency": null
+  },
+  "per_goal": {
+    "4": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    },
+    "5": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 5,
+    "conservative_augmented_state_bound_per_goal": 2343750
+  },
+  "model_state_sha256": "c53982d324455536ae05834b363aab5acf14c98c932935efab5932c97b9abdec",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "2478247bcd8e77a34cc09dfdb1c8eb0a8a91c9709a359ba4bf333616046cec73"
+}

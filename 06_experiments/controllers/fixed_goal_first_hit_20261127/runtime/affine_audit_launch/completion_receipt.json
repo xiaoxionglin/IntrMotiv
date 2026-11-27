@@ -1,0 +1,54 @@
+{
+  "schema": "intrmotiv/affine-audit-completion-retrieval/v1",
+  "checked_utc": "2026-11-27T11:00:26.801764+00:00",
+  "job_id": "8950610",
+  "scheduler": {
+    "JobState": "COMPLETED",
+    "ExitCode": "0:0",
+    "RunTime": "00:00:15"
+  },
+  "files": {
+    "affine_audit_tests_v1/pytest.txt": {
+      "sha256": "b326fda95942bd1db42d26ecd398a8b90142513cd0ea6a4f9e212197e3e8de24",
+      "bytes": 28,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_launch/pytest.txt",
+      "local_hash_match": true
+    },
+    "affine_audit_v1/summary.json": {
+      "sha256": "e7f35366b15217c3d5c5384b8947cf56c3539d0d648bc5956c5b8c7979e3ff5e",
+      "bytes": 31070,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_results/summary.json",
+      "local_hash_match": true
+    },
+    "affine_audit_v1/selected_rows.json": {
+      "sha256": "03550cf1f4b19f28c0f49006a74880e0fb9fd7916698e9951879342f20bbcbc2",
+      "bytes": 19900,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_results/selected_rows.json",
+      "local_hash_match": true
+    },
+    "affine_audit_v1/preaudit.json": {
+      "sha256": "f52551e2fd89fd53a81cef2f460419fd3455c31a785f86d157576eac1a6e8571",
+      "bytes": 6518,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_results/preaudit.json",
+      "local_hash_match": true
+    },
+    "affine_audit_v1/per_query.csv": {
+      "sha256": "3e39c98eef18bc9c538e127df3f37c6815745a6605d77df6f33a0bf8a17aec4e",
+      "bytes": 240139,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_results/per_query.csv",
+      "local_hash_match": true
+    },
+    "slurm/affine_deadline_audit_8950610.out": {
+      "sha256": "6b5b1e57bebe0f6c0766beefc387d930e83e78316c1a0ceaaccb17909a33767d",
+      "bytes": 222,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_launch/affine_deadline_audit_8950610.out",
+      "local_hash_match": true
+    },
+    "slurm/affine_deadline_audit_8950610.err": {
+      "sha256": "68b33d86b2db14b2c14af8a222c337939c84209d967b70415e8b6f3e33d66182",
+      "bytes": 360,
+      "local_path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_audit_launch/affine_deadline_audit_8950610.err",
+      "local_hash_match": true
+    }
+  }
+}

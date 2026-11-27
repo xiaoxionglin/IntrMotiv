@@ -1,0 +1,61 @@
+{
+  "condition": "stationary_original_head",
+  "environment": "sparse_context",
+  "seed": 99,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_99/readout.pt",
+  "checkpoint_sha256": "2d1c24eb1e544f8e495935f56e46fbda95df6db279caee006171194df14aef00",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_99/trials.csv",
+  "traces_sha256": "755b464f5439e41075e90c1d0e98c721c60edc2f237105342a5fb2853c4f829c",
+  "original_h6_success": 0.75,
+  "original_h6_gate": false,
+  "all": {
+    "hit": 3,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 1,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "noninitial": {
+    "hit": 3,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 1,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "initially_satisfied": {
+    "hit": 0,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 0,
+    "maximum_observed_hit_latency": null
+  },
+  "per_goal": {
+    "4": {
+      "hit": 1,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 1,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    },
+    "5": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 5,
+    "conservative_augmented_state_bound_per_goal": 2343750
+  },
+  "model_state_sha256": "10194f2154c3236f3aad7019f50b6fde0ff08af7de6f94ca6ca08e6f6f133f29",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "048d6ef952d19ca1a7d32bda8cc759dfe4553f52f4cba1b887b2db567cc9daf7"
+}

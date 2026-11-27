@@ -116,11 +116,22 @@ def replay_batch(model, target, data, indices, remaining, detector):
     return selected, labels, usable
 
 
-def fit_replay(model, data, config: FitConfig, detector, *, target_factory=None, progress=None):
-    """Optimize only the supplied copied readout; holdout is diagnostic only."""
+def fit_replay(model, data, config: FitConfig, detector, *, target_factory=None, progress=None,
+               action_count=None, batch_builder=replay_batch):
+    """Optimize only the supplied copied readout; holdout is diagnostic only.
+
+    Alternative objectives supply the existing batch signature and explicit
+    action count. Defaults preserve the finite-deadline update/sampling path.
+    The deadline RNG draw is always consumed, even if the batch builder ignores
+    it, so factual row batches remain matched across these readout objectives.
+    """
     if model.horizon_scale != config.horizon:
         raise ValueError("Model and fit deadline scales differ")
-    count = validate_replay(data, model.layout, model.q_heads.main.out_features)
+    if action_count is None:
+        action_count = model.q_heads.main.out_features
+    if not isinstance(action_count, int) or isinstance(action_count, bool) or action_count < 1:
+        raise ValueError("action_count must be a positive integer")
+    count = validate_replay(data, model.layout, action_count)
     train, holdout = episode_split(data["episode_id"], config.holdout_fraction, config.seed)
     # Rows without any certified successor observation cannot supervise a goal.
     train_usable = train[data["successor_valid"][train]]
@@ -145,12 +156,19 @@ def fit_replay(model, data, config: FitConfig, detector, *, target_factory=None,
         raise ValueError("No trainable copied readout parameters")
     optimizer = torch.optim.Adam(parameters, lr=config.learning_rate)
     traces, skipped, labels_seen = [], 0, 0
+    row_hash, clock_hash, mask_hash = (hashlib.sha256() for _ in range(3))
+    labels_by_goal = np.zeros(model.layout.goals, dtype=np.int64)
     started = time.monotonic()
     model.train()
     for update in range(1, config.updates + 1):
         indices = rng.choice(train_usable, config.batch_size, replace=True)
         remaining = rng.integers(1, config.horizon + 1, config.batch_size)
-        prediction, labels, usable = replay_batch(model, target, data, indices, remaining, detector)
+        prediction, labels, usable = batch_builder(model, target, data, indices, remaining, detector)
+        row_hash.update(np.asarray(indices, dtype="<i8").tobytes())
+        clock_hash.update(np.asarray(remaining, dtype="<i8").tobytes())
+        mask = usable.detach().cpu().numpy().astype(np.bool_, copy=False)
+        mask_hash.update(mask.tobytes())
+        labels_by_goal += mask.sum(axis=0)
         if not usable.any():
             skipped += 1
             continue
@@ -180,13 +198,23 @@ def fit_replay(model, data, config: FitConfig, detector, *, target_factory=None,
         with torch.no_grad():
             indices = rng.choice(holdout, min(len(holdout), 2048), replace=False)
             clocks = rng.integers(1, config.horizon + 1, len(indices))
-            prediction, labels, usable = replay_batch(model, target, data, indices, clocks, detector)
+            prediction, labels, usable = batch_builder(model, target, data, indices, clocks, detector)
             diagnostic = {"sampled_transitions": len(indices), "usable_labels": int(usable.sum()),
                           "td_mse": float(((prediction[usable] - labels[usable]) ** 2).mean()) if usable.any() else None}
     return {"schema": "intrmotiv/frozen-first-hit-fit/v1", "config": asdict(config),
             "transitions": count, "training_transitions": len(train), "holdout_transitions": len(holdout),
             "certified_training_successors": len(train_usable), "updates_without_usable_labels": skipped,
-            "goal_labels_seen": labels_seen, "trainable_parameters": sum(p.numel() for p in parameters),
+            "goal_labels_seen": labels_seen,
+            "enumerated_goal_labels": config.updates * config.batch_size * model.layout.goals,
+            "masked_goal_labels": config.updates * config.batch_size * model.layout.goals - labels_seen,
+            "usable_labels_by_goal": labels_by_goal.tolist(),
+            "batch_provenance": {"factual_indices_sha256": row_hash.hexdigest(),
+                "consumed_deadlines_sha256": clock_hash.hexdigest(), "usable_masks_sha256": mask_hash.hexdigest(),
+                "index_encoding": "C-order little-endian int64; concatenated update batches",
+                "mask_encoding": "C-order numpy bool [batch,goal]; concatenated update batches",
+                "train_indices_sha256": hashlib.sha256(np.asarray(train, dtype="<i8").tobytes()).hexdigest(),
+                "holdout_indices_sha256": hashlib.sha256(np.asarray(holdout, dtype="<i8").tobytes()).hexdigest()},
+            "trainable_parameters": sum(p.numel() for p in parameters),
             "initial_readout_sha256": initial, "final_readout_sha256": state_digest(model),
             "seconds": time.monotonic() - started, "trace": traces, "holdout_diagnostic": diagnostic,
             "interpretation": "Offline fitting diagnostics only; executed matched-goal control is required"}

@@ -1,0 +1,61 @@
+{
+  "condition": "stationary_original_head",
+  "environment": "sparse_context",
+  "seed": 8,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_8/readout.pt",
+  "checkpoint_sha256": "5dc80315c33ffacfd3512d0d1f6ccf2e38be25c0a32446754b10900f5bbe00d8",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_8/trials.csv",
+  "traces_sha256": "8538878d29567a4f4d8a9a84367127879b5683af973f0c3e93eebe8934ad5b67",
+  "original_h6_success": 0.75,
+  "original_h6_gate": false,
+  "all": {
+    "hit": 3,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 1,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 6
+  },
+  "noninitial": {
+    "hit": 3,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 1,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 6
+  },
+  "initially_satisfied": {
+    "hit": 0,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 0,
+    "maximum_observed_hit_latency": null
+  },
+  "per_goal": {
+    "4": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    },
+    "5": {
+      "hit": 1,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 1,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 6
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 5,
+    "conservative_augmented_state_bound_per_goal": 2343750
+  },
+  "model_state_sha256": "4f2618bb54a7767c17170f630909d1f995d6a0ca3b27f79a324a97ba12f70b5e",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "d3b2d68db64fae682161b8582fe9c569a45a2b7f6719f66f103ecb109e269bd5"
+}

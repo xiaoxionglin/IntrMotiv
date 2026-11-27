@@ -110,7 +110,8 @@ def test_closed_upper_bound_is_last_bin():
     assert result["half_peak_footprint_last_observed"]
 
 
-def test_complete_denominators_and_no_duplicate_initial_occupancy(tmp_path):
+@pytest.mark.parametrize("reused", [False, True])
+def test_complete_denominators_and_no_duplicate_initial_occupancy(tmp_path, reused):
     rows = []
     for policy in ("source", "first_hit"):
         for source in range(3):
@@ -127,9 +128,23 @@ def test_complete_denominators_and_no_duplicate_initial_occupancy(tmp_path):
     shard.mkdir()
     trial_file = shard / "trials.jsonl"
     trial_file.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    receipt = dict(directory=str(shard), trials_sha256=file_hash(trial_file))
+    if reused:
+        candidate = tmp_path / "candidate"
+        candidate.mkdir()
+        candidate_file = candidate / "candidate_trials.jsonl"
+        candidate_file.write_text("".join(json.dumps(r) + "\n" for r in rows if r["policy"] == "first_hit"))
+        # Old candidate paths deliberately lack the trace contract. The new
+        # analysis must import only the original source policy from this file.
+        old_rows = [r if r["policy"] == "source" else dict(policy="first_hit", obsolete=True) for r in rows]
+        trial_file.write_text("".join(json.dumps(r) + "\n" for r in old_rows))
+        receipt["trials_sha256"] = file_hash(trial_file)
+        receipt = dict(schema="intrmotiv/reused-control-evaluation/v1", directory=str(candidate),
+                       trials_sha256=file_hash(candidate_file), candidate_trials_file=candidate_file.name,
+                       imported_control=receipt)
     aggregate = dict(schema="intrmotiv/first-hit-evaluation-aggregate/v1", status="validated_completed_shards",
                      identities=dict(goal_vocabulary=[0, 1, 2], observed_targets=[0, 1, 2], config=dict(repeats=1)),
-                     input_receipts=[dict(directory=str(shard), trials_sha256=file_hash(trial_file))])
+                     input_receipts=[receipt])
     aggregate_path = tmp_path / "aggregate.json"
     aggregate_path.write_text(json.dumps(aggregate))
     result = analyze(aggregate_path, tmp_path / "analysis")

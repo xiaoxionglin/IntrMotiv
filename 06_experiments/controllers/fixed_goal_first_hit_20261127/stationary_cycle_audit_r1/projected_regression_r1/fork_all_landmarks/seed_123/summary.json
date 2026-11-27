@@ -1,0 +1,101 @@
+{
+  "condition": "projected_regression_r1",
+  "environment": "fork_all_landmarks",
+  "seed": 123,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/fork_all_landmarks/seed_123/readout.pt",
+  "checkpoint_sha256": "0629fc5695dd62a78dd032f08f18ea586990634cc2a668a47528bd1a7867c00f",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/fork_all_landmarks/seed_123/trials.csv",
+  "traces_sha256": "01eb8e08b4a455b782ea6cc7d2991566c275ae91150f4d5c5da0eb1f3bb1c0cd",
+  "original_h6_success": 0.9523809523809523,
+  "original_h6_gate": false,
+  "all": {
+    "hit": 49,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 49,
+    "maximum_observed_hit_latency": 8
+  },
+  "noninitial": {
+    "hit": 42,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 42,
+    "maximum_observed_hit_latency": 8
+  },
+  "initially_satisfied": {
+    "hit": 7,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 7,
+    "maximum_observed_hit_latency": 0
+  },
+  "per_goal": {
+    "0": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 5
+    },
+    "1": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    },
+    "2": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 4
+    },
+    "3": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 5
+    },
+    "4": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    },
+    "5": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 8
+    },
+    "6": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 8,
+    "conservative_augmented_state_bound_per_goal": 117440512
+  },
+  "model_state_sha256": "4456c511629f32a391ad45b9ddb92eae14ec845aeacea929d0f3a99aa603b753",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "92b23db6e531a4d1b1292ca4db03db0c44ebba3076090926ae433fcb105ac461"
+}

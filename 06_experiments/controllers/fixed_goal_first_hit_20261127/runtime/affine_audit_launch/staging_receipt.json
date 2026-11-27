@@ -1,0 +1,37 @@
+{
+  "schema": "intrmotiv/affine-audit-remote-staging/v1",
+  "checked_utc": "2026-11-27T10:54:53.016546+00:00",
+  "manifest": {
+    "schema": "intrmotiv/affine-audit-isolated-release/v1",
+    "overlay_commit": "9d95b3f0d9dda919ecef9f1a2cf341accebb173c",
+    "base_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+    "base_tree_sha256": "df7fe619aacb95435471f30991060d423e42794a30a92209896431a7b147c6ae",
+    "base_file_count": 1392,
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1",
+    "overlay_files_sha256": {
+      "hpc_runs/first_hit_control/affine_deadline_audit.py": "b6ddb077c8ca4d312577e3f86467f27eb9f074fdf80d5ff14fe1714698dbf3a6",
+      "hpc_runs/test_first_hit_affine_deadline_audit.py": "e17b22a41356021674e7d6c7d1c11e25cb8cb4b65206d36035c2d5e92c94b8de",
+      "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_deadline_protocol.json": "71b359d2c4d94e43025abed8f0fa035678ad544040d8096813306a9834296f84"
+    },
+    "main_fit_helpers_sha256": {
+      "replay_cli.py": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+      "replay_fit.py": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+      "targets.py": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+      "detectors.py": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+      "runtime_adapter.py": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+      "legacy_runtime_adapter.py": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+      "eligibility.py": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+      "provenance.py": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8"
+    },
+    "original_r3_unchanged": true,
+    "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/affine_audit_v1",
+    "test_output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/affine_audit_tests_v1",
+    "native_execution": false,
+    "training_updates": 0
+  },
+  "manifest_sha256": "0917b9e246c2c2694cebf74c9ab3f9bbeb878976e4aee2019f1fdee253a0adb8",
+  "script_sha256": "183e6e00c9802e54e113d83da98f1c29c0ed300a910d4c78eea21529c8000e03",
+  "workspace_available_bytes": 1345567559680,
+  "bash_syntax_passed": true,
+  "jobs_submitted": []
+}

@@ -54,6 +54,102 @@ def _reject_nonfinite(value):
     raise ValueError(f"Nonfinite trial value: {value}")
 
 
+@dataclass(frozen=True)
+class TrialSource:
+    """One immutable trajectory file and its explicit analysis policy filter."""
+    path: Path
+    sha256: str
+    policies: tuple[str, ...]
+    cohort: str
+
+
+def trial_source_records(receipt):
+    """Portable explicit sources derived from the authoritative receipt keys.
+
+    A reused receipt imports ONLY the old source-policy rows. Its earlier
+    finite-head rows never enter the stationary candidate cohort. Legacy
+    minimal receipts with directory/trials_sha256 remain supported.
+    """
+    directory = Path(receipt["directory"]).resolve()
+    if receipt.get("schema") == "intrmotiv/reused-control-evaluation/v1":
+        baseline = receipt["imported_control"]
+        if baseline.get("schema") == "intrmotiv/reused-control-evaluation/v1" or "imported_control" in baseline:
+            raise ValueError("Source-control import must refer to an original completed evaluation")
+        if receipt.get("candidate_trials_file") != "candidate_trials.jsonl":
+            raise ValueError("Unexpected reused-cohort candidate trajectory filename")
+        return [dict(path=str(Path(baseline["directory"]).resolve() / "trials.jsonl"),
+                     sha256=baseline["trials_sha256"], policies=["source"], cohort="imported_source_control"),
+                dict(path=str(directory / "candidate_trials.jsonl"), sha256=receipt["trials_sha256"],
+                     policies=["first_hit"], cohort="new_stationary_candidate")]
+    if "imported_control" in receipt:
+        raise ValueError("Imported control requires the explicit reused-cohort schema")
+    return [dict(path=str(directory / "trials.jsonl"), sha256=receipt["trials_sha256"],
+                 policies=list(POLICIES), cohort="original_joint_evaluation")]
+
+
+def _verify_trial_receipt(receipt):
+    directory = Path(receipt["directory"]).resolve()
+    expected = trial_source_records(receipt)
+    if "trial_sources" in receipt and receipt["trial_sources"] != expected:
+        raise ValueError("Explicit trial sources differ from the certified cohort receipt")
+    files = {"summary_sha256": "summary.json", "pre_run_manifest_sha256": "pre_run_manifest.json",
+             "archived_sources_manifest_sha256": "source_snapshot/manifest.json"}
+    reused = receipt.get("schema") == "intrmotiv/reused-control-evaluation/v1"
+    if not reused:
+        files["matched_starts_sha256"] = "matched_starts.pt"
+    for key, relative in files.items():
+        if key in receipt and file_hash(directory / relative) != receipt[key]:
+            raise ValueError(f"Certified trial receipt changed: {relative}")
+    if "archived_sources_manifest_sha256" in receipt:
+        if not audit_source_snapshots(directory / "source_snapshot", check_current=False)["archive_valid"]:
+            raise ValueError("Certified trajectory source archive changed")
+    if reused:
+        _verify_trial_receipt(receipt["imported_control"])
+    return expected
+
+
+def certified_trial_sources(receipt):
+    """Verify receipt/artifact bytes and return small typed trajectory sources.
+
+    This operation never deserializes matched starts or models and never
+    constructs an environment. Optional legacy receipt fields are checked when
+    present; directory and trials_sha256 are sufficient for old plot fixtures.
+    """
+    records = _verify_trial_receipt(receipt)
+    result = []
+    for record in records:
+        path = Path(record["path"])
+        if file_hash(path) != record["sha256"]:
+            raise ValueError("Trial bytes differ from the certified completed receipt")
+        result.append(TrialSource(path, record["sha256"], tuple(record["policies"]), record["cohort"]))
+    return tuple(result)
+
+
+def iter_certified_trial_rows(receipt):
+    """Stream only the certified policy cohort, preserving the original rows.
+
+    Full hashes are checked before reading and when each stream closes. A
+    caller stopping early should close this generator (for example with
+    contextlib.closing) to run the final integrity check immediately.
+    """
+    for source in certified_trial_sources(receipt):
+        try:
+            with source.path.open() as stream:
+                for line in stream:
+                    if not line.strip():
+                        raise ValueError("Blank record in a certified trajectory file")
+                    row = json.loads(line, parse_constant=_reject_nonfinite)
+                    policy = row.get("policy")
+                    allowed_in_file = ("first_hit",) if source.cohort == "new_stationary_candidate" else POLICIES
+                    if policy not in allowed_in_file:
+                        raise ValueError("Unexpected policy in the certified trajectory cohort")
+                    if policy in source.policies:
+                        yield row
+        finally:
+            if file_hash(source.path) != source.sha256:
+                raise ValueError("Trial bytes changed while streaming the certified cohort")
+
+
 @dataclass
 class Shard:
     directory: Path
@@ -93,7 +189,7 @@ def _check_bool(row, key):
         raise ValueError(f"Trial {key} must be a JSON boolean")
 
 
-def _read_trials(path, summary):
+def _read_trials(path, summary, *, policies=POLICIES):
     expected_hash = summary["trials_sha256"]
     if file_hash(path) != expected_hash:
         raise ValueError("Trial bytes differ from the completed shard receipt")
@@ -102,7 +198,9 @@ def _read_trials(path, summary):
     repeats, horizon = config["repeats"], config["horizon"]
     if any(type(value) is not int or value < 1 for value in (repeats, horizon)):
         raise ValueError("Declared repeats and horizon must be positive integers")
-    expected = {(policy, source, repeat, command, target) for policy in POLICIES for source in sources
+    if not policies or len(set(policies)) != len(policies) or not set(policies) <= set(POLICIES):
+        raise ValueError("Trial policies must be a nonempty explicit subset")
+    expected = {(policy, source, repeat, command, target) for policy in policies for source in sources
                 for repeat in range(repeats) for command in targets for target in targets}
     seen, rows, path_checks, starts, issuance = set(), [], {}, {}, {}
     with Path(path).open() as stream:
@@ -178,15 +276,19 @@ def _read_trials(path, summary):
     return rows
 
 
-def read_shard(directory):
+def read_shard(directory, *, allow_preflight=False):
     directory = Path(directory).resolve(strict=True)
     summary_path, manifest_path = directory / "summary.json", directory / "pre_run_manifest.json"
     summary, manifest = _read_json(summary_path), _read_json(manifest_path)
+    if summary.get("schema") == "intrmotiv/reused-control-evaluation/v1":
+        from .reused_control import read_reused_shard
+        return read_reused_shard(directory, allow_preflight=allow_preflight)
     if summary.get("schema") != "intrmotiv/matched-first-hit-evaluation/v2":
         raise ValueError("Require the qualified v2 evaluation outcome contract")
     if manifest.get("schema") != "intrmotiv/matched-first-hit-prerun/v1":
         raise ValueError("Missing canonical pre-run identity")
-    if summary["config"] != manifest["evaluation_config"] or summary["config"]["phase"] != "full":
+    phase = summary["config"]["phase"]
+    if summary["config"] != manifest["evaluation_config"] or phase not in (("full", "preflight") if allow_preflight else ("full",)):
         raise ValueError("Require the declared full evaluation configuration")
     sources = summary["source_panel"]
     if (not sources or any(type(source) is not int for source in sources)
@@ -206,7 +308,10 @@ def read_shard(directory):
         raise ValueError("Incomplete declared DG capacity")
     observed, targets = summary["observed_targets"], summary["eligible_targets"]
     if (any(type(goal) is not int for goal in observed + targets)
-            or len(observed) != len(set(observed)) or sorted(targets) != sorted(observed)
+            or len(observed) != len(set(observed)) or len(targets) != len(set(targets))
+            or (phase == "full" and sorted(targets) != sorted(observed))
+            or (phase == "preflight" and (sorted(targets) != sorted(summary["config"]["preflight_targets"])
+                                         or len(targets) != 2 or not set(targets) <= set(observed)))
             or not set(observed) <= set(range(goals))):
         raise ValueError("Full targets must equal the complete observed vocabulary")
     if sorted(summary["unobserved_goal_ids"]) != sorted(set(range(goals)) - set(observed)):
@@ -240,6 +345,7 @@ def read_shard(directory):
         matched_starts_sha256=summary["matched_starts_sha256"],
         archived_sources_manifest_sha256=file_hash(directory / "source_snapshot/manifest.json"),
         source_ids=sources, trial_rows=len(rows))
+    receipt["trial_sources"] = trial_source_records(receipt)
     return Shard(directory, summary, manifest, identity, rows, receipt)
 
 
@@ -389,6 +495,10 @@ def aggregate(shard_directories, output, *, bootstrap_replicates=10000, bootstra
     if len(directories) != 4 or len(set(directories)) != 4:
         raise ValueError("Require exactly four distinct completed source shards")
     shards = [read_shard(directory) for directory in directories]
+    if any(shard.identity.get("cohort_contract") == "imported_source_and_new_stationary_candidate" for shard in shards):
+        reused_source = Path(__file__).with_name("reused_control.py")
+        analysis_sources.append(reused_source)
+        analysis_source_hashes[str(reused_source)] = file_hash(reused_source)
     identity = shards[0].identity
     if any(shard.identity != identity for shard in shards[1:]):
         raise ValueError("Shard fitted/source/configuration identities do not match")
@@ -420,7 +530,10 @@ def aggregate(shard_directories, output, *, bootstrap_replicates=10000, bootstra
     first = {policy: dict(overall=contrast_summary(records, sources, **settings),
                          per_goal=_per_goal_contrasts(records, goals, sources, settings))
              for policy, records in competing.items()}
-    result = dict(schema="intrmotiv/first-hit-evaluation-aggregate/v1", status="validated_completed_shards",
+    cohort = identity.get("cohort_contract", "joint_fresh_source_and_first_hit")
+    result = dict(schema="intrmotiv/first-hit-evaluation-aggregate/v1",
+        status="validated_completed_reused_control_shards" if cohort == "imported_source_and_new_stationary_candidate" else "validated_completed_shards",
+        cohort_contract=cohort,
         identities=identity, input_receipts=[shard.receipt for shard in shards],
         source_partition=[shard.summary["source_panel"] for shard in shards], retained_light_trial_rows=len(rows),
         heavy_trajectory_action_arrays_retained=False, outcomes=outcomes,

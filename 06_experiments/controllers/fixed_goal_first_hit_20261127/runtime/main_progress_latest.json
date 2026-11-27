@@ -1,91 +1,190 @@
 {
-  "schema": "intrmotiv/first-hit-main-progress/v1",
-  "checked_utc": "2026-11-27T10:20:09.234427+00:00",
+  "schema": "intrmotiv/first-hit-main-progress/v2",
+  "checked_utc": "2026-11-27T11:20:31.810980+00:00",
   "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
   "jobs": [
     {
       "logical_job": "collect_fit",
       "job_id": "8950233",
       "scheduler": {
-        "JobState": "RUNNING",
-        "Dependency": "(null)",
-        "NodeList": "n3105",
-        "StartTime": "2026-11-27T10:49:03",
-        "RunTime": "00:31:06",
-        "ExitCode": "0:0"
+        "JobState": "COMPLETED",
+        "Dependency": null,
+        "NodeList": null,
+        "StartTime": null,
+        "RunTime": "00:40:33",
+        "ExitCode": "0:0",
+        "StateSource": "sacct"
       },
-      "out_bytes": 28494,
+      "out_bytes": 56159,
       "collection_progress": {
         "decisions": 100000,
         "total": 100000
       },
       "fit_progress": {
-        "update": 13200,
-        "training_mse": 0.026037054136395454,
-        "prediction_min": 0.744873046875,
-        "prediction_max": 4.182651996612549,
-        "usable_goal_labels": 27033600
+        "update": 30000,
+        "training_mse": 0.009084140881896019,
+        "prediction_min": 0.6132869720458984,
+        "prediction_max": 6.0427045822143555,
+        "usable_goal_labels": 61440000
       },
       "engine_initialization_lines": 126,
-      "err_bytes": 7279,
+      "stdout_tail": [
+        "{\"update\": 29500, \"training_mse\": 0.012397876009345055, \"prediction_min\": 0.6649529933929443, \"prediction_max\": 5.12899112701416, \"usable_goal_labels\": 60416000}",
+        "{\"update\": 29600, \"training_mse\": 0.018389830365777016, \"prediction_min\": 0.5791926383972168, \"prediction_max\": 5.269942760467529, \"usable_goal_labels\": 60620800}",
+        "{\"update\": 29700, \"training_mse\": 0.012679360806941986, \"prediction_min\": 0.6174604296684265, \"prediction_max\": 6.3826141357421875, \"usable_goal_labels\": 60825600}",
+        "{\"update\": 29800, \"training_mse\": 0.01111912727355957, \"prediction_min\": 0.6125192046165466, \"prediction_max\": 6.817248821258545, \"usable_goal_labels\": 61030400}",
+        "{\"update\": 29900, \"training_mse\": 0.015744628384709358, \"prediction_min\": 0.6250077486038208, \"prediction_max\": 6.245423793792725, \"usable_goal_labels\": 61235200}",
+        "{\"update\": 30000, \"training_mse\": 0.009084140881896019, \"prediction_min\": 0.6132869720458984, \"prediction_max\": 6.0427045822143555, \"usable_goal_labels\": 61440000}",
+        "{\"output\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit\", \"reload_exact\": true, \"fit_seconds\": 969.0610346189933}",
+        "{\"output\": \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit_diagnostics\", \"readout_unchanged\": true}"
+      ],
+      "err_bytes": 7677,
       "stderr_tail": [
-        "\u001b[36m[2026-11-27 10:50:05,604][1691028] get out size called: 1165\u001b[0m",
-        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.",
         "  import pkg_resources",
         "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML",
-        "  warnings.warn(\"Can't initialize NVML\")"
+        "  warnings.warn(\"Can't initialize NVML\")",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1/deepmind_lab/__init__.py:26: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.",
+        "  import pkg_resources"
       ]
     },
     {
       "logical_job": "evaluate_00",
       "job_id": "8950234",
       "scheduler": {
-        "JobState": "PENDING",
-        "Dependency": "afterok:8950233(unfulfilled)",
-        "NodeList": "",
-        "StartTime": "Unknown",
-        "RunTime": "00:00:00",
-        "ExitCode": "0:0"
-      }
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "NodeList": "n3101",
+        "StartTime": "2026-11-27T11:29:37",
+        "RunTime": "00:50:54",
+        "ExitCode": "0:0",
+        "StateSource": null
+      },
+      "out_bytes": 1779,
+      "engine_initialization_lines": 105,
+      "stdout_tail": [
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t7.6666666666667",
+        "Map number:\t3",
+        "Map number:\t3"
+      ],
+      "err_bytes": 53926,
+      "stderr_tail": [
+        "\u001b[36m[2026-11-27 12:20:15,994][121116] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:20:15,994][121116] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:15,994][121116] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:15,994][121116] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:15,994][121116] depth_sensor  dmlab env True\u001b[0m"
+      ],
+      "live_resource_statistics": "8950234.batch|2694588K|01:40:49"
     },
     {
       "logical_job": "evaluate_01",
       "job_id": "8950235",
       "scheduler": {
-        "JobState": "PENDING",
-        "Dependency": "afterok:8950233(unfulfilled)",
-        "NodeList": "",
-        "StartTime": "Unknown",
-        "RunTime": "00:00:00",
-        "ExitCode": "0:0"
-      }
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "NodeList": "n3102",
+        "StartTime": "2026-11-27T11:29:37",
+        "RunTime": "00:50:54",
+        "ExitCode": "0:0",
+        "StateSource": null
+      },
+      "out_bytes": 1651,
+      "engine_initialization_lines": 99,
+      "stdout_tail": [
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t29.3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3"
+      ],
+      "err_bytes": 51491,
+      "stderr_tail": [
+        "\u001b[36m[2026-11-27 12:20:16,059][106639] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:20:16,059][106639] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:16,059][106639] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:16,059][106639] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:16,059][106639] depth_sensor  dmlab env True\u001b[0m"
+      ],
+      "live_resource_statistics": "8950235.batch|5188556K|01:40:07"
     },
     {
       "logical_job": "evaluate_02",
       "job_id": "8950236",
       "scheduler": {
-        "JobState": "PENDING",
-        "Dependency": "afterok:8950233(unfulfilled)",
-        "NodeList": "",
-        "StartTime": "Unknown",
-        "RunTime": "00:00:00",
-        "ExitCode": "0:0"
-      }
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "NodeList": "n3105",
+        "StartTime": "2026-11-27T11:29:37",
+        "RunTime": "00:50:54",
+        "ExitCode": "0:0",
+        "StateSource": null
+      },
+      "out_bytes": 1679,
+      "engine_initialization_lines": 101,
+      "stdout_tail": [
+        "Map number:\t3",
+        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t29.3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3"
+      ],
+      "err_bytes": 53079,
+      "stderr_tail": [
+        "\u001b[36m[2026-11-27 12:20:10,592][1696266] Using GPU 0 for DMLab rendering!\u001b[0m",
+        "\u001b[36m[2026-11-27 12:20:10,592][1696266] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:10,592][1696266] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:10,593][1696266] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:10,593][1696266] depth_sensor  dmlab env True\u001b[0m"
+      ],
+      "live_resource_statistics": "8950236.batch|2502580K|01:39:10"
     },
     {
       "logical_job": "evaluate_03",
       "job_id": "8950237",
       "scheduler": {
-        "JobState": "PENDING",
-        "Dependency": "afterok:8950233(unfulfilled)",
-        "NodeList": "",
-        "StartTime": "Unknown",
-        "RunTime": "00:00:00",
-        "ExitCode": "0:0"
-      }
+        "JobState": "RUNNING",
+        "Dependency": "(null)",
+        "NodeList": "n3105",
+        "StartTime": "2026-11-27T11:29:37",
+        "RunTime": "00:50:54",
+        "ExitCode": "0:0",
+        "StateSource": null
+      },
+      "out_bytes": 1548,
+      "engine_initialization_lines": 94,
+      "stdout_tail": [
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3",
+        "Map number:\t3"
+      ],
+      "err_bytes": 49702,
+      "stderr_tail": [
+        "\u001b[36m[2026-11-27 12:20:02,492][1696265] {'worker_index': 0, 'vector_index': 0, 'env_id': 0} level openfield_map2_fixed_loc3_fixedlength_noreward task id 0\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:02,492][1696265] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:02,492][1696265] True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:02,492][1696265] depth_sensor  dmlab env True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 12:20:30,557][1696265] using reduced action set!\u001b[0m"
+      ],
+      "live_resource_statistics": "8950237.batch|2361048K|01:32:37"
     }
   ],
-  "accounting": "8950233|RUNNING|0:0|00:31:06|00:00:00|\n8950233.batch|RUNNING|0:0|00:31:06|00:00:00|\n8950233.extern|RUNNING|0:0|00:31:06|00:00:00|\n8950234|PENDING|0:0|00:00:00|00:00:00|\n8950235|PENDING|0:0|00:00:00|00:00:00|\n8950236|PENDING|0:0|00:00:00|00:00:00|\n8950237|PENDING|0:0|00:00:00|00:00:00|\n",
+  "accounting": "8950233|COMPLETED|0:0|00:40:33|01:28:38|\n8950233.batch|COMPLETED|0:0|00:40:33|01:28:38|4425208K\n8950233.extern|COMPLETED|0:0|00:40:33|00:00:00|\n8950234|RUNNING|0:0|00:50:54|00:04.449|\n8950234.batch|RUNNING|0:0|00:50:54|00:00:00|\n8950234.extern|RUNNING|0:0|00:50:54|00:00:00|\n8950234.0|COMPLETED|0:0|00:00:04|00:02.222|10104K\n8950234.1|COMPLETED|0:0|00:00:04|00:02.227|10512K\n8950235|RUNNING|0:0|00:50:54|00:04.932|\n8950235.batch|RUNNING|0:0|00:50:54|00:00:00|\n8950235.extern|RUNNING|0:0|00:50:54|00:00:00|\n8950235.0|COMPLETED|0:0|00:00:04|00:02.624|10256K\n8950235.1|COMPLETED|0:0|00:00:04|00:02.308|10432K\n8950236|RUNNING|0:0|00:50:54|00:02.424|\n8950236.batch|RUNNING|0:0|00:50:54|00:00:00|\n8950236.extern|RUNNING|0:0|00:50:54|00:00:00|\n8950236.0|COMPLETED|0:0|00:00:03|00:01.182|10260K\n8950236.1|COMPLETED|0:0|00:00:03|00:01.242|10256K\n8950237|RUNNING|0:0|00:50:54|00:02.439|\n8950237.batch|RUNNING|0:0|00:50:54|00:00:00|\n8950237.extern|RUNNING|0:0|00:50:54|00:00:00|\n8950237.0|COMPLETED|0:0|00:00:03|00:01.192|10140K\n8950237.1|COMPLETED|0:0|00:00:03|00:01.247|10460K\n",
   "stages": {
     "replay": {
       "schema": "intrmotiv/frozen-first-hit-replay/v1",
@@ -116,6 +215,8 @@
     },
     "support": {
       "schema": "intrmotiv/frozen-replay-exposure/v1",
+      "metadata_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/exposure/exposure.json",
+      "metadata_sha256": "8e0b9e24bd62ccaee904345655c8cdb9488c414699f13ee879a3164e57548b81",
       "split": {
         "seed": 99,
         "holdout_fraction": 0.1,
@@ -126,268 +227,181 @@
         "all": {
           "rows": 100000,
           "episodes": 112,
-          "action_counts": [
-            4685,
-            6258,
-            4541,
-            80066,
-            4450
-          ],
-          "successor_positive_counts": {
-            "winner": [
-              9996,
-              2404,
-              2253,
-              2711,
-              90,
-              2970,
-              2551,
-              2268,
-              2081,
-              2707,
-              2034,
-              4179,
-              2137,
-              2416,
-              2021,
-              3440
-            ],
-            "exclusive": [
-              9768,
-              2396,
-              2191,
-              2699,
-              64,
-              2908,
-              2535,
-              2231,
-              2059,
-              2457,
-              2027,
-              3969,
-              2108,
-              2380,
-              1896,
-              3246
-            ]
-          },
-          "successor_positive_episode_counts": {
-            "winner": [
-              112,
-              112,
-              112,
-              112,
-              55,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              111,
-              111
-            ],
-            "exclusive": [
-              112,
-              112,
-              112,
-              112,
-              44,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              112,
-              111,
-              111
-            ]
-          },
-          "goals_without_winner_positive": []
+          "goals_without_winner_positive": [],
+          "smallest_winner_positive_count": 90,
+          "least_exposed_goals": [
+            4
+          ]
         },
         "train": {
           "rows": 90100,
           "episodes": 101,
-          "action_counts": [
-            4223,
-            5647,
-            4086,
-            72152,
-            3992
-          ],
-          "successor_positive_counts": {
-            "winner": [
-              9010,
-              2150,
-              2048,
-              2447,
-              75,
-              2705,
-              2302,
-              2047,
-              1857,
-              2453,
-              1845,
-              3791,
-              1906,
-              2153,
-              1788,
-              3121
-            ],
-            "exclusive": [
-              8805,
-              2143,
-              1991,
-              2436,
-              55,
-              2651,
-              2286,
-              2011,
-              1835,
-              2228,
-              1838,
-              3604,
-              1878,
-              2118,
-              1680,
-              2941
-            ]
-          },
-          "successor_positive_episode_counts": {
-            "winner": [
-              101,
-              101,
-              101,
-              101,
-              47,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              100,
-              100
-            ],
-            "exclusive": [
-              101,
-              101,
-              101,
-              101,
-              38,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              101,
-              100,
-              100
-            ]
-          },
-          "goals_without_winner_positive": []
+          "goals_without_winner_positive": [],
+          "smallest_winner_positive_count": 75,
+          "least_exposed_goals": [
+            4
+          ]
         },
         "holdout": {
           "rows": 9900,
           "episodes": 11,
-          "action_counts": [
-            462,
-            611,
-            455,
-            7914,
-            458
-          ],
-          "successor_positive_counts": {
-            "winner": [
-              986,
-              254,
-              205,
-              264,
-              15,
-              265,
-              249,
-              221,
-              224,
-              254,
-              189,
-              388,
-              231,
-              263,
-              233,
-              319
-            ],
-            "exclusive": [
-              963,
-              253,
-              200,
-              263,
-              9,
-              257,
-              249,
-              220,
-              224,
-              229,
-              189,
-              365,
-              230,
-              262,
-              216,
-              305
-            ]
-          },
-          "successor_positive_episode_counts": {
-            "winner": [
-              11,
-              11,
-              11,
-              11,
-              8,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11
-            ],
-            "exclusive": [
-              11,
-              11,
-              11,
-              11,
-              6,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11,
-              11
-            ]
-          },
-          "goals_without_winner_positive": []
+          "goals_without_winner_positive": [],
+          "smallest_winner_positive_count": 15,
+          "least_exposed_goals": [
+            4
+          ]
         }
       }
+    },
+    "fit": {
+      "schema": "intrmotiv/fitted-first-hit-readout/v1",
+      "metadata_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/metadata.json",
+      "metadata_sha256": "e441d73a2f305d7ebc839800b18c9cd4e0cd8fa95b9e1b89042a1c2ca1761ca0",
+      "fit": {
+        "config": {
+          "seed": 99,
+          "updates": 30000,
+          "batch_size": 128,
+          "horizon": 256,
+          "learning_rate": 0.0003,
+          "target_update_period": 100,
+          "holdout_fraction": 0.1,
+          "log_every": 100
+        },
+        "transitions": 100000,
+        "training_transitions": 90100,
+        "holdout_transitions": 9900,
+        "certified_training_successors": 90100,
+        "updates_without_usable_labels": 0,
+        "goal_labels_seen": 61440000,
+        "trainable_parameters": 167050,
+        "initial_readout_sha256": "58614e6f3735075c126f170e541f464ad13a4ddb7afa18ce3ec4513d21aebd9f",
+        "final_readout_sha256": "76d9cc1efdc5c3667cd15c6259ad34d754c95bbaa51ac0ba6bb18872747c91c4",
+        "seconds": 969.0610346189933
+      },
+      "last_update": {
+        "update": 30000,
+        "training_mse": 0.009084140881896019,
+        "prediction_min": 0.6132869720458984,
+        "prediction_max": 6.0427045822143555,
+        "usable_goal_labels": 61440000
+      },
+      "checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+      "source_audit": {
+        "archive_valid": true,
+        "current_sources_unchanged": true
+      }
+    },
+    "fit_diagnostics": {
+      "schema": "intrmotiv/final-first-hit-residual/v1",
+      "present": true
+    }
+  },
+  "evaluation_startup": {
+    "0": {
+      "manifest_sha256": "0a7d5d0fe6188245e5656a80265725e223b250943456bb6d54420664405e3eed",
+      "evaluation_config": {
+        "horizon": 256,
+        "discovery_episodes": 96,
+        "prefix_cap": 512,
+        "repeats": 3,
+        "max_sources": 4,
+        "discovery_seed": 41000,
+        "phase": "full",
+        "preflight_targets": [],
+        "focus_sources": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "original_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "fitted_checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+      "fit_source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38"
+    },
+    "1": {
+      "manifest_sha256": "6f1bcb8298c0658a3613d8b430ea487f16dac4f1b16a4fecfea873a69f149647",
+      "evaluation_config": {
+        "horizon": 256,
+        "discovery_episodes": 96,
+        "prefix_cap": 512,
+        "repeats": 3,
+        "max_sources": 4,
+        "discovery_seed": 41000,
+        "phase": "full",
+        "preflight_targets": [],
+        "focus_sources": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "original_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "fitted_checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+      "fit_source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38"
+    },
+    "2": {
+      "manifest_sha256": "bd96eebc4d238f4e5b49675c6bfae1fa777800b03d44817aea347b7bfe17637d",
+      "evaluation_config": {
+        "horizon": 256,
+        "discovery_episodes": 96,
+        "prefix_cap": 512,
+        "repeats": 3,
+        "max_sources": 4,
+        "discovery_seed": 41000,
+        "phase": "full",
+        "preflight_targets": [],
+        "focus_sources": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "original_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "fitted_checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+      "fit_source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38"
+    },
+    "3": {
+      "manifest_sha256": "f20d28bebfb6df2ac7a9f8e6dd72e3fe35178e7031c23519668379d11cb8f411",
+      "evaluation_config": {
+        "horizon": 256,
+        "discovery_episodes": 96,
+        "prefix_cap": 512,
+        "repeats": 3,
+        "max_sources": 4,
+        "discovery_seed": 41000,
+        "phase": "full",
+        "preflight_targets": [],
+        "focus_sources": [
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      "source_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "original_config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd",
+      "fitted_checkpoint_sha256": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+      "fit_source_checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38"
+    }
+  },
+  "analysis_job": {
+    "job_id": "8950569",
+    "scheduler": {
+      "JobState": "PENDING",
+      "Dependency": "afterok:8950234(unfulfilled),afterok:8950235(unfulfilled),afterok:8950236(unfulfilled),afterok:8950237(unfulfilled)",
+      "RunTime": "00:00:00",
+      "ExitCode": "0:0"
     }
   }
 }

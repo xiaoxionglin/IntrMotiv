@@ -24,6 +24,7 @@ keep implementation guidance in the canonical workflow documents linked below.
 - **Impact:** A source hash without retained bytes cannot reproduce the precise run after subsequent edits. A valid archive also does not, alone, prove which module was imported.
 - **Improvement/status:** Implemented the small `hpc_runs/first_hit_control/provenance.py` helper with six focused tests. It snapshots exact bytes before training, refuses overwrite, detects tampering, and reports archive validity separately from live-file drift. The all-goal extension used it before optimization and completed with all hashes intact. Retain import identity/source checks as well; use [the standard workflow](04_implementation/standardized_study_workflow.md) for actual study releases.
 - **Restore follow-up:** The fitted controller now binds its source checkpoint, original configuration, evaluation overrides and source-archive manifest. Reload checks the archived and active decoder, Q-head, core, adapter, detector and layout-validation bytes as well as tensor equality. Model-only tests accept identical files relocated to a new root and reject changed Q-head source or corrupted archives. The complete local first-hit suite passes 89 tests before NEMO qualification.
+- **Reused-control follow-up:** The [canonical dependent-analysis adapter](hpc_runs/first_hit_control/ANALYSIS_PLAN.md#reusing-completed-controls) now validates a new readout against the pinned donor StudySpec, parent analysis and completed baseline artifacts. The stationary loader copies both pretrained decoder and original action head and binds their arithmetic sources. Candidate trials and imported source-policy rows retain separate receipts; exact prefixes, full recurrent/physical signatures, and the original issued/missing panel are required. This avoids collecting replay, discovering starts or executing controls again merely to test a different frozen readout. Local tensor/fake-engine checks qualify the artifact contract; native integration remains a separate gate.
 - **Acceptance:** A run retains all declared dependency bytes, detects both archive corruption and working-copy changes, and certifies loaded source identity before interpreting results.
 - **Artifact-byte follow-up:** The first-hit study's scoped `.gitattributes` preserves captured source, CSV and generated SVG bytes. Default whitespace checking otherwise flags the CSV writer's CRLF and legal Matplotlib SVG path spacing. Keep hashed artifacts intact, while checking active code and reports; do not normalize archived sources or regenerate evidence merely to remove these formatting warnings.
 
@@ -2085,6 +2086,35 @@ use this log for the infrastructure needed to resolve them.
   per-run progress record, terminates or emits a recoverable partial state under
   a declared time bound, and a resumed collection does not reread already
   validated event histories.
+- **Native-evaluation follow-up (November 27):** The original first-hit
+  evaluator retains trial rows and trajectories until its final export. Long
+  live evaluations therefore provide no durable complete trial blocks before
+  completion and keep those traces in memory. Preserve the running original
+  release; this finding does not authorize restarting it.
+- **Scoped implementation/status:** The new candidate-only evaluator uses
+  [complete-block journaling](hpc_runs/first_hit_control/block_journal.py).
+  It writes and fsyncs each complete source/history command-by-target block,
+  atomically updates its progress receipt, and releases heavy traces from the
+  in-memory summary. Local fake-engine tests cover missing blocks, mutation,
+  incomplete finalization and no automatic resume. This is separate from the
+  still-open resumable online-collector cache above; use the
+  [canonical reused-control workflow](hpc_runs/first_hit_control/ANALYSIS_PLAN.md#reusing-completed-controls).
+- **Native acceptance boundary:** Partial files remain diagnostic only, never
+  scientific aggregate inputs. Final output requires every declared block,
+  frozen-model/source checks and a verified completed imported control; the
+  reducer checks the final journal hash and complete panel again. Missing
+  original blocks stay explicit, and no fresh collection, discovery or control
+  rerun fills them. Native integration qualification is required before full
+  use of the new release.
+- **Memory-monitoring lesson:** The two-sample
+  [native memory assessment](06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/native_memory_assessment.json)
+  separated Python RSS/PSS, anonymous/shared pages and cgroup file cache. Python
+  RSS was approximately 1.05–1.07 GiB at the second sample, with little anonymous
+  growth; the higher cgroup total in one shard mainly reflected file cache.
+  Neither two samples nor observed `Lab.close()` calls prove a memory bound or
+  native allocation reclamation. Inspect the enforced limit and OOM counters
+  before interpreting scheduler memory totals as a growing Python heap; this
+  assessment made no resource changes, cancellations or resubmissions.
 
 ### Slurm GPU resources must be visible in print-only artifacts — completed locally, 2026-09-22
 

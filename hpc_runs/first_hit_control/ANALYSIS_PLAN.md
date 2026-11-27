@@ -2,6 +2,8 @@
 
 The canonical [analysis sidecar](../studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json) defines the execution settings. Its validator loads the unchanged donor through `intrmotiv_study.load_study`, checks its canonical fingerprint, and selects one existing `RunSpec` by declared condition and seed.
 
+For a new readout using that study's existing replay and completed source-policy trials, use the [reused-control sidecar](../studies/stationary_projected_c05_s99_20261127.analysis.json) and `reused_plan` workflow below. Keep its new candidate cohort separate from the original evaluation; neither plan creates new Sample Factory training runs.
+
 This uses a separate versioned schema because the artifacts form a dependency graph: source assets → factual frozen replay → exposure report → copied readout → frozen fit diagnostics → matched evaluations sharing that readout. The standard `intrmotiv/study/v1` schema expands independent Cartesian Sample Factory training jobs. Inventing training `RunSpec` rows for dependent analysis stages would misstate their identities and provenance.
 
 From the repository root:
@@ -27,7 +29,26 @@ The bundle contains the effective protocol, rendered command JSON, source-releas
 
 Scripts require a Slurm allocation, verify source-release and donor identities before native imports, check resolved workspace paths, use short workspace temporary paths, and refuse existing stage outputs. Walltime overrides may reduce the reviewed reservation without changing scientific argv. A partial run requires a separately reviewed recovery; these scripts do not overwrite or silently resume artifacts.
 
-After all four evaluations complete, use the model-free analysis adapters:
+## Reusing completed controls
+
+Validate and print the dependent follow-up stages before staging a new immutable source release:
+
+```bash
+python -m hpc_runs.first_hit_control.reused_plan validate hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json
+python -m hpc_runs.first_hit_control.reused_plan render hpc_runs/studies/stationary_projected_c05_s99_20261127.analysis.json
+```
+
+These commands reuse the canonical donor StudySpec, validate the pinned parent analysis and supporting evidence, and record both declared and effective plan fingerprints. They print arguments and dependencies only. The stationary fitting CLI also invokes this canonical validator, checks the declared source release and resources, and records the donor-study and effective-plan hashes. Reprint the review after any plan or explicit source-release change.
+
+The dependency chain reuses certified qualification replay for the bounded integration fit, then starts the full fit independently from the same pretrained decoder and action-head snapshot using the existing main replay. Qualification weights do not initialize the full fit. Each candidate evaluation depends on that fit and its corresponding **completed original evaluation shard**; a running job or partial output is insufficient. There is no additional exploration collection, discovery, original-policy rerun, or rerun of the old fitted controller. Use the rendered ordinary Slurm-job dependencies and preserve the original release and artifacts.
+
+`reused_control.py` imports only the original source-policy rows, by verified summary, trial, start-artifact and source-archive receipts. The new candidate uses the complete retained source/history/command panel, exact seed and prefix actions, and matching physical observations and full recurrent-state signatures. Originally missing blocks remain missing, even if discovery retained an unused start. Donor/configuration, detector, action interface, target vocabulary, horizon and frozen actor/graph checks bind the two cohorts. Candidate readout and action-head hashes are recorded separately; imported control rows are never represented as fresh candidate-run output.
+
+The original long evaluator retains trial rows until its final export. The candidate evaluator instead uses [the complete-block journal](block_journal.py): after every complete source/history block, it persists the full command-by-scored-target rows, fsyncs them and atomically updates a small progress receipt. Heavy trajectories are then released from the in-memory summary. The `.partial` data and receipt are **diagnostic only**, including when several blocks are complete. There is no automatic resume or partial scientific aggregation. Finalization requires every declared block and the final frozen-source/input checks; the reducer additionally verifies final bytes, the complete Cartesian panel and the imported baseline receipt. A journal alone cannot certify a completed scientific evaluation. Focused fake-engine tests cover these boundaries; native integration qualification remains a separate execution gate.
+
+## Reducing completed artifacts
+
+After all four original or all four candidate evaluations complete, use the model-free analysis adapters:
 
 ```bash
 python -m hpc_runs.first_hit_control.aggregate_evaluation --shards SOURCE_SHARD_0 SOURCE_SHARD_1 SOURCE_SHARD_2 SOURCE_SHARD_3 --output NEW_AGGREGATE_DIRECTORY
@@ -37,6 +58,9 @@ python -m hpc_runs.first_hit_control.plot_evaluation --aggregate NEW_AGGREGATE_D
 
 The aggregator verifies complete disjoint source coverage, immutable trial and
 source bytes, matched prefixes and the full declared command/scoring product.
+For candidate shards, it reads `candidate_trials.jsonl` and the verified
+original source rows as explicitly separate cohorts. Use the same reducers;
+do not fabricate a joint fresh `trials.jsonl` or concatenate incomplete shards.
 It retains missing and censored comparisons as identification bounds. Its
 competing-target FIRST contrast is separate from ordinary own-stop arrival
 lift, which can be positive for identical goal-blind action paths.

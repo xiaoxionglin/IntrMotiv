@@ -1,0 +1,555 @@
+{
+  "schema": "intrmotiv/read-only-native-memory-probe/v2",
+  "checked_utc": "2026-11-27T11:00:26.801764+00:00",
+  "native_environment_runs": 0,
+  "resource_mutations": false,
+  "inline_probe_sha256": "640680588008a41d5ddb4d74dbf842cc138d6f5fe1c8d68034fc272bb7a2a3e0",
+  "diagnostic_steps": [
+    {
+      "job_id": "8950234",
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950234",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "640680588008a41d5ddb4d74dbf842cc138d6f5fe1c8d68034fc272bb7a2a3e0",
+      "executed_argv_suffix": [
+        "8950234"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950234",
+        "node": "n3101",
+        "checked_utc": "2026-11-27T11:00:30.851593+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 121041,
+            "read_error": "[Errno 13] Permission denied: '/proc/121041/smaps_rollup'"
+          },
+          {
+            "pid": 121050,
+            "name": "slurm_script",
+            "ppid": "121041",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3408 kB",
+              "Pss": "594 kB",
+              "Pss_Anon": "416 kB",
+              "Pss_File": "178 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "416 kB",
+              "Private_Dirty": "416 kB",
+              "Shared_Clean": "2992 kB"
+            }
+          },
+          {
+            "pid": 121116,
+            "name": "python",
+            "ppid": "121050",
+            "status": {
+              "VmRSS": "1120540 kB",
+              "VmHWM": "1160968 kB",
+              "RssAnon": "519720 kB",
+              "RssFile": "432968 kB",
+              "RssShmem": "167852 kB"
+            },
+            "smaps": {
+              "Rss": "1123552 kB",
+              "Pss": "1104546 kB",
+              "Pss_Anon": "519712 kB",
+              "Pss_File": "415242 kB",
+              "Pss_Shmem": "169592 kB",
+              "Anonymous": "519712 kB",
+              "Private_Dirty": "576188 kB",
+              "Shared_Clean": "35528 kB"
+            }
+          },
+          {
+            "pid": 152107,
+            "name": "compile_map.sh",
+            "ppid": "121116",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3392 kB",
+              "Pss": "579 kB",
+              "Pss_Anon": "400 kB",
+              "Pss_File": "179 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "400 kB",
+              "Private_Dirty": "400 kB",
+              "Shared_Clean": "2992 kB"
+            }
+          },
+          {
+            "pid": 152142,
+            "name": "q3map2",
+            "ppid": "152107",
+            "status": {
+              "VmRSS": "207380 kB",
+              "VmHWM": "207380 kB",
+              "RssAnon": "172564 kB",
+              "RssFile": "34816 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "210596 kB",
+              "Pss": "193665 kB",
+              "Pss_Anon": "174392 kB",
+              "Pss_File": "19273 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "174392 kB",
+              "Private_Dirty": "143408 kB",
+              "Shared_Clean": "31700 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNNQ00/step_batch/user/task_0": {
+            "memory.current": "1933852672",
+            "memory.peak": "1963474944",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 711733248,
+              "file": 1208721408,
+              "pagetables": 4476928,
+              "shmem": 173662208
+            }
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNNQ00/step_batch/user": {
+            "memory.current": "1935630336",
+            "memory.peak": "1965252608",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNNQ00/step_batch": {
+            "memory.current": "1937956864",
+            "memory.peak": "1967554560",
+            "memory.max": "max",
+            "memory.high": "max",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNNQ00": {
+            "memory.current": "1968398336",
+            "memory.peak": "1975394304",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        }
+      }
+    },
+    {
+      "job_id": "8950235",
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950235",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "640680588008a41d5ddb4d74dbf842cc138d6f5fe1c8d68034fc272bb7a2a3e0",
+      "executed_argv_suffix": [
+        "8950235"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950235",
+        "node": "n3102",
+        "checked_utc": "2026-11-27T11:00:30.966384+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 106564,
+            "read_error": "[Errno 13] Permission denied: '/proc/106564/smaps_rollup'"
+          },
+          {
+            "pid": 106573,
+            "name": "slurm_script",
+            "ppid": "106564",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3440 kB",
+              "Pss": "634 kB",
+              "Pss_Anon": "412 kB",
+              "Pss_File": "222 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "412 kB",
+              "Private_Dirty": "412 kB",
+              "Shared_Clean": "3024 kB"
+            }
+          },
+          {
+            "pid": 106639,
+            "name": "python",
+            "ppid": "106573",
+            "status": {
+              "VmRSS": "1123876 kB",
+              "VmHWM": "1156888 kB",
+              "RssAnon": "528460 kB",
+              "RssFile": "434888 kB",
+              "RssShmem": "160528 kB"
+            },
+            "smaps": {
+              "Rss": "1119036 kB",
+              "Pss": "1114782 kB",
+              "Pss_Anon": "528360 kB",
+              "Pss_File": "425602 kB",
+              "Pss_Shmem": "160820 kB",
+              "Anonymous": "528360 kB",
+              "Private_Dirty": "576328 kB",
+              "Shared_Clean": "6120 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNP100/step_batch/user/task_0": {
+            "memory.current": "4377755648",
+            "memory.peak": "4560789504",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 557006848,
+              "file": 3783921664,
+              "pagetables": 3760128,
+              "shmem": 166002688
+            }
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNP100/step_batch/user": {
+            "memory.current": "4379533312",
+            "memory.peak": "4562567168",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNP100/step_batch": {
+            "memory.current": "4381847552",
+            "memory.peak": "4564881408",
+            "memory.max": "max",
+            "memory.high": "max",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNP100": {
+            "memory.current": "4414541824",
+            "memory.peak": "4590751744",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        }
+      }
+    },
+    {
+      "job_id": "8950236",
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950236",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "640680588008a41d5ddb4d74dbf842cc138d6f5fe1c8d68034fc272bb7a2a3e0",
+      "executed_argv_suffix": [
+        "8950236"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950236",
+        "node": "n3105",
+        "checked_utc": "2026-11-27T11:00:29.660825+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 1696114,
+            "read_error": "[Errno 13] Permission denied: '/proc/1696114/smaps_rollup'"
+          },
+          {
+            "pid": 1696132,
+            "name": "slurm_script",
+            "ppid": "1696114",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3380 kB",
+              "Pss": "514 kB",
+              "Pss_Anon": "412 kB",
+              "Pss_File": "102 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "412 kB",
+              "Private_Dirty": "412 kB",
+              "Shared_Clean": "2968 kB"
+            }
+          },
+          {
+            "pid": 1696266,
+            "name": "python",
+            "ppid": "1696132",
+            "status": {
+              "VmRSS": "1099372 kB",
+              "VmHWM": "1137444 kB",
+              "RssAnon": "498496 kB",
+              "RssFile": "436924 kB",
+              "RssShmem": "163952 kB"
+            },
+            "smaps": {
+              "Rss": "1101560 kB",
+              "Pss": "877268 kB",
+              "Pss_Anon": "498992 kB",
+              "Pss_File": "211608 kB",
+              "Pss_Shmem": "166668 kB",
+              "Anonymous": "498992 kB",
+              "Private_Dirty": "625524 kB",
+              "Shared_Clean": "434040 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPC00/step_batch/user/task_0": {
+            "memory.current": "1573179392",
+            "memory.peak": "1778499584",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 511823872,
+              "file": 1049026560,
+              "pagetables": 3784704,
+              "shmem": 170668032
+            }
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPC00/step_batch/user": {
+            "memory.current": "1574957056",
+            "memory.peak": "1780277248",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPC00/step_batch": {
+            "memory.current": "1577263104",
+            "memory.peak": "1782583296",
+            "memory.max": "max",
+            "memory.high": "max",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPC00": {
+            "memory.current": "1603600384",
+            "memory.peak": "1803452416",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        }
+      }
+    },
+    {
+      "job_id": "8950237",
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950237",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "640680588008a41d5ddb4d74dbf842cc138d6f5fe1c8d68034fc272bb7a2a3e0",
+      "executed_argv_suffix": [
+        "8950237"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950237",
+        "node": "n3105",
+        "checked_utc": "2026-11-27T11:00:29.697358+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 1696112,
+            "read_error": "[Errno 13] Permission denied: '/proc/1696112/smaps_rollup'"
+          },
+          {
+            "pid": 1696131,
+            "name": "slurm_script",
+            "ppid": "1696112",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3436 kB",
+              "Pss": "516 kB",
+              "Pss_Anon": "408 kB",
+              "Pss_File": "108 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "408 kB",
+              "Private_Dirty": "408 kB",
+              "Shared_Clean": "3028 kB"
+            }
+          },
+          {
+            "pid": 1696265,
+            "name": "python",
+            "ppid": "1696131",
+            "status": {
+              "VmRSS": "1099860 kB",
+              "VmHWM": "1140304 kB",
+              "RssAnon": "507980 kB",
+              "RssFile": "438832 kB",
+              "RssShmem": "153048 kB"
+            },
+            "smaps": {
+              "Rss": "1100072 kB",
+              "Pss": "875797 kB",
+              "Pss_Anon": "508752 kB",
+              "Pss_File": "212073 kB",
+              "Pss_Shmem": "154972 kB",
+              "Anonymous": "508752 kB",
+              "Private_Dirty": "636384 kB",
+              "Shared_Clean": "434048 kB"
+            }
+          },
+          {
+            "pid": 1753034,
+            "name": "compile_map.sh",
+            "ppid": "1696265",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3380 kB",
+              "Pss": "503 kB",
+              "Pss_Anon": "404 kB",
+              "Pss_File": "99 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "404 kB",
+              "Private_Dirty": "404 kB",
+              "Shared_Clean": "2976 kB"
+            }
+          },
+          {
+            "pid": 1753093,
+            "name": "q3map2",
+            "ppid": "1753034",
+            "status": {
+              "VmRSS": "200628 kB",
+              "VmHWM": "206672 kB",
+              "RssAnon": "164788 kB",
+              "RssFile": "35840 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "202144 kB",
+              "Pss": "180749 kB",
+              "Pss_Anon": "166092 kB",
+              "Pss_File": "14657 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "166092 kB",
+              "Private_Dirty": "162488 kB",
+              "Shared_Clean": "30940 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPQ00/step_batch/user/task_0": {
+            "memory.current": "1682227200",
+            "memory.peak": "1721729024",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 691871744,
+              "file": 978092032,
+              "pagetables": 4460544,
+              "shmem": 158691328
+            }
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPQ00/step_batch/user": {
+            "memory.current": "1684004864",
+            "memory.peak": "1723506688",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPQ00/step_batch": {
+            "memory.current": "1686306816",
+            "memory.peak": "1725808640",
+            "memory.max": "max",
+            "memory.high": "max",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          },
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPQ00": {
+            "memory.current": "1712693248",
+            "memory.peak": "1729556480",
+            "memory.max": "8589934592",
+            "memory.high": "8589934592",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        }
+      }
+    }
+  ],
+  "engine_initializations": {
+    "8950234": 62,
+    "8950235": 59,
+    "8950236": 61,
+    "8950237": 57
+  }
+}

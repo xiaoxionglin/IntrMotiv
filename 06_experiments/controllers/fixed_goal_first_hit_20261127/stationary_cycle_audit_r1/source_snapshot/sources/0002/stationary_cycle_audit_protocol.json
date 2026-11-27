@@ -1,0 +1,85 @@
+{
+  "schema": "intrmotiv/fixed-weight-exact-cycle-audit/v1",
+  "created_utc": "2026-11-27T10:50:32.927023+00:00",
+  "status": "declared_before_implementation_or_audit_rollouts",
+  "purpose": "Explicitly post-hoc deterministic fixed-weight diagnosis of bounded H6 misses; preserves every original H6 result and gate. No fitting, model selection, new replay, or native qualification.",
+  "inputs": {
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/results.json": "509a79b55315e700ff91b5acf917fe05da6fb7d8e1b95feea728500b04f6f25a",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/pre_run_manifest.json": "7200ffd7206020d0602aaf0b3d817bfe0c53682f347ceae05ee17e411a629203",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/fork_all_landmarks/seed_8/readout.pt": "e631085e90e09201af53cb1cb34fad43f427849ee3e5d75e55c635dccc6a5caa",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/fork_all_landmarks/seed_99/readout.pt": "7ea52cc1973131836b0b1eda5d08a4b047c4c5d5906264450c0ef893111bd2ff",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/fork_all_landmarks/seed_123/readout.pt": "08f973633c56dea0dc53126d57c7732f31342c19860a6c87062a5ed967ebe026",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_8/readout.pt": "5dc80315c33ffacfd3512d0d1f6ccf2e38be25c0a32446754b10900f5bbe00d8",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_99/readout.pt": "2d1c24eb1e544f8e495935f56e46fbda95df6db279caee006171194df14aef00",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_123/readout.pt": "e8f13e7458eccc48ca720a9af06018689c479a57c2d67cbeaa07c1df90065a1e",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/results.json": "b00c51fc487de68fd4ac03c267c23b235bfcb3b1569363221e73f0af11a392b0",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/prepared.json": "b3b88d37f1d01b5571599565245fe6b9e89d3da9014034943255f674fc958895",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/fork_all_landmarks/seed_8/readout.pt": "ed3db7880c771523123a48077b90116237833613b03c3f03d3b34278a71308fe",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/fork_all_landmarks/seed_99/readout.pt": "c0ef9e24c912ad5c44022d76ba8720113328ac07f62993a4df796ce01c5b809d",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/fork_all_landmarks/seed_123/readout.pt": "0629fc5695dd62a78dd032f08f18ea586990634cc2a668a47528bd1a7867c00f",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_8/readout.pt": "a069c307b137c32a8fcd86d5731ea373acf020a5d88f303e8934a119fc366d1d",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_99/readout.pt": "104fb0e0b488298a846768a031f6a1a4796596c279db4c82e6eb69b41bff0a40",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_123/readout.pt": "cec29814c82d92c77ade9d74a103c51f0b2646ca345a42e3018480e95f06be39"
+  },
+  "conditions": [
+    "stationary_original_head",
+    "projected_regression_r1"
+  ],
+  "experiments": [
+    "fork_all_landmarks",
+    "sparse_context"
+  ],
+  "seeds": [
+    8,
+    99,
+    123
+  ],
+  "weights": 12,
+  "evaluation": {
+    "cap_decisions": 100000,
+    "route": "first_hit only: each own command",
+    "action": "raw original action-head argmax; first index wins ties",
+    "clock": "no remaining clock is supplied to stationary model",
+    "starts": "reuse neural.evaluation_starts exactly, including sparse cue prefixes",
+    "query_count_noninitial": 276,
+    "query_count_initially_satisfied": 42,
+    "query_count_total": 318,
+    "goals": "all seven fork DG identities; both sparse goal cues",
+    "grid": "excluded"
+  },
+  "state": {
+    "physical": "exact finite environment node",
+    "memory": "complete CA3 shape/dtype/bytes after current observation",
+    "command": "fixed commanded goal identity",
+    "model": "fixed eval-mode deterministic decoder and raw action head; no additional recurrent state",
+    "repeat": 1,
+    "length": 8,
+    "alphabet": "finite synthetic DG vectors plus zero padding; R1 shifts and injects without overlap"
+  },
+  "stopping": {
+    "order": [
+      "commanded goal hit, including t0 and physical-terminal simultaneous hit",
+      "non-goal physical termination",
+      "exact recurrence of physical node + full CA3 bytes + fixed command before action",
+      "cap: unknown",
+      "otherwise act once using existing deterministic environment transition and canonical CA3 update"
+    ],
+    "cycle": "first repeated augmented state at t with earlier occurrence mu proves deterministic perpetual nonarrival; preperiod mu and period t-mu",
+    "node_repeat": "physical-node repeat alone never establishes a cycle",
+    "cap": "100000 actions fixed in advance; cap is unknown, never a proof of failure"
+  },
+  "provenance": "archive exact sources and all 12 checkpoint bytes before any actual audit rollout; hash sources/checkpoints after; restore weights strictly, freeze model, compare model hashes before/after; compare the first min(latency,6) steps to original saved own-command traces",
+  "outputs": [
+    "every declared query incl t0 satisfaction",
+    "distance to goal from independent deterministic shortest path diagnostic",
+    "hit latency or non-goal physical terminal time",
+    "cycle preperiod, period, exact repeat memory bytes/hash and physical state",
+    "cap/unknown indicator",
+    "complete states/actions until stop",
+    "per-model and per-goal full-denominator counts; initial satisfaction separate",
+    "all original H6 gates unchanged"
+  ],
+  "theory": "A deterministic map on augmented finite state repeats its future after exact recurrence. If no goal occurred before recurrence, no future goal can occur. With finite CA3 and finite DG alphabet the state space is finite, but the fixed cap can precede recurrence and must remain unresolved.",
+  "limitations": "Toy synthetic deterministic state is known to this diagnostic; this is not stochastic, visual-DMLab, all-history, unseen-start, optimality or generalization certification. Success after H6 is latency diagnosis, not a retroactive pass of the original H6 gate.",
+  "review_boundary": "Root reviews protocol and code before any actual checkpoint rollout; focused synthetic tests permitted before that review."
+}

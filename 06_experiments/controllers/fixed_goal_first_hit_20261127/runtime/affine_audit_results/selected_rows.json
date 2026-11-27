@@ -1,0 +1,658 @@
+{
+  "schema": "intrmotiv/selected-replay-rows/v1",
+  "hashed_fields": [
+    "action",
+    "core",
+    "episode_id",
+    "physical_done",
+    "random_action",
+    "source_goal",
+    "successor_core",
+    "successor_core_valid",
+    "successor_dg",
+    "successor_valid",
+    "time_in_episode"
+  ],
+  "rows": [
+    {
+      "panel": "train",
+      "replay_index": 77355,
+      "episode_id": 85,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0ee8e1299d186ab5fd2732274659e372fed6a2041c938a2873eb256bffa2fe7f"
+    },
+    {
+      "panel": "train",
+      "replay_index": 35829,
+      "episode_id": 39,
+      "factual_action": 2,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "6be90d56e84cb221cb74f2847fbd3f497d3cfe22d8079ac431063d4dd528ac75"
+    },
+    {
+      "panel": "train",
+      "replay_index": 89984,
+      "episode_id": 99,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "2fcb77d0ab3d39d2d9e808d5ceecf5876fbcb844688be9e4dc9c7e52cfbb3629"
+    },
+    {
+      "panel": "train",
+      "replay_index": 16607,
+      "episode_id": 18,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "98e001c73f218392ba5a3ffdcd833fdf80069aca45934169fdd7f56bfb0bc2c2"
+    },
+    {
+      "panel": "train",
+      "replay_index": 2258,
+      "episode_id": 2,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "9a5421751fab36df8d81ef5ae43d8795455c8b5a803a4e487fd9ab1d29d715cd"
+    },
+    {
+      "panel": "train",
+      "replay_index": 81253,
+      "episode_id": 90,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "3d9028a62d1f7427be45466994022a1587700f7207bdc749af78406895cd27ab"
+    },
+    {
+      "panel": "train",
+      "replay_index": 34551,
+      "episode_id": 38,
+      "factual_action": 2,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "27030f0c217194e5d5eebf5caedf2d24bdaf39893113bd4d5a9b8e6f502fb600"
+    },
+    {
+      "panel": "train",
+      "replay_index": 61257,
+      "episode_id": 68,
+      "factual_action": 1,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "efa1175e5dec8e46af51a1a350357bde412b7974c289a82a01c9cc3cb968054e"
+    },
+    {
+      "panel": "train",
+      "replay_index": 26714,
+      "episode_id": 29,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "a6e06e74471d826bbfa16e30b3b86d109a49010c067d6790917be330fe5bb689"
+    },
+    {
+      "panel": "train",
+      "replay_index": 22632,
+      "episode_id": 25,
+      "factual_action": 1,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "45068a85c9e4aa369b600c74e48287cd04c552c345fccf2804f36375514b118a"
+    },
+    {
+      "panel": "train",
+      "replay_index": 91276,
+      "episode_id": 101,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "7ea59287f95fd53a4bc3ddd8b20cdc55870c9e49b8ad1debcd0bc4144c6bd074"
+    },
+    {
+      "panel": "train",
+      "replay_index": 66859,
+      "episode_id": 74,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "92b8dd0bb2bf5502df72e284154dd62137781154cad7918a83638808cc0da772"
+    },
+    {
+      "panel": "train",
+      "replay_index": 81948,
+      "episode_id": 91,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "95817bcf756f1be93a58b54816b452c496ecf6f0c91d6577a8c6b46903761502"
+    },
+    {
+      "panel": "train",
+      "replay_index": 79462,
+      "episode_id": 88,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "866690a0a51e21c95dc845f22cbee8b1d26ecac368b1fee4ec0ee51bf6ca0007"
+    },
+    {
+      "panel": "train",
+      "replay_index": 57907,
+      "episode_id": 64,
+      "factual_action": 4,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "02085d0275e6f27de2376d54d4f77c4f12bba36512d6b6ab52deb87e9b105120"
+    },
+    {
+      "panel": "train",
+      "replay_index": 13355,
+      "episode_id": 14,
+      "factual_action": 1,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "5bb2bb26ab63bbeaca1bd49ee4a173a74aeeaff1f6d85294a3bca4827221f1ff"
+    },
+    {
+      "panel": "train",
+      "replay_index": 85746,
+      "episode_id": 95,
+      "factual_action": 0,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "040f22441947dcfc0d1c47009615cd3975ea744237541a77aa79adb94220b7f9"
+    },
+    {
+      "panel": "train",
+      "replay_index": 19259,
+      "episode_id": 21,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "cd5e59a992b31f1fa876b46ca472c848b81adbd485510dd89b8c079fe8a45890"
+    },
+    {
+      "panel": "train",
+      "replay_index": 15845,
+      "episode_id": 17,
+      "factual_action": 4,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "1dcb9539bcfb47631929f1e919872bedad96f3f5fc55e0de1d36c40471bf78a6"
+    },
+    {
+      "panel": "train",
+      "replay_index": 1390,
+      "episode_id": 1,
+      "factual_action": 1,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "f7a4b76cf419c324eb3ff0d412552b9b522cae3377c2e290807061d5da6223c7"
+    },
+    {
+      "panel": "train",
+      "replay_index": 4847,
+      "episode_id": 5,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "4c6143c9d4c1e0dd07d31de25a54f083a8c3c684b7332dafea37836a0a84776d"
+    },
+    {
+      "panel": "train",
+      "replay_index": 73104,
+      "episode_id": 81,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "ebc50baf2dd1e225f976e849724a22a2a80ea30a737a213fe576a220ca131933"
+    },
+    {
+      "panel": "train",
+      "replay_index": 82359,
+      "episode_id": 91,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "b5a997b94345cf6ff01121b1165c4599fa479a584403e0ff77ce9487b9079e86"
+    },
+    {
+      "panel": "train",
+      "replay_index": 88268,
+      "episode_id": 98,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "e9b2f007738c3bb4902e163108b9ed245f5cd44f48ef5708c1c647ab3005c5ed"
+    },
+    {
+      "panel": "train",
+      "replay_index": 45161,
+      "episode_id": 50,
+      "factual_action": 0,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "c22cca5abf7c3827fda748fba490de8fcc56e5980138e04076e4817a21a95732"
+    },
+    {
+      "panel": "train",
+      "replay_index": 19848,
+      "episode_id": 22,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "b220a286ca470535928e551ef94780b849a8672c617292716e3e02ed2f0db14b"
+    },
+    {
+      "panel": "train",
+      "replay_index": 50713,
+      "episode_id": 56,
+      "factual_action": 2,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "1e6620a489a6a7e7f59daab5100bbef8734a047de64d63ec376af7b1170e4c7e"
+    },
+    {
+      "panel": "train",
+      "replay_index": 22969,
+      "episode_id": 25,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "5888fd8d0a8d1477237f9b8ea9c97a87abb1e7c4fb11d59337e8b797c132922a"
+    },
+    {
+      "panel": "train",
+      "replay_index": 23877,
+      "episode_id": 26,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "6b41f7b22586539fbed1cfd5e2c51abae59c81ff786cf9f7edf544efc7fbf899"
+    },
+    {
+      "panel": "train",
+      "replay_index": 25959,
+      "episode_id": 28,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "625eaa2af9f206aee43733c2ebba1646124984631c654ebb8ceb0225488af53b"
+    },
+    {
+      "panel": "train",
+      "replay_index": 41403,
+      "episode_id": 46,
+      "factual_action": 4,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "e485a000cd452831d0eb1ab2eaabb6092eb59edd5f4149c38c27bb237ca837df"
+    },
+    {
+      "panel": "train",
+      "replay_index": 44989,
+      "episode_id": 49,
+      "factual_action": 2,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "44969c087bec1d6c27a395edfd8515f4c5cdf89eeff232e16f75f4ad1a1f9c4f"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 63867,
+      "episode_id": 70,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "e0a44f94cfc1bea1f0d35746d540520cc828d778148d96ac5bc57e81ef722c98"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 98084,
+      "episode_id": 108,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "67f86a9d47b3c194952b624557235300f424e081c5443924e566c3760c9f20e7"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 78250,
+      "episode_id": 86,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0b51d2e5be71735518903a7c63a44e234668fbca5ee9b621bf995f9bf131e6b1"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 25118,
+      "episode_id": 27,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "99cd3e105c17626654171211e19da8495594a1d53d0932f114090ecf39af1a32"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 27206,
+      "episode_id": 30,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "be756b0e40d25dfd84021051447f5b5ebc768e9523c88b43d80d3739c9273c76"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 77772,
+      "episode_id": 86,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0e44edd2bfb46133bdf05b3bbe8d89f81932c6ec6944c98ed39c2f0568446cd3"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 69667,
+      "episode_id": 77,
+      "factual_action": 1,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "656dc626b531a050427ce69a55bb9e20eeae23abe3c2f089e52f6346cea539c2"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 63697,
+      "episode_id": 70,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "41e176b9f195b93675320cb352c3681ffb4b7d9d5172c32db181f3438db29d78"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 97345,
+      "episode_id": 108,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "ccd9a208aac12e3880f965f71d799a7f20e7d4c13f152459ad97f1ca937e64de"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 27353,
+      "episode_id": 30,
+      "factual_action": 0,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "d025b8ef19ad74394cb14b8bd3ff4c4e8301384a43eb214df34861a453a8ce1a"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 93149,
+      "episode_id": 103,
+      "factual_action": 4,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "7beeded28a0990c1ef122b19f0d5d8e004a4c36ab3db26d5df16734404f31f23"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 34055,
+      "episode_id": 37,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "1c61d2ec6a6d858e12afb8c25052a72068d8336f549fde99c74ee22853b83cdc"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 97282,
+      "episode_id": 108,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0f908f97d29bfb44c2cef44398c279ffdd8433e9ea9d3bdcbf50a52222b6dd2a"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 22306,
+      "episode_id": 24,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "79dc41f6292f8228fdeda749f3a1e04196b45bf50d86a643fada7927eb4206c2"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 31895,
+      "episode_id": 35,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "e0a1477a093d9d5baa06952dd402f10aca1693c26344679b3466cb931c777c02"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 77471,
+      "episode_id": 86,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0f0aefe491e70b9a79d787d82c1e38a79608c33d14276844f290e2dadf34f935"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 93151,
+      "episode_id": 103,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "76a6089500457b191921b091c3605003ef0859684ff02a420a6855cd55f230b7"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 78973,
+      "episode_id": 87,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "39e61df4e17b625f53ca793ad10af09ce892425b0fae64cbea4ddd52247cbc88"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 21743,
+      "episode_id": 24,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "5c1fb7402292a4a16323a3cbafdacdf0c1a7f2d3dbd6d00d2e8bb432a12f3e58"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 63709,
+      "episode_id": 70,
+      "factual_action": 2,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "67fb83d95d311752db849e86f65bcf40fe8538d4f8fbc2fb49e60ecdb82b985a"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 33756,
+      "episode_id": 37,
+      "factual_action": 4,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "0a4ef52ad81bd7dd5367a04fa8db4219db84d3c1a5f52fce79dd37488fa68a30"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 93133,
+      "episode_id": 103,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "a6e57b06c6d6077723f298f26e336cfb357ebf9aa5775ed62ebe38d897b54059"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 31544,
+      "episode_id": 35,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "e95e4f50687e9e13c83ef69a57d99a3b0c362241a32e71b260eb9ccd7834b107"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 78667,
+      "episode_id": 87,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "dcca334be15eede8c8dcc206822d9f1fe52105c1f172bf48b8c14960acacef94"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 78316,
+      "episode_id": 87,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "626242164ebd7e74321c6fdfe0e8466d640da5efe059c76303a11e84f4337ae1"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 27068,
+      "episode_id": 30,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "19613db2ed0d459da9674240f0951192801f34186c02e360cf704f76ab13abd5"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 27553,
+      "episode_id": 30,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "9be442e567243c87bebe7ffdef4b44c7459f10ffb71d901b647d411b5c1ebfb5"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 97547,
+      "episode_id": 108,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "bb4226861cb626a16071be8ada78bc2b33c91fa5e47deeccd68627103920db93"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 33356,
+      "episode_id": 37,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "76ae8b67856113edfeae0bd543b5ed383c11c38955e7e5dc8c36009046e1825d"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 31759,
+      "episode_id": 35,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "c32e088ce749b3fed7c863faedb3111457732c38189afdc10bcfaa5cd178a47a"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 34175,
+      "episode_id": 37,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "35094bb46a8cae9c514881b8e31e1a1b10de25df0b2b6733ea41d08ffed3f2a0"
+    },
+    {
+      "panel": "holdout",
+      "replay_index": 63081,
+      "episode_id": 70,
+      "factual_action": 3,
+      "successor_valid": true,
+      "successor_core_valid": true,
+      "physical_done": false,
+      "content_sha256": "50e2b42eebcf455bf71ae549bca9ca493f7347d6b94f70e68fae01e6e1a4e552"
+    }
+  ]
+}

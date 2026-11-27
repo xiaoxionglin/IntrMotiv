@@ -1,0 +1,17 @@
+{
+  "schema": "intrmotiv/affine-audit-submission/v1",
+  "submitted_utc": "2026-11-27T10:56:31.526452+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/affine_audit_launch_v1/audit.sbatch"
+  ],
+  "script_sha256": "183e6e00c9802e54e113d83da98f1c29c0ed300a910d4c78eea21529c8000e03",
+  "manifest_sha256": "0917b9e246c2c2694cebf74c9ab3f9bbeb878976e4aee2019f1fdee253a0adb8",
+  "status": "submitted",
+  "returncode": 0,
+  "stdout": "8950610\n",
+  "stderr": "",
+  "job_id": "8950610",
+  "scheduler_receipt": "JobId=8950610 JobName=fh_affine_audit UserId=fr_xl1014(981359) GroupId=fr_fr(500006) MCS_label=N/A Priority=28 Nice=0 Account=bw21j002 QOS=normal JobState=PENDING Reason=None Dependency=(null) Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:00 TimeLimit=00:15:00 TimeMin=N/A SubmitTime=2026-11-27T11:56:31 EligibleTime=2026-11-27T11:56:31 AccrueTime=Unknown StartTime=Unknown EndTime=Unknown Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T11:56:31 Scheduler=Main Partition=cpu AllocNode:Sid=login1:627155 ReqNodeList=(null) ExcNodeList=(null) NodeList= NumNodes=1-1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=16G,node=1,billing=2 AllocTRES=(null) Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=16G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=NO Exclusive=NO Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/affine_audit_launch_v1/audit.sbatch SubmitLine=sbatch --parsable /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/affine_audit_launch_v1/audit.sbatch WorkDir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1 StdErr=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/affine_deadline_audit_8950610.err StdIn=/dev/null StdOut=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/affine_deadline_audit_8950610.out TresPerTask=cpu=4\n"
+}

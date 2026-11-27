@@ -108,6 +108,25 @@ def test_stream_reuses_only_actual_selected_own_paths_and_checks_hash(tmp_path):
         stream_selected_trials([receipt], dict(source=2, repeat=0, commands=[6]))
 
 
+def test_stream_reused_candidate_excludes_old_candidate_paths(tmp_path):
+    original, candidate = tmp_path / "original", tmp_path / "candidate"
+    original.mkdir()
+    candidate.mkdir()
+    base = dict(source=2, repeat=0, command=6, commanded=True, issued=True)
+    old_file = original / "trials.jsonl"
+    old_file.write_text("".join(json.dumps(dict(base, policy=p, cohort="old")) + "\n"
+                                for p in POLICIES))
+    new_file = candidate / "candidate_trials.jsonl"
+    new_file.write_text(json.dumps(dict(base, policy="first_hit", cohort="new")) + "\n")
+    receipt = dict(schema="intrmotiv/reused-control-evaluation/v1", directory=str(candidate),
+                   trials_sha256=file_hash(new_file), candidate_trials_file=new_file.name,
+                   imported_control=dict(directory=str(original), trials_sha256=file_hash(old_file)))
+    selected, hashes = stream_selected_trials([receipt], dict(source=2, repeat=0, commands=[6]))
+    assert selected[("source", 2, 0, 6)]["cohort"] == "old"
+    assert selected[("first_hit", 2, 0, 6)]["cohort"] == "new"
+    assert set(hashes) == {str(old_file), str(new_file)}
+
+
 def test_unknown_terminal_endpoint_and_large_jump_never_draw_fake_line():
     row = dict(issued=True, elapsed=3, physical_done=True, trajectory_end_observed=False,
                trajectory_id="synthetic", hit=False, hit_time=None,

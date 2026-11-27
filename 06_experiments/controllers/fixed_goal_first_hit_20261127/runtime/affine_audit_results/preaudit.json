@@ -1,0 +1,102 @@
+{
+  "schema": "intrmotiv/affine-deadline-preaudit/v1",
+  "protocol_sha256": "71b359d2c4d94e43025abed8f0fa035678ad544040d8096813306a9834296f84",
+  "input_files": {
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/replay.npz": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay/metadata.json": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/metadata.json": "e441d73a2f305d7ebc839800b18c9cd4e0cd8fa95b9e1b89042a1c2ca1761ca0",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/fit/adapter.pt": "c6e785876d3df748e5ab3c1d8bf8b5de98ce41cc0273f536dad08a17dd20e9ed",
+    "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_deadline_protocol.json": "71b359d2c4d94e43025abed8f0fa035678ad544040d8096813306a9834296f84"
+  },
+  "source_snapshot": {
+    "schema": "intrmotiv/source-snapshot/v1",
+    "sources": [
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/affine_deadline_audit.py",
+        "snapshot_path": "sources/0000/affine_deadline_audit.py",
+        "sha256": "b6ddb077c8ca4d312577e3f86467f27eb9f074fdf80d5ff14fe1714698dbf3a6",
+        "bytes": 17105
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/replay_cli.py",
+        "snapshot_path": "sources/0001/replay_cli.py",
+        "sha256": "59aae86d7ec50e7afe2229c0f37bd2949cafb830f4334613d84301eb19156b0d",
+        "bytes": 12165
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/replay_fit.py",
+        "snapshot_path": "sources/0002/replay_fit.py",
+        "sha256": "7e47c74830642e22fffeb00f1c10ccb4b2035cfb3bb29afbeb2f6641859f26ab",
+        "bytes": 9946
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/targets.py",
+        "snapshot_path": "sources/0003/targets.py",
+        "sha256": "35195df2a30745e75357fdc6d52c754d7d87db132abbbfc7481eb23aa5088555",
+        "bytes": 5491
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/detectors.py",
+        "snapshot_path": "sources/0004/detectors.py",
+        "sha256": "7e075a6598c52469321165c332f2971d6473a18a33e543653ff3be7136d3f5e2",
+        "bytes": 1124
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/runtime_adapter.py",
+        "snapshot_path": "sources/0005/runtime_adapter.py",
+        "sha256": "bdaca0fa3680ed13101086bab4421d742611c003d53b68aa8748eb4b29102418",
+        "bytes": 8637
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/legacy_runtime_adapter.py",
+        "snapshot_path": "sources/0006/legacy_runtime_adapter.py",
+        "sha256": "4658351759ae1a7944c5b8b95d5149e4a631a76bac97a336be3594e2cc929942",
+        "bytes": 5612
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/eligibility.py",
+        "snapshot_path": "sources/0007/eligibility.py",
+        "sha256": "5d7d91b767b30a1e00f4fd461277dc53d40cb92b4096371de935ca2bdeee8a90",
+        "bytes": 6062
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/first_hit_control/provenance.py",
+        "snapshot_path": "sources/0008/provenance.py",
+        "sha256": "9de69d2a246cab645fa2fdb478df279375ea6e2f2ae4a017c33774a4ce6c05a8",
+        "bytes": 4523
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_core.py",
+        "snapshot_path": "sources/0009/custom_core.py",
+        "sha256": "3097169ab58a48d5068d8fafb0892619de7c872f42e00666729a3f6eed3c7ca8",
+        "bytes": 111744
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/custom_decoder.py",
+        "snapshot_path": "sources/0010/custom_decoder.py",
+        "sha256": "6f4b3f3d14cf6cdf4cc669f64d0b4bd3ba70de70e87fb4b39dc8245d97da2991",
+        "bytes": 1105
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3/sf_working_directories/IntrMotiv/dmlab/controller_q.py",
+        "snapshot_path": "sources/0011/controller_q.py",
+        "sha256": "60e2957c9bce97c90c908d53b6769887393f8f643a1df79d2033831d0a4763c9",
+        "bytes": 3566
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/affine_deadline_protocol.json",
+        "snapshot_path": "sources/0012/affine_deadline_protocol.json",
+        "sha256": "71b359d2c4d94e43025abed8f0fa035678ad544040d8096813306a9834296f84",
+        "bytes": 8498
+      },
+      {
+        "source_path": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_affine_audit_20261127_r1/hpc_runs/test_first_hit_affine_deadline_audit.py",
+        "snapshot_path": "sources/0013/test_first_hit_affine_deadline_audit.py",
+        "sha256": "e17b22a41356021674e7d6c7d1c11e25cb8cb4b65206d36035c2d5e92c94b8de",
+        "bytes": 7895
+      }
+    ]
+  },
+  "selected_rows_sha256": "03550cf1f4b19f28c0f49006a74880e0fb9fd7916698e9951879342f20bbcbc2",
+  "stage": "Written before adapter loading and all prediction/target inference"
+}

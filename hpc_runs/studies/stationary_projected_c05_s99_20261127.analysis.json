@@ -1,0 +1,213 @@
+{
+  "schema": "intrmotiv/reused-replay-control-plan/v1",
+  "analysis_version": "1.0.0",
+  "workflow_version": "1.15.2",
+  "analysis_id": "stationary_projected_c05_s99_20261127",
+  "declared_utc": "2026-11-27T10:57:55.829611+00:00",
+  "status": "prospective native followup; before implementation, fitting or native execution",
+  "contract": {
+    "kind": "artifact_dependency_graph",
+    "reason_for_separate_schema": "One existing validated donor, existing frozen replay and completed baseline starts/trials feed a new readout and candidate-only evaluations. These are dependent analysis artifacts, not new Sample Factory pretraining RunSpecs. Reuse canonical StudySpec donor identity and the existing first-hit analysis package.",
+    "comparison": "Complete minimal stationary design versus original pretrained worker; finite-horizon results remain a separate design comparison, not an isolated one-factor ablation."
+  },
+  "donor_study": {
+    "path": "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json",
+    "sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "declared_workflow_version": "1.14.1"
+  },
+  "donor": {
+    "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+    "seed": 99,
+    "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+    "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd"
+  },
+  "source_interface": {
+    "goal_count": 16,
+    "action_count": 5,
+    "action_repeat": 8,
+    "primary_detector": "winner",
+    "secondary_detector": "exclusive",
+    "environment": "openfield_map2_fixed_loc3_fixedlength_noreward"
+  },
+  "parent_analysis": {
+    "path": "hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json",
+    "sha256": "e15578b497bbd5d7853fe041e34687bfcc1b0f17bbeac4e939bc28f7f6ac2a30",
+    "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+    "output": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+    "release_record": {
+      "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_launch/source_release.json",
+      "sha256": "9458f464f83e2e4483160b84ace393634b68ad7fbd8d418732414b91786c7b4e"
+    }
+  },
+  "local_evidence": {
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/projected_bootstrap_design.md": "959a03bce0acffd7e95a58e1392b3854086034a88dca94ead52986e130315e64",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_grid_r1/results.json": "edfe2acb6d3a114afe0e2a732026ae695fdce353dbe3eb26415f7f8579de0eaa",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/results.json": "b00c51fc487de68fd4ac03c267c23b235bfcb3b1569363221e73f0af11a392b0",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/stationary_cycle_audit_protocol.json": "c7d4664b2864276bd5496154efabf30cd695ad8b0f08d458024a9be3096ce301",
+    "06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_cycle_audit_r1/results.json": "328a3e13a75beec6ec9647593511f9c411e205c143fdee6acd165b0983ddef30"
+  },
+  "scope_review": {
+    "original_H6_gate": "FAILED and retained; projected fork arrivals40/42,41/42,40/42. Do not relabel this test.",
+    "exact_eventual_audit": "All 138 noninitial fork/history queries hit with fixed projected weights, maximum 8 decisions, zero exact cycles and zero unknown caps; raw134/138 withfour proven cycles. Post-hoc diagnostic, not independent validation.",
+    "prospective_grid": "All 240 noninitial queries in each of three projected seeds pass fixedH16 on separate GeoMem grid.",
+    "reason_to_advance": "User goal is reaching every reachable learned DG landmark, without a requested shortest-path or six-step requirement. Complete fixed-policy reaching on tested graphs and independently declared grid gate support a native test at the unchanged previously fixed H256. This new decision is recorded transparently after the cycle diagnostic and does not change old gates or budgets.",
+    "qualification_limit": "One donor/fitseed 99; no general POMDP sufficiency or transfer across new visual fields claimed."
+  },
+  "runtime": {
+    "workspace_root": "/work/classic/fr_xl1014-corridor-geometry",
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_stationary_20261127_r1",
+    "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/stationary_projected_r1",
+    "python": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+    "dependency_roots": [
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1",
+      "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1"
+    ],
+    "torch_cache": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch"
+  },
+  "replay": {
+    "directory": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/replay",
+    "dataset_sha256": "765738a4a98a6f81a7cdef84208f2a27991a9202051ed36966382cfc134e2b73",
+    "decoder_state_sha256": "7c53550a4596f9a4cae9868268f01e1bfdba48c7cd451fab2ee0b625810ec560",
+    "metadata_sha256": "abd0f3900f45b7f302fd53de3a6fac13c7ea25e6fa08d884b57e4893e7f5bbd3",
+    "new_collection_decisions": 0,
+    "qualification_replay_not_pooled": true
+  },
+  "model": {
+    "decoder": "actual MlpDecoderJit, original [128,128] ReLU",
+    "head": "actual ActionParameterizationDefault, raw five-action outputs",
+    "initialization": "Copy BOTH pretrained decoder and action_parameterization state dictionaries from certified decoder_state.pt, independently for qualification and fullfit. No qualification-trained weights enter fullfit.",
+    "trainable_parameters": 166405,
+    "added_inference_parameters": 0,
+    "goal_input": "Replace certified existing 16-goal slice only; preserve1165-wide full core and physical bypass",
+    "clock": "No neural clock. remaining argument may exist only as evaluator interface compatibility and must have no effect on stationary outputs.",
+    "frozen": "All visual trunk, DG, BN, CA3,original actor,graph and evaluation weights."
+  },
+  "objective": {
+    "gamma": 0.99,
+    "target": "y + gamma*(1-y)*(1-physical_done)*clip(Qtarget(next,argmax Qonline(next)),0,1)",
+    "projection_order": "clip BEFORE gamma",
+    "action_selection": "Raw original-head argmax; no actor clipping, sigmoid, action mask or graph filter",
+    "goals": "Every16detector identity on each factual action, failures retained",
+    "current_goal_mask": "Exclude only the current positive-argmax winner; derive current DG from certified CA3[0:1136].reshape(N,16,71)[:,:,0], using canonical winner detector. Do not mask all active DG or usebehavior source_goal.",
+    "termination": "Hit takes precedence overtrue physical failure. Unknown successor remainsunusable; live bootstrap requires successor_core_valid. Truncation is not failure."
+  },
+  "fit": {
+    "seed": 99,
+    "updates": 30000,
+    "batch_size": 128,
+    "horizon": 256,
+    "learning_rate": 0.0003,
+    "target_update_period": 100,
+    "holdout_fraction": 0.1,
+    "threads": 4,
+    "device": "cpu",
+    "selection": "Exactly 30000 updates; finalweights only; whole-episode holdout diagnostic; no result-based tuning"
+  },
+  "batch_matching": "Reuse native episode_split(seed 99,.1), actual row sampler and its unused deadline RNG draw to match main factual batches; report row/mask hashes and differing usable label counts. Do not substitute toy seed+10000 sampling.",
+  "qualification": {
+    "new_collection_decisions": 0,
+    "replay": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/replay",
+    "updates": 100,
+    "batch_size": 64,
+    "horizon_external_only": 64,
+    "learning_rate": 0.0003,
+    "seed": 99,
+    "native_panel": "Reuse completed nonempty-prefix probe source 2, seed 31003,20-action prefix,commands 0 and 1; exact signatures and all frozenhashes; two candidate paths, original source paths by verified reference. No efficacy gate on100-update weights.",
+    "requirements": [
+      "Focused tests on allocated node",
+      "Exact original decoder/head snapshot reload and old-source compatibility",
+      "Certified current winner/terminal/missing masks",
+      "Clock-invariant outputs",
+      "Exact full physical/recurrent prefix equality and frozen detector/model/graph",
+      "No engine outside Slurm; no local native execution"
+    ],
+    "replay_dataset_sha256": "05d1e9df8993f0a8d22a035264a433cda66fa9c1ada65325633d50863226aa7b",
+    "replay_metadata_sha256": "9adbdee2bc947f2a48eff67a5825888c3ecd27e16d2016d8f939c6d5c83892f6",
+    "source_evaluation": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r3/evaluation_nonempty_prefix",
+    "source_trials_sha256": "b263c45a56c6341f875c03f3b8e08bac1a112fb7090242cc536a3753098cf248",
+    "source_summary_sha256": "5249405feac2f728746d6495b4df6276b68dd4b883ef53975239d237f6e26cba",
+    "matched_starts_sha256": "392058ae67127a355cc78c1da0da0b9822de8aa55e3bfe0b82759b0204f3005c",
+    "decision_cap": 4096,
+    "decision_cap_reason": "Resource guard for the fixed two candidate paths: 2*(20 prefix +64 deadline)=168 maximum advanced decisions; no discovery or extra queries."
+  },
+  "evaluation": {
+    "source_shards": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11
+      ],
+      [
+        12,
+        13,
+        14,
+        15
+      ]
+    ],
+    "repeats": 3,
+    "discovery_episodes": 0,
+    "prefix_cap": 512,
+    "discovery_seed": 41000,
+    "decision_cap_per_shard": 350000,
+    "policy_count": 1,
+    "targets": "All source-graph, replay and independent-discovery winner identities; no passive-edge filter. Every capacity identity remains in the final denominator table as observed, unobserved, issued or unassessed.",
+    "stop": "Own winner hit is absorbing including t0. Alternative arrivals count only before that command's own stop; unresolved physical terminals remain censored.",
+    "primary_command_selectivity": "Competing-target FIRST: P(g before c within H | command g) minus P(g before c within H | command c), from identical starts with distinct g,c both absent initially. Other landmarks may be crossed. Preserve declared pairs with explicit missing/terminal identification bounds; first observed g or c resolves the event even if a later terminal is unknown.",
+    "secondary_stopped_task_lift": "Own-command arrival minus alternative-command arrival under each command's own stop describes the complete task-and-stop interface. It is confounded by command-dependent termination and does not demonstrate command-dependent navigation.",
+    "selectivity_interpretation": "Positive competing-target FIRST establishes command-dependent ordering under matched physical/recurrent starts and common dynamics. Zero does not alone refute goal reaching, particularly when landmark order is unavoidable. Do not require positivity for every ordered pair or select favorable competitors after outcomes.",
+    "capability_gate": "All declared identities observed and issued, no missing source-history cells, and per-goal success lower bound at least0.90. Report aggregate competing-target FIRST selectivity with its full pair matrix and identification bounds as separate navigation evidence where routing choice exists; no positive-every-pair requirement. Otherwise report partial capability. These tests do not establish success for untested histories.",
+    "command_contrast_addendum": {
+      "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/command_contrast_addendum.md",
+      "sha256": "b9c172008a40f3a0cf4e4da3ab9b65ee9ea345ae5a12a84e567b2e924b263951"
+    },
+    "independent_jobs": true,
+    "horizon": 256,
+    "original_control": "Reuse original actor paths by immutable hash from completed main shards. Do not rerun original control or invent fresh-control provenance.",
+    "start_source": "After each main shard completes, validate summary, source archive, trials, matched_starts.pt; reuse all original declaredsource/repeat/command cells without outcome selection. Previously unissued ormissing blocks remain missing.",
+    "candidate": "Execute only stationary projected raw-head policy from exact retained seed/prefix/signatures; all 16targets and old H256; cap 350000 per shard unchanged.",
+    "dependency": "Candidate fit qualification/full fit plus completed corresponding main shard; source controller outcomes do notselect starts orcandidate weights.",
+    "original_discovery": {
+      "discovery_episodes": 96,
+      "prefix_cap": 512,
+      "discovery_seed": 41000
+    },
+    "analysis_policy_count": 2
+  },
+  "analysis": {
+    "schema": "Explicit reused-control result provenance; never fabricatejointtwo-policyfreshshard",
+    "reuse": "Existing own-arrival bounds, all competingFIRST, source-cluster bootstrap, trace,field and graph reducers after certifying imported control and new candidate contracts",
+    "required": {
+      "evidence_design": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/main_protocol_draft.json",
+      "place_fields": "Reuse compatible exact-donor policy and common-panel artifacts, with byte/config audits; do not repeat a checkpoint sweep by default.",
+      "trajectories": "Record actual per-decision pose as telemetry only, actions, command, remaining deadline and reset/terminal segmentation.",
+      "graphs": "Separate source graph evidence, replay exposure and executed directed source-target outcomes; retain missing and unattempted pairs.",
+      "control": "Report all declared goal/source rows, initial satisfaction, failures, censor bounds, competing-target FIRST as primary command-selectivity contrast, stopped-task lift as a secondary termination-confounded description, first-hit latency and paired source versus fitted policies."
+    },
+    "missing": "Retain all capacity,source history and commanddenominators; no complete-case inflation; H256 failures/censoring do notprove eventual nonarrival in DMLab."
+  },
+  "execution_gates": [
+    "Validate parent StudySpec and pins using canonical workflow1.15.2",
+    "Archive new protocol/code before fitting and candidate outcomes",
+    "Stage separate immutable source; donor model bytes unchanged; no edits to r3 or running jobs",
+    "Review print-only arguments, workspace paths and actual source hashes",
+    "Pass allocated native integration qualification before full fit/evaluation submission",
+    "Full fit and everycandidate evaluator checked frozen; no automatic retry/resubmit after unexpected failure without root review"
+  ],
+  "budget_boundary": "One qualification fit100 updates, one full fit30000 updates, four candidate-only evaluation jobs, pure analysis. No new exploration, extra fit seeds, hyperparameter sweep or altered main jobs."
+}

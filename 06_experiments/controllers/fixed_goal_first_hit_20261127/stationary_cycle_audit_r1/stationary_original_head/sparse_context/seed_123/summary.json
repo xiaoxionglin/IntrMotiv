@@ -1,0 +1,61 @@
+{
+  "condition": "stationary_original_head",
+  "environment": "sparse_context",
+  "seed": 123,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_123/readout.pt",
+  "checkpoint_sha256": "e8f13e7458eccc48ca720a9af06018689c479a57c2d67cbeaa07c1df90065a1e",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/sparse_context/seed_123/trials.csv",
+  "traces_sha256": "cd6524bd5d01e748bd6382ac9bb64bcfc89dc27359c1ef02e87f7c41afd6ef13",
+  "original_h6_success": 1.0,
+  "original_h6_gate": true,
+  "all": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 6
+  },
+  "noninitial": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 6
+  },
+  "initially_satisfied": {
+    "hit": 0,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 0,
+    "maximum_observed_hit_latency": null
+  },
+  "per_goal": {
+    "4": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 6
+    },
+    "5": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 5,
+    "conservative_augmented_state_bound_per_goal": 2343750
+  },
+  "model_state_sha256": "53904f79b7efa88e998adcae5f090a8293553f3506029ccbaa3ab53d62482129",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "a91f278e7b416b6ffc57f5b66f92b337c4cf4cb9adc6ca3235413f91ef6a9a50"
+}

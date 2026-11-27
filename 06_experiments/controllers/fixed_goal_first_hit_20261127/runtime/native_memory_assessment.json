@@ -1,0 +1,84 @@
+{
+  "schema": "intrmotiv/native-memory-assessment/v1",
+  "checked_utc": "2026-11-27T11:02:37.534010+00:00",
+  "input_receipts": {
+    "native_memory_probe_01.json": "fdc8b42350806414b974a2a5e2f5d718bc5d0998de41e5e76eaf1bd92c1f87bd",
+    "native_memory_probe_02.json": "d3276cbf5eb3a5de23ede9db0b10513748e5757689d4a15cad7e528d4e337dfb"
+  },
+  "measurements": [
+    {
+      "job_id": "8950234",
+      "python_pid": 121116,
+      "first_rss_kib": 1070060.0,
+      "second_rss_kib": 1123552.0,
+      "first_pss_kib": 1051071.0,
+      "second_pss_kib": 1104546.0,
+      "rss_delta_kib": 53492.0,
+      "anon_delta_kib": 860.0,
+      "shmem_delta_kib": 52632.0,
+      "engines_at_second_sample": 62
+    },
+    {
+      "job_id": "8950235",
+      "python_pid": 106639,
+      "first_rss_kib": 1068084.0,
+      "second_rss_kib": 1119036.0,
+      "first_pss_kib": 1050120.0,
+      "second_pss_kib": 1114782.0,
+      "rss_delta_kib": 50952.0,
+      "anon_delta_kib": 6504.0,
+      "shmem_delta_kib": 49708.0,
+      "engines_at_second_sample": 59
+    },
+    {
+      "job_id": "8950236",
+      "python_pid": 1696266,
+      "first_rss_kib": 1047552.0,
+      "second_rss_kib": 1101560.0,
+      "first_pss_kib": 820942.0,
+      "second_pss_kib": 877268.0,
+      "rss_delta_kib": 54008.0,
+      "anon_delta_kib": 1376.0,
+      "shmem_delta_kib": 52632.0,
+      "engines_at_second_sample": 61
+    },
+    {
+      "job_id": "8950237",
+      "python_pid": 1696265,
+      "first_rss_kib": 1050364.0,
+      "second_rss_kib": 1100072.0,
+      "first_pss_kib": 823735.0,
+      "second_pss_kib": 875797.0,
+      "rss_delta_kib": 49708.0,
+      "anon_delta_kib": 0.0,
+      "shmem_delta_kib": 49708.0,
+      "engines_at_second_sample": 57
+    }
+  ],
+  "findings": [
+    "Python anonymous memory approximately stable over the two samples; current RSS rises mainly in shared-memory pages, so this is not a complete RSS plateau.",
+    "Python RSS at the second sample is approximately1.05\u20131.07GiB; PSS approximately0.84\u20131.06GiB.",
+    "The higher Slurm/cgroup total in evaluator01 is mainly file cache, not a uniquely larger Python heap.",
+    "All four enforced job/user cgroup limits are8GiB, with max/high/oom/oom_kill counters zero at the second sample.",
+    "Source fresh() calls env.close(), creates a new wrapped environment, reseeds and resets; DmlabEnv.close() calls Lab.close(). This verifies Python lifecycle calls, not native allocation reclamation."
+  ],
+  "conditional_envelope": {
+    "maximum_planned_engine_initializations_per_shard": 481,
+    "assumed_forward_rss_growth_mib_per_engine": 3.5,
+    "basis": "Conservative rounding above approximately50\u201365MiB growth over roughly18\u201320 further fresh engines; one earlier engine count precedes its memory sample by39seconds.",
+    "python_residency_by_final_engine_gib_upper_projection": 2.55,
+    "allowance_future_trace_storage_gib": 0.75,
+    "allowance_transient_map_compiler_gib": 0.5,
+    "conditional_active_residency_envelope_gib": 3.8,
+    "limits": "Two discovery-phase samples do not prove a bound. File cache is separately reclaimable under the8GiB cgroup; future trial storage and allocator behavior can differ. This projection does not justify changing scientific jobs."
+  },
+  "installed_slurm": "26.05.4",
+  "running_job_memory_increase": "Installed scontrol man states MinMemoryNode allows reduction only for running jobs; no update attempted.",
+  "mutations": {
+    "resource_changes": 0,
+    "cancellations": 0,
+    "resubmissions": 0,
+    "native_environment_runs": 0
+  },
+  "diagnostic_steps": 8
+}

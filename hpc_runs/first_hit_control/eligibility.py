@@ -94,3 +94,50 @@ def certify_slice_only_relabel(core, decoder, *, source_root: str | Path, input_
         "remaining_gates": ["Frozen source DG weights and BatchNorm buffers", "Actual actor/replay state parity", "Genuine terminal successor transport"],
         "unsupported_state_note": "GoalConditionedDGCore splits worker memory at canonical_state_size-behavior_goal_state_size; that goal-written worker block is not canonical scalar CA3. The controller_worker_state cache alone does not certify its meaning.",
     }
+
+
+def validate_legacy_certificate(decoder, certificate, *, source_root) -> GoalLayout:
+    """Verify a saved scalar-CA3 legacy layout and exact source decoder.
+
+    Shared by finite-deadline and original-action-head stationary adapters;
+    no value head or native environment is required to validate eligibility.
+    """
+    required = {
+        "schema": "intrmotiv/slice-only-relabel-eligibility/v1",
+        "structural_eligibility": True, "input_kind": "canonical_core_output",
+        "core_class": "SimpleSequenceWithBypassCore", "decoder_class": "MlpDecoderJit",
+        "hrl_goal_conditioning": "legacy",
+    }
+    if any(certificate.get(key) != value for key, value in required.items()):
+        raise ValueError("Unsupported or incomplete collector eligibility certificate")
+    flags = {
+        "dg_goal_input": "none", "hrl_landmark_geometry": "none", "hrl_behavior_mode_condition": False,
+        "hrl_motion_policy_input": False, "hrl_action_path_integration": False, "ca3_state_readout_mode": "off",
+        "ca3_worker_goal_mode": "target_id", "dg_context_feedback": "none", "dg_orthogonal_recruitment": False,
+    }
+    if certificate.get("effective_flags") != flags:
+        raise ValueError("Certificate contains unqualified goal-dependent physical inputs")
+    layout_data = certificate.get("layout", {})
+    if set(layout_data) != {"width", "goal_start", "goals"} or any(type(v) is not int for v in layout_data.values()):
+        raise ValueError("Certificate requires an integer complete core layout")
+    layout = GoalLayout(**layout_data)
+    slices = certificate.get("half_open_slices", {})
+    ca3 = slices.get("canonical_ca3", [])
+    if (layout.width != layout.goal_start + layout.goals or len(ca3) != 2 or ca3[0] != 0
+            or type(ca3[1]) is not int or not 0 < ca3[1] <= layout.goal_start or ca3[1] % layout.goals
+            or slices.get("physical_bypass") != [ca3[1], layout.goal_start]
+            or slices.get("goal") != [layout.goal_start, layout.width]):
+        raise ValueError("Certificate contains inconsistent physical/goal slices")
+    directory = Path(source_root).resolve(strict=True) / "sf_working_directories/IntrMotiv/dmlab"
+    recorded = certificate.get("source_sha256", {})
+    for name in ("custom_core.py", "custom_decoder.py"):
+        matches = [digest for path, digest in recorded.items()
+                   if str(path).endswith("/sf_working_directories/IntrMotiv/dmlab/" + name)]
+        if len(matches) != 1 or hashlib.sha256((directory / name).read_bytes()).hexdigest() != matches[0]:
+            raise ValueError(f"Certified source hash mismatch for {name}")
+    code = getattr(type(decoder).__init__, "__code__", None)
+    if (type(decoder).__name__ != "MlpDecoderJit" or code is None
+            or Path(code.co_filename).resolve(strict=True) != (directory / "custom_decoder.py").resolve(strict=True)
+            or decoder.core_input_size != layout.width):
+        raise ValueError("Supplied decoder differs from the certified original legacy decoder")
+    return layout

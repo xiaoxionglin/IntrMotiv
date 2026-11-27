@@ -18,7 +18,8 @@ import torch
 from hpc_runs.intrmotiv_study import spatial_contract
 from hpc_runs.intrmotiv_study.spatial_contract import SpatialBounds, spatial_rate_maps
 
-from .aggregate_evaluation import POLICIES, file_hash
+from .aggregate_evaluation import (POLICIES, certified_trial_sources, file_hash,
+                                   iter_certified_trial_rows)
 from .detectors import detector_hits
 from .provenance import audit_source_snapshots, snapshot_sources
 
@@ -186,32 +187,28 @@ def analyze(aggregate_path, output, *, field_audit=None, field_npz=None):
                             for policy in POLICIES}
     seen = set()
     for receipt in aggregate["input_receipts"]:
-        trial_path = Path(receipt["directory"]) / "trials.jsonl"
-        if file_hash(trial_path) != receipt["trials_sha256"]:
-            raise ValueError("Trial bytes differ from completed aggregate")
-        input_hashes[str(trial_path)] = receipt["trials_sha256"]
-        with trial_path.open() as stream:
-            for line in stream:
-                row = json.loads(line)
-                if not row["commanded"]:
-                    continue
-                key = tuple(row[k] for k in ("policy", "source", "repeat", "command"))
-                if key in seen:
-                    raise ValueError("Duplicate executed command")
-                seen.add(key)
-                if not row["issued"]:
-                    records.append({k: row.get(k) for k in ("policy", "source", "repeat", "command",
-                        "issued", "missing", "missing_reason", "initially_at_command", "hit", "hit_time")})
-                    continue
-                item, pose, dg, winner, edges = summarize_trace(row, goals, field)
-                records.append(item)
-                # Initial-satisfied queries have no executed path; keep their
-                # rows but exclude their duplicated t0 from behavior maps.
-                if not row["initially_at_command"]:
-                    panel = panels[row["policy"]]
-                    for name, values in (("pose", pose), ("dg", dg), ("winner", winner)):
-                        panel[name].append(values)
-                    panel["edges"] += edges
+        for source in certified_trial_sources(receipt):
+            input_hashes[str(source.path)] = source.sha256
+        for row in iter_certified_trial_rows(receipt):
+            if not row["commanded"]:
+                continue
+            key = tuple(row[k] for k in ("policy", "source", "repeat", "command"))
+            if key in seen:
+                raise ValueError("Duplicate executed command")
+            seen.add(key)
+            if not row["issued"]:
+                records.append({k: row.get(k) for k in ("policy", "source", "repeat", "command",
+                    "issued", "missing", "missing_reason", "initially_at_command", "hit", "hit_time")})
+                continue
+            item, pose, dg, winner, edges = summarize_trace(row, goals, field)
+            records.append(item)
+            # Initial-satisfied queries have no executed path; keep their
+            # rows but exclude their duplicated t0 from behavior maps.
+            if not row["initially_at_command"]:
+                panel = panels[row["policy"]]
+                for name, values in (("pose", pose), ("dg", dg), ("winner", winner)):
+                    panel[name].append(values)
+                panel["edges"] += edges
     expected = {(p, s, r, g) for p in POLICIES for s in identity["goal_vocabulary"]
                 for r in range(identity["config"]["repeats"]) for g in identity["observed_targets"]}
     if seen != expected:

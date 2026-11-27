@@ -1,0 +1,50 @@
+start,goal,goal_id,initially_satisfied,first_hit_latency,terminal_time,cycle_preperiod,cycle_period,repeat_state,repeat_ca3_dtype,repeat_ca3_shape,repeat_ca3_hex,repeat_ca3_sha256,initial_ca3_sha256,outcome,decisions,states,actions,distinct_augmented_states,condition,environment,seed,prefix,shortest_distance,original_h6_success,original_h6_prefix_identical
+0,0,0,True,0,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,0,[0],[],0,projected_regression_r1,fork_all_landmarks,123,[0],0,,True
+0,1,1,False,1,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,1,"[0, 1]",[0],1,projected_regression_r1,fork_all_landmarks,123,[0],1,1,True
+0,2,2,False,1,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,1,"[0, 2]",[1],1,projected_regression_r1,fork_all_landmarks,123,[0],1,1,True
+0,3,3,False,2,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,2,"[0, 1, 3]","[0, 0]",2,projected_regression_r1,fork_all_landmarks,123,[0],2,1,True
+0,4,4,False,2,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,2,"[0, 2, 4]","[1, 1]",2,projected_regression_r1,fork_all_landmarks,123,[0],2,1,True
+0,5,5,False,3,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,3,"[0, 1, 3, 5]","[0, 0, 0]",3,projected_regression_r1,fork_all_landmarks,123,[0],3,1,True
+0,6,6,False,3,,,,,,,,,2e9f47815f98a415876b0d39fc3eb466e37b33da48a6b1368898276a4742d19a,hit,3,"[0, 2, 4, 6]","[1, 1, 1]",3,projected_regression_r1,fork_all_landmarks,123,[0],3,1,True
+1,0,0,False,1,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,1,"[1, 0]",[1],1,projected_regression_r1,fork_all_landmarks,123,[1],1,1,True
+1,1,1,True,0,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,0,[1],[],0,projected_regression_r1,fork_all_landmarks,123,[1],0,,True
+1,2,2,False,2,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,2,"[1, 0, 2]","[1, 1]",2,projected_regression_r1,fork_all_landmarks,123,[1],2,1,True
+1,3,3,False,1,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,1,"[1, 3]",[0],1,projected_regression_r1,fork_all_landmarks,123,[1],1,1,True
+1,4,4,False,3,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,3,"[1, 0, 2, 4]","[1, 1, 1]",3,projected_regression_r1,fork_all_landmarks,123,[1],3,1,True
+1,5,5,False,2,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,2,"[1, 3, 5]","[0, 0]",2,projected_regression_r1,fork_all_landmarks,123,[1],2,1,True
+1,6,6,False,4,,,,,,,,,71fa698507ae345ccfb2d7e960496532add5661022af02771b959f5005ae8d89,hit,4,"[1, 0, 2, 4, 6]","[1, 1, 1, 1]",4,projected_regression_r1,fork_all_landmarks,123,[1],4,1,True
+2,0,0,False,1,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,1,"[2, 0]",[0],1,projected_regression_r1,fork_all_landmarks,123,[2],1,1,True
+2,1,1,False,2,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,2,"[2, 0, 1]","[0, 0]",2,projected_regression_r1,fork_all_landmarks,123,[2],2,1,True
+2,2,2,True,0,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,0,[2],[],0,projected_regression_r1,fork_all_landmarks,123,[2],0,,True
+2,3,3,False,3,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,3,"[2, 0, 1, 3]","[0, 0, 0]",3,projected_regression_r1,fork_all_landmarks,123,[2],3,1,True
+2,4,4,False,1,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,1,"[2, 4]",[1],1,projected_regression_r1,fork_all_landmarks,123,[2],1,1,True
+2,5,5,False,8,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,8,"[2, 4, 2, 2, 0, 0, 1, 3, 5]","[1, 0, 2, 0, 2, 0, 0, 0]",8,projected_regression_r1,fork_all_landmarks,123,[2],4,0,True
+2,6,6,False,2,,,,,,,,,aee8a0d449110605afcfe95fecf6b5f3e908ca281cf15fb51868ba5a19bd454f,hit,2,"[2, 4, 6]","[1, 1]",2,projected_regression_r1,fork_all_landmarks,123,[2],2,1,True
+3,0,0,False,2,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,2,"[3, 1, 0]","[1, 1]",2,projected_regression_r1,fork_all_landmarks,123,[3],2,1,True
+3,1,1,False,1,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,1,"[3, 1]",[1],1,projected_regression_r1,fork_all_landmarks,123,[3],1,1,True
+3,2,2,False,3,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,3,"[3, 1, 0, 2]","[1, 1, 1]",3,projected_regression_r1,fork_all_landmarks,123,[3],3,1,True
+3,3,3,True,0,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,0,[3],[],0,projected_regression_r1,fork_all_landmarks,123,[3],0,,True
+3,4,4,False,4,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,4,"[3, 1, 0, 2, 4]","[1, 1, 1, 1]",4,projected_regression_r1,fork_all_landmarks,123,[3],4,1,True
+3,5,5,False,1,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,1,"[3, 5]",[0],1,projected_regression_r1,fork_all_landmarks,123,[3],1,1,True
+3,6,6,False,5,,,,,,,,,965939f57fc82af6a3e520f6b3f88cee015d64f0c9885f71e0702149cb485c9a,hit,5,"[3, 1, 0, 2, 4, 6]","[1, 1, 1, 1, 1]",5,projected_regression_r1,fork_all_landmarks,123,[3],5,1,True
+4,0,0,False,2,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,2,"[4, 2, 0]","[0, 0]",2,projected_regression_r1,fork_all_landmarks,123,[4],2,1,True
+4,1,1,False,3,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,3,"[4, 2, 0, 1]","[0, 0, 0]",3,projected_regression_r1,fork_all_landmarks,123,[4],3,1,True
+4,2,2,False,1,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,1,"[4, 2]",[0],1,projected_regression_r1,fork_all_landmarks,123,[4],1,1,True
+4,3,3,False,4,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,4,"[4, 2, 0, 1, 3]","[0, 0, 0, 0]",4,projected_regression_r1,fork_all_landmarks,123,[4],4,1,True
+4,4,4,True,0,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,0,[4],[],0,projected_regression_r1,fork_all_landmarks,123,[4],0,,True
+4,5,5,False,7,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,7,"[4, 2, 2, 0, 0, 1, 3, 5]","[0, 2, 0, 2, 0, 0, 0]",7,projected_regression_r1,fork_all_landmarks,123,[4],5,0,True
+4,6,6,False,1,,,,,,,,,1b56cf741ce523c95b9f142e7b92d519c71f0548b7cb67c3a33e2cabce8dc121,hit,1,"[4, 6]",[1],1,projected_regression_r1,fork_all_landmarks,123,[4],1,1,True
+5,0,0,False,3,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,3,"[5, 3, 1, 0]","[0, 1, 1]",3,projected_regression_r1,fork_all_landmarks,123,[5],3,1,True
+5,1,1,False,2,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,2,"[5, 3, 1]","[0, 1]",2,projected_regression_r1,fork_all_landmarks,123,[5],2,1,True
+5,2,2,False,4,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,4,"[5, 3, 1, 0, 2]","[0, 1, 1, 1]",4,projected_regression_r1,fork_all_landmarks,123,[5],4,1,True
+5,3,3,False,1,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,1,"[5, 3]",[0],1,projected_regression_r1,fork_all_landmarks,123,[5],1,1,True
+5,4,4,False,6,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,6,"[5, 3, 1, 0, 0, 2, 4]","[0, 1, 1, 2, 1, 1]",6,projected_regression_r1,fork_all_landmarks,123,[5],5,1,True
+5,5,5,True,0,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,0,[5],[],0,projected_regression_r1,fork_all_landmarks,123,[5],0,,True
+5,6,6,False,6,,,,,,,,,9049f44037a1d4c2ce70a669744e3a3960914d5fd2f136b00bc2095a6c031825,hit,6,"[5, 3, 1, 0, 2, 4, 6]","[0, 1, 1, 1, 1, 1]",6,projected_regression_r1,fork_all_landmarks,123,[5],6,1,True
+6,0,0,False,5,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,5,"[6, 4, 2, 2, 2, 0]","[1, 0, 2, 2, 0]",5,projected_regression_r1,fork_all_landmarks,123,[6],3,1,True
+6,1,1,False,6,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,6,"[6, 4, 2, 2, 2, 0, 1]","[1, 0, 2, 2, 0, 0]",6,projected_regression_r1,fork_all_landmarks,123,[6],4,1,True
+6,2,2,False,2,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,2,"[6, 4, 2]","[1, 0]",2,projected_regression_r1,fork_all_landmarks,123,[6],2,1,True
+6,3,3,False,5,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,5,"[6, 4, 2, 0, 1, 3]","[1, 0, 0, 0, 0]",5,projected_regression_r1,fork_all_landmarks,123,[6],5,1,True
+6,4,4,False,1,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,1,"[6, 4]",[1],1,projected_regression_r1,fork_all_landmarks,123,[6],1,1,True
+6,5,5,False,6,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,6,"[6, 4, 2, 0, 1, 3, 5]","[1, 0, 0, 0, 0, 0]",6,projected_regression_r1,fork_all_landmarks,123,[6],6,1,True
+6,6,6,True,0,,,,,,,,,2f40a256815926b69b3f16637dea359732f50e347b1f4efa646799cfef850eea,hit,0,[6],[],0,projected_regression_r1,fork_all_landmarks,123,[6],0,,True

@@ -17,7 +17,8 @@ import textwrap
 import numpy as np
 
 from hpc_runs.intrmotiv_study.spatial import _figure_runtime
-from .aggregate_evaluation import POLICIES, file_hash
+from .aggregate_evaluation import (POLICIES, certified_trial_sources, file_hash,
+                                   iter_certified_trial_rows)
 
 
 LABELS = {"source": "Original actor", "first_hit": "First-hit actor"}
@@ -121,18 +122,14 @@ def stream_selected_trials(receipts, selection):
     if not wanted:
         return selected, hashes
     for receipt in receipts:
-        path = Path(receipt["directory"]) / "trials.jsonl"
-        if file_hash(path) != receipt["trials_sha256"]:
-            raise ValueError("Trial bytes differ from completed aggregation")
-        hashes[str(path.resolve())] = receipt["trials_sha256"]
-        with path.open() as stream:
-            for line in stream:
-                row = json.loads(line)
-                key = (row["policy"], row["source"], row["repeat"], row["command"])
-                if row["commanded"] and key in wanted:
-                    if key in selected:
-                        raise ValueError("Duplicate selected own-command trace")
-                    selected[key] = row
+        for source in certified_trial_sources(receipt):
+            hashes[str(source.path)] = source.sha256
+        for row in iter_certified_trial_rows(receipt):
+            key = (row["policy"], row["source"], row["repeat"], row["command"])
+            if row["commanded"] and key in wanted:
+                if key in selected:
+                    raise ValueError("Duplicate selected own-command trace")
+                selected[key] = row
     return selected, hashes
 
 

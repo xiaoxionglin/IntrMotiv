@@ -1,0 +1,660 @@
+{
+  "schema": "intrmotiv/read-only-native-memory-probe/v1",
+  "checked_utc": "2026-11-27T10:50:52.257547+00:00",
+  "native_environment_runs": 0,
+  "resource_mutations": false,
+  "diagnostic_steps": [
+    {
+      "job_id": "8950234",
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950234",
+        "node": "n3101",
+        "checked_utc": "2026-11-27T10:50:56.240987+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 121041,
+            "read_error": "[Errno 13] Permission denied: '/proc/121041/smaps_rollup'"
+          },
+          {
+            "pid": 121050,
+            "name": "slurm_script",
+            "ppid": "121041",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3408 kB",
+              "Pss": "593 kB",
+              "Pss_Anon": "416 kB",
+              "Pss_File": "177 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "416 kB",
+              "Private_Dirty": "416 kB",
+              "Shared_Clean": "2992 kB"
+            }
+          },
+          {
+            "pid": 121116,
+            "name": "python",
+            "ppid": "121050",
+            "status": {
+              "VmRSS": "1067612 kB",
+              "VmHWM": "1107032 kB",
+              "RssAnon": "517984 kB",
+              "RssFile": "434304 kB",
+              "RssShmem": "115324 kB"
+            },
+            "smaps": {
+              "Rss": "1070060 kB",
+              "Pss": "1051071 kB",
+              "Pss_Anon": "518852 kB",
+              "Pss_File": "415259 kB",
+              "Pss_Shmem": "116960 kB",
+              "Anonymous": "518852 kB",
+              "Private_Dirty": "522692 kB",
+              "Shared_Clean": "35492 kB"
+            }
+          },
+          {
+            "pid": 142595,
+            "name": "compile_map.sh",
+            "ppid": "121116",
+            "status": {
+              "VmRSS": "3072 kB",
+              "VmHWM": "3072 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "3072 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3472 kB",
+              "Pss": "605 kB",
+              "Pss_Anon": "400 kB",
+              "Pss_File": "205 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "400 kB",
+              "Private_Dirty": "400 kB",
+              "Shared_Clean": "3064 kB"
+            }
+          },
+          {
+            "pid": 142651,
+            "name": "q3map2",
+            "ppid": "142595",
+            "status": {
+              "VmRSS": "200328 kB",
+              "VmHWM": "206668 kB",
+              "RssAnon": "164488 kB",
+              "RssFile": "35840 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "201800 kB",
+              "Pss": "184850 kB",
+              "Pss_Anon": "165552 kB",
+              "Pss_File": "19298 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "165552 kB",
+              "Private_Dirty": "165552 kB",
+              "Shared_Clean": "31728 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNNQ00/step_batch/user/task_0": {
+            "memory.current": "1551867904",
+            "memory.peak": "1591066624",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 701652992,
+              "file": 838582272,
+              "pagetables": 4362240,
+              "shmem": 119767040
+            }
+          }
+        }
+      },
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950234",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "9592cf9089e705b55c23f13b564322fa0b7a3ce9d62baef5b955ee471aba7d0e",
+      "executed_argv_suffix": [
+        "8950234"
+      ],
+      "command_description": "srun overlap diagnostic: python -S -c <hashed inline code> JOBID"
+    },
+    {
+      "job_id": "8950235",
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950235",
+        "node": "n3102",
+        "checked_utc": "2026-11-27T10:50:56.863751+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 106564,
+            "read_error": "[Errno 13] Permission denied: '/proc/106564/smaps_rollup'"
+          },
+          {
+            "pid": 106573,
+            "name": "slurm_script",
+            "ppid": "106564",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3440 kB",
+              "Pss": "611 kB",
+              "Pss_Anon": "412 kB",
+              "Pss_File": "199 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "412 kB",
+              "Private_Dirty": "412 kB",
+              "Shared_Clean": "3024 kB"
+            }
+          },
+          {
+            "pid": 106639,
+            "name": "python",
+            "ppid": "106573",
+            "status": {
+              "VmRSS": "1066076 kB",
+              "VmHWM": "1107452 kB",
+              "RssAnon": "521496 kB",
+              "RssFile": "434360 kB",
+              "RssShmem": "110220 kB"
+            },
+            "smaps": {
+              "Rss": "1068084 kB",
+              "Pss": "1050120 kB",
+              "Pss_Anon": "521856 kB",
+              "Pss_File": "417152 kB",
+              "Pss_Shmem": "111112 kB",
+              "Anonymous": "521856 kB",
+              "Private_Dirty": "521832 kB",
+              "Shared_Clean": "33504 kB"
+            }
+          },
+          {
+            "pid": 127014,
+            "name": "compile_map.sh",
+            "ppid": "106639",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3464 kB",
+              "Pss": "611 kB",
+              "Pss_Anon": "400 kB",
+              "Pss_File": "211 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "400 kB",
+              "Private_Dirty": "400 kB",
+              "Shared_Clean": "3052 kB"
+            }
+          },
+          {
+            "pid": 127049,
+            "name": "q3map2",
+            "ppid": "127014",
+            "status": {
+              "VmRSS": "245232 kB",
+              "VmHWM": "247076 kB",
+              "RssAnon": "210416 kB",
+              "RssFile": "34816 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "247216 kB",
+              "Pss": "231273 kB",
+              "Pss_Anon": "211512 kB",
+              "Pss_File": "19761 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "211512 kB",
+              "Private_Dirty": "130140 kB",
+              "Shared_Clean": "29732 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNP100/step_batch/user/task_0": {
+            "memory.current": "4214370304",
+            "memory.peak": "4230426624",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 751869952,
+              "file": 3426971648,
+              "pagetables": 4382720,
+              "shmem": 113778688
+            }
+          }
+        }
+      },
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950235",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "9592cf9089e705b55c23f13b564322fa0b7a3ce9d62baef5b955ee471aba7d0e",
+      "executed_argv_suffix": [
+        "8950235"
+      ],
+      "command_description": "srun overlap diagnostic: python -S -c <hashed inline code> JOBID"
+    },
+    {
+      "job_id": "8950236",
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950236",
+        "node": "n3105",
+        "checked_utc": "2026-11-27T10:50:55.029734+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 1696114,
+            "read_error": "[Errno 13] Permission denied: '/proc/1696114/smaps_rollup'"
+          },
+          {
+            "pid": 1696132,
+            "name": "slurm_script",
+            "ppid": "1696114",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3380 kB",
+              "Pss": "515 kB",
+              "Pss_Anon": "412 kB",
+              "Pss_File": "103 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "412 kB",
+              "Private_Dirty": "412 kB",
+              "Shared_Clean": "2968 kB"
+            }
+          },
+          {
+            "pid": 1696266,
+            "name": "python",
+            "ppid": "1696132",
+            "status": {
+              "VmRSS": "1044260 kB",
+              "VmHWM": "1083696 kB",
+              "RssAnon": "496452 kB",
+              "RssFile": "435340 kB",
+              "RssShmem": "112468 kB"
+            },
+            "smaps": {
+              "Rss": "1047552 kB",
+              "Pss": "820942 kB",
+              "Pss_Anon": "497616 kB",
+              "Pss_File": "209290 kB",
+              "Pss_Shmem": "114036 kB",
+              "Anonymous": "497616 kB",
+              "Private_Dirty": "573016 kB",
+              "Shared_Clean": "434040 kB"
+            }
+          },
+          {
+            "pid": 1734913,
+            "name": "compile_map.sh",
+            "ppid": "1696266",
+            "status": {
+              "VmRSS": "3072 kB",
+              "VmHWM": "3072 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "3072 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3468 kB",
+              "Pss": "519 kB",
+              "Pss_Anon": "396 kB",
+              "Pss_File": "123 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "396 kB",
+              "Private_Dirty": "396 kB",
+              "Shared_Clean": "3068 kB"
+            }
+          },
+          {
+            "pid": 1734974,
+            "name": "q3map2",
+            "ppid": "1734913",
+            "status": {
+              "VmRSS": "200644 kB",
+              "VmHWM": "205644 kB",
+              "RssAnon": "164804 kB",
+              "RssFile": "35840 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "202300 kB",
+              "Pss": "176889 kB",
+              "Pss_Anon": "166300 kB",
+              "Pss_File": "10589 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "166300 kB",
+              "Private_Dirty": "166300 kB",
+              "Shared_Clean": "34740 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPC00/step_batch/user/task_0": {
+            "memory.current": "1372516352",
+            "memory.peak": "1411518464",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 680677376,
+              "file": 681082880,
+              "pagetables": 4374528,
+              "shmem": 116772864
+            }
+          }
+        }
+      },
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950236",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "9592cf9089e705b55c23f13b564322fa0b7a3ce9d62baef5b955ee471aba7d0e",
+      "executed_argv_suffix": [
+        "8950236"
+      ],
+      "command_description": "srun overlap diagnostic: python -S -c <hashed inline code> JOBID"
+    },
+    {
+      "job_id": "8950237",
+      "returncode": 0,
+      "stderr": "",
+      "measurement": {
+        "job_id": "8950237",
+        "node": "n3105",
+        "checked_utc": "2026-11-27T10:50:55.020544+00:00",
+        "listpids_returncode": 0,
+        "listpids_stderr": "",
+        "processes": [
+          {
+            "pid": 1696112,
+            "read_error": "[Errno 13] Permission denied: '/proc/1696112/smaps_rollup'"
+          },
+          {
+            "pid": 1696131,
+            "name": "slurm_script",
+            "ppid": "1696112",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3436 kB",
+              "Pss": "521 kB",
+              "Pss_Anon": "408 kB",
+              "Pss_File": "113 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "408 kB",
+              "Private_Dirty": "408 kB",
+              "Shared_Clean": "3028 kB"
+            }
+          },
+          {
+            "pid": 1696265,
+            "name": "python",
+            "ppid": "1696131",
+            "status": {
+              "VmRSS": "1049600 kB",
+              "VmHWM": "1088048 kB",
+              "RssAnon": "508408 kB",
+              "RssFile": "437240 kB",
+              "RssShmem": "103952 kB"
+            },
+            "smaps": {
+              "Rss": "1050364 kB",
+              "Pss": "823735 kB",
+              "Pss_Anon": "508752 kB",
+              "Pss_File": "209719 kB",
+              "Pss_Shmem": "105264 kB",
+              "Anonymous": "508752 kB",
+              "Private_Dirty": "587432 kB",
+              "Shared_Clean": "434048 kB"
+            }
+          },
+          {
+            "pid": 1734903,
+            "name": "compile_map.sh",
+            "ppid": "1696265",
+            "status": {
+              "VmRSS": "2048 kB",
+              "VmHWM": "2048 kB",
+              "RssAnon": "0 kB",
+              "RssFile": "2048 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "3396 kB",
+              "Pss": "513 kB",
+              "Pss_Anon": "404 kB",
+              "Pss_File": "109 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "404 kB",
+              "Private_Dirty": "404 kB",
+              "Shared_Clean": "2992 kB"
+            }
+          },
+          {
+            "pid": 1734948,
+            "name": "q3map2",
+            "ppid": "1734903",
+            "status": {
+              "VmRSS": "201180 kB",
+              "VmHWM": "205928 kB",
+              "RssAnon": "165340 kB",
+              "RssFile": "35840 kB",
+              "RssShmem": "0 kB"
+            },
+            "smaps": {
+              "Rss": "202220 kB",
+              "Pss": "176571 kB",
+              "Pss_Anon": "166276 kB",
+              "Pss_File": "10295 kB",
+              "Pss_Shmem": "0 kB",
+              "Anonymous": "166276 kB",
+              "Private_Dirty": "166276 kB",
+              "Shared_Clean": "35096 kB"
+            }
+          }
+        ],
+        "cgroups": {
+          "/sys/fs/cgroup/system.slice/slurmstepd.scope/s08HM8E6HNPQ00/step_batch/user/task_0": {
+            "memory.current": "1331572736",
+            "memory.peak": "1370832896",
+            "memory.max": "max",
+            "selected_memory_stat": {
+              "anon": 692060160,
+              "file": 629141504,
+              "pagetables": 4349952,
+              "shmem": 107790336
+            }
+          }
+        }
+      },
+      "executed_argv_prefix": [
+        "srun",
+        "--jobid=8950237",
+        "--overlap",
+        "--exact",
+        "--nodes=1",
+        "--ntasks=1",
+        "--cpus-per-task=1",
+        "--time=00:01:00",
+        "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+        "-S",
+        "-c"
+      ],
+      "inline_code_sha256": "9592cf9089e705b55c23f13b564322fa0b7a3ce9d62baef5b955ee471aba7d0e",
+      "executed_argv_suffix": [
+        "8950237"
+      ],
+      "command_description": "srun overlap diagnostic: python -S -c <hashed inline code> JOBID"
+    }
+  ],
+  "lifecycle_source": {
+    "sf_examples/dmlab/dmlab_gym.py": {
+      "sha256": "25fbf0685b21e5e66ef9f662aa1b98b8ed744a1099c9fc4912d36d485c6b77c5",
+      "snippets": [
+        {
+          "line": 126,
+          "text": "\n        self.dmlab = deepmind_lab.Lab(\n            level,\n            observation_format,\n            config=config,\n            renderer=renderer,\n            level_cache=env_level_cache,\n        )\n\n        self.action_set = EXTENDED_ACTION_SET if extended_action_set else ACTION_SET\n        self.action_list = np.array(self.action_set, dtype=np.intc)  # DMLAB requires intc type for actions\n\n        self.last_observation = None\n\n        self.render_scale = 5\n        self.render_fps = 30\n        self.last_frame = time.time()"
+        },
+        {
+          "line": 242,
+          "text": "\n    def close(self):\n        self.dmlab.close()\n\n    def fetch(self, key, pk3_path):\n        \"\"\"Environment object itself acts as a proxy to the global level cache.\"\"\"\n        if not self.env_uses_level_cache:\n            self.env_uses_level_cache = True\n            # log.debug('Env %s uses level cache!', self.level_name)\n\n        path = join(self.level_cache_path, key)\n\n        if os.path.isfile(path):\n            # copy the cached file to the path expected by DeepMind Lab\n            shutil.copyfile(path, pk3_path)\n            return True\n        else:"
+        }
+      ]
+    },
+    "sample_factory/algo/utils/make_env.py": {
+      "sha256": "2e5685e1ebc7927383549290b48f492b0c49b1361edbfa16140a7cd146aeefa7",
+      "snippets": [
+        {
+          "line": 333,
+          "text": "\n    def close(self):\n        for e in self.envs:\n            e.close()\n\n\ndef make_env_func_batched(cfg, env_config, render_mode: Optional[str] = None) -> BatchedVecEnv:\n    \"\"\"\n    This should yield an environment that always returns a dict of PyTorch tensors (CPU- or GPU-side) or\n    a dict of numpy arrays or a dict of lists (depending on what the environment returns in the first place).\n    \"\"\"\n    env = create_env(cfg.env, cfg=cfg, env_config=env_config, render_mode=render_mode)\n\n    # At this point we can be sure that our environment outputs a dictionary of lists (or numpy arrays or tensors)\n    # containing obs, rewards, etc. for each agent in the environment.\n    # Now we just want the environment to return a tensor dict for observations and tensors for rewards and dones.\n    # We leave infos intact for now, because format of infos isn't really specified and can be inconsistent between"
+        }
+      ]
+    },
+    "sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py": {
+      "sha256": "ba5370fba14b96fa8d01ff54dffa4f974f5548746a4bc0c3c7b3a64f8389cd61",
+      "snippets": [
+        {
+          "line": 343,
+          "text": "\n    def fresh(seed):\n        nonlocal env\n        env.close()\n        ecfg = AttrDict(dict(cfg))\n        ecfg.dmlab_use_level_cache = False\n        env = make_env_func_batched(\n            ecfg, env_config=AttrDict(worker_index=0, vector_index=0, env_id=0), render_mode=None\n        )\n        base = env.unwrapped\n        if hasattr(base, \"reset_on_init\"):\n            base.reset_on_init = False\n        base.seed(seed)\n        torch.manual_seed(seed)\n        obs, _ = env.reset()\n        return obs, torch.zeros(1, get_rnn_size(cfg), device=device)\n"
+        },
+        {
+          "line": 379,
+          "text": "\n    def signature(obs, state):\n        return {\n            **{k: v.detach().clone() for k, v in obs.items() if torch.is_tensor(v)},\n            \"__state\": state.detach().clone(),\n            \"__position\": evaluation_pose(env, obs)[0],\n            \"__rotation\": evaluation_pose(env, obs)[1],\n        }\n\n    def replay(seed, prefix):\n        obs, state = fresh(seed)\n        for action in prefix:\n            _, _, state = encode(obs, state)\n            obs, done = advance(action)\n            if done:\n                raise RuntimeError(\"Episode boundary in retained prefix\")\n        return obs, state"
+        }
+      ]
+    }
+  },
+  "slurm_version": "slurm 26.05.4",
+  "scontrol_memory_documentation": [
+    {
+      "line": 101,
+      "text": "\n              NodeName=<nodelist>\n                     Node name or list of node names to delete. Only dynamic nodes that have no running jobs and that\n                     are not part of a reservation can be deleted.\n\n                     Multiple node names may be specified using simple node range  expressions  (e.g.,  \"lx[10-20]\").\n                     Nodesets can also be specified by themselves or mixed with node range expressions, using a comma\n                     as a list separator. If the keyword \"ALL\" is specified alone, then the delete will be  attempted\n                     against all the nodes in the local cluster (and will fail on nodes ineligible for deletion).\n\n              PartitionName=<name>\n                     Name of partition to delete. The partition must have no associated jobs running or pending, oth\u2010"
+    },
+    {
+      "line": 215,
+      "text": "\n              down asap\n                     Will drain the node(s) and mark them for power down. Currently running jobs will complete  first\n                     and no additional jobs will be allocated to the node(s).\n\n              down force\n                     Will cancel all jobs on the node(s), power them down, and reset their state to \"IDLE\".\n\n              up     Will  use  the  configured  ResumeProgram program to explicitly move node(s) out of power saving\n                     mode. If a node is already in the process of being powered up, the command will only change  the\n                     state of the node but won't have any effect until the configured ResumeTimeout is reached.\n"
+    },
+    {
+      "line": 258,
+      "text": "       reconfigure\n              Instruct  all  slurmctld  and  slurmd daemons to re-read the configuration file.  This mechanism can be\n              used to modify configuration parameters set in slurm.conf(5) without interrupting running jobs.  Start\u2010\n              ing  in 23.11, this command operates by creating new processes for the daemons, then passing control to\n              the new processes when or if they start up successfully. This allows it to gracefully catch  configura\u2010\n              tion problems and keep running with the previous configuration if there is a problem.  This will not be\n              able to change the daemons' listening TCP port settings or authentication mechanism.\n\n       release <job_list>\n              Release a previously held job to begin execution.  The job_list argument is a space separated  list  of\n              job  IDs  (numeric  or SLUID) OR \"jobname=\" with the job's name, which will attempt to release all jobs\n              having that name.  Note that a privileged user may release an admin-hold or a user-hold.   An  unprivi\u2010"
+    },
+    {
+      "line": 726,
+      "text": "\n              An unprivileged user can modify the licenses of pending jobs.  A privileged user  can  modify  the  li\u2010\n              censes of pending or running jobs.\n\n       MailType=<types>\n              Set the mail event types. Valid type values are NONE, BEGIN, END, FAIL, REQUEUE, ALL (equivalent to BE\u2010\n              GIN, END, FAIL, REQUEUE, and STAGE_OUT), STAGE_OUT (burst buffer stage  out  and  teardown  completed),\n              TIME_LIMIT, TIME_LIMIT_90 (reached 90 percent of time limit), TIME_LIMIT_80 (reached 80 percent of time\n              limit), TIME_LIMIT_50 (reached 50 percent of time limit) and ARRAY_TASKS (send emails  for  each  array\n              task).  Multiple  type values may be specified in a comma separated list. Unless the ARRAY_TASKS option\n              is specified, mail notifications on job BEGIN, END and FAIL apply to a job array as a whole rather than\n              generating individual email messages for each task in the job array."
+    },
+    {
+      "line": 747,
+      "text": "              Set the job's minimum number of CPUs per node to the specified value.\n\n       MinMemoryCPU=<mebibytes>\n              Set the job's minimum real memory required per allocated CPU to the specified  value.  Either  MinMemo\u2010\n              ryCPU or MinMemoryNode may be set, but not both.\n\n       MinMemoryNode=<mebibytes>\n              Set the job's minimum real memory required per node to the specified value.  For running jobs, only re\u2010\n              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n"
+    },
+    {
+      "line": 749,
+      "text": "       MinMemoryCPU=<mebibytes>\n              Set the job's minimum real memory required per allocated CPU to the specified  value.  Either  MinMemo\u2010\n              ryCPU or MinMemoryNode may be set, but not both.\n\n       MinMemoryNode=<mebibytes>\n              Set the job's minimum real memory required per node to the specified value.  For running jobs, only re\u2010\n              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n\n       MinTmpDiskNode=<mebibytes>\n              Set the job's minimum temporary disk space required per node to the specified value."
+    },
+    {
+      "line": 751,
+      "text": "              ryCPU or MinMemoryNode may be set, but not both.\n\n       MinMemoryNode=<mebibytes>\n              Set the job's minimum real memory required per node to the specified value.  For running jobs, only re\u2010\n              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n\n       MinTmpDiskNode=<mebibytes>\n              Set the job's minimum temporary disk space required per node to the specified value.\n\n       Name[=<name>]"
+    },
+    {
+      "line": 752,
+      "text": "\n       MinMemoryNode=<mebibytes>\n              Set the job's minimum real memory required per node to the specified value.  For running jobs, only re\u2010\n              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n\n       MinTmpDiskNode=<mebibytes>\n              Set the job's minimum temporary disk space required per node to the specified value.\n\n       Name[=<name>]\n              See JobName."
+    },
+    {
+      "line": 754,
+      "text": "              Set the job's minimum real memory required per node to the specified value.  For running jobs, only re\u2010\n              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n\n       MinTmpDiskNode=<mebibytes>\n              Set the job's minimum temporary disk space required per node to the specified value.\n\n       Name[=<name>]\n              See JobName.\n\n       Nice[=<adjustment>]"
+    },
+    {
+      "line": 755,
+      "text": "              duction is allowed. If the job was submitted with --mem-per-cpu, the new per-node  limit  replaces  the\n              per-CPU limit (compared against the highest per-node allocation across all nodes).  Either MinMemoryCPU\n              or MinMemoryNode may be set, but not both (for pending jobs).\n\n       MinTmpDiskNode=<mebibytes>\n              Set the job's minimum temporary disk space required per node to the specified value.\n\n       Name[=<name>]\n              See JobName.\n\n       Nice[=<adjustment>]\n              Update the job with an adjusted scheduling priority within Slurm. With no adjustment value the schedul\u2010"
+    },
+    {
+      "line": 1222,
+      "text": "                     Indicates that the node has all CPUs allocated to job(s) running on the node.\n\n              DOWN   The node does not have any running jobs and is unavailable for new work.\n\n              ERROR  The node is in an error state. Consult the logs for more  information  about  what  caused  this\n                     state.\n\n              FUTURE The  node  is  currently not fully configured, but expected to be available at some point in the\n                     indefinite future for use.\n\n              IDLE   Indicates that the node is available for work but does not currently have any jobs  assigned  to\n                     it."
+    },
+    {
+      "line": 1248,
+      "text": "                     pleting.\n\n              DRAIN  The node is not accepting any new jobs and any currently running jobs will complete.\n\n              DYNAMIC\n                     Slurm allows you to define multiple types of nodes in a FUTURE state.  When starting slurmd on a\n                     node  you  can specify the -F flag to have the node match and use an existing definition in your\n                     slurm.conf file. The DYNAMIC state indicates that the node was started as a Dynamic Future node.\n\n              INVALID_REG\n                     The node did not register correctly with the controller. This happens when a node registers with\n                     less resources than configured in the slurm.conf file.  The node will clear from this state with"
+    },
+    {
+      "line": 1479,
+      "text": "       PriorityTier=<count>\n              Jobs  submitted to a partition with a higher priority tier value will be dispatched before pending jobs\n              in partition with lower priority tier value and,  if  possible,  they  will  preempt  running jobs from\n              partitions with lower priority tier values. Note that a partition's priority tier takes precedence over\n              a job's priority. The value may not exceed 65533. Also see PriorityJobFactor.\n\n       QOS=<QOSname|blank to remove>\n              Set the partition QOS with a QOS name or to remove the Partition QOS leave the option blank.\n\n       ReqResv={yes|no}\n              Specify if only allocation requests designating a reservation will be satisfied. This is  used  to  re\u2010\n              strict partition usage to be allowed only within a reservation.  Possible values are \"YES\" and \"NO\"."
+    },
+    {
+      "line": 1614,
+      "text": "              HOURLY        Repeat the reservation at the same time every hour.\n\n              IGNORE_JOBS   Ignore currently running jobs when creating the reservation.  This can be especially use\u2010\n                            ful when reserving all nodes in the system for maintenance.\n\n              LICENSE_ONLY  See ANY_NODES.\n\n              MAGNETIC      This  flag  allows jobs to be considered for this reservation even if they didn't request\n                            it.\n\n              MAINT         Maintenance mode, receives special accounting treatment.  This reservation  is  permitted\n                            to  use resources that are already in another reservation. The MAINT flag behaves similar"
+    },
+    {
+      "line": 2001,
+      "text": "          NodeList=snowflake0\n          NumNodes=1 NumCPUs=10 CPUs/Task=2 ReqS:C:T=1:1:1\n          MinCPUsNode=2 MinMemoryNode=0 MinTmpDiskNode=0\n          Features=(null) Reservation=(null)\n          OverSubscribe=OK Exclusive=NO Contiguous=0 Licenses=(null) Network=(null)\n       scontrol: update JobId=71701 TimeLimit=30:00 Priority=500\n       scontrol: show hostnames tux[1-3]\n       tux1\n       tux2\n       tux3\n       scontrol: create res StartTime=2009-04-01T08:00:00 Duration=5:00:00 Users=dbremer NodeCnt=10\n       Reservation created: dbremer_1"
+    }
+  ],
+  "man_returncode": 0,
+  "command_record_note": "Corrected descriptive argv shorthand only; measurement bytes/values unchanged. Inline Python source is hashed, not duplicated in each command.",
+  "inline_probe_sha256": "9592cf9089e705b55c23f13b564322fa0b7a3ce9d62baef5b955ee471aba7d0e",
+  "ssh_authentication_failed": false
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "intrmotiv/read-only-monitor-provenance/v1",
+  "changed_utc": "2026-11-27T10:40:33.009621+00:00",
+  "progress_schema": "intrmotiv/first-hit-main-progress/v2",
+  "reason": "Keep bounded status and metadata hashes/references; completed scientific metadata lives separately under runtime/main_results. No remote or running scientific source edits.",
+  "scripts": {
+    "monitor_main.py": {
+      "before_sha256": "82c7c1474c32fcb189250163a6cdfae969a99dfecd62fe77cda004ed0600930c",
+      "after_sha256": "2c24c5721780be2548b3368d1385901adfa495dc97d1d8b66a8e0a49f7b7ec1c"
+    },
+    "monitor_main_jobs.py": {
+      "before_sha256": "61ec83a44f0aa400821aebd522474e27806f31d78ece361ca897758fc0b592a3",
+      "after_sha256": "d7c546616829c371a1a5d40724708c3129a2fcb39ac345e2b7f2da147f9f7209"
+    },
+    "monitor_main_stages.py": {
+      "before_sha256": "66bd4c8736c2f05ff1a977348bc5b199b8f133e475855daaa0f400a401cdb54c",
+      "after_sha256": "4959a4ad9c1925588670cb564c2b784877022d187f69301fbf4b6cb03eafd243"
+    },
+    "monitor_main_and_analysis.py": {
+      "before_sha256": "a1e183405d2e4d729c3664bd60b9fc9f02dc231b5d399fd2bd0c8a583aa639a4",
+      "after_sha256": "648ba1cf4912b89070bc05185559cb6046e40720c486cb6031f18260a60900fb"
+    }
+  },
+  "updated_utc": "2026-11-27T10:41:09.556550+00:00",
+  "accounting_fallback": "Use exact-job sacct state after completed jobs leave scontrol cache."
+}

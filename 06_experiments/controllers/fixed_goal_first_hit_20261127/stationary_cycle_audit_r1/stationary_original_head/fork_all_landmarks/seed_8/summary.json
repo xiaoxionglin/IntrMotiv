@@ -1,0 +1,101 @@
+{
+  "condition": "stationary_original_head",
+  "environment": "fork_all_landmarks",
+  "seed": 8,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/fork_all_landmarks/seed_8/readout.pt",
+  "checkpoint_sha256": "e631085e90e09201af53cb1cb34fad43f427849ee3e5d75e55c635dccc6a5caa",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/stationary_original_head/fork_all_landmarks/seed_8/trials.csv",
+  "traces_sha256": "5e3305f3bd20dc212b4ced424e71d135280a9ba855079fdb6f9329f65c90aa48",
+  "original_h6_success": 0.9285714285714286,
+  "original_h6_gate": false,
+  "all": {
+    "hit": 47,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 2,
+    "unknown_cap": 0,
+    "queries": 49,
+    "maximum_observed_hit_latency": 7
+  },
+  "noninitial": {
+    "hit": 40,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 2,
+    "unknown_cap": 0,
+    "queries": 42,
+    "maximum_observed_hit_latency": 7
+  },
+  "initially_satisfied": {
+    "hit": 7,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 7,
+    "maximum_observed_hit_latency": 0
+  },
+  "per_goal": {
+    "0": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 4
+    },
+    "1": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    },
+    "2": {
+      "hit": 4,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 2,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 4
+    },
+    "3": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    },
+    "4": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 5
+    },
+    "5": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 6
+    },
+    "6": {
+      "hit": 6,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 6,
+      "maximum_observed_hit_latency": 7
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 8,
+    "conservative_augmented_state_bound_per_goal": 117440512
+  },
+  "model_state_sha256": "11ee85282702024ce46ec32e0bac0049c9373c0e6424194a49ca9f82941fd50d",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "9f1555ce7d2f26f5d51fd539d1244a50d89f8acdcfbcbd0b7baba29f5abf73c1"
+}

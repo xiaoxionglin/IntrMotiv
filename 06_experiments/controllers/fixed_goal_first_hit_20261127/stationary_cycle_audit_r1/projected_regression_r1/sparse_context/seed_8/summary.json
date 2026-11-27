@@ -1,0 +1,61 @@
+{
+  "condition": "projected_regression_r1",
+  "environment": "sparse_context",
+  "seed": 8,
+  "checkpoint": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_8/readout.pt",
+  "checkpoint_sha256": "a069c307b137c32a8fcd86d5731ea373acf020a5d88f303e8934a119fc366d1d",
+  "traces": "/home/xiaoxiong/Desktop/Projects/IntrMotiv/06_experiments/controllers/fixed_goal_first_hit_20261127/projected_regression_r1/sparse_context/seed_8/trials.csv",
+  "traces_sha256": "7a6888c168c7a91871d2fda61fccb59b1d966662a1c9e308133486e7b428c1e5",
+  "original_h6_success": 1.0,
+  "original_h6_gate": true,
+  "all": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "noninitial": {
+    "hit": 4,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 4,
+    "maximum_observed_hit_latency": 1
+  },
+  "initially_satisfied": {
+    "hit": 0,
+    "physical_terminal_nonarrival": 0,
+    "proven_cycle_nonarrival": 0,
+    "unknown_cap": 0,
+    "queries": 0,
+    "maximum_observed_hit_latency": null
+  },
+  "per_goal": {
+    "4": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    },
+    "5": {
+      "hit": 2,
+      "physical_terminal_nonarrival": 0,
+      "proven_cycle_nonarrival": 0,
+      "unknown_cap": 0,
+      "queries": 2,
+      "maximum_observed_hit_latency": 1
+    }
+  },
+  "finite_state": {
+    "dg_alphabet_including_padding": 5,
+    "conservative_augmented_state_bound_per_goal": 2343750
+  },
+  "model_state_sha256": "174ccb2f2a149c25881da91b08045009ae443ec03b3970e992a0a0248aaca7f9",
+  "model_unchanged": true,
+  "original_h6_prefixes_identical": true,
+  "queries_sha256": "cadde6474546b9ff5e2367a693801d72c779b5525694526639e4b90c5c261019"
+}
