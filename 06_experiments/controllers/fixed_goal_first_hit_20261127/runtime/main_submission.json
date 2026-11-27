@@ -1,0 +1,107 @@
+{
+  "schema": "intrmotiv/first-hit-main-slurm-submission/v1",
+  "started_utc": "2026-11-27T09:48:45.456150+00:00",
+  "main_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1",
+  "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+  "runtime_commit": "10cd0e574cb3943e244d8f5847aef7aecff87dfa",
+  "reviewed_project_commit": "fefc7eb",
+  "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+  "launch_manifest_sha256": "a364f792ac1946784ac8b35fb57419766aa4688234ed6511406b990f61c4a59d",
+  "qualification_jobs": [
+    "8950182",
+    "8950203"
+  ],
+  "jobs": [
+    {
+      "logical_job": "collect_fit",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/collect_fit.sbatch"
+      ],
+      "script_sha256": "09a9b487fbb679acfef17eeb1d6aa104c01e9b8b78996af53e735f170eea8bbb",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "stdout": "8950233\n",
+      "stderr": "",
+      "returncode": 0,
+      "submitted_utc": "2026-11-27T09:48:45.470748+00:00",
+      "job_id": "8950233",
+      "dependency": null
+    },
+    {
+      "logical_job": "evaluate_00",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+        "--dependency=afterok:8950233",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_00.sbatch"
+      ],
+      "script_sha256": "57fe41cfa1af525be62313a0ee553e7999537dbd3ff9a38ecc208c9dc29c6f79",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "stdout": "8950234\n",
+      "stderr": "",
+      "returncode": 0,
+      "submitted_utc": "2026-11-27T09:48:45.488126+00:00",
+      "job_id": "8950234",
+      "dependency": "afterok:8950233"
+    },
+    {
+      "logical_job": "evaluate_01",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+        "--dependency=afterok:8950233",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_01.sbatch"
+      ],
+      "script_sha256": "ff0f6a05b3762f8d71139c672c09e6acc5479ca95dc3e49539bff48160c24520",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "stdout": "8950235\n",
+      "stderr": "",
+      "returncode": 0,
+      "submitted_utc": "2026-11-27T09:48:45.498732+00:00",
+      "job_id": "8950235",
+      "dependency": "afterok:8950233"
+    },
+    {
+      "logical_job": "evaluate_02",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+        "--dependency=afterok:8950233",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_02.sbatch"
+      ],
+      "script_sha256": "7466f392a6e559bc0aba718df27a6047d9ff80d868968f0575036a5c35a98026",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "stdout": "8950236\n",
+      "stderr": "",
+      "returncode": 0,
+      "submitted_utc": "2026-11-27T09:48:45.509991+00:00",
+      "job_id": "8950236",
+      "dependency": "afterok:8950233"
+    },
+    {
+      "logical_job": "evaluate_03",
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+        "--dependency=afterok:8950233",
+        "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_03.sbatch"
+      ],
+      "script_sha256": "b87da93c31d70242cb4ca0366ce8aba7b65880f6f852580f3594844af5906038",
+      "effective_plan_sha256": "f2e36fccc994f361eb8725c782ed97c0abad3e8f3a9644cf97fbc24b40a412e6",
+      "stdout": "8950237\n",
+      "stderr": "",
+      "returncode": 0,
+      "submitted_utc": "2026-11-27T09:48:45.520838+00:00",
+      "job_id": "8950237",
+      "dependency": "afterok:8950233"
+    }
+  ],
+  "complete": true,
+  "finished_utc": "2026-11-27T09:48:45.522694+00:00"
+}

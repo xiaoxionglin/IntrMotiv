@@ -1,0 +1,103 @@
+{
+  "checked_utc": "2026-11-27T09:51:53.639845+00:00",
+  "jobs": [
+    {
+      "JobId": "8950233",
+      "JobName": "fh_main_collect_fit",
+      "JobState": "RUNNING",
+      "Dependency": "(null)",
+      "NodeList": "n3105",
+      "WorkDir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "Command": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/collect_fit.sbatch",
+      "StdOut": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/collect_fit_8950233.out",
+      "StdErr": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/collect_fit_8950233.err"
+    },
+    {
+      "JobId": "8950234",
+      "JobName": "fh_main_evaluate_00",
+      "JobState": "PENDING",
+      "Dependency": "afterok:8950233(unfulfilled)",
+      "NodeList": "",
+      "WorkDir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "Command": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_00.sbatch",
+      "StdOut": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_00_8950234.out",
+      "StdErr": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_00_8950234.err"
+    },
+    {
+      "JobId": "8950235",
+      "JobName": "fh_main_evaluate_01",
+      "JobState": "PENDING",
+      "Dependency": "afterok:8950233(unfulfilled)",
+      "NodeList": "",
+      "WorkDir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "Command": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_01.sbatch",
+      "StdOut": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_01_8950235.out",
+      "StdErr": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_01_8950235.err"
+    },
+    {
+      "JobId": "8950236",
+      "JobName": "fh_main_evaluate_02",
+      "JobState": "PENDING",
+      "Dependency": "afterok:8950233(unfulfilled)",
+      "NodeList": "",
+      "WorkDir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "Command": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_02.sbatch",
+      "StdOut": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_02_8950236.out",
+      "StdErr": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_02_8950236.err"
+    },
+    {
+      "JobId": "8950237",
+      "JobName": "fh_main_evaluate_03",
+      "JobState": "PENDING",
+      "Dependency": "afterok:8950233(unfulfilled)",
+      "NodeList": "",
+      "WorkDir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r3",
+      "Command": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/launch/evaluate_03.sbatch",
+      "StdOut": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_03_8950237.out",
+      "StdErr": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/main_r1/slurm/evaluate_03_8950237.err"
+    }
+  ],
+  "collect_logs": {
+    "out": {
+      "bytes": 693,
+      "tail": [
+        "Collected 6000/100000 factual decisions",
+        "Map number:\t3",
+        "Collected 7000/100000 factual decisions",
+        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t58.1",
+        "Map number:\t3",
+        "api:pickup:    \t10\t; Time: \t104.16666666667",
+        "Map number:\t3",
+        "Collected 8000/100000 factual decisions",
+        "Map number:\t3"
+      ]
+    },
+    "err": {
+      "bytes": 6687,
+      "tail": [
+        "\u001b[36m[2026-11-27 10:50:05,378][1691028] Num input channels for depth encoder: 1\u001b[0m",
+        "\u001b[36m[2026-11-27 10:50:05,379][1691028] original obs space: Box(0, 255, (4, 72, 96), uint8)\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 10:50:05,570][1691028] DMLab policy head output size: 3843\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 10:50:05,571][1691028] denpth_sensor True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 10:50:05,571][1691028] denpth_sensor True\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 10:50:05,571][1691028] using bypass, dim 13\u001b[0m",
+        "\u001b[33m[2026-11-27 10:50:05,571][1691028] USING SIMPLESEQUENCEWITHBYPASSCORE\u001b[0m",
+        "\u001b[36m[2026-11-27 10:50:05,571][1691028] get out size called: 1165\u001b[0m",
+        "\u001b[37m\u001b[1m[2026-11-27 10:50:05,602][1691028] Loaded checkpoint /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth\u001b[0m",
+        "\u001b[36m[2026-11-27 10:50:05,604][1691028] get out size called: 1165\u001b[0m"
+      ]
+    }
+  },
+  "collection_milestones": [
+    "Collected 1000/100000 factual decisions",
+    "Collected 2000/100000 factual decisions",
+    "Collected 3000/100000 factual decisions",
+    "Collected 4000/100000 factual decisions",
+    "Collected 5000/100000 factual decisions",
+    "Collected 6000/100000 factual decisions",
+    "Collected 7000/100000 factual decisions",
+    "Collected 8000/100000 factual decisions"
+  ],
+  "dependencies_verified": true
+}
