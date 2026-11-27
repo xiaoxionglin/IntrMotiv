@@ -4,6 +4,13 @@ Track concrete infrastructure findings here so future threads can reuse
 evidence and coordinate improvements. Consult this file before related work;
 keep implementation guidance in the canonical workflow documents linked below.
 
+### Check evaluator import dependencies in isolated releases — 2026-11-27
+
+- **Evidence:** First-hit qualification job `8949867` failed before loading a model because the October donor source did not include `sf_shared.checkpoints`, required by the current canonical `place_fields.py`. The preceding 98 source/module checks passed because they tested callback syntax and model helpers without importing the actual evaluator entry points.
+- **Impact:** A correct model-byte audit and passing isolated unit tests do not establish a complete runtime overlay. The failure consumed no replay or fit budget, but required another scheduler qualification.
+- **Improvement/status:** Added an import-only regression for the exact canonical loader and intervention entry points under the declared source root. Stage their dependency closure in a new release while preserving all donor model files. Keep failed-release receipts and use the [standard source qualification workflow](04_implementation/standardized_study_workflow.md).
+- **Acceptance:** The isolated release imports the actual loader/evaluator without a native engine, their resolved files lie in the declared release, donor model hashes are unchanged, and a subsequent compute-node qualification completes collection, fitting and executed evaluation.
+
 ### Archive source bytes before concurrent scientific runs — 2026-11-27
 
 - **Evidence:** During the [first-hit graph study](06_experiments/controllers/fixed_goal_first_hit_20261127/README.md), concurrent finite-evaluator reporting and runtime-adapter docstring edits changed two pre-run hashes while a neural fit was executing. Exact originals were recovered; used finite functions were AST-equivalent and the adapter difference was a docstring. Reconstruction was avoidable work.

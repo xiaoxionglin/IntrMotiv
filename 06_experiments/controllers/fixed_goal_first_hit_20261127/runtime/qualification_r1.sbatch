@@ -73,7 +73,7 @@ PY
 readarray -t preflight_targets < "$qualification_root/preflight_targets.txt"
 "$python" -m hpc_runs.first_hit_control.dmlab_evaluate \
     --source-root "$source_release" --run-dir "$donor_run" --checkpoint "$donor_checkpoint" \
-    --checkpoint-sha256 "$checkpoint_sha256" --config-sha256 "$config_sha256" \
+    --checkpoint-sha256 "$checkpoint_sha256" \
     --fitted "$qualification_root/fit" --runfiles "$qualification_root/runfiles" \
     --output "$qualification_root/evaluation" --phase preflight --targets "${preflight_targets[@]}" \
     --horizon 64 --discovery-episodes 4 --prefix-cap 256 --repeats 1 --max-sources 1 \

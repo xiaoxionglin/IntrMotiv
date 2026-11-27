@@ -1,0 +1,306 @@
+{
+  "schema": "intrmotiv/frozen-readout-analysis-plan-draft/v1",
+  "status": "design_only_not_submitted_not_a_validated_StudySpec",
+  "source_qualification_protocol": {
+    "path": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/qualification_protocol.json",
+    "sha256": "84713af0554afe27503c4592f22c05bcf8c0a32d75189f6f9cac15c99430f310"
+  },
+  "donor_study": {
+    "schema": "intrmotiv/study/v1",
+    "workflow_version": "1.15.2",
+    "study_workflow_version": "1.14.1",
+    "study_id": "cosyne27_c05_pushpull_s3_20261010",
+    "study_spec": "hpc_runs/studies/cosyne27_c05_pushpull_s3_20261010.study.json",
+    "study_sha256": "48b3643dedc2df8af199acb6312e91ec20497e5b0a5a756306a2a8445f511496",
+    "batch_name": "cosyne27_c05_pushpull_s3_20261010",
+    "training_mode": "sample_factory",
+    "expected_runs": 12
+  },
+  "donor": {
+    "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+    "seed": "99",
+    "checkpoint_frames": "100007936",
+    "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+    "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+    "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+    "config_sha256": "a18da40ae1fbbd428e8c61c8cefcb79827fd66fa3d1f8646ba7201369df563fd"
+  },
+  "scope": "One pretrained C05 seed-99 checkpoint. Frozen-source readout consolidation and all-observed landmark control in the full DMLab level. No new representation learning, no 100M training matrix, no cross-donor replication claim.",
+  "organization": {
+    "recommended_canonical_plan": "hpc_runs/studies/fixed_goal_first_hit_c05_s99_20261127.analysis.json",
+    "requires_before_submission": "Promote this reviewed draft into a versioned analysis sidecar with a focused validator; bind the immutable validated donor StudySpec and its SHA. Render collection, fit and source-sharded evaluation commands from this one plan.",
+    "existing_contract_incompatibility": "intrmotiv/study/v1 requires training/bases/factors/seeds and renders Cartesian Sample Factory or supplemental-argument RunSpecs. The present dependency chain is one frozen replay collection, one offline fit, and four read-only matched evaluators consuming artifact hashes. It is not four or six independent SF training runs.",
+    "minimal_integration": "Retain canonical donor selection, manifest schema, source archives, workspace checks, ordinary Slurm jobs and telemetry postprocessors. Add only an analysis-plan adapter/validation for the dependency chain; do not fabricate SF RunSpecs or mutate the donor StudySpec."
+  },
+  "prerequisites": [
+    "Qualification job completes all integration gates; review actual runtime and hashes, not queue state.",
+    "Main protocol and immutable source release reviewed before submission; edits after freezing require a new release and source receipt.",
+    "Original checkpoint/config/decoder and five actions with repeat8 remain exact; collector/evaluator override parity and runfiles identity required."
+  ],
+  "collection": {
+    "decisions": 100000,
+    "seed": 73002,
+    "random_action_probability": 0.2,
+    "source_policy_probability": 0.8,
+    "behavior": "Existing frozen source policy sampled normally on its 80% branch, uniform among the same five actions on the 20% branch; record actual branch and action counts.",
+    "reuse_qualification_data": false,
+    "encoder_ca3_manager_graph_and_bn": "Frozen weights and persistent buffers; ordinary recurrent state evolves within episodes. Fresh initial recurrent state at genuine resets.",
+    "reward": "Verify every native reward finite and zero before shaping. No external reward labels, no goal reward adaptation of the source.",
+    "transport": "Factual core/action/true successor pairing; physical terminals require certified final DG or successor_valid=false. Never insert reset DG as terminal successor.",
+    "coverage": "Report winner and exclusive counts for every DG identity0..15, all five action counts, missing successor count and fraction, episode count and durations. Landmark-by-action support is descriptive, not certification of support at every CA3 history."
+  },
+  "fit": {
+    "seed": 99,
+    "updates": 30000,
+    "batch_size": 128,
+    "horizon": 256,
+    "learning_rate": 0.0003,
+    "target_update_period": 100,
+    "holdout_fraction": 0.1,
+    "threads": 4,
+    "optimizer": "Adam",
+    "target": "Same-goal finite-deadline Double-Q first-hit target; success before physical done, deadline decrements, h0=0, all16 factual labels including negatives.",
+    "trainable": "Copied actual pretrained legacy MlpDecoderJit and new existing deadline auxiliary Q head only. Original PPO actor, DG/BN, CA3 update, graph and goal manager unchanged.",
+    "deadline_sampling": "Uniform integer h in1..256 for each sampled factual transition.",
+    "transition_draws": 3840000,
+    "maximum_goal_labels": 61440000,
+    "target_refreshes": 300,
+    "selection": "Final weights at exactly30000 updates. Episode-level 10% holdout and logged TD residuals are diagnostic only; no early stopping or checkpoint/hyperparameter selection.",
+    "resource_note": "Use100-update qualification timing solely to reserve walltime and memory. Do not change the scientific update budget in response to performance.",
+    "finite_h_propagation": "Exact tabular synchronous first-hit iteration needs up toH Bellman layers from zero to propagate a lengthH path.300 target refreshes provide more than256 opportunities, not a convergence proof: replay coverage, neural approximation, simultaneous h sampling, Double-Q action choice, and affine deadline interactions can still fail.",
+    "saturation_diagnostics": "Report TD residual by h bins1..16,17..32,33..64,65..128,129..256 and predicted ranges; where no certified heldout transitions exist, report missing. Small self-bootstrapped TD error alone is not calibrated reachability."
+  },
+  "evaluation": {
+    "primary_horizon_decisions": 256,
+    "action_repeat": 8,
+    "horizon_frames": 2048,
+    "source_winner_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "histories_per_source": 3,
+    "targets": "Every identity observed by immutable source graph counts, factual replay, or independent discovery; no passive-edge filter or arbitrary subset. Report all16 capacity identities, including unseen/unissued as unassessed.",
+    "discovery_seed": 41000,
+    "discovery_episodes": 96,
+    "prefix_cap": 512,
+    "max_sources_per_shard": 4,
+    "source_shards": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11
+      ],
+      [
+        12,
+        13,
+        14,
+        15
+      ]
+    ],
+    "decision_cap_per_shard": 350000,
+    "ordinary_eval_jobs": 4,
+    "worst_case_decisions_per_shard": 344064,
+    "total_declared_eval_decision_cap": 1400000,
+    "cost_formula": "96*512 discovery +4sources*3histories*16commands*2policies*(512prefix+256trial)=344064 per shard. Early own-hit stopping reduces actual cost; matched blocks are reserved before execution.",
+    "matched_protocol": "For every retained source history, replay identical fresh-engine seed, physical prefix and recurrent state for source PPO argmax and fitted Q argmax, each requested goal and H256. Exact observation/state signatures and full model/graph/Q hashes must match. No evaluation updates.",
+    "controls": "Execute every alternative command from the same start under each actor, then score each requested target on those actual paths. This supplies shuffled-command controls without retrospective relabeling of a single command or an extra stochastic policy factor.",
+    "stop": "Own primary winner hit is absorbing, including t0. Alternative target arrival counts only through that stop. Exclude already-achieved evaluated targets from nontrivial success and already-achieved alternate commands from paired lift, while retaining all declared rows.",
+    "primary_detector": "Actual processed core DG in CA3 slot0, positive argmax winner; not raw visual-head DG.",
+    "secondary_detector": "Exclusive single-positive event on the same primary-stopped trajectory; not a separately stopped exclusive policy.",
+    "deadline_curve": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "deadline_curve_scope": "Read time-to-hit from fixed H256-policy trials. These are cumulative-arrival curves, not policies optimized separately for shorter deadlines.",
+    "complete_16_goal_denominators": {
+      "command_trials_per_policy": 768,
+      "nontrivial_own_trials_per_policy": 720,
+      "initially_achieved_own_trials_per_policy": 48,
+      "cross_target_outcome_rows_per_policy": 12288,
+      "directed_source_target_pairs": 240,
+      "notes": "These totals assume all16 source starts and target identities exist. Missing histories remain declared. Unseen targets stay in a capacity16 table with unissued/unassessed labels and success identification bounds; do not call them empirically unreachable."
+    },
+    "terminal_caveat": "Current qualification callback discards certified final-observation infos; its unresolved physical boundaries are censored. Keep all issued/missing/censored denominators, success lower/upper bounds and paired-lift identification interval. R2 may transport certified final DG compatibly; absent that, do not call complete-case estimates full success probabilities.",
+    "uncertainty": "Trials across goals and alternate commands share each history. Cluster paired contrasts by source identity (all3histories and allgoals together),10000 bootstrap replicates, seed123,95% interval; treat inference as conditional on one donor and this start-generation procedure, not training-seed replication."
+  },
+  "interpretation": {
+    "primary_estimands": [
+      "Goal-macro-average commanded first-hit probability and per-goal rates with full declared missing/censor bounds.",
+      "Paired fitted-Q minus source-PPO commanded success on identical starts.",
+      "Paired own-command minus executed-alternative arrival lift, including censor identification bounds.",
+      "Worst goal and full source-by-goal matrices, time-to-first-hit, failures, unknowns and initial command action changes."
+    ],
+    "positive_mechanism_evidence": "Fitted readout improves paired commanded arrivals over original PPO and has positive own-versus-alternate lift after censor uncertainty; report intervals and every goal, not only averages. This supports the minimal objective/acting change for this frozen representation.",
+    "all_goal_capability_gate": "Suggested stringent descriptive qualification: all16 identities must be observed and issued, no missing source-history cells, and each goal has commanded-success lower bound at least0.90 across its45 noninitial source histories plus positive command lift. Otherwise label partial capability rather than arbitrary-subgoal success. This gate is not a proof for untested histories, unreachable targets or other donors.",
+    "negative_with_missing_support": "Absent goal events, unobserved action/history support, missing starts or material terminal censoring leave that part unassessed; no failure claim for the Bellman objective follows.",
+    "negative_with_coverage": "If replay covers observed goals but execution fails, distinguish optimization/approximation error, off-policy support, memory aliasing/expiry and nondiscriminative detectors using diagnostics. Low heldout self-bootstrapped residual is not an independent oracle.",
+    "limits": "Single pretrained donor and one fitted initialization. DG commands specify detector sets, which may have multiple physical lobes; successful all-observed tests do not establish arbitrary physical coordinates or a universal guarantee."
+  },
+  "existing_evidence": {
+    "local_files": [
+      {
+        "path": "06_experiments/results/cosyne_2027_common_panel_layers/raw/COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936.json",
+        "sha256": "cc2764ebc424eaa4ff1ac01dfbcc7375f131075519c60f5e0124c66efaac52c5"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/available_terminal_manifest.tsv",
+        "sha256": "fff0827028539f28357dcfc4a84317e0fe069bdc9a651880de73b21731b221d2"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/c05_pushpull_s3/summary/derived_place_field_metrics.csv",
+        "sha256": "b43cb70740a7f0db4878e20defbd760f39848a73e5350b4c00f1589a9f708f69"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel/summary/derived_place_field_metrics.csv",
+        "sha256": "6d3f2934fbd979a427fe5957f27dd5612239b5b41b429b3bc56ceabc95eb0555"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/npz_source_manifest.csv",
+        "sha256": "067f291579e79cd1895dbb1c1f3b3cb03723590bc703d20d1aa71aa320842e3c"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/common_panel_analysis/occupancy_certificate.json",
+        "sha256": "66f04ba4cd2b70a503932de5d99fbede143bfe62b4f8f25001e28db03d063ed4"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/trajectory_by_snapshot.csv",
+        "sha256": "06f0976fdd0615575586624f40bfef240d2bf7b3c021f1f5b7a605673904ee7d"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/directed_graph_by_snapshot.csv",
+        "sha256": "0fe04886135311353dfc8c71259d9c2b7e0dfd23fef5a397ba085cceacf029e5"
+      },
+      {
+        "path": "06_experiments/results/cosyne_2027_checkpoint_fields/graph_trajectory_summary/source_manifest.json",
+        "sha256": "b9c9fb4468ae64e6ab0b5416ff701d9a27030a1048f208fae42f496521369075"
+      }
+    ],
+    "exact_common_panel": {
+      "checkpoint_sha256": "f35464c7e058df3ac51b676d5560470aa3cddd3c57f02ed1c0012a5fbcfaed38",
+      "panel": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/corrected_core_distance_ablation_20261009/common_panel100/observations.npz",
+      "panel_sha256": "14e977ff526c71d04822dde8903e4d1eeda8ed44d16b8eb1a9b7d69b426fc54d",
+      "dg_reference": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/cosyne27_checkpoint_20261011/common_panel/raw/COS27_C05_TEMPORAL_TEMPORAL_S99__00_COS27_C05_TEMPORAL_TEMPORAL_S99__COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936/place_fields.npz",
+      "dg_reference_sha256": "a7848b1e8ed0cd526bd87c90d41f348af4008c7f1a8074a51801756df2dc3eb7",
+      "frozen_model_sha256": "dedc873202d168f528a328085ec7ce83ca25bdb631df233ce9f01cef99d60af9",
+      "dg_max_unit_score_absolute_error": 1.8266285428669704e-09,
+      "archived_dg_occupancy_orientation": "x_y; transpose matches replay y_x"
+    },
+    "common_panel_coverage": {
+      "decisions": 10000,
+      "occupancy_samples": 10001,
+      "visited_bins": 242,
+      "grid_bins": 361,
+      "scope": "Fixed shared recorded observation/action history; no new native environment required for representation reuse."
+    },
+    "local_terminal_metrics": {
+      "policy_fields": {
+        "frames": "10001",
+        "visited_cells": "190",
+        "visited_cell_fraction": "0.5263157894736842",
+        "active_units": "16",
+        "silent_units": "0",
+        "active_map_cosine_mean": "0.05147776009457783",
+        "active_unique_peak_bins": "16",
+        "mono_field_fraction": "0.0",
+        "mean_spatial_information_bits": "0.19996821518147656",
+        "prethreshold_map_cosine_mean": "-0.05298217115359505"
+      },
+      "common_panel_fields": {
+        "frames": "10001",
+        "visited_cells": "242",
+        "visited_cell_fraction": "0.6703601108033241",
+        "active_units": "16",
+        "silent_units": "0",
+        "active_map_cosine_mean": "0.025270255650542743",
+        "active_unique_peak_bins": "16",
+        "mono_field_fraction": "0.0",
+        "mean_spatial_information_bits": "0.09487377723018972",
+        "prethreshold_map_cosine_mean": "-0.0442941273642531"
+      }
+    },
+    "compatibility_and_remote_checks": [
+      "Existing common-panel receipt explicitly binds exact selected checkpoint SHA; DG reference NPZ byte hash and recorded panel hash are available. Check those remote bytes before reuse.",
+      "Verify current source config and image normalization/threshold settings match archived replay metadata; whole-checkpoint identity alone is not an input-normalization certificate. Replaying the existing panel under the frozen source is an environment-free check if metadata is incomplete.",
+      "Policy-specific10k fields have exact run/checkpoint frame rows plus original five-age trajectory and terminal seeds8,99,123; raw NPZ checksums/frozen source metadata must be audited before treating their current files as certified.",
+      "Online graph/trajectory summaries are training-window evidence; keep them separate from frozen-policy probes and new executed command trials.",
+      "The common-panel archive uses x_y occupancy and replay uses y_x; use canonical geometry/axis metadata, not hardcoded image transposes."
+    ],
+    "reuse_decision": "Reuse exact common-panel maps/pre-threshold maps and compatible existing source-policy10k maps; do not repeat a checkpoint sweep merely because the controller readout changed. Frozen DG map differences under new behavior are sampling/expression effects, not representation learning."
+  },
+  "completion_evidence": {
+    "place_fields": "Link both original policy-driven and fixed common-panel maps with silence, active cosine, unique peaks, mono-field components, occupancy support and amplitude-weighted spatial score. Reuse existing seed99 age course and terminal8/123 as source-history context, not replicated new-readout results.",
+    "trajectories": "Qualification rows record actions but no per-decision pose. R2 extension required: record position/rotation, episode/segment ID, current detector, commanded goal, remaining horizon and policy at every executed decision, with reset/terminal masks. Privileged pose is telemetry only and must never enter encoder/Q inputs. Reuse canonical pose and plotting helpers.",
+    "graphs": "Reuse frozen directed source graph state and existing complete edge tables, separately show all240 source-target execution estimates for source and fitted readout with missing/attempt counts. Replay co-occurrence, stored confidence, historical prospective hits and matched-command first-hit success must remain distinct.",
+    "control": "Full per-goal/per-history own and alternative outcome matrices, early-stop semantics, actual actions, initial-action changes, event exposure, complete denominators and time-to-hit curves. Use the same fixed maps to annotate physical arrival footprint as a secondary measure only where mapped support exists.",
+    "physical_secondary": "Predefine each learned goal footprint from the archived frozen common-panel DG map before seeing new trial outcomes, retaining all connected components and overlap. Use fixed canonical field threshold/geometry metadata. Report initial-inside, unvisited and overlapping footprint cases; do not rename detector goals unique physical destinations.",
+    "minimal_new_field_manifest_if_reuse_fails": {
+      "rows": 1,
+      "manifest_columns": "Existing canonical place-field manifest contract",
+      "row": {
+        "condition": "COS27_C05_TEMPORAL_TEMPORAL",
+        "family": "C05",
+        "schedule": "",
+        "feedback": "",
+        "half_life": "",
+        "seed": "99",
+        "target_frames": "100000000",
+        "checkpoint_frames": "100007936",
+        "checkpoint": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99/checkpoint_p0/milestones/checkpoint_000006104_100007936.pth",
+        "run_dir": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/cosyne27_c05_pushpull_s3_20261010/COS27_C05_TEMPORAL_TEMPORAL_S99_/00_COS27_C05_TEMPORAL_TEMPORAL_S99",
+        "label_suffix": "COS27_C05_TEMPORAL_TEMPORAL__s99__f100007936"
+      },
+      "decisions": 10000,
+      "policy": "Original frozen source stochastic policy, standard protocol",
+      "submission": "Print-only review via existing submit_place_field_sweep.py; one independent sbatch job only after reuse audit identifies a missing required artifact. No automatic replacement sweep.",
+      "postprocessing": [
+        "summarize_place_fields.py",
+        "analyze_place_field_manifest.py",
+        "plot_place_field_trajectories.py"
+      ],
+      "note": "No new checkpoint-age series is needed for an unchanged fixed donor; map_stability reuses existing five-age artifacts."
+    }
+  },
+  "release_gaps": [
+    "Promote and validate analysis sidecar/command renderer; do not mislabel as validated StudySpec.",
+    "R2 pose/path telemetry extension and focused tests required for full geometric trajectory analysis; frozen r1 files remain untouched.",
+    "Remote raw-artifact/config compatibility audit before representation reuse.",
+    "Explicit final summary includes unobserved target capacity denominator; current r1 rows directly enumerate only observed targets.",
+    "Qualification full success/missing/censor/source-hash results must be reviewed before main jobs are submitted."
+  ],
+  "not_executed": [
+    "No main collection",
+    "No main offline fit",
+    "No main DMLab evaluation",
+    "No new telemetry jobs"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "intrmotiv/first-hit-nemo-release-qualification/v1",
+  "release": {
+    "schema": "intrmotiv/first-hit-committed-overlay/v1",
+    "candidate_commit": "630fa8441b2bf8229dbf19a2a4d8d64c496328ac",
+    "archive_sha256": "de7794d50ce58857214e2149d11c44119cb25d932daee6700b9d6bde33e643d2",
+    "baseline_tree_sha256": "0b6010c806ba2fb98c482240e61e50c6566f745756f6fab2c9df13d5d6e64ba8",
+    "unchanged_donor_files": 1317,
+    "unchanged_donor_model_files": 112,
+    "workflow_analysis_version": "1.15.2",
+    "historical_study_declared_version": "1.14.1",
+    "jobs_submitted": false,
+    "native_executed": false,
+    "overlay_files": 63,
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1",
+    "output_root": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1"
+  },
+  "tests": {
+    "schema": "intrmotiv/first-hit-remote-module-tests/v1",
+    "source_release": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1",
+    "python": "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+    "command": [
+      "/home/fr/fr_xl1014/.conda/envs/SFgit/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "hpc_runs/test_first_hit_runtime_adapter.py",
+      "hpc_runs/test_first_hit_runtime_eligibility.py",
+      "hpc_runs/test_first_hit_legacy_adapter.py",
+      "hpc_runs/test_first_hit_collector.py",
+      "hpc_runs/test_first_hit_replay_fit.py",
+      "hpc_runs/test_first_hit_replay_cli.py",
+      "hpc_runs/test_first_hit_dmlab_evaluate.py",
+      "hpc_runs/test_first_hit_provenance.py",
+      "hpc_runs/test_intrmotiv_study.py",
+      "--junitxml=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1/remote_tests.xml"
+    ],
+    "environment": {
+      "INTRMOTIV_RUNTIME_SOURCE": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1",
+      "INTRMOTIV_RUNTIME_ROOT": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1",
+      "PYTHONPATH": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/torch_cuda_2_9_1:/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/controller_terminal_binding_v1",
+      "TMPDIR": "/work/classic/fr_xl1014-corridor-geometry/tmp/fh_tests_20261127",
+      "XDG_CACHE_HOME": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1/test_cache",
+      "TORCH_HOME": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/runtime/cache/torch"
+    },
+    "exit_code": 0,
+    "elapsed_seconds": 7.969185060006566,
+    "native_environment_executed": false
+  },
+  "test_result": "98 passed, 19 warnings in 6.99s",
+  "scheduler_submission_status": "8949867 failed1:0 before collection: missing canonical checkpoint helper sf_shared",
+  "script": "06_experiments/controllers/fixed_goal_first_hit_20261127/runtime/qualification_r1.sbatch",
+  "script_sha256": "ddb0b2525359faa09b87f5aa0870c810168210e9621392f3cc0e67feda8e765e",
+  "script_diff_from_commit630fa84": "Remove redundant evaluator --config-sha256; evaluator verifies source config against fitted metadata. Collector explicit config pin retained.",
+  "sbatch_command": "sbatch --chdir=/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1 /work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1/qualification_r1.sbatch",
+  "warnings": "Source deprecation warnings and CPU NVML-unavailable warnings only; no failed/skipped tests",
+  "scientific_scope": "Pure module/workflow tests passed; qualification job failed during loader import before any replay, fitting or control. See qualification_r1_failure.json.",
+  "artifacts_remote": {
+    "release_manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/FIRST_HIT_RELEASE.json",
+    "baseline_manifest": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/FIRST_HIT_BASELINE.json",
+    "test_log": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1/remote_tests.log",
+    "test_xml": "/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/SF_hipposlam/train_dir/analysis/first_hit_control_20261127/qualification_r1/remote_tests.xml"
+  },
+  "submission_receipt": "qualification_submission.json"
+}

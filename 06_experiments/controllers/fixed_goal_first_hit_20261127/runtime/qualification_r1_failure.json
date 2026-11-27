@@ -1,0 +1,24 @@
+{
+  "schema": "intrmotiv/first-hit-qualification-failure/v1",
+  "job_id": "8949867",
+  "state": "FAILED",
+  "exit_code": "1:0",
+  "elapsed": "00:00:09",
+  "node": "n3101",
+  "stage": "Import canonical evaluator loader before model or environment construction",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/runpy.py\", line 196, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"/home/fr/fr_xl1014/.conda/envs/SFgit/lib/python3.10/runpy.py\", line 86, in _run_code\n    exec(code, run_globals)\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/hpc_runs/first_hit_control/collector.py\", line 345, in <module>\n    main()\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/hpc_runs/first_hit_control/collector.py\", line 341, in main\n    collect(args)\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/hpc_runs/first_hit_control/collector.py\", line 176, in collect\n    from sf_working_directories.IntrMotiv.evaluation.place_fields import load_policy_env\n  File \"/work/classic/fr_xl1014-corridor-geometry/IntrMotiv/source_first_hit_control_20261127_r1/sf_working_directories/IntrMotiv/evaluation/place_fields.py\", line 23, in <module>\n    from sf_shared.checkpoints import load_checkpoint_dict\nModuleNotFoundError: No module named 'sf_shared'\n",
+  "error_log_sha256": "0199a92cf3ea67de8b1c7917fed1d1a377ddac12c7928a4429de665e3d7017d5",
+  "root_cause": "Canonical place_fields.py moved safe checkpoint loading to sf_shared.checkpoints; staged dependency closure omitted sf_shared",
+  "remedy": "Add exact canonical sf_shared/__init__.py and checkpoints.py in new r2 release; run actual canonical entrypoint import regression before scheduler review",
+  "helper_files_sha256": {
+    "sf_shared/__init__.py": "a15ad4c0d0ba47a4618e12fa658c7318a0f61a5eece544f6293155570984bc39",
+    "sf_shared/checkpoints.py": "618d99d913fdcb743cc2226a095f49674b1b38ae34167538591d8141a48caf3d"
+  },
+  "new_regression": "hpc_runs/test_first_hit_runtime_imports.py",
+  "local_regression": "3 passed; no environment constructed",
+  "original_release_preserved": true,
+  "resubmitted": false,
+  "replay_decisions": 0,
+  "fitting_updates": 0,
+  "goal_control_trials": 0
+}

@@ -11,6 +11,7 @@ from torch import nn
 from hpc_runs.first_hit_control.dmlab_evaluate import (
     EvaluationConfig, MatchedFirstHitEvaluator, execute_trial, install_callback, module_hash, run_on_nemo,
     verify_source_config,
+    observed_replay_goals,
 )
 from hpc_runs.first_hit_control.runtime_adapter import GoalLayout
 
@@ -55,6 +56,7 @@ class FakeAPI(dict):
         self.count, self.position, self.closed = 0, 0, False
         self.end, self.ambiguous = physical_done, ambiguous
         self.encodes = []
+        self.pose_observations = []
         actor = FakeActor()
 
         def fresh(seed):
@@ -93,10 +95,14 @@ class FakeAPI(dict):
                     raise RuntimeError("Prefix crossed episode boundary")
             return obs, state
 
+        def pose(obs):
+            self.pose_observations.append(obs)
+            return torch.tensor([[100. * obs, 0., 0.]]), torch.tensor([[0., 45. * obs, 0.]])
+
         super().__init__(actor=actor, graph=actor.core.policy_graph, cfg=SimpleNamespace(),
             checkpoint="fake_checkpoint", device=torch.device("cpu"), decision_cap=cap,
             fresh=fresh, advance=advance, encode=encode, signature=signature, replay=replay,
-            decisions=lambda: self.count, close=self.close)
+            decisions=lambda: self.count, close=self.close, pose=pose)
 
     def close(self):
         self.closed = True
@@ -115,6 +121,13 @@ class DmlabEvaluateTests(unittest.TestCase):
         self.assertTrue(rows[1]["stopped_at_other_command"])
         self.assertEqual(rows[1]["executed_actions"], [0])
         self.assertEqual(model.clocks, [3])
+        self.assertEqual(api.pose_observations, [0, 1])
+        self.assertEqual([sample["elapsed"] for sample in rows[0]["trajectory"]], [0, 1])
+        self.assertEqual([sample["position"][0] for sample in rows[0]["trajectory"]], [0, 100])
+        self.assertEqual([sample["action"] for sample in rows[0]["trajectory"]], [0, None])
+        self.assertEqual([sample["winner"] for sample in rows[0]["trajectory"]], [[0], [1]])
+        self.assertEqual(rows[0]["trajectory_id"], rows[1]["trajectory_id"])
+        self.assertNotIn("trajectory", rows[1])
 
     def test_initial_command_stops_without_action_and_never_manufactures_lift(self):
         api, model = FakeAPI(), FakeAdapter()
@@ -123,12 +136,19 @@ class DmlabEvaluateTests(unittest.TestCase):
         self.assertEqual(rows[0]["hit_time"], 0)
         self.assertFalse(rows[1]["hit"])
         self.assertEqual(api.count, 0)
+        self.assertEqual(len(rows[0]["trajectory"]), 1)
+        self.assertIsNone(rows[0]["trajectory"][0]["action"])
 
     def test_terminal_autoreset_never_scores_as_success(self):
         api, model = FakeAPI(physical_done=True), FakeAdapter()
         rows = execute_trial(api, model, policy="first_hit", start=api.start(), command=2, targets=[1, 2], horizon=3)
         self.assertTrue(all(r["censored"] and r["successor_unknown"] and not r["hit"] for r in rows))
         self.assertEqual(len(api.encodes), 1)
+        self.assertEqual(api.pose_observations, [0])
+        own = next(row for row in rows if row["commanded"])
+        self.assertEqual(len(own["trajectory"]), 1)
+        self.assertEqual(own["trajectory"][0]["action"], 1)
+        self.assertFalse(own["trajectory_end_observed"])
 
     def test_winner_primary_survives_multi_activation_exclusive_is_secondary(self):
         api, model = FakeAPI(ambiguous=True), FakeAdapter()
@@ -187,6 +207,45 @@ class DmlabEvaluateTests(unittest.TestCase):
         self.assertEqual(summary["outcomes"]["first_hit"]["declared_own_rows"], 9)
         self.assertEqual(summary["outcomes"]["first_hit"]["declared_nontrivial_own_rows"], 6)
         self.assertEqual(summary["outcomes"]["first_hit"]["n_lift_pairs"], 6)
+        candidate = summary["outcomes"]["first_hit"]
+        self.assertEqual(set(candidate["per_goal"]), {"0", "1", "2"})
+        self.assertEqual(candidate["per_goal"]["0"]["declared_nontrivial_own_rows"], 2)
+        self.assertEqual(candidate["per_goal"]["0"]["successful_nontrivial_own_rows"], 0)
+        self.assertEqual(candidate["worst_assessed_goal_success_lower_bound"], 0)
+        self.assertEqual(candidate["capacity_counts"]["declared_nontrivial_own_rows"], 6)
+        self.assertAlmostEqual(candidate["initial_action_variation"]["mean_initial_argmax_disagreement"], 2 / 3)
+        self.assertEqual(summary["outcomes"]["source"]["initial_action_variation"]["mean_initial_argmax_disagreement"], 0)
+
+    def test_unobserved_goals_remain_in_capacity_bounds_without_fake_issued_trials(self):
+        api, model = FakeAPI(physical_done=True), FakeAdapter()
+        api["graph"].node_visits[1:] = 0
+        rows, summary = MatchedFirstHitEvaluator(model, EvaluationConfig(horizon=3, discovery_episodes=1,
+            prefix_cap=6, repeats=1, max_sources=3))(api)
+        self.assertEqual(summary["eligible_targets"], [0])
+        self.assertEqual(summary["unobserved_goal_ids"], [1, 2])
+        counts = summary["outcomes"]["first_hit"]["per_goal"]["1"]
+        self.assertFalse(counts["assessed"])
+        self.assertFalse(counts["observed"])
+        self.assertEqual(counts["missing_reason"], "unobserved_goal")
+        self.assertEqual(counts["missing_nontrivial_own_rows"], 1)
+        self.assertEqual(counts["issued_nontrivial_own_rows"], 0)
+        self.assertEqual((counts["success_lower_bound_declared"], counts["success_upper_bound_declared"]), (0, 1))
+        self.assertFalse(any(row["command"] == 1 for row in rows))
+
+    def test_replay_observed_targets_survive_missing_discovery_and_graph_counts(self):
+        metadata = {"goal_positive_observations": {"winner": [0, 0, 4]}}
+        api, model = FakeAPI(physical_done=True), FakeAdapter()
+        api["graph"].node_visits[1:] = 0
+        callback = MatchedFirstHitEvaluator(model, EvaluationConfig(horizon=3, discovery_episodes=1,
+            prefix_cap=6, repeats=1, max_sources=3), observed_targets=observed_replay_goals(metadata, 3))
+        rows, summary = callback(api)
+        self.assertEqual(summary["eligible_targets"], [0, 2])
+        self.assertEqual(summary["unobserved_goal_ids"], [1])
+        self.assertTrue(any(row["issued"] and row["command"] == 2 for row in rows))
+        with self.assertRaises(ValueError):
+            observed_replay_goals({}, 3)
+        with self.assertRaises(ValueError):
+            observed_replay_goals({"goal_positive_observations": {"winner": [1, -1, 0]}}, 3)
 
     def test_missing_starts_and_censoring_keep_complete_denominators(self):
         api, model = FakeAPI(physical_done=True), FakeAdapter()
@@ -253,10 +312,10 @@ class DmlabEvaluateTests(unittest.TestCase):
     def test_archived_patch_only_dispatches_without_changing_engine_helpers(self):
         import os
         relative = Path("sf_working_directories/IntrMotiv/evaluation/target_control_interventions.py")
-        roots = [Path(os.environ.get("INTRMOTIV_RUNTIME_ROOT", ".")), Path("/home/xiaoxiong/SFgit/SF_hipposlam")]
+        roots = [Path(os.environ.get("INTRMOTIV_RUNTIME_SOURCE", ".")), Path("/home/xiaoxiong/SFgit/SF_hipposlam")]
         path = next((root / relative for root in roots if (root / relative).is_file()), None)
         if path is None:
-            self.skipTest("Set INTRMOTIV_RUNTIME_ROOT to audit the actual canonical source")
+            self.skipTest("Set INTRMOTIV_RUNTIME_SOURCE to audit the actual canonical source")
         source = path.read_text()
         patched = install_callback(source)
         def nested(text):

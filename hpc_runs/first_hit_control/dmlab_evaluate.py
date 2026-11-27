@@ -50,6 +50,14 @@ def verify_source_config(source_config, fitted_metadata, evaluation_overrides):
     return actual
 
 
+def observed_replay_goals(fitted_metadata, goal_count):
+    """Replay-observed identities remain eligible even if discovery misses them."""
+    counts = np.asarray(fitted_metadata.get("goal_positive_observations", {}).get("winner", []))
+    if counts.shape != (goal_count,) or not np.issubdtype(counts.dtype, np.integer) or (counts < 0).any():
+        raise ValueError("Fitted metadata must retain nonnegative winner counts for every DG identity")
+    return np.flatnonzero(counts > 0).tolist()
+
+
 def install_callback(source: str) -> str:
     """Fail closed if the canonical helper contract changes; never edit its file."""
     tree = ast.parse(source)
@@ -76,6 +84,7 @@ def install_callback(source: str) -> str:
             device=device, decision_cap=decision_cap, fresh=fresh,
             advance=advance, encode=encode, signature=signature, replay=replay,
             decisions=lambda: decisions, close=lambda: env.close(),
+            pose=lambda obs: evaluation_pose(env, obs),
         ))
 
 '''
@@ -139,6 +148,18 @@ def current_core_dg(actor, core_output):
     return core_output[:, :width].reshape(-1, goals, expanded)[:, :, 0]
 
 
+def _trajectory_sample(api, obs, dg, *, elapsed, horizon):
+    """Privileged pose is output telemetry only; never a controller input."""
+    position, rotation = api["pose"](obs)
+    position, rotation = torch.as_tensor(position).reshape(-1), torch.as_tensor(rotation).reshape(-1)
+    if not torch.isfinite(position).all() or not torch.isfinite(rotation).all():
+        raise ValueError("Nonfinite pose cannot certify a physical trajectory")
+    return dict(elapsed=elapsed, remaining=horizon - elapsed, action=None,
+                position=position.cpu().tolist(), rotation=rotation.cpu().tolist(),
+                dg=dg[0].detach().cpu().tolist(), winner=_goal_ids(dg, "winner"),
+                exclusive=_goal_ids(dg, "exclusive"))
+
+
 def execute_trial(api, adapter, *, policy, start, command, targets, horizon):
     """Execute one command once, then score every target on that same path.
 
@@ -161,6 +182,8 @@ def execute_trial(api, adapter, *, policy, start, command, targets, horizon):
     own_hit, physical_done, elapsed = already_command, False, 0
     first_distinct = None
     initial_scores, actions = None, []
+    trajectory = [_trajectory_sample(api, obs, dg, elapsed=0, horizon=horizon)]
+    trajectory_id = f"{policy}:seed{start['seed']}:source{start['source']}:repeat{start['repeat']}:command{command}"
     ids = torch.tensor([command], dtype=torch.long, device=device)
     # Both routes receive the same complete core vector and the same goal slice.
     for step in range(horizon if not already_command else 0):
@@ -177,12 +200,14 @@ def execute_trial(api, adapter, *, policy, start, command, targets, horizon):
             initial_scores = scores[0].cpu().tolist()
         action = int(scores.argmax(-1).item())
         actions.append(action)
+        trajectory[-1]["action"] = action
         obs, physical_done = api["advance"](action)
         elapsed = step + 1
         if physical_done:
             break  # Returned obs may be autoreset: do not label it as arrival.
         _, core, state = api["encode"](obs, state, command)
         dg = current_core_dg(actor, core)
+        trajectory.append(_trajectory_sample(api, obs, dg, elapsed=elapsed, horizon=horizon))
         winners, exclusive = _goal_ids(dg, "winner"), _goal_ids(dg, "exclusive")
         for g in winners:
             if g not in initial_winners and first_distinct is None:
@@ -199,7 +224,7 @@ def execute_trial(api, adapter, *, policy, start, command, targets, horizon):
     for target in targets:
         hit = winner_times[target] is not None
         censored = physical_done and not hit
-        rows.append(dict(
+        row = dict(
             policy=policy, source=start["source"], repeat=start["repeat"], prefix_seed=start["seed"],
             prefix_actions=start["prefix"], command=command, target=target, commanded=command == target,
             issued=True, missing=False, missing_reason=None, exact_start_verified=True,
@@ -210,11 +235,52 @@ def execute_trial(api, adapter, *, policy, start, command, targets, horizon):
             censored=censored, timeout=not hit and not own_hit and not physical_done,
             stopped_at_other_command=not hit and own_hit, first_distinct=first_distinct,
             initial_scores=initial_scores, executed_actions=actions,
-        ))
+            trajectory_id=trajectory_id, trajectory_end_observed=not physical_done,
+        )
+        if command == target:
+            # All cross-target rows refer to this same executed path. Store its
+            # potentially large pose/DG trace only once, on the own-command row.
+            row["trajectory"] = trajectory
+        rows.append(row)
     return rows
 
 
-def summarize_rows(rows):
+def _own_counts(own):
+    nontrivial = [r for r in own if not r.get("initially_at_target", False)]
+    issued = [r for r in nontrivial if r["issued"]]
+    return dict(
+        declared_own_rows=len(own), initially_satisfied_own_rows=sum(r.get("initially_at_target", False) for r in own),
+        declared_nontrivial_own_rows=len(nontrivial), issued_nontrivial_own_rows=len(issued),
+        missing_nontrivial_own_rows=sum(not r["issued"] for r in nontrivial),
+        censored_nontrivial_own_rows=sum(r["censored"] for r in issued),
+        successful_nontrivial_own_rows=sum(r["hit"] for r in issued),
+        success_lower_bound_declared=sum(r["hit"] for r in issued) / len(nontrivial) if nontrivial else None,
+        success_lower_bound_issued=sum(r["hit"] for r in issued) / len(issued) if issued else None,
+        success_upper_bound_declared=(sum(r["hit"] or r["censored"] for r in issued)
+                                      + len(nontrivial) - len(issued)) / len(nontrivial) if nontrivial else None,
+        exclusive_successful_nontrivial_own_rows=sum(r["exclusive_hit"] for r in issued),
+    )
+
+
+def _initial_action_variation(own):
+    groups = {}
+    for row in own:
+        if row["issued"] and not row.get("initially_at_command", False) and row.get("initial_scores") is not None:
+            groups.setdefault((row["source"], row["repeat"]), []).append(int(np.argmax(row["initial_scores"])))
+    values, comparisons, varying = [], 0, 0
+    for actions in groups.values():
+        pairs = [a != b for index, a in enumerate(actions) for b in actions[index + 1:]]
+        if pairs:
+            values.append(float(np.mean(pairs)))
+            comparisons += len(pairs)
+            varying += int(any(pairs))
+    return dict(mean_initial_argmax_disagreement=float(np.mean(values)) if values else None,
+                initial_argmax_histories=len(values), initial_argmax_command_pairs=comparisons,
+                histories_with_any_initial_action_change=varying,
+                interpretation="Sensitivity of initial deterministic actions to command; does not establish reaching")
+
+
+def summarize_rows(rows, *, goal_vocabulary=None, declared_starts=None, observed_targets=None):
     """Report all declared/issued cases; censoring never silently disappears."""
     summaries = {}
     for policy in ("source", "first_hit"):
@@ -231,17 +297,33 @@ def summarize_rows(rows):
                 differences.append(float(primary["hit"]) - float(np.mean([r["hit"] for r in alternatives])))
                 lift_lower.append(float(primary["hit"]) - float(np.mean([r["hit"] or r["censored"] for r in alternatives])))
                 lift_upper.append(float(primary["hit"] or primary["censored"]) - float(np.mean([r["hit"] for r in alternatives])))
-        summaries[policy] = dict(
-            declared_own_rows=len(own), initially_satisfied_own_rows=sum(r.get("initially_at_target", False) for r in own),
-            declared_nontrivial_own_rows=len(nontrivial), issued_nontrivial_own_rows=len(issued),
-            missing_nontrivial_own_rows=sum(not r["issued"] for r in nontrivial),
-            censored_nontrivial_own_rows=sum(r["censored"] for r in issued),
-            successful_nontrivial_own_rows=sum(r["hit"] for r in issued),
-            success_lower_bound_declared=sum(r["hit"] for r in issued) / len(nontrivial) if nontrivial else None,
-            success_lower_bound_issued=sum(r["hit"] for r in issued) / len(issued) if issued else None,
-            success_upper_bound_declared=(sum(r["hit"] or r["censored"] for r in issued)
-                                          + len(nontrivial) - len(issued)) / len(nontrivial) if nontrivial else None,
-            exclusive_successful_nontrivial_own_rows=sum(r["exclusive_hit"] for r in issued),
+        goals = sorted(set(goal_vocabulary) if goal_vocabulary is not None else {r["target"] for r in own})
+        starts = declared_starts if declared_starts is not None else sorted({(r["source"], r["repeat"]) for r in own})
+        observed = set(observed_targets) if observed_targets is not None else {r["target"] for r in own}
+        requested = {r["target"] for r in own}
+        per_goal, capacity_rows = {}, []
+        for goal in goals:
+            actual = {(r["source"], r["repeat"]): r for r in own if r["target"] == goal}
+            goal_rows = [actual.get((source, repeat), dict(source=source, repeat=repeat, target=goal,
+                         issued=False, initially_at_target=source == goal, hit=False, censored=False))
+                         for source, repeat in starts]
+            counts = _own_counts(goal_rows)
+            per_goal[str(goal)] = dict(counts, observed=goal in observed,
+                assessed=counts["issued_nontrivial_own_rows"] > 0,
+                missing_reason="unobserved_goal" if goal not in observed else
+                               "target_not_requested" if goal not in requested else
+                               "missing_start_or_budget" if counts["missing_nontrivial_own_rows"] else None)
+            capacity_rows.extend(goal_rows)
+        assessed_bounds = [r["success_lower_bound_declared"] for r in per_goal.values()
+                           if r["assessed"] and r["success_lower_bound_declared"] is not None]
+        declared_bounds = [r["success_lower_bound_declared"] for r in per_goal.values()
+                           if r["success_lower_bound_declared"] is not None]
+        summaries[policy] = dict(_own_counts(own),
+            per_goal=per_goal, capacity_counts=_own_counts(capacity_rows),
+            worst_assessed_goal_success_lower_bound=min(assessed_bounds) if assessed_bounds else None,
+            worst_declared_goal_success_lower_bound=min(declared_bounds) if declared_bounds else None,
+            unassessed_goal_ids=[int(g) for g, counts in per_goal.items() if not counts["assessed"]],
+            initial_action_variation=_initial_action_variation(own),
             paired_lift_censored_as_unconfirmed=float(np.mean(differences)) if differences else None,
             paired_lift_identification_lower=float(np.mean(lift_lower)) if lift_lower else None,
             paired_lift_identification_upper=float(np.mean(lift_upper)) if lift_upper else None,
@@ -342,12 +424,16 @@ class MatchedFirstHitEvaluator:
         if before != after:
             raise RuntimeError(f"Evaluation mutated source actor, graph or readout: before={before}, after={after}")
         self.retained_starts = panel
-        return rows, dict(schema="intrmotiv/matched-first-hit-evaluation/v1", config=asdict(config),
+        return rows, dict(schema="intrmotiv/matched-first-hit-evaluation/v2", config=asdict(config),
             checkpoint=str(api["checkpoint"]), decisions=api["decisions"](), eligible_targets=targets,
             observed_targets=sorted(observed), declared_dg_vocabulary=list(range(n)),
             unobserved_goal_ids=sorted(set(range(n)) - observed), source_panel=sources, missing=missing,
             discovery_budget_exhausted=discovery_missing, frozen_sha256_before=before, frozen_sha256_after=after,
-            policies_frozen=True, graph_frozen=True, q_frozen=True, outcomes=summarize_rows(rows),
+            policies_frozen=True, graph_frozen=True, q_frozen=True,
+            outcomes=summarize_rows(rows, goal_vocabulary=range(n),
+                declared_starts=[(source, repeat) for source in sources for repeat in range(config.repeats)],
+                observed_targets=observed),
+            trajectory_contract="Pose, processed DG and next action at each observed step; only own-command row stores trace; no terminal autoreset sample",
             action_protocol="deterministic argmax source logits versus deterministic argmax first-hit Q",
             primary_detector="winner", secondary_detector="exclusive on primary-stopped trajectory",
             terminal_protocol="Uncertified terminal successor is censored; autoreset observations never score",
@@ -436,7 +522,8 @@ def run_on_nemo(args):
             raise ValueError("Source full-core layout differs from fitted readout")
         if actor.action_space.n != adapter.q_heads.main.out_features or env.num_agents != 1:
             raise ValueError("Source and fitted readout action interfaces differ")
-        callback = MatchedFirstHitEvaluator(adapter, config)
+        callback = MatchedFirstHitEvaluator(adapter, config,
+            observed_targets=observed_replay_goals(fitted_metadata, adapter.layout.goals))
         rows, summary = canonical_module.run_landmark_matched_interventions(
             cfg, env, env_info, actor, checkpoint, device, args.decision_cap, deterministic=True,
             first_hit_evaluator=callback)
